@@ -1,0 +1,92 @@
+#' <Add Title>
+#'
+#' <Add Description>
+#'
+#' @import htmlwidgets
+#' @importFrom htmltools HTML
+#' @param x \code{flextable} object
+#' @param width widget width
+#' @param height widget height
+#'
+#' @export
+tabwid <- function(x, width = NULL, height = NULL) {
+
+  codes <- html_flextable(x)
+
+  # forward options using x
+  x = list(
+    html = HTML(codes),
+    css = attr(codes, "css")
+  )
+
+  # create widget
+  htmlwidgets::createWidget(
+    name = 'tabwid',
+    x,
+    width = width,
+    height = height,
+    package = 'flextable',
+    sizingPolicy = sizingPolicy(padding = 5,
+                                viewer.defaultWidth = "600px",
+                                viewer.paneHeight = 400,
+                                browser.defaultWidth = "600px",
+                                knitr.defaultWidth = "600px",
+                                browser.fill = FALSE,
+                                viewer.fill	= TRUE,
+                                knitr.figure = FALSE)
+  )
+}
+
+#' Shiny bindings for tabwid
+#'
+#' Output and render functions for using tabwid within Shiny
+#' applications and interactive Rmd documents.
+#'
+#' @param outputId output variable to read from
+#' @param width,height Must be a valid CSS unit (like \code{'100\%'},
+#'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
+#'   string and have \code{'px'} appended.
+#' @param expr An expression that generates a tabwid
+#' @param env The environment in which to evaluate \code{expr}.
+#' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
+#'   is useful if you want to save an expression in a variable.
+#'
+#' @name tabwid-shiny
+#'
+#' @export
+tabwidOutput <- function(outputId, width = '100%', height = '400px'){
+  htmlwidgets::shinyWidgetOutput(outputId, 'tabwid', width, height, package = 'flextable')
+}
+
+#' @rdname tabwid-shiny
+#' @export
+rendertabwid <- function(expr, env = parent.frame(), quoted = FALSE) {
+  if (!quoted) { expr <- substitute(expr) } # force quoted
+  htmlwidgets::shinyRenderWidget(expr, tabwidOutput, env, quoted = TRUE)
+}
+
+
+
+html_flextable <- function( x ){
+  out <- "<table>"
+  css_ <- ""
+  if( !is.null(x$header) ){
+    tmp <- format(x$header, type = "html")
+    out = paste0(out, "<thead>", tmp, "</thead>" )
+    css_ = paste0(css_, attr(tmp, "css"))
+  }
+  if( !is.null(x$body) ){
+    tmp <- format(x$body, type = "html")
+    out = paste0(out, "<tbody>", tmp, "</tbody>" )
+    css_ = paste0(css_, attr(tmp, "css"))
+  }
+  if( !is.null(x$footer) ){
+    tmp <- format(x$footer, type = "html")
+    out = paste0(out, "<tfoot>", tmp, "</tfoot>" )
+    css_ = paste0(css_, attr(tmp, "css"))
+  }
+
+  out = paste0(out,  "</table>" )
+  attr(out, "css") <- css_
+  out
+}

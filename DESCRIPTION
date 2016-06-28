@@ -1,0 +1,31 @@
+Package: flextable
+Type: Package
+Title: Tabular Reporting
+Version: 0.0.1
+Authors@R: c(
+    person("David", "Gohel", role = c("aut", "cre"),
+    email = "david.gohel@ardata.fr"))
+Description: Create pretty tables and write them into
+    'Microsoft Word' documents or 'Microsoft PowerPoint'
+    documents or 'HTML' documents from R.
+License: GPL-3
+LazyData: TRUE
+Depends: oxbase
+Imports:
+    Rcpp (>= 0.12.3),
+    utils,
+    R.utils,
+    digest,
+    dplyr,
+    lazyeval,
+    purrr,
+    gdtools,
+    htmltools,
+    knitr,
+    htmlwidgets,
+    stringr,
+    R6, openssl, xml2 (>= 1.0.0)
+LinkingTo: Rcpp
+RoxygenNote: 5.0.1
+Suggests: rmarkdown
+VignetteBuilder: knitr

@@ -1,0 +1,73 @@
+---
+title: "Introdution to `flextable` objects"
+author: "David Gohel"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{flextable_introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+`flextable` makes possible to create beautiful reporting table from `data.frame`. 
+
+```{r warning=FALSE, message=FALSE}
+library(flextable)
+library(oxbase)
+library(dplyr)
+
+myft <- flextable(head(mtcars)) 
+dim(myft)
+tabwid(myft)
+```
+
+## Manage table headers
+
+There are several ways to add table headers. The following example demonstrates how to add a reference table as headers.
+
+```{r warning=FALSE, message=FALSE}
+meta <- data.frame(col_keys = names(mtcars), 
+  labels = c(rep("measure", 7), rep("class", 4)), 
+  names_ = names(mtcars), 
+  stringsAsFactors = FALSE)
+meta
+```
+
+`col_keys` is a mandatory column that contains original names (from the data.frame). All others columns will be used as columns headers. The first column will be the first header row and the last column will be the last header row.
+
+```{r warning=FALSE, message=FALSE}
+myft <- myft %>% set_header(data_mapping = meta)
+tabwid(myft)
+```
+
+## Format table elements
+
+Function `set_style` is changing formatting properties of table elements. 
+
+```{r warning=FALSE, message=FALSE}
+myft <- myft %>% 
+  set_style(c_b_b(), p_r(padding=2), t_i(color="#50514F") ) %>% 
+  set_style(c_b_b(), p_r(padding=5), t_b(color="orange"), part = "header" )
+tabwid(myft)
+```
+
+Conditional formatting can be made by using the selector arguments.
+
+```{r warning=FALSE, message=FALSE}
+myft <- myft %>% 
+  set_style(i = ~ drat > 3.5 & wt > 2.6, 
+            j = ~ vs + am + gear + carb, 
+            t_i(color="cyan") )
+tabwid(myft)
+```
+
+## Layout the table and its components
+
+```{r warning=FALSE, message=FALSE}
+
+myft <- myft %>%
+  merge_v(j = c("gear", "carb", "am") )
+tabwid(myft)
+```
+

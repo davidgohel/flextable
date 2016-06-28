@@ -1,0 +1,7 @@
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+}
+.tabwid th{
+  padding:0;
+}
