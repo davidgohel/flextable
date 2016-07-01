@@ -17,9 +17,19 @@
 #' @export
 #' @import Rcpp
 #' @importFrom stats setNames
+#' @importFrom dplyr mutate_
+#' @importFrom lazyeval interp
 flextable <- function( data, select = names(data) ){
 
+  blanks <- setdiff( select, names(data))
+  if( length( blanks ) > 0 ){
+    blanks_col <- map(blanks, function(x, n) character(n), nrow(data) )
+    blanks_col <- setNames(blanks_col, blanks )
+    data[blanks] <- blanks_col
+  }
+
   orig_dataset <- data
+
   data <- data[, select, drop = FALSE]
   col_keys <- names(data)
   # body
@@ -132,6 +142,7 @@ set_display <- function(x, i = NULL, part = "body", ...){
     i <- which( i )
   } else i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], names(args) )
+
   lazy_f_id <- map_chr(args, digest )
   x[[part]]$style_ref_table$formats[lazy_f_id] <- args
   x[[part]]$styles$formats[i, j ] <- matrix( rep.int(lazy_f_id, length(i)), nrow = length(i), byrow = TRUE )
@@ -170,7 +181,16 @@ set_display <- function(x, i = NULL, part = "body", ...){
 #' write_docx("style_ft.docx", ft)
 set_style <- function(x, ..., i = NULL, j = NULL, part = "body" ){
 
-  if( inherits(i, "formula") && any( c("header", "footer") %in% part ) ){
+  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body") ){
+      x <- set_style(x = x, ..., i = i, j = j, part = p)
+    }
+    return(x)
+  }
+
+  if( inherits(i, "formula") && "header" %in% part ){
     stop("formula in argument i cannot adress part 'header' or 'footer'.")
   }
 
@@ -198,10 +218,77 @@ set_style <- function(x, ..., i = NULL, j = NULL, part = "body" ){
 #'
 #' @examples
 #'
-#' # set_bg example ------
+#' # bg example ------
 #' ft <- flextable(mtcars)
 #' ft <- set_bg(ft, color = "#DDDDDD", part = "header")
-set_bg <- function(x, i = NULL, j = NULL, color, part = "body" ){
+bg <- function(x, i = NULL, j = NULL, color, part = "body" ){
+
+  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body") ){
+      x <- bg(x = x, i = i, j = j, color = color, part = p)
+    }
+    return(x)
+  }
+
+  if( inherits(i, "formula") && "header" %in% part ){
+    stop("formula in argument i cannot adress part 'header' or 'footer'.")
+  }
+
+  if( inherits(i, "formula") ){
+    i <- lazy_eval(i[[2]], x[[part]]$dataset)
+  }
+  i <- get_rows_id(x[[part]], i )
+
+  if( inherits(j, "formula") ){
+    j <- attr(terms(j), "term.labels")
+  }
+  j <- get_columns_id(x[[part]], j )
+
+
+  sign_target <- unique( as.vector( x[[part]]$styles$cells[i,j] ) )
+  new_cells <- x[[part]]$style_ref_table$cells[sign_target]
+  new_cells <- map(new_cells, function(x, color ) update(x, background.color = color ), color = color )
+  names(new_cells) <- sign_target
+
+  new_key <- map_chr(new_cells, digest )
+  x[[part]]$style_ref_table$cells[new_key] <- new_cells
+  x[[part]]$styles$cells[i,j] <- matrix( new_key[match( x[[part]]$styles$cells[i,j], names(new_key) )], ncol = length(j) )
+
+  x
+}
+
+
+#' @export
+#' @rdname flextable
+#' @param padding padding (top, bottom, left and right)
+#' @param padding.top,padding.bottom,padding.left,padding.right paddings per side
+#' @section Styling - padding:
+#'
+#' set paragraphs paddings with function \code{padding}.
+#'
+#' @examples
+#'
+#' # bg example ------
+#' ft <- flextable(mtcars)
+#' ft <- padding(ft, padding.top = 4)
+padding <- function(x, i = NULL, j = NULL,
+                       padding.top = NULL, padding.bottom = NULL,
+                       padding.left = NULL, padding.right = NULL,
+                       part = "body" ){
+
+  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body") ){
+      x <- padding(x = x, i = i, j = j,
+                   padding.top = padding.top, padding.bottom = padding.bottom,
+                   padding.left = padding.left, padding.right = padding.right,
+                   part = p)
+    }
+    return(x)
+  }
 
   if( inherits(i, "formula") && any( c("header", "footer") %in% part ) ){
     stop("formula in argument i cannot adress part 'header' or 'footer'.")
@@ -217,16 +304,25 @@ set_bg <- function(x, i = NULL, j = NULL, color, part = "body" ){
   }
   j <- get_columns_id(x[[part]], j )
 
-  for(i_ in i){
-    for(j_ in j){
-      cp_ <- get_pr_cell(x[[part]], i = i_, j = j_)
-      cp_ <- update(cp_, background.color = color )
-      x[[part]] <- set_formatting_properties(x[[part]], i = i_, j = j_, cp_ )
-    }
-  }
+  sign_target <- unique( as.vector( x[[part]]$styles$pars[i,j] ) )
+  new_pars <- x[[part]]$style_ref_table$pars[sign_target]
+
+  if(!is.null(padding.top))
+    new_pars <- map(new_pars, function(x, padding.top ) update(x, padding.top = padding.top ), padding.top = padding.top )
+  if(!is.null(padding.bottom))
+    new_pars <- map(new_pars, function(x, padding.bottom ) update(x, padding.bottom = padding.bottom ), padding.bottom = padding.bottom )
+  if(!is.null(padding.left))
+    new_pars <- map(new_pars, function(x, padding.left ) update(x, padding.left = padding.left ), padding.left = padding.left )
+  if(!is.null(padding.right))
+    new_pars <- map(new_pars, function(x, padding.right ) update(x, padding.right = padding.right ), padding.right = padding.right )
+  names(new_pars) <- sign_target
+  new_key <- map_chr(new_pars, digest )
+  x[[part]]$style_ref_table$pars[new_key] <- new_pars
+  x[[part]]$styles$pars[i,j] <- matrix( new_key[match( x[[part]]$styles$pars[i,j], names(new_key) )], ncol = length(j) )
 
   x
 }
+
 
 
 #' @importFrom purrr map map_chr
@@ -246,6 +342,16 @@ set_border <- function(x, i = NULL, j = NULL,
                        border.top = NULL, border.bottom = NULL,
                        border.left = NULL, border.right = NULL,
                        part = "body" ){
+
+  if( part == "all" ){
+    for( p in c("header", "body") ){
+      x <- set_border(x = x, i = i, j = j,
+                      border.top = border.top, border.bottom = border.bottom,
+                      border.left = border.left, border.right = border.right,
+                      part = p)
+    }
+    return(x)
+  }
 
   if( inherits(i, "formula") && any( c("header", "footer") %in% part ) ){
     stop("formula in argument i cannot adress part 'header' or 'footer'.")
