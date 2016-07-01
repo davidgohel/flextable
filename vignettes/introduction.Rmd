@@ -12,34 +12,40 @@ vignette: >
 
 `flextable` makes possible to create beautiful reporting table from `data.frame`. 
 
+```{r warning=FALSE, message=FALSE, echo=FALSE}
+library(flextable)
+library(oxbase)
+library(dplyr)
+iris %>% 
+  group_by(Species) %>% 
+  do( head(., n = 3) ) %>% 
+  flextable(select = c("Species", 
+                       "break1", "Sepal.Length", "Sepal.Width", 
+                        "break2", "Petal.Length", "Petal.Width") ) %>% 
+  set_header(
+    Sepal.Length = list("Length", "Sepal"), Sepal.Width = list("Width", "Sepal"),
+    Petal.Length = list("Length", "Petal"), Petal.Width = list("Width", "Petal"),
+    Species = list("Species", "Species") ) %>% 
+  set_style(t_b(), p_c(padding=4), part = "header") %>% 
+  set_style(p_r(padding=4), part = "body") %>% 
+  set_style(t_bi(), j = ~ Species ) %>% 
+  set_border( border.top = pr_border(), border.bottom = pr_border(), part = "header" ) %>% 
+  set_bg(i = ~ seq_along(Petal.Length) %% 2 == 0, color = "#EFEFEF") %>% 
+  set_border( j = ~ break1 + break2, border.top = b_null(), border.bottom = b_null(), part = "all" ) %>% 
+  set_bg(j = ~ break1 + break2, color = "transparent", part = "all") %>% 
+  tabwid()
+```
+
+
 ```{r warning=FALSE, message=FALSE}
 library(flextable)
 library(oxbase)
 library(dplyr)
 
-myft <- flextable(head(mtcars)) 
-dim(myft)
+myft <- flextable(head(mtcars), select = c("am", "carb", "gear", "mpg", "drat" )) 
 tabwid(myft)
 ```
 
-## Manage table headers
-
-There are several ways to add table headers. The following example demonstrates how to add a reference table as headers.
-
-```{r warning=FALSE, message=FALSE}
-meta <- data.frame(col_keys = names(mtcars), 
-  labels = c(rep("measure", 7), rep("class", 4)), 
-  names_ = names(mtcars), 
-  stringsAsFactors = FALSE)
-meta
-```
-
-`col_keys` is a mandatory column that contains original names (from the data.frame). All others columns will be used as columns headers. The first column will be the first header row and the last column will be the last header row.
-
-```{r warning=FALSE, message=FALSE}
-myft <- myft %>% set_header(data_mapping = meta)
-tabwid(myft)
-```
 
 ## Format table elements
 
@@ -47,8 +53,7 @@ Function `set_style` is changing formatting properties of table elements.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  set_style(c_b_b(), p_r(padding=2), t_i(color="#50514F") ) %>% 
-  set_style(c_b_b(), p_r(padding=5), t_b(color="orange"), part = "header" )
+  set_style(c_b_b(), p_r(padding=2), part = "all" )
 tabwid(myft)
 ```
 
@@ -56,9 +61,7 @@ Conditional formatting can be made by using the selector arguments.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  set_style(i = ~ drat > 3.5 & wt > 2.6, 
-            j = ~ vs + am + gear + carb, 
-            t_i(color="cyan") )
+  set_style(i = ~ drat > 3.5, j = ~ drat, t_i(color="#44A530") )
 tabwid(myft)
 ```
 
@@ -67,7 +70,41 @@ tabwid(myft)
 ```{r warning=FALSE, message=FALSE}
 
 myft <- myft %>%
-  merge_v(j = c("gear", "carb", "am") )
+  merge_v(j = c("carb", "am") )
 tabwid(myft)
 ```
+
+
+
+## Format content
+
+You can use `format_simple`. 
+
+```{r warning=FALSE, message=FALSE}
+myft <- myft %>%
+  set_display(
+    am = format_simple(format_integer(am)),
+    gear = format_simple(format_integer(gear), pr_text_ = p_l(padding.top=8)),
+    carb = format_simple(format_integer(carb))
+  )
+
+tabwid(myft)
+```
+
+And a flexible function `format_that`. 
+
+```{r warning=FALSE, message=FALSE}
+myft <- myft %>%
+  set_display(
+    mpg = format_that("{{ mpg_ }} mpg (# {{ cyl_ }} cyl.)", 
+                      mpg_ = ftext( format_double(mpg, digits = 1), t_i() ), 
+                      cyl_ = ftext( format_integer(cyl), t_i() )
+    )
+    
+  )
+
+tabwid(myft)
+```
+
+
 
