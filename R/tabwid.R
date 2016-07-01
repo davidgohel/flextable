@@ -26,14 +26,7 @@ tabwid <- function(x, width = NULL, height = NULL) {
     width = width,
     height = height,
     package = 'flextable',
-    sizingPolicy = sizingPolicy(padding = 5,
-                                viewer.defaultWidth = "600px",
-                                viewer.paneHeight = 400,
-                                browser.defaultWidth = "600px",
-                                knitr.defaultWidth = "600px",
-                                browser.fill = FALSE,
-                                viewer.fill	= TRUE,
-                                knitr.figure = FALSE)
+    sizingPolicy = sizingPolicy(padding = 5,knitr.figure = FALSE)
   )
 }
 
