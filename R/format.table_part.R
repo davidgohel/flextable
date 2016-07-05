@@ -95,6 +95,8 @@ format_tp_wml <- function(x, header = TRUE, rids ){
   runs <- matrix(runs, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
   runs <- apply(runs, 1, paste0, collapse = "")
   runs <- paste0( "<w:tr><w:trPr>",
+                  "<w:trHeight w:val=",
+                    shQuote( round(x$rowheights * 72*20, 0 ), type = "cmd"), "/>",
                   ifelse( header, "<w:tblHeader/>", ""),
                   "</w:trPr>",
                   runs,
@@ -105,7 +107,6 @@ format_tp_wml <- function(x, header = TRUE, rids ){
 format_tp_pml <- function(x, header = TRUE){
   cell_styles <- get_cell_styles_m( x, type = "pml" )
   paragraphs <- format_as_paragraph(x, type = "pml")
-
   tc_attr_1 <- ifelse(x$spans$rows == 1, "",
                       ifelse(x$spans$rows > 1, paste0(" gridSpan=\"", x$spans$rows,"\""), " hMerge=\"true\"")
   )
@@ -114,19 +115,18 @@ format_tp_pml <- function(x, header = TRUE){
   )
   tc_attr <- paste0(tc_attr_1, tc_attr_2)
   cells <- paste0("<a:tc", tc_attr,">",
-                  ifelse(x$spans$rows < 1, "",
-                         paste0( "<a:txBody><a:bodyPr/><a:lstStyle/>",
-                                 paragraphs, "</a:txBody>" )
-                  ),
+                  # ifelse(x$spans$rows < 1, "",
+                  #        paste0( "<a:txBody><a:bodyPr/><a:lstStyle/>",
+                  #                paragraphs, "</a:txBody>" )
+                  # ),
+                  paste0( "<a:txBody><a:bodyPr/><a:lstStyle/>",
+                          paragraphs, "</a:txBody>" ),
                   cell_styles, "</a:tc>")
-
   cells <- matrix(cells, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
   cells <- apply(cells, 1, paste0, collapse = "")
-
-  rows <- paste0( "<a:tr h=\"", round(x$rowheights * 12700, 0 ), "\">",
+  rows <- paste0( "<a:tr h=\"", round(x$rowheights * 914400, 0 ), "\">",
                   cells,
                   "</a:tr>")
-
   paste0(rows, collapse = "")
 }
 
@@ -174,7 +174,6 @@ format.table_part <- function( x, type = "wml", header = FALSE, ... ){
 
   if( type == "wml" ){
     out <- format_tp_wml(x, header = header )
-
   } else if( type == "pml" ){
     out <- format_tp_pml(x, header = header )
   } else if( type == "html" ){

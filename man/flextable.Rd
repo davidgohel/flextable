@@ -10,6 +10,7 @@
 \alias{set_border}
 \alias{set_display}
 \alias{set_style}
+\alias{set_width}
 \alias{vanilla_table}
 \title{Create flextable object}
 \usage{
@@ -20,6 +21,8 @@ vanilla_table(data, row.names = TRUE)
 \method{print}{flextable}(x, ...)
 
 \method{dim}{flextable}(x)
+
+set_width(x, j = NULL, ..., width)
 
 set_display(x, i = NULL, part = "body", ...)
 
@@ -49,17 +52,22 @@ set_border(x, i = NULL, j = NULL, border.top = NULL,
 \item{...}{see section \code{Formatting data values} and
 \code{Styling - formatting properties}.}
 
+\item{j}{columns selection}
+
 \item{i}{rows selection}
 
 \item{part}{partname of the table}
-
-\item{j}{columns selection}
 
 \item{color}{color to use as background color}
 
 \item{padding.top, padding.bottom, padding.left, padding.right}{paddings per side}
 
 \item{border.bottom, border.left, border.top, border.right}{\code{\link{pr_border}} for borders.}
+
+\item{x}{\code{flextable} to modify}
+
+\item{...}{see section \code{Formatting data values} and
+\code{Styling - formatting properties}.}
 
 \item{padding}{padding (top, bottom, left and right)}
 }
@@ -75,6 +83,10 @@ be merge vertically or horizontally.
 A \code{flextable} is made of 3 parts: header, body and footer.
 }
 \section{Formatting data values}{
+
+
+Use format_that or format_simple to define cell content.
+
 
 
 Use format_that or format_simple to define cell content.
@@ -116,6 +128,13 @@ ft <- set_display(ft, i = ~ drat > 3.5,
     carb_ = ftext(carb, pr_text(color="orange") ) ) )
 write_docx("format_ft.docx", ft)
 
+# Formatting data values example ------
+ft <- vanilla_table(head( mtcars, n = 10))
+ft <- set_display(ft, i = ~ drat > 3.5,
+  gear = format_that("# {{ carb_ }}",
+    carb_ = ftext(carb, pr_text(color="orange") ) ) )
+write_docx("format_ft.docx", ft)
+
 # Styles example ------
 def_cell <- pr_cell(border.bottom = pr_border(),
   border.top = pr_border(),
@@ -146,6 +165,8 @@ ft <- flextable(mtcars)
 ft <- set_border(ft, border.top = pr_border(color = "orange") )
 }
 \seealso{
+\code{\link{formatting_functions}}
+
 \code{\link{formatting_functions}}
 }
 

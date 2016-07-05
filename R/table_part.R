@@ -31,10 +31,14 @@ table_part <- function( data, col_keys = names(data),
     formats = setNames(lazy_f, lazy_f_id)
   )
 
+  colwidths <- rep(.8, length(col_keys))
+  rowheights <- rep(.6, nrow(data))
 
   out <- list( dataset = data,
                orig_dataset = orig_dataset,
                col_keys = col_keys,
+               colwidths = colwidths,
+               rowheights = rowheights,
                spans = spans,
                style_ref_table = style_ref_table,
                styles = list(
@@ -42,12 +46,12 @@ table_part <- function( data, col_keys = names(data),
                  pars = pr_par_init,
                  text = pr_text_init,
                  formats = lazy_f_init
+                 )
                )
-               )
-  dims_ <- get_dimensions(out)
-  out$colwidths <- dims_$widths
-  out$rowheights <- dims_$heights
   class( out ) <- "table_part"
+  # dims_ <- get_dimensions(out)
+  # out$colwidths <- dims_$widths
+  # out$rowheights <- dims_$heights
 
   out
 }
@@ -82,6 +86,7 @@ add_rows <- function( x, rows, first = FALSE ){
 
   format_new <- lapply( seq_len(nrow), function(x, fmt) tail(fmt, n = 1), x$styles$formats )
   format_new <- do.call(rbind, format_new)
+
 
   span_new <- matrix( 1, ncol = ncol, nrow = nrow )
 
@@ -264,9 +269,6 @@ set_formatting_properties <- function( x, i = NULL, j = NULL, value ){
     }
 
   }
-  dims_ <- get_dimensions(x)
-  x$colwidths <- dims_$widths
-  x$rowheights <- dims_$heights
 
   x
 }
@@ -293,7 +295,6 @@ get_pr_cell <- function( x, i, j ){
 #' @importFrom stats setNames
 #' @import lazyeval
 get_dimensions <- function( x ){
-
   width_mat <- matrix(0, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
   height_mat <- matrix(0, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
   dimnames(width_mat)[[2]] <- x$col_keys
@@ -312,9 +313,12 @@ get_dimensions <- function( x ){
       height_mat[i, j] <- dim_$height
     }
   }
-
   widths <- width_mat
   heights <- height_mat
+  widths[x$spans$rows<1] <- 0
+  widths[x$spans$columns<1] <- 0
+  heights[x$spans$rows<1] <- 0
+  heights[x$spans$columns<1] <- 0
 
   margin.left <- map_dbl( x$style_ref_table$cells, "margin.left" )
   margin.left <- setNames(margin.left[as.vector(x$styles$cells)], NULL)
@@ -322,7 +326,6 @@ get_dimensions <- function( x ){
   margin.right <- setNames(margin.right[as.vector(x$styles$cells)], NULL)
   widths <- widths + margin.left + margin.right
   widths <- matrix( widths, ncol = length(x$col_keys) )
-
 
   margin.top <- map_dbl( x$style_ref_table$cells, "margin.top" )
   margin.top <- setNames(margin.top[as.vector(x$styles$cells)], NULL)

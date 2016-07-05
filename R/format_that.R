@@ -20,7 +20,9 @@ format_that <- function( str, pr_text_ = pr_text(), pr_par_ = pr_par(), ... ){
   curr_pos <- 1
   index_in_p <- 1
   p <- paragraph$new(prop = pr_par_ )
-  while( index_in_p <= nchar(str) ){
+  if( nchar(str) < 1 )
+    p$add(ftext("", prop = pr_text_ ))
+  else while( index_in_p <= nchar(str) ){
     if( location[curr_pos, "start"] == index_in_p ){
       ftext_ <- lazy_eval(args[[location[curr_pos, "argname"]]], args )
       p$add(ftext_)
@@ -52,6 +54,7 @@ format_that <- function( str, pr_text_ = pr_text(), pr_par_ = pr_par(), ... ){
 format_simple <- function( expr, pr_text_ = pr_text(), pr_par_ = pr_par() ){
   p <- paragraph$new(prop = pr_par_ )
   text <- eval(expr)
+  text <- ifelse(text == "", " ", text)
   ftext_ <- ftext(text, pr_text_ )
   p$add(ftext_)
   p

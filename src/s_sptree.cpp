@@ -12,7 +12,7 @@ using namespace Rcpp;
 //
 
 // [[Rcpp::export]]
-std::string a_sptree_open(bool standalone, int id, double offx, double offy, double width, double height) {
+std::string a_sptree_open(bool standalone, int id, double offx, double offy) {
   std::stringstream os;
 
   if( standalone ){
@@ -47,7 +47,6 @@ std::string a_sptree_open(bool standalone, int id, double offx, double offy, dou
 
       os << "<p:xfrm rot=\"0\">";
         os << "<a:off x=\"" << (int)(offx * 12700) << "\" y=\"" << (int)(offy * 12700) << "\"/>";
-        os << "<a:ext cx=\"" << (int)(width * 12700) << "\" cy=\"" << (int)(height * 12700) << "\"/>";
       os << "</p:xfrm>";
       os << "<a:graphic>";
         os << "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/table\">";
@@ -55,7 +54,7 @@ std::string a_sptree_open(bool standalone, int id, double offx, double offy, dou
 }
 
 // [[Rcpp::export]]
-std::string a_graphic_frame_open(int id, double offx, double offy, double width, double height) {
+std::string a_graphic_frame_open(int id, double offx, double offy) {
   std::stringstream os;
 
   os << "<p:graphicFrame>";
@@ -68,7 +67,6 @@ std::string a_graphic_frame_open(int id, double offx, double offy, double width,
 
   os << "<p:xfrm rot=\"0\">";
     os << "<a:off x=\"" << (int)(offx * 12700) << "\" y=\"" << (int)(offy * 12700) << "\"/>";
-    os << "<a:ext cx=\"" << (int)(width * 12700) << "\" cy=\"" << (int)(height * 12700) << "\"/>";
   os << "</p:xfrm>";
   os << "<a:graphic>";
     os << "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/table\">";

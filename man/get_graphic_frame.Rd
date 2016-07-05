@@ -4,19 +4,18 @@
 \alias{get_graphic_frame}
 \title{graphic frame xml code}
 \usage{
-get_graphic_frame(x, id = 1L, size = c(width = 10, height = 7.5),
-  offx = 1L, offy = 1L)
+get_graphic_frame(x, id = 1L, offx = 1L, offy = 1L)
 }
 \arguments{
 \item{x}{\code{flextable} object}
 
 \item{id}{unique identifier in the slide}
 
-\item{size}{a named vector containing width and height in inches}
-
 \item{offx}{x offset}
 
 \item{offy}{y offset}
+
+\item{size}{a named vector containing width and height in inches}
 }
 \description{
 open xml wrapper for pptx

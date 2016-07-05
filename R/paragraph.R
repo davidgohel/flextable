@@ -49,7 +49,7 @@ dim.ftext <- function( x ){
                      fontname = x$pr$font.family,
                      fontsize = x$pr$font.size,
                      bold = x$pr$bold,
-                     italic = x$pr$italic) / 72
+                     italic = x$pr$italic) / 72 * 4/3
   mat <- as.data.frame(mat)
   names(mat ) <- c("width", "height")
   mat
@@ -105,6 +105,7 @@ format.external_img = function (x, type = "wml", ...){
 }
 
 
+# paragraph ------
 
 #' @export
 #' @title paragraph container
@@ -148,7 +149,10 @@ paragraph <- R6Class(
       padding.top <- private$pr$padding.left/72
       padding.bottom <- private$pr$padding.left/72
 
-      x <- as.list( colSums( map_df(private$chunks, dim ) ) )
+      x <- map_df(private$chunks, dim )
+      x <- list( width = sum( x$width ),
+            height = max( x$height ) )
+
       x$width <- x$width + padding.left + padding.right
       x$height <- x$height + padding.top + padding.bottom
       x

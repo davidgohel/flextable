@@ -6,8 +6,8 @@
 using namespace Rcpp;
 
 // a_sptree_open
-std::string a_sptree_open(bool standalone, int id, double offx, double offy, double width, double height);
-RcppExport SEXP flextable_a_sptree_open(SEXP standaloneSEXP, SEXP idSEXP, SEXP offxSEXP, SEXP offySEXP, SEXP widthSEXP, SEXP heightSEXP) {
+std::string a_sptree_open(bool standalone, int id, double offx, double offy);
+RcppExport SEXP flextable_a_sptree_open(SEXP standaloneSEXP, SEXP idSEXP, SEXP offxSEXP, SEXP offySEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -15,24 +15,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type id(idSEXP);
     Rcpp::traits::input_parameter< double >::type offx(offxSEXP);
     Rcpp::traits::input_parameter< double >::type offy(offySEXP);
-    Rcpp::traits::input_parameter< double >::type width(widthSEXP);
-    Rcpp::traits::input_parameter< double >::type height(heightSEXP);
-    __result = Rcpp::wrap(a_sptree_open(standalone, id, offx, offy, width, height));
+    __result = Rcpp::wrap(a_sptree_open(standalone, id, offx, offy));
     return __result;
 END_RCPP
 }
 // a_graphic_frame_open
-std::string a_graphic_frame_open(int id, double offx, double offy, double width, double height);
-RcppExport SEXP flextable_a_graphic_frame_open(SEXP idSEXP, SEXP offxSEXP, SEXP offySEXP, SEXP widthSEXP, SEXP heightSEXP) {
+std::string a_graphic_frame_open(int id, double offx, double offy);
+RcppExport SEXP flextable_a_graphic_frame_open(SEXP idSEXP, SEXP offxSEXP, SEXP offySEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< int >::type id(idSEXP);
     Rcpp::traits::input_parameter< double >::type offx(offxSEXP);
     Rcpp::traits::input_parameter< double >::type offy(offySEXP);
-    Rcpp::traits::input_parameter< double >::type width(widthSEXP);
-    Rcpp::traits::input_parameter< double >::type height(heightSEXP);
-    __result = Rcpp::wrap(a_graphic_frame_open(id, offx, offy, width, height));
+    __result = Rcpp::wrap(a_graphic_frame_open(id, offx, offy));
     return __result;
 END_RCPP
 }

@@ -81,34 +81,76 @@ print.flextable <- function(x, ...){
   else invisible()
 }
 
+#' @export
+autofit <- function(x){
+  max_widths <- list()
+  max_heights <- list()
+  for(j in c("header", "body")){
+    if( !is.null(x[[j]])){
+      dimensions_ <- get_dimensions(x[[j]])
+      x[[j]]$colwidths <- dimensions_$widths
+      x[[j]]$rowheights <- dimensions_$heights
+    }
+  }
+  x
+}
+
 
 #' @rdname flextable
 #' @export
 dim.flextable <- function(x){
   max_widths <- list()
   max_heights <- list()
-  if( !is.null(x$header)){
-    dimensions_ <- get_dimensions(x$header)
-    max_widths$header <- dimensions_$widths
-    max_heights$header <- dimensions_$heights
-  }
-  if( !is.null(x$body)){
-    dimensions_ <- get_dimensions(x$body)
-    max_widths$body <- dimensions_$widths
-    max_heights$body <- dimensions_$heights
-  }
-  if( !is.null(x$footer)){
-    dimensions_ <- get_dimensions(x$footer)
-    max_widths$footer <- dimensions_$widths
-    max_heights$footer <- dimensions_$heights
+  for(j in c("header", "body")){
+    if( !is.null(x[[j]])){
+      max_widths[[j]] <- x[[j]]$colwidths
+      max_heights[[j]] <- x[[j]]$rowheights
+    }
   }
 
   mat_widths <- do.call("rbind", max_widths)
   out_widths <- apply( mat_widths, 2, max )
   names(out_widths) <- x$col_keys
-  list(width = out_widths, height = as.double(unlist(max_heights)))
+
+  out_heights <- as.double(unlist(max_heights))
+
+  list(widths = out_widths, heights = out_heights )
 }
 
+
+#' @importFrom purrr map_lgl
+#' @rdname flextable
+#' @param x \code{flextable} to modify
+#' @param ... see section \code{Formatting data values} and
+#' \code{Styling - formatting properties}.
+#' @section Formatting data values:
+#'
+#' Use format_that or format_simple to define cell content.
+#'
+#' @seealso \code{\link{formatting_functions}}
+#' @examples
+#'
+#' # Formatting data values example ------
+#' ft <- vanilla_table(head( mtcars, n = 10))
+#' ft <- set_display(ft, i = ~ drat > 3.5,
+#'   gear = format_that("# {{ carb_ }}",
+#'     carb_ = ftext(carb, pr_text(color="orange") ) ) )
+#' write_docx("format_ft.docx", ft)
+#' @export
+set_width <- function(x, j = NULL, ..., width){
+  args <- lazy_dots(... )
+  stopifnot(all( names(args) %in% x$col_keys ) )
+
+  if( inherits(j, "formula") ){
+    j <- attr(terms(j), "term.labels")
+  } else j <- get_columns_id(x[[part]], j )
+
+
+  lazy_f_id <- map_chr(args, digest )
+  x[[part]]$style_ref_table$formats[lazy_f_id] <- args
+  x[[part]]$styles$formats[i, j ] <- matrix( rep.int(lazy_f_id, length(i)), nrow = length(i), byrow = TRUE )
+  x
+}
 
 #' @importFrom purrr map_lgl
 #' @rdname flextable
