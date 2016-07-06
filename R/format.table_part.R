@@ -51,7 +51,7 @@ get_images_ <- function(x, type = "pml"){
 
 format_as_paragraph <- function(x, type = "pml"){
   text <- matrix("", ncol = length(x$col_keys), nrow = nrow(x$dataset) )
-  dimnames(text)[[2]] <- x$col_keys
+  dimnames(text) <- list( NULL, x$col_keys)
 
   col_id <- setNames(seq_along(x$col_keys), nm = x$col_keys )
 
@@ -71,8 +71,8 @@ format_as_paragraph <- function(x, type = "pml"){
 
       if( x$spans$columns[i,col_id[j]] > 0 && x$spans$rows[i,col_id[j]] > 0 ){
         if( is.null(x$orig_dataset ))
-          p <- lazy_eval(args, x$dataset[i,])
-        else p <- lazy_eval(args, x$orig_dataset[i,])
+          p <- lazy_eval(args, x$dataset[i,, drop = FALSE])
+        else p <- lazy_eval(args, x$orig_dataset[i,, drop = FALSE])
 
         text[i, j] <- p$format(type = type)
       } else text[i, j] <- paragraph$new(prop = pr_par_)$format(type = type)

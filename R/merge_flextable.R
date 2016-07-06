@@ -8,9 +8,14 @@
 #' @param part partname of the table where merge has to be done.
 #' @examples
 #' ft_merge <- flextable(mtcars)
-#' ft_merge <- merge_v(ft_merge, j = c("gear", "carb"), part = "body")
-#' ft_merge <- merge_h(ft_merge, part = "body")
-#' write_docx("ft_merge.docx", ft_merge)
+#' ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))
+#' write_docx("ft_merge_v.docx", ft_merge)
+#'
+#' dummy_df <- data.frame( col1 = letters,
+#' col2 = letters, stringsAsFactors = FALSE )
+#' ft_merge <- flextable(dummy_df)
+#' ft_merge <- merge_h(x = ft_merge)
+#' write_docx("ft_merge_h.docx", ft_merge)
 #' @rdname merge_flextable
 #' @export
 merge_v <- function(x, j = NULL, part = "body" ){

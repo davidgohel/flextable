@@ -82,14 +82,26 @@ print.flextable <- function(x, ...){
 }
 
 #' @export
-autofit <- function(x){
+#' @title make flextable autofit
+#' @description compute and apply optimized widths and heights.
+#' @param x a flextable object
+#' @param add_w extra width to add in inches
+#' @param add_h extra height to add in inches
+#' @examples
+#'
+#' ft <- flextable(mtcars)
+#' ft <- autofit(ft)
+#'
+#' write_docx("autofit.docx", ft)
+#' @seealso \code{\link{flextable}}
+autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
   max_widths <- list()
   max_heights <- list()
   for(j in c("header", "body")){
     if( !is.null(x[[j]])){
       dimensions_ <- get_dimensions(x[[j]])
-      x[[j]]$colwidths <- dimensions_$widths
-      x[[j]]$rowheights <- dimensions_$heights
+      x[[j]]$colwidths <- dimensions_$widths + add_w
+      x[[j]]$rowheights <- dimensions_$heights + add_h
     }
   }
   x
@@ -113,44 +125,73 @@ dim.flextable <- function(x){
   names(out_widths) <- x$col_keys
 
   out_heights <- as.double(unlist(max_heights))
-
   list(widths = out_widths, heights = out_heights )
 }
 
 
-#' @importFrom purrr map_lgl
-#' @rdname flextable
-#' @param x \code{flextable} to modify
-#' @param ... see section \code{Formatting data values} and
-#' \code{Styling - formatting properties}.
-#' @section Formatting data values:
-#'
-#' Use format_that or format_simple to define cell content.
-#'
-#' @seealso \code{\link{formatting_functions}}
+#' @export
+#' @title set columns width
+#' @description modify columns widths of a flextable
+#' @param x a flextable object
+#' @param j columns selection
+#' @param width width in inches
 #' @examples
 #'
-#' # Formatting data values example ------
-#' ft <- vanilla_table(head( mtcars, n = 10))
-#' ft <- set_display(ft, i = ~ drat > 3.5,
-#'   gear = format_that("# {{ carb_ }}",
-#'     carb_ = ftext(carb, pr_text(color="orange") ) ) )
-#' write_docx("format_ft.docx", ft)
-#' @export
-set_width <- function(x, j = NULL, ..., width){
-  args <- lazy_dots(... )
-  stopifnot(all( names(args) %in% x$col_keys ) )
+#' ft <- vanilla_table(iris)
+#' ft <- width(ft, width = 1)
+#'
+#' write_docx("autofit.docx", ft)
+#' @seealso \code{\link{flextable}}
+width <- function(x, j = NULL, width){
 
   if( inherits(j, "formula") ){
     j <- attr(terms(j), "term.labels")
-  } else j <- get_columns_id(x[[part]], j )
+  }
+  j <- get_columns_id(x[["body"]], j )
+  x$header$colwidths[j] <- width
+  x$body$colwidths[j] <- width
 
-
-  lazy_f_id <- map_chr(args, digest )
-  x[[part]]$style_ref_table$formats[lazy_f_id] <- args
-  x[[part]]$styles$formats[i, j ] <- matrix( rep.int(lazy_f_id, length(i)), nrow = length(i), byrow = TRUE )
   x
 }
+
+#' @export
+#' @title set columns width
+#' @description modify columns widths of a flextable
+#' @param x a flextable object
+#' @param i rows selection
+#' @param height height in inches
+#' @param part partname of the table
+#' @examples
+#'
+#' ft <- vanilla_table(iris)
+#' ft <- height(ft, height = .3)
+#'
+#' write_docx("height.docx", ft)
+#' @seealso \code{\link{flextable}}
+height <- function(x, i = NULL, height, part = "body"){
+
+  if( inherits(i, "formula") && any( "header" %in% part ) ){
+    stop("formula in argument i cannot adress part 'header'.")
+  }
+
+  if( part == "all" ){
+    for( p in c("header", "body") ){
+      x <- height(x = x, i = i, height = height, part = p)
+    }
+    return(x)
+  }
+
+  if( inherits(i, "formula") ){
+    i <- lazy_eval(i[[2]], x[[part]]$dataset)
+  }
+  i <- get_rows_id(x[[part]], i )
+
+  x[[part]]$rowheights[i] <- height
+  x[[part]]$rowheights[i] <- height
+
+  x
+}
+
 
 #' @importFrom purrr map_lgl
 #' @rdname flextable
@@ -175,8 +216,8 @@ set_display <- function(x, i = NULL, part = "body", ...){
   args <- lazy_dots(... )
   stopifnot(all( names(args) %in% x$col_keys ) )
 
-  if( inherits(i, "formula") && any( c("header", "footer") %in% part ) ){
-    stop("formula in argument i cannot adress part 'header' or 'footer'.")
+  if( inherits(i, "formula") && any( "header" %in% part ) ){
+    stop("formula in argument i cannot adress part 'header'.")
   }
 
   if( inherits(i, "formula") ){
@@ -233,7 +274,7 @@ set_style <- function(x, ..., i = NULL, j = NULL, part = "body" ){
   }
 
   if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header' or 'footer'.")
+    stop("formula in argument i cannot adress part 'header'.")
   }
 
   if( inherits(i, "formula") ){
@@ -262,7 +303,7 @@ set_style <- function(x, ..., i = NULL, j = NULL, part = "body" ){
 #'
 #' # bg example ------
 #' ft <- flextable(mtcars)
-#' ft <- set_bg(ft, color = "#DDDDDD", part = "header")
+#' ft <- bg(ft, color = "#DDDDDD", part = "header")
 bg <- function(x, i = NULL, j = NULL, color, part = "body" ){
 
   part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
@@ -275,7 +316,7 @@ bg <- function(x, i = NULL, j = NULL, color, part = "body" ){
   }
 
   if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header' or 'footer'.")
+    stop("formula in argument i cannot adress part 'header'.")
   }
 
   if( inherits(i, "formula") ){
@@ -315,13 +356,18 @@ bg <- function(x, i = NULL, j = NULL, color, part = "body" ){
 #' # bg example ------
 #' ft <- flextable(mtcars)
 #' ft <- padding(ft, padding.top = 4)
-padding <- function(x, i = NULL, j = NULL,
+padding <- function(x, i = NULL, j = NULL, padding = NULL,
                        padding.top = NULL, padding.bottom = NULL,
                        padding.left = NULL, padding.right = NULL,
                        part = "body" ){
 
   part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
-
+  if( !is.null(padding) ){
+    if( is.null( padding.top) ) padding.top <- padding
+    if( is.null( padding.bottom) ) padding.bottom <- padding
+    if( is.null( padding.left) ) padding.left <- padding
+    if( is.null( padding.right) ) padding.right <- padding
+  }
   if( part == "all" ){
     for( p in c("header", "body") ){
       x <- padding(x = x, i = i, j = j,
@@ -332,8 +378,8 @@ padding <- function(x, i = NULL, j = NULL,
     return(x)
   }
 
-  if( inherits(i, "formula") && any( c("header", "footer") %in% part ) ){
-    stop("formula in argument i cannot adress part 'header' or 'footer'.")
+  if( inherits(i, "formula") && any( "header" %in% part ) ){
+    stop("formula in argument i cannot adress part 'header'.")
   }
 
   if( inherits(i, "formula") ){
@@ -370,24 +416,32 @@ padding <- function(x, i = NULL, j = NULL,
 #' @importFrom purrr map map_chr
 #' @export
 #' @rdname flextable
+#' @param border border (top, bottom, left and right)
 #' @param border.bottom,border.left,border.top,border.right \code{\link{pr_border}} for borders.
 #' @section Styling - borders:
 #'
-#' set cell borders with function \code{set_border}.
+#' set cell borders with function \code{border}.
 #'
 #' @examples
 #'
 #' # set_bg example ------
 #' ft <- flextable(mtcars)
-#' ft <- set_border(ft, border.top = pr_border(color = "orange") )
-set_border <- function(x, i = NULL, j = NULL,
+#' ft <- border(ft, border.top = pr_border(color = "orange") )
+border <- function(x, i = NULL, j = NULL, border = NULL,
                        border.top = NULL, border.bottom = NULL,
                        border.left = NULL, border.right = NULL,
                        part = "body" ){
 
+  if( !is.null(border) ){
+    if( is.null( border.top) ) border.top <- border
+    if( is.null( border.bottom) ) border.bottom <- border
+    if( is.null( border.left) ) border.left <- border
+    if( is.null( border.right) ) border.right <- border
+  }
+
   if( part == "all" ){
     for( p in c("header", "body") ){
-      x <- set_border(x = x, i = i, j = j,
+      x <- border(x = x, i = i, j = j,
                       border.top = border.top, border.bottom = border.bottom,
                       border.left = border.left, border.right = border.right,
                       part = p)
@@ -395,8 +449,8 @@ set_border <- function(x, i = NULL, j = NULL,
     return(x)
   }
 
-  if( inherits(i, "formula") && any( c("header", "footer") %in% part ) ){
-    stop("formula in argument i cannot adress part 'header' or 'footer'.")
+  if( inherits(i, "formula") && any( "header" %in% part ) ){
+    stop("formula in argument i cannot adress part 'header'.")
   }
 
   if( inherits(i, "formula") ){
@@ -411,6 +465,7 @@ set_border <- function(x, i = NULL, j = NULL,
 
   sign_target <- unique( as.vector( x[[part]]$styles$cells[i,j] ) )
   new_cells <- x[[part]]$style_ref_table$cells[sign_target]
+
   if(!is.null(border.top))
     new_cells <- map(new_cells, function(x, border.top ) update(x, border.top = border.top ), border.top = border.top )
   if(!is.null(border.bottom))
@@ -537,14 +592,5 @@ set_header <- function(x, ..., data_mapping = NULL, key = "col_keys", values = N
   x
 }
 
-
-
-#' @importFrom knitr knit_print
-#' @importFrom knitr asis_output
-#' @rdname flextable
-#' @export
-knit_print.flextable<- function(x, ...){
-  print(tabwid(x))
-}
 
 

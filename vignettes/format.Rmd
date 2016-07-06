@@ -46,7 +46,7 @@ Conditional formatting can be made by using the selector arguments.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  set_bg(rgb(1, .8, .2, .2), i = ~ drat > 3.5 & wt > 2.6, j = NULL )
+  bg(rgb(1, .8, .2, .2), i = ~ drat > 3.5 & wt > 2.6, j = NULL )
 tabwid(myft)
 ```
 

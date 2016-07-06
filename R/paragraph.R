@@ -49,7 +49,7 @@ dim.ftext <- function( x ){
                      fontname = x$pr$font.family,
                      fontsize = x$pr$font.size,
                      bold = x$pr$bold,
-                     italic = x$pr$italic) / 72 * 4/3
+                     italic = x$pr$italic) / 72
   mat <- as.data.frame(mat)
   names(mat ) <- c("width", "height")
   mat
@@ -144,17 +144,18 @@ paragraph <- R6Class(
       out
     },
     dim = function( ){
-      padding.left <- private$pr$padding.left/72
-      padding.right <- private$pr$padding.left/72
-      padding.top <- private$pr$padding.left/72
-      padding.bottom <- private$pr$padding.left/72
-
+      padding.left <- private$pr$padding.left * (4/3) / 72
+      padding.right <- private$pr$padding.right * (4/3) / 72
+      padding.top <- private$pr$padding.top * (4/3) / 72
+      padding.bottom <- private$pr$padding.bottom * (4/3) / 72
+      message(padding.left, " ", padding.right, " ",
+              padding.top, " ", padding.bottom, "")
       x <- map_df(private$chunks, dim )
       x <- list( width = sum( x$width ),
             height = max( x$height ) )
 
-      x$width <- x$width + padding.left + padding.right
-      x$height <- x$height + padding.top + padding.bottom
+      x$width <- x$width + ( padding.left + padding.right)
+      x$height <- x$height + ( padding.top + padding.bottom)
       x
     },
     format = function(type = "pml"){

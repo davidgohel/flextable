@@ -2,6 +2,7 @@ library(flextable)
 library(oxbase)
 library(dplyr)
 def_txt <- pr_text(font.size = 9, font.family = "Arial")
+def_head <- update(def_txt, color = "red")
 def_cell <- pr_cell( border = pr_border(color = "gray") )
 
 dat <- mtcars %>%
@@ -25,35 +26,39 @@ ft <- flextable(dat) %>%
     qsec = format_simple(format_double(qsec, digits = 0) ),
     carb = format_that("# {{ carb_ }}", carb_ = ftext(carb, pr_text(italic=TRUE, color="blue") ) )
     ) %>%
-  set_style(pr_text(color="purple", bold = TRUE), part = "header") %>%
-  bg(color = "#CCCCCC", part = "header") %>%
+  set_style(def_head, part = "header") %>%
+  set_style(def_txt, part = "body") %>%
+
+  bg(color = "#CCCCEE", part = "header") %>%
   merge_v(j = c("am") ) %>%
   merge_h(i = 2 ) %>%
   set_style(i = ~ drat > 3.5, j = ~ am + gear + carb,
             pr_text(color="gray", italic = TRUE)) %>%
-  set_border(
+  border(
     border.top = pr_border(width=1, color= "orange"),
     border.bottom = pr_border(width=0),
    border.left = pr_border(width=0),
    border.right = pr_border(width=0),
     part = "header") %>%
-  set_border(
+  border(
     border.top = pr_border(width=1),
     border.bottom = pr_border(width=1),
     border.left = pr_border(width=0),
     border.right = pr_border(width=0),
     part = "body") %>%
-  set_border(i = 1,
+  border(i = 1,
     border.top = pr_border(width=1, color = "orange"), part = "body") %>%
   padding(padding.left = 5, padding.right = 5, padding.bottom = 5, padding.top = 5, part = "all") %>%
-  autofit()
+  autofit(add_w = .2) %>%
+  height(height = .15, part = "all")
+# ft$header$rowheights[] <- .5
+# ft$body$rowheights[] <- .15
 
-
-dim(ft)
+# dim(ft)
 print(tabwid(ft))
-# pptx_file <- write_pptx("test.pptx", ft)
-docx_file <- write_docx("test.docx", ft)
-browseURL(docx_file)
-# browseURL(pptx_file)
+pptx_file <- write_pptx("test.pptx", ft)
+browseURL(pptx_file)
+# docx_file <- write_docx("test.docx", ft)
+# browseURL(docx_file)
 # unlink(docx_file)
 # unlink(pptx_file)

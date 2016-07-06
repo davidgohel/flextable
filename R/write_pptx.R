@@ -35,9 +35,6 @@ write_pptx <- function(
   cat(">", file = document_xml, append = TRUE)
 
   cat("<p:cSld>", file = document_xml, append = TRUE)
-  dims <- dim(x)
-  widths <- dims$widths
-  heights <- c(x$footer$rowheights, x$body$rowheights)
   cat( a_sptree_open(FALSE, 1L, offx*72, offy*72), file = document_xml, append = TRUE )
   cat(pml_flextable(x), file = document_xml, append = TRUE)
   cat( a_sptree_close() , file = document_xml, append = TRUE)
@@ -68,7 +65,6 @@ write_pptx <- function(
 #' @description open xml wrapper for pptx
 #' @param x \code{flextable} object
 #' @param id unique identifier in the slide
-#' @param size a named vector containing width and height in inches
 #' @param offx x offset
 #' @param offy y offset
 get_graphic_frame <- function(x, id = 1L, offx = 1L, offy = 1L) {

@@ -147,7 +147,17 @@ wml_flextable <- function( x, relationships ){
   if( !is.null(x$body) ) imgs <- append( imgs, get_images_(x$body) )
   if( !is.null(x$footer) ) imgs <- append( imgs, get_images_(x$footer) )
 
+  dims <- dim(x)
+  widths <- dims$widths
+  colswidths <- paste0("<w:gridCol w:w=\"", round(widths*72*20, 0), "\"/>", collapse = "")
+
   out <- "<w:tbl>"
+  out <- paste0(out, "<w:tblPr><w:tblLayout w:type=\"fixed\"/></w:tblPr>" )
+
+  out = paste0(out,  "<w:tblGrid>" )
+  out = paste0(out,  colswidths )
+  out = paste0(out,  "</w:tblGrid>" )
+
 
   if( !is.null(x$header) )
     out = paste0(out, format(x$header, header = TRUE, type = "wml") )

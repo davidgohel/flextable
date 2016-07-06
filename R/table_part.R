@@ -155,6 +155,13 @@ span_columns <- function( x, columns = NULL ){
                      merge_index(x, what = k, byrow = FALSE ),
                    x = x )
   x$spans$columns[, match(columns, x$col_keys)] <- spans
+
+  merged.rows = which( x$spans$rows != 1 )
+  merged.cols = which( x$spans$columns != 1 )
+  overlaps = intersect(merged.rows, merged.cols)
+  if( length( overlaps ) > 0 )
+    stop("span overlappings, some merged cells are already merged with other cells.")
+
   x
 }
 
@@ -167,6 +174,14 @@ span_rows <- function( x, rows = NULL ){
                    x = x )
   spans <- do.call( rbind, spans )
   x$spans$rows[match(row_id, seq_len(nrow(x$dataset))), ] <- spans
+
+  merged.rows = which( x$spans$rows != 1 )
+  merged.cols = which( x$spans$columns != 1 )
+  overlaps = intersect(merged.rows, merged.cols)
+  if( length( overlaps ) > 0 )
+    stop("span overlappings, some merged cells are already merged with other cells.")
+
+
   x
 }
 
@@ -305,6 +320,16 @@ get_dimensions <- function( x ){
     for( i in seq_len(nrow(x$dataset))){
       fid <- x$styles$formats[i, col_id[j]]
       args <- x$style_ref_table$formats[[fid]]
+
+      if( is.null(args$expr[["pr_par_"]] ) ){
+        pr_par_ <- x$style_ref_table$pars[[x$styles$pars[i,col_id[j]]]]
+        args$expr[["pr_par_"]] <- pr_par_
+      }
+      if( is.null(args$expr[["pr_text_"]] ) ){
+        pr_text_ <- x$style_ref_table$text[[x$styles$text[i,col_id[j]]]]
+        args$expr[["pr_text_"]] <- pr_text_
+      }
+
       if( is.null(x$orig_dataset))
         p <- lazy_eval(args, x$dataset[i,])
       else p <- lazy_eval(args, x$orig_dataset[i,])
@@ -319,22 +344,20 @@ get_dimensions <- function( x ){
   widths[x$spans$columns<1] <- 0
   heights[x$spans$rows<1] <- 0
   heights[x$spans$columns<1] <- 0
-
-  margin.left <- map_dbl( x$style_ref_table$cells, "margin.left" )
+  margin.left <- map_dbl( x$style_ref_table$cells, "margin.left" ) * (4/3)
   margin.left <- setNames(margin.left[as.vector(x$styles$cells)], NULL)
-  margin.right <- map_dbl( x$style_ref_table$cells, "margin.right" )
+  margin.right <- map_dbl( x$style_ref_table$cells, "margin.right" ) * (4/3)
   margin.right <- setNames(margin.right[as.vector(x$styles$cells)], NULL)
   widths <- widths + margin.left + margin.right
   widths <- matrix( widths, ncol = length(x$col_keys) )
 
-  margin.top <- map_dbl( x$style_ref_table$cells, "margin.top" )
+  margin.top <- map_dbl( x$style_ref_table$cells, "margin.top" ) * (4/3)
   margin.top <- setNames(margin.top[as.vector(x$styles$cells)], NULL)
-  margin.bottom <- map_dbl( x$style_ref_table$cells, "margin.bottom" )
+  margin.bottom <- map_dbl( x$style_ref_table$cells, "margin.bottom" ) * (4/3)
   margin.bottom <- setNames(margin.bottom[as.vector(x$styles$cells)], NULL)
 
   heights <- heights + margin.top + margin.bottom
   heights <- matrix( heights, ncol = length(x$col_keys) )
-
   list(widths = apply(widths, 2, max),
        heights = apply(heights, 1, max)
        )

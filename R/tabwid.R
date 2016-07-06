@@ -66,7 +66,7 @@ html_flextable <- function( x ){
 
   out <- "<table>"
   cw <- paste0("<col width=",
-         shQuote( round(dims$widths * 72 + 5, 0 ), type="cmd"),
+         shQuote( round(dims$widths * 72, 0 ), type="cmd"),
          ">",
          collapse = "")
   out = paste0(out, cw )
@@ -91,3 +91,13 @@ html_flextable <- function( x ){
   attr(out, "css") <- css_
   out
 }
+
+#' @importFrom knitr knit_print
+#' @importFrom knitr asis_output
+#' @rdname flextable
+#' @export
+knit_print.flextable<- function(x, ...){
+  print(tabwid(x))
+}
+
+

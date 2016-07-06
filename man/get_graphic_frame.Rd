@@ -14,8 +14,6 @@ get_graphic_frame(x, id = 1L, offx = 1L, offy = 1L)
 \item{offx}{x offset}
 
 \item{offy}{y offset}
-
-\item{size}{a named vector containing width and height in inches}
 }
 \description{
 open xml wrapper for pptx
