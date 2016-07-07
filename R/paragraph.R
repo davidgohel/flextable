@@ -45,6 +45,7 @@ format.ftext = function (x, type = "wml", ...){
 #' formatted.
 #'
 dim.ftext <- function( x ){
+  stopifnot(inherits(x$pr, "pr_text"))
   mat <- str_extents(x = x$value,
                      fontname = x$pr$font.family,
                      fontsize = x$pr$font.size,
@@ -58,7 +59,7 @@ dim.ftext <- function( x ){
 
 #' @export
 #' @title external image
-#' @description This function is used to insert images into FlexTable with function \code{set_display}
+#' @description This function is used to insert images into FlexTable with function \code{display}
 #' @param src image file path
 #' @param width height in inches
 #' @param height height in inches
@@ -148,8 +149,7 @@ paragraph <- R6Class(
       padding.right <- private$pr$padding.right * (4/3) / 72
       padding.top <- private$pr$padding.top * (4/3) / 72
       padding.bottom <- private$pr$padding.bottom * (4/3) / 72
-      message(padding.left, " ", padding.right, " ",
-              padding.top, " ", padding.bottom, "")
+      # if(private$chunks[[1]]$value == "4") browser()
       x <- map_df(private$chunks, dim )
       x <- list( width = sum( x$width ),
             height = max( x$height ) )

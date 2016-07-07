@@ -27,15 +27,15 @@ iris %>%
     Petal.Length = list("Length", "Petal"), Petal.Width = list("Width", "Petal"),
     Species = list("Species", "Species")
     ) %>% 
-  set_style(t_b(font.size = 16), part = "header") %>% 
-  set_style(pr_text(font.size = 16), part = "body") %>% 
-  set_style(t_bi(font.size = 16), j = ~ Species ) %>% 
-  padding(padding = 4, part = "header") %>% 
+  style(t_b(font.size = 12), part = "header") %>% 
+  style(pr_text(font.size = 12), part = "body") %>% 
+  style(t_bi(font.size = 12), j = ~ Species ) %>% 
+  padding(padding = 2, part = "all") %>% 
   border( border.top = pr_border(), part = "all" ) %>% 
-  bg(i = ~ seq_along(Petal.Length) %% 2 == 0, color = "#EFEFEF") %>% 
+  bg(i = ~ seq_along(Petal.Length) %% 2 == 0, bg = "#EFEFEF") %>% 
   border( j = ~ break1 + break2, 
           border.top = b_null(), border.bottom = b_null(), part = "all" ) %>% 
-  bg(j = ~ break1 + break2, color = "transparent", part = "all") %>% 
+  bg(j = ~ break1 + break2, bg = "transparent", part = "all") %>% 
   autofit() %>% 
   tabwid()
 ```
@@ -53,11 +53,11 @@ tabwid(myft)
 
 ## Format table elements
 
-Function `set_style` is changing formatting properties of table elements. 
+Function `style` is changing formatting properties of table elements. 
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  set_style(c_b_b(), p_r(padding=2), part = "all" )
+  style(c_b_b(), p_r(padding=2), part = "all" )
 tabwid(myft)
 ```
 
@@ -65,7 +65,7 @@ Conditional formatting can be made by using the selector arguments.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  set_style(i = ~ drat > 3.5, j = ~ drat, t_i(color="#44A530") )
+  style(i = ~ drat > 3.5, j = ~ drat, t_i(color="#44A530") )
 tabwid(myft)
 ```
 
@@ -86,9 +86,9 @@ You can use `format_simple`.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>%
-  set_display(
+  display(
     am = format_simple(format_integer(am)),
-    gear = format_simple(format_integer(gear), pr_text_ = p_l(padding.top=8)),
+    gear = format_simple(format_integer(gear), pr_text_ = t_b()),
     carb = format_simple(format_integer(carb))
   )
 
@@ -97,18 +97,17 @@ tabwid(myft)
 
 And a flexible function `format_that`. 
 
+
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>%
-  set_display(
-    mpg = format_that("{{ mpg_ }} mpg (# {{ cyl_ }} cyl.)", 
-                      mpg_ = ftext( format_double(mpg, digits = 1), t_i() ), 
-                      cyl_ = ftext( format_integer(cyl), t_i() )
-    )
-    
-  )
+  display(
+    mpg = format_that(
+        "{{ mpg_ }} mpg (# {{ cyl_ }} cyl.)",
+        mpg_ = ftext( format_double(mpg, digits = 1), t_i() ),
+        cyl_ = ftext( format_integer(cyl), t_i() )
+    ) ) %>% autofit() 
 
 tabwid(myft)
 ```
-
 
 

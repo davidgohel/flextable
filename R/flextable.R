@@ -1,6 +1,6 @@
-#' @title Create flextable object
+#' @title flextable object
 #'
-#' @description Create an object of class \code{flextable}.
+#' @description Create a flextable object with function \code{flextable}.
 #'
 #' \code{flextable} are designed to make tabular reporting easier for
 #' R users.
@@ -8,9 +8,10 @@
 #' An API lets you format text, paragraphs and cells, table elements can
 #' be merge vertically or horizontally.
 #'
-#' A \code{flextable} is made of 3 parts: header, body and footer.
+#' A \code{flextable} is made of 2 parts: header and body.
 #' @param data dataset
-#' @param select columns names/keys to display
+#' @param select columns names/keys to display. If some column names are not in
+#' the dataset, they will be added as blank columns.
 #' @examples
 #' ft <- flextable(mtcars)
 #' write_docx("ft.docx", ft)
@@ -48,32 +49,9 @@ flextable <- function( data, select = names(data) ){
   out
 }
 
-#' @export
-#' @importFrom dplyr add_rownames
-#' @importFrom oxbase pr_border
-#' @rdname flextable
-#' @param row.names should row.names be displayed or not
-#' @examples
-#' vanilla_table(head(iris))
-vanilla_table <- function(data, row.names = TRUE){
-  hnames <- names(data)
-  if( row.names ){
-    data <- add_rownames( data )
-    hnames <- c("", hnames)
-  }
-  ft <- flextable(data)
-  ft <- set_header(ft, values = hnames )
-
-  def_cell_pr <- pr_cell(border.bottom = pr_border(), border.top = pr_border())
-  def_par_pr <- pr_par(padding=2, text.align = "right")
-  def_text_pr <- pr_text(bold = TRUE)
-  ft <- set_style(ft, def_cell_pr, def_par_pr, part = "body" )
-  ft <- set_style(ft, def_cell_pr, def_par_pr, def_text_pr, part = "header" )
-  ft
-}
-
 
 #' @export
+#' @param ... unused
 #' @rdname flextable
 print.flextable <- function(x, ...){
   if( interactive())
@@ -82,33 +60,30 @@ print.flextable <- function(x, ...){
 }
 
 #' @export
-#' @title make flextable autofit
-#' @description compute and apply optimized widths and heights.
-#' @param x a flextable object
-#' @param add_w extra width to add in inches
-#' @param add_h extra height to add in inches
+#' @rdname flextable
+#' @description Function \code{optim_dim} will return minimum estimated widths and heights for
+#' each table columns and rows.
 #' @examples
 #'
+#' # get estimated widths
 #' ft <- flextable(mtcars)
-#' ft <- autofit(ft)
-#'
-#' write_docx("autofit.docx", ft)
-#' @seealso \code{\link{flextable}}
-autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
+#' optim_dim(ft)
+optim_dim <- function( x ){
   max_widths <- list()
   max_heights <- list()
   for(j in c("header", "body")){
     if( !is.null(x[[j]])){
       dimensions_ <- get_dimensions(x[[j]])
-      x[[j]]$colwidths <- dimensions_$widths + add_w
-      x[[j]]$rowheights <- dimensions_$heights + add_h
+      x[[j]]$colwidths <- dimensions_$widths
+      x[[j]]$rowheights <- dimensions_$heights
     }
   }
-  x
+  dim(x)
 }
 
-
 #' @rdname flextable
+#' @description Function \code{dim} will return widths and heights for each table columns and rows.
+#' @param x flextable object
 #' @export
 dim.flextable <- function(x){
   max_widths <- list()
@@ -129,356 +104,59 @@ dim.flextable <- function(x){
 }
 
 
+#' @importFrom purrr map_lgl
 #' @export
-#' @title set columns width
-#' @description modify columns widths of a flextable
+#' @title flextable display values
+#' @description Modify flextable displayed values.
 #' @param x a flextable object
-#' @param j columns selection
-#' @param width width in inches
-#' @examples
-#'
-#' ft <- vanilla_table(iris)
-#' ft <- width(ft, width = 1)
-#'
-#' write_docx("autofit.docx", ft)
-#' @seealso \code{\link{flextable}}
-width <- function(x, j = NULL, width){
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
-  j <- get_columns_id(x[["body"]], j )
-  x$header$colwidths[j] <- width
-  x$body$colwidths[j] <- width
-
-  x
-}
-
-#' @export
-#' @title set columns width
-#' @description modify columns widths of a flextable
-#' @param x a flextable object
+#' @param ... see details.
 #' @param i rows selection
-#' @param height height in inches
-#' @param part partname of the table
+#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @details
+#'
+#' Use format_that or format_simple to define cell content.
+#'
+#' @seealso \code{\link{flextable}}
 #' @examples
 #'
-#' ft <- vanilla_table(iris)
-#' ft <- height(ft, height = .3)
-#'
-#' write_docx("height.docx", ft)
-#' @seealso \code{\link{flextable}}
-height <- function(x, i = NULL, height, part = "body"){
+#' # Formatting data values example ------
+#' ft <- flextable(head( mtcars, n = 10))
+#' ft <- display(ft, i = ~ drat > 3.5,
+#'   gear = format_that("# {{ carb_ }}",
+#'     carb_ = ftext(carb, pr_text(color="orange") ) ) )
+#' write_docx("format_ft.docx", ft)
+#' @export
+display <- function(x, i = NULL, part = "body", ...){
+
+  part <- match.arg(part, c("body", "header"), several.ok = FALSE )
+
+  args <- lazy_dots(... )
+  stopifnot(all( names(args) %in% x$col_keys ) )
+
+  fun_call <- map( args, "expr")
+  fun_call <- map(fun_call, function(x) x[[1]])
+  fun_call <- map_chr(fun_call, as.character)
+
+  invalid_fun_call <- !fun_call %in% c("format_that", "format_simple")
+  if( any(invalid_fun_call) ){
+    stop( paste0(names(args), collapse = ","), " should call format_simple or format_that." )
+  }
+
+  # stopifnot(all( fun_call %in% c("format_that", "format_simple") ) )
 
   if( inherits(i, "formula") && any( "header" %in% part ) ){
     stop("formula in argument i cannot adress part 'header'.")
-  }
-
-  if( part == "all" ){
-    for( p in c("header", "body") ){
-      x <- height(x = x, i = i, height = height, part = p)
-    }
-    return(x)
   }
 
   if( inherits(i, "formula") ){
     i <- lazy_eval(i[[2]], x[[part]]$dataset)
   }
   i <- get_rows_id(x[[part]], i )
-
-  x[[part]]$rowheights[i] <- height
-  x[[part]]$rowheights[i] <- height
-
-  x
-}
-
-
-#' @importFrom purrr map_lgl
-#' @rdname flextable
-#' @param x \code{flextable} to modify
-#' @param ... see section \code{Formatting data values} and
-#' \code{Styling - formatting properties}.
-#' @section Formatting data values:
-#'
-#' Use format_that or format_simple to define cell content.
-#'
-#' @seealso \code{\link{formatting_functions}}
-#' @examples
-#'
-#' # Formatting data values example ------
-#' ft <- vanilla_table(head( mtcars, n = 10))
-#' ft <- set_display(ft, i = ~ drat > 3.5,
-#'   gear = format_that("# {{ carb_ }}",
-#'     carb_ = ftext(carb, pr_text(color="orange") ) ) )
-#' write_docx("format_ft.docx", ft)
-#' @export
-set_display <- function(x, i = NULL, part = "body", ...){
-  args <- lazy_dots(... )
-  stopifnot(all( names(args) %in% x$col_keys ) )
-
-  if( inherits(i, "formula") && any( "header" %in% part ) ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-    i <- which( i )
-  } else i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], names(args) )
 
   lazy_f_id <- map_chr(args, digest )
   x[[part]]$style_ref_table$formats[lazy_f_id] <- args
   x[[part]]$styles$formats[i, j ] <- matrix( rep.int(lazy_f_id, length(i)), nrow = length(i), byrow = TRUE )
-  x
-}
-
-#' @export
-#' @param part partname of the table
-#' @param i rows selection
-#' @param j columns selection
-#' @importFrom lazyeval lazy_eval
-#' @importFrom stats terms update
-#' @rdname flextable
-#' @section Styling - formatting properties:
-#'
-#' Table text, paragraphs and cells can be modified with
-#' \code{set_style} function.
-#'
-#' @examples
-#'
-#' # Styles example ------
-#' def_cell <- pr_cell(border.bottom = pr_border(),
-#'   border.top = pr_border(),
-#'   border.left = pr_border(),
-#'   border.right = pr_border())
-#'
-#' def_par <- pr_par(text.align = "center")
-#'
-#' ft <- flextable(mtcars)
-#'
-#' ft <- set_style( ft, def_cell, def_par, parts = c("body"))
-#' ft <- set_style( ft, def_cell, def_par, parts = c("header"))
-#' ft <- set_style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
-#'   pr_text(color="red", italic = TRUE) )
-#'
-#' write_docx("style_ft.docx", ft)
-set_style <- function(x, ..., i = NULL, j = NULL, part = "body" ){
-
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
-
-  if( part == "all" ){
-    for( p in c("header", "body") ){
-      x <- set_style(x = x, ..., i = i, j = j, part = p)
-    }
-    return(x)
-  }
-
-  if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  } else i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  } else j <- get_columns_id(x[[part]], j )
-
-  args <- list(...)
-  for(arg in args )
-    x[[part]] <- set_formatting_properties(x[[part]], i = i, j = j, arg )
-
-  x
-}
-
-#' @export
-#' @rdname flextable
-#' @param color color to use as background color
-#' @section Styling - background color:
-#'
-#' set background color with function \code{set_bg}.
-#'
-#' @examples
-#'
-#' # bg example ------
-#' ft <- flextable(mtcars)
-#' ft <- bg(ft, color = "#DDDDDD", part = "header")
-bg <- function(x, i = NULL, j = NULL, color, part = "body" ){
-
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
-
-  if( part == "all" ){
-    for( p in c("header", "body") ){
-      x <- bg(x = x, i = i, j = j, color = color, part = p)
-    }
-    return(x)
-  }
-
-  if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
-  i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
-  j <- get_columns_id(x[[part]], j )
-
-
-  sign_target <- unique( as.vector( x[[part]]$styles$cells[i,j] ) )
-  new_cells <- x[[part]]$style_ref_table$cells[sign_target]
-  new_cells <- map(new_cells, function(x, color ) update(x, background.color = color ), color = color )
-  names(new_cells) <- sign_target
-
-  new_key <- map_chr(new_cells, digest )
-  x[[part]]$style_ref_table$cells[new_key] <- new_cells
-  x[[part]]$styles$cells[i,j] <- matrix( new_key[match( x[[part]]$styles$cells[i,j], names(new_key) )], ncol = length(j) )
-
-  x
-}
-
-
-#' @export
-#' @rdname flextable
-#' @param padding padding (top, bottom, left and right)
-#' @param padding.top,padding.bottom,padding.left,padding.right paddings per side
-#' @section Styling - padding:
-#'
-#' set paragraphs paddings with function \code{padding}.
-#'
-#' @examples
-#'
-#' # bg example ------
-#' ft <- flextable(mtcars)
-#' ft <- padding(ft, padding.top = 4)
-padding <- function(x, i = NULL, j = NULL, padding = NULL,
-                       padding.top = NULL, padding.bottom = NULL,
-                       padding.left = NULL, padding.right = NULL,
-                       part = "body" ){
-
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
-  if( !is.null(padding) ){
-    if( is.null( padding.top) ) padding.top <- padding
-    if( is.null( padding.bottom) ) padding.bottom <- padding
-    if( is.null( padding.left) ) padding.left <- padding
-    if( is.null( padding.right) ) padding.right <- padding
-  }
-  if( part == "all" ){
-    for( p in c("header", "body") ){
-      x <- padding(x = x, i = i, j = j,
-                   padding.top = padding.top, padding.bottom = padding.bottom,
-                   padding.left = padding.left, padding.right = padding.right,
-                   part = p)
-    }
-    return(x)
-  }
-
-  if( inherits(i, "formula") && any( "header" %in% part ) ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
-  i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
-  j <- get_columns_id(x[[part]], j )
-
-  sign_target <- unique( as.vector( x[[part]]$styles$pars[i,j] ) )
-  new_pars <- x[[part]]$style_ref_table$pars[sign_target]
-
-  if(!is.null(padding.top))
-    new_pars <- map(new_pars, function(x, padding.top ) update(x, padding.top = padding.top ), padding.top = padding.top )
-  if(!is.null(padding.bottom))
-    new_pars <- map(new_pars, function(x, padding.bottom ) update(x, padding.bottom = padding.bottom ), padding.bottom = padding.bottom )
-  if(!is.null(padding.left))
-    new_pars <- map(new_pars, function(x, padding.left ) update(x, padding.left = padding.left ), padding.left = padding.left )
-  if(!is.null(padding.right))
-    new_pars <- map(new_pars, function(x, padding.right ) update(x, padding.right = padding.right ), padding.right = padding.right )
-  names(new_pars) <- sign_target
-  new_key <- map_chr(new_pars, digest )
-  x[[part]]$style_ref_table$pars[new_key] <- new_pars
-  x[[part]]$styles$pars[i,j] <- matrix( new_key[match( x[[part]]$styles$pars[i,j], names(new_key) )], ncol = length(j) )
-
-  x
-}
-
-
-
-#' @importFrom purrr map map_chr
-#' @export
-#' @rdname flextable
-#' @param border border (top, bottom, left and right)
-#' @param border.bottom,border.left,border.top,border.right \code{\link{pr_border}} for borders.
-#' @section Styling - borders:
-#'
-#' set cell borders with function \code{border}.
-#'
-#' @examples
-#'
-#' # set_bg example ------
-#' ft <- flextable(mtcars)
-#' ft <- border(ft, border.top = pr_border(color = "orange") )
-border <- function(x, i = NULL, j = NULL, border = NULL,
-                       border.top = NULL, border.bottom = NULL,
-                       border.left = NULL, border.right = NULL,
-                       part = "body" ){
-
-  if( !is.null(border) ){
-    if( is.null( border.top) ) border.top <- border
-    if( is.null( border.bottom) ) border.bottom <- border
-    if( is.null( border.left) ) border.left <- border
-    if( is.null( border.right) ) border.right <- border
-  }
-
-  if( part == "all" ){
-    for( p in c("header", "body") ){
-      x <- border(x = x, i = i, j = j,
-                      border.top = border.top, border.bottom = border.bottom,
-                      border.left = border.left, border.right = border.right,
-                      part = p)
-    }
-    return(x)
-  }
-
-  if( inherits(i, "formula") && any( "header" %in% part ) ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
-  i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
-  j <- get_columns_id(x[[part]], j )
-
-  sign_target <- unique( as.vector( x[[part]]$styles$cells[i,j] ) )
-  new_cells <- x[[part]]$style_ref_table$cells[sign_target]
-
-  if(!is.null(border.top))
-    new_cells <- map(new_cells, function(x, border.top ) update(x, border.top = border.top ), border.top = border.top )
-  if(!is.null(border.bottom))
-    new_cells <- map(new_cells, function(x, border.bottom ) update(x, border.bottom = border.bottom ), border.bottom = border.bottom )
-  if(!is.null(border.left))
-    new_cells <- map(new_cells, function(x, border.left ) update(x, border.left = border.left ), border.left = border.left )
-  if(!is.null(border.right))
-    new_cells <- map(new_cells, function(x, border.right ) update(x, border.right = border.right ), border.right = border.right )
-  names(new_cells) <- sign_target
-  new_key <- map_chr(new_cells, digest )
-  x[[part]]$style_ref_table$cells[new_key] <- new_cells
-  x[[part]]$styles$cells[i,j] <- matrix( new_key[match( x[[part]]$styles$cells[i,j], names(new_key) )], ncol = length(j) )
-
   x
 }
 
@@ -591,6 +269,4 @@ set_header <- function(x, ..., data_mapping = NULL, key = "col_keys", values = N
   x$header <- span_columns(header_, x$col_keys)
   x
 }
-
-
 

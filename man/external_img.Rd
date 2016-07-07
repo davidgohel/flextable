@@ -26,7 +26,7 @@ external_img(src, width = 0.5, height = 0.2)
 \item{...}{unused}
 }
 \description{
-This function is used to insert images into FlexTable with function \code{set_display}
+This function is used to insert images into FlexTable with function \code{display}
 }
 \examples{
 # external_img("example.png")

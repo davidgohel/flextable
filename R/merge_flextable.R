@@ -19,6 +19,7 @@
 #' @rdname merge_flextable
 #' @export
 merge_v <- function(x, j = NULL, part = "body" ){
+  part <- match.arg(part, c("body", "header"), several.ok = FALSE )
 
   if( inherits(j, "formula") ){
     j <- attr(terms(j), "term.labels")
@@ -37,7 +38,7 @@ merge_v <- function(x, j = NULL, part = "body" ){
 #' @export
 merge_h <- function(x, i = NULL, part = "body" ){
 
-  stopifnot(length(part) == 1)
+  part <- match.arg(part, c("body", "header"), several.ok = FALSE )
 
   if( inherits(i, "formula") ){
     i <- lazy_eval(i[[2]], x[[part]]$dataset)

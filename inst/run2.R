@@ -15,18 +15,18 @@ ft <- flextable(iris, select = c("Species", "break1",
              Petal.Length = list("Length", "Petal"),
              Petal.Width = list("Width", "Petal"),
              Species = list("Species", "Species"))%>%
-  set_style(def_head, part = "header") %>%
-  set_style(def_txt, part = "body") %>%
+  style(def_head, part = "header") %>%
+  style(def_txt, part = "body") %>%
   bg(color = "#CCCCEE", part = "header") %>%
   merge_v(j = c("Species") ) %>%
   border(border.bottom = pr_border(width=1, color = "red"), part = "all") %>%
-  padding(padding = 1, part = "all") %>%
-  autofit(add_w = .0) #%>%
-
-
-pptx_file <- write_pptx("test.pptx", ft)
-browseURL(pptx_file)
-docx_file <- write_docx("test.docx", ft)
-browseURL(docx_file)
+  padding(padding = 1, part = "all")# %>%
+  #autofit(add_w = .0) #%>%
+optim_dim(ft)
+dim(autofit(ft))
+# pptx_file <- write_pptx("test.pptx", ft)
+# browseURL(pptx_file)
+# docx_file <- write_docx("test.docx", ft)
+# browseURL(docx_file)
 # unlink(docx_file)
 # unlink(pptx_file)

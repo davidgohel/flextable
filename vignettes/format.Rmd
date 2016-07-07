@@ -17,18 +17,19 @@ library(flextable)
 library(oxbase)
 library(dplyr)
 
-myft <- flextable(head(mtcars)) 
+myft <- flextable(head(mtcars)) %>% 
+  theme_zebra()
 tabwid(myft)
 ```
 
 ## Format table elements
 
-Function `set_style` is changing formatting properties of table elements. 
+There are functions that are formatting properties of table elements. 
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  set_style(c_b_b(), p_r(padding=2), t_i(color="#50514F") ) %>% 
-  set_style(c_b_b(), p_r(padding=5), t_b(color="orange"), part = "header" )
+  color(color="darkblue")  %>% 
+  color(color="orange", part = "header" )
 tabwid(myft)
 ```
 
@@ -36,17 +37,26 @@ Conditional formatting can be made by using the selector arguments.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  set_style(i = ~ drat > 3.5 & wt > 2.6, 
-            j = ~ vs + am + gear + carb, 
-            t_i(color="cyan") )
+  color(i = ~ drat > 3.5 & wt > 2.6, 
+        j = ~ vs + am + gear + carb, 
+        color="red") 
 tabwid(myft)
 ```
 
-Conditional formatting can be made by using the selector arguments.
+## Shortcuts functions
 
-```{r warning=FALSE, message=FALSE}
-myft <- myft %>% 
-  bg(rgb(1, .8, .2, .2), i = ~ drat > 3.5 & wt > 2.6, j = NULL )
+There are simple functions designed as `color` and that can be used to modify formatting properties of any element of a flextable: `bg`, `bold`, `border`, `color`, `padding`.
+
+```{r}
+myft <- flextable(head(iris)) %>% 
+  bold(part = "header") %>% 
+  padding( padding = 3, part = "all" ) %>% 
+  border( border.top = pr_border(color="orange"), 
+          border.bottom = pr_border(color="orange"), 
+          part = "all" )
+  
 tabwid(myft)
 ```
+
+## `style` function
 

@@ -92,12 +92,5 @@ html_flextable <- function( x ){
   out
 }
 
-#' @importFrom knitr knit_print
-#' @importFrom knitr asis_output
-#' @rdname flextable
-#' @export
-knit_print.flextable<- function(x, ...){
-  print(tabwid(x))
-}
 
 
