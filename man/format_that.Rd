@@ -19,6 +19,6 @@ format_that(str, pr_text_ = pr_text(), pr_par_ = pr_par(), ...)
 format_that generic function.
 }
 \examples{
-format_that("I like to {{ x }} it", x = ftext("move", t_i()), prop = pr_text())
+format_that("I like to {{ x }} it", x = ftext("move", t_italic()), prop = pr_text())
 }
 

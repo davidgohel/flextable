@@ -10,7 +10,7 @@
 #' @param pr_par_ default paragraph properties
 #' @param ... named arguments, element should be a call to \code{ftext} or \code{external_img}
 #' @examples
-#' format_that("I like to {{ x }} it", x = ftext("move", t_i()), prop = pr_text())
+#' format_that("I like to {{ x }} it", x = ftext("move", t_italic()), prop = pr_text())
 format_that <- function( str, pr_text_ = pr_text(), pr_par_ = pr_par(), ... ){
   args <- lazy_dots( ... )
   location <- str_locate_all(str, pattern = paste0("\\{\\{ ", names(args)," \\}\\}"))

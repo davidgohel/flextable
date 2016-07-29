@@ -27,7 +27,7 @@ iris %>%
     Petal.Length = list("Length", "Petal"), Petal.Width = list("Width", "Petal"),
     Species = list("Species", "Species")
     ) %>% 
-  style(t_b(font.size = 12), part = "header") %>% 
+  style(t_bold(font.size = 12), part = "header") %>% 
   style(pr_text(font.size = 12), part = "body") %>% 
   style(t_bi(font.size = 12), j = ~ Species ) %>% 
   padding(padding = 2, part = "all") %>% 
@@ -57,7 +57,7 @@ Function `style` is changing formatting properties of table elements.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  style(c_b_b(), p_r(padding=2), part = "all" )
+  style(c_b_b(), p_right(padding=2), part = "all" )
 tabwid(myft)
 ```
 
@@ -65,7 +65,7 @@ Conditional formatting can be made by using the selector arguments.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  style(i = ~ drat > 3.5, j = ~ drat, t_i(color="#44A530") )
+  style(i = ~ drat > 3.5, j = ~ drat, t_italic(color="#44A530") )
 tabwid(myft)
 ```
 
@@ -88,7 +88,7 @@ You can use `format_simple`.
 myft <- myft %>%
   display(
     am = format_simple(format_integer(am)),
-    gear = format_simple(format_integer(gear), pr_text_ = t_b()),
+    gear = format_simple(format_integer(gear), pr_text_ = t_bold()),
     carb = format_simple(format_integer(carb))
   )
 
@@ -103,8 +103,8 @@ myft <- myft %>%
   display(
     mpg = format_that(
         "{{ mpg_ }} mpg (# {{ cyl_ }} cyl.)",
-        mpg_ = ftext( format_double(mpg, digits = 1), t_i() ),
-        cyl_ = ftext( format_integer(cyl), t_i() )
+        mpg_ = ftext( format_double(mpg, digits = 1), t_italic() ),
+        cyl_ = ftext( format_integer(cyl), t_italic() )
     ) ) %>% autofit() 
 
 tabwid(myft)

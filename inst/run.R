@@ -17,12 +17,12 @@ meta <- data.frame(col_keys = names(dat),
 ft <- flextable(dat) %>%
   set_header(data_mapping = meta) %>%
   display(i = ~ drat > 3.5,
-    gear = format_that("sss {{ gear_ }} is cool {{ qsec_ }}", pr_par_ = p_r(padding = 5 ),
+    gear = format_that("sss {{ gear_ }} is cool {{ qsec_ }}", pr_par_ = p_right(padding = 5 ),
               gear_ = ftext(gear, pr_text(bold = TRUE, italic=TRUE, color="red") ),
               qsec_ = ftext(qsec, pr_text(bold = TRUE, italic=TRUE, color="blue" ) )
               ),
     # img = format_that("{{ img_ }} :(", img_ = external_img( img ) ),
-    am = format_that("{{ am_ }}$", am_ = ftext( format_integer(am), t_i() ) ),
+    am = format_that("{{ am_ }}$", am_ = ftext( format_integer(am), t_italic() ) ),
     qsec = format_simple(format_double(qsec, digits = 0) ),
     carb = format_that("# {{ carb_ }}", carb_ = ftext(carb, pr_text(italic=TRUE, color="blue") ) )
     ) %>%
