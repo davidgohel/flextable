@@ -145,7 +145,6 @@ wml_flextable <- function( x, relationships ){
   imgs <- character(0)
   if( !is.null(x$header) ) imgs <- append( imgs, get_images_(x$header) )
   if( !is.null(x$body) ) imgs <- append( imgs, get_images_(x$body) )
-  if( !is.null(x$footer) ) imgs <- append( imgs, get_images_(x$footer) )
 
   dims <- dim(x)
   widths <- dims$widths
@@ -163,8 +162,6 @@ wml_flextable <- function( x, relationships ){
     out = paste0(out, format(x$header, header = TRUE, type = "wml") )
   if( !is.null(x$body) )
     out = paste0(out, format(x$body, header = FALSE, type = "wml") )
-  if( !is.null(x$footer) )
-    out = paste0(out, format(x$footer, header = FALSE, type = "wml") )
   out = paste0(out,  "</w:tbl>" )
 
   if( length( imgs ) > 0 ){

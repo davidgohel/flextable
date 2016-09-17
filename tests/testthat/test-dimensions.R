@@ -3,13 +3,14 @@ context("check widths and heights")
 library(utils)
 library(xml2)
 
-test_that("dim is valid", {
+test_that("dimensions are valid", {
   dummy_df <- data.frame( my_col = rep(letters[1:3], each = 2), stringsAsFactors = FALSE )
   ft <- flextable(dummy_df)
   dims <- dim(ft)
   expect_length(dims$widths, 1 )
   expect_length(dims$heights, 7 )
-  ft <- set_header(ft, my_col = list("second row header", "first row header"))
+
+  ft <- add_header(ft, my_col = "second row header")
   dims <- dim(ft)
   expect_length(dims$widths, 1 )
   expect_length(dims$heights, 8 )
@@ -19,7 +20,37 @@ test_that("dim is valid", {
   expect_true(all( is.finite(dims$widths)))
   expect_true(all( is.finite(dims$heights)))
 
+  typology <- data.frame(
+    col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species" ),
+    what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
+    measure = c("Length", "Width", "Length", "Width", "Species"),
+    stringsAsFactors = FALSE )
+  ft <- flextable( head( iris ) )
+  ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+  dims <- dim(ft)
+  expect_length(dims$widths, 5 )
+  expect_length(dims$heights, 8 )
 })
+
+test_that("autofit and optim_dim usage", {
+  typology <- data.frame(
+    col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species" ),
+    what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
+    measure = c("Length", "Width", "Length", "Width", "Species"),
+    stringsAsFactors = FALSE )
+  ft <- flextable( head( iris ) )
+  ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+  ft <- autofit( ft, add_w = 0.0, add_h = 0.0 )
+  dims <- dim(ft)
+  expect_true(all( is.finite(dims$widths)))
+  expect_true(all( is.finite(dims$heights)))
+
+  dims <- optim_dim(ft)
+  expect_true(all( is.finite(dims$widths)))
+  expect_true(all( is.finite(dims$heights)))
+})
+
+
 
 test_that("height usage", {
   dummy_df <- data.frame( my_col1 = rep(letters[1:3], each = 2),

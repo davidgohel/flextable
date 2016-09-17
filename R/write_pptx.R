@@ -90,8 +90,6 @@ pml_flextable <- function( x ){
     out = paste0(out, format(x$header, header = TRUE, type = "pml") )
   if( !is.null(x$body) )
     out = paste0(out, format(x$body, header = FALSE, type = "pml") )
-  if( !is.null(x$footer) )
-    out = paste0(out, format(x$footer, header = FALSE, type = "pml") )
   out = paste0(out,  "</a:tbl>" )
 
   out

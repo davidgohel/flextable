@@ -34,9 +34,7 @@ get_images_ <- function(x, type = "pml"){
       }
 
       if( x$spans$columns[i,col_id[j]] > 0 ){
-        if( is.null(x$orig_dataset ))
-          p <- lazy_eval(args, x$dataset[i,])
-        else p <- lazy_eval(args, x$orig_dataset[i,])
+        p <- lazy_eval(args, x$dataset[i,])
 
       } else p <- paragraph$new(prop = pr_par_)
       imgs <- append( imgs, p$get_imgs() )
@@ -57,6 +55,7 @@ format_as_paragraph <- function(x, type = "pml"){
 
   for(j in x$col_keys){
     for( i in seq_len(nrow(x$dataset))){
+
       fid <- x$styles$formats[i, col_id[j]]
       args <- x$style_ref_table$formats[[fid]]
 
@@ -70,16 +69,12 @@ format_as_paragraph <- function(x, type = "pml"){
       }
 
       if( x$spans$columns[i,col_id[j]] > 0 && x$spans$rows[i,col_id[j]] > 0 ){
-        if( is.null(x$orig_dataset ))
-          p <- lazy_eval(args, x$dataset[i,, drop = FALSE])
-        else p <- lazy_eval(args, x$orig_dataset[i,, drop = FALSE])
-
+        p <- lazy_eval(args, x$dataset[i,, drop = FALSE])
         text[i, j] <- p$format(type = type)
       } else text[i, j] <- paragraph$new(prop = pr_par_)$format(type = type)
 
     }
   }
-
   text
 }
 
@@ -131,9 +126,7 @@ format_tp_pml <- function(x, header = TRUE){
 }
 
 format_tp_html <- function(x, header = TRUE){
-
   paragraphs <- format_as_paragraph(x, type = "html")
-
   tc_attr_1 <- ifelse(x$spans$rows > 1, paste0(" colspan=\"", x$spans$rows,"\""), "")
   tc_attr_2 <- ifelse(x$spans$columns > 1, paste0(" rowspan=\"", x$spans$columns,"\""), "")
   tc_attr <- paste0(tc_attr_1, tc_attr_2)
@@ -141,7 +134,6 @@ format_tp_html <- function(x, header = TRUE){
   if(header)
     tag <- "th"
   else tag <- "td"
-
   cells <- paste0("<", tag, tc_attr," class=\"c", x$styles$cells, "\">",
                   ifelse(x$spans$rows < 1 | x$spans$columns < 1, "", paragraphs),
                   "</", tag, ">")
@@ -179,6 +171,7 @@ format.table_part <- function( x, type = "wml", header = FALSE, ... ){
   } else if( type == "html" ){
     css <- format_tp_css(x )
     out <- format_tp_html(x, header = header )
+
     attr(out, "css") <- css
   }
   out

@@ -1,5 +1,6 @@
 #' @export
 #' @importFrom oxbase pr_border
+#' @importFrom oxbase pr_par
 #' @rdname theme_flextable
 #' @title flextable theme
 #' @description apply a theme to a flextable
@@ -15,7 +16,7 @@ theme_vanilla <- function(x){
               border.left = pr_border(width = 0),
               border.right = pr_border(width = 0),
               part = "all")
-  x <- padding(x = x, padding = 2, part = "all")
+  x <- style( x = x, pr_p = pr_par(text.align = "right", padding = 2), part = "all")
   x <- bg(x = x, bg = "transparent", part = "all")
   x <- bold(x = x, bold = TRUE, part = "header")
   x

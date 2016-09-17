@@ -7,7 +7,7 @@
 \alias{print.flextable}
 \title{flextable object}
 \usage{
-flextable(data, select = names(data))
+flextable(data, col_keys = names(data))
 
 \method{print}{flextable}(x, ...)
 
@@ -18,7 +18,7 @@ optim_dim(x)
 \arguments{
 \item{data}{dataset}
 
-\item{select}{columns names/keys to display. If some column names are not in
+\item{col_keys}{columns names/keys to display. If some column names are not in
 the dataset, they will be added as blank columns.}
 
 \item{x}{flextable object}

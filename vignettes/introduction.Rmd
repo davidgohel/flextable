@@ -19,22 +19,29 @@ library(dplyr)
 iris %>% 
   group_by(Species) %>% 
   do( head(., n = 3) ) %>% 
-  flextable(select = c("Species", 
+  flextable(col_keys = c("Species", 
                        "break1", "Sepal.Length", "Sepal.Width", 
                         "break2", "Petal.Length", "Petal.Width") ) %>% 
-  set_header(
-    Sepal.Length = list("Length", "Sepal"), Sepal.Width = list("Width", "Sepal"),
-    Petal.Length = list("Length", "Petal"), Petal.Width = list("Width", "Petal"),
-    Species = list("Species", "Species")
+  set_header_labels(
+    Sepal.Length = "Length", Sepal.Width = "Width",
+    Petal.Length = "Length", Petal.Width = "Width",
+    Species = "Species"
     ) %>% 
-  style(t_bold(font.size = 12), part = "header") %>% 
-  style(pr_text(font.size = 12), part = "body") %>% 
-  style(t_bi(font.size = 12), j = ~ Species ) %>% 
+  add_header(top = TRUE, 
+    Sepal.Length = "Sepal", Sepal.Width = "Sepal",
+    Petal.Length = "Petal", Petal.Width = "Petal",
+    Species = "Species"
+    ) %>% 
+  style(pr_t = t_bold(font.size = 12), part = "header") %>% 
+  style(pr_t = pr_text(font.size = 12), part = "body") %>% 
+  style(pr_t = t_bi(font.size = 12), j = ~ Species ) %>% 
   padding(padding = 2, part = "all") %>% 
   border( border.top = pr_border(), part = "all" ) %>% 
   bg(i = ~ seq_along(Petal.Length) %% 2 == 0, bg = "#EFEFEF") %>% 
   border( j = ~ break1 + break2, 
           border.top = b_null(), border.bottom = b_null(), part = "all" ) %>% 
+  border( i = 1, border.left = b_null(), border.right = b_null(), 
+          border.top = b_null(), part = "header" ) %>% 
   bg(j = ~ break1 + break2, bg = "transparent", part = "all") %>% 
   autofit() %>% 
   tabwid()
@@ -46,18 +53,18 @@ library(flextable)
 library(oxbase)
 library(dplyr)
 
-myft <- flextable(head(mtcars), select = c("am", "carb", "gear", "mpg", "drat" )) 
+myft <- flextable(head(mtcars), 
+                  col_keys = c("am", "carb", "gear", "mpg", "drat" )) %>% 
+  bold(part = "header")
 tabwid(myft)
 ```
 
-
-## Format table elements
 
 Function `style` is changing formatting properties of table elements. 
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  style(c_b_b(), p_right(padding=2), part = "all" )
+  style(pr_c = c_b_b(), pr_p = p_right(padding=2), part = "all" )
 tabwid(myft)
 ```
 
@@ -65,11 +72,11 @@ Conditional formatting can be made by using the selector arguments.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  style(i = ~ drat > 3.5, j = ~ drat, t_italic(color="#44A530") )
+  style(i = ~ drat > 3.5, j = ~ drat, pr_t = t_italic(color="#44A530") )
 tabwid(myft)
 ```
 
-## Layout the table and its components
+Merge cells
 
 ```{r warning=FALSE, message=FALSE}
 
@@ -79,8 +86,7 @@ tabwid(myft)
 ```
 
 
-
-## Format content
+Format content
 
 You can use `format_simple`. 
 
@@ -110,4 +116,25 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
+Parameter `col_keys` define the variables to display and their order. 
+
+```{r}
+iris %>% 
+  group_by(Species) %>% 
+  do( head(., n = 3) ) %>% 
+  flextable(col_keys = c("Species", "Sepal.Length", "Petal.Length") ) %>%
+  tabwid()
+
+```
+
+If parameter `col_keys` has variables that are not existing in the dataset, they will be considered as blank columns and can be used as separators.
+
+```{r}
+iris %>% group_by(Species) %>% do( head(., n = 3) ) %>%
+  flextable(col_keys = c("Species", "col_1", "Sepal.Length", "Petal.Length") ) %>%
+  theme_vanilla() %>% autofit() %>% 
+  border(j=2, border = pr_border(width=0), part = "all") %>% 
+  tabwid()
+
+```
 

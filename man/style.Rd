@@ -9,7 +9,8 @@
 \alias{style}
 \title{flextable style}
 \usage{
-style(x, ..., i = NULL, j = NULL, part = "body")
+style(x, i = NULL, j = NULL, pr_t = NULL, pr_p = NULL, pr_c = NULL,
+  part = "body")
 
 bg(x, i = NULL, j = NULL, bg, part = "body")
 
@@ -28,11 +29,15 @@ border(x, i = NULL, j = NULL, border = NULL, border.top = NULL,
 \arguments{
 \item{x}{a flextable object}
 
-\item{...}{object(s) of class \code{pr_text}, \code{pr_par} and \code{pr_cell}.}
-
 \item{i}{rows selection}
 
 \item{j}{columns selection}
+
+\item{pr_t}{object(s) of class \code{pr_text}}
+
+\item{pr_p}{object(s) of class \code{pr_par}}
+
+\item{pr_c}{object(s) of class \code{pr_cell}}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header')}
 
@@ -84,9 +89,9 @@ def_par <- pr_par(text.align = "center")
 
 ft <- flextable(mtcars)
 
-ft <- style( ft, def_cell, def_par, parts = "all")
+ft <- style( ft, pr_c = def_cell, pr_p = def_par, part = "all")
 ft <- style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
-  pr_text(color="red", italic = TRUE) )
+  pr_t = pr_text(color="red", italic = TRUE) )
 
 write_docx("style_ft.docx", ft)
 

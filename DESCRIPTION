@@ -28,5 +28,5 @@ Imports:
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests: rmarkdown,
-    testthat
+    testthat, magrittr
 VignetteBuilder: knitr

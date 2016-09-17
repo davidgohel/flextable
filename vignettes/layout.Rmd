@@ -1,0 +1,47 @@
+---
+title: "Table layout"
+author: "David Gohel"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Table layout}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+`flextable` layout can be managed with few functions. 
+
+```{r warning=FALSE, message=FALSE}
+library(flextable)
+library(oxbase)
+library(magrittr)
+```
+
+
+## vertical merging
+
+`merge_v` will merge adjacent duplicated cells for each column of the selection.
+
+```{r warning=FALSE, message=FALSE}
+select_columns <- c("Species", "Petal.Length", "Petal.Width")
+myft <- flextable(iris[46:55,], col_keys = select_columns) %>% 
+  flextable::merge_v(~ Species + Petal.Width )
+
+tabwid(myft) 
+```
+
+## horizontal merging
+
+`merge_h` will merge adjacent duplicated cells for each row of the selection.
+
+```{r warning=FALSE, message=FALSE}
+select_columns <- c("Species", "Petal.Length", "Petal.Width")
+myft <- flextable(mtcars) %>% 
+  flextable::merge_h( )
+
+tabwid(myft %>% 
+  border(border = pr_border(), part = "all") # and add borders
+  )
+```
+
+

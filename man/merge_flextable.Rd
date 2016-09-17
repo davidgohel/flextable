@@ -2,12 +2,15 @@
 % Please edit documentation in R/merge_flextable.R
 \name{merge_v}
 \alias{merge_h}
+\alias{merge_none}
 \alias{merge_v}
 \title{merge flextable cells}
 \usage{
 merge_v(x, j = NULL, part = "body")
 
 merge_h(x, i = NULL, part = "body")
+
+merge_none(x, part = "all")
 }
 \arguments{
 \item{x}{\code{flextable} object}
@@ -19,17 +22,33 @@ merge_h(x, i = NULL, part = "body")
 \item{i}{rows where cells have to be merged.}
 }
 \description{
-Merge flextable cells consecutive identical values.
+Merge flextable cells consecutive identical values. Function
+\code{merge_none} delete all merging informations.
 }
 \examples{
+# merge_v example --------
 ft_merge <- flextable(mtcars)
 ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))
 write_docx("ft_merge_v.docx", ft_merge)
 
+# merge_h example --------
 dummy_df <- data.frame( col1 = letters,
 col2 = letters, stringsAsFactors = FALSE )
 ft_merge <- flextable(dummy_df)
 ft_merge <- merge_h(x = ft_merge)
 write_docx("ft_merge_h.docx", ft_merge)
+
+# merge_none example --------
+typology <- data.frame(
+  col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species" ),
+  what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
+  measure = c("Length", "Width", "Length", "Width", "Species"),
+  stringsAsFactors = FALSE )
+
+ft <- flextable( head( iris ) )
+ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+ft <- merge_v(ft, j = c("Species"))
+
+theme_tron_legacy( merge_none( ft ) )
 }
 

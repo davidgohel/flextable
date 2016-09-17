@@ -10,53 +10,117 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-`flextable` makes possible to create beautiful reporting table from `data.frame`. 
-
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, echo=FALSE}
 library(flextable)
 library(oxbase)
 library(dplyr)
-
-myft <- flextable(head(mtcars)) %>% 
-  theme_zebra()
-tabwid(myft)
 ```
 
-## Format table elements
 
-There are functions that are formatting properties of table elements. 
+Formatting `flextable` can be made with simple functions. 
 
-```{r warning=FALSE, message=FALSE}
-myft <- myft %>% 
-  color(color="darkblue")  %>% 
-  color(color="orange", part = "header" )
-tabwid(myft)
-```
-
-Conditional formatting can be made by using the selector arguments.
-
-```{r warning=FALSE, message=FALSE}
-myft <- myft %>% 
-  color(i = ~ drat > 3.5 & wt > 2.6, 
-        j = ~ vs + am + gear + carb, 
-        color="red") 
-tabwid(myft)
-```
 
 ## Shortcuts functions
 
-There are simple functions designed as `color` and that can be used to modify formatting properties of any element of a flextable: `bg`, `bold`, `border`, `color`, `padding`.
+There are simple functions to modify formatting properties of flextable objects: `bg`, `bold`, `border`, `color`, `padding`.
+
+```{r}
+myft <- flextable(head(iris))
+tabwid(myft)
+```
+
+#### bold
 
 ```{r}
 myft <- flextable(head(iris)) %>% 
-  bold(part = "header") %>% 
-  padding( padding = 3, part = "all" ) %>% 
+  # bold header
+  bold(part = "header") 
+tabwid(myft)
+```
+
+#### change font color
+
+```{r}
+myft <- myft %>% color(color = "#E4C994")
+tabwid(myft)
+```
+
+#### change background color
+
+```{r}
+myft <- myft %>% 
+  # light gray as background color for header
+  bg(bg = "#F0F0F0", part = "header") %>% 
+  # dark gray as background color for body
+  bg(bg = "#333333", part = "body")
+
+tabwid(myft)
+```
+
+#### add padding
+
+```{r}
+myft <- myft %>% padding( padding = 3, part = "all" )
+tabwid(myft)
+```
+
+#### change border
+
+```{r}
+myft <- myft %>% 
   border( border.top = pr_border(color="orange"), 
           border.bottom = pr_border(color="orange"), 
+          border.left = pr_border(color="white"), 
+          border.right = pr_border(color="white"), 
           part = "all" )
   
 tabwid(myft)
 ```
 
+
+## Conditional formatting
+
+
+Conditional formatting can be made by using the selector arguments.
+
+```{r warning=FALSE, message=FALSE}
+myft <- myft %>% 
+  color(i = ~ Sepal.Length < 5 & Petal.Length > 1.3, 
+        j = ~ Petal.Width + Species, 
+        color="red") 
+tabwid(myft)
+```
+
+
+
 ## `style` function
+
+The `style` function lets you style a selection of the flextable with formatting properties.
+
+
+```{r}
+ft <- flextable(head(mtcars, n = 10 )) %>% theme_vanilla() %>% 
+  style( i = ~ drat > 3.5, j = ~ vs + am + gear + carb, 
+        pr_t = pr_text(color="#C9C923", italic = TRUE) )
+tabwid(ft)
+```
+
+Eventually 3 formatting properties can be used: text, paragraphs and cells formatting properties.
+
+
+```{r}
+def_cell <- pr_cell(border = pr_border(color="#00C9C9"))
+def_par <- pr_par(text.align = "center")
+def_text <- pr_text(color="#999999", italic = TRUE)
+def_text_header <- update(color="black", def_text, bold = TRUE)
+
+ft <- flextable(head(mtcars, n = 10 )) %>% 
+  style( pr_c = def_cell, pr_p = def_par, pr_t = def_text, part = "all") %>% 
+  style( pr_c = def_cell, pr_p = def_par, 
+         pr_t = def_text_header, part = "header") %>% 
+  style( ~ drat > 3.5, ~ vs + gear + carb, 
+         pr_c = update(def_cell, background.color = rgb(.8,.2,.2, .1) ), 
+         pr_t = pr_text(color="#C9C923", italic = TRUE) )
+tabwid(ft)
+```
 

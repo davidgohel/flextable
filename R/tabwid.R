@@ -81,11 +81,6 @@ html_flextable <- function( x ){
     out = paste0(out, "<tbody>", tmp, "</tbody>" )
     css_ = paste0(css_, attr(tmp, "css"))
   }
-  if( !is.null(x$footer) ){
-    tmp <- format(x$footer, type = "html")
-    out = paste0(out, "<tfoot>", tmp, "</tfoot>" )
-    css_ = paste0(css_, attr(tmp, "css"))
-  }
 
   out = paste0(out,  "</table>" )
   attr(out, "css") <- css_

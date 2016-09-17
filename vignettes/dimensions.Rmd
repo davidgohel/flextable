@@ -1,0 +1,22 @@
+---
+title: "Widths and heights"
+author: "David Gohel"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Table layout}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r warning=FALSE, message=FALSE}
+library(flextable)
+library(oxbase)
+library(magrittr)
+```
+
+
+## TODO 
+
+`optim_dim` and `dim`

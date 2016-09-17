@@ -10,7 +10,7 @@
 #'
 #' A \code{flextable} is made of 2 parts: header and body.
 #' @param data dataset
-#' @param select columns names/keys to display. If some column names are not in
+#' @param col_keys columns names/keys to display. If some column names are not in
 #' the dataset, they will be added as blank columns.
 #' @examples
 #' ft <- flextable(mtcars)
@@ -20,32 +20,36 @@
 #' @importFrom stats setNames
 #' @importFrom dplyr mutate_
 #' @importFrom lazyeval interp
-flextable <- function( data, select = names(data) ){
+flextable <- function( data, col_keys = names(data) ){
 
-  blanks <- setdiff( select, names(data))
+  blanks <- setdiff( col_keys, names(data))
   if( length( blanks ) > 0 ){
     blanks_col <- map(blanks, function(x, n) character(n), nrow(data) )
     blanks_col <- setNames(blanks_col, blanks )
     data[blanks] <- blanks_col
   }
 
-  orig_dataset <- data
-
-  data <- data[, select, drop = FALSE]
-  col_keys <- names(data)
+  # orig_dataset <- data
+  #
+  # data <- data[, col_keys, drop = FALSE]
+  # col_keys <- names(data)
   # body
-  body <- table_part( data = data, col_keys = col_keys,
-                      orig_dataset = orig_dataset )
+  body <- table_part( data = data, col_keys = col_keys )
 
   # header
   header_data <- setNames(as.list(col_keys), col_keys)
+  header_data[blanks] <- as.list( rep("", length(blanks)) )
   header_data <- as.data.frame(header_data, stringsAsFactors = FALSE)
 
   header <- table_part( data = header_data, col_keys = col_keys )
 
-  out <- list( header = header, body = body, footer = NULL, col_keys = col_keys,
-               orig_dataset = orig_dataset )
+  out <- list( header = header, body = body, col_keys = col_keys )
   class(out) <- "flextable"
+
+  out <- style( x = out,
+                pr_p = pr_par(text.align = "right", padding = 2),
+                pr_c = pr_cell(border = pr_border()), part = "all")
+
   out
 }
 
@@ -157,48 +161,107 @@ display <- function(x, i = NULL, part = "body", ...){
   lazy_f_id <- map_chr(args, digest )
   x[[part]]$style_ref_table$formats[lazy_f_id] <- args
   x[[part]]$styles$formats[i, j ] <- matrix( rep.int(lazy_f_id, length(i)), nrow = length(i), byrow = TRUE )
+
   x
 }
 
 
-#' @importFrom purrr map_int
-#' @importFrom stats setNames
-#' @importFrom dplyr left_join
 #' @importFrom purrr map
 #' @importFrom purrr map_int
 #' @export
-#' @title set flextable's headers
+#' @title add a row of labels in headers
 #'
-#' @description The definition of flextable's headers can be done
-#' in different manner.
+#' @description Add a single row of labels in the flextable's header part. It can
+#' be inserted at the top or the bottom of header part.
 #'
 #' @param x a \code{flextable} object
-#' @param ... a named list (names are data colnames) with character
-#' values specifying in reverse order content of the column.
-#' @param data_mapping a \code{data.frame} specyfing for each colname
+#' @param top should the row be inserted at the top or the bottom.
+#' @param ... a named list (names are data colnames) of strings
+#' specifying corresponding labels to add.
+#' @examples
+#' ft <- flextable( head( iris ))
+#' ft <- set_header_labels(x = ft, Sepal.Length = "Sepal",
+#'   Sepal.Width = "Sepal", Petal.Length = "Petal",
+#'   Petal.Width = "Petal", Species = "Species" )
+#' ft <- add_header(x = ft, Sepal.Length = "length",
+#'   Sepal.Width = "width", Petal.Length = "length",
+#'   Petal.Width = "width", Species = "Species", top = FALSE )
+#' ft <- add_header(ft, Sepal.Length = "Inches",
+#'   Sepal.Width = "Inches", Petal.Length = "Inches",
+#'   Petal.Width = "Inches", Species = "Species", top = TRUE )
+#' write_docx("ft_add_header.docx", ft)
+add_header <- function(x, top = TRUE, ...){
+
+  args <- list(...)
+  # missing_cols <- setdiff(x$col_keys, names(args) )
+  # if( length(missing_cols) > 0){
+  #   msg <- paste0(missing_cols, collapse = ", ")
+  #   msg <- paste0("you need to specify labels for the following columns: ", msg)
+  #   stop(msg)
+  # }
+  args_ <- map(x$col_keys, function(x) "" )
+  names(args_) <- x$col_keys
+  args_[names(args)] <- map(args, format)
+  header_data <- as.data.frame( args_, stringsAsFactors = FALSE )
+  header_ <- add_rows( x$header, header_data, first = top )
+
+  header_ <- span_rows(header_, rows = seq_len(nrow(header_data)))
+  x$header <- span_columns(header_, x$col_keys)
+
+  x
+}
+
+
+
+#' @title set flextable's headers labels
+#'
+#' @description This function set labels for specified columns
+#' in a single row header of a flextable.
+#'
+#' @param x a \code{flextable} object
+#' @param ... a named list (names are data colnames), each element is a single character
+#' value specifying label to use.
+#' @examples
+#' ft_1 <- flextable( head( iris ))
+#' ft_1 <- set_header_labels(ft_1, Sepal.Length = "Sepal length",
+#'   Sepal.Width = "Sepal width", Petal.Length = "Petal length",
+#'   Petal.Width = "Petal width"
+#' )
+#' write_docx("ft_1.docx", ft_1)
+#' @export
+set_header_labels <- function(x, ...){
+
+  args <- list(...)
+
+  if( nrow(x$header$dataset) < 1 )
+    stop("there is no header row to be replaced")
+
+  header_ <- x$header$dataset
+
+  values <- as.list(tail(x$header$dataset, n = 1))
+  args <- args[is.element(names(args), x$col_keys)]
+  values[names(args)] <- args
+
+  x$header$dataset <- bind_rows( header_[-nrow(header_),],
+             as.data.frame(values, stringsAsFactors = FALSE ))
+  x
+}
+
+
+
+
+#' @importFrom dplyr left_join
+#' @importFrom purrr map
+#' @export
+#' @title set flextable's header rows
+#'
+#' @description Use a data.frame to specify flextable's header rows.
+#'
+#' @param x a \code{flextable} object
+#' @param mapping a \code{data.frame} specyfing for each colname
 #' content of the column.
 #' @param key column to use as key when joigning data_mapping.
-#' @param values character vector indicating colnames' labels.
 #' @examples
-#'
-#' # set_header - method 1 ------
-#' ft_1 <- flextable( head( iris ))
-#' ft_1 <- set_header(ft_1,
-#'   values = c("Sepal length", "Sepal width",
-#'              "Petal length", "Petal width", "Species") )
-#' write_docx("ft_1.docx", ft_1)
-#'
-#' # set_header - method 2 ------
-#' ft_2 <- flextable( head( iris ))
-#' ft_2 <- set_header(x = ft_2,
-#'   Sepal.Length = list("Sepal", "Length"),
-#'   Sepal.Width = list("Sepal", "Width"),
-#'   Petal.Length = list("Petal", "Length"),
-#'   Petal.Width = list("Petal", "Width"),
-#'   Species = list("Species", "Species") )
-#' write_docx("ft_2.docx", ft_2)
-#'
-#' # set_header - method 3 ------
 #' typology <- data.frame(
 #'   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
 #'                 "Petal.Width", "Species" ),
@@ -206,67 +269,34 @@ display <- function(x, i = NULL, part = "body", ...){
 #'   measure = c("Length", "Width", "Length", "Width", "Species"),
 #'   stringsAsFactors = FALSE )
 #'
-#' ft_3 <- flextable( head( iris ))
-#' ft_3 <- set_header(ft_3, data_mapping = typology, key = "col_keys" )
-#' write_docx("ft_3.docx", ft_3)
-set_header <- function(x, ..., data_mapping = NULL, key = "col_keys", values = NULL){
+#' ft <- flextable( head( iris ))
+#' ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+#' write_docx("header_df.docx", ft)
+set_header_df <- function(x, mapping = NULL, key = "col_keys"){
 
-  if( !is.null(values) && !is.character(values) ){
-    stop("values is expected to be a character vector")
-  }
-  if( !is.null(values) && length(values) != length(x$col_keys) ){
-    stop("values' length should be ", length(x$col_keys) )
-  }
-  args <- list(...)[x$col_keys]
+  keys <- data.frame( col_keys = x$col_keys, stringsAsFactors = FALSE )
+  names(keys) <- key
+  header_data <- left_join(keys, mapping, by = setNames(key, key) )
 
-  if( !is.null(values) ){
-    header_data <- setNames(as.list(values), x$col_keys)
-    header_data <- as.data.frame(header_data, stringsAsFactors = FALSE )
-  } else if( !is.null(data_mapping) ) {
-    keys <- data.frame( col_keys = data_mapping[[key]], stringsAsFactors = FALSE )
-    names(keys) <- key
-    # keys <- keys[ keys[[key]] %in% x$col_keys, , drop = FALSE]
-    header_data <- left_join(keys, data_mapping, by = setNames(key, key) )
-    header_data <- header_data[ header_data[[key]] %in% x$col_keys, ]
-
-    header_data[[key]] <- NULL
-    header_data <- map(header_data, function(x){
-      if( is.character(x))
-        x
-      else if( is.integer(x) || is.logical(x) || is.factor(x) )
-        as.character(x)
-      else if( is.double(x) )
-        formatC(x)
-      else format(x)
-    })
-    header_data <- do.call( rbind, header_data )
-    dimnames(header_data) <- NULL
-    header_data <- as.data.frame(header_data, stringsAsFactors = FALSE)
-    names(header_data) <- x$col_keys
-  } else if( length(args) > 0 ) {
-    args <- list(...)[x$col_keys]
-    missing_cols <- setdiff(x$col_keys, names(args) )
-    l_ <- map_int( args, length )
-    args <- map( args, function(x, s){
-      dat <- as.list(character(s))
-      dat[seq_along(x)] <- rev(x)
-      dat
-    }, s = max(l_) )
-
-    header_data <- as.data.frame( map(args, format), stringsAsFactors = FALSE )
-    if( length(missing_cols) > 0){
-      missing_data <- lapply( missing_cols, function(x, s) character(s), max(l_) )
-      names(missing_data) <- missing_cols
-      missing_data <- as.data.frame(missing_data)
-      header_data <- cbind(header_data, missing_data)[, x$col_keys]
-    }
-  } else {
-    stop("unimplemened case")
-  }
+  header_data[[key]] <- NULL
+  header_data <- map(header_data, function(x){
+    if( is.character(x))
+      x
+    else if( is.integer(x) || is.logical(x) || is.factor(x) )
+      as.character(x)
+    else if( is.double(x) )
+      formatC(x)
+    else format(x)
+  })
+  header_data <- do.call( rbind, header_data )
+  dimnames(header_data) <- NULL
+  header_data <- as.data.frame(header_data, stringsAsFactors = FALSE)
+  names(header_data) <- x$col_keys
 
   header_ <- table_part( data = header_data, col_keys = x$col_keys )
   header_ <- span_rows(header_, rows = seq_len(nrow(header_data)))
   x$header <- span_columns(header_, x$col_keys)
   x
 }
+
 

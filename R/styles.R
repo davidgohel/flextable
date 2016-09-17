@@ -2,9 +2,11 @@
 #' @title flextable style
 #' @description Modify flextable text, paragraphs and cells formatting properties with function \code{style}.
 #' @param x a flextable object
-#' @param ... object(s) of class \code{pr_text}, \code{pr_par} and \code{pr_cell}.
 #' @param i rows selection
 #' @param j columns selection
+#' @param pr_t object(s) of class \code{pr_text}
+#' @param pr_p object(s) of class \code{pr_par}
+#' @param pr_c object(s) of class \code{pr_cell}
 #' @param part partname of the table (one of 'all', 'body', 'header')
 #' @importFrom lazyeval lazy_eval
 #' @importFrom stats terms update
@@ -17,18 +19,27 @@
 #'
 #' ft <- flextable(mtcars)
 #'
-#' ft <- style( ft, def_cell, def_par, parts = "all")
+#' ft <- style( ft, pr_c = def_cell, pr_p = def_par, part = "all")
 #' ft <- style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
-#'   pr_text(color="red", italic = TRUE) )
+#'   pr_t = pr_text(color="red", italic = TRUE) )
 #'
 #' write_docx("style_ft.docx", ft)
-style <- function(x, ..., i = NULL, j = NULL, part = "body" ){
+style <- function(x, i = NULL, j = NULL,
+                  pr_t = NULL, pr_p = NULL, pr_c = NULL, part = "body" ){
 
   part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
 
   if( part == "all" ){
+    args <- list()
     for( p in c("header", "body") ){
-      x <- style(x = x, ..., i = i, j = j, part = p)
+      args$x <- x
+      args$i <- i
+      args$j <- j
+      args$pr_t <- pr_t
+      args$pr_p <- pr_p
+      args$pr_c <- pr_c
+      args$part <- p
+      x <- do.call(style, args )
     }
     return(x)
   }
@@ -39,15 +50,20 @@ style <- function(x, ..., i = NULL, j = NULL, part = "body" ){
 
   if( inherits(i, "formula") ){
     i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  } else i <- get_rows_id(x[[part]], i )
+  }
+  i <- get_rows_id(x[[part]], i )
 
   if( inherits(j, "formula") ){
     j <- attr(terms(j), "term.labels")
-  } else j <- get_columns_id(x[[part]], j )
+  }
+  j <- get_columns_id(x[[part]], j )
 
-  args <- list(...)
-  for(arg in args )
-    x[[part]] <- set_formatting_properties(x[[part]], i = i, j = j, arg )
+  if( !is.null(pr_t) )
+    x[[part]] <- set_formatting_properties(x[[part]], i = i, j = j, pr_t )
+  if( !is.null(pr_p) )
+    x[[part]] <- set_formatting_properties(x[[part]], i = i, j = j, pr_p )
+  if( !is.null(pr_c) )
+    x[[part]] <- set_formatting_properties(x[[part]], i = i, j = j, pr_c )
 
   x
 }

@@ -13,17 +13,19 @@
 #' @export
 empty <- function(x, i = NULL, j = NULL, part = "body" ){
 
-  if( inherits(i, "formula") && any( c("header", "footer") %in% part ) ){
-    stop("formula in argument i cannot adress part 'header' or 'footer'.")
+  if( inherits(i, "formula") && any( "header" %in% part ) ){
+    stop("formula in argument i cannot adress part 'header'.")
   }
 
   if( inherits(i, "formula") ){
     i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  } else i <- get_rows_id(x[[part]], i )
+  }
+  i <- get_rows_id(x[[part]], i )
 
   if( inherits(j, "formula") ){
     j <- attr(terms(j), "term.labels")
-  } else j <- get_columns_id(x[[part]], j )
+  }
+  j <- get_columns_id(x[[part]], j )
 
   x[[part]]$dataset[i, j] <- NA
 

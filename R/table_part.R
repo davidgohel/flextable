@@ -4,7 +4,7 @@
 #' @importFrom oxbase pr_text
 table_part <- function( data, col_keys = names(data),
                         default_pr_text = pr_text(),
-                        default_pr_par = pr_par(), orig_dataset = NULL ){
+                        default_pr_par = pr_par() ){
 
   default_pr_cell <- pr_cell()
   default_pr_cell_id <- digest(default_pr_cell)
@@ -13,16 +13,16 @@ table_part <- function( data, col_keys = names(data),
   default_pr_text <- pr_text()
   default_pr_text_id <- digest(default_pr_text)
 
-  pr_cell_init <- matrix(default_pr_cell_id, nrow = nrow(data), ncol = ncol(data) )
-  pr_par_init <- matrix(default_pr_par_id, nrow = nrow(data), ncol = ncol(data) )
-  pr_text_init <- matrix(default_pr_text_id, nrow = nrow(data), ncol = ncol(data) )
+  pr_cell_init <- matrix(default_pr_cell_id, nrow = nrow(data), ncol = length(col_keys) )
+  pr_par_init <- matrix(default_pr_par_id, nrow = nrow(data), ncol = length(col_keys) )
+  pr_text_init <- matrix(default_pr_text_id, nrow = nrow(data), ncol = length(col_keys) )
 
-  span_init <- matrix(1L, nrow = nrow(data), ncol = ncol(data) )
+  span_init <- matrix(1L, nrow = nrow(data), ncol = length(col_keys) )
   spans <- list( rows = span_init, columns = span_init )
 
   lazy_f <- map(col_keys, lazy_format_simple )
   lazy_f_id <- map_chr(lazy_f, digest)
-  lazy_f_init <- matrix( rep.int(lazy_f_id, nrow(data)), nrow = nrow(data), ncol = ncol(data), byrow = TRUE )
+  lazy_f_init <- matrix( rep.int(lazy_f_id, nrow(data)), nrow = nrow(data), ncol = length(col_keys), byrow = TRUE )
 
   style_ref_table <- list(
     cells = setNames(object = list(default_pr_cell), default_pr_cell_id),
@@ -35,7 +35,6 @@ table_part <- function( data, col_keys = names(data),
   rowheights <- rep(.6, nrow(data))
 
   out <- list( dataset = data,
-               orig_dataset = orig_dataset,
                col_keys = col_keys,
                colwidths = colwidths,
                rowheights = rowheights,
@@ -63,6 +62,7 @@ print.table_part <- function(x, ...){
 
 #' @importFrom dplyr bind_rows
 #' @importFrom utils tail
+#' @importFrom utils head
 add_rows <- function( x, rows, first = FALSE ){
 
   data <- x$dataset
@@ -84,11 +84,24 @@ add_rows <- function( x, rows, first = FALSE ){
   style_par_new <- matrix( def_style_par, ncol = ncol, nrow = nrow )
   style_text_new <- matrix( def_style_text, ncol = ncol, nrow = nrow )
 
-  format_new <- lapply( seq_len(nrow), function(x, fmt) tail(fmt, n = 1), x$styles$formats )
+  model_id <- ifelse( first, 1, nrow(data))
+  style_cell_new_line <- x$styles$cells[model_id, ,drop = FALSE]
+  style_par_new_line <- x$styles$pars[model_id, , drop = FALSE]
+  style_text_new_line <- x$styles$text[model_id, , drop = FALSE]
+  style_cell_new[,] <- style_cell_new_line
+  style_par_new[,] <- style_par_new_line
+  style_text_new[,] <- style_text_new_line
+
+  # format_new <- lapply( seq_len(nrow), function(x, fmt) tail(fmt, n = 1), x$styles$formats )
+  # format_new <- do.call(rbind, format_new)
+  line_fun <- ifelse( first, head, tail)
+  format_new <- lapply( seq_len(nrow), function(x, fmt) line_fun(fmt, n = 1), x$styles$formats )
   format_new <- do.call(rbind, format_new)
 
 
   span_new <- matrix( 1, ncol = ncol, nrow = nrow )
+  rowheights <- x$rowheights
+
 
   if( !first ){
     data <- bind_rows(data, rows )
@@ -101,6 +114,8 @@ add_rows <- function( x, rows, first = FALSE ){
     style_pars <- rbind(style_pars, style_par_new)
     style_text <- rbind(style_text, style_text_new)
     format_f <- rbind(format_f, format_new)
+
+    rowheights <- c(rowheights, rep(0.6, nrow(rows)))
   } else {
     data <- bind_rows(rows, data )
 
@@ -112,8 +127,11 @@ add_rows <- function( x, rows, first = FALSE ){
     style_pars <- rbind(style_par_new, style_pars)
     style_text <- rbind(style_text_new, style_text)
     format_f <- rbind(format_new, format_f)
-  }
 
+    rowheights <- c(rep(0.6, nrow(rows)), rowheights)
+
+  }
+  x$rowheights <- rowheights
   x$dataset <- data
   x$spans <- spans
   x$styles$cells <- style_cells
@@ -182,6 +200,12 @@ span_rows <- function( x, rows = NULL ){
     stop("span overlappings, some merged cells are already merged with other cells.")
 
 
+  x
+}
+
+span_free <- function( x  ){
+  x$spans$rows[] <- 1
+  x$spans$columns[] <- 1
   x
 }
 
@@ -306,14 +330,13 @@ get_pr_cell <- function( x, i, j ){
 #' @importFrom purrr map_lgl
 #' @importFrom purrr map_chr
 #' @importFrom purrr pmap
-#' @importFrom gdtools str_extents
 #' @importFrom stats setNames
 #' @import lazyeval
 get_dimensions <- function( x ){
   width_mat <- matrix(0, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
   height_mat <- matrix(0, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
-  dimnames(width_mat)[[2]] <- x$col_keys
-  dimnames(height_mat)[[2]] <- x$col_keys
+  dimnames(width_mat) <- list( NULL, x$col_keys)
+  dimnames(height_mat) <- list( NULL, x$col_keys)
 
   col_id <- setNames(seq_along(x$col_keys), nm = x$col_keys )
   for(j in x$col_keys){
@@ -330,9 +353,7 @@ get_dimensions <- function( x ){
         args$expr[["pr_text_"]] <- pr_text_
       }
 
-      if( is.null(x$orig_dataset))
-        p <- lazy_eval(args, x$dataset[i,])
-      else p <- lazy_eval(args, x$orig_dataset[i,])
+      p <- lazy_eval(args, x$dataset[i,])
       dim_ <- p$dim()
       width_mat[i, j] <- dim_$width
       height_mat[i, j] <- dim_$height
