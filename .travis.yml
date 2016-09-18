@@ -1,0 +1,33 @@
+language: r
+cache: packages
+
+matrix:
+  include:
+    - os: linux
+      dist: precise
+      sudo: false
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: R_CODECOV=true
+    - os: osx
+      osx_image: xcode7.2
+      latex: false
+    - os: osx
+      disable_homebrew: true
+      latex: false
+
+
+r_github_packages:
+  - jimhester/covr
+  - davidgohel/oxbase
+
+warnings_are_errors: true
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+after_success:
+  - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
