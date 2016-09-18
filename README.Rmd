@@ -3,7 +3,7 @@ title: "flextable R package"
 output:
   github_document:
     toc: true 
-    toc_depth: 3
+    toc_depth: 2
 ---
 
 
@@ -21,8 +21,8 @@ knitr::opts_chunk$set(
 ```
 
 
-`flextable` API
----
+## `flextable` API
+
 
 A tabular reporting tool that let R users create tables for reporting and control their formatting properties and their layout. 
 
@@ -33,8 +33,7 @@ Features:
   - Separate data from displayed values
   - Outut availables are Microsoft Word, PowerPoint and HTML (as an `htmlwidgets` object).
 
-
-### Install `flextable`
+## Install `flextable`
 
 You can get the development version from GitHub:
 
@@ -43,7 +42,7 @@ devtools::install_github("davidgohel/flextable")
 ```
 
 
-### Load `flextable`
+## Load `flextable`
 
 `flextable` is designed for use with the `%>%` pipe operator. You can make this `%>%` operator available in your R workspace by loading package [`magrittr`](https://cran.r-project.org/package=magrittr).
 
@@ -53,6 +52,55 @@ library("magrittr")
 ```
 
 
-### Quick demo
+## Quick demo
 
-TBD
+First, load packages.
+
+```{r warning=FALSE, message=FALSE}
+library(flextable)
+library(oxbase)
+library(dplyr)
+```
+
+We will use the following dataset:
+
+```{r}
+mydata <- iris %>% 
+  group_by(Species) %>% 
+  do( head(., n = 3) )
+```
+
+
+Then defined few styles to be used later.
+
+```{r}
+def_txt <- pr_text(font.size = 9, font.family = "Arial", color = "gray40")
+def_head <- update(def_txt, font.size = 11, color = "gray20")
+def_cell <- pr_cell( border = pr_border(color = "gray") )
+```
+
+Define the flextable and its layout (headers, merge cells, etc.).
+
+```{r}
+ft <- flextable(mydata, col_keys = c("Species", 
+    "Sepal.Length", "Sepal.Width", "Petal.Length", 
+    "Petal.Width") ) %>%
+  set_header_labels(Sepal.Length = "Length", 
+             Sepal.Width = "Width",
+             Petal.Length = "Length",
+             Petal.Width = "Width", 
+             Species = "Species" ) %>%
+  merge_v(j = "Species" ) 
+
+```
+
+Then apply some formatting properties :
+
+```{r 'tabwid example'}
+ft %>% 
+  theme_tron() %>% 
+  autofit() %>% 
+  tabwid()
+```
+
+

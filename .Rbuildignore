@@ -3,3 +3,5 @@
 ^todo\.md$
 ^README\.md$
 ^README\.Rmd$
+^README-.*\.png$
+^README.html$

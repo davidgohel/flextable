@@ -64,7 +64,7 @@ html_flextable <- function( x ){
 
   dims <- dim(x)
 
-  out <- "<table>"
+  out <- "<table class=\"tabwid\">"
   cw <- paste0("<col width=",
          shQuote( round(dims$widths * 72, 0 ), type="cmd"),
          ">",

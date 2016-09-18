@@ -60,8 +60,10 @@ flextable <- function( data, col_keys = names(data) ){
 print.flextable <- function(x, ...){
   if( interactive())
     print(tabwid(x))
-  else invisible()
+  else print(x$body$dataset)
 }
+
+
 
 #' @export
 #' @rdname flextable
