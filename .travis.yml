@@ -17,6 +17,9 @@ matrix:
       disable_homebrew: true
       latex: false
 
+r_binary_packages:
+  - stringi
+  - dplyr
 
 r_github_packages:
   - jimhester/covr

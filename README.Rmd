@@ -96,7 +96,7 @@ ft <- flextable(mydata, col_keys = c("Species",
 
 Then apply some formatting properties :
 
-```{r 'tabwid example'}
+```{r 'tabwid_example'}
 ft %>% 
   theme_tron() %>% 
   autofit() %>% 
