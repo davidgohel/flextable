@@ -4,7 +4,7 @@
 \alias{format_simple}
 \title{format_simple}
 \usage{
-format_simple(expr, pr_text_ = pr_text(), pr_par_ = pr_par())
+format_simple(expr, pr_text_ = fp_text(), pr_par_ = fp_par())
 }
 \arguments{
 \item{expr}{a call to \code{ftext} or \code{external_img}}
@@ -17,6 +17,6 @@ format_simple(expr, pr_text_ = pr_text(), pr_par_ = pr_par())
 format_simple generic function
 }
 \examples{
-format_simple("hello", pr_text_ = pr_text())
+format_simple("hello", pr_text_ = fp_text())
 }
 

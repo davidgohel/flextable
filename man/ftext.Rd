@@ -33,6 +33,6 @@ Function \code{dim} returns width and height of the \code{ftext} when
 formatted.
 }
 \examples{
-ftext("hello", pr_text())
+ftext("hello", fp_text())
 }
 

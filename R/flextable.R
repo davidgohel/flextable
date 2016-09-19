@@ -47,8 +47,8 @@ flextable <- function( data, col_keys = names(data) ){
   class(out) <- "flextable"
 
   out <- style( x = out,
-                pr_p = pr_par(text.align = "right", padding = 2),
-                pr_c = pr_cell(border = pr_border()), part = "all")
+                pr_p = fp_par(text.align = "right", padding = 2),
+                pr_c = fp_cell(border = fp_border()), part = "all")
 
   out
 }
@@ -129,7 +129,7 @@ dim.flextable <- function(x){
 #' ft <- flextable(head( mtcars, n = 10))
 #' ft <- display(ft, i = ~ drat > 3.5,
 #'   gear = format_that("# {{ carb_ }}",
-#'     carb_ = ftext(carb, pr_text(color="orange") ) ) )
+#'     carb_ = ftext(carb, fp_text(color="orange") ) ) )
 #' write_docx("format_ft.docx", ft)
 #' @export
 display <- function(x, i = NULL, part = "body", ...){

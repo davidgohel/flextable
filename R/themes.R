@@ -1,6 +1,6 @@
 #' @export
-#' @importFrom oxbase pr_border
-#' @importFrom oxbase pr_par
+#' @importFrom oxbase fp_border
+#' @importFrom oxbase fp_par
 #' @rdname theme_flextable
 #' @title flextable theme
 #' @description apply a theme to a flextable
@@ -11,12 +11,12 @@
 #' ft <- theme_tron(ft)
 #' @seealso \code{\link{flextable}}
 theme_vanilla <- function(x){
-  x <- border(x = x, border.bottom = pr_border(width = 1, color = "#333333"),
-              border.top = pr_border(width = 1, color = "#333333"),
-              border.left = pr_border(width = 0),
-              border.right = pr_border(width = 0),
+  x <- border(x = x, border.bottom = fp_border(width = 1, color = "#333333"),
+              border.top = fp_border(width = 1, color = "#333333"),
+              border.left = fp_border(width = 0),
+              border.right = fp_border(width = 0),
               part = "all")
-  x <- style( x = x, pr_p = pr_par(text.align = "right", padding = 2), part = "all")
+  x <- style( x = x, pr_p = fp_par(text.align = "right", padding = 2), part = "all")
   x <- bg(x = x, bg = "transparent", part = "all")
   x <- bold(x = x, bold = TRUE, part = "header")
   x
@@ -31,7 +31,7 @@ theme_vanilla <- function(x){
 #' ft <- theme_zebra(ft)
 theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
                         even_header = "transparent", even_body = "transparent" ){
-  x <- border(x = x, border = pr_border(width = 0), part = "all")
+  x <- border(x = x, border = fp_border(width = 0), part = "all")
   x <- padding(x = x, padding = 2, part = "all")
   even <- seq_len( nrow(x$body$dataset) ) %% 2 == 0
   odd <- !even
@@ -56,7 +56,7 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
 #' ft <- flextable(iris)
 #' ft <- theme_tron_legacy(ft)
 theme_tron_legacy <- function(x){
-  x <- border(x = x, border = pr_border(width = 1, color = "#6FC3DF"),
+  x <- border(x = x, border = fp_border(width = 1, color = "#6FC3DF"),
               part = "all")
   x <- padding(x = x, padding = 2, part = "all")
   x <- bg(x = x, bg = "#0C141F", part = "all")
@@ -73,7 +73,7 @@ theme_tron_legacy <- function(x){
 #' ft <- flextable(iris)
 #' ft <- theme_tron(ft)
 theme_tron <- function(x){
-  x <- border(x = x, border = pr_border(width = 1, color = "#a4cee5"),
+  x <- border(x = x, border = fp_border(width = 1, color = "#a4cee5"),
               part = "all")
   x <- padding(x = x, padding = 2, part = "all")
   x <- bg(x = x, bg = "#000000", part = "all")

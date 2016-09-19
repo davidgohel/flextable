@@ -4,24 +4,24 @@
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param pr_t object(s) of class \code{pr_text}
-#' @param pr_p object(s) of class \code{pr_par}
-#' @param pr_c object(s) of class \code{pr_cell}
+#' @param pr_t object(s) of class \code{fp_text}
+#' @param pr_p object(s) of class \code{fp_par}
+#' @param pr_c object(s) of class \code{fp_cell}
 #' @param part partname of the table (one of 'all', 'body', 'header')
 #' @importFrom lazyeval lazy_eval
 #' @importFrom stats terms update
 #' @examples
 #'
 #' # Styles example ------
-#' def_cell <- pr_cell(border = pr_border(color="#00FFFF"))
+#' def_cell <- fp_cell(border = fp_border(color="#00FFFF"))
 #'
-#' def_par <- pr_par(text.align = "center")
+#' def_par <- fp_par(text.align = "center")
 #'
 #' ft <- flextable(mtcars)
 #'
 #' ft <- style( ft, pr_c = def_cell, pr_p = def_par, part = "all")
 #' ft <- style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
-#'   pr_t = pr_text(color="red", italic = TRUE) )
+#'   pr_t = fp_text(color="red", italic = TRUE) )
 #'
 #' write_docx("style_ft.docx", ft)
 style <- function(x, i = NULL, j = NULL,
@@ -301,7 +301,7 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 #'
 #' # border example ------
 #' ft <- flextable(mtcars)
-#' ft <- border(ft, border.top = pr_border(color = "orange") )
+#' ft <- border(ft, border.top = fp_border(color = "orange") )
 border <- function(x, i = NULL, j = NULL, border = NULL,
                    border.top = NULL, border.bottom = NULL,
                    border.left = NULL, border.right = NULL,

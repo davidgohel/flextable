@@ -1,16 +1,16 @@
 #' @import digest
-#' @importFrom oxbase pr_cell
-#' @importFrom oxbase pr_par
-#' @importFrom oxbase pr_text
+#' @importFrom oxbase fp_cell
+#' @importFrom oxbase fp_par
+#' @importFrom oxbase fp_text
 table_part <- function( data, col_keys = names(data),
-                        default_pr_text = pr_text(),
-                        default_pr_par = pr_par() ){
+                        default_pr_text = fp_text(),
+                        default_pr_par = fp_par() ){
 
-  default_pr_cell <- pr_cell()
+  default_pr_cell <- fp_cell()
   default_pr_cell_id <- digest(default_pr_cell)
-  default_pr_par <- pr_par()
+  default_pr_par <- fp_par()
   default_pr_par_id <- digest(default_pr_par)
-  default_pr_text <- pr_text()
+  default_pr_text <- fp_text()
   default_pr_text_id <- digest(default_pr_text)
 
   pr_cell_init <- matrix(default_pr_cell_id, nrow = nrow(data), ncol = length(col_keys) )
@@ -281,7 +281,7 @@ set_formatting_properties <- function( x, i = NULL, j = NULL, value ){
 
   i <- get_rows_id(x = x, i = i)
   j <- get_columns_id(x = x, j = j)
-  if( inherits(value, "pr_text" ) ){
+  if( inherits(value, "fp_text" ) ){
     signat_ <- digest(value)
     x$styles$text[i, j] <- signat_
 
@@ -290,7 +290,7 @@ set_formatting_properties <- function( x, i = NULL, j = NULL, value ){
     }
 
   }
-  if( inherits(value, "pr_par" ) ){
+  if( inherits(value, "fp_par" ) ){
     signat_ <- digest(value)
     x$styles$pars[i, j] <- signat_
 
@@ -299,7 +299,7 @@ set_formatting_properties <- function( x, i = NULL, j = NULL, value ){
     }
 
   }
-  if( inherits(value, "pr_cell" ) ){
+  if( inherits(value, "fp_cell" ) ){
     signat_ <- digest(value)
     x$styles$cells[i, j] <- signat_
 

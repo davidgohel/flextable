@@ -32,11 +32,11 @@ iris %>%
     Petal.Length = "Petal", Petal.Width = "Petal",
     Species = "Species"
     ) %>% 
-  style(pr_t = t_bold(font.size = 12), part = "header") %>% 
-  style(pr_t = pr_text(font.size = 12), part = "body") %>% 
-  style(pr_t = t_bi(font.size = 12), j = ~ Species ) %>% 
+  style(pr_t = fp_bold(font.size = 12), part = "header") %>% 
+  style(pr_t = fp_text(font.size = 12), part = "body") %>% 
+  style(pr_t = fp_bi(font.size = 12), j = ~ Species ) %>% 
   padding(padding = 2, part = "all") %>% 
-  border( border.top = pr_border(), part = "all" ) %>% 
+  border( border.top = fp_border(), part = "all" ) %>% 
   bg(i = ~ seq_along(Petal.Length) %% 2 == 0, bg = "#EFEFEF") %>% 
   border( j = ~ break1 + break2, 
           border.top = b_null(), border.bottom = b_null(), part = "all" ) %>% 
@@ -64,7 +64,7 @@ Function `style` is changing formatting properties of table elements.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  style(pr_c = c_b_b(), pr_p = p_right(padding=2), part = "all" )
+  style(pr_c = c_b_b(), pr_p = fp_right(padding=2), part = "all" )
 tabwid(myft)
 ```
 
@@ -72,7 +72,7 @@ Conditional formatting can be made by using the selector arguments.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  style(i = ~ drat > 3.5, j = ~ drat, pr_t = t_italic(color="#44A530") )
+  style(i = ~ drat > 3.5, j = ~ drat, pr_t = fp_italic(color="#44A530") )
 tabwid(myft)
 ```
 
@@ -94,7 +94,7 @@ You can use `format_simple`.
 myft <- myft %>%
   display(
     am = format_simple(format_integer(am)),
-    gear = format_simple(format_integer(gear), pr_text_ = t_bold()),
+    gear = format_simple(format_integer(gear), pr_text_ = fp_bold()),
     carb = format_simple(format_integer(carb))
   )
 
@@ -109,8 +109,8 @@ myft <- myft %>%
   display(
     mpg = format_that(
         "{{ mpg_ }} mpg (# {{ cyl_ }} cyl.)",
-        mpg_ = ftext( format_double(mpg, digits = 1), t_italic() ),
-        cyl_ = ftext( format_integer(cyl), t_italic() )
+        mpg_ = ftext( format_double(mpg, digits = 1), fp_italic() ),
+        cyl_ = ftext( format_integer(cyl), fp_italic() )
     ) ) %>% autofit() 
 
 tabwid(myft)
@@ -133,7 +133,7 @@ If parameter `col_keys` has variables that are not existing in the dataset, they
 iris %>% group_by(Species) %>% do( head(., n = 3) ) %>%
   flextable(col_keys = c("Species", "col_1", "Sepal.Length", "Petal.Length") ) %>%
   theme_vanilla() %>% autofit() %>% 
-  border(j=2, border = pr_border(width=0), part = "all") %>% 
+  border(j=2, border = fp_border(width=0), part = "all") %>% 
   tabwid()
 
 ```

@@ -40,7 +40,7 @@ myft <- flextable(mtcars) %>%
   flextable::merge_h( )
 
 tabwid(myft %>% 
-  border(border = pr_border(), part = "all") # and add borders
+  border(border = fp_border(), part = "all") # and add borders
   )
 ```
 

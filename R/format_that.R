@@ -10,8 +10,8 @@
 #' @param pr_par_ default paragraph properties
 #' @param ... named arguments, element should be a call to \code{ftext} or \code{external_img}
 #' @examples
-#' format_that("I like to {{ x }} it", x = ftext("move", t_italic()), prop = pr_text())
-format_that <- function( str, pr_text_ = pr_text(), pr_par_ = pr_par(), ... ){
+#' format_that("I like to {{ x }} it", x = ftext("move", fp_italic()), prop = fp_text())
+format_that <- function( str, pr_text_ = fp_text(), pr_par_ = fp_par(), ... ){
   args <- lazy_dots( ... )
   location <- str_locate_all(str, pattern = paste0("\\{\\{ ", names(args)," \\}\\}"))
   location <- do.call(rbind, location)
@@ -50,8 +50,8 @@ format_that <- function( str, pr_text_ = pr_text(), pr_par_ = pr_par(), ... ){
 #' @param pr_text_ default text properties
 #' @param pr_par_ default paragraph properties
 #' @examples
-#' format_simple("hello", pr_text_ = pr_text())
-format_simple <- function( expr, pr_text_ = pr_text(), pr_par_ = pr_par() ){
+#' format_simple("hello", pr_text_ = fp_text())
+format_simple <- function( expr, pr_text_ = fp_text(), pr_par_ = fp_par() ){
   p <- paragraph$new(prop = pr_par_ )
   text <- eval(expr)
   text <- ifelse(text == "", " ", text)

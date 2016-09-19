@@ -4,7 +4,7 @@
 #' @param text text value
 #' @param prop formatting text properties
 #' @examples
-#' ftext("hello", pr_text())
+#' ftext("hello", fp_text())
 ftext <- function(text, prop) {
   out <- list( value = text, pr = prop )
   class(out) <- c("ftext", "cot")
@@ -45,7 +45,7 @@ format.ftext = function (x, type = "wml", ...){
 #' formatted.
 #'
 dim.ftext <- function( x ){
-  stopifnot(inherits(x$pr, "pr_text"))
+  stopifnot(inherits(x$pr, "fp_text"))
   mat <- str_extents(x = x$value,
                      fontname = x$pr$font.family,
                      fontsize = x$pr$font.size,

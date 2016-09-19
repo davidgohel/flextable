@@ -4,7 +4,7 @@
 \alias{format_that}
 \title{format_that}
 \usage{
-format_that(str, pr_text_ = pr_text(), pr_par_ = pr_par(), ...)
+format_that(str, pr_text_ = fp_text(), pr_par_ = fp_par(), ...)
 }
 \arguments{
 \item{str}{string template}
@@ -19,6 +19,6 @@ format_that(str, pr_text_ = pr_text(), pr_par_ = pr_par(), ...)
 format_that generic function.
 }
 \examples{
-format_that("I like to {{ x }} it", x = ftext("move", t_italic()), prop = pr_text())
+format_that("I like to {{ x }} it", x = ftext("move", fp_italic()), prop = fp_text())
 }
 

@@ -68,10 +68,10 @@ tabwid(myft)
 
 ```{r}
 myft <- myft %>% 
-  border( border.top = pr_border(color="orange"), 
-          border.bottom = pr_border(color="orange"), 
-          border.left = pr_border(color="white"), 
-          border.right = pr_border(color="white"), 
+  border( border.top = fp_border(color="orange"), 
+          border.bottom = fp_border(color="orange"), 
+          border.left = fp_border(color="white"), 
+          border.right = fp_border(color="white"), 
           part = "all" )
   
 tabwid(myft)
@@ -101,7 +101,7 @@ The `style` function lets you style a selection of the flextable with formatting
 ```{r}
 ft <- flextable(head(mtcars, n = 10 )) %>% theme_vanilla() %>% 
   style( i = ~ drat > 3.5, j = ~ vs + am + gear + carb, 
-        pr_t = pr_text(color="#C9C923", italic = TRUE) )
+        pr_t = fp_text(color="#C9C923", italic = TRUE) )
 tabwid(ft)
 ```
 
@@ -109,9 +109,9 @@ Eventually 3 formatting properties can be used: text, paragraphs and cells forma
 
 
 ```{r}
-def_cell <- pr_cell(border = pr_border(color="#00C9C9"))
-def_par <- pr_par(text.align = "center")
-def_text <- pr_text(color="#999999", italic = TRUE)
+def_cell <- fp_cell(border = fp_border(color="#00C9C9"))
+def_par <- fp_par(text.align = "center")
+def_text <- fp_text(color="#999999", italic = TRUE)
 def_text_header <- update(color="black", def_text, bold = TRUE)
 
 ft <- flextable(head(mtcars, n = 10 )) %>% 
@@ -120,7 +120,7 @@ ft <- flextable(head(mtcars, n = 10 )) %>%
          pr_t = def_text_header, part = "header") %>% 
   style( ~ drat > 3.5, ~ vs + gear + carb, 
          pr_c = update(def_cell, background.color = rgb(.8,.2,.2, .1) ), 
-         pr_t = pr_text(color="#C9C923", italic = TRUE) )
+         pr_t = fp_text(color="#C9C923", italic = TRUE) )
 tabwid(ft)
 ```
 
