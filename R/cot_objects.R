@@ -189,16 +189,3 @@ format.minibar = function (x, type = "console", ...){
   out
 }
 
-# minibar <- function( height, max, col = "#CCCCCC", bg = "transparent", width = 40, height = 10){
-#   stopifnot(height >= 0, max >= 0)
-#   col <- rgb(t(col2rgb(col))/255)
-#   bg <- ifelse( bg == "transparent", bg, rgb(t(col2rgb(bg))/255) )
-#   if( height > max ){
-#     warning("height > max, truncate to max")
-#     height <- max
-#   }
-#   ratio <- as.integer( (height / max) * width )
-#   r_ <- as.raster( matrix(c(rep(col, ratio), rep(bg, width-ratio)), nrow = 1) )
-#   file <- raster_write(x = r_, path = tempfile(fileext = ".png"), width = width, height = height )
-#   file
-# }
