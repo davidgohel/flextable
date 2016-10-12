@@ -9,6 +9,7 @@
 #' # theme_vanilla -------
 #' ft <- flextable(iris)
 #' ft <- theme_tron(ft)
+#' ft
 #' @seealso \code{\link{flextable}}
 theme_vanilla <- function(x){
   x <- border(x = x, border.bottom = fp_border(width = 1, color = "#333333"),

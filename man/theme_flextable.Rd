@@ -28,6 +28,7 @@ apply a theme to a flextable
 # theme_vanilla -------
 ft <- flextable(iris)
 ft <- theme_tron(ft)
+ft
 # theme_zebra -------
 ft <- flextable(iris)
 ft <- theme_zebra(ft)

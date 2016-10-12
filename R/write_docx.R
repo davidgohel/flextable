@@ -142,8 +142,6 @@ wml_flextable <- function( x, relationships ){
 
   int_id <- as.integer( gsub(pattern = "^rId", replacement = "", x = relationships$id ) )
   imgs <- character(0)
-  # if( !is.null(x$header) ) imgs <- append( imgs, get_images_(x$header) )
-  # if( !is.null(x$body) ) imgs <- append( imgs, get_images_(x$body) )
 
   dims <- dim(x)
   widths <- dims$widths

@@ -58,9 +58,7 @@ flextable <- function( data, col_keys = names(data) ){
 #' @param ... unused
 #' @rdname flextable
 print.flextable <- function(x, ...){
-  if( interactive())
-    print(tabwid(x))
-  else print(x$body$dataset)
+  print(x$body$dataset)
 }
 
 

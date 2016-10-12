@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabwid.R
 \name{tabwid}
 \alias{tabwid}
-\title{<Add Title>}
+\title{htmlwidget for flextable}
 \usage{
 tabwid(x, width = NULL, height = NULL)
 }
@@ -14,6 +14,6 @@ tabwid(x, width = NULL, height = NULL)
 \item{height}{widget height}
 }
 \description{
-<Add Description>
+htmlwidget for flextable
 }
 

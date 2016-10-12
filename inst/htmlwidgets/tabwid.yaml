@@ -1,6 +1,6 @@
 dependencies:
   - name: customcss
     version: 0.0.1
-    src: "htmlwidgets/lib"
-    stylesheet: html_flextable.css
+    src: "htmlwidgets"
+    stylesheet: tabwid.css
 

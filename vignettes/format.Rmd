@@ -1,9 +1,7 @@
 ---
 title: "Format `flextable` objects"
-author: "David Gohel"
 date: "`r Sys.Date()`"
-output: 
-  rmarkdown::html_vignette
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{flextable_format}
   %\VignetteEngine{knitr::rmarkdown}

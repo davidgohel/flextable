@@ -1,6 +1,6 @@
-#' <Add Title>
+#' @title htmlwidget for flextable
 #'
-#' <Add Description>
+#' @description htmlwidget for flextable
 #'
 #' @import htmlwidgets
 #' @importFrom htmltools HTML

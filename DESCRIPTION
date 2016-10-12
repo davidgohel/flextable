@@ -5,9 +5,8 @@ Version: 0.0.1
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
-Description: Create pretty tables and write them into
-    'Microsoft Word' documents or 'Microsoft PowerPoint'
-    documents or 'HTML' documents from R.
+Description: Create pretty tables for
+    'Microsoft Word', 'Microsoft PowerPoint' and 'HTML' formats.
 License: GPL-3
 LazyData: TRUE
 Depends: oxbase

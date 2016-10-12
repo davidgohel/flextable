@@ -1,6 +1,5 @@
 ---
 title: "Table layout"
-author: "David Gohel"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >

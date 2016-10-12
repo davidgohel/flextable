@@ -16,19 +16,6 @@ get_cell_styles_m <- function(x, type){
   cell_styles
 }
 
-get_images_ <- function(x, type = "pml"){
-  col_id <- setNames(seq_along(x$col_keys), nm = x$col_keys )
-  imgs <- character(0)
-  for(j in x$col_keys){
-    for( i in seq_len(nrow(x$dataset))){
-      p <- get_paragraph_at(x, i, col_id[j])
-      imgs <- append( imgs, get_imgs(p) )
-
-    }
-  }
-  imgs
-}
-
 
 get_paragraph_at <- function(x, i, j){
   fid <- x$styles$formats[i, j]
@@ -67,7 +54,7 @@ format_as_paragraph <- function(x, type = "pml"){
       text[i, j] <- format(p, type = type)
     }
   }
-  attr( text, "imgs" ) <- imgs
+  attr( text, "imgs" ) <- unique(imgs)
   text
 }
 
