@@ -128,8 +128,7 @@ dim.flextable <- function(x){
 #' # Formatting data values example ------
 #' ft <- flextable(head( mtcars, n = 10))
 #' ft <- display(ft, i = ~ drat > 3.5,
-#'   gear = format_that("# {{ carb_ }}",
-#'     carb_ = ftext(carb, fp_text(color="orange") ) ) )
+#'   carb = fpar("# ", ftext(carb, fp_text(color="orange") ) ) )
 #' write_docx("format_ft.docx", ft)
 #' @export
 display <- function(x, i = NULL, part = "body", ...){
@@ -142,13 +141,10 @@ display <- function(x, i = NULL, part = "body", ...){
   fun_call <- map( args, "expr")
   fun_call <- map(fun_call, function(x) x[[1]])
   fun_call <- map_chr(fun_call, as.character)
-
-  invalid_fun_call <- !fun_call %in% c("format_that", "format_simple")
+  invalid_fun_call <- !fun_call %in% c("fpar")
   if( any(invalid_fun_call) ){
-    stop( paste0(names(args), collapse = ","), " should call format_simple or format_that." )
+    stop( paste0(names(args), collapse = ","), " should call fpar." )
   }
-
-  # stopifnot(all( fun_call %in% c("format_that", "format_simple") ) )
 
   if( inherits(i, "formula") && any( "header" %in% part ) ){
     stop("formula in argument i cannot adress part 'header'.")

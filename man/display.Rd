@@ -26,8 +26,7 @@ Use format_that or format_simple to define cell content.
 # Formatting data values example ------
 ft <- flextable(head( mtcars, n = 10))
 ft <- display(ft, i = ~ drat > 3.5,
-  gear = format_that("# {{ carb_ }}",
-    carb_ = ftext(carb, fp_text(color="orange") ) ) )
+  carb = fpar("# ", ftext(carb, fp_text(color="orange") ) ) )
 write_docx("format_ft.docx", ft)
 }
 \seealso{

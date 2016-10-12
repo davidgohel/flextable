@@ -21,27 +21,33 @@ get_images_ <- function(x, type = "pml"){
   imgs <- character(0)
   for(j in x$col_keys){
     for( i in seq_len(nrow(x$dataset))){
-      fid <- x$styles$formats[i, col_id[j]]
-      args <- x$style_ref_table$formats[[fid]]
-
-      if( is.null(args$expr[["pr_par_"]] ) ){
-        pr_par_ <- x$style_ref_table$pars[[x$styles$pars[i,col_id[j]]]]
-        args$expr[["pr_par_"]] <- pr_par_
-      }
-      if( is.null(args$expr[["pr_text_"]] ) ){
-        pr_text_ <- x$style_ref_table$text[[x$styles$text[i,col_id[j]]]]
-        args$expr[["pr_text_"]] <- pr_text_
-      }
-
-      if( x$spans$columns[i,col_id[j]] > 0 ){
-        p <- lazy_eval(args, x$dataset[i,])
-
-      } else p <- paragraph$new(prop = pr_par_)
-      imgs <- append( imgs, p$get_imgs() )
+      p <- get_paragraph_at(x, i, col_id[j])
+      imgs <- append( imgs, get_imgs(p) )
 
     }
   }
   imgs
+}
+
+
+get_paragraph_at <- function(x, i, j){
+  fid <- x$styles$formats[i, j]
+  args <- x$style_ref_table$formats[[fid]]
+
+  args_update <- list()
+  pr_par_ <- x$style_ref_table$pars[[x$styles$pars[i,j]]]
+  args_update[["fp_p"]] <- pr_par_
+  pr_text_ <- x$style_ref_table$text[[x$styles$text[i,j]]]
+  args_update[["fp_t"]] <- pr_text_
+
+  if( x$spans$columns[i,j] > 0 && x$spans$rows[i,j] > 0 ){
+    p <- lazy_eval(args, x$dataset[i,, drop = FALSE])
+  } else p <- fpar()
+
+  args_update$object <- p
+  p <- do.call(update, args_update)
+
+  p
 }
 
 
@@ -52,29 +58,16 @@ format_as_paragraph <- function(x, type = "pml"){
   dimnames(text) <- list( NULL, x$col_keys)
 
   col_id <- setNames(seq_along(x$col_keys), nm = x$col_keys )
-
+  imgs <- character(0)
   for(j in x$col_keys){
     for( i in seq_len(nrow(x$dataset))){
 
-      fid <- x$styles$formats[i, col_id[j]]
-      args <- x$style_ref_table$formats[[fid]]
-
-      if( is.null(args$expr[["pr_par_"]] ) ){
-        pr_par_ <- x$style_ref_table$pars[[x$styles$pars[i,col_id[j]]]]
-        args$expr[["pr_par_"]] <- pr_par_
-      }
-      if( is.null(args$expr[["pr_text_"]] ) ){
-        pr_text_ <- x$style_ref_table$text[[x$styles$text[i,col_id[j]]]]
-        args$expr[["pr_text_"]] <- pr_text_
-      }
-
-      if( x$spans$columns[i,col_id[j]] > 0 && x$spans$rows[i,col_id[j]] > 0 ){
-        p <- lazy_eval(args, x$dataset[i,, drop = FALSE])
-        text[i, j] <- p$format(type = type)
-      } else text[i, j] <- paragraph$new(prop = pr_par_)$format(type = type)
-
+      p <- get_paragraph_at(x, i, col_id[j])
+      imgs <- append( imgs, get_imgs(p) )
+      text[i, j] <- format(p, type = type)
     }
   }
+  attr( text, "imgs" ) <- imgs
   text
 }
 
@@ -83,7 +76,7 @@ format_tp_wml <- function(x, header = TRUE, rids ){
   cell_styles <- get_cell_styles_m( x, type = "wml" )
 
   runs <- format_as_paragraph(x, type = "wml")
-
+  imgs <- attr( runs, "imgs" )
   runs <- paste0("<w:tc>", cell_styles, runs, "</w:tc>")
   runs[x$spans$rows < 1] <- ""
 
@@ -96,7 +89,9 @@ format_tp_wml <- function(x, header = TRUE, rids ){
                   "</w:trPr>",
                   runs,
                   "</w:tr>")
-  paste0(runs, collapse = "")
+  runs <- paste0(runs, collapse = "")
+  attr( runs, "imgs" ) <- imgs
+  runs
 }
 
 format_tp_pml <- function(x, header = TRUE){
@@ -110,10 +105,6 @@ format_tp_pml <- function(x, header = TRUE){
   )
   tc_attr <- paste0(tc_attr_1, tc_attr_2)
   cells <- paste0("<a:tc", tc_attr,">",
-                  # ifelse(x$spans$rows < 1, "",
-                  #        paste0( "<a:txBody><a:bodyPr/><a:lstStyle/>",
-                  #                paragraphs, "</a:txBody>" )
-                  # ),
                   paste0( "<a:txBody><a:bodyPr/><a:lstStyle/>",
                           paragraphs, "</a:txBody>" ),
                   cell_styles, "</a:tc>")

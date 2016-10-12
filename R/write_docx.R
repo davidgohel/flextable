@@ -66,7 +66,7 @@ write_docx <- function( file, x,
     cat(Relationship)
     cat("\n</Relationships>")
     sink( )
-    dir.create(file.path(template_dir, "word", "media"))
+    dir.create(file.path(template_dir, "word", "media"), recursive = TRUE)
     for(i in unique(copy_files) ){
       file.copy(from = i, to = file.path(template_dir, "word", "media"))
     }
@@ -141,10 +141,9 @@ write_docx <- function( file, x,
 wml_flextable <- function( x, relationships ){
 
   int_id <- as.integer( gsub(pattern = "^rId", replacement = "", x = relationships$id ) )
-
   imgs <- character(0)
-  if( !is.null(x$header) ) imgs <- append( imgs, get_images_(x$header) )
-  if( !is.null(x$body) ) imgs <- append( imgs, get_images_(x$body) )
+  # if( !is.null(x$header) ) imgs <- append( imgs, get_images_(x$header) )
+  # if( !is.null(x$body) ) imgs <- append( imgs, get_images_(x$body) )
 
   dims <- dim(x)
   widths <- dims$widths
@@ -157,11 +156,17 @@ wml_flextable <- function( x, relationships ){
   out = paste0(out,  colswidths )
   out = paste0(out,  "</w:tblGrid>" )
 
-
-  if( !is.null(x$header) )
-    out = paste0(out, format(x$header, header = TRUE, type = "wml") )
-  if( !is.null(x$body) )
-    out = paste0(out, format(x$body, header = FALSE, type = "wml") )
+  if( !is.null(x$header) ){
+    xml_content <- format(x$header, header = TRUE, type = "wml")
+    imgs <- append( imgs, attr(xml_content, "imgs") )
+    out = paste0(out, xml_content )
+  }
+  if( !is.null(x$body) ){
+    xml_content <- format(x$body, header = FALSE, type = "wml")
+    imgs <- append( imgs, attr(xml_content, "imgs") )
+    out = paste0(out, xml_content )
+  }
+  imgs <- unique(imgs)
   out = paste0(out,  "</w:tbl>" )
 
   if( length( imgs ) > 0 ){

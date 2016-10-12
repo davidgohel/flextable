@@ -88,37 +88,21 @@ tabwid(myft)
 
 Format content
 
-You can use `format_simple`. 
-
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>%
   display(
-    am = format_simple(format_integer(am)),
-    gear = format_simple(format_integer(gear), pr_text_ = fp_bold()),
-    carb = format_simple(format_integer(carb))
+    am = fpar(formatC(am, format = "f", digits = 0 )),
+    gear = fpar("# ", ftext( gear, prop = fp_bold()) ),
+    mpg = fpar(mpg, " (", ftext( carb, prop = fp_italic()), ")." ), 
+    drat = fpar(minibar( value = drat, max = 5, barcol = "#C90000", width = 1, height = .15) )
   )
-
-tabwid(myft)
-```
-
-And a flexible function `format_that`. 
-
-
-```{r warning=FALSE, message=FALSE}
-myft <- myft %>%
-  display(
-    mpg = format_that(
-        "{{ mpg_ }} mpg (# {{ cyl_ }} cyl.)",
-        mpg_ = ftext( format_double(mpg, digits = 1), fp_italic() ),
-        cyl_ = ftext( format_integer(cyl), fp_italic() )
-    ) ) %>% autofit() 
-
 tabwid(myft)
 ```
 
 Parameter `col_keys` define the variables to display and their order. 
 
 ```{r}
+library(dplyr)
 iris %>% 
   group_by(Species) %>% 
   do( head(., n = 3) ) %>% 

@@ -341,20 +341,10 @@ get_dimensions <- function( x ){
   col_id <- setNames(seq_along(x$col_keys), nm = x$col_keys )
   for(j in x$col_keys){
     for( i in seq_len(nrow(x$dataset))){
-      fid <- x$styles$formats[i, col_id[j]]
-      args <- x$style_ref_table$formats[[fid]]
 
-      if( is.null(args$expr[["pr_par_"]] ) ){
-        pr_par_ <- x$style_ref_table$pars[[x$styles$pars[i,col_id[j]]]]
-        args$expr[["pr_par_"]] <- pr_par_
-      }
-      if( is.null(args$expr[["pr_text_"]] ) ){
-        pr_text_ <- x$style_ref_table$text[[x$styles$text[i,col_id[j]]]]
-        args$expr[["pr_text_"]] <- pr_text_
-      }
-
-      p <- lazy_eval(args, x$dataset[i,])
-      dim_ <- p$dim()
+      p <- get_paragraph_at(x, i, col_id[j])
+      p$chunks <- cast_chunks(p)
+      dim_ <- dim(p)
       width_mat[i, j] <- dim_$width
       height_mat[i, j] <- dim_$height
     }
