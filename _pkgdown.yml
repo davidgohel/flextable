@@ -57,6 +57,8 @@ navbar:
     href: articles/format.html
   - text: Sizing
     href: articles/sizing.html
+  - text: Content display
+    href: articles/display.html
   right:
   - text: Function reference
     href: reference/index.html

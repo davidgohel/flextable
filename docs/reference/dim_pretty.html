@@ -64,6 +64,9 @@
 <li>
   <a href="../articles/sizing.html">Sizing</a>
 </li>
+<li>
+  <a href="../articles/display.html">Content display</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -94,16 +97,22 @@ each table columns and rows.</p>
     
 
     <pre><span class='fu'>dim_pretty</span>(<span class='no'>x</span>)</pre>
-            
+    
+    <h2>Arguments</h2>
+    <dl class="dl-horizontal">
+      <dt>x</dt>
+      <dd>flextable object</dd>
+    </dl>
+        
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># get estimated widths</span>
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>mtcars</span>)
 <span class='fu'>dim_pretty</span>(<span class='no'>ft</span>)</div><div class='output co'>#&gt; $widths
 #&gt;       mpg       cyl      disp        hp      drat        wt      qsec        vs 
-#&gt; 0.4988788 0.4216354 0.5761221 0.5761221 0.4216354 0.4216354 0.4988788 0.4216354 
+#&gt; 0.3443920 0.2438196 0.4216354 0.3058042 0.3443920 0.4216354 0.4216354 0.2129630 
 #&gt;        am      gear      carb 
-#&gt; 0.4216354 0.4216354 0.4216354 
+#&gt; 0.2670130 0.3520553 0.3442564 
 #&gt; 
 #&gt; $heights
 #&gt;  [1] 0.2027226 0.1756637 0.1756637 0.1756637 0.1756637 0.1756637 0.1756637
