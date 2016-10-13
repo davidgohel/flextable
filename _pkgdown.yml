@@ -1,0 +1,64 @@
+title: flextable package
+
+template:
+  bootswatch: simplex
+
+reference:
+  - title: Create flextable
+    contents:
+    - flextable
+  - title: Headers
+    desc:  Add or modify flextable`s headers
+    contents:
+    - add_header
+    - set_header_labels
+    - set_header_df
+  - title: Manage flextable layout
+    contents:
+    - starts_with("merge_")
+    - height
+    - width
+    - autofit
+    - dim.flextable
+    - dim_pretty
+  - title: Format flextable
+    desc:  Modify flextable`s formatting properties, apply theme functions.
+    contents:
+    - style
+    - bg
+    - bold
+    - color
+    - padding
+    - border
+    - starts_with("theme_")
+  - title: Content
+    desc:  Define flextable`s content
+    contents:
+    - display
+  - title: Helper functions
+    contents:
+    - empty
+  - title: Output functions
+    contents:
+    - tabwid
+    - starts_with("write_")
+
+navbar:
+  title: pkgdown
+  type: default
+  left:
+  - text: Introduction
+    href: articles/introduction.html
+  - text: Header
+    href: articles/headers.html
+  - text: Layout
+    href: articles/layout.html
+  - text: Format
+    href: articles/format.html
+  - text: Sizing
+    href: articles/sizing.html
+  right:
+  - text: Function reference
+    href: reference/index.html
+  - icon: fa-github fa-lg
+    href: https://github.com/davidgohel/flextable
