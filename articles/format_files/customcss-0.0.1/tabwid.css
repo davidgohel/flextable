@@ -1,0 +1,15 @@
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+  margin: 0;
+}
+.tabwid th{
+  padding:0;
+}
+.tabwid td {
+    line-height: 1em;
+    padding: 0;
+}
+.tabwid thead {
+    background-color: transparent;
+}
