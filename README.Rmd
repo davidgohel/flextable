@@ -17,8 +17,7 @@ output:
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-"
+  comment = "#>"
 )
 ```
 
@@ -109,15 +108,10 @@ ft <- ft %>%
 Then apply some formatting properties :
 
 ```{r 'tabwid_example'}
-ft <- ft %>% 
+ft %>% 
   theme_tron() %>% 
-  autofit() 
-```
-
-```{r echo=FALSE, results='asis'}
-codes <- flextable:::html_flextable(ft)
-cat(codes)
-cat("<style>", attr(codes, "css"), "</style>")
+  autofit() %>% 
+  tabwid()
 ```
 
 

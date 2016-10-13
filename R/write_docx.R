@@ -140,7 +140,6 @@ write_docx <- function( file, x,
 
 wml_flextable <- function( x, relationships ){
 
-  int_id <- as.integer( gsub(pattern = "^rId", replacement = "", x = relationships$id ) )
   imgs <- character(0)
 
   dims <- dim(x)
@@ -168,27 +167,13 @@ wml_flextable <- function( x, relationships ){
   out = paste0(out,  "</w:tbl>" )
 
   if( length( imgs ) > 0 ){
+    int_id <- as.integer(
+      gsub(pattern = "^rId", replacement = "", x = relationships$id ) )
     last_id <- as.integer( max(int_id) )
-    rids <- data.frame(
-      rId = paste0("rId", seq_along(imgs)+last_id),
-      src = imgs,
-      nvpr_id = seq_along(imgs),
-      doc_pr_id = seq_along(imgs),
-      stringsAsFactors = FALSE )
-    for(id in seq_along(rids$src) ){
-      out <- gsub(x = out,
-                  pattern = paste0("r:embed=\"", rids$src[id]),
-                  replacement = paste0("r:embed=\"", rids$rId[id]) )
-      out <- gsub(x = out, pattern = "DRAWINGOBJECTID", replacement = rids$doc_pr_id[id] )
-      out <- gsub(x = out, pattern = "PICTUREID", replacement = rids$nvpr_id[id] )
-    }
-    expected_rels <- data.frame(
-      id = rids$rId,
-      type = rep("http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
-                 length(rids$rId)),
-      target = file.path("media", basename(rids$src) ),
-      stringsAsFactors = FALSE )
-    attr(out, "relations") <- expected_rels
+    rids <- get_rids( last_id = last_id, imgs = imgs)
+    out <- rids_substitute_xml( out = out, rids = rids )
+    expected_rels_ <- expected_rels(rids)
+    attr(out, "relations") <- expected_rels_
     attr(out, "copy_files") <- rids$src
   }
   out

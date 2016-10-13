@@ -22,7 +22,6 @@ Imports:
     htmltools,
     knitr,
     htmlwidgets,
-    stringr,
     R6, openssl, xml2 (>= 1.0.0)
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
