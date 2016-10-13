@@ -1,0 +1,76 @@
+---
+title: "Complex text formatting"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Complex text formatting}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r warning=FALSE, message=FALSE, echo=FALSE}
+library(flextable)
+library(oxbase)
+library(dplyr)
+```
+
+Below the starting point of next illustrations:
+
+```{r}
+myft <- flextable(head(mtcars), 
+                  col_keys = c("am", "separator", "gear", "mpg", "drat" )) %>% 
+  bold(part = "header") %>% 
+  style(pr_c = c_b_b(), pr_p = fp_right(padding=2), part = "all" ) %>%
+  border(j = ~ separator, border = fp_border(width=0), part = "all")
+
+tabwid(myft)
+```
+
+## display function
+
+Flextable content is defined with `display` function. 
+
+It always requires a call to `fpar` which is a simple wrapper for adding specific formated text. The following call to fpar only let you modify the display content of a cell (because fpar argument is only a single string). 
+
+```{r}
+myft <- myft %>%
+  display( 
+    am = fpar(formatC(am, format = "f", digits = 0 ) ) 
+  )
+
+tabwid(myft)
+```
+
+If more control is needed, i.e. for conditionnal formatting, one can use function `ftext` to associate a text with formatting properties.
+
+```{r}
+myft <- myft %>%
+  display(i = ~ drat > 3.6, 
+    gear = fpar( ftext( gear, prop = fp_bold(color="red") ) )
+  )
+
+tabwid(myft)
+```
+
+`fpar` can have multiple arguments that will be then concatenated.
+
+```{r}
+myft <- myft %>%
+  display(
+    mpg = fpar(mpg, " and ", ftext( carb, prop = fp_bold()), " carb(s)." ) 
+  )
+
+tabwid(myft)
+```
+
+`fpar` handle call to `minibar`. This will generate a simple bar to be inserted as content:
+
+```{r}
+myft <- myft %>%
+  display( i = ~ gear < 4,
+    drat = fpar(minibar( value = drat, max = 5, 
+                         barcol = "#C90000", width = 1, height = .15) )
+  ) %>% autofit()
+
+tabwid(myft)
+```
