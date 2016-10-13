@@ -60,10 +60,7 @@ cast_chunks <- function(x){
         chk <- ftext(text = chk, prop = x$fp_t )
       else if( is.factor(chk) )
         chk <- ftext(text = as.character(chk), prop = x$fp_t )
-      else if( is.numeric(chk) )
-        chk <- ftext(text = format_default(chk), prop = x$fp_t )
-      else
-        stop("cannot handle objects of class ", class(chk) )
+      else chk <- ftext(text = format(chk), prop = x$fp_t )
     }
     chk
   })
@@ -96,11 +93,6 @@ format.fpar <- function( x, type = "pml", ...){
 #' @rdname fpar
 print.fpar = function (x, ...){
   cat( format(x, type = "console"), "\n", sep = "" )
-}
-
-lazy_format_simple <- function( col_key ){
-  format_simple_l <- as.lazy( interp("fpar(x)", x = as.name(col_key) ), globalenv() )
-  format_simple_l
 }
 
 set_rid <- function( x, id ){
