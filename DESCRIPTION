@@ -13,7 +13,6 @@ Depends: oxbase
 Imports:
     Rcpp (>= 0.12.3),
     utils,
-    R.utils,
     digest,
     dplyr,
     lazyeval,
