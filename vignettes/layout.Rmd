@@ -16,7 +16,6 @@ library(oxbase)
 library(magrittr)
 ```
 
-
 ## vertical merging
 
 `merge_v` will merge adjacent duplicated cells for each column of the selection.
@@ -35,12 +34,18 @@ tabwid(myft)
 
 ```{r warning=FALSE, message=FALSE}
 select_columns <- c("Species", "Petal.Length", "Petal.Width")
-myft <- flextable(mtcars) %>% 
-  flextable::merge_h( )
-
-tabwid(myft %>% 
+myft <- flextable(head(mtcars, n = 10 ) ) %>% 
+  flextable::merge_h( ) %>% # merge
   border(border = fp_border(), part = "all") # and add borders
-  )
+
+tabwid(myft)
 ```
 
+## delete merging informations
+
+If you want to get rid of all merging (i.e. for development purposes), use `merge_none`:
+
+```{r}
+tabwid(myft %>% merge_none())
+```
 

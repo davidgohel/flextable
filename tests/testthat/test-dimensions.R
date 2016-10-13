@@ -32,7 +32,7 @@ test_that("dimensions are valid", {
   expect_length(dims$heights, 8 )
 })
 
-test_that("autofit and optim_dim usage", {
+test_that("autofit and dim_pretty usage", {
   typology <- data.frame(
     col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species" ),
     what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
@@ -45,7 +45,7 @@ test_that("autofit and optim_dim usage", {
   expect_true(all( is.finite(dims$widths)))
   expect_true(all( is.finite(dims$heights)))
 
-  dims <- optim_dim(ft)
+  dims <- dim_pretty(ft)
   expect_true(all( is.finite(dims$widths)))
   expect_true(all( is.finite(dims$heights)))
 })
@@ -57,7 +57,7 @@ test_that("height usage", {
                           my_col2 = rep(letters[4:6], each = 2),
                           stringsAsFactors = FALSE )
   ft <- flextable(dummy_df)
-  dims <- optim_dim(ft)
+  dims <- dim_pretty(ft)
   expect_silent({ft <- height(ft, height = dims$heights, part = "all") })
   expect_error({ft <- height(ft, height = dims$heights[-1], part = "all") })
   expect_silent({ft <- height(ft, height = .25, part = "all") })

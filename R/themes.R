@@ -1,16 +1,12 @@
-#' @export
 #' @importFrom oxbase fp_border
 #' @importFrom oxbase fp_par
-#' @rdname theme_flextable
-#' @title flextable theme
-#' @description apply a theme to a flextable
+#' @export
+#' @title Apply vanilla theme
+#' @description Apply theme vanilla to a flextable
 #' @param x a flextable object
 #' @examples
-#' # theme_vanilla -------
 #' ft <- flextable(iris)
-#' ft <- theme_tron(ft)
-#' ft
-#' @seealso \code{\link{flextable}}
+#' ft <- theme_vanilla(ft)
 theme_vanilla <- function(x){
   x <- border(x = x, border.bottom = fp_border(width = 1, color = "#333333"),
               border.top = fp_border(width = 1, color = "#333333"),
@@ -24,10 +20,11 @@ theme_vanilla <- function(x){
 }
 
 #' @export
-#' @rdname theme_flextable
+#' @title Apply zebra theme
+#' @description Apply theme zebra to a flextable
+#' @param x a flextable object
 #' @param odd_header,odd_body,even_header,even_body odd/even colors for table header and body
 #' @examples
-#' # theme_zebra -------
 #' ft <- flextable(iris)
 #' ft <- theme_zebra(ft)
 theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
@@ -51,9 +48,10 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
 }
 
 #' @export
-#' @rdname theme_flextable
+#' @title Apply tron legacy theme
+#' @description Apply theme tron legacy to a flextable
+#' @param x a flextable object
 #' @examples
-#' # theme_tron_legacy -------
 #' ft <- flextable(iris)
 #' ft <- theme_tron_legacy(ft)
 theme_tron_legacy <- function(x){
@@ -68,9 +66,10 @@ theme_tron_legacy <- function(x){
 }
 
 #' @export
-#' @rdname theme_flextable
+#' @title Apply tron theme
+#' @description Apply theme tron to a flextable
+#' @param x a flextable object
 #' @examples
-#' # theme_tron -------
 #' ft <- flextable(iris)
 #' ft <- theme_tron(ft)
 theme_tron <- function(x){

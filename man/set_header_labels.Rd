@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable.R
 \name{set_header_labels}
 \alias{set_header_labels}
-\title{set flextable's headers labels}
+\title{Set flextable's headers labels}
 \usage{
 set_header_labels(x, ...)
 }

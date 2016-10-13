@@ -1,9 +1,9 @@
 ---
-title: "Format `flextable` objects"
+title: "Format flextable objects"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{flextable_format}
+  %\VignetteIndexEntry{Format flextable objects}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -91,7 +91,7 @@ tabwid(myft)
 
 
 
-## `style` function
+## Function style
 
 The `style` function lets you style a selection of the flextable with formatting properties.
 
@@ -103,7 +103,9 @@ ft <- flextable(head(mtcars, n = 10 )) %>% theme_vanilla() %>%
 tabwid(ft)
 ```
 
-Eventually 3 formatting properties can be used: text, paragraphs and cells formatting properties.
+> It main advantage is to let specify various formatting properties for a selection. 
+
+3 formatting properties can be used: text, paragraphs and cells formatting properties. 
 
 
 ```{r}
@@ -113,9 +115,14 @@ def_text <- fp_text(color="#999999", italic = TRUE)
 def_text_header <- update(color="black", def_text, bold = TRUE)
 
 ft <- flextable(head(mtcars, n = 10 )) %>% 
-  style( pr_c = def_cell, pr_p = def_par, pr_t = def_text, part = "all") %>% 
-  style( pr_c = def_cell, pr_p = def_par, 
-         pr_t = def_text_header, part = "header") %>% 
+  style( pr_c = def_cell, pr_p = def_par, pr_t = def_text, part = "body")  
+tabwid(ft)
+
+ft <- ft %>% 
+  style( pr_c = def_cell, pr_p = def_par, pr_t = def_text_header, part = "header")  
+tabwid(ft)
+
+ft <- ft %>% 
   style( ~ drat > 3.5, ~ vs + gear + carb, 
          pr_c = update(def_cell, background.color = rgb(.8,.2,.2, .1) ), 
          pr_t = fp_text(color="#C9C923", italic = TRUE) )

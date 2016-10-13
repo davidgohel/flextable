@@ -1,6 +1,6 @@
 dependencies:
   - name: customcss
     version: 0.0.1
-    src: "htmlwidgets"
+    src: "htmlwidgets/customcss"
     stylesheet: tabwid.css
 

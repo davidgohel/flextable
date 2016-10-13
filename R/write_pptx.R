@@ -57,7 +57,7 @@ write_pptx <- function(
   out_file <- pack_folder(template_dir, file )
   # delete temporary dir
   unlink(template_dir, recursive = TRUE, force = TRUE)
-  out_file
+  invisible(out_file)
 }
 
 #' @export

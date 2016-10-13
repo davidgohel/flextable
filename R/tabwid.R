@@ -30,9 +30,9 @@ tabwid <- function(x, width = NULL, height = NULL) {
   )
 }
 
-#' Shiny bindings for tabwid
+#' @title Shiny bindings for tabwid
 #'
-#' Output and render functions for using tabwid within Shiny
+#' @description Output and render functions for using tabwid within Shiny
 #' applications and interactive Rmd documents.
 #'
 #' @param outputId output variable to read from

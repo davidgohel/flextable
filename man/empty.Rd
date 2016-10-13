@@ -2,7 +2,7 @@
 % Please edit documentation in R/empty.R
 \name{empty}
 \alias{empty}
-\title{delete flextable content}
+\title{Delete flextable content}
 \usage{
 empty(x, i = NULL, j = NULL, part = "body")
 }
@@ -16,7 +16,7 @@ empty(x, i = NULL, j = NULL, part = "body")
 \item{part}{partname of the table}
 }
 \description{
-deletion of flextable content. Intenally, values will
+Deletion of flextable content. Values will
 be replaced with \code{NA} values.
 }
 \examples{

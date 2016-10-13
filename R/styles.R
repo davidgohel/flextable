@@ -1,6 +1,6 @@
 #' @export
-#' @title flextable style
-#' @description Modify flextable text, paragraphs and cells formatting properties with function \code{style}.
+#' @title Set flextable style
+#' @description Modify flextable text, paragraphs and cells formatting properties.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
@@ -11,8 +11,6 @@
 #' @importFrom lazyeval lazy_eval
 #' @importFrom stats terms update
 #' @examples
-#'
-#' # Styles example ------
 #' def_cell <- fp_cell(border = fp_border(color="#00FFFF"))
 #'
 #' def_par <- fp_par(text.align = "center")
@@ -69,12 +67,14 @@ style <- function(x, i = NULL, j = NULL,
 }
 
 #' @export
-#' @rdname style
+#' @title Set background color
+#' @description change background color of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header')
 #' @param bg color to use as background color
-#' @description Set background color with function \code{bg}.
 #' @examples
-#'
-#' # bg example ------
 #' ft <- flextable(mtcars)
 #' ft <- bg(ft, bg = "#DDDDDD", part = "header")
 bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
@@ -117,12 +117,14 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
 
 
 #' @export
-#' @rdname style
+#' @title Set font weight
+#' @description change font weight of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header')
 #' @param bold boolean value
-#' @description Set font weight to bold with function \code{bold}.
 #' @examples
-#'
-#' # bold example ------
 #' ft <- flextable(mtcars)
 #' ft <- bold(ft, bold = TRUE, part = "header")
 bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
@@ -167,12 +169,14 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
 
 
 #' @export
-#' @rdname style
+#' @title Set font color
+#' @description change font color of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header')
 #' @param color color to use as font color
-#' @description Set text color with function \code{color}.
 #' @examples
-#'
-#' # color example ------
 #' ft <- flextable(mtcars)
 #' ft <- color(ft, color = "orange", part = "header")
 color <- function(x, i = NULL, j = NULL, color, part = "body" ){
@@ -218,16 +222,18 @@ color <- function(x, i = NULL, j = NULL, color, part = "body" ){
 
 
 #' @export
-#' @rdname style
+#' @title Set paddings
+#' @description change paddings of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header')
 #' @param padding padding (shortcut for top, bottom, left and right)
 #' @param padding.top padding top
 #' @param padding.bottom padding bottom
 #' @param padding.left padding left
 #' @param padding.right padding right
-#' @description Set paragraphs paddings with function \code{padding}.
 #' @examples
-#'
-#' # padding example ------
 #' ft <- flextable(mtcars)
 #' ft <- padding(ft, padding.top = 4)
 padding <- function(x, i = NULL, j = NULL, padding = NULL,
@@ -290,16 +296,18 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 
 #' @importFrom purrr map map_chr
 #' @export
-#' @rdname style
+#' @title Set borders
+#' @description change borders of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header')
 #' @param border border (shortcut for top, bottom, left and right)
 #' @param border.top border top
 #' @param border.bottom border bottom
 #' @param border.left border left
 #' @param border.right border right
-#' @description Set cell borders with function \code{border}.
 #' @examples
-#'
-#' # border example ------
 #' ft <- flextable(mtcars)
 #' ft <- border(ft, border.top = fp_border(color = "orange") )
 border <- function(x, i = NULL, j = NULL, border = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable.R
 \name{display}
 \alias{display}
-\title{flextable display values}
+\title{Define flextable displayed values}
 \usage{
 display(x, i = NULL, part = "body", ...)
 }

@@ -1,9 +1,9 @@
 ---
-title: "Widths and heights"
+title: "Flextable sizing"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Table layout}
+  %\VignetteIndexEntry{Flextable sizing}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,4 +18,5 @@ library(magrittr)
 
 ## TODO 
 
-`optim_dim` and `dim`
+`dim_pretty` and `dim`
+

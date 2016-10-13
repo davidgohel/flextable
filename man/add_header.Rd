@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable.R
 \name{add_header}
 \alias{add_header}
-\title{add a row of labels in headers}
+\title{Add a row of labels in headers}
 \usage{
 add_header(x, top = TRUE, ...)
 }

@@ -4,14 +4,11 @@
 \alias{dim.ftext}
 \alias{format.ftext}
 \alias{ftext}
-\alias{print.ftext}
 \title{formatted text}
 \usage{
 ftext(text, prop)
 
 \method{format}{ftext}(x, type = "console", ...)
-
-\method{print}{ftext}(x, ...)
 
 \method{dim}{ftext}(x)
 }

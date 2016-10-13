@@ -1,5 +1,5 @@
-#' @title delete flextable content
-#' @description deletion of flextable content. Intenally, values will
+#' @title Delete flextable content
+#' @description Deletion of flextable content. Values will
 #' be replaced with \code{NA} values.
 #' @param x \code{flextable} object
 #' @param i rows selection

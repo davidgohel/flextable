@@ -1,8 +1,7 @@
 #' @export
-#' @title widths and heights
-#' @rdname flextable_size
-#' @description modify columns widths with function \code{width}.
-#' @param x a flextable object
+#' @title Set flextable columns width
+#' @description control columns width
+#' @param x flextable object
 #' @param j columns selection
 #' @param width width in inches
 #' @details
@@ -32,9 +31,9 @@ width <- function(x, j = NULL, width){
 }
 
 #' @export
-#' @title set columns width
-#' @rdname flextable_size
-#' @description modify row heights with function \code{height}.
+#' @title Set flextable rows height
+#' @description control rows height
+#' @param x flextable object
 #' @param i rows selection
 #' @param height height in inches
 #' @param part partname of the table
@@ -90,10 +89,57 @@ height <- function(x, i = NULL, height, part = "body"){
   x
 }
 
+#' @title Get flextable dimensions
+#' @description returns widths and heights for each table columns and rows.
+#' @param x flextable object
+#' @export
+dim.flextable <- function(x){
+  max_widths <- list()
+  max_heights <- list()
+  for(j in c("header", "body")){
+    if( !is.null(x[[j]])){
+      max_widths[[j]] <- x[[j]]$colwidths
+      max_heights[[j]] <- x[[j]]$rowheights
+    }
+  }
+
+  mat_widths <- do.call("rbind", max_widths)
+  out_widths <- apply( mat_widths, 2, max )
+  names(out_widths) <- x$col_keys
+
+  out_heights <- as.double(unlist(max_heights))
+  list(widths = out_widths, heights = out_heights )
+}
 
 #' @export
-#' @rdname flextable_size
-#' @description compute and apply optimized widths and heights with function \code{autofit}.
+#' @title Calculate pretty dimensions
+#' @param x flextable object
+#' @description return minimum estimated widths and heights for
+#' each table columns and rows.
+#' @examples
+#'
+#' # get estimated widths
+#' ft <- flextable(mtcars)
+#' dim_pretty(ft)
+dim_pretty <- function( x ){
+  max_widths <- list()
+  max_heights <- list()
+  for(j in c("header", "body")){
+    if( !is.null(x[[j]])){
+      dimensions_ <- get_dimensions(x[[j]])
+      x[[j]]$colwidths <- dimensions_$widths
+      x[[j]]$rowheights <- dimensions_$heights
+    }
+  }
+  dim(x)
+}
+
+
+
+#' @export
+#' @title Adjusts cell widths and heights
+#' @description compute and apply optimized widths and heights.
+#' @param x flextable object
 #' @param add_w extra width to add in inches
 #' @param add_h extra height to add in inches
 #' @examples

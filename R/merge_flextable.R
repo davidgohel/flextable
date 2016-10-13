@@ -1,25 +1,15 @@
-#' @title merge flextable cells
+#' @title Merge flextable cells vertically
 #'
-#' @description Merge flextable cells consecutive identical values. Function
-#' \code{merge_none} delete all merging informations.
+#' @description Merge flextable cells vertically when consecutive cells have
+#' identical values.
 #'
 #' @param x \code{flextable} object
 #' @param j columns names/keys where cells have to be merged.
-#' @param i rows where cells have to be merged.
 #' @param part partname of the table where merge has to be done.
 #' @examples
-#' # merge_v example --------
 #' ft_merge <- flextable(mtcars)
 #' ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))
 #' write_docx("ft_merge_v.docx", ft_merge)
-#'
-#' # merge_h example --------
-#' dummy_df <- data.frame( col1 = letters,
-#' col2 = letters, stringsAsFactors = FALSE )
-#' ft_merge <- flextable(dummy_df)
-#' ft_merge <- merge_h(x = ft_merge)
-#' write_docx("ft_merge_h.docx", ft_merge)
-#' @rdname merge_flextable
 #' @export
 merge_v <- function(x, j = NULL, part = "body" ){
   part <- match.arg(part, c("body", "header"), several.ok = FALSE )
@@ -36,9 +26,22 @@ merge_v <- function(x, j = NULL, part = "body" ){
   x
 }
 
-#' @importFrom lazyeval lazy_eval
-#' @rdname merge_flextable
+#' @title Merge flextable cells horizontally
+#'
+#' @description Merge flextable cells horizontally when consecutive cells have
+#' identical values.
+#'
+#' @param x \code{flextable} object
+#' @param i rows where cells have to be merged.
+#' @param part partname of the table where merge has to be done.
+#' @examples
+#' dummy_df <- data.frame( col1 = letters,
+#' col2 = letters, stringsAsFactors = FALSE )
+#' ft_merge <- flextable(dummy_df)
+#' ft_merge <- merge_h(x = ft_merge)
+#' write_docx("ft_merge_h.docx", ft_merge)
 #' @export
+#' @importFrom lazyeval lazy_eval
 merge_h <- function(x, i = NULL, part = "body" ){
 
   part <- match.arg(part, c("body", "header"), several.ok = FALSE )
@@ -53,12 +56,16 @@ merge_h <- function(x, i = NULL, part = "body" ){
   x
 }
 
+
+#' @title Delete flextable merging informations
+#'
+#' @description Delete all merging informations from a flextable.
+#'
+#' @param x \code{flextable} object
+#' @param part partname of the table where merge has to be done.
 #' @importFrom lazyeval lazy_eval
-#' @rdname merge_flextable
 #' @export
 #' @examples
-#'
-#' # merge_none example --------
 #' typology <- data.frame(
 #'   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species" ),
 #'   what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
@@ -69,7 +76,8 @@ merge_h <- function(x, i = NULL, part = "body" ){
 #' ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
 #' ft <- merge_v(ft, j = c("Species"))
 #'
-#' theme_tron_legacy( merge_none( ft ) )
+#' ft <- theme_tron_legacy( merge_none( ft ) )
+#' write_docx("ft_merge_none.docx", ft)
 merge_none <- function(x, part = "all" ){
 
   part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )

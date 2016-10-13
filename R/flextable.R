@@ -1,4 +1,4 @@
-#' @title flextable object
+#' @title Create a flextable object
 #'
 #' @description Create a flextable object with function \code{flextable}.
 #'
@@ -14,7 +14,7 @@
 #' the dataset, they will be added as blank columns.
 #' @examples
 #' ft <- flextable(mtcars)
-#' write_docx("ft.docx", ft)
+#' ft
 #' @export
 #' @import Rcpp
 #' @importFrom stats setNames
@@ -29,11 +29,6 @@ flextable <- function( data, col_keys = names(data) ){
     data[blanks] <- blanks_col
   }
 
-  # orig_dataset <- data
-  #
-  # data <- data[, col_keys, drop = FALSE]
-  # col_keys <- names(data)
-  # body
   body <- table_part( data = data, col_keys = col_keys )
 
   # header
@@ -54,63 +49,16 @@ flextable <- function( data, col_keys = names(data) ){
 }
 
 
-#' @export
-#' @param ... unused
-#' @rdname flextable
 print.flextable <- function(x, ...){
   print(x$body$dataset)
 }
 
 
 
-#' @export
-#' @rdname flextable
-#' @description Function \code{optim_dim} will return minimum estimated widths and heights for
-#' each table columns and rows.
-#' @examples
-#'
-#' # get estimated widths
-#' ft <- flextable(mtcars)
-#' optim_dim(ft)
-optim_dim <- function( x ){
-  max_widths <- list()
-  max_heights <- list()
-  for(j in c("header", "body")){
-    if( !is.null(x[[j]])){
-      dimensions_ <- get_dimensions(x[[j]])
-      x[[j]]$colwidths <- dimensions_$widths
-      x[[j]]$rowheights <- dimensions_$heights
-    }
-  }
-  dim(x)
-}
-
-#' @rdname flextable
-#' @description Function \code{dim} will return widths and heights for each table columns and rows.
-#' @param x flextable object
-#' @export
-dim.flextable <- function(x){
-  max_widths <- list()
-  max_heights <- list()
-  for(j in c("header", "body")){
-    if( !is.null(x[[j]])){
-      max_widths[[j]] <- x[[j]]$colwidths
-      max_heights[[j]] <- x[[j]]$rowheights
-    }
-  }
-
-  mat_widths <- do.call("rbind", max_widths)
-  out_widths <- apply( mat_widths, 2, max )
-  names(out_widths) <- x$col_keys
-
-  out_heights <- as.double(unlist(max_heights))
-  list(widths = out_widths, heights = out_heights )
-}
-
 
 #' @importFrom purrr map_lgl
 #' @export
-#' @title flextable display values
+#' @title Define flextable displayed values
 #' @description Modify flextable displayed values.
 #' @param x a flextable object
 #' @param ... see details.
@@ -165,7 +113,7 @@ display <- function(x, i = NULL, part = "body", ...){
 #' @importFrom purrr map
 #' @importFrom purrr map_int
 #' @export
-#' @title add a row of labels in headers
+#' @title Add a row of labels in headers
 #'
 #' @description Add a single row of labels in the flextable's header part. It can
 #' be inserted at the top or the bottom of header part.
@@ -209,7 +157,7 @@ add_header <- function(x, top = TRUE, ...){
 
 
 
-#' @title set flextable's headers labels
+#' @title Set flextable's headers labels
 #'
 #' @description This function set labels for specified columns
 #' in a single row header of a flextable.
@@ -249,7 +197,7 @@ set_header_labels <- function(x, ...){
 #' @importFrom dplyr left_join
 #' @importFrom purrr map
 #' @export
-#' @title set flextable's header rows
+#' @title Set flextable's header rows
 #'
 #' @description Use a data.frame to specify flextable's header rows.
 #'

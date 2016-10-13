@@ -4,7 +4,6 @@
 \alias{dim.external_img}
 \alias{external_img}
 \alias{format.external_img}
-\alias{print.external_img}
 \title{external image}
 \usage{
 external_img(src, width = 0.5, height = 0.2)
@@ -12,8 +11,6 @@ external_img(src, width = 0.5, height = 0.2)
 \method{dim}{external_img}(x)
 
 \method{format}{external_img}(x, type = "console", ...)
-
-\method{print}{external_img}(x, ...)
 }
 \arguments{
 \item{src}{image file path}

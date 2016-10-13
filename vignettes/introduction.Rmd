@@ -1,9 +1,9 @@
 ---
-title: "Introdution to `flextable` objects"
+title: "flextable objects"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{flextable_introduction}
+  %\VignetteIndexEntry{flextable objects}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -45,6 +45,9 @@ iris %>%
   tabwid()
 ```
 
+---
+
+Let's have a step by step demo. First create a flextable. Change header font in bold. Function `tabwid` will wrap it in an *htmlwidget*.
 
 ```{r warning=FALSE, message=FALSE}
 library(flextable)

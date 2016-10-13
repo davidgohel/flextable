@@ -39,8 +39,6 @@ format.ftext = function (x, type = "console", ...){
   out
 }
 
-#' @export
-#' @rdname ftext
 print.ftext = function (x, ...){
   cat( format(x, type = "console"), "\n", sep = "" )
 }
@@ -117,8 +115,6 @@ format.external_img = function (x, type = "console", ...){
   out
 }
 
-#' @export
-#' @rdname external_img
 print.external_img = function (x, ...){
   cat( format(x, type = "console"), "\n", sep = "" )
 }

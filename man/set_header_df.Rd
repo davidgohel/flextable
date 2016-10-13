@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable.R
 \name{set_header_df}
 \alias{set_header_df}
-\title{set flextable's header rows}
+\title{Set flextable's header rows}
 \usage{
 set_header_df(x, mapping = NULL, key = "col_keys")
 }

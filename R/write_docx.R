@@ -134,7 +134,7 @@ write_docx <- function( file, x,
   out_file <- pack_folder(template_dir, file )
   # delete temporary dir
   unlink(template_dir, recursive = TRUE, force = TRUE)
-  out_file
+  invisible(out_file)
 }
 
 
@@ -176,9 +176,11 @@ wml_flextable <- function( x, relationships ){
       doc_pr_id = seq_along(imgs),
       stringsAsFactors = FALSE )
     for(id in seq_along(rids$src) ){
-      out <- stringr::str_replace(out, paste0("r:embed=\"", rids$src[id]), paste0("r:embed=\"", rids$rId[id]) )
-      out <- stringr::str_replace(out, "DRAWINGOBJECTID", rids$doc_pr_id[id] )
-      out <- stringr::str_replace(out, "PICTUREID", rids$nvpr_id[id] )
+      out <- gsub(x = out,
+                  pattern = paste0("r:embed=\"", rids$src[id]),
+                  replacement = paste0("r:embed=\"", rids$rId[id]) )
+      out <- gsub(x = out, pattern = "DRAWINGOBJECTID", replacement = rids$doc_pr_id[id] )
+      out <- gsub(x = out, pattern = "PICTUREID", replacement = rids$nvpr_id[id] )
     }
     expected_rels <- data.frame(
       id = rids$rId,
