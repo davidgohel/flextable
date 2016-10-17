@@ -16,7 +16,9 @@ library(magrittr)
 ```
 
 
-## TODO 
+## Default size 
+
+The default sizes of flextable columns and rows are hard coded. This will certainly drive to inadequate rows heights and columns widths. 
 
 `dim_pretty` and `dim`
 
