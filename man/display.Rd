@@ -24,11 +24,13 @@ Use format_that or format_simple to define cell content.
 \examples{
 
 # Formatting data values example ------
-ft <- flextable(head( mtcars, n = 10))
-ft <- display(ft, i = ~ drat > 3.5,
-  carb = fpar("# ", ftext(carb, fp_text(color="orange") ) ) ) \%>\%
-  autofit()
-write_docx("format_ft.docx", ft)
+if( require(magrittr) ){
+  ft <- flextable(head( mtcars, n = 10))
+  ft <- display(ft, i = ~ drat > 3.5,
+    carb = fpar("# ", ftext(carb, fp_text(color="orange") ) ) ) \%>\%
+    autofit()
+  write_docx("format_ft.docx", ft)
+}
 }
 \seealso{
 \code{\link{flextable}}
