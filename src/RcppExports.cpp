@@ -52,16 +52,3 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// wml_run_pic
-std::string wml_run_pic(std::string src, double width, double height);
-RcppExport SEXP flextable_wml_run_pic(SEXP srcSEXP, SEXP widthSEXP, SEXP heightSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type src(srcSEXP);
-    Rcpp::traits::input_parameter< double >::type width(widthSEXP);
-    Rcpp::traits::input_parameter< double >::type height(heightSEXP);
-    rcpp_result_gen = Rcpp::wrap(wml_run_pic(src, width, height));
-    return rcpp_result_gen;
-END_RCPP
-}

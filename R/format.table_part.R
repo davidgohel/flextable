@@ -27,8 +27,11 @@ get_paragraph_at <- function(x, i, j){
   pr_text_ <- x$style_ref_table$text[[x$styles$text[i,j]]]
   args_update[["fp_t"]] <- pr_text_
 
+  . <- x$dataset
   if( x$spans$columns[i,j] > 0 && x$spans$rows[i,j] > 0 ){
-    p <- lazy_eval(args, x$dataset[i,, drop = FALSE])
+    args_ <- as.list(x$dataset[i,, drop = FALSE])
+    args_$. <- x$dataset
+    p <- lazy_eval(args, args_)
   } else p <- fpar()
 
   args_update$object <- p
@@ -109,11 +112,16 @@ format_tp_html <- function(x, header = TRUE){
   tc_attr_2 <- ifelse(x$spans$columns > 1, paste0(" rowspan=\"", x$spans$columns,"\""), "")
   tc_attr <- paste0(tc_attr_1, tc_attr_2)
 
-  if(header)
-    tag <- "th"
+  rowheights <- rep( round(x$rowheights * 72, 0 ),
+       length( x$col_keys ) )
+
+  if(header) tag <- "th"
   else tag <- "td"
-  cells <- paste0("<", tag, tc_attr," class=\"c", x$styles$cells, "\">",
-                  ifelse(x$spans$rows < 1 | x$spans$columns < 1, "", paragraphs),
+
+  cells <- paste0("<", tag, tc_attr," class=\"c", x$styles$cells, "\" style=\"height:",
+                  rowheights,"pt;\">",
+                  ifelse(x$spans$rows < 1 | x$spans$columns < 1, "",
+                         paragraphs),
                   "</", tag, ">")
 
   cells[x$spans$rows < 1 | x$spans$columns < 1] <- ""

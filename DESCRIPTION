@@ -23,7 +23,7 @@ Imports:
     openssl,
     xml2 (>= 1.0.0)
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1
+RoxygenNote: 5.0.1.9000
 Suggests: rmarkdown, knitr,
     testthat, magrittr, scales
 VignetteBuilder: knitr

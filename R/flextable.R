@@ -57,6 +57,7 @@ print.flextable <- function(x, ...){
 
 
 #' @importFrom purrr map_lgl
+#' @import oxbase
 #' @export
 #' @title Define flextable displayed values
 #' @description Modify flextable displayed values.
@@ -74,7 +75,8 @@ print.flextable <- function(x, ...){
 #' # Formatting data values example ------
 #' ft <- flextable(head( mtcars, n = 10))
 #' ft <- display(ft, i = ~ drat > 3.5,
-#'   carb = fpar("# ", ftext(carb, fp_text(color="orange") ) ) )
+#'   carb = fpar("# ", ftext(carb, fp_text(color="orange") ) ) ) %>%
+#'   autofit()
 #' write_docx("format_ft.docx", ft)
 #' @export
 display <- function(x, i = NULL, part = "body", ...){

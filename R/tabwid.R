@@ -72,12 +72,12 @@ html_flextable <- function( x ){
   out = paste0(out, cw )
   css_ <- ""
   if( !is.null(x$header) ){
-    tmp <- format(x$header, type = "html")
+    tmp <- format(x$header, type = "html", header = TRUE)
     out = paste0(out, "<thead>", tmp, "</thead>" )
     css_ = paste0(css_, attr(tmp, "css"))
   }
   if( !is.null(x$body) ){
-    tmp <- format(x$body, type = "html")
+    tmp <- format(x$body, type = "html", header = FALSE)
     out = paste0(out, "<tbody>", tmp, "</tbody>" )
     css_ = paste0(css_, attr(tmp, "css"))
   }

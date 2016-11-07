@@ -4,7 +4,7 @@
 .Ruserdata
 src/*.o
 src/*.so
-todo.md
+todo.*
 inst/doc
 docs/*/*.docx
 docs/*/*.pptx

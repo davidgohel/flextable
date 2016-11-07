@@ -17,7 +17,3 @@ a_graphic_frame_close <- function() {
     .Call('flextable_a_graphic_frame_close', PACKAGE = 'flextable')
 }
 
-wml_run_pic <- function(src, width, height) {
-    .Call('flextable_wml_run_pic', PACKAGE = 'flextable', src, width, height)
-}
-

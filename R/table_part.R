@@ -2,6 +2,7 @@
 #' @importFrom oxbase fp_cell
 #' @importFrom oxbase fp_par
 #' @importFrom oxbase fp_text
+#' @importFrom gdtools str_extents
 table_part <- function( data, col_keys = names(data),
                         default_pr_text = fp_text(),
                         default_pr_par = fp_par() ){
@@ -31,8 +32,16 @@ table_part <- function( data, col_keys = names(data),
     formats = setNames(lazy_f, lazy_f_id)
   )
 
-  colwidths <- rep(.8, length(col_keys))
-  rowheights <- rep(.6, nrow(data))
+  colwidths <- str_extents(x = col_keys, fontname = default_pr_text$font.family,
+                       fontsize = default_pr_text$font.size,
+                       bold = default_pr_text$bold,
+                       italic = default_pr_text$italic)
+  rowheights <- str_extents(x = "M", fontname = default_pr_text$font.family,
+                            fontsize = default_pr_text$font.size,
+                            bold = default_pr_text$bold,
+                            italic = default_pr_text$italic)
+  colwidths <- colwidths[,1] / 72
+  rowheights <- rep( rowheights[,2] / 72, nrow(data) )
 
   out <- list( dataset = data,
                col_keys = col_keys,

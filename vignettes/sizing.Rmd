@@ -16,9 +16,61 @@ library(magrittr)
 ```
 
 
-## Default size 
+The default sizes of flextable columns and rows are hard coded. This will certainly drive to inadequate rows heights and columns widths. You can use function `dim` to get flextable dimensions. 
 
-The default sizes of flextable columns and rows are hard coded. This will certainly drive to inadequate rows heights and columns widths. 
+```{r}
+ft_base <- flextable(head(iris)) %>% 
+  theme_tron_legacy()
+tabwid(ft_base)
+dim(ft_base)
+```
 
-`dim_pretty` and `dim`
+## Pretty dimensions
+
+Function `dim_pretty` is computing optimized widths and heights. 
+
+```{r}
+dim_pretty(ft_base)
+```
+
+This function is time consuming and should be used sparingly.
+
+## Adjusts automatically cell widths and heights
+
+Function `autofit` is computing optimized widths and heights and apply the results to the object. 
+
+```{r}
+ft <- ft_base %>% autofit(add_w = 0, add_h = 0)
+
+dim(ft)
+tabwid(ft)
+```
+
+## Adjusts manually cell widths and heights
+
+Function `width` and `height` let you control dimensions of a flextable. 
+
+```{r}
+ft <- ft_base %>% autofit() %>% 
+  width(j = ~ Species, width = 2) %>% 
+  height(i = 4:5, height = .5)
+tabwid(ft)
+```
+
+## Text rotate
+
+This feature is only available for Microsoft Word and PowerPoint outputs.
+
+It can be specified by using `text.direction` argument of function `fp_cell`.
+
+```{r}
+ft <- ft_base %>% 
+  style(pr_c = fp_cell(text.direction = "btlr"), 
+        part = "header") %>% 
+  theme_tron_legacy() %>% 
+  autofit() %>% 
+  height(height = 1, part = "header")
+
+write_pptx(file = "test.pptx", x = ft)
+```
 

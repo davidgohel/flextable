@@ -63,14 +63,18 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
-`fpar` handle call to `minibar`. This will generate a simple bar to be inserted as content:
+`fpar` handle call to `minibar`. This will generate a simple bar to be inserted as content.
 
 ```{r}
 myft <- myft %>%
   display( i = ~ gear < 4,
-    drat = fpar(minibar( value = drat, max = 5, 
+    drat = fpar(minibar( value = drat, max = max(.$drat), 
                          barcol = "#C90000", width = 1, height = .15) )
   ) %>% autofit()
 
 tabwid(myft)
 ```
+
+Note usage of `.`, this object represents the input dataset of `flextable` call. The expression is not vectorized 
+
+
