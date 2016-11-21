@@ -16,7 +16,7 @@ library(magrittr)
 ```
 
 
-The default sizes of flextable columns and rows are hard coded. This will certainly drive to inadequate rows heights and columns widths. You can use function `dim` to get flextable dimensions. 
+The default sizes of flextable columns and rows are calculated with a simple algorithm. This will drive to inadequate rows heights and columns widths in some cases (when data values are wider than headers). You can use function `dim` to get flextable dimensions. 
 
 ```{r}
 ft_base <- flextable(head(iris)) %>% 
