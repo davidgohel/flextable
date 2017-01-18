@@ -21,9 +21,12 @@ Imports:
     htmltools,
     htmlwidgets,
     openssl,
-    xml2 (>= 1.0.0)
+    xml2 (>= 1.0.0), 
+    tibble, 
+    tidyr, 
+    magrittr
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1.9000
 Suggests: rmarkdown, knitr,
-    testthat, magrittr, scales
+    testthat, scales
 VignetteBuilder: knitr

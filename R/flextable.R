@@ -1,25 +1,28 @@
-#' @title Create a flextable object
+#' @title flextable object
 #'
 #' @description Create a flextable object with function \code{flextable}.
 #'
 #' \code{flextable} are designed to make tabular reporting easier for
-#' R users.
+#' R users. Functions are available to let you format text, paragraphs and cells;
+#' table cells can be merge vertically or horizontally, row headers can easilly
+#' be defined, rows heights and columns widths can be manually set or automatically
+#' computed.
 #'
-#' An API lets you format text, paragraphs and cells, table elements can
-#' be merge vertically or horizontally.
-#'
+#' @details
 #' A \code{flextable} is made of 2 parts: header and body.
+#'
+#' Most functions have an argument named \code{part} that will be used
+#' to specify what part of of the table should be modified.
 #' @param data dataset
 #' @param col_keys columns names/keys to display. If some column names are not in
-#' the dataset, they will be added as blank columns.
+#' the dataset, they will be added as blank columns by default.
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft
 #' @export
 #' @import Rcpp
 #' @importFrom stats setNames
-#' @importFrom dplyr mutate_
-#' @importFrom lazyeval interp
+#' @importFrom purrr map
 flextable <- function( data, col_keys = names(data) ){
 
   blanks <- setdiff( col_keys, names(data))
@@ -48,70 +51,29 @@ flextable <- function( data, col_keys = names(data) ){
   out
 }
 
-
+#' @importFrom htmltools HTML browsable
+#' @export
+#' @rdname flextable
+#' @param x flextable object
+#' @param ... unused argument
 print.flextable <- function(x, ...){
-  print(x$body$dataset)
+  if (!interactive() ){
+    print(x$body$dataset)
+  } else {
+    html_ft <- html_flextable(x)
+    tcss <- scan(system.file(package = "flextable",
+                             "htmlwidgets/customcss/tabwid.css"),
+                 what = "character", quiet = TRUE, sep = "\n")
+    tcss <- paste(tcss, collapse = "\n")
+    html_ <- paste0("<style type=\"text/css\">", attr(html_ft, "css"), "</style>",
+                    "<style type=\"text/css\">\n", tcss, "</style>",
+                    "<div class=\"tabwid\">", html_ft, "</div>" )
+    print( browsable( HTML( html_ ) ) )
+  }
+
 }
 
 
-
-
-#' @importFrom purrr map_lgl
-#' @import oxbase
-#' @export
-#' @title Define flextable displayed values
-#' @description Modify flextable displayed values.
-#' @param x a flextable object
-#' @param ... see details.
-#' @param i rows selection
-#' @param part partname of the table (one of 'all', 'body', 'header')
-#' @details
-#'
-#' Use format_that or format_simple to define cell content.
-#'
-#' @seealso \code{\link{flextable}}
-#' @examples
-#'
-#' # Formatting data values example ------
-#' if( require(magrittr) ){
-#'   ft <- flextable(head( mtcars, n = 10))
-#'   ft <- display(ft, i = ~ drat > 3.5,
-#'     carb = fpar("# ", ftext(carb, fp_text(color="orange") ) ) ) %>%
-#'     autofit()
-#'   write_docx("format_ft.docx", ft)
-#' }
-#' @export
-display <- function(x, i = NULL, part = "body", ...){
-
-  part <- match.arg(part, c("body", "header"), several.ok = FALSE )
-
-  args <- lazy_dots(... )
-  stopifnot(all( names(args) %in% x$col_keys ) )
-
-  fun_call <- map( args, "expr")
-  fun_call <- map(fun_call, function(x) x[[1]])
-  fun_call <- map_chr(fun_call, as.character)
-  invalid_fun_call <- !fun_call %in% c("fpar")
-  if( any(invalid_fun_call) ){
-    stop( paste0(names(args), collapse = ","), " should call fpar." )
-  }
-
-  if( inherits(i, "formula") && any( "header" %in% part ) ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
-  i <- get_rows_id(x[[part]], i )
-  j <- get_columns_id(x[[part]], names(args) )
-
-  lazy_f_id <- map_chr(args, digest )
-  x[[part]]$style_ref_table$formats[lazy_f_id] <- args
-  x[[part]]$styles$formats[i, j ] <- matrix( rep.int(lazy_f_id, length(i)), nrow = length(i), byrow = TRUE )
-
-  x
-}
 
 
 #' @importFrom purrr map
@@ -127,26 +89,20 @@ display <- function(x, i = NULL, part = "body", ...){
 #' @param ... a named list (names are data colnames) of strings
 #' specifying corresponding labels to add.
 #' @examples
-#' ft <- flextable( head( iris ))
-#' ft <- set_header_labels(x = ft, Sepal.Length = "Sepal",
-#'   Sepal.Width = "Sepal", Petal.Length = "Petal",
-#'   Petal.Width = "Petal", Species = "Species" )
+#' ft <- flextable( head( iris ),
+#'   col_keys = c("Species", "Sepal.Length", "Petal.Length", "Sepal.Width", "Petal.Width") )
 #' ft <- add_header(x = ft, Sepal.Length = "length",
 #'   Sepal.Width = "width", Petal.Length = "length",
 #'   Petal.Width = "width", Species = "Species", top = FALSE )
 #' ft <- add_header(ft, Sepal.Length = "Inches",
 #'   Sepal.Width = "Inches", Petal.Length = "Inches",
 #'   Petal.Width = "Inches", Species = "Species", top = TRUE )
+#' ft <- merge_h(ft, part = "header")
+#' ft <- autofit(ft)
 #' write_docx("ft_add_header.docx", ft)
 add_header <- function(x, top = TRUE, ...){
 
   args <- list(...)
-  # missing_cols <- setdiff(x$col_keys, names(args) )
-  # if( length(missing_cols) > 0){
-  #   msg <- paste0(missing_cols, collapse = ", ")
-  #   msg <- paste0("you need to specify labels for the following columns: ", msg)
-  #   stop(msg)
-  # }
   args_ <- map(x$col_keys, function(x) "" )
   names(args_) <- x$col_keys
   args_[names(args)] <- map(args, format)
@@ -175,6 +131,7 @@ add_header <- function(x, top = TRUE, ...){
 #'   Sepal.Width = "Sepal width", Petal.Length = "Petal length",
 #'   Petal.Width = "Petal width"
 #' )
+#' ft_1 <- autofit(ft_1)
 #' write_docx("ft_1.docx", ft_1)
 #' @export
 set_header_labels <- function(x, ...){
@@ -205,6 +162,13 @@ set_header_labels <- function(x, ...){
 #'
 #' @description Use a data.frame to specify flextable's header rows.
 #'
+#' The data.frame must contain a column whose values match flextable
+#' \code{col_keys} argument, this column will be used as join key. The
+#' other columns will be displayed as header rows. The leftmost column
+#' is used as the top header row and the rightmost column
+#' is used as the bottom header row. Identical values will be merged (
+#' vertically and horizontally).
+#'
 #' @param x a \code{flextable} object
 #' @param mapping a \code{data.frame} specyfing for each colname
 #' content of the column.
@@ -219,6 +183,8 @@ set_header_labels <- function(x, ...){
 #'
 #' ft <- flextable( head( iris ))
 #' ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+#' ft <- theme_vanilla(ft)
+#' ft <- autofit(ft)
 #' write_docx("header_df.docx", ft)
 set_header_df <- function(x, mapping = NULL, key = "col_keys"){
 
@@ -246,5 +212,3 @@ set_header_df <- function(x, mapping = NULL, key = "col_keys"){
   x$header <- span_columns(header_, x$col_keys)
   x
 }
-
-

@@ -20,15 +20,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // a_graphic_frame_open
-std::string a_graphic_frame_open(int id, double offx, double offy);
-RcppExport SEXP flextable_a_graphic_frame_open(SEXP idSEXP, SEXP offxSEXP, SEXP offySEXP) {
+std::string a_graphic_frame_open(int id, double offx, double offy, bool standalone);
+RcppExport SEXP flextable_a_graphic_frame_open(SEXP idSEXP, SEXP offxSEXP, SEXP offySEXP, SEXP standaloneSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type id(idSEXP);
     Rcpp::traits::input_parameter< double >::type offx(offxSEXP);
     Rcpp::traits::input_parameter< double >::type offy(offySEXP);
-    rcpp_result_gen = Rcpp::wrap(a_graphic_frame_open(id, offx, offy));
+    Rcpp::traits::input_parameter< bool >::type standalone(standaloneSEXP);
+    rcpp_result_gen = Rcpp::wrap(a_graphic_frame_open(id, offx, offy, standalone));
     return rcpp_result_gen;
 END_RCPP
 }

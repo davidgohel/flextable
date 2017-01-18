@@ -5,8 +5,8 @@
 #' @import htmlwidgets
 #' @importFrom htmltools HTML
 #' @param x \code{flextable} object
-#' @param width widget width
-#' @param height widget height
+#' @param width widget width. Unused argument, columns widths are managed by function width.
+#' @param height widget height Unused argument, rows heights are managed by function height.
 #'
 #' @export
 tabwid <- function(x, width = NULL, height = NULL) {
@@ -64,7 +64,7 @@ html_flextable <- function( x ){
 
   dims <- dim(x)
 
-  out <- "<table class=\"tabwid\">"
+  out <- "<table>"
   cw <- paste0("<col width=",
          shQuote( round(dims$widths * 72, 0 ), type="cmd"),
          ">",

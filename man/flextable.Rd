@@ -2,26 +2,37 @@
 % Please edit documentation in R/flextable.R
 \name{flextable}
 \alias{flextable}
-\title{Create a flextable object}
+\alias{print.flextable}
+\title{flextable object}
 \usage{
 flextable(data, col_keys = names(data))
+
+\method{print}{flextable}(x, ...)
 }
 \arguments{
 \item{data}{dataset}
 
 \item{col_keys}{columns names/keys to display. If some column names are not in
-the dataset, they will be added as blank columns.}
+the dataset, they will be added as blank columns by default.}
+
+\item{x}{flextable object}
+
+\item{...}{unused argument}
 }
 \description{
 Create a flextable object with function \code{flextable}.
 
 \code{flextable} are designed to make tabular reporting easier for
-R users.
-
-An API lets you format text, paragraphs and cells, table elements can
-be merge vertically or horizontally.
-
+R users. Functions are available to let you format text, paragraphs and cells;
+table cells can be merge vertically or horizontally, row headers can easilly
+be defined, rows heights and columns widths can be manually set or automatically
+computed.
+}
+\details{
 A \code{flextable} is made of 2 parts: header and body.
+
+Most functions have an argument named \code{part} that will be used
+to specify what part of of the table should be modified.
 }
 \examples{
 ft <- flextable(mtcars)

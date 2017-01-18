@@ -54,10 +54,17 @@ std::string a_sptree_open(bool standalone, int id, double offx, double offy) {
 }
 
 // [[Rcpp::export]]
-std::string a_graphic_frame_open(int id, double offx, double offy) {
+std::string a_graphic_frame_open(int id, double offx, double offy, bool standalone ) {
   std::stringstream os;
 
-  os << "<p:graphicFrame>";
+  if( standalone ){
+    os << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
+    os << "<p:graphicFrame xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" ";
+    os << "xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ";
+    os << "xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\" >";
+  } else {
+    os << "<p:graphicFrame>";
+  }
 
   os << "<p:nvGraphicFramePr>";
     os << "<p:cNvPr id=\"" << id << "\" name=\"nvGraphicFrame " << id << "\"/>";

@@ -9,9 +9,9 @@ tabwid(x, width = NULL, height = NULL)
 \arguments{
 \item{x}{\code{flextable} object}
 
-\item{width}{widget width}
+\item{width}{widget width. Unused argument, columns widths are managed by function width.}
 
-\item{height}{widget height}
+\item{height}{widget height Unused argument, rows heights are managed by function height.}
 }
 \description{
 htmlwidget for flextable

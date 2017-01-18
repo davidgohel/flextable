@@ -19,16 +19,16 @@ Add a single row of labels in the flextable's header part. It can
 be inserted at the top or the bottom of header part.
 }
 \examples{
-ft <- flextable( head( iris ))
-ft <- set_header_labels(x = ft, Sepal.Length = "Sepal",
-  Sepal.Width = "Sepal", Petal.Length = "Petal",
-  Petal.Width = "Petal", Species = "Species" )
+ft <- flextable( head( iris ),
+  col_keys = c("Species", "Sepal.Length", "Petal.Length", "Sepal.Width", "Petal.Width") )
 ft <- add_header(x = ft, Sepal.Length = "length",
   Sepal.Width = "width", Petal.Length = "length",
   Petal.Width = "width", Species = "Species", top = FALSE )
 ft <- add_header(ft, Sepal.Length = "Inches",
   Sepal.Width = "Inches", Petal.Length = "Inches",
   Petal.Width = "Inches", Species = "Species", top = TRUE )
+ft <- merge_h(ft, part = "header")
+ft <- autofit(ft)
 write_docx("ft_add_header.docx", ft)
 }
 

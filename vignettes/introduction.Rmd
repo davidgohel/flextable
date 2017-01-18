@@ -96,7 +96,7 @@ myft <- myft %>%
     gear = fpar("# ", ftext( gear, prop = fp_bold()) ),
     mpg = fpar(mpg, " (", ftext( carb, prop = fp_italic()), ")." ), 
     drat = fpar(minibar( value = drat, max = 5, barcol = "#C90000", width = 1, height = .15) )
-  )
+  ) %>% autofit()
 tabwid(myft)
 ```
 

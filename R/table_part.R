@@ -57,9 +57,6 @@ table_part <- function( data, col_keys = names(data),
                  )
                )
   class( out ) <- "table_part"
-  # dims_ <- get_dimensions(out)
-  # out$colwidths <- dims_$widths
-  # out$rowheights <- dims_$heights
 
   out
 }
@@ -332,56 +329,6 @@ get_pr_cell <- function( x, i, j ){
 
 
 
-
-
-
-#' @importFrom purrr map_dbl
-#' @importFrom purrr map_lgl
-#' @importFrom purrr map_chr
-#' @importFrom purrr pmap
-#' @importFrom stats setNames
-#' @import lazyeval
-get_dimensions <- function( x ){
-  width_mat <- matrix(0, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
-  height_mat <- matrix(0, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
-  dimnames(width_mat) <- list( NULL, x$col_keys)
-  dimnames(height_mat) <- list( NULL, x$col_keys)
-
-  col_id <- setNames(seq_along(x$col_keys), nm = x$col_keys )
-  for(j in x$col_keys){
-    for( i in seq_len(nrow(x$dataset))){
-
-      p <- get_paragraph_at(x, i, col_id[j])
-      p$chunks <- cast_chunks(p)
-      dim_ <- dim(p)
-      width_mat[i, j] <- dim_$width
-      height_mat[i, j] <- dim_$height
-    }
-  }
-  widths <- width_mat
-  heights <- height_mat
-  widths[x$spans$rows<1] <- 0
-  widths[x$spans$columns<1] <- 0
-  heights[x$spans$rows<1] <- 0
-  heights[x$spans$columns<1] <- 0
-  margin.left <- map_dbl( x$style_ref_table$cells, "margin.left" ) * (4/3)
-  margin.left <- setNames(margin.left[as.vector(x$styles$cells)], NULL)
-  margin.right <- map_dbl( x$style_ref_table$cells, "margin.right" ) * (4/3)
-  margin.right <- setNames(margin.right[as.vector(x$styles$cells)], NULL)
-  widths <- widths + margin.left + margin.right
-  widths <- matrix( widths, ncol = length(x$col_keys) )
-
-  margin.top <- map_dbl( x$style_ref_table$cells, "margin.top" ) * (4/3)
-  margin.top <- setNames(margin.top[as.vector(x$styles$cells)], NULL)
-  margin.bottom <- map_dbl( x$style_ref_table$cells, "margin.bottom" ) * (4/3)
-  margin.bottom <- setNames(margin.bottom[as.vector(x$styles$cells)], NULL)
-
-  heights <- heights + margin.top + margin.bottom
-  heights <- matrix( heights, ncol = length(x$col_keys) )
-  list(widths = apply(widths, 2, max),
-       heights = apply(heights, 1, max)
-       )
-}
 
 
 

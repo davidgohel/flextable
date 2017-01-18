@@ -5,8 +5,8 @@ a_sptree_open <- function(standalone, id, offx, offy) {
     .Call('flextable_a_sptree_open', PACKAGE = 'flextable', standalone, id, offx, offy)
 }
 
-a_graphic_frame_open <- function(id, offx, offy) {
-    .Call('flextable_a_graphic_frame_open', PACKAGE = 'flextable', id, offx, offy)
+a_graphic_frame_open <- function(id, offx, offy, standalone) {
+    .Call('flextable_a_graphic_frame_open', PACKAGE = 'flextable', id, offx, offy, standalone)
 }
 
 a_sptree_close <- function() {

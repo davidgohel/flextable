@@ -62,15 +62,15 @@ write_pptx <- function(
 
 #' @export
 #' @title graphic frame xml code
-#' @description open xml wrapper for pptx
+#' @description produces the dml of a flextable
 #' @param x \code{flextable} object
 #' @param id unique identifier in the slide
 #' @param offx x offset
 #' @param offy y offset
-get_graphic_frame <- function(x, id = 1L, offx = 1L, offy = 1L) {
-  dims_ <- dim(x)
-  out <- ""
-  out <- a_graphic_frame_open(id, offx*72, offy*72)
+#' @param standalone specify to produce a standalone XML file.
+#' If FALSE, omits xml header and default namespace.
+get_graphic_frame <- function(x, id = 1L, offx = 1L, offy = 1L, standalone = TRUE) {
+  out <- a_graphic_frame_open(id, offx*72, offy*72, standalone = standalone)
   out <- paste0( out,  pml_flextable(x))
   out <- paste0( out,  a_graphic_frame_close() )
   out

@@ -1,15 +1,13 @@
-lazy_format_simple <- function( col_key ){
-  format_simple_l <- as.lazy( interp("fpar(x)", x = as.name(col_key) ), globalenv() )
-  format_simple_l
-}
+# tools for images treatment----
 
-
+# compute ids associated with images to be inserted into a MS doc
 get_rids <- function( last_id, imgs){
   data.frame(rId = paste0("rId", seq_along(imgs) + last_id),
              src = imgs, nvpr_id = seq_along(imgs), doc_pr_id = seq_along(imgs),
              stringsAsFactors = FALSE )
 }
 
+# replace all src in r:embed by their rId
 rids_substitute_xml <- function( out, rids ){
   for(id in seq_along(rids$src) ){
     out <- gsub(x = out,
@@ -21,6 +19,7 @@ rids_substitute_xml <- function( out, rids ){
   out
 }
 
+# compute the additional relations to insert in the package
 expected_rels <- function( rids ){
   data.frame(
     id = rids$rId,
@@ -30,5 +29,5 @@ expected_rels <- function( rids ){
     stringsAsFactors = FALSE )
 }
 
-
+globalVariables(c(".", "size", "col_key", "fid", "font.family", "id", "pptag", "ref", "value"))
 

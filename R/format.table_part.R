@@ -1,3 +1,4 @@
+#' @importFrom purrr pmap_chr
 get_cell_styles_m <- function(x, type){
   datalist <- list(
     ref = as.character(x$styles$cells),
@@ -17,55 +18,12 @@ get_cell_styles_m <- function(x, type){
 }
 
 
-get_paragraph_at <- function(x, i, j){
-  fid <- x$styles$formats[i, j]
-  args <- x$style_ref_table$formats[[fid]]
-
-  args_update <- list()
-  pr_par_ <- x$style_ref_table$pars[[x$styles$pars[i,j]]]
-  args_update[["fp_p"]] <- pr_par_
-  pr_text_ <- x$style_ref_table$text[[x$styles$text[i,j]]]
-  args_update[["fp_t"]] <- pr_text_
-
-  . <- x$dataset
-  if( x$spans$columns[i,j] > 0 && x$spans$rows[i,j] > 0 ){
-    args_ <- as.list(x$dataset[i,, drop = FALSE])
-    args_$. <- x$dataset
-    p <- lazy_eval(args, args_)
-  } else p <- fpar()
-
-  args_update$object <- p
-  p <- do.call(update, args_update)
-
-  p
-}
-
-
-
-
-format_as_paragraph <- function(x, type = "pml"){
-  text <- matrix("", ncol = length(x$col_keys), nrow = nrow(x$dataset) )
-  dimnames(text) <- list( NULL, x$col_keys)
-
-  col_id <- setNames(seq_along(x$col_keys), nm = x$col_keys )
-  imgs <- character(0)
-  for(j in x$col_keys){
-    for( i in seq_len(nrow(x$dataset))){
-
-      p <- get_paragraph_at(x, i, col_id[j])
-      imgs <- append( imgs, get_imgs(p) )
-      text[i, j] <- format(p, type = type)
-    }
-  }
-  attr( text, "imgs" ) <- unique(imgs)
-  text
-}
 
 
 format_tp_wml <- function(x, header = TRUE, rids ){
   cell_styles <- get_cell_styles_m( x, type = "wml" )
 
-  runs <- format_as_paragraph(x, type = "wml")
+  runs <- cot_to_matrix(x, type = "wml")
   imgs <- attr( runs, "imgs" )
   runs <- paste0("<w:tc>", cell_styles, runs, "</w:tc>")
   runs[x$spans$rows < 1] <- ""
@@ -86,7 +44,7 @@ format_tp_wml <- function(x, header = TRUE, rids ){
 
 format_tp_pml <- function(x, header = TRUE){
   cell_styles <- get_cell_styles_m( x, type = "pml" )
-  paragraphs <- format_as_paragraph(x, type = "pml")
+  paragraphs <- cot_to_matrix(x, type = "pml")
   tc_attr_1 <- ifelse(x$spans$rows == 1, "",
                       ifelse(x$spans$rows > 1, paste0(" gridSpan=\"", x$spans$rows,"\""), " hMerge=\"true\"")
   )
@@ -107,7 +65,7 @@ format_tp_pml <- function(x, header = TRUE){
 }
 
 format_tp_html <- function(x, header = TRUE){
-  paragraphs <- format_as_paragraph(x, type = "html")
+  paragraphs <- cot_to_matrix(x, type = "html")
   tc_attr_1 <- ifelse(x$spans$rows > 1, paste0(" colspan=\"", x$spans$rows,"\""), "")
   tc_attr_2 <- ifelse(x$spans$columns > 1, paste0(" rowspan=\"", x$spans$columns,"\""), "")
   tc_attr <- paste0(tc_attr_1, tc_attr_2)

@@ -4,7 +4,7 @@
 \alias{get_graphic_frame}
 \title{graphic frame xml code}
 \usage{
-get_graphic_frame(x, id = 1L, offx = 1L, offy = 1L)
+get_graphic_frame(x, id = 1L, offx = 1L, offy = 1L, standalone = TRUE)
 }
 \arguments{
 \item{x}{\code{flextable} object}
@@ -14,8 +14,11 @@ get_graphic_frame(x, id = 1L, offx = 1L, offy = 1L)
 \item{offx}{x offset}
 
 \item{offy}{y offset}
+
+\item{standalone}{specify to produce a standalone XML file.
+If FALSE, omits xml header and default namespace.}
 }
 \description{
-open xml wrapper for pptx
+produces the dml of a flextable
 }
 

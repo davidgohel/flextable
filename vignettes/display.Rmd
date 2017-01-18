@@ -30,7 +30,7 @@ tabwid(myft)
 
 Flextable content is defined with `display` function. 
 
-It always requires a call to `fpar` which is a simple wrapper for adding specific formated text. The following call to fpar only let you modify the display content of a cell (because fpar argument is only a single string). 
+It always requires a call to `fpar` which is a simple wrapper whose role is to concatenate  formated text. The following call to fpar only let you modify the display content of a cell (because fpar argument is only a single string). 
 
 ```{r}
 myft <- myft %>%
@@ -65,7 +65,7 @@ tabwid(myft)
 
 `fpar` handle call to `minibar`. This will generate a simple bar to be inserted as content.
 
-```{r}
+```{r eval=FALSE}
 myft <- myft %>%
   display( i = ~ gear < 4,
     drat = fpar(minibar( value = drat, max = max(.$drat), 
