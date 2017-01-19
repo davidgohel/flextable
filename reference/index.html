@@ -6,14 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference. flextable package</title>
+<title>Function reference • flextable package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/simplex/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-index">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -45,7 +44,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">flextable package</a>
+      <a class="navbar-brand" href="../index.html">pkgdown</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -68,6 +67,7 @@
   <a href="../articles/display.html">Content display</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../reference/index.html">Function reference</a>
@@ -82,123 +82,206 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Function reference <small>version&nbsp;0.0.1</small></h1>
-</div>
-
-<div class="row">
+      <div class="row">
   <div class="col-md-9">
-    <div class="section ">
-      <h2>Create flextable</h2>
+    <div class="page-header">
+      <h1>Function reference</h1>
+      <h4>version&nbsp;0.0.2</h4>
+    </div>
+
+    <div class="contents">
+      <h2 id="section-create-flextable" class="hasAnchor"><a href="#section-create-flextable" class="anchor"></a>Create flextable</h2>
       <p class="section-desc"></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="flextable.html">flextable</a></dt>
-        <dd>Create a flextable object</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Headers</h2>
+      
+      <p><a href="flextable.html">flextable object</a></p>
+      <ul>
+        <li><code><a href="flextable.html">flextable</a></code></li><li><code><a href="flextable.html">print.flextable</a></code></li>
+      </ul>
+          <h2 id="section-headers" class="hasAnchor"><a href="#section-headers" class="anchor"></a>Headers</h2>
       <p class="section-desc"><p>Add or modify flextable`s headers</p></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="add_header.html">add_header</a></dt>
-        <dd>Add a row of labels in headers</dd>
-        <dt><a href="set_header_df.html">set_header_df</a></dt>
-        <dd>Set flextable's header rows</dd>
-        <dt><a href="set_header_labels.html">set_header_labels</a></dt>
-        <dd>Set flextable's headers labels</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Manage flextable layout</h2>
+      
+      <p><a href="add_header.html">Add a row of labels in headers</a></p>
+      <ul>
+        <li><code><a href="add_header.html">add_header</a></code></li>
+      </ul>
+      
+      <p><a href="set_header_df.html">Set flextable's header rows</a></p>
+      <ul>
+        <li><code><a href="set_header_df.html">set_header_df</a></code></li>
+      </ul>
+      
+      <p><a href="set_header_labels.html">Set flextable's headers labels</a></p>
+      <ul>
+        <li><code><a href="set_header_labels.html">set_header_labels</a></code></li>
+      </ul>
+          <h2 id="section-manage-flextable-layout" class="hasAnchor"><a href="#section-manage-flextable-layout" class="anchor"></a>Manage flextable layout</h2>
       <p class="section-desc"></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="autofit.html">autofit</a></dt>
-        <dd>Adjusts cell widths and heights</dd>
-        <dt><a href="dim_pretty.html">dim_pretty</a></dt>
-        <dd>Calculate pretty dimensions</dd>
-        <dt><a href="dim.flextable.html">dim.flextable</a></dt>
-        <dd>Get flextable dimensions</dd>
-        <dt><a href="height.html">height</a></dt>
-        <dd>Set flextable rows height</dd>
-        <dt><a href="merge_h.html">merge_h</a></dt>
-        <dd>Merge flextable cells horizontally</dd>
-        <dt><a href="merge_none.html">merge_none</a></dt>
-        <dd>Delete flextable merging informations</dd>
-        <dt><a href="merge_v.html">merge_v</a></dt>
-        <dd>Merge flextable cells vertically</dd>
-        <dt><a href="width.html">width</a></dt>
-        <dd>Set flextable columns width</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Format flextable</h2>
+      
+      <p><a href="autofit.html">Adjusts cell widths and heights</a></p>
+      <ul>
+        <li><code><a href="autofit.html">autofit</a></code></li>
+      </ul>
+      
+      <p><a href="dim_pretty.html">Calculate pretty dimensions</a></p>
+      <ul>
+        <li><code><a href="dim_pretty.html">dim_pretty</a></code></li>
+      </ul>
+      
+      <p><a href="dim.flextable.html">Get flextable dimensions</a></p>
+      <ul>
+        <li><code><a href="dim.flextable.html">dim.flextable</a></code></li>
+      </ul>
+      
+      <p><a href="height.html">Set flextable rows height</a></p>
+      <ul>
+        <li><code><a href="height.html">height</a></code></li>
+      </ul>
+      
+      <p><a href="merge_h.html">Merge flextable cells horizontally</a></p>
+      <ul>
+        <li><code><a href="merge_h.html">merge_h</a></code></li>
+      </ul>
+      
+      <p><a href="merge_none.html">Delete flextable merging informations</a></p>
+      <ul>
+        <li><code><a href="merge_none.html">merge_none</a></code></li>
+      </ul>
+      
+      <p><a href="merge_v.html">Merge flextable cells vertically</a></p>
+      <ul>
+        <li><code><a href="merge_v.html">merge_v</a></code></li>
+      </ul>
+      
+      <p><a href="width.html">Set flextable columns width</a></p>
+      <ul>
+        <li><code><a href="width.html">width</a></code></li>
+      </ul>
+          <h2 id="section-format-flextable" class="hasAnchor"><a href="#section-format-flextable" class="anchor"></a>Format flextable</h2>
       <p class="section-desc"><p>Modify flextable`s formatting properties, apply theme functions.</p></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="bg.html">bg</a></dt>
-        <dd>Set background color</dd>
-        <dt><a href="bold.html">bold</a></dt>
-        <dd>Set font weight</dd>
-        <dt><a href="border.html">border</a></dt>
-        <dd>Set borders</dd>
-        <dt><a href="color.html">color</a></dt>
-        <dd>Set font color</dd>
-        <dt><a href="padding.html">padding</a></dt>
-        <dd>Set paddings</dd>
-        <dt><a href="style.html">style</a></dt>
-        <dd>Set flextable style</dd>
-        <dt><a href="theme_tron_legacy.html">theme_tron_legacy</a></dt>
-        <dd>Apply tron legacy theme</dd>
-        <dt><a href="theme_tron.html">theme_tron</a></dt>
-        <dd>Apply tron theme</dd>
-        <dt><a href="theme_vanilla.html">theme_vanilla</a></dt>
-        <dd>Apply vanilla theme</dd>
-        <dt><a href="theme_zebra.html">theme_zebra</a></dt>
-        <dd>Apply zebra theme</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Content</h2>
+      
+      <p><a href="bg.html">Set background color</a></p>
+      <ul>
+        <li><code><a href="bg.html">bg</a></code></li>
+      </ul>
+      
+      <p><a href="bold.html">Set font weight</a></p>
+      <ul>
+        <li><code><a href="bold.html">bold</a></code></li>
+      </ul>
+      
+      <p><a href="border.html">Set borders</a></p>
+      <ul>
+        <li><code><a href="border.html">border</a></code></li>
+      </ul>
+      
+      <p><a href="color.html">Set font color</a></p>
+      <ul>
+        <li><code><a href="color.html">color</a></code></li>
+      </ul>
+      
+      <p><a href="padding.html">Set paddings</a></p>
+      <ul>
+        <li><code><a href="padding.html">padding</a></code></li>
+      </ul>
+      
+      <p><a href="style.html">Set flextable style</a></p>
+      <ul>
+        <li><code><a href="style.html">style</a></code></li>
+      </ul>
+      
+      <p><a href="theme_booktabs.html">Apply booktabs theme</a></p>
+      <ul>
+        <li><code><a href="theme_booktabs.html">theme_booktabs</a></code></li>
+      </ul>
+      
+      <p><a href="theme_tron_legacy.html">Apply tron legacy theme</a></p>
+      <ul>
+        <li><code><a href="theme_tron_legacy.html">theme_tron_legacy</a></code></li>
+      </ul>
+      
+      <p><a href="theme_tron.html">Apply tron theme</a></p>
+      <ul>
+        <li><code><a href="theme_tron.html">theme_tron</a></code></li>
+      </ul>
+      
+      <p><a href="theme_vanilla.html">Apply vanilla theme</a></p>
+      <ul>
+        <li><code><a href="theme_vanilla.html">theme_vanilla</a></code></li>
+      </ul>
+      
+      <p><a href="theme_zebra.html">Apply zebra theme</a></p>
+      <ul>
+        <li><code><a href="theme_zebra.html">theme_zebra</a></code></li>
+      </ul>
+          <h2 id="section-content" class="hasAnchor"><a href="#section-content" class="anchor"></a>Content</h2>
       <p class="section-desc"><p>Define flextable`s content</p></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="display.html">display</a></dt>
-        <dd>Define flextable displayed values</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Helper functions</h2>
+      
+      <p><a href="display.html">Define flextable displayed values</a></p>
+      <ul>
+        <li><code><a href="display.html">display</a></code></li>
+      </ul>
+          <h2 id="section-helper-functions" class="hasAnchor"><a href="#section-helper-functions" class="anchor"></a>Helper functions</h2>
       <p class="section-desc"></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="empty.html">empty</a></dt>
-        <dd>Delete flextable content</dd>
-      </dl>
-    </div>
-    <div class="section ">
-      <h2>Output functions</h2>
+      
+      <p><a href="empty.html">Delete flextable content</a></p>
+      <ul>
+        <li><code><a href="empty.html">empty</a></code></li>
+      </ul>
+          <h2 id="section-output-functions" class="hasAnchor"><a href="#section-output-functions" class="anchor"></a>Output functions</h2>
       <p class="section-desc"></p>
 
-      <dl class="dl-horizontal">
-        <dt><a href="tabwid.html">tabwid</a></dt>
-        <dd>htmlwidget for flextable</dd>
-        <dt><a href="write_docx.html">write_docx</a></dt>
-        <dd>Microsoft Word table</dd>
-        <dt><a href="write_pptx.html">write_pptx</a></dt>
-        <dd>Microsoft PowerPoint table</dd>
-      </dl>
+      
+      <p><a href="tabwid.html">htmlwidget for flextable</a></p>
+      <ul>
+        <li><code><a href="tabwid.html">tabwid</a></code></li>
+      </ul>
+      
+      <p><a href="write_docx.html">Microsoft Word table</a></p>
+      <ul>
+        <li><code><a href="write_docx.html">write_docx</a></code></li>
+      </ul>
+      
+      <p><a href="write_pptx.html">Microsoft PowerPoint table</a></p>
+      <ul>
+        <li><code><a href="write_pptx.html">write_pptx</a></code></li>
+      </ul>
+    
     </div>
+  </div>
+
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#section-create-flextable">Create flextable</a></li>
+      <li><a href="#section-headers">Headers</a></li>
+      <li><a href="#section-manage-flextable-layout">Manage flextable layout</a></li>
+      <li><a href="#section-format-flextable">Format flextable</a></li>
+      <li><a href="#section-content">Content</a></li>
+      <li><a href="#section-helper-functions">Helper functions</a></li>
+      <li><a href="#section-output-functions">Output functions</a></li>
+    </ul>
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by David Gohel.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 
