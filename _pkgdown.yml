@@ -1,4 +1,4 @@
-title: flextable package
+title: flextable
 
 template:
   bootswatch: simplex
@@ -44,7 +44,7 @@ reference:
     - starts_with("write_")
 
 navbar:
-  title: pkgdown
+  title: flextable
   type: default
   left:
   - text: Introduction
