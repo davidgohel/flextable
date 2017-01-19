@@ -5,6 +5,26 @@ get_p <- function(id, form, data){
   lazy_eval(form, args_)
 }
 
+get_ref_par <- function(x){
+  par_all <- unique(as.vector(x$styles$pars))
+  map2_df( x$style_ref_table$pars[par_all],
+           par_all,
+           function(x, name){
+             tibble( ref = name, pp = list(x))
+           } )
+}
+
+get_ref_text <- function(x){
+  text_all <- unique( as.vector( x$styles$text ) )
+  map2_df( x$style_ref_table$text[text_all],
+           text_all,
+           function(x, name){
+             tibble( ref = name, tp = list(x))
+           } )
+}
+
+
+#' @importFrom dplyr rowwise
 #' @importFrom magrittr %>%
 #' @importFrom tibble tibble
 get_all_p <- function( x ){
@@ -17,13 +37,36 @@ get_all_p <- function( x ){
     split(f = .$fid) %>%
     map(.f = function(x) select(x, -fid) )
 
-  map2_df(byfid,
-          x$style_ref_table$formats[names(byfid)],
-          function(subset_, form_, data){
-            pars <- map(subset_$id, get_p, form_, data)
-            tibble( id = subset_$id, col_key = subset_$col_key, p = pars)
-            },
-          data = x$dataset)
+  ref_par <- get_ref_par(x)
+  ref_text <- get_ref_text(x)
+
+  def_pp <- x$styles$pars %>%
+    as_tibble() %>%
+    setNames(x$col_keys) %>%
+    add_column(id = seq_len(nrow(.)) ) %>%
+    gather(col_key, fid, -id) %>%
+    inner_join(ref_par, by = c("fid" = "ref") ) %>%
+    select(-fid)
+
+  def_tp <- x$styles$text %>%
+    as_tibble() %>%
+    setNames(x$col_keys) %>%
+    add_column(id = seq_len(nrow(.)) ) %>%
+    gather(col_key, fid, -id) %>%
+    inner_join(ref_text, by = c("fid" = "ref") ) %>%
+    select(-fid)
+
+  map2_df(byfid, x$style_ref_table$formats[names(byfid)],
+      function(subset_, form_, data){
+        pars <- map(subset_$id, get_p, form_, data)
+        tibble( id = subset_$id, col_key = subset_$col_key, p = pars)
+        }, data = x$dataset) %>%
+    inner_join(def_pp, by = c("id", "col_key") ) %>%
+    inner_join(def_tp, by = c("id", "col_key") ) %>%
+    rowwise() %>%
+    mutate( p = list( update(p, fp_p = pp, fp_t = tp)) ) %>%
+    ungroup() %>%
+    select( -pp, -tp )
 }
 
 #' @importFrom purrr map map_lgl

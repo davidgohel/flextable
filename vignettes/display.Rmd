@@ -65,7 +65,7 @@ tabwid(myft)
 
 `fpar` handle call to `minibar`. This will generate a simple bar to be inserted as content.
 
-```{r eval=FALSE}
+```{r}
 myft <- myft %>%
   display( i = ~ gear < 4,
     drat = fpar(minibar( value = drat, max = max(.$drat), 

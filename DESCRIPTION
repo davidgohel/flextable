@@ -1,12 +1,12 @@
 Package: flextable
 Type: Package
 Title: Tabular Reporting
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
 Description: Create pretty tables for
-    'Microsoft Word', 'Microsoft PowerPoint' and 'HTML' formats.
+  'Microsoft Word', 'Microsoft PowerPoint' and 'HTML'.
 License: GPL-3
 LazyData: TRUE
 Depends: oxbase
