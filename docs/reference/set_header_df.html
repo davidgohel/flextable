@@ -6,14 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>set_header_df. flextable package</title>
+<title>Set flextable&#39;s header rows — set_header_df • flextable package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/simplex/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -45,7 +44,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">flextable package</a>
+      <a class="navbar-brand" href="../index.html">pkgdown</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -68,6 +67,7 @@
   <a href="../articles/display.html">Content display</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../reference/index.html">Function reference</a>
@@ -82,22 +82,30 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Set flextable&#39;s header rows</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Set flextable&#39;s header rows</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Use a data.frame to specify flextable&#39;s header rows.</p>
+
+    <p>The data.frame must contain a column whose values match flextable
+<code>col_keys</code> argument, this column will be used as join key. The
+other columns will be displayed as header rows. The leftmost column
+is used as the top header row and the rightmost column
+is used as the bottom header row. Identical values will be merged (
+vertically and horizontally).</p>
     
 
     <pre><span class='fu'>set_header_df</span>(<span class='no'>x</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span>)</pre>
     
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
       <dd>a <code>flextable</code> object</dd>
@@ -107,8 +115,9 @@ content of the column.</dd>
       <dt>key</dt>
       <dd>column to use as key when joigning data_mapping.</dd>
     </dl>
-        
-    <h2 id="examples">Examples</h2>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>typology</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(
   <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'>c</span>( <span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, <span class='st'>"Petal.Length"</span>,
                 <span class='st'>"Petal.Width"</span>, <span class='st'>"Species"</span> ),
@@ -118,14 +127,30 @@ content of the column.</dd>
 
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'>head</span>( <span class='no'>iris</span> ))
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>set_header_df</span>(<span class='no'>ft</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='no'>typology</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span> )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_vanilla.html'>theme_vanilla</a></span>(<span class='no'>ft</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)
 <span class='fu'><a href='write_docx.html'>write_docx</a></span>(<span class='st'>"header_df.docx"</span>, <span class='no'>ft</span>)</div></pre>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by David Gohel.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

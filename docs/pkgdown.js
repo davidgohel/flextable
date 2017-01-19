@@ -1,13 +1,8 @@
 $(function() {
-
-  $('#tocnav').affix({
-    offset: {
-      top: $('#tocnav').offset().top - 80
-    }
-  });
+  $("#sidebar").stick_in_parent({offset_top: 40});
   $('body').scrollspy({
-    target: '#tocnav',
-    offset: 80
+    target: '#sidebar',
+    offset: 60
   });
 
 });

@@ -115,4 +115,4 @@ ft %>%
   tabwid()
 ```
 
-![](docs/README_files/figure-markdown_github/tabwid_example-1.png)
+![](README_files/figure-markdown_github/tabwid_example-1.png)
