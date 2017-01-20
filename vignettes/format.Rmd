@@ -8,7 +8,15 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r warning=FALSE, message=FALSE, echo=FALSE}
+```{r echo = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r warning=FALSE, echo=FALSE}
 library(flextable)
 library(oxbase)
 library(dplyr)
@@ -128,4 +136,27 @@ ft <- ft %>%
          pr_t = fp_text(color="#C9C923", italic = TRUE) )
 tabwid(ft)
 ```
+
+## Text rotatation 
+
+Text rotation is possible in flextable objects. This is achieved by using function `style` and its argument `pr_c`. This need to be a 
+`fp_cell` object with `text.direction='btlr'` or `text.direction='tbrl'`.
+
+```{r}
+ft <- flextable(head(iris)) %>% 
+  style(pr_c = fp_cell(text.direction = "btlr"), 
+        part = "header") %>% 
+  theme_vanilla() %>% 
+  autofit() %>% 
+  height(height = 1, part = "header")
+
+tabwid(ft)
+```
+
+Note that it only works as expected when `fp_cell` is set 
+with `vertical.align = "middle"` which is the default value 
+of `fp_cell`. 
+
+
+
 

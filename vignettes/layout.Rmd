@@ -8,6 +8,15 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
 `flextable` layout can be managed with few functions. 
 
 ```{r warning=FALSE, message=FALSE}

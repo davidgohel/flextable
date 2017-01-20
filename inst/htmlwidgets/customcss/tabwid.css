@@ -1,7 +1,6 @@
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
-  margin: 0;
   margin-left:auto;
   margin-right:auto;
 }
@@ -15,3 +14,10 @@
 .tabwid thead {
     background-color: transparent;
 }
+.tabwid table tr {
+background-color: transparent;
+}
+.tabwid table tr:nth-child(2n) {
+background-color: transparent;
+}
+

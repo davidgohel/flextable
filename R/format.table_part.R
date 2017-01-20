@@ -91,15 +91,27 @@ format_tp_html <- function(x, header = TRUE){
 
 #' @importFrom purrr map_chr
 format_tp_css <- function(x, header = TRUE){
-  text_ <- map_chr(x$style_ref_table$text, format, type = "html")
-  pars_ <- map_chr(x$style_ref_table$pars, format, type = "html")
   cells_ <- map_chr(x$style_ref_table$cells, format, type = "html")
 
-  text_ <- paste0(".t", names(text_), "{", text_, "}", collapse = "")
-  pars_ <- paste0(".p", names(pars_), "{", pars_, "}", collapse = "")
-  cells_ <- paste0(".c", names(cells_), "{", cells_, "}", collapse = "")
+  btlrcss <- ""
+  which_rotate <- map_chr(x$style_ref_table$cells, "text.direction") == "btlr"
+  if( any(which_rotate) ){
+    cellclass_ <- names(cells_)[which_rotate]
+    btlrcss <- '{-moz-transform:rotate(-90deg);-webkit-transform: rotate(-90deg);-o-transform: rotate(-90deg);position:relative;}'
+    btlrcss <- rep(btlrcss, sum(which_rotate))
+    btlrcss <- paste0(".c", cellclass_, " > p", btlrcss, collapse = "")
+  }
+  tbrlcss <- ""
+  which_rotate <- map_chr(x$style_ref_table$cells, "text.direction") == "tbrl"
+  if( any(which_rotate) ){
+    cellclass_ <- names(cells_)[which_rotate]
+    tbrlcss <- '{-moz-transform:rotate(-270deg);-webkit-transform: rotate(-270deg);-o-transform: rotate(-270deg);position:relative;}'
+    tbrlcss <- rep(tbrlcss, sum(which_rotate))
+    tbrlcss <- paste0(".c", cellclass_, " > p", tbrlcss, collapse = "")
+  }
+  css_ <- paste0(".c", names(cells_), "{", cells_, "}", collapse = "")
 
-  cells_
+  paste0( css_, btlrcss, tbrlcss )
 }
 
 

@@ -8,15 +8,46 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r echo = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
-`set_header` will let you define `flextable` headers. 
-
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE}
 library(flextable)
 library(oxbase)
 library(magrittr)
 ```
 
+## col_keys
+
+Parameter `col_keys` define the variables to display and their order. 
+
+```{r}
+library(dplyr)
+iris %>% 
+  group_by(Species) %>% 
+  do( head(., n = 3) ) %>% 
+  flextable(col_keys = c("Species", "Sepal.Length", "Petal.Length") ) %>%
+  tabwid()
+
+```
+
+If parameter `col_keys` has variables that are not existing in the dataset, they will be considered as blank columns and can be used as separators.
+
+```{r}
+iris %>% group_by(Species) %>% do( head(., n = 3) ) %>%
+  flextable(col_keys = c("Species", "col_1", "Sepal.Length", "Petal.Length") ) %>%
+  theme_vanilla() %>% autofit() %>% 
+  border(j=2, border = fp_border(width=0), part = "all") %>% 
+  tabwid()
+
+```
+
+**`col_keys` default values are the names of the data.frame used to fill the flextable.**
 
 ## Change labels
 
@@ -47,8 +78,6 @@ ft <- ft %>%
     Petal.Width = "Inches", Species = "Species", top = TRUE )
 ft %>% theme_vanilla() %>% autofit() %>% tabwid()
 ```
-
-
 
 
 ## Define headers with a reference table

@@ -18,6 +18,10 @@ specifying corresponding labels to add.}
 Add a single row of labels in the flextable's header part. It can
 be inserted at the top or the bottom of header part.
 }
+\details{
+An horizontal and a vertical merge are performed automatically.
+Use \code{\link{merge_none}} to drop theses merging instructions.
+}
 \examples{
 ft <- flextable( head( iris ),
   col_keys = c("Species", "Sepal.Length", "Petal.Length", "Sepal.Width", "Petal.Width") )

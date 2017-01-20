@@ -8,9 +8,18 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
 `flextable` makes possible to create beautiful reporting table from `data.frame`. 
 
-```{r warning=FALSE, message=FALSE, echo=FALSE}
+```{r warning=FALSE, echo=FALSE}
 library(flextable)
 library(oxbase)
 library(dplyr)
@@ -77,7 +86,7 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
-Merge cells
+Identical consecutive cells can be merged:
 
 ```{r warning=FALSE, message=FALSE}
 
@@ -87,7 +96,7 @@ tabwid(myft)
 ```
 
 
-Format content
+Cell content can be defined and customized with function `display`:
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>%
@@ -100,26 +109,4 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
-Parameter `col_keys` define the variables to display and their order. 
-
-```{r}
-library(dplyr)
-iris %>% 
-  group_by(Species) %>% 
-  do( head(., n = 3) ) %>% 
-  flextable(col_keys = c("Species", "Sepal.Length", "Petal.Length") ) %>%
-  tabwid()
-
-```
-
-If parameter `col_keys` has variables that are not existing in the dataset, they will be considered as blank columns and can be used as separators.
-
-```{r}
-iris %>% group_by(Species) %>% do( head(., n = 3) ) %>%
-  flextable(col_keys = c("Species", "col_1", "Sepal.Length", "Petal.Length") ) %>%
-  theme_vanilla() %>% autofit() %>% 
-  border(j=2, border = fp_border(width=0), part = "all") %>% 
-  tabwid()
-
-```
 

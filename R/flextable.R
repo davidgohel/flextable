@@ -74,8 +74,6 @@ print.flextable <- function(x, ...){
 }
 
 
-
-
 #' @importFrom purrr map
 #' @importFrom purrr map_int
 #' @export
@@ -83,6 +81,10 @@ print.flextable <- function(x, ...){
 #'
 #' @description Add a single row of labels in the flextable's header part. It can
 #' be inserted at the top or the bottom of header part.
+#'
+#' @details
+#' An horizontal and a vertical merge are performed automatically.
+#' Use \code{\link{merge_none}} to drop theses merging instructions.
 #'
 #' @param x a \code{flextable} object
 #' @param top should the row be inserted at the top or the bottom.

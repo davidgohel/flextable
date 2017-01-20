@@ -30,3 +30,4 @@ RoxygenNote: 5.0.1.9000
 Suggests: rmarkdown, knitr,
     testthat, scales
 VignetteBuilder: knitr
+Remotes: davidgohel/oxbase

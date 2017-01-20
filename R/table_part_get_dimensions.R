@@ -132,7 +132,7 @@ extract_par_space <- function(x){
 #' @importFrom dplyr ungroup select bind_rows group_by summarise
 #' @importFrom purrr map_dbl map_chr map map2_df
 #' @importFrom stats setNames
-get_dimensions <- function( x ){
+get_adjusted_sizes <- function( x ){
 
   par_data <- get_all_p(x)
 
@@ -192,6 +192,16 @@ get_dimensions <- function( x ){
   heights[x$spans$rows<1] <- 0
   heights[x$spans$columns<1] <- 0
 
+  #browser()
+  ref_ <- x$style_ref_table$cells
+  id_ <- x$styles$cells
+  is_rotate <- map_chr(ref_,"text.direction") %in% c("tbrl", "btlr")
+  vrowid <- which( id_ %in% names(ref_)[is_rotate] )
+  heights_ <- heights[vrowid]
+  widths_ <- widths[vrowid]
+  heights[vrowid] <- widths_
+  widths[vrowid] <- heights_
+
   margin.left <- extract_cell_space(x, "margin.left")
   margin.right <- extract_cell_space(x, "margin.right")
   margin.top <- extract_cell_space(x, "margin.top")
@@ -201,6 +211,8 @@ get_dimensions <- function( x ){
   widths <- matrix( widths, ncol = length(x$col_keys) )
   heights <- heights + margin.top + margin.bottom
   heights <- matrix( heights, ncol = length(x$col_keys) )
+
+
 
   list(widths = apply(widths, 2, max),
        heights = apply(heights, 1, max)

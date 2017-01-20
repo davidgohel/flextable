@@ -126,7 +126,7 @@ dim_pretty <- function( x ){
   max_heights <- list()
   for(j in c("header", "body")){
     if( !is.null(x[[j]])){
-      dimensions_ <- get_dimensions(x[[j]])
+      dimensions_ <- get_adjusted_sizes(x[[j]])
       x[[j]]$colwidths <- dimensions_$widths
       x[[j]]$rowheights <- dimensions_$heights
     }
@@ -153,7 +153,8 @@ autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
   max_heights <- list()
   for(j in c("header", "body")){
     if( !is.null(x[[j]])){
-      dimensions_ <- get_dimensions(x[[j]])
+      dimensions_ <- get_adjusted_sizes(x[[j]])
+
       x[[j]]$colwidths <- dimensions_$widths + add_w
       x[[j]]$rowheights <- dimensions_$heights + add_h
     }
