@@ -41,7 +41,8 @@ flextable <- function( data, col_keys = names(data) ){
 
   header <- table_part( data = header_data, col_keys = col_keys )
 
-  out <- list( header = header, body = body, col_keys = col_keys )
+  out <- list( header = header, body = body, col_keys = col_keys,
+               blanks = blanks )
   class(out) <- "flextable"
 
   out <- style( x = out,
@@ -157,7 +158,7 @@ set_header_labels <- function(x, ...){
 
 
 
-#' @importFrom dplyr left_join
+#' @importFrom dplyr left_join funs mutate_at
 #' @importFrom purrr map
 #' @export
 #' @title Set flextable's header rows
@@ -208,6 +209,10 @@ set_header_df <- function(x, mapping = NULL, key = "col_keys"){
   dimnames(header_data) <- NULL
   header_data <- as.data.frame(header_data, stringsAsFactors = FALSE)
   names(header_data) <- x$col_keys
+
+  if( length(x$blanks) )
+    header_data <- mutate_at(header_data, x$blanks, funs(character(length(.)) ) )
+
 
   header_ <- table_part( data = header_data, col_keys = x$col_keys )
   header_ <- span_rows(header_, rows = seq_len(nrow(header_data)))

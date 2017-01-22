@@ -1,11 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^todo.*
-^README\.md$
 ^README\.Rmd$
-^README-.*\.png$
-^README.html$
-^README_files$
 \.travis\.yml
 appveyor\.yml
 docs

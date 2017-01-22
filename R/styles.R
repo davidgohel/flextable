@@ -108,7 +108,7 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
   new_cells <- map(new_cells, function(x, bg ) update(x, background.color = bg ), bg = bg )
   names(new_cells) <- sign_target
 
-  new_key <- map_chr(new_cells, digest )
+  new_key <- map_chr(new_cells, fp_sign )
   x[[part]]$style_ref_table$cells[new_key] <- new_cells
   x[[part]]$styles$cells[i,j] <- matrix( new_key[match( x[[part]]$styles$cells[i,j], names(new_key) )], ncol = length(j) )
 
@@ -117,7 +117,7 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
 
 
 #' @export
-#' @title Set font weight
+#' @title bold font
 #' @description change font weight of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
@@ -158,7 +158,7 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
   new_text <- map(new_text, function(x, bold ) update(x, bold = bold ), bold = bold )
   names(new_text) <- sign_target
 
-  new_key <- map_chr(new_text, digest )
+  new_key <- map_chr(new_text, fp_sign )
   x[[part]]$style_ref_table$text[new_key] <- new_text
   x[[part]]$styles$text[i,j] <- matrix(
     new_key[match( x[[part]]$styles$text[i,j], names(new_key) )],
@@ -167,7 +167,56 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
   x
 }
 
+#' @export
+#' @title italic font
+#' @description change font decoration of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param italic boolean value
+#' @examples
+#' ft <- flextable(mtcars)
+#' ft <- italic(ft, italic = TRUE, part = "header")
+italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
 
+  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body") ){
+      x <- italic(x = x, i = i, j = j, italic = italic, part = p)
+    }
+    return(x)
+  }
+
+  if( inherits(i, "formula") && "header" %in% part ){
+    stop("formula in argument i cannot adress part 'header'.")
+  }
+
+  if( inherits(i, "formula") ){
+    i <- lazy_eval(i[[2]], x[[part]]$dataset)
+  }
+  i <- get_rows_id(x[[part]], i )
+
+  if( inherits(j, "formula") ){
+    j <- attr(terms(j), "term.labels")
+  }
+  j <- get_columns_id(x[[part]], j )
+
+
+  sign_target <- unique( as.vector( x[[part]]$styles$text[i,j] ) )
+  new_text <- x[[part]]$style_ref_table$text[sign_target]
+  new_text <- map(new_text, function(x, italic ) update(x, italic = italic ), italic = italic )
+  names(new_text) <- sign_target
+
+  new_key <- map_chr(new_text, fp_sign )
+  x[[part]]$style_ref_table$text[new_key] <- new_text
+  x[[part]]$styles$text[i,j] <- matrix(
+    new_key[match( x[[part]]$styles$text[i,j], names(new_key) )],
+    ncol = length(j) )
+
+  x
+}
 #' @export
 #' @title Set font color
 #' @description change font color of selected rows and columns of a flextable.
@@ -210,7 +259,7 @@ color <- function(x, i = NULL, j = NULL, color, part = "body" ){
   new_text <- map(new_text, function(x, color ) update(x, color = color ), color = color )
   names(new_text) <- sign_target
 
-  new_key <- map_chr(new_text, digest )
+  new_key <- map_chr(new_text, fp_sign )
   x[[part]]$style_ref_table$text[new_key] <- new_text
   x[[part]]$styles$text[i,j] <- matrix(
     new_key[match( x[[part]]$styles$text[i,j], names(new_key) )],
@@ -285,7 +334,58 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
   if(!is.null(padding.right))
     new_pars <- map(new_pars, function(x, padding.right ) update(x, padding.right = padding.right ), padding.right = padding.right )
   names(new_pars) <- sign_target
-  new_key <- map_chr(new_pars, digest )
+  new_key <- map_chr(new_pars, fp_sign )
+  x[[part]]$style_ref_table$pars[new_key] <- new_pars
+  x[[part]]$styles$pars[i,j] <- matrix( new_key[match( x[[part]]$styles$pars[i,j], names(new_key) )], ncol = length(j) )
+
+  x
+}
+
+
+#' @export
+#' @title Set text alignment
+#' @description change text alignment of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param align text alignment - a single character value, expected value
+#' is one of 'left', 'right', 'center', 'justify'.
+#' @examples
+#' ft <- flextable(mtcars)
+#' ft <- align(ft, align = "center")
+align <- function(x, i = NULL, j = NULL, align = "left",
+                    part = "body" ){
+
+  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body") ){
+      x <- align(x = x, i = i, j = j, align = align, part = p)
+    }
+    return(x)
+  }
+
+  if( inherits(i, "formula") && any( "header" %in% part ) ){
+    stop("formula in argument i cannot adress part 'header'.")
+  }
+
+  if( inherits(i, "formula") ){
+    i <- lazy_eval(i[[2]], x[[part]]$dataset)
+  }
+  i <- get_rows_id(x[[part]], i )
+
+  if( inherits(j, "formula") ){
+    j <- attr(terms(j), "term.labels")
+  }
+  j <- get_columns_id(x[[part]], j )
+
+  sign_target <- unique( as.vector( x[[part]]$styles$pars[i,j] ) )
+  new_pars <- x[[part]]$style_ref_table$pars[sign_target]
+
+  new_pars <- map(new_pars, function(x, align ) update(x, text.align = align ), align = align )
+  names(new_pars) <- sign_target
+  new_key <- map_chr(new_pars, fp_sign )
   x[[part]]$style_ref_table$pars[new_key] <- new_pars
   x[[part]]$styles$pars[i,j] <- matrix( new_key[match( x[[part]]$styles$pars[i,j], names(new_key) )], ncol = length(j) )
 
@@ -360,10 +460,48 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
   if(!is.null(border.right))
     new_cells <- map(new_cells, function(x, border.right ) update(x, border.right = border.right ), border.right = border.right )
   names(new_cells) <- sign_target
-  new_key <- map_chr(new_cells, digest )
+  new_key <- map_chr(new_cells, fp_sign )
   x[[part]]$style_ref_table$cells[new_key] <- new_cells
   x[[part]]$styles$cells[i,j] <- matrix( new_key[match( x[[part]]$styles$cells[i,j], names(new_key) )], ncol = length(j) )
 
   x
+}
+
+#' @title make blank columns as transparent
+#' @description blank columns are set as transparent. This is a shortcut function
+#' that will delete top and bottom borders, change background color to
+#' transparent and display empty content.
+#' @param x a flextable object
+#' @examples
+#' library(magrittr)
+#'
+#' typology <- data.frame(
+#'   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
+#'                 "Petal.Width", "Species" ),
+#'   what = c("Sepal", "Sepal", "Petal", "Petal", " "),
+#'   measure = c("Length", "Width", "Length", "Width", "Species"),
+#'   stringsAsFactors = FALSE )
+#' typology
+#'
+#' head(iris) %>%
+#'   flextable(
+#'     col_keys = c("Species",
+#'                  "break1", "Sepal.Length", "Sepal.Width",
+#'                  "break2", "Petal.Length", "Petal.Width") ) %>%
+#'   set_header_df(mapping = typology, key = "col_keys" ) %>%
+#'   theme_vanilla() %>%
+#'   empty_blanks() %>%
+#'   autofit() %>%
+#'   tabwid()
+#' @export
+empty_blanks <- function(x){
+  if( length(x$blanks) < 1 ) return(x)
+
+  x <- border( x, j = x$blanks,
+          border.top = b_null(), border.bottom = b_null(), part = "all" )
+  x <- bg(x, j = x$blanks, bg = "transparent", part = "all")
+  x <- void(x, j = x$blanks)
+  x
+
 }
 

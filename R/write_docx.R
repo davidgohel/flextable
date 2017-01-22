@@ -189,18 +189,9 @@ wml_flextable <- function( x, relationships, standalone = TRUE ){
   }
   imgs <- unique(imgs)
   out = paste0(out,  "</w:tbl>" )
-
-  if( length( imgs ) > 0 ){
-    int_id <- as.integer(
-      gsub(pattern = "^rId", replacement = "", x = relationships$id ) )
-    last_id <- as.integer( max(int_id) )
-
-    rids <- get_rids( last_id = last_id, imgs = imgs)
-    out <- rids_substitute_xml( out = out, rids = rids )
-    expected_rels_ <- expected_rels(rids)
-    attr(out, "relations") <- expected_rels_
-    attr(out, "copy_files") <- rids$src
-  }
+  out <- fortify_docx_img( long_str = out,
+                           relationships = relationships,
+                           imgs = imgs)
   out
 }
 

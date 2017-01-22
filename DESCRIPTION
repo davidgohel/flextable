@@ -13,21 +13,14 @@ Depends: oxbase
 Imports:
     Rcpp (>= 0.12.3),
     utils,
-    digest,
-    dplyr,
-    lazyeval,
-    purrr,
+    dplyr,lazyeval,purrr,tibble, tidyr, 
+    htmltools,htmlwidgets,
     gdtools,
-    htmltools,
-    htmlwidgets,
-    openssl,
-    xml2 (>= 1.0.0), 
-    tibble, 
-    tidyr, 
     magrittr
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1.9000
 Suggests: rmarkdown, knitr,
-    testthat, scales
+    xml2, 
+    testthat, scales, ionicons
 VignetteBuilder: knitr
 Remotes: davidgohel/oxbase

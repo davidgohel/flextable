@@ -1,18 +1,15 @@
-#' @import digest
-#' @importFrom oxbase fp_cell
-#' @importFrom oxbase fp_par
-#' @importFrom oxbase fp_text
+#' @importFrom oxbase fp_sign fp_cell fp_par fp_text
 #' @importFrom gdtools str_extents
 table_part <- function( data, col_keys = names(data),
                         default_pr_text = fp_text(),
                         default_pr_par = fp_par() ){
 
   default_pr_cell <- fp_cell()
-  default_pr_cell_id <- digest(default_pr_cell)
+  default_pr_cell_id <- fp_sign(default_pr_cell)
   default_pr_par <- fp_par()
-  default_pr_par_id <- digest(default_pr_par)
+  default_pr_par_id <- fp_sign(default_pr_par)
   default_pr_text <- fp_text()
-  default_pr_text_id <- digest(default_pr_text)
+  default_pr_text_id <- fp_sign(default_pr_text)
 
   pr_cell_init <- matrix(default_pr_cell_id, nrow = nrow(data), ncol = length(col_keys) )
   pr_par_init <- matrix(default_pr_par_id, nrow = nrow(data), ncol = length(col_keys) )
@@ -22,7 +19,7 @@ table_part <- function( data, col_keys = names(data),
   spans <- list( rows = span_init, columns = span_init )
 
   lazy_f <- map(col_keys, lazy_format_simple )
-  lazy_f_id <- map_chr(lazy_f, digest)
+  lazy_f_id <- map_chr(lazy_f, fp_sign)
   lazy_f_init <- matrix( rep.int(lazy_f_id, nrow(data)), nrow = nrow(data), ncol = length(col_keys), byrow = TRUE )
 
   style_ref_table <- list(
@@ -229,13 +226,12 @@ get_columns_id <- function( x, j = NULL ){
     }
 
     if( any( j < 1 | j > maxcol ) )
-      stop("invalid columns subset")
+      stop("out of range columns selection 1:", maxcol)
   } else if( is.logical (j) ){
     if( length( j ) != maxcol ) stop("invalid columns subset")
     else j = which(j)
 
   } else if( is.character (j) ){
-    if( any( is.na( x$col_keys ) ) ) stop("NA in dataset names")
     if( any( is.na( j ) ) ) stop("NA in selection")
     else if( !all( is.element(j, x$col_keys )) )
       stop("invalid columns subset")
@@ -288,7 +284,7 @@ set_formatting_properties <- function( x, i = NULL, j = NULL, value ){
   i <- get_rows_id(x = x, i = i)
   j <- get_columns_id(x = x, j = j)
   if( inherits(value, "fp_text" ) ){
-    signat_ <- digest(value)
+    signat_ <- fp_sign(value)
     x$styles$text[i, j] <- signat_
 
     if( ! signat_%in% names(x$style_ref_table$text) ){
@@ -297,7 +293,7 @@ set_formatting_properties <- function( x, i = NULL, j = NULL, value ){
 
   }
   if( inherits(value, "fp_par" ) ){
-    signat_ <- digest(value)
+    signat_ <- fp_sign(value)
     x$styles$pars[i, j] <- signat_
 
     if( ! signat_%in% names(x$style_ref_table$pars) ){
@@ -306,7 +302,7 @@ set_formatting_properties <- function( x, i = NULL, j = NULL, value ){
 
   }
   if( inherits(value, "fp_cell" ) ){
-    signat_ <- digest(value)
+    signat_ <- fp_sign(value)
     x$styles$cells[i, j] <- signat_
 
     if( ! signat_%in% names(x$style_ref_table$cells) ){

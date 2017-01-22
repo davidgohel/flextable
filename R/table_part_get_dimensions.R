@@ -10,7 +10,7 @@ get_ref_par <- function(x){
   map2_df( x$style_ref_table$pars[par_all],
            par_all,
            function(x, name){
-             tibble( ref = name, pp = list(x))
+             tibble( ref = name, fp_p = list(x))
            } )
 }
 
@@ -19,7 +19,7 @@ get_ref_text <- function(x){
   map2_df( x$style_ref_table$text[text_all],
            text_all,
            function(x, name){
-             tibble( ref = name, tp = list(x))
+             tibble( ref = name, fp_t = list(x))
            } )
 }
 
@@ -64,9 +64,9 @@ get_all_p <- function( x ){
     inner_join(def_pp, by = c("id", "col_key") ) %>%
     inner_join(def_tp, by = c("id", "col_key") ) %>%
     rowwise() %>%
-    mutate( p = list( update(p, fp_p = pp, fp_t = tp)) ) %>%
+    mutate( p = list( update(p, fp_p = fp_p, fp_t = fp_t)) ) %>%
     ungroup() %>%
-    select( -pp, -tp )
+    select( -fp_p, -fp_t )
 }
 
 #' @importFrom purrr map map_lgl

@@ -28,7 +28,7 @@ display <- function(x, i = NULL, part = "body", ...){
   fun_call <- map( args, "expr")
   fun_call <- map(fun_call, function(x) x[[1]])
   fun_call <- map_chr(fun_call, as.character)
-  invalid_fun_call <- !fun_call %in% c("fpar", "fpar2")
+  invalid_fun_call <- !fun_call %in% "fpar"
   if( any(invalid_fun_call) ){
     stop( paste0(names(args), collapse = ","), " should call fpar." )
   }
@@ -43,11 +43,10 @@ display <- function(x, i = NULL, part = "body", ...){
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], names(args) )
 
-  lazy_f_id <- map_chr(args, digest )
+  lazy_f_id <- map_chr(args, fp_sign )
   x[[part]]$style_ref_table$formats[lazy_f_id] <- args
   x[[part]]$styles$formats[i, j ] <- matrix( rep.int(lazy_f_id, length(i)), nrow = length(i), byrow = TRUE )
 
   x
 }
-
 
