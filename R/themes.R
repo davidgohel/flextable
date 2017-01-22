@@ -1,5 +1,4 @@
-#' @importFrom oxbase fp_border
-#' @importFrom oxbase fp_par
+#' @importFrom officer fp_border fp_par
 #' @export
 #' @title Apply vanilla theme
 #' @description Apply theme vanilla to a flextable

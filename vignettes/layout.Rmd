@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 ```{r warning=FALSE, message=FALSE}
 library(flextable)
-library(oxbase)
+library(officer)
 library(magrittr)
 ```
 

@@ -1,6 +1,6 @@
 #' @importFrom purrr map_lgl
 #' @importFrom lazyeval lazy_dots
-#' @import oxbase
+#' @import officer
 #' @title Define flextable displayed values
 #' @description Modify flextable displayed values.
 #' @param x a flextable object

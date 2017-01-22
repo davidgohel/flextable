@@ -1,5 +1,5 @@
 #' @importFrom utils unzip
-#' @importFrom oxbase pack_folder read_relationship
+#' @importFrom officer pack_folder read_relationship
 #' @title Microsoft Word table
 #'
 #' @description

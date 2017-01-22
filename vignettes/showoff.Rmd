@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 ```{r}
 library(flextable)
-library(oxbase)
+library(officer)
 library(magrittr)
 
 flextable( head( mtcars ), col_keys = c("am", "separator", "gear", "mpg" )) %>% 
@@ -97,7 +97,7 @@ if( require(ionicons) ){
 
 ```{r}
 library(flextable)
-library(oxbase)
+library(officer)
 library(ionicons)
 
 checkmark_src <- as_png(name = "checkmark-round")

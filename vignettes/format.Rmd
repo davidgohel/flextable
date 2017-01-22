@@ -122,7 +122,7 @@ The `style` function lets you style a selection of the flextable with several fo
 
 > It main advantage is to let specify a set of formatting properties for a selection. 
 
-Package oxbase needs to be loaded, it provides the following formatting properties:
+Package officer needs to be loaded, it provides the following formatting properties:
 
 * for text: `fp_text`
 * for paragraphs: `fp_par`
@@ -130,7 +130,7 @@ Package oxbase needs to be loaded, it provides the following formatting properti
 
 
 ```{r}
-library(oxbase)
+library(officer)
 def_cell <- fp_cell(border = fp_border(color="#00C9C9"))
 def_par <- fp_par(text.align = "center")
 def_text <- fp_text(color="#999999", italic = TRUE)

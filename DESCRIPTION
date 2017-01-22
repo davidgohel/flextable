@@ -9,7 +9,7 @@ Description: Create pretty tables for
   'Microsoft Word', 'Microsoft PowerPoint' and 'HTML'.
 License: GPL-3
 LazyData: TRUE
-Depends: oxbase
+Depends: officer
 Imports:
     Rcpp (>= 0.12.3),
     utils,
@@ -23,4 +23,4 @@ Suggests: rmarkdown, knitr,
     xml2, 
     testthat, scales, ionicons
 VignetteBuilder: knitr
-Remotes: davidgohel/oxbase, davidgohel/ionicons
+Remotes: davidgohel/officer, davidgohel/ionicons

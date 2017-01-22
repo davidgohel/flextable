@@ -1,6 +1,6 @@
 #' @importFrom tools file_ext
 #' @importFrom utils unzip
-#' @importFrom oxbase pack_folder
+#' @importFrom officer pack_folder
 #' @title Microsoft PowerPoint table
 #'
 #' @description

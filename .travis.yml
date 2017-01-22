@@ -23,7 +23,7 @@ r_binary_packages:
 
 r_github_packages:
   - jimhester/covr
-  - davidgohel/oxbase
+  - davidgohel/officer
 
 warnings_are_errors: true
 

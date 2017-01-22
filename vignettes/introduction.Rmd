@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 ```{r warning=FALSE, echo=FALSE}
 library(flextable)
-library(oxbase)
+library(officer)
 library(dplyr)
 
 typology <- data.frame(
@@ -55,7 +55,7 @@ Let's have a step by step demo. First create a flextable. Change header font in 
 
 ```{r warning=FALSE, message=FALSE}
 library(flextable)
-library(oxbase)
+library(officer)
 library(dplyr)
 
 myft <- flextable(head(mtcars), 

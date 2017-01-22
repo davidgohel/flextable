@@ -1,4 +1,4 @@
-#' @importFrom oxbase fp_sign fp_cell fp_par fp_text
+#' @importFrom officer fp_sign fp_cell fp_par fp_text
 #' @importFrom gdtools str_extents
 table_part <- function( data, col_keys = names(data),
                         default_pr_text = fp_text(),
