@@ -23,4 +23,4 @@ Suggests: rmarkdown, knitr,
     xml2, 
     testthat, scales, ionicons
 VignetteBuilder: knitr
-Remotes: davidgohel/oxbase
+Remotes: davidgohel/oxbase, davidgohel/ionicons

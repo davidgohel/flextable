@@ -35,7 +35,7 @@ myft <- flextable(head(iris))
 tabwid(myft)
 ```
 
-#### bold
+### bold
 
 ```{r}
 myft <- flextable(head(iris)) %>% 
@@ -44,14 +44,14 @@ myft <- flextable(head(iris)) %>%
 tabwid(myft)
 ```
 
-#### change font color
+### change font color
 
 ```{r}
 myft <- myft %>% color(color = "#E4C994")
 tabwid(myft)
 ```
 
-#### Italic
+### Italic
 
 ```{r}
 myft <- myft %>% 
@@ -60,7 +60,7 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
-#### change background color
+### change background color
 
 ```{r}
 myft <- myft %>% 
@@ -72,7 +72,7 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
-#### Text alignment
+### Text alignment
 
 ```{r}
 myft <- myft %>% align( align = "center", part = "all" )
@@ -80,14 +80,14 @@ tabwid(myft)
 ```
 
 
-#### add padding
+### add padding
 
 ```{r}
 myft <- myft %>% padding( padding = 3, part = "all" )
 tabwid(myft)
 ```
 
-#### change border
+### change border
 
 ```{r}
 myft <- myft %>% 
