@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Microsoft Word table — write_docx • flextable</title>
+<title>italic font — italic • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -92,35 +92,33 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Microsoft Word table</h1>
+    <h1>italic font</h1>
     </div>
 
     
-    <p>Table for Microsoft Word documents.</p>
+    <p>change font decoration of selected rows and columns of a flextable.</p>
     
 
-    <pre><span class='fu'>write_docx</span>(<span class='no'>file</span>, <span class='no'>x</span>, <span class='kw'>pagesize</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>8.5</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>11</span>), <span class='kw'>margins</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>left</span>
-  <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>bottom</span> <span class='kw'>=</span> <span class='fl'>1</span>))</pre>
+    <pre><span class='fu'>italic</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>italic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>file</dt>
-      <dd>filename of the Microsoft Word document to produce. File
-extension must be <code>.docx</code>.</dd>
       <dt>x</dt>
-      <dd>flextable</dd>
-      <dt>pagesize</dt>
-      <dd>Word document page size in inches.
-A named vector (<code>width</code> and <code>height</code>).</dd>
-      <dt>margins</dt>
-      <dd>Word document margins size in inches.
-A named vector (<code>left</code>, <code>right</code>, <code>top</code>, <code>bottom</code>).</dd>
+      <dd>a flextable object</dd>
+      <dt>i</dt>
+      <dd>rows selection</dd>
+      <dt>j</dt>
+      <dd>columns selection</dd>
+      <dt>italic</dt>
+      <dd>boolean value</dd>
+      <dt>part</dt>
+      <dd>partname of the table (one of &#39;all&#39;, &#39;body&#39;, &#39;header&#39;)</dd>
     </dl>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'>head</span>(<span class='no'>iris</span>))
-<span class='fu'>write_docx</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"test.docx"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>ft</span> )</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>mtcars</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>italic</span>(<span class='no'>ft</span>, <span class='kw'>italic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

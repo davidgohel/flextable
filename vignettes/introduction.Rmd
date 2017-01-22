@@ -1,7 +1,10 @@
 ---
 title: "flextable objects"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+author: "David Gohel"
+output: 
+  rmarkdown::html_vignette:
+    toc: true 
+    toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{flextable objects}
   %\VignetteEngine{knitr::rmarkdown}
@@ -23,33 +26,25 @@ knitr::opts_chunk$set(
 library(flextable)
 library(oxbase)
 library(dplyr)
+
+typology <- data.frame(
+  col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
+                "Petal.Width", "Species" ),
+  what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
+  measure = c("Length", "Width", "Length", "Width", "Species"),
+  stringsAsFactors = FALSE )
+
+
 iris %>% 
   group_by(Species) %>% 
   do( head(., n = 3) ) %>% 
   flextable(col_keys = c("Species", 
                        "break1", "Sepal.Length", "Sepal.Width", 
                         "break2", "Petal.Length", "Petal.Width") ) %>% 
-  set_header_labels(
-    Sepal.Length = "Length", Sepal.Width = "Width",
-    Petal.Length = "Length", Petal.Width = "Width",
-    Species = "Species"
-    ) %>% 
-  add_header(top = TRUE, 
-    Sepal.Length = "Sepal", Sepal.Width = "Sepal",
-    Petal.Length = "Petal", Petal.Width = "Petal",
-    Species = "Species"
-    ) %>% 
-  style(pr_t = fp_bold(font.size = 12), part = "header") %>% 
-  style(pr_t = fp_text(font.size = 12), part = "body") %>% 
-  style(pr_t = fp_bi(font.size = 12), j = ~ Species ) %>% 
-  padding(padding = 2, part = "all") %>% 
-  border( border.top = fp_border(), part = "all" ) %>% 
-  bg(i = ~ seq_along(Petal.Length) %% 2 == 0, bg = "#EFEFEF") %>% 
-  border( j = ~ break1 + break2, 
-          border.top = b_null(), border.bottom = b_null(), part = "all" ) %>% 
-  border( i = 1, border.left = b_null(), border.right = b_null(), 
-          border.top = b_null(), part = "header" ) %>% 
-  bg(j = ~ break1 + break2, bg = "transparent", part = "all") %>% 
+  set_header_df(mapping = typology, key = "col_keys" ) %>% 
+  theme_zebra(even_header = "transparent", odd_header = "transparent") %>% 
+  theme_vanilla() %>% 
+  empty_blanks() %>% 
   autofit() %>% 
   tabwid()
 ```
@@ -74,7 +69,8 @@ Function `style` is changing formatting properties of table elements.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  style(pr_c = c_b_b(), pr_p = fp_right(padding=2), part = "all" )
+  style(pr_c = fp_cell( border = b_null(), border.top = fp_border()), 
+        pr_p = fp_par(text.align = "center", padding=2), part = "all" )
 tabwid(myft)
 ```
 

@@ -1,7 +1,10 @@
 ---
 title: "Format flextable objects"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+author: "David Gohel"
+output: 
+  rmarkdown::html_vignette:
+    toc: true 
+    toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{Format flextable objects}
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,13 +21,10 @@ knitr::opts_chunk$set(
 
 ```{r warning=FALSE, echo=FALSE}
 library(flextable)
-library(oxbase)
 library(dplyr)
 ```
 
-
 Formatting `flextable` can be made with simple functions. 
-
 
 ## Shortcuts functions
 
@@ -51,6 +51,15 @@ myft <- myft %>% color(color = "#E4C994")
 tabwid(myft)
 ```
 
+#### Italic
+
+```{r}
+myft <- myft %>% 
+  italic(i = ~ Sepal.Length > 5, 
+         j = ~ Sepal.Length + Sepal.Width, italic = TRUE)
+tabwid(myft)
+```
+
 #### change background color
 
 ```{r}
@@ -62,6 +71,14 @@ myft <- myft %>%
 
 tabwid(myft)
 ```
+
+#### Text alignment
+
+```{r}
+myft <- myft %>% align( align = "center", part = "all" )
+tabwid(myft)
+```
+
 
 #### add padding
 
@@ -101,22 +118,19 @@ tabwid(myft)
 
 ## Function style
 
-The `style` function lets you style a selection of the flextable with formatting properties.
+The `style` function lets you style a selection of the flextable with several formatting properties. 
+
+> It main advantage is to let specify a set of formatting properties for a selection. 
+
+Package oxbase needs to be loaded, it provides the following formatting properties:
+
+* for text: `fp_text`
+* for paragraphs: `fp_par`
+* for cells: `fp_cell` and `fp_border`
 
 
 ```{r}
-ft <- flextable(head(mtcars, n = 10 )) %>% theme_vanilla() %>% 
-  style( i = ~ drat > 3.5, j = ~ vs + am + gear + carb, 
-        pr_t = fp_text(color="#C9C923", italic = TRUE) )
-tabwid(ft)
-```
-
-> It main advantage is to let specify various formatting properties for a selection. 
-
-3 formatting properties can be used: text, paragraphs and cells formatting properties. 
-
-
-```{r}
+library(oxbase)
 def_cell <- fp_cell(border = fp_border(color="#00C9C9"))
 def_par <- fp_par(text.align = "center")
 def_text <- fp_text(color="#999999", italic = TRUE)
@@ -129,15 +143,9 @@ tabwid(ft)
 ft <- ft %>% 
   style( pr_c = def_cell, pr_p = def_par, pr_t = def_text_header, part = "header")  
 tabwid(ft)
-
-ft <- ft %>% 
-  style( ~ drat > 3.5, ~ vs + gear + carb, 
-         pr_c = update(def_cell, background.color = rgb(.8,.2,.2, .1) ), 
-         pr_t = fp_text(color="#C9C923", italic = TRUE) )
-tabwid(ft)
 ```
 
-## Text rotatation 
+### Text rotation 
 
 Text rotation is possible in flextable objects. This is achieved by using function `style` and its argument `pr_c`. This need to be a 
 `fp_cell` object with `text.direction='btlr'` or `text.direction='tbrl'`.
@@ -156,6 +164,74 @@ tabwid(ft)
 Note that it only works as expected when `fp_cell` is set 
 with `vertical.align = "middle"` which is the default value 
 of `fp_cell`. 
+
+## display function
+
+Below the starting point of next illustrations:
+
+```{r}
+myft <- flextable(head(mtcars), 
+                  col_keys = c("am", "separator", "gear", "mpg", "drat" )) %>% 
+  bold(part = "header") %>% 
+  border(border = b_null(), 
+         border.top = fp_border(), 
+         border.bottom = fp_border(), part = "all") %>% 
+  align(align = "right", part = "all" ) %>%
+  border(j = ~ separator, border = fp_border(width=0), part = "all") %>% 
+  width(j = ~ separator, width = .1)
+
+tabwid(myft)
+```
+
+Flextable content is defined with `display` function. 
+
+It always requires a call to `fpar` which is a simple wrapper whose role is to concatenate  formated text. The following call to fpar only let you modify the display content of a cell (because fpar argument is only a single string). 
+
+```{r}
+myft <- myft %>%
+  display( 
+    mpg = fpar(formatC(mpg, format = "f", digits = 3 ) ) 
+  )
+
+tabwid(myft)
+```
+
+If more control is needed, i.e. for conditionnal formatting, one can use function `ftext` to associate a text with formatting properties.
+
+```{r}
+myft <- myft %>%
+  display(i = ~ drat > 3.6, 
+    gear = fpar( ftext( gear, prop = fp_bold(color="red") ) )
+  )
+
+tabwid(myft)
+```
+
+`fpar` can have multiple arguments that will be then concatenated.
+
+```{r}
+myft <- myft %>%
+  display(
+    mpg = fpar(mpg, " and ", ftext( carb, prop = fp_bold()), " carb(s)." ) 
+  ) %>% autofit()
+
+tabwid(myft)
+```
+
+`fpar` handle call to `minibar`. This will generate a simple bar to be inserted as content.
+
+```{r}
+myft <- myft %>%
+  display( i = ~ gear < 4,
+    drat = fpar(minibar( value = drat, max = max(.$drat), 
+                         barcol = "#C90000", width = 1, height = .15) )
+  ) %>% autofit()
+
+tabwid(myft)
+```
+
+Note usage of `.`, this object represents the input dataset of `flextable` call. The expression is not vectorized 
+
 
 
 

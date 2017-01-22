@@ -1,0 +1,125 @@
+---
+title: "Show off"
+author: "David Gohel"
+output: 
+  rmarkdown::html_vignette:
+    toc: true 
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Show off}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, warning = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## Demo various functions 
+
+```{r}
+library(flextable)
+library(oxbase)
+library(magrittr)
+
+flextable( head( mtcars ), col_keys = c("am", "separator", "gear", "mpg" )) %>% 
+  theme_vanilla() %>% 
+  empty_blanks() %>%
+  display(
+          gear = fpar( "# ", gear ), 
+          mpg = fpar(sprintf("%.02f", mpg), " mpg") ) %>% 
+  display(mpg = fpar("Miles/(US) gallon"), part = "header" ) %>% 
+  color(i = ~ mpg > 21, color = "red" ) %>% 
+  autofit() %>% 
+  tabwid()
+
+```
+
+## Define headers with a data.frame
+
+```{r}
+library(dplyr)
+
+typology <- data.frame(
+  col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
+                "Petal.Width", "Species" ),
+  what = c("Sepal", "Sepal", "Petal", "Petal", " "),
+  measure = c("Length", "Width", "Length", "Width", "Species"),
+  stringsAsFactors = FALSE )
+
+
+dat <- iris %>% 
+  group_by(Species) %>% 
+  do( head(., n = 3) )
+dat
+
+dat %>% 
+  flextable(col_keys = c("Species", 
+                         "break1", "Sepal.Length", "Sepal.Width", 
+                         "break2", "Petal.Length", "Petal.Width") ) %>% 
+  set_header_df(mapping = typology, key = "col_keys" ) %>% 
+  theme_booktabs() %>% 
+  empty_blanks() %>% 
+  autofit() %>% 
+  tabwid()
+```
+
+## Rotate text
+
+```{r}
+myft <- flextable(iris[46:54,]) %>% 
+  merge_v( j = "Species") %>% 
+  autofit() %>% 
+  style(i = 1, j = "Species", pr_c = fp_cell(text.direction = "btlr"), 
+        part = "body") %>% 
+  style(i = 6, j = "Species", pr_c = fp_cell(text.direction = "tbrl"), 
+        part = "body") %>% 
+  theme_booktabs() %>% 
+  style(j = "Species", pr_p = fp_par(text.align = "center"), 
+        part = "body")
+tabwid(myft)
+```
+
+## Add images 
+
+```{r}
+if( require(ionicons) ){
+  src = as_png(name = "calendar", fill = "#FFE64D", width = 15, height = 15)
+  myft <- flextable(head(iris)) %>% 
+    theme_tron_legacy() %>% 
+    display(i = ~ Sepal.Length < 5, Sepal.Length = fpar(external_img(src, width = 15/72, height = 15/72)) )
+  tabwid(myft)
+}
+```
+
+```{r}
+library(flextable)
+library(oxbase)
+library(ionicons)
+
+checkmark_src <- as_png(name = "checkmark-round")
+close_src <- as_png(name = "close-round")
+
+myft <- flextable(mtcars, col_keys = c("am", "separator", "gear", "mpg", "drat" )) %>% 
+  bold(part = "header") %>% 
+  style(pr_c = fp_cell( border = b_null(), border.top = fp_border()), 
+        pr_p = fp_par(text.align = "right", padding=0), part = "all" ) %>%
+  border(j = ~ separator, border = fp_border(width=0), part = "all") %>%
+  display( am = fpar(formatC(am, format = "f", digits = 0 ) )  ) %>%
+  display(i = ~ drat > 3.6,  gear = fpar( ftext( gear, prop = fp_bold(color="red") ) ) ) %>%
+  display( mpg = fpar(mpg, " and ", ftext( carb, prop = fp_bold()), " carb(s)." )  ) %>%
+  display( i = ~ gear < 4,
+           drat = fpar( minibar( value = drat, max = max(.$drat), 
+                                 barcol = "#C90000", bg = "yellow", 
+                                 width = 1, height = .15) ) ) %>% 
+  display( i = ~ gear < 4,
+           separator = fpar( external_img( src = checkmark_src, width = .15, height = .15) ) ) %>% 
+  display( i = ~ gear >= 4,
+           separator = fpar( external_img( src = close_src, width = .15, height = .15) ) ) %>% 
+  autofit()
+tabwid(myft)
+```
+

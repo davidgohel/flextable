@@ -1,6 +1,7 @@
 title: flextable
 
 template:
+  package: ardatatemplate
   bootswatch: simplex
 
 reference:
@@ -30,6 +31,7 @@ reference:
     - color
     - padding
     - border
+    - empty_blanks
     - starts_with("theme_")
   - title: Content
     desc:  Define flextable`s content
@@ -49,16 +51,12 @@ navbar:
   left:
   - text: Introduction
     href: articles/introduction.html
-  - text: Header
-    href: articles/headers.html
   - text: Layout
     href: articles/layout.html
   - text: Format
     href: articles/format.html
-  - text: Sizing
-    href: articles/sizing.html
-  - text: Content display
-    href: articles/display.html
+  - text: Examples
+    href: articles/showoff.html
   right:
   - text: Function reference
     href: reference/index.html
