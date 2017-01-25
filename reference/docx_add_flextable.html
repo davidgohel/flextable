@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set flextable&#39;s header rows — set_header_df • flextable</title>
+<title>wml table code — docx_add_flextable • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -83,55 +83,33 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set flextable&#39;s header rows</h1>
+    <h1>wml table code</h1>
     </div>
 
     
-    <p>Use a data.frame to specify flextable&#39;s header rows.</p>
-
-    <p>The data.frame must contain a column whose values match flextable
-<code>col_keys</code> argument, this column will be used as join key. The
-other columns will be displayed as header rows. The leftmost column
-is used as the top header row and the rightmost column
-is used as the bottom header row. Identical values will be merged (
-vertically and horizontally).</p>
+    <p>produces the wml of a flextable</p>
     
 
-    <pre><span class='fu'>set_header_df</span>(<span class='no'>x</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span>)</pre>
+    <pre><span class='fu'>docx_add_flextable</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='st'>"after"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>a <code>flextable</code> object</dd>
-      <dt>mapping</dt>
-      <dd>a <code>data.frame</code> specyfing for each colname
-content of the column.</dd>
-      <dt>key</dt>
-      <dd>column to use as key when joigning data_mapping.</dd>
+      <dd>a docx object</dd>
+      <dt>value</dt>
+      <dd><code>flextable</code> object</dd>
+      <dt>pos</dt>
+      <dd>where to add the flextable relative to the cursor,
+one of &quot;after&quot;, &quot;before&quot;, &quot;on&quot; (end of line).</dd>
     </dl>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>typology</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(
-  <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'>c</span>( <span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, <span class='st'>"Petal.Length"</span>,
-                <span class='st'>"Petal.Width"</span>, <span class='st'>"Species"</span> ),
-  <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Sepal"</span>, <span class='st'>"Sepal"</span>, <span class='st'>"Petal"</span>, <span class='st'>"Petal"</span>, <span class='st'>"Species"</span>),
-  <span class='kw'>measure</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Length"</span>, <span class='st'>"Width"</span>, <span class='st'>"Length"</span>, <span class='st'>"Width"</span>, <span class='st'>"Species"</span>),
-  <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span> )
-
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'>head</span>( <span class='no'>iris</span> ))
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>set_header_df</span>(<span class='no'>ft</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='no'>typology</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span> )
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_vanilla.html'>theme_vanilla</a></span>(<span class='no'>ft</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)
-<span class='fu'><a href='write_docx.html'>write_docx</a></span>(<span class='st'>"header_df.docx"</span>, <span class='no'>ft</span>)</div><div class='output co'>#&gt; [1] &quot;/Users/davidgohel/Github/flextable/docs/reference/header_df.docx&quot;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
