@@ -168,6 +168,57 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
 }
 
 #' @export
+#' @title font size
+#' @description change font size of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param size integer value (points)
+#' @examples
+#' ft <- flextable(mtcars)
+#' ft <- fontsize(ft, size = 14, part = "header")
+fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
+
+  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body") ){
+      x <- bold(x = x, i = i, j = j, bold = bold, part = p)
+    }
+    return(x)
+  }
+
+  if( inherits(i, "formula") && "header" %in% part ){
+    stop("formula in argument i cannot adress part 'header'.")
+  }
+
+  if( inherits(i, "formula") ){
+    i <- lazy_eval(i[[2]], x[[part]]$dataset)
+  }
+  i <- get_rows_id(x[[part]], i )
+
+  if( inherits(j, "formula") ){
+    j <- attr(terms(j), "term.labels")
+  }
+  j <- get_columns_id(x[[part]], j )
+
+
+  sign_target <- unique( as.vector( x[[part]]$styles$text[i,j] ) )
+  new_text <- x[[part]]$style_ref_table$text[sign_target]
+  new_text <- map(new_text, function(x, size ) update(x, font.size = size ), size = size )
+  names(new_text) <- sign_target
+
+  new_key <- map_chr(new_text, fp_sign )
+  x[[part]]$style_ref_table$text[new_key] <- new_text
+  x[[part]]$styles$text[i,j] <- matrix(
+    new_key[match( x[[part]]$styles$text[i,j], names(new_key) )],
+    ncol = length(j) )
+
+  x
+}
+
+#' @export
 #' @title italic font
 #' @description change font decoration of selected rows and columns of a flextable.
 #' @param x a flextable object
