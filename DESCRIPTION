@@ -21,6 +21,7 @@ LinkingTo: Rcpp
 RoxygenNote: 5.0.1.9000
 Suggests: rmarkdown, knitr,
     xml2, 
-    testthat, scales, ionicons
+    testthat, 
+    ionicons
 VignetteBuilder: knitr
 Remotes: davidgohel/officer, davidgohel/ionicons

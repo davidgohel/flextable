@@ -498,7 +498,7 @@ empty_blanks <- function(x){
   if( length(x$blanks) < 1 ) return(x)
 
   x <- border( x, j = x$blanks,
-          border.top = b_null(), border.bottom = b_null(), part = "all" )
+          border.top = shortcuts$b_null(), border.bottom = shortcuts$b_null(), part = "all" )
   x <- bg(x, j = x$blanks, bg = "transparent", part = "all")
   x <- void(x, j = x$blanks)
   x

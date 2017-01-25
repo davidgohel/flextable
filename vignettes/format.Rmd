@@ -173,7 +173,7 @@ Below the starting point of next illustrations:
 myft <- flextable(head(mtcars), 
                   col_keys = c("am", "separator", "gear", "mpg", "drat" )) %>% 
   bold(part = "header") %>% 
-  border(border = b_null(), 
+  border(border = fp_border( width = 0), 
          border.top = fp_border(), 
          border.bottom = fp_border(), part = "all") %>% 
   align(align = "right", part = "all" ) %>%
@@ -201,7 +201,7 @@ If more control is needed, i.e. for conditionnal formatting, one can use functio
 ```{r}
 myft <- myft %>%
   display(i = ~ drat > 3.6, 
-    gear = fpar( ftext( gear, prop = fp_bold(color="red") ) )
+    gear = fpar( ftext( gear, prop = fp_text(bold = TRUE, color="red") ) )
   )
 
 tabwid(myft)
@@ -212,7 +212,7 @@ tabwid(myft)
 ```{r}
 myft <- myft %>%
   display(
-    mpg = fpar(mpg, " and ", ftext( carb, prop = fp_bold()), " carb(s)." ) 
+    mpg = fpar(mpg, " and ", ftext( carb, prop = fp_text(bold = TRUE)), " carb(s)." ) 
   ) %>% autofit()
 
 tabwid(myft)

@@ -69,7 +69,7 @@ Function `style` is changing formatting properties of table elements.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  style(pr_c = fp_cell( border = b_null(), border.top = fp_border()), 
+  style(pr_c = fp_cell( border = fp_border( width = 0), border.top = fp_border()), 
         pr_p = fp_par(text.align = "center", padding=2), part = "all" )
 tabwid(myft)
 ```
@@ -78,7 +78,7 @@ Conditional formatting can be made by using the selector arguments.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
-  style(i = ~ drat > 3.5, j = ~ drat, pr_t = fp_italic(color="#44A530") )
+  style(i = ~ drat > 3.5, j = ~ drat, pr_t = fp_text(italic = TRUE, color="#44A530") )
 tabwid(myft)
 ```
 
@@ -98,8 +98,8 @@ Cell content can be defined and customized with function `display`:
 myft <- myft %>%
   display(
     am = fpar(formatC(am, format = "f", digits = 0 )),
-    gear = fpar("# ", ftext( gear, prop = fp_bold()) ),
-    mpg = fpar(mpg, " (", ftext( carb, prop = fp_italic()), ")." ), 
+    gear = fpar("# ", ftext( gear, prop = fp_text(bold = TRUE)) ),
+    mpg = fpar(mpg, " (", ftext( carb, prop = fp_text(italic = TRUE)), ")." ), 
     drat = fpar(minibar( value = drat, max = 5, barcol = "#C90000", width = 1, height = .15) )
   ) %>% autofit()
 tabwid(myft)

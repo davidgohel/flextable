@@ -105,12 +105,12 @@ close_src <- as_png(name = "close-round")
 
 myft <- flextable(mtcars, col_keys = c("am", "separator", "gear", "mpg", "drat" )) %>% 
   bold(part = "header") %>% 
-  style(pr_c = fp_cell( border = b_null(), border.top = fp_border()), 
+  style(pr_c = fp_cell( border = fp_border( width = 0), border.top = fp_border()), 
         pr_p = fp_par(text.align = "right", padding=0), part = "all" ) %>%
   border(j = ~ separator, border = fp_border(width=0), part = "all") %>%
   display( am = fpar(formatC(am, format = "f", digits = 0 ) )  ) %>%
-  display(i = ~ drat > 3.6,  gear = fpar( ftext( gear, prop = fp_bold(color="red") ) ) ) %>%
-  display( mpg = fpar(mpg, " and ", ftext( carb, prop = fp_bold()), " carb(s)." )  ) %>%
+  display(i = ~ drat > 3.6,  gear = fpar( ftext( gear, prop = fp_text(bold = TRUE, color="red") ) ) ) %>%
+  display( mpg = fpar(mpg, " and ", ftext( carb, prop = fp_text(bold = TRUE)), " carb(s)." )  ) %>%
   display( i = ~ gear < 4,
            drat = fpar( minibar( value = drat, max = max(.$drat), 
                                  barcol = "#C90000", bg = "yellow", 
