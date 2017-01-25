@@ -20,6 +20,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+![tables chez Chartier](http://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Paris_Chartier_1304.jpg/640px-Paris_Chartier_1304.jpg)
+
 
 ## flextable
 
