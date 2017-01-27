@@ -44,6 +44,15 @@ myft <- flextable(head(iris)) %>%
 tabwid(myft)
 ```
 
+### Font size
+
+```{r}
+myft <- flextable(head(iris)) %>% 
+  # change font size header
+  fontsize(part = "header", size = 14) 
+tabwid(myft)
+```
+
 ### change font color
 
 ```{r}
