@@ -4,19 +4,13 @@
 \alias{write_pptx}
 \title{Microsoft PowerPoint table}
 \usage{
-write_pptx(file, x, size = c(width = 10, height = 7.5), offx = 1L,
-  offy = 1L)
+write_pptx(file, x)
 }
 \arguments{
 \item{file}{filename of the Microsoft PowerPoint document to produce. File
 extension must be \code{.pptx}.}
 
 \item{x}{flextable}
-
-\item{size}{slide size in inches.
-A named vector (\code{width} and \code{height}).}
-
-\item{offx, offy}{left and top offset in inches}
 }
 \description{
 Table for Microsoft PowerPoint documents.

@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Tabular Reporting
-Version: 0.0.3.9000
+Version: 0.0.4
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
@@ -11,17 +11,15 @@ License: GPL-3
 LazyData: TRUE
 Depends: officer
 Imports:
-    Rcpp (>= 0.12.3),
     utils,
     dplyr,lazyeval,purrr,tibble, tidyr, 
     htmltools,htmlwidgets,
     gdtools,
     magrittr
-LinkingTo: Rcpp
 RoxygenNote: 5.0.1.9000
 Suggests: rmarkdown, knitr,
     xml2, 
     testthat, 
     ionicons
 VignetteBuilder: knitr
-Remotes: davidgohel/officer, davidgohel/ionicons
+Remotes: davidgohel/officer

@@ -20,7 +20,6 @@
 #' ft <- flextable(mtcars)
 #' ft
 #' @export
-#' @import Rcpp
 #' @importFrom stats setNames
 #' @importFrom purrr map
 flextable <- function( data, col_keys = names(data) ){

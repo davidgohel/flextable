@@ -1,6 +1,4 @@
-#' @importFrom tools file_ext
-#' @importFrom utils unzip
-#' @importFrom officer pack_folder
+#' @importFrom officer pptx add_slide
 #' @title Microsoft PowerPoint table
 #'
 #' @description
@@ -8,77 +6,31 @@
 #' @param file filename of the Microsoft PowerPoint document to produce. File
 #' extension must be \code{.pptx}.
 #' @param x flextable
-#' @param size slide size in inches.
-#' A named vector (\code{width} and \code{height}).
-#' @param offx,offy left and top offset in inches
 #' @examples
 #' ft <- flextable(head(iris))
 #' write_pptx(file = "test.pptx", x = ft )
 #' @export
-write_pptx <- function(
-  file, x,
-  size = c(width = 10, height = 7.5),
-  offx = 1L, offy = 1L) {
-
-  if( file_ext(file) != "pptx" )
-    stop(file , " should have '.pptx' as extension.")
-
-  template_dir <- tempfile()
-  unzip( zipfile = file.path( system.file(package = "flextable"), "templates/vanilla.pptx" ), exdir = template_dir )
-
-  document_xml <- file.path( template_dir, "ppt/slides/", "slide1.xml" )
-  cat("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n", file = document_xml)
-  cat("<p:sld ", file = document_xml, append = TRUE)
-  cat("xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ", file = document_xml, append = TRUE)
-  cat("xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" ", file = document_xml, append = TRUE)
-  cat("xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\"", file = document_xml, append = TRUE)
-  cat(">", file = document_xml, append = TRUE)
-
-  cat("<p:cSld>", file = document_xml, append = TRUE)
-  cat( a_sptree_open(FALSE, 1L, offx*72, offy*72), file = document_xml, append = TRUE )
-  cat(pml_flextable(x), file = document_xml, append = TRUE)
-  cat( a_sptree_close() , file = document_xml, append = TRUE)
-
-  cat("</p:cSld>", file = document_xml, append = TRUE)
-  cat("</p:sld>", file = document_xml, append = TRUE)
-
-  # set slide size
-  slide_size_str <- sprintf( "<p:sldSz cx=\"%d\" cy=\"%d\"/>", as.integer(size["width"] * 914400),  as.integer(size["height"] * 914400) )
-  presentation_file <- file.path( template_dir, "ppt", "presentation.xml" )
-  presentation_str <- scan( presentation_file, what = "character", quiet = T, sep = "\n" )
-  presentation_str <- gsub(pattern = "<p:sldSz cx=\"9144000\" cy=\"6858000\" type=\"screen4x3\"/>",
-                           replacement =  slide_size_str, x = presentation_str )
-  cat(presentation_str, sep = "", file = presentation_file)
-
-  # delete out_file if existing
-  if( file.exists(file))
-    unlink(file, force = TRUE)
-  # write out_file
-  out_file <- pack_folder(template_dir, file )
-  # delete temporary dir
-  unlink(template_dir, recursive = TRUE, force = TRUE)
-  invisible(out_file)
+write_pptx <- function(file, x) {
+  doc <- pptx()
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- pptx_add_flextable(doc, value = x, id = "body")
+  print(doc, target = file )
 }
+
 
 #' @export
-#' @title graphic frame xml code
-#' @description produces the dml of a flextable
-#' @param x \code{flextable} object
-#' @param id unique identifier in the slide
-#' @param offx x offset
-#' @param offy y offset
-#' @param standalone specify to produce a standalone XML file.
-#' If FALSE, omits xml header and default namespace.
-get_graphic_frame <- function(x, id = 1L, offx = 1L, offy = 1L, standalone = TRUE) {
-  out <- a_graphic_frame_open(id, offx*72, offy*72, standalone = standalone)
-  out <- paste0( out,  pml_flextable(x))
-  out <- paste0( out,  a_graphic_frame_close() )
-  out
-}
+#' @title wml table code
+#' @description produces the wml of a flextable
+#' @param x a pptx device
+#' @param value \code{flextable} object
+#' @param id placeholder id
+#' @param index placeholder index. This is to be used when a placeholder id
+#' is not unique in the current slide, e.g. two placeholders with id 'body'.
+#' @importFrom officer placeholder_set_xml
+pptx_add_flextable <- function( x, value, id, index = 1 ){
 
-pml_flextable <- function( x ){
   out <- "<a:tbl>"
-  dims <- dim(x)
+  dims <- dim(value)
   widths <- dims$widths
   colswidths <- paste0("<a:gridCol w=\"", round(widths*914400, 0), "\"/>", collapse = "")
 
@@ -86,11 +38,34 @@ pml_flextable <- function( x ){
   out = paste0(out,  colswidths )
   out = paste0(out,  "</a:tblGrid>" )
 
-  if( !is.null(x$header) )
-    out = paste0(out, format(x$header, header = TRUE, type = "pml") )
-  if( !is.null(x$body) )
-    out = paste0(out, format(x$body, header = FALSE, type = "pml") )
+  if( !is.null(value$header) )
+    out = paste0(out, format(value$header, header = TRUE, type = "pml") )
+  if( !is.null(value$body) )
+    out = paste0(out, format(value$body, header = FALSE, type = "pml") )
   out = paste0(out,  "</a:tbl>" )
 
-  out
+  graphic_frame <- paste0(
+    "<p:graphicFrame ",
+    "xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" ",
+    "xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ",
+    "xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
+    "<p:nvGraphicFramePr>",
+    "<p:cNvPr id=\"\" name=\"\"/>",
+    "<p:cNvGraphicFramePr><a:graphicFrameLocks noGrp=\"true\"/></p:cNvGraphicFramePr>",
+    "<p:nvPr/>",
+    "</p:nvGraphicFramePr>",
+    "<p:xfrm rot=\"0\">",
+    "<a:off x=\"0\" y=\"0\"/>",
+    "<a:ext cx=\"0\" cy=\"0\"/>",
+    "</p:xfrm>",
+    "<a:graphic>",
+    "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/table\">",
+    out,
+    "</a:graphicData>",
+    "</a:graphic>",
+    "</p:graphicFrame>"
+    )
+
+  placeholder_set_xml(x = x, value = graphic_frame, id = id)
 }
+

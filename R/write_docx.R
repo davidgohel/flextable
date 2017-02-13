@@ -1,4 +1,4 @@
-#' @importFrom officer pack_folder read_relationship
+#' @importFrom officer docx
 #' @title Microsoft Word table
 #'
 #' @description
@@ -6,21 +6,12 @@
 #' @param file filename of the Microsoft Word document to produce. File
 #' extension must be \code{.docx}.
 #' @param x flextable
-#' @param pagesize Word document page size in inches.
-#' A named vector (\code{width} and \code{height}).
-#' @param margins Word document margins size in inches.
-#' A named vector (\code{left}, \code{right}, \code{top}, \code{bottom}).
 #' @examples
 #' ft <- flextable(head(iris))
 #' write_docx(file = "test.docx", x = ft )
 #' @export
 #' @importFrom officer docx
-write_docx <- function( file, x,
-                        pagesize = c(width = 8.5, height = 11),
-                        margins = c( left = 1, right = 1, top = 1, bottom = 1 ) ) {
-
-  if( file_ext(file) != "docx" )
-    stop(file , " should have '.docx' as extension.")
+write_docx <- function( file, x ) {
 
   doc <- docx()
   doc <- docx_add_flextable( doc, x, pos = "on" )
@@ -93,8 +84,8 @@ docx_add_flextable <- function( x, value, pos = "after"){
   out <- paste0(out,  "</w:tbl>" )
 
   if( length(imgs) > 0 ) {
-    rids <- docx_reference_img( x, imgs )
-    out <- wml_link_images( out, rids )
+    x <- docx_reference_img( x, imgs )
+    out <- wml_link_images( x, out )
   }
 
 

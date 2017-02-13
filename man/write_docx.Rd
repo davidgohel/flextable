@@ -4,20 +4,13 @@
 \alias{write_docx}
 \title{Microsoft Word table}
 \usage{
-write_docx(file, x, pagesize = c(width = 8.5, height = 11), margins = c(left
-  = 1, right = 1, top = 1, bottom = 1))
+write_docx(file, x)
 }
 \arguments{
 \item{file}{filename of the Microsoft Word document to produce. File
 extension must be \code{.docx}.}
 
 \item{x}{flextable}
-
-\item{pagesize}{Word document page size in inches.
-A named vector (\code{width} and \code{height}).}
-
-\item{margins}{Word document margins size in inches.
-A named vector (\code{left}, \code{right}, \code{top}, \code{bottom}).}
 }
 \description{
 Table for Microsoft Word documents.
