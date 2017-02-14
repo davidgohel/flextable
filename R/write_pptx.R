@@ -66,6 +66,6 @@ pptx_add_flextable <- function( x, value, id, index = 1 ){
     "</p:graphicFrame>"
     )
 
-  placeholder_set_xml(x = x, value = graphic_frame, id = id)
+  placeholder_set_xml(x = x, value = graphic_frame, id = id, index = index )
 }
 
