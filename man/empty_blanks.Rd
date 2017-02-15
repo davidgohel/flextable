@@ -36,4 +36,3 @@ head(iris) \%>\%
   autofit() \%>\%
   tabwid()
 }
-

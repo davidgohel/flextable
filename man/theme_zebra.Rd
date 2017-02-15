@@ -19,4 +19,3 @@ Apply theme zebra to a flextable
 ft <- flextable(iris)
 ft <- theme_zebra(ft)
 }
-

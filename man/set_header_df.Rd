@@ -38,4 +38,3 @@ ft <- theme_vanilla(ft)
 ft <- autofit(ft)
 write_docx("header_df.docx", ft)
 }
-

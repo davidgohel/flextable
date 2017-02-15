@@ -38,4 +38,3 @@ ft <- style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
 
 write_docx("style_ft.docx", ft)
 }
-

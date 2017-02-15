@@ -34,4 +34,3 @@ change paddings of selected rows and columns of a flextable.
 ft <- flextable(mtcars)
 ft <- padding(ft, padding.top = 4)
 }
-

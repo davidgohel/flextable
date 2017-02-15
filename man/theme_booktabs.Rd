@@ -16,4 +16,3 @@ Apply theme tron to a flextable
 ft <- flextable(iris)
 ft <- theme_booktabs(ft)
 }
-

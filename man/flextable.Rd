@@ -38,4 +38,3 @@ to specify what part of of the table should be modified.
 ft <- flextable(mtcars)
 ft
 }
-

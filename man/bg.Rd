@@ -24,4 +24,3 @@ change background color of selected rows and columns of a flextable.
 ft <- flextable(mtcars)
 ft <- bg(ft, bg = "#DDDDDD", part = "header")
 }
-

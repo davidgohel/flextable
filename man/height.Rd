@@ -25,4 +25,3 @@ ft <- height(ft, height = .3)
 
 write_docx("height.docx", ft)
 }
-

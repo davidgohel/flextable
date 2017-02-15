@@ -16,7 +16,8 @@ extension must be \code{.pptx}.}
 Table for Microsoft PowerPoint documents.
 }
 \examples{
-ft <- flextable(head(iris))
+ft <- flextable(head(mtcars))
+ft <- theme_zebra(ft)
+ft <- autofit(ft)
 write_pptx(file = "test.pptx", x = ft )
 }
-

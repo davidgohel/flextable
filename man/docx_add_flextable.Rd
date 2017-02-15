@@ -17,4 +17,3 @@ one of "after", "before", "on" (end of line).}
 \description{
 produces the wml of a flextable
 }
-

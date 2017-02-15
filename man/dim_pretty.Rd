@@ -19,4 +19,3 @@ each table columns and rows.
 ft <- flextable(mtcars)
 dim_pretty(ft)
 }
-

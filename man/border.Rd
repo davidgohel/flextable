@@ -34,4 +34,3 @@ change borders of selected rows and columns of a flextable.
 ft <- flextable(mtcars)
 ft <- border(ft, border.top = fp_border(color = "orange") )
 }
-

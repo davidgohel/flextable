@@ -24,4 +24,3 @@ ft_merge <- flextable(dummy_df)
 ft_merge <- merge_h(x = ft_merge)
 write_docx("ft_merge_h.docx", ft_merge)
 }
-

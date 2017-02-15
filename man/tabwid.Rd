@@ -16,4 +16,3 @@ tabwid(x, width = NULL, height = NULL)
 \description{
 htmlwidget for flextable
 }
-

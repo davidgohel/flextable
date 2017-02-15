@@ -24,4 +24,3 @@ change font weight of selected rows and columns of a flextable.
 ft <- flextable(mtcars)
 ft <- bold(ft, bold = TRUE, part = "header")
 }
-

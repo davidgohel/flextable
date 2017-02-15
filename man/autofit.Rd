@@ -23,4 +23,3 @@ ft <- autofit(ft)
 
 write_docx("autofit.docx", ft)
 }
-

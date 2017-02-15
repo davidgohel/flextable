@@ -12,4 +12,3 @@
 \description{
 returns widths and heights for each table columns and rows.
 }
-

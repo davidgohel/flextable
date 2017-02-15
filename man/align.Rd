@@ -25,4 +25,3 @@ change text alignment of selected rows and columns of a flextable.
 ft <- flextable(mtcars)
 ft <- align(ft, align = "center")
 }
-

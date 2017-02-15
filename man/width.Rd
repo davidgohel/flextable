@@ -29,4 +29,3 @@ write_docx("autofit.docx", ft)
 \seealso{
 \code{\link{flextable}}
 }
-

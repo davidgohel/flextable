@@ -24,4 +24,3 @@ ft <- flextable(mtcars)
 ft <- void(ft, ~ drat > 3.5, ~ vs + am + gear + carb )
 write_docx("empty_ft.docx", ft)
 }
-

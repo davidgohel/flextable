@@ -29,4 +29,3 @@ if( require(magrittr) ){
   write_docx("format_ft.docx", ft)
 }
 }
-

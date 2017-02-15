@@ -24,4 +24,3 @@ change font decoration of selected rows and columns of a flextable.
 ft <- flextable(mtcars)
 ft <- italic(ft, italic = TRUE, part = "header")
 }
-

@@ -19,4 +19,3 @@ Table for Microsoft Word documents.
 ft <- flextable(head(iris))
 write_docx(file = "test.docx", x = ft )
 }
-

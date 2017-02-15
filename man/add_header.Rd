@@ -35,4 +35,3 @@ ft <- merge_h(ft, part = "header")
 ft <- autofit(ft)
 write_docx("ft_add_header.docx", ft)
 }
-

@@ -16,4 +16,3 @@ Apply theme tron legacy to a flextable
 ft <- flextable(iris)
 ft <- theme_tron_legacy(ft)
 }
-

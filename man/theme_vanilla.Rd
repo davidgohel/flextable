@@ -16,4 +16,3 @@ Apply theme vanilla to a flextable
 ft <- flextable(iris)
 ft <- theme_vanilla(ft)
 }
-

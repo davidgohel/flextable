@@ -24,4 +24,3 @@ change font size of selected rows and columns of a flextable.
 ft <- flextable(mtcars)
 ft <- fontsize(ft, size = 14, part = "header")
 }
-
