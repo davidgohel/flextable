@@ -1,4 +1,4 @@
-#' @importFrom officer pptx add_slide
+#' @importFrom officer read_pptx add_slide
 #' @title Microsoft PowerPoint table
 #'
 #' @description
@@ -7,13 +7,15 @@
 #' extension must be \code{.pptx}.
 #' @param x flextable
 #' @examples
-#' ft <- flextable(head(iris))
+#' ft <- flextable(head(mtcars))
+#' ft <- theme_zebra(ft)
+#' ft <- autofit(ft)
 #' write_pptx(file = "test.pptx", x = ft )
 #' @export
 write_pptx <- function(file, x) {
-  doc <- pptx()
+  doc <- read_pptx()
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- pptx_add_flextable(doc, value = x, id = "body")
+  doc <- ph_with_flextable(doc, value = x, type = "body")
   print(doc, target = file )
 }
 
@@ -23,11 +25,20 @@ write_pptx <- function(file, x) {
 #' @description produces the wml of a flextable
 #' @param x a pptx device
 #' @param value \code{flextable} object
-#' @param id placeholder id
-#' @param index placeholder index. This is to be used when a placeholder id
-#' is not unique in the current slide, e.g. two placeholders with id 'body'.
-#' @importFrom officer placeholder_set_xml
-pptx_add_flextable <- function( x, value, id, index = 1 ){
+#' @param type placeholder type
+#' @param index placeholder index (integer). This is to be used when a placeholder type
+#' is not unique in the current slide, e.g. two placeholders with type 'body'.
+#' @examples
+#' library(officer)
+#' ft <- flextable(head(mtcars))
+#' ft <- theme_zebra(ft)
+#' ft <- autofit(ft)
+#' doc <- read_pptx()
+#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- ph_with_flextable(doc, value = ft, type = "body")
+#' print(doc, target = "test.pptx" )
+#' @importFrom officer ph_from_xml
+ph_with_flextable <- function( x, value, type, index = 1 ){
 
   out <- "<a:tbl>"
   dims <- dim(value)
@@ -66,6 +77,6 @@ pptx_add_flextable <- function( x, value, id, index = 1 ){
     "</p:graphicFrame>"
     )
 
-  placeholder_set_xml(x = x, value = graphic_frame, id = id, index = index )
+  ph_from_xml(x = x, value = graphic_frame, type = type, index = index )
 }
 
