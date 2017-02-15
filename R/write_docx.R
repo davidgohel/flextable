@@ -1,6 +1,4 @@
-#' @importFrom officer docx
 #' @title Microsoft Word table
-#'
 #' @description
 #' Table for Microsoft Word documents.
 #' @param file filename of the Microsoft Word document to produce. File
@@ -10,11 +8,11 @@
 #' ft <- flextable(head(iris))
 #' write_docx(file = "test.docx", x = ft )
 #' @export
-#' @importFrom officer docx
+#' @importFrom officer read_docx
 write_docx <- function( file, x ) {
 
-  doc <- docx()
-  doc <- docx_add_flextable( doc, x, pos = "on" )
+  doc <- read_docx()
+  doc <- body_add_flextable( doc, x, pos = "on" )
   print(doc, target = file )
 }
 
@@ -25,8 +23,8 @@ write_docx <- function( file, x ) {
 #' @param value \code{flextable} object
 #' @param pos where to add the flextable relative to the cursor,
 #' one of "after", "before", "on" (end of line).
-#' @importFrom officer add_xml_node wml_link_images docx_reference_img
-docx_add_flextable <- function( x, value, pos = "after"){
+#' @importFrom officer body_add_xml wml_link_images docx_reference_img
+body_add_flextable <- function( x, value, pos = "after"){
 
   imgs <- character(0)
 
@@ -89,7 +87,7 @@ docx_add_flextable <- function( x, value, pos = "after"){
   }
 
 
-  add_xml_node(x = x, str = out, pos = pos)
+  body_add_xml(x = x, str = out, pos = pos)
 
 }
 
