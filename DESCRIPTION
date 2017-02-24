@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Tabular Reporting
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
@@ -11,11 +11,10 @@ License: GPL-3
 LazyData: TRUE
 Depends: officer
 Imports:
-    utils,
-    dplyr,lazyeval,purrr,tibble, tidyr, 
+    utils,grDevices,
+    dplyr,lazyeval,purrr,tibble,magrittr,tidyr, 
     htmltools,htmlwidgets,
-    gdtools,
-    magrittr
+    gdtools
 RoxygenNote: 6.0.1
 Suggests: rmarkdown, knitr,
     xml2, 
