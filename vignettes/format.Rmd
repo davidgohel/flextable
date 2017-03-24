@@ -19,16 +19,22 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r warning=FALSE, echo=FALSE}
+
+```{r warning=FALSE, echo=FALSE, message=FALSE}
 library(flextable)
 library(dplyr)
 ```
 
-Formatting `flextable` can be made with simple functions. 
+A flextable is made of two parts, an header and a body. To specify which part formatting instructions should affect, use argument `part`. Possible values are:
+
+* "header": the header part of the table
+* "body": the body part of the table
+* "all": the body and the header parts of the table
+
 
 ## Shortcuts functions
 
-There are simple functions to modify formatting properties of flextable objects: `bg`, `bold`, `border`, `color`, `padding`.
+There are simple functions to modify formatting properties of flextable objects: `bg`, `bold`, `border`, `color`, `padding`, `fontsize`, `italic`, `align`.
 
 ```{r}
 myft <- flextable(head(iris))
@@ -49,7 +55,7 @@ tabwid(myft)
 ```{r}
 myft <- flextable(head(iris)) %>% 
   # change font size header
-  fontsize(part = "header", size = 14) 
+  fontsize(part = "header", size = 12) 
 tabwid(myft)
 ```
 
@@ -74,7 +80,7 @@ tabwid(myft)
 ```{r}
 myft <- myft %>% 
   # light gray as background color for header
-  bg(bg = "#F0F0F0", part = "header") %>% 
+  bg(bg = "#E4C994", part = "header") %>% 
   # dark gray as background color for body
   bg(bg = "#333333", part = "body")
 
@@ -112,7 +118,6 @@ tabwid(myft)
 
 ## Conditional formatting
 
-
 Conditional formatting can be made by using the selector arguments.
 
 ```{r warning=FALSE, message=FALSE}
@@ -123,7 +128,16 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
+`i` and `j` arguments can be also standard R vectors:
 
+```{r warning=FALSE, message=FALSE}
+row_id <- with(head(iris), Sepal.Length < 5 & Petal.Length > 1.3 )
+col_id <- c("Petal.Width", "Species")
+
+myft <- color(myft, i = row_id, j = col_id, color="red") 
+
+tabwid(myft)
+```
 
 ## Function style
 
@@ -170,7 +184,7 @@ ft <- flextable(head(iris)) %>%
 tabwid(ft)
 ```
 
-Note that it only works as expected when `fp_cell` is set 
+Note **for HTML output** that it only works as expected when `fp_cell` is set 
 with `vertical.align = "middle"` which is the default value 
 of `fp_cell`. 
 
@@ -194,7 +208,7 @@ tabwid(myft)
 
 Flextable content is defined with `display` function. 
 
-It always requires a call to `fpar` which is a simple wrapper whose role is to concatenate  formated text. The following call to fpar only let you modify the display content of a cell (because fpar argument is only a single string). 
+It always requires a call to `fpar` which is a simple wrapper whose role is to concatenate  formatted text. The following call to fpar only let you modify the display content of a cell (because fpar argument is only a single string). 
 
 ```{r}
 myft <- myft %>%
@@ -205,7 +219,7 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
-If more control is needed, i.e. for conditionnal formatting, one can use function `ftext` to associate a text with formatting properties.
+If more control is needed, i.e. for conditional formatting, one can use function `ftext` to associate a text with formatting properties.
 
 ```{r}
 myft <- myft %>%
@@ -239,9 +253,5 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
-Note usage of `.`, this object represents the input dataset of `flextable` call. The expression is not vectorized 
-
-
-
-
+**Note usage of `.`, this object represents the input dataset of `flextable` call. The expression is not vectorized.**
 

@@ -109,11 +109,11 @@ myft <- flextable(mtcars, col_keys = c("am", "separator", "gear", "mpg", "drat" 
         pr_p = fp_par(text.align = "right", padding=0), part = "all" ) %>%
   border(j = ~ separator, border = fp_border(width=0), part = "all") %>%
   display( am = fpar(formatC(am, format = "f", digits = 0 ) )  ) %>%
-  display(i = ~ drat > 3.6,  gear = fpar( ftext( gear, prop = fp_text(bold = TRUE, color="red") ) ) ) %>%
+  display(i = ~ drat > 3.6,  gear = fpar( ftext( gear, prop = fp_text(bold = TRUE, color="#C90000") ) ) ) %>%
   display( mpg = fpar(mpg, " and ", ftext( carb, prop = fp_text(bold = TRUE)), " carb(s)." )  ) %>%
   display( i = ~ gear < 4,
            drat = fpar( minibar( value = drat, max = max(.$drat), 
-                                 barcol = "#C90000", bg = "yellow", 
+                                 barcol = "#C90000", bg = "transparent", 
                                  width = 1, height = .15) ) ) %>% 
   display( i = ~ gear < 4,
            separator = fpar( external_img( src = checkmark_src, width = .15, height = .15) ) ) %>% 

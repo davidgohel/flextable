@@ -6,3 +6,4 @@
 appveyor\.yml
 docs
 _pkgdown\.yml
+^vignettes/showoff\.Rmd$

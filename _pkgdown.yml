@@ -26,7 +26,10 @@ reference:
     desc:  Modify flextable`s formatting properties, apply theme functions.
     contents:
     - style
+    - align
     - bg
+    - fontsize
+    - italic
     - bold
     - color
     - padding
@@ -49,8 +52,8 @@ navbar:
   title: flextable
   type: default
   left:
-  - text: Introduction
-    href: articles/introduction.html
+  - text: Overview
+    href: articles/overview.html
   - text: Layout
     href: articles/layout.html
   - text: Format
