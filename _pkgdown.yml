@@ -40,9 +40,7 @@ reference:
     desc:  Define flextable`s content
     contents:
     - display
-  - title: Helper functions
-    contents:
-    - empty
+    - void
   - title: Output functions
     contents:
     - tabwid
