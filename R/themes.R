@@ -30,6 +30,7 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
                         even_header = "transparent", even_body = "transparent" ){
   x <- border(x = x, border = fp_border(width = 0), part = "all")
   x <- padding(x = x, padding = 2, part = "all")
+  x <- align(x = x, align = "right", part = "all")
   even <- seq_len( nrow(x$body$dataset) ) %% 2 == 0
   odd <- !even
 
@@ -57,6 +58,7 @@ theme_tron_legacy <- function(x){
   x <- border(x = x, border = fp_border(width = 1, color = "#6FC3DF"),
               part = "all")
   x <- padding(x = x, padding = 2, part = "all")
+  x <- align(x = x, align = "right", part = "all")
   x <- bg(x = x, bg = "#0C141F", part = "all")
   x <- bold(x = x, bold = TRUE, part = "header")
   x <- color(x = x, color = "#DF740C", part = "header")
@@ -75,6 +77,7 @@ theme_tron <- function(x){
   x <- border(x = x, border = fp_border(width = 1, color = "#a4cee5"),
               part = "all")
   x <- padding(x = x, padding = 2, part = "all")
+  x <- align(x = x, align = "right", part = "all")
   x <- bg(x = x, bg = "#000000", part = "all")
   x <- bold(x = x, bold = TRUE, part = "header")
   x <- color(x = x, color = "#ec9346", part = "header")
