@@ -1,6 +1,5 @@
 ---
 title: "Show off"
-author: "David Gohel"
 output: 
   rmarkdown::html_vignette:
     toc: true 

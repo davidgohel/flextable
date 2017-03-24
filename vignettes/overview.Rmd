@@ -1,6 +1,5 @@
 ---
 title: "flextable overview"
-author: "David Gohel"
 output: 
   rmarkdown::html_vignette:
     toc: true 
