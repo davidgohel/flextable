@@ -5,7 +5,11 @@ library(xml2)
 
 test_that("row height is valid", {
   ft <- flextable( head( iris) )
-  pptx_file <- write_pptx("test.pptx", ft)
+  pptx_file <- "test.pptx"
+  doc <- read_pptx()
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- ph_with_flextable(doc, value = ft, type = "body")
+  doc <- print(doc, target = pptx_file)
 
   main_folder <- file.path(getwd(), "pptx_folder" )
   unzip(pptx_file, exdir = main_folder)

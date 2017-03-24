@@ -20,5 +20,5 @@ identical values.
 \examples{
 ft_merge <- flextable(mtcars)
 ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))
-write_docx("ft_merge_v.docx", ft_merge)
+ft_merge
 }

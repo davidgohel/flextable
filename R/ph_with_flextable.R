@@ -1,25 +1,3 @@
-#' @importFrom officer read_pptx add_slide
-#' @title Microsoft PowerPoint table
-#'
-#' @description
-#' Table for Microsoft PowerPoint documents.
-#' @param file filename of the Microsoft PowerPoint document to produce. File
-#' extension must be \code{.pptx}.
-#' @param x flextable
-#' @examples
-#' ft <- flextable(head(mtcars))
-#' ft <- theme_zebra(ft)
-#' ft <- autofit(ft)
-#' write_pptx(file = "test.pptx", x = ft )
-#' @export
-write_pptx <- function(file, x) {
-  doc <- read_pptx()
-  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with_flextable(doc, value = x, type = "body")
-  print(doc, target = file )
-}
-
-
 #' @export
 #' @title wml table code
 #' @description produces the wml of a flextable
@@ -39,6 +17,7 @@ write_pptx <- function(file, x) {
 #' print(doc, target = "test.pptx" )
 #' @importFrom officer ph_from_xml
 ph_with_flextable <- function( x, value, type, index = 1 ){
+  stopifnot(inherits(x, "rpptx"))
 
   out <- "<a:tbl>"
   dims <- dim(value)

@@ -24,7 +24,6 @@ Heights are not used when flextable is been rendered into HTML.
 ft <- flextable(iris)
 ft <- width(ft, width = 1)
 
-write_docx("autofit.docx", ft)
 }
 \seealso{
 \code{\link{flextable}}

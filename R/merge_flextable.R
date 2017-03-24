@@ -9,7 +9,7 @@
 #' @examples
 #' ft_merge <- flextable(mtcars)
 #' ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))
-#' write_docx("ft_merge_v.docx", ft_merge)
+#' ft_merge
 #' @export
 merge_v <- function(x, j = NULL, part = "body" ){
   part <- match.arg(part, c("body", "header"), several.ok = FALSE )
@@ -39,7 +39,7 @@ merge_v <- function(x, j = NULL, part = "body" ){
 #' col2 = letters, stringsAsFactors = FALSE )
 #' ft_merge <- flextable(dummy_df)
 #' ft_merge <- merge_h(x = ft_merge)
-#' write_docx("ft_merge_h.docx", ft_merge)
+#' ft_merge
 #' @export
 #' @importFrom lazyeval lazy_eval
 merge_h <- function(x, i = NULL, part = "body" ){
@@ -77,7 +77,7 @@ merge_h <- function(x, i = NULL, part = "body" ){
 #' ft <- merge_v(ft, j = c("Species"))
 #'
 #' ft <- theme_tron_legacy( merge_none( ft ) )
-#' write_docx("ft_merge_none.docx", ft)
+#' ft
 merge_none <- function(x, part = "all" ){
 
   part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )

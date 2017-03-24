@@ -26,5 +26,5 @@ ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
 ft <- merge_v(ft, j = c("Species"))
 
 ft <- theme_tron_legacy( merge_none( ft ) )
-write_docx("ft_merge_none.docx", ft)
+ft
 }

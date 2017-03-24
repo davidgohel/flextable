@@ -36,5 +36,5 @@ ft <- style( ft, pr_c = def_cell, pr_p = def_par, part = "all")
 ft <- style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
   pr_t = fp_text(color="red", italic = TRUE) )
 
-write_docx("style_ft.docx", ft)
+ft
 }

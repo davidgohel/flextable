@@ -101,7 +101,6 @@ print.flextable <- function(x, ...){
 #'   Petal.Width = "Inches", Species = "Species", top = TRUE )
 #' ft <- merge_h(ft, part = "header")
 #' ft <- autofit(ft)
-#' write_docx("ft_add_header.docx", ft)
 add_header <- function(x, top = TRUE, ...){
 
   args <- list(...)
@@ -134,7 +133,6 @@ add_header <- function(x, top = TRUE, ...){
 #'   Petal.Width = "Petal width"
 #' )
 #' ft_1 <- autofit(ft_1)
-#' write_docx("ft_1.docx", ft_1)
 #' @export
 set_header_labels <- function(x, ...){
 
@@ -187,7 +185,6 @@ set_header_labels <- function(x, ...){
 #' ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
 #' ft <- theme_vanilla(ft)
 #' ft <- autofit(ft)
-#' write_docx("header_df.docx", ft)
 set_header_df <- function(x, mapping = NULL, key = "col_keys"){
 
   keys <- data.frame( col_keys = x$col_keys, stringsAsFactors = FALSE )

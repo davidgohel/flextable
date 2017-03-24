@@ -23,5 +23,4 @@ control rows height
 ft <- flextable(iris)
 ft <- height(ft, height = .3)
 
-write_docx("height.docx", ft)
 }

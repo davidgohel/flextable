@@ -21,5 +21,5 @@ compute and apply optimized widths and heights.
 ft <- flextable(mtcars)
 ft <- autofit(ft)
 
-write_docx("autofit.docx", ft)
+ft
 }

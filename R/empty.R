@@ -9,7 +9,6 @@
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- void(ft, ~ drat > 3.5, ~ vs + am + gear + carb )
-#' write_docx("empty_ft.docx", ft)
 #' @export
 void <- function(x, i = NULL, j = NULL, part = "body" ){
 

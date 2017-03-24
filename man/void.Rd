@@ -22,5 +22,4 @@ be replaced with \code{NA} values.
 \examples{
 ft <- flextable(mtcars)
 ft <- void(ft, ~ drat > 3.5, ~ vs + am + gear + carb )
-write_docx("empty_ft.docx", ft)
 }

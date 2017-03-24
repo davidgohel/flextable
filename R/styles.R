@@ -21,7 +21,7 @@
 #' ft <- style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
 #'   pr_t = fp_text(color="red", italic = TRUE) )
 #'
-#' write_docx("style_ft.docx", ft)
+#' ft
 style <- function(x, i = NULL, j = NULL,
                   pr_t = NULL, pr_p = NULL, pr_c = NULL, part = "body" ){
 

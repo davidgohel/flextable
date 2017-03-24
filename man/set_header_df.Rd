@@ -36,5 +36,4 @@ ft <- flextable( head( iris ))
 ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
 ft <- theme_vanilla(ft)
 ft <- autofit(ft)
-write_docx("header_df.docx", ft)
 }

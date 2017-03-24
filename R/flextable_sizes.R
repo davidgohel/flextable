@@ -11,7 +11,6 @@
 #' ft <- flextable(iris)
 #' ft <- width(ft, width = 1)
 #'
-#' write_docx("autofit.docx", ft)
 #' @seealso \code{\link{flextable}}
 width <- function(x, j = NULL, width){
 
@@ -42,7 +41,6 @@ width <- function(x, j = NULL, width){
 #' ft <- flextable(iris)
 #' ft <- height(ft, height = .3)
 #'
-#' write_docx("height.docx", ft)
 height <- function(x, i = NULL, height, part = "body"){
 
   part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
@@ -147,7 +145,7 @@ dim_pretty <- function( x ){
 #' ft <- flextable(mtcars)
 #' ft <- autofit(ft)
 #'
-#' write_docx("autofit.docx", ft)
+#' ft
 autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
   max_widths <- list()
   max_heights <- list()

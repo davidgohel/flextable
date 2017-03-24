@@ -1,21 +1,3 @@
-#' @title Microsoft Word table
-#' @description
-#' Table for Microsoft Word documents.
-#' @param file filename of the Microsoft Word document to produce. File
-#' extension must be \code{.docx}.
-#' @param x flextable
-#' @examples
-#' ft <- flextable(head(iris))
-#' write_docx(file = "test.docx", x = ft )
-#' @export
-#' @importFrom officer read_docx
-write_docx <- function( file, x ) {
-
-  doc <- read_docx()
-  doc <- body_add_flextable( doc, x, pos = "on" )
-  print(doc, target = file )
-}
-
 #' @export
 #' @title wml table code
 #' @description produces the wml of a flextable
@@ -24,8 +6,16 @@ write_docx <- function( file, x ) {
 #' @param pos where to add the flextable relative to the cursor,
 #' one of "after", "before", "on" (end of line).
 #' @importFrom officer body_add_xml wml_link_images docx_reference_img
+#' @examples
+#' library(officer)
+#' ft <- flextable(head(mtcars))
+#' ft <- theme_zebra(ft)
+#' ft <- autofit(ft)
+#' doc <- read_docx()
+#' doc <- body_add_flextable(doc, value = ft)
+#' print(doc, target = "test.docx")
 body_add_flextable <- function( x, value, pos = "after"){
-
+  stopifnot(inherits(x, "rdocx"))
   imgs <- character(0)
 
   dims <- dim(value)
