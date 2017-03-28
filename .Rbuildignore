@@ -1,9 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^todo.*
 ^README\.Rmd$
-\.travis\.yml
-appveyor\.yml
-docs
-_pkgdown\.yml
-^vignettes/showoff\.Rmd$
+^\.travis\.yml$
+^appveyor\.yml$
+^docs$
+^_pkgdown\.yml$

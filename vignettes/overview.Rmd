@@ -21,9 +21,11 @@ knitr::opts_chunk$set(
 
 ## Introduction 
 
-`flextable` can easily create reporting table from `data.frame`. You can merge cells, add header rows, change any format and specify how data should be displayed in cells.
+`flextable` can easily create reporting table from `data.frame`. You can merge cells, add header rows, change any format and specify how data should be displayed in cells. `flextable` objects can be rendered in HTML format but also in Microsoft Word and PowerPoint documents.
 
-```{r warning=FALSE}
+The following table is made with flextable.
+
+```{r warning=FALSE, echo=FALSE}
 library(flextable)
 library(officer)
 library(dplyr)
@@ -34,18 +36,28 @@ typology <- data.frame(
   what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
   measure = c("Length", "Width", "Length", "Width", "Species"),
   stringsAsFactors = FALSE )
-typology
+
 
 data <- iris %>% 
   group_by(Species) %>% 
   do( head(., n = 3) )
-data
 
-flextable(data) %>% 
+ft <- flextable(data, 
+          col_keys = c("Species", "sep_1", "Sepal.Length", "Sepal.Width", "sep_2",  "Petal.Length", "Petal.Width" ) ) %>% 
   set_header_df(mapping = typology, key = "col_keys" ) %>% 
-  theme_vanilla() %>% autofit() %>% 
-  tabwid()
+  merge_v(j = "Species") %>% 
+  theme_vanilla() %>% empty_blanks() %>% autofit() 
+
+tabwid(ft)
 ```
+
+The input dataset and the metadata for columns labels are printed below:
+
+```{r}
+data
+typology
+```
+
 
 ---
 
@@ -88,14 +100,17 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
+Cells can be merged with functions `merge_none`, `merge_v` and `merge_h`.
+
 `set_header_labels` set labels:
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>%
-  set_header_labels( carb = "number of carb." )
+  set_header_labels( carb = "# carb." )
 tabwid(myft)
 ```
 
+Headers can be modified with functions `set_header_df`, `set_header_labels` and `add_header`.
 
 
 ### Formating
@@ -104,44 +119,42 @@ Many sugar functions can be used to format flextables: `bg`, `fontsize`, `italic
 
 ```{r}
 myft <- myft %>% italic(j = 1) %>% 
-  bg(bg = "#CCDDCCCC", part = "header")
+  bg(bg = "#C90000", part = "header") %>% 
+  color(color = "white", part = "header") %>% 
+  border(border = fp_border(color = "orange"), part = "all")
   
 tabwid(myft)
 ```
-
-When no sugar function is available, use `style`. It modify cells, paragraphs or text properties. 
-
-```{r}
-myft <- myft %>% 
-  style(pr_p = fp_par(text.align = "center", padding = 3), 
-        pr_c = fp_cell(border=fp_border(color = "#BEBFBB", width = 2)),
-        pr_t = fp_text(font.size = 11, color = "#000011"),
-        part = "all" ) %>% 
-  bold(part = "header") %>% fontsize(size = 12, part = "header") %>% 
-  autofit()
-
-tabwid(myft)
-```
-
-`autofit` adjust widths and heights of cells. This is the last operation as some operations make columns wider, e.g. changing font size, changing font weight. `autofit` makes sure that any content is displayed as a single line of text.
-
-### Conditionnal formating
 
 Conditional formatting can be made by using the selector arguments. All formatting functions are accepting selector arguments. 
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
   color(~ drat > 3.5, ~ drat, color = "red") %>% 
-  italic(~ drat > 3.5, ~ drat, italic = TRUE) 
+  bold(~ drat > 3.5, ~ drat, bold = TRUE) 
 
 tabwid(myft)
 ```
 
+
+`autofit` adjust widths and heights of cells. This is the last operation as some operations make columns wider, e.g. changing font size, changing font weight. `autofit` makes sure that any content is displayed as a single line of text.
+
+```{r warning=FALSE, message=FALSE}
+myft <- myft %>% autofit()
+
+tabwid(myft)
+```
+
+
 ## Outputs
 
-Flextables can be inserted in r markdown documents and in shiny applications. Use `tabwid` in these cases, when working in RStudio, flextable will be printed in the rstudio viewer pane.
+Flextables can be inserted in r markdown documents and in shiny applications. Use `tabwid` in these cases, when working in RStudio, flextable will be printed in the rstudio viewer pane (call to `tabwid` is not necessary in this case). Note that flextables are not designed to work with flexdashboard documents.
 
-To add these objects in PowerPoint or Word documents, use functions `ph_with_flextable` or `body_add_flextable`. 
+To add these objects in PowerPoint or Word documents, use functions:
+- `ph_with_flextable` (PowerPoint)
+- `body_add_flextable` (Word)
+
+`officer` package is required to create a PowerPoint or Word document.
 
 ```{r}
 library(officer)
@@ -149,13 +162,13 @@ ft <- flextable(head(mtcars)) %>%
   theme_zebra() %>% 
   autofit()
 
-read_pptx() %>% 
+ppt <- read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  ph_with_flextable(value = ft, type = "body") %>% 
-  print(target = "test.pptx")
+  ph_with_flextable(value = ft, type = "body") 
+if( interactive() ) print(ppt, target = "test.pptx")
 
-read_docx() %>% 
-  body_add_flextable(value = ft) %>% 
-  print(target = "test.docx")
+doc <- read_docx() %>% 
+  body_add_flextable(value = ft)
+if( interactive() ) print(doc, target = "test.docx")
 ```
 

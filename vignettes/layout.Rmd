@@ -40,11 +40,12 @@ iris %>%
   group_by(Species) %>% 
   do( head(., n = 3) ) %>% 
   flextable(col_keys = c("Species", "Sepal.Length", "Petal.Length") ) %>%
+  theme_booktabs() %>% 
   tabwid()
 
 ```
 
-If parameter `col_keys` has variables that are not existing in the dataset, they will be considered as blank columns and can be used as separators.
+If parameter `col_keys` has variables that are not existing in the dataset, they will be considered as blank columns and can be used as separators (in fact they can be use as you want, there is only no mapping of data associated).
 
 ```{r}
 iris %>% group_by(Species) %>% do( head(., n = 3) ) %>%
@@ -179,10 +180,12 @@ This function is time consuming and should be used sparingly.
 
 ### Adjusts automatically cell widths and heights
 
-Function `autofit` is computing optimized widths and heights and apply the results to the object. 
+Function `autofit` optimises widths and heights of the flextable. This function is almost always 
+to be called once when using flextable, it makes compact tables.
 
 ```{r}
-ft <- ft_base %>% autofit(add_w = 0, add_h = 0)
+ft <- ft_base %>% 
+  autofit(add_w = 0, add_h = 0)
 
 dim(ft)
 tabwid(ft)
