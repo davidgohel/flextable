@@ -7,8 +7,8 @@ Authors@R: c(
     email = "david.gohel@ardata.fr"))
 Description: Create pretty tables for 'Microsoft Word', 'Microsoft PowerPoint' and 'HTML' documents. 
   An API is provided to let users create tables, modify and format their content. 
-  It extends package 'officer' that does not contain any feature for customised tabular reporting. 
-  Function 'tabwid' produces an 'htmlwidget' ready to be used in 'Shiny' or 'rmarkdown' documents.
+  It extends package 'officer' that does not contain any feature for customized tabular reporting. 
+  Function 'tabwid' produces an 'htmlwidget' ready to be used in 'Shiny' or 'r markdown' documents.
   See the 'flextable' website for more information.
 License: GPL-3
 LazyData: TRUE
