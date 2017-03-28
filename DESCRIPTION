@@ -1,12 +1,15 @@
 Package: flextable
 Type: Package
-Title: Tabular Reporting
+Title: Tabular Reporting API
 Version: 0.1.0
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
-Description: Create pretty tables for
-  'Microsoft Word', 'Microsoft PowerPoint' and 'HTML'.
+Description: Create pretty tables for 'Microsoft Word', 'Microsoft PowerPoint' and 'HTML' documents. 
+  An API is provided to let users create tables, modify and format their content. 
+  It extends package 'officer' that does not contain any feature for customised tabular reporting. 
+  Function 'tabwid' produces an 'htmlwidget' ready to be used in 'Shiny' or 'rmarkdown' documents.
+  See the 'flextable' website for more information.
 License: GPL-3
 LazyData: TRUE
 Depends: officer
