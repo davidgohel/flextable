@@ -36,7 +36,7 @@ flextable <- function( data, col_keys = names(data) ){
   # header
   header_data <- setNames(as.list(col_keys), col_keys)
   header_data[blanks] <- as.list( rep("", length(blanks)) )
-  header_data <- as.data.frame(header_data, stringsAsFactors = FALSE)
+  header_data <- as.data.frame(header_data, stringsAsFactors = FALSE, check.names = FALSE)
 
   header <- table_part( data = header_data, col_keys = col_keys )
 
