@@ -2,9 +2,12 @@
 % Please edit documentation in R/ph_with_flextable.R
 \name{ph_with_flextable}
 \alias{ph_with_flextable}
-\title{wml table code}
+\alias{ph_with_flextable_at}
+\title{add flextable into a PowerPoint slide}
 \usage{
 ph_with_flextable(x, value, type, index = 1)
+
+ph_with_flextable_at(x, value, left, top)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -15,9 +18,11 @@ ph_with_flextable(x, value, type, index = 1)
 
 \item{index}{placeholder index (integer). This is to be used when a placeholder type
 is not unique in the current slide, e.g. two placeholders with type 'body'.}
+
+\item{left, top}{location of flextable on the slide}
 }
 \description{
-produces the wml of a flextable
+add a flextable as a new shape in the current slide.
 }
 \examples{
 library(officer)
@@ -25,7 +30,9 @@ ft <- flextable(head(mtcars))
 ft <- theme_zebra(ft)
 ft <- autofit(ft)
 doc <- read_pptx()
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+doc <- add_slide(doc, layout = "Title and Content",
+                 master = "Office Theme")
 doc <- ph_with_flextable(doc, value = ft, type = "body")
+doc <- ph_with_flextable_at(doc, value = ft, left = 4, top = 5)
 print(doc, target = "test.pptx" )
 }

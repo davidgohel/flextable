@@ -1,24 +1,4 @@
-#' @export
-#' @title wml table code
-#' @description produces the wml of a flextable
-#' @param x a pptx device
-#' @param value \code{flextable} object
-#' @param type placeholder type
-#' @param index placeholder index (integer). This is to be used when a placeholder type
-#' is not unique in the current slide, e.g. two placeholders with type 'body'.
-#' @examples
-#' library(officer)
-#' ft <- flextable(head(mtcars))
-#' ft <- theme_zebra(ft)
-#' ft <- autofit(ft)
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- ph_with_flextable(doc, value = ft, type = "body")
-#' print(doc, target = "test.pptx" )
-#' @importFrom officer ph_from_xml
-ph_with_flextable <- function( x, value, type, index = 1 ){
-  stopifnot(inherits(x, "rpptx"))
-
+pml_flextable <- function(value){
   out <- "<a:tbl>"
   dims <- dim(value)
   widths <- dims$widths
@@ -54,8 +34,44 @@ ph_with_flextable <- function( x, value, type, index = 1 ){
     "</a:graphicData>",
     "</a:graphic>",
     "</p:graphicFrame>"
-    )
+  )
+  graphic_frame
+}
 
+#' @export
+#' @title add flextable into a PowerPoint slide
+#' @description add a flextable as a new shape in the current slide.
+#' @param x a pptx device
+#' @param value \code{flextable} object
+#' @param type placeholder type
+#' @param index placeholder index (integer). This is to be used when a placeholder type
+#' is not unique in the current slide, e.g. two placeholders with type 'body'.
+#' @examples
+#' library(officer)
+#' ft <- flextable(head(mtcars))
+#' ft <- theme_zebra(ft)
+#' ft <- autofit(ft)
+#' doc <- read_pptx()
+#' doc <- add_slide(doc, layout = "Title and Content",
+#'                  master = "Office Theme")
+#' doc <- ph_with_flextable(doc, value = ft, type = "body")
+#' doc <- ph_with_flextable_at(doc, value = ft, left = 4, top = 5)
+#' print(doc, target = "test.pptx" )
+#' @importFrom officer ph_from_xml
+ph_with_flextable <- function( x, value, type, index = 1 ){
+  stopifnot(inherits(x, "rpptx"))
+  graphic_frame <- pml_flextable(value)
   ph_from_xml(x = x, value = graphic_frame, type = type, index = index )
+}
+
+#' @export
+#' @param left,top location of flextable on the slide
+#' @rdname ph_with_flextable
+#' @importFrom officer ph_from_xml_at
+ph_with_flextable_at <- function( x, value, left, top ){
+  stopifnot(inherits(x, "rpptx"))
+  stopifnot(inherits(x, "rpptx"))
+  graphic_frame <- pml_flextable(value)
+  ph_from_xml_at(x = x, value = graphic_frame, left = left, top = top, width = 0, height = 0 )
 }
 
