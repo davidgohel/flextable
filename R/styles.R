@@ -184,7 +184,7 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
 
   if( part == "all" ){
     for( p in c("header", "body") ){
-      x <- bold(x = x, i = i, j = j, bold = bold, part = p)
+      x <- fontsize(x = x, i = i, j = j, size = size, part = p)
     }
     return(x)
   }
