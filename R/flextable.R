@@ -148,7 +148,7 @@ set_header_labels <- function(x, ...){
   values[names(args)] <- args
 
   x$header$dataset <- bind_rows( header_[-nrow(header_),],
-             as.data.frame(values, stringsAsFactors = FALSE ))
+             as.data.frame(values, stringsAsFactors = FALSE, check.names = FALSE ))
   x
 }
 
