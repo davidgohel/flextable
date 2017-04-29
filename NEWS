@@ -1,0 +1,10 @@
+# flextable 0.2
+
+## new features
+
+* new function `ph_with_flextable_at` to add a flextable at any position in a slide.
+
+## Issues
+
+* fix fontsize when part == "all"
+
