@@ -5,6 +5,7 @@
   margin-right:auto;
   border-width: 0;
   display: table;
+  width: 0;
 }
 
 .tabwid th{
