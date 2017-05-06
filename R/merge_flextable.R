@@ -94,3 +94,56 @@ merge_none <- function(x, part = "all" ){
   x
 }
 
+
+
+
+
+#' @title Merge flextable cells
+#'
+#' @description Merge flextable cells
+#'
+#' @param x \code{flextable} object
+#' @param i,j columns and rows to merge
+#' @param part partname of the table where merge has to be done.
+#' @examples
+#' library(officer)
+#' library(magrittr)
+#'
+#' ft_merge <- head( mtcars ) %>%
+#'   flextable(  ) %>%
+#'   merge_at( i = 1:2, j = 1:3) %>%
+#'   autofit( )
+#'
+#' read_docx() %>%
+#'   body_add_flextable(ft_merge) %>%
+#'   print(target = "merge_at.docx")
+#'
+#' read_pptx() %>%
+#'   add_slide(layout = "Title and Content",master = "Office Theme") %>%
+#'   ph_with_flextable(ft_merge, type = "body") %>%
+#'   print(target = "merge_at.pptx" )
+#' @export
+merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
+  part <- match.arg(part, c("body", "header"), several.ok = FALSE )
+
+  if( inherits(j, "formula") ){
+    j <- attr(terms(j), "term.labels")
+  } else {
+    j <- get_columns_id(x[[part]], j = j )
+    j <- x$col_keys[j]
+  }
+
+  if( inherits(i, "formula") ){
+    i <- lazy_eval(i[[2]], x[[part]]$dataset)
+  }
+  i <- get_rows_id( x[[part]], i )
+
+
+  x[[part]] <- span_cells_at(x = x[[part]], columns = j, rows = i)
+
+  x
+}
+
+
+
+

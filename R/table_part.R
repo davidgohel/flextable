@@ -186,6 +186,40 @@ span_columns <- function( x, columns = NULL ){
   x
 }
 
+span_cells_at <- function( x, columns = NULL, rows = NULL ){
+
+  if( is.null(columns) )
+    columns <- x$col_keys
+  if( is.null(rows) )
+    rows <- get_rows_id( x, i = rows )
+
+  stopifnot(all( columns %in% x$col_keys ) )
+
+  row_id <- match(rows, seq_len(nrow(x$dataset)))
+  col_id <- match(columns, x$col_keys)
+
+  test_valid_r <- length(row_id) > 1 && all( diff(row_id) == 1 )
+  test_valid_c <- length(col_id) > 1 && all( diff(col_id) == 1 )
+
+  if( !test_valid_r )
+    stop("selected rows should all be consecutive")
+  if( !test_valid_c )
+    stop("selected columns should all be consecutive")
+
+  x$spans$columns[ row_id, col_id] <- 0
+  x$spans$rows[ row_id, col_id] <- 0
+  x$spans$columns[ row_id[1], col_id] <- length(row_id)
+  x$spans$rows[ row_id, col_id[1]] <- length(col_id)
+
+  # merged.rows = which( x$spans$rows != 1 )
+  # merged.cols = which( x$spans$columns != 1 )
+  # overlaps = intersect(merged.rows, merged.cols)
+  # if( length( overlaps ) > 0 )
+  #   stop("span overlappings, some merged cells are already merged with other cells.")
+
+  x
+}
+
 span_rows <- function( x, rows = NULL ){
   row_id <- get_rows_id( x, i = rows )
 
