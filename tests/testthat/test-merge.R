@@ -22,13 +22,4 @@ test_that("identical values within rows are merged", {
 })
 
 
-test_that("merged rows and merged columns can not meet", {
-  dummy_df <- data.frame(
-    col1 = rep("a", 5),
-    col2 = rep("a", 5),
-    stringsAsFactors = FALSE )
-  ft <- flextable(dummy_df)
-  ft <- merge_h(x = ft)
-  expect_error(merge_v(x = ft))
-})
 

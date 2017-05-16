@@ -165,6 +165,14 @@ merge_index <- function( x, what, byrow = FALSE ){
   as.integer( unlist(x = vout) )
 }
 
+check_merge <- function(x){
+  row_check <- all(rowSums(x$spans$rows) == ncol(x$spans$rows) )
+  col_check <- all(colSums(x$spans$columns) == nrow(x$spans$columns) )
+
+  if( !row_check || !col_check )
+    stop("invalid merging instructions", call. = FALSE)
+  x
+}
 span_columns <- function( x, columns = NULL ){
 
   if( is.null(columns) )
@@ -176,14 +184,7 @@ span_columns <- function( x, columns = NULL ){
                      merge_index(x, what = k, byrow = FALSE ),
                    x = x )
   x$spans$columns[, match(columns, x$col_keys)] <- spans
-
-  merged.rows = which( x$spans$rows != 1 )
-  merged.cols = which( x$spans$columns != 1 )
-  overlaps = intersect(merged.rows, merged.cols)
-  if( length( overlaps ) > 0 )
-    stop("span overlappings, some merged cells are already merged with other cells.")
-
-  x
+  check_merge(x)
 }
 
 span_cells_at <- function( x, columns = NULL, rows = NULL ){
@@ -198,8 +199,8 @@ span_cells_at <- function( x, columns = NULL, rows = NULL ){
   row_id <- match(rows, seq_len(nrow(x$dataset)))
   col_id <- match(columns, x$col_keys)
 
-  test_valid_r <- length(row_id) > 1 && all( diff(row_id) == 1 )
-  test_valid_c <- length(col_id) > 1 && all( diff(col_id) == 1 )
+  test_valid_r <- (length(row_id) > 1 && all( diff(row_id) == 1 )) || length(row_id) == 1
+  test_valid_c <- (length(col_id) > 1 && all( diff(col_id) == 1 )) || length(col_id) == 1
 
   if( !test_valid_r )
     stop("selected rows should all be consecutive")
@@ -211,13 +212,7 @@ span_cells_at <- function( x, columns = NULL, rows = NULL ){
   x$spans$columns[ row_id[1], col_id] <- length(row_id)
   x$spans$rows[ row_id, col_id[1]] <- length(col_id)
 
-  # merged.rows = which( x$spans$rows != 1 )
-  # merged.cols = which( x$spans$columns != 1 )
-  # overlaps = intersect(merged.rows, merged.cols)
-  # if( length( overlaps ) > 0 )
-  #   stop("span overlappings, some merged cells are already merged with other cells.")
-
-  x
+  check_merge(x)
 }
 
 span_rows <- function( x, rows = NULL ){
@@ -230,14 +225,7 @@ span_rows <- function( x, rows = NULL ){
   spans <- do.call( rbind, spans )
   x$spans$rows[match(row_id, seq_len(nrow(x$dataset))), ] <- spans
 
-  merged.rows = which( x$spans$rows != 1 )
-  merged.cols = which( x$spans$columns != 1 )
-  overlaps = intersect(merged.rows, merged.cols)
-  if( length( overlaps ) > 0 )
-    stop("span overlappings, some merged cells are already merged with other cells.")
-
-
-  x
+  check_merge(x)
 }
 
 span_free <- function( x  ){
