@@ -3,6 +3,7 @@
 #' @description produces the wml of a flextable
 #' @param x a docx object
 #' @param value \code{flextable} object
+#' @param align left (default), center or right.
 #' @param pos where to add the flextable relative to the cursor,
 #' one of "after", "before", "on" (end of line).
 #' @importFrom officer body_add_xml wml_link_images docx_reference_img
@@ -14,9 +15,13 @@
 #' doc <- read_docx()
 #' doc <- body_add_flextable(doc, value = ft)
 #' print(doc, target = "test.docx")
-body_add_flextable <- function( x, value, pos = "after"){
+body_add_flextable <- function( x, value, align = "center", pos = "after"){
   stopifnot(inherits(x, "rdocx"))
   imgs <- character(0)
+
+  align <- match.arg(align, c("center", "left", "right"), several.ok = FALSE)
+  align <- c("center" = "center", "left" = "start", "right" = "end")[align]
+  align <- as.character(align)
 
   dims <- dim(value)
   widths <- dims$widths
@@ -52,7 +57,9 @@ body_add_flextable <- function( x, value, pos = "after"){
       "xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" ",
       "xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\">")
 
-  out <- paste0(out, "<w:tblPr><w:tblLayout w:type=\"fixed\"/></w:tblPr>" )
+  out <- paste0(out, "<w:tblPr><w:tblLayout w:type=\"fixed\"/>",
+                sprintf( "<w:jc w:val=\"%s\"/>", align ),
+                "</w:tblPr>" )
 
   out = paste0(out,  "<w:tblGrid>" )
   out = paste0(out,  colswidths )
