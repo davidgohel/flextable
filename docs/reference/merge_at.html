@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • flextable</title>
+<title>Merge flextable cells — merge_at • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -20,9 +20,9 @@
 
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script>
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
+<script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -36,7 +36,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -46,24 +46,24 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">flextable</a>
+      <a class="navbar-brand" href="../index.html">flextable</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="articles/overview.html">Overview</a>
+  <a href="../articles/overview.html">Overview</a>
 </li>
 <li>
-  <a href="articles/layout.html">Layout</a>
+  <a href="../articles/layout.html">Layout</a>
 </li>
 <li>
-  <a href="articles/format.html">Format</a>
+  <a href="../articles/format.html">Format</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="reference/index.html">Function reference</a>
+  <a href="../reference/index.html">Function reference</a>
 </li>
 <li>
   <a href="https://github.com/davidgohel/flextable">
@@ -80,22 +80,62 @@
       </header>
 
       <div class="row">
-  <div class="contents col-md-12">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+    <h1>Merge flextable cells</h1>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>David Gohel</strong>. Author, maintainer.
-        </p>
-      </li>
+    
+    <p>Merge flextable cells</p>
+    
+
+    <pre class="usage"><span class='fu'>merge_at</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code>flextable</code> object</p></td>
+    </tr>
+    <tr>
+      <th>i, j</th>
+      <td><p>columns and rows to merge</p></td>
+    </tr>
+    <tr>
+      <th>part</th>
+      <td><p>partname of the table where merge has to be done.</p></td>
+    </tr>
+    </table>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>officer</span>)
+<span class='fu'>library</span>(<span class='no'>magrittr</span>)
+
+<span class='no'>ft_merge</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>( <span class='no'>mtcars</span> ) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='flextable.html'>flextable</a></span>(  ) <span class='kw'>%&gt;%</span>
+  <span class='fu'>merge_at</span>( <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='autofit.html'>autofit</a></span>( )
+
+<span class='fu'>read_docx</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_flextable.html'>body_add_flextable</a></span>(<span class='no'>ft_merge</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>print</span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"merge_at.docx"</span>)</div><div class='output co'>#&gt; [1] "/Users/davidgohel/Github/flextable/docs/reference/merge_at.docx"</div><div class='input'>
+<span class='fu'>read_pptx</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>add_slide</span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,<span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='ph_with_flextable.html'>ph_with_flextable</a></span>(<span class='no'>ft_merge</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>print</span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"merge_at.pptx"</span> )</div><div class='output co'>#&gt; [1] "/Users/davidgohel/Github/flextable/docs/reference/merge_at.pptx"</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
-
 </div>
-
 
       <footer>
       <div class="author">
