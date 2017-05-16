@@ -21,8 +21,7 @@ The data.frame must contain a column whose values match flextable
 \code{col_keys} argument, this column will be used as join key. The
 other columns will be displayed as header rows. The leftmost column
 is used as the top header row and the rightmost column
-is used as the bottom header row. Identical values will be merged (
-vertically and horizontally).
+is used as the bottom header row.
 }
 \examples{
 typology <- data.frame(
@@ -34,6 +33,8 @@ typology <- data.frame(
 
 ft <- flextable( head( iris ))
 ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+ft <- merge_h(ft, part = "header")
+ft <- merge_v(ft, j = "Species", part = "header")
 ft <- theme_vanilla(ft)
 ft <- autofit(ft)
 }

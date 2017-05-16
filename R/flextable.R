@@ -166,8 +166,7 @@ set_header_labels <- function(x, ...){
 #' \code{col_keys} argument, this column will be used as join key. The
 #' other columns will be displayed as header rows. The leftmost column
 #' is used as the top header row and the rightmost column
-#' is used as the bottom header row. Identical values will be merged (
-#' vertically and horizontally).
+#' is used as the bottom header row.
 #'
 #' @param x a \code{flextable} object
 #' @param mapping a \code{data.frame} specyfing for each colname
@@ -183,6 +182,8 @@ set_header_labels <- function(x, ...){
 #'
 #' ft <- flextable( head( iris ))
 #' ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+#' ft <- merge_h(ft, part = "header")
+#' ft <- merge_v(ft, j = "Species", part = "header")
 #' ft <- theme_vanilla(ft)
 #' ft <- autofit(ft)
 set_header_df <- function(x, mapping = NULL, key = "col_keys"){
@@ -209,9 +210,6 @@ set_header_df <- function(x, mapping = NULL, key = "col_keys"){
   if( length(x$blanks) )
     header_data <- mutate_at(header_data, x$blanks, funs(character(length(.)) ) )
 
-
-  header_ <- table_part( data = header_data, col_keys = x$col_keys )
-  header_ <- span_rows(header_, rows = seq_len(nrow(header_data)))
-  x$header <- span_columns(header_, x$col_keys)
+  x$header <- table_part( data = header_data, col_keys = x$col_keys )
   x
 }
