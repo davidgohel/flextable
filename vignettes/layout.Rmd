@@ -118,6 +118,7 @@ to permform the join. Order of columns matters, first column will be first row, 
 ```{r warning=FALSE, message=FALSE}
 flextable( head( iris ) ) %>% 
   set_header_df( mapping = typology, key = "col_keys" ) %>% 
+  merge_h(part = "header") %>% merge_v(part = "header") %>% 
   theme_vanilla() %>% autofit() %>% tabwid()
 ```
 
@@ -148,6 +149,18 @@ myft <- flextable(head(mtcars, n = 10 ) ) %>%
 
 tabwid(myft)
 ```
+
+### general merging function
+
+```{r warning=FALSE, message=FALSE}
+select_columns <- c("Species", "Petal.Length", "Petal.Width")
+myft <- flextable(head(mtcars, n = 6 ) ) %>% 
+  merge_at( i = 1:3, j = 1:3) %>%
+  border(border = fp_border(), part = "all") # and add borders
+
+tabwid(myft)
+```
+
 
 ### delete merging informations
 
