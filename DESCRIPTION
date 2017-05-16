@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Tabular Reporting API
-Version: 0.1.9002
+Version: 0.1.9003
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
