@@ -2,7 +2,8 @@
 #' @importFrom gdtools str_extents
 table_part <- function( data, col_keys = names(data),
                         default_pr_text = fp_text(),
-                        default_pr_par = fp_par() ){
+                        default_pr_par = fp_par(),
+                        cwidth = NULL, cheight = NULL ){
 
   default_pr_cell <- fp_cell()
   default_pr_cell_id <- fp_sign(default_pr_cell)
@@ -28,17 +29,24 @@ table_part <- function( data, col_keys = names(data),
     text = setNames(object = list(default_pr_text), default_pr_text_id ),
     formats = setNames(lazy_f, lazy_f_id)
   )
-
-  colwidths <- str_extents(x = col_keys, fontname = default_pr_text$font.family,
-                       fontsize = default_pr_text$font.size,
-                       bold = default_pr_text$bold,
-                       italic = default_pr_text$italic)
-  rowheights <- str_extents(x = "M", fontname = default_pr_text$font.family,
+  if( is.null( cwidth) ){
+    colwidths <- str_extents(x = col_keys, fontname = default_pr_text$font.family,
+                             fontsize = default_pr_text$font.size,
+                             bold = default_pr_text$bold,
+                             italic = default_pr_text$italic)
+    colwidths <- colwidths[,1] / 72
+  } else {
+    colwidths <- rep(cwidth, length(col_keys))
+  }
+  if( is.null( cheight ) ){
+    rowheights <- str_extents(x = "M", fontname = default_pr_text$font.family,
                             fontsize = default_pr_text$font.size,
                             bold = default_pr_text$bold,
                             italic = default_pr_text$italic)
-  colwidths <- colwidths[,1] / 72
-  rowheights <- rep( rowheights[,2] / 72, nrow(data) )
+    rowheights <- rep( rowheights[,2] / 72, nrow(data) )
+  } else {
+    rowheights <- rep(cheight, nrow(data))
+  }
 
   out <- list( dataset = data,
                col_keys = col_keys,
@@ -300,7 +308,6 @@ get_rows_id <- function( x, i = NULL ){
 }
 
 
-
 set_formatting_properties <- function( x, i = NULL, j = NULL, value ){
 
   i <- get_rows_id(x = x, i = i)
@@ -335,56 +342,4 @@ set_formatting_properties <- function( x, i = NULL, j = NULL, value ){
 
   x
 }
-
-
-
-
-
-get_pr_cell <- function( x, i, j ){
-  signat_ <- x$styles$cells[i, j]
-  x$style_ref_table$cells[[signat_]]
-}
-
-
-
-
-
-
-set_border_ <- function(x, i, j, border, side ){
-
-  cp_ <- get_pr_cell(x, i = i, j = j)
-  args <- list(object = cp_)
-  args[[paste0("border.", side)]] <- border
-  cp_ <- do.call( "update", args )
-  x <- set_formatting_properties(x, i = i, j = j, cp_ )
-
-  if( side == "top" && i > 1 ){
-    cp_ <- get_pr_cell(x, i = i-1, j = j)
-    args <- list(object = cp_)
-    args[["border.bottom"]] <- border
-    cp_ <- do.call( "update", args )
-    x <- set_formatting_properties(x, i = i-1, j = j, cp_ )
-  } else if( side == "right" && j < length(x$col_keys) ){
-    cp_ <- get_pr_cell(x, i = i, j = j+1)
-    args <- list(object = cp_)
-    args[["border.left"]] <- border
-    cp_ <- do.call( "update", args )
-    x <- set_formatting_properties(x, i = i, j = j+1, cp_ )
-  } else if( side == "bottom" && i < nrow(x$dataset) ){
-    cp_ <- get_pr_cell(x, i = i+1, j = j)
-    args <- list(object = cp_)
-    args[["border.top"]] <- border
-    cp_ <- do.call( "update", args )
-    x <- set_formatting_properties(x, i = i+1, j = j, cp_ )
-  } else if( side == "left" && j > 1 ){
-    cp_ <- get_pr_cell(x, i = i, j = j-1)
-    args <- list(object = cp_)
-    args[["border.right"]] <- border
-    cp_ <- do.call( "update", args )
-    x <- set_formatting_properties(x, i = i, j = j-1, cp_ )
-  }
-
-  x
-}
-
 
