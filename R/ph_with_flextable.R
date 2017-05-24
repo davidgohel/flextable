@@ -49,14 +49,14 @@ pml_flextable <- function(value){
 #' @examples
 #' library(officer)
 #' ft <- flextable(head(mtcars))
-#' ft <- theme_zebra(ft)
-#' ft <- autofit(ft)
+#' \donttest{
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Title and Content",
 #'                  master = "Office Theme")
 #' doc <- ph_with_flextable(doc, value = ft, type = "body")
 #' doc <- ph_with_flextable_at(doc, value = ft, left = 4, top = 5)
 #' print(doc, target = "test.pptx" )
+#' }
 #' @importFrom officer ph_from_xml
 ph_with_flextable <- function( x, value, type, index = 1 ){
   stopifnot(inherits(x, "rpptx"))

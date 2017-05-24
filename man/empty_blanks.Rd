@@ -31,8 +31,8 @@ head(iris) \%>\%
                  "break1", "Sepal.Length", "Sepal.Width",
                  "break2", "Petal.Length", "Petal.Width") ) \%>\%
   set_header_df(mapping = typology, key = "col_keys" ) \%>\%
+  merge_h(part = "header") \%>\%
   theme_vanilla() \%>\%
   empty_blanks() \%>\%
-  autofit() \%>\%
-  tabwid()
+  width(j = c(2, 5), width = .1 )
 }

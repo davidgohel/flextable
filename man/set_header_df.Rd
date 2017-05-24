@@ -36,5 +36,5 @@ ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
 ft <- merge_h(ft, part = "header")
 ft <- merge_v(ft, j = "Species", part = "header")
 ft <- theme_vanilla(ft)
-ft <- autofit(ft)
+ft
 }

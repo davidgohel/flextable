@@ -15,7 +15,6 @@ each table columns and rows.
 }
 \examples{
 
-# get estimated widths
 ft <- flextable(mtcars)
-dim_pretty(ft)
+\donttest{dim_pretty(ft)}
 }

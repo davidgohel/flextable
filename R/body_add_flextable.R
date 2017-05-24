@@ -11,7 +11,7 @@
 #' library(officer)
 #' ft <- flextable(head(mtcars))
 #' ft <- theme_zebra(ft)
-#' ft <- autofit(ft)
+#' \donttest{ft <- autofit(ft)}
 #' doc <- read_docx()
 #' doc <- body_add_flextable(doc, value = ft)
 #' print(doc, target = "test.docx")

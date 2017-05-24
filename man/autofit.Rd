@@ -19,7 +19,6 @@ compute and apply optimized widths and heights.
 \examples{
 
 ft <- flextable(mtcars)
-ft <- autofit(ft)
-
+\donttest{ft <- autofit(ft)}
 ft
 }

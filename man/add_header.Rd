@@ -32,5 +32,5 @@ ft <- add_header(ft, Sepal.Length = "Inches",
   Sepal.Width = "Inches", Petal.Length = "Inches",
   Petal.Width = "Inches", Species = "Species", top = TRUE )
 ft <- merge_h(ft, part = "header")
-ft <- autofit(ft)
+ft
 }

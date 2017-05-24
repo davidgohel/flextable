@@ -116,9 +116,8 @@ dim.flextable <- function(x){
 #' each table columns and rows.
 #' @examples
 #'
-#' # get estimated widths
 #' ft <- flextable(mtcars)
-#' dim_pretty(ft)
+#' \donttest{dim_pretty(ft)}
 dim_pretty <- function( x ){
   max_widths <- list()
   max_heights <- list()
@@ -143,8 +142,7 @@ dim_pretty <- function( x ){
 #' @examples
 #'
 #' ft <- flextable(mtcars)
-#' ft <- autofit(ft)
-#'
+#' \donttest{ft <- autofit(ft)}
 #' ft
 autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
   max_widths <- list()

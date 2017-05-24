@@ -540,10 +540,10 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 #'                  "break1", "Sepal.Length", "Sepal.Width",
 #'                  "break2", "Petal.Length", "Petal.Width") ) %>%
 #'   set_header_df(mapping = typology, key = "col_keys" ) %>%
+#'   merge_h(part = "header") %>%
 #'   theme_vanilla() %>%
 #'   empty_blanks() %>%
-#'   autofit() %>%
-#'   tabwid()
+#'   width(j = c(2, 5), width = .1 )
 #' @export
 empty_blanks <- function(x){
   if( length(x$blanks) < 1 ) return(x)
