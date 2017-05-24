@@ -106,7 +106,8 @@ Cells can be merged with functions `merge_none`, `merge_v` and `merge_h`.
 
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>%
-  set_header_labels( carb = "# carb." )
+  set_header_labels( carb = "# carb." ) %>% 
+  width(width = .75) # set width of all columns to .75 in
 tabwid(myft)
 ```
 
