@@ -256,24 +256,18 @@ tabwid(myft)
 
 - `external_img` 
 
-External images can be embed in tables. Below an illustration. Package `ionicons` is used to get 2 icons (sad and happy icon). The `fpar` call is containing a call to `external_img` which will use the path to icons png file.
+External images can be embed in tables. Below an illustration. The `fpar` call is containing a call to `external_img` which will use the R logo path.
 
 ```{r}
 myft <- flextable(head(iris)) %>% 
     theme_vanilla()
+img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
 
-if( require(ionicons) ){
-  happy = as_png(name = "happy", fill = "green")
-  sad = as_png(name = "sad", fill = "orange")
-  happy
-  sad
+if( file.exists(img.file) )
   myft <- myft  %>% 
     display(i = ~ Sepal.Length < 5, 
-            Sepal.Length = fpar(external_img(sad, width = .2, height = .2)) ) %>% 
-    display(i = ~ Sepal.Length >= 5, 
-            Sepal.Length = fpar(external_img(happy, width = .2, height = .2)) )
-  tabwid(myft)
-}
+            Sepal.Length = fpar(external_img(img.file, width = .2, height = .2)) )
+tabwid(myft)
 ```
 
 
