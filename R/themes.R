@@ -18,6 +18,22 @@ theme_vanilla <- function(x){
   x
 }
 
+#' @importFrom officer fp_border fp_par
+#' @export
+#' @title Apply box theme
+#' @description Apply theme box to a flextable
+#' @param x a flextable object
+#' @examples
+#' ft <- flextable(iris)
+#' ft <- theme_box(ft)
+theme_box <- function(x){
+  x <- border(x = x, border = fp_border(width = 1, color = "black"), part = "all")
+  x <- style( x = x, pr_p = fp_par(text.align = "center", padding = 2), part = "all")
+  x <- bg(x = x, bg = "transparent", part = "all")
+  x <- bold(x = x, bold = TRUE, part = "header")
+  x
+}
+
 #' @export
 #' @title Apply zebra theme
 #' @description Apply theme zebra to a flextable

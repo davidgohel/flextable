@@ -4,6 +4,7 @@
 
 * new function `ph_with_flextable_at` to add a flextable at any position in a slide.
 * new function `merge_at` is providing a general way of merging cells.
+* new theme function: `theme_box()`
 
 ## Issues
 
