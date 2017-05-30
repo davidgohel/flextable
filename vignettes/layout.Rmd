@@ -132,7 +132,7 @@ flextable( head( iris ) ) %>%
 ```{r warning=FALSE, message=FALSE}
 select_columns <- c("Species", "Petal.Length", "Petal.Width")
 myft <- flextable(iris[46:55,], col_keys = select_columns) %>% 
-  flextable::merge_v(~ Species + Petal.Width )
+  merge_v(~ Species + Petal.Width )
 
 tabwid(myft) 
 ```
@@ -144,7 +144,7 @@ tabwid(myft)
 ```{r warning=FALSE, message=FALSE}
 select_columns <- c("Species", "Petal.Length", "Petal.Width")
 myft <- flextable(head(mtcars, n = 10 ) ) %>% 
-  flextable::merge_h( ) %>% # merge
+  merge_h( ) %>%
   border(border = fp_border(), part = "all") # and add borders
 
 tabwid(myft)
