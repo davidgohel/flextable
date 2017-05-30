@@ -29,32 +29,26 @@ get_ref_text <- function(x){
 #' @importFrom tibble tibble
 get_all_p <- function( x ){
 
-  byfid <- x$styles$formats %>%
-    as_tibble() %>%
-    setNames(x$col_keys) %>%
-    add_column(id = seq_len(nrow(.)) ) %>%
-    gather(col_key, fid, -id) %>%
-    split(f = .$fid) %>%
-    map(.f = function(x) select(x, -fid) )
+  fid <- as.vector( x$styles$formats )
+  map_data <- tibble(id = seq_len(nrow(x$styles$formats) ) %>% rep(ncol(x$styles$formats) ) ,
+                     col_key = rep(x$col_keys, each = nrow(x$styles$formats) )
+                      )
+  byfid <- split(map_data, f = fid)
 
   ref_par <- get_ref_par(x)
   ref_text <- get_ref_text(x)
 
-  def_pp <- x$styles$pars %>%
-    as_tibble() %>%
-    setNames(x$col_keys) %>%
-    add_column(id = seq_len(nrow(.)) ) %>%
-    gather(col_key, fid, -id) %>%
-    inner_join(ref_par, by = c("fid" = "ref") ) %>%
-    select(-fid)
+  def_pp <- map_data
+  def_pp$ref <- as.vector( x$styles$pars )
+  def_pp <- def_pp %>%
+    inner_join(ref_par, by = c("ref" = "ref") )
+  def_pp$ref <- NULL
 
-  def_tp <- x$styles$text %>%
-    as_tibble() %>%
-    setNames(x$col_keys) %>%
-    add_column(id = seq_len(nrow(.)) ) %>%
-    gather(col_key, fid, -id) %>%
-    inner_join(ref_text, by = c("fid" = "ref") ) %>%
-    select(-fid)
+  def_tp <- map_data
+  def_tp$ref <- as.vector( x$styles$text )
+  def_tp <- def_tp %>%
+    inner_join(ref_text, by = c("ref" = "ref") )
+  def_tp$ref <- NULL
 
   map2_df(byfid, x$style_ref_table$formats[names(byfid)],
       function(subset_, form_, data){
@@ -69,28 +63,22 @@ get_all_p <- function( x ){
     select( -fp_p, -fp_t )
 }
 
-#' @importFrom purrr map map_lgl
-get_img_chunks <- function(x){
-  chunks <- x$chunks
-  chunks[map_lgl(chunks, function(x) inherits(x, c("minibar", "external_img")))]
-}
-
-#' @importFrom purrr map_df
-#' @importFrom dplyr do
+#' @importFrom purrr pmap_df map_df map_lgl
 extract_images <- function( par_list ){
-  out <- par_list %>%
-    group_by(id, col_key) %>% # change to rowwise
-    do({
-      img <- get_img_chunks(.$p[[1]])
-      map_df(img, function(x){
-        data.frame(src = as.character(x),
-                   width = attr(x,"dims")$width * 72,
-                   height = attr(x,"dims")$height * 72,
-                   stringsAsFactors = FALSE)
-      })
-    } ) %>% ungroup()
+  out <- pmap_df( list(x = par_list$p, id = par_list$id, col_key = par_list$col_key) ,
+           function(x, id, col_key) {
+             ok <- map_lgl( x$chunks, inherits, c("minibar", "external_img"))
+             src <- map_chr( x$chunks[ok], as.character )
+             dims <- map_df( x$chunks[ok], function(x){
+               dims <- attr(x,"dims")
+               list(width = dims$width * 72, height = dims$height * 72, id = id, col_key = col_key )
+             } )
+             dims$src <- src
+             dims
+           } )
+
   if( nrow(out) < 1 )
-    out <- add_column(out, src = character(0), width = double(0), height = double(0))
+    out <- tibble(id = integer(0), col_key = character(0), src = character(0), width = double(0), height = double(0))
   out
 }
 
@@ -129,13 +117,12 @@ extract_par_space <- function(x){
 }
 
 #' @importFrom gdtools str_extents
-#' @importFrom dplyr ungroup select bind_rows group_by summarise
+#' @importFrom dplyr do ungroup select bind_rows group_by summarise
 #' @importFrom purrr map_dbl map_chr map map2_df
 #' @importFrom stats setNames
 get_adjusted_sizes <- function( x ){
 
   par_data <- get_all_p(x)
-
   chunks <- par_data %>%
     group_by(id, col_key) %>%
     do(as.data.frame(.$p)) %>%
@@ -192,7 +179,6 @@ get_adjusted_sizes <- function( x ){
   heights[x$spans$rows<1] <- 0
   heights[x$spans$columns<1] <- 0
 
-  #browser()
   ref_ <- x$style_ref_table$cells
   id_ <- x$styles$cells
   is_rotate <- map_chr(ref_,"text.direction") %in% c("tbrl", "btlr")
@@ -235,23 +221,23 @@ cot_to_matrix <- function(x, type = "pml"){
   })
   par_data$p <- NULL
   par_data <- par_data %>%
-    mutate(col_key = factor(col_key, levels = x$col_keys) ) %>%
-    arrange(col_key, id)
+    mutate(col_key = factor(col_key, levels = x$col_keys) )
 
   par_ref_dim <- map2_df(x$style_ref_table$pars, names(x$style_ref_table$pars),
                          function(x, z, type) {
                            par_style <- format(x, type = type)
-                           data.frame( value = par_style, ref = z, stringsAsFactors = FALSE )
+                           data.frame( pptag = par_style, ref = z, stringsAsFactors = FALSE )
                          }, type = type)
-  par_dim <- x$styles$pars
-  dimnames(par_dim) <- list(NULL, x$col_keys)
-  par_dim <- par_dim %>% as_tibble() %>%
-    mutate(id = seq_len(nrow(par_dim))) %>%
-    gather(col_key, ref, -id) %>%
-    inner_join(par_ref_dim, by = "ref") %>%
-    mutate(col_key = factor(col_key, levels = x$col_keys) ) %>%
-    arrange(col_key, id) %>% select(-ref) %>%
-    rename(pptag = value)
+
+  map_data <- tibble(id = seq_len(nrow(x$styles$pars) ) %>% rep(ncol(x$styles$pars) ) ,
+                     col_key = rep(x$col_keys, each = nrow(x$styles$pars) )
+  )
+  par_dim <- map_data
+  par_dim$ref <- as.vector( x$styles$pars )
+  par_dim <- par_dim %>%
+    inner_join(par_ref_dim, by = c("ref" = "ref") )
+  par_dim$col_key <- factor(par_dim$col_key, levels = x$col_keys)
+  par_dim$ref <- NULL
 
   chunks <- par_data %>% inner_join(par_dim, by = c("col_key", "id")) %>%
     mutate(value = {
