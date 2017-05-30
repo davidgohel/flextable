@@ -109,10 +109,7 @@ add_header <- function(x, top = TRUE, ...){
   names(args_) <- x$col_keys
   args_[names(args)] <- map(args, format)
   header_data <- as.data.frame( args_, stringsAsFactors = FALSE )
-  header_ <- add_rows( x$header, header_data, first = top )
-
-  header_ <- span_rows(header_, rows = seq_len(nrow(header_data)))
-  x$header <- span_columns(header_, x$col_keys)
+  x$header <- add_rows( x$header, header_data, first = top )
 
   x
 }
