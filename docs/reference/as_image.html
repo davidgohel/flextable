@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>draw a single bar — minibar • flextable</title>
+<title>image wrapper — as_image • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -82,40 +82,37 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>draw a single bar</h1>
+    <h1>image wrapper</h1>
     </div>
 
     
-    <p>This function is used to insert bars into flextable with function <code>display</code></p>
+    <p>The function has to be used with function display().
+It lets add images within flextable.</p>
     
 
-    <pre class="usage"><span class='fu'>minibar</span>(<span class='no'>value</span>, <span class='no'>max</span>, <span class='kw'>barcol</span> <span class='kw'>=</span> <span class='st'>"#CCCCCC"</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+    <pre class="usage"><span class='fu'>as_image</span>(<span class='no'>x</span>, <span class='no'>src</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>value</th>
-      <td><p>bar height</p></td>
+      <th>x</th>
+      <td><p>image will be repeated while iterating this variable. The variable should be
+one of the original data frame. Note its values are not used, only its size.</p></td>
     </tr>
     <tr>
-      <th>max</th>
-      <td><p>max bar height</p></td>
-    </tr>
-    <tr>
-      <th>barcol</th>
-      <td><p>bar color</p></td>
-    </tr>
-    <tr>
-      <th>bg</th>
-      <td><p>background color</p></td>
+      <th>src</th>
+      <td><p>image filename</p></td>
     </tr>
     <tr>
       <th>width, height</th>
-      <td><p>size of the resulting png file in inches</p></td>
+      <td><p>size of the png file in inches</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='display.html'>display</a></code></p>
     
 
   </div>
@@ -123,7 +120,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
   </div>
 </div>

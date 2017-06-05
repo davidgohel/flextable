@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>draw a single bar — minibar • flextable</title>
+<title>Apply box theme — theme_box • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -82,48 +82,36 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>draw a single bar</h1>
+    <h1>Apply box theme</h1>
     </div>
 
     
-    <p>This function is used to insert bars into flextable with function <code>display</code></p>
+    <p>Apply theme box to a flextable</p>
     
 
-    <pre class="usage"><span class='fu'>minibar</span>(<span class='no'>value</span>, <span class='no'>max</span>, <span class='kw'>barcol</span> <span class='kw'>=</span> <span class='st'>"#CCCCCC"</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+    <pre class="usage"><span class='fu'>theme_box</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>value</th>
-      <td><p>bar height</p></td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td><p>max bar height</p></td>
-    </tr>
-    <tr>
-      <th>barcol</th>
-      <td><p>bar color</p></td>
-    </tr>
-    <tr>
-      <th>bg</th>
-      <td><p>background color</p></td>
-    </tr>
-    <tr>
-      <th>width, height</th>
-      <td><p>size of the resulting png file in inches</p></td>
+      <th>x</th>
+      <td><p>a flextable object</p></td>
     </tr>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>iris</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>theme_box</span>(<span class='no'>ft</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
