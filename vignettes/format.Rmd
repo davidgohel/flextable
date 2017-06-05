@@ -203,72 +203,27 @@ tabwid(myft)
 
 Flextable content is defined with `display` function. 
 
-It always requires a call to `fpar` which is a simple wrapper whose role is to concatenate  formatted text. The following call to fpar only let you modify the display content of a cell (because fpar argument is only a single string). 
-
 ```{r}
 myft <- myft %>%
-  display( 
-    mpg = fpar(formatC(mpg, format = "f", digits = 3 ) ) 
+  display( col_key = "mpg", pattern = "{{mpg}}", 
+           formatters = list(mpg ~ sprintf("%.01f", mpg) ), 
+              fprops = list(mpg = fp_text(color = "red", italic = TRUE) )
   )
 
 tabwid(myft)
 ```
 
-If more control is needed, i.e. for conditional formatting, one can use function `ftext` to associate a text with formatting properties.
 
 ```{r}
 myft <- myft %>%
-  display(i = ~ drat > 3.6, 
-    gear = fpar( ftext( gear, prop = fp_text(bold = TRUE, color="red") ) )
-  )
-
-tabwid(myft)
-```
-
-`fpar` can have multiple arguments that will be then concatenated.
-
-```{r}
-myft <- myft %>%
-  display(
-    mpg = fpar(mpg, " and ", ftext( carb, prop = fp_text(bold = TRUE)), " carb(s)." ) 
+  display( i = ~ drat > 3.6, 
+           col_key = "mpg", pattern = "{{mpg}} with {{carb}}", 
+           formatters = list(mpg ~ sprintf("%.01f", mpg), 
+                             carb ~ sprintf("#%.01f carb.", carb) ), 
+              fprops = list(mpg = fp_text(color = "gray", bold = TRUE) )
   ) %>% autofit()
 
 tabwid(myft)
 ```
-
-### Add images into cells
-
-- `minibar`
-
-`fpar` handles call to `minibar`. This will generate a simple bar to be inserted as content.
-
-```{r}
-myft <- myft %>%
-  display( i = ~ gear < 4,
-    drat = fpar(minibar( value = drat, max = max(.$drat), 
-                         barcol = "#C90000", width = 1, height = .15) )
-  ) %>% autofit()
-
-tabwid(myft)
-```
-
-**Note usage of `.`, this object represents the input dataset of `flextable` call. The expression is not vectorized.**
-
-- `external_img` 
-
-External images can be embed in tables. Below an illustration. The `fpar` call is containing a call to `external_img` which will use the R logo path.
-
-```{r}
-myft <- flextable(head(iris)) %>% 
-    theme_vanilla()
-img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
-
-if( file.exists(img.file) )
-  myft <- myft  %>% 
-    display(i = ~ Sepal.Length < 5, 
-            Sepal.Length = fpar(external_img(img.file, width = .2, height = .2)) )
-tabwid(myft)
-```
-
 
 

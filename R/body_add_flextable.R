@@ -67,14 +67,15 @@ body_add_flextable <- function( x, value, align = "center", pos = "after"){
 
   if( !is.null(value$header) ){
     xml_content <- format(value$header, header = TRUE, type = "wml")
-    imgs <- append( imgs, attr(xml_content, "imgs") )
+    imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
     out = paste0(out, xml_content )
   }
   if( !is.null(value$body) ){
     xml_content <- format(value$body, header = FALSE, type = "wml")
-    imgs <- append( imgs, attr(xml_content, "imgs") )
+    imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
     out = paste0(out, xml_content )
   }
+
   imgs <- unique(imgs)
   out <- paste0(out,  "</w:tbl>" )
 
@@ -82,7 +83,6 @@ body_add_flextable <- function( x, value, align = "center", pos = "after"){
     x <- docx_reference_img( x, imgs )
     out <- wml_link_images( x, out )
   }
-
 
   body_add_xml(x = x, str = out, pos = pos)
 

@@ -14,9 +14,6 @@
 #' @seealso \code{\link{flextable}}
 width <- function(x, j = NULL, width){
 
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
   j <- get_columns_id(x[["body"]], j )
 
   stopifnot(length(j)==length(width) || length(width) == 1)
@@ -74,9 +71,6 @@ height <- function(x, i = NULL, height, part = "body"){
     return(x)
   }
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id(x[[part]], i )
   if( !(length(i) == length(height) || length(height) == 1)){
     stop("height should be of length 1 or ", length(i))

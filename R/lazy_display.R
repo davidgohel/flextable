@@ -1,11 +1,10 @@
 #' @importFrom lazyeval as.lazy interp
+#' @importFrom stats setNames as.formula
 lazy_format_simple <- function( col_key ){
-  format_simple_l <- as.lazy( interp("fpar(x)", x = as.name(col_key) ), globalenv() )
-  format_simple_l
-}
 
-#' @importFrom lazyeval as.lazy interp
-lazy_void <- function( col_key ){
-  as.lazy( "fpar('')", globalenv() )
+  obj <- display_parser$new(x = paste0("{{", col_key, "}}"),
+                            formatters = list( as.formula( paste0(col_key, "~format(", col_key, ", justify = \"none\", trim = T)") ) ),
+                            fprops = list() )
+  obj
 }
 

@@ -61,15 +61,7 @@ print.flextable <- function(x, ...){
   if (!interactive() ){
     print(x$body$dataset)
   } else {
-    html_ft <- html_flextable(x)
-    tcss <- scan(system.file(package = "flextable",
-                             "htmlwidgets/customcss/tabwid.css"),
-                 what = "character", quiet = TRUE, sep = "\n")
-    tcss <- paste(tcss, collapse = "\n")
-    html_ <- paste0("<style type=\"text/css\">", attr(html_ft, "css"), "</style>",
-                    "<style type=\"text/css\">\n", tcss, "</style>",
-                    "<div class=\"tabwid\">", html_ft, "</div>" )
-    print( browsable( HTML( html_ ) ) )
+    print(tabwid(x))
   }
 
 }

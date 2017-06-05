@@ -25,26 +25,13 @@ void <- function(x, i = NULL, j = NULL, part = "body" ){
     stop("formula in argument i cannot adress part 'header'.")
   }
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
   j <- get_columns_id(x[[part]], j )
 
-  # update display ---
-  f_ <- map(x$col_keys[j], function(x) quote(fpar("")) ) %>%
-    setNames(x$col_keys[j])
-  f_$x <- x
-  f_$i <- i
-  f_$part = part
-  x <- do.call(display, f_)
+  for( j in x$col_keys[j]){
+    x <- display(x, i = i, col_key = j, pattern = " ", formatters = list(), fprops = list(), part = part)
+  }
 
-  col_id <- match(x$col_keys[j], names(x[[part]]$dataset) )
-  x[[part]]$dataset[i, col_id] <- NA
 
   x
 }

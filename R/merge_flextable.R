@@ -14,12 +14,8 @@
 merge_v <- function(x, j = NULL, part = "body" ){
   part <- match.arg(part, c("body", "header"), several.ok = FALSE )
 
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  } else {
-    j <- get_columns_id(x[[part]], j = j )
-    j <- x$col_keys[j]
-  }
+  j <- get_columns_id(x[[part]], j = j )
+  j <- x$col_keys[j]
 
   x[[part]] <- span_columns(x = x[[part]], columns = j)
 
@@ -46,9 +42,6 @@ merge_h <- function(x, i = NULL, part = "body" ){
 
   part <- match.arg(part, c("body", "header"), several.ok = FALSE )
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id( x[[part]], i )
 
   x[[part]] <- span_rows(x = x[[part]], rows = i)
@@ -117,18 +110,10 @@ merge_none <- function(x, part = "all" ){
 merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
   part <- match.arg(part, c("body", "header"), several.ok = FALSE )
 
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  } else {
-    j <- get_columns_id(x[[part]], j = j )
-    j <- x$col_keys[j]
-  }
+  j <- get_columns_id(x[[part]], j = j )
+  j <- x$col_keys[j]
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id( x[[part]], i )
-
 
   x[[part]] <- span_cells_at(x = x[[part]], columns = j, rows = i)
 

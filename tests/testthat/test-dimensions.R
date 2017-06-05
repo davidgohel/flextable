@@ -51,7 +51,6 @@ test_that("autofit and dim_pretty usage", {
 })
 
 
-
 test_that("height usage", {
   dummy_df <- data.frame( my_col1 = rep(letters[1:3], each = 2),
                           my_col2 = rep(letters[4:6], each = 2),
@@ -62,6 +61,16 @@ test_that("height usage", {
   expect_error({ft <- height(ft, height = dims$heights[-1], part = "all") })
   expect_silent({ft <- height(ft, height = .25, part = "all") })
   expect_error({ft <- height(ft, height = 1:3, part = "body") })
+})
+
+test_that("width usage", {
+  dummy_df <- data.frame( my_col1 = rep(letters[1:3], each = 2),
+                          my_col2 = rep(letters[4:6], each = 2),
+                          stringsAsFactors = FALSE )
+  ft <- flextable(dummy_df)
+  expect_silent(width(ft, j = "my_col1", width = 1))
+  expect_silent(width(ft, j = 1:2, width = .7))
+  expect_error(width(ft, j = 1:2, width = rep(.7, 3)))
 })
 
 

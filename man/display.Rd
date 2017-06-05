@@ -4,28 +4,39 @@
 \alias{display}
 \title{Define flextable displayed values}
 \usage{
-display(x, i = NULL, part = "body", ...)
+display(x, i = NULL, col_key, pattern, formatters = list(),
+  fprops = list(), part = "body")
 }
 \arguments{
 \item{x}{a flextable object}
 
 \item{i}{rows selection}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{col_key}{column to modify, a single character}
 
-\item{...}{see details.}
+\item{pattern}{string to format}
+
+\item{formatters}{a list of formula, left side for the name,
+right side for the content.}
+
+\item{fprops}{a named list of \link[officer]{fp_text}}
+
+\item{part}{partname of the table (one of 'all', 'body', 'header')}
 }
 \description{
-Modify flextable displayed values.
+Modify flextable displayed values by specifying a
+string expression. Function is handling complex formatting as well as
+image insertion.
 }
 \examples{
 
 # Formatting data values example ------
 library(magrittr)
 ft <- flextable(head( mtcars, n = 10))
-ft <- display(ft,
-  i = ~ drat > 3.5,
-  carb = fpar("# ", ftext(carb, fp_text(color="orange") ) ) )
+ft <- display(ft, col_key = "carb",
+  i = ~ drat > 3.5, pattern = "# {{carb}}",
+  formatters = list(carb ~ sprintf("\%.1f", carb)),
+  fprops = list(carb = fp_text(color="orange") ) )
 \donttest{ft <- autofit(ft)}
 ft
 }

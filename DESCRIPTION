@@ -13,8 +13,8 @@ License: GPL-3
 LazyData: TRUE
 Depends: officer
 Imports:
-    utils,grDevices,
-    dplyr,lazyeval,purrr,tibble,magrittr,tidyr, 
+    stats,utils,grDevices,
+    dplyr,lazyeval,purrr,tibble,magrittr,tidyr,R6,stringr,
     htmltools,htmlwidgets,
     gdtools
 RoxygenNote: 6.0.1.9000

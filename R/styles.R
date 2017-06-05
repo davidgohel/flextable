@@ -46,14 +46,7 @@ style <- function(x, i = NULL, j = NULL,
     stop("formula in argument i cannot adress part 'header'.")
   }
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
   j <- get_columns_id(x[[part]], j )
 
   if( !is.null(pr_t) )
@@ -92,25 +85,17 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
     stop("formula in argument i cannot adress part 'header'.")
   }
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
   j <- get_columns_id(x[[part]], j )
 
+  pr_id <- x[[part]]$styles$cells$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$cells$get_fp()[unique(pr_id)]
+  old_name <- names(pr)
+  pr <- map(pr, function(x, bg ) update(x, background.color = bg ), bg = bg )
+  new_name <- map_chr(pr, fp_sign )
+  names(pr) <- new_name
 
-  sign_target <- unique( as.vector( x[[part]]$styles$cells[i,j] ) )
-  new_cells <- x[[part]]$style_ref_table$cells[sign_target]
-  new_cells <- map(new_cells, function(x, bg ) update(x, background.color = bg ), bg = bg )
-  names(new_cells) <- sign_target
-
-  new_key <- map_chr(new_cells, fp_sign )
-  x[[part]]$style_ref_table$cells[new_key] <- new_cells
-  x[[part]]$styles$cells[i,j] <- matrix( new_key[match( x[[part]]$styles$cells[i,j], names(new_key) )], ncol = length(j) )
+  x[[part]]$styles$cells$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
   x
 }
@@ -142,27 +127,16 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
     stop("formula in argument i cannot adress part 'header'.")
   }
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
   j <- get_columns_id(x[[part]], j )
 
-
-  sign_target <- unique( as.vector( x[[part]]$styles$text[i,j] ) )
-  new_text <- x[[part]]$style_ref_table$text[sign_target]
-  new_text <- map(new_text, function(x, bold ) update(x, bold = bold ), bold = bold )
-  names(new_text) <- sign_target
-
-  new_key <- map_chr(new_text, fp_sign )
-  x[[part]]$style_ref_table$text[new_key] <- new_text
-  x[[part]]$styles$text[i,j] <- matrix(
-    new_key[match( x[[part]]$styles$text[i,j], names(new_key) )],
-    ncol = length(j) )
+  pr_id <- x[[part]]$styles$text$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$text$get_fp()[unique(pr_id)]
+  old_name <- names(pr)
+  pr <- map(pr, function(x, bold ) update(x, bold = bold ), bold = bold )
+  new_name <- map_chr(pr, fp_sign )
+  names(pr) <- new_name
+  x[[part]]$styles$text$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
   x
 }
@@ -193,27 +167,16 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
     stop("formula in argument i cannot adress part 'header'.")
   }
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
   j <- get_columns_id(x[[part]], j )
 
-
-  sign_target <- unique( as.vector( x[[part]]$styles$text[i,j] ) )
-  new_text <- x[[part]]$style_ref_table$text[sign_target]
-  new_text <- map(new_text, function(x, size ) update(x, font.size = size ), size = size )
-  names(new_text) <- sign_target
-
-  new_key <- map_chr(new_text, fp_sign )
-  x[[part]]$style_ref_table$text[new_key] <- new_text
-  x[[part]]$styles$text[i,j] <- matrix(
-    new_key[match( x[[part]]$styles$text[i,j], names(new_key) )],
-    ncol = length(j) )
+  pr_id <- x[[part]]$styles$text$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$text$get_fp()[unique(pr_id)]
+  old_name <- names(pr)
+  pr <- map(pr, function(x, size ) update(x, font.size = size ), size = size )
+  new_name <- map_chr(pr, fp_sign )
+  names(pr) <- new_name
+  x[[part]]$styles$text$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
   x
 }
@@ -244,27 +207,16 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
     stop("formula in argument i cannot adress part 'header'.")
   }
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
   j <- get_columns_id(x[[part]], j )
 
-
-  sign_target <- unique( as.vector( x[[part]]$styles$text[i,j] ) )
-  new_text <- x[[part]]$style_ref_table$text[sign_target]
-  new_text <- map(new_text, function(x, italic ) update(x, italic = italic ), italic = italic )
-  names(new_text) <- sign_target
-
-  new_key <- map_chr(new_text, fp_sign )
-  x[[part]]$style_ref_table$text[new_key] <- new_text
-  x[[part]]$styles$text[i,j] <- matrix(
-    new_key[match( x[[part]]$styles$text[i,j], names(new_key) )],
-    ncol = length(j) )
+  pr_id <- x[[part]]$styles$text$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$text$get_fp()[unique(pr_id)]
+  old_name <- names(pr)
+  pr <- map(pr, function(x, italic ) update(x, italic = italic ), italic = italic )
+  new_name <- map_chr(pr, fp_sign )
+  names(pr) <- new_name
+  x[[part]]$styles$text$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
   x
 }
@@ -294,27 +246,16 @@ color <- function(x, i = NULL, j = NULL, color, part = "body" ){
     stop("formula in argument i cannot adress part 'header'.")
   }
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
   j <- get_columns_id(x[[part]], j )
 
-
-  sign_target <- unique( as.vector( x[[part]]$styles$text[i,j] ) )
-  new_text <- x[[part]]$style_ref_table$text[sign_target]
-  new_text <- map(new_text, function(x, color ) update(x, color = color ), color = color )
-  names(new_text) <- sign_target
-
-  new_key <- map_chr(new_text, fp_sign )
-  x[[part]]$style_ref_table$text[new_key] <- new_text
-  x[[part]]$styles$text[i,j] <- matrix(
-    new_key[match( x[[part]]$styles$text[i,j], names(new_key) )],
-    ncol = length(j) )
+  pr_id <- x[[part]]$styles$text$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$text$get_fp()[unique(pr_id)]
+  old_name <- names(pr)
+  pr <- map(pr, function(x, color ) update(x, color = color ), color = color )
+  new_name <- map_chr(pr, fp_sign )
+  names(pr) <- new_name
+  x[[part]]$styles$text$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
   x
 }
@@ -363,31 +304,24 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
     stop("formula in argument i cannot adress part 'header'.")
   }
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
   j <- get_columns_id(x[[part]], j )
 
-  sign_target <- unique( as.vector( x[[part]]$styles$pars[i,j] ) )
-  new_pars <- x[[part]]$style_ref_table$pars[sign_target]
-
+  pr_id <- x[[part]]$styles$pars$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$pars$get_fp()[unique(pr_id)]
+  old_name <- names(pr)
   if(!is.null(padding.top))
-    new_pars <- map(new_pars, function(x, padding.top ) update(x, padding.top = padding.top ), padding.top = padding.top )
+    pr <- map(pr, function(x, padding.top ) update(x, padding.top = padding.top ), padding.top = padding.top )
   if(!is.null(padding.bottom))
-    new_pars <- map(new_pars, function(x, padding.bottom ) update(x, padding.bottom = padding.bottom ), padding.bottom = padding.bottom )
+    pr <- map(pr, function(x, padding.bottom ) update(x, padding.bottom = padding.bottom ), padding.bottom = padding.bottom )
   if(!is.null(padding.left))
-    new_pars <- map(new_pars, function(x, padding.left ) update(x, padding.left = padding.left ), padding.left = padding.left )
+    pr <- map(pr, function(x, padding.left ) update(x, padding.left = padding.left ), padding.left = padding.left )
   if(!is.null(padding.right))
-    new_pars <- map(new_pars, function(x, padding.right ) update(x, padding.right = padding.right ), padding.right = padding.right )
-  names(new_pars) <- sign_target
-  new_key <- map_chr(new_pars, fp_sign )
-  x[[part]]$style_ref_table$pars[new_key] <- new_pars
-  x[[part]]$styles$pars[i,j] <- matrix( new_key[match( x[[part]]$styles$pars[i,j], names(new_key) )], ncol = length(j) )
+    pr <- map(pr, function(x, padding.right ) update(x, padding.right = padding.right ), padding.right = padding.right )
+  new_name <- map_chr(pr, fp_sign )
+  names(pr) <- new_name
+
+  x[[part]]$styles$pars$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
   x
 }
@@ -421,24 +355,17 @@ align <- function(x, i = NULL, j = NULL, align = "left",
     stop("formula in argument i cannot adress part 'header'.")
   }
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
   j <- get_columns_id(x[[part]], j )
 
-  sign_target <- unique( as.vector( x[[part]]$styles$pars[i,j] ) )
-  new_pars <- x[[part]]$style_ref_table$pars[sign_target]
+  pr_id <- x[[part]]$styles$pars$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$pars$get_fp()[unique(pr_id)]
+  old_name <- names(pr)
+  pr <- map(pr, function(x, align ) update(x, text.align = align ), align = align )
+  new_name <- map_chr(pr, fp_sign )
+  names(pr) <- new_name
 
-  new_pars <- map(new_pars, function(x, align ) update(x, text.align = align ), align = align )
-  names(new_pars) <- sign_target
-  new_key <- map_chr(new_pars, fp_sign )
-  x[[part]]$style_ref_table$pars[new_key] <- new_pars
-  x[[part]]$styles$pars[i,j] <- matrix( new_key[match( x[[part]]$styles$pars[i,j], names(new_key) )], ncol = length(j) )
+  x[[part]]$styles$pars$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
   x
 }
@@ -489,31 +416,24 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
     stop("formula in argument i cannot adress part 'header'.")
   }
 
-  if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x[[part]]$dataset)
-  }
   i <- get_rows_id(x[[part]], i )
-
-  if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
-  }
   j <- get_columns_id(x[[part]], j )
 
-  sign_target <- unique( as.vector( x[[part]]$styles$cells[i,j] ) )
-  new_cells <- x[[part]]$style_ref_table$cells[sign_target]
-
+  pr_id <- x[[part]]$styles$cells$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$cells$get_fp()[unique(pr_id)]
+  old_name <- names(pr)
   if(!is.null(border.top))
-    new_cells <- map(new_cells, function(x, border.top ) update(x, border.top = border.top ), border.top = border.top )
+    pr <- map(pr, function(x, border.top ) update(x, border.top = border.top ), border.top = border.top )
   if(!is.null(border.bottom))
-    new_cells <- map(new_cells, function(x, border.bottom ) update(x, border.bottom = border.bottom ), border.bottom = border.bottom )
+    pr <- map(pr, function(x, border.bottom ) update(x, border.bottom = border.bottom ), border.bottom = border.bottom )
   if(!is.null(border.left))
-    new_cells <- map(new_cells, function(x, border.left ) update(x, border.left = border.left ), border.left = border.left )
+    pr <- map(pr, function(x, border.left ) update(x, border.left = border.left ), border.left = border.left )
   if(!is.null(border.right))
-    new_cells <- map(new_cells, function(x, border.right ) update(x, border.right = border.right ), border.right = border.right )
-  names(new_cells) <- sign_target
-  new_key <- map_chr(new_cells, fp_sign )
-  x[[part]]$style_ref_table$cells[new_key] <- new_cells
-  x[[part]]$styles$cells[i,j] <- matrix( new_key[match( x[[part]]$styles$cells[i,j], names(new_key) )], ncol = length(j) )
+    pr <- map(pr, function(x, border.right ) update(x, border.right = border.right ), border.right = border.right )
+  new_name <- map_chr(pr, fp_sign )
+  names(pr) <- new_name
+
+  x[[part]]$styles$cells$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
   x
 }
@@ -551,7 +471,7 @@ empty_blanks <- function(x){
   x <- border( x, j = x$blanks,
           border.top = shortcuts$b_null(), border.bottom = shortcuts$b_null(), part = "all" )
   x <- bg(x, j = x$blanks, bg = "transparent", part = "all")
-  x <- void(x, j = x$blanks)
+  x <- void(x, j = x$blanks, part = "all")
   x
 
 }
