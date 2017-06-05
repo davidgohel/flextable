@@ -52,9 +52,7 @@ tabwid(myft)
 ### Font size
 
 ```{r}
-myft <- flextable(head(iris)) %>% 
-  # change font size header
-  fontsize(part = "header", size = 12) 
+myft <- myft %>% fontsize(part = "header", size = 12) 
 tabwid(myft)
 ```
 
@@ -188,12 +186,12 @@ of `fp_cell`.
 Below the starting point of next illustrations:
 
 ```{r}
-myft <- flextable(head(mtcars), 
-                  col_keys = c("am", "separator", "gear", "mpg", "drat" )) %>% 
+myft <- flextable( head(mtcars), 
+  col_keys = c("am", "separator", "gear", "mpg", "drat", "qsec" )) %>% 
   bold(part = "header") %>% 
   border(border = fp_border( width = 0), 
-         border.top = fp_border(), 
-         border.bottom = fp_border(), part = "all") %>% 
+         border.top = fp_border(), border.bottom = fp_border(), 
+         part = "all") %>% 
   align(align = "right", part = "all" ) %>%
   border(j = ~ separator, border = fp_border(width=0), part = "all") %>% 
   width(j = ~ separator, width = .1)
@@ -201,7 +199,9 @@ myft <- flextable(head(mtcars),
 tabwid(myft)
 ```
 
-Flextable content is defined with `display` function. 
+Flextable content is defined with `display` function. The function requires argument `pattern` which is a string template inspired by *[mustaches](http://mustache.github.com/)*. The string will be expanded with tags using values provided in `formatters` argument; tags can eventually be formatted with `fprops` argument. 
+
+The following example shows how to control the format of displayed values and how to associate them with specific text formatting properties (bold red text):
 
 ```{r}
 myft <- myft %>%
@@ -213,17 +213,36 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
+With that system, it's easy to concatenate multiple values:
 
 ```{r}
 myft <- myft %>%
   display( i = ~ drat > 3.6, 
            col_key = "mpg", pattern = "{{mpg}} with {{carb}}", 
            formatters = list(mpg ~ sprintf("%.01f", mpg), 
-                             carb ~ sprintf("#%.01f carb.", carb) ), 
-              fprops = list(mpg = fp_text(color = "gray", bold = TRUE) )
+                             carb ~ sprintf("# %.0f carb.", carb) ), 
+              fprops = list(mpg = fp_text(color = "#CC55CC", bold = TRUE) )
   ) %>% autofit()
 
 tabwid(myft)
 ```
 
+### Images
 
+Function `display` supports images insertion. Use function `as_image` within `formatters` argument.
+
+```{r}
+img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+
+myft <- myft %>%
+  display( i = ~ qsec > 18, col_key = "qsec", 
+           pattern = "blah blah {{r_logo}} blah blah {{qsec}}",
+           formatters = list(
+             r_logo ~ as_image(qsec, src = img.file, width = .20, height = .15), 
+             qsec ~ sprintf("%.1f", qsec) ), 
+           fprops = list(qsec = fp_text(color = "orange"))
+           ) %>% 
+  autofit()
+
+tabwid(myft)
+```
