@@ -63,12 +63,14 @@ minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 
 
 
 #' @export
-#' @title image
-#' @description image
-#' @param x dummy variable
+#' @title image wrapper
+#' @description The function has to be used with function display().
+#' It lets add images within flextable.
+#' @param x image will be repeated while iterating this variable. The variable should be
+#' one of the original data frame. Note its values are not used, only its size.
 #' @param src image filename
-#' @param width,height size of the resulting png file in inches
-#' @importFrom grDevices as.raster col2rgb rgb
+#' @param width,height size of the png file in inches
+#' @seealso \code{\link{display}}
 as_image <- function(x, src, width = 1, height = .2) {
   image_entry(src = rep(src, length(x)),
               width = width, height = height)

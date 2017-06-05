@@ -2,17 +2,22 @@
 % Please edit documentation in R/utils.R
 \name{as_image}
 \alias{as_image}
-\title{image}
+\title{image wrapper}
 \usage{
 as_image(x, src, width = 1, height = 0.2)
 }
 \arguments{
-\item{x}{dummy variable}
+\item{x}{image will be repeated while iterating this variable. The variable should be
+one of the original data frame. Note its values are not used, only its size.}
 
 \item{src}{image filename}
 
-\item{width, height}{size of the resulting png file in inches}
+\item{width, height}{size of the png file in inches}
 }
 \description{
-image
+The function has to be used with function display().
+It lets add images within flextable.
+}
+\seealso{
+\code{\link{display}}
 }
