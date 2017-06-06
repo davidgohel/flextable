@@ -18,6 +18,18 @@ one of the original data frame. Note its values are not used, only its size.}
 The function has to be used with function display().
 It lets add images within flextable.
 }
+\examples{
+library(magrittr)
+img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+myft <- flextable(head( mtcars, n = 10))
+myft <- myft \%>\%
+  display(
+    i = ~ qsec > 18, col_key = "qsec", pattern = "{{r_logo}}",
+    formatters = list( r_logo ~ as_image(qsec,
+      src = img.file, width = .20, height = .15)),
+    fprops = list(qsec = fp_text(color = "orange")) )
+myft
+}
 \seealso{
 \code{\link{display}}
 }

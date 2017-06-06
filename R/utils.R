@@ -1,10 +1,6 @@
 
 globalVariables(c("str", "col_key", "id", ".", "str_is_run"))
 
-function(x, i = NULL){
-
-}
-
 
 image_entry <- function(src, width, height){
   x <- tibble(image_src = src, width = width, height = height)
@@ -71,6 +67,17 @@ minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 
 #' @param src image filename
 #' @param width,height size of the png file in inches
 #' @seealso \code{\link{display}}
+#' @examples
+#' library(magrittr)
+#' img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+#' myft <- flextable(head( mtcars, n = 10))
+#' myft <- myft %>%
+#'   display(
+#'     i = ~ qsec > 18, col_key = "qsec", pattern = "{{r_logo}}",
+#'     formatters = list( r_logo ~ as_image(qsec,
+#'       src = img.file, width = .20, height = .15)),
+#'     fprops = list(qsec = fp_text(color = "orange")) )
+#' myft
 as_image <- function(x, src, width = 1, height = .2) {
   image_entry(src = rep(src, length(x)),
               width = width, height = height)
