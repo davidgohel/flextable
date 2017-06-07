@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set font color — color • flextable</title>
+<title>rotate cell text — rotate • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -82,14 +82,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set font color</h1>
+    <h1>rotate cell text</h1>
     </div>
 
     
-    <p>change font color of selected rows and columns of a flextable.</p>
+    <p>apply a rotation to cell text</p>
     
 
-    <pre class="usage"><span class='fu'>color</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>color</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
+    <pre class="usage"><span class='fu'>rotate</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>rotation</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -107,8 +107,12 @@
       <td><p>columns selection</p></td>
     </tr>
     <tr>
-      <th>color</th>
-      <td><p>color to use as font color</p></td>
+      <th>rotation</th>
+      <td><p>one of "lrtb", "tbrl", "btlr"</p></td>
+    </tr>
+    <tr>
+      <th>align</th>
+      <td><p>one of "center" or "top" or "bottom"</p></td>
     </tr>
     <tr>
       <th>part</th>
@@ -119,7 +123,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>mtcars</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>color</span>(<span class='no'>ft</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)</div></pre>
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>rotate</span>(<span class='no'>ft</span>, <span class='kw'>rotation</span> <span class='kw'>=</span> <span class='st'>"lrtb"</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"top"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
