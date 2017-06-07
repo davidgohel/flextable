@@ -121,6 +121,40 @@ myft <- myft %>%
 tabwid(myft)
 ```
 
+### Text rotation 
+
+Text rotation is possible in flextable objects but will only work with Word and PowerPoint outputs. This is achieved by using function `rotate`.
+
+Argument `rotation` is mandatory and expects one of these values:
+
+- "lrtb", left to right top to bottom
+- "tbrl", top to bottom right to left
+- "btlr", bottom to top left to right
+
+Argument `align` is used for cell content vertical alignment, it should be one of these values: "top", "bottom" or "center".
+
+```{r}
+ft <- flextable(head(iris)) %>% 
+  rotate(rotation = "tbrl", align = "top", part = "header") %>% 
+  theme_vanilla() %>% 
+  autofit() %>% 
+  # as autofit do not handle rotation, you will have
+  # to change manually header cells'height.
+  height(height = 1, part = "header")
+```
+
+```{r}
+library(officer)
+read_docx() %>% 
+  body_add_flextable(ft) %>% 
+  print(target = "assets/format/rotate.docx") %>% 
+  invisible()
+```
+
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/format/rotate.docx" ) )
+```
 
 ## Conditional formatting
 
@@ -130,7 +164,10 @@ Conditional formatting can be made by using the selector arguments.
 myft <- myft %>% 
   color(i = ~ Sepal.Length < 5 & Petal.Length > 1.3, 
         j = ~ Petal.Width + Species, 
-        color="red") 
+        color="red") %>% 
+  bg(j = 1, bg = "#D3C994", part = "header") %>% 
+  italic(i = ~ Sepal.Length > 5) %>% 
+  bold( i = 4, j = "Sepal.Length")
 tabwid(myft)
 ```
 
@@ -166,48 +203,14 @@ def_text <- fp_text(color="#999999", italic = TRUE)
 def_text_header <- update(color="black", def_text, bold = TRUE)
 
 ft <- flextable(head(mtcars, n = 10 )) %>% 
-  style( pr_c = def_cell, pr_p = def_par, pr_t = def_text, part = "body")  
+  style( pr_c = def_cell, pr_p = def_par, pr_t = def_text, part = "all")  
 tabwid(ft)
 
 ft <- ft %>% 
-  style( pr_c = def_cell, pr_p = def_par, pr_t = def_text_header, part = "header")  
+  style( pr_t = def_text_header, part = "header")  
 tabwid(ft)
 ```
 
-### Text rotation 
-
-Text rotation is possible in flextable objects but will only work with Word and PowerPoint outputs. This is achieved by using function `rotate`.
-
-Argument `rotation` is mandatory and expects one of these values:
-
-- "lrtb", left to right top to bottom
-- "tbrl", top to bottom right to left
-- "btlr", bottom to top left to right
-
-Argument `align` is used for cell content vertical alignment, it should be one of these values: "top", "bottom" or "center".
-
-```{r}
-ft <- flextable(head(iris)) %>% 
-  rotate(rotation = "tbrl", align = "top", part = "header") %>% 
-  theme_vanilla() %>% 
-  autofit() %>% 
-  # as autofit do not handle rotation, you will have
-  # to change manually header cells'height.
-  height(height = 1, part = "header")
-```
-
-```{r}
-library(officer)
-read_docx() %>% 
-  body_add_flextable(ft) %>% 
-  print(target = "assets/format/rotate.docx") %>% 
-  invisible()
-```
-
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/format/rotate.docx" ) )
-```
 
 ## display function
 
