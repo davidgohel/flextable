@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{bold}
 \alias{bold}
-\title{bold font}
+\title{Set bold font}
 \usage{
 bold(x, i = NULL, j = NULL, bold = TRUE, part = "body")
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{padding}
 \alias{padding}
-\title{Set paddings}
+\title{Set paragraph paddings}
 \usage{
 padding(x, i = NULL, j = NULL, padding = NULL, padding.top = NULL,
   padding.bottom = NULL, padding.left = NULL, padding.right = NULL,

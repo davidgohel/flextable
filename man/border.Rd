@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{border}
 \alias{border}
-\title{Set borders}
+\title{Set cell borders}
 \usage{
 border(x, i = NULL, j = NULL, border = NULL, border.top = NULL,
   border.bottom = NULL, border.left = NULL, border.right = NULL,

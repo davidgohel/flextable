@@ -38,5 +38,4 @@ ft <- display(ft, col_key = "carb",
   formatters = list(carb ~ sprintf("\%.1f", carb)),
   fprops = list(carb = fp_text(color="orange") ) )
 \donttest{ft <- autofit(ft)}
-ft
 }

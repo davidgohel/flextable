@@ -1,4 +1,4 @@
-#' @title flextable object
+#' @title flextable creation
 #'
 #' @description Create a flextable object with function \code{flextable}.
 #'

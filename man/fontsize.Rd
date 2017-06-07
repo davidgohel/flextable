@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{fontsize}
 \alias{fontsize}
-\title{font size}
+\title{Set font size}
 \usage{
 fontsize(x, i = NULL, j = NULL, size = 11, part = "body")
 }

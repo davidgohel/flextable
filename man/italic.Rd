@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{italic}
 \alias{italic}
-\title{italic font}
+\title{Set italic font}
 \usage{
 italic(x, i = NULL, j = NULL, italic = TRUE, part = "body")
 }

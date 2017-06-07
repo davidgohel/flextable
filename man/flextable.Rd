@@ -3,7 +3,7 @@
 \name{flextable}
 \alias{flextable}
 \alias{print.flextable}
-\title{flextable object}
+\title{flextable creation}
 \usage{
 flextable(data, col_keys = names(data), cwidth = 0.75, cheight = 0.25)
 

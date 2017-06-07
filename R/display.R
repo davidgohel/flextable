@@ -23,7 +23,6 @@
 #'   formatters = list(carb ~ sprintf("%.1f", carb)),
 #'   fprops = list(carb = fp_text(color="orange") ) )
 #' \donttest{ft <- autofit(ft)}
-#' ft
 #' @export
 display <- function(x, i = NULL, col_key,
                     pattern, formatters = list(), fprops = list(),

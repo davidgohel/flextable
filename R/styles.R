@@ -102,7 +102,7 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
 
 
 #' @export
-#' @title bold font
+#' @title Set bold font
 #' @description change font weight of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
@@ -142,7 +142,7 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
 }
 
 #' @export
-#' @title font size
+#' @title Set font size
 #' @description change font size of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
@@ -182,7 +182,7 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
 }
 
 #' @export
-#' @title italic font
+#' @title Set italic font
 #' @description change font decoration of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
@@ -263,7 +263,7 @@ color <- function(x, i = NULL, j = NULL, color, part = "body" ){
 
 
 #' @export
-#' @title Set paddings
+#' @title Set paragraph paddings
 #' @description change paddings of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
@@ -374,7 +374,7 @@ align <- function(x, i = NULL, j = NULL, align = "left",
 
 #' @importFrom purrr map map_chr
 #' @export
-#' @title Set borders
+#' @title Set cell borders
 #' @description change borders of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
@@ -437,6 +437,51 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 
   x
 }
+
+#' @export
+#' @title rotate cell text
+#' @description apply a rotation to cell text
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param rotation one of "lrtb", "tbrl", "btlr"
+#' @param align one of "center" or "top" or "bottom"
+#' @examples
+#' ft <- flextable(mtcars)
+#' ft <- rotate(ft, rotation = "lrtb", align = "top", part = "header")
+rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "body" ){
+
+  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body") ){
+      x <- rotate(x = x, i = i, j = j, rotation = rotation, part = p)
+    }
+    return(x)
+  }
+
+  if( inherits(i, "formula") && "header" %in% part ){
+    stop("formula in argument i cannot adress part 'header'.")
+  }
+
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+
+  pr_id <- x[[part]]$styles$cells$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$cells$get_fp()[unique(pr_id)]
+  old_name <- names(pr)
+  pr <- map(pr, function(x, rotation ) update(x, text.direction = rotation ), rotation = rotation )
+  pr <- map(pr, function(x, align ) update(x, vertical.align = align ), align = align )
+  new_name <- map_chr(pr, fp_sign )
+  names(pr) <- new_name
+
+  x[[part]]$styles$cells$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
+
+  x
+}
+
+
 
 #' @title make blank columns as transparent
 #' @description blank columns are set as transparent. This is a shortcut function
