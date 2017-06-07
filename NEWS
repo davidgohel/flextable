@@ -6,6 +6,10 @@
 * new function `merge_at` is providing a general way of merging cells.
 * new theme function: `theme_box()`
 
+## Changes
+
+* function display() now works with a mustache template
+
 ## Issues
 
 * fix fontsize when part == "all"
