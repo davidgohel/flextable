@@ -1,3 +1,9 @@
+# flextable 0.3
+
+## Issues
+
+* characters <, > and & are now html encoded
+
 # flextable 0.2
 
 ## new features

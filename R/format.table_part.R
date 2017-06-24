@@ -1,7 +1,8 @@
+#' @importFrom htmltools htmlEscape
 run_fun <- list(
-  wml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", str, "</w:t></w:r>") ),
-  pml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<a:r>", format, "<a:t>", str, "</a:t></a:r>") ),
-  html = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<span style=\"", format, "\">", str, "</span>") )
+  wml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", htmlEscape(str), "</w:t></w:r>") ),
+  pml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<a:r>", format, "<a:t>", htmlEscape(str), "</a:t></a:r>") ),
+  html = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<span style=\"", format, "\">", htmlEscape(str), "</span>") )
 )
 par_fun <- list(
   wml = function(format, str) paste0("<w:p>", format, str, "</w:p>"),
