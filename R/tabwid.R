@@ -65,11 +65,6 @@ html_flextable <- function( x ){
   dims <- dim(x)
 
   out <- "<table>"
-  cw <- paste0("<col width=",
-         shQuote( round(dims$widths * 72, 0 ), type="cmd"),
-         ">",
-         collapse = "")
-  out = paste0(out, cw )
   css_ <- ""
   if( !is.null(x$header) ){
     tmp <- format(x$header, type = "html", header = TRUE)

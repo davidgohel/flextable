@@ -11,7 +11,7 @@ par_fun <- list(
 )
 
 cell_fun <- list(
-  wml = function(str, format, span_rows, span_columns){
+  wml = function(str, format, span_rows, span_columns, colwidths){
     format <- str_replace_all(format, "<w:tcPr>",
          ifelse(span_rows > 1,
                 paste0("<w:tcPr><w:gridSpan w:val=\"", span_rows, "\"/>"),
@@ -30,7 +30,7 @@ cell_fun <- list(
     str[span_rows < 1] <- ""
     str
   },
-  pml = function(str, format, span_rows, span_columns){
+  pml = function(str, format, span_rows, span_columns, colwidths){
     tc_attr_1 <- ifelse(
       span_rows == 1, "",
       ifelse(span_rows > 1,
@@ -49,11 +49,12 @@ cell_fun <- list(
                             str, "</a:txBody>" ),
                     format, "</a:tc>")
   },
-  html = function(str, format, span_rows, span_columns){
+  html = function(str, format, span_rows, span_columns, colwidths){
+    colwidths <- matrix( rep(colwidths, each = dim(str)[1]), nrow = dim(str)[1])
     tc_attr_1 <- ifelse(span_rows > 1, paste0(" colspan=\"", span_rows,"\""), "")
     tc_attr_2 <- ifelse(span_columns > 1, paste0(" rowspan=\"", span_columns,"\""), "")
     tc_attr <- paste0(tc_attr_1, tc_attr_2)
-    str <- paste0("<td", tc_attr, " style=\"", format ,"\">", str, "</td>")
+    str <- paste0("<td", tc_attr, " style=\"", sprintf("width:%.0fpx;", colwidths*72), format ,"\">", str, "</td>")
     str[span_rows < 1 | span_columns < 1] <- ""
     str
   } )
@@ -69,10 +70,9 @@ row_fun <- list(
     paste0( "<a:tr h=\"", round(rowheights * 914400, 0 ), "\">",
             str, "</a:tr>"),
   html = function(rowheights, str, header) {
-    # browser()
     str <- str_replace_all(str, pattern = "<td style=\"",
                     replacement = paste0("<td style=\"height:",
-                                         round(72*rowheights), "pt;"))
+                                         round(72*rowheights), "px;"))
 
     paste0("<tr>", str, "</tr>")
   }
@@ -135,7 +135,7 @@ format.table_part <- function( x, type = "wml", header = FALSE, ... ){
 
   cells <- cell_fun[[type]](str = paragraphs, format=cell_format,
                    span_rows = x$span$rows,
-                   span_columns = x$spans$columns)
+                   span_columns = x$spans$columns, x$colwidths)
 
   cells <- matrix(cells, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
   cells <- apply(cells, 1, paste0, collapse = "")
