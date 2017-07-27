@@ -1,5 +1,5 @@
 
-globalVariables(c("str", "col_key", "id", ".", "str_is_run"))
+globalVariables(c("str", ".", "str_is_run"))
 
 
 image_entry <- function(src, width, height){
@@ -82,3 +82,8 @@ as_image <- function(x, src, width = 1, height = .2) {
   image_entry(src = rep(src, length(x)),
               width = width, height = height)
 }
+
+drop_column <- function(x, cols){
+  x[, !(colnames(x) %in% cols), drop = FALSE]
+}
+

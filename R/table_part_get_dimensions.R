@@ -1,7 +1,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom tibble tibble
 #' @importFrom purrr pmap_df map_df map_lgl map_dbl map_chr
-#' @importFrom tidyr gather spread complete
+#' @importFrom tidyr spread_ complete_
 #' @importFrom dplyr mutate inner_join right_join
 #' @importFrom gdtools str_extents
 #' @importFrom dplyr do ungroup select bind_rows group_by summarise
@@ -20,6 +20,7 @@ extract_par_space <- function(x){
   map_df(text_fp, function(x) as.data.frame( as.list(dim(x))), .id = "pr_id" )
 }
 
+#' @importFrom rlang syms
 get_adjusted_sizes <- function( x ){
 
 
@@ -45,7 +46,7 @@ get_adjusted_sizes <- function( x ){
   sizes <- text_only_data %>%
     inner_join(fp_props, by = "pr_id") %>%
     distinct() %>%
-    group_by_(.dots = c("str", "pr_id")) %>% do({
+    group_by(!!!syms(c("str", "pr_id"))) %>% do({
       str_ext <- str_extents(.$str, fontname = unique(.$fontname),
                              fontsize = unique(.$size),
                              bold = unique(.$bold), italic = unique(.$italic))
@@ -54,15 +55,16 @@ get_adjusted_sizes <- function( x ){
     right_join(text_only_data,
                       by = c("str", "pr_id")) %>%
     bind_rows(img_sizes) %>%
-    group_by_(.dots = c("id", "col_key")) %>%
+    group_by(!!!syms(c("id", "col_key"))) %>%
     summarise(width = sum(width), height = max(height)) %>%
     ungroup()
 
   sizes$col_key <- factor(sizes$col_key, levels = x$col_keys)
   sizes <- sizes[order(sizes$col_key, sizes$id ), ]
-  widths <- sizes %>% select(col_key, width, id) %>%
-    spread(col_key, width) %>% select(-id) %>% as.matrix()
-  heights <- sizes %>% select(col_key, height, id) %>% spread(col_key, height) %>% select(-id) %>% as.matrix()
+  widths <- sizes %>% select(!!!syms(c("col_key", "width", "id"))) %>%
+    spread_("col_key", "width") %>% drop_column("id") %>% as.matrix()
+  heights <- sizes %>% select(!!!syms(c("col_key", "height", "id"))) %>%
+    spread_("col_key", "height") %>% drop_column("id") %>% as.matrix()
 
   par_dim <- extract_par_space(x)
   par_dim <- x$styles$pars$get_map() %>%
@@ -70,13 +72,13 @@ get_adjusted_sizes <- function( x ){
   par_dim$col_key <- factor(par_dim$col_key, levels = x$col_keys)
 
   parwidths <- par_dim %>%
-    select(col_key, width, id) %>%
-    spread(col_key, width) %>%
-    select(-id) %>% as.matrix()
+    select(!!!syms(c("col_key", "width", "id"))) %>%
+    spread_("col_key", "width") %>%
+    drop_column("id") %>% as.matrix()
   parheights <- par_dim %>%
-    select(col_key, height, id) %>%
-    spread(col_key, height) %>%
-    select(-id) %>% as.matrix()
+    select(!!!syms(c("col_key", "height", "id"))) %>%
+    spread_("col_key", "height") %>%
+    drop_column("id") %>% as.matrix()
 
   widths <- widths + parwidths
   heights <- heights + parheights
@@ -97,13 +99,13 @@ get_adjusted_sizes <- function( x ){
 
   cell_dim$col_key <- factor(cell_dim$col_key, levels = x$col_keys)
   parwidths <- cell_dim %>%
-    select(col_key, width, id) %>%
-    spread(col_key, width) %>%
-    select(-id) %>% as.matrix()
+    select(!!!syms(c("col_key", "width", "id"))) %>%
+    spread_("col_key", "width") %>%
+    drop_column("id") %>% as.matrix()
   parheights <- cell_dim %>%
-    select(col_key, height, id) %>%
-    spread(col_key, height) %>%
-    select(-id) %>% as.matrix()
+    select(!!!syms(c("col_key", "height", "id"))) %>%
+    spread_("col_key", "height") %>%
+    drop_column("id") %>% as.matrix()
 
   widths <- widths + parwidths
   heights <- heights + parheights

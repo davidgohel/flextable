@@ -3,6 +3,7 @@
 ## Issues
 
 * characters <, > and & are now html encoded
+* fix columns widths when output format is HTML
 
 # flextable 0.2
 

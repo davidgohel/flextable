@@ -104,7 +104,7 @@ format.table_part <- function( x, type = "wml", header = FALSE, ... ){
     tibble( format = format(x, type = type))
   }, .id = "pr_id")
 
-  txt_data <- txt_data %>% group_by_(.dots = c("col_key", "id") ) %>% do({
+  txt_data <- txt_data %>% group_by(!!!syms(c("col_key", "id")) ) %>% do({
     non_empty <- which( .$str != "" | .$type_out %in% "image_entry" )
     if(length(non_empty)) .[non_empty,]
     else .[1,]
@@ -113,7 +113,7 @@ format.table_part <- function( x, type = "wml", header = FALSE, ... ){
   dat <- txt_data %>% ungroup() %>%
     inner_join(pr_str_df, by = "pr_id") %>%
     mutate( str = run_fun[[type]](format, str, str_is_run) ) %>%
-    group_by(col_key, id) %>%
+    group_by(!!!syms(c("col_key", "id"))) %>%
     summarise(str = paste(str, collapse = "") ) %>%
     ungroup()
 
@@ -121,17 +121,17 @@ format.table_part <- function( x, type = "wml", header = FALSE, ... ){
   par_data$col_key <- factor(par_data$col_key, levels = x$col_keys)
   dat$col_key <- factor(dat$col_key, levels = x$col_keys)
   tidy_content <- dat %>%
-    complete(col_key, id) %>%
+    complete_(c("col_key", "id")) %>%
     inner_join(par_data, by = c("id", "col_key")) %>%
     mutate( str = par_fun[[type]](format, str) ) %>%
-    select(-format)
-  paragraphs <- tidy_content %>% spread(col_key, str) %>%
-    select(-id) %>% as.matrix()
+    drop_column("format")
+  paragraphs <- tidy_content %>% spread_("col_key", "str") %>%
+    drop_column("id") %>% as.matrix()
 
   cell_data <- x$styles$cells$get_map_format(type = type)
   cell_data$col_key <- factor(cell_data$col_key, levels = x$col_keys)
-  cell_format <- cell_data %>% spread(col_key, format) %>%
-    select(-id) %>% as.matrix()
+  cell_format <- cell_data %>% spread_("col_key", "format") %>%
+    drop_column("id") %>% as.matrix()
 
   cells <- cell_fun[[type]](str = paragraphs, format=cell_format,
                    span_rows = x$span$rows,

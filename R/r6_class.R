@@ -3,7 +3,7 @@
 
 #' @importFrom stringr str_extract_all str_split str_replace_all
 #' @importFrom R6 R6Class
-#' @importFrom dplyr left_join select distinct group_by_ do summarise full_join
+#' @importFrom dplyr left_join select distinct do summarise full_join
 #' @importFrom purrr pmap_df map2_df pmap_chr
 #' @importFrom tibble tibble add_column as_tibble
 #' @importFrom lazyeval f_rhs f_lhs
@@ -246,7 +246,7 @@ display_structure <- R6Class(
       data$pr_id <- NULL
       data %>% left_join(default_fp_t, by = c("col_key", "id") ) %>%
         mutate( pr_id = ifelse(is.na(pr_id_main), pr_id, pr_id_main ) ) %>%
-        select(-pr_id_main)
+        drop_column("pr_id_main")
 
     }
 
