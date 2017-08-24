@@ -14,7 +14,7 @@
 #' \donttest{ft <- autofit(ft)}
 #' doc <- read_docx()
 #' doc <- body_add_flextable(doc, value = ft)
-#' print(doc, target = "test.docx")
+#' \donttest{print(doc, target = "test.docx")}
 body_add_flextable <- function( x, value, align = "center", pos = "after"){
   stopifnot(inherits(x, "rdocx"))
   imgs <- character(0)

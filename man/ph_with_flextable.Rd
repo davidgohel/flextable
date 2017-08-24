@@ -33,6 +33,6 @@ doc <- add_slide(doc, layout = "Title and Content",
                  master = "Office Theme")
 doc <- ph_with_flextable(doc, value = ft, type = "body")
 doc <- ph_with_flextable_at(doc, value = ft, left = 4, top = 5)
-print(doc, target = "test.pptx" )
+\donttest{print(doc, target = "test.pptx" )}
 }
 }
