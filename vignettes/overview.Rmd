@@ -23,7 +23,20 @@ knitr::opts_chunk$set(
 
 `flextable` can easily create reporting table from `data.frame`. You can merge cells, add header rows, change any format and specify how data should be displayed in cells. `flextable` objects can be rendered in HTML format but also in Microsoft Word and PowerPoint documents.
 
-The following table is made with flextable.
+Two functions are provided: `flextable` and `regulartable`.
+
+`flextable` function is producing flexible tables where each cell can contain 
+several chunks of text with their own set of formatting properties 
+(bold, font color, etc.). Function `display` lets customise text of cells (See 
+[display function](format.html#display-function)).
+
+
+`regulartable` function has been written because the first one is ressource 
+consumming. The only difference is that it is producing tables where cells 
+can contain only one chunk of text with its own set of formatting properties.
+Function `set_formatter` let customise text of cells.
+
+> The following table is made with `regulartable`.
 
 ```{r warning=FALSE, echo=FALSE}
 library(flextable)
@@ -53,14 +66,6 @@ ft <- flextable(data,
 tabwid(ft)
 ```
 
-The input dataset and the metadata for columns labels are printed below:
-
-```{r}
-data
-typology
-```
-
-
 ---
 
 
@@ -73,7 +78,7 @@ library(flextable)
 library(officer)
 library(dplyr)
 
-myft <- flextable(head(mtcars), 
+myft <- regulartable(head(mtcars), 
                   col_keys = c("am", "carb", "gear", "mpg", "drat" ))
 tabwid(myft)
 ```
@@ -161,7 +166,7 @@ To add these objects in PowerPoint or Word documents, use functions:
 
 ```{r}
 library(officer)
-ft <- flextable(head(mtcars)) %>% 
+ft <- regulartable(head(mtcars)) %>% 
   theme_zebra() %>% 
   autofit()
 

@@ -11,7 +11,7 @@
 #' @export
 tabwid <- function(x, width = NULL, height = NULL) {
 
-  codes <- html_flextable(x)
+  codes <- html_str(x)
 
   # forward options using x
   x = list(
@@ -58,9 +58,13 @@ rendertabwid <- function(expr, env = parent.frame(), quoted = FALSE) {
   htmlwidgets::shinyRenderWidget(expr, tabwidOutput, env, quoted = TRUE)
 }
 
+html_str <- function( x ){
+  UseMethod("html_str")
+}
 
 
-html_flextable <- function( x ){
+
+html_str.flextable <- function( x ){
 
   dims <- dim(x)
 
@@ -82,5 +86,25 @@ html_flextable <- function( x ){
   out
 }
 
+html_str.regulartable <- function( x ){
 
+  dims <- dim(x)
+
+  out <- "<table>"
+  css_ <- ""
+  if( !is.null(x$header) ){
+    tmp <- format(x$header, type = "html", header = TRUE)
+    out = paste0(out, "<thead>", tmp, "</thead>" )
+    css_ = paste0(css_, attr(tmp, "css"))
+  }
+  if( !is.null(x$body) ){
+    tmp <- format(x$body, type = "html", header = FALSE)
+    out = paste0(out, "<tbody>", tmp, "</tbody>" )
+    css_ = paste0(css_, attr(tmp, "css"))
+  }
+
+  out = paste0(out,  "</table>" )
+  attr(out, "css") <- css_
+  out
+}
 

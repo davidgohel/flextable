@@ -79,7 +79,7 @@ row_fun <- list(
 )
 
 #' @importFrom gdtools raster_write raster_str
-format.table_part <- function( x, type = "wml", header = FALSE, ... ){
+format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html") )
 

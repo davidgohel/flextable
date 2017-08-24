@@ -87,3 +87,29 @@ drop_column <- function(x, cols){
   x[, !(colnames(x) %in% cols), drop = FALSE]
 }
 
+
+
+
+
+#' @importFrom magrittr %>%
+#' @importFrom tibble tibble
+#' @importFrom purrr pmap_df map_df map_lgl map_dbl map_chr
+#' @importFrom tidyr spread_ complete_
+#' @importFrom dplyr mutate inner_join right_join
+#' @importFrom gdtools str_extents
+#' @importFrom dplyr do ungroup select bind_rows group_by summarise
+
+extract_cell_space <- function(x){
+  cell_fp <- x$styles$cells$get_fp()
+  tibble( pr_id = names(cell_fp),
+          margin.left = map_dbl( cell_fp, "margin.left" ) * (4/3),
+          margin.right = map_dbl( cell_fp, "margin.right" ) * (4/3),
+          margin.top = map_dbl( cell_fp, "margin.top" ) * (4/3),
+          margin.bottom = map_dbl( cell_fp, "margin.bottom" ) * (4/3)
+  )
+}
+extract_par_space <- function(x){
+  par_fp <- x$styles$pars$get_fp()
+  map_df(par_fp, function(x) as.data.frame( as.list(dim(x))), .id = "pr_id" )
+}
+
