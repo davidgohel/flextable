@@ -96,7 +96,6 @@ drop_column <- function(x, cols){
 #' @importFrom purrr pmap_df map_df map_lgl map_dbl map_chr
 #' @importFrom tidyr spread_ complete_
 #' @importFrom dplyr mutate inner_join right_join
-#' @importFrom gdtools str_extents
 #' @importFrom dplyr do ungroup select bind_rows group_by summarise
 
 extract_cell_space <- function(x){

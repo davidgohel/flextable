@@ -156,6 +156,7 @@ autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
 
 
 
+#' @importFrom gdtools m_str_extents
 optimal_sizes <- function( x ){
   UseMethod("optimal_sizes")
 }
@@ -184,18 +185,13 @@ optimal_sizes.complex_tabpart <- function( x ){
 
   col_selection <- c("col_key", "id", "pos", "str", "pr_id")
   text_only_data <- txt_data[txt_data$type_out %in% "text", col_selection]
-  sizes <- text_only_data %>%
-    inner_join(fp_props, by = "pr_id") %>%
-    distinct() %>%
-    group_by(!!!syms(c("str", "pr_id"))) %>% do({
-      str_ext <- str_extents(.$str, fontname = unique(.$fontname),
-                             fontsize = unique(.$size),
-                             bold = unique(.$bold), italic = unique(.$italic))
-      tibble( width = str_ext[,1]/72, height = str_ext[,2]/72 )
-    }) %>% ungroup() %>% distinct() %>%
-    right_join(text_only_data,
-               by = c("str", "pr_id")) %>%
-    bind_rows(img_sizes) %>%
+
+  sizes_ <- inner_join(text_only_data, fp_props, by = "pr_id")
+  sizes_ <- m_str_extents(sizes_$str, fontname = sizes_$fontname,
+                                   fontsize = sizes_$size, bold = sizes_$bold,
+                                   italic = sizes_$italic) / 72
+  dimnames(sizes_) <- list(NULL, c("width", "height"))
+  sizes <- cbind( txt_data, sizes_ ) %>%
     group_by(!!!syms(c("id", "col_key"))) %>%
     summarise(width = sum(width), height = max(height)) %>%
     ungroup()
@@ -268,14 +264,23 @@ optimal_sizes.simple_tabpart <- function( x ){
     italic = map_lgl(text_fp, "italic"),
     fontname = map_chr(text_fp, "font.family") )
 
-  sizes <- txt_data %>%
-    inner_join(fp_props, by = "pr_id") %>%
-    group_by(!!!syms(c("pr_id"))) %>% do({
-      str_ext <- str_extents(.$str, fontname = unique(.$fontname),
-                             fontsize = unique(.$size),
-                             bold = unique(.$bold), italic = unique(.$italic))
-      tibble( id = .$id, col_key = .$col_key, str = .$str, width = str_ext[,1]/72, height = str_ext[,2]/72 )
-    }) %>% ungroup()
+  sizes_ <- inner_join(txt_data, fp_props, by = "pr_id")
+  sizes_ <- m_str_extents(sizes_$str, fontname = sizes_$fontname,
+                         fontsize = sizes_$size, bold = sizes_$bold,
+                         italic = sizes_$italic) / 72
+  dimnames(sizes_) <- list(NULL, c("width", "height"))
+  sizes <- cbind( txt_data, sizes_ )
+  # system.time({
+  #   sizes <- txt_data %>%
+  #     inner_join(fp_props, by = "pr_id") %>%
+  #     group_by(!!!syms(c("pr_id"))) %>% do({
+  #       str_ext <- str_extents(.$str, fontname = unique(.$fontname),
+  #                              fontsize = unique(.$size),
+  #                              bold = unique(.$bold), italic = unique(.$italic))
+  #       tibble( id = .$id, col_key = .$col_key, str = .$str, width = str_ext[,1]/72, height = str_ext[,2]/72 )
+  #     }) %>% ungroup()
+  # })
+
 
   sizes$col_key <- factor(sizes$col_key, levels = x$col_keys)
   sizes <- sizes[order(sizes$col_key, sizes$id ), ]

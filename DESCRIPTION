@@ -16,7 +16,7 @@ Imports:
     stats,utils,grDevices,
     dplyr,lazyeval,purrr,tibble,magrittr,tidyr,R6,stringr,
     htmltools,htmlwidgets,rlang,
-    gdtools
+    gdtools (>= 0.1.6)
 RoxygenNote: 6.0.1.9000
 Suggests: rmarkdown, knitr,
     xml2, 
@@ -24,3 +24,4 @@ Suggests: rmarkdown, knitr,
 URL: https://davidgohel.github.io/flextable
 BugReports: https://github.com/davidgohel/flextable/issues
 VignetteBuilder: knitr
+Remotes: davidgohel/gdtools

@@ -1,5 +1,4 @@
 #' @importFrom officer fp_sign fp_cell fp_par fp_text
-#' @importFrom gdtools str_extents
 complex_tabpart <- function( data, col_keys = names(data),
                         default_pr_text = fp_text(),
                         default_pr_par = fp_par(),
