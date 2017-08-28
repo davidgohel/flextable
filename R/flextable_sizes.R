@@ -191,7 +191,9 @@ optimal_sizes.complex_tabpart <- function( x ){
                                    fontsize = sizes_$size, bold = sizes_$bold,
                                    italic = sizes_$italic) / 72
   dimnames(sizes_) <- list(NULL, c("width", "height"))
-  sizes <- cbind( txt_data, sizes_ ) %>%
+
+  sizes <- cbind( text_only_data, sizes_ ) %>%
+    bind_rows(img_sizes) %>%
     group_by(!!!syms(c("id", "col_key"))) %>%
     summarise(width = sum(width), height = max(height)) %>%
     ungroup()

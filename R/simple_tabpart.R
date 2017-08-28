@@ -57,18 +57,16 @@ add_rows.simple_tabpart <- function( x, rows, first = FALSE ){
   x$styles$pars$add_rows(nrow, first)
   x$styles$text$add_rows(nrow, first)
 
-
   span_new <- matrix( 1, ncol = ncol, nrow = nrow )
   rowheights <- x$rowheights
 
-
   if( !first ){
-    data <- bind_rows(data, rows )
+    data <- rbind(data, rows, stringsAsFactors = FALSE )
     spans$rows <- rbind( spans$rows, span_new )
     spans$columns <- rbind( spans$columns, span_new )
     rowheights <- c(rowheights, rep(0.6, nrow(rows)))
   } else {
-    data <- bind_rows(rows, data )
+    data <- rbind(rows, data, stringsAsFactors = FALSE)
     spans$rows <- rbind( span_new, spans$rows )
     spans$columns <- rbind( span_new, spans$columns )
     rowheights <- c(rep(0.6, nrow(rows)), rowheights)
@@ -85,7 +83,6 @@ add_rows.simple_tabpart <- function( x, rows, first = FALSE ){
 get_text_data <- function(x){
   mapped_data <- x$styles$text$get_map()
   txt_data <- map2_df(x$dataset[x$col_keys], x$printers, function(x, f) f(x))
-  # txt_data <- map_df(x$dataset[x$col_keys], format)
   txt_data$id <- seq_len(nrow(txt_data))
   txt_data <- tidyr::gather_(txt_data, "col_key", "str", gather_cols = x$col_keys)
   txt_data <- left_join( mapped_data, txt_data, by = c("id", "col_key"))

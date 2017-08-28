@@ -31,7 +31,7 @@ add_header <- function(x, top = TRUE, ...){
   args_ <- map(x$col_keys, function(x) "" )
   names(args_) <- x$col_keys
   args_[names(args)] <- map(args, format)
-  header_data <- as.data.frame( args_, stringsAsFactors = FALSE )
+  header_data <- data.frame(as.list(args_), check.names = FALSE, stringsAsFactors = FALSE )
   x$header <- add_rows( x$header, header_data, first = top )
 
   x
