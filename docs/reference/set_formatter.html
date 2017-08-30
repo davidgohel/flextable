@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate pretty dimensions — dim_pretty • flextable</title>
+<title>set column formatter functions — set_formatter • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -81,42 +81,43 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate pretty dimensions</h1>
+    <h1>set column formatter functions</h1>
     </div>
 
     
-    <p>return minimum estimated widths and heights for
-each table columns and rows.</p>
+    <p>Define formatter functions associated to each column key.
+Functions have a single argument (the vector) and are returning the formatted
+values as a character vector.</p>
     
 
-    <pre class="usage"><span class='fu'>dim_pretty</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>set_formatter</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>flextable object</p></td>
+      <td><p>a flextable object</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Name-value pairs of functions, names should be existing col_key values</p></td>
+    </tr>
+    <tr>
+      <th>part</th>
+      <td><p>partname of the table (one of 'body' or 'header')</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>mtcars</span>)
-<span class='fu'>dim_pretty</span>(<span class='no'>ft</span>)</div><div class='output co'>#&gt; $widths
-#&gt;       mpg       cyl      disp        hp      drat        wt      qsec        vs 
-#&gt; 0.3443920 0.2438196 0.4216354 0.3058042 0.3443920 0.4216354 0.4216354 0.2129630 
-#&gt;        am      gear      carb 
-#&gt; 0.2670130 0.3520553 0.3442564 
-#&gt; 
-#&gt; $heights
-#&gt;  [1] 0.2027633 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366
-#&gt;  [8] 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366
-#&gt; [15] 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366
-#&gt; [22] 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366
-#&gt; [29] 0.1756366 0.1756366 0.1756366 0.1756366 0.1756366
-#&gt; </div></pre>
+    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>regulartable</a></span>( <span class='fu'>head</span>( <span class='no'>iris</span> ) )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>set_formatter</span>( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>ft</span>,
+        <span class='kw'>Sepal.Length</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'>sprintf</span>(<span class='st'>"%.02f"</span>, <span class='no'>x</span>),
+        <span class='kw'>Sepal.Width</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'>sprintf</span>(<span class='st'>"%.04f"</span>, <span class='no'>x</span>)
+      )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_vanilla.html'>theme_vanilla</a></span>( <span class='no'>ft</span> )
+<span class='no'>ft</span></div><div class='output co'>#&gt; <span class='warning'>Warning: file("") accepte seulement open = "w+" et open = "w+b" : utilisation du premier</span></div><div class='output co'>#&gt; <span class='error'>Error in dirname(to): un argument de type vecteur de caractères est attendu</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -1,5 +1,9 @@
 # flextable 0.3
 
+## new features
+
+* new function `regulartable`, faster and simpler than `flextable`
+
 ## Issues
 
 * characters <, > and & are now html encoded
