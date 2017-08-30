@@ -58,7 +58,7 @@ pml_flextable <- function(value){
 #' \donttest{print(doc, target = "test.pptx" )}
 #' }
 #' @importFrom officer ph_from_xml
-ph_with_flextable <- function( x, value, type, index = 1 ){
+ph_with_flextable <- function( x, value, type = "body", index = 1 ){
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_flextable(value)
   ph_from_xml(x = x, value = graphic_frame, type = type, index = index )
