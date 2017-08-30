@@ -1,0 +1,101 @@
+---
+title: "flextable examples"
+output: 
+  rmarkdown::html_vignette:
+    toc: true 
+    toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{Examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r warning=FALSE, echo=FALSE, message=FALSE}
+library(flextable)
+library(magrittr)
+```
+
+## Complex header
+
+The following dataset is `typology`, a dataset containing data for table headers.
+
+```{r echo=FALSE}
+typology <- structure(list(col_keys = c("sep_1", "sep_2", "year", "premium",
+"latest_eval", "cape_cod_u_l", "cape_cod_lr", "chain_ladder_u_l",
+"chain_ladder_lr"), colC = c(" ", " ", "", "", "", "Cape Cod",
+"Cape Cod", "Chain Ladder", "Chain Ladder"), colB = c(" ", " ",
+"Year", "Premium", "Latest Eval", "Ultimate Loss", "Ultimate LR",
+"Ultimate Loss", "Ultimate LR"), colA = c(" ", " ", "Year", "Premium",
+"Latest Eval", "(000)", "( %)", "", "(%
+)")), class = c("data.frame"), row.names = c(NA, -9L), .Names = c("col_keys",
+"colC", "colB", "colA"))
+typology
+```
+
+The following dataset is `x`, it will be displayed in the table body.
+
+
+```{r echo=FALSE}
+x <- structure(list(year = 2001:2004, premium = c(8.92042818214451,
+12.6608266777834, 8.75775727892536, 9.85258034701945), latest_eval = c(4.49236487976272,
+5.16555617550473, 6.22153711959364, 5.33407812665529), cape_cod_u_l = c(6998L,
+7058L, 6923L, 6916L), cape_cod_lr = c(60L, 69L, 69L, 83L), chain_ladder_u_l = c(4.97029563327406,
+5.98041693727634, 6.39257172913119, 4.40052968174841), chain_ladder_lr = c(69.3393557027241,
+69.0607156360397, 71.4041411791844, 70.238484387929)), .Names = c("year",
+"premium", "latest_eval", "cape_cod_u_l", "cape_cod_lr", "chain_ladder_u_l",
+"chain_ladder_lr"), class = c("data.frame"), row.names = c(NA, -4L))
+x
+```
+
+
+
+```{r}
+double_format <- function(x){
+  sprintf("%.3f", x)
+}
+percent_format <- function(x){
+  sprintf("%.2f %%", x)
+}
+ft <- regulartable(
+  x, col_keys = c("year", "premium", "latest_eval",
+                  "sep_1", "cape_cod_u_l", "cape_cod_lr",
+                  "sep_2", "chain_ladder_u_l", "chain_ladder_lr") )
+ft <- set_formatter(ft, premium = double_format, latest_eval = double_format,
+                    chain_ladder_lr = percent_format )
+ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+tabwid(ft)
+
+ft <- merge_h(ft, part = "header")
+ft <- merge_v(ft, part = "header", j = 1:3)
+ft <- theme_zebra(ft, odd_header = "transparent", even_header = "transparent")
+tabwid(ft)
+
+ft <- fontsize(ft, size = 11, part = "all")
+ft <- fontsize(ft, i = 1:2, size = 12, part = "header")
+ft <- color(ft, i = 1:2, color = "#007FA6", part = "header")
+ft <- fontsize(ft, i = 3, size = 9, part = "header")
+ft <- color(ft, i = 3, color = "gray", part = "header")
+tabwid(ft)
+
+ft <- border(ft, border.bottom = fp_border(width = .75, color = "#007FA6"), part = "body" )
+
+# color last border bottom of header and first border top of body
+ft <- border(ft, border.bottom = fp_border(width = 2, color = "#007FA6"), part = "header" )
+ft <- border(ft, i = 1, border.top = fp_border(width = 2, color = "#007FA6"), part = "body" )
+tabwid(ft)
+
+ft <- empty_blanks(ft)
+ft <- autofit(ft)
+
+tabwid(ft)
+```
+
