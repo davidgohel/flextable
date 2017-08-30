@@ -60,14 +60,31 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
 #' @export
 #' @rdname flextable
 #' @param x flextable object
+#' @param preview preview type, one of c("html", "pptx", "docx").
 #' @param ... unused argument
-print.flextable <- function(x, ...){
+#' @importFrom utils browseURL
+#' @importFrom officer read_pptx add_slide read_docx
+print.flextable <- function(x, preview = "html", ...){
   if (!interactive() ){
     print(x$body$dataset)
   } else {
-    print(tabwid(x))
+    if( preview == "html" )
+      print(tabwid(x))
+    else if( preview == "pptx" ){
+      doc <- read_pptx()
+      doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+      doc <- ph_with_flextable(doc, value = x, type = "body")
+      file_out <- print(doc, target = tempfile(fileext = ".pptx"))
+      browseURL(file_out)
+      return(invisible())
+    } else if( preview == "docx" ){
+      doc <- read_docx()
+      doc <- body_add_flextable(doc, value = x, align = "center")
+      file_out <- print(doc, target = tempfile(fileext = ".docx"))
+      browseURL(file_out)
+      return(invisible())
+    }
   }
 
 }
-
 
