@@ -4,6 +4,10 @@
 #' @export
 regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
 
+  if( any( duplicated(col_keys) ) ){
+    stop("duplicated col_keys")
+  }
+
   blanks <- setdiff( col_keys, names(data))
   if( length( blanks ) > 0 ){
     blanks_col <- map(blanks, function(x, n) character(n), nrow(data) )

@@ -64,7 +64,7 @@ html_str <- function( x ){
 
 
 
-html_str.flextable <- function( x ){
+html_str.complextable <- function( x ){
 
   dims <- dim(x)
 

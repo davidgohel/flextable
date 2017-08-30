@@ -25,6 +25,10 @@
 #' @importFrom purrr map
 flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
 
+  if( any( duplicated(col_keys) ) ){
+    stop("duplicated col_keys")
+  }
+
   blanks <- setdiff( col_keys, names(data))
   if( length( blanks ) > 0 ){
     blanks_col <- map(blanks, function(x, n) character(n), nrow(data) )
@@ -43,7 +47,7 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
 
   out <- list( header = header, body = body, col_keys = col_keys,
                blanks = blanks )
-  class(out) <- "flextable"
+  class(out) <- c("flextable", "complextable")
 
   out <- style( x = out,
                 pr_p = fp_par(text.align = "right", padding = 2),
