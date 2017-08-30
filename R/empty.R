@@ -1,37 +1,51 @@
 #' @title Delete flextable content
-#' @description Deletion of flextable content. Values will
-#' be replaced with \code{NA} values.
+#' @description Set content display as a blank \code{" "}.
 #' @param x \code{flextable} object
-#' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table
 #' @importFrom lazyeval lazy_eval
 #' @examples
 #' ft <- flextable(mtcars)
-#' ft <- void(ft, ~ drat > 3.5, ~ vs + am + gear + carb )
+#' ft <- void(ft, ~ vs + am + gear + carb )
 #' @export
-void <- function(x, i = NULL, j = NULL, part = "body" ){
+void <- function(x, j = NULL, part = "body" ){
 
   part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
 
   if( part == "all" ){
     for( p in c("header", "body") ){
-      x <- void(x = x, i = i, j = j, part = p)
+      x <- void(x = x, j = j, part = p)
     }
     return(x)
   }
 
-  if( inherits(i, "formula") && any( "header" %in% part ) ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
-  i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
+  display_singlespace(x = x, j = j, part = part )
+}
+
+
+display_singlespace <- function( x, j = NULL, part = "body" ){
+  UseMethod("display_singlespace")
+}
+
+display_singlespace.complextable <- function(x, j = NULL, part = "body"){
 
   for( j in x$col_keys[j]){
-    x <- display(x, i = i, col_key = j, pattern = " ", formatters = list(), fprops = list(), part = part)
+    x <- display(x, i = NULL, col_key = j, pattern = " ",
+                 formatters = list(), fprops = list(), part = part)
   }
-
-
   x
+
 }
+
+display_singlespace.regulartable <- function(x, j = NULL, part = "body"){
+
+  args_ <- lapply( x$col_keys[j], function(z) function(x) rep(" ", length(x) ) )
+  names(args_) <- x$col_keys[j]
+  args_$x <- x
+  args_$part <- part
+  do.call(set_formatter, args_)
+
+}
+
+
