@@ -23,6 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -57,6 +59,9 @@
 </li>
 <li>
   <a href="../articles/format.html">Format</a>
+</li>
+<li>
+  <a href="../articles/examples.html">Examples</a>
 </li>
       </ul>
       
@@ -124,7 +129,7 @@ one of the original data frame. Note its values are not used, only its size.</p>
     <span class='kw'>formatters</span> <span class='kw'>=</span> <span class='fu'>list</span>( <span class='no'>r_logo</span> ~ <span class='fu'>as_image</span>(<span class='no'>qsec</span>,
       <span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>.20</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>.15</span>)),
     <span class='kw'>fprops</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>qsec</span> <span class='kw'>=</span> <span class='fu'>fp_text</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>)) )
-<span class='no'>myft</span></div><div class='output co'>#&gt; <span class='warning'>Warning: file("") accepte seulement open = "w+" et open = "w+b" : utilisation du premier</span></div><div class='output co'>#&gt; <span class='error'>Error in dirname(to): un argument de type vecteur de caractères est attendu</span></div></pre>
+<span class='no'>myft</span></div><div class='output co'>#&gt; <span class='error'>Error in overscope_eval_next(overscope, expr): objet 'img.file' introuvable</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
