@@ -5,7 +5,7 @@
 \alias{ph_with_flextable_at}
 \title{add flextable into a PowerPoint slide}
 \usage{
-ph_with_flextable(x, value, type, index = 1)
+ph_with_flextable(x, value, type = "body", index = 1)
 
 ph_with_flextable_at(x, value, left, top)
 }

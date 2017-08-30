@@ -4,22 +4,19 @@
 \alias{void}
 \title{Delete flextable content}
 \usage{
-void(x, i = NULL, j = NULL, part = "body")
+void(x, j = NULL, part = "body")
 }
 \arguments{
 \item{x}{\code{flextable} object}
-
-\item{i}{rows selection}
 
 \item{j}{columns selection}
 
 \item{part}{partname of the table}
 }
 \description{
-Deletion of flextable content. Values will
-be replaced with \code{NA} values.
+Set content display as a blank \code{" "}.
 }
 \examples{
 ft <- flextable(mtcars)
-ft <- void(ft, ~ drat > 3.5, ~ vs + am + gear + carb )
+ft <- void(ft, ~ vs + am + gear + carb )
 }
