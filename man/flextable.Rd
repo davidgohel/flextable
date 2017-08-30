@@ -8,7 +8,7 @@
 \usage{
 flextable(data, col_keys = names(data), cwidth = 0.75, cheight = 0.25)
 
-\method{print}{flextable}(x, ...)
+\method{print}{flextable}(x, preview = "html", ...)
 
 regulartable(data, col_keys = names(data), cwidth = 0.75, cheight = 0.25)
 }
@@ -21,6 +21,8 @@ the dataset, they will be added as blank columns by default.}
 \item{cwidth, cheight}{initial width and height to use for cell sizes.}
 
 \item{x}{flextable object}
+
+\item{preview}{preview type, one of c("html", "pptx", "docx").}
 
 \item{...}{unused argument}
 }

@@ -58,6 +58,8 @@ navbar:
     href: articles/layout.html
   - text: Format
     href: articles/format.html
+  - text: Examples
+    href: articles/examples.html
   right:
   - text: Function reference
     href: reference/index.html
