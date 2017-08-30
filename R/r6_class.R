@@ -20,6 +20,8 @@ display_parser <- R6Class(
       })
       if( nrow(formatters) < 1 )
         formatters <- tibble(varname = character(0 ) )
+      formatters$varname[is.na(formatters$varname)] <- "NA"
+
       private$formatters <- formatters
 
       pattern_ <- "\\{\\{[\\w\\.\\_]+\\}\\}"
@@ -37,8 +39,9 @@ display_parser <- R6Class(
       data$rexpr <- gsub("(^\\{\\{|\\}\\})", "", data$str)
       data$rexpr[!is_expr] <- NA
 
-      if( !all( data$rexpr[!is.na(data$rexpr)] %in% formatters$varname ) )
+      if( !all( data$rexpr[!is.na(data$rexpr)] %in% formatters$varname ) ){
         stop( shQuote(private$str), ": missing definition for display() 'formatters' arg ", call. = FALSE)
+      }
 
       private$data <- data
 
