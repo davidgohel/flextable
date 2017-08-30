@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-dir.create("assets/format", recursive = TRUE, showWarnings = FALSE)
+dir.create("assets/docx", recursive = TRUE, showWarnings = FALSE)
+dir.create("assets/pptx", recursive = TRUE, showWarnings = FALSE)
 office_doc_link <- function(url){
   stopifnot(requireNamespace("htmltools", quietly = TRUE))
   htmltools::tags$p(  htmltools::tags$span("Download file "),
@@ -34,7 +35,7 @@ office_doc_link <- function(url){
 
 ```{r warning=FALSE, echo=FALSE, message=FALSE}
 library(flextable)
-library(dplyr)
+library(magrittr)
 ```
 
 A flextable is made of two parts, an header and a body. **To specify which part formatting instructions should affect, use argument `part`.** Possible values are:
@@ -143,17 +144,35 @@ ft <- regulartable(head(iris)) %>%
   height(height = 1, part = "header")
 ```
 
+The following example is producing a Word document:
+
 ```{r}
 library(officer)
 read_docx() %>% 
   body_add_flextable(ft) %>% 
-  print(target = "assets/format/rotate.docx") %>% 
+  print(target = "assets/docx/rotate.docx") %>% 
   invisible()
 ```
 
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/format/rotate.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/docx/rotate.docx" ) )
+```
+
+The following example is producing a PowerPoint document:
+
+```{r}
+library(officer)
+read_pptx() %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_flextable(ft) %>% 
+  print(target = "assets/pptx/rotate.pptx") %>% 
+  invisible()
+```
+
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/pptx/rotate.pptx" ) )
 ```
 
 ## Conditional formatting

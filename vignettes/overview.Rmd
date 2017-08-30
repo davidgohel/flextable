@@ -10,6 +10,21 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+dir.create("assets/docx", recursive = TRUE, showWarnings = FALSE)
+dir.create("assets/pptx", recursive = TRUE, showWarnings = FALSE)
+office_doc_link <- function(url){
+  stopifnot(requireNamespace("htmltools", quietly = TRUE))
+  htmltools::tags$p(  htmltools::tags$span("Download file "),
+    htmltools::tags$a(basename(url), href = url), 
+    htmltools::tags$span(" - view with"),
+    htmltools::tags$a("office web viewer", target="_blank", 
+      href = paste0("https://view.officeapps.live.com/op/view.aspx?src=", url)
+      ), 
+    style="text-align:center;font-style:italic;color:gray;"
+    )
+}
+```
 
 ```{r echo = FALSE}
 knitr::opts_chunk$set(
@@ -55,7 +70,7 @@ data <- iris %>%
   group_by(Species) %>% 
   do( head(., n = 3) )
 
-ft <- flextable(data, 
+ft <- regulartable(data, 
           col_keys = c("Species", "sep_1", "Sepal.Length", "Sepal.Width", "sep_2",  "Petal.Length", "Petal.Width" ) ) %>% 
   set_header_df(mapping = typology, key = "col_keys" ) %>% 
   merge_h(part = "header") %>% 
@@ -71,7 +86,7 @@ tabwid(ft)
 
 ## Getting started
 
-Let's have a step by step demo. First create a flextable and change header font in bold. Function `tabwid` will wrap it in an *htmlwidget*.
+Let's have a step by step demo. First create a regulartable and change header font in bold. Function `tabwid` will wrap it in an *htmlwidget*.
 
 ```{r warning=FALSE, message=FALSE}
 library(flextable)
@@ -83,9 +98,9 @@ myft <- regulartable(head(mtcars),
 tabwid(myft)
 ```
 
-**flextable function**: `flextable` create a flextable object based on input data. `flextable` does not format automatically the table but it is preparing the object to be formatted. Optional argument `col_keys` is used to only display a subset of columns. 
+**flextable or regulartable function**: `regulartable` and `flextable` create a flextable object based on input data. Optional argument `col_keys` is used to only display a subset of columns. 
 
-**tabwid function**: `tabwid` is the function that transform that *flextable* object into an html widget object (in r markdown documents or shiny applications). We need it here as we are working in an r markdown document.
+**tabwid function**: `tabwid` is the function that transform that *flextable* object into an html widget object (in r markdown documents or shiny applications). We need it here as we are working in an rmarkdown document.
 
 Let's keep it simple and apply a theme to format the whole table. Functions `theme_` are sugar functions whose role is to apply a set of formatting instructions to a flextable. For example, `theme_vanilla` set specific borders, right align paragraphs and make headers bold. 
 
@@ -96,7 +111,9 @@ tabwid(myft)
 
 ### Layout
 
-Table layout can be modified. Man can add or change header rows, change cells height and width and merge cells. Also, there is an important function named `autofit`.
+> To learn more, see article about [layouts](./layout.html).
+
+Table layout can be modified. One can add or change header rows, change cells height and width and merge cells. Also, there is an important function named `autofit` (it adjusts widths and heights regarding to text widths and heights).
 
 We will use `merge_v` to merge identical consecutive cells of 
 columns "carb" and "am".
@@ -120,8 +137,18 @@ tabwid(myft)
 
 Headers can be modified with functions `set_header_df`, `set_header_labels` and `add_header`.
 
+`autofit` adjust widths and heights of cells. This should be the last operation as some operations make columns wider, e.g. changing font size, changing font weight. **`autofit` makes sure that any content is displayed as a single line of text.**
+
+```{r warning=FALSE, message=FALSE}
+myft <- myft %>% autofit()
+
+tabwid(myft)
+```
+
 
 ### Formating
+
+> To learn more, see article about [format](./format.html).
 
 Many sugar functions can be used to format flextables: `bg`, `fontsize`, `italic`, `bold`, `color`, `padding`, `border`. 
 
@@ -139,16 +166,8 @@ Conditional formatting can be made by using the selector arguments. All formatti
 ```{r warning=FALSE, message=FALSE}
 myft <- myft %>% 
   color(~ drat > 3.5, ~ drat, color = "red") %>% 
-  bold(~ drat > 3.5, ~ drat, bold = TRUE) 
-
-tabwid(myft)
-```
-
-
-`autofit` adjust widths and heights of cells. This is the last operation as some operations make columns wider, e.g. changing font size, changing font weight. `autofit` makes sure that any content is displayed as a single line of text.
-
-```{r warning=FALSE, message=FALSE}
-myft <- myft %>% autofit()
+  bold(~ drat > 3.5, ~ drat, bold = TRUE) %>% 
+  autofit()
 
 tabwid(myft)
 ```
@@ -156,27 +175,48 @@ tabwid(myft)
 
 ## Outputs
 
-Flextables can be inserted in r markdown documents and in shiny applications. Use `tabwid` in these cases, when working in RStudio, flextable will be printed in the rstudio viewer pane (call to `tabwid` is not necessary in this case). Note that flextables are not designed to work with flexdashboard documents.
+### HTML
+
+Flextables can be inserted in r markdown documents and in shiny applications; in these cases, use `tabwid`. When working in RStudio, flextable will be printed in the rstudio viewer pane and call to `tabwid` is not necessary. Note that flextables are not designed to work with flexdashboard documents.
+
+### PowerPoint or Word documents
 
 To add these objects in PowerPoint or Word documents, use functions:
-- `ph_with_flextable` (PowerPoint)
+- `ph_with_flextable` or `ph_with_flextable_at` (PowerPoint)
 - `body_add_flextable` (Word)
 
-`officer` package is required to create a PowerPoint or Word document.
+**`officer` package is required to create a PowerPoint or Word document.**
 
 ```{r}
 library(officer)
+```
+
+The following is producing a PowerPoint document:
+
+```{r}
 ft <- regulartable(head(mtcars)) %>% 
-  theme_zebra() %>% 
+  theme_booktabs() %>% 
   autofit()
 
 ppt <- read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
   ph_with_flextable(value = ft, type = "body") 
-if( interactive() ) print(ppt, target = "test.pptx")
 
-doc <- read_docx() %>% 
-  body_add_flextable(value = ft)
-if( interactive() ) print(doc, target = "test.docx")
+print(ppt, target = "assets/pptx/example.pptx") %>% invisible()
 ```
 
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/example.pptx" ) )
+```
+
+The following is producing a Word document:
+
+```{r}
+doc <- read_docx() %>% 
+  body_add_flextable(value = ft)
+print(doc, target = "assets/docx/example.docx") %>% invisible()
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/example.docx" ) )
+```
