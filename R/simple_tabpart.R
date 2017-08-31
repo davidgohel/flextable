@@ -1,8 +1,8 @@
 default_printers <- function(x){
   map(x$dataset[x$col_keys], function( x ) {
-    if( is.character(x) ) htmlEscape
-    else if( is.factor(x) ) function(x) htmlEscape(as.character(x))
-    else function(x) gsub("(^ | $)+", "", htmlEscape(format(x)))
+    if( is.character(x) ) function(x) x
+    else if( is.factor(x) ) function(x) as.character(x)
+    else function(x) gsub("(^ | $)+", "", format(x))
   })
 }
 
