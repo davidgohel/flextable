@@ -206,7 +206,7 @@ print(ppt, target = "assets/pptx/example.pptx") %>% invisible()
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/example.pptx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/pptx/example.pptx" ) )
 ```
 
 The following is producing a Word document:
@@ -218,5 +218,5 @@ print(doc, target = "assets/docx/example.docx") %>% invisible()
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/example.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/docx/example.docx" ) )
 ```
