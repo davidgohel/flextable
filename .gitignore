@@ -6,5 +6,3 @@ src/*.o
 src/*.so
 todo.*
 inst/doc
-docs/*/*.docx
-docs/*/*.pptx
