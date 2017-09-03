@@ -80,11 +80,12 @@ add_rows.simple_tabpart <- function( x, rows, first = FALSE ){
 
 
 
+#' @importFrom tidyr gather_
 get_text_data <- function(x){
   mapped_data <- x$styles$text$get_map()
   txt_data <- map2_df(x$dataset[x$col_keys], x$printers, function(x, f) f(x))
   txt_data$id <- seq_len(nrow(txt_data))
-  txt_data <- tidyr::gather_(txt_data, "col_key", "str", gather_cols = x$col_keys)
+  txt_data <- gather_(txt_data, "col_key", "str", gather_cols = x$col_keys)
   txt_data <- left_join( mapped_data, txt_data, by = c("id", "col_key"))
   txt_data
 }
