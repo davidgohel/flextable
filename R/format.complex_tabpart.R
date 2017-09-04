@@ -85,16 +85,17 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
 
   txt_data <- x$styles$formats$get_map(x$styles$text, x$dataset)
   txt_data$str_is_run <- rep(FALSE, nrow(txt_data))
+
   img_data <- txt_data[txt_data$type_out %in% "image",]
   txt_data <- txt_data[txt_data$type_out %in% "text",]
+
   if( nrow( img_data ) && type %in% c("wml", "html") ){
     img_data$str_is_run <- rep(TRUE, nrow(img_data))
     as_img <- img_data[, c("image_src", "width", "height")]
     class(as_img) <- c("image_entry", class(as_img))
     img_data$str <- format(as_img, type = type)
-    txt_data <- bind_rows(txt_data, img_data)
+    txt_data <- rbind(txt_data, img_data)
   }
-  txt_data <- txt_data[order(txt_data$col_key, txt_data$id, txt_data$pos),]
 
 
   text_fp <- x$styles$text$get_fp()
@@ -104,34 +105,33 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
     tibble( format = format(x, type = type))
   }, .id = "pr_id")
 
-  txt_data <- txt_data %>% group_by(!!!syms(c("col_key", "id")) ) %>% do({
-    non_empty <- which( .$str != "" | .$type_out %in% "image_entry" )
-    if(length(non_empty)) .[non_empty,]
-    else .[1,]
-  })
+  txt_data <- drop_useless_blank(txt_data)
+  dat <- merge(txt_data, pr_str_df, by = "pr_id", all.x = TRUE, all.y = FALSE, sort = FALSE)
+  dat <- dat[order(dat$col_key, dat$id, dat$pos),]
 
-  dat <- txt_data %>% ungroup() %>%
-    inner_join(pr_str_df, by = "pr_id") %>%
-    mutate( str = run_fun[[type]](format, str, str_is_run) ) %>%
-    group_by(!!!syms(c("col_key", "id"))) %>%
-    summarise(str = paste(str, collapse = "") ) %>%
-    ungroup()
+  dat$str <- run_fun[[type]](dat$format, dat$str, dat$str_is_run)
+
+  group_ref_ <- group_ref(dat, c("id", "col_key"))
+  str_ <- tapply(dat$str, group_index(dat, c("id", "col_key")), paste, collapse = "")
+  str_ <- data.frame(index_ = names(str_), str = as.character(str_), stringsAsFactors = FALSE )
+  dat <- merge( group_ref_, str_, by = "index_", all.x = TRUE, all.y = TRUE, sort = FALSE)
+  dat$index_ <- NULL
 
   par_data <- x$styles$pars$get_map_format(type = type)
-  par_data$col_key <- factor(par_data$col_key, levels = x$col_keys)
-  dat$col_key <- factor(dat$col_key, levels = x$col_keys)
-  tidy_content <- dat %>%
-    complete_(c("col_key", "id")) %>%
-    inner_join(par_data, by = c("id", "col_key")) %>%
-    mutate( str = par_fun[[type]](format, str) ) %>%
-    drop_column("format")
-  paragraphs <- tidy_content %>% spread_("col_key", "str") %>%
-    drop_column("id") %>% as.matrix()
+
+  tidy_content <- expand.grid(col_key = x$col_key,
+                              id = seq_len(nrow(x$dataset)),
+                              stringsAsFactors = FALSE)
+  tidy_content <- merge(tidy_content, dat, by = c("col_key", "id"), all.x = TRUE, all.y = FALSE, sort = FALSE)
+  tidy_content <- merge(tidy_content, par_data, by = c("id", "col_key"), all.x = TRUE, all.y = FALSE, sort = FALSE)
+  tidy_content$str <- par_fun[[type]](tidy_content$format, tidy_content$str)
+  tidy_content$format <- NULL
+  # browser()
+  paragraphs <- as_wide_matrix_(as.data.frame(tidy_content[, c("col_key", "str", "id")]))
 
   cell_data <- x$styles$cells$get_map_format(type = type)
   cell_data$col_key <- factor(cell_data$col_key, levels = x$col_keys)
-  cell_format <- cell_data %>% spread_("col_key", "format") %>%
-    drop_column("id") %>% as.matrix()
+  cell_format <- as_wide_matrix_(as.data.frame(cell_data[, c("col_key", "format", "id")]))
 
   cells <- cell_fun[[type]](str = paragraphs, format=cell_format,
                    span_rows = x$span$rows,

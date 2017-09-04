@@ -3,7 +3,6 @@
 
 #' @importFrom stringr str_extract_all str_split str_replace_all
 #' @importFrom R6 R6Class
-#' @importFrom dplyr left_join select distinct do summarise full_join
 #' @importFrom purrr pmap_df map2_df pmap_chr
 #' @importFrom tibble tibble add_column as_tibble
 #' @importFrom lazyeval f_rhs f_lhs
@@ -60,10 +59,8 @@ display_parser <- R6Class(
     },
 
     tidy_data = function(data){
-      dat <- private$data %>%
-        left_join(private$formatters, by = c("rexpr"="varname") ) %>%
-        left_join(private$extra_fp, by = c("rexpr"="varname") )
-
+      dat <- merge(private$data, private$formatters, by.x = "rexpr", by.y = "varname", all.x = TRUE, all.y= FALSE, sort = FALSE)
+      dat <- merge(dat, private$extra_fp, by.x = "rexpr", by.y = "varname", all.x = TRUE, all.y= FALSE, sort = FALSE)
       dat <- pmap_df( dat, function(str, is_expr, pos, rexpr, expr, pr_id, data){
         if( is_expr ){
           eval_out <- eval(expr, envir = data )
@@ -76,10 +73,12 @@ display_parser <- R6Class(
                        id = seq_len(nrow(data)),
                        pos = pos, pr_id = pr_id)
           } else stop("could not get string from ", rexpr, "in ", private$str, ".", call. = FALSE)
-        } else
+        } else{
           tibble( str = rep(str, nrow(data) ), type_out = "text",
                   id = seq_len(nrow(data)),
                   pos = pos, pr_id = pr_id )
+        }
+
       }, data = data )
       dat
     }
@@ -166,14 +165,16 @@ fp_structure <- R6Class(
       map_data <- private$map_data
       map_data_new <- private$map_data
       map_data_new <- map_data_new[map_data_new$id %in% model_id, ]
-      map_data_new <- map_df(seq_len(nrows), function(x, dat) {dat$id <- x; dat }, map_data_new )
+
 
       if( first ){
+        map_data_new <- map_df(seq_len(nrows), function(x, dat) {dat$id <- x; dat }, map_data_new )
         map_data$id <- map_data$id + nrows
-        map_data <- bind_rows(map_data, map_data_new)
+        map_data <- rbind(map_data_new, map_data)
       } else {
+        map_data_new <- map_df(seq_len(nrows) + model_id - 1, function(x, dat) {dat$id <- x; dat }, map_data_new )
         map_data_new$id <- map_data_new$id + nrows
-        map_data <- bind_rows(map_data, map_data_new)
+        map_data <- rbind(map_data, map_data_new)
       }
       private$map_data <- map_data
       self
@@ -222,7 +223,9 @@ display_structure <- R6Class(
 
     get_all_fp = function(){
       all_fp <- self$get_fp()
-      all_ <- private$map_data$pr_id %>% unique() %>% map(function(x){
+      all_ <- private$map_data$pr_id
+      all_ <- unique(all_)
+      all_ <- map(all_, function(x){
         all_fp[[x]]$get_fp()
       })
       all_ <- all_[sapply(all_, length)>0]
@@ -236,21 +239,46 @@ display_structure <- R6Class(
     get_map = function(fp_t, dataset){
       default_fp_t <- fp_t$get_map()
       all_fp <- self$get_fp()
-      data <- private$map_data %>%
-        group_by(col_key, pr_id) %>%
-        do({
-          col_key <- unique( .$col_key )
-          f_key <- unique(.$pr_id)
-          dat <- all_fp[[f_key]]$tidy_data(data = dataset[.$id,,drop = FALSE])
-          dat$id <- .$id[dat$id]
-          dat
-        }) %>% ungroup()
-      data$pr_id_main <- data$pr_id
-      data$pr_id <- NULL
-      data %>% left_join(default_fp_t, by = c("col_key", "id") ) %>%
-        mutate( pr_id = ifelse(is.na(pr_id_main), pr_id, pr_id_main ) ) %>%
-        drop_column("pr_id_main")
 
+      indices <- group_index(private$map_data, c("col_key", "pr_id"))
+      indices_ref <- group_ref(private$map_data, c("col_key", "pr_id"))
+      indices_dat <- tapply( private$map_data$id,
+              INDEX = indices,
+              FUN = function(id, data){
+                data[id,,drop = FALSE]
+              }, data = dataset, simplify = FALSE )
+      indices_id <- split( private$map_data$id,indices)
+
+      data <- mapply(function(data, formatr, col_key, pr_id, row_id ){
+          dat <- formatr$tidy_data(data = data)
+          dat$col_key <- rep(col_key, nrow(dat) )
+          if( nrow(dat) )
+            dat$id <- row_id[dat$id]
+          else dat$id <- integer(0)
+
+          if( !is.element("image_src", names(dat) ) ){
+            dat$image_src <- rep(NA_character_, nrow(dat))
+            dat$width <- rep(NA_real_, nrow(dat))
+            dat$height <- rep(NA_real_, nrow(dat))
+          }
+
+          dat
+        },
+        data = indices_dat,
+        formatr = all_fp[indices_ref$pr_id],
+        col_key = indices_ref$col_key, pr_id = indices_ref$pr_id,
+        row_id = indices_id,
+        SIMPLIFY = FALSE)
+      data <- do.call(rbind, data)
+
+      data$txt_fp <- data$pr_id
+      data$pr_id <- NULL
+      data <- merge(data, default_fp_t, by = c("col_key", "id"), all.x = TRUE, all.y = FALSE, sort = FALSE )
+      data$pr_id <- ifelse(is.na(data$txt_fp), data$pr_id, data$txt_fp )
+      data$txt_fp <- NULL
+
+      data <- data[order(data$col_key, data$id, data$pos),c("col_key", "str", "type_out", "id", "pos", "image_src", "width", "height", "pr_id")]
+      data
     }
 
 

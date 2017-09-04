@@ -35,9 +35,7 @@ add_rows <- function(doc, rows, first = FALSE){
   UseMethod("add_rows")
 }
 
-#' @importFrom dplyr bind_rows
-#' @importFrom utils tail
-#' @importFrom utils head
+#' @importFrom utils tail head
 add_rows.complex_tabpart <- function( x, rows, first = FALSE ){
 
   data <- x$dataset
@@ -55,14 +53,13 @@ add_rows.complex_tabpart <- function( x, rows, first = FALSE ){
   span_new <- matrix( 1, ncol = ncol, nrow = nrow )
   rowheights <- x$rowheights
 
-
   if( !first ){
-    data <- bind_rows(data, rows )
+    data <- rbind(data, rows )
     spans$rows <- rbind( spans$rows, span_new )
     spans$columns <- rbind( spans$columns, span_new )
     rowheights <- c(rowheights, rep(0.6, nrow(rows)))
   } else {
-    data <- bind_rows(rows, data )
+    data <- rbind(rows, data )
     spans$rows <- rbind( span_new, spans$rows )
     spans$columns <- rbind( span_new, spans$columns )
     rowheights <- c(rep(0.6, nrow(rows)), rowheights)

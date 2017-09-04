@@ -42,9 +42,6 @@ simple_tabpart <- function( data, col_keys = names(data),
   out
 }
 
-#' @importFrom dplyr bind_rows
-#' @importFrom utils tail
-#' @importFrom utils head
 add_rows.simple_tabpart <- function( x, rows, first = FALSE ){
 
   data <- x$dataset
@@ -79,14 +76,20 @@ add_rows.simple_tabpart <- function( x, rows, first = FALSE ){
 }
 
 
-
-#' @importFrom tidyr gather_
+#' @importFrom stats reshape
 get_text_data <- function(x){
   mapped_data <- x$styles$text$get_map()
   txt_data <- map2_df(x$dataset[x$col_keys], x$printers, function(x, f) f(x))
   txt_data$id <- seq_len(nrow(txt_data))
-  txt_data <- gather_(txt_data, "col_key", "str", gather_cols = x$col_keys)
-  txt_data <- left_join( mapped_data, txt_data, by = c("id", "col_key"))
+  txt_data <- reshape(data = as.data.frame(txt_data, stringsAsFactors = FALSE),
+          idvar = "id", new.row.names = NULL, timevar = "col_key",
+          times = x$col_keys,
+          varying = x$col_keys,
+          v.names = "str", direction = "long")
+  row.names(txt_data) <- NULL
+
+  txt_data <- merge(mapped_data, txt_data, by = c("id", "col_key"),
+                all.x = TRUE, all.y = FALSE, sort = FALSE )
   txt_data
 }
 
@@ -112,20 +115,22 @@ format.simple_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   txt_data$pr_id <- NULL
 
   par_data <- x$styles$pars$get_map_format(type = type)
-  tidy_content <- txt_data %>%
-    complete_(c("col_key", "id")) %>%
-    inner_join(par_data, by = c("id", "col_key")) %>%
-    mutate( str = par_fun[[type]](format, str) ) %>%
-    drop_column("format")
+
+  tidy_content <- expand.grid(col_key = x$col_key,
+                              id = seq_len(nrow(x$dataset)),
+                              stringsAsFactors = FALSE)
+  tidy_content <- merge(tidy_content, txt_data, by = c("col_key", "id"), all.x = TRUE, all.y = FALSE, sort = FALSE)
+  tidy_content <- merge(tidy_content, par_data, by = c("id", "col_key"),
+                        all.x = FALSE, all.y = FALSE, sort = FALSE)
+  tidy_content$str <- par_fun[[type]](tidy_content$format, tidy_content$str)
+  tidy_content$format <- NULL
+
   tidy_content$col_key <- factor(tidy_content$col_key, levels = x$col_keys)
-  #dat$col_key <- factor(dat$col_key, levels = x$col_keys)
-  paragraphs <- tidy_content %>% spread_("col_key", "str") %>%
-    drop_column("id") %>% as.matrix()
+  paragraphs <- as_wide_matrix_(as.data.frame(tidy_content[, c("col_key", "str", "id")]))
 
   cell_data <- x$styles$cells$get_map_format(type = type)
   cell_data$col_key <- factor(cell_data$col_key, levels = x$col_keys)
-  cell_format <- cell_data %>% spread_("col_key", "format") %>%
-    drop_column("id") %>% as.matrix()
+  cell_format <- as_wide_matrix_(as.data.frame(cell_data[, c("col_key", "format", "id")]))
 
   cells <- cell_fun[[type]](str = paragraphs, format=cell_format,
                             span_rows = x$span$rows,

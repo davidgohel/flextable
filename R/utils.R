@@ -91,24 +91,40 @@ drop_column <- function(x, cols){
 
 
 
-#' @importFrom magrittr %>%
 #' @importFrom tibble tibble
 #' @importFrom purrr pmap_df map_df map_lgl map_dbl map_chr
-#' @importFrom tidyr spread_ complete_
-#' @importFrom dplyr mutate inner_join right_join
-#' @importFrom dplyr do ungroup select bind_rows group_by summarise
 
-extract_cell_space <- function(x){
-  cell_fp <- x$styles$cells$get_fp()
-  tibble( pr_id = names(cell_fp),
-          margin.left = map_dbl( cell_fp, "margin.left" ) * (4/3),
-          margin.right = map_dbl( cell_fp, "margin.right" ) * (4/3),
-          margin.top = map_dbl( cell_fp, "margin.top" ) * (4/3),
-          margin.bottom = map_dbl( cell_fp, "margin.bottom" ) * (4/3)
-  )
+as_grp_index <- function(x){
+  sprintf( "gp_%09.0f", x )
 }
-extract_par_space <- function(x){
-  par_fp <- x$styles$pars$get_fp()
-  map_df(par_fp, function(x) as.data.frame( as.list(dim(x))), .id = "pr_id" )
+
+group_index <- function(x, by, varname = "grp"){
+  order_ <- do.call( order, x[ by ] )
+  x$ids_ <- seq_along(order_)
+  x <- x[order_, ,drop = FALSE]
+  gprs <- cumsum(!duplicated(x[, by ]) )
+  gprs <- gprs[order(x$ids_)]
+  as_grp_index(gprs)
+}
+
+group_ref <- function(x, by, varname = "grp"){
+  order_ <- do.call( order, x[ by ] )
+  x$ids_ <- seq_along(order_)
+  x <- x[order_, ,drop = FALSE]
+  ref <- x[!duplicated(x[, by ]), by]
+  ref$index_ <- as_grp_index( seq_len( nrow(ref) ) )
+  row.names(ref) <- NULL
+  ref
+}
+
+drop_useless_blank <- function( x ){
+  grp <- group_index(x, by = c("col_key", "id") )
+  x <- split( x, grp)
+  x <- lapply( x, function(x){
+    non_empty <- which( !x$str %in% c("", NA) | x$type_out %in% "image_entry" )
+    if(length(non_empty)) x[non_empty,]
+    else x[1,]
+  })
+  do.call(rbind, x)
 }
 

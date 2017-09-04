@@ -68,14 +68,13 @@ set_header_labels <- function(x, ...){
   args <- args[is.element(names(args), x$col_keys)]
   values[names(args)] <- args
 
-  x$header$dataset <- bind_rows( header_[-nrow(header_),],
+  x$header$dataset <- rbind( header_[-nrow(header_),],
                                  as.data.frame(values, stringsAsFactors = FALSE, check.names = FALSE ))
   x
 }
 
 
 
-#' @importFrom dplyr left_join funs mutate_at
 #' @importFrom purrr map
 #' @export
 #' @title Set flextable's header rows
@@ -110,7 +109,9 @@ set_header_df <- function(x, mapping = NULL, key = "col_keys"){
 
   keys <- data.frame( col_keys = x$col_keys, stringsAsFactors = FALSE )
   names(keys) <- key
-  header_data <- left_join(keys, mapping, by = setNames(key, key) )
+
+  header_data <- merge(keys, mapping, by = key, all.x = TRUE, all.y = FALSE, sort = FALSE )
+  header_data <- header_data[match( keys[[key]], header_data[[key]]),]
 
   header_data[[key]] <- NULL
   header_data <- map(header_data, function(x){
@@ -127,8 +128,13 @@ set_header_df <- function(x, mapping = NULL, key = "col_keys"){
   header_data <- as.data.frame(header_data, stringsAsFactors = FALSE)
   names(header_data) <- x$col_keys
 
-  if( length(x$blanks) )
-    header_data <- mutate_at(header_data, x$blanks, funs(character(length(.)) ) )
+  if( length(x$blanks) ){
+    blank_ <- character(nrow(header_data))
+    replace_ <- lapply(x$blanks, function(x, bl) bl, blank_ )
+    names(replace_) <- x$blanks
+    header_data[x$blanks] <- replace_
+  }
+
 
   colwidths <- x$header$colwidths
   cheight <- x$header$rowheights[length(x$header$rowheights)]
