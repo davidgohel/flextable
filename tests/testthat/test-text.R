@@ -71,7 +71,7 @@ test_that("html - string are html encoded", {
   text_ <- xml_text(xml_find_first(doc, "//tbody/tr/td/p/span"))
   expect_equal(text_, c("1 < 3") )
 
-  str_ <- flextable:::html_str.regulartable(ft2)
+  str_ <- flextable:::html_str.complextable(ft2)
   doc <- read_xml(str_)
   text_ <- xml_text(xml_find_first(doc, "//tbody/tr/td/p/span"))
   expect_equal(text_, c("1 < 3") )

@@ -3,7 +3,7 @@ context("check headers")
 library(xml2)
 library(officer)
 
-test_that("set headers", {
+test_that("set_header_labels", {
   col_keys <- c("Species",
                 "sep1", "Sepal.Length", "Sepal.Width",
                 "sep2", "Petal.Length", "Petal.Width" )
@@ -29,4 +29,84 @@ test_that("set headers", {
                c("Species", "", "Sepal length", "Sepal width", "", "Petal length", "Petal width") )
 
   unlink(main_folder, recursive = TRUE, force = TRUE)
+})
+
+test_that("add_header", {
+
+
+  data_ref <- structure(
+    list(
+      Sepal.Length = c("Sepal", "s", "(cm)"),
+      Sepal.Width = c("Sepal", "", "(cm)"),
+      Petal.Length = c("Petal", "", "(cm)"),
+      Petal.Width = c("Petal", "", "(cm)"),
+      Species = c("Species", "", "(cm)")
+    ),
+    .Names = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species"),
+    row.names = c(NA, -3L), class = "data.frame"
+  )
+
+
+  ft <- flextable(iris[1:6, ])
+  ft <- set_header_labels(
+    ft, Sepal.Length = "Sepal",
+    Sepal.Width = "Sepal", Petal.Length = "Petal",
+    Petal.Width = "Petal", Species = "Species"
+  )
+  ft <- add_header(ft, Sepal.Length = "s", top = FALSE)
+  ft <- add_header(
+    ft, Sepal.Length = "(cm)",
+    Sepal.Width = "(cm)", Petal.Length = "(cm)",
+    Petal.Width = "(cm)", Species = "(cm)", top = FALSE
+  )
+
+  expect_equal(ft$header$dataset, data_ref )
+
+  ft <- regulartable(iris[1:6, ])
+  ft <- set_header_labels(
+    ft, Sepal.Length = "Sepal",
+    Sepal.Width = "Sepal", Petal.Length = "Petal",
+    Petal.Width = "Petal", Species = "Species"
+  )
+  ft <- add_header(ft, Sepal.Length = "s", top = FALSE)
+  ft <- add_header(
+    ft, Sepal.Length = "(cm)",
+    Sepal.Width = "(cm)", Petal.Length = "(cm)",
+    Petal.Width = "(cm)", Species = "(cm)", top = FALSE
+  )
+  expect_equal(ft$header$dataset, data_ref )
+
+})
+
+test_that("set_header_df", {
+
+  typology <- data.frame(
+    col_keys = c(
+      "Sepal.Length", "Sepal.Width", "Petal.Length",
+      "Petal.Width", "Species"
+    ),
+    what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
+    measure = c("Length", "Width", "Length", "Width", "Species"),
+    stringsAsFactors = FALSE
+  )
+  data <- iris[c(1:3, 51:53, 101:104), ]
+
+  ft <- regulartable(
+    data,
+    col_keys = c("Species",
+                 "sep_1", "Sepal.Length", "Sepal.Width",
+                 "sep_2", "Petal.Length", "Petal.Width")
+  )
+  ft <- set_header_df(ft, mapping = typology, key = "col_keys")
+
+  data_ref <- structure(list(Species = c("Species", "Species"),
+                 sep_1 = c("", "" ),
+                 Sepal.Length = c("Sepal", "Length"),
+                 Sepal.Width = c( "Sepal", "Width" ),
+                 sep_2 = c("", ""),
+                 Petal.Length = c("Petal", "Length" ),
+                 Petal.Width = c("Petal", "Width")),
+            .Names = c( "Species", "sep_1", "Sepal.Length", "Sepal.Width", "sep_2", "Petal.Length", "Petal.Width" ),
+            row.names = c(NA, -2L), class = "data.frame")
+  expect_equal(ft$header$dataset, data_ref)
 })
