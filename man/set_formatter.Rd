@@ -7,7 +7,7 @@
 set_formatter(x, ..., part = "body")
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a regulartable object}
 
 \item{...}{Name-value pairs of functions, names should be existing col_key values}
 

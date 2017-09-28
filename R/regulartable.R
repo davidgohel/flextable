@@ -41,7 +41,7 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' @description Define formatter functions associated to each column key.
 #' Functions have a single argument (the vector) and are returning the formatted
 #' values as a character vector.
-#' @param x a flextable object
+#' @param x a regulartable object
 #' @param ... Name-value pairs of functions, names should be existing col_key values
 #' @param part partname of the table (one of 'body' or 'header')
 #' @examples
