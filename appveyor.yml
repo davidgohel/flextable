@@ -16,12 +16,6 @@ environment:
   global:
     WARNINGS_ARE_ERRORS: 1
 
-  matrix:
-  - R_VERSION: devel
-    R_ARCH: x64
-
-  - R_VERSION: patched
-
 build_script:
   - travis-tool.sh install_deps
 
