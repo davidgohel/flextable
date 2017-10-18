@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.3.1.0001
+Version: 0.3.1.0002
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
@@ -11,7 +11,7 @@ Description: Create pretty tables for 'Microsoft Word', 'Microsoft PowerPoint' a
   Function tabwid() produces an 'htmlwidget' ready to be used in 'Shiny' or 'R Markdown (*.Rmd)' documents.
 License: GPL-3
 LazyData: TRUE
-Depends: officer
+Depends: officer (>= 0.1.8)
 Imports:
     stats,utils,grDevices,magrittr,
     lazyeval,purrr,tibble,R6,stringr,

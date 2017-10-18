@@ -72,6 +72,6 @@ ph_with_flextable_at <- function( x, value, left, top ){
   stopifnot(inherits(x, "rpptx"))
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_flextable(value)
-  ph_from_xml_at(x = x, value = graphic_frame, left = left, top = top, width = 0, height = 0 )
+  ph_from_xml_at(x = x, value = graphic_frame, left = left*914400, top = top*914400, width = 0, height = 0 )
 }
 
