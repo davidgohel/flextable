@@ -1,7 +1,7 @@
 
 globalVariables(c("str", ".", "str_is_run"))
 
-
+#' @import magrittr
 image_entry <- function(src, width, height){
   x <- tibble(image_src = src, width = width, height = height)
   class(x) <- c( "image_entry", class(x) )
