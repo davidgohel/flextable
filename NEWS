@@ -1,5 +1,9 @@
 # flextable 0.3.1
 
+## new features
+
+* new function `render_flextable()` to render flextable in rmarkdown
+
 
 # flextable 0.3
 
