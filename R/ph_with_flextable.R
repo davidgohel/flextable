@@ -41,6 +41,11 @@ pml_flextable <- function(value){
 #' @export
 #' @title add flextable into a PowerPoint slide
 #' @description add a flextable as a new shape in the current slide.
+#' @note
+#' The width and height of the table can not be set with this function. Use
+#' functions \code{\link{width}}, \code{\link{height}}, \code{\link{autofit}}
+#' and \code{\link{dim_pretty}} instead. The overall size is resulting from
+#' cells, paragraphs and text properties (i.e. padding, font size, border widths).
 #' @param x a pptx device
 #' @param value \code{flextable} object
 #' @param type placeholder type
@@ -65,13 +70,14 @@ ph_with_flextable <- function( x, value, type = "body", index = 1 ){
 }
 
 #' @export
-#' @param left,top location of flextable on the slide
+#' @param left,top location of flextable on the slide in inches
 #' @rdname ph_with_flextable
 #' @importFrom officer ph_from_xml_at
 ph_with_flextable_at <- function( x, value, left, top ){
   stopifnot(inherits(x, "rpptx"))
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_flextable(value)
-  ph_from_xml_at(x = x, value = graphic_frame, left = left*914400, top = top*914400, width = 0, height = 0 )
+  ph_from_xml_at(x = x, value = graphic_frame, left = left, top = top,
+                 width = 0, height = 0 )
 }
 
