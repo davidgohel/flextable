@@ -19,10 +19,16 @@ ph_with_flextable_at(x, value, left, top)
 \item{index}{placeholder index (integer). This is to be used when a placeholder type
 is not unique in the current slide, e.g. two placeholders with type 'body'.}
 
-\item{left, top}{location of flextable on the slide}
+\item{left, top}{location of flextable on the slide in inches}
 }
 \description{
 add a flextable as a new shape in the current slide.
+}
+\note{
+The width and height of the table can not be set with this function. Use
+functions \code{\link{width}}, \code{\link{height}}, \code{\link{autofit}}
+and \code{\link{dim_pretty}} instead. The overall size is resulting from
+cells, paragraphs and text properties (i.e. padding, font size, border widths).
 }
 \examples{
 library(officer)

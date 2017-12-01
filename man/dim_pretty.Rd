@@ -11,7 +11,7 @@ dim_pretty(x)
 }
 \description{
 return minimum estimated widths and heights for
-each table columns and rows.
+each table columns and rows in inches.
 }
 \examples{
 

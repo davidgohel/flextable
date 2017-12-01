@@ -18,7 +18,7 @@ regulartable(data, col_keys = names(data), cwidth = 0.75, cheight = 0.25)
 \item{col_keys}{columns names/keys to display. If some column names are not in
 the dataset, they will be added as blank columns by default.}
 
-\item{cwidth, cheight}{initial width and height to use for cell sizes.}
+\item{cwidth, cheight}{initial width and height to use for cell sizes in inches.}
 
 \item{x}{flextable object}
 

@@ -16,7 +16,7 @@
 #' @param data dataset
 #' @param col_keys columns names/keys to display. If some column names are not in
 #' the dataset, they will be added as blank columns by default.
-#' @param cwidth,cheight initial width and height to use for cell sizes.
+#' @param cwidth,cheight initial width and height to use for cell sizes in inches.
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft
@@ -25,6 +25,7 @@
 #' @importFrom purrr map
 flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
 
+  stopifnot(is.data.frame(data))
   if( any( duplicated(col_keys) ) ){
     stop("duplicated col_keys")
   }

@@ -83,6 +83,7 @@ height <- function(x, i = NULL, height, part = "body"){
 
 #' @title Get flextable dimensions
 #' @description returns widths and heights for each table columns and rows.
+#' Values are inches.
 #' @param x flextable object
 #' @export
 dim.flextable <- function(x){
@@ -107,7 +108,7 @@ dim.flextable <- function(x){
 #' @title Calculate pretty dimensions
 #' @param x flextable object
 #' @description return minimum estimated widths and heights for
-#' each table columns and rows.
+#' each table columns and rows in inches.
 #' @examples
 #'
 #' ft <- flextable(mtcars)
