@@ -2,8 +2,8 @@ docx_str <- function( x, ... ){
   UseMethod("docx_str")
 }
 
-## This is basically a copy of (old) body_add_flextable, which just generates 
-## needed XML without inserting into a document (x is a flextable object here), 
+## This is basically a copy of (old) body_add_flextable, which just generates
+## needed XML without inserting into a document (x is a flextable object here),
 ## as a consequence images are not supported since a document is needed for that.
 docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
 
@@ -70,7 +70,7 @@ docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
   out <- paste0(out,  "</w:tbl>" )
 
   if( length(imgs) > 0 ) {
-    
+
     if (!is.null(doc)) {
       stopifnot(inherits(doc, "rdocx"))
       doc <- docx_reference_img( doc, imgs )
@@ -86,51 +86,3 @@ docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
 
 docx_str.complextable <- docx_str.regulartable
 
-
-#' @title Render flextable in rmarkdown (including Word output)
-#' @description Function to use in the knitr/rmarkdown's \code{render} chunk 
-#' option.
-#' For Word (docx) output, if pandoc vesion >= 2.0 is used, a raw XML block 
-#' with the table code will be inserted.
-#' For HTML output, you won't need an extra call to \code{\link{tabwid}}, but 
-#' can just use \code{\link{flextable}} inside a chunk.  
-#' @note To insert all flextables automatically, define 
-#' \code{knit_print.flextable = render_flextable} in the beginning of 
-#' the rmarkdown document.
-#' @seealso vignette("knit_print", package = "knitr")
-#' @param x a \code{flextable} object
-#' @param ... further arguments
-#' @author Maxim Nazarov
-#' @export
-render_flextable <- function(x, ...) {
-
-  # so that knitr/rmarkdown can stay in 'suggests'
-  if (requireNamespace("knitr", quietly = TRUE) && 
-      requireNamespace("rmarkdown", quietly = TRUE)) {
-    
-    if (is.null(knitr::opts_knit$get("rmarkdown.pandoc.to")))
-      stop("`render_flextable` needs to be used as a renderer for ", 
-           "a knitr/rmarkdown R code chunk")
-     
-    if (knitr::opts_knit$get("rmarkdown.pandoc.to") == "docx") { 
-      
-      if (rmarkdown::pandoc_version() >= 2) {
-        # insert rawBlock with Open XML
-        knitr::asis_output(
-            paste("```{=openxml}", docx_str(x), "```", sep = "\n")
-        )
-      } else {
-        stop("pandoc version >= 2.0 required for flextable rendering in docx")
-      }
-      
-    } else if (knitr::opts_knit$get("rmarkdown.pandoc.to") == "html") {
-      # show widget
-      knitr::knit_print(tabwid(x))
-    } else 
-      stop("unsupported format for flextable rendering")
-    
-  } else {
-    stop("`knitr` and `rmarkdown` packages are needed to use `render_flextable`")
-  }
-
-}

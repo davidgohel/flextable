@@ -20,9 +20,6 @@
 .tabwid table tr {
 background-color: transparent;
 }
-.tabwid table tr:nth-child(2n) {
-background-color: transparent;
-}
 
 .tabwid img {
 background-color: transparent;

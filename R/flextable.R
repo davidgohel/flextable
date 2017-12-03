@@ -57,6 +57,24 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
   out
 }
 
+#' @importFrom htmltools htmlDependency
+tabwid_htmldep <- function(){
+  htmlDependency("tabwid",
+                 "1.0.0",
+                 src = system.file(package="flextable", "web_1.0.0"),
+                 stylesheet = "tabwid.css", script = "tabwid.js")
+
+}
+
+htmltools_value <- function(x){
+  codes <- html_str(x)
+  html_o <- div( class='tabwid',
+                 tabwid_htmldep(),
+                 HTML(as.character(codes))
+  )
+}
+
+
 #' @importFrom htmltools HTML browsable
 #' @export
 #' @rdname flextable
@@ -69,9 +87,9 @@ print.flextable <- function(x, preview = "html", ...){
   if (!interactive() ){
     print(x$body$dataset)
   } else {
-    if( preview == "html" )
-      print(tabwid(x))
-    else if( preview == "pptx" ){
+    if( preview == "html" ){
+      print( browsable( htmltools_value(x) ) )
+    }else if( preview == "pptx" ){
       doc <- read_pptx()
       doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
       doc <- ph_with_flextable(doc, value = x, type = "body")
@@ -88,4 +106,44 @@ print.flextable <- function(x, preview = "html", ...){
   }
 
 }
+
+#' @title Render flextable in rmarkdown (including Word output)
+#' @description Function used to render flextable in knitr/rmarkdown documents.
+#' HTML and Word outputs are supported.
+#' @note
+#' For Word (docx) output, if pandoc vesion >= 2.0 is used, a raw XML block
+#' with the table code will be inserted. If pandoc vesion < 2.0 is used, an
+#' error will be raised.
+#'
+#' @param x a \code{flextable} object
+#' @param ... further arguments, not used.
+#' @export
+#' @author Maxim Nazarov
+#' @importFrom htmltools HTML div
+#' @importFrom knitr knit_print asis_output opts_knit
+#' @importFrom rmarkdown pandoc_version
+knit_print.flextable <- function(x, ...){
+
+  if (is.null(opts_knit$get("rmarkdown.pandoc.to")))
+    stop("`render_flextable` needs to be used as a renderer for ",
+         "a knitr/rmarkdown R code chunk")
+  if ( grepl( "^html", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+    knit_print(htmltools_value(x))
+  } else if (opts_knit$get("rmarkdown.pandoc.to") == "docx") {
+
+    if (pandoc_version() >= 2) {
+      # insert rawBlock with Open XML
+      knit_print( asis_output(
+        paste("```{=openxml}", docx_str(x), "```", sep = "\n")
+      ) )
+    } else {
+      stop("pandoc version >= 2.0 required for flextable rendering in docx")
+    }
+
+  } else {
+    stop("unsupported format for flextable rendering:", opts_knit$get("rmarkdown.pandoc.to"))
+  }
+}
+
+
 

@@ -51,7 +51,7 @@ There are simple functions to modify formatting properties of flextable objects:
 
 ```{r}
 myft <- regulartable(head(iris))
-tabwid(myft)
+myft
 ```
 
 ### bold
@@ -60,21 +60,21 @@ tabwid(myft)
 myft <- regulartable(head(iris)) %>% 
   # bold header
   bold(part = "header") 
-tabwid(myft)
+myft
 ```
 
 ### Font size
 
 ```{r}
 myft <- myft %>% fontsize(part = "header", size = 12) 
-tabwid(myft)
+myft
 ```
 
 ### change font color
 
 ```{r}
 myft <- myft %>% color(color = "#E4C994")
-tabwid(myft)
+myft
 ```
 
 ### Italic
@@ -83,7 +83,7 @@ tabwid(myft)
 myft <- myft %>% 
   italic(i = ~ Sepal.Length > 5, 
          j = ~ Sepal.Length + Sepal.Width, italic = TRUE)
-tabwid(myft)
+myft
 ```
 
 ### change background color
@@ -95,14 +95,14 @@ myft <- myft %>%
   # dark gray as background color for body
   bg(bg = "#333333", part = "body")
 
-tabwid(myft)
+myft
 ```
 
 ### Text alignment
 
 ```{r}
 myft <- myft %>% align( align = "center", part = "all" )
-tabwid(myft)
+myft
 ```
 
 
@@ -110,7 +110,7 @@ tabwid(myft)
 
 ```{r}
 myft <- myft %>% padding( padding = 3, part = "all" )
-tabwid(myft)
+myft
 ```
 
 ### change border
@@ -119,7 +119,7 @@ tabwid(myft)
 myft <- myft %>% 
   border( border = fp_border(color="white"), part = "all" )
   
-tabwid(myft)
+myft
 ```
 
 ### Text rotation 
@@ -187,7 +187,7 @@ myft <- myft %>%
   bg(j = 1, bg = "#D3C994", part = "header") %>% 
   italic(i = ~ Sepal.Length > 5) %>% 
   bold( i = 4, j = "Sepal.Length")
-tabwid(myft)
+myft
 ```
 
 `i` and `j` arguments can be also standard R vectors:
@@ -198,7 +198,7 @@ col_id <- c("Petal.Width", "Species")
 
 myft <- color(myft, i = row_id, j = col_id, color="red") 
 
-tabwid(myft)
+myft
 ```
 
 ## Function style
@@ -223,11 +223,11 @@ def_text_header <- update(color="black", def_text, bold = TRUE)
 
 ft <- regulartable(head(mtcars, n = 10 )) %>% 
   style( pr_c = def_cell, pr_p = def_par, pr_t = def_text, part = "all")  
-tabwid(ft)
+ft
 
 ft <- ft %>% 
   style( pr_t = def_text_header, part = "header")  
-tabwid(ft)
+ft
 ```
 
 
@@ -246,7 +246,7 @@ ft <- regulartable(head(mtcars, n = 10 ),
   ) %>% 
   theme_booktabs() %>% 
   autofit()
-tabwid(ft)
+ft
 ```
 
 
@@ -269,7 +269,7 @@ myft <- flextable( head(mtcars),
   border(j = ~ separator, border = fp_border(width=0), part = "all") %>% 
   width(j = ~ separator, width = .1)
 
-tabwid(myft)
+myft
 ```
 
 
@@ -284,7 +284,7 @@ myft <- myft %>%
               fprops = list(mpg = fp_text(color = "red", italic = TRUE) )
   )
 
-tabwid(myft)
+myft
 ```
 
 With that system, it's easy to concatenate multiple values:
@@ -298,7 +298,7 @@ myft <- myft %>%
               fprops = list(mpg = fp_text(color = "#CC55CC", bold = TRUE) )
   ) %>% autofit()
 
-tabwid(myft)
+myft
 ```
 
 Or to define specific title headers:
@@ -312,7 +312,7 @@ myft <- myft %>%
                             )
   ) %>% autofit()
 
-tabwid(myft)
+myft
 ```
 
 ### Images
@@ -332,5 +332,5 @@ myft <- myft %>%
            ) %>% 
   autofit()
 
-tabwid(myft)
+myft
 ```
