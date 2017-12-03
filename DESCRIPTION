@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.3.1.0004
+Version: 0.3.1.0005
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -16,15 +16,12 @@ LazyData: TRUE
 Depends: officer (>= 0.2.0)
 Imports:
     stats,utils,grDevices,magrittr,
+    rmarkdown, knitr,htmltools,
     lazyeval,purrr,tibble,R6,stringr,
-    htmltools,htmlwidgets,
     gdtools (>= 0.1.6)
 RoxygenNote: 6.0.1.9000
-Suggests: rmarkdown, knitr,
-    xml2, dplyr, 
-    testthat
+Suggests: xml2, dplyr, testthat
 URL: https://davidgohel.github.io/flextable
 BugReports: https://github.com/davidgohel/flextable/issues
 VignetteBuilder: knitr
-Remotes: davidgohel/officer
 
