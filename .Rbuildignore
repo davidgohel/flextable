@@ -5,3 +5,4 @@
 ^appveyor\.yml$
 ^docs$
 ^_pkgdown\.yml$
+revdep
