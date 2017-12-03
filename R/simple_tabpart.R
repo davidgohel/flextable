@@ -79,7 +79,9 @@ add_rows.simple_tabpart <- function( x, rows, first = FALSE ){
 #' @importFrom stats reshape
 get_text_data <- function(x){
   mapped_data <- x$styles$text$get_map()
-  txt_data <- map2_df(x$dataset[x$col_keys], x$printers, function(x, f) f(x))
+  txt_data <- mapply(function(x, f) f(x), x$dataset[x$col_keys], x$printers, SIMPLIFY = FALSE)
+  txt_data <- do.call(cbind, txt_data)
+  txt_data <- as.data.frame(txt_data, stringsAsFactors = FALSE )
   txt_data$id <- seq_len(nrow(txt_data))
   txt_data <- reshape(data = as.data.frame(txt_data, stringsAsFactors = FALSE),
           idvar = "id", new.row.names = NULL, timevar = "col_key",

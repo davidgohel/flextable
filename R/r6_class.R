@@ -3,7 +3,7 @@
 
 #' @importFrom stringr str_extract_all str_split str_replace_all
 #' @importFrom R6 R6Class
-#' @importFrom purrr pmap_df map2_df pmap_chr
+#' @importFrom purrr pmap_df pmap_chr
 #' @importFrom tibble tibble add_column as_tibble
 #' @importFrom lazyeval f_rhs f_lhs
 display_parser <- R6Class(
@@ -61,6 +61,7 @@ display_parser <- R6Class(
     tidy_data = function(data){
       dat <- merge(private$data, private$formatters, by.x = "rexpr", by.y = "varname", all.x = TRUE, all.y= FALSE, sort = FALSE)
       dat <- merge(dat, private$extra_fp, by.x = "rexpr", by.y = "varname", all.x = TRUE, all.y= FALSE, sort = FALSE)
+
       dat <- pmap_df( dat, function(str, is_expr, pos, rexpr, expr, pr_id, data){
         if( is_expr ){
           eval_out <- eval(expr, envir = data )
