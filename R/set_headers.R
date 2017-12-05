@@ -1,5 +1,3 @@
-#' @importFrom purrr map
-#' @importFrom purrr map_int
 #' @export
 #' @title Add a row of labels in headers
 #'
@@ -28,9 +26,9 @@
 add_header <- function(x, top = TRUE, ...){
 
   args <- list(...)
-  args_ <- map(x$col_keys, function(x) "" )
+  args_ <- lapply(x$col_keys, function(x) "" )
   names(args_) <- x$col_keys
-  args_[names(args)] <- map(args, format)
+  args_[names(args)] <- lapply(args, format)
   header_data <- data.frame(as.list(args_), check.names = FALSE, stringsAsFactors = FALSE )
   x$header <- add_rows( x$header, header_data, first = top )
 
@@ -75,7 +73,6 @@ set_header_labels <- function(x, ...){
 
 
 
-#' @importFrom purrr map
 #' @export
 #' @title Set flextable's header rows
 #'
@@ -114,7 +111,7 @@ set_header_df <- function(x, mapping = NULL, key = "col_keys"){
   header_data <- header_data[match( keys[[key]], header_data[[key]]),]
 
   header_data[[key]] <- NULL
-  header_data <- map(header_data, function(x){
+  header_data <- lapply(header_data, function(x){
     if( is.character(x))
       x
     else if( is.integer(x) || is.logical(x) || is.factor(x) )

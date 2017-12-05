@@ -1,5 +1,5 @@
 default_printers <- function(x){
-  map(x$dataset[x$col_keys], function( x ) {
+  lapply(x$dataset[x$col_keys], function( x ) {
     if( is.character(x) ) function(x) x
     else if( is.factor(x) ) function(x) as.character(x)
     else function(x) gsub("(^ | $)+", "", format(x))
@@ -101,10 +101,7 @@ format.simple_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   stopifnot( type %in% c("wml", "pml", "html") )
 
   text_fp <- x$styles$text$get_fp()
-  pr_str_df <- map_df(text_fp, function(x){
-    tibble( format = format(x, type = type))
-  }, .id = "pr_id")
-
+  pr_str_format <- sapply(text_fp, format, type = type)
   txt_data <- get_text_data(x)
 
   run_as_str <- list(
@@ -112,7 +109,7 @@ format.simple_tabpart <- function( x, type = "wml", header = FALSE, ... ){
     pml = function(format, str) paste0("<a:r>", format, "<a:t>", htmlEscape(str), "</a:t></a:r>"),
     html = function(format, str) paste0("<span style=\"", format, "\">", htmlEscape(str), "</span>")
   )
-  txt_data$str <- run_as_str[[type]](format = pr_str_df$format[match(txt_data$pr_id, pr_str_df$pr_id)],
+  txt_data$str <- run_as_str[[type]](format = pr_str_format[match(txt_data$pr_id, names(text_fp))],
                                      str = txt_data$str )
   txt_data$pr_id <- NULL
 

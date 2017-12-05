@@ -22,7 +22,6 @@
 #' ft
 #' @export
 #' @importFrom stats setNames
-#' @importFrom purrr map
 flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
 
   stopifnot(is.data.frame(data))
@@ -32,7 +31,7 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
 
   blanks <- setdiff( col_keys, names(data))
   if( length( blanks ) > 0 ){
-    blanks_col <- map(blanks, function(x, n) character(n), nrow(data) )
+    blanks_col <- lapply(blanks, function(x, n) character(n), nrow(data) )
     blanks_col <- setNames(blanks_col, blanks )
     data[blanks] <- blanks_col
   }

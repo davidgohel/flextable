@@ -243,15 +243,16 @@ as_wide_matrix_ <- function(data, idvar = "id", timevar = "col_key"){
 dim_paragraphs <- function(x){
 
   par_fp <- x$styles$pars$get_fp()
-  par_dim <- map_df(par_fp, function(x)
-    as.data.frame( as.list(dim(x))), .id = "pr_id" )
-
+  par_dim <- lapply(par_fp, dim)
+  par_dim <- data.frame( pr_id = names(par_fp),
+              width = sapply(par_dim, function(x) x["width"]),
+              height = sapply(par_dim, function(x) x["height"]),
+              stringsAsFactors = FALSE, row.names = NULL)
   par_dim <- merge(x$styles$pars$get_map(),
                    par_dim, by = "pr_id",
                    all.x = FALSE, all.y = FALSE, sort = FALSE)
 
   par_dim$col_key <- factor(par_dim$col_key, levels = x$col_keys)
-  par_dim <- as.data.frame(par_dim)
 
   list( widths = as_wide_matrix_( par_dim[,c("col_key", "width", "id")] ),
         heights = as_wide_matrix_( par_dim[,c("col_key", "height", "id")] )
@@ -262,8 +263,8 @@ dim_cells <- function(x){
 
   cell_fp <- x$styles$cells$get_fp()
   cell_dim <- data.frame( pr_id = names(cell_fp),
-                          width = (map_dbl( cell_fp, "margin.left" ) + map_dbl( cell_fp, "margin.right" ) )* (4/3),
-                          height = (map_dbl( cell_fp, "margin.top" ) + map_dbl( cell_fp, "margin.bottom" )) * (4/3),
+                          width = (sapply( cell_fp, function(x) x$"margin.left" ) + sapply( cell_fp, function(x) x$"margin.right" ) )* (4/3),
+                          height = (sapply( cell_fp, function(x) x$"margin.top" ) + sapply( cell_fp, function(x) x$"margin.bottom" )) * (4/3),
                           stringsAsFactors = FALSE )
   cell_dim <- merge(x$styles$cells$get_map(), cell_dim, by = "pr_id",
                     all.x = FALSE, all.y = FALSE, sort = FALSE)
@@ -283,10 +284,10 @@ text_metric <- function(data, all_fp ){
 
   fp_props <- data.frame(
     pr_id = names(all_fp),
-    size = map_int(all_fp, "font.size"),
-    bold = map_lgl(all_fp, "bold"),
-    italic = map_lgl(all_fp, "italic"),
-    fontname = map_chr(all_fp, "font.family"), stringsAsFactors = FALSE )
+    size = sapply(all_fp, function(x) x$"font.size"),
+    bold = sapply(all_fp, function(x) x$"bold"),
+    italic = sapply(all_fp, function(x) x$"italic"),
+    fontname = sapply(all_fp, function(x) x$"font.family"), stringsAsFactors = FALSE )
 
 
   selection_ <- c("col_key", "id", "pos", "width", "height")

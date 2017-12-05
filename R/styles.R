@@ -8,7 +8,6 @@
 #' @param pr_p object(s) of class \code{fp_par}
 #' @param pr_c object(s) of class \code{fp_cell}
 #' @param part partname of the table (one of 'all', 'body', 'header')
-#' @importFrom lazyeval lazy_eval
 #' @importFrom stats terms update
 #' @examples
 #' def_cell <- fp_cell(border = fp_border(color="#00FFFF"))
@@ -91,8 +90,8 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
   pr_id <- x[[part]]$styles$cells$get_pr_id_at(i, x$col_keys[j])
   pr <- x[[part]]$styles$cells$get_fp()[unique(pr_id)]
   old_name <- names(pr)
-  pr <- map(pr, function(x, bg ) update(x, background.color = bg ), bg = bg )
-  new_name <- map_chr(pr, fp_sign )
+  pr <- lapply(pr, function(x, bg ) update(x, background.color = bg ), bg = bg )
+  new_name <- sapply(pr, fp_sign )
   names(pr) <- new_name
 
   x[[part]]$styles$cells$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
@@ -133,8 +132,8 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
   pr_id <- x[[part]]$styles$text$get_pr_id_at(i, x$col_keys[j])
   pr <- x[[part]]$styles$text$get_fp()[unique(pr_id)]
   old_name <- names(pr)
-  pr <- map(pr, function(x, bold ) update(x, bold = bold ), bold = bold )
-  new_name <- map_chr(pr, fp_sign )
+  pr <- lapply(pr, function(x, bold ) update(x, bold = bold ), bold = bold )
+  new_name <- sapply(pr, fp_sign )
   names(pr) <- new_name
   x[[part]]$styles$text$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
@@ -173,8 +172,8 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
   pr_id <- x[[part]]$styles$text$get_pr_id_at(i, x$col_keys[j])
   pr <- x[[part]]$styles$text$get_fp()[unique(pr_id)]
   old_name <- names(pr)
-  pr <- map(pr, function(x, size ) update(x, font.size = size ), size = size )
-  new_name <- map_chr(pr, fp_sign )
+  pr <- lapply(pr, function(x, size ) update(x, font.size = size ), size = size )
+  new_name <- sapply(pr, fp_sign )
   names(pr) <- new_name
   x[[part]]$styles$text$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
@@ -213,8 +212,8 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
   pr_id <- x[[part]]$styles$text$get_pr_id_at(i, x$col_keys[j])
   pr <- x[[part]]$styles$text$get_fp()[unique(pr_id)]
   old_name <- names(pr)
-  pr <- map(pr, function(x, italic ) update(x, italic = italic ), italic = italic )
-  new_name <- map_chr(pr, fp_sign )
+  pr <- lapply(pr, function(x, italic ) update(x, italic = italic ), italic = italic )
+  new_name <- sapply(pr, fp_sign )
   names(pr) <- new_name
   x[[part]]$styles$text$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
@@ -252,8 +251,8 @@ color <- function(x, i = NULL, j = NULL, color, part = "body" ){
   pr_id <- x[[part]]$styles$text$get_pr_id_at(i, x$col_keys[j])
   pr <- x[[part]]$styles$text$get_fp()[unique(pr_id)]
   old_name <- names(pr)
-  pr <- map(pr, function(x, color ) update(x, color = color ), color = color )
-  new_name <- map_chr(pr, fp_sign )
+  pr <- lapply(pr, function(x, color ) update(x, color = color ), color = color )
+  new_name <- sapply(pr, fp_sign )
   names(pr) <- new_name
   x[[part]]$styles$text$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
 
@@ -311,14 +310,14 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
   pr <- x[[part]]$styles$pars$get_fp()[unique(pr_id)]
   old_name <- names(pr)
   if(!is.null(padding.top))
-    pr <- map(pr, function(x, padding.top ) update(x, padding.top = padding.top ), padding.top = padding.top )
+    pr <- lapply(pr, function(x, padding.top ) update(x, padding.top = padding.top ), padding.top = padding.top )
   if(!is.null(padding.bottom))
-    pr <- map(pr, function(x, padding.bottom ) update(x, padding.bottom = padding.bottom ), padding.bottom = padding.bottom )
+    pr <- lapply(pr, function(x, padding.bottom ) update(x, padding.bottom = padding.bottom ), padding.bottom = padding.bottom )
   if(!is.null(padding.left))
-    pr <- map(pr, function(x, padding.left ) update(x, padding.left = padding.left ), padding.left = padding.left )
+    pr <- lapply(pr, function(x, padding.left ) update(x, padding.left = padding.left ), padding.left = padding.left )
   if(!is.null(padding.right))
-    pr <- map(pr, function(x, padding.right ) update(x, padding.right = padding.right ), padding.right = padding.right )
-  new_name <- map_chr(pr, fp_sign )
+    pr <- lapply(pr, function(x, padding.right ) update(x, padding.right = padding.right ), padding.right = padding.right )
+  new_name <- sapply(pr, fp_sign )
   names(pr) <- new_name
 
   x[[part]]$styles$pars$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
@@ -361,8 +360,8 @@ align <- function(x, i = NULL, j = NULL, align = "left",
   pr_id <- x[[part]]$styles$pars$get_pr_id_at(i, x$col_keys[j])
   pr <- x[[part]]$styles$pars$get_fp()[unique(pr_id)]
   old_name <- names(pr)
-  pr <- map(pr, function(x, align ) update(x, text.align = align ), align = align )
-  new_name <- map_chr(pr, fp_sign )
+  pr <- lapply(pr, function(x, align ) update(x, text.align = align ), align = align )
+  new_name <- sapply(pr, fp_sign )
   names(pr) <- new_name
 
   x[[part]]$styles$pars$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
@@ -372,7 +371,6 @@ align <- function(x, i = NULL, j = NULL, align = "left",
 
 
 
-#' @importFrom purrr map map_chr
 #' @export
 #' @title Set cell borders
 #' @description change borders of selected rows and columns of a flextable.
@@ -423,14 +421,14 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
   pr <- x[[part]]$styles$cells$get_fp()[unique(pr_id)]
   old_name <- names(pr)
   if(!is.null(border.top))
-    pr <- map(pr, function(x, border.top ) update(x, border.top = border.top ), border.top = border.top )
+    pr <- lapply(pr, function(x, border.top ) update(x, border.top = border.top ), border.top = border.top )
   if(!is.null(border.bottom))
-    pr <- map(pr, function(x, border.bottom ) update(x, border.bottom = border.bottom ), border.bottom = border.bottom )
+    pr <- lapply(pr, function(x, border.bottom ) update(x, border.bottom = border.bottom ), border.bottom = border.bottom )
   if(!is.null(border.left))
-    pr <- map(pr, function(x, border.left ) update(x, border.left = border.left ), border.left = border.left )
+    pr <- lapply(pr, function(x, border.left ) update(x, border.left = border.left ), border.left = border.left )
   if(!is.null(border.right))
-    pr <- map(pr, function(x, border.right ) update(x, border.right = border.right ), border.right = border.right )
-  new_name <- map_chr(pr, fp_sign )
+    pr <- lapply(pr, function(x, border.right ) update(x, border.right = border.right ), border.right = border.right )
+  new_name <- sapply(pr, fp_sign )
   names(pr) <- new_name
 
   x[[part]]$styles$cells$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
@@ -471,9 +469,9 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
   pr_id <- x[[part]]$styles$cells$get_pr_id_at(i, x$col_keys[j])
   pr <- x[[part]]$styles$cells$get_fp()[unique(pr_id)]
   old_name <- names(pr)
-  pr <- map(pr, function(x, rotation ) update(x, text.direction = rotation ), rotation = rotation )
-  pr <- map(pr, function(x, align ) update(x, vertical.align = align ), align = align )
-  new_name <- map_chr(pr, fp_sign )
+  pr <- lapply(pr, function(x, rotation ) update(x, text.direction = rotation ), rotation = rotation )
+  pr <- lapply(pr, function(x, align ) update(x, vertical.align = align ), align = align )
+  new_name <- sapply(pr, fp_sign )
   names(pr) <- new_name
 
   x[[part]]$styles$cells$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)

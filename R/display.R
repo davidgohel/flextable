@@ -1,5 +1,3 @@
-#' @importFrom purrr map_lgl
-#' @importFrom lazyeval is_formula
 #' @import officer
 #' @title Define flextable displayed values
 #' @description Modify flextable displayed values by specifying a
@@ -36,7 +34,7 @@ display <- function(x, i = NULL, col_key,
 
   stopifnot(is.character(pattern), length(pattern)==1)
 
-  if( length( fprops ) && !all(map_lgl( fprops, inherits, "fp_text")) ){
+  if( length( fprops ) && !all(sapply( fprops, inherits, "fp_text")) ){
     stop("argument fprops should be a list of fp_text")
   }
 

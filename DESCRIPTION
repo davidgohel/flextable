@@ -17,7 +17,7 @@ Depends: officer (>= 0.2.0)
 Imports:
     stats,utils,grDevices,magrittr,
     rmarkdown, knitr,htmltools,
-    lazyeval,purrr,tibble,R6,stringr,
+    lazyeval,R6,stringr,
     gdtools (>= 0.1.6)
 RoxygenNote: 6.0.1.9000
 Suggests: xml2, dplyr, testthat

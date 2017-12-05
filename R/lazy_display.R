@@ -1,4 +1,3 @@
-#' @importFrom lazyeval as.lazy interp
 #' @importFrom stats setNames as.formula
 lazy_format_simple <- function( col_key ){
 

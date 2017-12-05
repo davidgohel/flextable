@@ -100,10 +100,10 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
 
   text_fp <- x$styles$text$get_fp()
   text_fp <- append( text_fp, x$styles$formats$get_all_fp() )
-
-  pr_str_df <- map_df(text_fp, function(x){
-    tibble( format = format(x, type = type))
-  }, .id = "pr_id")
+  pr_str_df <- data.frame(
+    pr_id = names(text_fp),
+    format = as.character( sapply(text_fp, format, type = type) ),
+    stringsAsFactors = FALSE )
 
   txt_data <- drop_useless_blank(txt_data)
   dat <- merge(txt_data, pr_str_df, by = "pr_id", all.x = TRUE, all.y = FALSE, sort = FALSE)
@@ -126,7 +126,7 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   tidy_content <- merge(tidy_content, par_data, by = c("id", "col_key"), all.x = TRUE, all.y = FALSE, sort = FALSE)
   tidy_content$str <- par_fun[[type]](tidy_content$format, tidy_content$str)
   tidy_content$format <- NULL
-  # browser()
+
   paragraphs <- as_wide_matrix_(as.data.frame(tidy_content[, c("col_key", "str", "id")]))
 
   cell_data <- x$styles$cells$get_map_format(type = type)

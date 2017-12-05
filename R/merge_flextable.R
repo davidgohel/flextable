@@ -37,7 +37,6 @@ merge_v <- function(x, j = NULL, part = "body" ){
 #' ft_merge <- merge_h(x = ft_merge)
 #' ft_merge
 #' @export
-#' @importFrom lazyeval lazy_eval
 merge_h <- function(x, i = NULL, part = "body" ){
 
   part <- match.arg(part, c("body", "header"), several.ok = FALSE )
@@ -56,7 +55,6 @@ merge_h <- function(x, i = NULL, part = "body" ){
 #'
 #' @param x \code{flextable} object
 #' @param part partname of the table where merge has to be done.
-#' @importFrom lazyeval lazy_eval
 #' @export
 #' @examples
 #' typology <- data.frame(

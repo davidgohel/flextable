@@ -305,12 +305,17 @@ Or to define specific title headers:
 
 ```{r}
 myft <- myft %>%
-  display( col_key = "mpg", pattern = "{{mpg}} {{my_message}}", part = "header",
-           formatters = list(mpg ~ "Miles/(US) gallon", 
-                             my_message ~ sprintf("* with num of carb.") ), 
-              fprops = list(my_message = fp_text(color = "gray", vertical.align = "superscript")
-                            )
-  ) %>% autofit()
+  display( col_key = "mpg", 
+           part = "header",
+           pattern = "Miles/(US) gallon {{my_message}}", 
+           formatters = list(
+             my_message ~ sprintf("* with num of carb.") 
+             ), 
+           fprops = list(
+             my_message = fp_text(color = "gray", vertical.align = "superscript")
+             ) 
+           ) %>% 
+  autofit()
 
 myft
 ```

@@ -3,7 +3,7 @@ globalVariables(c("str", ".", "str_is_run"))
 
 #' @import magrittr
 image_entry <- function(src, width, height){
-  x <- tibble(image_src = src, width = width, height = height)
+  x <- data.frame(image_src = src, width = width, height = height, stringsAsFactors = FALSE)
   class(x) <- c( "image_entry", class(x) )
   x
 }
@@ -17,9 +17,10 @@ format.image_entry = function (x, type = "console", ...){
   } else if( type == "console" ){
     out <- rep("{image_entry:{...}}", nrow(x))
   } else {
-    out <- pmap_chr( x, function(image_src, width, height){
+    out <- mapply( function(image_src, width, height){
       format( external_img(src = image_src, width = width, height = height), type = type )
-    })
+    }, x$image_src, x$width, x$height, SIMPLIFY = FALSE)
+    out <- setNames(unlist(out), NULL)
   }
   out
 }
@@ -33,7 +34,6 @@ format.image_entry = function (x, type = "console", ...){
 #' @param bg background color
 #' @param width,height size of the resulting png file in inches
 #' @importFrom grDevices as.raster col2rgb rgb
-#' @importFrom purrr pwalk
 minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 1, height = .2) {
   stopifnot(value >= 0, max >= 0)
   barcol <- rgb(t(col2rgb(barcol))/255)
@@ -46,13 +46,16 @@ minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 
   value <- as.integer( (value / max) * width_ )
   n_empty <- width_ - value
 
-  src <- map_chr(seq_along(value), function(x) tempfile(fileext = ".png") )
-  rasters <- purrr::pmap(list(value, n_empty), function(count_on, count_off, bg_on, bg_off ){
+  src <- sapply(seq_along(value), function(x) tempfile(fileext = ".png") )
+
+  rasters <- mapply(function(count_on, count_off, bg_on, bg_off ){
     as.raster( matrix(c(rep(bg_on, count_on), rep(bg_off, count_off)), nrow = 1) )
-  }, bg_on = barcol, bg_off = bg )
-  pwalk(list(src = src, raster = rasters ), function(src, raster, width, height){
+  }, value, n_empty, bg_on = barcol, bg_off = bg,
+  SIMPLIFY = FALSE )
+  mapply(function(src, raster, width, height){
     raster_write(x = raster, path = src, width = width*72, height = height*72 )
-  }, width = width, height = height)
+  }, src = src, raster = rasters, width = width, height = height,
+  SIMPLIFY = FALSE )
 
   image_entry(src = src, width = width, height = height)
 }
@@ -90,9 +93,6 @@ drop_column <- function(x, cols){
 
 
 
-
-#' @importFrom tibble tibble
-#' @importFrom purrr pmap_df map_df map_lgl map_dbl map_chr
 
 as_grp_index <- function(x){
   sprintf( "gp_%09.0f", x )

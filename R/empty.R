@@ -3,7 +3,6 @@
 #' @param x \code{flextable} object
 #' @param j columns selection
 #' @param part partname of the table
-#' @importFrom lazyeval lazy_eval
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- void(ft, ~ vs + am + gear + carb )
@@ -39,13 +38,9 @@ display_singlespace.complextable <- function(x, j = NULL, part = "body"){
 }
 
 display_singlespace.regulartable <- function(x, j = NULL, part = "body"){
-
   args_ <- lapply( x$col_keys[j], function(z) function(x) rep(" ", length(x) ) )
   names(args_) <- x$col_keys[j]
   args_$x <- x
   args_$part <- part
   do.call(set_formatter, args_)
-
 }
-
-

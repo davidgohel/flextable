@@ -72,18 +72,16 @@ add_rows.complex_tabpart <- function( x, rows, first = FALSE ){
 }
 
 
-#' @importFrom purrr map_chr
-#' @importFrom purrr map
 merge_index <- function( x, what, byrow = FALSE ){
   if( byrow ){
-    values <- map_chr( x$dataset[what, ], format )
+    values <- sapply( x$dataset[what, ], format )
   } else {
     values <- format( x$dataset[[what]])
   }
 
   rle_ <- rle(x = values )
 
-  vout <- map(.x = rle_$lengths,.f = function(l){
+  vout <- lapply(rle_$lengths, function(l){
     out <- rep(0L, l)
     out[1] <- l
     out
@@ -197,6 +195,7 @@ get_columns_id <- function( x, j = NULL ){
 }
 
 
+#' @importFrom lazyeval lazy_eval
 get_rows_id <- function( x, i = NULL ){
   maxrow <- nrow(x$dataset)
 
