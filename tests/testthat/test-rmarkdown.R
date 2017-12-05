@@ -28,10 +28,7 @@ test_that("docx output", {
     docx <- rmarkdown::render(rmd_file, output_format = "word_document", output_file = docx_file, quiet = TRUE)
     expect_equal(basename(docx), basename(docx_file) )
   } else {
-    expect_error({out <- rmarkdown::render(rmd_file, output_format = "word_document", output_file = docx_file, quiet = TRUE)},
-                   regexp = "pandoc version >= 2.0 required for flextable rendering in docx")
+    expect_error({out <- rmarkdown::render(rmd_file, output_format = "word_document", output_file = docx_file, quiet = TRUE)} )
   }
-
-
 })
 
