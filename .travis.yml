@@ -6,10 +6,9 @@ cache: packages
 r_github_packages:
   - jimhester/covr
 
-matrix:
-  include:
-    - pandoc_version: 1.16
-    - pandoc_version: 2.0.4
+addons:
+  apt_packages:
+    - pandoc
 
 r:
  - oldrel
