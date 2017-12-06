@@ -2,18 +2,10 @@
 
 language: R
 cache: packages
+pandoc_version: 2.0.4
 
 r_github_packages:
   - jimhester/covr
-
-addons:
-  apt_packages:
-    - pandoc
-
-r:
- - oldrel
- - release
- - devel
 
 after_success:
   - Rscript -e 'library(covr);codecov()'
