@@ -31,7 +31,7 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
   out <- style( x = out,
                 pr_p = fp_par(text.align = "right", padding = 2),
                 pr_c = fp_cell(border = fp_border()), part = "all")
-
+  out <- set_formatter_type(out)
   out
 }
 
@@ -64,3 +64,39 @@ set_formatter <- function(x, ..., part = "body"){
   x[[part]]$printers[col_keys] <- formatters[col_keys]
   x
 }
+
+
+#' @export
+#' @rdname set_formatter
+#' @section set_formatter_type:
+#' \code{set_formatter_type} is an helper function to quickly define
+#' formatter functions regarding to column types.
+#' @param fmt_double,fmt_integer arguments used by \code{sprintf} to
+#' format double and integer columns.
+#' @param fmt_date,fmt_datetime arguments used by \code{format} to
+#' format date and date time columns.
+#' @param fun_any function name (character) to use to convert other types of columns
+#' as characters. Note that factors and strings are not transformed by
+#' this function.
+set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
+                               fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
+                               fun_any = "format"){
+
+  stopifnot(inherits(x, "regulartable"))
+
+  col_keys <- setdiff(x[["body"]]$col_keys, x$blanks)
+  formatters <- lapply(x[["body"]]$dataset[col_keys], function(x){
+    if( is.double(x) ) paste0("function(x) sprintf(", shQuote(fmt_double), ", x)")
+    else if( is.integer(x) ) paste0("function(x) sprintf(", shQuote(fmt_integer), ", x)")
+    else if( is.factor(x) ) "function(x) as.character(x)"
+    else if( is.character(x) ) "function(x) as.character(x)"
+    else if( inherits(x, "Date") ) paste0("function(x) format(x, ", shQuote(fmt_date), ")")
+    else if( inherits(x, "POSIXt") ) paste0("function(x) format(x, ", shQuote(fmt_datetime), ")")
+    else paste0("function(x) ", fun_any, "(x)")
+  })
+  formatters <- lapply( formatters, function(x) eval(parse( text = x)) )
+  x[["body"]]$printers[col_keys] <- formatters[col_keys]
+  x
+}
+
+

@@ -2,9 +2,14 @@
 % Please edit documentation in R/regulartable.R
 \name{set_formatter}
 \alias{set_formatter}
+\alias{set_formatter_type}
 \title{set column formatter functions}
 \usage{
 set_formatter(x, ..., part = "body")
+
+set_formatter_type(x, fmt_double = "\%.03f", fmt_integer = "\%.0f",
+  fmt_date = "\%Y-\%m-\%d", fmt_datetime = "\%Y-\%m-\%d \%H:\%M:\%S",
+  fun_any = "format")
 }
 \arguments{
 \item{x}{a regulartable object}
@@ -12,12 +17,28 @@ set_formatter(x, ..., part = "body")
 \item{...}{Name-value pairs of functions, names should be existing col_key values}
 
 \item{part}{partname of the table (one of 'body' or 'header')}
+
+\item{fmt_double, fmt_integer}{arguments used by \code{sprintf} to
+format double and integer columns.}
+
+\item{fmt_date, fmt_datetime}{arguments used by \code{format} to
+format date and date time columns.}
+
+\item{fun_any}{function name (character) to use to convert other types of columns
+as characters. Note that factors and strings are not transformed by
+this function.}
 }
 \description{
 Define formatter functions associated to each column key.
 Functions have a single argument (the vector) and are returning the formatted
 values as a character vector.
 }
+\section{set_formatter_type}{
+
+\code{set_formatter_type} is an helper function to quickly define
+formatter functions regarding to column types.
+}
+
 \examples{
 ft <- regulartable( head( iris ) )
 ft <- set_formatter( x = ft,
