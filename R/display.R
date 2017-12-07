@@ -11,10 +11,26 @@
 #' right side for the content.
 #' @param fprops a named list of \link[officer]{fp_text}
 #' @param part partname of the table (one of 'all', 'body', 'header')
+#' @note
+#' The function \code{display} only works with \code{flextable} objects,
+#' use \code{\link{set_formatter}} for regulartable objects.
+#' @section pattern:
+#' It defined the template used to format the produced strings. Names enclosed
+#' by double braces will be evaluated as R code, the corresponding R code is defined
+#' with the argument \code{formatters}.
+#' @section formatters:
+#' Each compound is specifying the R code to execute to produce strings that will be
+#' substituted in the \code{pattern} argument. An element must be a formula: the
+#' left-hand side is a name (matching a name enclosed by double braces in
+#' \code{pattern}) and the right-hand side is an R expression to be evaluated (that
+#' will produce the corresponding strings).
+#' @section fprops:
+#' A named list of \link[officer]{fp_text}. It defines the formatting properties
+#' associated to a compound in \code{formatters}. If not defined for an element
+#' of \code{formatters}, the default formatting properties will be applied.
 #' @examples
 #'
 #' # Formatting data values example ------
-#' library(magrittr)
 #' ft <- flextable(head( mtcars, n = 10))
 #' ft <- display(ft, col_key = "carb",
 #'   i = ~ drat > 3.5, pattern = "# {{carb}}",
@@ -28,16 +44,13 @@ display <- function(x, i = NULL, col_key,
 
   part <- match.arg(part, c("body", "header"), several.ok = FALSE )
 
-  if( inherits(i, "formula") && any( "header" %in% part ) ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
   stopifnot(is.character(pattern), length(pattern)==1)
 
   if( length( fprops ) && !all(sapply( fprops, inherits, "fp_text")) ){
     stop("argument fprops should be a list of fp_text")
   }
 
+  check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], col_key )
 
