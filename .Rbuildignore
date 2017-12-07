@@ -8,3 +8,4 @@
 ^revdep$
 ^CONDUCT\.md$
 ^inst/tools$
+^cran-comments\.md$
