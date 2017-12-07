@@ -25,6 +25,7 @@ display_parser <- R6Class(
         try(all.vars(x)[1], silent = TRUE)
       })
 
+
       if( any( invalid_varname <- sapply(formatters_varname, inherits, "try-error") ) ){
         invalid_expr <- paste0( "[", sapply( formatters[invalid_varname], format ), "]", collapse = ", " )
         stop("invalid formatters elements (left-hand side): ", invalid_expr, call. = FALSE)
@@ -34,7 +35,7 @@ display_parser <- R6Class(
       # if( length(formatters_varname) > 1 ) browser()
       private$formatters <- formatters
 
-      pattern_ <- "\\{\\{[\\w\\.\\_]+\\}\\}"
+      pattern_ <- "\\{\\{[\\w\\.\\_ ]+\\}\\}"
       matches_pos <- gregexpr(pattern = pattern_, text = x, perl = TRUE)[[1]]
 
       if( length(matches_pos) == 1 && matches_pos == -1 ){
@@ -242,13 +243,12 @@ display_structure <- R6Class(
   inherit = fp_structure,
   public = list(
 
-    initialize = function( nrow_, col_keys ) {
+    initialize = function( nrow_, col_keys, lazy_f ) {
       ncol_ <- length(col_keys)
       id <- rep( seq_len( nrow_ ), ncol_ )
       keys <- rep(col_keys, each = nrow_ )
       map_data <- data.frame(id = id, col_key = keys, stringsAsFactors = FALSE)
 
-      lazy_f <- lapply(col_keys, lazy_format_simple )
       lazy_f_id <- sapply(lazy_f, fp_sign)
       lazy_f_init <- rep(lazy_f_id, each = nrow_ )
 
