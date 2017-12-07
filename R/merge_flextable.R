@@ -97,12 +97,8 @@ merge_none <- function(x, part = "all" ){
 #' @param i,j columns and rows to merge
 #' @param part partname of the table where merge has to be done.
 #' @examples
-#' library(officer)
-#' library(magrittr)
-#'
-#' ft_merge <- head( mtcars ) %>%
-#'   flextable( cwidth = .5 ) %>%
-#'   merge_at( i = 1:2, j = 1:3)
+#' ft_merge <- flextable( head( mtcars ), cwidth = .5 )
+#' ft_merge <- merge_at( ft_merge, i = 1:2, j = 1:3 )
 #' ft_merge
 #' @export
 merge_at <- function(x, i = NULL, j = NULL, part = "body" ){

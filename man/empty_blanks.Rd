@@ -15,8 +15,6 @@ that will delete top and bottom borders, change background color to
 transparent and display empty content.
 }
 \examples{
-library(magrittr)
-
 typology <- data.frame(
   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
                 "Petal.Width", "Species" ),
@@ -25,14 +23,13 @@ typology <- data.frame(
   stringsAsFactors = FALSE )
 typology
 
-head(iris) \%>\%
-  flextable(
-    col_keys = c("Species",
-                 "break1", "Sepal.Length", "Sepal.Width",
-                 "break2", "Petal.Length", "Petal.Width") ) \%>\%
-  set_header_df(mapping = typology, key = "col_keys" ) \%>\%
-  merge_h(part = "header") \%>\%
-  theme_vanilla() \%>\%
-  empty_blanks() \%>\%
-  width(j = c(2, 5), width = .1 )
+ft <- flextable(head(iris), col_keys = c("Species",
+  "break1", "Sepal.Length", "Sepal.Width",
+  "break2", "Petal.Length", "Petal.Width") )
+ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+ft <- merge_h(ft, part = "header")
+ft <- theme_vanilla(ft)
+ft <- empty_blanks(ft)
+ft <- width(ft, j = c(2, 5), width = .1 )
+ft
 }

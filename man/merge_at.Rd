@@ -17,11 +17,7 @@ merge_at(x, i = NULL, j = NULL, part = "body")
 Merge flextable cells
 }
 \examples{
-library(officer)
-library(magrittr)
-
-ft_merge <- head( mtcars ) \%>\%
-  flextable( cwidth = .5 ) \%>\%
-  merge_at( i = 1:2, j = 1:3)
+ft_merge <- flextable( head( mtcars ), cwidth = .5 )
+ft_merge <- merge_at( ft_merge, i = 1:2, j = 1:3 )
 ft_merge
 }
