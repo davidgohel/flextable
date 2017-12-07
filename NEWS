@@ -3,12 +3,11 @@
 ## new features
 
 * new function `knit_print()` to render flextable in rmarkdown.
-* list of dependencies has been reduced and the package is now compatible
-  with at least R >= 3.1.3
 
 ## Changes
 
 * function tabwid() is deprecated in favor of a knit_print implementation.
+* list of dependencies has been reduced.
 
 # flextable 0.3
 
