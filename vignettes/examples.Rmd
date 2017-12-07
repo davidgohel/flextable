@@ -20,7 +20,6 @@ knitr::opts_chunk$set(
 
 ```{r warning=FALSE, echo=FALSE, message=FALSE}
 library(flextable)
-library(magrittr)
 ```
 
 ## Complex header
@@ -96,4 +95,49 @@ ft <- empty_blanks(ft)
 ft <- autofit(ft)
 ft
 ```
+
+## Conditional formatting
+
+Formatting functions accept arguments `i` and `j` to select rows 
+and columns to format. These arguments support formulas, index, logical 
+(and character for columns' names).
+
+```{r}
+ft <- regulartable(head(mtcars))
+ft <- color(ft, i = ~ drat > 3, j = ~ vs + am, color = "red")
+ft <- bg(ft, i = ~ wt < 3, j = ~ mpg, bg = "#EFEF99")
+ft <- bold(ft, i = 2:4, j = "cyl", bold = TRUE)
+ft
+```
+
+## Statistical reporting
+
+```{r}
+
+col_keys <- c("compound", "Df", "Sum Sq", "Mean Sq", "F value", "Pr(>F)") 
+
+stars_pval <- function(x){ 
+  ifelse(x < 0.001, "***", 
+         ifelse(x < 0.01, "**", 
+                ifelse(x < 0.05, "*", 
+                       ifelse(x < 0.1, ".", ""))))
+}
+
+if( require("stats")){
+  zz <- summary( aov(yield ~ block + N * P + K, npk) )
+  summary_table <- as.data.frame(zz[[1]])
+  summary_table$compound <- row.names(summary_table)
+  summary_table$Df <- as.integer(summary_table$Df)
+  summary_table <- summary_table[-nrow(summary_table), ]
+  print(summary_table)
+  
+  ft <- regulartable( summary_table, col_keys = col_keys ) 
+  ft <- theme_booktabs(ft)
+  ft <- set_formatter( ft, `Pr(>F)` = stars_pval) 
+  ft <- autofit(ft)
+    
+  ft
+}
+```
+
 
