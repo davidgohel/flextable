@@ -19,6 +19,7 @@ docx_file <- gsub("\\.Rmd$", ".docx", rmd_file )
 html_file <- gsub("\\.Rmd$", ".html", rmd_file )
 
 test_that("html output", {
+  testthat::skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   html <- rmarkdown::render(rmd_file, output_format = "html_document", output_file = html_file, quiet = TRUE)
   expect_equal(basename(html), basename(html_file) )
 })
