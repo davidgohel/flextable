@@ -14,6 +14,12 @@ matrix:
       sudo: false
       pandoc_version: 2.0.4
 
+r:
+ - oldrel
+ - release
+ - devel
+ - 3.1.3
+
 r_github_packages:
   - jimhester/covr
 
