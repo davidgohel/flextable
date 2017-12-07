@@ -1,3 +1,4 @@
+#' @importFrom stats as.formula
 #' @importFrom officer fp_sign fp_cell fp_par fp_text
 complex_tabpart <- function( data, col_keys = names(data),
                         default_pr_text = fp_text(),
@@ -9,7 +10,25 @@ complex_tabpart <- function( data, col_keys = names(data),
   pr_cell_init <- fp_structure$new(nrow(data), col_keys, default_pr_cell )
   pr_par_init <- fp_structure$new(nrow(data), col_keys, default_pr_par )
   pr_text_init <- fp_structure$new(nrow(data), col_keys, default_pr_text )
-  pr_display_init <- display_structure$new(nrow(data), col_keys )
+
+  set_formatter_type_formals <- formals(set_formatter_type)
+  formatters <- mapply(function(x, varname){
+    if( is.double(x) ) paste0(varname, " ~ sprintf(", shQuote(set_formatter_type_formals$fmt_double), ", `", varname ,"`)")
+    else if( is.integer(x) ) paste0(varname, " ~ sprintf(", shQuote(set_formatter_type_formals$fmt_integer), ", `", varname ,"`)")
+    else if( is.factor(x) ) paste0(varname, " ~ as.character(`", varname ,"`)")
+    else if( is.character(x) ) paste0(varname, " ~ as.character(`", varname ,"`)")
+    else if( inherits(x, "Date") ) paste0(varname, " ~ format(`", varname ,"`, ", shQuote(set_formatter_type_formals$fmt_date), ")")
+    else if( inherits(x, "POSIXt") ) paste0(varname, " ~ format(`", varname ,"`, ", shQuote(set_formatter_type_formals$fmt_datetime), ")")
+    else paste0(varname, " ~ ", set_formatter_type_formals$fun_any, "(`", varname ,"`)")
+  }, data[col_keys], col_keys, SIMPLIFY = FALSE)
+  formatters <- mapply(function(f, varname){
+    display_parser$new(x = paste0("{{", varname, "}}"),
+                       formatters = list( as.formula( f ) ),
+                       fprops = list() )
+  }, formatters, col_keys )
+
+
+  pr_display_init <- display_structure$new(nrow(data), col_keys, formatters )
 
   span_init <- matrix(1L, nrow = nrow(data), ncol = length(col_keys) )
   spans <- list( rows = span_init, columns = span_init )
@@ -168,7 +187,7 @@ get_columns_id <- function( x, j = NULL ){
   }
 
   if( inherits(j, "formula") ){
-    j <- attr(terms(j), "term.labels")
+    j <- get_j_from_formula(j, x$dataset)
   }
 
   if( is.numeric (j) ){
@@ -195,7 +214,6 @@ get_columns_id <- function( x, j = NULL ){
 }
 
 
-#' @importFrom lazyeval lazy_eval
 get_rows_id <- function( x, i = NULL ){
   maxrow <- nrow(x$dataset)
 
@@ -203,7 +221,7 @@ get_rows_id <- function( x, i = NULL ){
     i <- seq_len(maxrow)
   }
   if( inherits(i, "formula") ){
-    i <- lazy_eval(i[[2]], x$dataset)
+    i <- get_i_from_formula(i, x$dataset)
   }
 
   if( is.numeric (i) ){
