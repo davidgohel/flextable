@@ -1,7 +1,6 @@
 
 globalVariables(c("str", ".", "str_is_run"))
 
-#' @import magrittr
 image_entry <- function(src, width, height){
   x <- data.frame(image_src = src, width = width, height = height, stringsAsFactors = FALSE)
   class(x) <- c( "image_entry", class(x) )
@@ -71,11 +70,9 @@ minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 
 #' @param width,height size of the png file in inches
 #' @seealso \code{\link{display}}
 #' @examples
-#' library(magrittr)
 #' img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
 #' myft <- flextable(head( mtcars, n = 10))
-#' myft <- myft %>%
-#'   display(
+#' myft <- display(myft,
 #'     i = ~ qsec > 18, col_key = "qsec", pattern = "{{r_logo}}",
 #'     formatters = list( r_logo ~ as_image(qsec,
 #'       src = img.file, width = .20, height = .15)),
@@ -127,4 +124,32 @@ drop_useless_blank <- function( x ){
   })
   do.call(rbind, x)
 }
+
+get_i_from_formula <- function( f, data ){
+  if( length(f) > 2 )
+    stop("formula selection is not as expected ( ~ condition )", call. = FALSE)
+  i <- eval(as.call(f[[2]]), envir = data)
+  if( !is.logical(i) )
+    stop("formula selection should return a logical vector", call. = FALSE)
+  i
+}
+get_j_from_formula <- function( f, data ){
+  if( length(f) > 2 )
+    stop("formula selection is not as expected ( ~ variables )", call. = FALSE)
+  j <- attr(terms(f), "term.labels")
+  names_ <- names(data)
+  if( any( invalid_names <- (!j %in% names_) ) ){
+    invalid_names <- paste0("[", j[invalid_names], "]", collapse = ", ")
+    stop("unknown variables:", invalid_names, call. = FALSE)
+  }
+  j
+}
+
+check_formula_i_and_part <- function(i, part){
+  if( inherits(i, "formula") && "header" %in% part ){
+    stop("formula in argument i cannot adress part 'header'.", call. = FALSE)
+  }
+  TRUE
+}
+
 

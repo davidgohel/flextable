@@ -41,10 +41,7 @@ style <- function(x, i = NULL, j = NULL,
     return(x)
   }
 
-  if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
+  check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
 
@@ -80,10 +77,7 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
     return(x)
   }
 
-  if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
+  check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
 
@@ -122,10 +116,7 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
     return(x)
   }
 
-  if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
+  check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
 
@@ -162,10 +153,7 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
     return(x)
   }
 
-  if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
+  check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
 
@@ -202,10 +190,7 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
     return(x)
   }
 
-  if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
+  check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
 
@@ -241,10 +226,7 @@ color <- function(x, i = NULL, j = NULL, color, part = "body" ){
     return(x)
   }
 
-  if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
+  check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
 
@@ -299,10 +281,7 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
     return(x)
   }
 
-  if( inherits(i, "formula") && any( "header" %in% part ) ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
+  check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
 
@@ -350,10 +329,7 @@ align <- function(x, i = NULL, j = NULL, align = "left",
     return(x)
   }
 
-  if( inherits(i, "formula") && any( "header" %in% part ) ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
+  check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
 
@@ -410,10 +386,7 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
     return(x)
   }
 
-  if( inherits(i, "formula") && any( "header" %in% part ) ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
+  check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
 
@@ -459,10 +432,7 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
     return(x)
   }
 
-  if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header'.")
-  }
-
+  check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
 
@@ -487,8 +457,6 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
 #' transparent and display empty content.
 #' @param x a flextable object
 #' @examples
-#' library(magrittr)
-#'
 #' typology <- data.frame(
 #'   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
 #'                 "Petal.Width", "Species" ),
@@ -497,16 +465,15 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
 #'   stringsAsFactors = FALSE )
 #' typology
 #'
-#' head(iris) %>%
-#'   flextable(
-#'     col_keys = c("Species",
-#'                  "break1", "Sepal.Length", "Sepal.Width",
-#'                  "break2", "Petal.Length", "Petal.Width") ) %>%
-#'   set_header_df(mapping = typology, key = "col_keys" ) %>%
-#'   merge_h(part = "header") %>%
-#'   theme_vanilla() %>%
-#'   empty_blanks() %>%
-#'   width(j = c(2, 5), width = .1 )
+#' ft <- flextable(head(iris), col_keys = c("Species",
+#'   "break1", "Sepal.Length", "Sepal.Width",
+#'   "break2", "Petal.Length", "Petal.Width") )
+#' ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+#' ft <- merge_h(ft, part = "header")
+#' ft <- theme_vanilla(ft)
+#' ft <- empty_blanks(ft)
+#' ft <- width(ft, j = c(2, 5), width = .1 )
+#' ft
 #' @export
 empty_blanks <- function(x){
   if( length(x$blanks) < 1 ) return(x)

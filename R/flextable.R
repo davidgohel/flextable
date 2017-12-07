@@ -28,6 +28,9 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
   if( any( duplicated(col_keys) ) ){
     stop("duplicated col_keys")
   }
+  if( !all( make.names(col_keys) == col_keys ) ){
+    stop("invalid col_keys, flextable support only syntactic names")
+  }
 
   blanks <- setdiff( col_keys, names(data))
   if( length( blanks ) > 0 ){
@@ -78,12 +81,12 @@ htmltools_value <- function(x){
 #' @export
 #' @rdname flextable
 #' @param x flextable object
-#' @param preview preview type, one of c("html", "pptx", "docx").
+#' @param preview preview type, one of c("html", "pptx", "docx", "log").
 #' @param ... unused argument
 #' @importFrom utils browseURL
 #' @importFrom officer read_pptx add_slide read_docx
 print.flextable <- function(x, preview = "html", ...){
-  if (!interactive() ){
+  if (!interactive() || "log" %in% preview ){
     print(x$body$dataset)
   } else {
     if( preview == "html" ){

@@ -22,7 +22,7 @@ the dataset, they will be added as blank columns by default.}
 
 \item{x}{flextable object}
 
-\item{preview}{preview type, one of c("html", "pptx", "docx").}
+\item{preview}{preview type, one of c("html", "pptx", "docx", "log").}
 
 \item{...}{unused argument}
 }
