@@ -9,13 +9,13 @@ Authors@R: c(
       comment = "rmarkdown for docx output"))
 Description: Create pretty tables for 'Microsoft Word', 'Microsoft PowerPoint' and 'HTML' documents. 
   Functions are provided to let users create tables, modify and format their content. 
-  It extends package 'officer' that does not contain any feature for customized tabular reporting. 
-  Function tabwid() produces an 'htmlwidget' ready to be used in 'Shiny' or 'R Markdown (*.Rmd)' documents.
+  It extends package 'officer' that does not contain any feature for customized tabular reporting 
+  and can be used with R Markdown documents.
 License: GPL-3
 LazyData: TRUE
-Depends: officer (>= 0.2.0)
 Imports:
     stats,utils,grDevices,
+    officer (>= 0.2.0),
     rmarkdown, knitr,htmltools,
     lazyeval,R6,stringr,
     gdtools (>= 0.1.6)

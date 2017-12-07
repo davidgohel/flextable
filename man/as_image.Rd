@@ -19,7 +19,8 @@ The function has to be used with function display().
 It lets add images within flextable.
 }
 \examples{
-img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+library(officer)
+img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 myft <- flextable(head( mtcars, n = 10))
 myft <- display(myft,
     i = ~ qsec > 18, col_key = "qsec", pattern = "{{r_logo}}",
