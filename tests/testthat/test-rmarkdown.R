@@ -1,4 +1,4 @@
-context("check rmarkdown")
+context(paste("check rmarkdown with pandoc", as.character(rmarkdown::pandoc_version()) ))
 
 rmd_file <- tempfile(fileext = ".Rmd")
 cat("
@@ -28,7 +28,8 @@ test_that("docx output", {
     docx <- rmarkdown::render(rmd_file, output_format = "word_document", output_file = docx_file, quiet = TRUE)
     expect_equal(basename(docx), basename(docx_file) )
   } else {
-    expect_error({out <- rmarkdown::render(rmd_file, output_format = "word_document", output_file = docx_file, quiet = TRUE)} )
+    expect_error({out <- rmarkdown::render(rmd_file, output_format = "word_document", output_file = docx_file, quiet = TRUE)},
+                 regexp = "2.0 required for flextable rendering in docx")
   }
 })
 
