@@ -1,7 +1,6 @@
 # display_parser -----
 
 
-#' @importFrom stringr str_replace_all
 #' @importFrom R6 R6Class
 display_parser <- R6Class(
   "display_parser",

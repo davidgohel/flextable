@@ -10,6 +10,7 @@ par_fun <- list(
   html = function(format, str) paste0("<p style=\"", format, "\">", str, "</p>")
 )
 
+#' @importFrom stringr str_replace_all
 cell_fun <- list(
   wml = function(str, format, span_rows, span_columns, colwidths){
     format <- str_replace_all(format, "<w:tcPr>",
