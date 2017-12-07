@@ -31,6 +31,7 @@ border(x, i = NULL, j = NULL, border = NULL, border.top = NULL,
 change borders of selected rows and columns of a flextable.
 }
 \examples{
+library(officer)
 ft <- flextable(mtcars)
 ft <- border(ft, border.top = fp_border(color = "orange") )
 }

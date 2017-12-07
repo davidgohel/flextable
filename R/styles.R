@@ -10,6 +10,7 @@
 #' @param part partname of the table (one of 'all', 'body', 'header')
 #' @importFrom stats terms update
 #' @examples
+#' library(officer)
 #' def_cell <- fp_cell(border = fp_border(color="#00FFFF"))
 #'
 #' def_par <- fp_par(text.align = "center")
@@ -360,6 +361,7 @@ align <- function(x, i = NULL, j = NULL, align = "left",
 #' @param border.left border left
 #' @param border.right border right
 #' @examples
+#' library(officer)
 #' ft <- flextable(mtcars)
 #' ft <- border(ft, border.top = fp_border(color = "orange") )
 border <- function(x, i = NULL, j = NULL, border = NULL,

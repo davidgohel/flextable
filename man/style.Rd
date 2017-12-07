@@ -26,6 +26,7 @@ style(x, i = NULL, j = NULL, pr_t = NULL, pr_p = NULL, pr_c = NULL,
 Modify flextable text, paragraphs and cells formatting properties.
 }
 \examples{
+library(officer)
 def_cell <- fp_cell(border = fp_border(color="#00FFFF"))
 
 def_par <- fp_par(text.align = "center")

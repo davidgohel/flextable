@@ -56,7 +56,7 @@ of \code{formatters}, the default formatting properties will be applied.
 }
 
 \examples{
-
+library(officer)
 # Formatting data values example ------
 ft <- flextable(head( mtcars, n = 10))
 ft <- display(ft, col_key = "carb",

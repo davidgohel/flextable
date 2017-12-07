@@ -5,4 +5,6 @@
 ^appveyor\.yml$
 ^docs$
 ^_pkgdown\.yml$
-revdep
+^revdep$
+^CONDUCT\.md$
+^inst/tools$
