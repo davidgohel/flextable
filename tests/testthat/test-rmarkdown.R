@@ -26,7 +26,10 @@ test_that("html output", {
 
 test_that("docx output", {
 
-  testthat::skip_if_not(rmarkdown::pandoc_available("1.12.3"))
+  skip_if_not(Sys.which('pandoc') != "")
+  skip_if_not(Sys.which('pandoc-citeproc') != "")
+  skip_if_not(rmarkdown::pandoc_available("1.12.3"))
+
   if (rmarkdown::pandoc_version() >= 2){
     docx <- rmarkdown::render(rmd_file, output_format = "word_document", output_file = docx_file, quiet = TRUE)
     expect_equal(basename(docx), basename(docx_file) )
