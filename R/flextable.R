@@ -82,12 +82,18 @@ htmltools_value <- function(x){
 #' @rdname flextable
 #' @param x flextable object
 #' @param preview preview type, one of c("html", "pptx", "docx", "log").
+#' When \code{"log"} is used, a description of the flextable is printed.
 #' @param ... unused argument
 #' @importFrom utils browseURL
 #' @importFrom officer read_pptx add_slide read_docx
 print.flextable <- function(x, preview = "html", ...){
   if (!interactive() || "log" %in% preview ){
-    print(x$body$dataset)
+    cat("type:", ifelse( inherits(x, "regulartable"), "regulartable", "flextable" ), "object.\n")
+    cat( "col_keys:", paste0("`", x$col_keys, "`", collapse = ", " ), "\n" )
+    cat( "header has", nrow(x$header$dataset), "row(s)", "\n" )
+    cat( "body has", nrow(x$body$dataset), "row(s)", "\n" )
+    cat("original dataset sample:", "\n")
+    print(x$body$dataset[seq_len( min(c(5, nrow(x$body$dataset) ) ) ), ])
   } else {
     if( preview == "html" ){
       print( browsable( htmltools_value(x) ) )
