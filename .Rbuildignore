@@ -9,3 +9,4 @@
 ^CONDUCT\.md$
 ^inst/tools$
 ^cran-comments\.md$
+^ISSUE_TEMPLATE\.md$
