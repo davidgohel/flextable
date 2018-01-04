@@ -15,7 +15,7 @@ test_that("dimensions are valid", {
   expect_length(dims$widths, 1 )
   expect_length(dims$heights, 8 )
 
-  ft <- height(ft, height = .15, part = "all")
+  ft <- height_all(ft, height = .15, part = "all")
   dims <- dim(ft)
   expect_true(all( is.finite(dims$widths)))
   expect_true(all( is.finite(dims$heights)))
@@ -57,9 +57,8 @@ test_that("height usage", {
                           stringsAsFactors = FALSE )
   ft <- flextable(dummy_df)
   dims <- dim_pretty(ft)
-  expect_silent({ft <- height(ft, height = dims$heights, part = "all") })
+  expect_silent({ft <- height_all(ft, height = .25, part = "all") })
   expect_error({ft <- height(ft, height = dims$heights[-1], part = "all") })
-  expect_silent({ft <- height(ft, height = .25, part = "all") })
   expect_error({ft <- height(ft, height = 1:3, part = "body") })
 })
 

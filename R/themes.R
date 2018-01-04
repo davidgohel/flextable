@@ -44,21 +44,39 @@ theme_box <- function(x){
 #' ft <- theme_zebra(ft)
 theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
                         even_header = "transparent", even_body = "transparent" ){
+  h_nrow <- nrow_part(x, "header")
+  f_nrow <- nrow_part(x, "footer")
+  b_nrow <- nrow_part(x, "body")
+
   x <- border(x = x, border = fp_border(width = 0), part = "all")
   x <- padding(x = x, padding = 2, part = "all")
   x <- align(x = x, align = "right", part = "all")
-  even <- seq_len( nrow(x$body$dataset) ) %% 2 == 0
-  odd <- !even
 
-  x <- bg(x = x, i = odd, bg = odd_body, part = "body")
-  x <- bg(x = x, i = even, bg = even_body, part = "body")
+  if(h_nrow > 0 ){
+    even <- seq_len( h_nrow ) %% 2 == 0
+    odd <- !even
 
-  even <- seq_len( nrow(x$header$dataset) ) %% 2 == 0
-  odd <- !even
+    x <- bg(x = x, i = odd, bg = odd_header, part = "header")
+    x <- bg(x = x, i = even, bg = even_header, part = "header")
+    x <- bold(x = x, bold = TRUE, part = "header")
+  }
+  if(f_nrow > 0 ){
+    even <- seq_len( f_nrow ) %% 2 == 0
+    odd <- !even
 
-  x <- bg(x = x, i = odd, bg = odd_header, part = "header")
-  x <- bg(x = x, i = even, bg = even_header, part = "header")
-  x <- bold(x = x, bold = TRUE, part = "header")
+    x <- bg(x = x, i = odd, bg = odd_header, part = "footer")
+    x <- bg(x = x, i = even, bg = even_header, part = "footer")
+    x <- bold(x = x, bold = TRUE, part = "footer")
+  }
+  if(b_nrow > 0 ){
+    even <- seq_len( b_nrow ) %% 2 == 0
+    odd <- !even
+
+    x <- bg(x = x, i = odd, bg = odd_body, part = "body")
+    x <- bg(x = x, i = even, bg = even_body, part = "body")
+  }
+
+
 
   x
 }
@@ -71,14 +89,29 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
 #' ft <- flextable(iris)
 #' ft <- theme_tron_legacy(ft)
 theme_tron_legacy <- function(x){
+
+  h_nrow <- nrow_part(x, "header")
+  f_nrow <- nrow_part(x, "footer")
+  b_nrow <- nrow_part(x, "body")
+
   x <- border(x = x, border = fp_border(width = 1, color = "#6FC3DF"),
               part = "all")
   x <- padding(x = x, padding = 2, part = "all")
   x <- align(x = x, align = "right", part = "all")
   x <- bg(x = x, bg = "#0C141F", part = "all")
-  x <- bold(x = x, bold = TRUE, part = "header")
-  x <- color(x = x, color = "#DF740C", part = "header")
-  x <- color(x = x, color = "#FFE64D", part = "body")
+
+  if(h_nrow > 0 ){
+    x <- bold(x = x, bold = TRUE, part = "header")
+    x <- color(x = x, color = "#DF740C", part = "header")
+  }
+  if(f_nrow > 0 ){
+    x <- color(x = x, color = "#DF740C", part = "footer")
+  }
+  if(b_nrow > 0 ){
+    x <- color(x = x, color = "#FFE64D", part = "body")
+  }
+
+
   x
 }
 
@@ -90,14 +123,28 @@ theme_tron_legacy <- function(x){
 #' ft <- flextable(iris)
 #' ft <- theme_tron(ft)
 theme_tron <- function(x){
+
+  h_nrow <- nrow_part(x, "header")
+  f_nrow <- nrow_part(x, "footer")
+  b_nrow <- nrow_part(x, "body")
+
   x <- border(x = x, border = fp_border(width = 1, color = "#a4cee5"),
               part = "all")
   x <- padding(x = x, padding = 2, part = "all")
   x <- align(x = x, align = "right", part = "all")
   x <- bg(x = x, bg = "#000000", part = "all")
-  x <- bold(x = x, bold = TRUE, part = "header")
-  x <- color(x = x, color = "#ec9346", part = "header")
-  x <- color(x = x, color = "#a4cee5", part = "body")
+
+  if(h_nrow > 0 ){
+    x <- bold(x = x, bold = TRUE, part = "header")
+    x <- color(x = x, color = "#ec9346", part = "header")
+  }
+  if(f_nrow > 0 ){
+    x <- color(x = x, color = "#ec9346", part = "footer")
+  }
+  if(b_nrow > 0 ){
+    x <- color(x = x, color = "#a4cee5", part = "body")
+  }
+
   x
 }
 
@@ -112,23 +159,32 @@ theme_booktabs <- function(x){
   null_border <- fp_border(width = 0)
   big_border <- fp_border(width = 2)
   std_border <- fp_border(width = 1)
-  h_nrow <- nrow(x$header$dataset)
-  b_nrow <- nrow(x$body$dataset)
+  h_nrow <- nrow_part(x, "header")
+  f_nrow <- nrow_part(x, "footer")
+  b_nrow <- nrow_part(x, "body")
 
-  x <- border(x = x, border = null_border, part = "header")
-  x <- border(x = x, i = 1, border.top = big_border, part = "header")
-  x <- border(x = x, i = h_nrow, border.bottom = big_border, part = "header")
-
-  x <- border(x = x, border.bottom = fp_border(width = 1, color = "black"),
-              border.top = fp_border(width = 1, color = "black"),
-              border.left = fp_border(width = 0),
-              border.right = fp_border(width = 0),
-              part = "body")
-  x <- border(x = x, i = b_nrow, border.bottom = big_border, part = "body")
+  if(h_nrow > 0 ){
+    x <- border(x = x, border = null_border, part = "header")
+    x <- border(x = x, i = 1, border.top = big_border, part = "header")
+    x <- border(x = x, i = h_nrow, border.bottom = big_border, part = "header")
+    x <- bold(x = x, bold = TRUE, part = "header")
+  }
+  if(f_nrow > 0 ){
+    x <- border(x = x, border = null_border, part = "footer")
+    x <- border(x = x, i = 1, border.top = big_border, part = "footer")
+    x <- border(x = x, i = f_nrow, border.bottom = big_border, part = "footer")
+  }
+  if(b_nrow > 0 ){
+    x <- border(x = x, border.bottom = fp_border(width = 1, color = "black"),
+                border.top = fp_border(width = 1, color = "black"),
+                border.left = fp_border(width = 0),
+                border.right = fp_border(width = 0),
+                part = "body")
+    x <- border(x = x, i = b_nrow, border.bottom = big_border, part = "body")
+  }
 
   x <- style( x = x, pr_p = fp_par(text.align = "right", padding = 2), part = "all")
   x <- bg(x = x, bg = "transparent", part = "all")
-  x <- bold(x = x, bold = TRUE, part = "header")
   x
 
 }

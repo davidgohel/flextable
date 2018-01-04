@@ -48,7 +48,10 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
 
   header <- complex_tabpart( data = header_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
 
-  out <- list( header = header, body = body, col_keys = col_keys,
+  footer_data <- header_data[FALSE, , drop = FALSE]
+  footer <- complex_tabpart( data = footer_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
+
+  out <- list( header = header, body = body, footer = footer, col_keys = col_keys,
                blanks = blanks )
   class(out) <- c("flextable", "complextable")
 

@@ -2,9 +2,12 @@
 % Please edit documentation in R/flextable_sizes.R
 \name{height}
 \alias{height}
+\alias{height_all}
 \title{Set flextable rows height}
 \usage{
 height(x, i = NULL, height, part = "body")
+
+height_all(x, height, part = "all")
 }
 \arguments{
 \item{x}{flextable object}
@@ -16,7 +19,7 @@ height(x, i = NULL, height, part = "body")
 \item{part}{partname of the table}
 }
 \description{
-control rows height
+control rows height.
 }
 \examples{
 

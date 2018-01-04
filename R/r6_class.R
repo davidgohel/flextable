@@ -150,7 +150,7 @@ fp_structure <- R6Class(
       map_data <- data.frame(id = id, col_key = keys, stringsAsFactors = FALSE)
       fp_signature <- fp_sign(fp)
       private$add_fp(fp, fp_signature)
-      map_data$pr_id <- fp_signature
+      map_data$pr_id <- rep(fp_signature, nrow_ )
       private$map_data <- map_data
       private$col_keys <- col_keys
     },
@@ -196,23 +196,27 @@ fp_structure <- R6Class(
       self
     },
     add_rows = function(nrows, first){
-      nrow_data <- max(private$map_data$id)
-      model_id <- ifelse( first, 1, nrow_data )
+
       ncol <- length(private$col_keys)
 
       map_data <- private$map_data
-      map_data_new <- private$map_data
-      map_data_new <- map_data_new[map_data_new$id %in% model_id, ]
 
+      map_data_new <- data.frame(
+        id = 0,
+        col_key = private$col_keys,
+        pr_id = names(private$fp_list)[length(private$fp_list)],
+        stringsAsFactors = FALSE)
+      map_data_new <- lapply(seq_len(nrows), function(x, dat) {dat$id <- x; dat }, map_data_new )
+      map_data_new <- do.call(rbind, map_data_new)
+      #
       if( first ){
-        map_data_new <- lapply(seq_len(nrows), function(x, dat) {dat$id <- x; dat }, map_data_new )
-        map_data_new <- do.call(rbind, map_data_new)
         map_data$id <- map_data$id + nrows
         map_data <- rbind(map_data_new, map_data)
       } else {
-        map_data_new <- lapply(seq_len(nrows) + model_id - 1, function(x, dat) {dat$id <- x; dat }, map_data_new )
-        map_data_new <- do.call(rbind, map_data_new)
-        map_data_new$id <- map_data_new$id + nrows
+        last_id <- 0
+        if( nrow(map_data) > 0 )
+          last_id <- max(map_data$id)
+        map_data_new$id <- map_data_new$id + nrows - 1 + last_id
         map_data <- rbind(map_data, map_data_new)
       }
       private$map_data <- map_data

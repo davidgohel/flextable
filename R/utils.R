@@ -149,8 +149,16 @@ get_j_from_formula <- function( f, data ){
 check_formula_i_and_part <- function(i, part){
   if( inherits(i, "formula") && "header" %in% part ){
     stop("formula in argument i cannot adress part 'header'.", call. = FALSE)
+  } else if( inherits(i, "formula") && "footer" %in% part ){
+    stop("formula in argument i cannot adress part 'header'.", call. = FALSE)
   }
   TRUE
 }
 
-
+nrow_part <- function(x, part){
+  if( is.null(x[[part]]) )
+    0
+  else if( is.null(x[[part]]$dataset) )
+    0
+  else nrow(x[[part]]$dataset)
+}

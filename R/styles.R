@@ -25,11 +25,11 @@
 style <- function(x, i = NULL, j = NULL,
                   pr_t = NULL, pr_p = NULL, pr_c = NULL, part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
     args <- list()
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       args$x <- x
       args$i <- i
       args$j <- j
@@ -41,6 +41,9 @@ style <- function(x, i = NULL, j = NULL,
     }
     return(x)
   }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
@@ -69,14 +72,17 @@ style <- function(x, i = NULL, j = NULL,
 #' ft <- bg(ft, bg = "#DDDDDD", part = "header")
 bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       x <- bg(x = x, i = i, j = j, bg = bg, part = p)
     }
     return(x)
   }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
@@ -108,14 +114,17 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
 #' ft <- bold(ft, bold = TRUE, part = "header")
 bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       x <- bold(x = x, i = i, j = j, bold = bold, part = p)
     }
     return(x)
   }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
@@ -145,14 +154,17 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
 #' ft <- fontsize(ft, size = 14, part = "header")
 fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       x <- fontsize(x = x, i = i, j = j, size = size, part = p)
     }
     return(x)
   }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
@@ -182,14 +194,17 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
 #' ft <- italic(ft, italic = TRUE, part = "header")
 italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       x <- italic(x = x, i = i, j = j, italic = italic, part = p)
     }
     return(x)
   }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
@@ -218,14 +233,17 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
 #' ft <- color(ft, color = "orange", part = "header")
 color <- function(x, i = NULL, j = NULL, color, part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       x <- color(x = x, i = i, j = j, color = color, part = p)
     }
     return(x)
   }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
@@ -264,7 +282,7 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
                     padding.left = NULL, padding.right = NULL,
                     part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( !is.null(padding) ){
     if( is.null( padding.top) ) padding.top <- padding
@@ -273,7 +291,7 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
     if( is.null( padding.right) ) padding.right <- padding
   }
   if( part == "all" ){
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       x <- padding(x = x, i = i, j = j,
                    padding.top = padding.top, padding.bottom = padding.bottom,
                    padding.left = padding.left, padding.right = padding.right,
@@ -281,6 +299,9 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
     }
     return(x)
   }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
@@ -321,14 +342,17 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 align <- function(x, i = NULL, j = NULL, align = "left",
                     part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       x <- align(x = x, i = i, j = j, align = align, part = p)
     }
     return(x)
   }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
@@ -369,7 +393,7 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
                    border.left = NULL, border.right = NULL,
                    part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( !is.null(border) ){
     if( is.null( border.top) ) border.top <- border
@@ -379,7 +403,7 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
   }
 
   if( part == "all" ){
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       x <- border(x = x, i = i, j = j,
                   border.top = border.top, border.bottom = border.bottom,
                   border.left = border.left, border.right = border.right,
@@ -387,6 +411,11 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
     }
     return(x)
   }
+
+  # if( "footer" %in% part ) browser()
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
@@ -425,14 +454,17 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 #' ft <- rotate(ft, rotation = "lrtb", align = "top", part = "header")
 rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       x <- rotate(x = x, i = i, j = j, rotation = rotation, part = p)
     }
     return(x)
   }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )

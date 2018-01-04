@@ -9,14 +9,17 @@
 #' @export
 void <- function(x, j = NULL, part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       x <- void(x = x, j = j, part = p)
     }
     return(x)
   }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   j <- get_columns_id(x[[part]], j )
   display_singlespace(x = x, j = j, part = part )

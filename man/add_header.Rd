@@ -2,9 +2,12 @@
 % Please edit documentation in R/set_headers.R
 \name{add_header}
 \alias{add_header}
-\title{Add a row of labels in headers}
+\alias{add_footer}
+\title{Add a row of labels in header or footer part}
 \usage{
 add_header(x, top = TRUE, ...)
+
+add_footer(x, top = TRUE, ...)
 }
 \arguments{
 \item{x}{a \code{flextable} object}
@@ -15,12 +18,8 @@ add_header(x, top = TRUE, ...)
 specifying corresponding labels to add.}
 }
 \description{
-Add a single row of labels in the flextable's header part. It can
-be inserted at the top or the bottom of header part.
-}
-\details{
-An horizontal and a vertical merge are performed automatically.
-Use \code{\link{merge_none}} to drop theses merging instructions.
+Add a single row of labels in the flextable's header
+or footer part. It can be inserted at the top or the bottom of the part.
 }
 \examples{
 ft <- flextable( head( iris ),
@@ -32,5 +31,7 @@ ft <- add_header(ft, Sepal.Length = "Inches",
   Sepal.Width = "Inches", Petal.Length = "Inches",
   Petal.Width = "Inches", Species = "Species", top = TRUE )
 ft <- merge_h(ft, part = "header")
+ft <- add_footer(ft, Species = "This is a footnote" )
+ft <- merge_at(ft, j = 1:5, part = "footer")
 ft
 }

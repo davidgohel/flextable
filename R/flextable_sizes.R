@@ -28,7 +28,7 @@ width <- function(x, j = NULL, width){
 
 #' @export
 #' @title Set flextable rows height
-#' @description control rows height
+#' @description control rows height.
 #' @param x flextable object
 #' @param i rows selection
 #' @param height height in inches
@@ -40,36 +40,13 @@ width <- function(x, j = NULL, width){
 #'
 height <- function(x, i = NULL, height, part = "body"){
 
-  part <- match.arg(part, c("all", "body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
-  if( inherits(i, "formula") && any( c("header", "all") %in% part ) ){
-    stop("formula in argument i cannot adress part 'header' or 'all'.")
+  if( inherits(i, "formula") && any( c("header", "footer") %in% part ) ){
+    stop("formula in argument i cannot adress part 'header' or 'footer'.")
   }
 
-  if( part == "all" ){
-    nrow_h <- nrow(x$header$dataset)
-    nrow_b <- nrow(x$body$dataset)
-
-    if( is.null(i) && length(height) != (nrow_h+nrow_b)  && length(height) != 1 ){
-      stop("length of i should be ", (nrow_h+nrow_b), " or 1." )
-    } else if( (!is.null(i) && length(i) == (nrow_h+nrow_b)) || is.null(i) ){
-      if( length( height ) != 1 ){
-        i_h <- seq_len(nrow_h)
-        i_b <- seq_len(nrow_b)+nrow_h
-      } else {
-        i_h <- 1
-        i_b <- 1
-      }
-
-      x <- height(x = x, i = i[i_h], height = height[i_h], part = "header")
-      x <- height(x = x, i = i[i_b], height = height[i_b], part = "body")
-    } else {
-      x <- height(x = x, i = i, height = height, part = "header")
-      x <- height(x = x, i = i, height = height, part = "body")
-    }
-
-    return(x)
-  }
+  if( nrow_part(x, part ) < 1 ) return(x)
 
   i <- get_rows_id(x[[part]], i )
   if( !(length(i) == length(height) || length(height) == 1)){
@@ -77,6 +54,30 @@ height <- function(x, i = NULL, height, part = "body"){
   }
 
   x[[part]]$rowheights[i] <- height
+
+  x
+}
+
+#' @export
+#' @rdname height
+height_all <- function(x, height, part = "all"){
+
+  part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE )
+  if( length(height) != 1 || !is.numeric(height) || height < 0.0 ){
+    stop("height should be a single positive numeric value", call. = FALSE)
+  }
+
+  if( "all" %in% part ){
+    for(i in c("body", "header", "footer") ){
+
+      x <- height_all(x, height = height, part = i)
+    }
+  }
+
+  if( nrow_part(x, part) > 0 ){
+    i <- seq_len(nrow(x[[part]]$dataset))
+    x[[part]]$rowheights[i] <- height
+  }
 
   x
 }
@@ -89,8 +90,8 @@ height <- function(x, i = NULL, height, part = "body"){
 dim.flextable <- function(x){
   max_widths <- list()
   max_heights <- list()
-  for(j in c("header", "body")){
-    if( !is.null(x[[j]])){
+  for(j in c("header", "body", "footer")){
+    if( nrow_part(x, j ) > 0 ){
       max_widths[[j]] <- x[[j]]$colwidths
       max_heights[[j]] <- x[[j]]$rowheights
     }
@@ -116,8 +117,8 @@ dim.flextable <- function(x){
 dim_pretty <- function( x ){
   max_widths <- list()
   max_heights <- list()
-  for(j in c("header", "body")){
-    if( !is.null(x[[j]])){
+  for(j in c("header", "body", "footer")){
+    if( nrow_part(x, j ) > 0 ){
       dimensions_ <- optimal_sizes(x[[j]])
       x[[j]]$colwidths <- dimensions_$widths
       x[[j]]$rowheights <- dimensions_$heights
@@ -142,10 +143,9 @@ dim_pretty <- function( x ){
 autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
   max_widths <- list()
   max_heights <- list()
-  for(j in c("header", "body")){
-    if( !is.null(x[[j]])){
+  for(j in c("header", "body", "footer")){
+    if( nrow_part(x, j ) > 0 ){
       dimensions_ <- optimal_sizes(x[[j]])
-
       x[[j]]$colwidths <- dimensions_$widths + add_w
       x[[j]]$rowheights <- dimensions_$heights + add_h
     }
@@ -206,7 +206,6 @@ optimal_sizes.simple_tabpart <- function( x ){
   text_fp <- x$styles$text$get_fp()
 
   sizes <- text_metric(data = txt_data, all_fp = text_fp)
-
   sizes$col_key <- factor(sizes$col_key, levels = x$col_keys)
   sizes <- sizes[order(sizes$col_key, sizes$id ), ]
   widths <- as_wide_matrix_(as.data.frame(sizes[, c("col_key", "width", "id")]))
@@ -276,7 +275,6 @@ dim_cells <- function(x){
   cellheights <- as_wide_matrix_( cell_dim[,c("col_key", "height", "id")] )
 
   list( widths = cellwidths, heights = cellheights )
-
 }
 
 

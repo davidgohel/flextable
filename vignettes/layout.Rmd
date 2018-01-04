@@ -213,12 +213,13 @@ ft
 
 ### Adjusts manually cell widths and heights
 
-Function `width` and `height` let you control dimensions of a flextable. 
+Function `width()` and `height()` let you control dimensions of a flextable. `height_all()` is an helper function to set the same height to each part of the table.
 
 ```{r}
 ft <- autofit(ft_base)
 ft <- width(ft, j = ~ Species, width = 2)
-ft <- height( ft, height = .4, part = "all" )
+ft <- height_all( ft, height = .4 )
+ft <- height( ft, i = 3, height = 1 )
 ft
 ```
 

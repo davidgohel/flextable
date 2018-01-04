@@ -24,7 +24,10 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 
   header <- simple_tabpart( data = header_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
 
-  out <- list( header = header, body = body, col_keys = col_keys,
+  footer_data <- header_data[FALSE, , drop = FALSE]
+  footer <- simple_tabpart( data = footer_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
+
+  out <- list( header = header, body = body, footer = footer, col_keys = col_keys,
                blanks = blanks )
   class(out) <- c("flextable", "regulartable")
 
@@ -57,7 +60,7 @@ set_formatter <- function(x, ..., part = "body"){
 
   stopifnot(inherits(x, "regulartable"))
 
-  part <- match.arg(part, c("body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
   formatters <- list(...)
   col_keys <- names(formatters)
   col_keys <- intersect(col_keys, x[[part]]$col_keys)

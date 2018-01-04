@@ -22,13 +22,18 @@ html_str.regulartable <- function( x ){
   dims <- dim(x)
 
   out <- "<table>"
-  if( !is.null(x$header) ){
+
+  if( nrow_part(x, "header") > 0 ){
     tmp <- format(x$header, type = "html", header = TRUE)
     out = paste0(out, "<thead>", tmp, "</thead>" )
   }
-  if( !is.null(x$body) ){
+  if( nrow_part(x, "body") > 0 ){
     tmp <- format(x$body, type = "html", header = FALSE)
     out = paste0(out, "<tbody>", tmp, "</tbody>" )
+  }
+  if( nrow_part(x, "footer") > 0 ){
+    tmp <- format(x$footer, type = "html", header = FALSE)
+    out = paste0(out, "<tfoot>", tmp, "</tfoot>" )
   }
 
   out = paste0(out,  "</table>" )
