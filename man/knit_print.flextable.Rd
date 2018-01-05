@@ -18,7 +18,8 @@ HTML and Word outputs are supported.
 \note{
 For Word (docx) output, if pandoc vesion >= 2.0 is used, a raw XML block
 with the table code will be inserted. If pandoc vesion < 2.0 is used, an
-error will be raised.
+error will be raised. Note also that insertion of images is not supported
+with rmarkdow for Word documents.
 }
 \author{
 Maxim Nazarov

@@ -137,6 +137,7 @@ ft <- autofit(ft)
 # as autofit do not handle rotation, you will have
 # to change manually header cells'height.
 ft <- height(ft, height = 1, part = "header")
+ft
 ```
 
 The following example is producing a Word document:

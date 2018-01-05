@@ -10,7 +10,8 @@ Authors@R: c(
 Description: Create pretty tables for 'Microsoft Word', 'Microsoft PowerPoint' and 'HTML' documents. 
   Functions are provided to let users create tables, modify and format their content. 
   It extends package 'officer' that does not contain any feature for customized tabular reporting 
-  and can be used with R Markdown documents.
+  and can be used with R Markdown documents. It also work within R markdown documents when rendering 
+  to HTML and to 'Microsoft Word' documents.
 License: GPL-3
 LazyData: TRUE
 Imports:
