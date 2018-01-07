@@ -108,23 +108,37 @@ dim.flextable <- function(x){
 #' @export
 #' @title Calculate pretty dimensions
 #' @param x flextable object
+#' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
+#'
 #' @description return minimum estimated widths and heights for
 #' each table columns and rows in inches.
 #' @examples
 #'
 #' ft <- flextable(mtcars)
 #' \donttest{dim_pretty(ft)}
-dim_pretty <- function( x ){
-  max_widths <- list()
-  max_heights <- list()
-  for(j in c("header", "body", "footer")){
+dim_pretty <- function( x, part = "all" ){
+
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+  if( "all" %in% part ){
+    part <- c("header", "body", "footer")
+  }
+  dimensions <- list()
+  for(j in part){
     if( nrow_part(x, j ) > 0 ){
-      dimensions_ <- optimal_sizes(x[[j]])
-      x[[j]]$colwidths <- dimensions_$widths
-      x[[j]]$rowheights <- dimensions_$heights
+      dimensions[[j]] <- optimal_sizes(x[[j]])
+    } else {
+      dimensions[[j]] <- list(widths = rep(NA_real_, length(x$col_keys) ),
+           heights = numeric(0) )
     }
   }
-  dim(x)
+  widths <- lapply( dimensions, function(x) x$widths )
+  widths <- as.numeric(apply( do.call(rbind, widths), 2, max, na.rm = TRUE ))
+
+  heights <- lapply( dimensions, function(x) x$heights )
+  heights <- as.numeric(do.call(c, heights))
+
+
+  list(widths = widths, heights = heights)
 }
 
 
@@ -141,8 +155,6 @@ dim_pretty <- function( x ){
 #' \donttest{ft <- autofit(ft)}
 #' ft
 autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
-  max_widths <- list()
-  max_heights <- list()
   for(j in c("header", "body", "footer")){
     if( nrow_part(x, j ) > 0 ){
       dimensions_ <- optimal_sizes(x[[j]])
