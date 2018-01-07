@@ -208,15 +208,24 @@ fp_structure <- R6Class(
         stringsAsFactors = FALSE)
       map_data_new <- lapply(seq_len(nrows), function(x, dat) {dat$id <- x; dat }, map_data_new )
       map_data_new <- do.call(rbind, map_data_new)
-      #
+
       if( first ){
+        if( nrow(map_data) > 0 ){
+          pr_id <- map_data[map_data$id %in% 1,"pr_id"]
+          map_data_new$pr_id <- pr_id
+        }
         map_data$id <- map_data$id + nrows
         map_data <- rbind(map_data_new, map_data)
       } else {
         last_id <- 0
-        if( nrow(map_data) > 0 )
+        if( nrow(map_data) > 0 ){
           last_id <- max(map_data$id)
+          pr_id <- map_data[map_data$id %in% last_id,"pr_id"]
+          map_data_new$pr_id <- pr_id
+        }
+
         map_data_new$id <- map_data_new$id + nrows - 1 + last_id
+
         map_data <- rbind(map_data, map_data_new)
       }
       private$map_data <- map_data
