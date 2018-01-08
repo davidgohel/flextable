@@ -58,12 +58,12 @@ add_rows.simple_tabpart <- function( x, rows, first = FALSE ){
   rowheights <- x$rowheights
 
   if( !first ){
-    data <- rbind(data, rows, stringsAsFactors = FALSE )
+    data <- rbind(data, rows )
     spans$rows <- rbind( spans$rows, span_new )
     spans$columns <- rbind( spans$columns, span_new )
     rowheights <- c(rowheights, rep(0.6, nrow(rows)))
   } else {
-    data <- rbind(rows, data, stringsAsFactors = FALSE)
+    data <- rbind(rows, data)
     spans$rows <- rbind( span_new, spans$rows )
     spans$columns <- rbind( span_new, spans$columns )
     rowheights <- c(rep(0.6, nrow(rows)), rowheights)
