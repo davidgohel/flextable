@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set cell borders — border • flextable</title>
+<title>get a flextable from a xtable object — xtable_to_flextable • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -86,63 +86,100 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set cell borders</h1>
+    <h1>get a flextable from a xtable object</h1>
     </div>
 
     
-    <p>change borders of selected rows and columns of a flextable.</p>
+    <p>Get a <code>flextable</code> object from
+a <code>xtable</code> object.</p>
     
 
-    <pre class="usage"><span class='fu'>border</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border.top</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>border.bottom</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border.left</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border.right</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
+    <pre class="usage"><span class='fu'>xtable_to_flextable</span>(<span class='no'>x</span>, <span class='kw'>text.properties</span> <span class='kw'>=</span> <span class='kw pkg'>officer</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a></span>(),
+  <span class='kw'>format.args</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"xtable.format.args"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>rowname_col</span> <span class='kw'>=</span> <span class='st'>"rowname"</span>, <span class='kw'>hline.after</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"xtable.hline.after"</span>,
+  <span class='fu'>c</span>(-<span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fu'>nrow</span>(<span class='no'>x</span>))), <span class='kw'>NA.string</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"xtable.NA.string"</span>, <span class='st'>""</span>),
+  <span class='kw'>include.rownames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>rotate.colnames</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"xtable.rotate.colnames"</span>, <span class='fl'>FALSE</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a flextable object</p></td>
+      <td><p><code>xtable</code> object</p></td>
     </tr>
     <tr>
-      <th>i</th>
-      <td><p>rows selection</p></td>
+      <th>text.properties</th>
+      <td><p>default text formatting properties</p></td>
     </tr>
     <tr>
-      <th>j</th>
-      <td><p>columns selection</p></td>
+      <th>format.args</th>
+      <td><p>List of arguments for the formatC function.
+See argument <code>format.args</code> of <code>print.xtable</code>. Not yet
+implemented.</p></td>
     </tr>
     <tr>
-      <th>border</th>
-      <td><p>border (shortcut for top, bottom, left and right)</p></td>
+      <th>rowname_col</th>
+      <td><p>colname used for row names column</p></td>
     </tr>
     <tr>
-      <th>border.top</th>
-      <td><p>border top</p></td>
+      <th>hline.after</th>
+      <td><p>see <code>?print.xtable</code>.</p></td>
     </tr>
     <tr>
-      <th>border.bottom</th>
-      <td><p>border bottom</p></td>
+      <th>NA.string</th>
+      <td><p>see <code>?print.xtable</code>.</p></td>
     </tr>
     <tr>
-      <th>border.left</th>
-      <td><p>border left</p></td>
+      <th>include.rownames</th>
+      <td><p>see <code>?print.xtable</code>.</p></td>
     </tr>
     <tr>
-      <th>border.right</th>
-      <td><p>border right</p></td>
-    </tr>
-    <tr>
-      <th>part</th>
-      <td><p>partname of the table (one of 'all', 'body', 'header')</p></td>
+      <th>rotate.colnames</th>
+      <td><p>see <code>?print.xtable</code>.</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>officer</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>mtcars</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>border</span>(<span class='no'>ft</span>, <span class='kw'>border.top</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>) )</div></pre>
+<span class='kw'>if</span>( <span class='fu'>require</span>(<span class='st'>"xtable"</span>) ){
+
+  <span class='fu'>data</span>(<span class='no'>tli</span>)
+  <span class='no'>tli.table</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/xtable/topics/xtable'>xtable</a></span>(<span class='no'>tli</span>[<span class='fl'>1</span>:<span class='fl'>10</span>, ])
+  <span class='fu'><a href='align.html'>align</a></span>(<span class='no'>tli.table</span>) <span class='kw'>&lt;-</span> <span class='fu'>rep</span>(<span class='st'>"r"</span>, <span class='fl'>6</span>)
+  <span class='fu'><a href='align.html'>align</a></span>(<span class='no'>tli.table</span>) <span class='kw'>&lt;-</span> <span class='st'>"|r|r|clr|r|"</span>
+  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>xtable_to_flextable</span>(
+    <span class='no'>tli.table</span>,
+    <span class='kw'>rotate.colnames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <span class='kw'>include.rownames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='height.html'>height</a></span>(<span class='no'>ft</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+  <span class='no'>ft</span>
+
+  <span class='no'>Grade3</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span>,<span class='st'>"B"</span>,
+    <span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"D"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>)
+  <span class='no'>Grade6</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"A"</span>,<span class='st'>"A"</span>,<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,
+    <span class='st'>"A"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"D"</span>,<span class='st'>"D"</span>,<span class='st'>"D"</span>,<span class='st'>"D"</span>,<span class='st'>"D"</span>)
+  <span class='no'>Cohort</span> <span class='kw'>&lt;-</span> <span class='fu'>table</span>(<span class='no'>Grade3</span>, <span class='no'>Grade6</span>)
+  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>xtable_to_flextable</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/xtable/topics/xtable'>xtable</a></span>(<span class='no'>Cohort</span>))
+  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_header_labels.html'>set_header_labels</a></span>(<span class='no'>ft</span>, <span class='kw'>rowname</span> <span class='kw'>=</span> <span class='st'>"Grade 3"</span>)
+  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)
+  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_header.html'>add_header</a></span>(<span class='no'>ft</span>, <span class='kw'>A</span> <span class='kw'>=</span> <span class='st'>"Grade 6"</span>)
+  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='merge_at.html'>merge_at</a></span>(<span class='no'>ft</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fu'>seq_len</span>( <span class='fu'>ncol</span>(<span class='no'>Cohort</span>) ) + <span class='fl'>1</span>,
+    <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span> )
+  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bold.html'>bold</a></span>(<span class='no'>ft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
+  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='height.html'>height_all</a></span>(<span class='no'>ft</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>.4</span>)
+  <span class='no'>ft</span>
+
+  <span class='no'>temp.ts</span> <span class='kw'>&lt;-</span> <span class='fu'>ts</span>(<span class='fu'>cumsum</span>(<span class='fl'>1</span> + <span class='fu'>round</span>(<span class='fu'>rnorm</span>(<span class='fl'>100</span>), <span class='fl'>0</span>)),
+    <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1954</span>, <span class='fl'>7</span>), <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>12</span>)
+  <span class='fu'>xtable_to_flextable</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/xtable/topics/xtable'>xtable</a></span>(<span class='no'>temp.ts</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>),
+    <span class='kw'>NA.string</span> <span class='kw'>=</span> <span class='st'>"-"</span>)
+
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: xtable</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘xtable’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:flextable’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    align, display</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
