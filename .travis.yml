@@ -5,14 +5,14 @@ sudo: false
 cache:
   packages: yes
 
-# matrix:
-#   include:
-#     - os: linux
-#       sudo: false
-#       pandoc_version: 1.19.2.1
-#     - os: linux
-#       sudo: false
-#       pandoc_version: 2.0.4
+matrix:
+  include:
+    - os: linux
+      sudo: false
+      pandoc_version: 1.19.2.1
+    - os: linux
+      sudo: false
+      pandoc_version: 2.0.4
 
 r:
  - oldrel
