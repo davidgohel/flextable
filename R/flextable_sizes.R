@@ -127,7 +127,7 @@ dim_pretty <- function( x, part = "all" ){
     if( nrow_part(x, j ) > 0 ){
       dimensions[[j]] <- optimal_sizes(x[[j]])
     } else {
-      dimensions[[j]] <- list(widths = rep(NA_real_, length(x$col_keys) ),
+      dimensions[[j]] <- list(widths = rep(0, length(x$col_keys) ),
            heights = numeric(0) )
     }
   }
