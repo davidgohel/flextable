@@ -1,17 +1,3 @@
-#' @title htmlwidget for flextable
-#'
-#' @description htmlwidget for flextable. This function is deprecated.
-#'
-#' @param x \code{flextable} object
-#' @param ... Unused arguments
-#'
-#' @export
-tabwid <- function(x, ...) {
-
-  .Deprecated(msg = "tabwid is no more required as flextable objects have their own knit_print method now.")
-  knit_print(x)
-}
-
 html_str <- function( x ){
   UseMethod("html_str")
 }
