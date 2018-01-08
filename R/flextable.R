@@ -71,6 +71,8 @@ tabwid_htmldep <- function(){
 
 }
 
+#' @export
+#' @rdname knit_print.flextable
 htmltools_value <- function(x){
   codes <- html_str(x)
   html_o <- div( class='tabwid',
@@ -120,7 +122,9 @@ print.flextable <- function(x, preview = "html", ...){
 
 #' @title Render flextable in rmarkdown (including Word output)
 #' @description Function used to render flextable in knitr/rmarkdown documents.
-#' HTML and Word outputs are supported.
+#' HTML and Word outputs are supported. Function \code{htmltools_value} return
+#' an HTML version of the flextable, this function can to be used within Shiny
+#' applications for example.
 #' @note
 #' For Word (docx) output, if pandoc vesion >= 2.0 is used, a raw XML block
 #' with the table code will be inserted. If pandoc vesion < 2.0 is used, an
