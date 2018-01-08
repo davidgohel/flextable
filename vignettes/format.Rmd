@@ -14,7 +14,8 @@ vignette: >
 knitr::opts_chunk$set(
   message = FALSE,
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+  eval = !is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))
 )
 
 dir.create("assets/docx", recursive = TRUE, showWarnings = FALSE)
