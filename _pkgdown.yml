@@ -44,7 +44,7 @@ reference:
     - void
   - title: Output functions
     contents:
-    - tabwid
+    - knit_print.flextable
     - body_add_flextable
     - ph_with_flextable
 
