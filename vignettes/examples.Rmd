@@ -112,5 +112,158 @@ ft <- bold(ft, i = 2:4, j = "cyl", bold = TRUE)
 ft
 ```
 
+## xtable objects
 
+### anova
+
+```{r}
+if( require("xtable") ){
+  data(tli)
+  fm3 <- glm(disadvg ~ ethnicty*grade, data = tli, family = binomial)
+  ft <- xtable_to_flextable(xtable(anova(fm3)), hline.after = c(1))
+  ft
+}
+```
+
+### adding horizontal lines
+
+```{r}
+if( require("xtable") ){
+  bktbs <- xtable(matrix(1:10, ncol = 2))
+  hlines <- c(-1, 0, 1, nrow(bktbs))
+  ft <- xtable_to_flextable(bktbs, hline.after = hlines)
+  ft
+}
+```
+
+
+### rotate columns 
+
+```{r}
+if( require("xtable") ){
+
+  data(tli)
+  tli.table <- xtable(tli[1:10, ])
+  xtable::align(tli.table) <- "|r|r|clr|r|"
+  ft <- xtable_to_flextable(
+    tli.table, 
+    rotate.colnames = TRUE, 
+    include.rownames = FALSE)
+  
+  ft <- height(ft, i = 1, part = "header", height = 1)
+  ft
+}
+```
+
+### tables
+
+```{r}
+if( require("xtable") ){
+
+  Grade3 <- c("A","B","B","A","B","C","C","D","A","B",
+    "C","C","C","D","B","B","D","C","C","D")
+  Grade6 <- c("A","A","A","B","B","B","B","B","C","C",
+    "A","C","C","C","D","D","D","D","D","D")
+  Cohort <- table(Grade3, Grade6)
+  ft <- xtable_to_flextable(xtable(Cohort))
+  ft <- set_header_labels(ft, rowname = "Grade 3")
+  ft <- autofit(ft)
+  ft <- add_header(ft, A = "Grade 6") 
+  ft <- merge_at(ft, i = 1, j = seq_len( ncol(Cohort) ) + 1, 
+    part = "header" ) 
+  ft <- bold(ft, j = 1, bold = TRUE, part = "body")
+  ft <- height_all(ft, part = "header", height = .4)
+  ft
+}
+```
+
+### time series
+
+```{r}
+if( require("xtable") ){
+  temp.ts <- ts(cumsum(1 + round(rnorm(100), 0)),
+    start = c(1954, 7), frequency = 12)
+  ft <- xtable_to_flextable(x = xtable(temp.ts, digits = 0),
+    NA.string = "-")
+  ft
+}
+```
+
+### from scratch
+
+```{r}
+if( require("xtable") ){
+  mat <- round(matrix(c(0.9, 0.89, 200, 0.045, 2.0), c(1, 5)), 4)
+  mat <- xtable(mat)
+  ft <- xtable_to_flextable(x = mat, NA.string = "-")
+  print(ft$col_keys)
+  ft <- flextable::display(ft, i = 1, col_key = "X1", 
+    pattern = "{{val}}{{pow}}", part = "header",
+    formatters = list(val ~ as.character("R"), pow ~ as.character("2") ),
+    fprops = list(pow = fp_text(vertical.align = "superscript", font.size = 8))
+    )
+  ft <- flextable::display(ft, i = 1, col_key = "X2", 
+    pattern = "{{val}}{{pow}}", part = "header",
+    formatters = list(val ~ as.character("\u03BC"), pow ~ as.character("x") ),
+    fprops = list(pow = fp_text(vertical.align = "superscript", font.size = 8))
+    )
+  ft <- flextable::display(ft, i = 1, col_key = "rowname", 
+    pattern = "{{val}}{{pow}}", part = "body",
+    formatters = list(val ~ as.character("y"), pow ~ as.character("t-1") ),
+    fprops = list(pow = fp_text(vertical.align = "subscript", font.size = 8))
+    )
+  ft <- set_header_labels(ft, X3 = "F-stat", X4 = "S.E.E", X5 = "DW", rowname = "")
+  ft <- autofit(ft)
+  ft
+}
+```
+
+```{r echo=FALSE}
+if( require("xtable") ){
+  if( any( xtab_l <- grepl(":xtable$", as.character(search()) ) ) )
+    detach(pos = which(xtab_l))
+}
+
+```
+
+
+## Using within shiny applications
+
+Use function `htmltools_value()` to get the html value of the 
+flextable (suitable for an `uiOutput`). 
+
+```{r eval=FALSE}
+library(shiny)
+library(flextable)
+
+ui <- fluidPage(
+  
+  titlePanel("mtcars"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("mpg", "mpg Limit", min = 11, max = 33, value = 20)
+    ),
+    mainPanel(
+      uiOutput("mtcars_ft")
+    )
+  )
+)
+
+server <- function(input, output) {
+  library(dplyr)
+  output$mtcars_ft <- renderUI({
+    req(input$mpg)
+    mtcars %>%
+      mutate(car = rownames(.)) %>%
+      select(car, everything()) %>%
+      filter(mpg <= input$mpg) %>%
+      regulartable() %>%
+      theme_booktabs() %>% 
+      htmltools_value()
+  })
+}
+
+# Run the application
+shinyApp(ui = ui, server = server)
+```
 

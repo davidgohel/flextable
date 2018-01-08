@@ -1,3 +1,11 @@
+# flextable 0.4.2
+
+## new features
+
+* new function `xtable_to_flextable()` that is returning
+  a flextable from an xtable object.
+* function `htmltools_value()` is exported for shiny applications.
+
 # flextable 0.4.1
 
 ## new features
