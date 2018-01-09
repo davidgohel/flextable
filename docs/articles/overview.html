@@ -71,13 +71,14 @@
     
     
 <div class="contents">
-<div id="introduction" class="section level2">
+<svg style="width: 100%;" viewbox="0 0 716 447"><rect style="fill:rgba(255, 255, 255, 0);" width="716" height="447"></rect><text x="200" y="239.00" style="fill:rgb(0, 102, 153); font-size: 60px;">regulartable</text><text x="366" y="258.25" style="fill:rgb(0, 102, 153); font-size: 15px;">bold</text><text x="206" y="188.50" style="fill:rgb(0, 102, 153); font-size: 30px;">set_header_labels</text><text x="316" y="260.25" style="fill:rgb(0, 102, 153); font-size: 15px;">border</text><text x="336" y="280.25" style="fill:rgb(0, 102, 153); font-size: 15px;">display</text><text x="318" y="298.25" style="fill:rgb(0, 102, 153); font-size: 15px;">merge_h</text><text x="402" y="262.25" style="fill:rgb(0, 102, 153); font-size: 15px;">rotate</text><text x="314" y="158.25" style="fill:rgb(0, 102, 153); font-size: 15px;">padding</text><text x="366" y="145.85" style="fill:rgb(0, 102, 153); font-size: 23px;">style</text><text x="394" y="282.25" style="fill:rgb(0, 102, 153); font-size: 15px;">align</text><text x="294" y="276.25" style="fill:rgb(0, 102, 153); font-size: 15px;">italic</text><text x="272" y="122.50" style="fill:rgb(0, 102, 153); font-size: 30px;">add_header</text><text x="340" y="323.85" style="fill:rgb(0, 102, 153); font-size: 23px;">body_add_flextable</text><text x="254" y="154.25" style="fill:rgb(0, 102, 153); font-size: 15px;">fontsize</text><text x="306" y="312.25" style="fill:rgb(0, 102, 153); font-size: 15px;">bg</text><text x="332" y="351.85" style="fill:rgb(0, 102, 153); font-size: 23px;">ph_with_flextable</text><text x="254" y="290.25" style="fill:rgb(0, 102, 153); font-size: 15px;">color</text><text x="446" y="267.85" style="fill:rgb(0, 102, 153); font-size: 23px;">autofit</text><text x="272" y="328.25" style="fill:rgb(0, 102, 153); font-size: 15px;">merge_at</text><text x="240" y="270.25" style="fill:rgb(0, 102, 153); font-size: 15px;">width</text><text x="408" y="302.25" style="fill:rgb(0, 102, 153); font-size: 15px;">void</text><text x="440" y="296.25" style="fill:rgb(0, 102, 153); font-size: 15px;">merge_v</text><text x="296" y="91.00" style="fill:rgb(0, 102, 153); font-size: 60px;">flextable</text><text x="362" y="381.85" style="fill:rgb(0, 102, 153); font-size: 23px;">knit_print.flextable</text><text x="262" y="410.50" style="fill:rgb(0, 102, 153); font-size: 30px;">set_header_df</text></svg><div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p><code>flextable</code> can easily create reporting table from <code>data.frame</code>. You can merge cells, add header rows, change any format and specify how data should be displayed in cells. <code>flextable</code> objects can be rendered in HTML format but also in Microsoft Word and PowerPoint documents.</p>
+<p><code>flextable</code> can easily create reporting table from <code>data.frame</code>. You can merge cells, add header rows, add footer rows, change any format and specify how data should be displayed in cells. <code>flextable</code> objects can be rendered in HTML format but also in Microsoft Word and PowerPoint documents.</p>
 <p>Two functions are provided: <code>flextable</code> and <code>regulartable</code>.</p>
 <p><code>flextable</code> function is producing flexible tables where each cell can contain several chunks of text with their own set of formatting properties (bold, font color, etc.). Function <code>display</code> lets customise text of cells (See <a href="format.html#display-function">display function</a>).</p>
-<p><code>regulartable</code> function has been written because the first one is ressource consumming. The only difference is that it is producing tables where cells can contain only one chunk of text with its own set of formatting properties. Function <code>set_formatter</code> is customizing text of cells.</p>
+<p><code>regulartable</code> function has been written because the first one is ressource consumming. The main difference is that it is producing tables where cells can contain only one chunk of text with its own set of formatting properties. Function <code>set_formatter</code> is customizing text of cells.</p>
+<p><em>Note also that <code>regulartable</code> supports strange variable names (with percent symbols, with spaces, etc.) and <code>flextable</code> does not support them.</em></p>
 <blockquote>
 <p>The following table is made with <code>regulartable</code> and dataset data:</p>
 </blockquote>
@@ -327,7 +328,7 @@
 <blockquote>
 <p>To learn more, see article about <a href="./layout.html">layouts</a>.</p>
 </blockquote>
-<p>Table layout can be modified. One can add or change header rows, change cells height and width and merge cells. Also, there is an important function named <code>autofit</code> (it adjusts widths and heights regarding to text widths and heights).</p>
+<p>Table layout can be modified. One can add or change header/footer rows, change cells height and width and merge cells. Also, there is an important function named <code>autofit</code> (it adjusts widths and heights regarding to text widths and heights).</p>
 <p>We will use <code><a href="../reference/merge_v.html">merge_v()</a></code> to merge identical consecutive cells of columns “carb” and “am”.</p>
 <pre class="sourceCode r" id="cb4"><code class="sourceCode r"><div class="sourceLine" id="cb4-1" data-line-number="1">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/merge_v.html">merge_v</a></span>(myft, <span class="dt">j =</span> <span class="kw">c</span>(<span class="st">"am"</span>, <span class="st">"carb"</span>) )</div>
 <div class="sourceLine" id="cb4-2" data-line-number="2">myft</div></code></pre>
@@ -605,7 +606,7 @@
 <h3 class="hasAnchor">
 <a href="#r-markdown-documents" class="anchor"></a>R Markdown documents</h3>
 <p><code>flextables</code> can be inserted in R Markdown documents; HTML and Word output are managed with method <code><a href="http://www.rdocumentation.org/packages/knitr/topics/knit_print">knitr::knit_print</a></code>.</p>
-<p>Print the <code>flextable</code> object in the rmarkdown’s  chunk as demonstrated in this document generated from an R Markdown document.</p>
+<p>Print the <code>flextable</code> object in the rmarkdown’s  chunk as demonstrated in this document (…generated from an R Markdown document).</p>
 <p><strong>Note that <a href="https://pandoc.org/installing.html">pandoc</a> 2.0 required for flextable rendering in docx with <code>rmarkdown</code></strong></p>
 </div>
 <div id="powerpoint-or-word-documents-with-package-officer" class="section level3">
