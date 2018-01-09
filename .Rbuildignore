@@ -7,6 +7,6 @@
 ^_pkgdown\.yml$
 ^revdep$
 ^CONDUCT\.md$
-^inst/tools$
+^inst/mediasrc$
 ^cran-comments\.md$
 ^ISSUE_TEMPLATE\.md$
