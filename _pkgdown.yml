@@ -9,11 +9,13 @@ reference:
     contents:
     - flextable
   - title: Headers
-    desc:  Add or modify flextable`s headers
+    desc:  Add or modify flextable`s headers or footers
     contents:
     - add_header
+    - add_footer
     - set_header_labels
     - set_header_df
+    - delete_part
   - title: Manage flextable layout
     contents:
     - starts_with("merge_")

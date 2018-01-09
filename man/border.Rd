@@ -25,7 +25,7 @@ border(x, i = NULL, j = NULL, border = NULL, border.top = NULL,
 
 \item{border.right}{border right}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 change borders of selected rows and columns of a flextable.

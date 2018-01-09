@@ -46,7 +46,7 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' values as a character vector.
 #' @param x a regulartable object
 #' @param ... Name-value pairs of functions, names should be existing col_key values
-#' @param part partname of the table (one of 'body' or 'header')
+#' @param part partname of the table (one of 'body' or 'header' or 'footer')
 #' @examples
 #' ft <- regulartable( head( iris ) )
 #' ft <- set_formatter( x = ft,

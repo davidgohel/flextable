@@ -90,6 +90,8 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html") )
 
+  if( nrow(x$dataset) < 1 ) return("")
+
   txt_data <- x$styles$formats$get_map(x$styles$text, x$dataset)
   txt_data$str_is_run <- rep(FALSE, nrow(txt_data))
 
@@ -180,9 +182,12 @@ format.simple_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html") )
 
+  if( nrow(x$dataset) < 1 ) return("")
+
   text_fp <- x$styles$text$get_fp()
   pr_str_format <- sapply(text_fp, format, type = type)
   txt_data <- get_text_data(x)
+
 
   run_as_str <- list(
     wml = function(format, str) paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", htmlEscape(str), "</w:t></w:r>"),

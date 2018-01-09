@@ -10,7 +10,7 @@
 #' @param formatters a list of formula, left side for the name,
 #' right side for the content.
 #' @param fprops a named list of \link[officer]{fp_text}
-#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @note
 #' The function \code{display} only works with \code{flextable} objects,
 #' use \code{\link{set_formatter}} for regulartable objects.

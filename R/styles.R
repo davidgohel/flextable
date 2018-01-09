@@ -7,7 +7,7 @@
 #' @param pr_t object(s) of class \code{fp_text}
 #' @param pr_p object(s) of class \code{fp_par}
 #' @param pr_c object(s) of class \code{fp_cell}
-#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
 #' @importFrom stats terms update
 #' @examples
 #' library(officer)
@@ -65,7 +65,7 @@ style <- function(x, i = NULL, j = NULL,
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param bg color to use as background color
 #' @examples
 #' ft <- flextable(mtcars)
@@ -107,7 +107,7 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param bold boolean value
 #' @examples
 #' ft <- flextable(mtcars)
@@ -147,7 +147,7 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param size integer value (points)
 #' @examples
 #' ft <- flextable(mtcars)
@@ -187,7 +187,7 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param italic boolean value
 #' @examples
 #' ft <- flextable(mtcars)
@@ -226,7 +226,7 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param color color to use as font color
 #' @examples
 #' ft <- flextable(mtcars)
@@ -268,7 +268,7 @@ color <- function(x, i = NULL, j = NULL, color, part = "body" ){
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param padding padding (shortcut for top, bottom, left and right)
 #' @param padding.top padding top
 #' @param padding.bottom padding bottom
@@ -333,7 +333,7 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param align text alignment - a single character value, expected value
 #' is one of 'left', 'right', 'center', 'justify'.
 #' @examples
@@ -378,7 +378,7 @@ align <- function(x, i = NULL, j = NULL, align = "left",
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param border border (shortcut for top, bottom, left and right)
 #' @param border.top border top
 #' @param border.bottom border bottom
@@ -446,7 +446,7 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header')
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param rotation one of "lrtb", "tbrl", "btlr"
 #' @param align one of "center" or "top" or "bottom"
 #' @examples

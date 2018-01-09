@@ -15,7 +15,7 @@ color(x, i = NULL, j = NULL, color, part = "body")
 
 \item{color}{color to use as font color}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 change font color of selected rows and columns of a flextable.

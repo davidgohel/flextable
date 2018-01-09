@@ -20,7 +20,7 @@ style(x, i = NULL, j = NULL, pr_t = NULL, pr_p = NULL, pr_c = NULL,
 
 \item{pr_c}{object(s) of class \code{fp_cell}}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{part}{partname of the table (one of 'all', 'body', 'header' or 'footer')}
 }
 \description{
 Modify flextable text, paragraphs and cells formatting properties.

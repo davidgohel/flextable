@@ -15,7 +15,7 @@ fontsize(x, i = NULL, j = NULL, size = 11, part = "body")
 
 \item{size}{integer value (points)}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 change font size of selected rows and columns of a flextable.

@@ -95,7 +95,7 @@ ph_with_flextable: 3"
 ## Introduction 
 
 `flextable` can easily create reporting table from `data.frame`. You 
-can merge cells, add header rows, change any format and specify how 
+can merge cells, add header rows, add footer rows, change any format and specify how 
 data should be displayed in cells. `flextable` objects can be rendered 
 in HTML format but also in Microsoft Word and PowerPoint documents.
 
@@ -206,7 +206,7 @@ myft
 
 > To learn more, see article about [layouts](./layout.html).
 
-Table layout can be modified. One can add or change header rows, change cells height and width and merge cells. Also, there is an important function named `autofit` (it adjusts widths and heights regarding to text widths and heights).
+Table layout can be modified. One can add or change header/footer rows, change cells height and width and merge cells. Also, there is an important function named `autofit` (it adjusts widths and heights regarding to text widths and heights).
 
 We will use `merge_v()` to merge identical consecutive cells of 
 columns "carb" and "am".
@@ -267,11 +267,11 @@ When working in RStudio, flextable will be printed in the rstudio viewer pane.
 ### R Markdown documents
 
 `flextables` can be inserted in R Markdown documents; HTML and 
-Word output are managed with method `knitr::knit_print`.
+Word output are managed with method `knitr::knit_print`. 
 
 Print the `flextable` object in the rmarkdown's \code{render} chunk 
-as demonstrated in this document generated from an R Markdown 
-document.
+as demonstrated in this document (...generated from an R Markdown 
+document).
 
 **Note that [pandoc](https://pandoc.org/installing.html) 2.0 
 required for flextable rendering in docx with `rmarkdown`**

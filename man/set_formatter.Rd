@@ -16,7 +16,7 @@ set_formatter_type(x, fmt_double = "\%.03f", fmt_integer = "\%.0f",
 
 \item{...}{Name-value pairs of functions, names should be existing col_key values}
 
-\item{part}{partname of the table (one of 'body' or 'header')}
+\item{part}{partname of the table (one of 'body' or 'header' or 'footer')}
 
 \item{fmt_double, fmt_integer}{arguments used by \code{sprintf} to
 format double and integer columns.}

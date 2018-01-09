@@ -34,6 +34,25 @@ add_header <- function(x, top = TRUE, ...){
 }
 
 #' @export
+#' @title delete flextable part
+#'
+#' @description indicate to not print a part of
+#' the flextable, i.e. an header, footer or the body.
+#'
+#' @param x a \code{flextable} object
+#' @param part partname of the table to delete (one of 'body', 'header' or 'footer').
+#' @examples
+#' ft <- flextable( head( iris ) )
+#' ft <- delete_part(x = ft, part = "header")
+#' ft
+delete_part <- function(x, part = "header"){
+  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
+  nrow_ <- nrow(x[[part]]$dataset)
+  x[[part]]$dataset <- x[[part]]$dataset[-seq_len(nrow_),]
+  x
+}
+
+#' @export
 #' @rdname add_header
 add_footer <- function(x, top = TRUE, ...){
 

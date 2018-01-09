@@ -15,7 +15,7 @@ bold(x, i = NULL, j = NULL, bold = TRUE, part = "body")
 
 \item{bold}{boolean value}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 change font weight of selected rows and columns of a flextable.

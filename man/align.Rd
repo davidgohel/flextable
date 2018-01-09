@@ -16,7 +16,7 @@ align(x, i = NULL, j = NULL, align = "left", part = "body")
 \item{align}{text alignment - a single character value, expected value
 is one of 'left', 'right', 'center', 'justify'.}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 change text alignment of selected rows and columns of a flextable.

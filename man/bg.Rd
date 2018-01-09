@@ -15,7 +15,7 @@ bg(x, i = NULL, j = NULL, bg, part = "body")
 
 \item{bg}{color to use as background color}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 change background color of selected rows and columns of a flextable.

@@ -17,7 +17,7 @@ rotate(x, i = NULL, j = NULL, rotation, align = "center", part = "body")
 
 \item{align}{one of "center" or "top" or "bottom"}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 apply a rotation to cell text

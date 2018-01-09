@@ -25,7 +25,7 @@ padding(x, i = NULL, j = NULL, padding = NULL, padding.top = NULL,
 
 \item{padding.right}{padding right}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 change paddings of selected rows and columns of a flextable.

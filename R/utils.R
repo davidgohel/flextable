@@ -148,9 +148,9 @@ get_j_from_formula <- function( f, data ){
 
 check_formula_i_and_part <- function(i, part){
   if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part 'header'.", call. = FALSE)
+    stop("formula in argument i cannot adress part '", part, "'.", call. = FALSE)
   } else if( inherits(i, "formula") && "footer" %in% part ){
-    stop("formula in argument i cannot adress part 'header'.", call. = FALSE)
+    stop("formula in argument i cannot adress part '", part, "'.", call. = FALSE)
   }
   TRUE
 }

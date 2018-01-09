@@ -21,7 +21,7 @@ right side for the content.}
 
 \item{fprops}{a named list of \link[officer]{fp_text}}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 Modify flextable displayed values by specifying a

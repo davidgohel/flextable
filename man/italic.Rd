@@ -15,7 +15,7 @@ italic(x, i = NULL, j = NULL, italic = TRUE, part = "body")
 
 \item{italic}{boolean value}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header')}
+\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 change font decoration of selected rows and columns of a flextable.
