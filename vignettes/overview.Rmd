@@ -63,35 +63,6 @@ body_add_flextable: 3
 ph_with_flextable: 3"
 ```
 
-<svg style="width: 100%;" viewBox="0 0 716 447">
-<rect style="fill:rgba(255, 255, 255, 0);" width="716" height="447"></rect>
-<text x="200" y="239.00" style="fill:rgb(0, 102, 153); font-size: 60px;">regulartable</text>
-<text x="366" y="258.25" style="fill:rgb(0, 102, 153); font-size: 15px;">bold</text>
-<text x="206" y="188.50" style="fill:rgb(0, 102, 153); font-size: 30px;">set_header_labels</text>
-<text x="316" y="260.25" style="fill:rgb(0, 102, 153); font-size: 15px;">border</text>
-<text x="336" y="280.25" style="fill:rgb(0, 102, 153); font-size: 15px;">display</text>
-<text x="318" y="298.25" style="fill:rgb(0, 102, 153); font-size: 15px;">merge_h</text>
-<text x="402" y="262.25" style="fill:rgb(0, 102, 153); font-size: 15px;">rotate</text>
-<text x="314" y="158.25" style="fill:rgb(0, 102, 153); font-size: 15px;">padding</text>
-<text x="366" y="145.85" style="fill:rgb(0, 102, 153); font-size: 23px;">style</text>
-<text x="394" y="282.25" style="fill:rgb(0, 102, 153); font-size: 15px;">align</text>
-<text x="294" y="276.25" style="fill:rgb(0, 102, 153); font-size: 15px;">italic</text>
-<text x="272" y="122.50" style="fill:rgb(0, 102, 153); font-size: 30px;">add_header</text>
-<text x="340" y="323.85" style="fill:rgb(0, 102, 153); font-size: 23px;">body_add_flextable</text>
-<text x="254" y="154.25" style="fill:rgb(0, 102, 153); font-size: 15px;">fontsize</text>
-<text x="306" y="312.25" style="fill:rgb(0, 102, 153); font-size: 15px;">bg</text>
-<text x="332" y="351.85" style="fill:rgb(0, 102, 153); font-size: 23px;">ph_with_flextable</text>
-<text x="254" y="290.25" style="fill:rgb(0, 102, 153); font-size: 15px;">color</text>
-<text x="446" y="267.85" style="fill:rgb(0, 102, 153); font-size: 23px;">autofit</text>
-<text x="272" y="328.25" style="fill:rgb(0, 102, 153); font-size: 15px;">merge_at</text>
-<text x="240" y="270.25" style="fill:rgb(0, 102, 153); font-size: 15px;">width</text>
-<text x="408" y="302.25" style="fill:rgb(0, 102, 153); font-size: 15px;">void</text>
-<text x="440" y="296.25" style="fill:rgb(0, 102, 153); font-size: 15px;">merge_v</text>
-<text x="296" y="91.00" style="fill:rgb(0, 102, 153); font-size: 60px;">flextable</text>
-<text x="362" y="381.85" style="fill:rgb(0, 102, 153); font-size: 23px;">knit_print.flextable</text>
-<text x="262" y="410.50" style="fill:rgb(0, 102, 153); font-size: 30px;">set_header_df</text>
-</svg>
-
 ## Introduction 
 
 `flextable` can easily create reporting table from `data.frame`. You 
