@@ -1,15 +1,18 @@
+# run function ----
 #' @importFrom htmltools htmlEscape
 run_fun <- list(
   wml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", htmlEscape(str), "</w:t></w:r>") ),
   pml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<a:r>", format, "<a:t>", htmlEscape(str), "</a:t></a:r>") ),
   html = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<span style=\"", format, "\">", htmlEscape(str), "</span>") )
 )
+# par function ----
 par_fun <- list(
   wml = function(format, str) paste0("<w:p>", format, str, "</w:p>"),
   pml = function(format, str) paste0("<a:p>", format, str, "</a:p>"),
   html = function(format, str) paste0("<p style=\"", format, "\">", str, "</p>")
 )
 
+# cell function ----
 #' @importFrom stringr str_replace_all
 cell_fun <- list(
   wml = function(str, format, span_rows, span_columns, colwidths){
@@ -62,14 +65,16 @@ cell_fun <- list(
 
 # row_fun ----
 row_fun <- list(
-  wml = function(rowheights, str, header)
+  wml = function(rowheights, str, header){
     paste0( "<w:tr><w:trPr><w:trHeight w:val=",
             shQuote( round(rowheights * 72*20, 0 ), type = "cmd"), "/>",
             ifelse( header, "<w:tblHeader/>", ""),
-            "</w:trPr>", str, "</w:tr>"),
-  pml = function(rowheights, str, header)
+            "</w:trPr>", str, "</w:tr>")
+  },
+  pml = function(rowheights, str, header){
     paste0( "<a:tr h=\"", round(rowheights * 914400, 0 ), "\">",
-            str, "</a:tr>"),
+            str, "</a:tr>")
+  },
   html = function(rowheights, str, header) {
     str <- str_replace_all(str, pattern = "<td style=\"",
                     replacement = paste0("<td style=\"height:",
@@ -79,6 +84,7 @@ row_fun <- list(
   }
 )
 
+# main functions ----
 #' @importFrom gdtools raster_write raster_str
 format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   stopifnot(length(type) == 1)
@@ -144,6 +150,75 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   out <- paste0(rows, collapse = "")
 
   attr(out, "imgs") <- as.data.frame(img_data)
+  out
+}
+
+
+
+
+#' @importFrom stats reshape
+get_text_data <- function(x){
+  mapped_data <- x$styles$text$get_map()
+  txt_data <- mapply(function(x, f) f(x), x$dataset[x$col_keys], x$printers, SIMPLIFY = FALSE)
+  txt_data <- do.call(cbind, txt_data)
+  txt_data <- as.data.frame(txt_data, stringsAsFactors = FALSE )
+  txt_data$id <- seq_len(nrow(txt_data))
+  txt_data <- reshape(data = as.data.frame(txt_data, stringsAsFactors = FALSE),
+                      idvar = "id", new.row.names = NULL, timevar = "col_key",
+                      times = x$col_keys,
+                      varying = x$col_keys,
+                      v.names = "str", direction = "long")
+  row.names(txt_data) <- NULL
+
+  txt_data <- merge(mapped_data, txt_data, by = c("id", "col_key"),
+                    all.x = TRUE, all.y = FALSE, sort = FALSE )
+  txt_data
+}
+
+#' @importFrom gdtools raster_write raster_str
+format.simple_tabpart <- function( x, type = "wml", header = FALSE, ... ){
+  stopifnot(length(type) == 1)
+  stopifnot( type %in% c("wml", "pml", "html") )
+
+  text_fp <- x$styles$text$get_fp()
+  pr_str_format <- sapply(text_fp, format, type = type)
+  txt_data <- get_text_data(x)
+
+  run_as_str <- list(
+    wml = function(format, str) paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", htmlEscape(str), "</w:t></w:r>"),
+    pml = function(format, str) paste0("<a:r>", format, "<a:t>", htmlEscape(str), "</a:t></a:r>"),
+    html = function(format, str) paste0("<span style=\"", format, "\">", htmlEscape(str), "</span>")
+  )
+  txt_data$str <- run_as_str[[type]](format = pr_str_format[match(txt_data$pr_id, names(text_fp))],
+                                     str = txt_data$str )
+  txt_data$pr_id <- NULL
+
+  par_data <- x$styles$pars$get_map_format(type = type)
+
+  tidy_content <- expand.grid(col_key = x$col_key,
+                              id = seq_len(nrow(x$dataset)),
+                              stringsAsFactors = FALSE)
+  tidy_content <- merge(tidy_content, txt_data, by = c("col_key", "id"), all.x = TRUE, all.y = FALSE, sort = FALSE)
+  tidy_content <- merge(tidy_content, par_data, by = c("id", "col_key"),
+                        all.x = FALSE, all.y = FALSE, sort = FALSE)
+  tidy_content$str <- par_fun[[type]](tidy_content$format, tidy_content$str)
+  tidy_content$format <- NULL
+
+  tidy_content$col_key <- factor(tidy_content$col_key, levels = x$col_keys)
+  paragraphs <- as_wide_matrix_(as.data.frame(tidy_content[, c("col_key", "str", "id")]))
+
+  cell_data <- x$styles$cells$get_map_format(type = type)
+  cell_data$col_key <- factor(cell_data$col_key, levels = x$col_keys)
+  cell_format <- as_wide_matrix_(as.data.frame(cell_data[, c("col_key", "format", "id")]))
+
+  cells <- cell_fun[[type]](str = paragraphs, format=cell_format,
+                            span_rows = x$span$rows,
+                            span_columns = x$spans$columns, x$colwidths)
+
+  cells <- matrix(cells, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
+  cells <- apply(cells, 1, paste0, collapse = "")
+  rows <- row_fun[[type]](x$rowheights, cells, header)
+  out <- paste0(rows, collapse = "")
   out
 }
 
