@@ -17,7 +17,6 @@ matrix:
 r:
  - oldrel
  - release
- - devel
 
 r_github_packages:
   - jimhester/covr
