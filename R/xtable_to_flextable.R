@@ -29,6 +29,7 @@
 #'   ft <- height(ft, i = 1, part = "header", height = 1)
 #'   ft
 #'
+#'   \donttest{
 #'   Grade3 <- c("A","B","B","A","B","C","C","D","A","B",
 #'     "C","C","C","D","B","B","D","C","C","D")
 #'   Grade6 <- c("A","A","A","B","B","B","B","B","C","C",
@@ -48,7 +49,7 @@
 #'     start = c(1954, 7), frequency = 12)
 #'   xtable_to_flextable(x = xtable(temp.ts, digits = 0),
 #'     NA.string = "-")
-#'
+#'   }
 #' }
 #' @export
 xtable_to_flextable <- function(
