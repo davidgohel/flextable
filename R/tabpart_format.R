@@ -29,6 +29,7 @@ cell_fun <- list(
                         "<w:tcPr>" )
          ) )
 
+    str[span_columns < 1] <- gsub("<w:r>.*</w:r>", "", str[span_columns < 1])
     str <- paste0("<w:tc>", format, str, "</w:tc>")
 
     str[span_rows < 1] <- ""
