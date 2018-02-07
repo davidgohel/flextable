@@ -162,3 +162,25 @@ nrow_part <- function(x, part){
     0
   else nrow(x[[part]]$dataset)
 }
+
+
+
+create_display <- function(data, col_keys){
+  set_formatter_type_formals <- formals(set_formatter_type)
+  formatters <- mapply(function(x, varname){
+    if( is.double(x) ) paste0(varname, " ~ sprintf(", shQuote(set_formatter_type_formals$fmt_double), ", `", varname ,"`)")
+    else if( is.integer(x) ) paste0(varname, " ~ sprintf(", shQuote(set_formatter_type_formals$fmt_integer), ", `", varname ,"`)")
+    else if( is.factor(x) ) paste0(varname, " ~ as.character(`", varname ,"`)")
+    else if( is.character(x) ) paste0(varname, " ~ as.character(`", varname ,"`)")
+    else if( inherits(x, "Date") ) paste0(varname, " ~ format(`", varname ,"`, ", shQuote(set_formatter_type_formals$fmt_date), ")")
+    else if( inherits(x, "POSIXt") ) paste0(varname, " ~ format(`", varname ,"`, ", shQuote(set_formatter_type_formals$fmt_datetime), ")")
+    else paste0(varname, " ~ ", set_formatter_type_formals$fun_any, "(`", varname ,"`)")
+  }, data[col_keys], col_keys, SIMPLIFY = FALSE)
+  formatters <- mapply(function(f, varname){
+    display_parser$new(x = paste0("{{", varname, "}}"),
+                       formatters = list( as.formula( f ) ),
+                       fprops = list() )
+  }, formatters, col_keys )
+  display_structure$new(nrow(data), col_keys, formatters )
+}
+
