@@ -62,7 +62,14 @@ add_footer <- function(x, top = TRUE, ...){
   args_[names(args)] <- lapply(args, format)
   footer_data <- data.frame(as.list(args_), check.names = FALSE, stringsAsFactors = FALSE )
 
-  x$footer <- add_rows( x$footer, footer_data, first = top )
+
+  if( nrow_part(x, "footer") < 1 ) {
+    x$footer <- complex_tabpart( data = footer_data, col_keys = x$col_keys,
+                               cwidth = .75, cheight = .25 )
+  } else {
+    x$footer <- add_rows( x$footer, footer_data, first = top )
+  }
+
 
   x
 }
