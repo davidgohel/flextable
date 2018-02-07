@@ -42,7 +42,7 @@ display <- function(x, i = NULL, col_key,
                     pattern, formatters = list(), fprops = list(),
                     part = "body"){
 
-  part <- match.arg(part, c("body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   stopifnot(is.character(pattern), length(pattern)==1)
 
