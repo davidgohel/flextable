@@ -94,8 +94,10 @@ display_parser <- R6Class(
                            },
                          data = data)
       out_type <- rep(NA_character_, length(eval_out))
+
       out_type <- ifelse(sapply(eval_out, inherits, "character" ), "text", out_type )
       out_type <- ifelse(sapply(eval_out, inherits, "image_entry" ), "image", out_type )
+      out_type <- ifelse(sapply(eval_out, inherits, "hyperlinked_text" ), "htext", out_type )
 
       if(length(eval_out) < 1){
         dat_expr <- list( data.frame( str = character(0), type_out = character(0),
@@ -302,6 +304,7 @@ display_structure <- R6Class(
 
       data <- mapply(function(data, formatr, col_key, pr_id, row_id ){
           dat <- formatr$tidy_data(data = data)
+
           dat$col_key <- rep(col_key, nrow(dat) )
           if( nrow(dat) )
             dat$id <- row_id[dat$id]
@@ -311,6 +314,9 @@ display_structure <- R6Class(
             dat$image_src <- rep(NA_character_, nrow(dat))
             dat$width <- rep(NA_real_, nrow(dat))
             dat$height <- rep(NA_real_, nrow(dat))
+          }
+          if( !is.element("href", names(dat) ) ){
+            dat$href <- rep(NA_character_, nrow(dat))
           }
 
           dat
@@ -328,7 +334,7 @@ display_structure <- R6Class(
       data$pr_id <- ifelse(is.na(data$txt_fp), data$pr_id, data$txt_fp )
       data$txt_fp <- NULL
 
-      data <- data[order(data$col_key, data$id, data$pos),c("col_key", "str", "type_out", "id", "pos", "image_src", "width", "height", "pr_id")]
+      data <- data[order(data$col_key, data$id, data$pos),c("col_key", "str", "type_out", "id", "pos", "image_src", "href", "width", "height", "pr_id")]
       data
     }
 

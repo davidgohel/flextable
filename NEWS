@@ -1,3 +1,7 @@
+# flextable 0.4.3
+
+* new function `hyperlink_text()` to be used with `display`.
+
 # flextable 0.4.2
 
 ## new features

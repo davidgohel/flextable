@@ -8,6 +8,7 @@ docx_str <- function( x, ... ){
 docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
 
   imgs <- character(0)
+  hlinks <- character(0)
 
   align <- match.arg(align, c("center", "left", "right"), several.ok = FALSE)
   align <- c("center" = "center", "left" = "start", "right" = "end")[align]
@@ -34,18 +35,27 @@ docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
   out = paste0(out,  colswidths )
   out = paste0(out,  "</w:tblGrid>" )
 
-  if( !is.null(x$header) ){
+  if( nrow_part(x, "header") > 0 ){
     xml_content <- format(x$header, header = TRUE, type = "wml")
     imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
+    hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
     out = paste0(out, xml_content )
   }
-  if( !is.null(x$body) ){
+  if( nrow_part(x, "body") > 0 ){
     xml_content <- format(x$body, header = FALSE, type = "wml")
     imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
+    hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
+    out = paste0(out, xml_content )
+  }
+  if( nrow_part(x, "footer") > 0 ){
+    xml_content <- format(x$footer, header = FALSE, type = "wml")
+    imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
+    hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
     out = paste0(out, xml_content )
   }
 
   imgs <- unique(imgs)
+  hlinks <- unique(hlinks)
   out <- paste0(out,  "</w:tbl>" )
 
   if( length(imgs) > 0 ) {
@@ -57,6 +67,19 @@ docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
     } else
       warning("Images are not supported yet for docx-rmarkdwon generation",
           call. = FALSE)
+  }
+  if( length(hlinks) > 0 ){
+
+    for( hl in hlinks ){
+      rel <- doc$doc_obj$relationship()
+      new_rid <- sprintf("rId%.0f", rel$get_next_id())
+      rel$add(
+        id = new_rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+        target = hl, target_mode = "External" )
+      out <- str_replace_all(string = out,
+                             sprintf("<w:hyperlink r:id=\"%s\">", hl ),
+                             sprintf("<w:hyperlink r:id=\"%s\">", new_rid ) )
+    }
   }
 
   out

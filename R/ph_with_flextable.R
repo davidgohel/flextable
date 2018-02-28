@@ -3,15 +3,28 @@ pml_flextable <- function(value){
   dims <- dim(value)
   widths <- dims$widths
   colswidths <- paste0("<a:gridCol w=\"", round(widths*914400, 0), "\"/>", collapse = "")
+  hlinks <- character(0)
 
   out = paste0(out,  "<a:tblPr/><a:tblGrid>" )
   out = paste0(out,  colswidths )
   out = paste0(out,  "</a:tblGrid>" )
 
-  if( !is.null(value$header) )
-    out = paste0(out, format(value$header, header = TRUE, type = "pml") )
-  if( !is.null(value$body) )
-    out = paste0(out, format(value$body, header = FALSE, type = "pml") )
+  if( nrow_part(value, "header") > 0 ){
+    xml_content <- format(value$header, header = TRUE, type = "pml")
+    out = paste0(out, xml_content )
+    hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
+  }
+  if( nrow_part(value, "body") > 0 ){
+    xml_content <- format(value$body, header = FALSE, type = "pml")
+    out = paste0(out, xml_content )
+    hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
+  }
+  if( nrow_part(value, "footer") > 0 ){
+    xml_content <- format(value$footer, header = FALSE, type = "pml")
+    out = paste0(out, xml_content )
+    hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
+  }
+
   out = paste0(out,  "</a:tbl>" )
 
   graphic_frame <- paste0(
@@ -35,6 +48,7 @@ pml_flextable <- function(value){
     "</a:graphic>",
     "</p:graphicFrame>"
   )
+  attr(graphic_frame, "hlinks") <- hlinks
   graphic_frame
 }
 
@@ -66,6 +80,25 @@ pml_flextable <- function(value){
 ph_with_flextable <- function( x, value, type = "body", index = 1 ){
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_flextable(value)
+
+  hlinks <- attr(graphic_frame, "hlinks")
+  if( length(hlinks) > 0 ){
+
+    for( hl in hlinks ){
+      # browser()
+      slide <- x$slide$get_slide(x$cursor)
+      rel <- slide$relationship()
+      # rel <- doc$doc_obj$relationship()
+      new_rid <- sprintf("rId%.0f", rel$get_next_id())
+      rel$add(
+        id = new_rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+        target = hl, target_mode = "External" )
+      graphic_frame <- str_replace_all(string = graphic_frame,
+                             sprintf("<a:hlinkClick r:id=\"%s\"", hl ),
+                             sprintf("<a:hlinkClick r:id=\"%s\"", new_rid ) )
+    }
+  }
+
   ph_from_xml(x = x, value = graphic_frame, type = type, index = index )
 }
 

@@ -24,6 +24,9 @@
 #' left-hand side is a name (matching a name enclosed by double braces in
 #' \code{pattern}) and the right-hand side is an R expression to be evaluated (that
 #' will produce the corresponding strings).
+#'
+#' The function is designed to work with columns in the dataset provided to
+#' \code{flextable} (the col_keys).
 #' @section fprops:
 #' A named list of \link[officer]{fp_text}. It defines the formatting properties
 #' associated to a compound in \code{formatters}. If not defined for an element

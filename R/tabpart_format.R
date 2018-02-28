@@ -1,9 +1,19 @@
+#' @importFrom stringr str_replace
 # run function ----
 #' @importFrom htmltools htmlEscape
 run_fun <- list(
   wml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", htmlEscape(str), "</w:t></w:r>") ),
   pml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<a:r>", format, "<a:t>", htmlEscape(str), "</a:t></a:r>") ),
   html = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<span style=\"", format, "\">", htmlEscape(str), "</span>") )
+)
+# hyperlink function ----
+hyperlink_fun <- list(
+  wml = function(href, str) ifelse(is.na(href), str, paste0("<w:hyperlink r:id=\"", href, "\">", str, "</w:hyperlink>") ),
+  pml = function(href, str) {
+    ifelse(is.na(href), str,
+           str_replace(str, "</a:rPr>", paste0("<a:hlinkClick r:id=\"", href, "\"/></a:rPr>") ) )
+  },
+  html = function(href, str) ifelse(is.na(href), str, paste0("<a href=\"", href, "\">", str, "</a>") )
 )
 # par function ----
 par_fun <- list(
@@ -97,6 +107,7 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   txt_data$str_is_run <- rep(FALSE, nrow(txt_data))
 
   img_data <- txt_data[txt_data$type_out %in% "image",]
+  htxt_data <- txt_data[txt_data$type_out %in% "htext",]
   txt_data <- txt_data[txt_data$type_out %in% "text",]
 
   if( nrow( img_data ) && type %in% c("wml", "html") ){
@@ -106,7 +117,10 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
     img_data$str <- format(as_img, type = type)
     txt_data <- rbind(txt_data, img_data)
   }
-
+  if( nrow( htxt_data ) ){
+    txt_data <- rbind(txt_data, htxt_data)
+    htxt_data <- unique(htxt_data[, "href", drop = FALSE])
+  }
 
   text_fp <- x$styles$text$get_fp()
   text_fp <- append( text_fp, x$styles$formats$get_all_fp() )
@@ -119,7 +133,10 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   dat <- merge(txt_data, pr_str_df, by = "pr_id", all.x = TRUE, all.y = FALSE, sort = FALSE)
   dat <- dat[order(dat$col_key, dat$id, dat$pos),]
 
+
+
   dat$str <- run_fun[[type]](dat$format, dat$str, dat$str_is_run)
+  dat$str <- hyperlink_fun[[type]](dat$href, dat$str)
 
   group_ref_ <- group_ref(dat, c("id", "col_key"))
   str_ <- tapply(dat$str, group_index(dat, c("id", "col_key")), paste, collapse = "")
@@ -153,6 +170,7 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   out <- paste0(rows, collapse = "")
 
   attr(out, "imgs") <- as.data.frame(img_data)
+  attr(out, "htxt") <- htxt_data
   out
 }
 

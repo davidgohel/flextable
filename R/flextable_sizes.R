@@ -303,8 +303,7 @@ text_metric <- function(data, all_fp ){
   selection_ <- c("col_key", "id", "pos", "width", "height")
   data$width <- NULL
   data$height <- NULL
-
-  data <- as.data.frame( data[data$type_out %in% "text", ] )
+  data <- as.data.frame( data[data$type_out %in% c("text", "htext"), ] )
   sizes_ <- merge(data, as.data.frame( fp_props ), by = "pr_id",
                   all.x = TRUE, all.y = FALSE, sort = FALSE)
   str_extents_ <- m_str_extents(sizes_$str, fontname = sizes_$fontname,

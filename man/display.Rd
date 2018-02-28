@@ -46,6 +46,9 @@ substituted in the \code{pattern} argument. An element must be a formula: the
 left-hand side is a name (matching a name enclosed by double braces in
 \code{pattern}) and the right-hand side is an R expression to be evaluated (that
 will produce the corresponding strings).
+
+The function is designed to work with columns in the dataset provided to
+\code{flextable} (the col_keys).
 }
 
 \section{fprops}{
