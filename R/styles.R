@@ -412,8 +412,6 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
     return(x)
   }
 
-  # if( "footer" %in% part ) browser()
-
   if( nrow_part(x, part) < 1 )
     return(x)
 
