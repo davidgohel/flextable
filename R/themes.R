@@ -7,11 +7,11 @@
 #' ft <- flextable(iris)
 #' ft <- theme_vanilla(ft)
 theme_vanilla <- function(x){
-  x <- border(x = x, border.bottom = fp_border(width = 1, color = "#333333"),
-              border.top = fp_border(width = 1, color = "#333333"),
-              border.left = fp_border(width = 0),
-              border.right = fp_border(width = 0),
-              part = "all")
+  std_b <- fp_border(width = 1, color = "#333333")
+  x <- border(x = x, part="all", border =fp_border(width = 0))
+
+  x <- hline( x, border = std_b, part = "all")
+  x <- hline_top( x, border = std_b, part = "all" )
   x <- style( x = x, pr_p = fp_par(text.align = "right", padding = 2), part = "all")
   x <- bg(x = x, bg = "transparent", part = "all")
   x <- bold(x = x, bold = TRUE, part = "header")
@@ -163,24 +163,20 @@ theme_booktabs <- function(x){
   f_nrow <- nrow_part(x, "footer")
   b_nrow <- nrow_part(x, "body")
 
+  x <- border(x = x, part="all", border =fp_border(color="transparent"))
+
   if(h_nrow > 0 ){
-    x <- border(x = x, border = null_border, part = "header")
-    x <- border(x = x, i = 1, border.top = big_border, part = "header")
-    x <- border(x = x, i = h_nrow, border.bottom = big_border, part = "header")
-    x <- bold(x = x, bold = TRUE, part = "header")
+    x <- hline_top(x, border = big_border, part = "header")
+    x <- hline(x, border = std_border, part = "header")
+    x <- hline(x, i = h_nrow, border = big_border, part = "header")
   }
   if(f_nrow > 0 ){
-    x <- border(x = x, border = null_border, part = "footer")
-    x <- border(x = x, i = 1, border.top = big_border, part = "footer")
-    x <- border(x = x, i = f_nrow, border.bottom = big_border, part = "footer")
+    x <- hline(x, border = std_border, part = "footer")
+    x <- hline(x, i = f_nrow, border = big_border, part = "footer")
   }
   if(b_nrow > 0 ){
-    x <- border(x = x, border.bottom = fp_border(width = 1, color = "black"),
-                border.top = fp_border(width = 1, color = "black"),
-                border.left = fp_border(width = 0),
-                border.right = fp_border(width = 0),
-                part = "body")
-    x <- border(x = x, i = b_nrow, border.bottom = big_border, part = "body")
+    x <- hline(x, border = std_border, part = "body")
+    x <- hline(x, i = b_nrow, border = big_border, part = "body")
   }
 
   x <- style( x = x, pr_p = fp_par(text.align = "right", padding = 2), part = "all")

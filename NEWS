@@ -1,6 +1,8 @@
 # flextable 0.4.3
 
 * new function `hyperlink_text()` to be used with `display`.
+* new functions `hline*()` and `vline*()` to be used instead
+  of borders.
 
 # flextable 0.4.2
 

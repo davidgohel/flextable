@@ -10,16 +10,19 @@ pml_flextable <- function(value){
   out = paste0(out,  "</a:tblGrid>" )
 
   if( nrow_part(value, "header") > 0 ){
+    value$header <- correct_h_border(value$header)
     xml_content <- format(value$header, header = TRUE, type = "pml")
     out = paste0(out, xml_content )
     hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
   }
   if( nrow_part(value, "body") > 0 ){
+    value$body <- correct_h_border(value$body)
     xml_content <- format(value$body, header = FALSE, type = "pml")
     out = paste0(out, xml_content )
     hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
   }
   if( nrow_part(value, "footer") > 0 ){
+    value$footer <- correct_h_border(value$footer)
     xml_content <- format(value$footer, header = FALSE, type = "pml")
     out = paste0(out, xml_content )
     hlinks <- append( hlinks, attr(xml_content, "htxt")$href )

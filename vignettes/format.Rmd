@@ -112,8 +112,28 @@ myft
 
 ### change border
 
+Borders properties can be defined with functions:
+
+* `hline()`: set bottom borders of one or all parts of a flextable. 
+* `hline_top()`: set top border of one or all parts of a flextable. 
+* `hline_bottom()`: set bottom border of one or all parts of a flextable. 
+* `vline()`: set right borders of one or all parts of a flextable. 
+* `vline_left()`: set left border of one or all parts of a flextable.
+* `vline_right()`: set right border of one or all parts of a flextable.
+
 ```{r}
-myft <- border( myft, border = fp_border(color="white"), part = "all" )
+# remove all defined borders
+myft <- border( myft, border = fp_border(width=0), part = "all" )
+
+big_b <- fp_border(color="gray70", width = 2)
+std_b <- fp_border(color="white")
+
+myft <- vline( myft, border = std_b, part = "all" )
+myft <- vline_left( myft, border = big_b, part = "all" )
+myft <- vline_right( myft, border = big_b, part = "all" )
+myft <- hline( myft, border = std_b )
+myft <- hline_bottom( myft, border = big_b )
+myft <- hline_top( myft, border = big_b, part = "all" )
 myft
 ```
 

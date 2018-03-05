@@ -384,6 +384,10 @@ align <- function(x, i = NULL, j = NULL, align = "left",
 #' @param border.bottom border bottom
 #' @param border.left border left
 #' @param border.right border right
+#' @note
+#' This function should not be used directly by users and functions \code{\link{hline}},
+#' \code{\link{vline}}, \code{\link{hline_top}}, \code{\link{vline_left}} should
+#' be prefered.
 #' @examples
 #' library(officer)
 #' ft <- flextable(mtcars)
@@ -437,6 +441,198 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 
   x
 }
+
+
+correct_h_border <- function(x){
+
+  span_cols <- as.list(as.data.frame(x$spans$columns))
+
+  bool_to_be_corrected <- lapply( span_cols, function(x) x > 1 )
+  l_apply_bottom_border <- lapply( span_cols, function(x) {
+    rle_ <- rle(x)
+    from <- cumsum(rle_$lengths)[rle_$values < 1]
+    to <- cumsum(rle_$lengths)[rle_$values > 1]
+    list(from = from, to = to, dont = length(to) < 1 )
+  })
+
+  for(j in seq_len(ncol(x$spans$columns)) ){
+    apply_bottom_border <- l_apply_bottom_border[[j]]
+
+    if( apply_bottom_border$dont ) next
+
+    for( i in seq_along(apply_bottom_border$from) ){
+      pr_id_from <- x$styles$cells$get_pr_id_at(apply_bottom_border$from[i], x$col_keys[j])
+      pr_id_to <- x$styles$cells$get_pr_id_at(apply_bottom_border$to[i], x$col_keys[j])
+      pr_from <- x$styles$cells$get_fp()[[pr_id_from]]
+      pr_to <- x$styles$cells$get_fp()[[pr_id_to]]
+      pr_to <- update(pr_to, border.bottom = pr_from$border.bottom )
+      new_pr <- list( pr_to )
+      names(new_pr) <- fp_sign(pr_to)
+      x$styles$cells$set_pr_id_at(apply_bottom_border$to[i], x$col_keys[j], pr_id = names(new_pr), fp_list = new_pr)
+    }
+
+  }
+
+  x
+}
+
+
+#' @export
+#' @title Set horizontal or vertical borders
+#' @description change horizontal or vertical borders of a
+#' flextable (bottom side). These functions are taking care
+#' of propagating the border properties to the adjacent cells.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @param border border
+#' @examples
+#' library(officer)
+#' big_border = fp_border(color="gray", width = 2)
+#' std_border = fp_border(color="orange", width = 1)
+#'
+#' dat <- iris[c(1:5, 51:55, 101:105),]
+#' ft <- regulartable(dat, col_keys = c("Species", "Sepal.Length",
+#'   "Sepal.Width", "Petal.Length", "Petal.Width" ))
+#' ft <- border(x = ft, part="all", border =fp_border(color="transparent"))
+#' ft <- merge_v(ft, j = 1)
+#' ft <- hline(ft, part="all", border = std_border )
+#' ft <- hline(ft, part="header", i = 1, border = big_border )
+#' ft <- hline(ft, part="body", i = c(5, 10, 15), border = big_border )
+#' ft <- hline_top(ft, part="header", border = big_border )
+#' ft <- vline(ft, part = "all", border = std_border)
+#' ft <- vline_left(ft, part = "all", border = std_border)
+#' ft
+hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- hline(x = x, i = i, j = j,
+                  border = border,
+                  part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+  x <- border(x, i = i, j = j, border.bottom = border, part = part )
+
+  i <- i + 1
+  i <- i[i > 1 & i < nrow_part(x, part) ]
+  if( length(i) > 0 )
+    x <- border(x, i = i, j = j, border.top = border, part = part )
+  x
+}
+
+#' @export
+#' @rdname hline
+hline_top <- function(x, j = NULL, border = NULL, part = "body"){
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- hline_top(x = x, j = j, border = border, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  j <- get_columns_id(x[[part]], j )
+  x <- border(x, i = 1, j = j, border.top = border, part = part )
+  x
+}
+
+#' @export
+#' @rdname hline
+hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- hline_bottom(x = x, j = j, border = border, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  j <- get_columns_id(x[[part]], j )
+  x <- border(x, i = nrow_part(x, part), j = j, border.bottom = border, part = part )
+  x
+}
+
+#' @export
+#' @rdname hline
+vline_left <- function(x, i = NULL, border = NULL, part = "body"){
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- vline_left(x = x, i = i, border = border, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  x <- border(x, j = 1, i = i, border.left = border, part = part )
+  x
+}
+#' @export
+#' @rdname hline
+vline_right <- function(x, i = NULL, border = NULL, part = "body"){
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- vline_right(x = x, i = i, border = border, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  x <- border(x, j = length(x$col_keys), i = i, border.right = border, part = part )
+  x
+}
+
+#' @export
+#' @rdname hline
+vline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- vline(x = x, i = i, j = j, border = border, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 ){
+    return(x)
+  }
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+  x <- border(x, i = i, j = j, border.right = border, part = part )
+  j <- setdiff(j, 1 )
+  x <- border(x, i = i, j = j, border.left = border, part = part )
+  x
+}
+
 
 #' @export
 #' @title rotate cell text

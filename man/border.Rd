@@ -30,6 +30,11 @@ border(x, i = NULL, j = NULL, border = NULL, border.top = NULL,
 \description{
 change borders of selected rows and columns of a flextable.
 }
+\note{
+This function should not be used directly by users and functions \code{\link{hline}},
+\code{\link{vline}}, \code{\link{hline_top}}, \code{\link{vline_left}} should
+be prefered.
+}
 \examples{
 library(officer)
 ft <- flextable(mtcars)
