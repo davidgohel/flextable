@@ -26,6 +26,8 @@ the dataset, they will be added as blank columns by default.}
 When \code{"log"} is used, a description of the flextable is printed.}
 
 \item{...}{unused argument}
+
+\item{file}{file to produce.}
 }
 \description{
 Create a flextable object with function \code{flextable}.

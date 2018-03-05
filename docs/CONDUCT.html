@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>add flextable into a PowerPoint slide — ph_with_flextable • flextable</title>
+<title>/Users/davidgohel/Github/flextable/CONDUCT.md • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -22,15 +22,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
-<script src="../pkgdown.js"></script>
+<link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script>
+<script src="pkgdown.js"></script>
   
   
-<meta property="og:title" content="add flextable into a PowerPoint slide — ph_with_flextable" />
-
-<meta property="og:description" content="add a flextable as a new shape in the current slide." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="/Users/davidgohel/Github/flextable/CONDUCT.md" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -43,7 +40,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -53,27 +50,27 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">flextable</a>
+      <a class="navbar-brand" href="index.html">flextable</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/overview.html">Overview</a>
+  <a href="articles/overview.html">Overview</a>
 </li>
 <li>
-  <a href="../articles/layout.html">Layout</a>
+  <a href="articles/layout.html">Layout</a>
 </li>
 <li>
-  <a href="../articles/format.html">Format</a>
+  <a href="articles/format.html">Format</a>
 </li>
 <li>
-  <a href="../articles/examples.html">Examples</a>
+  <a href="articles/examples.html">Examples</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Function reference</a>
+  <a href="reference/index.html">Function reference</a>
 </li>
 <li>
   <a href="https://github.com/davidgohel/flextable">
@@ -90,74 +87,26 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-12">
     <div class="page-header">
-    <h1>add flextable into a PowerPoint slide</h1>
+      <h1>/Users/davidgohel/Github/flextable/CONDUCT.md</h1>
     </div>
 
-    
-    <p>add a flextable as a new shape in the current slide.</p>
-    
-
-    <pre class="usage"><span class='fu'>ph_with_flextable</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-
-<span class='fu'>ph_with_flextable_at</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>left</span>, <span class='no'>top</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>a pptx device</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p><code>flextable</code> object</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>placeholder type</p></td>
-    </tr>
-    <tr>
-      <th>index</th>
-      <td><p>placeholder index (integer). This is to be used when a placeholder type
-is not unique in the current slide, e.g. two placeholders with type 'body'.</p></td>
-    </tr>
-    <tr>
-      <th>left, top</th>
-      <td><p>location of flextable on the slide in inches</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>The width and height of the table can not be set with this function. Use
-functions <code><a href='width.html'>width</a></code>, <code><a href='height.html'>height</a></code>, <code><a href='autofit.html'>autofit</a></code>
-and <code><a href='dim_pretty.html'>dim_pretty</a></code> instead. The overall size is resulting from
-cells, paragraphs and text properties (i.e. padding, font size, border widths).</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>officer</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'>head</span>(<span class='no'>mtcars</span>))</div><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/officer/topics/read_pptx'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/officer/topics/add_slide'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
-                 <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with_flextable</span>(<span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>ft</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with_flextable_at</span>(<span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>ft</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-<span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"test.pptx"</span> )</div><div class='output co'>#&gt; [1] "/Users/davidgohel/Github/flextable/docs/reference/test.pptx"</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#note">Note</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-  </div>
+<div id="contributor-code-of-conduct" class="section level1">
+<h1 class="hasAnchor">
+<a href="#contributor-code-of-conduct" class="anchor"></a>Contributor Code of Conduct</h1>
+<p>As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.</p>
+<p>We are committed to making participation in this project a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.</p>
+<p>Examples of unacceptable behavior by participants include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.</p>
+<p>Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct. Project maintainers who do not follow the Code of Conduct may be removed from the project team.</p>
+<p>Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening an issue or contacting one or more of the project maintainers.</p>
+<p>This Code of Conduct is adapted from the Contributor Covenant (<a href="http:contributor-covenant.org" class="uri">http:contributor-covenant.org</a>), version 1.0.0, available at <a href="http://contributor-covenant.org/version/1/0/0/" class="uri">http://contributor-covenant.org/version/1/0/0/</a></p>
 </div>
+
+  </div>
+
+</div>
+
 
       <footer>
       <div class="author">
