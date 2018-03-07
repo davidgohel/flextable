@@ -76,3 +76,20 @@ test_that("html - string are html encoded", {
   text_ <- xml_text(xml_find_first(doc, "//tbody/tr/td/p/span"))
   expect_equal(text_, c("1 < 3") )
 })
+
+test_that("NA managment", {
+
+  x <- data.frame(zz = c("a", NA_character_), stringsAsFactors = FALSE)
+  ft1 <- regulartable(x)
+  ft2 <- flextable(x)
+
+  str_ <- flextable:::html_str.regulartable(ft1)
+  doc <- read_xml(str_)
+  text_ <- xml_text(xml_find_all(doc, "tbody/tr/td/p"))
+  expect_equal(text_, c("a", "") )
+
+  str_ <- flextable:::html_str.complextable(ft2)
+  doc <- read_xml(str_)
+  text_ <- xml_text(xml_find_all(doc, "tbody/tr/td/p"))
+  expect_equal(text_, c("a", "") )
+})
