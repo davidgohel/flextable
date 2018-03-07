@@ -24,6 +24,19 @@ ft <- display(
   formatters = list(mylink ~ hyperlinked_text(href, col) )
 )
 ft
+
+
+dat <- data.frame(
+  col = "Google it",
+  href = "https://www.google.fr/search?source=hp&q=officer+R+package",
+  stringsAsFactors = FALSE)
+
+ft <- flextable(dat)
+ft <- display( x = ft,
+  col_key = "col",
+  pattern = "This is a link: {{mylink}}",
+  formatters = list(mylink ~ hyperlink_text(href, col) ) )
+ft
 }
 \seealso{
 \code{\link{display}}

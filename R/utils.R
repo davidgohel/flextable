@@ -141,3 +141,27 @@ create_display <- function(data, col_keys){
   display_structure$new(nrow(data), col_keys, formatters )
 }
 
+
+replace.na <- function(x, by = ""){
+  x[is.na(x)] <- by
+  x
+}
+dbl_fun <- function(x, fmt_double) {
+  replace.na(sprintf(fmt_double, x), by = "")
+}
+int_fun <- function(x, fmt_integer) {
+  replace.na(sprintf(fmt_integer, x), by = "")
+}
+str_fun <- function(x) {
+  replace.na(as.character(x), by = "")
+}
+date_fun <- function(x, fmt_date){
+  replace.na(format(x, fmt_date), by = "")
+}
+datetime_fun <- function(x, fmt_datetime){
+  replace.na(format(x, fmt_datetime), by = "")
+}
+any_fun <- function(x){
+  replace.na(format(x), by = "")
+}
+

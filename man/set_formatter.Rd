@@ -8,8 +8,7 @@
 set_formatter(x, ..., part = "body")
 
 set_formatter_type(x, fmt_double = "\%.03f", fmt_integer = "\%.0f",
-  fmt_date = "\%Y-\%m-\%d", fmt_datetime = "\%Y-\%m-\%d \%H:\%M:\%S",
-  fun_any = "format")
+  fmt_date = "\%Y-\%m-\%d", fmt_datetime = "\%Y-\%m-\%d \%H:\%M:\%S")
 }
 \arguments{
 \item{x}{a regulartable object}
@@ -23,10 +22,6 @@ format double and integer columns.}
 
 \item{fmt_date, fmt_datetime}{arguments used by \code{format} to
 format date and date time columns.}
-
-\item{fun_any}{function name (character) to use to convert other types of columns
-as characters. Note that factors and strings are not transformed by
-this function.}
 }
 \description{
 Define formatter functions associated to each column key.

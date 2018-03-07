@@ -15,6 +15,19 @@
 #'   formatters = list(mylink ~ hyperlinked_text(href, col) )
 #' )
 #' ft
+#'
+#'
+#' dat <- data.frame(
+#'   col = "Google it",
+#'   href = "https://www.google.fr/search?source=hp&q=officer+R+package",
+#'   stringsAsFactors = FALSE)
+#'
+#' ft <- flextable(dat)
+#' ft <- display( x = ft,
+#'   col_key = "col",
+#'   pattern = "This is a link: {{mylink}}",
+#'   formatters = list(mylink ~ hyperlink_text(href, col) ) )
+#' ft
 hyperlink_text <- function(url, label = url){
   x <- data.frame( str = label, href = url, stringsAsFactors = FALSE)
   class(x) <- c( "hyperlinked_text", class(x) )

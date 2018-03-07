@@ -1,8 +1,19 @@
 default_printers <- function(x){
   lapply(x$dataset[x$col_keys], function( x ) {
-    if( is.character(x) ) function(x) x
-    else if( is.factor(x) ) function(x) as.character(x)
-    else function(x) gsub("(^ | $)+", "", format(x))
+    if( is.character(x) ) function(x) {
+      x[is.na(x)] <- ""
+      x
+    }
+    else if( is.factor(x) ) function(x){
+      x <- as.character(x)
+      x[is.na(x)] <- ""
+      x
+    }
+    else function(x) {
+      x <- gsub("(^ | $)+", "", format(x))
+      x[is.na(x)] <- ""
+      x
+    }
   })
 }
 
