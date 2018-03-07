@@ -80,28 +80,19 @@ pml_flextable <- function(value){
 #' \donttest{print(doc, target = "test.pptx" )}
 #' }
 #' @importFrom officer ph_from_xml
+#' @importFrom stringr fixed
 ph_with_flextable <- function( x, value, type = "body", index = 1 ){
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_flextable(value)
 
   hlinks <- attr(graphic_frame, "hlinks")
   if( length(hlinks) > 0 ){
-
     for( hl in hlinks ){
-      # browser()
       slide <- x$slide$get_slide(x$cursor)
       rel <- slide$relationship()
-      # rel <- doc$doc_obj$relationship()
-      new_rid <- sprintf("rId%.0f", rel$get_next_id())
-      rel$add(
-        id = new_rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
-        target = hl, target_mode = "External" )
-      graphic_frame <- str_replace_all(string = graphic_frame,
-                             sprintf("<a:hlinkClick r:id=\"%s\"", hl ),
-                             sprintf("<a:hlinkClick r:id=\"%s\"", new_rid ) )
+      graphic_frame <- process_url(rel, url=hl, str = graphic_frame, pattern = "a:hlinkClick")
     }
   }
-
   ph_from_xml(x = x, value = graphic_frame, type = type, index = index )
 }
 
@@ -113,6 +104,16 @@ ph_with_flextable_at <- function( x, value, left, top ){
   stopifnot(inherits(x, "rpptx"))
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_flextable(value)
+
+  hlinks <- attr(graphic_frame, "hlinks")
+  if( length(hlinks) > 0 ){
+    for( hl in hlinks ){
+      slide <- x$slide$get_slide(x$cursor)
+      rel <- slide$relationship()
+      graphic_frame <- process_url(rel, url=hl, str = graphic_frame, pattern = "a:hlinkClick")
+    }
+  }
+
   ph_from_xml_at(x = x, value = graphic_frame, left = left, top = top,
                  width = 0, height = 0 )
 }

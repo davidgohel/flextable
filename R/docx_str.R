@@ -75,13 +75,7 @@ docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
 
     for( hl in hlinks ){
       rel <- doc$doc_obj$relationship()
-      new_rid <- sprintf("rId%.0f", rel$get_next_id())
-      rel$add(
-        id = new_rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
-        target = hl, target_mode = "External" )
-      out <- str_replace_all(string = out,
-                             sprintf("<w:hyperlink r:id=\"%s\">", hl ),
-                             sprintf("<w:hyperlink r:id=\"%s\">", new_rid ) )
+      out <- process_url(rel, url = hl, str = out, pattern = "w:hyperlink", double_esc = FALSE)
     }
   }
 

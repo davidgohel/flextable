@@ -105,7 +105,22 @@ nrow_part <- function(x, part){
   else nrow(x[[part]]$dataset)
 }
 
+process_url <- function(rel, url, str, pattern, double_esc = TRUE){
+  new_rid <- sprintf("rId%.0f", rel$get_next_id())
 
+  if(double_esc)
+    escape <- function(x) htmlEscape(htmlEscape(x))
+  else escape <- function(x) htmlEscape(x)# it seems that word does not behave as powerpoint
+
+  rel$add(
+    id = new_rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+    target = escape(url), target_mode = "External" )
+
+  str_replace_all( string = str,
+    fixed( sprintf("<%s r:id=\"%s\"", pattern, url ) ),
+    sprintf("<%s r:id=\"%s\"", pattern, new_rid )
+  )
+}
 
 create_display <- function(data, col_keys){
   set_formatter_type_formals <- formals(set_formatter_type)
