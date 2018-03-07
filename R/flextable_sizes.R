@@ -207,7 +207,8 @@ optimal_sizes.complex_tabpart <- function( x ){
   widths <- widths + cell_dim$widths
   heights <- heights + cell_dim$heights
 
-  list(widths = apply(widths, 2, max), heights = apply(heights, 1, max) )
+  list(widths = apply(widths, 2, max, na.rm = TRUE),
+       heights = apply(heights, 1, max, na.rm = TRUE) )
 }
 
 optimal_sizes.simple_tabpart <- function( x ){
@@ -235,9 +236,8 @@ optimal_sizes.simple_tabpart <- function( x ){
   cell_dim <- dim_cells(x)
   widths <- widths + cell_dim$widths
   heights <- heights + cell_dim$heights
-
-  list(widths = apply(widths, 2, max),
-       heights = apply(heights, 1, max)
+  list(widths = apply(widths, 2, max, na.rm = TRUE),
+       heights = apply(heights, 1, max, na.rm = TRUE)
   )
 }
 
