@@ -100,6 +100,7 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
   x
 }
 
+# fonts ----
 
 #' @export
 #' @title Set bold font
@@ -220,6 +221,7 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
 
   x
 }
+
 #' @export
 #' @title Set font color
 #' @description change font color of selected rows and columns of a flextable.
@@ -260,7 +262,54 @@ color <- function(x, i = NULL, j = NULL, color, part = "body" ){
   x
 }
 
+#' @export
+#' @title Set font
+#' @description change font of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @param fontname string value, the font name.
+#' @examples
+#' require("gdtools")
+#' fontname <- "Times"
+#'
+#' if( !font_family_exists(fontname) ){
+#'   # if Times is not available, we will use the first available
+#'   font_list <- sys_fonts()
+#'   fontname <- as.character(font_list$family[1])
+#' }
+#'
+#' ft <- regulartable(head(iris))
+#' ft <- font(ft, fontname = fontname, part = "header")
+font <- function(x, i = NULL, j = NULL, fontname, part = "body" ){
 
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- italic(x = x, i = i, j = j, italic = italic, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+
+  pr_id <- x[[part]]$styles$text$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$text$get_fp()[unique(pr_id)]
+
+  pr <- lapply(pr, function(x, fontname ) update(x, font.family = fontname ), fontname = fontname )
+  new_name <- sapply(pr, fp_sign )
+  names(pr) <- new_name
+  x[[part]]$styles$text$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
+
+  x
+}
 
 #' @export
 #' @title Set paragraph paddings

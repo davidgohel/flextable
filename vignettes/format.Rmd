@@ -77,6 +77,13 @@ myft <- color(myft, color = "#E4C994")
 myft
 ```
 
+### change font
+
+```{r}
+myft <- font(myft, fontname = "Times")
+myft
+```
+
 ### Italic
 
 ```{r}
