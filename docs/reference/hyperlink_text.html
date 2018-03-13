@@ -127,7 +127,19 @@ It lets add hyperlinks within flextable.</p>
   <span class='no'>ft</span>, <span class='kw'>col_key</span> <span class='kw'>=</span> <span class='st'>"col"</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"# {{mylink}}"</span>,
   <span class='kw'>formatters</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>mylink</span> ~ <span class='fu'>hyperlinked_text</span>(<span class='no'>href</span>, <span class='no'>col</span>) )
 )
-<span class='no'>ft</span></div><div class='output co'>#&gt; <span class='error'>Error in hyperlinked_text(href, col): impossible de trouver la fonction "hyperlinked_text"</span></div></pre>
+<span class='no'>ft</span></div><div class='output co'>#&gt; <span class='error'>Error in hyperlinked_text(href, col): impossible de trouver la fonction "hyperlinked_text"</span></div><div class='input'>
+
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(
+  <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"Google it"</span>,
+  <span class='kw'>href</span> <span class='kw'>=</span> <span class='st'>"https://www.google.fr/search?source=hp&amp;q=officer+R+package"</span>,
+  <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>dat</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='display.html'>display</a></span>( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>ft</span>,
+  <span class='kw'>col_key</span> <span class='kw'>=</span> <span class='st'>"col"</span>,
+  <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"This is a link: {{mylink}}"</span>,
+  <span class='kw'>formatters</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>mylink</span> ~ <span class='fu'>hyperlink_text</span>(<span class='no'>href</span>, <span class='no'>col</span>) ) )
+<span class='no'>ft</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

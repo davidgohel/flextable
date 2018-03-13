@@ -2,30 +2,47 @@ flextable R package
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Build Status](https://travis-ci.org/davidgohel/flextable.svg?branch=master)](https://travis-ci.org/davidgohel/flextable) [![Build status](https://ci.appveyor.com/api/projects/status/github/davidgohel/flextable?branch=master)](https://ci.appveyor.com/project/davidgohel/flextable/branch/master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/flextable)](https://cran.r-project.org/package=flextable) ![cranlogs](http://cranlogs.r-pkg.org./badges/flextable) [![codecov](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/flextable) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+
+[![Build
+Status](https://travis-ci.org/davidgohel/flextable.svg?branch=master)](https://travis-ci.org/davidgohel/flextable)
+[![Build
+status](https://ci.appveyor.com/api/projects/status/github/davidgohel/flextable?branch=master)](https://ci.appveyor.com/project/davidgohel/flextable/branch/master)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/flextable)](https://cran.r-project.org/package=flextable)
+![cranlogs](http://cranlogs.r-pkg.org./badges/flextable)
+[![codecov](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/flextable)
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 
 <img src="http://www.ardata.fr/images/flextablelogo.svg" width = "15%"/>
 
-The flextable package provides a framework for easily create tables for reporting. Tables can be embedded within:
+The flextable package provides a framework for easily create tables for
+reporting. Tables can be embedded within:
 
--   R Markdown documents
--   Microsoft Word or PowerPoint documents.
+  - R Markdown documents
+  - Microsoft Word or PowerPoint documents.
 
-Getting Started
----------------
+## Getting Started
 
-An API is available to let R users create tables for reporting and control their formatting properties and their layout. A `flextable` object is a data.frame representation, it can be manipulated with functions that give control over:
+An API is available to let R users create tables for reporting and
+control their formatting properties and their layout. A `flextable`
+object is a data.frame representation, it can be manipulated with
+functions that give control over:
 
--   headers content
--   text, paragraphs, cells and border formatting of any element
--   displayed values
+  - headers content
+  - text, paragraphs, cells and border formatting of any element
+  - displayed values
 
-There are articles on the flextable website that will help you get you to start quickly:
+There are articles on the flextable website that will help you get you
+to start quickly:
 
--   [Introduction to flextable](https://davidgohel.github.io/flextable/articles/overview.html)
--   [Function reference](https://davidgohel.github.io/flextable/reference/index.html)
+  - [Introduction to
+    flextable](https://davidgohel.github.io/flextable/articles/overview.html)
+  - [Function
+    reference](https://davidgohel.github.io/flextable/reference/index.html)
 
-The help pages can be read [here](https://davidgohel.github.io/flextable).
+The help pages can be read
+[here](https://davidgohel.github.io/flextable).
 
 ### Installation
 
@@ -39,8 +56,7 @@ You can get the development version from GitHub:
 devtools::install_github("davidgohel/flextable")
 ```
 
-Ressources
-----------
+## Ressources
 
 ### Online documentation
 
@@ -48,27 +64,41 @@ The help pages are located at <https://davidgohel.github.io/flextable/>.
 
 ### Getting help
 
-This project is developped and maintained on my own time. In order to help me to maintain the package, do not send me private emails if you only have questions about how to use the package. Instead, visit Stackoverflow and use tags `flextable` and `r` [Stackoverflow link](https://stackoverflow.com/questions/tagged/flextable+r)! I usually read them and answer when possible.
+This project is developped and maintained on my own time. In order to
+help me to maintain the package, do not send me private emails if you
+only have questions about how to use the package. Instead, visit
+Stackoverflow and use tags `flextable` and `r` [Stackoverflow
+link](https://stackoverflow.com/questions/tagged/flextable+r)\! I
+usually read them and answer when possible.
 
-Contributing to the package
----------------------------
+## Contributing to the package
 
 ### Code of Conduct
 
-Anyone getting involved in this package agrees to our [Code of Conduct](https://github.com/davidgohel/flextable/blob/master/CONDUCT.md).
+Anyone getting involved in this package agrees to our [Code of
+Conduct](https://github.com/davidgohel/flextable/blob/master/CONDUCT.md).
 
 ### Bug reports
 
-When you file a [bug report](https://github.com/davidgohel/flextable/issues), please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.
+When you file a [bug
+report](https://github.com/davidgohel/flextable/issues), please spend
+some time making it easy for me to follow and reproduce. The more time
+you spend on making the bug report coherent, the more time I can
+dedicate to investigate the bug as opposed to the bug report.
 
 ### Contributing to the package development
 
-A great way to start is to contribute an example or improve the documentation.
+A great way to start is to contribute an example or improve the
+documentation.
 
-If you want to submit a Pull Request to integrate functions of yours, please provide:
+If you want to submit a Pull Request to integrate functions of yours,
+please provide:
 
--   the new function(s) with code and roxygen tags (with examples)
--   a new section in the appropriate vignette that describes how to use the new function
--   add corresponding tests in directory `tests/testthat`.
+  - the new function(s) with code and roxygen tags (with examples)
+  - a new section in the appropriate vignette that describes how to use
+    the new function
+  - add corresponding tests in directory `tests/testthat`.
 
-By using rhub (run `rhub::check_for_cran()`), you will see if everything is ok. When submitted, the PR will be evaluated automatically on travis and appveyor and you will be able to see if something broke.
+By using rhub (run `rhub::check_for_cran()`), you will see if everything
+is ok. When submitted, the PR will be evaluated automatically on travis
+and appveyor and you will be able to see if something broke.

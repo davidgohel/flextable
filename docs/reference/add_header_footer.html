@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>add flextable into a PowerPoint slide — ph_with_flextable • flextable</title>
+<title>Add a row of labels in header or footer part — add_header_footer • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,10 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="add flextable into a PowerPoint slide — ph_with_flextable" />
+<meta property="og:title" content="Add a row of labels in header or footer part — add_header_footer" />
 
-<meta property="og:description" content="add a flextable as a new shape in the current slide." />
+<meta property="og:description" content="Add a single row of labels in the flextable's header
+or footer part. It can be inserted at the top or the bottom of the part." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -92,67 +93,56 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>add flextable into a PowerPoint slide</h1>
+    <h1>Add a row of labels in header or footer part</h1>
     </div>
 
     
-    <p>add a flextable as a new shape in the current slide.</p>
+    <p>Add a single row of labels in the flextable's header
+or footer part. It can be inserted at the top or the bottom of the part.</p>
     
 
-    <pre class="usage"><span class='fu'>ph_with_flextable</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+    <pre class="usage"><span class='fu'>add_header</span>(<span class='no'>x</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
-<span class='fu'>ph_with_flextable_at</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>left</span>, <span class='no'>top</span>)</pre>
+<span class='fu'>add_footer</span>(<span class='no'>x</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an rpptx device</p></td>
+      <td><p>a <code>flextable</code> object</p></td>
     </tr>
     <tr>
-      <th>value</th>
-      <td><p><code>flextable</code> object</p></td>
+      <th>top</th>
+      <td><p>should the row be inserted at the top or the bottom.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>placeholder type</p></td>
-    </tr>
-    <tr>
-      <th>index</th>
-      <td><p>placeholder index (integer). This is to be used when a placeholder type
-is not unique in the current slide, e.g. two placeholders with type 'body'.</p></td>
-    </tr>
-    <tr>
-      <th>left, top</th>
-      <td><p>location of flextable on the slide in inches</p></td>
+      <th>...</th>
+      <td><p>a named list (names are data colnames) of strings
+specifying corresponding labels to add.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>The width and height of the table can not be set with this function. Use
-functions <code><a href='width.html'>width</a></code>, <code><a href='height.html'>height</a></code>, <code><a href='autofit.html'>autofit</a></code>
-and <code><a href='dim_pretty.html'>dim_pretty</a></code> instead. The overall size is resulting from
-cells, paragraphs and text properties (i.e. padding, font size, border widths).</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>officer</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'>head</span>(<span class='no'>mtcars</span>))</div><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/officer/topics/read_pptx'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/officer/topics/add_slide'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
-                 <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with_flextable</span>(<span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>ft</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with_flextable_at</span>(<span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>ft</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-<span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"test.pptx"</span> )</div><div class='output co'>#&gt; [1] "/Users/davidgohel/Github/flextable/docs/reference/test.pptx"</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'>head</span>( <span class='no'>iris</span> ),
+  <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Species"</span>, <span class='st'>"Sepal.Length"</span>, <span class='st'>"Petal.Length"</span>, <span class='st'>"Sepal.Width"</span>, <span class='st'>"Petal.Width"</span>) )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>add_header</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>ft</span>, <span class='kw'>Sepal.Length</span> <span class='kw'>=</span> <span class='st'>"length"</span>,
+  <span class='kw'>Sepal.Width</span> <span class='kw'>=</span> <span class='st'>"width"</span>, <span class='kw'>Petal.Length</span> <span class='kw'>=</span> <span class='st'>"length"</span>,
+  <span class='kw'>Petal.Width</span> <span class='kw'>=</span> <span class='st'>"width"</span>, <span class='kw'>Species</span> <span class='kw'>=</span> <span class='st'>"Species"</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>FALSE</span> )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>add_header</span>(<span class='no'>ft</span>, <span class='kw'>Sepal.Length</span> <span class='kw'>=</span> <span class='st'>"Inches"</span>,
+  <span class='kw'>Sepal.Width</span> <span class='kw'>=</span> <span class='st'>"Inches"</span>, <span class='kw'>Petal.Length</span> <span class='kw'>=</span> <span class='st'>"Inches"</span>,
+  <span class='kw'>Petal.Width</span> <span class='kw'>=</span> <span class='st'>"Inches"</span>, <span class='kw'>Species</span> <span class='kw'>=</span> <span class='st'>"Species"</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span> )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='merge_h.html'>merge_h</a></span>(<span class='no'>ft</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>add_footer</span>(<span class='no'>ft</span>, <span class='kw'>Species</span> <span class='kw'>=</span> <span class='st'>"This is a footnote"</span> )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='merge_at.html'>merge_at</a></span>(<span class='no'>ft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"footer"</span>)
+<span class='no'>ft</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#note">Note</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -106,8 +106,7 @@ values as a character vector.</p>
     <pre class="usage"><span class='fu'>set_formatter</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
 
 <span class='fu'>set_formatter_type</span>(<span class='no'>x</span>, <span class='kw'>fmt_double</span> <span class='kw'>=</span> <span class='st'>"%.03f"</span>, <span class='kw'>fmt_integer</span> <span class='kw'>=</span> <span class='st'>"%.0f"</span>,
-  <span class='kw'>fmt_date</span> <span class='kw'>=</span> <span class='st'>"%Y-%m-%d"</span>, <span class='kw'>fmt_datetime</span> <span class='kw'>=</span> <span class='st'>"%Y-%m-%d %H:%M:%S"</span>,
-  <span class='kw'>fun_any</span> <span class='kw'>=</span> <span class='st'>"format"</span>)</pre>
+  <span class='kw'>fmt_date</span> <span class='kw'>=</span> <span class='st'>"%Y-%m-%d"</span>, <span class='kw'>fmt_datetime</span> <span class='kw'>=</span> <span class='st'>"%Y-%m-%d %H:%M:%S"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -133,12 +132,6 @@ format double and integer columns.</p></td>
       <th>fmt_date, fmt_datetime</th>
       <td><p>arguments used by <code>format</code> to
 format date and date time columns.</p></td>
-    </tr>
-    <tr>
-      <th>fun_any</th>
-      <td><p>function name (character) to use to convert other types of columns
-as characters. Note that factors and strings are not transformed by
-this function.</p></td>
     </tr>
     </table>
     

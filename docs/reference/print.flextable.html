@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>add flextable into a PowerPoint slide — ph_with_flextable • flextable</title>
+<title>flextable printing — print.flextable • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="add flextable into a PowerPoint slide — ph_with_flextable" />
+<meta property="og:title" content="flextable printing — print.flextable" />
 
-<meta property="og:description" content="add a flextable as a new shape in the current slide." />
+<meta property="og:description" content="print a flextable object to format html, docx,
+pptx or as text (not for display but for informative purpose).
+This function is to be used in an interactive context." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -92,59 +94,49 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>add flextable into a PowerPoint slide</h1>
+    <h1>flextable printing</h1>
     </div>
 
     
-    <p>add a flextable as a new shape in the current slide.</p>
+    <p>print a flextable object to format <code>html</code>, <code>docx</code>,
+<code>pptx</code> or as text (not for display but for informative purpose).
+This function is to be used in an interactive context.</p>
     
 
-    <pre class="usage"><span class='fu'>ph_with_flextable</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-
-<span class='fu'>ph_with_flextable_at</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>left</span>, <span class='no'>top</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for flextable</span>
+<span class='fu'>print</span>(<span class='no'>x</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='st'>"html"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an rpptx device</p></td>
+      <td><p>flextable object</p></td>
     </tr>
     <tr>
-      <th>value</th>
-      <td><p><code>flextable</code> object</p></td>
+      <th>preview</th>
+      <td><p>preview type, one of c("html", "pptx", "docx", "log").
+When <code>"log"</code> is used, a description of the flextable is printed.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>placeholder type</p></td>
-    </tr>
-    <tr>
-      <th>index</th>
-      <td><p>placeholder index (integer). This is to be used when a placeholder type
-is not unique in the current slide, e.g. two placeholders with type 'body'.</p></td>
-    </tr>
-    <tr>
-      <th>left, top</th>
-      <td><p>location of flextable on the slide in inches</p></td>
+      <th>...</th>
+      <td><p>unused argument</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The width and height of the table can not be set with this function. Use
-functions <code><a href='width.html'>width</a></code>, <code><a href='height.html'>height</a></code>, <code><a href='autofit.html'>autofit</a></code>
-and <code><a href='dim_pretty.html'>dim_pretty</a></code> instead. The overall size is resulting from
-cells, paragraphs and text properties (i.e. padding, font size, border widths).</p>
+    <p>When argument <code>preview</code> is set to <code>"docx"</code> or <code>"pptx"</code>, an
+external client linked to these formats (Office is installed) is used to
+edit a document. The document is saved in the temporary directory of
+the R session and will be removed when R session will be ended.</p>
+<p>When argument <code>preview</code> is set to <code>"html"</code>, an
+external client linked to these HTML format is used to display the table.
+If RStudio is used, the Viewer is used to display the table.</p>
+<p>Note also that a print method is used when flextable are used within
+R markdown documents. See <code><a href='knit_print.flextable.html'>knit_print.flextable</a></code>.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>officer</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'>head</span>(<span class='no'>mtcars</span>))</div><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/officer/topics/read_pptx'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/officer/topics/add_slide'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
-                 <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with_flextable</span>(<span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>ft</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with_flextable_at</span>(<span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>ft</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-<span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"test.pptx"</span> )</div><div class='output co'>#&gt; [1] "/Users/davidgohel/Github/flextable/docs/reference/test.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -152,9 +144,7 @@ cells, paragraphs and text properties (i.e. padding, font size, border widths).<
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#note">Note</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

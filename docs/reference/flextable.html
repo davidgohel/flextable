@@ -113,9 +113,6 @@ computed.</p>
 
     <pre class="usage"><span class='fu'>flextable</span>(<span class='no'>data</span>, <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>data</span>), <span class='kw'>cwidth</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>cheight</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)
 
-<span class='co'># S3 method for flextable</span>
-<span class='fu'>print</span>(<span class='no'>x</span>, <span class='kw'>preview</span> <span class='kw'>=</span> <span class='st'>"html"</span>, <span class='no'>...</span>)
-
 <span class='fu'>regulartable</span>(<span class='no'>data</span>, <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>data</span>), <span class='kw'>cwidth</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>cheight</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -134,24 +131,11 @@ the dataset, they will be added as blank columns by default.</p></td>
       <th>cwidth, cheight</th>
       <td><p>initial width and height to use for cell sizes in inches.</p></td>
     </tr>
-    <tr>
-      <th>x</th>
-      <td><p>flextable object</p></td>
-    </tr>
-    <tr>
-      <th>preview</th>
-      <td><p>preview type, one of c("html", "pptx", "docx", "log").
-When <code>"log"</code> is used, a description of the flextable is printed.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>unused argument</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A <code>flextable</code> is made of 2 parts: header and body.</p>
+    <p>A <code>flextable</code> is made of 3 parts: header, body and footer.</p>
 <p>Most functions have an argument named <code>part</code> that will be used
 to specify what part of of the table should be modified.</p>
     
