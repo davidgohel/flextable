@@ -123,7 +123,7 @@
   <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span> )
 
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'>head</span>( <span class='no'>iris</span> ) )
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_header_df.html'>set_header_df</a></span>(<span class='no'>ft</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='no'>typology</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span> )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_header_footer_df.html'>set_header_df</a></span>(<span class='no'>ft</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='no'>typology</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span> )
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='merge_v.html'>merge_v</a></span>(<span class='no'>ft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Species"</span>))
 
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_tron_legacy.html'>theme_tron_legacy</a></span>( <span class='fu'>merge_none</span>( <span class='no'>ft</span> ) )

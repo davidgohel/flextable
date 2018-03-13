@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set flextable's header rows — set_header_df • flextable</title>
+<title>Set flextable's header or footer rows — set_header_footer_df • flextable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,14 +27,14 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Set flextable's header rows — set_header_df" />
+<meta property="og:title" content="Set flextable's header or footer rows — set_header_footer_df" />
 
-<meta property="og:description" content="Use a data.frame to specify flextable's header rows.
+<meta property="og:description" content="Use a data.frame to specify flextable's header or footer rows.
 The data.frame must contain a column whose values match flextable
 col_keys argument, this column will be used as join key. The
-other columns will be displayed as header rows. The leftmost column
-is used as the top header row and the rightmost column
-is used as the bottom header row." />
+other columns will be displayed as header or footer rows. The leftmost column
+is used as the top header/footer row and the rightmost column
+is used as the bottom header/footer row." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -97,19 +97,21 @@ is used as the bottom header row." />
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set flextable's header rows</h1>
+    <h1>Set flextable's header or footer rows</h1>
     </div>
 
     
-    <p>Use a data.frame to specify flextable's header rows.</p>
+    <p>Use a data.frame to specify flextable's header or footer rows.</p>
 <p>The data.frame must contain a column whose values match flextable
 <code>col_keys</code> argument, this column will be used as join key. The
-other columns will be displayed as header rows. The leftmost column
-is used as the top header row and the rightmost column
-is used as the bottom header row.</p>
+other columns will be displayed as header or footer rows. The leftmost column
+is used as the top header/footer row and the rightmost column
+is used as the bottom header/footer row.</p>
     
 
-    <pre class="usage"><span class='fu'>set_header_df</span>(<span class='no'>x</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span>)</pre>
+    <pre class="usage"><span class='fu'>set_header_df</span>(<span class='no'>x</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span>)
+
+<span class='fu'>set_footer_df</span>(<span class='no'>x</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -143,6 +145,16 @@ content of the column.</p></td>
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='merge_h.html'>merge_h</a></span>(<span class='no'>ft</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='merge_v.html'>merge_v</a></span>(<span class='no'>ft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='st'>"Species"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_vanilla.html'>theme_vanilla</a></span>(<span class='no'>ft</span>)
+
+
+<span class='no'>typology</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(
+  <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'>c</span>( <span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, <span class='st'>"Petal.Length"</span>,
+                <span class='st'>"Petal.Width"</span>, <span class='st'>"Species"</span> ),
+  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"(cm)"</span>, <span class='st'>"(cm)"</span>, <span class='st'>"(cm)"</span>, <span class='st'>"(cm)"</span>, <span class='st'>""</span>),
+  <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span> )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>set_footer_df</span>(<span class='no'>ft</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='no'>typology</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span> )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='italic.html'>italic</a></span>(<span class='no'>ft</span>, <span class='kw'>italic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"footer"</span> )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_booktabs.html'>theme_booktabs</a></span>(<span class='no'>ft</span>)
 <span class='no'>ft</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

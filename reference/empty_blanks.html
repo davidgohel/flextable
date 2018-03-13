@@ -131,7 +131,7 @@ transparent and display empty content.</p>
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'>head</span>(<span class='no'>iris</span>), <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Species"</span>,
   <span class='st'>"break1"</span>, <span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>,
   <span class='st'>"break2"</span>, <span class='st'>"Petal.Length"</span>, <span class='st'>"Petal.Width"</span>) )
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_header_df.html'>set_header_df</a></span>(<span class='no'>ft</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='no'>typology</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span> )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_header_footer_df.html'>set_header_df</a></span>(<span class='no'>ft</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='no'>typology</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span> )
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='merge_h.html'>merge_h</a></span>(<span class='no'>ft</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_vanilla.html'>theme_vanilla</a></span>(<span class='no'>ft</span>)
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>empty_blanks</span>(<span class='no'>ft</span>)
