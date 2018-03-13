@@ -21,6 +21,7 @@ width <- function(x, j = NULL, width){
   if( length(width) == 1 ) width <- rep(width, length(j))
 
   x$header$colwidths[j] <- width
+  x$footer$colwidths[j] <- width
   x$body$colwidths[j] <- width
 
   x

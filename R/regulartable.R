@@ -35,7 +35,7 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
                 pr_p = fp_par(text.align = "right", padding = 2),
                 pr_c = fp_cell(border = fp_border()), part = "all")
   out <- set_formatter_type(out)
-  out
+  theme_booktabs(out)
 }
 
 

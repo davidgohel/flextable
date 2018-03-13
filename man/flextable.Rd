@@ -2,13 +2,10 @@
 % Please edit documentation in R/flextable.R, R/regulartable.R
 \name{flextable}
 \alias{flextable}
-\alias{print.flextable}
 \alias{regulartable}
 \title{flextable creation}
 \usage{
 flextable(data, col_keys = names(data), cwidth = 0.75, cheight = 0.25)
-
-\method{print}{flextable}(x, preview = "html", ...)
 
 regulartable(data, col_keys = names(data), cwidth = 0.75, cheight = 0.25)
 }
@@ -19,13 +16,6 @@ regulartable(data, col_keys = names(data), cwidth = 0.75, cheight = 0.25)
 the dataset, they will be added as blank columns by default.}
 
 \item{cwidth, cheight}{initial width and height to use for cell sizes in inches.}
-
-\item{x}{flextable object}
-
-\item{preview}{preview type, one of c("html", "pptx", "docx", "log").
-When \code{"log"} is used, a description of the flextable is printed.}
-
-\item{...}{unused argument}
 }
 \description{
 Create a flextable object with function \code{flextable}.
@@ -37,7 +27,7 @@ be defined, rows heights and columns widths can be manually set or automatically
 computed.
 }
 \details{
-A \code{flextable} is made of 2 parts: header and body.
+A \code{flextable} is made of 3 parts: header, body and footer.
 
 Most functions have an argument named \code{part} that will be used
 to specify what part of of the table should be modified.

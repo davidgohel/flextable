@@ -63,7 +63,7 @@ pml_flextable <- function(value){
 #' functions \code{\link{width}}, \code{\link{height}}, \code{\link{autofit}}
 #' and \code{\link{dim_pretty}} instead. The overall size is resulting from
 #' cells, paragraphs and text properties (i.e. padding, font size, border widths).
-#' @param x a pptx device
+#' @param x an rpptx device
 #' @param value \code{flextable} object
 #' @param type placeholder type
 #' @param index placeholder index (integer). This is to be used when a placeholder type

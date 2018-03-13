@@ -10,7 +10,7 @@ ph_with_flextable(x, value, type = "body", index = 1)
 ph_with_flextable_at(x, value, left, top)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an rpptx device}
 
 \item{value}{\code{flextable} object}
 

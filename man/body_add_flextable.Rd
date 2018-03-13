@@ -2,12 +2,12 @@
 % Please edit documentation in R/body_add_flextable.R
 \name{body_add_flextable}
 \alias{body_add_flextable}
-\title{wml table code}
+\title{add flextable into a Word document}
 \usage{
 body_add_flextable(x, value, align = "center", pos = "after")
 }
 \arguments{
-\item{x}{a docx object}
+\item{x}{an rdocx object}
 
 \item{value}{\code{flextable} object}
 
@@ -17,7 +17,7 @@ body_add_flextable(x, value, align = "center", pos = "after")
 one of "after", "before", "on" (end of line).}
 }
 \description{
-produces the wml of a flextable
+add a flextable into a Word document.
 }
 \examples{
 library(officer)

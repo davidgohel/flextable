@@ -59,48 +59,8 @@ style <- function(x, i = NULL, j = NULL,
   x
 }
 
-#' @export
-#' @title Set background color
-#' @description change background color of selected rows and columns of a flextable.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param bg color to use as background color
-#' @examples
-#' ft <- flextable(mtcars)
-#' ft <- bg(ft, bg = "#DDDDDD", part = "header")
-bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
-
-  if( part == "all" ){
-    for( p in c("header", "body", "footer") ){
-      x <- bg(x = x, i = i, j = j, bg = bg, part = p)
-    }
-    return(x)
-  }
-
-  if( nrow_part(x, part) < 1 )
-    return(x)
-
-  check_formula_i_and_part(i, part)
-  i <- get_rows_id(x[[part]], i )
-  j <- get_columns_id(x[[part]], j )
-
-  pr_id <- x[[part]]$styles$cells$get_pr_id_at(i, x$col_keys[j])
-  pr <- x[[part]]$styles$cells$get_fp()[unique(pr_id)]
-
-  pr <- lapply(pr, function(x, bg ) update(x, background.color = bg ), bg = bg )
-  new_name <- sapply(pr, fp_sign )
-  names(pr) <- new_name
-
-  x[[part]]$styles$cells$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
-
-  x
-}
-
-# fonts ----
+# text format ----
 
 #' @export
 #' @title Set bold font
@@ -288,7 +248,7 @@ font <- function(x, i = NULL, j = NULL, fontname, part = "body" ){
 
   if( part == "all" ){
     for( p in c("header", "body", "footer") ){
-      x <- italic(x = x, i = i, j = j, italic = italic, part = p)
+      x <- font(x = x, i = i, j = j, fontname = fontname, part = p)
     }
     return(x)
   }
@@ -310,6 +270,8 @@ font <- function(x, i = NULL, j = NULL, fontname, part = "body" ){
 
   x
 }
+
+# paragraphs format ----
 
 #' @export
 #' @title Set paragraph paddings
@@ -419,7 +381,95 @@ align <- function(x, i = NULL, j = NULL, align = "left",
   x
 }
 
+# cells format ----
 
+#' @export
+#' @title Set background color
+#' @description change background color of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @param bg color to use as background color
+#' @examples
+#' ft <- flextable(mtcars)
+#' ft <- bg(ft, bg = "#DDDDDD", part = "header")
+bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
+
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- bg(x = x, i = i, j = j, bg = bg, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+
+  pr_id <- x[[part]]$styles$cells$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$cells$get_fp()[unique(pr_id)]
+
+  pr <- lapply(pr, function(x, bg ) update(x, background.color = bg ), bg = bg )
+  new_name <- sapply(pr, fp_sign )
+  names(pr) <- new_name
+
+  x[[part]]$styles$cells$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
+
+  x
+}
+
+
+
+#' @export
+#' @title rotate cell text
+#' @description apply a rotation to cell text
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @param rotation one of "lrtb", "tbrl", "btlr"
+#' @param align one of "center" or "top" or "bottom"
+#' @examples
+#' ft <- flextable(mtcars)
+#' ft <- rotate(ft, rotation = "lrtb", align = "top", part = "header")
+rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "body" ){
+
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- rotate(x = x, i = i, j = j, rotation = rotation, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+
+  pr_id <- x[[part]]$styles$cells$get_pr_id_at(i, x$col_keys[j])
+  pr <- x[[part]]$styles$cells$get_fp()[unique(pr_id)]
+
+  pr <- lapply(pr, function(x, rotation ) update(x, text.direction = rotation ), rotation = rotation )
+  pr <- lapply(pr, function(x, align ) update(x, vertical.align = align ), align = align )
+  new_name <- sapply(pr, fp_sign )
+  names(pr) <- new_name
+
+  x[[part]]$styles$cells$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
+
+  x
+}
+
+# borders format ----
 
 #' @export
 #' @title Set cell borders
@@ -525,42 +575,161 @@ correct_h_border <- function(x){
   x
 }
 
+# borders format - sugar ----
+
+#' @title borders management
+#' @description These functions let control the horizontal or vertical
+#' borders of a flextable. They are sugar functions and should be used
+#' instead of function \code{\link{border}} that requires careful
+#' settings to avoid overlapping borders.
+#'
+#' @name borders
+#' @rdname borders
+#' @examples
+#' # need officer to define border properties
+#' library(officer)
+#' big_border = fp_border(color="red", width = 2)
+#' std_border = fp_border(color="orange", width = 1)
+#'
+#' # dataset to be used for examples
+#' dat <- iris[c(1:5, 51:55, 101:105),]
+#'
+NULL
+
+#' @section border_remove:
+#' The function is deleting all borders of the flextable object.
+#' @export
+#' @rdname borders
+border_remove <- function(x){
+  x <- border(x = x, border = fp_border(width = 0), part = "all")
+  x
+}
 
 #' @export
-#' @title Set horizontal or vertical borders
-#' @description change horizontal or vertical borders of a
-#' flextable (bottom side). These functions are taking care
-#' of propagating the border properties to the adjacent cells.
+#' @rdname borders
+#' @section border_outer:
+#' The function is applying a border to outer cells of one
+#' or all parts of a flextable.
+#' @examples
+#'
+#' # use of regulartable() to create a table
+#' ft <- regulartable(dat)
+#'
+#' # remove all borders
+#' ft <- border_remove(x = ft)
+#'
+#' # add outer borders
+#' ft <- border_outer(ft, part="all", border = big_border )
+#' ft
+border_outer <- function(x, border = NULL, part = "all"){
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- border_outer(x = x, border = border, part = p)
+    }
+    return(x)
+  }
+  if( nrow_part(x, part) < 1 ) return(x)
+
+  x <- hline_top(x, border = border, part = part)
+  x <- hline_bottom(x, border = border, part = part)
+  x <- vline_right(x, border = border, part = part)
+  x <- vline_left(x, border = border, part = part)
+
+  if( part %in% "body" ){
+    x <- hline_bottom(x, border = fp_border(width = 0), part = "header")
+  } else if( part %in% "footer" ){
+    x <- hline_bottom(x, border = fp_border(width = 0), part = "body")
+  }
+
+  x
+
+}
+
+#' @export
+#' @rdname borders
+#' @section border_inner_h:
+#' The function is applying horizontal borders to inner content of one
+#' or all parts of a flextable.
+#' @examples
+#'
+#' # add inner horizontal borders
+#' ft <- border_inner_h(ft, border = std_border )
+#' ft
+border_inner_h <- function(x, border = NULL, part = "body"){
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- border_inner_h(x = x, border = border, part = p)
+    }
+    return(x)
+  }
+  if( (nl <- nrow_part(x, part)) < 1 ) return(x)
+  at <- seq_len(nl)
+  at <- at[-length(at)]
+  x <- hline(x, i = at, border = border, part = part)
+
+  x
+}
+
+#' @export
+#' @rdname borders
+#' @section border_inner_v:
+#' The function is applying vertical borders to inner content of one
+#' or all parts of a flextable.
+#' @examples
+#'
+#' # add inner vertical borders
+#' ft <- border_inner_v(ft, border = std_border )
+#' ft
+border_inner_v <- function(x, border = NULL, part = "all"){
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- border_inner_v(x = x, border = border, part = p)
+    }
+    return(x)
+  }
+  if( nrow_part(x, part) < 1 ) return(x)
+  at <- seq_along(x$col_keys)
+  at <- at[-length(at)]
+  x <- vline(x, j = at, border = border, part = part)
+
+  x
+}
+
+#' @export
+#' @section hline:
+#' The function is setting horizontal lines along the part
+#' \code{part} of the flextable object. The lines are the
+#' bottom borders of selected cells.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param border border
 #' @examples
-#' library(officer)
-#' big_border = fp_border(color="gray", width = 2)
-#' std_border = fp_border(color="orange", width = 1)
 #'
-#' dat <- iris[c(1:5, 51:55, 101:105),]
+#' # new example
 #' ft <- regulartable(dat, col_keys = c("Species", "Sepal.Length",
 #'   "Sepal.Width", "Petal.Length", "Petal.Width" ))
-#' ft <- border(x = ft, part="all", border =fp_border(color="transparent"))
-#' ft <- merge_v(ft, j = 1)
+#' ft <- border_remove(x = ft)
+#'
+#' # add horizontal borders
 #' ft <- hline(ft, part="all", border = std_border )
-#' ft <- hline(ft, part="header", i = 1, border = big_border )
-#' ft <- hline(ft, part="body", i = c(5, 10, 15), border = big_border )
-#' ft <- hline_top(ft, part="header", border = big_border )
-#' ft <- vline(ft, part = "all", border = std_border)
-#' ft <- vline_left(ft, part = "all", border = std_border)
 #' ft
+#' @rdname borders
 hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
     for( p in c("header", "body", "footer") ){
       x <- hline(x = x, i = i, j = j,
-                  border = border,
-                  part = p)
+                 border = border,
+                 part = p)
     }
     return(x)
   }
@@ -581,7 +750,16 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
 }
 
 #' @export
-#' @rdname hline
+#' @rdname borders
+#' @section hline_top:
+#' The function is setting the first horizontal line of the part
+#' \code{part} of the flextable object. The line is the
+#' top border of selected cells of the first row.
+#' @examples
+#'
+#' # add horizontal border on top
+#' ft <- hline_top(ft, part="all", border = big_border )
+#' ft
 hline_top <- function(x, j = NULL, border = NULL, part = "body"){
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
@@ -601,7 +779,16 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body"){
 }
 
 #' @export
-#' @rdname hline
+#' @rdname borders
+#' @section hline_bottom:
+#' The function is setting the last horizontal line of the part
+#' \code{part} of the flextable object. The line is the
+#' bottom border of selected cells of the last row.
+#' @examples
+#'
+#' # add/replace horizontal border on bottom
+#' ft <- hline_bottom(ft, part="body", border = big_border )
+#' ft
 hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
@@ -620,46 +807,18 @@ hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
   x
 }
 
+#' @section vline:
+#' The function is setting vertical lines along the part
+#' \code{part} of the flextable object. The lines are the
+#' right borders of selected cells.
 #' @export
-#' @rdname hline
-vline_left <- function(x, i = NULL, border = NULL, part = "body"){
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
-
-  if( part == "all" ){
-    for( p in c("header", "body", "footer") ){
-      x <- vline_left(x = x, i = i, border = border, part = p)
-    }
-    return(x)
-  }
-
-  if( nrow_part(x, part) < 1 )
-    return(x)
-
-  x <- border(x, j = 1, i = i, border.left = border, part = part )
-  x
-}
-#' @export
-#' @rdname hline
-vline_right <- function(x, i = NULL, border = NULL, part = "body"){
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
-
-  if( part == "all" ){
-    for( p in c("header", "body", "footer") ){
-      x <- vline_right(x = x, i = i, border = border, part = p)
-    }
-    return(x)
-  }
-
-  if( nrow_part(x, part) < 1 )
-    return(x)
-
-  x <- border(x, j = length(x$col_keys), i = i, border.right = border, part = part )
-  x
-}
-
-#' @export
-#' @rdname hline
-vline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
+#' @rdname borders
+#' @examples
+#'
+#' # add vertical borders
+#' ft <- vline(ft, border = std_border )
+#' ft
+vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
@@ -682,26 +841,23 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
   x
 }
 
-
 #' @export
-#' @title rotate cell text
-#' @description apply a rotation to cell text
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param rotation one of "lrtb", "tbrl", "btlr"
-#' @param align one of "center" or "top" or "bottom"
+#' @rdname borders
+#' @section vline_left:
+#' The function is setting the first vertical line of the part
+#' \code{part} of the flextable object. The line is the
+#' left border of selected cells of the first column.
 #' @examples
-#' ft <- flextable(mtcars)
-#' ft <- rotate(ft, rotation = "lrtb", align = "top", part = "header")
-rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "body" ){
-
+#'
+#' # add vertical border on the left side of the table
+#' ft <- vline_left(ft, border = big_border )
+#' ft
+vline_left <- function(x, i = NULL, border = NULL, part = "all"){
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
     for( p in c("header", "body", "footer") ){
-      x <- rotate(x = x, i = i, j = j, rotation = rotation, part = p)
+      x <- vline_left(x = x, i = i, border = border, part = p)
     }
     return(x)
   }
@@ -709,23 +865,41 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
   if( nrow_part(x, part) < 1 )
     return(x)
 
-  check_formula_i_and_part(i, part)
-  i <- get_rows_id(x[[part]], i )
-  j <- get_columns_id(x[[part]], j )
-
-  pr_id <- x[[part]]$styles$cells$get_pr_id_at(i, x$col_keys[j])
-  pr <- x[[part]]$styles$cells$get_fp()[unique(pr_id)]
-
-  pr <- lapply(pr, function(x, rotation ) update(x, text.direction = rotation ), rotation = rotation )
-  pr <- lapply(pr, function(x, align ) update(x, vertical.align = align ), align = align )
-  new_name <- sapply(pr, fp_sign )
-  names(pr) <- new_name
-
-  x[[part]]$styles$cells$set_pr_id_at(i, x$col_keys[j], pr_id = as.character(new_name[pr_id]), fp_list = pr)
-
+  x <- border(x, j = 1, i = i, border.left = border, part = part )
   x
 }
 
+#' @section vline_right:
+#' The function is setting the last vertical line of the part
+#' \code{part} of the flextable object. The line is the
+#' right border of selected cells of the last column.
+#' @export
+#' @rdname borders
+#' @examples
+#'
+#' # add vertical border on the right side of the table
+#' ft <- vline_right(ft, border = big_border )
+#' ft
+vline_right <- function(x, i = NULL, border = NULL, part = "all"){
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- vline_right(x = x, i = i, border = border, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  x <- border(x, j = length(x$col_keys), i = i, border.right = border, part = part )
+  x
+}
+
+
+
+# misc. ----
 
 
 #' @title make blank columns as transparent

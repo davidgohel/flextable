@@ -1,7 +1,7 @@
 #' @export
-#' @title wml table code
-#' @description produces the wml of a flextable
-#' @param x a docx object
+#' @title add flextable into a Word document
+#' @description add a flextable into a Word document.
+#' @param x an rdocx object
 #' @param value \code{flextable} object
 #' @param align left (default), center or right.
 #' @param pos where to add the flextable relative to the cursor,
@@ -18,9 +18,9 @@
 body_add_flextable <- function( x, value, align = "center", pos = "after") {
 
   stopifnot(inherits(x, "rdocx"))
-  
+
   out <- docx_str(value, doc = x, align = align)
-  
+
   body_add_xml(x = x, str = out, pos = pos)
 
 }
