@@ -243,10 +243,7 @@ xtable_to_flextable <- function(
 
 
 formatC_with_na <- function(x, digits, format, na_string, ...){
-  # val[[3]][[4]] <- append(as.list(val[[3]][[4]]), format.args )
-  # val[[3]][[3]] <- NA.string
   ifelse( is.na(x), na_string, formatC(x, digits = digits, format = format, ...) )
-
 }
 
 
