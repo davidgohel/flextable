@@ -39,16 +39,21 @@ library(officer)
 library(flextable)
 ```
 
-A flextable is made of two parts, an header and a body. **To specify which part formatting instructions should affect, use argument `part`.** Possible values are:
+A flextable is made of parts, an header, a body and a footer. **To specify 
+which part formatting instructions should affect, use argument `part`.**
+Possible values are:
 
 * "header": the header part of the table
+* "footer": the footer part of the table
 * "body": the body part of the table
 * "all": the body and the header parts of the table
 
 
 ## Shortcuts functions
 
-There are simple functions to modify formatting properties of flextable objects: `bg`, `bold`, `border`, `color`, `padding`, `fontsize`, `italic`, `align`.
+There are simple functions to modify formatting properties of flextable objects: `bg`, `bold`, `border`, `color`, `padding`, `fontsize`, `italic`, `align`, ...
+
+They are illustrated in the examples below.
 
 ```{r}
 myft <- regulartable(head(iris))
@@ -74,13 +79,6 @@ myft
 
 ```{r}
 myft <- color(myft, color = "#E4C994")
-myft
-```
-
-### change font
-
-```{r}
-myft <- font(myft, fontname = "Times")
 myft
 ```
 
@@ -117,36 +115,19 @@ myft <- padding( myft, padding = 3, part = "all" )
 myft
 ```
 
-### change border
-
-Borders properties can be defined with functions:
-
-* `hline()`: set bottom borders of one or all parts of a flextable. 
-* `hline_top()`: set top border of one or all parts of a flextable. 
-* `hline_bottom()`: set bottom border of one or all parts of a flextable. 
-* `vline()`: set right borders of one or all parts of a flextable. 
-* `vline_left()`: set left border of one or all parts of a flextable.
-* `vline_right()`: set right border of one or all parts of a flextable.
+### change font
 
 ```{r}
-# remove all defined borders
-myft <- border( myft, border = fp_border(width=0), part = "all" )
-
-big_b <- fp_border(color="gray70", width = 2)
-std_b <- fp_border(color="white")
-
-myft <- vline( myft, border = std_b, part = "all" )
-myft <- vline_left( myft, border = big_b, part = "all" )
-myft <- vline_right( myft, border = big_b, part = "all" )
-myft <- hline( myft, border = std_b )
-myft <- hline_bottom( myft, border = big_b )
-myft <- hline_top( myft, border = big_b, part = "all" )
+myft <- font(myft, j = "Species", fontname = "Times")
+myft <- fontsize(myft, j = "Species", size = 14)
 myft
 ```
 
 ### Text rotation 
 
-Text rotation is possible in flextable objects but will only work with Word and PowerPoint outputs. This is achieved by using function `rotate`.
+Text rotation is possible in flextable objects but will only work 
+correctly with Word and PowerPoint outputs (html output is not 
+always correct). This is achieved by using function `rotate()`.
 
 Argument `rotation` is mandatory and expects one of these values:
 
@@ -168,34 +149,54 @@ ft <- height(ft, height = 1, part = "header")
 ft
 ```
 
-The following example is producing a Word document:
 
-```{r results='hide'}
-library(officer)
-doc <- read_docx()
-doc <- body_add_flextable(doc, ft)
-print(doc, target = "assets/docx/rotate.docx")
+## Borders
+
+Borders properties can be defined with functions:
+
+* `hline()`: set bottom borders of one or all parts of a flextable. 
+* `hline_top()`: set top border of one or all parts of a flextable. 
+* `hline_bottom()`: set bottom border of one or all parts of a flextable. 
+* `vline()`: set right borders of one or all parts of a flextable. 
+* `vline_left()`: set left border of one or all parts of a flextable.
+* `vline_right()`: set right border of one or all parts of a flextable.
+
+```{r}
+# remove all defined borders
+myft <- border_remove( myft )
+
+big_b <- fp_border(color="gray70", width = 2)
+std_b <- fp_border(color="white")
+
+myft <- vline( myft, border = std_b, part = "all" )
+myft <- vline_left( myft, border = big_b, part = "all" )
+myft <- vline_right( myft, border = big_b, part = "all" )
+myft <- hline( myft, border = std_b )
+myft <- hline_bottom( myft, border = big_b )
+myft <- hline_top( myft, border = big_b, part = "all" )
+myft
 ```
 
+Or when borders design is simple with:
 
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/docx/rotate.docx" ) )
+* `border_outer()`: apply a border to outer cells of one or all parts 
+of a flextable.
+* `border_inner()`: apply a border to inner cells of one or all parts 
+of a flextable.
+
+
+```{r}
+std_b2 <- fp_border(color="white", style = "dashed")
+
+# remove all defined borders
+myft <- border_remove( myft )
+
+myft <- border_outer( myft, border = big_b, part = "all" )
+myft <- border_inner_h( myft, border = std_b, part = "all" )
+myft <- border_inner_v( myft, border = std_b2, part = "all" )
+myft
 ```
 
-The following example is producing a PowerPoint document:
-
-```{r results='hide'}
-library(officer)
-doc <- read_pptx()
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with_flextable(doc, ft)
-print(doc, target = "assets/pptx/rotate.pptx")
-```
-
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/pptx/rotate.pptx" ) )
-```
 
 ## Conditional formatting
 

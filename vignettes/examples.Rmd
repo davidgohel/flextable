@@ -72,6 +72,7 @@ ft <- regulartable(
 ft <- set_formatter(ft, premium = double_format, latest_eval = double_format,
                     chain_ladder_lr = percent_format )
 ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+ft <- theme_box(ft)
 ft
 
 ft <- merge_h(ft, part = "header")
@@ -86,11 +87,9 @@ ft <- fontsize(ft, i = 3, size = 9, part = "header")
 ft <- color(ft, i = 3, color = "gray", part = "header")
 ft
 
-ft <- border(ft, border.bottom = fp_border(width = .75, color = "#007FA6"), part = "body" )
+ft <- hline(ft, border = fp_border(width = .75, color = "#007FA6"), part = "body" )
 
-# color last border bottom of header and first border top of body
-ft <- border(ft, border.bottom = fp_border(width = 2, color = "#007FA6"), part = "header" )
-ft <- border(ft, i = 1, border.top = fp_border(width = 2, color = "#007FA6"), part = "body" )
+ft <- hline(ft, border = fp_border(width = 2, color = "#007FA6"), part = "header" )
 ft
 
 ft <- empty_blanks(ft)

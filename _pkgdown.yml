@@ -8,6 +8,8 @@ reference:
   - title: Create flextable
     contents:
     - flextable
+    - regulartable
+    - xtable_to_flextable
   - title: Headers
     desc:  Add or modify flextable`s headers or footers
     contents:
@@ -15,6 +17,7 @@ reference:
     - add_footer
     - set_header_labels
     - set_header_df
+    - set_footer_df
     - delete_part
   - title: Manage flextable layout
     contents:
@@ -25,11 +28,12 @@ reference:
     - dim.flextable
     - dim_pretty
   - title: Format flextable
-    desc:  Modify flextable`s formatting properties, apply theme functions.
+    desc:  Modify flextable`s formatting properties.
     contents:
     - style
     - align
     - bg
+    - font
     - fontsize
     - italic
     - bold
@@ -38,14 +42,19 @@ reference:
     - border
     - rotate
     - empty_blanks
+  - title: Flextable themes
+    desc:  Apply theme functions.
+    contents:
     - starts_with("theme_")
   - title: Content
     desc:  Define flextable`s content
     contents:
     - display
+    - starts_with("set_formatter")
     - void
   - title: Output functions
     contents:
+    - print.flextable
     - knit_print.flextable
     - body_add_flextable
     - ph_with_flextable

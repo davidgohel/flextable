@@ -41,6 +41,8 @@ regulartable: 8
 add_header: 4
 set_header_labels: 4
 set_header_df: 4
+vline: 4
+hline: 4
 merge_v: 2
 merge_h: 2
 merge_at: 2
@@ -66,26 +68,30 @@ ph_with_flextable: 3"
 ## Introduction 
 
 `flextable` can easily create reporting table from `data.frame`. You 
-can merge cells, add header rows, add footer rows, change any format and specify how 
-data should be displayed in cells. `flextable` objects can be rendered 
-in HTML format but also in Microsoft Word and PowerPoint documents.
+can merge cells, add header rows, add footer rows, change any format 
+and specify how data should be displayed in cells. `flextable` objects 
+can be rendered in HTML format but also in Microsoft Word and 
+PowerPoint documents.
 
-Two functions are provided: `flextable` and `regulartable`.
+### flextable creation
+
+
+Two main functions are provided: `flextable` and `regulartable`.
 
 `flextable` function is producing flexible tables where each cell can contain 
 several chunks of text with their own set of formatting properties 
-(bold, font color, etc.). Function `display` lets customise text of cells (See 
-[display function](format.html#display-function)).
+(bold, font color, etc.). Function `display` lets customise text of cells 
+(See [display function](format.html#display-function)).
 
 
 `regulartable` function has been written because the first one is ressource 
 consumming. The main difference is that it is producing tables where cells 
 can contain only one chunk of text with its own set of formatting properties.
-Function `set_formatter` is customizing text of cells. 
+Note that `regulartable` and `flextable` functions are both returning an object 
+of class `flextable`. 
 
-*Note also that `regulartable` supports strange variable names (with 
-percent symbols, with spaces, etc.) and `flextable` does not support 
-them.*
+Note also that `regulartable` supports *strange* variable names (with 
+percent symbols, with spaces, etc.) and `flextable` does not support them.*
 
 > The following table is made with `regulartable` and dataset data:
 
@@ -114,12 +120,12 @@ ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
 ft <- merge_h(ft, part = "header")
 ft <- merge_v(ft, j = "Species", part = "body")
 ft <- merge_v(ft, j = "Species", part = "header")
-ft <- theme_vanilla(ft)
+ft <- theme_booktabs(ft)
 ft <- empty_blanks(ft)
 autofit(ft) 
 ```
 
-### flextable objects
+### flextable keypoints
 
 A flextable is an object that will produce a reporting table from a 
 `data.frame` object. Any formatting property related to text, paragraphs, 
@@ -132,14 +138,82 @@ columns and also unexisting columns.
 Unexisting columns are containing blanks by default but this 
 content can be customized.
 
-A flextable is containing two parts, one for header rows and 
-one for body rows. By default, there is only one header row 
-containing the names of the data.frame. The body part is containing 
-data from the data.frame.
+A flextable is containing three parts, one for header rows,  
+one for body rows and one for footer rows. By default, there is 
+only one header row containing the names of the data.frame. 
+The body part is containing data from the data.frame. The footer 
+part is never implemented when creating the `flextable`.
 
-A cell is made of one single paragraph of text. The paragraph 
+```{r echo=FALSE}
+dmodel <- data.frame( 
+  header = rep("body part", 4 ),
+  header_1 = c("data[1,1]", "data[2,1]", "...", "data[n,1]" ),
+  header_2 = c("data[1,2]", "data[2,2]", "...", "data[n,2]" ),
+  header_3 = c("data[1,3]", "data[2,3]", "...", "data[n,3]" ),
+  header_4 = c("data[1,4]", "data[2,4]", "...", "data[n,4]" ),
+  header_5 = c("data[1,5]", "data[2,5]", "...", "data[n,5]" ), 
+  stringsAsFactors = FALSE
+)
+header_model <- data.frame(
+  title1 = c( "header part", rep("row 1 - cell from 1 to 5", 5) ),
+  title2 = c( "header part", rep("row 2 - cell from 1 to 2", 2), rep("row 2 cell from 3 to 5", 3) ),
+  title3 = c( "header part", sprintf("row 3 cell %.0f", 1:5) ), 
+  key = c( names(dmodel)), 
+  stringsAsFactors = FALSE )
+
+data_model <- regulartable( data = dmodel, 
+                            col_keys = c("header", "blank", "header_1", "header_2", "header_3", "header_4", "header_5" ) )
+data_model <- set_header_df(data_model, mapping = header_model, key = "key")
+data_model <- merge_h(data_model, part = "header")
+
+data_model <- add_footer(data_model, 
+                         header = "footer part",
+                         header_1 = "Grouped footer 1.1", 
+                         header_2 = "Grouped footer 1.1", 
+                         header_3 = "Grouped footer 1.2", 
+                         header_4 = "Grouped footer 1.2", 
+                         header_5 = "Grouped footer 1.2" )
+data_model <- add_footer(data_model, top = FALSE,
+                         header = "footer part",
+                         header_1 = "Grouped footer 2.1", 
+                         header_2 = "Grouped footer 2.1", 
+                         header_3 = "Grouped footer 2.1", 
+                         header_4 = "Grouped footer 2.1", 
+                         header_5 = "Grouped footer 2.1" )
+data_model <- merge_h(data_model, part = "footer")
+data_model <- merge_v(data_model, part = "footer", j = 1)
+data_model <- merge_v(data_model, part = "body", j = 1)
+data_model <- merge_v(data_model, part = "header", j = 1)
+data_model <- theme_box(data_model)
+data_model <- align(data_model, align = "left", part = "all")
+data_model <- bg(data_model, bg = "#DCDDD8", part = "header")
+data_model <- bg(data_model, bg = "#475F77", part = "body")
+data_model <- color(data_model, color = "#DCDDD8", part = "body")
+data_model <- bg(data_model, bg = "#2BBBD8", part = "footer")
+data_model <- color(data_model, color = "white", part = "footer")
+data_model <- bg(data_model, j = 1, bg = "gray20", part = "all")
+data_model <- color(data_model, j = 1, color = "gray80", part = "all")
+data_model <- bold(data_model, bold = TRUE, part = "all")
+data_model <- width(data_model, j = 1, width = .6)
+data_model <- align(data_model, j = 1, align = "right", part = "all")
+data_model <- width(data_model, j = 2, width = .2)
+data_model <- width(data_model, j = 3:7, width = 1)
+
+std_border <- fp_border(width = 1.5, color = "white")
+
+data_model <- border_outer(data_model, part="all", border = std_border )
+data_model <- border_inner_h(data_model, border = std_border, part="all")
+data_model <- border_inner_v(data_model, border = std_border, part="all")
+
+data_model <- empty_blanks(data_model)
+data_model
+```
+
+
+A cell is made of one single paragraph of text. When the flextable 
+object is created by function `flextable()`, paragraphs 
 can contain several chunks of text with different formatting 
-properties but *newlines* are always ignored. 
+properties but *newlines* will always be ignored. 
 
 The dimensions of the flextable elements, widths of columns and 
 heights of rows, are always defined. Beeing able to define the exact 
@@ -166,7 +240,7 @@ myft
 
 **flextable or regulartable function**: `regulartable` and `flextable` create a flextable object based on input data. Optional argument `col_keys` is used to only display a subset of columns. 
 
-Let's keep it simple and apply a theme to format the whole table. Functions `theme_` are sugar functions whose role is to apply a set of formatting instructions to a flextable. For example, `theme_vanilla` set specific borders, right align paragraphs and make headers bold. 
+Functions `theme_` are sugar functions whose role is to apply a set of formatting instructions to a flextable. For example, `theme_vanilla` set specific borders, right align paragraphs and make headers bold. 
 
 ```{r warning=FALSE, message=FALSE}
 myft <- theme_vanilla(myft)
@@ -187,7 +261,7 @@ myft <- merge_v(myft, j = c("am", "carb") )
 myft
 ```
 
-Cells can be merged with functions `merge_none()`, `merge_v()` and `merge_h()`.
+Cells can be merged with functions `merge_none()`, `merge_v()`, `merge_h()` and `merge_at()`.
 
 `set_header_labels()` set labels:
 
@@ -211,13 +285,12 @@ myft
 
 > To learn more, see article about [format](./format.html).
 
-Many sugar functions can be used to format flextables: `bg()`, `fontsize()`, `italic()`, `bold()`, `color()`, `padding()`, `border()`. 
+Many sugar functions can be used to format flextables: `bg()`, `fontsize()`, `italic()`, `bold()`, `color()`, `padding()`... 
 
 ```{r}
 myft <- italic(myft, j = 1)
 myft <- bg(myft, bg = "#C90000", part = "header")
 myft <- color(myft, color = "white", part = "header")
-myft <- border(myft, border = fp_border(color = "orange"), part = "all")
 myft
 ```
 
@@ -231,7 +304,7 @@ myft <- autofit(myft)
 myft
 ```
 
-## Output
+## Supported output formats
 
 When working in RStudio, flextable will be printed in the rstudio viewer pane. 
 
@@ -250,6 +323,7 @@ required for flextable rendering in docx with `rmarkdown`**
 ### PowerPoint or Word documents with package officer
 
 To add these objects in PowerPoint or Word documents, use functions:
+
 - `ph_with_flextable()` or `ph_with_flextable_at()` (PowerPoint)
 - `body_add_flextable()` (Word)
 
@@ -289,3 +363,6 @@ print(doc, target = "assets/docx/example.docx")
 office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/docx/example.docx" ) )
 ```
 
+## xtable 
+
+`xtable` objects can be transformed as flextable objects with function `xtable_to_flextable()`. 

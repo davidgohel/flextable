@@ -32,7 +32,7 @@ library(officer)
 
 ### vertical merging
 
-`merge_v` will merge adjacent duplicated cells for each column of the selection.
+`merge_v()` will merge adjacent duplicated cells for each column of the selection.
 
 ```{r warning=FALSE, message=FALSE}
 select_columns <- c("Species", "Petal.Length", "Petal.Width")
@@ -43,7 +43,7 @@ myft
 
 ### horizontal merging
 
-`merge_h` will merge adjacent duplicated cells for each row of the selection.
+`merge_h()` will merge adjacent duplicated cells for each row of the selection.
 
 ```{r warning=FALSE, message=FALSE}
 select_columns <- c("Species", "Petal.Length", "Petal.Width")
@@ -56,6 +56,8 @@ myft
 
 ### general merging function
 
+`merge_h()` will merge cells for a given continuous selection of rows and cells.
+
 ```{r warning=FALSE, message=FALSE}
 select_columns <- c("Species", "Petal.Length", "Petal.Width")
 myft <- regulartable(head(mtcars, n = 6 ) )
@@ -67,13 +69,16 @@ myft
 
 ### delete merging informations
 
-If you want to get rid of all merging (i.e. for development purposes), use `merge_none`:
+If you want to get rid of all merging (i.e. for development purposes), use `merge_none()`:
 
 ```{r}
 merge_none(myft)
 ```
 
-## Manage headers
+## Manage headers and footers
+
+For illustration, we will mainly work with headers but same can be apply 
+with footers (use functions `add_footer()` or `set_header_df()` instead).
 
 ### col_keys
 
@@ -83,7 +88,7 @@ Parameter `col_keys` define the variables to display and their order.
 data <- iris[c(1:3, 51:53, 101:104),]
 
 myft <- regulartable(data, col_keys = c("Species", "Sepal.Length", "Petal.Length") )
-theme_booktabs(myft) 
+myft
 ```
 
 If parameter `col_keys` has variables that are not existing in the dataset, they will be considered as blank columns and can be used as separators (in fact they can be use as you want, there is only no mapping of data associated).
@@ -94,8 +99,8 @@ myft <- regulartable(
   col_keys = c("Species", "col_1", "Sepal.Length", "Petal.Length") )
 myft <- theme_vanilla(myft)
 myft <- autofit(myft)
-myft <- border(myft, j = 2, 
-               border = fp_border(width=0), part = "all") 
+myft <- empty_blanks(myft)
+myft
 ```
 
 
@@ -103,7 +108,7 @@ myft <- border(myft, j = 2,
 
 ### Change labels
 
-Use `set_header_labels` to replace labels of the bottom row of header. 
+Use `set_header_labels()` to replace labels of the bottom row of header. 
 
 ```{r warning=FALSE, message=FALSE}
 ft <- regulartable( head( iris ) ) 
@@ -117,7 +122,7 @@ ft
 
 ### add a row of labels
 
-Use `add_header` to add an header row. 
+Use `add_header()` to add an header row. 
 
 ```{r warning=FALSE, message=FALSE}
 ft <- add_header(ft, Sepal.Length = "length",
@@ -130,23 +135,26 @@ ft <- add_header(ft, Sepal.Length = "Inches",
     Sepal.Width = "Inches", Petal.Length = "Inches",
     Petal.Width = "Inches", Species = "Species", top = TRUE )
 
+ft <- add_footer(ft, Sepal.Length = "* This is a note" )
+ft <- color(ft, color = "orange", part = "footer" )
+
 # merge identical cells
 ft <- merge_h(ft, part = "header")
 ft <- merge_v(ft, part = "header")
+ft <- merge_at(ft, i = 1, j = 1:5, part = "footer")
 
-ft <- theme_vanilla(ft)
-ft <- autofit(ft)
+ft <- theme_booktabs(ft)
 ft
 ```
 
 
 ### Define headers with a reference table
 
-Use `set_header_df` with a data.frame as parameter. Columns of the dataset will be transposed and joined using a key column. 
+Use `set_header_df()` with a data.frame as parameter. Columns of the dataset will be transposed and joined using a key column. 
 
 #### Input dataset 
 
-Variable `col_keys` define key values to match with flextable column keys (defined by argument `col_keys` of `flextable` function).
+Variable `col_keys` define key values to match with flextable column keys (defined by argument `col_keys` of `flextable()` function).
 
 This key column will not be displayed. Other variables will added as rows. Note that variables names are not displayed. 
 
@@ -163,7 +171,7 @@ autofit( theme_vanilla(flextable(typology)) )
 
 #### Add the dataset as header rows
 
-Then use `set_header_df` with parameter `key` that specifies name of the column used 
+Then use `set_header_df()` with parameter `key` that specifies name of the column used 
 to permform the join. Order of columns matters, first column will be first row, second one will be the second row, etc.
 
 ```{r warning=FALSE, message=FALSE}
@@ -193,7 +201,7 @@ dim(ft_base)
 
 ### Pretty dimensions
 
-Function `dim_pretty` is computing optimized widths and heights. 
+Function `dim_pretty()` is computing optimized widths and heights. 
 
 ```{r}
 dim_pretty(ft_base)
@@ -201,7 +209,7 @@ dim_pretty(ft_base)
 
 ### Adjusts automatically cell widths and heights
 
-Function `autofit` optimises widths and heights of the flextable. 
+Function `autofit()` optimises widths and heights of the flextable. 
 This function is almost always to be called once when using 
 flextable objects, it makes compact tables.
 
@@ -223,5 +231,4 @@ ft <- height_all( ft, height = .4 )
 ft <- height( ft, i = 3, height = 1 )
 ft
 ```
-
 
