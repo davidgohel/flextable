@@ -6,7 +6,7 @@
 #'
 #' The documentation of functions can be opened with command \code{help(package = "flextable")}.
 #'
-#' To learn more about officer, start with the vignettes:
+#' To learn more about flextable, start with the vignettes:
 #' \code{browseVignettes(package = "flextable")}.
 #'
 #' \code{flextable()} function is producing flexible tables where each cell

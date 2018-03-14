@@ -1,8 +1,20 @@
 # flextable 0.4.3
 
-* new function `hyperlink_text()` to be used with `display`.
-* new functions `hline*()` and `vline*()` to be used instead
-  of borders.
+## new features
+
+* new functions: `hyperlink_text()` to be used with `display`, `font()`
+* new functions `hline*()` and `vline*()` and many new helper functions
+  to be used instead of borders.
+
+## Improvement
+
+* manuals have been refactored
+
+
+## Issues
+
+* fix display issue when a cell was containing NA
+
 
 # flextable 0.4.2
 
