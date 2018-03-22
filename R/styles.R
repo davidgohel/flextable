@@ -435,9 +435,15 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param rotation one of "lrtb", "tbrl", "btlr"
 #' @param align one of "center" or "top" or "bottom"
+#' @details
+#' When function \code{autofit} is used, the rotation will be
+#' ignored.
 #' @examples
-#' ft <- flextable(mtcars)
-#' ft <- rotate(ft, rotation = "lrtb", align = "top", part = "header")
+#' ft <- flextable(head(iris))
+#' ft <- rotate(ft, rotation = "tbrl", part = "header", align = "center")
+#' ft <- align(ft, align = "center")
+#' ft <- autofit(ft)
+#' ft <- height(ft, height = max(dim_pretty(ft, part = "header")$widths), part = "header")
 rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "body" ){
 
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
