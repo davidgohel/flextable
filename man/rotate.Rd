@@ -22,7 +22,14 @@ rotate(x, i = NULL, j = NULL, rotation, align = "center", part = "body")
 \description{
 apply a rotation to cell text
 }
+\details{
+When function \code{autofit} is used, the rotation will be
+ignored.
+}
 \examples{
-ft <- flextable(mtcars)
-ft <- rotate(ft, rotation = "lrtb", align = "top", part = "header")
+ft <- flextable(head(iris))
+ft <- rotate(ft, rotation = "tbrl", part = "header", align = "center")
+ft <- align(ft, align = "center")
+ft <- autofit(ft)
+ft <- height(ft, height = max(dim_pretty(ft, part = "header")$widths), part = "header")
 }

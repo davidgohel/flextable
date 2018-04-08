@@ -156,6 +156,9 @@ dim_pretty <- function( x, part = "all" ){
 #' \donttest{ft <- autofit(ft)}
 #' ft
 autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
+
+  stopifnot(inherits(x, "complextable") || inherits(x, "regulartable") )
+
   for(j in c("header", "body", "footer")){
     if( nrow_part(x, j ) > 0 ){
       dimensions_ <- optimal_sizes(x[[j]])

@@ -102,8 +102,16 @@ add_footer <- function(x, top = TRUE, ...){
   footer_data <- data.frame(as.list(args_), check.names = FALSE, stringsAsFactors = FALSE )
 
   if( nrow_part(x, "footer") < 1 ) {
-    x$footer <- complex_tabpart( data = footer_data, col_keys = x$col_keys,
-                               cwidth = .75, cheight = .25 )
+    if(inherits(x, "regulartable")){
+      x$footer <- simple_tabpart( data = footer_data, col_keys = x$col_keys,
+                                   cwidth = .75, cheight = .25 )
+    } else if(inherits(x, "complextable")){
+        x$footer <- complex_tabpart( data = footer_data, col_keys = x$col_keys,
+                                     cwidth = .75, cheight = .25 )
+    } else {
+      stop("add footer only supported for regulartable et complextable objects.", call. = FALSE)
+    }
+
   } else {
     x$footer <- add_rows( x$footer, footer_data, first = top )
   }
