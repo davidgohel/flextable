@@ -190,7 +190,9 @@ ft
 
 ## Cell widths and heights
 
-The default sizes of flextable columns and rows are calculated with a simple algorithm. This will drive to inadequate rows heights and columns widths in some cases (when data values are wider than headers). You can use function `dim` to get flextable dimensions. 
+The default sizes of flextable columns and rows are set by default values. 
+This will drive to inadequate rows heights and columns widths in some cases. 
+You can use function `dim` to get flextable dimensions. 
 
 ```{r}
 ft_base <- regulartable(head(iris))
@@ -220,6 +222,9 @@ dim(ft)
 ft
 ```
 
+> Soft returns support : function `autofit` and `dim_pretty` do not
+support soft returns and may return wrong results (\n will be considered as "").
+  
 ### Adjusts manually cell widths and heights
 
 Function `width()` and `height()` let you control dimensions of a flextable. `height_all()` is an helper function to set the same height to each part of the table.

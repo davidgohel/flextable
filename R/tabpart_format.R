@@ -2,10 +2,17 @@
 # run function ----
 #' @importFrom htmltools htmlEscape
 run_fun <- list(
-  wml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", htmlEscape(str), "</w:t></w:r>") ),
+  wml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", gsub("\n", "</w:t><w:br/><w:t xml:space=\"preserve\">", htmlEscape(str)), "</w:t></w:r>") ),
   pml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<a:r>", format, "<a:t>", htmlEscape(str), "</a:t></a:r>") ),
-  html = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<span style=\"", format, "\">", htmlEscape(str), "</span>") )
+  html = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<span style=\"", format, "\">", gsub("\n", "<br>", htmlEscape(str)), "</span>") )
 )
+
+# run_fun <- list(
+#   wml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", htmlEscape(str), "</w:t></w:r>") ),
+#   pml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<a:r>", format, "<a:t>", htmlEscape(str), "</a:t></a:r>") ),
+#   html = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<span style=\"", format, "\">", htmlEscape(str), "</span>") )
+# )
+
 # hyperlink function ----
 hyperlink_fun <- list(
   wml = function(href, str) ifelse(is.na(href), str, paste0("<w:hyperlink r:id=\"", href, "\">", str, "</w:hyperlink>") ),
@@ -209,9 +216,9 @@ format.simple_tabpart <- function( x, type = "wml", header = FALSE, ... ){
 
 
   run_as_str <- list(
-    wml = function(format, str) paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", htmlEscape(str), "</w:t></w:r>"),
+    wml = function(format, str) paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", gsub("\n", "</w:t><w:br/><w:t xml:space=\"preserve\">", htmlEscape(str)), "</w:t></w:r>"),
     pml = function(format, str) paste0("<a:r>", format, "<a:t>", htmlEscape(str), "</a:t></a:r>"),
-    html = function(format, str) paste0("<span style=\"", format, "\">", htmlEscape(str), "</span>")
+    html = function(format, str) paste0("<span style=\"", format, "\">", gsub("\n", "<br>", htmlEscape(str)), "</span>")
   )
   txt_data$str <- run_as_str[[type]](format = pr_str_format[match(txt_data$pr_id, names(text_fp))],
                                      str = txt_data$str )

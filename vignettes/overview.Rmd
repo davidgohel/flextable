@@ -212,8 +212,10 @@ data_model
 
 A cell is made of one single paragraph of text. When the flextable 
 object is created by function `flextable()`, paragraphs 
-can contain several chunks of text with different formatting 
-properties but *newlines* will always be ignored. 
+can contain several chunks of text with different formatting. 
+When the flextable object is created by function `regulartable()`, 
+paragraphs can contain only one chunk of text with one single set 
+of formatting properties. 
 
 The dimensions of the flextable elements, widths of columns and 
 heights of rows, are always defined. Beeing able to define the exact 
