@@ -113,4 +113,18 @@ knit_print.flextable <- function(x, ...){
   }
 }
 
+#' @export
+format.flextable <- function(x, type, ...){
 
+  stopifnot( length(type) == 1,
+             type %in% c("wml", "pml", "html") )
+
+  if( type == "wml" ){
+    out <- docx_str(x)
+  } else if( type == "pml" ){
+    out <- pml_flextable(x)
+  } else if( type == "html" ){
+    out <- html_str(x)
+  } else stop("unimplemented")
+
+}
