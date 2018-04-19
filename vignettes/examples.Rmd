@@ -35,8 +35,7 @@ typology <- structure(list(col_keys = c("sep_1", "sep_2", "year", "premium",
 "Cape Cod", "Chain Ladder", "Chain Ladder"), colB = c(" ", " ",
 "Year", "Premium", "Latest Eval", "Ultimate Loss", "Ultimate LR",
 "Ultimate Loss", "Ultimate LR"), colA = c(" ", " ", "Year", "Premium",
-"Latest Eval", "(000)", "( %)", "", "(%
-)")), class = c("data.frame"), row.names = c(NA, -9L), .Names = c("col_keys",
+"Latest Eval", "(000)", "(%)", "(000)", "(%)")), class = c("data.frame"), row.names = c(NA, -9L), .Names = c("col_keys",
 "colC", "colB", "colA"))
 typology
 ```
