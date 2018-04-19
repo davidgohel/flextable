@@ -4,7 +4,7 @@
 
 * Soft return `\n` is now supported. Function `autofit` and `dim_pretty` do not
   support soft returns and may return wrong results (\n will be considered as "").
-  * format function for flextable objects.
+* format function for flextable objects.
 
 ## Issues
 
