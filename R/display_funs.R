@@ -12,7 +12,7 @@
 #' ft <- flextable(dat)
 #' ft <- display(
 #'   ft, col_key = "col", pattern = "# {{mylink}}",
-#'   formatters = list(mylink ~ hyperlinked_text(href, col) )
+#'   formatters = list(mylink ~ hyperlink_text(href, col) )
 #' )
 #' ft
 #'
@@ -30,7 +30,7 @@
 #' ft
 hyperlink_text <- function(url, label = url){
   x <- data.frame( str = label, href = url, stringsAsFactors = FALSE)
-  class(x) <- c( "hyperlinked_text", class(x) )
+  class(x) <- c( "hyperlink_text", class(x) )
   x
 }
 
@@ -83,11 +83,13 @@ minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 
 #' @examples
 #' library(officer)
 #' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-#' myft <- flextable(head( mtcars, n = 10))
+#' data <- head( mtcars, n = 10)
+#' data$img_src <- rep(img.file, 10)
+#' myft <- flextable(data)
 #' myft <- display(myft,
 #'     i = ~ qsec > 18, col_key = "qsec", pattern = "{{r_logo}}",
 #'     formatters = list( r_logo ~ as_image(qsec,
-#'       src = img.file, width = .20, height = .15)),
+#'       src = img_src, width = .20, height = .15)),
 #'     fprops = list(qsec = fp_text(color = "orange")) )
 #' myft
 as_image <- function(x, src, width = 1, height = .2) {

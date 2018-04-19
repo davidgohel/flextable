@@ -97,7 +97,7 @@ display_parser <- R6Class(
 
       out_type <- ifelse(sapply(eval_out, inherits, "character" ), "text", out_type )
       out_type <- ifelse(sapply(eval_out, inherits, "image_entry" ), "image", out_type )
-      out_type <- ifelse(sapply(eval_out, inherits, "hyperlinked_text" ), "htext", out_type )
+      out_type <- ifelse(sapply(eval_out, inherits, "hyperlink_text" ), "htext", out_type )
 
       if(length(eval_out) < 1){
         dat_expr <- list( data.frame( str = character(0), type_out = character(0),

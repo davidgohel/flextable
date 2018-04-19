@@ -21,7 +21,7 @@ dat <- data.frame(
 ft <- flextable(dat)
 ft <- display(
   ft, col_key = "col", pattern = "# {{mylink}}",
-  formatters = list(mylink ~ hyperlinked_text(href, col) )
+  formatters = list(mylink ~ hyperlink_text(href, col) )
 )
 ft
 
