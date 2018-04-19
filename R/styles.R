@@ -679,14 +679,7 @@ border_outer <- function(x, border = NULL, part = "all"){
   x <- vline_right(x, border = border, part = part)
   x <- vline_left(x, border = border, part = part)
 
-  # if( part %in% "body" ){
-  #   x <- hline_bottom(x, border = fp_border(width = 0), part = "header")
-  # } else if( part %in% "footer" ){
-  #   x <- hline_bottom(x, border = fp_border(width = 0), part = "body")
-  # }
-
   x
-
 }
 
 #' @export

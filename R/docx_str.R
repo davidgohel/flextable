@@ -69,19 +69,16 @@ docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
       stopifnot(inherits(doc, "rdocx"))
       doc <- docx_reference_img( doc, imgs )
       out <- wml_link_images( doc, out )
-    } else
-      warning("Images are not supported yet for docx-rmarkdwon generation",
-          call. = FALSE)
+    }
   }
   if( length(hlinks) > 0 ){
     if (!is.null(doc)) {
+      stopifnot(inherits(doc, "rdocx"))
       for( hl in hlinks ){
         rel <- doc$doc_obj$relationship()
         out <- process_url(rel, url = hl, str = out, pattern = "w:hyperlink", double_esc = FALSE)
       }
-    } else
-      warning("links are not supported yet for docx-rmarkdwon generation",
-              call. = FALSE)
+    }
   }
 
   out
