@@ -7,12 +7,6 @@ run_fun <- list(
   html = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<span style=\"", format, "\">", gsub("\n", "<br>", htmlEscape(str)), "</span>") )
 )
 
-# run_fun <- list(
-#   wml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", htmlEscape(str), "</w:t></w:r>") ),
-#   pml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<a:r>", format, "<a:t>", htmlEscape(str), "</a:t></a:r>") ),
-#   html = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<span style=\"", format, "\">", htmlEscape(str), "</span>") )
-# )
-
 # hyperlink function ----
 hyperlink_fun <- list(
   wml = function(href, str) ifelse(is.na(href), str, paste0("<w:hyperlink r:id=\"", href, "\">", str, "</w:hyperlink>") ),

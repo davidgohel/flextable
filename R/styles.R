@@ -580,6 +580,42 @@ correct_h_border <- function(x){
 
   x
 }
+correct_v_border <- function(x){
+
+  span_rows <- as.list(as.data.frame(t(x$spans$rows)))
+
+  l_apply_right_border <- lapply( span_rows, function(x) {
+    rle_ <- rle(x)
+    from <- cumsum(rle_$lengths)[rle_$values < 1]
+    to <- cumsum(rle_$lengths)[rle_$values > 1]
+    list(from = from, to = to, dont = length(to) < 1 )
+  })
+
+  for(i in seq_along(l_apply_right_border) ){
+
+    apply_right_border <- l_apply_right_border[[i]]
+
+    if( apply_right_border$dont ) next
+
+    for( j in seq_along(apply_right_border$from) ){
+
+      colkeyto <- x$col_keys[apply_right_border$to[j]]
+      colkeyfrom <- x$col_keys[apply_right_border$from[j]]
+
+      pr_id_from <- x$styles$cells$get_pr_id_at(i, colkeyfrom)
+      pr_id_to <- x$styles$cells$get_pr_id_at(i, colkeyto)
+      pr_from <- x$styles$cells$get_fp()[[pr_id_from]]
+      pr_to <- x$styles$cells$get_fp()[[pr_id_to]]
+      pr_to <- update(pr_to, border.right = pr_from$border.right )
+      new_pr <- list( pr_to )
+      names(new_pr) <- fp_sign(pr_to)
+      x$styles$cells$set_pr_id_at(i, colkeyto, pr_id = names(new_pr), fp_list = new_pr)
+    }
+
+  }
+
+  x
+}
 
 # borders format - sugar ----
 
@@ -643,11 +679,11 @@ border_outer <- function(x, border = NULL, part = "all"){
   x <- vline_right(x, border = border, part = part)
   x <- vline_left(x, border = border, part = part)
 
-  if( part %in% "body" ){
-    x <- hline_bottom(x, border = fp_border(width = 0), part = "header")
-  } else if( part %in% "footer" ){
-    x <- hline_bottom(x, border = fp_border(width = 0), part = "body")
-  }
+  # if( part %in% "body" ){
+  #   x <- hline_bottom(x, border = fp_border(width = 0), part = "header")
+  # } else if( part %in% "footer" ){
+  #   x <- hline_bottom(x, border = fp_border(width = 0), part = "body")
+  # }
 
   x
 
@@ -843,7 +879,8 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
   j <- get_columns_id(x[[part]], j )
   x <- border(x, i = i, j = j, border.right = border, part = part )
   j <- setdiff(j, 1 )
-  x <- border(x, i = i, j = j, border.left = border, part = part )
+  if( length(j) > 0 )
+    x <- border(x, i = i, j = j, border.left = border, part = part )
   x
 }
 
