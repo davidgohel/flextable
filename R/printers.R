@@ -126,5 +126,5 @@ format.flextable <- function(x, type, ...){
   } else if( type == "html" ){
     out <- html_str(x)
   } else stop("unimplemented")
-
+  out
 }
