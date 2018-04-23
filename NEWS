@@ -1,3 +1,9 @@
+# flextable 0.4.5
+
+## Improvement
+
+* flextable will not be split across rows at a page break in Word documents.
+
 # flextable 0.4.4
 
 ## new features

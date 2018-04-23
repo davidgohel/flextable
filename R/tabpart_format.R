@@ -78,7 +78,7 @@ cell_fun <- list(
 # row_fun ----
 row_fun <- list(
   wml = function(rowheights, str, header){
-    paste0( "<w:tr><w:trPr><w:trHeight w:val=",
+    paste0( "<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val=",
             shQuote( round(rowheights * 72*20, 0 ), type = "cmd"), "/>",
             ifelse( header, "<w:tblHeader/>", ""),
             "</w:trPr>", str, "</w:tr>")
