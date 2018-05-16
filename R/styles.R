@@ -871,9 +871,9 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
   x <- border(x, i = i, j = j, border.right = border, part = part )
-  j <- setdiff(j, 1 )
+  j <- setdiff(j, length(x$col_keys) )
   if( length(j) > 0 )
-    x <- border(x, i = i, j = j, border.left = border, part = part )
+    x <- border(x, i = i, j = j + 1, border.left = border, part = part )
   x
 }
 
