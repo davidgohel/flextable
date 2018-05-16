@@ -48,18 +48,19 @@ display_parser <- R6Class(
       }
       r_char <- strsplit( gsub(pattern_, replacement = "@@@", x, perl = TRUE), "@@@")[[1]]
 
-      mat_nrow <- (length(r_char)>0)+(length(r_expr)>0)
-      str <- matrix( c(r_char, r_expr), byrow = FALSE, nrow = mat_nrow)
-      is_expr <- matrix( c(rep(FALSE, length(r_char)),
-                           rep(TRUE, length(r_expr)) ), byrow = FALSE, nrow = mat_nrow)
 
-      str <- as.vector(t(str))
-      is_expr <- as.vector(t(is_expr))
-      pos <- seq_along(str)
+      r_char_pos <- seq_along(r_char) * 2 - 1
+      r_expr_pos <- seq_along(r_expr) * 2
+      data <- data.frame(str = c(r_char, r_expr),
+                 is_expr = c(rep(FALSE, length(r_char)),
+                             rep(TRUE, length(r_expr)) ),
+                 pos = c(r_char_pos, r_expr_pos),
+                 stringsAsFactors = FALSE
+                 )
+      data <- data[order(data$pos), , drop = FALSE]
 
-      data <- data.frame(str = str, is_expr = is_expr, pos = pos, stringsAsFactors = FALSE)
       data$rexpr <- gsub("(^\\{\\{|\\}\\})", "", data$str)
-      data$rexpr[!is_expr] <- NA
+      data$rexpr[!data$is_expr] <- NA
 
       if( !all( data$rexpr[!is.na(data$rexpr)] %in% formatters$varname ) ){
         stop( shQuote(private$str), ": missing definition for display() 'formatters' arg ", call. = FALSE)
