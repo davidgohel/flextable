@@ -91,7 +91,7 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
     else if( is.character(x) ) str_fun
     else if( inherits(x, "Date") ) function(x) date_fun(x, fmt_date)
     else if( inherits(x, "POSIXt") ) function(x) datetime_fun(x, fmt_datetime)
-    else function(x) any_fun
+    else function(x) any_fun(x)
   })
   x[["body"]]$printers[col_keys] <- formatters[col_keys]
   x
