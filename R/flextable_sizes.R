@@ -99,8 +99,12 @@ dim.flextable <- function(x){
   }
 
   mat_widths <- do.call("rbind", max_widths)
-  out_widths <- apply( mat_widths, 2, max )
-  names(out_widths) <- x$col_keys
+  if( is.null( mat_widths ) ){
+    out_widths <- numeric(0)
+  } else {
+    out_widths <- apply( mat_widths, 2, max )
+    names(out_widths) <- x$col_keys
+  }
 
   out_heights <- as.double(unlist(max_heights))
   list(widths = out_widths, heights = out_heights )

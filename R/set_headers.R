@@ -48,7 +48,7 @@ set_header_labels <- function(x, ...){
 delete_part <- function(x, part = "header"){
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
   nrow_ <- nrow(x[[part]]$dataset)
-  x[[part]]$dataset <- x[[part]]$dataset[-seq_len(nrow_),]
+  x[[part]]$dataset <- x[[part]]$dataset[-seq_len(nrow_),, drop = FALSE]
   x
 }
 
