@@ -129,6 +129,7 @@ create_display <- function(data, col_keys){
     else if( is.integer(x) ) paste0(varname, " ~ sprintf(", shQuote(set_formatter_type_formals$fmt_integer), ", `", varname ,"`)")
     else if( is.factor(x) ) paste0(varname, " ~ as.character(`", varname ,"`)")
     else if( is.character(x) ) paste0(varname, " ~ as.character(`", varname ,"`)")
+    else if( is.logical(x) ) paste0(varname, " ~ as.character(`", varname ,"`)")
     else if( inherits(x, "Date") ) paste0(varname, " ~ format(`", varname ,"`, ", shQuote(set_formatter_type_formals$fmt_date), ")")
     else if( inherits(x, "POSIXt") ) paste0(varname, " ~ format(`", varname ,"`, ", shQuote(set_formatter_type_formals$fmt_datetime), ")")
     else paste0(varname, " ~ ", set_formatter_type_formals$fun_any, "(`", varname ,"`)")
