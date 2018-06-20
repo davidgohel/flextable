@@ -9,6 +9,7 @@
 #' @export
 void <- function(x, j = NULL, part = "body" ){
 
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){

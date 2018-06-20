@@ -12,6 +12,7 @@
 #' ft_merge
 #' @export
 merge_v <- function(x, j = NULL, part = "body" ){
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   j <- get_columns_id(x[[part]], j = j )
@@ -39,6 +40,7 @@ merge_v <- function(x, j = NULL, part = "body" ){
 #' @export
 merge_h <- function(x, i = NULL, part = "body" ){
 
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   i <- get_rows_id( x[[part]], i )
@@ -71,6 +73,7 @@ merge_h <- function(x, i = NULL, part = "body" ){
 #' ft
 merge_none <- function(x, part = "all" ){
 
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
@@ -102,6 +105,7 @@ merge_none <- function(x, part = "all" ){
 #' ft_merge
 #' @export
 merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   j <- get_columns_id(x[[part]], j = j )

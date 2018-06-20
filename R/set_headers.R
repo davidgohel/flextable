@@ -16,8 +16,9 @@
 #' @export
 set_header_labels <- function(x, ...){
 
-  args <- list(...)
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
 
+  args <- list(...)
   if( nrow(x$header$dataset) < 1 )
     stop("there is no header row to be replaced")
 
@@ -46,6 +47,7 @@ set_header_labels <- function(x, ...){
 #' ft <- delete_part(x = ft, part = "header")
 #' ft
 delete_part <- function(x, part = "header"){
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
   nrow_ <- nrow(x[[part]]$dataset)
   x[[part]]$dataset <- x[[part]]$dataset[-seq_len(nrow_),, drop = FALSE]
@@ -81,6 +83,7 @@ delete_part <- function(x, part = "header"){
 #' @name add_header_footer
 add_header <- function(x, top = TRUE, ...){
 
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   args <- list(...)
   args_ <- lapply(x$col_keys, function(x) "" )
   names(args_) <- x$col_keys
@@ -95,6 +98,7 @@ add_header <- function(x, top = TRUE, ...){
 #' @export
 #' @rdname add_header_footer
 add_footer <- function(x, top = TRUE, ...){
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   args <- list(...)
   args_ <- lapply(x$col_keys, function(x) "" )
   names(args_) <- x$col_keys
@@ -190,6 +194,7 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part){
 #'
 #'
 set_header_df <- function(x, mapping = NULL, key = "col_keys"){
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   set_part_df(x, mapping = mapping, key = key, part = "header")
 }
 
@@ -206,6 +211,7 @@ set_header_df <- function(x, mapping = NULL, key = "col_keys"){
 #' ft <- theme_booktabs(ft)
 #' ft
 set_footer_df <- function(x, mapping = NULL, key = "col_keys"){
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   set_part_df(x, mapping = mapping, key = key, part = "footer")
 }
 

@@ -27,6 +27,7 @@ theme_vanilla <- function(x){
 #' ft <- flextable(iris)
 #' ft <- theme_box(ft)
 theme_box <- function(x){
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   x <- border_remove(x)
 
   std_border <- fp_border(width = 1, color = "black")
@@ -52,6 +53,7 @@ theme_box <- function(x){
 #' ft <- theme_zebra(ft)
 theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
                         even_header = "transparent", even_body = "transparent" ){
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   h_nrow <- nrow_part(x, "header")
   f_nrow <- nrow_part(x, "footer")
   b_nrow <- nrow_part(x, "body")
@@ -98,6 +100,7 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
 #' ft <- theme_tron_legacy(ft)
 theme_tron_legacy <- function(x){
 
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   h_nrow <- nrow_part(x, "header")
   f_nrow <- nrow_part(x, "footer")
   b_nrow <- nrow_part(x, "body")
@@ -132,6 +135,7 @@ theme_tron_legacy <- function(x){
 #' ft <- theme_tron(ft)
 theme_tron <- function(x){
 
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   h_nrow <- nrow_part(x, "header")
   f_nrow <- nrow_part(x, "footer")
   b_nrow <- nrow_part(x, "body")
@@ -164,6 +168,7 @@ theme_tron <- function(x){
 #' ft <- flextable(iris)
 #' ft <- theme_booktabs(ft)
 theme_booktabs <- function(x){
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   big_border <- fp_border(width = 2)
   std_border <- fp_border(width = 1)
   h_nrow <- nrow_part(x, "header")

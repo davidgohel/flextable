@@ -45,6 +45,7 @@ display <- function(x, i = NULL, col_key,
                     pattern, formatters = list(), fprops = list(),
                     part = "body"){
 
+  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   stopifnot(is.character(pattern), length(pattern)==1)
