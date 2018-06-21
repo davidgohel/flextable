@@ -443,8 +443,14 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param rotation one of "lrtb", "tbrl", "btlr"
-#' @param align one of "center" or "top" or "bottom"
+#' @param align vertical alignment of paragraph within cell,
+#' one of "center" or "top" or "bottom".
 #' @details
+#' One common case is to rotate text to minimise column space. When rotating,
+#' paragraph alignments will remain the same and often right aligned (
+#' with an effect of top aligned when rotated). Use
+#' \code{align(..., align = "center")} to center rotated text.
+#'
 #' When function \code{autofit} is used, the rotation will be
 #' ignored.
 #' @examples
