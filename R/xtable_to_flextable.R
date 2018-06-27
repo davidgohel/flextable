@@ -242,10 +242,31 @@ xtable_to_flextable <- function(
 }
 
 
-formatC_with_na <- function(x, digits, format, na_string, ...){
-  ifelse( is.na(x), na_string, formatC(x, digits = digits, format = format, ...) )
+formatC_with_na <- function( x, na_string = "", ... ){
+  UseMethod("formatC_with_na")
 }
 
+formatC_with_na.character <- function( x, na_string = "", ... ){
+  ifelse( is.na(x), na_string, x )
+}
+
+formatC_with_na.default <- function( x, na_string = "", ... ){
+  x <- ifelse( is.na(x), na_string, x )
+  x
+}
+
+formatC_with_na.factor <- function( x, na_string = "", ... ){
+  x <- as.character(x)
+  ifelse( is.na(x), na_string, x )
+}
+formatC_with_na.logical <- function( x, na_string = "", true = "true", false = "false" ){
+  x <- ifelse(x, true, false)
+  ifelse( is.na(x), na_string, x )
+}
+formatC_with_na.numeric <- function( x, na_string = "", digits, format, ... ){
+  x <- formatC(x, digits = digits, format = format, ...)
+  ifelse( is.na(x), na_string, x )
+}
 
 get_xtable_widths <- function(align, default_width = .3){
   rex <- "^(p\\{)([0-9\\.]+)(cm|in|px)(\\}$)"
