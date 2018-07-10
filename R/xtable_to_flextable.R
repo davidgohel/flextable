@@ -246,26 +246,36 @@ formatC_with_na <- function( x, na_string = "", ... ){
   UseMethod("formatC_with_na")
 }
 
+formatC_with_na.default <- function( x, na_string = "", ... ){
+  ifelse( is.na(x), na_string, x )
+}
+
 formatC_with_na.character <- function( x, na_string = "", ... ){
   ifelse( is.na(x), na_string, x )
 }
 
-formatC_with_na.default <- function( x, na_string = "", ... ){
-  x <- ifelse( is.na(x), na_string, x )
-  x
+formatC_with_na.factor <- function( x, na_string = "", ... ){
+  ifelse( is.na(x), na_string, as.character(x) )
 }
 
-formatC_with_na.factor <- function( x, na_string = "", ... ){
-  x <- as.character(x)
-  ifelse( is.na(x), na_string, x )
-}
 formatC_with_na.logical <- function( x, na_string = "", true = "true", false = "false" ){
-  x <- ifelse(x, true, false)
-  ifelse( is.na(x), na_string, x )
+  ifelse( is.na(x), na_string, ifelse(x, true, false) )
 }
-formatC_with_na.numeric <- function( x, na_string = "", digits, format, ... ){
-  x <- formatC(x, digits = digits, format = format, ...)
-  ifelse( is.na(x), na_string, x )
+
+formatC_with_na.double <- function( x, na_string = "", digits, format = "d", ... ){
+  ifelse( is.na(x), na_string, formatC(x, digits = digits, format = format, ...) )
+}
+
+formatC_with_na.integer <- function( x, na_string = "", digits, format, ... ){
+  ifelse( is.na(x), na_string, formatC(x, digits = digits, format = format, ...) )
+}
+
+formatC_with_na.Date <- function( x, na_string = "", fmt_date, ... ){
+  ifelse( is.na(x), na_string, format(x, fmt_date) )
+}
+
+formatC_with_na.POSIXt <- function( x, na_string = "", fmt_datetime, ... ){
+  ifelse( is.na(x), na_string, format(x, fmt_datetime) )
 }
 
 get_xtable_widths <- function(align, default_width = .3){

@@ -78,20 +78,21 @@ set_formatter <- function(x, ..., part = "body"){
 #' format double and integer columns.
 #' @param fmt_date,fmt_datetime arguments used by \code{format} to
 #' format date and date time columns.
+#' @param na_str string for NA values
 set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
-                               fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S"){
+                               fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
+                               na_str = ""){
 
   stopifnot(inherits(x, "regulartable"))
 
   col_keys <- setdiff(x[["body"]]$col_keys, x$blanks)
   formatters <- lapply(x[["body"]]$dataset[col_keys], function(x){
-    if( is.double(x) ) function(x) dbl_fun(x, fmt_double)
-    else if( is.integer(x) ) function(x) int_fun(x, fmt_integer)
-    else if( is.factor(x) ) str_fun
-    else if( is.character(x) ) str_fun
-    else if( inherits(x, "Date") ) function(x) date_fun(x, fmt_date)
-    else if( inherits(x, "POSIXt") ) function(x) datetime_fun(x, fmt_datetime)
-    else function(x) any_fun(x)
+    function(x) format_fun(x, na_string = na_str,
+                           fmt_double = fmt_double,
+                           fmt_integer = fmt_integer,
+                           fmt_date = fmt_date,
+                           fmt_datetime = fmt_datetime,
+                           na_str)
   })
   x[["body"]]$printers[col_keys] <- formatters[col_keys]
   x

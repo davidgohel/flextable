@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.4.5.008
+Version: 0.4.5.009
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -17,10 +17,10 @@ Imports:
     stats,utils,grDevices,
     officer (>= 0.2.0),
     rmarkdown, knitr,htmltools,
-    R6,stringr,
+    R6,stringr,xml2,
     gdtools (>= 0.1.6)
 RoxygenNote: 6.0.1.9000
-Suggests: xml2, testthat, xtable
+Suggests: testthat, xtable
 URL: https://davidgohel.github.io/flextable
 BugReports: https://github.com/davidgohel/flextable/issues
 VignetteBuilder: knitr

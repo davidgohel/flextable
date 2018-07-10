@@ -11,7 +11,7 @@ body_add_flextable(x, value, align = "center", pos = "after")
 
 \item{value}{\code{flextable} object}
 
-\item{align}{left (default), center or right.}
+\item{align}{left, center (default) or right.}
 
 \item{pos}{where to add the flextable relative to the cursor,
 one of "after", "before", "on" (end of line).}
