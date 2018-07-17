@@ -2,7 +2,7 @@
 #' @importFrom stats setNames
 #' @export
 regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
-  stopifnot(is.data.frame(data))
+  stopifnot(is.data.frame(data), ncol(data) > 0 )
 
   if( any( duplicated(col_keys) ) ){
     stop("duplicated col_keys")
