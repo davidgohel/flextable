@@ -4,6 +4,11 @@
 
 * flextable will not be split across rows at a page break in Word documents.
 
+## Issues
+
+* fix border rendering with `vline()`
+* empty data.frame are no more generating an error
+
 # flextable 0.4.4
 
 ## new features
