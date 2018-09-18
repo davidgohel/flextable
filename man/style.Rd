@@ -4,8 +4,8 @@
 \alias{style}
 \title{Set flextable style}
 \usage{
-style(x, i = NULL, j = NULL, pr_t = NULL, pr_p = NULL, pr_c = NULL,
-  part = "body")
+style(x, i = NULL, j = NULL, pr_t = NULL, pr_p = NULL,
+  pr_c = NULL, part = "body")
 }
 \arguments{
 \item{x}{a flextable object}

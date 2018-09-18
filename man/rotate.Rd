@@ -4,7 +4,8 @@
 \alias{rotate}
 \title{rotate cell text}
 \usage{
-rotate(x, i = NULL, j = NULL, rotation, align = "center", part = "body")
+rotate(x, i = NULL, j = NULL, rotation, align = "center",
+  part = "body")
 }
 \arguments{
 \item{x}{a flextable object}

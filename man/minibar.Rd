@@ -4,8 +4,8 @@
 \alias{minibar}
 \title{draw a single bar}
 \usage{
-minibar(value, max, barcol = "#CCCCCC", bg = "transparent", width = 1,
-  height = 0.2)
+minibar(value, max, barcol = "#CCCCCC", bg = "transparent",
+  width = 1, height = 0.2)
 }
 \arguments{
 \item{value}{bar height}

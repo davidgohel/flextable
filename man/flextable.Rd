@@ -5,9 +5,11 @@
 \alias{regulartable}
 \title{flextable creation}
 \usage{
-flextable(data, col_keys = names(data), cwidth = 0.75, cheight = 0.25)
+flextable(data, col_keys = names(data), cwidth = 0.75,
+  cheight = 0.25)
 
-regulartable(data, col_keys = names(data), cwidth = 0.75, cheight = 0.25)
+regulartable(data, col_keys = names(data), cwidth = 0.75,
+  cheight = 0.25)
 }
 \arguments{
 \item{data}{dataset}

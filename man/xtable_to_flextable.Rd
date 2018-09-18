@@ -6,8 +6,9 @@
 \usage{
 xtable_to_flextable(x, text.properties = officer::fp_text(),
   format.args = getOption("xtable.format.args", NULL),
-  rowname_col = "rowname", hline.after = getOption("xtable.hline.after",
-  c(-1, 0, nrow(x))), NA.string = getOption("xtable.NA.string", ""),
+  rowname_col = "rowname",
+  hline.after = getOption("xtable.hline.after", c(-1, 0, nrow(x))),
+  NA.string = getOption("xtable.NA.string", ""),
   include.rownames = TRUE,
   rotate.colnames = getOption("xtable.rotate.colnames", FALSE))
 }
