@@ -121,13 +121,28 @@ knit_print.flextable <- function(x, ...){
 }
 
 #' @export
+#' @title Encode flextable in a document format.
+#'
+#' @description Encode flextable in a document format, \code{html}, \code{docx},
+#' \code{pptx}.
+#'
+#' This function is exported so that users can create their own custom
+#' component.
+#' @param type one of pptx, docx or html.
+#' @param ... unused
+#' @examples
+#' ft <- flextable(head(iris, n = 2))
+#' format(ft, type = "html")
 format.flextable <- function(x, type, ...){
 
   stopifnot( length(type) == 1,
-             type %in% c("wml", "pml", "html") )
+             type %in% c("wml", "pml", "html", "pptx", "docx") )
+
+  if( type %in% "pptx") type <- "pml"
+  if( type %in% "docx") type <- "wml"
 
   if( type == "wml" ){
-    out <- docx_str(x)
+    out <- docx_str(x, ...)
   } else if( type == "pml" ){
     out <- pml_flextable(x)
   } else if( type == "html" ){
