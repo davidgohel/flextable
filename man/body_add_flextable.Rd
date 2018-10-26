@@ -2,9 +2,12 @@
 % Please edit documentation in R/body_add_flextable.R
 \name{body_add_flextable}
 \alias{body_add_flextable}
+\alias{body_replace_flextable_at_bkm}
 \title{add flextable into a Word document}
 \usage{
 body_add_flextable(x, value, align = "center", pos = "after")
+
+body_replace_flextable_at_bkm(x, bookmark, value, align = "center")
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -15,10 +18,18 @@ body_add_flextable(x, value, align = "center", pos = "after")
 
 \item{pos}{where to add the flextable relative to the cursor,
 one of "after", "before", "on" (end of line).}
+
+\item{bookmark}{bookmark id}
 }
 \description{
 add a flextable into a Word document.
 }
+\section{body_replace_flextable_at_bkm}{
+
+Use this function if you want to replace a paragraph containing
+a bookmark with a flextable. As a side effect, the bookmark will be lost.
+}
+
 \examples{
 library(officer)
 ft <- flextable(head(mtcars))

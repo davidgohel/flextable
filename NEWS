@@ -2,6 +2,8 @@
 
 ## Improvement
 
+* a new helper function `body_replace_flextable_at_bkm` to
+  replace a bookmarked paragraph by a flextable.
 
 # flextable 0.4.5
 

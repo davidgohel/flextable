@@ -26,6 +26,18 @@ body_add_flextable <- function( x, value, align = "center", pos = "after") {
 }
 
 #' @export
+#' @rdname body_add_flextable
+#' @param bookmark bookmark id
+#' @section body_replace_flextable_at_bkm:
+#' Use this function if you want to replace a paragraph containing
+#' a bookmark with a flextable. As a side effect, the bookmark will be lost.
+body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center"){
+  x <- cursor_bookmark(x, bookmark)
+  x <- body_add_flextable(x = x, value = value, pos = "on", align = align)
+  x
+}
+
+#' @export
 #' @title add flextable at a bookmark location in document's header
 #' @description replace in the header of a document  a paragraph containing a bookmark by a flextable.
 #' A bookmark will be considered as valid if enclosing words
