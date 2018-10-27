@@ -7,6 +7,8 @@
 \method{format}{flextable}(x, type, ...)
 }
 \arguments{
+\item{x}{flextable object}
+
 \item{type}{one of pptx, docx or html.}
 
 \item{...}{unused}

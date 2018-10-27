@@ -128,6 +128,7 @@ knit_print.flextable <- function(x, ...){
 #'
 #' This function is exported so that users can create their own custom
 #' component.
+#' @param x flextable object
 #' @param type one of pptx, docx or html.
 #' @param ... unused
 #' @examples
