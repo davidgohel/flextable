@@ -82,7 +82,6 @@ display_parser <- R6Class(
     },
 
     tidy_data = function(data){
-
       dat <- private$data
       dat$expr <- lapply(seq_along(dat$str), function(x) NULL )
       dat$expr[match( private$formatters$varname, private$data$rexpr )] <- private$formatters$expr
@@ -124,7 +123,9 @@ display_parser <- R6Class(
       }, x = dat_str$str, pos = dat_str$pos, pr_id = dat_str$pr_id, n = nrow(data),
       SIMPLIFY = FALSE )
 
-      rbind.match.columns(append(dat_expr, dat_str))
+      dat <- rbind.match.columns(append(dat_expr, dat_str))
+      dat <- dat[order(dat$id, dat$pos), , drop = FALSE]
+      dat
     }
 
 
@@ -305,7 +306,6 @@ display_structure <- R6Class(
 
       data <- mapply(function(data, formatr, col_key, pr_id, row_id ){
           dat <- formatr$tidy_data(data = data)
-
           dat$col_key <- rep(col_key, nrow(dat) )
           if( nrow(dat) )
             dat$id <- row_id[dat$id]
@@ -319,7 +319,6 @@ display_structure <- R6Class(
           if( !is.element("href", names(dat) ) ){
             dat$href <- rep(NA_character_, nrow(dat))
           }
-
           dat
         },
         data = indices_dat,
@@ -331,7 +330,9 @@ display_structure <- R6Class(
 
       data$txt_fp <- data$pr_id
       data$pr_id <- NULL
+
       data <- merge(data, default_fp_t, by = c("col_key", "id"), all.x = TRUE, all.y = FALSE, sort = FALSE )
+
       data$pr_id <- ifelse(is.na(data$txt_fp), data$pr_id, data$txt_fp )
       data$txt_fp <- NULL
 

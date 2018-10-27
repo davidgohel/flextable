@@ -129,12 +129,11 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
     pr_id = names(text_fp),
     format = as.character( sapply(text_fp, format, type = type) ),
     stringsAsFactors = FALSE )
+  pr_str_df <- unique(pr_str_df)
 
   txt_data <- drop_useless_blank(txt_data)
   dat <- merge(txt_data, pr_str_df, by = "pr_id", all.x = TRUE, all.y = FALSE, sort = FALSE)
   dat <- dat[order(dat$col_key, dat$id, dat$pos),]
-
-
 
   dat$str <- run_fun[[type]](dat$format, dat$str, dat$str_is_run)
   dat$str <- hyperlink_fun[[type]](dat$href, dat$str)
