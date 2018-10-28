@@ -1,9 +1,23 @@
 # flextable 0.4.6
 
-## Improvement
+## new features
 
 * a new helper function `body_replace_flextable_at_bkm` to
   replace a bookmarked paragraph by a flextable.
+* new functions `colformat_*` to make content formatting easier.
+  It also deals with NA.
+
+## Improvement
+
+* Documentation `format.flextable` method so that users can create
+  their components.
+* new knitr chunk options `ft.align` to align tables in
+  `rmarkdown::word_document`.
+
+## Issues
+
+* fix issue (unordered and duplicated chunk of text) in function `display()`
+
 
 # flextable 0.4.5
 

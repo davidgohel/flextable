@@ -252,9 +252,57 @@ ft
 ```
 
 
-## set_formatter function
+## Content format functions
 
-When working with `regulartable`, it is possible to define the functions that will be used to format the data.frame values into strings. `set_formatter` set column formatter functions.
+By default, the displayed content of each cell will be the 
+result of a simple formatting. The content can also be 
+formatted as the result of an interpolation.
+
+First the columns functions, they will define the formatting 
+for each column. 
+
+When working with a `regulartable`, user can have the control of the 
+formatting function by using `set_formatter`. 
+
+When working with a `flextable`, user can have the control of the 
+formatting function by using `display`. The function enable the 
+control of format at the cell level. It can also be used to mixed 
+chunks of text with various text formats and images.
+
+
+### Columns functions
+
+Theses are high level functions that should satisfy most 
+of the usual needs. They can be used to define the formatting 
+of one or more columns.
+
+Each accept a `prefix` and `suffix` argument that can be used 
+to add a currency symbol for example. Also they all have 
+`na_str` argument (defaut to ""), the string to use when data 
+are not available.
+
+- `colformat_num()` with arguments `digits` and `big.mark`
+- `colformat_int()` with arguments `big.mark`
+- `colformat_char()`
+
+```{r}
+dat <- head(mtcars, n = 10)
+dat[3:7, 1] <- NA
+dat[, 2] <- dat[, 6] * 1000000
+
+ft <- regulartable(dat)
+num_keys <- c("mpg", "disp", "drat", "wt", "qsec")
+int_keys <- c("cyl", "hp", "vs", "am", "gear", "carb")
+
+ft <- colformat_num(x = ft, col_keys = num_keys, big.mark = ",", digits = 2, na_str = "missing")
+ft <- colformat_int(x = ft, col_keys = int_keys, big.mark = ",")
+autofit(ft)
+```
+
+
+### set_formatter function
+
+When working with `regulartable`, it is possible to define the functions that will be used to format the data.frame values into strings. `set_formatter` set column formatter functions. 
 
 > Note `set_formatter` only works with `regulartable` objects, use `display` for `flextable` objects.
 
@@ -271,9 +319,14 @@ ft
 ```
 
 
-## display function
+### display function
 
 `flextable` content is defined with `display` function. 
+
+It lets user control the formated content at the cell level of the table. 
+It is possible to define a content for a row subset and a column as well 
+as on the whole column. One can mix images and text (but not with 
+PowerPoint because PowerPoint can not do it).
 
 > Note `display` only works with `flextable` objects, use `set_formatter` for `regulartable` objects.
 
@@ -291,7 +344,6 @@ myft <- border(myft, j = ~ separator, border = fp_border(width=0), part = "all")
 myft <- width(myft, j = ~ separator, width = .1)
 myft
 ```
-
 
 The function requires argument `pattern` which is a string template inspired by *[mustaches](http://mustache.github.com/)*. The string will be expanded with tags using values provided in `formatters` argument; tags can eventually be formatted with `fprops` argument. 
 
@@ -336,7 +388,7 @@ myft <- autofit(myft)
 myft
 ```
 
-### Images
+#### Images
 
 Function `display` supports images insertion. Use function `as_image` within `formatters` argument.
 
