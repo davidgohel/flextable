@@ -49,6 +49,7 @@ reference:
   - title: Content
     desc:  Define flextable`s content
     contents:
+    - starts_with("colformat_")
     - display
     - starts_with("set_formatter")
     - void
