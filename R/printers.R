@@ -80,9 +80,13 @@ print.flextable <- function(x, preview = "html", ...){
 #' For Word (docx) output, if pandoc version >= 2.0 is used, a raw XML block
 #' with the table code will be inserted. If pandoc version < 2.0 is used, an
 #' error will be raised. Note also that insertion of images is not supported
-#' with rmarkdow for Word documents. Result can be aligned with
-#' chunk option \code{ft.align} that accepts values 'left', 'center'
-#' and 'right'.
+#' with rmarkdow for Word documents.
+#'
+#' Result can be aligned with chunk option \code{ft.align} that
+#' accepts values 'left', 'center' and 'right'.
+#' Word option 'Allow row to break across pages' can be
+#' activated with chunk option \code{ft.split} set to TRUE.
+#'
 #'
 #' @param x a \code{flextable} object
 #' @param ... further arguments, not used.
@@ -103,11 +107,13 @@ knit_print.flextable <- function(x, ...){
 
     if (pandoc_version() >= 2) {
       # insert rawBlock with Open XML
-      if( !is.null( align <- opts_current$get("ft.align") ) ){
-        str <- docx_str(x, align = align)
-      } else {
-        str <- docx_str(x)
-      }
+      if( is.null(align <- opts_current$get("ft.align")) )
+        align <- "center"
+      if( is.null(split <- opts_current$get("ft.split")) )
+        split <- FALSE
+
+      str <- docx_str(x, align = align, split = TRUE %in% split)
+
       knit_print( asis_output(
         paste("```{=openxml}", str, "```", sep = "\n")
       ) )

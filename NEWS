@@ -12,7 +12,8 @@
 * Documentation `format.flextable` method so that users can create
   their components.
 * new knitr chunk options `ft.align` to align tables in
-  `rmarkdown::word_document`.
+  `rmarkdown::word_document` and `ft.split` to activate Word
+  option 'Allow row to break across pages'.
 
 ## Issues
 

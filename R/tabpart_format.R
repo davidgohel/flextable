@@ -77,17 +77,20 @@ cell_fun <- list(
 
 # row_fun ----
 row_fun <- list(
-  wml = function(rowheights, str, header){
-    paste0( "<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val=",
+  wml = function(rowheights, str, header, split = FALSE){
+
+    paste0( "<w:tr><w:trPr>",
+            ifelse(split, "", "<w:cantSplit/>"),
+            "<w:trHeight w:val=",
             shQuote( round(rowheights * 72*20, 0 ), type = "cmd"), "/>",
             ifelse( header, "<w:tblHeader/>", ""),
             "</w:trPr>", str, "</w:tr>")
   },
-  pml = function(rowheights, str, header){
+  pml = function(rowheights, str, header, ...){
     paste0( "<a:tr h=\"", round(rowheights * 914400, 0 ), "\">",
             str, "</a:tr>")
   },
-  html = function(rowheights, str, header) {
+  html = function(rowheights, str, header, ...) {
     str <- str_replace_all(str, pattern = "<td style=\"",
                     replacement = paste0("<td style=\"height:",
                                          round(72*rowheights), "px;"))
@@ -98,7 +101,8 @@ row_fun <- list(
 
 # main functions ----
 #' @importFrom gdtools raster_write raster_str
-format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
+format.complex_tabpart <- function( x, type = "wml", header = FALSE,
+                                    split = FALSE, ... ){
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html") )
 
@@ -166,7 +170,7 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
 
   cells <- matrix(cells, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
   cells <- apply(cells, 1, paste0, collapse = "")
-  rows <- row_fun[[type]](x$rowheights, cells, header)
+  rows <- row_fun[[type]](x$rowheights, cells, header, split = split)
   out <- paste0(rows, collapse = "")
 
   attr(out, "imgs") <- as.data.frame(img_data)
@@ -200,7 +204,8 @@ get_text_data <- function(x){
 }
 
 #' @importFrom gdtools raster_write raster_str
-format.simple_tabpart <- function( x, type = "wml", header = FALSE, ... ){
+format.simple_tabpart <- function( x, type = "wml", header = FALSE,
+                                   split = FALSE, ... ){
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html") )
 
@@ -245,7 +250,7 @@ format.simple_tabpart <- function( x, type = "wml", header = FALSE, ... ){
 
   cells <- matrix(cells, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
   cells <- apply(cells, 1, paste0, collapse = "")
-  rows <- row_fun[[type]](x$rowheights, cells, header)
+  rows <- row_fun[[type]](x$rowheights, cells, header, split = split)
   out <- paste0(rows, collapse = "")
   out
 }

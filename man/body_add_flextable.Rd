@@ -5,9 +5,11 @@
 \alias{body_replace_flextable_at_bkm}
 \title{add flextable into a Word document}
 \usage{
-body_add_flextable(x, value, align = "center", pos = "after")
+body_add_flextable(x, value, align = "center", pos = "after",
+  split = FALSE)
 
-body_replace_flextable_at_bkm(x, bookmark, value, align = "center")
+body_replace_flextable_at_bkm(x, bookmark, value, align = "center",
+  split = FALSE)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -18,6 +20,9 @@ body_replace_flextable_at_bkm(x, bookmark, value, align = "center")
 
 \item{pos}{where to add the flextable relative to the cursor,
 one of "after", "before", "on" (end of line).}
+
+\item{split}{set to TRUE if you want to activate Word
+option 'Allow row to break across pages'.}
 
 \item{bookmark}{bookmark id}
 }

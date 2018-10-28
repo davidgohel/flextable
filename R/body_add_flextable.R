@@ -4,6 +4,8 @@
 #' @param x an rdocx object
 #' @param value \code{flextable} object
 #' @param align left, center (default) or right.
+#' @param split set to TRUE if you want to activate Word
+#' option 'Allow row to break across pages'.
 #' @param pos where to add the flextable relative to the cursor,
 #' one of "after", "before", "on" (end of line).
 #' @importFrom officer body_add_xml wml_link_images docx_reference_img
@@ -15,11 +17,11 @@
 #' doc <- read_docx()
 #' doc <- body_add_flextable(doc, value = ft)
 #' \donttest{print(doc, target = "test.docx")}
-body_add_flextable <- function( x, value, align = "center", pos = "after") {
+body_add_flextable <- function( x, value, align = "center", pos = "after", split = FALSE) {
 
   stopifnot(inherits(x, "rdocx"))
 
-  out <- docx_str(value, doc = x, align = align)
+  out <- docx_str(value, doc = x, align = align, split = split)
 
   body_add_xml(x = x, str = out, pos = pos)
 
@@ -31,9 +33,9 @@ body_add_flextable <- function( x, value, align = "center", pos = "after") {
 #' @section body_replace_flextable_at_bkm:
 #' Use this function if you want to replace a paragraph containing
 #' a bookmark with a flextable. As a side effect, the bookmark will be lost.
-body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center"){
+body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", split = FALSE){
   x <- cursor_bookmark(x, bookmark)
-  x <- body_add_flextable(x = x, value = value, pos = "on", align = align)
+  x <- body_add_flextable(x = x, value = value, pos = "on", align = align, split = split)
   x
 }
 

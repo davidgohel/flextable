@@ -1,13 +1,13 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.4.6.005
+Version: 0.4.6.006
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
     person("Maxim", "Nazarov", role = c("ctb"),
       comment = "rmarkdown for docx output"))
-Description: Create pretty tables for 'Microsoft Word', 'Microsoft PowerPoint' and 'HTML' documents. 
+Description: Create pretty tables for 'HTML', 'Microsoft Word' and 'Microsoft PowerPoint' documents. 
   Functions are provided to let users create tables, modify and format their content. 
   It extends package 'officer' that does not contain any feature for customized tabular reporting 
   and can be used within R markdown documents when rendering to HTML and to 'Microsoft Word' documents.
@@ -21,6 +21,7 @@ Imports:
     gdtools (>= 0.1.6)
 RoxygenNote: 6.1.0
 Suggests: testthat, xtable
+Encoding: UTF-8
 URL: https://davidgohel.github.io/flextable
 BugReports: https://github.com/davidgohel/flextable/issues
 VignetteBuilder: knitr

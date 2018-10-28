@@ -2,10 +2,7 @@ docx_str <- function( x, ... ){
   UseMethod("docx_str")
 }
 
-## This is basically a copy of (old) body_add_flextable, which just generates
-## needed XML without inserting into a document (x is a flextable object here),
-## as a consequence images are not supported since a document is needed for that.
-docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
+docx_str.regulartable <- function(x, align = "center", split = FALSE, doc = NULL, ...){
 
   imgs <- character(0)
   hlinks <- character(0)
@@ -38,7 +35,7 @@ docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
   if( nrow_part(x, "header") > 0 ){
     x$header <- correct_h_border(x$header)
     x$header <- correct_v_border(x$header)
-    xml_content <- format(x$header, header = TRUE, type = "wml")
+    xml_content <- format(x$header, header = TRUE, split = split, type = "wml")
     imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
     hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
     out = paste0(out, xml_content )
@@ -46,7 +43,7 @@ docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
   if( nrow_part(x, "body") > 0 ){
     x$body <- correct_h_border(x$body)
     x$body <- correct_v_border(x$body)
-    xml_content <- format(x$body, header = FALSE, type = "wml")
+    xml_content <- format(x$body, header = FALSE, split = split, type = "wml")
     imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
     hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
     out = paste0(out, xml_content )
@@ -54,7 +51,7 @@ docx_str.regulartable <- function(x, align = "center", doc = NULL, ...){
   if( nrow_part(x, "footer") > 0 ){
     x$footer <- correct_h_border(x$footer)
     x$footer <- correct_v_border(x$footer)
-    xml_content <- format(x$footer, header = FALSE, type = "wml")
+    xml_content <- format(x$footer, header = FALSE, split = split, type = "wml")
     imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
     hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
     out = paste0(out, xml_content )
