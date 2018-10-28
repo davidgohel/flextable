@@ -58,7 +58,7 @@ group_ref <- function(x, by, varname = "grp"){
 }
 
 drop_useless_blank <- function( x ){
-  grp <- group_index(x, by = c("col_key", "id") )
+  grp <- group_index(x, by = c("col_key", "idrow") )
   x <- split( x, grp)
   x <- lapply( x, function(x){
     non_empty <- which( !x$str %in% c("", NA) | x$type_out %in% "image_entry" )

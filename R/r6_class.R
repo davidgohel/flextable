@@ -100,31 +100,35 @@ display_parser <- R6Class(
       out_type <- ifelse(sapply(eval_out, inherits, "hyperlink_text" ), "htext", out_type )
 
       if(length(eval_out) < 1){
-        dat_expr <- list( data.frame( str = character(0), type_out = character(0),
-                    id = integer(0),
-                    pos = integer(0), pr_id = character(0), stringsAsFactors = FALSE) )
-      } else
+        dat_expr <- list(
+          data.frame( str = character(0), type_out = character(0),
+                      idrow = integer(0),
+                      pos = integer(0),
+                      pr_id = character(0),
+                      stringsAsFactors = FALSE) )
+      } else{
         dat_expr <- mapply(function(x, type_out, pos, pr_id, n){
             if( is.character(x) ){
               x <- data.frame(str = x, stringsAsFactors = FALSE)
             }
             cbind( x, data.frame( type_out = type_out,
-                               id = seq_len(n),
+                               idrow = seq_len(n),
                                pos = pos, pr_id = pr_id, stringsAsFactors = FALSE) )
           }, x = eval_out, type_out = out_type, pos = dat_expr$pos, pr_id = dat_expr$pr_id, n = nrow(data),
           SIMPLIFY = FALSE )
+      }
 
       dat_str <- dat[!dat$is_expr,]
       dat_str <- mapply(function(x, pos, pr_id, n){
 
         data.frame( str = x, type_out = "text",
-                    id = seq_len(n),
+                    idrow = seq_len(n),
                     pos = pos, pr_id = pr_id, stringsAsFactors = FALSE)
       }, x = dat_str$str, pos = dat_str$pos, pr_id = dat_str$pr_id, n = nrow(data),
       SIMPLIFY = FALSE )
 
       dat <- rbind.match.columns(append(dat_expr, dat_str))
-      dat <- dat[order(dat$id, dat$pos), , drop = FALSE]
+      dat <- dat[order(dat$idrow, dat$pos), , drop = FALSE]
       dat
     }
 
@@ -149,9 +153,9 @@ fp_structure <- R6Class(
 
     initialize = function( nrow_, col_keys, fp ) {
       ncol_ <- length(col_keys)
-      id <- rep( seq_len( nrow_ ), ncol_ )
+      idrow <- rep( seq_len( nrow_ ), ncol_ )
       keys <- rep(col_keys, each = nrow_ )
-      map_data <- data.frame(id = id, col_key = keys, stringsAsFactors = FALSE)
+      map_data <- data.frame(idrow = idrow, col_key = keys, stringsAsFactors = FALSE)
       fp_signature <- fp_sign(fp)
       private$add_fp(fp, fp_signature)
       map_data$pr_id <- rep(fp_signature, nrow_ )
@@ -176,7 +180,7 @@ fp_structure <- R6Class(
       format_ = as.character( sapply(self$get_fp(), format, type = type ) )
       match_ <- match( dat$pr_id, names(self$get_fp()) )
       dat$format <- format_[match_]
-      dat <- dat[, c("id", "col_key", "format") ]
+      dat <- dat[, c("idrow", "col_key", "format") ]
       dat
     },
 
@@ -184,12 +188,12 @@ fp_structure <- R6Class(
       private$fp_list
     },
     get_pr_id_at = function(i, j){
-      which_id <- private$map_data$id %in% i
+      which_id <- private$map_data$idrow %in% i
       which_key <- private$map_data$col_key %in% j
       private$map_data$pr_id[which_id & which_key]
     },
     set_pr_id_at = function(i, j, pr_id, fp_list){
-      which_id <- private$map_data$id %in% i
+      which_id <- private$map_data$idrow %in% i
       which_key <- private$map_data$col_key %in% j
       private$map_data$pr_id[which_id & which_key] <- pr_id
 
@@ -206,29 +210,29 @@ fp_structure <- R6Class(
       map_data <- private$map_data
 
       map_data_new <- data.frame(
-        id = 0,
+        idrow = 0,
         col_key = private$col_keys,
         pr_id = names(private$fp_list)[length(private$fp_list)],
         stringsAsFactors = FALSE)
-      map_data_new <- lapply(seq_len(nrows), function(x, dat) {dat$id <- x; dat }, map_data_new )
+      map_data_new <- lapply(seq_len(nrows), function(x, dat) {dat$idrow <- x; dat }, map_data_new )
       map_data_new <- do.call(rbind, map_data_new)
 
       if( first ){
         if( nrow(map_data) > 0 ){
-          pr_id <- map_data[map_data$id %in% 1,"pr_id"]
+          pr_id <- map_data[map_data$idrow %in% 1,"pr_id"]
           map_data_new$pr_id <- pr_id
         }
-        map_data$id <- map_data$id + nrows
+        map_data$idrow <- map_data$idrow + nrows
         map_data <- rbind(map_data_new, map_data)
       } else {
         last_id <- 0
         if( nrow(map_data) > 0 ){
-          last_id <- max(map_data$id)
-          pr_id <- map_data[map_data$id %in% last_id,"pr_id"]
+          last_id <- max(map_data$idrow)
+          pr_id <- map_data[map_data$idrow %in% last_id,"pr_id"]
           map_data_new$pr_id <- pr_id
         }
 
-        map_data_new$id <- map_data_new$id + nrows - 1 + last_id
+        map_data_new$idrow <- map_data_new$idrow + nrows - 1 + last_id
 
         map_data <- rbind(map_data, map_data_new)
       }
@@ -261,9 +265,9 @@ display_structure <- R6Class(
 
     initialize = function( nrow_, col_keys, lazy_f ) {
       ncol_ <- length(col_keys)
-      id <- rep( seq_len( nrow_ ), ncol_ )
+      idrow <- rep( seq_len( nrow_ ), ncol_ )
       keys <- rep(col_keys, each = nrow_ )
-      map_data <- data.frame(id = id, col_key = keys, stringsAsFactors = FALSE)
+      map_data <- data.frame(idrow = idrow, col_key = keys, stringsAsFactors = FALSE)
 
       lazy_f_id <- sapply(lazy_f, fp_sign)
       lazy_f_init <- rep(lazy_f_id, each = nrow_ )
@@ -297,19 +301,19 @@ display_structure <- R6Class(
 
       indices <- group_index(private$map_data, c("col_key", "pr_id"))
       indices_ref <- group_ref(private$map_data, c("col_key", "pr_id"))
-      indices_dat <- tapply( private$map_data$id,
+      indices_dat <- tapply( private$map_data$idrow,
               INDEX = indices,
               FUN = function(id, data){
                 data[id,,drop = FALSE]
               }, data = dataset, simplify = FALSE )
-      indices_id <- split( private$map_data$id,indices)
+      indices_id <- split( private$map_data$idrow,indices)
 
       data <- mapply(function(data, formatr, col_key, pr_id, row_id ){
           dat <- formatr$tidy_data(data = data)
           dat$col_key <- rep(col_key, nrow(dat) )
           if( nrow(dat) )
-            dat$id <- row_id[dat$id]
-          else dat$id <- integer(0)
+            dat$idrow <- row_id[dat$idrow]
+          else dat$idrow <- integer(0)
 
           if( !is.element("image_src", names(dat) ) ){
             dat$image_src <- rep(NA_character_, nrow(dat))
@@ -331,12 +335,12 @@ display_structure <- R6Class(
       data$txt_fp <- data$pr_id
       data$pr_id <- NULL
 
-      data <- merge(data, default_fp_t, by = c("col_key", "id"), all.x = TRUE, all.y = FALSE, sort = FALSE )
+      data <- merge(data, default_fp_t, by = c("col_key", "idrow"), all.x = TRUE, all.y = FALSE, sort = FALSE )
 
       data$pr_id <- ifelse(is.na(data$txt_fp), data$pr_id, data$txt_fp )
       data$txt_fp <- NULL
 
-      data <- data[order(data$col_key, data$id, data$pos),c("col_key", "str", "type_out", "id", "pos", "image_src", "href", "width", "height", "pr_id")]
+      data <- data[order(data$col_key, data$idrow, data$pos),c("col_key", "str", "type_out", "idrow", "pos", "image_src", "href", "width", "height", "pr_id")]
       data
     }
 

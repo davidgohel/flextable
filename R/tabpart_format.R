@@ -133,13 +133,13 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
 
   txt_data <- drop_useless_blank(txt_data)
   dat <- merge(txt_data, pr_str_df, by = "pr_id", all.x = TRUE, all.y = FALSE, sort = FALSE)
-  dat <- dat[order(dat$col_key, dat$id, dat$pos),]
+  dat <- dat[order(dat$col_key, dat$idrow, dat$pos),]
 
   dat$str <- run_fun[[type]](dat$format, dat$str, dat$str_is_run)
   dat$str <- hyperlink_fun[[type]](dat$href, dat$str)
 
-  group_ref_ <- group_ref(dat, c("id", "col_key"))
-  str_ <- tapply(dat$str, group_index(dat, c("id", "col_key")), paste, collapse = "")
+  group_ref_ <- group_ref(dat, c("idrow", "col_key"))
+  str_ <- tapply(dat$str, group_index(dat, c("idrow", "col_key")), paste, collapse = "")
   str_ <- data.frame(index_ = names(str_), str = as.character(str_), stringsAsFactors = FALSE )
   dat <- merge( group_ref_, str_, by = "index_", all.x = TRUE, all.y = TRUE, sort = FALSE)
   dat$index_ <- NULL
@@ -147,18 +147,18 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   par_data <- x$styles$pars$get_map_format(type = type)
 
   tidy_content <- expand.grid(col_key = x$col_key,
-                              id = seq_len(nrow(x$dataset)),
+                              idrow = seq_len(nrow(x$dataset)),
                               stringsAsFactors = FALSE)
-  tidy_content <- merge(tidy_content, dat, by = c("col_key", "id"), all.x = TRUE, all.y = FALSE, sort = FALSE)
-  tidy_content <- merge(tidy_content, par_data, by = c("id", "col_key"), all.x = TRUE, all.y = FALSE, sort = FALSE)
+  tidy_content <- merge(tidy_content, dat, by = c("col_key", "idrow"), all.x = TRUE, all.y = FALSE, sort = FALSE)
+  tidy_content <- merge(tidy_content, par_data, by = c("idrow", "col_key"), all.x = TRUE, all.y = FALSE, sort = FALSE)
   tidy_content$str <- par_fun[[type]](tidy_content$format, tidy_content$str)
   tidy_content$format <- NULL
 
-  paragraphs <- as_wide_matrix_(as.data.frame(tidy_content[, c("col_key", "str", "id")]))
+  paragraphs <- as_wide_matrix_(as.data.frame(tidy_content[, c("col_key", "str", "idrow")]), idvar = "idrow")
 
   cell_data <- x$styles$cells$get_map_format(type = type)
   cell_data$col_key <- factor(cell_data$col_key, levels = x$col_keys)
-  cell_format <- as_wide_matrix_(as.data.frame(cell_data[, c("col_key", "format", "id")]))
+  cell_format <- as_wide_matrix_(as.data.frame(cell_data[, c("col_key", "format", "idrow")]), idvar = "idrow")
 
   cells <- cell_fun[[type]](str = paragraphs, format=cell_format,
                    span_rows = x$span$rows,
@@ -183,15 +183,18 @@ get_text_data <- function(x){
   txt_data <- mapply(function(x, f) f(x), x$dataset[x$col_keys], x$printers, SIMPLIFY = FALSE)
   txt_data <- do.call(cbind, txt_data)
   txt_data <- as.data.frame(txt_data, stringsAsFactors = FALSE )
-  txt_data$id <- seq_len(nrow(txt_data))
+
+  txt_data$idrow <- seq_len(nrow(txt_data))
   txt_data <- reshape(data = as.data.frame(txt_data, stringsAsFactors = FALSE),
-                      idvar = "id", new.row.names = NULL, timevar = "col_key",
+                      idvar = "idrow", new.row.names = NULL, timevar = "col_key",
                       times = x$col_keys,
                       varying = x$col_keys,
                       v.names = "str", direction = "long")
   row.names(txt_data) <- NULL
 
-  txt_data <- merge(mapped_data, txt_data, by = c("id", "col_key"),
+  txt_data <- merge(mapped_data, txt_data,
+                    by.x = c("idrow", "col_key"),
+                    by.y = c("idrow", "col_key"),
                     all.x = TRUE, all.y = FALSE, sort = FALSE )
   txt_data
 }
@@ -220,20 +223,21 @@ format.simple_tabpart <- function( x, type = "wml", header = FALSE, ... ){
   par_data <- x$styles$pars$get_map_format(type = type)
 
   tidy_content <- expand.grid(col_key = x$col_key,
-                              id = seq_len(nrow(x$dataset)),
+                              idrow = seq_len(nrow(x$dataset)),
                               stringsAsFactors = FALSE)
-  tidy_content <- merge(tidy_content, txt_data, by = c("col_key", "id"), all.x = TRUE, all.y = FALSE, sort = FALSE)
-  tidy_content <- merge(tidy_content, par_data, by = c("id", "col_key"),
+
+  tidy_content <- merge(tidy_content, txt_data, by = c("col_key", "idrow"), all.x = TRUE, all.y = FALSE, sort = FALSE)
+  tidy_content <- merge(tidy_content, par_data, by = c("idrow", "col_key"),
                         all.x = FALSE, all.y = FALSE, sort = FALSE)
   tidy_content$str <- par_fun[[type]](tidy_content$format, tidy_content$str)
   tidy_content$format <- NULL
 
   tidy_content$col_key <- factor(tidy_content$col_key, levels = x$col_keys)
-  paragraphs <- as_wide_matrix_(as.data.frame(tidy_content[, c("col_key", "str", "id")]))
+  paragraphs <- as_wide_matrix_(as.data.frame(tidy_content[, c("col_key", "str", "idrow")]), idvar = "idrow")
 
   cell_data <- x$styles$cells$get_map_format(type = type)
   cell_data$col_key <- factor(cell_data$col_key, levels = x$col_keys)
-  cell_format <- as_wide_matrix_(as.data.frame(cell_data[, c("col_key", "format", "id")]))
+  cell_format <- as_wide_matrix_(as.data.frame(cell_data[, c("col_key", "format", "idrow")]), idvar = "idrow")
 
   cells <- cell_fun[[type]](str = paragraphs, format=cell_format,
                             span_rows = x$span$rows,
