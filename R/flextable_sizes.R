@@ -195,7 +195,7 @@ optimal_sizes.complex_tabpart <- function( x ){
   sizes <- agg_sizes(sizes = sizes)
 
   sizes$col_key <- factor(sizes$col_key, levels = x$col_keys)
-  sizes <- sizes[order(sizes$col_key, sizes$id ), ]
+  sizes <- sizes[order(sizes$col_key, sizes$idrow ), ]
 
   widths <- as_wide_matrix_(data = sizes[, c("col_key", "width", "idrow")], idvar = "idrow")
   dimnames(widths)[[2]] <- gsub("^width\\.", "", dimnames(widths)[[2]])
@@ -228,7 +228,7 @@ optimal_sizes.simple_tabpart <- function( x ){
 
   sizes <- text_metric(data = txt_data, all_fp = text_fp)
   sizes$col_key <- factor(sizes$col_key, levels = x$col_keys)
-  sizes <- sizes[order(sizes$col_key, sizes$id ), ]
+  sizes <- sizes[order(sizes$col_key, sizes$idrow ), ]
   widths <- as_wide_matrix_(as.data.frame(sizes[, c("col_key", "width", "idrow")]), idvar = "idrow")
   heights <- as_wide_matrix_(as.data.frame(sizes[, c("col_key", "height", "idrow")]), idvar = "idrow")
 

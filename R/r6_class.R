@@ -164,7 +164,7 @@ fp_structure <- R6Class(
     },
 
     set_fp = function(i, j, fp, id = fp_sign(fp) ){
-      which_id <- private$map_data$id %in% i
+      which_id <- private$map_data$idrow %in% i
       which_key <- private$map_data$col_key %in% j
       private$add_fp(fp, id)
       private$map_data$pr_id[which_id & which_key] <- id
