@@ -16,7 +16,7 @@ htmltools_value(x)
 }
 \description{
 Function used to render flextable in knitr/rmarkdown documents.
-HTML and Word outputs are supported.
+HTML, Word and PowerPoint outputs are supported.
 
 Function \code{htmltools_value} return an HTML version of the flextable,
 this function is to be used within Shiny applications with \code{renderUI()}.
@@ -24,14 +24,27 @@ this function is to be used within Shiny applications with \code{renderUI()}.
 \note{
 For Word (docx) output, if pandoc version >= 2.0 is used, a raw XML block
 with the table code will be inserted. If pandoc version < 2.0 is used, an
-error will be raised. Note also that insertion of images is not supported
-with rmarkdow for Word documents.
+error will be raised. Insertion of images is not supported
+with rmarkdow for Word documents. For PowerPoint (pptx) output,
+if pandoc version < 2.4 is used, an error will be raised.
+}
+\section{Word chunk options}{
 
 Result can be aligned with chunk option \code{ft.align} that
 accepts values 'left', 'center' and 'right'.
+
 Word option 'Allow row to break across pages' can be
 activated with chunk option \code{ft.split} set to TRUE.
 }
+
+\section{PowerPoint chunk options}{
+
+Position should be defined with options \code{ft.left}
+and \code{ft.top}. Theses are the top left coordinates
+of the placeholder that will contain the table. They
+default to \code{{r ft.left=1, ft.left=2}}.
+}
+
 \author{
 Maxim Nazarov
 }

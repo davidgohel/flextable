@@ -91,7 +91,8 @@ Note that `regulartable` and `flextable` functions are both returning an object
 of class `flextable`. 
 
 Note also that `regulartable` supports *strange* variable names (with 
-percent symbols, with spaces, etc.) and `flextable` does not support them.*
+percent symbols, with spaces, etc.) and `flextable` does not support them. 
+*I hope to be able to remove that constraints later.*
 
 > The following table is made with `regulartable` and dataset data:
 
@@ -312,15 +313,34 @@ When working in RStudio, flextable will be printed in the rstudio viewer pane.
 
 ### R Markdown documents
 
-`flextables` can be inserted in R Markdown documents; HTML and 
-Word output are managed with method `knitr::knit_print`. 
+One great feature of `flextables` is that it can be used in R Markdown 
+documents; HTML, Word and PowerPoint outputs are managed with 
+method `knitr::knit_print`. 
 
 Print the `flextable` object in the rmarkdown's \code{render} chunk 
 as demonstrated in this document (...generated from an R Markdown 
 document).
 
-**Note that [pandoc](https://pandoc.org/installing.html) 2.0 
-required for flextable rendering in docx with `rmarkdown`**
+````
+
+> this is how to print a flextable in a R Markdown document
+
+```{r eval=FALSE}
+library(magrittr)
+mytable <- cars %>% 
+  head() %>% 
+  regulartable() %>% 
+  autofit()
+  
+mytable
+```
+
+````
+
+
+**Note [pandoc](https://pandoc.org/installing.html) version 2.4 is 
+required for flextable rendering in pptx with `rmarkdown` and version 2.0 
+for flextable rendering in docx.**
 
 ### PowerPoint or Word documents with package officer
 

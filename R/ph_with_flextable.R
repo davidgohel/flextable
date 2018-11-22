@@ -1,4 +1,4 @@
-pml_flextable <- function(value){
+pml_flextable <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0){
   out <- "<a:tbl>"
   dims <- dim(value)
   widths <- dims$widths
@@ -39,13 +39,13 @@ pml_flextable <- function(value){
     "xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ",
     "xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
     "<p:nvGraphicFramePr>",
-    "<p:cNvPr id=\"\" name=\"\"/>",
+    sprintf("<p:cNvPr id=\"%.0f\" name=\"\"/>", uid ),
     "<p:cNvGraphicFramePr><a:graphicFrameLocks noGrp=\"true\"/></p:cNvGraphicFramePr>",
     "<p:nvPr/>",
     "</p:nvGraphicFramePr>",
     "<p:xfrm rot=\"0\">",
-    "<a:off x=\"0\" y=\"0\"/>",
-    "<a:ext cx=\"0\" cy=\"0\"/>",
+    sprintf("<a:off x=\"%.0f\" y=\"%.0f\"/>", offx*914400, offy*914400),
+    sprintf("<a:ext cx=\"%.0f\" cy=\"%.0f\"/>", cx*914400, cy*914400),
     "</p:xfrm>",
     "<a:graphic>",
     "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/table\">",
