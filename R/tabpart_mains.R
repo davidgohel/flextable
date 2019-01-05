@@ -67,7 +67,16 @@ complex_tabpart <- function( data, col_keys = names(data),
   pr_par_init <- fp_structure$new(nrow(data), col_keys, default_pr_par )
   pr_text_init <- fp_structure$new(nrow(data), col_keys, default_pr_text )
 
-  pr_display_init <- create_display(data[col_keys], col_keys)
+  # default display/formaters
+  formatters <- mapply(function(x, varname){
+    paste0(varname, " ~ format_fun(`", varname ,"`)")
+  }, data[col_keys], col_keys, SIMPLIFY = FALSE)
+  formatters <- mapply(function(f, varname){
+    display_parser$new(x = paste0("{{", varname, "}}"),
+                       formatters = list( as.formula( f ) ),
+                       fprops = list() )
+  }, formatters, col_keys )
+  pr_display_init <- display_structure$new(nrow(data), col_keys, formatters )
 
   span_init <- matrix(1L, nrow = nrow(data), ncol = length(col_keys) )
   spans <- list( rows = span_init, columns = span_init )
@@ -88,9 +97,4 @@ complex_tabpart <- function( data, col_keys = names(data),
   class( out ) <- "complex_tabpart"
   out
 }
-
-
-
-
-
 
