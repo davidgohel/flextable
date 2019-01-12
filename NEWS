@@ -4,6 +4,10 @@
 
 * `knit_print()` can be used with rmarkdown when rendering to PowerPoint.
 
+## Issues
+
+* fix issue with `regulartable` and logical columns
+
 # flextable 0.4.6
 
 ## new features

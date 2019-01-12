@@ -36,9 +36,11 @@ set_formatter <- function(x, ..., part = "body"){
 #' format double and integer columns.
 #' @param fmt_date,fmt_datetime arguments used by \code{format} to
 #' format date and date time columns.
+#' @param false,true string to be used for logical columns
 #' @param na_str string for NA values
 set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
                                fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
+                               true = "true", false = "false",
                                na_str = ""){
 
   stopifnot(inherits(x, "regulartable"))
@@ -50,7 +52,7 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
                            fmt_integer = fmt_integer,
                            fmt_date = fmt_date,
                            fmt_datetime = fmt_datetime,
-                           na_str)
+                           true = true, false = false)
   })
   x[["body"]]$printers[col_keys] <- formatters[col_keys]
   x
@@ -122,6 +124,28 @@ colformat_int <- function(x, col_keys, big.mark=",", na_str = "", prefix = "", s
   UseMethod("colformat_int")
 }
 
+#' @title format logical columns
+#' @description Format logical columns in a flextable or regulartable.
+#' @inheritParams colformat_char
+#' @param false,true string to be used for logical columns
+#' @family columns formatters
+#' @export
+#' @examples
+#' dat <- data.frame(a = c(TRUE, FALSE), b = c(FALSE, TRUE))
+#'
+#' ft <- regulartable(dat)
+#' ft <- colformat_lgl(x = ft, col_keys = c("a, "b""))
+#' autofit(ft)
+#'
+#' ft <- flextable(dat)
+#' ft <- colformat_lgl(x = ft, col_keys = c("a, "b""))
+#' autofit(ft)
+colformat_lgl <- function(x, col_keys,
+                          true = "true", false = "false",
+                          na_str = "", prefix = "", suffix = ""){
+  UseMethod("colformat_lgl")
+}
+
 
 #' @export
 colformat_num.regulartable <- function(x, col_keys, big.mark=",", digits = 2, na_str = "", prefix = "", suffix = ""){
@@ -155,6 +179,23 @@ colformat_int.regulartable <- function(x, col_keys, big.mark=",", na_str = "", p
 colformat_int.complextable <- function(x, col_keys, big.mark=",", na_str = "", prefix = "", suffix = ""){
   str_formulas <- "%s ~ ifelse(is.na(%s), '%s', paste0('%s', formatC(%s, format='f', big.mark = '%s', digits = 0), '%s') )"
   str_formulas <- sprintf(str_formulas, col_keys, col_keys, na_str, prefix, col_keys, big.mark, suffix)
+  names(str_formulas) <- col_keys
+  docall_display(col_keys, str_formulas, x)
+}
+
+#' @export
+colformat_lgl.regulartable <- function(x, col_keys, true, false, na_str = "", prefix = "", suffix = ""){
+  fun_ <- function(x) {
+    out <- ifelse(x, true, false)
+    ifelse(is.na(x), na_str, out)
+  }
+  docall_set_formatter(col_keys, fun_, x)
+}
+
+#' @export
+colformat_lgl.complextable <- function(x, col_keys, true, false, na_str = "", prefix = "", suffix = ""){
+  str_formulas <- "%s ~ ifelse(is.na(%s), '%s', paste0('%s', ifelse(%s, '%s', '%s'), '%s') )"
+  str_formulas <- sprintf(str_formulas, col_keys, col_keys, na_str, prefix, col_keys, true, false, suffix)
   names(str_formulas) <- col_keys
   docall_display(col_keys, str_formulas, x)
 }

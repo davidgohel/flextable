@@ -14,7 +14,7 @@ format_fun.factor <- function( x, na_string = "", ... ){
   ifelse( is.na(x), na_string, as.character(x) )
 }
 
-format_fun.logical <- function( x, na_string = "", true = "true", false = "false" ){
+format_fun.logical <- function( x, na_string = "", true = "true", false = "false", ... ){
   ifelse( is.na(x), na_string, ifelse(x, true, false) )
 }
 

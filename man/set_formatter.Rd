@@ -9,7 +9,7 @@ set_formatter(x, ..., part = "body")
 
 set_formatter_type(x, fmt_double = "\%.03f", fmt_integer = "\%.0f",
   fmt_date = "\%Y-\%m-\%d", fmt_datetime = "\%Y-\%m-\%d \%H:\%M:\%S",
-  na_str = "")
+  true = "true", false = "false", na_str = "")
 }
 \arguments{
 \item{x}{a regulartable object}
@@ -23,6 +23,8 @@ format double and integer columns.}
 
 \item{fmt_date, fmt_datetime}{arguments used by \code{format} to
 format date and date time columns.}
+
+\item{false, true}{string to be used for logical columns}
 
 \item{na_str}{string for NA values}
 }

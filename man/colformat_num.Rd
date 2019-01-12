@@ -46,6 +46,6 @@ autofit(ft)
 }
 \seealso{
 Other columns formatters: \code{\link{colformat_char}},
-  \code{\link{colformat_int}}
+  \code{\link{colformat_int}}, \code{\link{colformat_lgl}}
 }
 \concept{columns formatters}
