@@ -16,7 +16,7 @@ developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repo
 
 <p align="center">
 
-<img width="15%" src="http://www.ardata.fr/images/flextablelogo.svg">
+<img width="15%" src="https://www.ardata.fr/img/hexbin/flextable.svg">
 
 </p>
 
