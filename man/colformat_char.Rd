@@ -2,12 +2,22 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_char}
 \alias{colformat_char}
+\alias{colformat_char.regulartable}
+\alias{colformat_char.complextable}
 \title{format character columns}
 \usage{
-colformat_char(x, col_keys, na_str = "", prefix = "", suffix = "")
+colformat_char(x, ...)
+
+\method{colformat_char}{regulartable}(x, col_keys, na_str = "",
+  prefix = "", suffix = "", ...)
+
+\method{colformat_char}{complextable}(x, col_keys, na_str = "",
+  prefix = "", suffix = "", ...)
 }
 \arguments{
-\item{x}{a regulartable object}
+\item{x}{a flextable or regulartable object}
+
+\item{...}{additional arguments, unused}
 
 \item{col_keys}{names of the colkeys}
 

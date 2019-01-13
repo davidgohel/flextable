@@ -2,13 +2,22 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_int}
 \alias{colformat_int}
+\alias{colformat_int.regulartable}
+\alias{colformat_int.complextable}
 \title{format integer columns}
 \usage{
-colformat_int(x, col_keys, big.mark = ",", na_str = "", prefix = "",
-  suffix = "")
+colformat_int(x, ...)
+
+\method{colformat_int}{regulartable}(x, col_keys, big.mark = ",",
+  na_str = "", prefix = "", suffix = "", ...)
+
+\method{colformat_int}{complextable}(x, col_keys, big.mark = ",",
+  na_str = "", prefix = "", suffix = "", ...)
 }
 \arguments{
-\item{x}{a regulartable object}
+\item{x}{a flextable or regulartable object}
+
+\item{...}{additional arguments, unused}
 
 \item{col_keys}{names of the colkeys}
 

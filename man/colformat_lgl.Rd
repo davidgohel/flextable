@@ -2,13 +2,22 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_lgl}
 \alias{colformat_lgl}
+\alias{colformat_lgl.regulartable}
+\alias{colformat_lgl.complextable}
 \title{format logical columns}
 \usage{
-colformat_lgl(x, col_keys, true = "true", false = "false",
-  na_str = "", prefix = "", suffix = "")
+colformat_lgl(x, ...)
+
+\method{colformat_lgl}{regulartable}(x, col_keys, true = "true",
+  false = "false", na_str = "", prefix = "", suffix = "", ...)
+
+\method{colformat_lgl}{complextable}(x, col_keys, true = "true",
+  false = "false", na_str = "", prefix = "", suffix = "", ...)
 }
 \arguments{
-\item{x}{a regulartable object}
+\item{x}{a flextable or regulartable object}
+
+\item{...}{additional arguments, unused}
 
 \item{col_keys}{names of the colkeys}
 
@@ -27,11 +36,11 @@ Format logical columns in a flextable or regulartable.
 dat <- data.frame(a = c(TRUE, FALSE), b = c(FALSE, TRUE))
 
 ft <- regulartable(dat)
-ft <- colformat_lgl(x = ft, col_keys = c("a, "b""))
+ft <- colformat_lgl(x = ft, col_keys = c("a", "b"))
 autofit(ft)
 
 ft <- flextable(dat)
-ft <- colformat_lgl(x = ft, col_keys = c("a, "b""))
+ft <- colformat_lgl(x = ft, col_keys = c("a", "b"))
 autofit(ft)
 }
 \seealso{

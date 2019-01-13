@@ -58,14 +58,14 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
   x
 }
 
-
 #' @export
 #' @title format character columns
 #' @description Format character columns in a flextable or regulartable.
-#' @param x a regulartable object
+#' @param x a flextable or regulartable object
 #' @param col_keys names of the colkeys
 #' @param na_str string to be used for NA values
 #' @param prefix,suffix string to be used as prefix or suffix
+#' @param ... additional arguments, unused
 #' @family columns formatters
 #' @examples
 #' dat <- iris
@@ -73,7 +73,7 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 #' ft <- colformat_char(
 #'   x = ft, col_keys = "Species", suffix = "!")
 #' autofit(ft)
-colformat_char <- function(x, col_keys, na_str = "", prefix = "", suffix = ""){
+colformat_char <- function(x, ...){
   UseMethod("colformat_char")
 }
 
@@ -103,7 +103,7 @@ colformat_char <- function(x, col_keys, na_str = "", prefix = "", suffix = ""){
 #'   x = ft, col_keys = colkeys,
 #'   big.mark=",", digits = 2, na_str = "N/A")
 #' autofit(ft)
-colformat_num <- function(x, col_keys, big.mark=",", digits = 2, na_str = "", prefix = "", suffix = ""){
+colformat_num <- function(x, ...){
   UseMethod("colformat_num")
 }
 
@@ -120,7 +120,7 @@ colformat_num <- function(x, col_keys, big.mark=",", digits = 2, na_str = "", pr
 #' colkeys <- c("vs", "am", "gear", "carb")
 #' ft <- colformat_int(x = ft, col_keys = colkeys, prefix = "# ")
 #' autofit(ft)
-colformat_int <- function(x, col_keys, big.mark=",", na_str = "", prefix = "", suffix = ""){
+colformat_int <- function(x, ...){
   UseMethod("colformat_int")
 }
 
@@ -134,21 +134,20 @@ colformat_int <- function(x, col_keys, big.mark=",", na_str = "", prefix = "", s
 #' dat <- data.frame(a = c(TRUE, FALSE), b = c(FALSE, TRUE))
 #'
 #' ft <- regulartable(dat)
-#' ft <- colformat_lgl(x = ft, col_keys = c("a, "b""))
+#' ft <- colformat_lgl(x = ft, col_keys = c("a", "b"))
 #' autofit(ft)
 #'
 #' ft <- flextable(dat)
-#' ft <- colformat_lgl(x = ft, col_keys = c("a, "b""))
+#' ft <- colformat_lgl(x = ft, col_keys = c("a", "b"))
 #' autofit(ft)
-colformat_lgl <- function(x, col_keys,
-                          true = "true", false = "false",
-                          na_str = "", prefix = "", suffix = ""){
+colformat_lgl <- function(x, ...){
   UseMethod("colformat_lgl")
 }
 
 
 #' @export
-colformat_num.regulartable <- function(x, col_keys, big.mark=",", digits = 2, na_str = "", prefix = "", suffix = ""){
+#' @rdname colformat_num
+colformat_num.regulartable <- function(x, col_keys, big.mark=",", digits = 2, na_str = "", prefix = "", suffix = "", ...){
   fun_ <- function(x) {
     out <- paste0(prefix, formatC(x, format="f", big.mark=big.mark, digits = digits), suffix )
     ifelse(is.na(x), na_str, out)
@@ -157,7 +156,8 @@ colformat_num.regulartable <- function(x, col_keys, big.mark=",", digits = 2, na
 }
 
 #' @export
-colformat_num.complextable <- function(x, col_keys, big.mark=",", digits = 2, na_str = "", prefix = "", suffix = ""){
+#' @rdname colformat_num
+colformat_num.complextable <- function(x, col_keys, big.mark=",", digits = 2, na_str = "", prefix = "", suffix = "", ...){
   str_formulas <- "%s ~ ifelse(is.na(%s), '%s', paste0('%s', formatC(%s, format='f', big.mark = '%s', digits = %.0f), '%s') )"
   str_formulas <- sprintf(str_formulas, col_keys, col_keys, na_str, prefix, col_keys, big.mark, digits, suffix)
   names(str_formulas) <- col_keys
@@ -167,7 +167,8 @@ colformat_num.complextable <- function(x, col_keys, big.mark=",", digits = 2, na
 
 
 #' @export
-colformat_int.regulartable <- function(x, col_keys, big.mark=",", na_str = "", prefix = "", suffix = ""){
+#' @rdname colformat_int
+colformat_int.regulartable <- function(x, col_keys, big.mark=",", na_str = "", prefix = "", suffix = "", ...){
   fun_ <- function(x) {
     out <- paste0(prefix, formatC(x, format="f", big.mark=big.mark, digits = 0), suffix )
     ifelse(is.na(x), na_str, out)
@@ -176,7 +177,8 @@ colformat_int.regulartable <- function(x, col_keys, big.mark=",", na_str = "", p
 }
 
 #' @export
-colformat_int.complextable <- function(x, col_keys, big.mark=",", na_str = "", prefix = "", suffix = ""){
+#' @rdname colformat_int
+colformat_int.complextable <- function(x, col_keys, big.mark=",", na_str = "", prefix = "", suffix = "", ...){
   str_formulas <- "%s ~ ifelse(is.na(%s), '%s', paste0('%s', formatC(%s, format='f', big.mark = '%s', digits = 0), '%s') )"
   str_formulas <- sprintf(str_formulas, col_keys, col_keys, na_str, prefix, col_keys, big.mark, suffix)
   names(str_formulas) <- col_keys
@@ -184,7 +186,10 @@ colformat_int.complextable <- function(x, col_keys, big.mark=",", na_str = "", p
 }
 
 #' @export
-colformat_lgl.regulartable <- function(x, col_keys, true, false, na_str = "", prefix = "", suffix = ""){
+#' @rdname colformat_lgl
+colformat_lgl.regulartable <- function(x, col_keys,
+                                       true = "true", false = "false",
+                                       na_str = "", prefix = "", suffix = "", ...){
   fun_ <- function(x) {
     out <- ifelse(x, true, false)
     ifelse(is.na(x), na_str, out)
@@ -193,7 +198,10 @@ colformat_lgl.regulartable <- function(x, col_keys, true, false, na_str = "", pr
 }
 
 #' @export
-colformat_lgl.complextable <- function(x, col_keys, true, false, na_str = "", prefix = "", suffix = ""){
+#' @rdname colformat_lgl
+colformat_lgl.complextable <- function(x, col_keys,
+                                       true = "true", false = "false",
+                                       na_str = "", prefix = "", suffix = "", ...){
   str_formulas <- "%s ~ ifelse(is.na(%s), '%s', paste0('%s', ifelse(%s, '%s', '%s'), '%s') )"
   str_formulas <- sprintf(str_formulas, col_keys, col_keys, na_str, prefix, col_keys, true, false, suffix)
   names(str_formulas) <- col_keys
@@ -202,7 +210,8 @@ colformat_lgl.complextable <- function(x, col_keys, true, false, na_str = "", pr
 
 
 #' @export
-colformat_char.regulartable <- function(x, col_keys, na_str = "", prefix = "", suffix = ""){
+#' @rdname colformat_char
+colformat_char.regulartable <- function(x, col_keys, na_str = "", prefix = "", suffix = "", ...){
   fun_ <- function(x) {
     out <- paste0(prefix, x, suffix )
     ifelse(is.na(x), na_str, out)
@@ -210,7 +219,8 @@ colformat_char.regulartable <- function(x, col_keys, na_str = "", prefix = "", s
   docall_set_formatter(col_keys, fun_, x)
 }
 #' @export
-colformat_char.complextable <- function(x, col_keys, na_str = "", prefix = "", suffix = ""){
+#' @rdname colformat_char
+colformat_char.complextable <- function(x, col_keys, na_str = "", prefix = "", suffix = "", ...){
   str_formulas <- "%s ~ ifelse(is.na(%s), '%s', paste0('%s', %s, '%s') )"
   str_formulas <- sprintf(str_formulas, col_keys, col_keys, na_str, prefix, col_keys, suffix)
   names(str_formulas) <- col_keys
