@@ -70,7 +70,7 @@ print.flextable <- function(x, preview = "html", ...){
   invisible(NULL)
 }
 
-#' @title Render flextable in rmarkdown (including Word output)
+#' @title Render flextable in rmarkdown (including Word and PowerPoint output)
 #' @description Function used to render flextable in knitr/rmarkdown documents.
 #' HTML, Word and PowerPoint outputs are supported.
 #'

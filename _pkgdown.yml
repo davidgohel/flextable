@@ -1,7 +1,7 @@
 title: flextable
 
 template:
-  package: ardatatemplate
+  package: ardown
   bootswatch: simplex
 
 reference:
@@ -22,7 +22,7 @@ reference:
   - title: Manage flextable layout
     contents:
     - starts_with("merge_")
-    - height
+    - starts_with("height")
     - width
     - autofit
     - dim.flextable
@@ -39,7 +39,9 @@ reference:
     - bold
     - color
     - padding
-    - border
+    - starts_with("hline")
+    - starts_with("vline")
+    - starts_with("border")
     - rotate
     - empty_blanks
   - title: Flextable themes

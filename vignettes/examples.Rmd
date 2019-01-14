@@ -24,6 +24,9 @@ library(officer)
 library(flextable)
 ```
 
+
+
+
 ## Complex header
 
 The following dataset is `typology`, a dataset containing data for table headers.
@@ -94,6 +97,21 @@ ft
 ft <- empty_blanks(ft)
 ft <- autofit(ft)
 ft
+```
+
+## Looping in R Mardown documents
+
+```{r}
+library(htmltools)
+ft <- regulartable(head(iris))
+tab_list <- list()
+for(i in 1:3){
+  tab_list[[i]] <- tagList(
+    tags$h6(paste0("iteration ", i)),
+    htmltools_value(ft)
+  )
+}
+tagList(tab_list)
 ```
 
 ## Conditional formatting
