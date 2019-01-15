@@ -23,7 +23,8 @@ developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repo
 The flextable package provides a framework for easily create tables for
 reporting. Tables can be embedded within:
 
-  - R Markdown documents
+  - R Markdown documents with support for HTML, Word and PowerPoint
+    documents.
   - Microsoft Word or PowerPoint documents.
 
 ## Getting Started
@@ -33,9 +34,11 @@ control their formatting properties and their layout. A `flextable`
 object is a data.frame representation, it can be manipulated with
 functions that give control over:
 
-  - headers content
+  - header, body and footer content
   - text, paragraphs, cells and border formatting of any element
   - displayed values
+
+![](https://www.ardata.fr/img/illustrations/flextable_layout.svg)
 
 There are articles on the flextable website that will help you get you
 to start quickly:
