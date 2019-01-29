@@ -1,7 +1,3 @@
-format_fun <- function( x, na_string = "", ... ){
-  UseMethod("format_fun")
-}
-
 format_fun.default <- function( x, na_string = "", ... ){
   ifelse( is.na(x), na_string, format(x) )
 }

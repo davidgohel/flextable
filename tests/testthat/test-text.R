@@ -3,8 +3,7 @@ context("check cells text")
 library(xml2)
 library(officer)
 
-ft1 <- regulartable(data.frame(a="1 < 3", stringsAsFactors = FALSE))
-ft2 <- flextable(data.frame(a="1 < 3", stringsAsFactors = FALSE))
+ft1 <- flextable(data.frame(a="1 < 3", stringsAsFactors = FALSE))
 
 get_xml_doc <- function(tab, main_folder = "docx_folder") {
   docx_file <- tempfile(fileext = ".docx")
@@ -41,10 +40,6 @@ test_that("docx - string are html encoded", {
   text_ <- xml_text(xml_find_first(doc, "w:body/w:tbl[1]/w:tr[2]/w:tc/w:p/w:r/w:t"))
   expect_equal(text_, c("1 < 3") )
 
-  doc <- get_xml_doc( tab = ft2, main_folder = main_folder )
-  text_ <- xml_text(xml_find_first(doc, "w:body/w:tbl[1]/w:tr[2]/w:tc/w:p/w:r/w:t"))
-  expect_equal(text_, c("1 < 3") )
-
   unlink(main_folder, recursive = TRUE, force = TRUE)
 })
 
@@ -56,22 +51,13 @@ test_that("pptx - string are html encoded", {
   text_ <- xml_text(xml_find_first(doc, "//a:tbl/a:tr[2]/a:tc/a:txBody/a:p/a:r/a:t"))
   expect_equal(text_, c("1 < 3") )
 
-  doc <- get_xml_ppt( tab = ft2, main_folder = main_folder )
-  text_ <- xml_text(xml_find_first(doc, "//a:tbl/a:tr[2]/a:tc/a:txBody/a:p/a:r/a:t"))
-  expect_equal(text_, c("1 < 3") )
-
 
   unlink(main_folder, recursive = TRUE, force = TRUE)
 })
 
 test_that("html - string are html encoded", {
 
-  str_ <- flextable:::html_str.regulartable(ft1)
-  doc <- read_xml(str_)
-  text_ <- xml_text(xml_find_first(doc, "//tbody/tr/td/p/span"))
-  expect_equal(text_, c("1 < 3") )
-
-  str_ <- flextable:::html_str.complextable(ft2)
+  str_ <- flextable:::html_str.flextable(ft1)
   doc <- read_xml(str_)
   text_ <- xml_text(xml_find_first(doc, "//tbody/tr/td/p/span"))
   expect_equal(text_, c("1 < 3") )
@@ -80,15 +66,9 @@ test_that("html - string are html encoded", {
 test_that("NA managment", {
 
   x <- data.frame(zz = c("a", NA_character_), stringsAsFactors = FALSE)
-  ft1 <- regulartable(x)
-  ft2 <- flextable(x)
+  ft1 <- flextable(x)
 
-  str_ <- flextable:::html_str.regulartable(ft1)
-  doc <- read_xml(str_)
-  text_ <- xml_text(xml_find_all(doc, "tbody/tr/td/p"))
-  expect_equal(text_, c("a", "") )
-
-  str_ <- flextable:::html_str.complextable(ft2)
+  str_ <- flextable:::html_str.flextable(ft1)
   doc <- read_xml(str_)
   text_ <- xml_text(xml_find_all(doc, "tbody/tr/td/p"))
   expect_equal(text_, c("a", "") )

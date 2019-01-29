@@ -59,10 +59,13 @@ test_that("add_header", {
     Sepal.Width = "(cm)", Petal.Length = "(cm)",
     Petal.Width = "(cm)", Species = "(cm)", top = FALSE
   )
+  has_ <- flextable:::fortify_content(
+    ft$header$content,
+    default_chunk_fmt = ft$header$styles$text )$txt
+  expect_equal(has_, as.character(unlist(data_ref)))
 
-  expect_equal(ft$header$dataset, data_ref )
 
-  ft <- regulartable(iris[1:6, ])
+  ft <- flextable(iris[1:6, ])
   ft <- set_header_labels(
     ft, Sepal.Length = "Sepal",
     Sepal.Width = "Sepal", Petal.Length = "Petal",
@@ -74,7 +77,10 @@ test_that("add_header", {
     Sepal.Width = "(cm)", Petal.Length = "(cm)",
     Petal.Width = "(cm)", Species = "(cm)", top = FALSE
   )
-  expect_equal(ft$header$dataset, data_ref )
+  has_ <- flextable:::fortify_content(
+    ft$header$content,
+    default_chunk_fmt = ft$header$styles$text )$txt
+  expect_equal(has_, as.character(unlist(data_ref)))
 
 })
 
@@ -91,7 +97,7 @@ test_that("set_header_df", {
   )
   data <- iris[c(1:3, 51:53, 101:104), ]
 
-  ft <- regulartable(
+  ft <- flextable(
     data,
     col_keys = c("Species",
                  "sep_1", "Sepal.Length", "Sepal.Width",
@@ -108,5 +114,9 @@ test_that("set_header_df", {
                  Petal.Width = c("Petal", "Width")),
             .Names = c( "Species", "sep_1", "Sepal.Length", "Sepal.Width", "sep_2", "Petal.Length", "Petal.Width" ),
             row.names = c(NA, -2L), class = "data.frame")
-  expect_equal(ft$header$dataset, data_ref)
+  expect_ <- as.character(unlist(data_ref))
+  has_ <- flextable:::fortify_content(
+    ft$header$content,
+    default_chunk_fmt = ft$header$styles$text )$txt
+  expect_equal(has_, expect_)
 })

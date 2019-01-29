@@ -126,8 +126,8 @@ std_border = fp_border(color="orange", width = 1)
 dat <- iris[c(1:5, 51:55, 101:105),]
 
 
-# use of regulartable() to create a table
-ft <- regulartable(dat)
+# use of flextable() to create a table
+ft <- flextable(dat)
 
 # remove all borders
 ft <- border_remove(x = ft)
@@ -145,7 +145,7 @@ ft <- border_inner_v(ft, border = std_border )
 ft
 
 # new example
-ft <- regulartable(dat, col_keys = c("Species", "Sepal.Length",
+ft <- flextable(dat, col_keys = c("Species", "Sepal.Length",
   "Sepal.Width", "Petal.Length", "Petal.Width" ))
 ft <- border_remove(x = ft)
 

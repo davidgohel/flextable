@@ -1,36 +1,19 @@
-default_printers <- function(x){
-  lapply(x$dataset[x$col_keys], function( x ) {
-    if( is.character(x) ) function(x) {
-      x[is.na(x)] <- ""
-      x
-    }
-    else if( is.factor(x) ) function(x){
-      x <- as.character(x)
-      x[is.na(x)] <- ""
-      x
-    }
-    else function(x) {
-      x <- gsub("(^ | $)+", "", format(x))
-      x[is.na(x)] <- ""
-      x
-    }
-  })
-}
+#' @importFrom officer fp_sign fp_cell fp_par fp_text fp_border
+complex_tabpart <- function( data, col_keys = names(data),
+                             default_pr_text = fp_text(),
+                             default_pr_par = fp_par(),
+                             default_pr_cell = fp_cell(border = fp_border(color = "transparent")),
+                             cwidth = NULL, cheight = NULL ){
 
+  pr_cell_init <- as_struct(nrow(data), col_keys, default_pr_cell, cell_struct)
+  pr_par_init <- as_struct(nrow(data), col_keys, default_pr_par, par_struct)
+  pr_text_init <- as_struct(nrow(data), col_keys, default_pr_text, text_struct)
 
-#' @importFrom officer fp_sign fp_cell fp_par fp_text
-
-simple_tabpart <- function( data, col_keys = names(data),
-                        default_pr_text = fp_text(),
-                        default_pr_par = fp_par(),
-                        default_pr_cell = fp_cell(),
-                        cwidth = NULL, cheight = NULL ){
-
-  stopifnot(is.data.frame(data))
-
-  pr_cell_init <- fp_structure$new(nrow(data), col_keys, default_pr_cell )
-  pr_par_init <- fp_structure$new(nrow(data), col_keys, default_pr_par )
-  pr_text_init <- fp_structure$new(nrow(data), col_keys, default_pr_text )
+  content <- chunkset_struct(nrow = nrow(data), keys = col_keys)
+  if( nrow(data) > 0 ){
+    newcontent <- lapply(data[col_keys], function(x) as_paragraph(as_chunk(x, formater = format_fun)) )
+    content$content[,col_keys] <- Reduce(append, newcontent)
+  }
 
   span_init <- matrix(1L, nrow = nrow(data), ncol = length(col_keys) )
   spans <- list( rows = span_init, columns = span_init )
@@ -39,6 +22,7 @@ simple_tabpart <- function( data, col_keys = names(data),
   rowheights <- rep(cheight, nrow(data))
 
   out <- list( dataset = data,
+               content = content,
                col_keys = col_keys,
                colwidths = colwidths,
                rowheights = rowheights,
@@ -46,52 +30,6 @@ simple_tabpart <- function( data, col_keys = names(data),
                styles = list(
                  cells = pr_cell_init, pars = pr_par_init,
                  text = pr_text_init
-               )
-  )
-  class( out ) <- "simple_tabpart"
-  out$printers <- default_printers(out)
-  out
-}
-
-
-#' @importFrom stats as.formula
-#' @importFrom officer fp_sign fp_cell fp_par fp_text
-complex_tabpart <- function( data, col_keys = names(data),
-                             default_pr_text = fp_text(),
-                             default_pr_par = fp_par(),
-                             default_pr_cell = fp_cell(),
-                             cwidth = NULL, cheight = NULL ){
-
-
-  pr_cell_init <- fp_structure$new(nrow(data), col_keys, default_pr_cell )
-  pr_par_init <- fp_structure$new(nrow(data), col_keys, default_pr_par )
-  pr_text_init <- fp_structure$new(nrow(data), col_keys, default_pr_text )
-
-  # default display/formaters
-  formatters <- mapply(function(x, varname){
-    paste0(varname, " ~ format_fun(`", varname ,"`)")
-  }, data[col_keys], col_keys, SIMPLIFY = FALSE)
-  formatters <- mapply(function(f, varname){
-    display_parser$new(x = paste0("{{", varname, "}}"),
-                       formatters = list( as.formula( f ) ),
-                       fprops = list() )
-  }, formatters, col_keys )
-  pr_display_init <- display_structure$new(nrow(data), col_keys, formatters )
-
-  span_init <- matrix(1L, nrow = nrow(data), ncol = length(col_keys) )
-  spans <- list( rows = span_init, columns = span_init )
-
-  colwidths <- rep(cwidth, length(col_keys))
-  rowheights <- rep(cheight, nrow(data))
-
-  out <- list( dataset = data,
-               col_keys = col_keys,
-               colwidths = colwidths,
-               rowheights = rowheights,
-               spans = spans,
-               styles = list(
-                 cells = pr_cell_init, pars = pr_par_init,
-                 text = pr_text_init, formats = pr_display_init
                )
   )
   class( out ) <- "complex_tabpart"

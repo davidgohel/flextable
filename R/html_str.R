@@ -3,7 +3,7 @@ html_str <- function( x ){
 }
 
 
-html_str.regulartable <- function( x ){
+html_str.flextable <- function( x ){
 
   dims <- dim(x)
 
@@ -31,5 +31,4 @@ html_str.regulartable <- function( x ){
   out = paste0(out,  "</table>" )
   out
 }
-html_str.complextable <- html_str.regulartable
 

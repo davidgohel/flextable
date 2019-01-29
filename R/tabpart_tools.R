@@ -160,21 +160,4 @@ get_rows_id <- function( x, i = NULL ){
 }
 
 
-set_formatting_properties <- function( x, i = NULL, j = NULL, value ){
-
-  i <- get_rows_id(x = x, i = i)
-  j <- get_columns_id(x = x, j = j)
-  if( inherits(value, "fp_text" ) ){
-    x$styles$text$set_fp(i = i, j = x$col_keys[j], fp = value )
-  }
-  if( inherits(value, "fp_par" ) ){
-    x$styles$pars$set_fp(i = i, j = x$col_keys[j], fp = value )
-  }
-  if( inherits(value, "fp_cell" ) ){
-    x$styles$cells$set_fp(i = i, j = x$col_keys[j], fp = value )
-  }
-
-  x
-}
-
 

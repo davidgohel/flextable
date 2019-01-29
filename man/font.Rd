@@ -30,6 +30,6 @@ if( !font_family_exists(fontname) ){
   fontname <- as.character(font_list$family[1])
 }
 
-ft <- regulartable(head(iris))
+ft <- flextable(head(iris))
 ft <- font(ft, fontname = fontname, part = "header")
 }

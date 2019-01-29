@@ -28,10 +28,6 @@ Modify flextable displayed values by specifying a
 string expression. Function is handling complex formatting as well as
 image insertion.
 }
-\note{
-The function \code{display} only works with \code{flextable} objects,
-use \code{\link{set_formatter}} for regulartable objects.
-}
 \section{pattern}{
 
 It defined the template used to format the produced strings. Names enclosed

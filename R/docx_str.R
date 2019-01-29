@@ -2,7 +2,7 @@ docx_str <- function( x, ... ){
   UseMethod("docx_str")
 }
 
-docx_str.regulartable <- function(x, align = "center", split = FALSE, doc = NULL, ...){
+docx_str.flextable <- function(x, align = "center", split = FALSE, doc = NULL, ...){
 
   imgs <- character(0)
   hlinks <- character(0)
@@ -46,6 +46,7 @@ docx_str.regulartable <- function(x, align = "center", split = FALSE, doc = NULL
     xml_content <- format(x$body, header = FALSE, split = split, type = "wml")
     imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
     hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
+
     out = paste0(out, xml_content )
   }
   if( nrow_part(x, "footer") > 0 ){
@@ -59,6 +60,7 @@ docx_str.regulartable <- function(x, align = "center", split = FALSE, doc = NULL
 
   imgs <- unique(imgs)
   hlinks <- unique(hlinks)
+
   out <- paste0(out,  "</w:tbl>" )
 
   if( length(imgs) > 0 ) {
@@ -82,5 +84,4 @@ docx_str.regulartable <- function(x, align = "center", split = FALSE, doc = NULL
 
 }
 
-docx_str.complextable <- docx_str.regulartable
 

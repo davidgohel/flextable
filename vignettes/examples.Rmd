@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   collapse = TRUE,
   comment = "#>", 
-  eval = !is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))
+  eval = TRUE
 )
 ```
 
@@ -213,21 +213,14 @@ if( require("xtable") ){
   mat <- xtable(mat)
   ft <- xtable_to_flextable(x = mat, NA.string = "-")
   print(ft$col_keys)
-  ft <- flextable::display(ft, i = 1, col_key = "X1", 
-    pattern = "{{val}}{{pow}}", part = "header",
-    formatters = list(val ~ as.character("R"), pow ~ as.character("2") ),
-    fprops = list(pow = fp_text(vertical.align = "superscript", font.size = 8))
-    )
-  ft <- flextable::display(ft, i = 1, col_key = "X2", 
-    pattern = "{{val}}{{pow}}", part = "header",
-    formatters = list(val ~ as.character("\u03BC"), pow ~ as.character("x") ),
-    fprops = list(pow = fp_text(vertical.align = "superscript", font.size = 8))
-    )
-  ft <- flextable::display(ft, i = 1, col_key = "rowname", 
-    pattern = "{{val}}{{pow}}", part = "body",
-    formatters = list(val ~ as.character("y"), pow ~ as.character("t-1") ),
-    fprops = list(pow = fp_text(vertical.align = "subscript", font.size = 8))
-    )
+  superfp <- fp_text(vertical.align = "superscript", font.size = 8)
+  
+  ft <- define_text(ft, i = 1, j = "X1", part = "header", 
+                    value = as_paragraph("R", as_chunk("2", props = superfp)) )
+  ft <- define_text(ft, i = 1, j = "X2", part = "header", 
+                    value = as_paragraph("\u03BC", as_chunk("x", props = superfp)))
+  ft <- define_text(ft, i = 1, j = "rowname", part = "header", 
+                    value = as_paragraph("y", as_chunk("t-1", props = superfp)))
   ft <- set_header_labels(ft, X3 = "F-stat", X4 = "S.E.E", X5 = "DW", rowname = "")
   ft <- autofit(ft)
   ft

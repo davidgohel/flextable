@@ -9,7 +9,7 @@ title: test
 ```{r}
 library(flextable)
 knitr::opts_chunk$set(echo = TRUE)
-rt <- regulartable(head(mtcars))
+rt <- flextable(head(mtcars))
 rt <- theme_booktabs(rt)
 rt <- autofit(rt)
 rt

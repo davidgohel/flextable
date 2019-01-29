@@ -161,7 +161,7 @@ dim_pretty <- function( x, part = "all" ){
 #' ft
 autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
 
-  stopifnot(inherits(x, "complextable") || inherits(x, "regulartable") )
+  stopifnot(inherits(x, "flextable") )
 
   for(j in c("header", "body", "footer")){
     if( nrow_part(x, j ) > 0 ){
@@ -178,28 +178,13 @@ autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
 
 #' @importFrom gdtools m_str_extents
 optimal_sizes <- function( x ){
-  UseMethod("optimal_sizes")
-}
 
-optimal_sizes.complex_tabpart <- function( x ){
-
-  txt_data <- x$styles$formats$get_map(x$styles$text, x$dataset)
-  text_fp <- x$styles$text$get_fp()
-  text_fp <- append( text_fp, x$styles$formats$get_all_fp() )
-
-  img_sizes <- images_metric(txt_data)
-  txt_data_metric <- text_metric(txt_data, text_fp)
-
-  # rbind txt sizes and img sizes
-  sizes <- rbind(txt_data_metric, img_sizes)
-  sizes <- agg_sizes(sizes = sizes)
-
-  sizes$col_key <- factor(sizes$col_key, levels = x$col_keys)
-  sizes <- sizes[order(sizes$col_key, sizes$idrow ), ]
-
-  widths <- as_wide_matrix_(data = sizes[, c("col_key", "width", "idrow")], idvar = "idrow")
+  sizes <- text_metric(x)
+  sizes$col_id <- factor(sizes$col_id, levels = x$col_keys)
+  sizes <- sizes[order(sizes$col_id, sizes$row_id ), ]
+  widths <- as_wide_matrix_(data = sizes[, c("col_id", "width", "row_id")], idvar = "row_id", timevar = "col_id")
   dimnames(widths)[[2]] <- gsub("^width\\.", "", dimnames(widths)[[2]])
-  heights <- as_wide_matrix_(data = sizes[, c("col_key", "height", "idrow")], idvar = "idrow")
+  heights <- as_wide_matrix_(data = sizes[, c("col_id", "height", "row_id")], idvar = "row_id", timevar = "col_id")
   dimnames(heights)[[2]] <- gsub("^height\\.", "", dimnames(heights)[[2]])
 
   par_dim <- dim_paragraphs(x)
@@ -219,39 +204,8 @@ optimal_sizes.complex_tabpart <- function( x ){
        heights = apply(heights, 1, max, na.rm = TRUE) )
 }
 
-optimal_sizes.simple_tabpart <- function( x ){
-
-  txt_data <- get_text_data(x)
-  txt_data$type_out <- rep("text", nrow(txt_data))
-  txt_data$pos <- rep(1, nrow(txt_data))
-  text_fp <- x$styles$text$get_fp()
-
-  sizes <- text_metric(data = txt_data, all_fp = text_fp)
-  sizes$col_key <- factor(sizes$col_key, levels = x$col_keys)
-  sizes <- sizes[order(sizes$col_key, sizes$idrow ), ]
-  widths <- as_wide_matrix_(as.data.frame(sizes[, c("col_key", "width", "idrow")]), idvar = "idrow")
-  heights <- as_wide_matrix_(as.data.frame(sizes[, c("col_key", "height", "idrow")]), idvar = "idrow")
-
-  par_dim <- dim_paragraphs(x)
-  widths <- widths + par_dim$widths
-  heights <- heights + par_dim$heights
-
-  widths[x$spans$rows<1] <- 0
-  widths[x$spans$columns<1] <- 0
-  heights[x$spans$rows<1] <- 0
-  heights[x$spans$columns<1] <- 0
-
-  cell_dim <- dim_cells(x)
-  widths <- widths + cell_dim$widths
-  heights <- heights + cell_dim$heights
-  list(widths = apply(widths, 2, max, na.rm = TRUE),
-       heights = apply(heights, 1, max, na.rm = TRUE)
-  )
-}
-
-
-
 # utils ----
+#' @importFrom stats reshape
 as_wide_matrix_ <- function(data, idvar, timevar = "col_key"){
   x <- reshape(data = data, idvar = idvar, timevar = timevar, direction = "wide")
   x[[idvar]] <- NULL
@@ -260,93 +214,53 @@ as_wide_matrix_ <- function(data, idvar, timevar = "col_key"){
 
 
 dim_paragraphs <- function(x){
+  par_dim <- as.data.frame(x$styles$pars)
+  par_dim$width <- as.vector(x$styles$pars[,,"padding.right"] + x$styles$pars[,,"padding.left"]) * (4/3) / 72
+  par_dim$height <- as.vector(x$styles$pars[,,"padding.top"] + x$styles$pars[,,"padding.bottom"]) * (4/3) / 72
+  selection_ <- c("row_id", "col_id", "width", "height")
+  par_dim[, selection_]
 
-  par_fp <- x$styles$pars$get_fp()
-  par_dim <- lapply(par_fp, dim)
-  par_dim <- data.frame( pr_id = names(par_fp),
-              width = sapply(par_dim, function(x) x["width"]),
-              height = sapply(par_dim, function(x) x["height"]),
-              stringsAsFactors = FALSE, row.names = NULL)
-  par_dim <- merge(x$styles$pars$get_map(),
-                   par_dim, by = "pr_id",
-                   all.x = FALSE, all.y = FALSE, sort = FALSE)
-
-  par_dim$col_key <- factor(par_dim$col_key, levels = x$col_keys)
-
-  list( widths = as_wide_matrix_( par_dim[,c("col_key", "width", "idrow")], idvar = "idrow" ),
-        heights = as_wide_matrix_( par_dim[,c("col_key", "height", "idrow")], idvar = "idrow" )
+  list( widths = as_wide_matrix_( par_dim[,c("col_id", "width", "row_id")], idvar = "row_id", timevar = "col_id" ),
+        heights = as_wide_matrix_( par_dim[,c("col_id", "height", "row_id")], idvar = "row_id", timevar = "col_id" )
   )
 }
 
 dim_cells <- function(x){
+  cell_dim <- as.data.frame(x$styles$cells)
+  cell_dim$width <- as.vector(x$styles$cells[,,"margin.right"] + x$styles$cells[,,"margin.left"]) * (4/3) / 72
+  cell_dim$height <- as.vector(x$styles$cells[,,"margin.top"] + x$styles$cells[,,"margin.bottom"]) * (4/3) / 72
+  selection_ <- c("row_id", "col_id", "width", "height")
+  cell_dim <- cell_dim[, selection_]
 
-  cell_fp <- x$styles$cells$get_fp()
-  cell_dim <- data.frame( pr_id = names(cell_fp),
-                          width = (sapply( cell_fp, function(x) x$"margin.left" ) + sapply( cell_fp, function(x) x$"margin.right" ) )* (4/3),
-                          height = (sapply( cell_fp, function(x) x$"margin.top" ) + sapply( cell_fp, function(x) x$"margin.bottom" )) * (4/3),
-                          stringsAsFactors = FALSE )
-  cell_dim <- merge(x$styles$cells$get_map(), cell_dim, by = "pr_id",
-                    all.x = FALSE, all.y = FALSE, sort = FALSE)
-
-  cell_dim$col_key <- factor(cell_dim$col_key, levels = x$col_keys)
-  cell_dim <- as.data.frame(cell_dim)
-
-  cellwidths <- as_wide_matrix_( cell_dim[,c("col_key", "width", "idrow")], idvar = "idrow" )
-  cellheights <- as_wide_matrix_( cell_dim[,c("col_key", "height", "idrow")], idvar = "idrow")
+  cellwidths <- as_wide_matrix_( cell_dim[,c("col_id", "width", "row_id")], idvar = "row_id", timevar = "col_id" )
+  cellheights <- as_wide_matrix_( cell_dim[,c("col_id", "height", "row_id")], idvar = "row_id", timevar = "col_id")
 
   list( widths = cellwidths, heights = cellheights )
 }
 
 
-text_metric <- function(data, all_fp ){
+text_metric <- function( x ){
+  txt_data <- fortify_content(x$content, default_chunk_fmt = x$styles$text)
 
-  fp_props <- data.frame(
-    pr_id = names(all_fp),
-    size = sapply(all_fp, function(x) x$"font.size"),
-    bold = sapply(all_fp, function(x) x$"bold"),
-    italic = sapply(all_fp, function(x) x$"italic"),
-    fontname = sapply(all_fp, function(x) x$"font.family"), stringsAsFactors = FALSE )
-
-
-  selection_ <- c("col_key", "idrow", "pos", "width", "height")
-  data$width <- NULL
-  data$height <- NULL
-  data <- as.data.frame( data[data$type_out %in% c("text", "htext"), ] )
-  sizes_ <- merge(data, as.data.frame( fp_props ), by = "pr_id",
-                  all.x = TRUE, all.y = FALSE, sort = FALSE)
-  str_extents_ <- m_str_extents(sizes_$str, fontname = sizes_$fontname,
-                          fontsize = sizes_$size, bold = sizes_$bold,
-                          italic = sizes_$italic) / 72
-
+  widths <- txt_data$width
+  heights <- txt_data$height
+  txt_data$width <- NULL
+  txt_data$height <- NULL
+  str_extents_ <- m_str_extents(txt_data$txt, fontname = txt_data$font.family,
+                fontsize = txt_data$font.size, bold = txt_data$bold,
+                italic = txt_data$italic) / 72
+  str_extents_[,1] <- ifelse(is.na(str_extents_[,1]) & !is.null(widths), widths, str_extents_[,1] )
+  str_extents_[,2] <- ifelse(is.na(str_extents_[,2]) & !is.null(heights), heights, str_extents_[,2] )
   dimnames(str_extents_) <- list(NULL, c("width", "height"))
-  sizes_ <- cbind( sizes_, str_extents_ )
-  sizes_ <- sizes_[, selection_]
-  sizes_
+  txt_data <- cbind( txt_data, str_extents_ )
+
+  selection_ <- c("row_id", "col_id", "seq_index", "width", "height")
+  txt_data <- txt_data[, selection_]
+  setDT(txt_data)
+  txt_data <- txt_data[, c(list(width=sum(width, na.rm = TRUE), height = max(height, na.rm = TRUE) )),
+                         by= c("row_id", "col_id") ]
+  setDF(txt_data)
+  txt_data
 }
 
-images_metric <- function(data){
-
-  selection_ <- c("col_key", "idrow", "pos", "width", "height")
-
-  img_sizes <- as.data.frame(data[data$type_out %in% "image", ])
-  if( nrow(img_sizes) < 1 ) {
-    img_sizes$width <- numeric(nrow(img_sizes))
-    img_sizes$height <- numeric(nrow(img_sizes))
-  }
-  img_sizes <- img_sizes[, selection_]
-  img_sizes
-}
-
-agg_sizes <- function(sizes){
-
-  group_ref_ <- group_ref(sizes, c("idrow", "col_key"))
-
-  width_ <- tapply(sizes$width, group_index(sizes, c("idrow", "col_key")), sum)
-  height_ <- tapply(sizes$height, group_index(sizes, c("idrow", "col_key")), max)
-
-  sizes_ <- data.frame(index_ = names(width_), width = width_, height = height_, stringsAsFactors = FALSE )
-  sizes_ <- merge( group_ref_, sizes_, by = "index_", all.x = TRUE, all.y = TRUE, sort = FALSE)
-  sizes_$index_ <- NULL
-  sizes_
-}
 

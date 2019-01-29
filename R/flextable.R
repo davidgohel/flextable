@@ -28,9 +28,6 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
   if( any( duplicated(col_keys) ) ){
     stop("duplicated col_keys")
   }
-  if( !all( make.names(col_keys) == col_keys ) ){
-    stop("invalid col_keys, flextable support only syntactic names")
-  }
 
   blanks <- setdiff( col_keys, names(data))
   if( length( blanks ) > 0 ){
@@ -48,16 +45,17 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
 
   header <- complex_tabpart( data = header_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
 
+  # header
   footer_data <- header_data[FALSE, , drop = FALSE]
   footer <- complex_tabpart( data = footer_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
 
   out <- list( header = header, body = body, footer = footer, col_keys = col_keys,
                blanks = blanks )
-  class(out) <- c("flextable", "complextable")
+  class(out) <- c("flextable")
 
   out <- style( x = out,
                 pr_p = fp_par(text.align = "right", padding = 2),
-                pr_c = fp_cell(border = fp_border()), part = "all")
+                pr_c = fp_cell(border = fp_border(color = "transparent")), part = "all")
 
   theme_booktabs(out)
 }

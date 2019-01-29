@@ -23,28 +23,6 @@ void <- function(x, j = NULL, part = "body" ){
     return(x)
 
   j <- get_columns_id(x[[part]], j )
-  display_singlespace(x = x, j = j, part = part )
-}
-
-
-display_singlespace <- function( x, j = NULL, part = "body" ){
-  UseMethod("display_singlespace")
-}
-
-display_singlespace.complextable <- function(x, j = NULL, part = "body"){
-
-  for( j in x$col_keys[j]){
-    x <- display(x, i = NULL, col_key = j, pattern = " ",
-                 formatters = list(), fprops = list(), part = part)
-  }
+  x[[part]]$content[,x$col_keys[j]] <- as_paragraph(as_chunk(x = "", fp_text()))
   x
-
-}
-
-display_singlespace.regulartable <- function(x, j = NULL, part = "body"){
-  args_ <- lapply( x$col_keys[j], function(z) function(x) rep(" ", length(x) ) )
-  names(args_) <- x$col_keys[j]
-  args_$x <- x
-  args_$part <- part
-  do.call(set_formatter, args_)
 }

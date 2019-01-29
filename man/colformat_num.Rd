@@ -2,20 +2,16 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_num}
 \alias{colformat_num}
-\alias{colformat_num.regulartable}
-\alias{colformat_num.complextable}
+\alias{colformat_num.flextable}
 \title{format numeric columns}
 \usage{
 colformat_num(x, ...)
 
-\method{colformat_num}{regulartable}(x, col_keys, big.mark = ",",
-  digits = 2, na_str = "", prefix = "", suffix = "", ...)
-
-\method{colformat_num}{complextable}(x, col_keys, big.mark = ",",
+\method{colformat_num}{flextable}(x, col_keys, big.mark = ",",
   digits = 2, na_str = "", prefix = "", suffix = "", ...)
 }
 \arguments{
-\item{x}{a flextable or regulartable object}
+\item{x}{a flextable object}
 
 \item{...}{additional arguments, unused}
 
@@ -30,20 +26,12 @@ colformat_num(x, ...)
 \item{suffix}{string to be used as prefix or suffix}
 }
 \description{
-Format numeric columns in a flextable or regulartable.
+Format numeric columns in a flextable.
 }
 \examples{
 dat <- iris
 dat[1:4, 1] <- NA
 dat[, 2] <- dat[, 2] * 1000000
-
-ft <- regulartable(dat)
-colkeys = c("Sepal.Length", "Sepal.Width",
-            "Petal.Length", "Petal.Width")
-ft <- colformat_num(
-  x = ft, col_keys = colkeys,
-  big.mark=",", digits = 2, na_str = "N/A")
-autofit(ft)
 
 ft <- flextable(dat)
 colkeys = c("Sepal.Length", "Sepal.Width",

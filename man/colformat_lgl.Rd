@@ -2,20 +2,16 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_lgl}
 \alias{colformat_lgl}
-\alias{colformat_lgl.regulartable}
-\alias{colformat_lgl.complextable}
+\alias{colformat_lgl.flextable}
 \title{format logical columns}
 \usage{
 colformat_lgl(x, ...)
 
-\method{colformat_lgl}{regulartable}(x, col_keys, true = "true",
-  false = "false", na_str = "", prefix = "", suffix = "", ...)
-
-\method{colformat_lgl}{complextable}(x, col_keys, true = "true",
+\method{colformat_lgl}{flextable}(x, col_keys, true = "true",
   false = "false", na_str = "", prefix = "", suffix = "", ...)
 }
 \arguments{
-\item{x}{a flextable or regulartable object}
+\item{x}{a flextable object}
 
 \item{...}{additional arguments, unused}
 
@@ -30,14 +26,10 @@ colformat_lgl(x, ...)
 \item{suffix}{string to be used as prefix or suffix}
 }
 \description{
-Format logical columns in a flextable or regulartable.
+Format logical columns in a flextable.
 }
 \examples{
 dat <- data.frame(a = c(TRUE, FALSE), b = c(FALSE, TRUE))
-
-ft <- regulartable(dat)
-ft <- colformat_lgl(x = ft, col_keys = c("a", "b"))
-autofit(ft)
 
 ft <- flextable(dat)
 ft <- colformat_lgl(x = ft, col_keys = c("a", "b"))

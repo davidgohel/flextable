@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   collapse = TRUE,
   comment = "#>", 
-  eval = !is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))
+  eval = TRUE
 )
 ```
 

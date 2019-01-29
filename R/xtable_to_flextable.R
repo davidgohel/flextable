@@ -136,12 +136,10 @@ xtable_to_flextable <- function(
 
   ft <- set_header_df(ft, mapping = data.frame(col_keys=col_id, label = col_labels, stringsAsFactors = FALSE) )
   for(iter in seq_along(rows_index)){
-    val <- sprintf("value ~ formatC_with_na(%s, digits = %.0f, format = '%s', na_string = '%s')", col_names_[iter], digits_val[iter], display_val[iter], NA.string )
-    val <- as.formula(val)
-    val[[3]] <- append(as.list(val[[3]]), format.args )
-    mode(val[[3]]) <- "call"
-    ft <- display(ft, col_key = col_names_[iter], i = rows_index[iter], pattern = "{{value}}",
-                             formatters = list(val) )
+    # val <- sprintf("value ~ formatC_with_na(%s, digits = %.0f, format = '%s', na_string = '%s')", col_names_[iter], digits_val[iter], display_val[iter], NA.string )
+    ft <- define_text(
+      ft, j = col_names_[iter], i = rows_index[iter],
+      value = as_paragraph(as_chunk(get(col_names_[iter]), formater = format_fun)) )
   }
   ft <- border(x = ft, border = fp_border(width = 0), part = "all")
   ft <- style( x = ft, pr_t = text.properties, part = "all")
@@ -242,41 +240,6 @@ xtable_to_flextable <- function(
 }
 
 
-formatC_with_na <- function( x, na_string = "", ... ){
-  UseMethod("formatC_with_na")
-}
-
-formatC_with_na.default <- function( x, na_string = "", ... ){
-  ifelse( is.na(x), na_string, x )
-}
-
-formatC_with_na.character <- function( x, na_string = "", ... ){
-  ifelse( is.na(x), na_string, x )
-}
-
-formatC_with_na.factor <- function( x, na_string = "", ... ){
-  ifelse( is.na(x), na_string, as.character(x) )
-}
-
-formatC_with_na.logical <- function( x, na_string = "", true = "true", false = "false" ){
-  ifelse( is.na(x), na_string, ifelse(x, true, false) )
-}
-
-formatC_with_na.double <- function( x, na_string = "", digits, format = "d", ... ){
-  ifelse( is.na(x), na_string, formatC(x, digits = digits, format = format, ...) )
-}
-
-formatC_with_na.integer <- function( x, na_string = "", digits, format, ... ){
-  ifelse( is.na(x), na_string, formatC(x, digits = digits, format = format, ...) )
-}
-
-formatC_with_na.Date <- function( x, na_string = "", fmt_date, ... ){
-  ifelse( is.na(x), na_string, format(x, fmt_date) )
-}
-
-formatC_with_na.POSIXt <- function( x, na_string = "", fmt_datetime, ... ){
-  ifelse( is.na(x), na_string, format(x, fmt_datetime) )
-}
 
 get_xtable_widths <- function(align, default_width = .3){
   rex <- "^(p\\{)([0-9\\.]+)(cm|in|px)(\\}$)"

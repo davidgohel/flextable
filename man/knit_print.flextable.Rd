@@ -3,7 +3,7 @@
 \name{htmltools_value}
 \alias{htmltools_value}
 \alias{knit_print.flextable}
-\title{Render flextable in rmarkdown (including Word output)}
+\title{Render flextable in rmarkdown (including Word and PowerPoint output)}
 \usage{
 htmltools_value(x)
 

@@ -1,257 +1,117 @@
-#' @importFrom stringr str_replace
-# run function ----
+# utils -----
+css_px <- function(x){
+  ifelse( is.na(x), "inherit",
+          ifelse( x < 0.001, "0", sprintf("%.0fpx", x)) )
+}
+
+border_css <- function(color, width, style, side){
+  style[!style %in% c("dotted", "dashed", "solid")] <- "solid"
+  sprintf("border-%s: %s %s %s;", side, css_px(width), style, colcodecss(color))
+}
+border_wml <- function(color, width, style, side){
+  width[style %in% c("none")] <- 0
+  style[!style %in% c("dotted", "dashed", "solid")] <- "single"
+  style[style %in% c("solid")] <- "single"
+
+  out <- sprintf('<w:%s w:val="%s" w:sz="%.0f" w:space="0" w:color="%s" />', side, style, width * 8, colcode0(color))
+  out[width < 1 | color %in% "transparent"] <- ""
+  out
+}
+border_pml <- function(color, width, style, side){
+  color[width < 0.001] <- "transparent"
+  color <- paste0("<a:solidFill>",
+                  sprintf("<a:srgbClr val=\"%s\">", colcode0(color) ),
+                  sprintf("<a:alpha val=\"%.0f\"/>", colalpha(color) ),
+                  "</a:srgbClr>", "</a:solidFill>" )
+  style <- ifelse(
+    style %in% "dotted", "<a:prstDash val=\"sysDot\"/>",
+    ifelse( style %in% "dashed", "<a:prstDash val=\"sysDash\"/>",
+            "<a:prstDash val=\"solid\"/>") )
+  attrs <- " algn=\"ctr\" cap=\"flat\""
+  out <- paste0(
+    sprintf('<a:ln%s w="%.0f" cmpd=\"sng\" %s>', side, width * 12700, attrs),
+    color,
+    style,
+    sprintf('</a:ln%s>', side)
+  )
+  out
+}
+
+# main -----
+
 #' @importFrom htmltools htmlEscape
-run_fun <- list(
-  wml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", gsub("\n", "</w:t><w:br/><w:t xml:space=\"preserve\">", htmlEscape(str)), "</w:t></w:r>") ),
-  pml = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<a:r>", format, "<a:t>", htmlEscape(str), "</a:t></a:r>") ),
-  html = function(format, str, str_is_run) ifelse( str_is_run, str, paste0("<span style=\"", format, "\">", gsub("\n", "<br>", htmlEscape(str)), "</span>") )
-)
-
-# hyperlink function ----
-hyperlink_fun <- list(
-  wml = function(href, str) ifelse(is.na(href), str, paste0("<w:hyperlink r:id=\"", href, "\">", str, "</w:hyperlink>") ),
-  pml = function(href, str) {
-    ifelse(is.na(href), str,
-           str_replace(str, "</a:rPr>", paste0("<a:hlinkClick r:id=\"", href, "\"/></a:rPr>") ) )
-  },
-  html = function(href, str) ifelse(is.na(href), str, paste0("<a href=\"", href, "\">", str, "</a>") )
-)
-# par function ----
-par_fun <- list(
-  wml = function(format, str) paste0("<w:p>", format, str, "</w:p>"),
-  pml = function(format, str) paste0("<a:p>", format, str, "</a:p>"),
-  html = function(format, str) paste0("<p style=\"", format, "\">", str, "</p>")
-)
-
-# cell function ----
-#' @importFrom stringr str_replace_all
-cell_fun <- list(
-  wml = function(str, format, span_rows, span_columns, colwidths){
-    format <- str_replace_all(format, "<w:tcPr>",
-         ifelse(span_rows > 1,
-                paste0("<w:tcPr><w:gridSpan w:val=\"", span_rows, "\"/>"),
-                "<w:tcPr>"
-                ) )
-    format <- str_replace_all(format, "<w:tcPr>",
-         ifelse(span_columns > 1,
-                "<w:tcPr><w:vMerge w:val=\"restart\"/>",
-                ifelse(span_columns < 1,
-                       "<w:tcPr><w:vMerge/>",
-                        "<w:tcPr>" )
-         ) )
-
-    str[span_columns < 1] <- gsub("<w:r>.*</w:r>", "", str[span_columns < 1])
-    str <- paste0("<w:tc>", format, str, "</w:tc>")
-
-    str[span_rows < 1] <- ""
-    str
-  },
-  pml = function(str, format, span_rows, span_columns, colwidths){
-    tc_attr_1 <- ifelse(
-      span_rows == 1, "",
-      ifelse(span_rows > 1,
-             paste0(" gridSpan=\"", span_rows,"\""), " hMerge=\"true\"")
-      )
-
-    tc_attr_2 <- ifelse(
-      span_columns == 1, "",
-      ifelse(span_columns > 1, paste0(" rowSpan=\"", span_columns,"\""), " vMerge=\"true\"")
-      )
-
-    tc_attr <- paste0(tc_attr_1, tc_attr_2)
-
-    paste0("<a:tc", tc_attr,">",
-                    paste0( "<a:txBody><a:bodyPr/><a:lstStyle/>",
-                            str, "</a:txBody>" ),
-                    format, "</a:tc>")
-  },
-  html = function(str, format, span_rows, span_columns, colwidths){
-    colwidths <- matrix( rep(colwidths, each = dim(str)[1]), nrow = dim(str)[1])
-    tc_attr_1 <- ifelse(span_rows > 1, paste0(" colspan=\"", span_rows,"\""), "")
-    tc_attr_2 <- ifelse(span_columns > 1, paste0(" rowspan=\"", span_columns,"\""), "")
-    tc_attr <- paste0(tc_attr_1, tc_attr_2)
-    str <- paste0("<td", tc_attr, " style=\"", sprintf("width:%.0fpx;", colwidths*72), format ,"\">", str, "</td>")
-    str[span_rows < 1 | span_columns < 1] <- ""
-    str
-  } )
-
-# row_fun ----
-row_fun <- list(
-  wml = function(rowheights, str, header, split = FALSE){
-
-    paste0( "<w:tr><w:trPr>",
-            ifelse(split, "", "<w:cantSplit/>"),
-            "<w:trHeight w:val=",
-            shQuote( round(rowheights * 72*20, 0 ), type = "cmd"), "/>",
-            ifelse( header, "<w:tblHeader/>", ""),
-            "</w:trPr>", str, "</w:tr>")
-  },
-  pml = function(rowheights, str, header, ...){
-    paste0( "<a:tr h=\"", round(rowheights * 914400, 0 ), "\">",
-            str, "</a:tr>")
-  },
-  html = function(rowheights, str, header, ...) {
-    str <- str_replace_all(str, pattern = "<td style=\"",
-                    replacement = paste0("<td style=\"height:",
-                                         round(72*rowheights), "px;"))
-
-    paste0("<tr>", str, "</tr>")
-  }
-)
-
-# main functions ----
 #' @importFrom gdtools raster_write raster_str
+#' @importFrom xml2 as_xml_document xml_find_all xml_attr
 format.complex_tabpart <- function( x, type = "wml", header = FALSE,
                                     split = FALSE, ... ){
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html") )
 
   if( nrow(x$dataset) < 1 ) return("")
-
-  txt_data <- x$styles$formats$get_map(x$styles$text, x$dataset)
-  txt_data$str_is_run <- rep(FALSE, nrow(txt_data))
-
-  img_data <- txt_data[txt_data$type_out %in% "image",]
-  htxt_data <- txt_data[txt_data$type_out %in% "htext",]
-  txt_data <- txt_data[txt_data$type_out %in% "text",]
-
-  if( nrow( img_data ) && type %in% c("wml", "html") ){
-    img_data$str_is_run <- rep(TRUE, nrow(img_data))
-    as_img <- img_data[, c("image_src", "width", "height")]
-    class(as_img) <- c("image_entry", class(as_img))
-    img_data$str <- format(as_img, type = type)
-    txt_data <- rbind(txt_data, img_data)
-  }
-  if( nrow( htxt_data ) ){
-    txt_data <- rbind(txt_data, htxt_data)
-    htxt_data <- unique(htxt_data[, "href", drop = FALSE])
-  }
-
-  text_fp <- x$styles$text$get_fp()
-  text_fp <- append( text_fp, x$styles$formats$get_all_fp() )
-  pr_str_df <- data.frame(
-    pr_id = names(text_fp),
-    format = as.character( sapply(text_fp, format, type = type) ),
-    stringsAsFactors = FALSE )
-  pr_str_df <- unique(pr_str_df)
-
-  txt_data <- drop_useless_blank(txt_data)
-  dat <- merge(txt_data, pr_str_df, by = "pr_id", all.x = TRUE, all.y = FALSE, sort = FALSE)
-  dat <- dat[order(dat$col_key, dat$idrow, dat$pos),]
-
-  dat$str <- run_fun[[type]](dat$format, dat$str, dat$str_is_run)
-  dat$str <- hyperlink_fun[[type]](dat$href, dat$str)
-
-  group_ref_ <- group_ref(dat, c("idrow", "col_key"))
-  str_ <- tapply(dat$str, group_index(dat, c("idrow", "col_key")), paste, collapse = "")
-  str_ <- data.frame(index_ = names(str_), str = as.character(str_), stringsAsFactors = FALSE )
-  dat <- merge( group_ref_, str_, by = "index_", all.x = TRUE, all.y = TRUE, sort = FALSE)
-  dat$index_ <- NULL
-
-  par_data <- x$styles$pars$get_map_format(type = type)
-
-  tidy_content <- expand.grid(col_key = x$col_key,
-                              idrow = seq_len(nrow(x$dataset)),
-                              stringsAsFactors = FALSE)
-  tidy_content <- merge(tidy_content, dat, by = c("col_key", "idrow"), all.x = TRUE, all.y = FALSE, sort = FALSE)
-  tidy_content <- merge(tidy_content, par_data, by = c("idrow", "col_key"), all.x = TRUE, all.y = FALSE, sort = FALSE)
-  tidy_content$str <- par_fun[[type]](tidy_content$format, tidy_content$str)
-  tidy_content$format <- NULL
-
-  paragraphs <- as_wide_matrix_(as.data.frame(tidy_content[, c("col_key", "str", "idrow")]), idvar = "idrow")
-
-  cell_data <- x$styles$cells$get_map_format(type = type)
-  cell_data$col_key <- factor(cell_data$col_key, levels = x$col_keys)
-  cell_format <- as_wide_matrix_(as.data.frame(cell_data[, c("col_key", "format", "idrow")]), idvar = "idrow")
-
-  cells <- cell_fun[[type]](str = paragraphs, format=cell_format,
-                   span_rows = x$span$rows,
-                   span_columns = x$spans$columns, x$colwidths)
-
-  cells <- matrix(cells, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
-  cells <- apply(cells, 1, paste0, collapse = "")
-  rows <- row_fun[[type]](x$rowheights, cells, header, split = split)
-  out <- paste0(rows, collapse = "")
-
-  attr(out, "imgs") <- as.data.frame(img_data)
-  attr(out, "htxt") <- htxt_data
-  out
-}
-
-
-
-
-#' @importFrom stats reshape
-get_text_data <- function(x){
-  mapped_data <- x$styles$text$get_map()
-  txt_data <- mapply(function(x, f) f(x), x$dataset[x$col_keys], x$printers, SIMPLIFY = FALSE)
-  txt_data <- do.call(cbind, txt_data)
-  txt_data <- as.data.frame(txt_data, stringsAsFactors = FALSE )
-
-  txt_data$idrow <- seq_len(nrow(txt_data))
-  txt_data <- reshape(data = as.data.frame(txt_data, stringsAsFactors = FALSE),
-                      idvar = "idrow", new.row.names = NULL, timevar = "col_key",
-                      times = x$col_keys,
-                      varying = x$col_keys,
-                      v.names = "str", direction = "long")
-  row.names(txt_data) <- NULL
-
-  txt_data <- merge(mapped_data, txt_data,
-                    by.x = c("idrow", "col_key"),
-                    by.y = c("idrow", "col_key"),
-                    all.x = TRUE, all.y = FALSE, sort = FALSE )
-  txt_data
-}
-
-#' @importFrom gdtools raster_write raster_str
-format.simple_tabpart <- function( x, type = "wml", header = FALSE,
-                                   split = FALSE, ... ){
-  stopifnot(length(type) == 1)
-  stopifnot( type %in% c("wml", "pml", "html") )
-
-  if( nrow(x$dataset) < 1 ) return("")
-
-  text_fp <- x$styles$text$get_fp()
-  pr_str_format <- sapply(text_fp, format, type = type)
-  txt_data <- get_text_data(x)
-
-
-  run_as_str <- list(
-    wml = function(format, str) paste0("<w:r>", format, "<w:t xml:space=\"preserve\">", gsub("\n", "</w:t><w:br/><w:t xml:space=\"preserve\">", htmlEscape(str)), "</w:t></w:r>"),
-    pml = function(format, str) paste0("<a:r>", format, "<a:t>", htmlEscape(str), "</a:t></a:r>"),
-    html = function(format, str) paste0("<span style=\"", format, "\">", gsub("\n", "<br>", htmlEscape(str)), "</span>")
+  img_data <- list(
+    image_src = character(0)
   )
-  txt_data$str <- run_as_str[[type]](format = pr_str_format[match(txt_data$pr_id, names(text_fp))],
-                                     str = txt_data$str )
-  txt_data$pr_id <- NULL
+  hl_data <- list(
+    href = character(0)
+  )
 
-  par_data <- x$styles$pars$get_map_format(type = type)
+  txt_data <- fortify_content(x$content, default_chunk_fmt = x$styles$text)
+  txt_data <- run_data(txt_data, type = type)
 
-  tidy_content <- expand.grid(col_key = x$col_key,
-                              idrow = seq_len(nrow(x$dataset)),
-                              stringsAsFactors = FALSE)
+  if( type == "wml"){
+    pic_ns <- " xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\""
+    xml_ <- paste0("<any ", base_ns, pic_ns, ">", paste(txt_data$par_nodes_str, collapse = ""), "</any>")
+    nodecontent <- as_xml_document(xml_ )
+    blipnodes <- xml_find_all(nodecontent, "//pic:blipFill/a:blip")
 
-  tidy_content <- merge(tidy_content, txt_data, by = c("col_key", "idrow"), all.x = TRUE, all.y = FALSE, sort = FALSE)
-  tidy_content <- merge(tidy_content, par_data, by = c("idrow", "col_key"),
-                        all.x = FALSE, all.y = FALSE, sort = FALSE)
-  tidy_content$str <- par_fun[[type]](tidy_content$format, tidy_content$str)
-  tidy_content$format <- NULL
+    img_data <- list(
+      image_src = as.character( xml_attr(blipnodes, "embed") )
+    )
 
-  tidy_content$col_key <- factor(tidy_content$col_key, levels = x$col_keys)
-  paragraphs <- as_wide_matrix_(as.data.frame(tidy_content[, c("col_key", "str", "idrow")]), idvar = "idrow")
+    hyperlinknodes <- xml_find_all(nodecontent, "//w:hyperlink")
+    hl_data <- list(
+      href = as.character( xml_attr(hyperlinknodes, "id") )
+    )
 
-  cell_data <- x$styles$cells$get_map_format(type = type)
-  cell_data$col_key <- factor(cell_data$col_key, levels = x$col_keys)
-  cell_format <- as_wide_matrix_(as.data.frame(cell_data[, c("col_key", "format", "idrow")]), idvar = "idrow")
+  }
+  if( type == "pml"){
+    pic_ns <- " xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\""
+    xml_ <- paste0("<any ", base_ns, pic_ns, ">", paste(txt_data$par_nodes_str, collapse = ""), "</any>")
+    nodecontent <- as_xml_document(xml_ )
 
-  cells <- cell_fun[[type]](str = paragraphs, format=cell_format,
-                            span_rows = x$span$rows,
-                            span_columns = x$spans$columns, x$colwidths)
+    hyperlinknodes <- xml_find_all(nodecontent, "//a:hlinkClick")
+    hl_data <- list(
+      href = as.character( xml_attr(hyperlinknodes, "id") )
+    )
 
-  cells <- matrix(cells, ncol = length(x$col_keys), nrow = nrow(x$dataset) )
-  cells <- apply(cells, 1, paste0, collapse = "")
-  rows <- row_fun[[type]](x$rowheights, cells, header, split = split)
+  }
+
+  paragraphs <- par_data(x$styles$pars, txt_data, type = type)
+  cells <- cell_data(x$styles$cells, paragraphs, type = type,
+                     span_rows = x$span$rows,
+                     span_columns = x$spans$columns, x$colwidths, x$rowheights)
+  setDT(cells)
+  cells <- dcast(cells, row_id ~ col_id, drop=FALSE, fill="", value.var = "cell_str", fun.aggregate = I)
+  cells$row_id <- NULL
+  cells <- apply(as.matrix(cells), 1, paste0, collapse = "")
+
+  if( type == "html"){
+    rows <- paste0("<tr>", cells, "</tr>")
+  } else if( type == "wml"){
+    rows <- paste0( "<w:tr><w:trPr>",
+            ifelse(split, "", "<w:cantSplit/>"),
+            "<w:trHeight w:val=",
+            shQuote( round(x$rowheights * 72*20, 0 ), type = "cmd"), "/>",
+            ifelse( header, "<w:tblHeader/>", ""),
+            "</w:trPr>", cells, "</w:tr>")
+  } else if( type == "pml"){
+    rows <- paste0( "<a:tr h=\"", round(x$rowheights * 914400, 0 ), "\">",
+                    cells, "</a:tr>")
+  } else stop("pas fait")
+
   out <- paste0(rows, collapse = "")
+  attr(out, "imgs") <- as.data.frame(img_data, stringsAsFactors = FALSE)
+  attr(out, "htxt") <- as.data.frame(hl_data, stringsAsFactors = FALSE)
+
   out
 }
-

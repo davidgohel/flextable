@@ -19,17 +19,11 @@ set_header_labels <- function(x, ...){
   if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
 
   args <- list(...)
-  if( nrow(x$header$dataset) < 1 )
+  if( nrow_part(x, "header") < 1 )
     stop("there is no header row to be replaced")
 
-  header_ <- x$header$dataset
+  x$header$content[nrow_part(x, "header"), names(args)] <- as_paragraph(as_chunk(unlist(args)))
 
-  values <- as.list(tail(x$header$dataset, n = 1))
-  args <- args[is.element(names(args), x$col_keys)]
-  values[names(args)] <- args
-
-  x$header$dataset <- rbind( header_[-nrow(header_),],
-                             as.data.frame(values, stringsAsFactors = FALSE, check.names = FALSE ))
   x
 }
 
@@ -47,7 +41,7 @@ set_header_labels <- function(x, ...){
 #' ft <- delete_part(x = ft, part = "header")
 #' ft
 delete_part <- function(x, part = "header"){
-  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
+  if( !inherits(x, "flextable") ) stop("delete_part supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
   nrow_ <- nrow(x[[part]]$dataset)
   x[[part]]$dataset <- x[[part]]$dataset[-seq_len(nrow_),, drop = FALSE]
@@ -83,7 +77,7 @@ delete_part <- function(x, part = "header"){
 #' @name add_header_footer
 add_header <- function(x, top = TRUE, ...){
 
-  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
+  if( !inherits(x, "flextable") ) stop("add_header supports only flextable objects.")
   args <- list(...)
   args_ <- lapply(x$col_keys, function(x) "" )
   names(args_) <- x$col_keys
@@ -98,7 +92,7 @@ add_header <- function(x, top = TRUE, ...){
 #' @export
 #' @rdname add_header_footer
 add_footer <- function(x, top = TRUE, ...){
-  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
+  if( !inherits(x, "flextable") ) stop("add_footer supports only flextable objects.")
   args <- list(...)
   args_ <- lapply(x$col_keys, function(x) "" )
   names(args_) <- x$col_keys
@@ -106,16 +100,7 @@ add_footer <- function(x, top = TRUE, ...){
   footer_data <- data.frame(as.list(args_), check.names = FALSE, stringsAsFactors = FALSE )
 
   if( nrow_part(x, "footer") < 1 ) {
-    if(inherits(x, "regulartable")){
-      x$footer <- simple_tabpart( data = footer_data, col_keys = x$col_keys,
-                                   cwidth = .75, cheight = .25 )
-    } else if(inherits(x, "complextable")){
-        x$footer <- complex_tabpart( data = footer_data, col_keys = x$col_keys,
-                                     cwidth = .75, cheight = .25 )
-    } else {
-      stop("add footer only supported for regulartable et complextable objects.", call. = FALSE)
-    }
-
+    x$footer <- complex_tabpart( data = footer_data, col_keys = x$col_keys, cwidth = .75, cheight = .25 )
   } else {
     x$footer <- add_rows( x$footer, footer_data, first = top )
   }

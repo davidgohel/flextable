@@ -12,7 +12,7 @@ set_formatter_type(x, fmt_double = "\%.03f", fmt_integer = "\%.0f",
   true = "true", false = "false", na_str = "")
 }
 \arguments{
-\item{x}{a regulartable object}
+\item{x}{a flextable object}
 
 \item{...}{Name-value pairs of functions, names should be existing col_key values}
 
@@ -40,7 +40,7 @@ formatter functions regarding to column types.
 }
 
 \examples{
-ft <- regulartable( head( iris ) )
+ft <- flextable( head( iris ) )
 ft <- set_formatter( x = ft,
         Sepal.Length = function(x) sprintf("\%.02f", x),
         Sepal.Width = function(x) sprintf("\%.04f", x)

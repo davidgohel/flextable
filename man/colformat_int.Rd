@@ -2,20 +2,16 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_int}
 \alias{colformat_int}
-\alias{colformat_int.regulartable}
-\alias{colformat_int.complextable}
+\alias{colformat_int.flextable}
 \title{format integer columns}
 \usage{
 colformat_int(x, ...)
 
-\method{colformat_int}{regulartable}(x, col_keys, big.mark = ",",
-  na_str = "", prefix = "", suffix = "", ...)
-
-\method{colformat_int}{complextable}(x, col_keys, big.mark = ",",
+\method{colformat_int}{flextable}(x, col_keys, big.mark = ",",
   na_str = "", prefix = "", suffix = "", ...)
 }
 \arguments{
-\item{x}{a flextable or regulartable object}
+\item{x}{a flextable object}
 
 \item{...}{additional arguments, unused}
 
@@ -30,12 +26,12 @@ colformat_int(x, ...)
 \item{suffix}{string to be used as prefix or suffix}
 }
 \description{
-Format integer columns in a flextable or regulartable.
+Format integer columns in a flextable.
 }
 \examples{
 dat <- mtcars
 
-ft <- regulartable(dat)
+ft <- flextable(dat)
 colkeys <- c("vs", "am", "gear", "carb")
 ft <- colformat_int(x = ft, col_keys = colkeys, prefix = "# ")
 autofit(ft)

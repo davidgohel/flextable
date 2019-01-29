@@ -319,16 +319,14 @@ ft
 ```
 
 
-### display function
+### define_text function
 
-`flextable` content is defined with `display` function. 
+`flextable` content can be defined with function `define_text`.
 
 It lets user control the formated content at the cell level of the table. 
 It is possible to define a content for a row subset and a column as well 
 as on the whole column. One can mix images and text (but not with 
 PowerPoint because PowerPoint can not do it).
-
-> Note `display` only works with `flextable` objects, use `set_formatter` for `regulartable` objects.
 
 Below the starting point of next illustrations:
 
@@ -345,28 +343,36 @@ myft <- width(myft, j = ~ separator, width = .1)
 myft
 ```
 
-The function requires argument `pattern` which is a string template inspired by *[mustaches](http://mustache.github.com/)*. The string will be expanded with tags using values provided in `formatters` argument; tags can eventually be formatted with `fprops` argument. 
+The function requires a call to `as_paragraph` which will concatenate text or images chunks as 
+a paragraph. 
 
-The following example shows how to control the format of displayed values and how to associate them with specific text formatting properties (bold red text):
+The following example shows how to control the format of displayed values and how to 
+associate them with specific text formatting properties (bold red text):
 
 ```{r}
-myft <- display( myft, col_key = "mpg", pattern = "{{mpg}}", 
-    formatters = list(mpg ~ sprintf("%.01f", mpg) ), 
-    fprops = list(mpg = fp_text(color = "red", italic = TRUE) )
+myft <- define_text( 
+  myft, j = "mpg", 
+  value = as_paragraph(
+    "mpg value is ", 
+    as_chunk(sprintf("%.01f", mpg), props = fp_text(color = "red", bold = TRUE) ) )
   )
-
+myft <- autofit(myft)
 myft
 ```
 
 With that system, it's easy to concatenate multiple values:
 
 ```{r}
-myft <- display( myft, i = ~ drat > 3.6, 
-           col_key = "mpg", pattern = "{{mpg}} with {{carb}}", 
-           formatters = list(mpg ~ sprintf("%.01f", mpg), 
-                             carb ~ sprintf("# %.0f carb.", carb) ), 
-              fprops = list(mpg = fp_text(color = "#CC55CC", bold = TRUE) )
+myft <- define_text( 
+  myft, j = "mpg", 
+  value = as_paragraph(
+    "mpg value is ", 
+    as_chunk(sprintf("%.01f", mpg), props = fp_text(color = "red", bold = TRUE) ), 
+    " with ",
+    as_chunk(sprintf("# %.0f", carb), props = fp_text(color = "gray", italic = TRUE) )
+    )
   )
+
 myft <- autofit(myft)
 myft
 ```
@@ -374,34 +380,28 @@ myft
 Or to define specific title headers:
 
 ```{r}
-myft <- display( myft, col_key = "mpg", 
-   part = "header",
-   pattern = "Miles/(US) gallon {{my_message}}", 
-   formatters = list(
-     my_message ~ sprintf("* with num of carb.") 
-     ), 
-   fprops = list(
-     my_message = fp_text(color = "gray", vertical.align = "superscript")
-     ) 
-   )
+myft <- define_text( 
+  myft, j = "mpg", part = "header",
+  value = as_paragraph(
+    "Miles/(US) gallon ", 
+    as_chunk("* with num of carb.", props = fp_text(color = "gray", vertical.align = "superscript") )
+    )
+  )
+
 myft <- autofit(myft)
 myft
 ```
 
 #### Images
 
-Function `display` supports images insertion. Use function `as_image` within `formatters` argument.
+Function `define_text` supports images insertion. Use function `as_image` in `as_paragraph` call:
 
 ```{r}
 img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 
-myft <- display( myft, i = ~ qsec > 18, col_key = "qsec", 
-           pattern = "blah blah {{r_logo}} {{qsec}}",
-           formatters = list(
-             r_logo ~ as_image(qsec, src = img.file, width = .20, height = .15), 
-             qsec ~ sprintf("qsec: %.1f", qsec) ), 
-           fprops = list(qsec = fp_text(color = "orange", vertical.align = "superscript"))
-           )
+myft <- define_text( myft, i = ~ qsec > 18, j = "qsec", 
+  value = as_paragraph(as_image( src = img.file, width = .20, height = .15))
+)
 myft <- autofit(myft)
 myft
 ```

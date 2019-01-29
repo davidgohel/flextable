@@ -11,9 +11,6 @@
 #' right side for the content.
 #' @param fprops a named list of \link[officer]{fp_text}
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @note
-#' The function \code{display} only works with \code{flextable} objects,
-#' use \code{\link{set_formatter}} for regulartable objects.
 #' @section pattern:
 #' It defined the template used to format the produced strings. Names enclosed
 #' by double braces will be evaluated as R code, the corresponding R code is defined
@@ -58,13 +55,51 @@ display <- function(x, i = NULL, col_key,
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], col_key )
 
+  newcontent <- old_display_init(x = pattern,
+                   formatters = formatters, fprops = fprops, x[[part]]$dataset[i,])
+  x[[part]]$content[i, j] <- newcontent
 
+  x
+}
 
-  obj <- display_parser$new( x = pattern,
-                             formatters = formatters, fprops = fprops )
+#' @export
+#' @importFrom rlang eval_tidy enquo
+#' @title Define flextable displayed values
+#' @description Modify flextable displayed values. Function is
+#' handling complex formatting as well as image insertion.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j column selection
+#' @param value a call to function \code{\link{as_paragraph}}.
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @examples
+#' library(officer)
+#' ft <- flextable(head( mtcars, n = 10))
+#' ft <- define_text(ft, j = "carb", i = ~ drat > 3.5,
+#'   value = as_paragraph("carb is ", as_chunk( sprintf("%.1f", carb)) )
+#'   )
+#' \donttest{ft <- autofit(ft)}
+#' @export
+define_text <- function(x, i = NULL, j = NULL, value , part = "body"){
 
-  lazy_f_id <- fp_sign(obj)
-  x[[part]]$styles$formats$set_fp(i, x$col_keys[j], obj, lazy_f_id )
+  if( !inherits(x, "flextable") ) stop("italic supports only flextable objects.")
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- define_text(x = x, i = i, j = j, value = value, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+
+  x[[part]]$content[i, j] <- eval_tidy(enquo(value), data = x[[part]]$dataset[i,])
 
   x
 }

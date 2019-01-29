@@ -4,19 +4,28 @@ library(utils)
 library(xml2)
 
 test_that("padding overwrite all paddings", {
-  ft <- flextable(iris)
+  ft <- flextable(data.frame(a = c("", ""), stringsAsFactors = FALSE))
   ft <- padding(ft, padding = 5)
-  key <- ft$body$styles$pars$get_pr_id_at(i = 1, j = "Sepal.Length")
-  pr_par_ <- ft$body$styles$pars$get_fp()[[key]]
-  paddings <- pr_par_$padding.bottom + pr_par_$padding.top + pr_par_$padding.left + pr_par_$padding.right
-  expect_equal(paddings, 20 )
+
+  new_paddings <- c(
+    ft$body$styles$pars$padding.bottom$data[,],
+    ft$body$styles$pars$padding.top$data[,],
+    ft$body$styles$pars$padding.left$data[,],
+    ft$body$styles$pars$padding.right$data[,] )
+  new_paddings <- unique(new_paddings)
+
+  expect_equal(new_paddings, 5 )
 })
 
 test_that("padding overwrite all paddings but not missing", {
   ft <- flextable(iris)
   ft <- padding(ft, padding = 5, padding.top = 20)
-  key <- ft$body$styles$pars$get_pr_id_at(i = 1, j = "Sepal.Length")
-  pr_par_ <- ft$body$styles$pars$get_fp()[[key]]
-  paddings <- pr_par_$padding.bottom + pr_par_$padding.top + pr_par_$padding.left + pr_par_$padding.right
-  expect_equal(paddings, 35 )
+  new_paddings <- c(
+    ft$body$styles$pars$padding.bottom$data[,],
+    ft$body$styles$pars$padding.top$data[,],
+    ft$body$styles$pars$padding.left$data[,],
+    ft$body$styles$pars$padding.right$data[,] )
+  new_paddings <- unique(new_paddings)
+
+  expect_equal(new_paddings, c(5,20) )
 })

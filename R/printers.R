@@ -46,7 +46,7 @@ htmltools_value <- function(x){
 #' @importFrom officer read_pptx add_slide read_docx
 print.flextable <- function(x, preview = "html", ...){
   if (!interactive() || "log" %in% preview ){
-    cat("type:", ifelse( inherits(x, "regulartable"), "regulartable", "flextable" ), "object.\n")
+    cat("a flextable object.\n")
     cat( "col_keys:", paste0("`", x$col_keys, "`", collapse = ", " ), "\n" )
     cat( "header has", nrow(x$header$dataset), "row(s)", "\n" )
     cat( "body has", nrow(x$body$dataset), "row(s)", "\n" )

@@ -2,20 +2,16 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_char}
 \alias{colformat_char}
-\alias{colformat_char.regulartable}
-\alias{colformat_char.complextable}
+\alias{colformat_char.flextable}
 \title{format character columns}
 \usage{
 colformat_char(x, ...)
 
-\method{colformat_char}{regulartable}(x, col_keys, na_str = "",
-  prefix = "", suffix = "", ...)
-
-\method{colformat_char}{complextable}(x, col_keys, na_str = "",
+\method{colformat_char}{flextable}(x, col_keys, na_str = "",
   prefix = "", suffix = "", ...)
 }
 \arguments{
-\item{x}{a flextable or regulartable object}
+\item{x}{a flextable object}
 
 \item{...}{additional arguments, unused}
 
@@ -26,11 +22,11 @@ colformat_char(x, ...)
 \item{prefix, suffix}{string to be used as prefix or suffix}
 }
 \description{
-Format character columns in a flextable or regulartable.
+Format character columns in a flextable.
 }
 \examples{
 dat <- iris
-ft <- regulartable(dat)
+ft <- flextable(dat)
 ft <- colformat_char(
   x = ft, col_keys = "Species", suffix = "!")
 autofit(ft)
