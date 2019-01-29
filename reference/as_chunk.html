@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>set column formatter functions — set_formatter • flextable</title>
+<title>chunk of text wrapper — as_chunk • flextable</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,11 +30,11 @@
 
 
 
-<meta property="og:title" content="set column formatter functions — set_formatter" />
+<meta property="og:title" content="chunk of text wrapper — as_chunk" />
 
-<meta property="og:description" content="Define formatter functions associated to each column key.
-Functions have a single argument (the vector) and are returning the formatted
-values as a character vector." />
+<meta property="og:description" content="The function lets add text within flextable
+objects with function define_text.
+It should be used inside a call to as_paragraph." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,75 +107,63 @@ values as a character vector." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>set column formatter functions</h1>
+    <h1>chunk of text wrapper</h1>
     
-    <div class="hidden name"><code>set_formatter.Rd</code></div>
+    <div class="hidden name"><code>as_chunk.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Define formatter functions associated to each column key.
-Functions have a single argument (the vector) and are returning the formatted
-values as a character vector.</p>
+    <p>The function lets add text within flextable
+objects with function <code><a href='define_text.html'>define_text</a></code>.
+It should be used inside a call to <code><a href='as_paragraph.html'>as_paragraph</a></code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>set_formatter</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-
-<span class='fu'>set_formatter_type</span>(<span class='no'>x</span>, <span class='kw'>fmt_double</span> <span class='kw'>=</span> <span class='st'>"%.03f"</span>, <span class='kw'>fmt_integer</span> <span class='kw'>=</span> <span class='st'>"%.0f"</span>,
-  <span class='kw'>fmt_date</span> <span class='kw'>=</span> <span class='st'>"%Y-%m-%d"</span>, <span class='kw'>fmt_datetime</span> <span class='kw'>=</span> <span class='st'>"%Y-%m-%d %H:%M:%S"</span>,
-  <span class='kw'>true</span> <span class='kw'>=</span> <span class='st'>"true"</span>, <span class='kw'>false</span> <span class='kw'>=</span> <span class='st'>"false"</span>, <span class='kw'>na_str</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>as_chunk</span>(<span class='no'>x</span>, <span class='kw'>props</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>formater</span> <span class='kw'>=</span> <span class='no'>format_fun</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a flextable object</p></td>
+      <td><p>text or any element that can be formatted as text
+with function provided in argument <code>formater</code>.</p></td>
+    </tr>
+    <tr>
+      <th>props</th>
+      <td><p>an <code><a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a></code> object to be used to format the text.
+If not specified, it will be the default value corresponding to the cell.</p></td>
+    </tr>
+    <tr>
+      <th>formater</th>
+      <td><p>a function that will format x as a character vector.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Name-value pairs of functions, names should be existing col_key values</p></td>
-    </tr>
-    <tr>
-      <th>part</th>
-      <td><p>partname of the table (one of 'body' or 'header' or 'footer')</p></td>
-    </tr>
-    <tr>
-      <th>fmt_double, fmt_integer</th>
-      <td><p>arguments used by <code>sprintf</code> to
-format double and integer columns.</p></td>
-    </tr>
-    <tr>
-      <th>fmt_date, fmt_datetime</th>
-      <td><p>arguments used by <code>format</code> to
-format date and date time columns.</p></td>
-    </tr>
-    <tr>
-      <th>false, true</th>
-      <td><p>string to be used for logical columns</p></td>
-    </tr>
-    <tr>
-      <th>na_str</th>
-      <td><p>string for NA values</p></td>
+      <td><p>additional arguments for <code>formater</code> function.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="set-formatter-type"><a class="anchor" href="#set-formatter-type"></a>set_formatter_type</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    
-    <p><code>set_formatter_type</code> is an helper function to quickly define
-formatter functions regarding to column types.</p>
+    <div class='dont-index'><p>Other chunk elements for paragraph: <code><a href='as_image.html'>as_image</a></code>,
+  <code><a href='hyperlink_text.html'>hyperlink_text</a></code>, <code><a href='minibar.html'>minibar</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>( <span class='no'>iris</span> ) )
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>set_formatter</span>( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>ft</span>,
-        <span class='kw'>Sepal.Length</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sprintf'>sprintf</a></span>(<span class='st'>"%.02f"</span>, <span class='no'>x</span>),
-        <span class='kw'>Sepal.Width</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sprintf'>sprintf</a></span>(<span class='st'>"%.04f"</span>, <span class='no'>x</span>)
-      )
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_vanilla.html'>theme_vanilla</a></span>( <span class='no'>ft</span> )
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>officer</span>)
+
+<span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>iris</span>))
+
+<span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='define_text.html'>define_text</a></span>( <span class='no'>myft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='st'>"Sepal.Length"</span>,
+ <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
+   <span class='st'>"Sepal.Length value is "</span>,
+   <span class='fu'>as_chunk</span>(<span class='no'>Sepal.Length</span>, <span class='kw'>props</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>))
+ ),
+ <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
+<span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='color.html'>color</a></span>(<span class='no'>myft</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"gray40"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)
+<span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>myft</span>)</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
 #&gt; header has 1 row(s) 
 #&gt; body has 6 row(s) 
@@ -192,7 +180,7 @@ formatter functions regarding to column types.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#set-formatter-type">set_formatter_type</a></li>
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
