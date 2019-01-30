@@ -10,18 +10,18 @@ file.copy(img.file, "rlogo.jpg")
 
 test_that("images", {
   ft <- flextable(data, col_keys = col_keys )
-  ft <- define_text( ft, j = "Sepal.Length",
+  ft <- compose( ft, j = "Sepal.Length",
                      value = as_paragraph(
                        as_chunk("blah blah "),
                        as_image("rlogo.jpg", width = .3, height = 0.23), " ",
                        as_chunk(sprintf("val: %.1f", Sepal.Length), props = fp_text(color = "orange", vertical.align = "superscript") )
                        )
   )
-  ft <- define_text( ft, j = "sep_1",
+  ft <- compose( ft, j = "sep_1",
                      value = as_paragraph(
                        as_image("rlogo.jpg", width = .3, height = 0.23))
                      )
-  ft <- define_text( ft, j = "Petal.Length",
+  ft <- compose( ft, j = "Petal.Length",
                      value = as_paragraph(
                        "blah blah ",
                        as_chunk(Sepal.Length, props = fp_text(color = "orange", vertical.align = "superscript") ))

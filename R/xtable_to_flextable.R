@@ -137,7 +137,7 @@ xtable_to_flextable <- function(
   ft <- set_header_df(ft, mapping = data.frame(col_keys=col_id, label = col_labels, stringsAsFactors = FALSE) )
   for(iter in seq_along(rows_index)){
     # val <- sprintf("value ~ formatC_with_na(%s, digits = %.0f, format = '%s', na_string = '%s')", col_names_[iter], digits_val[iter], display_val[iter], NA.string )
-    ft <- define_text(
+    ft <- compose(
       ft, j = col_names_[iter], i = rows_index[iter],
       value = as_paragraph(as_chunk(get(col_names_[iter]), formater = format_fun)) )
   }

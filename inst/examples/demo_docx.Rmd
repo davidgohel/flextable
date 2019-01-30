@@ -1,0 +1,16 @@
+---
+title: "flextable within Word"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+library(flextable)
+```
+
+
+```{r}
+ft <- flextable(mtcars)
+ft
+```
+

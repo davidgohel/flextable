@@ -19,7 +19,7 @@ If not specified, it will be the default value corresponding to the cell.}
 }
 \description{
 The function lets add text within flextable
-objects with function \code{\link{define_text}}.
+objects with function \code{\link{compose}}.
 It should be used inside a call to \code{\link{as_paragraph}}.
 }
 \examples{
@@ -27,7 +27,7 @@ library(officer)
 
 myft <- flextable( head(iris))
 
-myft <- define_text( myft, j = "Sepal.Length",
+myft <- compose( myft, j = "Sepal.Length",
  value = as_paragraph(
    "Sepal.Length value is ",
    as_chunk(Sepal.Length, props = fp_text(color = "red"))

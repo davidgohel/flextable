@@ -8,6 +8,9 @@ html_str.flextable <- function( x ){
   dims <- dim(x)
 
   out <- "<table>"
+  if(!is.null(x$caption$value)){
+    out <- paste0(out, "<caption>", htmlEscape(x$caption$value), "</caption>" )
+  }
 
   if( nrow_part(x, "header") > 0 ){
     x$header <- correct_h_border(x$header)

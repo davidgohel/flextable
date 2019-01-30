@@ -50,6 +50,7 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
   footer <- complex_tabpart( data = footer_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
 
   out <- list( header = header, body = body, footer = footer, col_keys = col_keys,
+               caption = list(value = NULL, style_id = NULL),
                blanks = blanks )
   class(out) <- c("flextable")
 
@@ -60,4 +61,29 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
   theme_booktabs(out)
 }
 
+#' @export
+#' @title set caption
+#' @description set caption value in flextable
+#' @param x flextable object
+#' @param caption caption value
+#' @note
+#' this will have an effect only when output is HTML.
+#' @examples
+#' ft <- flextable( head( iris ) )
+#' ft <- set_caption(ft, "my caption")
+#' ft
+set_caption <- function(x, caption){
 
+  if( !is.character(caption) && length(caption) != 1 ){
+    stop("caption should be a single character value")
+  }
+
+  x$caption <- list(value = caption)
+  x
+}
+
+#' @rdname flextable
+#' @export
+regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
+  flextable(data = data, col_keys = col_keys, cwidth = cwidth, cheight = cheight)
+}

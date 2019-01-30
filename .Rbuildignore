@@ -9,5 +9,6 @@
 ^revdep$
 ^CONDUCT\.md$
 ^inst/mediasrc$
+^inst/medias$
 ^cran-comments\.md$
 ^ISSUE_TEMPLATE\.md$

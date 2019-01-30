@@ -45,7 +45,7 @@ default_fptext_prop <- structure(list(
 #' @export
 #' @title chunk of text wrapper
 #' @description The function lets add text within flextable
-#' objects with function \code{\link{define_text}}.
+#' objects with function \code{\link{compose}}.
 #' It should be used inside a call to \code{\link{as_paragraph}}.
 #' @param x text or any element that can be formatted as text
 #' with function provided in argument \code{formater}.
@@ -59,7 +59,7 @@ default_fptext_prop <- structure(list(
 #'
 #' myft <- flextable( head(iris))
 #'
-#' myft <- define_text( myft, j = "Sepal.Length",
+#' myft <- compose( myft, j = "Sepal.Length",
 #'  value = as_paragraph(
 #'    "Sepal.Length value is ",
 #'    as_chunk(Sepal.Length, props = fp_text(color = "red"))
@@ -110,7 +110,7 @@ as_chunk <- function(x, props = NULL, formater = format_fun, ...) {
 #' @export
 #' @title image chunk wrapper
 #' @description The function lets add images within flextable
-#' objects with function \code{\link{define_text}}.
+#' objects with function \code{\link{compose}}.
 #' It should be used inside a call to \code{\link{as_paragraph}}.
 #' @param src image filename
 #' @param width,height size of the png file in inches
@@ -118,14 +118,14 @@ as_chunk <- function(x, props = NULL, formater = format_fun, ...) {
 #' @family chunk elements for paragraph
 #' @note PowerPoint cannot mix images and text in a paragraph, images
 #' are removed when outputing to PowerPoint format.
-#' @seealso \code{\link{define_text}}, \code{\link{as_paragraph}}
+#' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
 #' @examples
 #' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 #' library(officer)
 #'
 #' myft <- flextable( head(iris))
 #'
-#' myft <- define_text( myft, i = 1:3, j = 1,
+#' myft <- compose( myft, i = 1:3, j = 1,
 #'  value = as_paragraph(
 #'    as_image(src = img.file, width = .20, height = .15),
 #'    " blah blah ",
@@ -153,7 +153,7 @@ as_image <- function(src, width = .5, height = .2) {
 #' @export
 #' @title chunk of text with hyperlink wrapper
 #' @description The function lets add hyperlinks within flextable
-#' objects with function \code{\link{define_text}}.
+#' objects with function \code{\link{compose}}.
 #' It should be used inside a call to \code{\link{as_paragraph}}.
 #' @inheritParams as_chunk
 #' @param url url to be used
@@ -165,7 +165,7 @@ as_image <- function(src, width = .5, height = .2) {
 #'   stringsAsFactors = FALSE)
 #'
 #' ft <- flextable(dat)
-#' ft <- define_text( x = ft, j = "col",
+#' ft <- compose( x = ft, j = "col",
 #'   value = as_paragraph(
 #'     "This is a link: ",
 #'     hyperlink_text(x = col, url = href ) ) )
@@ -181,7 +181,7 @@ hyperlink_text <- function(x, props = NULL, formater = format_fun, url, ...){
 #' @export
 #' @title mini barplots chunk wrapper
 #' @description This function is used to insert bars into
-#' flextable with function \code{\link{define_text}}.
+#' flextable with function \code{\link{compose}}.
 #' It should be used inside a call to \code{\link{as_paragraph}}
 #' @param value values containing the bar size
 #' @param max max bar size
@@ -194,7 +194,7 @@ hyperlink_text <- function(x, props = NULL, formater = format_fun, url, ...){
 #' @examples
 #' myft <- flextable( head(iris, n = 10 ))
 #'
-#' myft <- define_text( myft, j = 1,
+#' myft <- compose( myft, j = 1,
 #'   value = as_paragraph(
 #'     minibar(value = Sepal.Length, max = max(Sepal.Length))
 #'   ),
@@ -202,7 +202,7 @@ hyperlink_text <- function(x, props = NULL, formater = format_fun, url, ...){
 #'
 #' autofit(myft)
 #' @importFrom grDevices as.raster col2rgb rgb
-#' @seealso \code{\link{define_text}}, \code{\link{as_paragraph}}
+#' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
 minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 1, height = .2) {
   stopifnot(value >= 0, max >= 0)
   barcol <- rgb(t(col2rgb(barcol))/255)
@@ -231,7 +231,7 @@ minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 
 #' @export
 #' @title concatenate chunks in a flextable
 #' @description The function is concatenating text and images within paragraphs of
-#' a flextable object, this function is to be used with function \code{\link{define_text}}.
+#' a flextable object, this function is to be used with function \code{\link{compose}}.
 #' @param ... chunk elements that are defining paragraph
 #' @param list_values a list of chunk elements that are defining paragraph. If
 #' specified argument \code{...} is unused.
@@ -241,7 +241,7 @@ minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 
 #' library(officer)
 #' myft <- flextable( head(iris, n = 10 ))
 #'
-#' myft <- define_text( myft, j = 1,
+#' myft <- compose( myft, j = 1,
 #'   value = as_paragraph(
 #'     minibar(value = Sepal.Length, max = max(Sepal.Length)),
 #'     " ",

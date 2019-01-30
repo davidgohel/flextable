@@ -14,13 +14,13 @@ specified argument \code{...} is unused.}
 }
 \description{
 The function is concatenating text and images within paragraphs of
-a flextable object, this function is to be used with function \code{\link{define_text}}.
+a flextable object, this function is to be used with function \code{\link{compose}}.
 }
 \examples{
 library(officer)
 myft <- flextable( head(iris, n = 10 ))
 
-myft <- define_text( myft, j = 1,
+myft <- compose( myft, j = 1,
   value = as_paragraph(
     minibar(value = Sepal.Length, max = max(Sepal.Length)),
     " ",

@@ -56,14 +56,14 @@ There are simple functions to modify formatting properties of flextable objects:
 They are illustrated in the examples below.
 
 ```{r}
-myft <- regulartable(head(iris))
+myft <- flextable(head(iris))
 myft
 ```
 
 ### bold
 
 ```{r}
-myft <- regulartable(head(iris)) 
+myft <- flextable(head(iris)) 
 myft <- bold(myft, part = "header") # bold header
 myft
 ```
@@ -138,7 +138,7 @@ Argument `rotation` is mandatory and expects one of these values:
 Argument `align` is used for cell content vertical alignment, it should be one of these values: "top", "bottom" or "center".
 
 ```{r}
-ft <- regulartable(head(iris))
+ft <- flextable(head(iris))
 ft <- rotate(ft, rotation = "tbrl", align = "top", part = "header")
 ft <- theme_vanilla(ft)
 ft <- autofit(ft)
@@ -243,7 +243,7 @@ def_par <- fp_par(text.align = "center")
 def_text <- fp_text(color="#999999", italic = TRUE)
 def_text_header <- update(color="black", def_text, bold = TRUE)
 
-ft <- regulartable(head(mtcars, n = 10 ))
+ft <- flextable(head(mtcars, n = 10 ))
 ft <- style( ft, pr_c = def_cell, pr_p = def_par, pr_t = def_text, part = "all")  
 ft
 
@@ -256,21 +256,17 @@ ft
 
 By default, the displayed content of each cell will be the 
 result of a simple formatting. The content can also be 
-formatted as the result of an interpolation.
+*comoosed* as the result of a concatenation of several *chunks*.
 
-First the columns functions, they will define the formatting 
-for each column. 
+There are `formatter` functions to define how columns content will be 
+display (e.g. to define the number of decimal). This is 
+a column-wise operation.
 
-When working with a `regulartable`, user can have the control of the 
-formatting function by using `set_formatter`. 
+User can also have more control over displayed content by using function `compose`.
+The function enable to define the elements composing the paragraph and their respective formats.
+It can also be used to mix text chunks and images.
 
-When working with a `flextable`, user can have the control of the 
-formatting function by using `display`. The function enable the 
-control of format at the cell level. It can also be used to mixed 
-chunks of text with various text formats and images.
-
-
-### Columns functions
+### Column-wise functions
 
 Theses are high level functions that should satisfy most 
 of the usual needs. They can be used to define the formatting 
@@ -290,7 +286,7 @@ dat <- head(mtcars, n = 10)
 dat[3:7, 1] <- NA
 dat[, 2] <- dat[, 6] * 1000000
 
-ft <- regulartable(dat)
+ft <- flextable(dat)
 num_keys <- c("mpg", "disp", "drat", "wt", "qsec")
 int_keys <- c("cyl", "hp", "vs", "am", "gear", "carb")
 
@@ -302,12 +298,12 @@ autofit(ft)
 
 ### set_formatter function
 
-When working with `regulartable`, it is possible to define the functions that will be used to format the data.frame values into strings. `set_formatter` set column formatter functions. 
+It is possible to define the functions that will be used to format the data.frame 
+values into strings. `set_formatter` set column formatter functions. 
 
-> Note `set_formatter` only works with `regulartable` objects, use `display` for `flextable` objects.
 
 ```{r}
-ft <- regulartable(head(mtcars, n = 10 ), 
+ft <- flextable(head(mtcars, n = 10 ), 
                    col_keys = c("gear", "mpg", "qsec"))
 ft <- set_formatter(ft, 
     mpg = function(x) sprintf("%.04f", x),
@@ -319,9 +315,9 @@ ft
 ```
 
 
-### define_text function
+### compose function
 
-`flextable` content can be defined with function `define_text`.
+`flextable` content can be defined with function `compose`.
 
 It lets user control the formated content at the cell level of the table. 
 It is possible to define a content for a row subset and a column as well 
@@ -346,11 +342,14 @@ myft
 The function requires a call to `as_paragraph` which will concatenate text or images chunks as 
 a paragraph. 
 
+![](https://www.ardata.fr/img/illustrations/flextable_compose.svg)
+
+
 The following example shows how to control the format of displayed values and how to 
 associate them with specific text formatting properties (bold red text):
 
 ```{r}
-myft <- define_text( 
+myft <- compose( 
   myft, j = "mpg", 
   value = as_paragraph(
     "mpg value is ", 
@@ -363,7 +362,7 @@ myft
 With that system, it's easy to concatenate multiple values:
 
 ```{r}
-myft <- define_text( 
+myft <- compose( 
   myft, j = "mpg", 
   value = as_paragraph(
     "mpg value is ", 
@@ -380,7 +379,7 @@ myft
 Or to define specific title headers:
 
 ```{r}
-myft <- define_text( 
+myft <- compose( 
   myft, j = "mpg", part = "header",
   value = as_paragraph(
     "Miles/(US) gallon ", 
@@ -394,14 +393,30 @@ myft
 
 #### Images
 
-Function `define_text` supports images insertion. Use function `as_image` in `as_paragraph` call:
+Function `compose` supports images insertion. Use function `as_image` in `as_paragraph` call:
 
 ```{r}
 img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 
-myft <- define_text( myft, i = ~ qsec > 18, j = "qsec", 
+myft <- compose( myft, i = ~ qsec > 18, j = "qsec", 
   value = as_paragraph(as_image( src = img.file, width = .20, height = .15))
 )
 myft <- autofit(myft)
 myft
+```
+
+#### minibar
+
+Function `compose` supports *mini barplots* insertion. Use function `minibar` in `as_paragraph` call:
+
+```{r}
+myft <- flextable( head(iris, n = 10 ))
+
+myft <- compose( myft, j = 1,
+  value = as_paragraph(
+    minibar(value = Sepal.Length, max = max(Sepal.Length))
+  ),
+  part = "body")
+
+autofit(myft)
 ```

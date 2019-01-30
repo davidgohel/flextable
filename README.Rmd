@@ -43,7 +43,7 @@ An API is available to let R users create tables for reporting and control their
 - text, paragraphs, cells and border formatting of any element
 - displayed values
 
-![](https://www.ardata.fr/img/illustrations/flextable_layout.svg)
+![](https://www.ardata.fr/img/illustrations/flextable_functions.svg)
 
 There are articles on the flextable website that will help you get you to start quickly:
 

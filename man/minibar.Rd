@@ -20,7 +20,7 @@ minibar(value, max, barcol = "#CCCCCC", bg = "transparent",
 }
 \description{
 This function is used to insert bars into
-flextable with function \code{\link{define_text}}.
+flextable with function \code{\link{compose}}.
 It should be used inside a call to \code{\link{as_paragraph}}
 }
 \note{
@@ -30,7 +30,7 @@ are removed when outputing to PowerPoint format.
 \examples{
 myft <- flextable( head(iris, n = 10 ))
 
-myft <- define_text( myft, j = 1,
+myft <- compose( myft, j = 1,
   value = as_paragraph(
     minibar(value = Sepal.Length, max = max(Sepal.Length))
   ),
@@ -39,7 +39,7 @@ myft <- define_text( myft, j = 1,
 autofit(myft)
 }
 \seealso{
-\code{\link{define_text}}, \code{\link{as_paragraph}}
+\code{\link{compose}}, \code{\link{as_paragraph}}
 
 Other chunk elements for paragraph: \code{\link{as_chunk}},
   \code{\link{as_image}}, \code{\link{hyperlink_text}}

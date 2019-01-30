@@ -21,7 +21,7 @@ If not specified, it will be the default value corresponding to the cell.}
 }
 \description{
 The function lets add hyperlinks within flextable
-objects with function \code{\link{define_text}}.
+objects with function \code{\link{compose}}.
 It should be used inside a call to \code{\link{as_paragraph}}.
 }
 \examples{
@@ -31,7 +31,7 @@ dat <- data.frame(
   stringsAsFactors = FALSE)
 
 ft <- flextable(dat)
-ft <- define_text( x = ft, j = "col",
+ft <- compose( x = ft, j = "col",
   value = as_paragraph(
     "This is a link: ",
     hyperlink_text(x = col, url = href ) ) )

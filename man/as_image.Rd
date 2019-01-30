@@ -15,7 +15,7 @@ as_image(src, width = 0.5, height = 0.2)
 }
 \description{
 The function lets add images within flextable
-objects with function \code{\link{define_text}}.
+objects with function \code{\link{compose}}.
 It should be used inside a call to \code{\link{as_paragraph}}.
 }
 \note{
@@ -28,7 +28,7 @@ library(officer)
 
 myft <- flextable( head(iris))
 
-myft <- define_text( myft, i = 1:3, j = 1,
+myft <- compose( myft, i = 1:3, j = 1,
  value = as_paragraph(
    as_image(src = img.file, width = .20, height = .15),
    " blah blah ",
@@ -39,7 +39,7 @@ myft <- define_text( myft, i = 1:3, j = 1,
 autofit(myft)
 }
 \seealso{
-\code{\link{define_text}}, \code{\link{as_paragraph}}
+\code{\link{compose}}, \code{\link{as_paragraph}}
 
 Other chunk elements for paragraph: \code{\link{as_chunk}},
   \code{\link{hyperlink_text}}, \code{\link{minibar}}

@@ -11,7 +11,7 @@
 #'
 #' \code{flextable()} function is producing flexible tables where each cell
 #' can contain several chunks of text with their own set of formatting
-#' properties (bold, font color, etc.). Function \code{\link{define_text}} lets customise
+#' properties (bold, font color, etc.). Function \code{\link{compose}} lets customise
 #' text of cells.
 #'
 #' @seealso \url{https://davidgohel.github.io/flextable/}, \code{\link{flextable}}

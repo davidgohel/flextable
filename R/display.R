@@ -75,19 +75,19 @@ display <- function(x, i = NULL, col_key,
 #' @examples
 #' library(officer)
 #' ft <- flextable(head( mtcars, n = 10))
-#' ft <- define_text(ft, j = "carb", i = ~ drat > 3.5,
+#' ft <- compose(ft, j = "carb", i = ~ drat > 3.5,
 #'   value = as_paragraph("carb is ", as_chunk( sprintf("%.1f", carb)) )
 #'   )
 #' \donttest{ft <- autofit(ft)}
 #' @export
-define_text <- function(x, i = NULL, j = NULL, value , part = "body"){
+compose <- function(x, i = NULL, j = NULL, value , part = "body"){
 
   if( !inherits(x, "flextable") ) stop("italic supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
     for( p in c("header", "body", "footer") ){
-      x <- define_text(x = x, i = i, j = j, value = value, part = p)
+      x <- compose(x = x, i = i, j = j, value = value, part = p)
     }
     return(x)
   }

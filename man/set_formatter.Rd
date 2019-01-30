@@ -5,7 +5,7 @@
 \alias{set_formatter_type}
 \title{set column formatter functions}
 \usage{
-set_formatter(x, ..., part = "body")
+set_formatter(x, ..., values = NULL, part = "body")
 
 set_formatter_type(x, fmt_double = "\%.03f", fmt_integer = "\%.0f",
   fmt_date = "\%Y-\%m-\%d", fmt_datetime = "\%Y-\%m-\%d \%H:\%M:\%S",
@@ -15,6 +15,9 @@ set_formatter_type(x, fmt_double = "\%.03f", fmt_integer = "\%.0f",
 \item{x}{a flextable object}
 
 \item{...}{Name-value pairs of functions, names should be existing col_key values}
+
+\item{values}{a list of name-value pairs of functions, names should be existing col_key values.
+If values is supplied argument \code{...} is ignored.}
 
 \item{part}{partname of the table (one of 'body' or 'header' or 'footer')}
 

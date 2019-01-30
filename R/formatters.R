@@ -4,6 +4,8 @@
 #' values as a character vector.
 #' @param x a flextable object
 #' @param ... Name-value pairs of functions, names should be existing col_key values
+#' @param values a list of name-value pairs of functions, names should be existing col_key values.
+#' If values is supplied argument \code{...} is ignored.
 #' @param part partname of the table (one of 'body' or 'header' or 'footer')
 #' @examples
 #' ft <- flextable( head( iris ) )
@@ -14,19 +16,25 @@
 #' ft <- theme_vanilla( ft )
 #' ft
 #' @export
-set_formatter <- function(x, ..., part = "body"){
+set_formatter <- function(x, ..., values = NULL, part = "body"){
 
-  stopifnot(inherits(x, "flextable"))
+
+  if(!inherits(x, "flextable"))
+    stop("argument `x` of function `set_formatter` should be a flextable object")
 
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
-  formatters <- list(...)
-  col_keys <- names(formatters)
+
+  if( is.null(values) ){
+    values <- list(...)
+    col_keys <- names(values)
+  }
+
   col_keys <- intersect(col_keys, x[[part]]$col_keys)
 
   for(key in col_keys){
     dat <- x[[part]]$dataset[, key]
-    chk <- as_chunk(formatters[[key]](dat))
-    x <- define_text(x, j = key, value = as_paragraph(chk), part = part )
+    chk <- as_chunk(values[[key]](dat))
+    x <- compose(x, j = key, value = as_paragraph(chk), part = part )
   }
 
   x
@@ -53,7 +61,7 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 
   col_keys <- x[["body"]]$col_keys
   for( varname in col_keys){
-    x <- define_text(x = x, j = varname, value = as_paragraph(as_chunk(
+    x <- compose(x = x, j = varname, value = as_paragraph(as_chunk(
       format_fun(get(varname), na_string = na_str,
                  fmt_double = fmt_double,
                  fmt_integer = fmt_integer,
@@ -188,7 +196,7 @@ colformat_char.flextable <- function(x, col_keys, na_str = "", prefix = "", suff
 
 docall_display <- function(col_keys, format_fun, x){
   for( varname in col_keys){
-    x <- define_text(x = x, j = varname, value = as_paragraph(as_chunk(format_fun(get(varname)))), part = "body" )
+    x <- compose(x = x, j = varname, value = as_paragraph(as_chunk(format_fun(get(varname)))), part = "body" )
   }
   x
 }

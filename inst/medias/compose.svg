@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 375 250" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <style bx:fonts="Roboto">@font-face { font-family: Roboto; font-style: normal; font-weight: 400; font-stretch: normal; font-variant: normal; font-feature-settings: normal; src: url("https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Me5Q.ttf"); }</style>
+  </defs>
+  <rect x="47.5" y="10" width="120" height="40" style="fill: rgb(195, 41, 0);" bx:origin="-0.25 -0.25"/>
+  <rect x="172.5" y="10" width="90" height="40" style="fill: rgb(71, 95, 119);" bx:origin="-1.5 -0.25"/>
+  <rect x="267.5" y="10" width="60" height="40" style="fill: rgb(51, 51, 51);" bx:origin="-1.5 -0.25"/>
+  <text style="fill: rgb(255, 255, 255); font-family: Roboto; white-space: pre;" x="83.501" y="33.904">chunk 1</text>
+  <text style="fill: rgb(255, 255, 255); font-family: Roboto; white-space: pre;" x="191.515" y="33.904">chunk 2</text>
+  <text style="fill: rgb(255, 255, 255); font-family: Roboto; text-anchor: middle; white-space: pre;" x="297.511" y="33.904">image 1</text>
+  <text style="font-family: Roboto; font-size: 14px; white-space: pre;" x="-18.977"><tspan x="11.03" y="73.355" style="fill: rgb(197, 148, 58); font-size: 14px; word-spacing: 0px;">as_paragraph( </tspan><tspan style="fill: rgb(195, 41, 0); font-size: 14px; word-spacing: 0px;">as_chunk(...)</tspan><tspan style="font-size: 14px; word-spacing: 0px;">, </tspan><tspan style="fill: rgb(71, 95, 119); font-size: 14px; word-spacing: 0px;">as_chunk(...)</tspan><tspan style="font-size: 14px; word-spacing: 0px;">, </tspan><tspan style="fill: rgb(51, 51, 51); font-size: 14px; word-spacing: 0px;">as_image(...) </tspan><tspan style="fill: rgb(255, 166, 0); font-size: 14px; word-spacing: 0px;">)</tspan></text>
+  <rect x="144.95" y="155.875" width="20" height="20" style="fill: rgb(71, 95, 119);" bx:origin="-12.959406 -13.317907"/>
+  <rect x="174.95" y="155.875" width="20" height="20" style="fill: rgb(27, 187, 218);" bx:origin="-14.459406 -13.317907"/>
+  <rect x="204.95" y="155.875" width="20" height="20" style="fill: rgb(27, 187, 218);" bx:origin="-15.959406 -13.317907"/>
+  <rect x="144.95" y="185.875" width="20" height="20" style="fill: rgb(27, 187, 218);" bx:origin="2.954112 -4.229902"/>
+  <rect x="174.95" y="185.875" width="20" height="20" style="fill: rgb(27, 187, 218);" bx:origin="1.454112 -4.229902"/>
+  <rect x="204.95" y="185.875" width="20" height="20" style="fill: rgb(27, 187, 218);" bx:origin="-0.045888 -4.229902"/>
+  <rect x="144.95" y="215.875" width="20" height="20" style="fill: rgb(27, 187, 218);" bx:origin="2.954112 -5.729902"/>
+  <rect x="174.95" y="215.875" width="20" height="20" style="fill: rgb(27, 187, 218);" bx:origin="1.454112 -5.729902"/>
+  <rect x="204.95" y="215.875" width="20" height="20" style="fill: rgb(27, 187, 218);" bx:origin="-0.045888 -5.729902"/>
+  <line style="stroke: rgb(71, 95, 119); stroke-width: 5px;" x1="8.95" y1="85" x2="366.05" y2="85"/>
+  <path style="clip-rule: evenodd; fill-rule: evenodd; fill: rgb(71, 95, 119);" id="path5" d="M 85.995 135.466 C 86.203 140.765 86.968 145.569 88.334 149.845 C 89.662 153.997 91.809 157.256 95.118 159.75 C 104.706 166.966 123.383 162.804 123.383 162.804 L 122.531 156.751 L 135.968 164.635 L 125.17 175.466 L 124.46 170.435 C 124.46 170.435 105.967 173.849 94.254 164.006 C 87.313 158.174 84.432 148.521 84.745 135.633 C 84.794 135.587 85.617 135.464 85.995 135.466 Z"/>
+  <path d="M 203.8 97.202 L 202.798 96.201 C 202.665 96.067 202.511 96 202.337 96 C 202.163 96 202.01 96.067 201.877 96.201 L 194 104.076 L 186.124 96.201 C 185.991 96.067 185.837 96 185.663 96 C 185.489 96 185.336 96.067 185.202 96.201 L 184.201 97.203 C 184.067 97.336 184 97.49 184 97.663 C 184 97.837 184.067 97.991 184.201 98.125 L 193.539 107.463 C 193.673 107.597 193.827 107.663 194 107.663 C 194.174 107.663 194.327 107.597 194.461 107.463 L 203.8 98.125 C 203.934 97.991 204 97.837 204 97.663 C 204 97.49 203.934 97.336 203.8 97.202 Z" style="fill: rgb(71, 95, 119);"/>
+  <text style="fill: rgb(71, 95, 119); font-family: Roboto; font-size: 14px; white-space: pre;" x="15.014" y="124.542">compose(i = 1, j = 1, value = ...)</text>
+</svg>
