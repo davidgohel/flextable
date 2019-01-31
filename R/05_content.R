@@ -270,7 +270,7 @@ as_paragraph <- function( ..., list_values = NULL ){
   nrows <- sapply(list_values, nrow)
   exp_nrow <- max(nrows)
 
-  if( !(nrows == 1) && length(id_recycl <- which( nrows == 1 )) > 0){
+  if( length(nrows) != 1 && length(id_recycl <- which( nrows == 1 )) > 0){
 
     list_values[id_recycl] <- lapply(list_values[id_recycl], function(x, n){
       z <- rbind.match.columns( rep(list(x), n) )
