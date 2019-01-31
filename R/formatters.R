@@ -26,10 +26,8 @@ set_formatter <- function(x, ..., values = NULL, part = "body"){
 
   if( is.null(values) ){
     values <- list(...)
-    col_keys <- names(values)
   }
-
-  col_keys <- intersect(col_keys, x[[part]]$col_keys)
+  col_keys <- intersect(names(values), x[[part]]$col_keys)
 
   for(key in col_keys){
     dat <- x[[part]]$dataset[, key]
