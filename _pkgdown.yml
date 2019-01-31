@@ -51,8 +51,7 @@ reference:
     desc:  Define flextable`s content
     contents:
     - starts_with("colformat_")
-    - define_text
-    - display
+    - compose
     - starts_with("set_formatter")
     - void
     - as_paragraph

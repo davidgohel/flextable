@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -93,7 +93,7 @@
 <a href="#vertical-merging" class="anchor"></a>vertical merging</h3>
 <p><code><a href="../reference/merge_v.html">merge_v()</a></code> will merge adjacent duplicated cells for each column of the selection.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">select_columns &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Species"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)</a>
-<a class="sourceLine" id="cb2-2" title="2">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">regulartable</a></span>(iris[<span class="dv">46</span><span class="op">:</span><span class="dv">55</span>,], <span class="dt">col_keys =</span> select_columns)</a>
+<a class="sourceLine" id="cb2-2" title="2">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">flextable</a></span>(iris[<span class="dv">46</span><span class="op">:</span><span class="dv">55</span>,], <span class="dt">col_keys =</span> select_columns)</a>
 <a class="sourceLine" id="cb2-3" title="3">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/merge_v.html">merge_v</a></span>(myft, <span class="op">~</span><span class="st"> </span>Species <span class="op">+</span><span class="st"> </span>Petal.Width )</a>
 <a class="sourceLine" id="cb2-4" title="4">myft</a></code></pre></div>
 <div class="tabwid"><table class="table">
@@ -141,7 +141,7 @@
 <a href="#horizontal-merging" class="anchor"></a>horizontal merging</h3>
 <p><code><a href="../reference/merge_h.html">merge_h()</a></code> will merge adjacent duplicated cells for each row of the selection.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">select_columns &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Species"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)</a>
-<a class="sourceLine" id="cb3-2" title="2">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">regulartable</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(mtcars, <span class="dt">n =</span> <span class="dv">10</span> ) )</a>
+<a class="sourceLine" id="cb3-2" title="2">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">flextable</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(mtcars, <span class="dt">n =</span> <span class="dv">10</span> ) )</a>
 <a class="sourceLine" id="cb3-3" title="3">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/merge_h.html">merge_h</a></span>(myft)</a>
 <a class="sourceLine" id="cb3-4" title="4"><span class="co"># and add borders</span></a>
 <a class="sourceLine" id="cb3-5" title="5">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/border.html">border</a></span>(myft, <span class="dt">border =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/fp_border">fp_border</a></span>(), <span class="dt">part =</span> <span class="st">"all"</span>) </a>
@@ -293,7 +293,7 @@
 <a href="#general-merging-function" class="anchor"></a>general merging function</h3>
 <p><code><a href="../reference/merge_h.html">merge_h()</a></code> will merge cells for a given continuous selection of rows and cells.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">select_columns &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Species"</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>)</a>
-<a class="sourceLine" id="cb4-2" title="2">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">regulartable</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(mtcars, <span class="dt">n =</span> <span class="dv">6</span> ) )</a>
+<a class="sourceLine" id="cb4-2" title="2">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">flextable</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(mtcars, <span class="dt">n =</span> <span class="dv">6</span> ) )</a>
 <a class="sourceLine" id="cb4-3" title="3">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/merge_at.html">merge_at</a></span>( myft, <span class="dt">i =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">j =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb4-4" title="4">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/border.html">border</a></span>(myft, <span class="dt">border =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/fp_border">fp_border</a></span>(), <span class="dt">part =</span> <span class="st">"all"</span>)</a>
 <a class="sourceLine" id="cb4-5" title="5">myft</a></code></pre></div>
@@ -497,7 +497,7 @@
 <p>Parameter <code>col_keys</code> define the variables to display and their order.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">data &lt;-<span class="st"> </span>iris[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">51</span><span class="op">:</span><span class="dv">53</span>, <span class="dv">101</span><span class="op">:</span><span class="dv">104</span>),]</a>
 <a class="sourceLine" id="cb6-2" title="2"></a>
-<a class="sourceLine" id="cb6-3" title="3">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">regulartable</a></span>(data, <span class="dt">col_keys =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Species"</span>, <span class="st">"Sepal.Length"</span>, <span class="st">"Petal.Length"</span>) )</a>
+<a class="sourceLine" id="cb6-3" title="3">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">flextable</a></span>(data, <span class="dt">col_keys =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Species"</span>, <span class="st">"Sepal.Length"</span>, <span class="st">"Petal.Length"</span>) )</a>
 <a class="sourceLine" id="cb6-4" title="4">myft</a></code></pre></div>
 <div class="tabwid"><table class="table">
 <thead><tr>
@@ -559,7 +559,7 @@
 </tbody>
 </table></div>
 <p>If parameter <code>col_keys</code> has variables that are not existing in the dataset, they will be considered as blank columns and can be used as separators (in fact they can be use as you want, there is only no mapping of data associated).</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">regulartable</a></span>(</a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">flextable</a></span>(</a>
 <a class="sourceLine" id="cb7-2" title="2">  <span class="dt">data =</span> data, </a>
 <a class="sourceLine" id="cb7-3" title="3">  <span class="dt">col_keys =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Species"</span>, <span class="st">"col_1"</span>, <span class="st">"Sepal.Length"</span>, <span class="st">"Petal.Length"</span>) )</a>
 <a class="sourceLine" id="cb7-4" title="4">myft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/theme_vanilla.html">theme_vanilla</a></span>(myft)</a>
@@ -642,7 +642,7 @@
 <h3 class="hasAnchor">
 <a href="#change-labels" class="anchor"></a>Change labels</h3>
 <p>Use <code><a href="../reference/set_header_labels.html">set_header_labels()</a></code> to replace labels of the bottom row of header.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">ft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">regulartable</a></span>( <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>( iris ) ) </a>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">ft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">flextable</a></span>( <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>( iris ) ) </a>
 <a class="sourceLine" id="cb8-2" title="2">ft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/set_header_labels.html">set_header_labels</a></span>(ft, <span class="dt">Sepal.Length =</span> <span class="st">"Sepal"</span>, </a>
 <a class="sourceLine" id="cb8-3" title="3">    <span class="dt">Sepal.Width =</span> <span class="st">"Sepal"</span>, <span class="dt">Petal.Length =</span> <span class="st">"Petal"</span>,</a>
 <a class="sourceLine" id="cb8-4" title="4">    <span class="dt">Petal.Width =</span> <span class="st">"Petal"</span>, <span class="dt">Species =</span> <span class="st">"Species"</span> )</a>
@@ -917,7 +917,7 @@
 <h4 class="hasAnchor">
 <a href="#add-the-dataset-as-header-rows" class="anchor"></a>Add the dataset as header rows</h4>
 <p>Then use <code><a href="../reference/set_header_footer_df.html">set_header_df()</a></code> with parameter <code>key</code> that specifies name of the column used to permform the join. Order of columns matters, first column will be first row, second one will be the second row, etc.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">ft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">regulartable</a></span>( <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>( iris ) )</a>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">ft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">flextable</a></span>( <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>( iris ) )</a>
 <a class="sourceLine" id="cb12-2" title="2">ft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/set_header_footer_df.html">set_header_df</a></span>( ft, <span class="dt">mapping =</span> typology, <span class="dt">key =</span> <span class="st">"col_keys"</span> )</a>
 <a class="sourceLine" id="cb12-3" title="3"></a>
 <a class="sourceLine" id="cb12-4" title="4">ft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/merge_h.html">merge_h</a></span>(ft, <span class="dt">part =</span> <span class="st">"header"</span>)</a>
@@ -996,7 +996,7 @@
 <h2 class="hasAnchor">
 <a href="#cell-widths-and-heights" class="anchor"></a>Cell widths and heights</h2>
 <p>The default sizes of flextable columns and rows are set by default values. This will drive to inadequate rows heights and columns widths in some cases. You can use function <code>dim</code> to get flextable dimensions.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">ft_base &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">regulartable</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(iris))</a>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">ft_base &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">flextable</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(iris))</a>
 <a class="sourceLine" id="cb13-2" title="2">ft_base &lt;-<span class="st"> </span><span class="kw"><a href="../reference/theme_tron_legacy.html">theme_tron_legacy</a></span>(ft_base)</a>
 <a class="sourceLine" id="cb13-3" title="3">ft_base</a></code></pre></div>
 <div class="tabwid"><table class="table">
@@ -1224,7 +1224,7 @@
 
       <footer><link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.5.0.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.5.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
