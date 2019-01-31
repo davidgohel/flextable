@@ -1,16 +1,34 @@
 ---
 title: "flextable within Word"
-output: word_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 library(flextable)
+library(magrittr)
 ```
 
+```{r}
+col_palette <- c("#D73027", "#F46D43", "#FDAE61", "#FEE08B", 
+  "#D9EF8B", "#A6D96A", "#66BD63", "#1A9850")
+cor_matrix <- cor(mtcars)
+mycut <- cut( cor_matrix, 
+  breaks = c(-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1), 
+  include.lowest = TRUE, label = FALSE)
+mycolors <- col_palette[mycut]
+data <- data.frame(rowname = row.names(cor_matrix), stringsAsFactors = FALSE) %>%
+  cbind(cor_matrix)
+```
+
+## result
 
 ```{r}
-ft <- flextable(mtcars)
-ft
+flextable(data) %>%
+  bg(j = colnames(cor_matrix), bg = mycolors) %>%
+  align(align = "center", part = "all") %>%
+  fontsize(size = 9, part = "all") %>% 
+  compose(i = 1, j = 1, value = as_paragraph(""), part = "header") %>% 
+  autofit()
 ```
 
