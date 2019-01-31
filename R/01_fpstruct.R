@@ -213,7 +213,11 @@ add_parstyle_column <- function(x, type = "html"){
                            padding.bottom, padding.top, padding.left, padding.right, shading, "\"" )
   } else if( type %in% "wml"){
 
-    shading <- sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", colcode0(x$shading.color) )
+    shading <- ifelse( colalpha(x$shading.color) > 0,
+            sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", colcode0(x$shading.color) ),
+            "")
+
+    # shading <- sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", colcode0(x$shading.color) )
 
     textalign <- ifelse( x$text.align %in% "justify", "<w:jc w:val=\"both\"/>", sprintf("<w:jc w:val=\"%s\"/>", x$text.align) )
 
@@ -436,7 +440,7 @@ add_cellstyle_column <- function(x, type = "html"){
                        x$margin.bottom * 12700, x$margin.top * 12700,
                        x$margin.right * 12700, x$margin.left * 12700)
 
-    background.color <- ifelse( colalpha(x$background.color) < 1,
+    background.color <- ifelse( colalpha(x$background.color) > 0,
                                 paste0(
                                   sprintf("<a:solidFill><a:srgbClr val=\"%s\">", colcode0(x$background.color) ),
                                   sprintf("<a:alpha val=\"%.0f\"/>", colalpha(x$background.color) ),
@@ -636,7 +640,10 @@ add_runstyle_column <- function(x, type = "html"){
     italic <- ifelse(x$italic, "<w:i/>", "" )
     underline <- ifelse(x$underlined, "<w:u w:val=\"single\"/>", "" )
     color <- sprintf("<w:color w:val=\"%s\"/>", colcode0(x$color) )
-    shading <- sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", colcode0(x$shading.color) )
+
+    shading <- ifelse( colalpha(x$shading.color) > 0,
+                       sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", colcode0(x$shading.color) ),
+                       "")
 
     color2 <- ifelse( colalpha(x$color) < 1,
                       paste0(
