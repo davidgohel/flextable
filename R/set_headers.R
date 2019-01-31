@@ -4,25 +4,37 @@
 #' in a single row header of a flextable.
 #'
 #' @param x a \code{flextable} object
-#' @param ... a named list (names are data colnames), each element is a single character
+#' @param ... named arguments (names are data colnames), each element is a single character
 #' value specifying label to use.
+#' @param values a named list (names are data colnames), each element is a single character
+#' value specifying label to use. If provided, argument \code{...} will be ignored.
 #' @examples
 #' ft_1 <- flextable( head( iris ))
 #' ft_1 <- set_header_labels(ft_1, Sepal.Length = "Sepal length",
 #'   Sepal.Width = "Sepal width", Petal.Length = "Petal length",
 #'   Petal.Width = "Petal width"
 #' )
-#' ft_1
+#'
+#' ft_2 <- flextable( head( iris ))
+#' ft_2 <- set_header_labels(ft_2,
+#'   values = list(Sepal.Length = "Sepal length",
+#'                 Sepal.Width = "Sepal width",
+#'                 Petal.Length = "Petal length",
+#'                 Petal.Width = "Petal width" ) )
+#' ft_2
 #' @export
-set_header_labels <- function(x, ...){
+set_header_labels <- function(x, ..., values = NULL){
 
   if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
 
-  args <- list(...)
-  if( nrow_part(x, "header") < 1 )
-    stop("there is no header row to be replaced")
+  if( is.null(values)){
+    values <- list(...)
+    if( nrow_part(x, "header") < 1 )
+      stop("there is no header row to be replaced")
 
-  x$header$content[nrow_part(x, "header"), names(args)] <- as_paragraph(as_chunk(unlist(args)))
+  }
+
+  x$header$content[nrow_part(x, "header"), names(values)] <- as_paragraph(as_chunk(unlist(values)))
 
   x
 }

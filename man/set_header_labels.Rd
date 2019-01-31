@@ -4,13 +4,16 @@
 \alias{set_header_labels}
 \title{Set flextable's headers labels}
 \usage{
-set_header_labels(x, ...)
+set_header_labels(x, ..., values = NULL)
 }
 \arguments{
 \item{x}{a \code{flextable} object}
 
-\item{...}{a named list (names are data colnames), each element is a single character
+\item{...}{named arguments (names are data colnames), each element is a single character
 value specifying label to use.}
+
+\item{values}{a named list (names are data colnames), each element is a single character
+value specifying label to use. If provided, argument \code{...} will be ignored.}
 }
 \description{
 This function set labels for specified columns
@@ -22,5 +25,12 @@ ft_1 <- set_header_labels(ft_1, Sepal.Length = "Sepal length",
   Sepal.Width = "Sepal width", Petal.Length = "Petal length",
   Petal.Width = "Petal width"
 )
-ft_1
+
+ft_2 <- flextable( head( iris ))
+ft_2 <- set_header_labels(ft_2,
+  values = list(Sepal.Length = "Sepal length",
+                Sepal.Width = "Sepal width",
+                Petal.Length = "Petal length",
+                Petal.Width = "Petal width" ) )
+ft_2
 }
