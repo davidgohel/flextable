@@ -33,7 +33,7 @@
 <meta property="og:title" content="mini barplots chunk wrapper — minibar" />
 
 <meta property="og:description" content="This function is used to insert bars into
-flextable with function define_text.
+flextable with function compose.
 It should be used inside a call to as_paragraph" />
 <meta name="twitter:card" content="summary" />
 
@@ -65,7 +65,7 @@ It should be used inside a call to as_paragraph" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -115,7 +115,7 @@ It should be used inside a call to as_paragraph" />
     <div class="ref-description">
     
     <p>This function is used to insert bars into
-flextable with function <code><a href='define_text.html'>define_text</a></code>.
+flextable with function <code><a href='compose.html'>compose</a></code>.
 It should be used inside a call to <code><a href='as_paragraph.html'>as_paragraph</a></code></p>
     
     </div>
@@ -155,7 +155,7 @@ are removed when outputing to PowerPoint format.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='define_text.html'>define_text</a></code>, <code><a href='as_paragraph.html'>as_paragraph</a></code></p>
+    <div class='dont-index'><p><code><a href='compose.html'>compose</a></code>, <code><a href='as_paragraph.html'>as_paragraph</a></code></p>
 <p>Other chunk elements for paragraph: <code><a href='as_chunk.html'>as_chunk</a></code>,
   <code><a href='as_image.html'>as_image</a></code>, <code><a href='hyperlink_text.html'>hyperlink_text</a></code></p></div>
     
@@ -163,7 +163,7 @@ are removed when outputing to PowerPoint format.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>iris</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span> ))
 
-<span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='define_text.html'>define_text</a></span>( <span class='no'>myft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+<span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span>( <span class='no'>myft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
     <span class='fu'>minibar</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max</a></span>(<span class='no'>Sepal.Length</span>))
   ),
@@ -199,7 +199,7 @@ are removed when outputing to PowerPoint format.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.0.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
