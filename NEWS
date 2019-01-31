@@ -1,3 +1,16 @@
+# flextable 0.5.0
+
+## Improvement
+
+* new arguments `values` for functions `set_header_labels` and `set_formatter`
+* styles functions now support injection of more than a single value
+* this version a big refactoring and got rid of R6
+
+## new features
+
+* new function `compose` that will replace `display`
+* new function `set_caption` only available for html output
+
 # flextable 0.4.7
 
 ## new features
