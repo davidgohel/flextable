@@ -4,7 +4,7 @@
 \alias{as_image}
 \title{image chunk wrapper}
 \usage{
-as_image(src, width = 0.5, height = 0.2)
+as_image(src, width = 0.5, height = 0.2, ...)
 }
 \arguments{
 \item{src}{image filename}

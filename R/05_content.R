@@ -134,7 +134,7 @@ as_chunk <- function(x, props = NULL, formater = format_fun, ...) {
 #'  part = "body")
 #'
 #' autofit(myft)
-as_image <- function(src, width = .5, height = .2) {
+as_image <- function(src, width = .5, height = .2, ...) {
 
   if( length(src) > 1 ){
     if( length(width) == 1 ) width <- rep(width, length(src))
