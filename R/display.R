@@ -98,8 +98,7 @@ compose <- function(x, i = NULL, j = NULL, value , part = "body"){
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
-
-  x[[part]]$content[i, j] <- eval_tidy(enquo(value), data = x[[part]]$dataset[i,])
+  x[[part]]$content[i, j] <- eval_tidy(enquo(value), data = x[[part]]$dataset[i,, drop = FALSE])
 
   x
 }
