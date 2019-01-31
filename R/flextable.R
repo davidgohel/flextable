@@ -24,10 +24,13 @@
 #' @importFrom stats setNames
 flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
 
+
   stopifnot(is.data.frame(data), ncol(data) > 0 )
   if( any( duplicated(col_keys) ) ){
     stop("duplicated col_keys")
   }
+  if( inherits(data, "data.table") || inherits(data, "tbl_df") || inherits(data, "tbl") )
+    data <- as.data.frame(data, stringsAsFactors = FALSE)
 
   blanks <- setdiff( col_keys, names(data))
   if( length( blanks ) > 0 ){
