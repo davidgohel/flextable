@@ -19,3 +19,11 @@ Apply theme zebra to a flextable
 ft <- flextable(iris)
 ft <- theme_zebra(ft)
 }
+\seealso{
+Other flextable theme: \code{\link{theme_alafoli}},
+  \code{\link{theme_booktabs}}, \code{\link{theme_box}},
+  \code{\link{theme_tron_legacy}},
+  \code{\link{theme_tron}}, \code{\link{theme_vader}},
+  \code{\link{theme_vanilla}}
+}
+\concept{flextable theme}
