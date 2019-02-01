@@ -3,7 +3,8 @@
 ## new features
 
 * new themes functions `theme_alafoli()` and `theme_vader()`
-
+* new functions `align_text_col()` and `align_nottext_col()` to align
+  columns by data type
 
 # flextable 0.5.0
 

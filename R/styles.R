@@ -352,6 +352,11 @@ align <- function(x, i = NULL, j = NULL, align = "left",
 #' @export
 #' @rdname align
 #' @param header should the header be aligned with the body
+#' @examples
+#' ft <- flextable(mtcars)
+#' ft <- align_text_col(ft, align = "left")
+#' ft <- align_nottext_col(ft, align = "right")
+#' ft
 align_text_col <- function(x, align = "center", header = TRUE ){
 
   which_j <- which( sapply(x$body$dataset[x$col_keys], function(x) is.character(x) | is.factor(x) ) )
@@ -364,7 +369,6 @@ align_text_col <- function(x, align = "center", header = TRUE ){
 
 #' @export
 #' @rdname align
-#' @param header should the header be aligned with the body
 align_nottext_col <- function(x, align = "right", header = TRUE ){
 
   which_j <- which( !sapply(x$body$dataset[x$col_keys], function(x) is.character(x) | is.factor(x) ) )

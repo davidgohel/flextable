@@ -25,8 +25,6 @@ is one of 'left', 'right', 'center', 'justify'.}
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 
 \item{header}{should the header be aligned with the body}
-
-\item{header}{should the header be aligned with the body}
 }
 \description{
 change text alignment of selected rows and columns of a flextable.
@@ -34,4 +32,8 @@ change text alignment of selected rows and columns of a flextable.
 \examples{
 ft <- flextable(mtcars)
 ft <- align(ft, align = "center")
+ft <- flextable(mtcars)
+ft <- align_text_col(ft, align = "left")
+ft <- align_nottext_col(ft, align = "right")
+ft
 }
