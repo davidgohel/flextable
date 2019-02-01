@@ -1,3 +1,10 @@
+# flextable 0.5.1
+
+## new features
+
+* new themes functions `theme_alafoli()` and `theme_vader()`
+
+
 # flextable 0.5.0
 
 ## Improvement
