@@ -3,7 +3,8 @@ colcode <- function(x) {
 }
 colcodecss <- function(x) {
   args <- as.list( as.data.frame(t(col2rgb(x, alpha = TRUE))) )
-  args$fmt <- "#%02X%02X%02X%02X"
+  args$alpha <- args$alpha / 255
+  args$fmt <- "rgba(%.0f, %.0f, %.0f, %.2f)"
   do.call( sprintf, args )
 }
 colalpha <- function(x){

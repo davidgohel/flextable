@@ -186,9 +186,10 @@ as.data.frame.par_struct <- function(object, ...){
 add_parstyle_column <- function(x, type = "html"){
 
   if( type %in% "html"){
-    shading <- sprintf(
-      "background-color:%s;",
-      colcodecss(x$shading.color) )
+    shading <- ifelse( colalpha(x$shading.color) > 0,
+                       sprintf("background-color:%s;", colcodecss(x$shading.color) ),
+                       "background-color:transparent;")
+
     textalign <- sprintf("text-align:%s;", x$text.align )
 
     bb <- border_css(
@@ -366,9 +367,10 @@ as.data.frame.cell_struct <- function(object, ...){
 add_cellstyle_column <- function(x, type = "html"){
 
   if( type %in% "html"){
-    background.color <- sprintf(
-      "background-color:%s;",
-      colcodecss(x$background.color) )
+    background.color <- ifelse( colalpha(x$background.color) > 0,
+                       sprintf("background-color:%s;", colcodecss(x$background.color) ),
+                       "background-color:transparent;")
+
     width <- ifelse( is.na(x$width), "", sprintf("width:%s;", css_px(x$width * 72) ) )
     height <- ifelse( is.na(x$height), "", sprintf("height:%s;", css_px(x$height * 72 ) ) )
     vertical.align <- ifelse(
@@ -613,12 +615,15 @@ fortify_content <- function(x, default_chunk_fmt, ...){
 add_runstyle_column <- function(x, type = "html"){
 
   if( type %in% "html"){
-    shading <- sprintf(
-      "background-color:%s;",
-      colcodecss(x$shading.color) )
-    color <- sprintf(
-      "color:%s;",
-      colcodecss(x$color) )
+    shading <- ifelse(
+      colalpha(x$shading.color) > 0,
+      sprintf("background-color:%s;", colcodecss(x$shading.color) ),
+      "background-color:transparent;")
+    color <- ifelse(
+      colalpha(x$color) > 0,
+      sprintf("color:%s;", colcodecss(x$color) ),
+      "")
+
     family <- sprintf("font-family:'%s';", x$font.family )
 
     font.size <- sprintf("font-size:%s;", css_px(x$font.size) )
@@ -645,14 +650,6 @@ add_runstyle_column <- function(x, type = "html"){
                        sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", colcode0(x$shading.color) ),
                        "")
 
-    color2 <- ifelse( colalpha(x$color) < 1,
-                      paste0(
-                        sprintf("<w14:solidFill><w14:srgbClr val=\"%s\">", colcode0(x$color) ),
-                        sprintf("<w14:alpha val=\"%.0f\">", colalpha(x$color) ),
-                        "</w14:srgbClr></w14:solidFill>" ),
-                      "")
-
-
     font.size <- sprintf("<w:sz w:val=\"%.0f\"/><w:szCs w:val=\"%.0f\"/>", 2*x$font.size, 2*x$font.size )
 
 
@@ -662,7 +659,7 @@ add_runstyle_column <- function(x, type = "html"){
 
     style_column <- paste0("<w:rPr>",
                            family, bold, italic, underline, vertical.align, font.size,
-                           color, shading, color2, "</w:rPr>" )
+                           color, shading, "</w:rPr>" )
   } else if( type %in% "pml"){
 
     family <- sprintf("<a:latin typeface=\"%s\"/><a:cs typeface=\"%s\"/>", x$font.family, x$font.family )
@@ -678,18 +675,14 @@ add_runstyle_column <- function(x, type = "html"){
 
     shading <- sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", colcode0(x$shading.color) )
 
-    color <- ifelse( colalpha(x$color) < 1,
-                     paste0(
-                       sprintf("<a:solidFill><a:srgbClr val=\"%s\">", colcode0(x$color) ),
-                       sprintf("<a:alpha val=\"%.0f\"/>", colalpha(x$color) ),
-                       "</a:srgbClr></a:solidFill>" ),
-                     "")
-    shading.color <- ifelse( colalpha(x$shading.color) < 1,
-                             paste0(
-                               sprintf("<a:highlight><a:srgbClr val=\"%s\">", colcode0(x$shading.color) ),
-                               sprintf("<a:alpha val=\"%.0f\"/>", colalpha(x$shading.color) ),
-                               "</a:srgbClr></a:highlight>" ),
-                             "")
+    color <- paste0(
+      sprintf("<a:solidFill><a:srgbClr val=\"%s\">", colcode0(x$color) ),
+      sprintf("<a:alpha val=\"%.0f\"/>", colalpha(x$color) ),
+      "</a:srgbClr></a:solidFill>" )
+    shading.color <- paste0(
+      sprintf("<a:highlight><a:srgbClr val=\"%s\">", colcode0(x$shading.color) ),
+      sprintf("<a:alpha val=\"%.0f\"/>", colalpha(x$shading.color) ),
+      "</a:srgbClr></a:highlight>" )
 
     style_column <- paste0("<a:rPr", font.size, italic, bold, underline, vertical.align, ">",
                            color, family, shading.color, "%s",

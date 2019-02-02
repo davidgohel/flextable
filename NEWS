@@ -1,5 +1,11 @@
 # flextable 0.5.1
 
+## Issues
+
+* fix issue with font colors in powerpoint
+* fix issues with colors for Windows RStudio viewer
+
+
 ## new features
 
 * new themes functions `theme_alafoli()` and `theme_vader()`
