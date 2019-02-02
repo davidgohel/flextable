@@ -116,7 +116,11 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>align</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"left"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
+    <pre class="usage"><span class='fu'>align</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"left"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
+
+<span class='fu'>align_text_col</span>(<span class='no'>x</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>align_nottext_col</span>(<span class='no'>x</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,12 +146,30 @@ is one of 'left', 'right', 'center', 'justify'.</p></td>
       <th>part</th>
       <td><p>partname of the table (one of 'all', 'body', 'header', 'footer')</p></td>
     </tr>
+    <tr>
+      <th>header</th>
+      <td><p>should the header be aligned with the body</p></td>
+    </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>mtcars</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>align</span>(<span class='no'>ft</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>)</div></pre>
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>align</span>(<span class='no'>ft</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>mtcars</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>align_text_col</span>(<span class='no'>ft</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"left"</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>align_nottext_col</span>(<span class='no'>ft</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"right"</span>)
+<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
+#&gt; header has 1 row(s) 
+#&gt; body has 32 row(s) 
+#&gt; original dataset sample: 
+#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
