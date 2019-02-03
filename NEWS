@@ -11,6 +11,13 @@
 * new themes functions `theme_alafoli()` and `theme_vader()`
 * new functions `align_text_col()` and `align_nottext_col()` to align
   columns by data type
+* new functions `merge_h_range()` to merge a set of columns row by row
+* new functions `add_header_row()`, `add_footer_row()`, `add_header_lines()`
+ and `add_footer_lines()` to add easily data in header or footer.
+* new generic function `as_flextable()` to let develop new flextable functions
+* new function `as_grouped_data()` and its method `as_flextable()` to
+  create row titles to separate data in a flextable.
+
 
 # flextable 0.5.0
 
