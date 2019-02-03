@@ -755,7 +755,7 @@ run_data <- function(x, type){
 
     # manage images
     str_raster <- mapply(function(img_raster, width, height ){
-      paste0("<img src=\"data:image/png;base64,", gdtools::raster_str(img_raster, width*72, height*72), "\" />")
+      paste0("<img style=\"vertical-align:middle;\" src=\"data:image/png;base64,", gdtools::raster_str(img_raster, width*72, height*72), "\" />")
     }, x$img_data[is_raster], x$width[is_raster], x$height[is_raster], SIMPLIFY = FALSE, USE.NAMES = FALSE)
     str_raster <- as.character(unlist(str_raster))
     str[is_raster] <- str_raster
