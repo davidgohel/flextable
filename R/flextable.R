@@ -77,6 +77,8 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
 #' ft
 set_caption <- function(x, caption){
 
+  if( !inherits(x, "flextable") ) stop("set_caption supports only flextable objects.")
+
   if( !is.character(caption) && length(caption) != 1 ){
     stop("caption should be a single character value")
   }
