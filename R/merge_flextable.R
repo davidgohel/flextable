@@ -135,7 +135,7 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
 #' @family flextable merging function
 #' @examples
 #' ft <- flextable( head( mtcars ), cwidth = .5 )
-#' ft <- merge_h_range( ft, i =  ~ cyl == 6, j = c("am", "gear", "carb") )
+#' ft <- merge_h_range( ft, i =  ~ cyl == 6, j1 = "am", j2 = "carb")
 #' ft
 #' @export
 merge_h_range <- function(x, i = NULL, j1 = NULL, j2 = NULL, part = "body" ){

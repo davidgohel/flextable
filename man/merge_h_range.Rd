@@ -21,7 +21,7 @@ columns must be consecutive.
 }
 \examples{
 ft <- flextable( head( mtcars ), cwidth = .5 )
-ft <- merge_h_range( ft, i =  ~ cyl == 6, j = c("am", "gear", "carb") )
+ft <- merge_h_range( ft, i =  ~ cyl == 6, j1 = "am", j2 = "carb")
 ft
 }
 \seealso{
