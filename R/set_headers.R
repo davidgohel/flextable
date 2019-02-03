@@ -90,16 +90,114 @@ delete_part <- function(x, part = "header"){
 add_header <- function(x, top = TRUE, ...){
 
   if( !inherits(x, "flextable") ) stop("add_header supports only flextable objects.")
-  args <- list(...)
+  values <- list(...)
   args_ <- lapply(x$col_keys, function(x) "" )
   names(args_) <- x$col_keys
-  args_[names(args)] <- lapply(args, format)
+  args_[names(values)] <- lapply(values, format)
   header_data <- data.frame(as.list(args_), check.names = FALSE, stringsAsFactors = FALSE )
   x$header <- add_rows( x$header, header_data, first = top )
 
   x
 }
 
+#' @export
+#' @param values values to add as a character vector
+#' @param colwidths the number of columns to merge in the row for each label
+#'
+#' @rdname add_header_footer
+#' @examples
+#' ft <- flextable( head( iris ) )
+#' ft <- add_header_row(ft, values = "blah blah", colwidths = 5)
+#' ft <- add_header_row(ft, values = c("blah", "blah"), colwidths = c(3,2))
+#' ft
+add_header_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)){
+
+  if( !inherits(x, "flextable") ) stop("add_header supports only flextable objects.")
+
+  if( sum(colwidths) != length(x$col_keys)){
+    stop("colwidths' sum must be equal to the number of col_keys (", length(x$col_keys), ")" )
+  }
+
+  values_ <- inverse.rle(structure(list(lengths = colwidths, values = values), class = "rle"))
+  values_ <- as.list(values_)
+
+  names(values_) <- x$col_keys
+  header_data <- as.data.frame(values_, check.names = FALSE, stringsAsFactors = FALSE )
+  x$header <- add_rows( x$header, header_data, first = top )
+
+  row_span <- unlist( lapply(colwidths, function(x) {
+    z <- integer(x)
+    z[1] <- x
+    z
+  }) )
+  i <- ifelse(top, 1, nrow(x$header$dataset))
+  x$header$spans$rows[ i, ] <- row_span
+
+  x
+}
+
+#' @export
+#' @rdname add_header_footer
+#' @examples
+#' ft <- flextable( head( iris ) )
+#' ft <- add_footer_row(ft, values = "blah blah", colwidths = 5)
+#' ft <- add_footer_row(ft, values = c("blah", "blah"), colwidths = c(3,2))
+#' ft
+add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)){
+
+  if( !inherits(x, "flextable") ) stop("add_footer supports only flextable objects.")
+
+  if( sum(colwidths) != length(x$col_keys)){
+    stop("colwidths' sum must be equal to the number of col_keys (", length(x$col_keys), ")" )
+  }
+
+  values_ <- inverse.rle(structure(list(lengths = colwidths, values = values), class = "rle"))
+  values_ <- as.list(values_)
+
+  names(values_) <- x$col_keys
+  footer_data <- as.data.frame(values_, check.names = FALSE, stringsAsFactors = FALSE )
+  x$footer <- add_rows( x$footer, footer_data, first = top )
+
+  row_span <- unlist( lapply(colwidths, function(x) {
+    z <- integer(x)
+    z[1] <- x
+    z
+  }) )
+  i <- ifelse(top, 1, nrow(x$footer$dataset))
+  x$footer$spans$rows[ i, ] <- row_span
+
+  x
+}
+
+#' @export
+#' @rdname add_header_footer
+#' @examples
+#' ft <- flextable( head( iris ) )
+#' ft <- add_footer_lines(ft, values = "blah blah")
+#' ft <- add_footer_lines(ft, values = c("blah 1", "blah 2"))
+#' autofit(ft)
+add_footer_lines <- function(x, values = character(0), top = FALSE){
+
+  for( value in values ){
+    x <- add_footer_row(x, values = value, colwidths = length(x$col_keys), top = top )
+  }
+  x
+}
+
+#' @export
+#' @rdname add_header_footer
+#' @examples
+#' ft <- flextable( head( iris ) )
+#' ft <- add_header_lines(ft, values = "blah blah")
+#' ft <- add_header_lines(ft, values = c("blah 1", "blah 2"))
+#' autofit(ft)
+add_header_lines <- function(x, values = character(0), top = TRUE){
+
+  for( value in values ){
+    x <- add_header_row(x, values = value, colwidths = length(x$col_keys), top = top )
+  }
+  x
+}
 
 #' @export
 #' @rdname add_header_footer

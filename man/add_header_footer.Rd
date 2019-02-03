@@ -3,10 +3,24 @@
 \name{add_header_footer}
 \alias{add_header_footer}
 \alias{add_header}
+\alias{add_header_row}
+\alias{add_footer_row}
+\alias{add_footer_lines}
+\alias{add_header_lines}
 \alias{add_footer}
 \title{Add a row of labels in header or footer part}
 \usage{
 add_header(x, top = TRUE, ...)
+
+add_header_row(x, top = TRUE, values = character(0),
+  colwidths = integer(0))
+
+add_footer_row(x, top = TRUE, values = character(0),
+  colwidths = integer(0))
+
+add_footer_lines(x, values = character(0), top = FALSE)
+
+add_header_lines(x, values = character(0), top = TRUE)
 
 add_footer(x, top = TRUE, ...)
 }
@@ -17,6 +31,10 @@ add_footer(x, top = TRUE, ...)
 
 \item{...}{a named list (names are data colnames) of strings
 specifying corresponding labels to add.}
+
+\item{values}{values to add as a character vector}
+
+\item{colwidths}{the number of columns to merge in the row for each label}
 }
 \description{
 Add a single row of labels in the flextable's header
@@ -35,4 +53,20 @@ ft <- merge_h(ft, part = "header")
 ft <- add_footer(ft, Species = "This is a footnote" )
 ft <- merge_at(ft, j = 1:5, part = "footer")
 ft
+ft <- flextable( head( iris ) )
+ft <- add_header_row(ft, values = "blah blah", colwidths = 5)
+ft <- add_header_row(ft, values = c("blah", "blah"), colwidths = c(3,2))
+ft
+ft <- flextable( head( iris ) )
+ft <- add_footer_row(ft, values = "blah blah", colwidths = 5)
+ft <- add_footer_row(ft, values = c("blah", "blah"), colwidths = c(3,2))
+ft
+ft <- flextable( head( iris ) )
+ft <- add_footer_lines(ft, values = "blah blah")
+ft <- add_footer_lines(ft, values = c("blah 1", "blah 2"))
+autofit(ft)
+ft <- flextable( head( iris ) )
+ft <- add_header_lines(ft, values = "blah blah")
+ft <- add_header_lines(ft, values = c("blah 1", "blah 2"))
+autofit(ft)
 }
