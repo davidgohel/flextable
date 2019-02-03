@@ -28,3 +28,9 @@ ft <- merge_v(ft, j = c("Species"))
 ft <- theme_tron_legacy( merge_none( ft ) )
 ft
 }
+\seealso{
+Other flextable merging function: \code{\link{merge_at}},
+  \code{\link{merge_h_range}}, \code{\link{merge_h}},
+  \code{\link{merge_v}}
+}
+\concept{flextable merging function}

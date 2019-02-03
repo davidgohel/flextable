@@ -22,3 +22,9 @@ ft_merge <- flextable(mtcars)
 ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))
 ft_merge
 }
+\seealso{
+Other flextable merging function: \code{\link{merge_at}},
+  \code{\link{merge_h_range}}, \code{\link{merge_h}},
+  \code{\link{merge_none}}
+}
+\concept{flextable merging function}
