@@ -1,6 +1,6 @@
 merge_index <- function( x, what, byrow = FALSE ){
   if( byrow ){
-    values <- sapply( x$dataset[what, ], format )
+    values <- sapply( x$dataset[what, x$col_keys, drop = FALSE], format )
   } else {
     values <- format( x$dataset[[what]])
   }
