@@ -4,7 +4,7 @@
 \alias{minibar}
 \title{mini barplots chunk wrapper}
 \usage{
-minibar(value, max, barcol = "#CCCCCC", bg = "transparent",
+minibar(value, max = NULL, barcol = "#CCCCCC", bg = "transparent",
   width = 1, height = 0.2)
 }
 \arguments{

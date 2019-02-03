@@ -203,7 +203,17 @@ hyperlink_text <- function(x, props = NULL, formater = format_fun, url, ...){
 #' autofit(myft)
 #' @importFrom grDevices as.raster col2rgb rgb
 #' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
-minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 1, height = .2) {
+minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", width = 1, height = .2) {
+
+
+  if( all( is.na(value) ) ){
+    max <- 1
+  }
+  value[is.na(value)] <- 0
+
+  if( is.null(max))
+    max <- max(value, na.rm = TRUE)
+
   stopifnot(value >= 0, max >= 0)
   barcol <- rgb(t(col2rgb(barcol))/255)
   bg <- ifelse( bg == "transparent", bg, rgb(t(col2rgb(bg))/255) )
