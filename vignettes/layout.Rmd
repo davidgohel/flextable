@@ -10,6 +10,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css"/>
 
 ```{r echo = FALSE}
 knitr::opts_chunk$set(
@@ -18,80 +19,39 @@ knitr::opts_chunk$set(
   comment = "#>", 
   eval = TRUE
 )
+library(htmltools)
+library(magrittr)
+
+as_ul <- function( names ) {
+  do.call( tags$ul, lapply(names, tags$li) )
+}
+
 ```
 
-`flextable` layout can be managed with few functions. 
 
-```{r warning=FALSE, message=FALSE}
+`flextable` layout can be easily managed. A set of functions will let you 
+merge cells, add title rows, add footer notes, change the withs or heights.
+
+```{r}
 library(flextable)
 library(officer)
 ```
 
 
-## Cell merging 
+## flextable col_keys
 
-### vertical merging
-
-`merge_v()` will merge adjacent duplicated cells for each column of the selection.
-
-```{r warning=FALSE, message=FALSE}
-select_columns <- c("Species", "Petal.Length", "Petal.Width")
-myft <- flextable(iris[46:55,], col_keys = select_columns)
-myft <- merge_v(myft, ~ Species + Petal.Width )
-myft
-```
-
-### horizontal merging
-
-`merge_h()` will merge adjacent duplicated cells for each row of the selection.
-
-```{r warning=FALSE, message=FALSE}
-select_columns <- c("Species", "Petal.Length", "Petal.Width")
-myft <- flextable(head(mtcars, n = 10 ) )
-myft <- merge_h(myft)
-# and add borders
-myft <- border(myft, border = fp_border(), part = "all") 
-myft
-```
-
-### general merging function
-
-`merge_h()` will merge cells for a given continuous selection of rows and cells.
-
-```{r warning=FALSE, message=FALSE}
-select_columns <- c("Species", "Petal.Length", "Petal.Width")
-myft <- flextable(head(mtcars, n = 6 ) )
-myft <- merge_at( myft, i = 1:3, j = 1:3)
-myft <- border(myft, border = fp_border(), part = "all")
-myft
-```
-
-
-### delete merging informations
-
-If you want to get rid of all merging (i.e. for development purposes), use `merge_none()`:
-
-```{r}
-merge_none(myft)
-```
-
-## Manage headers and footers
-
-For illustration, we will mainly work with headers but same can be apply 
-with footers (use functions `add_footer()` or `set_header_df()` instead).
-
-### col_keys
-
-Parameter `col_keys` define the variables to display and their order. 
+Parameter `col_keys` of function `flextable` define the variables to display 
+and their order. 
 
 ```{r}
 data <- iris[c(1:3, 51:53, 101:104),]
-
 myft <- flextable(data, col_keys = c("Species", "Sepal.Length", "Petal.Length") )
 myft
 ```
 
-If parameter `col_keys` has variables that are not existing in the dataset, they will be considered as blank columns and can be used as separators (in fact they can be use as you want, there is only no mapping of data associated).
+If parameter `col_keys` has variables that are not existing in the dataset, they 
+will be considered as blank columns and can be used as separators (in fact they 
+can be use as you want, there is only no mapping of data associated).
 
 ```{r}
 myft <- flextable(
@@ -103,88 +63,302 @@ myft <- empty_blanks(myft)
 myft
 ```
 
-
 **`col_keys` default values are the names of the data.frame used to fill the flextable.**
 
-### Change labels
+## Change labels
 
-Use `set_header_labels()` to replace labels of the bottom row of header. 
+Use `set_header_labels()` to replace labels of the bottom row of header. When the flextable 
+is created, their values are the column names of the data.frame. 
 
-```{r warning=FALSE, message=FALSE}
+
+```{r}
+ft <- flextable( head( iris ) ) 
+ft <- set_header_labels(ft, Sepal.Length = "Sepal length", 
+    Sepal.Width = "Sepal width", Petal.Length = "Petal length",
+    Petal.Width = "Petal width" )
+ft
+```
+
+New header rows can be added at the top or bottom of the header. 
+This part in documented in part 
+[Manage headers and footers](#manage-headers-and-footers).
+
+Under the hood, the names are in a single row data.frame 
+associated with the header part of the flextable. You can 
+add new rows later, they will be binded to that data.frame. 
+
+## Cell merging 
+
+To illustrate functions, we will use a basic flextable example: 
+
+```{r}
+
+dat <- data.frame(
+  letters1 = c("a", "b", "b", "c"), 
+  letters2 = c("d", "e", "b", "b"), 
+  number = 1:4, stringsAsFactors = FALSE )
+
+myft <- flextable(dat)
+myft <- theme_box(myft)
+myft
+```
+
+<div class="row">
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+
+### vertical merging of similar values
+
+`merge_v()` will merge adjacent duplicated cells for each column of the selection.
+
+```{r}
+merge_v(myft, j = ~ letters1 + letters2 )
+```
+
+</div>
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+
+### horizontal merging of similar values
+
+`merge_h()` will merge adjacent duplicated cells for each row of the selection.
+
+```{r}
+merge_h(myft)
+```
+
+</div>
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+
+
+### horizontal merging of columns
+
+Function `merge_h_range` is close to the previous one but merge 
+all colums between a range of columns.
+
+```{r}
+merge_h_range(myft, 
+  i =  ~ number < 3, 
+  j1 = "letters1", j2 = "letters2")
+```
+
+
+</div>
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+
+
+### general merging function
+
+`merge_at()` will merge cells for a given continuous selection of rows and cells. 
+The result is a single cell.
+
+```{r}
+myft %>% 
+  merge_at(
+    i = 1:2, j = 1:3)
+```
+
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-4">
+
+
+
+### delete merging informations
+
+If you want to get rid of all merging (i.e. for development purposes), use `merge_none()`:
+
+```{r}
+merge_none(myft)
+```
+
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-8">
+
+
+### Borders and merging
+
+When cells are merged, the rendered borders will be those of the first cell. If a 
+column is made of three merged cells, the bottom border that will be seen will be 
+the bottom border of the first cell in the column. From a user point of view, this 
+is wrong, the bottom should be the one defined for cell 3. Function `fix_border_issues` 
+is trying to fix that issue. 
+
+```{r}
+ft <- data.frame(a = 1:5, b = 6:10) %>%
+  flextable() %>% theme_box() %>%
+  merge_at(i = 4:5, j = 1, part = "body") %>%
+  hline(i = 5, part = "body",
+        border = fp_border(color = "orange", width = 3) )
+ft
+fix_border_issues(ft)
+```
+
+
+</div>
+
+</div>
+
+## Manage headers and footers
+
+Use one of the following functions to add an header row or a footer row:
+
+```{r echo=FALSE}
+as_ul(ls(envir = as.environment("package:flextable"), pattern = "^add_(header|footer)"))
+```
+
+We will mainly demonstrate headers but same can be apply with footers.
+
+```{r}
 ft <- flextable( head( iris ) ) 
 ft <- set_header_labels(ft, Sepal.Length = "Sepal", 
     Sepal.Width = "Sepal", Petal.Length = "Petal",
-    Petal.Width = "Petal", Species = "Species" )
-ft <- theme_vanilla(ft)
-ft <- autofit(ft)
+    Petal.Width = "Petal" )
 ft
 ```
+
 
 ### add a row of labels
 
-Use `add_header()` to add an header row. 
+<div class="row">
 
-```{r warning=FALSE, message=FALSE}
-ft <- add_header(ft, Sepal.Length = "length",
-    Sepal.Width = "width", Petal.Length = "length",
-    Petal.Width = "width", Species = "Species", top = FALSE ) 
-ft <- theme_vanilla(ft)
-ft <- autofit(ft)
-ft
-ft <- add_header(ft, Sepal.Length = "Inches",
-    Sepal.Width = "Inches", Petal.Length = "Inches",
-    Petal.Width = "Inches", Species = "Species", top = TRUE )
+<div class="col-xs-12 col-sm-8 col-md-6">
 
-ft <- add_footer(ft, Sepal.Length = "* This is a note" )
-ft <- color(ft, color = "orange", part = "footer" )
 
-# merge identical cells
-ft <- merge_h(ft, part = "header")
-ft <- merge_v(ft, part = "header")
-ft <- merge_at(ft, i = 1, j = 1:5, part = "footer")
-
+```{r}
+ft <- add_header(ft, 
+  Sepal.Length = "length", 
+  Sepal.Width = "width", 
+  Petal.Length = "length", 
+  Petal.Width = "width", 
+  top = FALSE )
 ft <- theme_booktabs(ft)
+```
+
+</div>
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+
+```{r echo=FALSE}
 ft
 ```
+
+</div>
+
+</div>
+
+
+### lines of text
+
+<div class="row">
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+
+```{r}
+ft <- add_header_lines(ft, 
+  values = c("this is a first line", 
+     "this is a second line") ) 
+ft <- theme_booktabs(ft)
+```
+
+</div>
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+
+```{r echo=FALSE}
+ft
+```
+
+</div>
+
+</div>
+
+
 
 
 ### Define headers with a reference table
 
-Use `set_header_df()` with a data.frame as parameter. Columns of the dataset will be transposed and joined using a key column. 
+Use `set_header_df()` with a data.frame as parameter. Columns of 
+the dataset will be transposed and joined using a key column. 
 
-#### Input dataset 
+1. The reference table 
 
-Variable `col_keys` define key values to match with flextable column keys (defined by argument `col_keys` of `flextable()` function).
+Variable `col_keys` define key values to match with flextable 
+column keys (defined by argument `col_keys` of `flextable()` function).
 
-This key column will not be displayed. Other variables will added as rows. Note that variables names are not displayed. 
+This key column will not be displayed. Other variables will added as 
+rows. Note that variables names are not displayed. 
 
-```{r warning=FALSE, message=FALSE}
+<div class="row">
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+
+```{r}
 typology <- data.frame(
-  col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
-                "Petal.Width", "Species" ),
-  type = c("double", "double", "double", "double", "factor"),
-  what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
-  measure = c("Length", "Width", "Length", "Width", "Species"),
+  col_keys = c( "Sepal.Length", 
+    "Sepal.Width", "Petal.Length",
+    "Petal.Width", "Species" ),
+  type = c("double", "double", "double", 
+    "double", "factor"),
+  what = c("Sepal", "Sepal", "Petal", 
+    "Petal", "Species"),
+  measure = c("Length", "Width", "Length", 
+    "Width", "Species"),
   stringsAsFactors = FALSE )
+```
+
+</div>
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+
+```{r echo=FALSE}
 autofit( theme_vanilla(flextable(typology)) )
 ```
 
-#### Add the dataset as header rows
+</div>
 
-Then use `set_header_df()` with parameter `key` that specifies name of the column used 
-to permform the join. Order of columns matters, first column will be first row, second one will be the second row, etc.
+</div>
 
-```{r warning=FALSE, message=FALSE}
+
+2. Use it as header rows
+
+Then use `set_header_df()` with parameter `key`.  `key` is the name of the column used 
+to permform the join operation. 
+
+> Order of columns matters, first column will be first row, second one will 
+  be the second row, etc.
+
+<div class="row">
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+
+```{r}
 ft <- flextable( head( iris ) )
 ft <- set_header_df( ft, mapping = typology, key = "col_keys" )
 
 ft <- merge_h(ft, part = "header")
 ft <- merge_v(ft, part = "header")
 
-ft <- theme_vanilla(ft)
+ft <- theme_booktabs(ft)
 ft <- autofit(ft)
+```
+
+
+</div>
+
+<div class="col-xs-12 col-sm-8 col-md-6">
+
+```{r echo=FALSE}
 ft
 ```
+
+</div>
+
+</div>
+
 
 
 
@@ -195,8 +369,8 @@ This will drive to inadequate rows heights and columns widths in some cases.
 You can use function `dim` to get flextable dimensions. 
 
 ```{r}
-ft_base <- flextable(head(iris))
-ft_base <- theme_tron_legacy(ft_base)
+ft_base <- flextable(head(mtcars))
+ft_base <- theme_vader(ft_base, fontsize = 13)
 ft_base
 dim(ft_base)
 ```
@@ -231,9 +405,87 @@ Function `width()` and `height()` let you control dimensions of a flextable. `he
 
 ```{r}
 ft <- autofit(ft_base)
-ft <- width(ft, j = ~ Species, width = 2)
+ft <- width(ft, j = ~ mpg + cyl + disp, width = 2)
 ft <- height_all( ft, height = .4 )
 ft <- height( ft, i = 3, height = 1 )
 ft
+```
+
+## Groups as row titles
+
+
+Package flextable does not support data transformation. A *grouped* dataset 
+is then needed (and *tidy*). This has to be done prior to the creation of the object. 
+
+Function `as_grouped_data` will modify data structure so that it will be 
+easy to manage grouped data representation. Repeated consecutive values 
+of group columns will be used to define the title of the groups and will 
+be added as a *row title*.
+
+Let's have an example with aggragated data from dataset `CO2`:
+
+```{r}
+data_CO2 <- data.table::dcast(
+  CO2, Treatment + conc ~ Type, value.var = "uptake", fun.aggregate = mean)
+head(data_CO2)
+```
+
+`as_grouped_data` will restructure the dataset:
+
+```{r}
+data_CO2 <- as_grouped_data(x = data_CO2, groups = c("Treatment"))
+head(data_CO2)
+```
+
+The result is suitable for method `as_flextable`. A call to this function 
+and few formatting operations are producing the following result:
+
+```{r}
+zz <- as_flextable( data_CO2 ) %>% 
+  bold(j = 1, i = ~ !is.na(Treatment), bold = TRUE, part = "body" ) %>% 
+  bold(part = "header", bold = TRUE ) %>% 
+  width(width = 1.5)
+zz
+```
+
+It's now easier to customize the rendering. Let's format column `conc` 
+as an integer column:
+
+```{r}
+zz <- zz %>% 
+  compose(i = ~ !is.na(conc), j = "conc", 
+          value = as_paragraph(
+            as_chunk(conc, formater = function(x) sprintf("%.0f", x))
+          )
+  )
+zz
+```
+
+Now let's add nice bars before displaying the figures:
+
+```{r}
+zz <- zz %>% 
+  compose(i = ~ is.na(Treatment), j = "Quebec", 
+          value = as_paragraph(
+            minibar(Quebec), 
+            " ", 
+            as_chunk(Quebec, formater = function(x) sprintf("%.01f", x))
+            )
+          ) %>% 
+  compose(i = ~ is.na(Treatment), j = "Mississippi", 
+          value = as_paragraph( minibar(Mississippi), 
+                                " ",
+                                as_chunk(Mississippi, 
+                                         formater = function(x) sprintf("%.01f", x) )
+                                )
+          ) %>% 
+  align(j = 2:3, align = "left")
+zz
+```
+
+And finally, add a footnote in the footer part:
+
+```{r}
+add_footer_lines(zz, "dataset CO2 has been used for this flextable") 
 ```
 

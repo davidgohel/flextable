@@ -273,7 +273,7 @@ heights of rows, are always defined. Beeing able to define the exact
 size necessary to **display data on a single line** is a key concept. 
 See functions `autofit()` and `dim_pretty()`. 
 
-* Columns to display are by default all columns 
+* Columns to display (`col_keys`) are by default all columns 
 of the data.frame but can be choosen from a subset of existing 
 columns and also unexisting columns. Unexisting columns are 
 containing blanks by default but this content can be customized.
