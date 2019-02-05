@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply box theme — theme_alafoli • flextable</title>
+<title>fix border issues when cell are merged — fix_border_issues • flextable</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,13 @@
 
 
 
-<meta property="og:title" content="Apply box theme — theme_alafoli" />
+<meta property="og:title" content="fix border issues when cell are merged — fix_border_issues" />
 
-<meta property="og:description" content="Apply theme box to a flextable" />
+<meta property="og:description" content="When cells are merged, the rendered borders will be those
+of the first cell. If a column is made of three merged cells, the bottom
+border that will be seen will be the bottom border of the first cell in the
+column. From a user point of view, this is wrong, the bottom should be the one
+defined for cell 3. This function modify the border values to avoid that effect." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,47 +109,76 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Apply box theme</h1>
+    <h1>fix border issues when cell are merged</h1>
     
-    <div class="hidden name"><code>theme_alafoli.Rd</code></div>
+    <div class="hidden name"><code>fix_border_issues.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Apply theme box to a flextable</p>
+    <p>When cells are merged, the rendered borders will be those
+of the first cell. If a column is made of three merged cells, the bottom
+border that will be seen will be the bottom border of the first cell in the
+column. From a user point of view, this is wrong, the bottom should be the one
+defined for cell 3. This function modify the border values to avoid that effect.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>theme_alafoli</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>fix_border_issues</span>(<span class='no'>x</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a flextable object</p></td>
+      <td><p>flextable object</p></td>
+    </tr>
+    <tr>
+      <th>part</th>
+      <td><p>partname of the table (one of 'all', 'body', 'header', 'footer')</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other flextable theme: <code><a href='theme_booktabs.html'>theme_booktabs</a></code>,
-  <code><a href='theme_box.html'>theme_box</a></code>, <code><a href='theme_tron_legacy.html'>theme_tron_legacy</a></code>,
-  <code><a href='theme_tron.html'>theme_tron</a></code>, <code><a href='theme_vader.html'>theme_vader</a></code>,
-  <code><a href='theme_vanilla.html'>theme_vanilla</a></code>, <code><a href='theme_zebra.html'>theme_zebra</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>iris</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>theme_alafoli</span>(<span class='no'>ft</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>magrittr</span>) ){
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>officer</span>)
+  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='flextable.html'>flextable</a></span>() <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='theme_box.html'>theme_box</a></span>() <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='merge_at.html'>merge_at</a></span>(<span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>4</span>:<span class='fl'>5</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='borders.html'>hline</a></span>(<span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>,
+          <span class='kw'>border</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>5</span>) )
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ft</span>)
+  <span class='fu'>fix_border_issues</span>(<span class='no'>ft</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>()
+}</div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `a`, `b` 
+#&gt; header has 1 row(s) 
+#&gt; body has 5 row(s) 
+#&gt; original dataset sample: 
+#&gt;   a  b
+#&gt; 1 1  6
+#&gt; 2 2  7
+#&gt; 3 3  8
+#&gt; 4 4  9
+#&gt; 5 5 10
+#&gt; a flextable object.
+#&gt; col_keys: `a`, `b` 
+#&gt; header has 1 row(s) 
+#&gt; body has 5 row(s) 
+#&gt; original dataset sample: 
+#&gt;   a  b
+#&gt; 1 1  6
+#&gt; 2 2  7
+#&gt; 3 3  8
+#&gt; 4 4  9
+#&gt; 5 5 10</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

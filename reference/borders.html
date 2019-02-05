@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>borders management — borders • flextable</title>
+<title>set horizontal borders — hline • flextable</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,12 +30,11 @@
 
 
 
-<meta property="og:title" content="borders management — borders" />
+<meta property="og:title" content="set horizontal borders — hline" />
 
-<meta property="og:description" content="These functions let control the horizontal or vertical
-borders of a flextable. They are sugar functions and should be used
-instead of function border that requires careful
-settings to avoid overlapping borders." />
+<meta property="og:description" content="The function is applying an horizontal border to inner
+content of one or all parts of a flextable. The lines are the
+bottom borders of selected cells." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -66,7 +65,7 @@ settings to avoid overlapping borders." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -108,39 +107,20 @@ settings to avoid overlapping borders." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>borders management</h1>
+    <h1>set horizontal borders</h1>
     
     <div class="hidden name"><code>borders.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>These functions let control the horizontal or vertical
-borders of a flextable. They are sugar functions and should be used
-instead of function <code><a href='border.html'>border</a></code> that requires careful
-settings to avoid overlapping borders.</p>
+    <p>The function is applying an horizontal border to inner
+content of one or all parts of a flextable. The lines are the
+bottom borders of selected cells.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>border_remove</span>(<span class='no'>x</span>)
-
-<span class='fu'>border_outer</span>(<span class='no'>x</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)
-
-<span class='fu'>border_inner_h</span>(<span class='no'>x</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-
-<span class='fu'>border_inner_v</span>(<span class='no'>x</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)
-
-<span class='fu'>hline</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-
-<span class='fu'>hline_top</span>(<span class='no'>x</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-
-<span class='fu'>hline_bottom</span>(<span class='no'>x</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-
-<span class='fu'>vline</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)
-
-<span class='fu'>vline_left</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)
-
-<span class='fu'>vline_right</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</pre>
+    <pre class="usage"><span class='fu'>hline</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,14 +130,6 @@ settings to avoid overlapping borders.</p>
       <td><p>a flextable object</p></td>
     </tr>
     <tr>
-      <th>border</th>
-      <td><p>border</p></td>
-    </tr>
-    <tr>
-      <th>part</th>
-      <td><p>partname of the table (one of 'all', 'body', 'header', 'footer')</p></td>
-    </tr>
-    <tr>
       <th>i</th>
       <td><p>rows selection</p></td>
     </tr>
@@ -165,205 +137,39 @@ settings to avoid overlapping borders.</p>
       <th>j</th>
       <td><p>columns selection</p></td>
     </tr>
+    <tr>
+      <th>border</th>
+      <td><p>border defined by a call to <code><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></code></p></td>
+    </tr>
+    <tr>
+      <th>part</th>
+      <td><p>partname of the table (one of 'all', 'body', 'header', 'footer')</p></td>
+    </tr>
     </table>
     
-    <h2 class="hasAnchor" id="border-remove"><a class="anchor" href="#border-remove"></a>border_remove</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    
-    <p>The function is deleting all borders of the flextable object.</p>
-    
-    <h2 class="hasAnchor" id="border-outer"><a class="anchor" href="#border-outer"></a>border_outer</h2>
-
-    
-    <p>The function is applying a border to outer cells of one
-or all parts of a flextable.</p>
-    
-    <h2 class="hasAnchor" id="border-inner-h"><a class="anchor" href="#border-inner-h"></a>border_inner_h</h2>
-
-    
-    <p>The function is applying horizontal borders to inner content of one
-or all parts of a flextable.</p>
-    
-    <h2 class="hasAnchor" id="border-inner-v"><a class="anchor" href="#border-inner-v"></a>border_inner_v</h2>
-
-    
-    <p>The function is applying vertical borders to inner content of one
-or all parts of a flextable.</p>
-    
-    <h2 class="hasAnchor" id="hline"><a class="anchor" href="#hline"></a>hline</h2>
-
-    
-    <p>The function is setting horizontal lines along the part
-<code>part</code> of the flextable object. The lines are the
-bottom borders of selected cells.</p>
-    
-    <h2 class="hasAnchor" id="hline-top"><a class="anchor" href="#hline-top"></a>hline_top</h2>
-
-    
-    <p>The function is setting the first horizontal line of the part
-<code>part</code> of the flextable object. The line is the
-top border of selected cells of the first row.</p>
-    
-    <h2 class="hasAnchor" id="hline-bottom"><a class="anchor" href="#hline-bottom"></a>hline_bottom</h2>
-
-    
-    <p>The function is setting the last horizontal line of the part
-<code>part</code> of the flextable object. The line is the
-bottom border of selected cells of the last row.</p>
-    
-    <h2 class="hasAnchor" id="vline"><a class="anchor" href="#vline"></a>vline</h2>
-
-    
-    <p>The function is setting vertical lines along the part
-<code>part</code> of the flextable object. The lines are the
-right borders of selected cells.</p>
-    
-    <h2 class="hasAnchor" id="vline-left"><a class="anchor" href="#vline-left"></a>vline_left</h2>
-
-    
-    <p>The function is setting the first vertical line of the part
-<code>part</code> of the flextable object. The line is the
-left border of selected cells of the first column.</p>
-    
-    <h2 class="hasAnchor" id="vline-right"><a class="anchor" href="#vline-right"></a>vline_right</h2>
-
-    
-    <p>The function is setting the last vertical line of the part
-<code>part</code> of the flextable object. The line is the
-right border of selected cells of the last column.</p>
+    <div class='dont-index'><p>Other borders management: <code><a href='border_inner_h.html'>border_inner_h</a></code>,
+  <code><a href='border_inner_v.html'>border_inner_v</a></code>, <code><a href='border_outer.html'>border_outer</a></code>,
+  <code><a href='border_remove.html'>border_remove</a></code>, <code><a href='border.html'>border</a></code>,
+  <code><a href='hline_bottom.html'>hline_bottom</a></code>, <code><a href='hline_top.html'>hline_top</a></code>,
+  <code><a href='vline_left.html'>vline_left</a></code>, <code><a href='vline_right.html'>vline_right</a></code>,
+  <code><a href='vline.html'>vline</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># need officer to define border properties</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>officer</span>)
-<span class='no'>big_border</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>color</span><span class='kw'>=</span><span class='st'>"red"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='no'>std_border</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>color</span><span class='kw'>=</span><span class='st'>"orange"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>officer</span>)
+<span class='no'>std_border</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>color</span><span class='kw'>=</span><span class='st'>"gray"</span>)
 
-<span class='co'># dataset to be used for examples</span>
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fl'>51</span>:<span class='fl'>55</span>, <span class='fl'>101</span>:<span class='fl'>105</span>),]
-
-
-<span class='co'># use of flextable() to create a table</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>dat</span>)
-
-<span class='co'># remove all borders</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>border_remove</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>ft</span>)
-
-<span class='co'># add outer borders</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>border_outer</span>(<span class='no'>ft</span>, <span class='kw'>part</span><span class='kw'>=</span><span class='st'>"all"</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>big_border</span> )
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
-#&gt; header has 1 row(s) 
-#&gt; body has 15 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'>
-<span class='co'># add inner horizontal borders</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>border_inner_h</span>(<span class='no'>ft</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>std_border</span> )
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
-#&gt; header has 1 row(s) 
-#&gt; body has 15 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'>
-<span class='co'># add inner vertical borders</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>border_inner_v</span>(<span class='no'>ft</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>std_border</span> )
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
-#&gt; header has 1 row(s) 
-#&gt; body has 15 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'>
-<span class='co'># new example</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>dat</span>, <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Species"</span>, <span class='st'>"Sepal.Length"</span>,
-  <span class='st'>"Sepal.Width"</span>, <span class='st'>"Petal.Length"</span>, <span class='st'>"Petal.Width"</span> ))
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>border_remove</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>ft</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>iris</span>))
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='border_remove.html'>border_remove</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>ft</span>)
 
 <span class='co'># add horizontal borders</span>
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>hline</span>(<span class='no'>ft</span>, <span class='kw'>part</span><span class='kw'>=</span><span class='st'>"all"</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>std_border</span> )
 <span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Species`, `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` 
+#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
 #&gt; header has 1 row(s) 
-#&gt; body has 15 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'>
-<span class='co'># add horizontal border on top</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>hline_top</span>(<span class='no'>ft</span>, <span class='kw'>part</span><span class='kw'>=</span><span class='st'>"all"</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>big_border</span> )
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Species`, `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` 
-#&gt; header has 1 row(s) 
-#&gt; body has 15 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'>
-<span class='co'># add/replace horizontal border on bottom</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>hline_bottom</span>(<span class='no'>ft</span>, <span class='kw'>part</span><span class='kw'>=</span><span class='st'>"body"</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>big_border</span> )
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Species`, `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` 
-#&gt; header has 1 row(s) 
-#&gt; body has 15 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'>
-<span class='co'># add vertical borders</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>vline</span>(<span class='no'>ft</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>std_border</span> )
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Species`, `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` 
-#&gt; header has 1 row(s) 
-#&gt; body has 15 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'>
-<span class='co'># add vertical border on the left side of the table</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>vline_left</span>(<span class='no'>ft</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>big_border</span> )
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Species`, `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` 
-#&gt; header has 1 row(s) 
-#&gt; body has 15 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'>
-<span class='co'># add vertical border on the right side of the table</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>vline_right</span>(<span class='no'>ft</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>big_border</span> )
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Species`, `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` 
-#&gt; header has 1 row(s) 
-#&gt; body has 15 row(s) 
+#&gt; body has 6 row(s) 
 #&gt; original dataset sample: 
 #&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1          5.1         3.5          1.4         0.2  setosa
@@ -377,25 +183,7 @@ right border of selected cells of the last column.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#border-remove">border_remove</a></li>
-
-      <li><a href="#border-outer">border_outer</a></li>
-
-      <li><a href="#border-inner-h">border_inner_h</a></li>
-
-      <li><a href="#border-inner-v">border_inner_v</a></li>
-
-      <li><a href="#hline">hline</a></li>
-
-      <li><a href="#hline-top">hline_top</a></li>
-
-      <li><a href="#hline-bottom">hline_bottom</a></li>
-
-      <li><a href="#vline">vline</a></li>
-
-      <li><a href="#vline-left">vline_left</a></li>
-
-      <li><a href="#vline-right">vline_right</a></li>
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -406,7 +194,7 @@ right border of selected cells of the last column.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
