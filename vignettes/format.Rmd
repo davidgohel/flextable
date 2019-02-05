@@ -60,6 +60,10 @@ myft <- flextable(head(iris))
 myft
 ```
 
+<div class="row">
+
+<div class="col-12 col-sm-8 col-md-6">
+
 ### bold
 
 ```{r}
@@ -68,12 +72,23 @@ myft <- bold(myft, part = "header") # bold header
 myft
 ```
 
+</div>
+
+<div class="col-12 col-sm-8 col-md-6">
+
 ### Font size
 
 ```{r}
 myft <- fontsize(myft, part = "header", size = 12) 
 myft
 ```
+
+</div>
+</div>
+
+<div class="row">
+
+<div class="col-12 col-sm-8 col-md-6">
 
 ### change font color
 
@@ -82,6 +97,10 @@ myft <- color(myft, color = "#E4C994")
 myft
 ```
 
+</div>
+
+<div class="col-12 col-sm-8 col-md-6">
+
 ### Italic
 
 ```{r}
@@ -89,6 +108,13 @@ myft <- italic(myft, i = ~ Sepal.Length > 5,
          j = ~ Sepal.Length + Sepal.Width, italic = TRUE)
 myft
 ```
+
+</div>
+</div>
+
+<div class="row">
+
+<div class="col-12 col-sm-8 col-md-6">
 
 ### change background color
 
@@ -100,6 +126,10 @@ myft <-  bg(myft, bg = "#333333", part = "body")
 myft
 ```
 
+</div>
+
+<div class="col-12 col-sm-8 col-md-6">
+
 ### Text alignment
 
 ```{r}
@@ -107,6 +137,12 @@ myft <- align( myft, align = "center", part = "all" )
 myft
 ```
 
+</div>
+</div>
+
+<div class="row">
+
+<div class="col-12 col-sm-8 col-md-6">
 
 ### add padding
 
@@ -115,6 +151,10 @@ myft <- padding( myft, padding = 3, part = "all" )
 myft
 ```
 
+</div>
+
+<div class="col-12 col-sm-8 col-md-6">
+
 ### change font
 
 ```{r}
@@ -122,6 +162,10 @@ myft <- font(myft, j = "Species", fontname = "Times")
 myft <- fontsize(myft, j = "Species", size = 14)
 myft
 ```
+
+</div>
+</div>
+
 
 ### Text rotation 
 
@@ -139,62 +183,68 @@ Argument `align` is used for cell content vertical alignment, it should be one o
 
 ```{r}
 ft <- flextable(head(iris))
-ft <- rotate(ft, rotation = "tbrl", align = "top", part = "header")
-ft <- theme_vanilla(ft)
+# ft <- theme_box(ft)
+ft <- rotate(ft, rotation = "tbrl", align = "center", part = "header")
+ft <- align(ft, align = "right", part = "header")
+ft <- align(ft, align = "center", part = "body")
 ft <- autofit(ft)
 
 # as autofit do not handle rotation, you will have
 # to change manually header cells'height.
-ft <- height(ft, height = 1, part = "header")
-ft
+ft <- height(ft, height = 1.1, part = "header")
 ```
+
+<img alt="rotated_flextable" width="400"  src="data:;base64,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">
 
 
 ## Borders
 
-Borders properties can be defined with functions:
+*Borders properties can be defined with function `border()` but the function 
+requires careful settings to avoid overlapping borders.*
 
-* `hline()`: set bottom borders of one or all parts of a flextable. 
-* `hline_top()`: set top border of one or all parts of a flextable. 
-* `hline_bottom()`: set bottom border of one or all parts of a flextable. 
-* `vline()`: set right borders of one or all parts of a flextable. 
-* `vline_left()`: set left border of one or all parts of a flextable.
-* `vline_right()`: set right border of one or all parts of a flextable.
+If no special formatting is needed, best is to use `border_outer()`, 
+`border_inner_h()` and `border_inner_v()`.
 
 ```{r}
-# remove all defined borders
-myft <- border_remove( myft )
+library(officer)
+big_border = fp_border(color="orange", width = 2)
+border_v = fp_border(color="gray")
+border_h = fp_border(color="gray")
 
-big_b <- fp_border(color="gray70", width = 2)
-std_b <- fp_border(color="white")
-
-myft <- vline( myft, border = std_b, part = "all" )
-myft <- vline_left( myft, border = big_b, part = "all" )
-myft <- vline_right( myft, border = big_b, part = "all" )
-myft <- hline( myft, border = std_b )
-myft <- hline_bottom( myft, border = big_b )
-myft <- hline_top( myft, border = big_b, part = "all" )
-myft
+dat <- iris[c(1:2, 51:52, 101:102),]
+ft <- flextable(dat)
+ft <- border_remove(x = ft)
+ft <- border_outer(ft, part="all", border = big_border )
+ft <- border_inner_h(ft, part="all", border = border_h )
+ft <- border_inner_v(ft, part="all", border = border_v )
+ft
 ```
 
-Or when borders design is simple with:
+When more control over borders formatting is necessary, the following 
+functions can be used to add vertical or horizontal lines as borders:
 
-* `border_outer()`: apply a border to outer cells of one or all parts 
-of a flextable.
-* `border_inner()`: apply a border to inner cells of one or all parts 
-of a flextable.
-
+* `hline()`: set bottom borders (inner horizontal)
+* `vline()`: set right borders (inner vertical)
+* `hline_top()`: set the top border (outer horizontal)
+* `hline_bottom()`: set the bottom border (outer horizontal)
+* `vline_left()`: set the left border (outer vertical)
+* `vline_right()`: set the right border (outer vertical)
 
 ```{r}
-std_b2 <- fp_border(color="white", style = "dashed")
+dat <- iris[c(1:2, 51:52, 101:102),]
+ft <- flextable(dat)
+ft <- border_remove( ft )
 
-# remove all defined borders
-myft <- border_remove( myft )
+big_b <- fp_border(color="gray70", width = 3)
+std_b <- fp_border(color="orange", style = "dashed")
 
-myft <- border_outer( myft, border = big_b, part = "all" )
-myft <- border_inner_h( myft, border = std_b, part = "all" )
-myft <- border_inner_v( myft, border = std_b2, part = "all" )
-myft
+ft <- vline( ft, border = std_b, part = "all" )
+ft <- vline_left( ft, border = big_b, part = "all" )
+ft <- vline_right( ft, border = big_b, part = "all" )
+ft <- hline( ft, border = std_b )
+ft <- hline_bottom( ft, border = big_b )
+ft <- hline_top( ft, border = big_b, part = "all" )
+ft
 ```
 
 
@@ -203,24 +253,26 @@ myft
 Conditional formatting can be made by using the selector arguments.
 
 ```{r warning=FALSE, message=FALSE}
-myft <- color(myft, i = ~ Sepal.Length < 5 & Petal.Length > 1.3, 
+dat <- iris[c(1:2, 51:52, 101:102),]
+ft <- flextable(dat)
+ft <- fontsize(ft, size = 14, part = "all")
+ft <- color(ft, i = ~ Sepal.Length < 5 & Petal.Length > 1.3, 
         j = ~ Petal.Width + Species, 
         color="red")
-myft <- bg(myft, j = 1, bg = "#D3C994", part = "header")
-myft <- italic(myft, i = ~ Sepal.Length > 5)
-myft <- bold(myft, i = 4, j = "Sepal.Length")
-myft
+ft <- italic(ft, i = ~ Sepal.Length > 5)
+ft <- bold(ft, i = 4, j = "Sepal.Length")
+ft
 ```
 
 `i` and `j` arguments can be also standard R vectors:
 
 ```{r warning=FALSE, message=FALSE}
-row_id <- with(head(iris), Sepal.Length < 5 & Petal.Length > 1.3 )
+row_id <- with(dat, Sepal.Length < 5 & Petal.Length > 1.3 )
 col_id <- c("Petal.Width", "Species")
 
-myft <- color(myft, i = row_id, j = col_id, color="red") 
+ft <- color(ft, i = row_id, j = col_id, color="red") 
 
-myft
+ft
 ```
 
 ## Function style

@@ -484,3 +484,18 @@ And finally, add a footnote in the footer part:
 add_footer_lines(zz, "dataset CO2 has been used for this flextable") 
 ```
 
+
+## xtable 
+
+`xtable` objects can be transformed as flextable objects with function `xtable_to_flextable()`. 
+
+```{r}
+if( require("xtable") ){
+  temp.ts <- ts(cumsum(1 + round(rnorm(100), 0)),
+    start = c(1954, 7), frequency = 12)
+  ft <- xtable_to_flextable(x = xtable(temp.ts, digits = 0),
+    NA.string = "-")
+  ft
+}
+```
+
