@@ -1,5 +1,5 @@
 ---
-title: "Table layout"
+title: "flextable layout"
 output: 
   rmarkdown::html_vignette:
     toc: true 

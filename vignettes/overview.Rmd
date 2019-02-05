@@ -234,7 +234,7 @@ data_model <- merge_v(data_model, part = "footer", j = 1)
 data_model <- merge_v(data_model, part = "body", j = 1)
 data_model <- merge_v(data_model, part = "header", j = 1)
 data_model <- theme_box(data_model)
-data_model <- align(data_model, align = "center", part = "all")
+data_model <- flextable::align(data_model, align = "center", part = "all")
 data_model <- bg(data_model, bg = "#eb5555", part = "header")
 data_model <- bg(data_model, bg = "#475F77", part = "body")
 data_model <- bg(data_model, bg = "#2BBBD8", part = "footer")
@@ -337,4 +337,50 @@ myft <- bold(myft, ~ drat > 3.5, ~ drat, bold = TRUE)
 myft <- autofit(myft)
 myft
 ```
+
+## Selectors
+
+Selectors can be used to specify the rows and columns where the operation should happened.
+
+Many `flextable` functions have *selectors* `i` and `j`: `bg`, `bold`, 
+`border`, `color`, `padding`, `fontsize`, `italic`, `align`, ... 
+
+`i` for rows selection and `j` for columns selection can be expressed in different ways:
+
+* as a formula: `i = ~ Species %in% "versicolor", j = ~ Species + Sepal.Length`
+
+```{r}
+ft <- flextable(head(iris, n = 10))
+ft <- color(ft, i = ~ Sepal.Length < 5, j = ~ Sepal.Length + Sepal.Width, color = "orange")
+ft
+```
+
+* as an integer vector, each element is the row number or `col_key` number
+
+```{r}
+ft <- flextable(head(iris, n = 10))
+ft <- color(ft, i = 1:3, j = 1:3, color = "orange")
+ft
+```
+
+* as a logical vector; for `j`, a p length if p columns; for `i`, a n length if n rows
+
+```{r}
+dat <- head(iris, n = 10)
+ft <- flextable(dat)
+
+ft <- color(ft, i = dat$Sepal.Length < 5, color = "orange")
+ft
+```
+
+* j support also simple character vector containing the `col_key` names.
+
+```{r}
+dat <- head(iris, n = 10)
+ft <- flextable(dat)
+ft <- color(ft, j = "Sepal.Length", color = "orange", part = "all")
+ft
+```
+
+
 
