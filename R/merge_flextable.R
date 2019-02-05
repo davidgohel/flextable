@@ -130,7 +130,7 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
 #'
 #' @param x \code{flextable} object
 #' @param i selected rows
-#' @param j1,j2 selected columns
+#' @param j1,j2 selected columns that will define the range of columns to merge.
 #' @param part partname of the table where merge has to be done.
 #' @family flextable merging function
 #' @examples

@@ -11,7 +11,7 @@ merge_h_range(x, i = NULL, j1 = NULL, j2 = NULL, part = "body")
 
 \item{i}{selected rows}
 
-\item{j1, j2}{selected columns}
+\item{j1, j2}{selected columns that will define the range of columns to merge.}
 
 \item{part}{partname of the table where merge has to be done.}
 }

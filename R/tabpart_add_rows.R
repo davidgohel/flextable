@@ -18,12 +18,12 @@ add_rows.complex_tabpart <- function( x, rows, first = FALSE ){
     data <- rbind(data, rows )
     spans$rows <- rbind( spans$rows, span_new )
     spans$columns <- rbind( spans$columns, span_new )
-    rowheights <- c(rowheights, rep(0.6, nrow(rows)))
+    rowheights <- c(rowheights, rep(rev(rowheights)[1], nrow(rows)))
   } else {
     data <- rbind(rows, data )
     spans$rows <- rbind( span_new, spans$rows )
     spans$columns <- rbind( span_new, spans$columns )
-    rowheights <- c(rep(0.6, nrow(rows)), rowheights)
+    rowheights <- c(rep(rowheights[1], nrow(rows)), rowheights)
 
   }
   x$rowheights <- rowheights

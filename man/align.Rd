@@ -8,7 +8,7 @@
 \usage{
 align(x, i = NULL, j = NULL, align = "left", part = "body")
 
-align_text_col(x, align = "center", header = TRUE)
+align_text_col(x, align = "left", header = TRUE)
 
 align_nottext_col(x, align = "right", header = TRUE)
 }

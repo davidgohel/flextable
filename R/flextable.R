@@ -22,6 +22,7 @@
 #' ft
 #' @export
 #' @importFrom stats setNames
+#' @importFrom gdtools font_family_exists
 flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
 
 
@@ -58,7 +59,12 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
   class(out) <- c("flextable")
 
   out <- style( x = out,
-                pr_p = fp_par(text.align = "right", padding = 2),
+                pr_t = fp_text(
+                  font.family = ifelse( font_family_exists(font_family = "Roboto"), "Roboto", "Arial" ),
+                  font.size = 11, color = "#111111"
+                ),
+                pr_p = fp_par(text.align = "right", padding.left = 5, padding.right = 5,
+                              padding.bottom = 2, padding.top = 2),
                 pr_c = fp_cell(border = fp_border(color = "transparent")), part = "all")
 
   theme_booktabs(out)

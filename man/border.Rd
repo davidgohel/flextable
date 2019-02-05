@@ -31,12 +31,20 @@ border(x, i = NULL, j = NULL, border = NULL, border.top = NULL,
 change borders of selected rows and columns of a flextable.
 }
 \note{
-This function should not be used directly by users and functions \code{\link{hline}},
-\code{\link{vline}}, \code{\link{hline_top}}, \code{\link{vline_left}} should
-be prefered.
+this function requires careful
+settings to avoid overlapping borders.
 }
 \examples{
 library(officer)
 ft <- flextable(mtcars)
 ft <- border(ft, border.top = fp_border(color = "orange") )
 }
+\seealso{
+Other borders management: \code{\link{border_inner_h}},
+  \code{\link{border_inner_v}}, \code{\link{border_outer}},
+  \code{\link{border_remove}}, \code{\link{hline_bottom}},
+  \code{\link{hline_top}}, \code{\link{hline}},
+  \code{\link{vline_left}}, \code{\link{vline_right}},
+  \code{\link{vline}}
+}
+\concept{borders management}

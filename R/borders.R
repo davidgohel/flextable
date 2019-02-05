@@ -12,10 +12,9 @@
 #' @param border.bottom border bottom
 #' @param border.left border left
 #' @param border.right border right
-#' @note
-#' This function should not be used directly by users and functions \code{\link{hline}},
-#' \code{\link{vline}}, \code{\link{hline_top}}, \code{\link{vline_left}} should
-#' be prefered.
+#' @family borders management
+#' @note this function requires careful
+#' settings to avoid overlapping borders.
 #' @examples
 #' library(officer)
 #' ft <- flextable(mtcars)
@@ -77,53 +76,45 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 }
 
 
-# borders format - sugar ----
-
-#' @title borders management
-#' @description These functions let control the horizontal or vertical
-#' borders of a flextable. They are sugar functions and should be used
-#' instead of function \code{\link{border}} that requires careful
-#' settings to avoid overlapping borders.
-#'
-#' @name borders
-#' @rdname borders
+#' @title remove borders
+#' @description The function is deleting all borders of the flextable object.
+#' @param x a flextable object
 #' @examples
-#' # need officer to define border properties
-#' library(officer)
-#' big_border = fp_border(color="red", width = 2)
-#' std_border = fp_border(color="orange", width = 1)
-#'
-#' # dataset to be used for examples
 #' dat <- iris[c(1:5, 51:55, 101:105),]
+#' ft <- flextable(dat)
+#' ft <- theme_box(ft)
+#' ft
 #'
-NULL
-
-#' @section border_remove:
-#' The function is deleting all borders of the flextable object.
+#' # remove all borders
+#' ft <- border_remove(x = ft)
+#' ft
 #' @export
-#' @rdname borders
+#' @family borders management
 border_remove <- function(x){
   if( !inherits(x, "flextable") ) stop("border_remove supports only flextable objects.")
   x <- border(x = x, border = fp_border(width = 0), part = "all")
   x
 }
 
-#' @export
-#' @rdname borders
-#' @section border_outer:
-#' The function is applying a border to outer cells of one
+#' @title set outer borders
+#' @description The function is applying a border to outer cells of one
 #' or all parts of a flextable.
+#' @param x a flextable object
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @param border border defined by a call to \code{\link[officer]{fp_border}}
+#' @export
 #' @examples
+#' library(officer)
+#' big_border = fp_border(color="red", width = 2)
 #'
-#' # use of flextable() to create a table
+#' dat <- iris[c(1:5, 51:55, 101:105),]
 #' ft <- flextable(dat)
-#'
-#' # remove all borders
 #' ft <- border_remove(x = ft)
 #'
 #' # add outer borders
 #' ft <- border_outer(ft, part="all", border = big_border )
 #' ft
+#' @family borders management
 border_outer <- function(x, border = NULL, part = "all"){
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
   if( !inherits(x, "flextable") ) stop("border_outer supports only flextable objects.")
@@ -145,15 +136,22 @@ border_outer <- function(x, border = NULL, part = "all"){
 }
 
 #' @export
-#' @rdname borders
-#' @section border_inner_h:
-#' The function is applying horizontal borders to inner content of one
+#' @title set inner borders
+#' @description The function is applying a border to inner content of one
 #' or all parts of a flextable.
+#' @inheritParams border_outer
 #' @examples
+#' library(officer)
+#' std_border = fp_border(color="orange", width = 1)
+#'
+#' dat <- iris[c(1:5, 51:55, 101:105),]
+#' ft <- flextable(dat)
+#' ft <- border_remove(x = ft)
 #'
 #' # add inner horizontal borders
 #' ft <- border_inner_h(ft, border = std_border )
 #' ft
+#' @family borders management
 border_inner_h <- function(x, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) stop("border_inner_h supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -173,15 +171,22 @@ border_inner_h <- function(x, border = NULL, part = "body"){
 }
 
 #' @export
-#' @rdname borders
-#' @section border_inner_v:
-#' The function is applying vertical borders to inner content of one
+#' @title set vertical inner borders
+#' @description The function is applying a vertical border to inner content of one
 #' or all parts of a flextable.
+#' @inheritParams border_outer
 #' @examples
+#' library(officer)
+#' std_border = fp_border(color="orange", width = 1)
+#'
+#' dat <- iris[c(1:5, 51:55, 101:105),]
+#' ft <- flextable(dat)
+#' ft <- border_remove(x = ft)
 #'
 #' # add inner vertical borders
 #' ft <- border_inner_v(ft, border = std_border )
 #' ft
+#' @family borders management
 border_inner_v <- function(x, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) stop("border_inner_v supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -201,26 +206,25 @@ border_inner_v <- function(x, border = NULL, part = "all"){
 }
 
 #' @export
-#' @section hline:
-#' The function is setting horizontal lines along the part
-#' \code{part} of the flextable object. The lines are the
+#' @title set horizontal borders
+#' @description The function is applying an horizontal border to inner
+#' content of one or all parts of a flextable. The lines are the
 #' bottom borders of selected cells.
-#' @param x a flextable object
+#' @inheritParams border_outer
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param border border
 #' @examples
+#' library(officer)
+#' std_border = fp_border(color="gray")
 #'
-#' # new example
-#' ft <- flextable(dat, col_keys = c("Species", "Sepal.Length",
-#'   "Sepal.Width", "Petal.Length", "Petal.Width" ))
+#' ft <- flextable(head(iris))
 #' ft <- border_remove(x = ft)
 #'
 #' # add horizontal borders
 #' ft <- hline(ft, part="all", border = std_border )
 #' ft
 #' @rdname borders
+#' @family borders management
 hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) stop("hline supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -251,16 +255,23 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
 }
 
 #' @export
-#' @rdname borders
-#' @section hline_top:
-#' The function is setting the first horizontal line of the part
-#' \code{part} of the flextable object. The line is the
-#' top border of selected cells of the first row.
+#' @title set top horizontal border
+#' @description The function is applying an horizontal border to the
+#' top of one or all parts of a flextable. The line is the
+#' top border of selected parts.
+#' @inheritParams border_outer
+#' @param j columns selection
 #' @examples
+#' library(officer)
+#' big_border = fp_border(color="orange", width = 3)
+#'
+#' ft <- flextable(head(iris))
+#' ft <- border_remove(x = ft)
 #'
 #' # add horizontal border on top
 #' ft <- hline_top(ft, part="all", border = big_border )
 #' ft
+#' @family borders management
 hline_top <- function(x, j = NULL, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) stop("hline_top supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -281,16 +292,23 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body"){
 }
 
 #' @export
-#' @rdname borders
-#' @section hline_bottom:
-#' The function is setting the last horizontal line of the part
-#' \code{part} of the flextable object. The line is the
-#' bottom border of selected cells of the last row.
+#' @title set bottom horizontal border
+#' @description The function is applying an horizontal border to the
+#' bottom of one or all parts of a flextable. The line is the
+#' bottom border of selected parts.
+#' @inheritParams border_outer
+#' @param j columns selection
 #' @examples
+#' library(officer)
+#' big_border = fp_border(color="orange", width = 3)
+#'
+#' ft <- flextable(head(iris))
+#' ft <- border_remove(x = ft)
 #'
 #' # add/replace horizontal border on bottom
 #' ft <- hline_bottom(ft, part="body", border = big_border )
 #' ft
+#' @family borders management
 hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) stop("hline_bottom supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -310,17 +328,23 @@ hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
   x
 }
 
-#' @section vline:
-#' The function is setting vertical lines along the part
-#' \code{part} of the flextable object. The lines are the
-#' right borders of selected cells.
 #' @export
-#' @rdname borders
+#' @title set vertical borders
+#' @description The function is applying vertical borders to inner
+#' content of one or all parts of a flextable. The lines are the
+#' right borders of selected cells.
+#' @inheritParams hline
 #' @examples
+#' library(officer)
+#' std_border = fp_border(color="orange")
+#'
+#' ft <- flextable(head(iris))
+#' ft <- border_remove(x = ft)
 #'
 #' # add vertical borders
 #' ft <- vline(ft, border = std_border )
 #' ft
+#' @family borders management
 vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) stop("vline supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -347,16 +371,23 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
 }
 
 #' @export
-#' @rdname borders
-#' @section vline_left:
-#' The function is setting the first vertical line of the part
-#' \code{part} of the flextable object. The line is the
+#' @title set flextable left vertical borders
+#' @description The function is applying vertical borders to the
+#' left side of one or all parts of a flextable. The line is the
 #' left border of selected cells of the first column.
+#' @inheritParams border_outer
+#' @param i rows selection
 #' @examples
+#' library(officer)
+#' std_border = fp_border(color="orange")
+#'
+#' ft <- flextable(head(iris))
+#' ft <- border_remove(x = ft)
 #'
 #' # add vertical border on the left side of the table
-#' ft <- vline_left(ft, border = big_border )
+#' ft <- vline_left(ft, border = std_border )
 #' ft
+#' @family borders management
 vline_left <- function(x, i = NULL, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) stop("vline_left supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -375,17 +406,23 @@ vline_left <- function(x, i = NULL, border = NULL, part = "all"){
   x
 }
 
-#' @section vline_right:
-#' The function is setting the last vertical line of the part
-#' \code{part} of the flextable object. The line is the
-#' right border of selected cells of the last column.
 #' @export
-#' @rdname borders
+#' @title set flextable right vertical borders
+#' @description The function is applying vertical borders to the
+#' right side of one or all parts of a flextable. The line is the
+#' right border of selected cells of the last column.
+#' @inheritParams vline_left
 #' @examples
+#' library(officer)
+#' std_border = fp_border(color="orange")
 #'
-#' # add vertical border on the right side of the table
-#' ft <- vline_right(ft, border = big_border )
+#' ft <- flextable(head(iris))
+#' ft <- border_remove(x = ft)
+#'
+#' # add vertical border on the left side of the table
+#' ft <- vline_right(ft, border = std_border )
 #' ft
+#' @family borders management
 vline_right <- function(x, i = NULL, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) stop("vline_right supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
