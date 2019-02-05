@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply box theme — theme_alafoli • flextable</title>
+<title>set top horizontal border — hline_top • flextable</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
 
 
-<meta property="og:title" content="Apply box theme — theme_alafoli" />
+<meta property="og:title" content="set top horizontal border — hline_top" />
 
-<meta property="og:description" content="Apply theme box to a flextable" />
+<meta property="og:description" content="The function is applying an horizontal border to the
+top of one or all parts of a flextable. The line is the
+top border of selected parts." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,18 +107,20 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Apply box theme</h1>
+    <h1>set top horizontal border</h1>
     
-    <div class="hidden name"><code>theme_alafoli.Rd</code></div>
+    <div class="hidden name"><code>hline_top.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Apply theme box to a flextable</p>
+    <p>The function is applying an horizontal border to the
+top of one or all parts of a flextable. The line is the
+top border of selected parts.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>theme_alafoli</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>hline_top</span>(<span class='no'>x</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -125,19 +129,50 @@
       <th>x</th>
       <td><p>a flextable object</p></td>
     </tr>
+    <tr>
+      <th>j</th>
+      <td><p>columns selection</p></td>
+    </tr>
+    <tr>
+      <th>border</th>
+      <td><p>border defined by a call to <code><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></code></p></td>
+    </tr>
+    <tr>
+      <th>part</th>
+      <td><p>partname of the table (one of 'all', 'body', 'header', 'footer')</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other flextable theme: <code><a href='theme_booktabs.html'>theme_booktabs</a></code>,
-  <code><a href='theme_box.html'>theme_box</a></code>, <code><a href='theme_tron_legacy.html'>theme_tron_legacy</a></code>,
-  <code><a href='theme_tron.html'>theme_tron</a></code>, <code><a href='theme_vader.html'>theme_vader</a></code>,
-  <code><a href='theme_vanilla.html'>theme_vanilla</a></code>, <code><a href='theme_zebra.html'>theme_zebra</a></code></p></div>
+    <div class='dont-index'><p>Other borders management: <code><a href='border_inner_h.html'>border_inner_h</a></code>,
+  <code><a href='border_inner_v.html'>border_inner_v</a></code>, <code><a href='border_outer.html'>border_outer</a></code>,
+  <code><a href='border_remove.html'>border_remove</a></code>, <code><a href='border.html'>border</a></code>,
+  <code><a href='hline_bottom.html'>hline_bottom</a></code>, <code><a href='borders.html'>hline</a></code>,
+  <code><a href='vline_left.html'>vline_left</a></code>, <code><a href='vline_right.html'>vline_right</a></code>,
+  <code><a href='vline.html'>vline</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>iris</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>theme_alafoli</span>(<span class='no'>ft</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>officer</span>)
+<span class='no'>big_border</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>color</span><span class='kw'>=</span><span class='st'>"orange"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>iris</span>))
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='border_remove.html'>border_remove</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>ft</span>)
+
+<span class='co'># add horizontal border on top</span>
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>hline_top</span>(<span class='no'>ft</span>, <span class='kw'>part</span><span class='kw'>=</span><span class='st'>"all"</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>big_border</span> )
+<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
+#&gt; header has 1 row(s) 
+#&gt; body has 6 row(s) 
+#&gt; original dataset sample: 
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1          5.1         3.5          1.4         0.2  setosa
+#&gt; 2          4.9         3.0          1.4         0.2  setosa
+#&gt; 3          4.7         3.2          1.3         0.2  setosa
+#&gt; 4          4.6         3.1          1.5         0.2  setosa
+#&gt; 5          5.0         3.6          1.4         0.2  setosa</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

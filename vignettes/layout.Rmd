@@ -10,8 +10,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css"/>
-
 ```{r echo = FALSE, message=FALSE}
 knitr::opts_chunk$set(
   message = FALSE,
@@ -106,7 +104,7 @@ myft
 
 <div class="row">
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+<div class="col-12 col-sm-8 col-md-6">
 
 ### vertical merging of similar values
 
@@ -118,7 +116,7 @@ merge_v(myft, j = ~ letters1 + letters2 )
 
 </div>
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+<div class="col-12 col-sm-8 col-md-6">
 
 ### horizontal merging of similar values
 
@@ -130,7 +128,10 @@ merge_h(myft)
 
 </div>
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+</div>
+<div class="row">
+
+<div class="col-12 col-sm-8 col-md-6">
 
 
 ### horizontal merging of columns
@@ -147,7 +148,7 @@ merge_h_range(myft,
 
 </div>
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+<div class="col-12 col-sm-8 col-md-6">
 
 
 ### general merging function
@@ -163,7 +164,7 @@ myft %>%
 
 </div>
 
-<div class="col-xs-12 col-sm-12 col-md-4">
+</div>
 
 
 
@@ -174,10 +175,6 @@ If you want to get rid of all merging (i.e. for development purposes), use `merg
 ```{r}
 merge_none(myft)
 ```
-
-</div>
-
-<div class="col-xs-12 col-sm-12 col-md-8">
 
 
 ### Borders and merging
@@ -199,9 +196,6 @@ fix_border_issues(ft)
 ```
 
 
-</div>
-
-</div>
 
 ## Manage headers and footers
 
@@ -226,7 +220,7 @@ ft
 
 <div class="row">
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+<div class="col-12 col-sm-8 col-md-6">
 
 
 ```{r}
@@ -241,7 +235,7 @@ ft <- theme_booktabs(ft)
 
 </div>
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+<div class="col-12 col-sm-8 col-md-6">
 
 ```{r echo=FALSE}
 ft
@@ -256,7 +250,7 @@ ft
 
 <div class="row">
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+<div class="col-12 col-sm-8 col-md-6">
 
 ```{r}
 ft <- add_header_lines(ft, 
@@ -267,7 +261,7 @@ ft <- theme_booktabs(ft)
 
 </div>
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+<div class="col-12 col-sm-8 col-md-6">
 
 ```{r echo=FALSE}
 ft
@@ -295,7 +289,7 @@ rows. Note that variables names are not displayed.
 
 <div class="row">
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+<div class="col-12 col-sm-8 col-md-6">
 
 ```{r}
 typology <- data.frame(
@@ -313,7 +307,7 @@ typology <- data.frame(
 
 </div>
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+<div class="col-12 col-sm-8 col-md-6">
 
 ```{r echo=FALSE}
 autofit( theme_vanilla(flextable(typology)) )
@@ -334,7 +328,7 @@ to permform the join operation.
 
 <div class="row">
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+<div class="col-12 col-sm-8 col-md-6">
 
 ```{r}
 ft <- flextable( head( iris ) )
@@ -350,7 +344,7 @@ ft <- autofit(ft)
 
 </div>
 
-<div class="col-xs-12 col-sm-8 col-md-6">
+<div class="col-12 col-sm-8 col-md-6">
 
 ```{r echo=FALSE}
 ft

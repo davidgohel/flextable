@@ -12,6 +12,7 @@
 * new functions `align_text_col()` and `align_nottext_col()` to align
   columns by data type
 * new functions `merge_h_range()` to merge a set of columns row by row
+* new functions `fix_border_issues()` fix issues with borders when cells are merged
 * new functions `add_header_row()`, `add_footer_row()`, `add_header_lines()`
  and `add_footer_lines()` to add easily data in header or footer.
 * new generic function `as_flextable()` to let develop new flextable functions

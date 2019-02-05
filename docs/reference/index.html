@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@
       <tr>
         
         <td>
-          <p><code><a href="add_header_footer.html">add_header()</a></code> <code><a href="add_header_footer.html">add_footer()</a></code> </p>
+          <p><code><a href="add_header_footer.html">add_header()</a></code> <code><a href="add_header_footer.html">add_header_row()</a></code> <code><a href="add_header_footer.html">add_footer_row()</a></code> <code><a href="add_header_footer.html">add_footer_lines()</a></code> <code><a href="add_header_footer.html">add_header_lines()</a></code> <code><a href="add_header_footer.html">add_footer()</a></code> </p>
         </td>
         <td><p>Add a row of labels in header or footer part</p></td>
       </tr><tr>
@@ -177,13 +177,19 @@
         <td>
           <p><code><a href="merge_at.html">merge_at()</a></code> </p>
         </td>
-        <td><p>Merge flextable cells</p></td>
+        <td><p>Merge flextable cells into a single one</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="merge_h.html">merge_h()</a></code> </p>
         </td>
         <td><p>Merge flextable cells horizontally</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="merge_h_range.html">merge_h_range()</a></code> </p>
+        </td>
+        <td><p>rowwise merge of a range of columns</p></td>
       </tr><tr>
         
         <td>
@@ -291,15 +297,69 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="borders.html">border_remove()</a></code> <code><a href="borders.html">border_outer()</a></code> <code><a href="borders.html">border_inner_h()</a></code> <code><a href="borders.html">border_inner_v()</a></code> <code><a href="borders.html">hline()</a></code> <code><a href="borders.html">hline_top()</a></code> <code><a href="borders.html">hline_bottom()</a></code> <code><a href="borders.html">vline()</a></code> <code><a href="borders.html">vline_left()</a></code> <code><a href="borders.html">vline_right()</a></code> </p>
+          <p><code><a href="borders.html">hline()</a></code> </p>
         </td>
-        <td><p>borders management</p></td>
+        <td><p>set horizontal borders</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hline_bottom.html">hline_bottom()</a></code> </p>
+        </td>
+        <td><p>set bottom horizontal border</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hline_top.html">hline_top()</a></code> </p>
+        </td>
+        <td><p>set top horizontal border</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vline.html">vline()</a></code> </p>
+        </td>
+        <td><p>set vertical borders</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vline_left.html">vline_left()</a></code> </p>
+        </td>
+        <td><p>set flextable left vertical borders</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vline_right.html">vline_right()</a></code> </p>
+        </td>
+        <td><p>set flextable right vertical borders</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="border.html">border()</a></code> </p>
         </td>
         <td><p>Set cell borders</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="border_inner_h.html">border_inner_h()</a></code> </p>
+        </td>
+        <td><p>set inner borders</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="border_inner_v.html">border_inner_v()</a></code> </p>
+        </td>
+        <td><p>set vertical inner borders</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="border_outer.html">border_outer()</a></code> </p>
+        </td>
+        <td><p>set outer borders</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="border_remove.html">border_remove()</a></code> </p>
+        </td>
+        <td><p>remove borders</p></td>
       </tr><tr>
         
         <td>
@@ -502,7 +562,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

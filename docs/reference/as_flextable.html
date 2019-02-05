@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply box theme — theme_alafoli • flextable</title>
+<title>method to convert object to flextable — as_flextable • flextable</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
 
 
-<meta property="og:title" content="Apply box theme — theme_alafoli" />
+<meta property="og:title" content="method to convert object to flextable — as_flextable" />
 
-<meta property="og:description" content="Apply theme box to a flextable" />
+<meta property="og:description" content="This is a convenient function
+to let users create flextable bindings
+from any objects." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,47 +107,83 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Apply box theme</h1>
+    <h1>method to convert object to flextable</h1>
     
-    <div class="hidden name"><code>theme_alafoli.Rd</code></div>
+    <div class="hidden name"><code>as_flextable.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Apply theme box to a flextable</p>
+    <p>This is a convenient function
+to let users create flextable bindings
+from any objects.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>theme_alafoli</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>as_flextable</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for grouped_data</span>
+<span class='fu'>as_flextable</span>(<span class='no'>x</span>, <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a flextable object</p></td>
+      <td><p>object to be transformed as flextable</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>arguments for custom methods</p></td>
+    </tr>
+    <tr>
+      <th>col_keys</th>
+      <td><p>columns names/keys to display. If some column names are not in
+the dataset, they will be added as blank columns by default.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other flextable theme: <code><a href='theme_booktabs.html'>theme_booktabs</a></code>,
-  <code><a href='theme_box.html'>theme_box</a></code>, <code><a href='theme_tron_legacy.html'>theme_tron_legacy</a></code>,
-  <code><a href='theme_tron.html'>theme_tron</a></code>, <code><a href='theme_vader.html'>theme_vader</a></code>,
-  <code><a href='theme_vanilla.html'>theme_vanilla</a></code>, <code><a href='theme_zebra.html'>theme_zebra</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>iris</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>theme_alafoli</span>(<span class='no'>ft</span>)</div></pre>
+    <pre class="examples"><div class='input'>
+<span class='co'># as_flextable and as_grouped_data -----</span>
+<span class='kw'>if</span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"magrittr"</span>)){
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>data.table</span>)
+  <span class='no'>CO2</span> <span class='kw'>&lt;-</span> <span class='no'>CO2</span>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/data.table/topics/setDT'>setDT</a></span>(<span class='no'>CO2</span>)
+  <span class='no'>CO2</span>$<span class='no'>conc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>as.integer</a></span>(<span class='no'>CO2</span>$<span class='no'>conc</span>)
+
+  <span class='no'>data_co2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/data.table/topics/dcast.data.table'>dcast</a></span>(<span class='no'>CO2</span>, <span class='no'>Treatment</span> + <span class='no'>conc</span> ~ <span class='no'>Type</span>,
+                    <span class='kw'>value.var</span> <span class='kw'>=</span> <span class='st'>"uptake"</span>, <span class='kw'>fun.aggregate</span> <span class='kw'>=</span> <span class='no'>mean</span>)
+  <span class='no'>data_co2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable-data-transform.html'>as_grouped_data</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>data_co2</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Treatment"</span>))
+
+  <span class='no'>zz</span> <span class='kw'>&lt;-</span> <span class='fu'>as_flextable</span>( <span class='no'>data_co2</span> ) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='add_header_footer.html'>add_footer_lines</a></span>(<span class='st'>"dataset CO2 has been used for this flextable"</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='add_header_footer.html'>add_header_lines</a></span>(<span class='st'>"mean of carbon dioxide uptake in grass plants"</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='set_header_labels.html'>set_header_labels</a></span>(<span class='kw'>conc</span> <span class='kw'>=</span> <span class='st'>"Concentration"</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='autofit.html'>autofit</a></span>() <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='width.html'>width</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>))
+  <span class='no'>zz</span>
+}</div><div class='output co'>#&gt; <span class='message'>Le chargement a nécessité le package : magrittr</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attachement du package : ‘magrittr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:testthat’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    equals, is_less_than, not</span></div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `conc`, `Quebec`, `Mississippi` 
+#&gt; header has 2 row(s) 
+#&gt; body has 16 row(s) 
+#&gt; original dataset sample: 
+#&gt;    Treatment conc   Quebec Mississippi
+#&gt; 1 nonchilled   NA       NA          NA
+#&gt; 3       &lt;NA&gt;   95 15.26667    11.30000
+#&gt; 4       &lt;NA&gt;  175 30.03333    20.20000
+#&gt; 5       &lt;NA&gt;  250 37.40000    27.53333
+#&gt; 6       &lt;NA&gt;  350 40.36667    29.90000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
