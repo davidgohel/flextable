@@ -12,7 +12,7 @@ vignette: >
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css"/>
 
-```{r echo = FALSE}
+```{r echo = FALSE, message=FALSE}
 knitr::opts_chunk$set(
   message = FALSE,
   collapse = TRUE,
@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 )
 library(htmltools)
 library(magrittr)
+library(data.table)
 
 as_ul <- function( names ) {
   do.call( tags$ul, lapply(names, tags$li) )
@@ -425,8 +426,8 @@ be added as a *row title*.
 Let's have an example with aggragated data from dataset `CO2`:
 
 ```{r}
-data_CO2 <- data.table::dcast(
-  CO2, Treatment + conc ~ Type, value.var = "uptake", fun.aggregate = mean)
+data_CO2 <- dcast(as.data.table(CO2), 
+  Treatment + conc ~ Type, value.var = "uptake", fun.aggregate = mean)
 head(data_CO2)
 ```
 
