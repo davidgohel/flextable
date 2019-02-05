@@ -4,10 +4,12 @@
 \alias{theme_booktabs}
 \title{Apply booktabs theme}
 \usage{
-theme_booktabs(x)
+theme_booktabs(x, fontsize = 11)
 }
 \arguments{
 \item{x}{a flextable object}
+
+\item{fontsize}{font size in pixel}
 }
 \description{
 Apply theme tron to a flextable

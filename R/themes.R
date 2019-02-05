@@ -14,12 +14,15 @@ theme_vanilla <- function(x){
 
   x <- hline( x, border = std_b, part = "all")
   x <- hline_top( x, border = std_b, part = "header" )
-  x <- style( x = x, pr_p = fp_par(text.align = "right", padding = 2), part = "all")
   x <- bg(x = x, bg = "transparent", part = "all")
+  x <- color(x = x, color = "#111111", part = "all")
+  x <- fontsize(x = x, size = 11, part = "all")
+  x <- font(x = x, fontname = ifelse( font_family_exists(font_family = "Roboto"), "Roboto", "Arial" ), part = "all")
   x <- bold(x = x, bold = TRUE, part = "header")
-  x <- align_text_col(x, align = "center", header = TRUE)
-  x <- align_nottext_col(x, align = "right", header = FALSE)
-
+  x <- align_text_col(x, align = "left", header = TRUE)
+  x <- align_nottext_col(x, align = "right", header = TRUE)
+  x <- padding(x = x, padding.left = 5, padding.right = 5,
+               padding.bottom = 2, padding.top = 2, part = "all")
   x
 }
 
@@ -36,18 +39,19 @@ theme_box <- function(x){
   if( !inherits(x, "flextable") ) stop("theme_box supports only flextable objects.")
   x <- border_remove(x)
 
-  std_border <- fp_border(width = 1, color = "black")
+  std_border <- fp_border(width = 1, color = "#666666")
 
   x <- border_outer(x, part="all", border = std_border )
   x <- border_inner_h(x, border = std_border, part="all")
   x <- border_inner_v(x, border = std_border, part="all")
 
-  x <- style( x = x, pr_p = fp_par(text.align = "center", padding = 2), part = "all")
   x <- bg(x = x, bg = "transparent", part = "all")
   x <- bold(x = x, bold = TRUE, part = "header")
   x <- italic(x = x, italic = TRUE, part = "footer")
-  x <- align_text_col(x, align = "center", header = TRUE)
-  x <- align_nottext_col(x, align = "right", header = FALSE)
+  x <- align_text_col(x, align = "left", header = TRUE)
+  x <- align_nottext_col(x, align = "right", header = TRUE)
+  x <- padding(x = x, padding.left = 5, padding.right = 5,
+               padding.bottom = 2, padding.top = 2, part = "all")
 
   x
 }
@@ -70,7 +74,7 @@ theme_alafoli <- function(x){
   x <- italic(x = x, italic = FALSE, part = "all")
   x <- padding(x = x, padding = 3, part = "all")
 
-  x <- align_text_col(x, align = "center", header = TRUE)
+  x <- align_text_col(x, align = "left", header = TRUE)
   x <- align_nottext_col(x, align = "right", header = TRUE)
   x <- hline_bottom(x, part = "header", border = fp_border())
   x <- hline_top(x, part = "body", border = fp_border())
@@ -81,11 +85,12 @@ theme_alafoli <- function(x){
 #' @title Apply Sith Lord Darth Vader
 #' @description Apply Sith Lord Darth Vader theme to a flextable
 #' @param x a flextable object
+#' @param fontsize font size in pixel
 #' @family flextable theme
 #' @examples
 #' ft <- flextable(iris)
 #' ft <- theme_vader(ft)
-theme_vader <- function(x){
+theme_vader <- function(x, fontsize = 11){
   if( !inherits(x, "flextable") )
     stop("theme_alafoli supports only flextable objects.")
 
@@ -94,7 +99,7 @@ theme_vader <- function(x){
   x <- color(x, color = "#dfdfdf", part = "all")
   x <- bold(x = x, bold = FALSE, part = "all")
   x <- italic(x = x, italic = FALSE, part = "all")
-  x <- padding(x = x, padding = 2, part = "all")
+  x <- padding(x = x, padding = 4, part = "all")
 
   big_border <- fp_border(color = "#ff0000", width = 3)
 
@@ -108,8 +113,9 @@ theme_vader <- function(x){
     x <- hline_top(x, border = big_border, part = "body")
   }
 
-  x <- align_text_col(x, align = "center", header = TRUE)
+  x <- align_text_col(x, align = "left", header = TRUE)
   x <- align_nottext_col(x, align = "right", header = TRUE)
+  x <- fontsize(x, size = fontsize, part = "all")
   x
 }
 
@@ -156,8 +162,8 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
     x <- bg(x = x, i = odd, bg = odd_body, part = "body")
     x <- bg(x = x, i = even, bg = even_body, part = "body")
   }
-  x <- align_text_col(x, align = "center", header = TRUE)
-  x <- align_nottext_col(x, align = "right", header = FALSE)
+  x <- align_text_col(x, align = "left", header = TRUE)
+  x <- align_nottext_col(x, align = "right", header = TRUE)
 
 
 
@@ -195,8 +201,8 @@ theme_tron_legacy <- function(x){
   if(b_nrow > 0 ){
     x <- color(x = x, color = "#FFE64D", part = "body")
   }
-  x <- align_text_col(x, align = "center", header = TRUE)
-  x <- align_nottext_col(x, align = "right", header = FALSE)
+  x <- align_text_col(x, align = "left", header = TRUE)
+  x <- align_nottext_col(x, align = "right", header = TRUE)
 
   x
 }
@@ -232,8 +238,8 @@ theme_tron <- function(x){
   if(b_nrow > 0 ){
     x <- color(x = x, color = "#a4cee5", part = "body")
   }
-  x <- align_text_col(x, align = "center", header = TRUE)
-  x <- align_nottext_col(x, align = "right", header = FALSE)
+  x <- align_text_col(x, align = "left", header = TRUE)
+  x <- align_nottext_col(x, align = "right", header = TRUE)
 
   x
 }
@@ -242,11 +248,12 @@ theme_tron <- function(x){
 #' @title Apply booktabs theme
 #' @description Apply theme tron to a flextable
 #' @param x a flextable object
+#' @param fontsize font size in pixel
 #' @examples
 #' ft <- flextable(iris)
 #' ft <- theme_booktabs(ft)
 #' @family flextable theme
-theme_booktabs <- function(x){
+theme_booktabs <- function(x, fontsize = 11){
   if( !inherits(x, "flextable") ) stop("theme_booktabs supports only flextable objects.")
   big_border <- fp_border(width = 2)
   std_border <- fp_border(width = 1)
@@ -258,7 +265,7 @@ theme_booktabs <- function(x){
 
   if(h_nrow > 0 ){
     x <- hline_top(x, border = big_border, part = "header")
-    # x <- hline(x, border = std_border, part = "header")
+    x <- hline(x, border = std_border, part = "header")
     x <- hline_bottom(x, border = big_border, part = "header")
   }
   if(f_nrow > 0 ){
@@ -270,10 +277,12 @@ theme_booktabs <- function(x){
     x <- hline_bottom(x, border = big_border, part = "body")
   }
 
-  x <- padding(x = x, padding = 2, part = "all")
-  x <- align_text_col(x, align = "center", header = TRUE)
-  x <- align_nottext_col(x, align = "right", header = FALSE)
+  x <- padding(x = x, padding.left = 5, padding.right = 5,
+               padding.bottom = 2, padding.top = 2, part = "all")
+  x <- align_text_col(x, align = "left", header = TRUE)
+  x <- align_nottext_col(x, align = "right", header = TRUE)
   x <- bg(x = x, bg = "transparent", part = "all")
+  x <- fontsize(x, size = fontsize, part = "all")
   x
 
 }

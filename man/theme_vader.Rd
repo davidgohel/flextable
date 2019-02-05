@@ -4,10 +4,12 @@
 \alias{theme_vader}
 \title{Apply Sith Lord Darth Vader}
 \usage{
-theme_vader(x)
+theme_vader(x, fontsize = 11)
 }
 \arguments{
 \item{x}{a flextable object}
+
+\item{fontsize}{font size in pixel}
 }
 \description{
 Apply Sith Lord Darth Vader theme to a flextable
