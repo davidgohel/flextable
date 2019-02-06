@@ -1,6 +1,6 @@
 pandoc: '2.5'
-pkgdown: 1.3.0
-pkgdown_sha: ~
+pkgdown: 1.3.0.9000
+pkgdown_sha: 7e788c41d20ab28d4bf97556e18382391d359c9f
 articles:
   examples: examples.html
   format: format.html
