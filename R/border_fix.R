@@ -19,10 +19,19 @@
 #'   print(ft)
 #'   fix_border_issues(ft) %>% print()
 #' }
-fix_border_issues <- function(x, part = "body"){
-
+fix_border_issues <- function(x, part = "all"){
   if( !inherits(x, "flextable") ) stop("fix_border_issues supports only flextable objects.")
-  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- fix_border_issues(x = x, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
 
   x[[part]] <- correct_h_border(x[[part]])
   x[[part]] <- correct_v_border(x[[part]])

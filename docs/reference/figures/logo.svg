@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 124.44 144.00" id="svg2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs id="defs4">
+    <style type="text/css" id="style6">
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  </style>
+  </defs>
+  <polyline points="2.285 37.429 2.285 106.799 62.105 141.486 121.926 106.799 121.926 37.429 62.105 2.743 2.285 37.429" style="stroke-width: 4; fill-opacity: 0.5; fill: rgb(240, 240, 240); stroke: rgb(0, 102, 153);" clip-path="url(#cpMHwxMjQuNDQxfDE0My45OTd8MC4xNDMxMzc=)" id="polyline29"/>
+  <text x="0" y="50" transform="matrix(0.866025, -0.5, 0.5, 0.866026, 46.601307, 88.062561)" style="fill: rgb(0, 102, 153); font-family: sans-serif; font-size: 7px; white-space: pre;">www.ardata.fr</text>
+  <text transform="matrix(0.866025, -0.5, 0.5, 0.866026, -48.563812, -33.882568)" style="fill: rgb(0, 102, 153); font-size: 17px; font-weight: bold; letter-spacing: 0.3px; white-space: pre;" x="8.134" y="104.286">flextable</text>
+  <g style="stroke: rgb(0, 102, 153); stroke-linecap: round; stroke-width: 10;" transform="matrix(0.171352, 0, 0, 0.2, 27.936237, 41.000008)">
+    <line x1="25" y1="80" x2="375" y2="80" style="stroke: rgb(0, 102, 153); stroke-width: 16.1572;" bx:origin="0.4 0.5"/>
+    <line x1="25" y1="125" x2="375.156" y2="125" style="stroke: rgb(0, 102, 153); stroke-width: 16.1572;" bx:origin="0.4 0"/>
+    <line x1="25" y1="170" x2="199.752" y2="170" style="stroke: rgb(0, 102, 153); stroke-width: 16.1572;" bx:origin="0.4 0"/>
+    <line x1="25" y1="215" x2="375" y2="215" style="stroke: rgb(0, 102, 153); stroke-width: 16.1572;" bx:origin="0.4 0"/>
+    <line x1="25" y1="260" x2="375" y2="260" style="stroke: rgb(0, 102, 153); stroke-width: 16.1572;" bx:origin="0.4 0"/>
+    <line x1="60" y1="30" x2="60" y2="280" style="stroke: rgb(0, 102, 153); stroke-width: 16.1572;" bx:origin="0 0.5"/>
+    <line x1="130" y1="80.579" x2="130" y2="280" style="stroke: rgb(0, 102, 153); stroke-width: 16.1572;" bx:origin="0 0.5"/>
+    <line x1="200" y1="30" x2="200" y2="280" style="stroke: rgb(0, 102, 153); stroke-width: 16.1572;" bx:origin="0 0.5"/>
+    <line x1="270" y1="215.933" x2="270" y2="280" style="stroke: rgb(0, 102, 153); stroke-width: 16.1572;" bx:origin="0 0.5"/>
+    <line x1="340" y1="30" x2="340" y2="280" style="stroke: rgb(0, 102, 153); stroke-width: 16.1572;" bx:origin="0 0.5"/>
+  </g>
+</svg>

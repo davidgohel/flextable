@@ -73,6 +73,7 @@ ft <- merge_v(ft, j = "Species", part = "body")
 ft <- merge_v(ft, j = "Species", part = "header")
 ft <- theme_booktabs(ft)
 ft <- empty_blanks(ft)
+ft <- fix_border_issues(ft)
 autofit(ft) 
 ```
 

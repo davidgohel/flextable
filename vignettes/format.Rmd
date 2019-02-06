@@ -394,7 +394,7 @@ myft
 The function requires a call to `as_paragraph` which will concatenate text or images chunks as 
 a paragraph. 
 
-![](https://www.ardata.fr/img/illustrations/flextable_compose.svg)
+![](https://www.ardata.fr/img/illustrations/flextable_compose.svg){width=350px}
 
 
 The following example shows how to control the format of displayed values and how to 

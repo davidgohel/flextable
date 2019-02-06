@@ -4,7 +4,7 @@
 \alias{fix_border_issues}
 \title{fix border issues when cell are merged}
 \usage{
-fix_border_issues(x, part = "body")
+fix_border_issues(x, part = "all")
 }
 \arguments{
 \item{x}{flextable object}

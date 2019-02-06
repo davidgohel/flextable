@@ -1,15 +1,3 @@
-#' @title data transformations for flextable
-#'
-#' @description Create specific data.frame.
-#'
-#' @param x dataset
-#' @param groups columns names to be used as row separators.
-#' @param columns columns names to keep
-#' @seealso \code{\link{as_flextable}}
-#' @name flextable-data-transform
-NULL
-
-
 #' @title method to convert object to flextable
 #' @description This is a convenient function
 #' to let users create flextable bindings
@@ -22,8 +10,15 @@ as_flextable <- function( x, ... ){
 }
 
 
-#' @export
-#' @rdname flextable-data-transform
+#' @title grouped data transformation
+#'
+#' @description Repeated consecutive values of group columns will
+#' be used to define the title of the groups and will
+#' be added as a row title.
+#'
+#' @param x dataset
+#' @param groups columns names to be used as row separators.
+#' @param columns columns names to keep
 #' @examples
 #' # as_grouped_data -----
 #' library(data.table)
@@ -36,7 +31,8 @@ as_flextable <- function( x, ... ){
 #' data_co2
 #' data_co2 <- as_grouped_data(x = data_co2, groups = c("Treatment"))
 #' data_co2
-#'
+#' @seealso \code{\link{as_flextable}}
+#' @export
 as_grouped_data <- function( x, groups, columns = NULL ){
 
   if( inherits(x, "data.table") || inherits(x, "tbl_df") || inherits(x, "tbl") || is.matrix(x) )

@@ -26,6 +26,8 @@ reference:
     - autofit
     - dim.flextable
     - dim_pretty
+    - as_grouped_data
+    - xtable_to_flextable
   - title: Format flextable
     desc:  Modify flextable`s formatting properties.
     contents:
@@ -59,6 +61,7 @@ reference:
     - as_image
     - minibar
     - hyperlink_text
+    - set_caption
   - title: Output functions
     contents:
     - print.flextable
