@@ -321,7 +321,7 @@ myft
 To learn more, see article about [layouts](./layout.html).
 
 
-### Formating
+### Formatting
 
 > To learn more, see article about [format](./format.html).
 

@@ -12,3 +12,4 @@
 ^inst/medias$
 ^cran-comments\.md$
 ^ISSUE_TEMPLATE\.md$
+^vignettes/offcran$

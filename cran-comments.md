@@ -1,6 +1,6 @@
 ## Test environments
 
-- local OS X install (R 3.5.1)
+- local OS X install (R 3.5.2)
 - ubuntu 12.04 (on travis-ci with older and release)
 - winbuilder (release and devel)
 
