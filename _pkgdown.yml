@@ -40,11 +40,15 @@ reference:
     - bold
     - color
     - padding
+    - valign
+    - rotate
+    - empty_blanks
+  - title: borders
+    desc: Borders management
+    contents:
     - starts_with("hline")
     - starts_with("vline")
     - starts_with("border")
-    - rotate
-    - empty_blanks
   - title: Flextable themes
     desc:  Apply theme functions.
     contents:
@@ -80,7 +84,7 @@ navbar:
   - text: Format
     href: articles/format.html
   - text: Examples
-    href: articles/examples.html
+    href: articles/offcran/examples.html
   right:
   - text: Function reference
     href: reference/index.html

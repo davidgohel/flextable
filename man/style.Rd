@@ -24,6 +24,9 @@ style(x, i = NULL, j = NULL, pr_t = NULL, pr_p = NULL,
 }
 \description{
 Modify flextable text, paragraphs and cells formatting properties.
+It allows to specify a set of formatting properties for a selection instead
+of using multiple functions (.i.e \code{bold}, \code{italic}, \code{bg}) that
+should all be applied to the same selection of rows and columns.
 }
 \examples{
 library(officer)

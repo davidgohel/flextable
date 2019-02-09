@@ -34,3 +34,12 @@ change paddings of selected rows and columns of a flextable.
 ft <- flextable(mtcars)
 ft <- padding(ft, padding.top = 4)
 }
+\seealso{
+Other sugar functions for table style: \code{\link{align}},
+  \code{\link{bg}}, \code{\link{bold}},
+  \code{\link{color}}, \code{\link{empty_blanks}},
+  \code{\link{fontsize}}, \code{\link{font}},
+  \code{\link{italic}}, \code{\link{rotate}},
+  \code{\link{valign}}
+}
+\concept{sugar functions for table style}

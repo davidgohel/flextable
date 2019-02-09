@@ -37,3 +37,26 @@ ft <- align_text_col(ft, align = "left")
 ft <- align_nottext_col(ft, align = "right")
 ft
 }
+\seealso{
+Other sugar functions for table style: \code{\link{bg}},
+  \code{\link{bold}}, \code{\link{color}},
+  \code{\link{empty_blanks}}, \code{\link{fontsize}},
+  \code{\link{font}}, \code{\link{italic}},
+  \code{\link{padding}}, \code{\link{rotate}},
+  \code{\link{valign}}
+
+Other sugar functions for table style: \code{\link{bg}},
+  \code{\link{bold}}, \code{\link{color}},
+  \code{\link{empty_blanks}}, \code{\link{fontsize}},
+  \code{\link{font}}, \code{\link{italic}},
+  \code{\link{padding}}, \code{\link{rotate}},
+  \code{\link{valign}}
+
+Other sugar functions for table style: \code{\link{bg}},
+  \code{\link{bold}}, \code{\link{color}},
+  \code{\link{empty_blanks}}, \code{\link{fontsize}},
+  \code{\link{font}}, \code{\link{italic}},
+  \code{\link{padding}}, \code{\link{rotate}},
+  \code{\link{valign}}
+}
+\concept{sugar functions for table style}

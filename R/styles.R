@@ -1,6 +1,9 @@
 #' @export
 #' @title Set flextable style
 #' @description Modify flextable text, paragraphs and cells formatting properties.
+#' It allows to specify a set of formatting properties for a selection instead
+#' of using multiple functions (.i.e \code{bold}, \code{italic}, \code{bg}) that
+#' should all be applied to the same selection of rows and columns.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
@@ -76,6 +79,7 @@ style <- function(x, i = NULL, j = NULL,
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param bold boolean value
+#' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- bold(ft, bold = TRUE, part = "header")
@@ -110,6 +114,7 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param size integer value (points)
+#' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- fontsize(ft, size = 14, part = "header")
@@ -144,6 +149,7 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param italic boolean value
+#' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- italic(ft, italic = TRUE, part = "header")
@@ -178,6 +184,7 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param color color to use as font color
+#' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- color(ft, color = "orange", part = "header")
@@ -212,6 +219,7 @@ color <- function(x, i = NULL, j = NULL, color, part = "body" ){
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param fontname string value, the font name.
+#' @family sugar functions for table style
 #' @examples
 #' require("gdtools")
 #' fontname <- "Times"
@@ -261,6 +269,7 @@ font <- function(x, i = NULL, j = NULL, fontname, part = "body" ){
 #' @param padding.bottom padding bottom
 #' @param padding.left padding left
 #' @param padding.right padding right
+#' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- padding(ft, padding.top = 4)
@@ -322,6 +331,7 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param align text alignment - a single character value, expected value
 #' is one of 'left', 'right', 'center', 'justify'.
+#' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- align(ft, align = "center")
@@ -352,6 +362,8 @@ align <- function(x, i = NULL, j = NULL, align = "left",
 #' @export
 #' @rdname align
 #' @param header should the header be aligned with the body
+#' @family sugar functions for table style
+#' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- align_text_col(ft, align = "left")
@@ -389,6 +401,7 @@ align_nottext_col <- function(x, align = "right", header = TRUE ){
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param bg color to use as background color
+#' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- bg(ft, bg = "#DDDDDD", part = "header")
@@ -415,6 +428,45 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
 
   x
 }
+#' @export
+#' @title Set vertical alignment
+#' @description change vertical alignment of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @param valign vertical alignment of paragraph within cell,
+#' one of "center" or "top" or "bottom".
+#' @family sugar functions for table style
+#' @examples
+#' ft <- flextable(iris[c(1:3, 51:53, 101:103),])
+#' ft <- theme_box(ft)
+#' ft <- merge_v( ft, j = 5)
+#' ft <- valign(ft, j = 5, valign = "top", part = "all")
+#' ft
+valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body" ){
+
+  if( !inherits(x, "flextable") ) stop("valign supports only flextable objects.")
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- valign(x = x, i = i, j = j, valign = valign, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+
+  x[[part]]$styles$cells[i, j, "vertical.align"] <- valign
+
+  x
+}
 
 
 #' @export
@@ -435,6 +487,7 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
 #'
 #' When function \code{autofit} is used, the rotation will be
 #' ignored.
+#' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(head(iris))
 #' ft <- rotate(ft, rotation = "tbrl", part = "header", align = "center")
@@ -476,6 +529,7 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
 #' that will delete top and bottom borders, change background color to
 #' transparent and display empty content.
 #' @param x a flextable object
+#' @family sugar functions for table style
 #' @examples
 #' typology <- data.frame(
 #'   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",

@@ -24,3 +24,12 @@ change font size of selected rows and columns of a flextable.
 ft <- flextable(mtcars)
 ft <- fontsize(ft, size = 14, part = "header")
 }
+\seealso{
+Other sugar functions for table style: \code{\link{align}},
+  \code{\link{bg}}, \code{\link{bold}},
+  \code{\link{color}}, \code{\link{empty_blanks}},
+  \code{\link{font}}, \code{\link{italic}},
+  \code{\link{padding}}, \code{\link{rotate}},
+  \code{\link{valign}}
+}
+\concept{sugar functions for table style}
