@@ -105,7 +105,7 @@ as_chunk <- function(x, props = NULL, formater = format_fun, ...) {
   data
 }
 
-#' @importFrom magick image_read
+#' @importFrom magick image_read image_write
 #' @importFrom grDevices as.raster
 #' @export
 #' @title image chunk wrapper
@@ -143,7 +143,7 @@ as_image <- function(src, width = .5, height = .2, ...) {
 
   data <- chunk_dataframe(width = as.double(width),
                   height = as.double(height),
-                  img_data = lapply(src, function(x) as.raster(image_read(x)))
+                  img_data = lapply(src, function(x) image_read(x))
                   )
   class(data) <- c("img_chunk", "chunk", "data.frame")
   data

@@ -696,11 +696,20 @@ add_runstyle_column <- function(x, type = "html"){
 #' @importFrom gdtools raster_write
 #' @import data.table
 add_raster_as_filecolumn <- function(x){
+  # inherits(x, "raster") || inherits(x, "magick-image")
 
   whichs_ <- which( !sapply(x$img_data, is.null) & !is.na(x$img_data)  )
   files <- mapply(function(x, width, height){
     file <- tempfile(fileext = ".png")
-    raster_write(x, width = width*72, height = height*72, path = file)
+    if( inherits(x, "magick-image")){
+      image_write(x, path = file, format = "png")
+    } else if(inherits(x, "raster")){
+      raster_write(x, width = width*72, height = height*72, path = file)
+    } else {
+      stop("unknown image format")
+    }
+
+
     data.frame( file = file,
                 img_str = wml_image(file, width, height),
                 stringsAsFactors = FALSE)
@@ -716,11 +725,13 @@ add_raster_as_filecolumn <- function(x){
   x
 
 }
-
+#' @importFrom base64enc dataURI
 run_data <- function(x, type){
 
   is_hlink <- !is.na(x$url)
-  is_raster <- sapply(x$img_data, inherits, "raster")
+  is_raster <- sapply(x$img_data, function(x) {
+    inherits(x, "raster") || inherits(x, "magick-image")
+  })
   x <- add_runstyle_column(x, type)
   if( type %in% "wml" ){
     x <- add_raster_as_filecolumn(x)
@@ -755,7 +766,14 @@ run_data <- function(x, type){
 
     # manage images
     str_raster <- mapply(function(img_raster, width, height ){
-      paste0("<img style=\"vertical-align:middle;\" src=\"data:image/png;base64,", gdtools::raster_str(img_raster, width*72, height*72), "\" />")
+      if( inherits(img_raster, "magick-image")){
+        img_raster <- dataURI(magick::image_write(img_raster, format = "png"), mime="image/png")
+      } else if(inherits(img_raster, "raster")){
+        img_raster <- paste("data:image/png;base64,", gdtools::raster_str(img_raster, width*72, height*72))
+      } else {
+        stop("unknown image format")
+      }
+      sprintf("<img style=\"vertical-align:middle;width:%.0fpx;height:%.0fpx;\" src=\"%s\" />", width*72, height*72, img_raster)
     }, x$img_data[is_raster], x$width[is_raster], x$height[is_raster], SIMPLIFY = FALSE, USE.NAMES = FALSE)
     str_raster <- as.character(unlist(str_raster))
     str[is_raster] <- str_raster
