@@ -279,7 +279,7 @@ ft
 
 The `style` function lets you style a selection of the flextable with several formatting properties. 
 
-> It main advantage is to let specify a set of formatting properties for a selection. 
+> Its main advantage is to let specify a set of formatting properties for a selection. 
 
 Package officer needs to be loaded, it provides the following formatting properties:
 

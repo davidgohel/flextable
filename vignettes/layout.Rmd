@@ -159,7 +159,7 @@ The result is a single cell.
 ```{r}
 myft %>% 
   merge_at(
-    i = 1:2, j = 1:3)
+    i = 1:2, j = 1:2)
 ```
 
 </div>
@@ -339,6 +339,7 @@ ft <- merge_v(ft, part = "header")
 
 ft <- theme_booktabs(ft)
 ft <- autofit(ft)
+ft <- fix_border_issues(ft)
 ```
 
 
@@ -391,7 +392,7 @@ dim(ft)
 ft
 ```
 
-> Soft returns support : function `autofit` and `dim_pretty` do not
+> Soft returns (*a line break in a paragraph*) support : function `autofit` and `dim_pretty` do not
 support soft returns and may return wrong results (\n will be considered as "").
   
 ### Adjusts manually cell widths and heights
@@ -420,6 +421,7 @@ be added as a *row title*.
 Let's have an example with aggragated data from dataset `CO2`:
 
 ```{r}
+library(data.table)
 data_CO2 <- dcast(as.data.table(CO2), 
   Treatment + conc ~ Type, value.var = "uptake", fun.aggregate = mean)
 head(data_CO2)

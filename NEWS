@@ -1,5 +1,7 @@
 # flextable 0.5.2
 
+## new features
+
 * new function `valign` to align vertically paragraphs in cell
 
 # flextable 0.5.1
