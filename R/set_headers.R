@@ -236,6 +236,7 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part){
 
   header_data <- do.call( rbind, header_data )
   dimnames(header_data) <- NULL
+
   header_data <- as.data.frame(header_data, stringsAsFactors = FALSE)
   names(header_data) <- x$col_keys
 
@@ -248,10 +249,11 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part){
 
 
   colwidths <- x[[part]]$colwidths
-  cheight <- x[[part]]$rowheights[length(x[[part]]$rowheights)]
-  x[[part]] <- eval(call( class( x[[part]]), data = header_data, col_keys = x$col_keys, cwidth = .75, cheight = cheight ))
-  x[[part]]$colwidths <- colwidths
+  x[[part]] <- eval(call( class( x[[part]]), data = header_data, col_keys = x$col_keys, cwidth = .75, cheight = .25 ))
+  cheight <- optimal_sizes(x[[part]])$heights
 
+  x[[part]]$colwidths <- colwidths
+  x[[part]]$rowheights <- cheight
   x
 }
 

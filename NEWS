@@ -4,6 +4,10 @@
 
 * new function `valign` to align vertically paragraphs in cell
 
+## Issues
+
+* fix issue with `set_footer_df`
+
 # flextable 0.5.1
 
 ## Issues

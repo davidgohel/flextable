@@ -362,31 +362,37 @@ align <- function(x, i = NULL, j = NULL, align = "left",
 #' @export
 #' @rdname align
 #' @param header should the header be aligned with the body
-#' @family sugar functions for table style
+#' @param footer should the footer be aligned with the body
 #' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- align_text_col(ft, align = "left")
 #' ft <- align_nottext_col(ft, align = "right")
 #' ft
-align_text_col <- function(x, align = "left", header = TRUE ){
+align_text_col <- function(x, align = "left", header = TRUE, footer = TRUE ){
 
   which_j <- which( sapply(x$body$dataset[x$col_keys], function(x) is.character(x) | is.factor(x) ) )
   x <- align(x, j = which_j, align = align, part = "body" )
   if( header ) {
     x <- align(x, j = which_j, align = align, part = "header" )
   }
+  if( footer ) {
+    x <- align(x, j = which_j, align = align, part = "footer" )
+  }
   x
 }
 
 #' @export
 #' @rdname align
-align_nottext_col <- function(x, align = "right", header = TRUE ){
+align_nottext_col <- function(x, align = "right", header = TRUE, footer = TRUE ){
 
   which_j <- which( !sapply(x$body$dataset[x$col_keys], function(x) is.character(x) | is.factor(x) ) )
   x <- align(x, j = which_j, align = align, part = "body" )
   if( header ) {
     x <- align(x, j = which_j, align = align, part = "header" )
+  }
+  if( footer ) {
+    x <- align(x, j = which_j, align = align, part = "footer" )
   }
   x
 }
