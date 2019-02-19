@@ -41,10 +41,10 @@ ft <- border(ft, border.top = fp_border(color = "orange") )
 }
 \seealso{
 Other borders management: \code{\link{border_inner_h}},
-  \code{\link{border_inner_v}}, \code{\link{border_outer}},
-  \code{\link{border_remove}}, \code{\link{hline_bottom}},
-  \code{\link{hline_top}}, \code{\link{hline}},
-  \code{\link{vline_left}}, \code{\link{vline_right}},
-  \code{\link{vline}}
+  \code{\link{border_inner_v}}, \code{\link{border_inner}},
+  \code{\link{border_outer}}, \code{\link{border_remove}},
+  \code{\link{hline_bottom}}, \code{\link{hline_top}},
+  \code{\link{hline}}, \code{\link{vline_left}},
+  \code{\link{vline_right}}, \code{\link{vline}}
 }
 \concept{borders management}
