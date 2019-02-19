@@ -206,6 +206,48 @@ border_inner_v <- function(x, border = NULL, part = "all"){
 }
 
 #' @export
+#' @title set vertical & horizontal inner borders
+#' @description The function is applying a vertical and horizontal borders to inner content of one
+#' or all parts of a flextable.
+#' @inheritParams border_outer
+#' @examples
+#' library(officer)
+#' std_border = fp_border(color="orange", width = 1)
+#'
+#' dat <- iris[c(1:5, 51:55, 101:105),]
+#' ft <- flextable(dat)
+#' ft <- border_remove(x = ft)
+#'
+#' # add inner vertical borders
+#' ft <- border_inner(ft, border = std_border )
+#' ft
+#' @family borders management
+border_inner <- function(x, border = NULL, part = "all"){
+  if( !inherits(x, "flextable") ) stop("border_inner_v supports only flextable objects.")
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- border_inner(x = x, border = border, part = p)
+    }
+    return(x)
+  }
+  if( (nl <- nrow_part(x, part)) < 1 ) return(x)
+
+  # v
+  at <- seq_along(x$col_keys)
+  at <- at[-length(at)]
+  x <- vline(x, j = at, border = border, part = part)
+
+  # h
+  at <- seq_len(nl)
+  at <- at[-length(at)]
+  x <- hline(x, i = at, border = border, part = part)
+
+  x
+}
+
+#' @export
 #' @title set horizontal borders
 #' @description The function is applying an horizontal border to inner
 #' content of one or all parts of a flextable. The lines are the

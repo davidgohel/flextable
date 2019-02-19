@@ -5,6 +5,8 @@ Version: 0.5.2.004
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
+    person("Quentin", "Fazilleau", role = c("ctb"),
+    email = "quentin.fazilleau@ardata.fr"),
     person("Maxim", "Nazarov", role = c("ctb"),
       comment = "rmarkdown for docx output"))
 Description: Create pretty tables for 'HTML', 'Microsoft Word' and 'Microsoft PowerPoint' documents. 
