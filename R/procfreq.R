@@ -1,0 +1,53 @@
+#' @title procFreq for flextable
+#'
+#' @description This function compute statistics and make a flextable.
+#'
+#' @param x \code{data.frame} object
+#' value specifying label to use.
+#' @param row \code{characer} column of x for row
+#' @param col \code{characer} column of x for col
+#'
+#' @examples
+#' data("mtcars")
+#' procFreq(mtcars, "vs", "gear")
+#' procFreq(mtcars, "gear", "vs")
+#'
+#' @export
+procFreq <- function(x, row, col){
+  DD <- as.data.frame.matrix(table(x[[row]], x[[col]]))
+  DDl <- DD/rowSums(DD)
+  DDr <- t(t(DD)/colSums(DD))
+  DDt <- DD/sum(DD)
+  nr <- nrow(DD)
+  ll <- sapply(1:nr, function(X){
+    dd <- data.frame(V1 =  rownames(DD[X,]),label = c("Frequency", "Percent", "Row Pct", "Col Pct"),
+               rbind(DD[X,], DDl[X,], DDr[X,], DDt[X,]))
+    names(dd)[1] <- row
+    dd
+  }, simplify = FALSE)
+  ll <- Reduce(rbind, ll)
+  nl <- nrow(ll)
+  llflex <- flextable(ll)
+  llflex <- merge_v(llflex, j = row )
+  llflex <- autofit(llflex)
+
+  fq <- which(ll$label == "Frequency")
+  llflex <- flextable::bold(llflex, fq, 2:ncol(ll))
+  llflex <- flextable::bold(llflex, 1:nrow(ll), 1)
+
+  llflex <- flextable::border(llflex, fq, 1:ncol(ll), border.top = officer::fp_border(color = "black"))
+
+  llflex <- add_header_row(llflex, values = c("", col), colwidths = c(2,ncol(ll)-2))
+  llflex <- align(llflex, align = "center", part = "header")
+  llflex <- flextable::bold(llflex, part = "header")
+  llflex <- align(llflex, align = "center", part = "body")
+
+  llflex <- flextable::border(llflex, part = "header", i = 1, j = 3, border.top = officer::fp_border(color = "black", width = 2),
+                              border.bottom = officer::fp_border(color = "black", width = 2),
+                              border.left = officer::fp_border(color = "black", width = 2),
+                              border.right = officer::fp_border(color = "black", width = 2))
+  llflex <- flextable::border(llflex, part = "header", i = 1, j = 1,
+                              border.right = officer::fp_border(color = "black", width = 2))
+
+  llflex
+}
