@@ -24,7 +24,7 @@ procFreq <- function(x, row, col, main = ""){
   DDt <- DD/sum(DD)
   nr <- nrow(DD)
   ll <- sapply(1:nr, function(X){
-    dd <- data.frame(V1 =  rownames(DD[X,]),label = c("Frequency", "Percent", "Row Pct", "Col Pct"),
+    dd <- data.frame(V1 =  rownames(DD[X,]),label = c("Frequency", "Row Pct", "Col Pct", "Percent"),
                rbind(DD[X,], DDl[X,], DDr[X,], DDt[X,]))
     names(dd)[1] <- row
     dd
