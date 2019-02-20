@@ -4,7 +4,7 @@
 \alias{procFreq}
 \title{procFreq for flextable}
 \usage{
-procFreq(x, row, col)
+procFreq(x, row, col, main = "")
 }
 \arguments{
 \item{x}{\code{data.frame} object
@@ -13,13 +13,17 @@ value specifying label to use.}
 \item{row}{\code{characer} column of x for row}
 
 \item{col}{\code{characer} column of x for col}
+
+\item{main}{\code{characer} title}
 }
 \description{
 This function compute statistics and make a flextable.
 }
 \examples{
+
 data("mtcars")
 procFreq(mtcars, "vs", "gear")
 procFreq(mtcars, "gear", "vs")
+procFreq(mtcars, "gear", "vs", "My title")
 
 }

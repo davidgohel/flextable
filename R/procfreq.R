@@ -6,14 +6,18 @@
 #' value specifying label to use.
 #' @param row \code{characer} column of x for row
 #' @param col \code{characer} column of x for col
+#' @param main \code{characer} title
 #'
 #' @examples
+#'
 #' data("mtcars")
 #' procFreq(mtcars, "vs", "gear")
 #' procFreq(mtcars, "gear", "vs")
+#' procFreq(mtcars, "gear", "vs", "My title")
 #'
 #' @export
-procFreq <- function(x, row, col){
+procFreq <- function(x, row, col, main = ""){
+
   DD <- as.data.frame.matrix(table(x[[row]], x[[col]]))
   DDl <- DD/rowSums(DD)
   DDr <- t(t(DD)/colSums(DD))
@@ -49,5 +53,18 @@ procFreq <- function(x, row, col){
   llflex <- flextable::border(llflex, part = "header", i = 1, j = 1,
                               border.right = officer::fp_border(color = "black", width = 2))
 
+  if(main != ""){
+
+    llflex <- flextable::add_header_row(llflex,  values = main, colwidths = c(ncol(ll)))
+    llflex <- flextable::bold(llflex, part = "header")
+    llflex <- align(llflex, align = "center", part = "header")
+    llflex <- flextable::border(llflex, part = "header", i = 1, j = 1, border.top = officer::fp_border(color = "black", width = 2),
+                                border.bottom = officer::fp_border(color = "black", width = 2),
+                                border.left = officer::fp_border(color = "black", width = 2),
+                                border.right = officer::fp_border(color = "black", width = 2))
+
+  }
+
   llflex
+
 }
