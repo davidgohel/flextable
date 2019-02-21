@@ -42,6 +42,7 @@ autofit(myft)
 \code{\link{compose}}, \code{\link{as_paragraph}}
 
 Other chunk elements for paragraph: \code{\link{as_chunk}},
-  \code{\link{hyperlink_text}}, \code{\link{minibar}}
+  \code{\link{hyperlink_text}}, \code{\link{linerange}},
+  \code{\link{minibar}}
 }
 \concept{chunk elements for paragraph}

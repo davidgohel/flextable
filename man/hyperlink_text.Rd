@@ -41,6 +41,7 @@ ft
 \code{\link{display}}
 
 Other chunk elements for paragraph: \code{\link{as_chunk}},
-  \code{\link{as_image}}, \code{\link{minibar}}
+  \code{\link{as_image}}, \code{\link{linerange}},
+  \code{\link{minibar}}
 }
 \concept{chunk elements for paragraph}
