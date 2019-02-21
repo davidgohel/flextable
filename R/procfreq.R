@@ -25,11 +25,22 @@ procFreq <- function(x, row, col, main = ""){
   nr <- nrow(DD)
   ll <- sapply(1:nr, function(X){
     dd <- data.frame(V1 =  rownames(DD[X,]),label = c("Frequency", "Row Pct", "Col Pct", "Percent"),
-               rbind(DD[X,], DDl[X,], DDr[X,], DDt[X,]))
+                     rbind(DD[X,], DDl[X,], DDr[X,], DDt[X,]))
     names(dd)[1] <- row
     dd
   }, simplify = FALSE)
   ll <- Reduce(rbind, ll)
+
+
+  ll$Total <- rowSums(ll[,3:ncol(ll)])
+  ll[ which(ll$label == "Row Pct" | ll$label == "Col Pct" ),]$Total <- NA
+  endR <- data.frame(GP = "Total", label = c("Frequency","Percent"))
+  names(endR)[1] <-   names(ll)[1]
+  for(i in 3:(ncol(ll) - 1)){
+    endR[[names(ll)[i]]] <-  c(sum(ll[[i]][which(ll$label=="Frequency")]), sum(ll[[i]][which(ll$label=="Percent")]))
+  }
+  endR$Total = c(sum(ll[["Total"]][which(ll$label=="Frequency")]), NA)
+  ll <- rbind(ll, endR)
   nl <- nrow(ll)
   llflex <- flextable(ll)
   llflex <- merge_v(llflex, j = row )
