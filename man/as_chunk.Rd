@@ -38,6 +38,7 @@ autofit(myft)
 }
 \seealso{
 Other chunk elements for paragraph: \code{\link{as_image}},
-  \code{\link{hyperlink_text}}, \code{\link{minibar}}
+  \code{\link{hyperlink_text}}, \code{\link{linerange}},
+  \code{\link{minibar}}
 }
 \concept{chunk elements for paragraph}
