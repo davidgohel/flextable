@@ -285,14 +285,14 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC", stick
   rangecol  <- rgb(t(col2rgb(rangecol))/255)
   bg <- ifelse( bg == "transparent", bg, rgb(t(col2rgb(bg))/255) )
 
-  # get value approx on range 1,100
-  value <- approx(x = c(min,max), y = c(1,100), xout = value)$y
+  # get value approx on range 1,60
+  value <- approx(x = c(min,max), y = c(1,60), xout = value)$y
 
   rasters <- mapply(function(value, stickcol, bg, rangecol) {
-    base <- matrix(rep(bg, 100), nrow = 5, ncol = 100)
+    base <- matrix(rep(bg, 60), nrow = 5, ncol = 60)
     base[, 1]   <- rep(rangecol, 5)
-    base[, 100] <- rep(rangecol, 5)
-    base[3,] <- rep(rangecol, 100)
+    base[, 60] <- rep(rangecol, 5)
+    base[3,] <- rep(rangecol, 60)
     base[, round(value)] <- rep(stickcol, 5)
     as.raster(base)
   }, value, stickcol, bg, rangecol, SIMPLIFY = FALSE)
