@@ -1,0 +1,53 @@
+---
+title: "pagedown is awesome"
+output: pagedown::html_paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(flextable)
+library(magrittr)
+library(data.table)
+data_CO2 <- dcast(as.data.table(CO2), 
+  Treatment + conc ~ Type, value.var = "uptake", fun.aggregate = mean)
+data_CO2 <- as_grouped_data(x = data_CO2, groups = c("Treatment"))
+```
+
+# Demo
+
+```{r echo=FALSE}
+data_CO2
+```
+
+
+# flextable - demo 1
+
+```{r echo=FALSE}
+as_flextable( data_CO2 ) %>% 
+  bold(j = 1, i = ~ !is.na(Treatment), bold = TRUE, part = "body" ) %>% 
+  bold(part = "header", bold = TRUE ) %>% 
+  width(width = 1.5) %>% 
+  compose(i = ~ !is.na(conc), j = "conc", 
+          value = as_paragraph(
+            as_chunk(conc, formater = function(x) sprintf("%.0f", x))
+          )
+  ) %>% add_footer_lines("dataset CO2 has been used for this flextable") %>% 
+  bg(bg = "#FFFFFF", part = "footer") %>% 
+  set_caption("mean of carbon dioxide uptake in grass plants") %>% 
+  set_header_labels(conc = "Concentration") %>% 
+  width(width = c(1.5, 1, 1)) 
+```
+
+# flextable - demo 2
+
+```{r echo=FALSE}
+myft <- flextable( head(iris, n = 10 ))
+
+myft <- flextable::compose( myft, j = 1,
+  value = as_paragraph(
+    minibar(value = Sepal.Length, max = max(Sepal.Length), barcol = "orange")
+  ),
+  part = "body")
+
+autofit(myft)
+```
