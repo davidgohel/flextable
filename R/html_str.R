@@ -7,7 +7,7 @@ html_str.flextable <- function( x ){
 
   dims <- dim(x)
 
-  out <- "<table>"
+  out <- "<table style='border-collapse:collapse;'>"
   if(!is.null(x$caption$value)){
     out <- paste0(out, "<caption>", htmlEscape(x$caption$value), "</caption>" )
   }
