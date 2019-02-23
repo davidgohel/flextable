@@ -24,3 +24,9 @@ component.
 ft <- flextable(head(iris, n = 2))
 format(ft, type = "html")
 }
+\seealso{
+Other flextable print function: \code{\link{htmltools_value}},
+  \code{\link{knit_print.flextable}},
+  \code{\link{print.flextable}}
+}
+\concept{flextable print function}
