@@ -193,3 +193,31 @@ format.flextable <- function(x, type, ...){
   } else stop("unimplemented")
   out
 }
+
+#' @export
+#' @title save a flextable in an HTML file
+#' @description save a flextable in an HTML file. This function
+#' has been implemented to help users that do not understand
+#' R Markdown. It is highly recommanded to use R Markdown
+#' instead.
+#' @param x a flextable object
+#' @param path HTML file to be created
+#' @examples
+#' ft <- flextable( head( mtcars ) )
+#' tf <- tempfile(fileext = ".html")
+#' save_as_html(ft, tf)
+#' @family flextable print function
+save_as_html <- function(x, path){
+
+  if( !inherits(x, "flextable"))
+    stop("x is not a flextable")
+
+  str <- paste('<!DOCTYPE htm><html><head>',
+  '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />',
+  '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>',
+  '<title>', deparse(substitute(x)), '</title></head>',
+  '<body>', format(x, type = "html"),
+  '</body></html>')
+  cat(str, file = path)
+  invisible(path)
+}

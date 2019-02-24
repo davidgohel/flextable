@@ -19,6 +19,6 @@ htmltools_value(flextable(iris[1:5,]))
 \seealso{
 Other flextable print function: \code{\link{format.flextable}},
   \code{\link{knit_print.flextable}},
-  \code{\link{print.flextable}}
+  \code{\link{print.flextable}}, \code{\link{save_as_html}}
 }
 \concept{flextable print function}
