@@ -1,6 +1,6 @@
 ---
-title: "flextable within Word"
-output: word_document
+title: "flextable within HTML"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -29,6 +29,7 @@ flextable(data) %>%
   align(align = "center", part = "all") %>%
   fontsize(size = 9, part = "all") %>% 
   compose(i = 1, j = 1, value = as_paragraph(""), part = "header") %>% 
-  autofit()
+  width(width = .5) %>% 
+  height_all(height = .5)
 ```
 
