@@ -3,6 +3,9 @@
 #' @description Modify flextable displayed values by specifying a
 #' string expression. Function is handling complex formatting as well as
 #' image insertion.
+#' @note
+#' You should use \code{\link{compose}} instead - the function is easier
+#' to use.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param col_key column to modify, a single character

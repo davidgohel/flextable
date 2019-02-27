@@ -28,6 +28,10 @@ Modify flextable displayed values by specifying a
 string expression. Function is handling complex formatting as well as
 image insertion.
 }
+\note{
+You should use \code{\link{compose}} instead - the function is easier
+to use.
+}
 \section{pattern}{
 
 It defined the template used to format the produced strings. Names enclosed
