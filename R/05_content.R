@@ -143,9 +143,9 @@ as_image <- function(src, width = .5, height = .2, ...) {
 
   data <- chunk_dataframe(width = as.double(width),
                   height = as.double(height),
-                  img_data = lapply(src, function(x) image_read(x))
+                  img_data = src
                   )
-  class(data) <- c("img_chunk", "chunk", "data.frame")
+  class(data) <- c("img_src", "chunk", "data.frame")
   data
 }
 
@@ -270,7 +270,7 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC", stick
     min <- 0
     max <- 1
   }
-  
+
   if( is.null(max))
     max <- max(value, na.rm = TRUE)
   if ( is.null(min))
