@@ -14,7 +14,7 @@ border_wml <- function(color, width, style, side){
   style[style %in% c("solid")] <- "single"
 
   out <- sprintf('<w:%s w:val="%s" w:sz="%.0f" w:space="0" w:color="%s" />', side, style, width * 8, colcode0(color))
-  out[width < 1 | color %in% "transparent"] <- ""
+  out[width < 0.001 | color %in% "transparent"] <- ""
   out
 }
 border_pml <- function(color, width, style, side){
