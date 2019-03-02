@@ -699,10 +699,7 @@ add_raster_as_filecolumn <- function(x){
 
   whichs_ <- which( !sapply(x$img_data, is.null) & !is.na(x$img_data) )
   files <- mapply(function(x, width, height){
-    if( inherits(x, "magick-image")){
-      file <- tempfile(fileext = ".png")
-      image_write(x, path = file, format = "png")
-    } else if(inherits(x, "raster")){
+    if(inherits(x, "raster")){
       file <- tempfile(fileext = ".png")
       raster_write(x, width = width*72, height = height*72, path = file)
     } else if(is.character(x)){
@@ -732,7 +729,7 @@ run_data <- function(x, type){
 
   is_hlink <- !is.na(x$url)
   is_raster <- sapply(x$img_data, function(x) {
-    inherits(x, "raster") || inherits(x, "magick-image") || is.character(x)
+    inherits(x, "raster") || is.character(x)
   })
   x <- add_runstyle_column(x, type)
   if( type %in% "wml" ){
@@ -769,9 +766,7 @@ run_data <- function(x, type){
     # manage images
 
     str_raster <- mapply(function(img_raster, width, height ){
-      if( inherits(img_raster, "magick-image")){
-        img_raster <- dataURI(magick::image_write(img_raster, format = "png"), mime="image/png")
-      } else if(inherits(img_raster, "raster")){
+      if(inherits(img_raster, "raster")){
         img_raster <- paste("data:image/png;base64,", gdtools::raster_str(img_raster, width*72, height*72))
       } else if(is.character(img_raster)){
 

@@ -105,7 +105,6 @@ as_chunk <- function(x, props = NULL, formater = format_fun, ...) {
   data
 }
 
-#' @importFrom magick image_read image_write
 #' @importFrom grDevices as.raster
 #' @export
 #' @title image chunk wrapper
