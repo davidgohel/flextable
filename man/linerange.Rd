@@ -6,7 +6,7 @@
 \usage{
 linerange(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
   stickcol = "#FF0000", bg = "transparent", width = 1,
-  height = 0.2)
+  height = 0.2, raster_width = 60)
 }
 \arguments{
 \item{value}{values containing the bar size}
@@ -22,6 +22,9 @@ linerange(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 \item{bg}{background color}
 
 \item{width, height}{size of the resulting png file in inches}
+
+\item{raster_width}{number of pixels used as width
+when interpolating value.}
 }
 \description{
 This function is used to insert lineranges into

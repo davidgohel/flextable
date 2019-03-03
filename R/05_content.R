@@ -248,6 +248,8 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' @param stickcol jauge color
 #' @param bg background color
 #' @param width,height size of the resulting png file in inches
+#' @param raster_width number of pixels used as width
+#' when interpolating value.
 #' @note PowerPoint cannot mix images and text in a paragraph, images
 #' are removed when outputing to PowerPoint format.
 #' @family chunk elements for paragraph
@@ -264,18 +266,26 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' @importFrom grDevices as.raster col2rgb rgb
 #' @importFrom stats approx
 #' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
-linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC", stickcol = "#FF0000", bg = "transparent", width = 1, height = .2) {
+linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
+                      stickcol = "#FF0000", bg = "transparent", width = 1,
+                      height = .2, raster_width = 60) {
   if( all( is.na(value) ) ){
     min <- 0
     max <- 1
   }
+
+  if( raster_width < 2)
+    stop("raster_width must be greater than 1")
+
+  raster_nrow <- 9
+  raster_center <- 5
 
   if( is.null(max))
     max <- max(value, na.rm = TRUE)
   if ( is.null(min))
     min <- min(value, na.rm = TRUE)
 
-  value[is.na(value)] <- max + 1 # to be sure not displayed
+  value[!is.finite(value)] <- max + 1 # to be sure not displayed
 
   stopifnot(!is.null(value), !is.null(min), !is.null(min))
 
@@ -284,17 +294,19 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC", stick
   rangecol  <- rgb(t(col2rgb(rangecol))/255)
   bg <- ifelse( bg == "transparent", bg, rgb(t(col2rgb(bg))/255) )
 
-  # get value approx on range 1,60
-  value <- approx(x = c(min,max), y = c(1,60), xout = value)$y
 
-  rasters <- mapply(function(value, stickcol, bg, rangecol) {
-    base <- matrix(rep(bg, 60), nrow = 5, ncol = 60)
-    base[, 1]   <- rep(rangecol, 5)
-    base[, 60] <- rep(rangecol, 5)
-    base[3,] <- rep(rangecol, 60)
-    base[, round(value)] <- rep(stickcol, 5)
-    as.raster(base)
-  }, value, stickcol, bg, rangecol, SIMPLIFY = FALSE)
+  # get value approx on range 1,raster_width
+  stick_pos <- as.integer(approx(x = c(min,max), y = c(1, raster_width), xout = value)$y)
+  base <- matrix(bg, nrow = raster_nrow, ncol = raster_width)
+  base[, 1]   <- rangecol
+  base[, raster_width] <- rangecol
+  base[raster_center,] <- rangecol
+
+  rasters <- lapply(stick_pos, function(val, def_mat, col) {
+    newmat <- def_mat
+    newmat[, val] <- col
+    as.raster(newmat)
+  }, base, stickcol)
 
   z <- chunk_dataframe(width = as.double(rep(width, length(value)) ),
                   height = as.double(rep(height, length(value))),
