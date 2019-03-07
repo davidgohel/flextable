@@ -1,0 +1,116 @@
+format_pct <- function(x){
+  ifelse(is.na(x), "", sprintf("%.02f%%", x*100) )
+}
+
+#' @title procFreq for flextable
+#'
+#' @description This function compute statistics and make a flextable.
+#'
+#' @param x \code{data.frame} object
+#' value specifying label to use.
+#' @param row \code{characer} column of x for row
+#' @param col \code{characer} column of x for col
+#' @param main \code{characer} title
+#'
+#' @examples
+#'
+#' data("mtcars")
+#' procFreq(mtcars, "vs", "gear")
+#' procFreq(mtcars, "gear", "vs")
+#' procFreq(mtcars, "gear", "vs", "My title")
+#'
+#' @export
+procFreq <- function(x, row, col, main = ""){
+
+  ##Compute table
+  tabl <- as.data.frame.matrix(table(x[[row]], x[[col]]))
+  ##Compute sum
+  tablL <- tabl/rowSums(tabl)
+  tablR <- t(t(tabl)/colSums(tabl))
+  tablT <- tabl/sum(tabl)
+  nr <- nrow(tabl)
+
+  ##Make table
+  tab_end <- sapply(seq_len(nr), function(X){
+    dat <- rbind(tabl[X,], tablL[X,], tablR[X,], tablT[X,])
+    names(dat) <- colnames(tabl)
+    dd <- data.table::data.table(V1 =  rownames(tabl[X,]),label = c("Frequency", "Row Pct", "Col Pct", "Percent"),
+                                 dat)
+    names(dd)[1] <- row
+    dd
+  }, simplify = FALSE)
+  tab_end <- Reduce(rbind, tab_end)
+  tab_end <- as.data.frame(tab_end, check.names = FALSE)
+
+  ##Add total
+  tab_end$Total <- rowSums(tab_end[,3:ncol(tab_end)])
+  tab_end[ which(tab_end$label == "Row Pct" | tab_end$label == "Col Pct" ),]$Total <- NA
+  endR <- data.frame(GP = "Total", label = c("Frequency","Percent"))
+  names(endR)[1] <-   names(tab_end)[1]
+  for(i in 3:(ncol(tab_end) - 1)){
+    endR[[names(tab_end)[i]]] <-  c(sum(tab_end[[i]][which(tab_end$label=="Frequency")]), sum(tab_end[[i]][which(tab_end$label=="Percent")]))
+  }
+  endR$Total = c(sum(tab_end[["Total"]][which(tab_end$label=="Frequency")]), NA)
+  tab_end <- rbind(tab_end, endR)
+  nl <- nrow(tab_end)
+
+  ##Make flex
+  llflex <- flextable(tab_end)
+  llflex <- merge_v(llflex, j = row )
+  llflex <- autofit(llflex)
+
+  col_id_counts <- seq(3, ncol(tab_end), by = 1L )
+  names_ll <- names(tab_end)
+  which_freq <- tab_end$label %in% "Frequency"
+  ##Remove digit for Frequency
+  for(j in col_id_counts){
+    llflex <- flextable::compose(
+      llflex, i = which_freq, j = j,
+      value = as_paragraph(
+        as_chunk(tab_end[[j]][which_freq],
+                 formater = function(x){
+                   sprintf("%.0f", x)
+                 })))
+
+  }
+
+  ##Add %
+  which_percent <- !which_freq
+  for(j in col_id_counts){
+    llflex <- flextable::compose(
+      llflex, i = which_percent, j = j,
+      value = as_paragraph(
+        as_chunk(tab_end[[j]][which_percent],
+                 formater = format_pct)))
+
+  }
+
+
+  ##Style
+  fq <- which(tab_end$label == "Frequency")
+  llflex <- flextable::bold(llflex, fq, 2:ncol(tab_end))
+  llflex <- flextable::bold(llflex, 1:nrow(tab_end), 1)
+
+  llflex <- flextable::border(llflex, fq, 1:ncol(tab_end), border.top = officer::fp_border(color = "black"))
+
+  llflex <- add_header_row(llflex, values = c("", col), colwidths = c(2,ncol(tab_end)-2))
+  llflex <- align(llflex, align = "center", part = "header")
+  llflex <- flextable::bold(llflex, part = "header")
+  llflex <- align(llflex, align = "center", part = "body")
+  llflex <- valign(llflex, j = 1, valign = "top", part = "body")
+  llflex <- fix_border_issues(llflex)
+
+  if(main != ""){
+
+    llflex <- flextable::add_header_lines(llflex,  values = main)
+    llflex <- flextable::bold(llflex, part = "header")
+    llflex <- align(llflex, i = 1, align = "left", part = "header")
+
+  }
+  llflex <- flextable::hline(llflex, part = "header", border = officer::fp_border(color = "black", width = 1))
+  llflex <- flextable::hline_bottom(llflex, part = "header", border = officer::fp_border(color = "black", width = 2))
+
+  llflex
+
+}
+
