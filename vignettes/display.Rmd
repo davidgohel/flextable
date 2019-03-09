@@ -1,0 +1,213 @@
+---
+title: "flextable display value"
+output: 
+  rmarkdown::html_vignette:
+    toc: true 
+    toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{Flextable display value}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r warning=FALSE, echo=FALSE, message=FALSE}
+library(officer)
+library(flextable)
+```
+
+
+By default, the displayed content of each cell will be the 
+result of a simple formatting. The content can also be 
+*comoosed* as the result of a concatenation of several *chunks*.
+
+There are `formatter` functions to define how columns content will be 
+display (e.g. to define the number of decimal). This is 
+a column-wise operation.
+
+User can also have more control over displayed content by using function `compose`.
+The function enable to define the elements composing the paragraph and their respective formats.
+It can also be used to mix text chunks and images.
+
+## Column-wise functions
+
+Theses are high level functions that should satisfy most 
+of the usual needs. They can be used to define the formatting 
+of one or more columns.
+
+Each accept a `prefix` and `suffix` argument that can be used 
+to add a currency symbol for example. Also they all have 
+`na_str` argument (defaut to ""), the string to use when data 
+are not available.
+
+- `colformat_num()` with arguments `digits` and `big.mark`
+- `colformat_int()` with arguments `big.mark`
+- `colformat_char()`
+
+```{r}
+dat <- head(mtcars, n = 10)
+dat[3:7, 1] <- NA
+dat[, 2] <- dat[, 6] * 1000000
+
+ft <- flextable(dat)
+num_keys <- c("mpg", "disp", "drat", "wt", "qsec")
+int_keys <- c("cyl", "hp", "vs", "am", "gear", "carb")
+
+ft <- colformat_num(x = ft, col_keys = num_keys, big.mark = ",", digits = 2, na_str = "missing")
+ft <- colformat_int(x = ft, col_keys = int_keys, big.mark = ",")
+autofit(ft)
+```
+
+
+## set_formatter function
+
+It is possible to define the functions that will be used to format the data.frame 
+values into strings. `set_formatter` set column formatter functions. 
+
+
+```{r}
+ft <- flextable(head(mtcars, n = 10 ), 
+                   col_keys = c("gear", "mpg", "qsec"))
+ft <- set_formatter(ft, 
+    mpg = function(x) sprintf("%.04f", x),
+    gear = function(x) sprintf("%.0f gears", x)
+  )
+ft <- theme_booktabs(ft)
+ft <- autofit(ft)
+ft
+```
+
+
+## compose function
+
+`flextable` content can be defined with function `compose`.
+
+It lets user control the formated content at the cell level of the table. 
+It is possible to define a content for a row subset and a column as well 
+as on the whole column. One can mix images and text (but not with 
+PowerPoint because PowerPoint can not do it).
+
+Below the starting point of next illustrations:
+
+```{r}
+myft <- flextable( head(mtcars), 
+  col_keys = c("am", "separator", "gear", "mpg", "drat", "qsec" ))
+myft <- bold(myft, part = "header")
+myft <- border(myft, border = fp_border( width = 0), 
+  border.top = fp_border(), border.bottom = fp_border(), 
+  part = "all")
+myft <- align(myft, align = "right", part = "all" )
+myft <- border(myft, j = ~ separator, border = fp_border(width=0), part = "all")
+myft <- width(myft, j = ~ separator, width = .1)
+myft
+```
+
+The function requires a call to `as_paragraph` which will concatenate text or images chunks as 
+a paragraph. 
+
+![](https://www.ardata.fr/img/illustrations/flextable_compose.svg){width=350px}
+
+
+The following example shows how to control the format of displayed values and how to 
+associate them with specific text formatting properties (bold red text):
+
+```{r}
+myft <- compose( 
+  myft, j = "mpg", 
+  value = as_paragraph(
+    "mpg value is ", 
+    as_chunk(sprintf("%.01f", mpg), props = fp_text(color = "red", bold = TRUE) ) )
+  )
+myft <- autofit(myft)
+myft
+```
+
+With that system, it's easy to concatenate multiple values:
+
+```{r}
+myft <- compose( 
+  myft, j = "mpg", 
+  value = as_paragraph(
+    "mpg value is ", 
+    as_chunk(sprintf("%.01f", mpg), props = fp_text(color = "red", bold = TRUE) ), 
+    " with ",
+    as_chunk(sprintf("# %.0f", carb), props = fp_text(color = "gray", italic = TRUE) )
+    )
+  )
+
+myft <- autofit(myft)
+myft
+```
+
+Or to define specific title headers:
+
+```{r}
+myft <- compose( 
+  myft, j = "mpg", part = "header",
+  value = as_paragraph(
+    "Miles/(US) gallon ", 
+    as_chunk("* with num of carb.", props = fp_text(color = "gray", vertical.align = "superscript") )
+    )
+  )
+
+myft <- autofit(myft)
+myft
+```
+
+### Images
+
+Function `compose` supports images insertion. Use function `as_image` in `as_paragraph` call:
+
+```{r}
+img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+
+myft <- compose( myft, i = ~ qsec > 18, j = "qsec", 
+  value = as_paragraph(as_image( src = img.file, width = .20, height = .15))
+)
+myft <- autofit(myft)
+myft
+```
+
+### minibar
+
+Function `compose` supports *mini barplots* insertion. Use function `minibar` in `as_paragraph` call:
+
+```{r}
+myft <- flextable( head(iris, n = 10 ))
+
+myft <- compose( myft, j = 1,
+  value = as_paragraph(
+    minibar(value = Sepal.Length, max = max(Sepal.Length))
+  ),
+  part = "body")
+
+autofit(myft)
+```
+
+
+### linerange
+
+Function `compose` supports *mini linerange* insertion. Use function `linerange` in `as_paragraph` call:
+
+```{r}
+myft <- flextable( head(iris, n = 10 ))
+
+myft <- compose( myft, j = 1,
+  value = as_paragraph(
+    linerange(value = Sepal.Length, max = max(Sepal.Length))
+  ),
+  part = "body")
+
+autofit(myft)
+```
+
+
+

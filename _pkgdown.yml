@@ -59,13 +59,14 @@ reference:
     - starts_with("colformat_")
     - compose
     - starts_with("set_formatter")
-    - void
     - as_paragraph
     - as_chunk
     - as_image
     - minibar
+    - linerange
     - hyperlink_text
     - set_caption
+    - void
   - title: Output functions
     contents:
     - print.flextable
@@ -83,6 +84,8 @@ navbar:
     href: articles/layout.html
   - text: Format
     href: articles/format.html
+  - text: Display value
+    href: articles/display.html
   - text: Examples
     href: articles/offcran/examples.html
   right:

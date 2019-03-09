@@ -268,7 +268,7 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
 linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
                       stickcol = "#FF0000", bg = "transparent", width = 1,
-                      height = .2, raster_width = 60) {
+                      height = .2, raster_width = 30) {
   if( all( is.na(value) ) ){
     min <- 0
     max <- 1

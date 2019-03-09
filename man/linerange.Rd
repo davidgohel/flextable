@@ -6,7 +6,7 @@
 \usage{
 linerange(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
   stickcol = "#FF0000", bg = "transparent", width = 1,
-  height = 0.2, raster_width = 60)
+  height = 0.2, raster_width = 30)
 }
 \arguments{
 \item{value}{values containing the bar size}
