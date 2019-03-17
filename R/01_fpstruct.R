@@ -488,10 +488,11 @@ cell_data <- function(x, par_data, type, span_rows, span_columns, colwidths, row
     )
 
     str <- dat$par_str
-    str[span_columns < 1] <- gsub("<w:r>.*</w:r>", "", str[span_columns < 1])
+
+    str[span_columns < 1] <- gsub("<w:r\\b[^<]*>[^<]*(?:<[^<]*)*</w:r>", "", str[span_columns < 1])
     str <- paste0("<w:tc>",
                   "<w:tcPr>", gridspan, vmerge, dat$style_str, "</w:tcPr>",
-                  dat$par_str,
+                  str,
                   "</w:tc>")
     str[span_rows < 1] <- ""
 
