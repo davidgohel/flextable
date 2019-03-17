@@ -3,6 +3,8 @@
 ## new features
 
 * new function `valign` to align vertically paragraphs in cell
+* new function `proc_freq` that mimic SAS proc freq provided by Titouan Robert.
+* new function `linerange` to produce mini lineranges.
 
 ## Issues
 

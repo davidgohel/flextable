@@ -2,25 +2,24 @@ format_pct <- function(x){
   ifelse(is.na(x), "", sprintf("%.02f%%", x*100) )
 }
 
-#' @title procFreq for flextable
+#' @title frequency table as flextable
 #'
-#' @description This function compute statistics and make a flextable.
+#' @description This function compute a two way contingency table
+#' and make a flextable with the result.
 #'
 #' @param x \code{data.frame} object
-#' value specifying label to use.
-#' @param row \code{characer} column of x for row
-#' @param col \code{characer} column of x for col
+#' @param row \code{characer} column names for row
+#' @param col \code{characer} column names for column
 #' @param main \code{characer} title
 #'
 #' @examples
 #'
-#' data("mtcars")
-#' procFreq(mtcars, "vs", "gear")
-#' procFreq(mtcars, "gear", "vs")
-#' procFreq(mtcars, "gear", "vs", "My title")
-#'
+#' proc_freq(mtcars, "vs", "gear")
+#' proc_freq(mtcars, "gear", "vs")
+#' proc_freq(mtcars, "gear", "vs", "My title")
 #' @export
-procFreq <- function(x, row, col, main = ""){
+#' @author Titouan Robert
+proc_freq <- function(x, row, col, main = ""){
 
   ##Compute table
   tabl <- as.data.frame.matrix(table(x[[row]], x[[col]]))

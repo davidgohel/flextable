@@ -1,14 +1,16 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.5.2.013
+Version: 0.5.2.015
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
     person("Quentin", "Fazilleau", role = c("ctb"),
     email = "quentin.fazilleau@ardata.fr"),
     person("Maxim", "Nazarov", role = c("ctb"),
-      comment = "rmarkdown for docx output"))
+      comment = "rmarkdown for docx output"),
+    person(given = "Titouan", family = "Robert", role = c("ctb"))
+    )
 Description: Create pretty tables for 'HTML', 'Microsoft Word' and 'Microsoft PowerPoint' documents. 
   Functions are provided to let users create tables, modify and format their content. 
   It extends package 'officer' that does not contain any feature for customized tabular reporting 
