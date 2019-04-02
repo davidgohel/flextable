@@ -172,7 +172,7 @@ as_image <- function(src, width = .5, height = .2, ...) {
 #' @family chunk elements for paragraph
 hyperlink_text <- function(x, props = NULL, formater = format_fun, url, ...){
   x <- as_chunk( x = x, props = props, formater = formater, ...)
-  x$url <- rep(url, nrow(x))
+  x$url <- url
   x
 }
 
