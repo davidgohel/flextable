@@ -18,7 +18,10 @@ complex_tabpart <- function( data, col_keys = names(data),
   span_init <- matrix(1L, nrow = nrow(data), ncol = length(col_keys) )
   spans <- list( rows = span_init, columns = span_init )
 
-  colwidths <- rep(cwidth, length(col_keys))
+  if( length(cwidth) == length(col_keys) )
+    colwidths <- cwidth
+  else colwidths <- rep(cwidth, length(col_keys))
+
   rowheights <- rep(cheight, nrow(data))
 
   out <- list( dataset = data,
