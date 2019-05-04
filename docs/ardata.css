@@ -20,3 +20,28 @@
   text-decoration: none;
   font-weight: bold;
 }
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #0F0F0F;
+  background-color: #fff;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: #C32900;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    color: #C32900;
+}
+.nav>li>a {
+    color: #333;
+    text-decoration: none;
+}
+.caption {
+  color: #777;
+  font-style: italic;
+}
+video {
+  margin-bottom: 15px;
+}
