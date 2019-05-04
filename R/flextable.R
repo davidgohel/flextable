@@ -17,6 +17,8 @@
 #' @param col_keys columns names/keys to display. If some column names are not in
 #' the dataset, they will be added as blank columns by default.
 #' @param cwidth,cheight initial width and height to use for cell sizes in inches.
+#' @note Function \code{regulartable} is maintained for compatibility with old codes
+#' mades by users but be aware it produces the same exact object than \code{flextable}.
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft

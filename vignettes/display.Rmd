@@ -27,7 +27,7 @@ library(flextable)
 
 By default, the displayed content of each cell will be the 
 result of a simple formatting. The content can also be 
-*comoosed* as the result of a concatenation of several *chunks*.
+*composed* as the result of a concatenation of several *chunks*.
 
 There are `formatter` functions to define how columns content will be 
 display (e.g. to define the number of decimal). This is 

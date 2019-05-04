@@ -34,6 +34,10 @@ A \code{flextable} is made of 3 parts: header, body and footer.
 Most functions have an argument named \code{part} that will be used
 to specify what part of of the table should be modified.
 }
+\note{
+Function \code{regulartable} is maintained for compatibility with old codes
+mades by users but be aware it produces the same exact object than \code{flextable}.
+}
 \examples{
 ft <- flextable(mtcars)
 ft
