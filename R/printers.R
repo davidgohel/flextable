@@ -221,3 +221,30 @@ save_as_html <- function(x, path){
   cat(str, file = path)
   invisible(path)
 }
+
+#' @export
+#' @title save a flextable as an image
+#' @description save a flextable as an image. This function
+#' require webshot package.
+#' @param x a flextable object
+#' @param path image file to be created. It should end with .png, .pdf, or .jpeg.
+#' @param zoom,expand parameters used by \code{webshot} function.
+#' @examples
+#' ft <- flextable( head( mtcars ) )
+#' ft <- autofit(ft)
+#' tf <- tempfile(fileext = ".png")
+#' save_as_image(ft, tf)
+#' @family flextable print function
+save_as_image <- function(x, file, zoom = 3, expand = 10 ){
+
+  if (!requireNamespace("webshot", quietly = TRUE)) {
+    stop("package webshot is required when saving a flextable as an image.")
+  }
+
+  tf <- tempfile(fileext = ".html")
+  save_as_html(x = x, path = tf)
+  webshot::webshot(url = sprintf("file://%s", tf),
+                   file = file, selector = "body > table",
+                   zoom = zoom, expand = expand )
+  file
+}

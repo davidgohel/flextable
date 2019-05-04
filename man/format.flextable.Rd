@@ -27,6 +27,7 @@ format(ft, type = "html")
 \seealso{
 Other flextable print function: \code{\link{htmltools_value}},
   \code{\link{knit_print.flextable}},
-  \code{\link{print.flextable}}, \code{\link{save_as_html}}
+  \code{\link{print.flextable}},
+  \code{\link{save_as_html}}, \code{\link{save_as_image}}
 }
 \concept{flextable print function}

@@ -13,6 +13,7 @@ vignette: >
 ```{r, include=FALSE}
 library(flextable)
 library(magrittr)
+library(htmltools)
 
 dir.create("assets/docx", recursive = TRUE, showWarnings = FALSE)
 dir.create("assets/pptx", recursive = TRUE, showWarnings = FALSE)
@@ -159,6 +160,29 @@ print(doc, target = "assets/docx/example.docx")
 
 ```{r echo=FALSE}
 office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/docx/example.docx" ) )
+```
+
+### Images
+
+To get an image file from a `flextable` object, use function `save_as_image`.
+
+```{r}
+library(magrittr)
+mytable <- cars %>% 
+  head() %>% 
+  flextable() %>% 
+  autofit()
+
+img_file <- tempfile(fileext = ".png")
+save_as_image(mytable, file = img_file)
+```
+
+
+```{r echo=FALSE, message=FALSE}
+library(openssl)
+buf <- readBin(img_file, raw(), file.info(img_file)$size)
+base64 <- base64_encode(buf, linebreaks = FALSE)
+img(src = sprintf("data:image/png;base64,%s", base64), style = "width:200px;")
 ```
 
 

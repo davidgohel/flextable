@@ -45,7 +45,8 @@ default to \code{{r ft.left=1, ft.left=2}}.
 \seealso{
 Other flextable print function: \code{\link{format.flextable}},
   \code{\link{htmltools_value}},
-  \code{\link{print.flextable}}, \code{\link{save_as_html}}
+  \code{\link{print.flextable}},
+  \code{\link{save_as_html}}, \code{\link{save_as_image}}
 }
 \author{
 Maxim Nazarov
