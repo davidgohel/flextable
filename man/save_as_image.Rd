@@ -4,29 +4,33 @@
 \alias{save_as_image}
 \title{save a flextable as an image}
 \usage{
-save_as_image(x, file, zoom = 3, expand = 10)
+save_as_image(x, path, zoom = 3, expand = 10)
 }
 \arguments{
 \item{x}{a flextable object}
 
-\item{zoom, expand}{parameters used by \code{webshot} function.}
-
 \item{path}{image file to be created. It should end with .png, .pdf, or .jpeg.}
+
+\item{zoom, expand}{parameters used by \code{webshot} function.}
 }
 \description{
-save a flextable as an image. This function
-require webshot package.
+save a flextable as a png, pdf or jpeg image.
+}
+\note{
+This function requires package webshot.
 }
 \examples{
 ft <- flextable( head( mtcars ) )
 ft <- autofit(ft)
 tf <- tempfile(fileext = ".png")
-save_as_image(ft, tf)
+if( interactive() && require("webshot", quietly = TRUE) )
+  save_as_image(x = ft, path = tf)
 }
 \seealso{
 Other flextable print function: \code{\link{format.flextable}},
   \code{\link{htmltools_value}},
   \code{\link{knit_print.flextable}},
+  \code{\link{plot.flextable}},
   \code{\link{print.flextable}}, \code{\link{save_as_html}}
 }
 \concept{flextable print function}

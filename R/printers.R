@@ -224,8 +224,8 @@ save_as_html <- function(x, path){
 
 #' @export
 #' @title save a flextable as an image
-#' @description save a flextable as an image. This function
-#' require webshot package.
+#' @description save a flextable as a png, pdf or jpeg image.
+#' @note This function requires package webshot.
 #' @param x a flextable object
 #' @param path image file to be created. It should end with .png, .pdf, or .jpeg.
 #' @param zoom,expand parameters used by \code{webshot} function.
@@ -233,10 +233,10 @@ save_as_html <- function(x, path){
 #' ft <- flextable( head( mtcars ) )
 #' ft <- autofit(ft)
 #' tf <- tempfile(fileext = ".png")
-#' save_as_image(ft, tf)
+#' if( interactive() && require("webshot", quietly = TRUE) )
+#'   save_as_image(x = ft, path = tf)
 #' @family flextable print function
-save_as_image <- function(x, file, zoom = 3, expand = 10 ){
-
+save_as_image <- function(x, path, zoom = 3, expand = 10 ){
   if (!requireNamespace("webshot", quietly = TRUE)) {
     stop("package webshot is required when saving a flextable as an image.")
   }
@@ -244,7 +244,49 @@ save_as_image <- function(x, file, zoom = 3, expand = 10 ){
   tf <- tempfile(fileext = ".html")
   save_as_html(x = x, path = tf)
   webshot::webshot(url = sprintf("file://%s", tf),
-                   file = file, selector = "body > table",
+                   file = path, selector = "body > table",
                    zoom = zoom, expand = expand )
-  file
+  path
 }
+
+
+#' @export
+#' @title plot a flextable
+#' @description save a flextable as an image and display the
+#' result in a new R graphics window.
+#' @note This function requires packages: webshot and magick.
+#' @param x a flextable object
+#' @param zoom,expand parameters used by \code{webshot} function.
+#' @param ... additional parameters sent to plot function
+#' @examples
+#' ft <- flextable( head( mtcars ) )
+#' ft <- autofit(ft)
+#' if(all( interactive(),
+#'    require("webshot", quietly = TRUE),
+#'    require("magick", quietly = TRUE),
+#'    require("graphics", quietly = TRUE) ) )
+#'   plot(ft)
+#' @family flextable print function
+#' @importFrom grDevices as.raster
+plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
+
+  if (!requireNamespace("webshot", quietly = TRUE)) {
+    stop("package webshot is required when saving a flextable as an image.")
+  }
+  if (!requireNamespace("magick", quietly = TRUE)) {
+    stop("package magick is required when saving a flextable as an image.")
+  }
+  if (!requireNamespace("graphics", quietly = TRUE)) {
+    stop("package graphics is required when saving a flextable as an image.")
+  }
+  path <- tempfile(fileext = ".png")
+  tf <- tempfile(fileext = ".html")
+  save_as_html(x = x, path = tf)
+  webshot::webshot(url = sprintf("file://%s", tf),
+                   file = path, selector = "body > table",
+                   zoom = zoom, expand = expand )
+  unlink(tf)
+  img <- magick::image_read(path = path)
+  graphics::plot(grDevices::as.raster(img), ...)
+}
+
