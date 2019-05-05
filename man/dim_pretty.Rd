@@ -16,7 +16,12 @@ return minimum estimated widths and heights for
 each table columns and rows in inches.
 }
 \examples{
-
 ft <- flextable(mtcars)
 \donttest{dim_pretty(ft)}
 }
+\seealso{
+Other flextable dimensions: \code{\link{autofit}},
+  \code{\link{dim.flextable}}, \code{\link{flextable_dim}},
+  \code{\link{height}}, \code{\link{width}}
+}
+\concept{flextable dimensions}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable_sizes.R
 \name{dim.flextable}
 \alias{dim.flextable}
-\title{Get flextable dimensions}
+\title{Get widths and heights of flextable}
 \usage{
 \method{dim}{flextable}(x)
 }
@@ -11,5 +11,15 @@
 }
 \description{
 returns widths and heights for each table columns and rows.
-Values are inches.
+Values are expressed in inches.
 }
+\examples{
+ft <- flextable(head(iris))
+dim(ft)
+}
+\seealso{
+Other flextable dimensions: \code{\link{autofit}},
+  \code{\link{dim_pretty}}, \code{\link{flextable_dim}},
+  \code{\link{height}}, \code{\link{width}}
+}
+\concept{flextable dimensions}

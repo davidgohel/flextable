@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.5.3.003
+Version: 0.5.3.004
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -23,7 +23,7 @@ Imports:
     rmarkdown, knitr, htmltools,
     xml2, data.table,
     gdtools (>= 0.1.6), rlang, 
-    base64enc, webshot
+    base64enc
 RoxygenNote: 6.1.1
 Suggests: testthat, xtable, magrittr
 Encoding: UTF-8

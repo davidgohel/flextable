@@ -11,7 +11,7 @@
 #' ft <- flextable(iris)
 #' ft <- width(ft, width = 1)
 #'
-#' @seealso \code{\link{flextable}}
+#' @family flextable dimensions
 width <- function(x, j = NULL, width){
 
   j <- get_columns_id(x[["body"]], j )
@@ -29,7 +29,8 @@ width <- function(x, j = NULL, width){
 
 #' @export
 #' @title Set flextable rows height
-#' @description control rows height.
+#' @description control rows height for a part
+#' of the flextable.
 #' @param x flextable object
 #' @param i rows selection
 #' @param height height in inches
@@ -39,6 +40,7 @@ width <- function(x, j = NULL, width){
 #' ft <- flextable(iris)
 #' ft <- height(ft, height = .3)
 #'
+#' @family flextable dimensions
 height <- function(x, i = NULL, height, part = "body"){
 
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
@@ -61,6 +63,15 @@ height <- function(x, i = NULL, height, part = "body"){
 
 #' @export
 #' @rdname height
+#' @section height_all:
+#' \code{height_all} is a convenient function for
+#' setting the same height to all rows (selected
+#' with argument \code{part}).
+#' @examples
+#'
+#' ft <- flextable(iris)
+#' ft <- height_all(ft, height = .3)
+#'
 height_all <- function(x, height, part = "all"){
 
   part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE )
@@ -83,10 +94,34 @@ height_all <- function(x, height, part = "all"){
   x
 }
 
-#' @title Get flextable dimensions
+#' @export
+#' @title width and height of a flextable object
+#' @description Returns the width, height and
+#' aspect ratio of a flextable in a named list. The width and
+#' height are in inches. The aspect ratio
+#' is the ratio corresponding to \code{height/width}.
+#' @param x a flextable object
+#' @examples
+#' ft <- flextable(head(iris))
+#' flextable_dim(ft)
+#' ft <- autofit(ft)
+#' flextable_dim(ft)
+#' @family flextable dimensions
+flextable_dim <- function(x){
+  dims <- lapply( dim(x), sum)
+  dims$aspect_ratio <- dims$height / dims$width
+  dims
+}
+
+
+#' @title Get widths and heights of flextable
 #' @description returns widths and heights for each table columns and rows.
-#' Values are inches.
+#' Values are expressed in inches.
 #' @param x flextable object
+#' @family flextable dimensions
+#' @examples
+#' ft <- flextable(head(iris))
+#' dim(ft)
 #' @export
 dim.flextable <- function(x){
   max_widths <- list()
@@ -112,15 +147,14 @@ dim.flextable <- function(x){
 
 #' @export
 #' @title Calculate pretty dimensions
-#' @param x flextable object
-#' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
-#'
 #' @description return minimum estimated widths and heights for
 #' each table columns and rows in inches.
+#' @param x flextable object
+#' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
 #' @examples
-#'
 #' ft <- flextable(mtcars)
 #' \donttest{dim_pretty(ft)}
+#' @family flextable dimensions
 dim_pretty <- function( x, part = "all" ){
 
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -151,14 +185,17 @@ dim_pretty <- function( x, part = "all" ){
 #' @export
 #' @title Adjusts cell widths and heights
 #' @description compute and apply optimized widths and heights.
+#' This function is to be used when the table widths and heights
+#' should automatically be adjusted to fit the size of the content.
+#'
 #' @param x flextable object
 #' @param add_w extra width to add in inches
 #' @param add_h extra height to add in inches
 #' @examples
-#'
 #' ft <- flextable(mtcars)
 #' \donttest{ft <- autofit(ft)}
 #' ft
+#' @family flextable dimensions
 autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
 
   stopifnot(inherits(x, "flextable") )
