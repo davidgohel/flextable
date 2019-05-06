@@ -21,11 +21,15 @@ developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repo
 </p>
 
 The flextable package provides a framework for easily create tables for
-reporting. Tables can be embedded within:
+reporting and publications. Tables can be embedded within:
 
   - R Markdown documents with support for HTML, Word and PowerPoint
     documents.
   - Microsoft Word or PowerPoint documents.
+  - PDF documents with package `pagedown` (it’s only HTML)
+
+Tables can also be rendered as R plots or graphic file (png, pdf and
+jpeg).
 
 ## Getting Started
 
@@ -38,7 +42,7 @@ functions that give control over:
   - text, paragraphs, cells and border formatting of any element
   - displayed values
 
-![](https://www.ardata.fr/img/illustrations/flextable_layout.svg)
+![](https://www.ardata.fr/img/illustrations/flextable_functions.svg)
 
 There are articles on the flextable website that will help you get you
 to start quickly:
