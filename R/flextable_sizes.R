@@ -97,9 +97,11 @@ height_all <- function(x, height, part = "all"){
 #' @export
 #' @title width and height of a flextable object
 #' @description Returns the width, height and
-#' aspect ratio of a flextable in a named list. The width and
-#' height are in inches. The aspect ratio
+#' aspect ratio of a flextable in a named list.
+#' The width and height are in inches. The aspect ratio
 #' is the ratio corresponding to \code{height/width}.
+#'
+#' Names of the list are \code{width}, \code{height} and \code{aspect_ratio}.
 #' @param x a flextable object
 #' @examples
 #' ft <- flextable(head(iris))

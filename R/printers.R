@@ -108,8 +108,9 @@ print.flextable <- function(x, preview = "html", ...){
 #' @param ... further arguments, not used.
 #' @export
 #' @author Maxim Nazarov
+#' @importFrom utils getFromNamespace
 #' @importFrom htmltools HTML div
-#' @importFrom knitr knit_print asis_output opts_knit opts_current
+#' @importFrom knitr knit_print asis_output opts_knit opts_current fig_path
 #' @importFrom rmarkdown pandoc_version
 #' @importFrom stats runif
 #' @family flextable print function
@@ -119,9 +120,28 @@ knit_print.flextable <- function(x, ...){
     stop("`render_flextable` needs to be used as a renderer for ",
          "a knitr/rmarkdown R code chunk (render by rmarkdown)")
 
-  if ( grepl( "^html", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+  if ( grepl( "html", opts_knit$get("rmarkdown.pandoc.to") ) ) {
     knit_print(htmltools_value(x))
-  } else if (opts_knit$get("rmarkdown.pandoc.to") == "docx") {
+  } else if ( grepl( "latex", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+    # copied from https://github.com/ropensci/magick/blob/1e92b8331cd2cad6418b5e738939ac5918947a2f/R/base.R#L126
+    plot_counter <- getFromNamespace('plot_counter', 'knitr')
+    in_base_dir <- getFromNamespace('in_base_dir', 'knitr')
+    tmp <- fig_path("png", number = plot_counter())
+    width <- flextable_dim(x)$width
+    height <- flextable_dim(x)$height
+    # save relative to 'base' directory, see discussion in #110
+    in_base_dir({
+      dir.create(dirname(tmp), showWarnings = FALSE, recursive = TRUE)
+      tf <- tempfile(fileext = ".html")
+      save_as_html(x = x, path = tf)
+      webshot::webshot(url = sprintf("file://%s", tf),
+                       file = tmp, selector = "body > table",
+                       zoom = 3, expand = 0 )
+      unlink(tf)
+    })
+    knit_print( asis_output(sprintf("\\includegraphics[width=%.02fin,height=%.02fin,keepaspectratio]{%s}\n", width, height, tmp)) )
+
+  } else if (grepl( "docx", opts_knit$get("rmarkdown.pandoc.to") )) {
 
     if (pandoc_version() >= 2) {
       # insert rawBlock with Open XML
@@ -139,7 +159,7 @@ knit_print.flextable <- function(x, ...){
       stop("pandoc version >= 2.0 required for flextable rendering in docx")
     }
 
-  } else if (opts_knit$get("rmarkdown.pandoc.to") == "pptx") {
+  } else if (grepl( "pptx", opts_knit$get("rmarkdown.pandoc.to") ) ) {
     if (pandoc_version() < 2.4) {
       stop("pandoc version >= 2.4 required for printing flextable in pptx")
     }
@@ -287,6 +307,7 @@ plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
                    zoom = zoom, expand = expand )
   unlink(tf)
   img <- magick::image_read(path = path)
+  graphics::par(mar = rep(0, 4))
   graphics::plot(grDevices::as.raster(img), ...)
 }
 

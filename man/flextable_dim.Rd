@@ -11,9 +11,11 @@ flextable_dim(x)
 }
 \description{
 Returns the width, height and
-aspect ratio of a flextable in a named list. The width and
-height are in inches. The aspect ratio
+aspect ratio of a flextable in a named list.
+The width and height are in inches. The aspect ratio
 is the ratio corresponding to \code{height/width}.
+
+Names of the list are \code{width}, \code{height} and \code{aspect_ratio}.
 }
 \examples{
 ft <- flextable(head(iris))
