@@ -1,3 +1,9 @@
+# flextable 0.5.3
+
+## new features
+
+* new functions to render flextable as images and raster for ggplot2
+
 # flextable 0.5.2
 
 ## new features

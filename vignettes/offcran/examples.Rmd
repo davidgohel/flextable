@@ -288,3 +288,26 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 ```
 
+## Send your flextable to ggplot 
+
+```{r out.width="50%", fig.width=8, fig.height=7}
+library(ggplot2)
+library(grid)
+library(cowplot)
+library(dplyr)
+
+gg1 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species) ) + geom_point()
+
+ft_raster <- iris %>% group_by(Species) %>% 
+  summarise_all(median) %>% 
+  flextable() %>% autofit() %>% 
+  as_raster()
+
+gg2 <- ggplot() + 
+  theme_void() + 
+  annotation_custom(rasterGrob(ft_raster), xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf)
+
+cowplot::plot_grid(gg1, gg2, nrow = 2, ncol = 1, rel_heights = c(3, 1) )
+```
+
+

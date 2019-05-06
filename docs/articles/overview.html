@@ -205,9 +205,9 @@ OfficeCore10_32x_24x_20x_16x_01-22-2019
 </tbody>
 </table></div>
 </div>
-<div id="how-it-works" class="section level2">
+<div id="flextable-rendering" class="section level2">
 <h2 class="hasAnchor">
-<a href="#how-it-works" class="anchor"></a>How it works</h2>
+<a href="#flextable-rendering" class="anchor"></a>Flextable rendering</h2>
 <p>When working in RStudio, flextable will be printed in the rstudio viewer pane, the default format is HTML output.</p>
 <p>We will use the following example:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">ft &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flextable.html">flextable</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(mtcars))</a>
@@ -417,7 +417,7 @@ ft
 <p>To get an image file from a <code>flextable</code> object, use function <code>save_as_image</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">img_file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempfile</a></span>(<span class="dt">fileext =</span> <span class="st">".png"</span>)</a>
 <a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="../reference/save_as_image.html">save_as_image</a></span>(ft, <span class="dt">path =</span> img_file)</a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; [1] "/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T//Rtmpvqn7dk/filee34a47528b69.png"</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; [1] "/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T//RtmpGgKlrK/file105fa2eba378f.png"</span></a></code></pre></div>
 </div>
 <div id="as-an-r-graphic" class="section level3">
 <h3 class="hasAnchor">
@@ -425,6 +425,9 @@ ft
 <p>To get a plot from a <code>flextable</code> object, use function <code>plot</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(ft)</a></code></pre></div>
 <p><img src="overview_files/figure-html/unnamed-chunk-13-1.png" width="572.259244791667"></p>
+<blockquote>
+<p>To add a flextable on a ggplot2 object, one can use <code><a href="../reference/as_raster.html">flextable::as_raster</a></code> and <code>grid.raster</code> or <code>rasterGrob</code>. See <a href="./offcran/examples.html#send-your-flextable-to-ggplot">Examples</a> for an example.</p>
+</blockquote>
 <hr>
 </div>
 </div>
@@ -1126,7 +1129,7 @@ ft
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#how-it-works">How it works</a></li>
+      <li><a href="#flextable-rendering">Flextable rendering</a></li>
       <li><a href="#getting-started">Getting started</a></li>
       <li><a href="#selectors">Selectors</a></li>
       </ul>

@@ -101,7 +101,7 @@ autofit(ft)
 ```
 
 
-## How it works
+## Flextable rendering
 
 When working in RStudio, flextable will be printed in the rstudio viewer pane, the default format is HTML output. 
 
@@ -224,6 +224,8 @@ To get a plot from a `flextable` object, use function `plot`.
 plot(ft)
 ```
 
+> To add a flextable on a ggplot2 object, one can use `flextable::as_raster` 
+and `grid.raster` or `rasterGrob`. See [Examples](./offcran/examples.html#send-your-flextable-to-ggplot) for an example.
 
 ---
 
