@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set flextable rows height — height • flextable</title>
+<title>plot a flextable — plot.flextable • flextable</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,10 @@
 
 
 
-<meta property="og:title" content="Set flextable rows height — height" />
+<meta property="og:title" content="plot a flextable — plot.flextable" />
 
-<meta property="og:description" content="control rows height for a part
-of the flextable." />
+<meta property="og:description" content="save a flextable as an image and display the
+result in a new R graphics window." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,72 +109,68 @@ of the flextable." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set flextable rows height</h1>
+    <h1>plot a flextable</h1>
     
-    <div class="hidden name"><code>height.Rd</code></div>
+    <div class="hidden name"><code>plot.flextable.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>control rows height for a part
-of the flextable.</p>
+    <p>save a flextable as an image and display the
+result in a new R graphics window.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>height</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>height</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-
-<span class='fu'>height_all</span>(<span class='no'>x</span>, <span class='no'>height</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for flextable</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>zoom</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>flextable object</p></td>
+      <td><p>a flextable object</p></td>
     </tr>
     <tr>
-      <th>i</th>
-      <td><p>rows selection</p></td>
+      <th>zoom, expand</th>
+      <td><p>parameters used by <code>webshot</code> function.</p></td>
     </tr>
     <tr>
-      <th>height</th>
-      <td><p>height in inches</p></td>
-    </tr>
-    <tr>
-      <th>part</th>
-      <td><p>partname of the table</p></td>
+      <th>...</th>
+      <td><p>additional parameters sent to plot function</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="height-all"><a class="anchor" href="#height-all"></a>height_all</h2>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    
-    <p><code>height_all</code> is a convenient function for
-setting the same height to all rows (selected
-with argument <code>part</code>).</p>
+    <p>This function requires packages: webshot and magick.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other flextable dimensions: <code><a href='autofit.html'>autofit</a></code>,
-  <code><a href='dim.flextable.html'>dim.flextable</a></code>, <code><a href='dim_pretty.html'>dim_pretty</a></code>,
-  <code><a href='flextable_dim.html'>flextable_dim</a></code>, <code><a href='width.html'>width</a></code></p></div>
+    <div class='dont-index'><p>Other flextable print function: <code><a href='format.flextable.html'>format.flextable</a></code>,
+  <code><a href='htmltools_value.html'>htmltools_value</a></code>,
+  <code><a href='knit_print.flextable.html'>knit_print.flextable</a></code>,
+  <code><a href='print.flextable.html'>print.flextable</a></code>,
+  <code><a href='save_as_html.html'>save_as_html</a></code>, <code><a href='save_as_image.html'>save_as_image</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>iris</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>height</span>(<span class='no'>ft</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>.3</span>)
-
-
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>iris</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>height_all</span>(<span class='no'>ft</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>.3</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>( <span class='no'>mtcars</span> ) )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)
+<span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all'>all</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>(),
+   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"webshot"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"magick"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"graphics"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) ) )
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ft</span>)</div><div class='output co'>#&gt; <span class='message'>Linking to ImageMagick 6.9.9.39</span>
+#&gt; <span class='message'>Enabled features: cairo, fontconfig, freetype, lcms, pango, rsvg, webp</span>
+#&gt; <span class='message'>Disabled features: fftw, ghostscript, x11</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#height-all">height_all</a></li>
+      <li><a href="#note">Note</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

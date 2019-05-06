@@ -26,8 +26,10 @@ reference:
     - autofit
     - dim.flextable
     - dim_pretty
+    - flextable_dim
     - as_grouped_data
     - xtable_to_flextable
+    - as_flextable
   - title: Format flextable
     desc:  Modify flextable`s formatting properties.
     contents:
@@ -49,6 +51,7 @@ reference:
     - starts_with("hline")
     - starts_with("vline")
     - starts_with("border")
+    - fix_border_issues
   - title: Flextable themes
     desc:  Apply theme functions.
     contents:
@@ -73,6 +76,11 @@ reference:
     - knit_print.flextable
     - body_add_flextable
     - ph_with_flextable
+    - plot.flextable
+    - save_as_image
+    - save_as_html
+    - format.flextable
+    - htmltools_value
 
 navbar:
   title: flextable

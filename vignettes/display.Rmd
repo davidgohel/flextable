@@ -162,6 +162,14 @@ myft <- autofit(myft)
 myft
 ```
 
+### Limitation for PowerPoint
+
+Using images in flextable is not supported when output format is PowerPoint. This is not a choice nor a unimplemented 
+feature. This is because PowerPoint is not able to embed images in a table cell. That's a PowerPoint limitation.
+
+If beeing able to display images in PowerPoint table is important to you, you can use the `plot` function or the 
+`save_as_image` and embed the result in the PowerPoint. You will of course loose ability to edit the table in PowerPoint.
+
 ### Images
 
 Function `compose` supports images insertion. Use function `as_image` in `as_paragraph` call:
