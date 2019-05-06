@@ -289,7 +289,29 @@ save_as_image <- function(x, path, zoom = 3, expand = 10 ){
 #' @family flextable print function
 #' @importFrom grDevices as.raster
 plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
+  img <- as_raster(x = x, zoom = zoom, expand = expand)
+  graphics::par(mar = rep(0, 4))
+  graphics::plot(grDevices::as.raster(img), ...)
+}
 
+#' @export
+#' @title get a flextable as a raster
+#' @description save a flextable as an image and return the corresponding
+#' raster. This function has been implemented to let flextable be printed
+#' on a ggplot object.
+#' @note This function requires packages: webshot and magick.
+#' @param x a flextable object
+#' @param zoom,expand parameters used by \code{webshot} function.
+#' @importFrom grDevices as.raster
+#' @examples
+#' ft <- flextable( head( mtcars ) )
+#' ft <- autofit(ft)
+#' if( interactive() && require("ggplot2") && require("grid") ){
+#'   print(qplot(speed, dist, data = cars, geom = "point"))
+#'   grid.raster(as_raster(ft))
+#' }
+#' @family flextable print function
+as_raster <- function(x, zoom = 2, expand = 2){
   if (!requireNamespace("webshot", quietly = TRUE)) {
     stop("package webshot is required when saving a flextable as an image.")
   }
@@ -306,8 +328,6 @@ plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
                    file = path, selector = "body > table",
                    zoom = zoom, expand = expand )
   unlink(tf)
-  img <- magick::image_read(path = path)
-  graphics::par(mar = rep(0, 4))
-  graphics::plot(grDevices::as.raster(img), ...)
+  magick::image_read(path = path)
 }
 
