@@ -116,11 +116,12 @@ print.flextable <- function(x, preview = "html", ...){
 #' @family flextable print function
 knit_print.flextable <- function(x, ...){
 
-  if (is.null(opts_knit$get("rmarkdown.pandoc.to")))
+  if ( requireNamespace("webshot", quietly = TRUE) && is.null(opts_knit$get("rmarkdown.pandoc.to"))){
+    plot(x)
+  } else if (is.null(opts_knit$get("rmarkdown.pandoc.to"))){
     stop("`render_flextable` needs to be used as a renderer for ",
          "a knitr/rmarkdown R code chunk (render by rmarkdown)")
-
-  if ( grepl( "html", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+  } else if ( grepl( "html", opts_knit$get("rmarkdown.pandoc.to") ) ) {
     knit_print(htmltools_value(x))
   } else if ( grepl( "latex", opts_knit$get("rmarkdown.pandoc.to") ) ) {
     # copied from https://github.com/ropensci/magick/blob/1e92b8331cd2cad6418b5e738939ac5918947a2f/R/base.R#L126
