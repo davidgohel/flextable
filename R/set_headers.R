@@ -56,7 +56,10 @@ delete_part <- function(x, part = "header"){
   if( !inherits(x, "flextable") ) stop("delete_part supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
   nrow_ <- nrow(x[[part]]$dataset)
-  x[[part]]$dataset <- x[[part]]$dataset[-seq_len(nrow_),, drop = FALSE]
+  x[[part]] <- complex_tabpart(
+    data = x[[part]]$dataset[-seq_len(nrow_),, drop = FALSE],
+    col_keys = x$col_keys,
+    cwidth = x[[part]]$colwidths, cheight = x[[part]]$rowheights )
   x
 }
 
