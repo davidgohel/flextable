@@ -113,10 +113,12 @@ print.flextable <- function(x, preview = "html", ...){
 #' @importFrom knitr knit_print asis_output opts_knit opts_current fig_path
 #' @importFrom rmarkdown pandoc_version
 #' @importFrom stats runif
+#' @importFrom graphics plot par
 #' @family flextable print function
 knit_print.flextable <- function(x, ...){
 
-  if ( requireNamespace("webshot", quietly = TRUE) && is.null(opts_knit$get("rmarkdown.pandoc.to"))){
+  if ( requireNamespace("webshot", quietly = TRUE) &&
+       is.null(opts_knit$get("rmarkdown.pandoc.to"))){
     plot(x)
   } else if (is.null(opts_knit$get("rmarkdown.pandoc.to"))){
     stop("`render_flextable` needs to be used as a renderer for ",
@@ -284,15 +286,14 @@ save_as_image <- function(x, path, zoom = 3, expand = 10 ){
 #' ft <- autofit(ft)
 #' if(all( interactive(),
 #'    require("webshot", quietly = TRUE),
-#'    require("magick", quietly = TRUE),
-#'    require("graphics", quietly = TRUE) ) )
+#'    require("magick", quietly = TRUE) ) )
 #'   plot(ft)
 #' @family flextable print function
 #' @importFrom grDevices as.raster
 plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
   img <- as_raster(x = x, zoom = zoom, expand = expand)
-  graphics::par(mar = rep(0, 4))
-  graphics::plot(grDevices::as.raster(img), ...)
+  par(mar = rep(0, 4))
+  plot(grDevices::as.raster(img), ...)
 }
 
 #' @export
@@ -318,9 +319,6 @@ as_raster <- function(x, zoom = 2, expand = 2){
   }
   if (!requireNamespace("magick", quietly = TRUE)) {
     stop("package magick is required when saving a flextable as an image.")
-  }
-  if (!requireNamespace("graphics", quietly = TRUE)) {
-    stop("package graphics is required when saving a flextable as an image.")
   }
   path <- tempfile(fileext = ".png")
   tf <- tempfile(fileext = ".html")
