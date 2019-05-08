@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>plot a flextable — plot.flextable • flextable</title>
+<title>add footnotes to flextable — footnote • flextable</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,11 @@
 
 
 
-<meta property="og:title" content="plot a flextable — plot.flextable" />
+<meta property="og:title" content="add footnotes to flextable — footnote" />
 
-<meta property="og:description" content="save a flextable as an image and display the
-result in a new R graphics window." />
+<meta property="og:description" content="add footnotes to a flextable object. A symbol is appened
+where the footnote is defined and the note is appened in the footer part
+of the table." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,20 +110,21 @@ result in a new R graphics window." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>plot a flextable</h1>
+    <h1>add footnotes to flextable</h1>
     
-    <div class="hidden name"><code>plot.flextable.Rd</code></div>
+    <div class="hidden name"><code>footnote.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>save a flextable as an image and display the
-result in a new R graphics window.</p>
+    <p>add footnotes to a flextable object. A symbol is appened
+where the footnote is defined and the note is appened in the footer part
+of the table.</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for flextable</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>zoom</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>footnote</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>value</span>, <span class='kw'>ref_symbols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,48 +134,46 @@ result in a new R graphics window.</p>
       <td><p>a flextable object</p></td>
     </tr>
     <tr>
-      <th>zoom, expand</th>
-      <td><p>parameters used by <code>webshot</code> function.</p></td>
+      <th>i</th>
+      <td><p>rows selection</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>additional parameters sent to plot function</p></td>
+      <th>j</th>
+      <td><p>column selection</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>a call to function <code><a href='as_paragraph.html'>as_paragraph</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>ref_symbols</th>
+      <td><p>character value, symbols to append that will be used
+as references to notes.</p></td>
+    </tr>
+    <tr>
+      <th>part</th>
+      <td><p>partname of the table (one of 'body', 'header')</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>This function requires packages: webshot and magick.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other flextable print function: <code><a href='as_raster.html'>as_raster</a></code>,
-  <code><a href='format.flextable.html'>format.flextable</a></code>,
-  <code><a href='htmltools_value.html'>htmltools_value</a></code>,
-  <code><a href='knit_print.flextable.html'>knit_print.flextable</a></code>,
-  <code><a href='print.flextable.html'>print.flextable</a></code>,
-  <code><a href='save_as_html.html'>save_as_html</a></code>, <code><a href='save_as_image.html'>save_as_image</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>( <span class='no'>mtcars</span> ) )
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)
-<span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all'>all</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>(),
-   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"webshot"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"magick"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) ) )
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ft</span>)</div><div class='output co'>#&gt; <span class='message'>Linking to ImageMagick 6.9.9.39</span>
-#&gt; <span class='message'>Enabled features: cairo, fontconfig, freetype, lcms, pango, rsvg, webp</span>
-#&gt; <span class='message'>Disabled features: fftw, ghostscript, x11</span></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>iris</span>))
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>footnote</span>( <span class='no'>ft</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>,
+            <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
+              <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"This is footnote one"</span>,
+                <span class='st'>"This is footnote two"</span>,
+                <span class='st'>"This is footnote three"</span>)
+            ),
+            <span class='kw'>ref_symbols</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>),
+            <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valign.html'>valign</a></span>(<span class='no'>ft</span>, <span class='kw'>valign</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)</div><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
