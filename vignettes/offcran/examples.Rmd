@@ -311,3 +311,58 @@ cowplot::plot_grid(gg1, gg2, nrow = 2, ncol = 1, rel_heights = c(3, 1) )
 ```
 
 
+## Mixing links, footnotes and images 
+
+This is about reproducing this fuuny example written by Mara Averick with package `gt`:
+
+<blockquote class="twitter-tweet" data-lang="fr"><p lang="en" dir="ltr">😻 Aww, little tiny <a href="https://twitter.com/hashtag/NBA?src=hash&amp;ref_src=twsrc%5Etfw">#NBA</a> player photos…<br>{nbastatR} × {gt} 🙏 <a href="https://twitter.com/abresler?ref_src=twsrc%5Etfw">@abresler</a>  &amp; <a href="https://twitter.com/riannone?ref_src=twsrc%5Etfw">@riannone</a> <br>gt: Helper fun for adding images from the web: <a href="https://t.co/sbYgC4eZac">https://t.co/sbYgC4eZac</a><a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> code: <a href="https://t.co/174LemLojL">https://t.co/174LemLojL</a> <a href="https://t.co/Bfm8SOKkyC">pic.twitter.com/Bfm8SOKkyC</a></p>&mdash; Mara Averick (@dataandme) <a href="https://twitter.com/dataandme/status/1110531547168493571?ref_src=twsrc%5Etfw">26 mars 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+```{r}
+dat <- tibble::tribble(
+  ~namePlayer, ~ratioBPM, ~ratioOBPM, ~ratioDBPM, ~urlPlayerStats, ~urlPlayerHeadshot,
+"James Harden", 11.7, 10.5, 1.1, "https://stats.nba.com/player/201935", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201935.png",
+"Giannis Antetokounmpo", 10.8, 5.7, 5, "https://stats.nba.com/player/203507", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203507.png",
+"Nikola Jokic", 9.5, 5.7, 3.8, "https://stats.nba.com/player/203999", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203999.png",
+"Anthony Davis", 8.5, 4.7, 3.9, "https://stats.nba.com/player/203076", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203076.png",
+"LeBron James", 8.1, 6.2, 1.9, "https://stats.nba.com/player/2544", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2544.png",
+"Rudy Gobert", 7, 2, 5.1, "https://stats.nba.com/player/203497", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203497.png",
+"Karl-Anthony Towns", 6.8, 4.8, 2, "https://stats.nba.com/player/1626157", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626157.png",
+"Russell Westbrook", 6.5, 2.5, 3.9, "https://stats.nba.com/player/201566", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201566.png",
+"Kyrie Irving", 6.4, 6, 0.4, "https://stats.nba.com/player/202681", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202681.png",
+"Nikola Vucevic", 6.4, 3, 3.4, "https://stats.nba.com/player/202696", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202696.png"
+)
+```
+
+```{r}
+ft <- flextable(dat, cwidth = c(1.7, .7, .7, .7, 1, .7)) %>%
+  flextable::add_header_lines("Top 10 Box Plus/Minus") %>%
+  set_header_labels(namePlayer = "", ratioBPM = "BPM", ratioOBPM = "OBPM",
+    ratioDBPM = "DBPM", urlPlayerStats = "Link", urlPlayerHeadshot = "") %>%
+  theme_zebra(odd_header="transparent") %>% 
+  compose( j = "urlPlayerStats",
+           value = as_paragraph( hyperlink_text(x = "player stats", url = urlPlayerStats ) ) ) %>% 
+  compose( j = "urlPlayerHeadshot",
+           value = as_paragraph(
+             as_image(src = urlPlayerHeadshot, width = .52, height = .38)
+           ), part = "body") %>% 
+  footnote( i = 1, j = 1, ref_symbols = "*",
+            value = as_paragraph("Players with 500+ minutes."), part = "header") %>% 
+  footnote( i = 2, j = 2:4, ref_symbols = c("†", "‡", "§"),
+            value = as_paragraph(
+              c("Box Plus/Minus: a box score estimate of the points per 100 possessions that a player contributed above a league-average player, translated to an average team.", 
+                "Offensive Box Plus/Minus.", "Defensive Box Plus/Minus.")
+            ), part = "header") %>% 
+  valign(valign = "bottom", part = "all") %>% 
+  fontsize(i = 1, part = "header", size = 20) %>% 
+  bold(i = 1, part = "header", bold = TRUE) %>% 
+  color(j = 5, color = "#337ab7") %>% 
+  vline(j = 1, part = "body", border = officer::fp_border()) %>% 
+  border_inner_h(part = "header", border = officer::fp_border()) %>% 
+  hline_bottom(part = "all", border = officer::fp_border()) %>% 
+  colformat_num(col_keys = c("ratioBPM", "ratioOBPM", "ratioDBPM"), digits = 1 )
+
+ft
+```
+

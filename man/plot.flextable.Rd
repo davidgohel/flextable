@@ -25,8 +25,7 @@ ft <- flextable( head( mtcars ) )
 ft <- autofit(ft)
 if(all( interactive(),
    require("webshot", quietly = TRUE),
-   require("magick", quietly = TRUE),
-   require("graphics", quietly = TRUE) ) )
+   require("magick", quietly = TRUE) ) )
   plot(ft)
 }
 \seealso{

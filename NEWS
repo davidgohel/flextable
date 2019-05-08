@@ -3,6 +3,7 @@
 ## new features
 
 * new functions to render flextable as images and raster for ggplot2
+* new function `footnote` to ease footnotes management
 
 # flextable 0.5.2
 

@@ -171,8 +171,9 @@ as_image <- function(src, width = .5, height = .2, ...) {
 #' ft
 #' @family chunk elements for paragraph
 hyperlink_text <- function(x, props = NULL, formater = format_fun, url, ...){
-  x <- as_chunk( x = x, props = props, formater = formater, ...)
-  x$url <- url
+  zz <- data.frame(x = x, url = url, stringsAsFactors = FALSE)
+  x <- as_chunk( x = zz$x, props = props, formater = formater, ...)
+  x$url <- zz$url
   x
 }
 

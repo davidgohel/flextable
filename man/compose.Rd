@@ -2,9 +2,12 @@
 % Please edit documentation in R/display.R
 \name{compose}
 \alias{compose}
+\alias{mk_par}
 \title{Define flextable displayed values}
 \usage{
 compose(x, i = NULL, j = NULL, value, part = "body")
+
+mk_par(x, i = NULL, j = NULL, value, part = "body")
 }
 \arguments{
 \item{x}{a flextable object}
@@ -21,6 +24,12 @@ compose(x, i = NULL, j = NULL, value, part = "body")
 Modify flextable displayed values. Function is
 handling complex formatting as well as image insertion.
 }
+\section{mk_par}{
+
+Function \code{mk_par} is another name for \code{compose} as
+there is an unwanted conflict with package \code{purrr}.
+}
+
 \examples{
 library(officer)
 ft <- flextable(head( mtcars, n = 10))
