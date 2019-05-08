@@ -340,7 +340,6 @@ ft <- flextable(dat, cwidth = c(1.7, .7, .7, .7, 1, .7)) %>%
   flextable::add_header_lines("Top 10 Box Plus/Minus") %>%
   set_header_labels(namePlayer = "", ratioBPM = "BPM", ratioOBPM = "OBPM",
     ratioDBPM = "DBPM", urlPlayerStats = "Link", urlPlayerHeadshot = "") %>%
-  theme_zebra(odd_header="transparent") %>% 
   compose( j = "urlPlayerStats",
            value = as_paragraph( hyperlink_text(x = "player stats", url = urlPlayerStats ) ) ) %>% 
   compose( j = "urlPlayerHeadshot",
@@ -354,9 +353,12 @@ ft <- flextable(dat, cwidth = c(1.7, .7, .7, .7, 1, .7)) %>%
               c("Box Plus/Minus: a box score estimate of the points per 100 possessions that a player contributed above a league-average player, translated to an average team.", 
                 "Offensive Box Plus/Minus.", "Defensive Box Plus/Minus.")
             ), part = "header") %>% 
+  theme_zebra(odd_header="transparent") %>% 
   valign(valign = "bottom", part = "all") %>% 
   fontsize(i = 1, part = "header", size = 20) %>% 
   bold(i = 1, part = "header", bold = TRUE) %>% 
+  bold(part = "footer", bold = FALSE) %>% 
+  italic(part = "footer", italic = TRUE) %>% 
   color(j = 5, color = "#337ab7") %>% 
   vline(j = 1, part = "body", border = officer::fp_border()) %>% 
   border_inner_h(part = "header", border = officer::fp_border()) %>% 
