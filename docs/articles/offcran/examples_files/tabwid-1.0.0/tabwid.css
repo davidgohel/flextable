@@ -33,3 +33,6 @@ border: 0;
 border-radius: 0;
 margin: 0;
 }
+.tabwid a {
+  text-decoration: none;
+}

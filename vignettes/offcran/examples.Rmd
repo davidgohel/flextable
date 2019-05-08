@@ -313,7 +313,7 @@ cowplot::plot_grid(gg1, gg2, nrow = 2, ncol = 1, rel_heights = c(3, 1) )
 
 ## Mixing links, footnotes and images 
 
-This is about reproducing this fuuny example written by Mara Averick with package `gt`:
+This is about reproducing this funny example written by Mara Averick with package `gt`:
 
 <blockquote class="twitter-tweet" data-lang="fr"><p lang="en" dir="ltr">😻 Aww, little tiny <a href="https://twitter.com/hashtag/NBA?src=hash&amp;ref_src=twsrc%5Etfw">#NBA</a> player photos…<br>{nbastatR} × {gt} 🙏 <a href="https://twitter.com/abresler?ref_src=twsrc%5Etfw">@abresler</a>  &amp; <a href="https://twitter.com/riannone?ref_src=twsrc%5Etfw">@riannone</a> <br>gt: Helper fun for adding images from the web: <a href="https://t.co/sbYgC4eZac">https://t.co/sbYgC4eZac</a><a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> code: <a href="https://t.co/174LemLojL">https://t.co/174LemLojL</a> <a href="https://t.co/Bfm8SOKkyC">pic.twitter.com/Bfm8SOKkyC</a></p>&mdash; Mara Averick (@dataandme) <a href="https://twitter.com/dataandme/status/1110531547168493571?ref_src=twsrc%5Etfw">26 mars 2019</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

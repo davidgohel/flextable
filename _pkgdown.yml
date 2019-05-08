@@ -69,6 +69,7 @@ reference:
     - linerange
     - hyperlink_text
     - set_caption
+    - footnote
     - void
   - title: Output functions
     contents:
