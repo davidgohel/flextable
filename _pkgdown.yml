@@ -91,9 +91,11 @@ navbar:
     href: articles/overview.html
   - text: Layout
     href: articles/layout.html
-  - text: Format
+  - text: Selectors
+    href: articles/selectors.html
+  - text: Format visual properties
     href: articles/format.html
-  - text: Display value
+  - text: Format Content
     href: articles/display.html
   - text: Examples
     href: articles/offcran/examples.html
