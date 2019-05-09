@@ -122,7 +122,7 @@ mk_par <- compose
 #' @param value a call to function \code{\link{as_paragraph}}.
 #' @param ref_symbols character value, symbols to append that will be used
 #' as references to notes.
-#' @param part partname of the table (one of 'body', 'header')
+#' @param part partname of the table (one of 'body', 'header', 'footer')
 #' @examples
 #' ft <- flextable(head(iris))
 #' ft <- footnote( ft, i = 1, j = 1:3,
@@ -140,10 +140,10 @@ mk_par <- compose
 footnote <- function(x, i = NULL, j = NULL, value , ref_symbols = NULL, part = "body"){
 
   if( !inherits(x, "flextable") ) stop("footnote supports only flextable objects.")
-  part <- match.arg(part, c("body", "header"), several.ok = FALSE )
+  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
-    for( p in c("header", "body") ){
+    for( p in c("header", "body", "footer") ){
       x <- compose(x = x, i = i, j = j, value = value, part = p)
     }
     return(x)

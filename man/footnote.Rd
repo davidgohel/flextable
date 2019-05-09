@@ -19,7 +19,7 @@ footnote(x, i = NULL, j = NULL, value, ref_symbols = NULL,
 \item{ref_symbols}{character value, symbols to append that will be used
 as references to notes.}
 
-\item{part}{partname of the table (one of 'body', 'header')}
+\item{part}{partname of the table (one of 'body', 'header', 'footer')}
 }
 \description{
 add footnotes to a flextable object. A symbol is appened
