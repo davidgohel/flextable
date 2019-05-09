@@ -209,7 +209,7 @@ add_footer <- function(x, top = TRUE, ...){
   args <- list(...)
   args_ <- lapply(x$col_keys, function(x) "" )
   names(args_) <- x$col_keys
-  args_[names(args)] <- lapply(args, format)
+  args_[names(args)] <- args
   footer_data <- data.frame(as.list(args_), check.names = FALSE, stringsAsFactors = FALSE )
 
   if( nrow_part(x, "footer") < 1 ) {
