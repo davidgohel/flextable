@@ -17,6 +17,10 @@
 #' @param col_keys columns names/keys to display. If some column names are not in
 #' the dataset, they will be added as blank columns by default.
 #' @param cwidth,cheight initial width and height to use for cell sizes in inches.
+#' @param defaults a list of default values for formats, supported options are
+#' \code{fontname}, \code{font.size}, \code{color} and \code{padding}.
+#' @param theme_fun a function theme to apply before returning the flextable.
+#' set to NULL for none.
 #' @note Function \code{regulartable} is maintained for compatibility with old codes
 #' mades by users but be aware it produces the same exact object than \code{flextable}.
 #' @examples
@@ -25,7 +29,8 @@
 #' @export
 #' @importFrom stats setNames
 #' @importFrom gdtools font_family_exists
-flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
+flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25,
+                       defaults = list(), theme_fun = theme_booktabs ){
 
 
   stopifnot(is.data.frame(data), ncol(data) > 0 )
@@ -60,16 +65,49 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
                blanks = blanks )
   class(out) <- c("flextable")
 
+  # default values for formats
+  if( "fontname" %in% names(defaults) ){
+    font_family <- defaults$fontname
+  } else {
+    font_family <- ifelse( font_family_exists(font_family = "Roboto"), "Roboto", "Arial" )
+  }
+  if( "font.size" %in% names(defaults) ){
+    font.size <- defaults$font.size
+  } else {
+    font.size <- 11
+  }
+  if( "color" %in% names(defaults) ){
+    color <- defaults$color
+  } else {
+    color <- "#111111"
+  }
+  if( "padding" %in% names(defaults) ){
+    padding.left <- padding.right <- padding.bottom <- padding.top <- defaults$padding
+  } else {
+    padding.left <- padding.right <- 5
+    padding.bottom <- padding.top <- 2
+  }
+
   out <- style( x = out,
                 pr_t = fp_text(
-                  font.family = ifelse( font_family_exists(font_family = "Roboto"), "Roboto", "Arial" ),
-                  font.size = 11, color = "#111111"
+                  font.family = font_family,
+                  font.size = font.size, color = color
                 ),
-                pr_p = fp_par(text.align = "right", padding.left = 5, padding.right = 5,
-                              padding.bottom = 2, padding.top = 2),
+                pr_p = fp_par(text.align = "right", padding.left = padding.left, padding.right = padding.right,
+                              padding.bottom = padding.bottom, padding.top = padding.top),
                 pr_c = fp_cell(border = fp_border(color = "transparent")), part = "all")
+  if( !is.null(theme_fun) )
+    out <- theme_fun(out)
+  out
+}
 
-  theme_booktabs(out)
+#' @export
+#' @rdname flextable
+#' @section qflextable:
+#' \code{qflextable} is a convenient tool to produce quickly
+#' a flextable for reporting
+qflextable <- function(data){
+  autofit(flextable(data))
 }
 
 #' @export

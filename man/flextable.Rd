@@ -2,11 +2,14 @@
 % Please edit documentation in R/flextable.R
 \name{flextable}
 \alias{flextable}
+\alias{qflextable}
 \alias{regulartable}
 \title{flextable creation}
 \usage{
 flextable(data, col_keys = names(data), cwidth = 0.75,
-  cheight = 0.25)
+  cheight = 0.25, defaults = list(), theme_fun = theme_booktabs)
+
+qflextable(data)
 
 regulartable(data, col_keys = names(data), cwidth = 0.75,
   cheight = 0.25)
@@ -18,6 +21,12 @@ regulartable(data, col_keys = names(data), cwidth = 0.75,
 the dataset, they will be added as blank columns by default.}
 
 \item{cwidth, cheight}{initial width and height to use for cell sizes in inches.}
+
+\item{defaults}{a list of default values for formats, supported options are
+\code{fontname}, \code{font.size}, \code{color} and \code{padding}.}
+
+\item{theme_fun}{a function theme to apply before returning the flextable.
+set to NULL for none.}
 }
 \description{
 Create a flextable object with function \code{flextable}.
@@ -38,6 +47,12 @@ to specify what part of of the table should be modified.
 Function \code{regulartable} is maintained for compatibility with old codes
 mades by users but be aware it produces the same exact object than \code{flextable}.
 }
+\section{qflextable}{
+
+\code{qflextable} is a convenient tool to produce quickly
+a flextable for reporting
+}
+
 \examples{
 ft <- flextable(mtcars)
 ft
