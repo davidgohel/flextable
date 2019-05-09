@@ -154,7 +154,7 @@ colformat_num.flextable <- function(x, col_keys, big.mark=",", digits = 2, na_st
     out <- paste0(prefix, formatC(x, format="f", big.mark=big.mark, digits = digits), suffix )
     ifelse(is.na(x), na_str, out)
   }
-  docall_display(col_keys, fun_, x)
+  docall_display(col_keys, fun_, x, ...)
 }
 
 
@@ -165,7 +165,7 @@ colformat_int.flextable <- function(x, col_keys, big.mark=",", na_str = "", pref
     out <- paste0(prefix, formatC(x, format="f", big.mark=big.mark, digits = 0), suffix )
     ifelse(is.na(x), na_str, out)
   }
-  docall_display(col_keys, fun_, x)
+  docall_display(col_keys, fun_, x, ...)
 }
 
 #' @export
@@ -177,7 +177,7 @@ colformat_lgl.flextable <- function(x, col_keys,
     out <- ifelse(x, true, false)
     ifelse(is.na(x), na_str, out)
   }
-  docall_display(col_keys, fun_, x)
+  docall_display(col_keys, fun_, x, ...)
 }
 
 
@@ -188,13 +188,13 @@ colformat_char.flextable <- function(x, col_keys, na_str = "", prefix = "", suff
     out <- paste0(prefix, x, suffix )
     ifelse(is.na(x), na_str, out)
   }
-  docall_display(col_keys, fun_, x)
+  docall_display(col_keys, fun_, x, ...)
 }
 
 
-docall_display <- function(col_keys, format_fun, x){
+docall_display <- function(col_keys, format_fun, x, i = NULL){
   for( varname in col_keys){
-    x <- compose(x = x, j = varname, value = as_paragraph(as_chunk(format_fun(get(varname)))), part = "body" )
+    x <- compose(x = x, j = varname, i = i, value = as_paragraph(as_chunk(format_fun(get(varname)))), part = "body" )
   }
   x
 }
