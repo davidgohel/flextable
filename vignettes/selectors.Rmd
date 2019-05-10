@@ -1,11 +1,11 @@
 ---
-title: "flextable overview"
+title: "flextable selectors"
 output: 
   rmarkdown::html_vignette:
     toc: true 
     toc_depth: 3
 vignette: >
-  %\VignetteIndexEntry{flextable overview}
+  %\VignetteIndexEntry{flextable selectors}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -22,24 +22,70 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Selectors
+## Why selectors
 
-Selectors can be used to specify the rows and columns where the operation should happened.
+Selectors can be used to specify the rows and columns where an operation should happened.
 
 Many `flextable` functions have *selectors* `i` and `j`: `bg`, `bold`, 
-`border`, `color`, `padding`, `fontsize`, `italic`, `align`, ... 
+`border`, `color`, `padding`, `fontsize`, `italic`, `align`, `compose`, ... 
+
+It makes conditional formatting very easy. As the underlying datasets (for body but also 
+header and footer parts) are available, selectors can easily be used and 
+operations can be seamlessly piped (with `magrittr::%>%`).
+
+```{r}
+qflextable(head(iris)) %>% 
+  color(~ Sepal.Length < 5, color = "orange", ~ Sepal.Width + Petal.Length ) %>% 
+  color(~ Sepal.Length > 4.99, ~ Sepal.Length, color = "red")
+```
+
+Default values for `i` and `j` are `NULL`, `NULL` value is interpreted as 
+*all rows* or *all columns*. 
+
+## Usage
 
 `i` for rows selection and `j` for columns selection can be expressed in different ways:
 
-* as a formula: `i = ~ Species %in% "versicolor", j = ~ Species + Sepal.Length`
+### as a formula
+
+Use `i = ~ Species %in% "versicolor"` to select all rows where 
+values from column 'Species' are "versicolor". 
+
+The argument expression is `~` and then an R expression. There is no need to quote 
+variable, when the formula will be evaluated, values from the corresponding dataset 
+(to the part) will be used. 
+
+To express multiple conditions, use operator `&` or `|`:
+
+`i = ~ Sepal.Length < 5 & Species %in% "versicolor"`
+
+The columns can be selected with a formula also. Use operator `+` for multiple columns. 
+To select columns `Species` and `Sepal.Length`: `j = ~ Species + Sepal.Length`
 
 ```{r}
 ft <- flextable(head(iris, n = 10))
-ft <- color(ft, i = ~ Sepal.Length < 5, j = ~ Sepal.Length + Sepal.Width, color = "orange")
+ft <- color(ft, 
+            i = ~ Sepal.Length < 5, 
+            j = ~ Sepal.Length + Sepal.Width, 
+            color = "orange")
 ft
 ```
 
-* as an integer vector, each element is the row number or `col_key` number
+### as a character vector
+
+Argument `j ` supports  simple character vector containing the `col_key` names.
+
+```{r}
+dat <- head(iris, n = 10)
+ft <- flextable(dat)
+ft <- color(ft, j = "Sepal.Length", color = "orange", part = "all")
+ft <- bold(ft, j = c("Sepal.Width", "Species"), bold = TRUE)
+ft
+```
+
+### as a integer vector
+
+Each element is the row number or `col_key` number:
 
 ```{r}
 ft <- flextable(head(iris, n = 10))
@@ -47,24 +93,59 @@ ft <- color(ft, i = 1:3, j = 1:3, color = "orange")
 ft
 ```
 
-* as a logical vector; for `j`, a p length if p columns; for `i`, a n length if n rows
+### as a logical vector
 
 ```{r}
 dat <- head(iris, n = 10)
 ft <- flextable(dat)
 
-ft <- color(ft, i = dat$Sepal.Length < 5, color = "orange")
+ft <- color(ft, i = rep(c(TRUE, FALSE), 5), color = "orange")
 ft
 ```
 
-* j support also simple character vector containing the `col_key` names.
+## Selectors and flextable parts
+
+Several operations (bold, color, padding, compose) accept `part="all"`. In this 
+case *all* mean to apply to each part of the flextable (header, body and footer if any). 
+That's useful for many cases: 
+
+* add a vertical line (`vline`) to one or several column in header and 
+body part, use `part="all", j = c('col1', 'col2')` as selector.
 
 ```{r}
-dat <- head(iris, n = 10)
-ft <- flextable(dat)
-ft <- color(ft, j = "Sepal.Length", color = "orange", part = "all")
+border <- officer::fp_border()
+ft <- flextable(head(iris, n = 10))
+ft <- vline(ft, j = c('Sepal.Length', 'Sepal.Width'), border = border, part = "all")
 ft
 ```
 
+* change color only on the first row of the header part, use `part="header", i = 1` as selector.
 
+```{r}
+ft <- color(ft, i = 1, color = "red", part = "header")
+ft
+```
+
+* change color in column 'col1' and 'col3' in body part when values of 'col2' are negative, use `part="body", i = ~ col2 < 0, j = c('col1', 'col3)` as selector.
+
+```{r}
+ft <- color(ft, i = ~ Sepal.Length < 5, 
+               j = c('Petal.Length', 'Petal.Width'), 
+               color = "red", part = "body")
+ft
+```
+
+The most efficient selector for rows is the formula expression.
+
+The most efficient selector for columns is the character vector.  
+
+
+> Selectors expressed as formula connot be used everywhere: 
+
+* Rows selector expressed as formula cannot be used with `header` part. The 
+header part contains only character values. 
+* A common value for argument `part` is "all". In this case, a  
+row selector expressed as a formula is not supported (it can not 
+as header dataset is made of only character columns and body 
+dataset is the original dataset).
 

@@ -91,6 +91,32 @@ ft <- autofit(ft)
 ft
 ```
 
+## Custom printing with knitr
+
+To output data.frame as `flextable` in R Markdown documents, use the following 
+code (and adapt if necessary):
+
+```{r}
+library(knitr)
+dummy_fun = function(x, ...) {
+  if( nrow(x) < 10 )
+    knit_print(qflextable(x))
+  else {
+    ft <- qflextable(head(x, n = 15))
+    ft <- add_footer_lines(ft, values = sprintf("(15 first lines /  %.0f lines)", nrow(x)))
+    knit_print(theme_zebra(ft))
+  }
+}
+# register the method
+registerS3method("knit_print", "data.frame", dummy_fun)
+```
+
+```{r}
+head(iris)
+iris
+```
+
+
 ## Looping in R Mardown documents
 
 ```{r}
@@ -137,17 +163,18 @@ mycut <- cut(
   include.lowest = TRUE, label = FALSE)
 
 mycolors <- col_palette[mycut]
-
+std_border <- fp_border(width = 1, color = "white")
 data.frame(rowname = row.names(cor_matrix), stringsAsFactors = FALSE) %>%
   cbind(cor_matrix) %>%
   flextable() %>%
-  theme_box() %>% 
+  border_outer(part="all", border = std_border ) %>% 
+  border_inner_h(border = std_border, part="all") %>% 
+  border_inner_v(border = std_border, part="all") %>% 
   compose(i = 1, j = 1, value = as_paragraph(""), part = "header") %>% 
   compose(j = colnames(cor_matrix), value = as_paragraph(""), part = "body") %>% 
   bg(j = colnames(cor_matrix), bg = mycolors) %>%
   align(align = "center", part = "all") %>%
-  height(height = .5) %>% 
-  height(height = .5, part = "header") %>% 
+  height_all(height = .5) %>% 
   width(width =  .5) 
   
 ```
@@ -290,7 +317,7 @@ shinyApp(ui = ui, server = server)
 
 ## Send your flextable to ggplot 
 
-```{r out.width="50%", fig.width=8, fig.height=7}
+```{r out.width="70%", fig.width=8, fig.height=5}
 library(ggplot2)
 library(grid)
 library(cowplot)
@@ -300,24 +327,25 @@ gg1 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species) ) + geom_po
 
 ft_raster <- iris %>% group_by(Species) %>% 
   summarise_all(median) %>% 
-  flextable() %>% autofit() %>% 
+  flextable() %>% autofit() %>% add_header_lines("means per Species") %>% 
   as_raster()
 
 gg2 <- ggplot() + 
   theme_void() + 
   annotation_custom(rasterGrob(ft_raster), xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf)
 
-cowplot::plot_grid(gg1, gg2, nrow = 2, ncol = 1, rel_heights = c(3, 1) )
+cowplot::plot_grid(gg1, gg2, nrow = 2, ncol = 1, rel_heights = c(4, 1) )
 ```
 
 
 ## Mixing links, footnotes and images 
 
-This is about reproducing this funny example written by Mara Averick with package `gt`:
+I wrote this when I read the nice example written by Mara Averick with package `gt`, 
 
 <blockquote class="twitter-tweet" data-lang="fr"><p lang="en" dir="ltr">😻 Aww, little tiny <a href="https://twitter.com/hashtag/NBA?src=hash&amp;ref_src=twsrc%5Etfw">#NBA</a> player photos…<br>{nbastatR} × {gt} 🙏 <a href="https://twitter.com/abresler?ref_src=twsrc%5Etfw">@abresler</a>  &amp; <a href="https://twitter.com/riannone?ref_src=twsrc%5Etfw">@riannone</a> <br>gt: Helper fun for adding images from the web: <a href="https://t.co/sbYgC4eZac">https://t.co/sbYgC4eZac</a><a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> code: <a href="https://t.co/174LemLojL">https://t.co/174LemLojL</a> <a href="https://t.co/Bfm8SOKkyC">pic.twitter.com/Bfm8SOKkyC</a></p>&mdash; Mara Averick (@dataandme) <a href="https://twitter.com/dataandme/status/1110531547168493571?ref_src=twsrc%5Etfw">26 mars 2019</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+I wanted to know what would be the flextable version:
 
 ```{r}
 dat <- tibble::tribble(

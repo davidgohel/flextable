@@ -15,20 +15,6 @@ library(flextable)
 library(magrittr)
 library(htmltools)
 
-dir.create("assets/docx", recursive = TRUE, showWarnings = FALSE)
-dir.create("assets/pptx", recursive = TRUE, showWarnings = FALSE)
-office_doc_link <- function(url){
-  stopifnot(requireNamespace("htmltools", quietly = TRUE))
-  htmltools::tags$p(  htmltools::tags$span("Download file "),
-    htmltools::tags$a(basename(url), href = url), 
-    htmltools::tags$span(" - view with"),
-    htmltools::tags$a("office web viewer", target="_blank", 
-      href = paste0("https://view.officeapps.live.com/op/view.aspx?src=", url)
-      ), 
-    style="text-align:center;font-style:italic;color:gray;"
-    )
-}
-
 knitr::opts_chunk$set(
   message = FALSE,
   collapse = TRUE,
@@ -153,7 +139,7 @@ package `pagedown`. The only current known limitation is the inability to repeat
 rows along pages when the table need more than a page. 
 * Using flextable with template `pdf_document` is OK if the flextable fits on one single page. 
 The PDF output is not a real latex output but a PNG image.
-* The package is not to be used for producing table with thousand of rows. The package is to be used 
+* The package is not to be used for producing table with thousand rows. The package is to be used 
 when there is a need to produce nice tables in a document or in a publication.
 
 ### PowerPoint or Word documents 
@@ -182,7 +168,7 @@ library(officer)
 
 The following is producing a PowerPoint document:
 
-```{r results='hide'}
+```{r eval=FALSE}
 ppt <- read_pptx()
 ppt <- add_slide(ppt, layout = "Title and Content", master = "Office Theme")
 ppt <- ph_with_flextable(ppt, value = ft, type = "body") 
@@ -190,20 +176,12 @@ ppt <- ph_with_flextable(ppt, value = ft, type = "body")
 print(ppt, target = "assets/pptx/example.pptx")
 ```
 
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/pptx/example.pptx" ) )
-```
-
 The following is producing a Word document:
 
-```{r results='hide'}
+```{r eval=FALSE}
 doc <- read_docx()
 doc <- body_add_flextable(doc, value = ft)
 print(doc, target = "assets/docx/example.docx")
-```
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/flextable/articles/", "assets/docx/example.docx" ) )
 ```
 
 ### Images
@@ -335,7 +313,10 @@ but also images.
 
 * The dimensions of the flextable elements, widths of columns and 
 heights of rows, are always defined. Beeing able to define the exact 
-size necessary to **display data on a single line** is a key concept. 
+size necessary to **display data on a single line** is a choice made 
+to make sure HTML, pptx, docx, images have all the same rendering, for 
+that exact widths and heights were needed. In most of cases, you should 
+not worry about that by only using `autofit()` as last operation. 
 See functions `autofit()` and `dim_pretty()`. 
 
 * Columns to display (`col_keys`) are by default all columns 

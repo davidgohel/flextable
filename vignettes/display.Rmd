@@ -1,11 +1,11 @@
 ---
-title: "flextable display value"
+title: "Format content"
 output: 
   rmarkdown::html_vignette:
     toc: true 
     toc_depth: 3
 vignette: >
-  %\VignetteIndexEntry{Flextable display value}
+  %\VignetteIndexEntry{Format content}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
