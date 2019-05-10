@@ -38,3 +38,9 @@ ft <- compose(ft, j = "carb", i = ~ drat > 3.5,
   )
 \donttest{ft <- autofit(ft)}
 }
+\seealso{
+Other cells formatters: \code{\link{colformat_char}},
+  \code{\link{colformat_int}}, \code{\link{colformat_lgl}},
+  \code{\link{colformat_num}}
+}
+\concept{cells formatters}

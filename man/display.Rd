@@ -30,7 +30,7 @@ image insertion.
 }
 \note{
 You should use \code{\link{compose}} instead - the function is easier
-to use.
+to use. Function display will be deprecated in the next release.
 }
 \section{pattern}{
 

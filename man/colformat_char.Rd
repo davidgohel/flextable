@@ -3,7 +3,7 @@
 \name{colformat_char}
 \alias{colformat_char}
 \alias{colformat_char.flextable}
-\title{format character columns}
+\title{format character cells}
 \usage{
 colformat_char(x, ...)
 
@@ -13,7 +13,8 @@ colformat_char(x, ...)
 \arguments{
 \item{x}{a flextable object}
 
-\item{...}{additional arguments, unused}
+\item{...}{additional arguments, i can be used to specify a
+row selector.}
 
 \item{col_keys}{names of the colkeys}
 
@@ -22,7 +23,7 @@ colformat_char(x, ...)
 \item{prefix, suffix}{string to be used as prefix or suffix}
 }
 \description{
-Format character columns in a flextable.
+Format character cells in a flextable.
 }
 \examples{
 dat <- iris
@@ -32,7 +33,8 @@ ft <- colformat_char(
 autofit(ft)
 }
 \seealso{
-Other columns formatters: \code{\link{colformat_int}},
-  \code{\link{colformat_lgl}}, \code{\link{colformat_num}}
+Other cells formatters: \code{\link{colformat_int}},
+  \code{\link{colformat_lgl}}, \code{\link{colformat_num}},
+  \code{\link{compose}}
 }
-\concept{columns formatters}
+\concept{cells formatters}

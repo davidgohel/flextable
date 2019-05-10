@@ -37,11 +37,11 @@ User can also have more control over displayed content by using function `compos
 The function enable to define the elements composing the paragraph and their respective formats.
 It can also be used to mix text chunks and images.
 
-## Column-wise functions
+## Simple functions for formatting content
 
 Theses are high level functions that should satisfy most 
 of the usual needs. They can be used to define the formatting 
-of one or more columns.
+of one or more columns and eventually on a subset of rows.
 
 Each accept a `prefix` and `suffix` argument that can be used 
 to add a currency symbol for example. Also they all have 
@@ -58,6 +58,7 @@ dat[3:7, 1] <- NA
 dat[, 2] <- dat[, 6] * 1000000
 
 ft <- flextable(dat)
+ft
 num_keys <- c("mpg", "disp", "drat", "wt", "qsec")
 int_keys <- c("cyl", "hp", "vs", "am", "gear", "carb")
 
@@ -65,6 +66,11 @@ ft <- colformat_num(x = ft, col_keys = num_keys, big.mark = ",", digits = 2, na_
 ft <- colformat_int(x = ft, col_keys = int_keys, big.mark = ",")
 autofit(ft)
 ```
+
+
+> Their names is `col_format_*` as the first version was not working with rows subset. 
+This limitation is no more true and the functions should then be named `format_int`, 
+`format_num`... as they can operate on rows and columns.
 
 
 ## set_formatter function

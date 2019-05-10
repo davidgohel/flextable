@@ -5,7 +5,7 @@
 #' image insertion.
 #' @note
 #' You should use \code{\link{compose}} instead - the function is easier
-#' to use.
+#' to use. Function display will be deprecated in the next release.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param col_key column to modify, a single character
@@ -83,6 +83,7 @@ display <- function(x, i = NULL, col_key,
 #'   )
 #' \donttest{ft <- autofit(ft)}
 #' @export
+#' @family cells formatters
 compose <- function(x, i = NULL, j = NULL, value , part = "body"){
 
   if( !inherits(x, "flextable") ) stop("compose supports only flextable objects.")
@@ -105,6 +106,7 @@ compose <- function(x, i = NULL, j = NULL, value , part = "body"){
 
   x
 }
+
 #' @rdname compose
 #' @section mk_par:
 #' Function \code{mk_par} is another name for \code{compose} as

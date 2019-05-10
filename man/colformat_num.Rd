@@ -3,7 +3,7 @@
 \name{colformat_num}
 \alias{colformat_num}
 \alias{colformat_num.flextable}
-\title{format numeric columns}
+\title{format numeric cells}
 \usage{
 colformat_num(x, ...)
 
@@ -13,7 +13,8 @@ colformat_num(x, ...)
 \arguments{
 \item{x}{a flextable object}
 
-\item{...}{additional arguments, unused}
+\item{...}{additional arguments, i can be used to specify a
+row selector.}
 
 \item{col_keys}{names of the colkeys}
 
@@ -26,7 +27,7 @@ colformat_num(x, ...)
 \item{suffix}{string to be used as prefix or suffix}
 }
 \description{
-Format numeric columns in a flextable.
+Format numeric cells in a flextable.
 }
 \examples{
 dat <- iris
@@ -42,7 +43,8 @@ ft <- colformat_num(
 autofit(ft)
 }
 \seealso{
-Other columns formatters: \code{\link{colformat_char}},
-  \code{\link{colformat_int}}, \code{\link{colformat_lgl}}
+Other cells formatters: \code{\link{colformat_char}},
+  \code{\link{colformat_int}}, \code{\link{colformat_lgl}},
+  \code{\link{compose}}
 }
-\concept{columns formatters}
+\concept{cells formatters}

@@ -3,7 +3,7 @@
 \name{colformat_int}
 \alias{colformat_int}
 \alias{colformat_int.flextable}
-\title{format integer columns}
+\title{format integer cells}
 \usage{
 colformat_int(x, ...)
 
@@ -13,7 +13,8 @@ colformat_int(x, ...)
 \arguments{
 \item{x}{a flextable object}
 
-\item{...}{additional arguments, unused}
+\item{...}{additional arguments, i can be used to specify a
+row selector.}
 
 \item{col_keys}{names of the colkeys}
 
@@ -26,7 +27,7 @@ colformat_int(x, ...)
 \item{suffix}{string to be used as prefix or suffix}
 }
 \description{
-Format integer columns in a flextable.
+Format integer cells in a flextable.
 }
 \examples{
 dat <- mtcars
@@ -37,7 +38,8 @@ ft <- colformat_int(x = ft, col_keys = colkeys, prefix = "# ")
 autofit(ft)
 }
 \seealso{
-Other columns formatters: \code{\link{colformat_char}},
-  \code{\link{colformat_lgl}}, \code{\link{colformat_num}}
+Other cells formatters: \code{\link{colformat_char}},
+  \code{\link{colformat_lgl}}, \code{\link{colformat_num}},
+  \code{\link{compose}}
 }
-\concept{columns formatters}
+\concept{cells formatters}

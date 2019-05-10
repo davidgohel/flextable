@@ -3,7 +3,7 @@
 \name{colformat_lgl}
 \alias{colformat_lgl}
 \alias{colformat_lgl.flextable}
-\title{format logical columns}
+\title{format logical cells}
 \usage{
 colformat_lgl(x, ...)
 
@@ -13,11 +13,12 @@ colformat_lgl(x, ...)
 \arguments{
 \item{x}{a flextable object}
 
-\item{...}{additional arguments, unused}
+\item{...}{additional arguments, i can be used to specify a
+row selector.}
 
 \item{col_keys}{names of the colkeys}
 
-\item{false, true}{string to be used for logical columns}
+\item{false, true}{string to be used for logical}
 
 \item{na_str}{string to be used for NA values}
 
@@ -26,7 +27,7 @@ colformat_lgl(x, ...)
 \item{suffix}{string to be used as prefix or suffix}
 }
 \description{
-Format logical columns in a flextable.
+Format logical cells in a flextable.
 }
 \examples{
 dat <- data.frame(a = c(TRUE, FALSE), b = c(FALSE, TRUE))
@@ -36,7 +37,8 @@ ft <- colformat_lgl(x = ft, col_keys = c("a", "b"))
 autofit(ft)
 }
 \seealso{
-Other columns formatters: \code{\link{colformat_char}},
-  \code{\link{colformat_int}}, \code{\link{colformat_num}}
+Other cells formatters: \code{\link{colformat_char}},
+  \code{\link{colformat_int}}, \code{\link{colformat_num}},
+  \code{\link{compose}}
 }
-\concept{columns formatters}
+\concept{cells formatters}

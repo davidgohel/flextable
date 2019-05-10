@@ -72,14 +72,15 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 }
 
 #' @export
-#' @title format character columns
-#' @description Format character columns in a flextable.
+#' @title format character cells
+#' @description Format character cells in a flextable.
 #' @param x a flextable object
 #' @param col_keys names of the colkeys
 #' @param na_str string to be used for NA values
 #' @param prefix,suffix string to be used as prefix or suffix
-#' @param ... additional arguments, unused
-#' @family columns formatters
+#' @param ... additional arguments, i can be used to specify a
+#' row selector.
+#' @family cells formatters
 #' @examples
 #' dat <- iris
 #' ft <- flextable(dat)
@@ -91,11 +92,11 @@ colformat_char <- function(x, ...){
 }
 
 #' @export
-#' @title format numeric columns
-#' @description Format numeric columns in a flextable.
+#' @title format numeric cells
+#' @description Format numeric cells in a flextable.
 #' @inheritParams colformat_char
 #' @param big.mark,digits see \code{\link[base]{formatC}}
-#' @family columns formatters
+#' @family cells formatters
 #' @examples
 #' dat <- iris
 #' dat[1:4, 1] <- NA
@@ -112,11 +113,11 @@ colformat_num <- function(x, ...){
   UseMethod("colformat_num")
 }
 
-#' @title format integer columns
-#' @description Format integer columns in a flextable.
+#' @title format integer cells
+#' @description Format integer cells in a flextable.
 #' @inheritParams colformat_char
 #' @param big.mark see \code{\link[base]{formatC}}
-#' @family columns formatters
+#' @family cells formatters
 #' @export
 #' @examples
 #' dat <- mtcars
@@ -129,11 +130,11 @@ colformat_int <- function(x, ...){
   UseMethod("colformat_int")
 }
 
-#' @title format logical columns
-#' @description Format logical columns in a flextable.
+#' @title format logical cells
+#' @description Format logical cells in a flextable.
 #' @inheritParams colformat_char
-#' @param false,true string to be used for logical columns
-#' @family columns formatters
+#' @param false,true string to be used for logical
+#' @family cells formatters
 #' @export
 #' @examples
 #' dat <- data.frame(a = c(TRUE, FALSE), b = c(FALSE, TRUE))
