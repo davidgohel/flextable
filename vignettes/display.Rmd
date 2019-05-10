@@ -91,7 +91,6 @@ ft <- autofit(ft)
 ft
 ```
 
-
 ## compose function
 
 `flextable` content can be defined with function `compose`.
@@ -223,5 +222,29 @@ myft <- compose( myft, j = 1,
 autofit(myft)
 ```
 
+
+
+## footnotes
+
+Adding footnotes is possible by using function `compose` but it requires a 
+two step approach (add the reference symbol and add the corresponding footnote 
+in the footer part). 
+
+To make the process simpler, use function `footnote` that will ease the addition 
+of footnotes. 
+
+```{r}
+ft <- flextable(head(iris))
+ft <- footnote( ft, i = 1, j = 1:3,
+            value = as_paragraph(
+              c("This is footnote one",
+                "This is footnote two",
+                "This is footnote three")
+            ),
+            ref_symbols = c("a", "b", "c"),
+            part = "header")
+ft <- valign(ft, valign = "bottom", part = "header")
+autofit(ft)
+```
 
 
