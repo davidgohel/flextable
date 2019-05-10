@@ -379,7 +379,7 @@ add_cellstyle_column <- function(x, type = "html"){
 
   if( type %in% "html"){
     background.color <- ifelse( colalpha(x$background.color) > 0,
-                       sprintf("background-color:%s;", colcodecss(x$background.color) ),
+                       sprintf("background-clip: padding-box;background-color:%s;", colcodecss(x$background.color) ),
                        "background-color:transparent;")
 
     width <- ifelse( is.na(x$width), "", sprintf("width:%s;", css_px(x$width * 72) ) )
