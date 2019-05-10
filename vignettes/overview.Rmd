@@ -21,7 +21,10 @@ knitr::opts_chunk$set(
   comment = "#>", 
   eval = !is.null(knitr::opts_knit$get("rmarkdown.pandoc.to"))
 )
+webshot_ok <- require("webshot") && phantomjs_exists()
 ```
+
+
 
 ## Introduction 
 
@@ -188,7 +191,7 @@ print(doc, target = "assets/docx/example.docx")
 
 To get an image file from a `flextable` object, use function `save_as_image`.
 
-```{r}
+```{r eval=webshot_ok}
 img_file <- tempfile(fileext = ".png")
 save_as_image(ft, path = img_file)
 ```
@@ -198,7 +201,7 @@ save_as_image(ft, path = img_file)
 
 To get a plot from a `flextable` object, use function `plot`.
 
-```{r fig.asp=flextable_dim(ft)$aspect_ratio, fig.width=flextable_dim(ft)$width*3,out.width=flextable_dim(ft)$width*72}
+```{r  eval=webshot_ok, fig.asp=flextable_dim(ft)$aspect_ratio, fig.width=flextable_dim(ft)$width*3,out.width=flextable_dim(ft)$width*72}
 plot(ft)
 ```
 

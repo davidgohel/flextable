@@ -72,6 +72,42 @@ process_url <- function(rel, url, str, pattern, double_esc = TRUE){
   as.character(doc)
 }
 
+# Copied and adapted from webshot to test if phantomjs exists
+phantom_paths <- function(){
+  if (.Platform$OS.type == "windows") {
+    path <- Sys.getenv("APPDATA", "")
+    path <- if (dir.exists(path))
+      file.path(path, "PhantomJS")
+  }
+  else if (Sys.info()[["sysname"]] == "Darwin") {
+    path <- "~/Library/Application Support"
+    path <- if (dir.exists(path))
+      file.path(path, "PhantomJS")
+  }
+  else {
+    path <- "~/bin"
+  }
+  path <- c(path, system.file("PhantomJS", package = "webshot"))
+  path
+}
 
+# Copied and adapted from webshot to test if phantomjs exists
+#' @export
+#' @title test if phantomjs exists
+#' @description test if phantomjs exists on the machine.
+phantomjs_exists <- function(){
+  path <- Sys.which("phantomjs")
+  if (path != "")
+    return(TRUE)
+  for (d in phantom_paths()) {
+    exec <- if (.Platform$OS.type == "windows")
+      "phantomjs.exe"
+    else "phantomjs"
+    path <- file.path(d, exec)
+    if (utils::file_test("-x", path))
+      return(TRUE)
+  }
+  return(FALSE)
 
+}
 

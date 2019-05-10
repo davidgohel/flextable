@@ -2,8 +2,10 @@
 
 ## new features
 
-* new functions to render flextable as images and raster for ggplot2
+* new functions to render flextable in plot (see `plot`), as an image (see `save_as_image`)
+  and raster for ggplot2 (see `as_raster`).
 * new function `footnote` to ease footnotes management
+* colformat functions are suporting i argument now for rows selection.
 
 # flextable 0.5.2
 
