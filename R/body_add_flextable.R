@@ -16,7 +16,9 @@
 #' \donttest{ft <- autofit(ft)}
 #' doc <- read_docx()
 #' doc <- body_add_flextable(doc, value = ft)
-#' \donttest{print(doc, target = "test.docx")}
+#' fileout <- tempfile(fileext = ".docx")
+#' # fileout <- "test.docx" # uncomment to write in your working directory
+#' print(doc, target = fileout)
 body_add_flextable <- function( x, value, align = "center", pos = "after", split = FALSE) {
 
   stopifnot(inherits(x, "rdocx"))

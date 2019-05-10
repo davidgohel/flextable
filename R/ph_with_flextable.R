@@ -73,7 +73,9 @@ pml_flextable <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 
 #'                  master = "Office Theme")
 #' doc <- ph_with_flextable(doc, value = ft, type = "body")
 #' doc <- ph_with_flextable_at(doc, value = ft, left = 4, top = 5)
-#' \donttest{print(doc, target = "test.pptx" )}
+#' fileout <- tempfile(fileext = ".pptx")
+#' # fileout <- "test.pptx" # uncomment to write in your working directory
+#' print(doc, target = fileout)
 #' }
 #' @importFrom officer ph_from_xml
 ph_with_flextable <- function( x, value, type = "body", index = 1 ){
