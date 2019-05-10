@@ -81,10 +81,13 @@ computed." />
   <a href="../articles/layout.html">Layout</a>
 </li>
 <li>
-  <a href="../articles/format.html">Format</a>
+  <a href="../articles/selectors.html">Selectors</a>
 </li>
 <li>
-  <a href="../articles/display.html">Display value</a>
+  <a href="../articles/format.html">Format visual properties</a>
+</li>
+<li>
+  <a href="../articles/display.html">Format Content</a>
 </li>
 <li>
   <a href="../articles/offcran/examples.html">Examples</a>
@@ -130,7 +133,9 @@ computed.</p>
     </div>
 
     <pre class="usage"><span class='fu'>flextable</span>(<span class='no'>data</span>, <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>data</span>), <span class='kw'>cwidth</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>cheight</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)
+  <span class='kw'>cheight</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>defaults</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>theme_fun</span> <span class='kw'>=</span> <span class='no'>theme_booktabs</span>)
+
+<span class='fu'>qflextable</span>(<span class='no'>data</span>)
 
 <span class='fu'>regulartable</span>(<span class='no'>data</span>, <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>data</span>), <span class='kw'>cwidth</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
   <span class='kw'>cheight</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)</pre>
@@ -151,6 +156,16 @@ the dataset, they will be added as blank columns by default.</p></td>
       <th>cwidth, cheight</th>
       <td><p>initial width and height to use for cell sizes in inches.</p></td>
     </tr>
+    <tr>
+      <th>defaults</th>
+      <td><p>a list of default values for formats, supported options are
+<code>fontname</code>, <code>font.size</code>, <code>color</code> and <code>padding</code>.</p></td>
+    </tr>
+    <tr>
+      <th>theme_fun</th>
+      <td><p>a function theme to apply before returning the flextable.
+set to NULL for none.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -163,6 +178,12 @@ to specify what part of of the table should be modified.</p>
 
     <p>Function <code>regulartable</code> is maintained for compatibility with old codes
 mades by users but be aware it produces the same exact object than <code>flextable</code>.</p>
+    
+    <h2 class="hasAnchor" id="qflextable"><a class="anchor" href="#qflextable"></a>qflextable</h2>
+
+    
+    <p><code>qflextable</code> is a convenient tool to produce quickly
+a flextable for reporting</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -187,6 +208,8 @@ mades by users but be aware it produces the same exact object than <code>flextab
       <li><a href="#details">Details</a></li>
 
       <li><a href="#note">Note</a></li>
+
+      <li><a href="#qflextable">qflextable</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

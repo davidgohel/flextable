@@ -7,4 +7,5 @@ articles:
   layout: layout.html
   examples: offcran/examples.html
   overview: overview.html
+  selectors: selectors.html
 
