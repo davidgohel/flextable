@@ -117,15 +117,12 @@ print.flextable <- function(x, preview = "html", ...){
 #' @family flextable print function
 knit_print.flextable <- function(x, ...){
 
-  if ( requireNamespace("webshot", quietly = TRUE) &&
-       is.null(opts_knit$get("rmarkdown.pandoc.to"))){
-    plot(x)
-  } else if (is.null(opts_knit$get("rmarkdown.pandoc.to"))){
-    stop("`render_flextable` needs to be used as a renderer for ",
-         "a knitr/rmarkdown R code chunk (render by rmarkdown)")
+  if ( is.null(opts_knit$get("rmarkdown.pandoc.to"))){
+    knit_print(asis_output(format(x, type = "html")))
   } else if ( grepl( "html", opts_knit$get("rmarkdown.pandoc.to") ) ) {
     knit_print(htmltools_value(x))
-  } else if ( grepl( "latex", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+  } else if ( grepl( "latex", opts_knit$get("rmarkdown.pandoc.to") ) &&
+              requireNamespace("webshot", quietly = TRUE) ) {
     # copied from https://github.com/ropensci/magick/blob/1e92b8331cd2cad6418b5e738939ac5918947a2f/R/base.R#L126
     plot_counter <- getFromNamespace('plot_counter', 'knitr')
     in_base_dir <- getFromNamespace('in_base_dir', 'knitr')
