@@ -24,7 +24,9 @@ ft <- flextable( head( mtcars ) )
 ft <- autofit(ft)
 tf <- tempfile(fileext = ".png")
 \dontrun{
-save_as_image(x = ft, path = "myimage.png")
+if( require("webshot") ){
+  save_as_image(x = ft, path = "myimage.png")
+}
 }
 }
 \seealso{

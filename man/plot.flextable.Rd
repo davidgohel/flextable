@@ -24,7 +24,9 @@ This function requires packages: webshot and magick.
 ft <- flextable( head( mtcars ) )
 ft <- autofit(ft)
 \dontrun{
-plot(ft)
+if( require("webshot") ){
+  plot(ft)
+}
 }
 }
 \seealso{

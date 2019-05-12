@@ -22,9 +22,10 @@ This function requires packages: webshot and magick.
 \examples{
 ft <- qflextable( head( mtcars ) )
 \dontrun{
-library(ggplot2)
-print(qplot(speed, dist, data = cars, geom = "point"))
-grid.raster(as_raster(ft))
+if( require("ggplot2") && require("webshot") ){
+  print(qplot(speed, dist, data = cars, geom = "point"))
+  grid::grid.raster(as_raster(ft))
+}
 }
 }
 \seealso{
