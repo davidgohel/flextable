@@ -1,0 +1,94 @@
+---
+title: "Render as image"
+output: 
+  rmarkdown::html_vignette:
+    toc: true 
+    toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{Render as image}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>", 
+  eval = TRUE
+)
+```
+
+```{r warning=FALSE, echo=FALSE, message=FALSE}
+library(officer)
+library(flextable)
+```
+
+Beeing able to render flextable as images is requiring package `webshot` to be available.
+Run the following command to install it. You may have to install `phantomjs` first.
+
+```{r eval=FALSE}
+install.packages("webshot")
+```
+
+## What will be the size?
+
+You can print a table as an image. In some case, you may want to know the exact width and height 
+of the table to be sure to set up the correct aspect ratio. The function `flextable_dim()` will 
+provide these informations without the need to produce the image.
+
+```{r}
+ft <- flextable(head(iris))
+dims <- flextable_dim(ft)
+dims
+```
+
+Results are in inches. You can reuse them as values for knitr chunk options `fig.asp`, `fig.width` and `fig.height`.
+
+
+## Images
+
+To get an image file from a `flextable` object, use function `save_as_image`.
+
+```{r}
+img_file <- tempfile(fileext = ".png")
+save_as_image(ft, path = img_file)
+```
+
+
+## As an R graphic
+
+To get a plot from a `flextable` object, use function `plot`.
+
+```{r fig.asp=dims$aspect_ratio, fig.width=dims$width*3,out.width=dims$width*72}
+plot(ft)
+```
+
+> To add a flextable on a ggplot2 object, one can use `flextable::as_raster` 
+and `grid.raster` or `rasterGrob`. See [Examples](./examples.html#send-your-flextable-to-ggplot) for an example.
+
+## With ggplot 
+
+You can also add the flextable (with `grid::rasterGrob()` and `ggplot2::annotation_custom()`) 
+in a ggplot object. You need first to use `as_raster()` function that will return a raster 
+version of the flextable.
+
+```{r out.width="70%", fig.width=8, fig.height=5}
+library(ggplot2)
+library(grid)
+library(cowplot)
+library(dplyr)
+
+gg1 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species) ) + geom_point()
+
+ft_raster <- iris %>% group_by(Species) %>% 
+  summarise_all(median) %>% 
+  flextable() %>% autofit() %>% add_header_lines("means per Species") %>% 
+  as_raster()
+
+gg2 <- ggplot() + 
+  theme_void() + 
+  annotation_custom(rasterGrob(ft_raster), xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf)
+
+cowplot::plot_grid(gg1, gg2, nrow = 2, ncol = 1, rel_heights = c(4, 1) )
+```

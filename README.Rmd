@@ -35,7 +35,7 @@ Tables can be embedded within:
 * Microsoft Word or PowerPoint documents.
 * PDF documents with package `pagedown` (it's only HTML) 
 
-Tables can also be rendered as R plots or graphic file (png, pdf and jpeg).
+Tables can also be rendered as R plots or graphic files (png, pdf and jpeg).
 
 ## Getting Started
 

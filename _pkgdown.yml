@@ -89,14 +89,16 @@ navbar:
   left:
   - text: Overview
     href: articles/overview.html
-  - text: Layout
-    href: articles/layout.html
   - text: Selectors
     href: articles/selectors.html
+  - text: Layout
+    href: articles/layout.html
   - text: Format visual properties
     href: articles/format.html
   - text: Format Content
     href: articles/display.html
+  - text: Render as image
+    href: articles/offcran/images.html
   - text: Examples
     href: articles/offcran/examples.html
   right:
