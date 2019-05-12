@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Merge flextable cells into a single one — merge_at • flextable</title>
+<title>test if phantomjs exists — phantomjs_exists • flextable</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Merge flextable cells into a single one — merge_at" />
+<meta property="og:title" content="test if phantomjs exists — phantomjs_exists" />
 
-<meta property="og:description" content="Merge flextable cells into a single one. All
-rows and columns must be consecutive." />
+<meta property="og:description" content="test if phantomjs exists on the machine." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -115,68 +114,25 @@ rows and columns must be consecutive." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Merge flextable cells into a single one</h1>
+    <h1>test if phantomjs exists</h1>
     
-    <div class="hidden name"><code>merge_at.Rd</code></div>
+    <div class="hidden name"><code>phantomjs_exists.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Merge flextable cells into a single one. All
-rows and columns must be consecutive.</p>
+    <p>test if phantomjs exists on the machine.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>merge_at</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p><code>flextable</code> object</p></td>
-    </tr>
-    <tr>
-      <th>i, j</th>
-      <td><p>columns and rows to merge</p></td>
-    </tr>
-    <tr>
-      <th>part</th>
-      <td><p>partname of the table where merge has to be done.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <pre class="usage"><span class='fu'>phantomjs_exists</span>()</pre>
+        
 
-    <div class='dont-index'><p>Other flextable merging function: <code><a href='merge_h_range.html'>merge_h_range</a></code>,
-  <code><a href='merge_h.html'>merge_h</a></code>, <code><a href='merge_none.html'>merge_none</a></code>,
-  <code><a href='merge_v.html'>merge_v</a></code></p></div>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft_merge</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>( <span class='no'>mtcars</span> ), <span class='kw'>cwidth</span> <span class='kw'>=</span> <span class='fl'>.5</span> )
-<span class='no'>ft_merge</span> <span class='kw'>&lt;-</span> <span class='fu'>merge_at</span>( <span class='no'>ft_merge</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span> )
-<span class='no'>ft_merge</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
-#&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
-#&gt; original dataset sample: 
-#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
