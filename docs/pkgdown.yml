@@ -6,6 +6,7 @@ articles:
   format: format.html
   layout: layout.html
   examples: offcran/examples.html
+  images: offcran/images.html
   overview: overview.html
   selectors: selectors.html
 
