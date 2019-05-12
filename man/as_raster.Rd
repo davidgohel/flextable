@@ -20,11 +20,11 @@ on a ggplot object.
 This function requires packages: webshot and magick.
 }
 \examples{
-ft <- flextable( head( mtcars ) )
-ft <- autofit(ft)
-if( interactive() && require("ggplot2") && require("grid") ){
-  print(qplot(speed, dist, data = cars, geom = "point"))
-  grid.raster(as_raster(ft))
+ft <- qflextable( head( mtcars ) )
+\dontrun{
+library(ggplot2)
+print(qplot(speed, dist, data = cars, geom = "point"))
+grid.raster(as_raster(ft))
 }
 }
 \seealso{

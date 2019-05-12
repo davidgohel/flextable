@@ -23,10 +23,9 @@ This function requires packages: webshot and magick.
 \examples{
 ft <- flextable( head( mtcars ) )
 ft <- autofit(ft)
-if(all( interactive(),
-   require("webshot", quietly = TRUE),
-   require("magick", quietly = TRUE) ) )
-  plot(ft)
+\dontrun{
+plot(ft)
+}
 }
 \seealso{
 Other flextable print function: \code{\link{as_raster}},

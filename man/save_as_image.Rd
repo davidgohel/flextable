@@ -23,8 +23,9 @@ This function requires package webshot.
 ft <- flextable( head( mtcars ) )
 ft <- autofit(ft)
 tf <- tempfile(fileext = ".png")
-if( interactive() && require("webshot", quietly = TRUE) )
-  save_as_image(x = ft, path = tf)
+\dontrun{
+save_as_image(x = ft, path = "myimage.png")
+}
 }
 \seealso{
 Other flextable print function: \code{\link{as_raster}},

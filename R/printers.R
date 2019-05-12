@@ -256,8 +256,9 @@ save_as_html <- function(x, path){
 #' ft <- flextable( head( mtcars ) )
 #' ft <- autofit(ft)
 #' tf <- tempfile(fileext = ".png")
-#' if( interactive() && require("webshot", quietly = TRUE) )
-#'   save_as_image(x = ft, path = tf)
+#' \dontrun{
+#' save_as_image(x = ft, path = "myimage.png")
+#' }
 #' @family flextable print function
 save_as_image <- function(x, path, zoom = 3, expand = 10 ){
   if (!requireNamespace("webshot", quietly = TRUE)) {
@@ -284,10 +285,9 @@ save_as_image <- function(x, path, zoom = 3, expand = 10 ){
 #' @examples
 #' ft <- flextable( head( mtcars ) )
 #' ft <- autofit(ft)
-#' if(all( interactive(),
-#'    require("webshot", quietly = TRUE),
-#'    require("magick", quietly = TRUE) ) )
-#'   plot(ft)
+#' \dontrun{
+#' plot(ft)
+#' }
 #' @family flextable print function
 #' @importFrom grDevices as.raster
 plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
@@ -306,11 +306,11 @@ plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
 #' @param zoom,expand parameters used by \code{webshot} function.
 #' @importFrom grDevices as.raster
 #' @examples
-#' ft <- flextable( head( mtcars ) )
-#' ft <- autofit(ft)
-#' if( interactive() && require("ggplot2") && require("grid") ){
-#'   print(qplot(speed, dist, data = cars, geom = "point"))
-#'   grid.raster(as_raster(ft))
+#' ft <- qflextable( head( mtcars ) )
+#' \dontrun{
+#' library(ggplot2)
+#' print(qplot(speed, dist, data = cars, geom = "point"))
+#' grid.raster(as_raster(ft))
 #' }
 #' @family flextable print function
 as_raster <- function(x, zoom = 2, expand = 2){
