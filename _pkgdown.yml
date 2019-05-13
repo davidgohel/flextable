@@ -4,14 +4,23 @@ template:
   package: ardown
   bootswatch: simplex
 
+home:
+  links:
+  - text: 'Visit <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website'
+    href: https://www.ardata.fr
+
 reference:
   - title: Create flextable
     contents:
     - flextable
-    - xtable_to_flextable
-  - title: Headers
+    - qflextable
+  - title: Headers and footers
     desc:  Add or modify flextable`s headers or footers
     contents:
+    - add_header_row
+    - add_footer_row
+    - add_header_lines
+    - add_footer_lines
     - add_header
     - add_footer
     - set_header_labels
@@ -82,6 +91,7 @@ reference:
     - save_as_html
     - format.flextable
     - htmltools_value
+    - as_raster
 
 navbar:
   title: flextable
