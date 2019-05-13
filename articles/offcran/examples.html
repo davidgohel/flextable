@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.4.6</span>
       </span>
     </div>
 
@@ -230,7 +230,7 @@
 <a class="sourceLine" id="cb4-4" title="4">    <span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/knit_print">knit_print</a></span>(<span class="kw"><a href="../../reference/flextable.html">qflextable</a></span>(x))</a>
 <a class="sourceLine" id="cb4-5" title="5">  <span class="cf">else</span> {</a>
 <a class="sourceLine" id="cb4-6" title="6">    ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/flextable.html">qflextable</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(x, <span class="dt">n =</span> <span class="dv">15</span>))</a>
-<a class="sourceLine" id="cb4-7" title="7">    ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/add_header_footer.html">add_footer_lines</a></span>(ft, <span class="dt">values =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf</a></span>(<span class="st">"(15 first lines /  %.0f lines)"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(x)))</a>
+<a class="sourceLine" id="cb4-7" title="7">    ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/add_header_lines.html">add_footer_lines</a></span>(ft, <span class="dt">values =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sprintf">sprintf</a></span>(<span class="st">"(15 first lines /  %.0f lines)"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(x)))</a>
 <a class="sourceLine" id="cb4-8" title="8">    <span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/knit_print">knit_print</a></span>(<span class="kw"><a href="../../reference/theme_zebra.html">theme_zebra</a></span>(ft))</a>
 <a class="sourceLine" id="cb4-9" title="9">  }</a>
 <a class="sourceLine" id="cb4-10" title="10">}</a>
@@ -1100,7 +1100,7 @@
 <a class="sourceLine" id="cb13-8" title="8">  ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/xtable_to_flextable.html">xtable_to_flextable</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/xtable/topics/xtable">xtable</a></span>(Cohort))</a>
 <a class="sourceLine" id="cb13-9" title="9">  ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/set_header_labels.html">set_header_labels</a></span>(ft, <span class="dt">rowname =</span> <span class="st">"Grade 3"</span>)</a>
 <a class="sourceLine" id="cb13-10" title="10">  ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/autofit.html">autofit</a></span>(ft)</a>
-<a class="sourceLine" id="cb13-11" title="11">  ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/add_header_footer.html">add_header</a></span>(ft, <span class="dt">A =</span> <span class="st">"Grade 6"</span>) </a>
+<a class="sourceLine" id="cb13-11" title="11">  ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/add_header.html">add_header</a></span>(ft, <span class="dt">A =</span> <span class="st">"Grade 6"</span>) </a>
 <a class="sourceLine" id="cb13-12" title="12">  ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/merge_at.html">merge_at</a></span>(ft, <span class="dt">i =</span> <span class="dv">1</span>, <span class="dt">j =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq_len</a></span>( <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">ncol</a></span>(Cohort) ) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, </a>
 <a class="sourceLine" id="cb13-13" title="13">    <span class="dt">part =</span> <span class="st">"header"</span> ) </a>
 <a class="sourceLine" id="cb13-14" title="14">  ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bold.html">bold</a></span>(ft, <span class="dt">j =</span> <span class="dv">1</span>, <span class="dt">bold =</span> <span class="ot">TRUE</span>, <span class="dt">part =</span> <span class="st">"body"</span>)</a>
@@ -1256,7 +1256,7 @@
 <a class="sourceLine" id="cb16-12" title="12"><span class="st">"Nikola Vucevic"</span>, <span class="fl">6.4</span>, <span class="dv">3</span>, <span class="fl">3.4</span>, <span class="st">"https://stats.nba.com/player/202696"</span>, <span class="st">"https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202696.png"</span></a>
 <a class="sourceLine" id="cb16-13" title="13">)</a></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/flextable.html">flextable</a></span>(dat, <span class="dt">cwidth =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">1.7</span>, <span class="fl">.7</span>, <span class="fl">.7</span>, <span class="fl">.7</span>, <span class="dv">1</span>, <span class="fl">.7</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb17-2" title="2"><span class="st">  </span>flextable<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/flextable/topics/add_header_footer">add_header_lines</a></span>(<span class="st">"Top 10 Box Plus/Minus"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="st">  </span>flextable<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/flextable/topics/add_header_lines">add_header_lines</a></span>(<span class="st">"Top 10 Box Plus/Minus"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb17-3" title="3"><span class="st">  </span><span class="kw"><a href="../../reference/set_header_labels.html">set_header_labels</a></span>(<span class="dt">namePlayer =</span> <span class="st">""</span>, <span class="dt">ratioBPM =</span> <span class="st">"BPM"</span>, <span class="dt">ratioOBPM =</span> <span class="st">"OBPM"</span>,</a>
 <a class="sourceLine" id="cb17-4" title="4">    <span class="dt">ratioDBPM =</span> <span class="st">"DBPM"</span>, <span class="dt">urlPlayerStats =</span> <span class="st">"Link"</span>, <span class="dt">urlPlayerHeadshot =</span> <span class="st">""</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb17-5" title="5"><span class="st">  </span><span class="kw"><a href="../../reference/compose.html">compose</a></span>( <span class="dt">j =</span> <span class="st">"urlPlayerStats"</span>,</a>
@@ -1411,7 +1411,7 @@
 
       <footer><link href="../../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.5.4 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.5.4.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
