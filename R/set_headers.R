@@ -63,59 +63,119 @@ delete_part <- function(x, part = "header"){
   x
 }
 
+
+as_new_data <- function(x, ..., values = NULL){
+
+  if( is.null(values) )
+    values <- list(...)
+
+  args_ <- lapply(x$col_keys, function(x, n) rep(NA, n), n = length(values[[1]]) )
+  names(args_) <- x$col_keys
+  args_[names(values)] <- values
+
+  data.frame(as.list(args_), check.names = FALSE, stringsAsFactors = FALSE )
+}
+
 # add header/footer row ----
 
 #' @export
-#' @title Add a row of labels in header or footer part
+#' @title Add a rows of labels in header or footer part
 #'
-#' @description Add a single row of labels in the flextable's header
+#' @description Add rows of labels in the flextable's header
 #' or footer part. It can be inserted at the top or the bottom of the part.
+#' The function is column oriented, labels are specified for each columns, there
+#' can be more than a label - resulting in more than a new row.
+#'
+#' @note
+#' when repeating values, they can be merged together with
+#' function \code{\link{merge_h}} and \code{\link{merge_v}}.
 #'
 #' @param x a \code{flextable} object
 #' @param top should the row be inserted at the top or the bottom.
 #' @param ... a named list (names are data colnames) of strings
 #' specifying corresponding labels to add.
+#' @param values a list of name-value pairs of labels or values,
+#' names should be existing col_key values.
+#' If values is supplied argument \code{...} is ignored.
 #' @examples
 #' ft <- flextable( head( iris ),
-#'   col_keys = c("Species", "Sepal.Length", "Petal.Length", "Sepal.Width", "Petal.Width") )
+#'    col_keys = c("Species", "Sepal.Length", "Petal.Length",
+#'                 "Sepal.Width", "Petal.Width") )
+#'
+#' # start with no header
+#' ft <- delete_part(ft, part = "header")
+#'
+#' # add a line of row
 #' ft <- add_header(x = ft, Sepal.Length = "length",
-#'   Sepal.Width = "width", Petal.Length = "length",
-#'   Petal.Width = "width", Species = "Species", top = FALSE )
+#'    Sepal.Width = "width", Petal.Length = "length",
+#'    Petal.Width = "width", Species = "Species", top = FALSE )
+#' # add another line of row at the top position
 #' ft <- add_header(ft, Sepal.Length = "Inches",
-#'   Sepal.Width = "Inches", Petal.Length = "Inches",
-#'   Petal.Width = "Inches", Species = "Species", top = TRUE )
+#'    Sepal.Width = "Inches", Petal.Length = "Inches",
+#'    Petal.Width = "Inches", top = TRUE )
+#' # merge horizontally when there are identical values
 #' ft <- merge_h(ft, part = "header")
+#'
+#'
+#' # add a footnote in the footer part
 #' ft <- add_footer(ft, Species = "This is a footnote" )
 #' ft <- merge_at(ft, j = 1:5, part = "footer")
+#'
+#' # theme the table
+#' ft <- theme_box(ft)
+#'
 #' ft
-#' @rdname add_header_footer
-#' @name add_header_footer
-add_header <- function(x, top = TRUE, ...){
-
+#' @family headers and footers
+add_header <- function(x, top = TRUE, ..., values = NULL){
   if( !inherits(x, "flextable") ) stop("add_header supports only flextable objects.")
-  values <- list(...)
-  args_ <- lapply(x$col_keys, function(x) "" )
-  names(args_) <- x$col_keys
-  args_[names(values)] <- lapply(values, format)
-  header_data <- data.frame(as.list(args_), check.names = FALSE, stringsAsFactors = FALSE )
+  header_data <- as_new_data(x = x, ..., values = values)
   x$header <- add_rows( x$header, header_data, first = top )
 
   x
 }
 
 #' @export
+#' @rdname add_header
+add_footer <- function(x, top = TRUE, ..., values = NULL){
+  if( !inherits(x, "flextable") ) stop("add_footer supports only flextable objects.")
+  footer_data <- as_new_data(x = x, ..., values = values)
+
+  if( nrow_part(x, "footer") < 1 ) {
+    x$footer <- complex_tabpart( data = footer_data, col_keys = x$col_keys, cwidth = .75, cheight = .25 )
+  } else {
+    x$footer <- add_rows( x$footer, footer_data, first = top )
+  }
+
+  x
+}
+
+
+
+#' @export
+#' @title Add labels and merge cells in a new header or footer row
+#'
+#' @description Add an header or footer new row where some cells are merged,
+#' labels are associated with a number of columns to merge. The function
+#' is row oriented. One call allow to add one single row.
+#'
+#' @param x a \code{flextable} object
+#' @param top should the row be inserted at the top or the bottom.
 #' @param values values to add as a character vector
 #' @param colwidths the number of columns to merge in the row for each label
 #'
-#' @rdname add_header_footer
 #' @examples
 #' ft <- flextable( head( iris ) )
 #' ft <- add_header_row(ft, values = "blah blah", colwidths = 5)
 #' ft <- add_header_row(ft, values = c("blah", "blah"), colwidths = c(3,2))
 #' ft
+#' @family headers and footers
 add_header_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)){
 
   if( !inherits(x, "flextable") ) stop("add_header supports only flextable objects.")
+
+  if( length(colwidths) < 1 ){
+    colwidths <- rep(1L, length(x$col_keys))
+  }
 
   if( sum(colwidths) != length(x$col_keys)){
     stop("colwidths' sum must be equal to the number of col_keys (", length(x$col_keys), ")" )
@@ -140,7 +200,7 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
 }
 
 #' @export
-#' @rdname add_header_footer
+#' @rdname add_header_row
 #' @examples
 #' ft <- flextable( head( iris ) )
 #' ft <- add_footer_row(ft, values = "blah blah", colwidths = 5)
@@ -173,27 +233,24 @@ add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = int
 }
 
 #' @export
-#' @rdname add_header_footer
+#' @title Add a label in a header or footer new row.
+#'
+#' @description Add an header or footer new row made of one cell.
+#' This is a sugar function to be used when you need to add a
+#' title row to a flextable, most of the time it will be used in a
+#' context of adding a footnote or adding a title on the top line
+#' of the flextable.
+#'
+#' @param x a \code{flextable} object
+#' @param values a character vector, each element will be added a a new
+#' row in the header or footer part.
+#' @param top should the row be inserted at the top or the bottom.
 #' @examples
 #' ft <- flextable( head( iris ) )
 #' ft <- add_footer_lines(ft, values = "blah blah")
 #' ft <- add_footer_lines(ft, values = c("blah 1", "blah 2"))
 #' autofit(ft)
-add_footer_lines <- function(x, values = character(0), top = FALSE){
-
-  for( value in values ){
-    x <- add_footer_row(x, values = value, colwidths = length(x$col_keys), top = top )
-  }
-  x
-}
-
-#' @export
-#' @rdname add_header_footer
-#' @examples
-#' ft <- flextable( head( iris ) )
-#' ft <- add_header_lines(ft, values = "blah blah")
-#' ft <- add_header_lines(ft, values = c("blah 1", "blah 2"))
-#' autofit(ft)
+#' @family headers and footers
 add_header_lines <- function(x, values = character(0), top = TRUE){
 
   for( value in values ){
@@ -202,25 +259,21 @@ add_header_lines <- function(x, values = character(0), top = TRUE){
   x
 }
 
+
 #' @export
-#' @rdname add_header_footer
-add_footer <- function(x, top = TRUE, ...){
-  if( !inherits(x, "flextable") ) stop("add_footer supports only flextable objects.")
-  args <- list(...)
-  args_ <- lapply(x$col_keys, function(x) "" )
-  names(args_) <- x$col_keys
-  args_[names(args)] <- args
-  footer_data <- data.frame(as.list(args_), check.names = FALSE, stringsAsFactors = FALSE )
+#' @rdname add_header_lines
+#' @examples
+#' ft <- flextable( head( iris ) )
+#' ft <- add_header_lines(ft, values = "blah blah")
+#' ft <- add_header_lines(ft, values = c("blah 1", "blah 2"))
+#' autofit(ft)
+add_footer_lines <- function(x, values = character(0), top = FALSE){
 
-  if( nrow_part(x, "footer") < 1 ) {
-    x$footer <- complex_tabpart( data = footer_data, col_keys = x$col_keys, cwidth = .75, cheight = .25 )
-  } else {
-    x$footer <- add_rows( x$footer, footer_data, first = top )
+  for( value in values ){
+    x <- add_footer_row(x, values = value, colwidths = length(x$col_keys), top = top )
   }
-
   x
 }
-
 
 
 
@@ -263,7 +316,6 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part){
 #' @export
 #' @rdname set_header_footer_df
 #' @name set_header_footer_df
-#' @aliases headers footers
 #' @title Set flextable's header or footer rows
 #'
 #' @description Use a data.frame to specify flextable's header or footer rows.
@@ -292,7 +344,7 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part){
 #' ft <- merge_v(ft, j = "Species", part = "header")
 #' ft <- theme_vanilla(ft)
 #'
-#'
+#' @family headers and footers
 set_header_df <- function(x, mapping = NULL, key = "col_keys"){
   if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   set_part_df(x, mapping = mapping, key = key, part = "header")

@@ -207,6 +207,9 @@ as_ul(ls(envir = as.environment("package:flextable"), pattern = "^add_(header|fo
 
 We will mainly demonstrate headers but same can be apply with footers.
 
+The operation below is changing labels that will be displayed instead of 
+the original values (the names of dataset).
+
 ```{r}
 ft <- flextable( head( iris ) ) 
 ft <- set_header_labels(ft, Sepal.Length = "Sepal", 
@@ -215,21 +218,18 @@ ft <- set_header_labels(ft, Sepal.Length = "Sepal",
 ft
 ```
 
+Now let's add new row of labels. 
 
 ### add a row of labels
+
 
 <div class="row">
 
 <div class="col-12 col-sm-8 col-md-6">
 
-
 ```{r}
-ft <- add_header(ft, 
-  Sepal.Length = "length", 
-  Sepal.Width = "width", 
-  Petal.Length = "length", 
-  Petal.Width = "width", 
-  top = FALSE )
+ft <- add_header_row(ft, 
+  values = c("", "length", "width", "length", "width"), top = FALSE )
 ft <- theme_booktabs(ft)
 ```
 

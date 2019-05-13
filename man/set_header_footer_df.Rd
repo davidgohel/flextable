@@ -3,8 +3,6 @@
 \name{set_header_footer_df}
 \alias{set_header_footer_df}
 \alias{set_header_df}
-\alias{headers}
-\alias{footers}
 \alias{set_footer_df}
 \title{Set flextable's header or footer rows}
 \usage{
@@ -43,7 +41,6 @@ ft <- merge_h(ft, part = "header")
 ft <- merge_v(ft, j = "Species", part = "header")
 ft <- theme_vanilla(ft)
 
-
 typology <- data.frame(
   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
                 "Petal.Width", "Species" ),
@@ -54,3 +51,8 @@ ft <- italic(ft, italic = TRUE, part = "footer" )
 ft <- theme_booktabs(ft)
 ft
 }
+\seealso{
+Other headers and footers: \code{\link{add_header_lines}},
+  \code{\link{add_header_row}}, \code{\link{add_header}}
+}
+\concept{headers and footers}

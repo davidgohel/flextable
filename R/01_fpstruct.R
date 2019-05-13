@@ -554,7 +554,11 @@ chunkset_struct <- function( nrow, keys ){
 add_rows.chunkset_struct <- function(x, nrows, first, data, ...){
   old_nrow <- x$content$nrow
   x$content <- add_rows(x$content, nrows, first = first, default = as_paragraph(as_chunk("")) )
-  id <- ifelse(first, seq_len(nrows), rev(rev(seq_len(x$content$nrow) )[seq_len(nrows)] ) )
+  if(first){
+    id <- seq_len(nrows)
+  } else {
+    id <- rev(rev(seq_len(x$content$nrow) )[seq_len(nrows)] )
+  }
 
   newcontent <- lapply(data[x$content$keys], function(x) as_paragraph(as_chunk(x, formater = format_fun)) )
   x$content[id,x$content$keys] <- Reduce(append, newcontent)
