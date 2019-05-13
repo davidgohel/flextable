@@ -201,9 +201,15 @@ fix_border_issues(ft)
 
 Use one of the following functions to add an header row or a footer row:
 
-```{r echo=FALSE}
-as_ul(ls(envir = as.environment("package:flextable"), pattern = "^add_(header|footer)"))
-```
+* **Most needs will be statisfied with functions `add_header_row` and `add_footer_row`. **
+These are row oriented functions to let you add a single row of labels (that can be 
+displayed along one or more columns in the new row).
+* Functions `add_header` and `add_footer` are columns oriented functions that will let 
+you add several values (one for each new row) for a given column. If labels are stored in 
+a data.frame, use functions `set_header_df` and `set_footer_df`.
+* Functions `add_footer_lines` and `add_header_lines` are sugar functions and should be 
+used to add labels on one single row where all columns are merged together.
+
 
 We will mainly demonstrate headers but same can be apply with footers.
 
@@ -215,13 +221,15 @@ ft <- flextable( head( iris ) )
 ft <- set_header_labels(ft, Sepal.Length = "Sepal", 
     Sepal.Width = "Sepal", Petal.Length = "Petal",
     Petal.Width = "Petal" )
+# merge them 
+ft <- merge_at(ft, i = 1, j = 1:2, part = "header")
+ft <- merge_at(ft, i = 1, j = 3:4, part = "header")
 ft
 ```
 
 Now let's add new row of labels. 
 
-### add a row of labels
-
+### Add a row of labels
 
 <div class="row">
 
@@ -230,7 +238,7 @@ Now let's add new row of labels.
 ```{r}
 ft <- add_header_row(ft, 
   values = c("", "length", "width", "length", "width"), top = FALSE )
-ft <- theme_booktabs(ft)
+ft <- theme_box(ft)
 ```
 
 </div>
@@ -246,7 +254,7 @@ ft
 </div>
 
 
-### lines of text
+### Add lines of text
 
 <div class="row">
 
@@ -256,7 +264,7 @@ ft
 ft <- add_header_lines(ft, 
   values = c("this is a first line", 
      "this is a second line") ) 
-ft <- theme_booktabs(ft)
+ft <- theme_box(ft)
 ```
 
 </div>
