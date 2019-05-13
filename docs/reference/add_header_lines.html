@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply box theme — theme_alafoli • flextable</title>
+<title>Add a label in a header or footer new row. — add_header_lines • flextable</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,13 @@
 
 
 
-<meta property="og:title" content="Apply box theme — theme_alafoli" />
+<meta property="og:title" content="Add a label in a header or footer new row. — add_header_lines" />
 
-<meta property="og:description" content="Apply theme box to a flextable" />
+<meta property="og:description" content="Add an header or footer new row made of one cell.
+This is a sugar function to be used when you need to add a
+title row to a flextable, most of the time it will be used in a
+context of adding a footnote or adding a title on the top line
+of the flextable." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,39 +118,78 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Apply box theme</h1>
+    <h1>Add a label in a header or footer new row.</h1>
     
-    <div class="hidden name"><code>theme_alafoli.Rd</code></div>
+    <div class="hidden name"><code>add_header_lines.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Apply theme box to a flextable</p>
+    <p>Add an header or footer new row made of one cell.
+This is a sugar function to be used when you need to add a
+title row to a flextable, most of the time it will be used in a
+context of adding a footnote or adding a title on the top line
+of the flextable.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>theme_alafoli</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>add_header_lines</span>(<span class='no'>x</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>(<span class='fl'>0</span>), <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>add_footer_lines</span>(<span class='no'>x</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>(<span class='fl'>0</span>), <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a flextable object</p></td>
+      <td><p>a <code>flextable</code> object</p></td>
+    </tr>
+    <tr>
+      <th>values</th>
+      <td><p>a character vector, each element will be added a a new
+row in the header or footer part.</p></td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td><p>should the row be inserted at the top or the bottom.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other flextable theme: <code><a href='theme_booktabs.html'>theme_booktabs</a></code>,
-  <code><a href='theme_box.html'>theme_box</a></code>, <code><a href='theme_tron_legacy.html'>theme_tron_legacy</a></code>,
-  <code><a href='theme_tron.html'>theme_tron</a></code>, <code><a href='theme_vader.html'>theme_vader</a></code>,
-  <code><a href='theme_vanilla.html'>theme_vanilla</a></code>, <code><a href='theme_zebra.html'>theme_zebra</a></code></p></div>
+    <div class='dont-index'><p>Other headers and footers: <code><a href='add_header_row.html'>add_header_row</a></code>,
+  <code><a href='add_header.html'>add_header</a></code>,
+  <code><a href='set_header_footer_df.html'>set_header_footer_df</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>iris</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>theme_alafoli</span>(<span class='no'>ft</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>( <span class='no'>iris</span> ) )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>add_footer_lines</span>(<span class='no'>ft</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='st'>"blah blah"</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>add_footer_lines</span>(<span class='no'>ft</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"blah 1"</span>, <span class='st'>"blah 2"</span>))
+<span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)</div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
+#&gt; header has 1 row(s) 
+#&gt; body has 6 row(s) 
+#&gt; original dataset sample: 
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1          5.1         3.5          1.4         0.2  setosa
+#&gt; 2          4.9         3.0          1.4         0.2  setosa
+#&gt; 3          4.7         3.2          1.3         0.2  setosa
+#&gt; 4          4.6         3.1          1.5         0.2  setosa
+#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>( <span class='no'>iris</span> ) )
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>add_header_lines</span>(<span class='no'>ft</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='st'>"blah blah"</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>add_header_lines</span>(<span class='no'>ft</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"blah 1"</span>, <span class='st'>"blah 2"</span>))
+<span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)</div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
+#&gt; header has 4 row(s) 
+#&gt; body has 6 row(s) 
+#&gt; original dataset sample: 
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1          5.1         3.5          1.4         0.2  setosa
+#&gt; 2          4.9         3.0          1.4         0.2  setosa
+#&gt; 3          4.7         3.2          1.3         0.2  setosa
+#&gt; 4          4.6         3.1          1.5         0.2  setosa
+#&gt; 5          5.0         3.6          1.4         0.2  setosa</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
