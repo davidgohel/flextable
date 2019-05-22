@@ -13,12 +13,14 @@ tabwid_htmldep <- function(){
 #' @description get a \code{\link[htmltools]{div}} from a flextable object.
 #' This can be used in a shiny application.
 #' @param x a flextable object
+#' @param class css classes (default to "tabwid"), accepted values
+#' are "tabwid", "tabwid tabwid_left", "tabwid tabwid_right".
 #' @family flextable print function
 #' @examples
 #' htmltools_value(flextable(iris[1:5,]))
-htmltools_value <- function(x){
+htmltools_value <- function(x, class = "tabwid"){
   codes <- html_str(x)
-  html_o <- div( class='tabwid',
+  html_o <- div( class=class,
                  tabwid_htmldep(),
                  HTML(as.character(codes))
   )
@@ -120,7 +122,15 @@ knit_print.flextable <- function(x, ...){
   if ( is.null(opts_knit$get("rmarkdown.pandoc.to"))){
     knit_print(asis_output(format(x, type = "html")))
   } else if ( grepl( "html", opts_knit$get("rmarkdown.pandoc.to") ) ) {
-    knit_print(htmltools_value(x))
+    tab_class <- "tabwid"
+
+    if( !is.null(align <- opts_current$get("ft.align")) ){
+      if( align == "left")
+        tab_class <- "tabwid tabwid_left"
+      else if( align == "right")
+        tab_class <- "tabwid tabwid_right"
+    }
+    knit_print(htmltools_value(x, class = tab_class))
   } else if ( grepl( "latex", opts_knit$get("rmarkdown.pandoc.to") ) &&
               requireNamespace("webshot", quietly = TRUE) ) {
     # copied from https://github.com/ropensci/magick/blob/1e92b8331cd2cad6418b5e738939ac5918947a2f/R/base.R#L126

@@ -4,10 +4,13 @@
 \alias{htmltools_value}
 \title{flextable a tag object from htmltools package}
 \usage{
-htmltools_value(x)
+htmltools_value(x, class = "tabwid")
 }
 \arguments{
 \item{x}{a flextable object}
+
+\item{class}{css classes (default to "tabwid"), accepted values
+are "tabwid", "tabwid tabwid_left", "tabwid tabwid_right".}
 }
 \description{
 get a \code{\link[htmltools]{div}} from a flextable object.

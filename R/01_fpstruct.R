@@ -607,20 +607,11 @@ fortify_content <- function(x, default_chunk_fmt, ...){
 
   by_columns <- c("font.size", "italic", "bold", "underlined", "color", "shading.color", "font.family", "vertical.align")
   default_props <- as.data.frame(default_chunk_fmt)
-
-  use_default_index <- Reduce(function(x,y) x & y, lapply(out[by_columns], function(x) {
-    is.na(x)
-  }) )
-
-  data0 <- out[!use_default_index,]
-  data1 <- out[use_default_index, !is.element(names(out), by_columns)]
-
-  setDT(data1)
-  data_ <- merge(data1, default_props, by = c("row_id", "col_id"), all.x = TRUE)
-  setDF(data_)
-
-  data_ <- data_[, names(data0)]
-  out <- rbind.match.columns(list(data0, data_))
+  out[by_columns] <- mapply(function(x,y) {
+    is_na <- is.na(x)
+    x[is_na] <- y[is_na]
+    x
+  }, out[by_columns],  default_props[by_columns], SIMPLIFY = FALSE)
 
   out$col_id <- factor( out$col_id, levels = default_chunk_fmt$color$keys )
   out <- out[order(out$col_id, out$row_id, out$seq_index) ,]
