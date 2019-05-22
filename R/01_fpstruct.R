@@ -586,6 +586,29 @@ print.chunkset_struct <- function(x, ...){
 }
 
 
+
+replace_missing_fptext_by_default <- function(x, default){
+  by_columns <- c("font.size", "italic", "bold", "underlined", "color", "shading.color", "font.family", "vertical.align")
+
+  keys <- default[, setdiff(names(default), by_columns), drop = FALSE]
+  values <- default[, by_columns, drop = FALSE]
+  names(values) <- paste0(by_columns, "_default")
+  defdata <- cbind(keys, values)
+
+  newx <- x
+  setDT(newx)
+  setDT(defdata)
+  newx <- newx[defdata, on=names(keys)]
+  setDF(newx)
+  for( j in by_columns){
+    newx[[j]] <- ifelse(is.na(newx[[j]]), newx[[paste0(j, "_default")]], newx[[j]])
+    newx[[paste0(j, "_default")]] <- NULL
+  }
+  newx
+
+}
+
+
 fortify_content <- function(x, default_chunk_fmt, ...){
 
   row_id <- unlist( mapply( function(rows, data){
@@ -605,13 +628,8 @@ fortify_content <- function(x, default_chunk_fmt, ...){
   out$col_id <- col_id
   setDF(out)
 
-  by_columns <- c("font.size", "italic", "bold", "underlined", "color", "shading.color", "font.family", "vertical.align")
-  default_props <- as.data.frame(default_chunk_fmt)
-  out[by_columns] <- mapply(function(x,y) {
-    is_na <- is.na(x)
-    x[is_na] <- y[is_na]
-    x
-  }, out[by_columns],  default_props[by_columns], SIMPLIFY = FALSE)
+  default_props <- as.data.frame(default_chunk_fmt, stringsAsFactors = FALSE)
+  out <- replace_missing_fptext_by_default(out, default_props)
 
   out$col_id <- factor( out$col_id, levels = default_chunk_fmt$color$keys )
   out <- out[order(out$col_id, out$row_id, out$seq_index) ,]
