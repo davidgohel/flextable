@@ -50,7 +50,9 @@ autofit(myft)
 \code{\link{compose}}, \code{\link{as_paragraph}}
 
 Other chunk elements for paragraph: \code{\link{as_chunk}},
-  \code{\link{as_image}}, \code{\link{hyperlink_text}},
-  \code{\link{minibar}}
+  \code{\link{as_image}}, \code{\link{b}},
+  \code{\link{hyperlink_text}}, \code{\link{i}},
+  \code{\link{minibar}}, \code{\link{sub}},
+  \code{\link{sup}}
 }
 \concept{chunk elements for paragraph}

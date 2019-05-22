@@ -105,6 +105,71 @@ as_chunk <- function(x, props = NULL, formater = format_fun, ...) {
   data
 }
 
+
+#' @export
+#' @title subscript chunk
+#' @description The function is producing a chunk with
+#' subscript vertical alignment. This is a sugar function
+#' written mainly to ease the composition of complex header labels.
+#' It should be used inside a call to \code{\link{as_paragraph}}.
+#' @param x text or any element that can be formatted as subscript
+#' @family chunk elements for paragraph
+sub <- function(x){
+  if( !inherits(x, "chunk") ){
+    x <- as_chunk(x)
+  }
+  x$vertical.align = "subscript"
+  x
+}
+#' @export
+#' @title superscript chunk
+#' @description The function is producing a chunk with
+#' superscript vertical alignment. This is a sugar function
+#' written mainly to ease the composition of complex header labels.
+#' It should be used inside a call to \code{\link{as_paragraph}}.
+#' @param x text or any element that can be formatted as superscript
+#' @family chunk elements for paragraph
+sup <- function(x){
+  if( !inherits(x, "chunk") ){
+    x <- as_chunk(x)
+  }
+  x$vertical.align = "superscript"
+  x
+}
+
+
+#' @export
+#' @title bold chunk
+#' @description The function is producing a chunk with
+#' bold font. This is a sugar function
+#' written mainly to ease the composition of complex header labels.
+#' It should be used inside a call to \code{\link{as_paragraph}}.
+#' @param x text or any element that can be formatted as bold
+#' @family chunk elements for paragraph
+b <- function(x){
+  if( !inherits(x, "chunk") ){
+    x <- as_chunk(x)
+  }
+  x$bold = TRUE
+  x
+}
+
+#' @export
+#' @title bold chunk
+#' @description The function is producing a chunk with
+#' italic font. This is a sugar function
+#' written mainly to ease the composition of complex header labels.
+#' It should be used inside a call to \code{\link{as_paragraph}}.
+#' @param x text or any element that can be formatted as italic
+#' @family chunk elements for paragraph
+i <- function(x){
+  if( !inherits(x, "chunk") ){
+    x <- as_chunk(x)
+  }
+  x$italic = TRUE
+  x
+}
+
 #' @importFrom grDevices as.raster
 #' @export
 #' @title image chunk wrapper
