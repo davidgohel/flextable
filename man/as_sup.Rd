@@ -11,9 +11,12 @@ as_sup(x)
 }
 \description{
 The function is producing a chunk with
-superscript vertical alignment. This is a sugar function
-written mainly to ease the composition of complex header labels.
-It should be used inside a call to \code{\link{as_paragraph}}.
+superscript vertical alignment.
+}
+\note{
+This is a sugar function that ease the composition of complex
+labels made of different formattings. It should be used inside a
+call to \code{\link{as_paragraph}}.
 }
 \examples{
 ft <- flextable( head(iris), col_keys = c("dummy") )
