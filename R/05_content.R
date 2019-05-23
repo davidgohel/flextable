@@ -170,7 +170,7 @@ as_sup <- function(x){
 #' This is a sugar function that ease the composition of complex
 #' labels made of different formattings. It should be used inside a
 #' call to \code{\link{as_paragraph}}.
-#' @param x text or any element that can be formatted as bold
+#' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
 #' ft <- flextable( head(iris), col_keys = c("dummy") )
@@ -197,7 +197,7 @@ as_b <- function(x){
 #' This is a sugar function that ease the composition of complex
 #' labels made of different formattings. It should be used inside a
 #' call to \code{\link{as_paragraph}}.
-#' @param x text or any element that can be formatted as italic
+#' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
 #' ft <- flextable( head(iris), col_keys = c("dummy") )
@@ -222,6 +222,9 @@ as_i <- function(x){
 #' pasting values and add the result in brackets.
 #' It should be used inside a call to \code{\link{as_paragraph}}.
 #' @param ... text and column names
+#' @param sep separator
+#' @param p prefix, default to '('
+#' @param s suffix, default to ')'
 #' @family chunk elements for paragraph
 #' @examples
 #' ft <- flextable( head(iris),

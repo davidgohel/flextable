@@ -8,6 +8,12 @@ as_bracket(..., sep = ", ", p = "(", s = ")")
 }
 \arguments{
 \item{...}{text and column names}
+
+\item{sep}{separator}
+
+\item{p}{prefix, default to '('}
+
+\item{s}{suffix, default to ')'}
 }
 \description{
 The function is producing a chunk by

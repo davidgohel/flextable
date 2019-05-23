@@ -7,7 +7,7 @@
 as_b(x)
 }
 \arguments{
-\item{x}{text or any element that can be formatted as bold}
+\item{x}{value, if a chunk, the chunk will be updated}
 }
 \description{
 The function is producing a chunk with
