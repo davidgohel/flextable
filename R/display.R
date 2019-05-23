@@ -111,6 +111,7 @@ compose <- function(x, i = NULL, j = NULL, value , part = "body"){
 #' @section mk_par:
 #' Function \code{mk_par} is another name for \code{compose} as
 #' there is an unwanted conflict with package \code{purrr}.
+#' @export
 mk_par <- compose
 
 #' @export

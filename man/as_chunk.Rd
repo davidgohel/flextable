@@ -37,10 +37,10 @@ myft <- color(myft, color = "gray40", part = "all")
 autofit(myft)
 }
 \seealso{
-Other chunk elements for paragraph: \code{\link{as_image}},
-  \code{\link{b}}, \code{\link{hyperlink_text}},
-  \code{\link{i}}, \code{\link{linerange}},
-  \code{\link{minibar}}, \code{\link{sub}},
-  \code{\link{sup}}
+Other chunk elements for paragraph: \code{\link{as_bracket}},
+  \code{\link{as_b}}, \code{\link{as_image}},
+  \code{\link{as_i}}, \code{\link{as_sub}},
+  \code{\link{as_sup}}, \code{\link{hyperlink_text}},
+  \code{\link{linerange}}, \code{\link{minibar}}
 }
 \concept{chunk elements for paragraph}

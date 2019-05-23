@@ -109,12 +109,24 @@ as_chunk <- function(x, props = NULL, formater = format_fun, ...) {
 #' @export
 #' @title subscript chunk
 #' @description The function is producing a chunk with
-#' subscript vertical alignment. This is a sugar function
-#' written mainly to ease the composition of complex header labels.
-#' It should be used inside a call to \code{\link{as_paragraph}}.
-#' @param x text or any element that can be formatted as subscript
+#' subscript vertical alignment.
+#' @note
+#' This is a sugar function that ease the composition of complex
+#' labels made of different formattings. It should be used inside a
+#' call to \code{\link{as_paragraph}}.
+#' @param x value, if a chunk, the chunk will be updated
 #' @family chunk elements for paragraph
-sub <- function(x){
+#' @examples
+#' ft <- flextable( head(iris), col_keys = c("dummy") )
+#'
+#' ft <- compose(ft, i = 1, j = "dummy", part = "header",
+#'     value = as_paragraph(
+#'       as_sub("Sepal.Length"),
+#'       " anything "
+#'     ) )
+#'
+#' autofit(ft)
+as_sub <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x)
   }
@@ -124,12 +136,24 @@ sub <- function(x){
 #' @export
 #' @title superscript chunk
 #' @description The function is producing a chunk with
-#' superscript vertical alignment. This is a sugar function
-#' written mainly to ease the composition of complex header labels.
-#' It should be used inside a call to \code{\link{as_paragraph}}.
-#' @param x text or any element that can be formatted as superscript
+#' superscript vertical alignment.
+#' @inheritParams as_sub
+#' @note
+#' This is a sugar function that ease the composition of complex
+#' labels made of different formattings. It should be used inside a
+#' call to \code{\link{as_paragraph}}.
 #' @family chunk elements for paragraph
-sup <- function(x){
+#' @examples
+#' ft <- flextable( head(iris), col_keys = c("dummy") )
+#'
+#' ft <- compose(ft, i = 1, j = "dummy", part = "header",
+#'     value = as_paragraph(
+#'       " anything ",
+#'       as_sup("Sepal.Width")
+#'     ) )
+#'
+#' autofit(ft)
+as_sup <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x)
   }
@@ -141,12 +165,23 @@ sup <- function(x){
 #' @export
 #' @title bold chunk
 #' @description The function is producing a chunk with
-#' bold font. This is a sugar function
-#' written mainly to ease the composition of complex header labels.
-#' It should be used inside a call to \code{\link{as_paragraph}}.
+#' bold font.
+#' @note
+#' This is a sugar function that ease the composition of complex
+#' labels made of different formattings. It should be used inside a
+#' call to \code{\link{as_paragraph}}.
 #' @param x text or any element that can be formatted as bold
 #' @family chunk elements for paragraph
-b <- function(x){
+#' @examples
+#' ft <- flextable( head(iris), col_keys = c("dummy") )
+#'
+#' ft <- compose(ft, j = "dummy",
+#'     value = as_paragraph(
+#'       as_b(Sepal.Length)
+#'     ) )
+#'
+#' autofit(ft)
+as_b <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x)
   }
@@ -155,19 +190,55 @@ b <- function(x){
 }
 
 #' @export
-#' @title bold chunk
+#' @title italic chunk
 #' @description The function is producing a chunk with
-#' italic font. This is a sugar function
-#' written mainly to ease the composition of complex header labels.
-#' It should be used inside a call to \code{\link{as_paragraph}}.
+#' italic font.
+#' @note
+#' This is a sugar function that ease the composition of complex
+#' labels made of different formattings. It should be used inside a
+#' call to \code{\link{as_paragraph}}.
 #' @param x text or any element that can be formatted as italic
 #' @family chunk elements for paragraph
-i <- function(x){
+#' @examples
+#' ft <- flextable( head(iris), col_keys = c("dummy") )
+#'
+#' ft <- compose(ft, j = "dummy",
+#'     value = as_paragraph(
+#'       as_i(Sepal.Length)
+#'     ) )
+#'
+#' autofit(ft)
+as_i <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x)
   }
   x$italic = TRUE
   x
+}
+
+#' @export
+#' @title chunk with values in brackets
+#' @description The function is producing a chunk by
+#' pasting values and add the result in brackets.
+#' It should be used inside a call to \code{\link{as_paragraph}}.
+#' @param ... text and column names
+#' @family chunk elements for paragraph
+#' @examples
+#' ft <- flextable( head(iris),
+#'   col_keys = c("Species", "Sepal", "Petal") )
+#' ft <- set_header_labels(ft, Sepal="Sepal", Petal="Petal")
+#' ft <- compose(ft, j = "Sepal",
+#'   value = as_paragraph( as_bracket(Sepal.Length, Sepal.Width) ) )
+#' ft <- compose(ft, j = "Petal",
+#'   value = as_paragraph( as_bracket(Petal.Length, Petal.Width) ) )
+#' autofit(ft)
+as_bracket <- function(..., sep = ", ", p = "(", s = ")"){
+  x <- list(...)
+  x <- lapply(x, formatC)
+  x$sep <- sep
+  x <- do.call(paste, x)
+  x <- paste0(p, x, s)
+  as_chunk(x)
 }
 
 #' @importFrom grDevices as.raster
