@@ -276,7 +276,7 @@ save_as_image <- function(x, path, zoom = 3, expand = 10 ){
 
   tf <- tempfile(fileext = ".html")
   save_as_html(x = x, path = tf)
-  webshot::webshot(url = sprintf("file://%s", tf),
+  webshot::webshot(url = sprintf("file:///%s", tf),
                    file = path, selector = "body > table",
                    zoom = zoom, expand = expand )
   path
