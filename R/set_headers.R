@@ -186,7 +186,13 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
 
   names(values_) <- x$col_keys
   header_data <- as.data.frame(values_, check.names = FALSE, stringsAsFactors = FALSE )
-  x$header <- add_rows( x$header, header_data, first = top )
+
+  if( nrow_part(x, "header") < 1 ) {
+    x$header <- complex_tabpart( data = header_data, col_keys = x$col_keys, cwidth = dim(x)$widths, cheight = .25 )
+  } else {
+    x$header <- add_rows( x$header, header_data, first = top )
+  }
+
 
   row_span <- unlist( lapply(colwidths, function(x) {
     z <- integer(x)
@@ -218,8 +224,14 @@ add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = int
   values_ <- as.list(values_)
 
   names(values_) <- x$col_keys
+
   footer_data <- as.data.frame(values_, check.names = FALSE, stringsAsFactors = FALSE )
-  x$footer <- add_rows( x$footer, footer_data, first = top )
+
+  if( nrow_part(x, "footer") < 1 ) {
+    x$footer <- complex_tabpart( data = footer_data, col_keys = x$col_keys, cwidth = dim(x)$widths, cheight = .25 )
+  } else {
+    x$footer <- add_rows( x$footer, footer_data, first = top )
+  }
 
   row_span <- unlist( lapply(colwidths, function(x) {
     z <- integer(x)
