@@ -44,7 +44,7 @@ default to \code{{r ft.left=1, ft.left=2}}.
 
 \seealso{
 Other flextable print function: \code{\link{as_raster}},
-  \code{\link{format.flextable}},
+  \code{\link{docx_value}}, \code{\link{format.flextable}},
   \code{\link{htmltools_value}},
   \code{\link{plot.flextable}},
   \code{\link{print.flextable}},

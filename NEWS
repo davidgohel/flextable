@@ -1,3 +1,14 @@
+# flextable 0.5.5
+
+## new features
+
+* new function `docx_value` to let display flextables from non top level
+ calls inside R Markdown document.
+
+## Issues
+
+* fix issue with `save_as_image` with R for Windows
+
 # flextable 0.5.3
 
 ## new features

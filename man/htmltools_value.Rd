@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{htmltools_value}
 \alias{htmltools_value}
-\title{flextable a tag object from htmltools package}
+\title{flextable as a div object}
 \usage{
 htmltools_value(x, class = "tabwid")
 }
@@ -21,7 +21,7 @@ htmltools_value(flextable(iris[1:5,]))
 }
 \seealso{
 Other flextable print function: \code{\link{as_raster}},
-  \code{\link{format.flextable}},
+  \code{\link{docx_value}}, \code{\link{format.flextable}},
   \code{\link{knit_print.flextable}},
   \code{\link{plot.flextable}},
   \code{\link{print.flextable}},

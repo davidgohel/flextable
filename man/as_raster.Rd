@@ -29,7 +29,8 @@ if( require("ggplot2") && require("webshot") ){
 }
 }
 \seealso{
-Other flextable print function: \code{\link{format.flextable}},
+Other flextable print function: \code{\link{docx_value}},
+  \code{\link{format.flextable}},
   \code{\link{htmltools_value}},
   \code{\link{knit_print.flextable}},
   \code{\link{plot.flextable}},

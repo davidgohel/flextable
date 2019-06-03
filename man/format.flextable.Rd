@@ -26,7 +26,7 @@ format(ft, type = "html")
 }
 \seealso{
 Other flextable print function: \code{\link{as_raster}},
-  \code{\link{htmltools_value}},
+  \code{\link{docx_value}}, \code{\link{htmltools_value}},
   \code{\link{knit_print.flextable}},
   \code{\link{plot.flextable}},
   \code{\link{print.flextable}},

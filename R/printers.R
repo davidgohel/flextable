@@ -8,7 +8,7 @@ tabwid_htmldep <- function(){
 }
 
 #' @export
-#' @title flextable a tag object from htmltools package
+#' @title flextable as a div object
 #'
 #' @description get a \code{\link[htmltools]{div}} from a flextable object.
 #' This can be used in a shiny application.
@@ -24,6 +24,25 @@ htmltools_value <- function(x, class = "tabwid"){
                  tabwid_htmldep(),
                  HTML(as.character(codes))
   )
+}
+
+#' @export
+#' @title flextable docx string
+#'
+#' @description get openxml raw code for Word
+#' from a flextable object.
+#' @param x a flextable object
+#' @param print print output if TRUE
+#' @family flextable print function
+#' @examples
+#' docx_value(flextable(iris[1:5,]))
+docx_value <- function(x, print = TRUE){
+  out <- paste("",
+      "```{=openxml}",
+      format(x, type = "docx"),
+      "```", "", sep = "\n")
+  if( print) cat(out)
+  out
 }
 
 
