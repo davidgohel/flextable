@@ -15,7 +15,8 @@ merge_h(x, i = NULL, part = "body")
 }
 \description{
 Merge flextable cells horizontally when consecutive cells have
-identical values.
+identical values. Text of formatted values are used to compare
+values.
 }
 \examples{
 dummy_df <- data.frame( col1 = letters,

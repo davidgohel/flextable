@@ -1,10 +1,4 @@
-merge_index <- function( x, what, byrow = FALSE ){
-  if( byrow ){
-    values <- sapply( x$dataset[what, x$col_keys, drop = FALSE], format )
-  } else {
-    values <- format( x$dataset[[what]])
-  }
-
+merge_rle <- function( values ){
   rle_ <- rle(x = values )
 
   vout <- lapply(rle_$lengths, function(l){
@@ -12,7 +6,6 @@ merge_index <- function( x, what, byrow = FALSE ){
     out[1] <- l
     out
   } )
-
   as.integer( unlist(x = vout) )
 }
 
@@ -24,17 +17,28 @@ check_merge <- function(x){
     stop("invalid merging instructions", call. = FALSE)
   x
 }
-span_columns <- function( x, columns = NULL ){
+span_columns <- function( x, columns = NULL, target = columns ){
 
   if( is.null(columns) )
     columns <- x$col_keys
 
   stopifnot(all( columns %in% x$col_keys ) )
-  spans <- sapply( columns,
-                   function(k, x )
-                     merge_index(x, what = k, byrow = FALSE ),
-                   x = x )
-  x$spans$columns[, match(columns, x$col_keys)] <- spans
+  stopifnot(all( target %in% x$col_keys ) )
+
+  if( length(target) == 1 ){
+    target <- rep(target, length(columns))
+  }
+  if( length(columns) == 1 ){
+    columns <- rep(columns, length(target))
+  }
+
+  for(k in seq_along(columns)){
+    values <- sapply(x$content[,columns[k]], function(x) {
+      paste(x$txt, collapse = "")
+      })
+    x$spans$columns[, match(target[k], x$col_keys)] <- merge_rle(values)
+  }
+
   check_merge(x)
 }
 
@@ -69,12 +73,12 @@ span_cells_at <- function( x, columns = NULL, rows = NULL ){
 span_rows <- function( x, rows = NULL ){
   row_id <- get_rows_id( x, i = rows )
 
-  spans <- lapply( row_id,
-                   function(k, x )
-                     merge_index(x, what = k, byrow = TRUE ),
-                   x = x )
-  spans <- do.call( rbind, spans )
-  x$spans$rows[match(row_id, seq_len(nrow(x$dataset))), ] <- spans
+  for( rowi in row_id){
+    values <- sapply(x$content[rowi,], function(x) {
+      paste(x$txt, collapse = "")
+    })
+    x$spans$rows[rowi, ] <- merge_rle(values)
+  }
 
   check_merge(x)
 }

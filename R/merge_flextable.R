@@ -1,33 +1,68 @@
 #' @title Merge flextable cells vertically
 #'
 #' @description Merge flextable cells vertically when consecutive cells have
-#' identical values.
+#' identical values. Text of formatted values are used to compare
+#' values.
 #'
 #' @param x \code{flextable} object
-#' @param j columns names/keys where cells have to be merged.
+#' @param j column to used to find consecutive values to be merged.
+#' @param target columns names where cells have to be merged.
 #' @param part partname of the table where merge has to be done.
 #' @examples
 #' ft_merge <- flextable(mtcars)
 #' ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))
 #' ft_merge
+#'
+#' data_ex <- structure(list(srdr_id = c(
+#'   "175124", "175124", "172525", "172525",
+#'   "172545", "172545", "172609", "172609", "172609"
+#' ), substances = c(
+#'   "alcohol",
+#'   "alcohol", "alcohol", "alcohol", "cannabis",
+#'   "cannabis", "alcohol\n cannabis\n other drugs",
+#'   "alcohol\n cannabis\n other drugs",
+#'   "alcohol\n cannabis\n other drugs"
+#' ), full_name = c(
+#'   "TAU", "MI", "TAU", "MI (parent)", "TAU", "MI",
+#'   "TAU", "MI", "MI"
+#' ), article_arm_name = c(
+#'   "Control", "WISEteens",
+#'   "Treatment as usual", "Brief MI (b-MI)", "Assessed control",
+#'   "Intervention", "Control", "Computer BI", "Therapist BI"
+#' )), row.names = c(
+#'   NA,
+#'   -9L
+#' ), class = c("tbl_df", "tbl", "data.frame"))
+#' ft <- flextable(data_ex)
+#' ft <- theme_box(ft)
+#' merge_v(ft, j = "srdr_id",
+#'   target = c("srdr_id", "substances"))
 #' @family flextable merging function
 #' @export
-merge_v <- function(x, j = NULL, part = "body" ){
-  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
+merge_v <- function(x, j = NULL, target = NULL, part = "body" ){
+  if( !inherits(x, "flextable") ) stop("merge_v supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   j <- get_columns_id(x[[part]], j = j )
   j <- x$col_keys[j]
 
-  x[[part]] <- span_columns(x = x[[part]], columns = j)
+  if( !is.null(target)){
+    target <- get_columns_id(x[[part]], j = target )
+    target <- x$col_keys[target]
+  } else {
+    target <- j
+  }
+  x[[part]] <- span_columns(x = x[[part]], columns = j, target = target)
 
   x
 }
 
+
 #' @title Merge flextable cells horizontally
 #'
 #' @description Merge flextable cells horizontally when consecutive cells have
-#' identical values.
+#' identical values. Text of formatted values are used to compare
+#' values.
 #'
 #' @param x \code{flextable} object
 #' @param i rows where cells have to be merged.
@@ -42,7 +77,7 @@ merge_v <- function(x, j = NULL, part = "body" ){
 #' @export
 merge_h <- function(x, i = NULL, part = "body" ){
 
-  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
+  if( !inherits(x, "flextable") ) stop("merge_h supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   i <- get_rows_id( x[[part]], i )
@@ -75,7 +110,7 @@ merge_h <- function(x, i = NULL, part = "body" ){
 #' ft
 merge_none <- function(x, part = "all" ){
 
-  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
+  if( !inherits(x, "flextable") ) stop("merge_none supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
@@ -109,7 +144,7 @@ merge_none <- function(x, part = "all" ){
 #' ft_merge
 #' @export
 merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
-  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
+  if( !inherits(x, "flextable") ) stop("merge_at supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   j <- get_columns_id(x[[part]], j = j )
@@ -139,7 +174,7 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
 #' ft
 #' @export
 merge_h_range <- function(x, i = NULL, j1 = NULL, j2 = NULL, part = "body" ){
-  if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
+  if( !inherits(x, "flextable") ) stop("merge_h_range supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   j1 <- get_columns_id(x[[part]], j = j1 )

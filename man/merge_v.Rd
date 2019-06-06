@@ -4,23 +4,51 @@
 \alias{merge_v}
 \title{Merge flextable cells vertically}
 \usage{
-merge_v(x, j = NULL, part = "body")
+merge_v(x, j = NULL, target = NULL, part = "body")
 }
 \arguments{
 \item{x}{\code{flextable} object}
 
-\item{j}{columns names/keys where cells have to be merged.}
+\item{j}{column to used to find consecutive values to be merged.}
+
+\item{target}{columns names where cells have to be merged.}
 
 \item{part}{partname of the table where merge has to be done.}
 }
 \description{
 Merge flextable cells vertically when consecutive cells have
-identical values.
+identical values. Text of formatted values are used to compare
+values.
 }
 \examples{
 ft_merge <- flextable(mtcars)
 ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))
 ft_merge
+
+data_ex <- structure(list(srdr_id = c(
+  "175124", "175124", "172525", "172525",
+  "172545", "172545", "172609", "172609", "172609"
+), substances = c(
+  "alcohol",
+  "alcohol", "alcohol", "alcohol", "cannabis",
+  "cannabis", "alcohol\\n cannabis\\n other drugs",
+  "alcohol\\n cannabis\\n other drugs",
+  "alcohol\\n cannabis\\n other drugs"
+), full_name = c(
+  "TAU", "MI", "TAU", "MI (parent)", "TAU", "MI",
+  "TAU", "MI", "MI"
+), article_arm_name = c(
+  "Control", "WISEteens",
+  "Treatment as usual", "Brief MI (b-MI)", "Assessed control",
+  "Intervention", "Control", "Computer BI", "Therapist BI"
+)), row.names = c(
+  NA,
+  -9L
+), class = c("tbl_df", "tbl", "data.frame"))
+ft <- flextable(data_ex)
+ft <- theme_box(ft)
+merge_v(ft, j = "srdr_id",
+  target = c("srdr_id", "substances"))
 }
 \seealso{
 Other flextable merging function: \code{\link{merge_at}},
