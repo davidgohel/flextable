@@ -93,6 +93,8 @@ ft
 
 ## compose function
 
+### Usage
+
 `flextable` content can be defined with function `compose`.
 
 It lets user control the formated content at the cell level of the table. 
@@ -221,6 +223,27 @@ myft <- compose( myft, j = 1,
 
 autofit(myft)
 ```
+
+### Sugar functions for complex formatting
+
+Functions `as_b`, `as_i`, `as_sub`, `as_sup` are special functions that 
+can be used together. They set a value as bold, italic, subscripted or superscripted. This is particularly useful when the headers need complex 
+formatting.
+
+```{r}
+data <- structure(list(Species = structure(1:3, .Label = c("setosa", 
+"versicolor", "virginica"), class = "factor"), col1 = c(5.006, 
+5.936, 6.588)), class = "data.frame", row.names = c(NA, -3L))
+
+ft <- flextable(data)
+ft
+ft <- compose(ft, part = "header", j = "Species", 
+    value = as_paragraph(as_i(as_b("Species"))))
+ft <- compose(ft, part = "header", j = "col1", 
+    value = as_paragraph(as_b("µ"), as_sup("blah")))
+ft
+```
+
 
 
 
