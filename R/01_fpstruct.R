@@ -623,7 +623,7 @@ fortify_content <- function(x, default_chunk_fmt, ...){
   columns = rep( x$content$keys, each = nrow(x$content$data) ),
   x$content$data, SIMPLIFY = FALSE, USE.NAMES = FALSE ) )
 
-  out <- rbindlist(x$content$data)
+  out <- rbindlist( apply(x$content$data, 1, rbindlist))
   out$row_id <- row_id
   out$col_id <- col_id
   setDF(out)
