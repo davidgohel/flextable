@@ -285,8 +285,11 @@ text_metric <- function( x ){
   heights <- txt_data$height
   txt_data$width <- NULL
   txt_data$height <- NULL
+
+  fontsize <- txt_data$font.size
+  fontsize[!(txt_data$vertical.align %in% "baseline")] <- fontsize[!(txt_data$vertical.align %in% "baseline")]/2
   str_extents_ <- m_str_extents(txt_data$txt, fontname = txt_data$font.family,
-                fontsize = txt_data$font.size, bold = txt_data$bold,
+                fontsize = fontsize, bold = txt_data$bold,
                 italic = txt_data$italic) / 72
   str_extents_[,1] <- ifelse(is.na(str_extents_[,1]) & !is.null(widths), widths, str_extents_[,1] )
   str_extents_[,2] <- ifelse(is.na(str_extents_[,2]) & !is.null(heights), heights, str_extents_[,2] )

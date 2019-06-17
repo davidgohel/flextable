@@ -651,14 +651,25 @@ add_runstyle_column <- function(x, type = "html"){
 
     family <- sprintf("font-family:'%s';", x$font.family )
 
-    font.size <- sprintf("font-size:%s;", css_px(x$font.size) )
+    positioning_val <- ifelse( x$vertical.align %in% "superscript", .3,
+                               ifelse(x$vertical.align %in% "subscript", .3, NA_real_ ) )
+    positioning_what <- ifelse( x$vertical.align %in% "superscript", "bottom",
+                                ifelse(x$vertical.align %in% "subscript", "top", NA_character_ ) )
+    vertical.align <- sprintf("position: relative;%s:%s;", positioning_what,
+                              css_px(x$font.size * positioning_val))
+    vertical.align <- ifelse(is.na(positioning_val), "", vertical.align)
+
+    font.size <- sprintf(
+      "font-size:%s;", css_px(x$font.size * ifelse(
+        x$vertical.align %in% "superscript", .6,
+        ifelse(x$vertical.align %in% "subscript", .6, 1.0 )
+      ) )
+    )
+
     bold <- ifelse(x$bold, "font-weight:bold;", "font-weight:normal;" )
     italic <- ifelse(x$italic, "font-style:italic;", "font-style:normal;" )
     underline <- ifelse(x$underlined, "text-decoration:underline;", "text-decoration:none;" )
 
-    vertical.align <- ifelse(
-      x$vertical.align %in% "superscript", "vertical-align: super;",
-      ifelse(x$vertical.align %in% "subscript","vertical-align: sub;", "") )
 
     style_column <- paste0("style=\"", family, font.size, bold, italic, underline,
                            color, shading, vertical.align, "\"")
