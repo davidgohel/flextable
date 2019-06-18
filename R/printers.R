@@ -292,12 +292,20 @@ save_as_image <- function(x, path, zoom = 3, expand = 10 ){
   if (!requireNamespace("webshot", quietly = TRUE)) {
     stop("package webshot is required when saving a flextable as an image.")
   }
+  curr_wd <- getwd()
+  path <- absolute_path(path)
 
   tf <- tempfile(fileext = ".html")
   save_as_html(x = x, path = tf)
-  webshot::webshot(url = tf,
+  setwd(dirname(tf))
+  tryCatch({
+    webshot::webshot(url = basename(tf),
                    file = path, selector = "body > table",
                    zoom = zoom, expand = expand )
+  }, finally = {
+    setwd(curr_wd)
+  })
+
   path
 }
 
