@@ -161,9 +161,9 @@ knit_print.flextable <- function(x, ...){
     # save relative to 'base' directory, see discussion in #110
     in_base_dir({
       dir.create(dirname(tmp), showWarnings = FALSE, recursive = TRUE)
-      tf <- tempfile(fileext = ".html")
+      tf <- tempfile(fileext = ".html", tmpdir = ".")
       save_as_html(x = x, path = tf)
-      webshot::webshot(url = sprintf("file://%s", tf),
+      webshot::webshot(url = basename(tf),
                        file = tmp, selector = "body > table",
                        zoom = 3, expand = 0 )
       unlink(tf)
