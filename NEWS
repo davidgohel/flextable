@@ -4,6 +4,8 @@
 
 * new function `docx_value` to let display flextables from non top level
  calls inside R Markdown document.
+* ph_with method for flextable object. This enable `ph_location*` usage
+  and make placement into slides easier.
 
 ## Issues
 

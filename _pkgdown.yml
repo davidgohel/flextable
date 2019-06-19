@@ -85,7 +85,7 @@ reference:
     - print.flextable
     - knit_print.flextable
     - body_add_flextable
-    - ph_with_flextable
+    - ph_with.flextable
     - plot.flextable
     - save_as_image
     - save_as_html
