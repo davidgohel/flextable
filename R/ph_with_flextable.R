@@ -54,6 +54,9 @@ pml_flextable <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 
 #' @export
 #' @title add flextable into a PowerPoint slide
 #' @description add a flextable as a new shape in the current slide.
+#' These functions will be deprecated
+#' in the next release and function \code{\link{ph_with.flextable}} should
+#' be used instead.
 #' @note
 #' The width and height of the table can not be set with this function. Use
 #' functions \code{\link{width}}, \code{\link{height}}, \code{\link{autofit}}
@@ -89,6 +92,38 @@ ph_with_flextable <- function( x, value, type = "body", index = 1 ){
     graphic_frame <- process_url(rel, url = hlinks, str = graphic_frame, pattern = "a:hlinkClick")
   }
   ph_from_xml(x = x, value = graphic_frame, type = type, index = index )
+}
+
+#' @importFrom officer ph_with
+#' @export
+#' @title add a flextable into a PowerPoint slide
+#' @description Add a flextable in a PowerPoint document object produced
+#' by \code{\link[officer]{read_pptx}}.
+#' @param x a pptx device
+#' @param value flextable object
+#' @param ... Arguments to be passed to methods, argument
+#' \code{location} is mandatory.
+#' @examples
+#' library(officer)
+#'
+#' ft = flextable(head(iris))
+#'
+#' doc <- read_pptx()
+#' doc <- add_slide(doc, "Title and Content", "Office Theme")
+#' doc <- ph_with(doc, ft, location = ph_location_left())
+#'
+#' fileout <- tempfile(fileext = ".pptx")
+#' print(doc, target = fileout)
+ph_with.flextable <- function( x, value, ... ){
+  stopifnot(inherits(x, "rpptx"))
+  graphic_frame <- pml_flextable(value)
+  hlinks <- attr(graphic_frame, "hlinks")
+  if( length(hlinks) > 0 ){
+    slide <- x$slide$get_slide(x$cursor)
+    rel <- slide$relationship()
+    graphic_frame <- process_url(rel, url = hlinks, str = graphic_frame, pattern = "a:hlinkClick")
+  }
+  ph_with(x = x, value = as_xml_document(graphic_frame), ... )
 }
 
 #' @export

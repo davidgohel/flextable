@@ -23,6 +23,9 @@ is not unique in the current slide, e.g. two placeholders with type 'body'.}
 }
 \description{
 add a flextable as a new shape in the current slide.
+These functions will be deprecated
+in the next release and function \code{\link{ph_with.flextable}} should
+be used instead.
 }
 \note{
 The width and height of the table can not be set with this function. Use

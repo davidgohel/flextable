@@ -109,8 +109,9 @@ print.flextable <- function(x, preview = "html", ...){
 #' For Word (docx) output, if pandoc version >= 2.0 is used, a raw XML block
 #' with the table code will be inserted. If pandoc version < 2.0 is used, an
 #' error will be raised. Insertion of images is not supported
-#' with rmarkdow for Word documents. For PowerPoint (pptx) output,
-#' if pandoc version < 2.4 is used, an error will be raised.
+#' with rmarkdown for Word documents (use the package officedown instead).
+#' For PowerPoint (pptx) output, if pandoc version < 2.4 is used, an error
+#' will be raised.
 #'
 #' @section Word chunk options:
 #' Result can be aligned with chunk option \code{ft.align} that
