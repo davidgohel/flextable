@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.5.9</span>
       </span>
     </div>
 
@@ -664,7 +664,7 @@
 <p>To add these objects in PowerPoint or Word documents, use functions:</p>
 <ul>
 <li>
-<code><a href="../reference/ph_with_flextable.html">ph_with_flextable()</a></code> or <code><a href="../reference/ph_with_flextable.html">ph_with_flextable_at()</a></code> (PowerPoint)</li>
+<code><a href="https://www.rdocumentation.org/packages/officer/topics/ph_with">ph_with()</a></code> (PowerPoint)</li>
 <li>
 <code><a href="../reference/body_add_flextable.html">body_add_flextable()</a></code> (Word)</li>
 </ul>
@@ -672,7 +672,7 @@
 <p>The following is producing a PowerPoint document:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">ppt &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/read_pptx">read_pptx</a></span>()</a>
 <a class="sourceLine" id="cb9-2" title="2">ppt &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/add_slide">add_slide</a></span>(ppt, <span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
-<a class="sourceLine" id="cb9-3" title="3">ppt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with_flextable.html">ph_with_flextable</a></span>(ppt, <span class="dt">value =</span> ft, <span class="dt">type =</span> <span class="st">"body"</span>) </a>
+<a class="sourceLine" id="cb9-3" title="3">ppt &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/ph_with">ph_with</a></span>(ppt, <span class="dt">value =</span> ft, <span class="dt">location =</span> officer<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/ph_location_left">ph_location_left</a></span>()) </a>
 <a class="sourceLine" id="cb9-4" title="4"></a>
 <a class="sourceLine" id="cb9-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(ppt, <span class="dt">target =</span> <span class="st">"example.pptx"</span>)</a></code></pre></div>
 <p>The following is producing a Word document:</p>
@@ -710,7 +710,7 @@
 
       <footer><link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.5.4 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.5.5.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

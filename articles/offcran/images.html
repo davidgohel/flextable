@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.5.9</span>
       </span>
     </div>
 
@@ -115,7 +115,7 @@
 <p>To get an image file from a <code>flextable</code> object, use function <code>save_as_image</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">img_file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempfile</a></span>(<span class="dt">fileext =</span> <span class="st">".png"</span>)</a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="../../reference/save_as_image.html">save_as_image</a></span>(ft, <span class="dt">path =</span> img_file)</a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; [1] "/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T//Rtmp8s4eYk/fileace34796c018.png"</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpm9QIYu/file19311ee7c135.png"</span></a></code></pre></div>
 </div>
 <div id="as-an-r-graphic" class="section level2">
 <h2 class="hasAnchor">
@@ -130,22 +130,22 @@
 <div id="with-ggplot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#with-ggplot" class="anchor"></a>With ggplot</h2>
-<p>You can also add the flextable (with <code><a href="https://www.rdocumentation.org/packages/grid/topics/grid.raster">grid::rasterGrob()</a></code> and <code><a href="https://www.rdocumentation.org/packages/ggplot2/topics/annotation_custom">ggplot2::annotation_custom()</a></code>) in a ggplot object. You need first to use <code><a href="../../reference/as_raster.html">as_raster()</a></code> function that will return a raster version of the flextable.</p>
+<p>You can also add the flextable (with <code><a href="https://www.rdocumentation.org/packages/grid/topics/grid.raster">grid::rasterGrob()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">ggplot2::annotation_custom()</a></code>) in a ggplot object. You need first to use <code><a href="../../reference/as_raster.html">as_raster()</a></code> function that will return a raster version of the flextable.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(grid)</a>
 <a class="sourceLine" id="cb5-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(cowplot)</a>
 <a class="sourceLine" id="cb5-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb5-5" title="5"></a>
-<a class="sourceLine" id="cb5-6" title="6">gg1 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(iris, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(Sepal.Length, Petal.Length, <span class="dt">color =</span> Species) ) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>()</a>
+<a class="sourceLine" id="cb5-6" title="6">gg1 &lt;-<span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(iris, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(Sepal.Length, Petal.Length, <span class="dt">color =</span> Species) ) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>()</a>
 <a class="sourceLine" id="cb5-7" title="7"></a>
 <a class="sourceLine" id="cb5-8" title="8">ft_raster &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-9" title="9"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_all</a></span>(median) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-10" title="10"><span class="st">  </span><span class="kw"><a href="../../reference/flextable.html">flextable</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/autofit.html">autofit</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../../reference/add_header_lines.html">add_header_lines</a></span>(<span class="st">"means per Species"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-11" title="11"><span class="st">  </span><span class="kw"><a href="../../reference/as_raster.html">as_raster</a></span>()</a>
 <a class="sourceLine" id="cb5-12" title="12"></a>
-<a class="sourceLine" id="cb5-13" title="13">gg2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-14" title="14"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_void</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-15" title="15"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/annotation_custom">annotation_custom</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/grid/topics/grid.raster">rasterGrob</a></span>(ft_raster), <span class="dt">xmin=</span><span class="op">-</span><span class="ot">Inf</span>, <span class="dt">xmax=</span><span class="ot">Inf</span>, <span class="dt">ymin=</span><span class="op">-</span><span class="ot">Inf</span>, <span class="dt">ymax=</span><span class="ot">Inf</span>)</a>
+<a class="sourceLine" id="cb5-13" title="13">gg2 &lt;-<span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/grid/topics/grid.raster">rasterGrob</a></span>(ft_raster), <span class="dt">xmin=</span><span class="op">-</span><span class="ot">Inf</span>, <span class="dt">xmax=</span><span class="ot">Inf</span>, <span class="dt">ymin=</span><span class="op">-</span><span class="ot">Inf</span>, <span class="dt">ymax=</span><span class="ot">Inf</span>)</a>
 <a class="sourceLine" id="cb5-16" title="16"></a>
 <a class="sourceLine" id="cb5-17" title="17">cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(gg1, gg2, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">rel_heights =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>, <span class="dv">1</span>) )</a></code></pre></div>
 <p><img src="images_files/figure-html/unnamed-chunk-7-1.png" width="70%"></p>
@@ -170,7 +170,7 @@
 
       <footer><link href="../../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.5.4 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.5.5.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

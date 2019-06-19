@@ -66,7 +66,7 @@ this function is to be used within Shiny applications with renderUI()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.5.9</span>
       </span>
     </div>
 
@@ -152,8 +152,9 @@ this function is to be used within Shiny applications with <code>renderUI()</cod
     <p>For Word (docx) output, if pandoc version &gt;= 2.0 is used, a raw XML block
 with the table code will be inserted. If pandoc version &lt; 2.0 is used, an
 error will be raised. Insertion of images is not supported
-with rmarkdow for Word documents. For PowerPoint (pptx) output,
-if pandoc version &lt; 2.4 is used, an error will be raised.</p>
+with rmarkdown for Word documents (use the package officedown instead).
+For PowerPoint (pptx) output, if pandoc version &lt; 2.4 is used, an error
+will be raised.</p>
     
     <h2 class="hasAnchor" id="word-chunk-options"><a class="anchor" href="#word-chunk-options"></a>Word chunk options</h2>
 
@@ -174,7 +175,7 @@ default to <code>{r ft.left=1, ft.left=2}</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other flextable print function: <code><a href='as_raster.html'>as_raster</a></code>,
-  <code><a href='format.flextable.html'>format.flextable</a></code>,
+  <code><a href='docx_value.html'>docx_value</a></code>, <code><a href='format.flextable.html'>format.flextable</a></code>,
   <code><a href='htmltools_value.html'>htmltools_value</a></code>,
   <code><a href='plot.flextable.html'>plot.flextable</a></code>,
   <code><a href='print.flextable.html'>print.flextable</a></code>,
@@ -204,7 +205,7 @@ default to <code>{r ft.left=1, ft.left=2}</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.4 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.5.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
