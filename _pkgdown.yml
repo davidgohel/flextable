@@ -76,6 +76,11 @@ reference:
     - as_image
     - minibar
     - linerange
+    - as_b
+    - as_bracket
+    - as_i
+    - as_sub
+    - as_sup
     - hyperlink_text
     - set_caption
     - footnote

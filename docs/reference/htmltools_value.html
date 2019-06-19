@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>flextable a tag object from htmltools package — htmltools_value • flextable</title>
+<title>flextable as a div object — htmltools_value • flextable</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="flextable a tag object from htmltools package — htmltools_value" />
+<meta property="og:title" content="flextable as a div object — htmltools_value" />
 
 <meta property="og:description" content="get a div from a flextable object.
 This can be used in a shiny application." />
@@ -64,7 +64,7 @@ This can be used in a shiny application." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.5.9</span>
       </span>
     </div>
 
@@ -115,7 +115,7 @@ This can be used in a shiny application." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>flextable a tag object from htmltools package</h1>
+    <h1>flextable as a div object</h1>
     
     <div class="hidden name"><code>htmltools_value.Rd</code></div>
     </div>
@@ -127,7 +127,7 @@ This can be used in a shiny application.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>htmltools_value</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>htmltools_value</span>(<span class='no'>x</span>, <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"tabwid"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -136,12 +136,17 @@ This can be used in a shiny application.</p>
       <th>x</th>
       <td><p>a flextable object</p></td>
     </tr>
+    <tr>
+      <th>class</th>
+      <td><p>css classes (default to "tabwid"), accepted values
+are "tabwid", "tabwid tabwid_left", "tabwid tabwid_right".</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other flextable print function: <code><a href='as_raster.html'>as_raster</a></code>,
-  <code><a href='format.flextable.html'>format.flextable</a></code>,
+  <code><a href='docx_value.html'>docx_value</a></code>, <code><a href='format.flextable.html'>format.flextable</a></code>,
   <code><a href='knit_print.flextable.html'>knit_print.flextable</a></code>,
   <code><a href='plot.flextable.html'>plot.flextable</a></code>,
   <code><a href='print.flextable.html'>print.flextable</a></code>,
@@ -167,7 +172,7 @@ This can be used in a shiny application.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.4 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.5.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

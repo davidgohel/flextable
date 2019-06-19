@@ -65,7 +65,7 @@ on a ggplot object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.5.9</span>
       </span>
     </div>
 
@@ -150,7 +150,8 @@ on a ggplot object.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other flextable print function: <code><a href='format.flextable.html'>format.flextable</a></code>,
+    <div class='dont-index'><p>Other flextable print function: <code><a href='docx_value.html'>docx_value</a></code>,
+  <code><a href='format.flextable.html'>format.flextable</a></code>,
   <code><a href='htmltools_value.html'>htmltools_value</a></code>,
   <code><a href='knit_print.flextable.html'>knit_print.flextable</a></code>,
   <code><a href='plot.flextable.html'>plot.flextable</a></code>,
@@ -161,7 +162,7 @@ on a ggplot object.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>qflextable</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>( <span class='no'>mtcars</span> ) )</div><span class='co'># NOT RUN {</span>
 <span class='kw'>if</span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"ggplot2"</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"webshot"</span>) ){
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/qplot'>qplot</a></span>(<span class='no'>speed</span>, <span class='no'>dist</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>cars</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>))
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span>(<span class='no'>speed</span>, <span class='no'>dist</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>cars</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>))
   <span class='kw pkg'>grid</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/grid/topics/grid.raster'>grid.raster</a></span>(<span class='fu'>as_raster</span>(<span class='no'>ft</span>))
 }
 <span class='co'># }</span></pre>
@@ -184,7 +185,7 @@ on a ggplot object.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.4 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.5.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
