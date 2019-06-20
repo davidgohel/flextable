@@ -6,6 +6,7 @@
  calls inside R Markdown document.
 * ph_with method for flextable object. This enable `ph_location*` usage
   and make placement into slides easier.
+* new function `fit_to_width` to fit a flextable to a maximum width
 
 ## Issues
 
