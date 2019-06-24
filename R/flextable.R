@@ -116,7 +116,7 @@ qflextable <- function(data){
 #' @param x flextable object
 #' @param caption caption value
 #' @note
-#' this will have an effect only when output is HTML.
+#' this will have an effect only when output is HTML or Word document.
 #' @examples
 #' ft <- flextable( head( iris ) )
 #' ft <- set_caption(ft, "my caption")

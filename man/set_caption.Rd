@@ -15,7 +15,7 @@ set_caption(x, caption)
 set caption value in flextable
 }
 \note{
-this will have an effect only when output is HTML.
+this will have an effect only when output is HTML or Word document.
 }
 \examples{
 ft <- flextable( head( iris ) )

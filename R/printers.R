@@ -182,8 +182,19 @@ knit_print.flextable <- function(x, ...){
 
       str <- docx_str(x, align = align, split = TRUE %in% split)
 
+      if( is.null(tab.cap.style <- opts_current$get("tab.cap.style")) )
+        tab.cap.style <- "Table Caption"
+
+      if(!is.null(x$caption$value)){
+        caption <- paste0("\n::: {custom-style=\"",
+                          tab.cap.style,
+                          "\"}\n\n",
+                          x$caption$value, "\n\n",
+                          ":::\n\n")
+      } else caption <- ""
+
       knit_print( asis_output(
-        paste("```{=openxml}", str, "```", sep = "\n")
+        paste(caption, "```{=openxml}", str, "```", sep = "\n")
       ) )
     } else {
       stop("pandoc version >= 2.0 required for flextable rendering in docx")
