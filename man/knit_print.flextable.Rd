@@ -26,6 +26,12 @@ with rmarkdown for Word documents (use the package officedown instead).
 For PowerPoint (pptx) output, if pandoc version < 2.4 is used, an error
 will be raised.
 }
+\section{HTML chunk options}{
+
+Result can be aligned with chunk option \code{ft.align} that
+accepts values 'left', 'center' and 'right'.
+}
+
 \section{Word chunk options}{
 
 Result can be aligned with chunk option \code{ft.align} that
@@ -33,6 +39,9 @@ accepts values 'left', 'center' and 'right'.
 
 Word option 'Allow row to break across pages' can be
 activated with chunk option \code{ft.split} set to TRUE.
+
+To specify a Word style for table caption use chunk option
+\code{tab.cap.style}. The default value is "Table Caption".
 }
 
 \section{PowerPoint chunk options}{

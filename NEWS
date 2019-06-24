@@ -7,7 +7,8 @@
 * ph_with method for flextable object. This enable `ph_location*` usage
   and make placement into slides easier.
 * new function `fit_to_width` to fit a flextable to a maximum width
-* `set_caption` can now be used with R Markdown for Word document
+* `set_caption` can now be used with R Markdown for Word document and caption
+  style can be defined with chunk option `tab.cap.style`.
 
 ## Issues
 
