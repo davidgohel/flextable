@@ -19,11 +19,11 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20 ){
     if( fdim$widths > max_width){
       # message("minimimising")
       # browser()
-      if( flextable:::nrow_part(x, part = "body") > 0 )
+      if( nrow_part(x, part = "body") > 0 )
         x$body$styles$text$font.size$data[] <- x$body$styles$text$font.size$data - inc
-      if( flextable:::nrow_part(x, part = "footer") > 0 )
+      if( nrow_part(x, part = "footer") > 0 )
         x$footer$styles$text$font.size$data[] <- x$footer$styles$text$font.size$data - inc
-      if( flextable:::nrow_part(x, part = "header") > 0 )
+      if( nrow_part(x, part = "header") > 0 )
         x$header$styles$text$font.size$data[] <- x$header$styles$text$font.size$data - inc
 
       x <- autofit(x, add_w = 0.0, add_h = 0.0)
