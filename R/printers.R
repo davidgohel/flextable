@@ -372,11 +372,6 @@ as_raster <- function(x, zoom = 2, expand = 2){
     stop("package magick is required when saving a flextable as an image.")
   }
   path <- tempfile(fileext = ".png")
-  tf <- tempfile(fileext = ".html")
-  save_as_html(x = x, path = tf)
-  webshot::webshot(url = sprintf("file://%s", tf),
-                   file = path, selector = "body > table",
-                   zoom = zoom, expand = expand )
-  unlink(tf)
+  save_as_image(x, path, zoom = zoom, expand = expand )
   magick::image_read(path = path)
 }
