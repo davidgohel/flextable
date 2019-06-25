@@ -66,7 +66,7 @@ this function is to be used within Shiny applications with renderUI()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.5.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.5</span>
       </span>
     </div>
 
@@ -156,6 +156,12 @@ with rmarkdown for Word documents (use the package officedown instead).
 For PowerPoint (pptx) output, if pandoc version &lt; 2.4 is used, an error
 will be raised.</p>
     
+    <h2 class="hasAnchor" id="html-chunk-options"><a class="anchor" href="#html-chunk-options"></a>HTML chunk options</h2>
+
+    
+    <p>Result can be aligned with chunk option <code>ft.align</code> that
+accepts values 'left', 'center' and 'right'.</p>
+    
     <h2 class="hasAnchor" id="word-chunk-options"><a class="anchor" href="#word-chunk-options"></a>Word chunk options</h2>
 
     
@@ -163,6 +169,8 @@ will be raised.</p>
 accepts values 'left', 'center' and 'right'.</p>
 <p>Word option 'Allow row to break across pages' can be
 activated with chunk option <code>ft.split</code> set to TRUE.</p>
+<p>To specify a Word style for table caption use chunk option
+<code>tab.cap.style</code>. The default value is "Table Caption".</p>
     
     <h2 class="hasAnchor" id="powerpoint-chunk-options"><a class="anchor" href="#powerpoint-chunk-options"></a>PowerPoint chunk options</h2>
 
@@ -190,6 +198,8 @@ default to <code>{r ft.left=1, ft.left=2}</code>.</p>
       
       <li><a href="#note">Note</a></li>
 
+      <li><a href="#html-chunk-options">HTML chunk options</a></li>
+
       <li><a href="#word-chunk-options">Word chunk options</a></li>
 
       <li><a href="#powerpoint-chunk-options">PowerPoint chunk options</a></li>
@@ -205,7 +215,7 @@ default to <code>{r ft.left=1, ft.left=2}</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.5.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
