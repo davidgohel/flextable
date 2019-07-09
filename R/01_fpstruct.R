@@ -660,7 +660,7 @@ add_runstyle_column <- function(x, type = "html"){
     vertical.align <- ifelse(is.na(positioning_val), "", vertical.align)
 
     font.size <- sprintf(
-      "font-size:%s;", css_px(x$font.size * ifelse(
+      "font-size:%s;", css_pt(x$font.size * ifelse(
         x$vertical.align %in% "superscript", .6,
         ifelse(x$vertical.align %in% "subscript", .6, 1.0 )
       ) )
