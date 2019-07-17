@@ -8,7 +8,7 @@
 #' ft <- flextable(iris)
 #' ft <- theme_vanilla(ft)
 theme_vanilla <- function(x){
-  if( !inherits(x, "flextable") ) stop("theme_box supports only flextable objects.")
+  if( !inherits(x, "flextable") ) stop("theme_vanilla supports only flextable objects.")
   std_b <- fp_border(width = 1, color = "#333333")
   x <- border_remove(x)
 
@@ -58,8 +58,8 @@ theme_box <- function(x){
 
 #' @importFrom officer fp_border fp_par
 #' @export
-#' @title Apply box theme
-#' @description Apply theme box to a flextable
+#' @title Apply alafoli theme
+#' @description Apply theme alafoli to a flextable
 #' @param x a flextable object
 #' @family flextable theme
 #' @examples
@@ -92,7 +92,7 @@ theme_alafoli <- function(x){
 #' ft <- theme_vader(ft)
 theme_vader <- function(x, fontsize = 11){
   if( !inherits(x, "flextable") )
-    stop("theme_alafoli supports only flextable objects.")
+    stop("theme_vader supports only flextable objects.")
 
   x <- border_remove(x)
   x <- bg(x, bg = "#242424", part = "all")
@@ -246,7 +246,7 @@ theme_tron <- function(x){
 
 #' @export
 #' @title Apply booktabs theme
-#' @description Apply theme tron to a flextable
+#' @description Apply theme booktabs to a flextable
 #' @param x a flextable object
 #' @param fontsize font size in pixel
 #' @examples
