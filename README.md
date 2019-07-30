@@ -67,7 +67,7 @@ You can get the development version from GitHub:
 devtools::install_github("davidgohel/flextable")
 ```
 
-## Ressources
+## Resources
 
 ### Online documentation
 
@@ -75,7 +75,7 @@ The help pages are located at <https://davidgohel.github.io/flextable/>.
 
 ### Getting help
 
-This project is developped and maintained on my own time. If you have
+This project is developed and maintained on my own time. If you have
 questions about how to use the package, visit Stackoverflow and use tags
 `flextable` and `r` [Stackoverflow
 link](https://stackoverflow.com/questions/tagged/flextable+r)\! I
