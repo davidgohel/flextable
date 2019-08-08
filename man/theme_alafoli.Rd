@@ -2,7 +2,7 @@
 % Please edit documentation in R/themes.R
 \name{theme_alafoli}
 \alias{theme_alafoli}
-\title{Apply box theme}
+\title{Apply alafoli theme}
 \usage{
 theme_alafoli(x)
 }
@@ -10,7 +10,7 @@ theme_alafoli(x)
 \item{x}{a flextable object}
 }
 \description{
-Apply theme box to a flextable
+Apply theme alafoli to a flextable
 }
 \examples{
 ft <- flextable(iris)

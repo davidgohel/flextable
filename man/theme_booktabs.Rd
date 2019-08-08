@@ -12,7 +12,7 @@ theme_booktabs(x, fontsize = 11)
 \item{fontsize}{font size in pixel}
 }
 \description{
-Apply theme tron to a flextable
+Apply theme booktabs to a flextable
 }
 \examples{
 ft <- flextable(iris)

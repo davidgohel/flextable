@@ -30,7 +30,6 @@ test_that("images", {
               pr_p = fp_par(padding = 0, border = fp_border(width = 0) ),
               pr_t = fp_text(font.size = 10), part = "all" )
   ft <- autofit(ft, add_w = 0, add_h = 0)
-  autofit(ft)$body$colwidths
 
   dims <- ft$body$colwidths
   expect_equal( as.vector(dims["sep_1"]), .3, tolerance = .00001)

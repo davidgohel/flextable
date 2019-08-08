@@ -236,13 +236,23 @@ dim_pretty <- function( x, part = "all" ){
 autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
 
   stopifnot(inherits(x, "flextable") )
+  dimensions_ <- dim_pretty(x)
+  names(dimensions_$widths) <- x$col_keys
 
-  for(j in c("header", "body", "footer")){
-    if( nrow_part(x, j ) > 0 ){
-      dimensions_ <- optimal_sizes(x[[j]])
-      x[[j]]$colwidths <- dimensions_$widths + add_w
-      x[[j]]$rowheights <- dimensions_$heights + add_h
-    }
+  parts <- c("header", "body", "footer")
+  nrows <- lapply(parts, function(j){
+    nrow_part(x, j )
+  } )
+  heights <- list(lengths = unlist(nrows), values = parts )
+  class(heights) <- "rle"
+  heights <- data.frame( part = inverse.rle(heights),
+                         height = dimensions_$heights + add_h,
+                         stringsAsFactors = FALSE)
+  heights <- split(heights$height, heights$part)
+
+  for(j in names(heights)){
+    x[[j]]$colwidths <- dimensions_$widths + add_w
+    x[[j]]$rowheights <- heights[[j]]
   }
   x
 }
