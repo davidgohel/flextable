@@ -11,6 +11,12 @@ format_pct <- function(x){
 #' @param row \code{characer} column names for row
 #' @param col \code{characer} column names for column
 #' @param main \code{characer} title
+#' @param include.row_percent \code{boolean} whether to include the row percents; defaults to \code{TRUE}
+#' @param include.column_percent \code{boolean} whether to include the column percents; defaults to \code{TRUE}
+#' @param include.table_percent \code{boolean} whether to include the table percents; defaults to \code{TRUE}
+#' @param include.column_total \code{boolean} whether to include the row of column totals; defaults to \code{TRUE}
+#' @param include.row_total \code{boolean} whether to include the column of row totals; defaults to \code{TRUE}
+#' @param include.header_row \code{boolean} whether to include the header row; defaults to \code{TRUE}
 #'
 #' @examples
 #'
@@ -19,7 +25,7 @@ format_pct <- function(x){
 #' proc_freq(mtcars, "gear", "vs", "My title")
 #' @export
 #' @author Titouan Robert
-proc_freq <- function(x, row, col, main = ""){
+proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, include.column_percent = TRUE, include.table_percent = TRUE, include.column_total = TRUE, include.row_total = TRUE, include.header_row = TRUE){
 
   ##Compute table
   tabl <- as.data.frame.matrix(table(x[[row]], x[[col]]))
@@ -31,10 +37,23 @@ proc_freq <- function(x, row, col, main = ""){
 
   ##Make table
   tab_end <- sapply(seq_len(nr), function(X){
-    dat <- rbind(tabl[X,], tablL[X,], tablR[X,], tablT[X,])
+    labels <- c("Frequency")
+    dat <- tabl[X,]
+    if (include.row_percent) {
+      dat <- rbind(dat, tablL[X,])
+      labels <- c(labels, "Row Pct", recursive = TRUE)
+    }
+    if (include.column_percent) {
+      dat <- rbind(dat, tablR[X,])
+      labels <- c(labels, "Col Pct", recursive = TRUE)
+    }
+    if (include.table_percent) {
+      dat <- rbind(dat, tablT[X,])
+      labels <- c(labels, "Percent", recursive = TRUE)
+    }
     names(dat) <- colnames(tabl)
-    dd <- data.table::data.table(V1 =  rownames(tabl[X,]),label = c("Frequency", "Row Pct", "Col Pct", "Percent"),
-                                 dat)
+
+    dd <- data.table::data.table(V1 =  rownames(tabl[X,]),label = labels,dat)
     names(dd)[1] <- row
     dd
   }, simplify = FALSE)
@@ -42,15 +61,35 @@ proc_freq <- function(x, row, col, main = ""){
   tab_end <- as.data.frame(tab_end, check.names = FALSE)
 
   ##Add total
-  tab_end$Total <- rowSums(tab_end[,3:ncol(tab_end)])
-  tab_end[ which(tab_end$label == "Row Pct" | tab_end$label == "Col Pct" ),]$Total <- NA
-  endR <- data.frame(GP = "Total", label = c("Frequency","Percent"))
-  names(endR)[1] <-   names(tab_end)[1]
-  for(i in 3:(ncol(tab_end) - 1)){
-    endR[[names(tab_end)[i]]] <-  c(sum(tab_end[[i]][which(tab_end$label=="Frequency")]), sum(tab_end[[i]][which(tab_end$label=="Percent")]))
+  if (include.row_total) {
+    tab_end$Total <- rowSums(tab_end[,3:ncol(tab_end)])
+    tab_end[ which(tab_end$label == "Row Pct" | tab_end$label == "Col Pct" ),]$Total <- NA
   }
-  endR$Total = c(sum(tab_end[["Total"]][which(tab_end$label=="Frequency")]), NA)
-  tab_end <- rbind(tab_end, endR)
+  if (include.column_total) {
+    labels <- c("Frequency")
+    if (include.table_percent) {
+      labels <- c(labels, "Percent", recursive = TRUE)
+    }
+    endR <- data.frame(GP = "Total", label = labels)
+    names(endR)[1] <-   names(tab_end)[1]
+    columnIndexStart <- 3
+    columnIndexEnd <- if (include.row_total) ncol(tab_end) - 1 else ncol(tab_end)
+    for(i in columnIndexStart:columnIndexEnd){
+      total_row <- c(sum(tab_end[[i]][which(tab_end$label=="Frequency")]))
+      if (include.table_percent) {
+        total_row <- c(total_row, sum(tab_end[[i]][which(tab_end$label=="Percent")]), recursive = TRUE)
+      }
+      endR[[names(tab_end)[i]]] <- total_row
+    }
+    if (include.row_total) {
+      total_cell <- c(sum(tab_end[["Total"]][which(tab_end$label=="Frequency")])) 
+      if (include.table_percent) {
+        total_cell <- c(total_cell, NA, recursive = TRUE)
+      }
+      endR$Total = total_cell
+    }
+    tab_end <- rbind(tab_end, endR)
+  }
   nl <- nrow(tab_end)
 
   ##Make flex
@@ -92,7 +131,9 @@ proc_freq <- function(x, row, col, main = ""){
 
   llflex <- flextable::border(llflex, fq, 1:ncol(tab_end), border.top = officer::fp_border(color = "black"))
 
-  llflex <- add_header_row(llflex, values = c("", col), colwidths = c(2,ncol(tab_end)-2))
+  if (include.header_row) {
+    llflex <- add_header_row(llflex, values = c("", col), colwidths = c(2,ncol(tab_end)-2))
+  }
   llflex <- align(llflex, align = "center", part = "header")
   llflex <- flextable::bold(llflex, part = "header")
   llflex <- align(llflex, align = "center", part = "body")
