@@ -7,7 +7,7 @@
 proc_freq(x, row, col, main = "", include.row_percent = TRUE,
   include.column_percent = TRUE, include.table_percent = TRUE,
   include.column_total = TRUE, include.row_total = TRUE,
-  include.header_row = TRUE)
+  include.header_row = TRUE, ponderate = NULL)
 }
 \arguments{
 \item{x}{\code{data.frame} object}
@@ -29,6 +29,8 @@ proc_freq(x, row, col, main = "", include.row_percent = TRUE,
 \item{include.row_total}{\code{boolean} whether to include the column of row totals; defaults to \code{TRUE}}
 
 \item{include.header_row}{\code{boolean} whether to include the header row; defaults to \code{TRUE}}
+
+\item{ponedrate}{\code{character} column name for ponderation}
 }
 \description{
 This function compute a two way contingency table
@@ -38,6 +40,7 @@ and make a flextable with the result.
 
 proc_freq(mtcars, "vs", "gear")
 proc_freq(mtcars, "gear", "vs")
+proc_freq(mtcars, "gear", "vs", ponderate = "wt")
 proc_freq(mtcars, "gear", "vs", "My title")
 }
 \author{
