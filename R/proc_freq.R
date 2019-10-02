@@ -19,6 +19,9 @@ format_pct <- function(x){
 #' @param include.header_row \code{boolean} whether to include the header row; defaults to \code{TRUE}
 #' @param weight \code{character} column name for weight
 #'
+#'
+#' @importFrom stats as.formula na.omit
+#'
 #' @examples
 #'
 #' proc_freq(mtcars, "vs", "gear")
@@ -36,9 +39,9 @@ proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, includ
 
   x <- data.table::data.table(x)
   if(is.null(weight)){
-    tabl <- x[,.(value =  .N), by = c(row, col)]
+    tabl <- x[,list(value =  .N), by = c(row, col)]
   }else{
-    tabl <- x[,.(value = unlist(lapply(.SD, function(X)sum(X, na.rm = TRUE)))), by = c(row, col), .SDcols = weight]
+    tabl <- x[,list(value = unlist(lapply(.SD, function(X)sum(X, na.rm = TRUE)))), by = c(row, col), .SDcols = weight]
   }
 
   tabl  <- na.omit(tabl)
