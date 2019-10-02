@@ -29,16 +29,16 @@ format_pct <- function(x){
 #' @author Titouan Robert
 proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, include.column_percent = TRUE,
                       include.table_percent = TRUE, include.column_total = TRUE, include.row_total = TRUE, include.header_row = TRUE,
-                      ponderate = NULL){
+                      weight = NULL){
 
   ##Compute table
   # tabl <- as.data.frame.matrix(table(x[[row]], x[[col]]))
 
   x <- data.table::data.table(x)
-  if(is.null(ponderate)){
+  if(is.null(weight)){
     tabl <- x[,.(value =  .N), by = c(row, col)]
   }else{
-    tabl <- x[,.(value = unlist(lapply(.SD, function(X)sum(X, na.rm = TRUE)))), by = c(row, col), .SDcols = ponderate]
+    tabl <- x[,.(value = unlist(lapply(.SD, function(X)sum(X, na.rm = TRUE)))), by = c(row, col), .SDcols = weight]
   }
 
   tabl  <- na.omit(tabl)
