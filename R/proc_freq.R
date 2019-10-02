@@ -17,16 +17,18 @@ format_pct <- function(x){
 #' @param include.column_total \code{boolean} whether to include the row of column totals; defaults to \code{TRUE}
 #' @param include.row_total \code{boolean} whether to include the column of row totals; defaults to \code{TRUE}
 #' @param include.header_row \code{boolean} whether to include the header row; defaults to \code{TRUE}
-#' @param ponedrate \code{character} column name for ponderation
+#' @param weight \code{character} column name for weight
+#'
 #' @examples
 #'
 #' proc_freq(mtcars, "vs", "gear")
 #' proc_freq(mtcars, "gear", "vs")
-#' proc_freq(mtcars, "gear", "vs", ponderate = "wt")
+#' proc_freq(mtcars, "gear", "vs", weight = "wt")
 #' proc_freq(mtcars, "gear", "vs", "My title")
 #' @export
 #' @author Titouan Robert
-proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, include.column_percent = TRUE, include.table_percent = TRUE, include.column_total = TRUE, include.row_total = TRUE, include.header_row = TRUE,
+proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, include.column_percent = TRUE,
+                      include.table_percent = TRUE, include.column_total = TRUE, include.row_total = TRUE, include.header_row = TRUE,
                       ponderate = NULL){
 
   ##Compute table

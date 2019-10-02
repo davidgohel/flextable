@@ -30,7 +30,7 @@ proc_freq(x, row, col, main = "", include.row_percent = TRUE,
 
 \item{include.header_row}{\code{boolean} whether to include the header row; defaults to \code{TRUE}}
 
-\item{ponedrate}{\code{character} column name for ponderation}
+\item{weight}{\code{character} column name for weight}
 }
 \description{
 This function compute a two way contingency table
@@ -40,7 +40,7 @@ and make a flextable with the result.
 
 proc_freq(mtcars, "vs", "gear")
 proc_freq(mtcars, "gear", "vs")
-proc_freq(mtcars, "gear", "vs", ponderate = "wt")
+proc_freq(mtcars, "gear", "vs", weight = "wt")
 proc_freq(mtcars, "gear", "vs", "My title")
 }
 \author{
