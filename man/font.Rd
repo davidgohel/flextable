@@ -25,13 +25,9 @@ require("gdtools")
 fontname <- "Times"
 
 if( !font_family_exists(fontname) ){
-  # if Times is not available, we will use the first available
-  font_list <- sys_fonts()
-  fontname <- as.character(font_list$family[1])
+  ft <- flextable(head(iris))
+  ft <- font(ft, fontname = fontname, part = "header")
 }
-
-ft <- flextable(head(iris))
-ft <- font(ft, fontname = fontname, part = "header")
 }
 \seealso{
 Other sugar functions for table style: \code{\link{align}},
