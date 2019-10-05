@@ -75,7 +75,9 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 #' @title format character cells
 #' @description Format character cells in a flextable.
 #' @param x a flextable object
-#' @param col_keys names of the colkeys
+#' @param col_keys names of the colkeys. Will be deprectated in favor of j in the next
+#' version.
+#' @param j columns selection.
 #' @param na_str string to be used for NA values
 #' @param prefix,suffix string to be used as prefix or suffix
 #' @param ... additional arguments, i can be used to specify a
@@ -149,57 +151,81 @@ colformat_lgl <- function(x, ...){
 
 #' @export
 #' @rdname colformat_num
-colformat_num.flextable <- function(x, col_keys, big.mark=",", digits = 2, na_str = "", prefix = "", suffix = "", ...){
+colformat_num.flextable <- function(x, j = NULL, col_keys = NULL, big.mark=",", digits = 2, na_str = "", prefix = "", suffix = "", ...){
+
+  if(!is.null(col_keys)){
+    warning("argument col_keys is deprecated in favor of argument j")
+    j <- col_keys
+  }
 
   fun_ <- function(x) {
     out <- paste0(prefix, formatC(x, format="f", big.mark=big.mark, digits = digits), suffix )
     ifelse(is.na(x), na_str, out)
   }
-  docall_display(col_keys, fun_, x, ...)
+  docall_display(j, fun_, x, ...)
 }
 
 
 #' @export
 #' @rdname colformat_int
-colformat_int.flextable <- function(x, col_keys, big.mark=",", na_str = "", prefix = "", suffix = "", ...){
+colformat_int.flextable <- function(x, j = NULL, col_keys = NULL, big.mark=",", na_str = "", prefix = "", suffix = "", ...){
+
+  if(!is.null(col_keys)){
+    warning("argument col_keys is deprecated in favor of argument j")
+    j <- col_keys
+  }
+
   fun_ <- function(x) {
     out <- paste0(prefix, formatC(x, format="f", big.mark=big.mark, digits = 0), suffix )
     ifelse(is.na(x), na_str, out)
   }
-  docall_display(col_keys, fun_, x, ...)
+  docall_display(j, fun_, x, ...)
 }
 
 #' @export
 #' @rdname colformat_lgl
-colformat_lgl.flextable <- function(x, col_keys,
+colformat_lgl.flextable <- function(x, j = NULL, col_keys = NULL,
                                        true = "true", false = "false",
                                        na_str = "", prefix = "", suffix = "", ...){
+
+  if(!is.null(col_keys)){
+    warning("argument col_keys is deprecated in favor of argument j")
+    j <- col_keys
+  }
+
   fun_ <- function(x) {
     out <- ifelse(x, true, false)
     ifelse(is.na(x), na_str, out)
   }
-  docall_display(col_keys, fun_, x, ...)
+  docall_display(j, fun_, x, ...)
 }
 
 
 #' @export
 #' @rdname colformat_char
-colformat_char.flextable <- function(x, col_keys, na_str = "", prefix = "", suffix = "", ...){
+colformat_char.flextable <- function(x, j = NULL, col_keys = NULL, na_str = "", prefix = "", suffix = "", ...){
+
+  if(!is.null(col_keys)){
+    warning("argument col_keys is deprecated in favor of argument j")
+    j <- col_keys
+  }
+
   fun_ <- function(x) {
     out <- paste0(prefix, x, suffix )
     ifelse(is.na(x), na_str, out)
   }
-  docall_display(col_keys, fun_, x, ...)
+  docall_display(j, fun_, x, ...)
 }
 
 
-docall_display <- function(col_keys, format_fun, x, i = NULL){
+docall_display <- function(j, format_fun, x, i = NULL){
+
+  check_formula_i_and_part(i, "body")
+  j <- get_columns_id(x[["body"]], j )
+  col_keys <- x$col_keys[j]
   for( varname in col_keys){
     x <- compose(x = x, j = varname, i = i, value = as_paragraph(as_chunk(format_fun(get(varname)))), part = "body" )
   }
   x
 }
-
-
-
 

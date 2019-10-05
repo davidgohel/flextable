@@ -7,8 +7,9 @@
 \usage{
 colformat_num(x, ...)
 
-\method{colformat_num}{flextable}(x, col_keys, big.mark = ",",
-  digits = 2, na_str = "", prefix = "", suffix = "", ...)
+\method{colformat_num}{flextable}(x, j = NULL, col_keys = NULL,
+  big.mark = ",", digits = 2, na_str = "", prefix = "",
+  suffix = "", ...)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -16,7 +17,10 @@ colformat_num(x, ...)
 \item{...}{additional arguments, i can be used to specify a
 row selector.}
 
-\item{col_keys}{names of the colkeys}
+\item{j}{columns selection.}
+
+\item{col_keys}{names of the colkeys. Will be deprectated in favor of j in the next
+version.}
 
 \item{big.mark, digits}{see \code{\link[base]{formatC}}}
 

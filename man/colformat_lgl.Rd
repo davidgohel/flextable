@@ -7,8 +7,9 @@
 \usage{
 colformat_lgl(x, ...)
 
-\method{colformat_lgl}{flextable}(x, col_keys, true = "true",
-  false = "false", na_str = "", prefix = "", suffix = "", ...)
+\method{colformat_lgl}{flextable}(x, j = NULL, col_keys = NULL,
+  true = "true", false = "false", na_str = "", prefix = "",
+  suffix = "", ...)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -16,7 +17,10 @@ colformat_lgl(x, ...)
 \item{...}{additional arguments, i can be used to specify a
 row selector.}
 
-\item{col_keys}{names of the colkeys}
+\item{j}{columns selection.}
+
+\item{col_keys}{names of the colkeys. Will be deprectated in favor of j in the next
+version.}
 
 \item{false, true}{string to be used for logical}
 
