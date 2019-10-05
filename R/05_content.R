@@ -128,7 +128,7 @@ as_chunk <- function(x, props = NULL, formater = format_fun, ...) {
 #' autofit(ft)
 as_sub <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x)
+    x <- as_chunk(x, formater = format)
   }
   x$vertical.align = "subscript"
   x
@@ -155,7 +155,7 @@ as_sub <- function(x){
 #' autofit(ft)
 as_sup <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x)
+    x <- as_chunk(x, formater = format)
   }
   x$vertical.align = "superscript"
   x
@@ -183,7 +183,7 @@ as_sup <- function(x){
 #' autofit(ft)
 as_b <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x)
+    x <- as_chunk(x, formater = format)
   }
   x$bold = TRUE
   x
@@ -210,7 +210,7 @@ as_b <- function(x){
 #' autofit(ft)
 as_i <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x)
+    x <- as_chunk(x, formater = format)
   }
   x$italic = TRUE
   x
@@ -486,9 +486,9 @@ as_paragraph <- function( ..., list_values = NULL ){
     list_values <- list(...)
   }
 
-  if( any( is_chr <- sapply(list_values, is.character) ) ){
-    list_values[is_chr] <- lapply(list_values[is_chr], function(x){
-      as_chunk(x)
+  if( any( is_atomic <- sapply(list_values, is.atomic) ) ){
+    list_values[is_atomic] <- lapply(list_values[is_atomic], function(x){
+      as_chunk(x, formater = format)
     })
   }
 
