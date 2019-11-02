@@ -11,7 +11,13 @@ complex_tabpart <- function( data, col_keys = names(data),
 
   content <- chunkset_struct(nrow = nrow(data), keys = col_keys)
   if( nrow(data) > 0 ){
-    newcontent <- lapply(data[col_keys], function(x) as_paragraph(as_chunk(x, formater = format_fun)) )
+
+    newcontent <- lapply(data[col_keys], function(x)
+      as_paragraph(as_chunk(x, formater = function(x) {
+        if( is.character(x) || is.factor(x) ) format_fun(x)
+        else format(x, trim = TRUE)
+
+      } ) ) )
     content$content[,col_keys] <- Reduce(append, newcontent)
   }
 
