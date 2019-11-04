@@ -17,18 +17,41 @@ format_pct <- function(x){
 #' @param include.column_total \code{boolean} whether to include the row of column totals; defaults to \code{TRUE}
 #' @param include.row_total \code{boolean} whether to include the column of row totals; defaults to \code{TRUE}
 #' @param include.header_row \code{boolean} whether to include the header row; defaults to \code{TRUE}
+#' @param weight \code{character} column name for weight
+#'
+#'
+#' @importFrom stats as.formula na.omit
 #'
 #' @examples
 #'
 #' proc_freq(mtcars, "vs", "gear")
 #' proc_freq(mtcars, "gear", "vs")
+#' proc_freq(mtcars, "gear", "vs", weight = "wt")
 #' proc_freq(mtcars, "gear", "vs", "My title")
 #' @export
 #' @author Titouan Robert
-proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, include.column_percent = TRUE, include.table_percent = TRUE, include.column_total = TRUE, include.row_total = TRUE, include.header_row = TRUE){
+proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, include.column_percent = TRUE,
+                      include.table_percent = TRUE, include.column_total = TRUE, include.row_total = TRUE, include.header_row = TRUE,
+                      weight = NULL){
 
   ##Compute table
-  tabl <- as.data.frame.matrix(table(x[[row]], x[[col]]))
+  # tabl <- as.data.frame.matrix(table(x[[row]], x[[col]]))
+
+  x <- data.table::data.table(x)
+  if(is.null(weight)){
+    tabl <- x[,list(value =  .N), by = c(row, col)]
+  }else{
+    tabl <- x[,list(value = unlist(lapply(.SD, function(X)sum(X, na.rm = TRUE)))), by = c(row, col), .SDcols = weight]
+  }
+
+  tabl  <- na.omit(tabl)
+  ff <- as.formula(paste0(row, "~", col))
+  tabl <- data.table::dcast(tabl, ff, value.var = "value")
+  table_out <- as.data.frame(tabl[,.SD, .SDcols = 2:ncol(tabl)])
+  rownames(table_out) <- unlist(tabl[, .SD, .SDcols = 1])
+  colnames(table_out) <- names(tabl)[2:ncol(tabl)]
+  tabl <- table_out
+
   ##Compute sum
   tablL <- tabl/rowSums(tabl)
   tablR <- t(t(tabl)/colSums(tabl))
@@ -82,7 +105,7 @@ proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, includ
       endR[[names(tab_end)[i]]] <- total_row
     }
     if (include.row_total) {
-      total_cell <- c(sum(tab_end[["Total"]][which(tab_end$label=="Frequency")])) 
+      total_cell <- c(sum(tab_end[["Total"]][which(tab_end$label=="Frequency")]))
       if (include.table_percent) {
         total_cell <- c(total_cell, NA, recursive = TRUE)
       }
