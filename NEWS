@@ -1,5 +1,10 @@
 # flextable 0.5.6
 
+## new features
+
+* new function `lollipop` that lets users add mini lollipop chart to flextable
+  (kindly provided by github.com/pteridin)
+
 ## Issues
 
 * let footnotes symbols be affected by style functions (related to #137)

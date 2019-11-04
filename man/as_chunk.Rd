@@ -41,6 +41,7 @@ Other chunk elements for paragraph: \code{\link{as_bracket}},
   \code{\link{as_b}}, \code{\link{as_image}},
   \code{\link{as_i}}, \code{\link{as_sub}},
   \code{\link{as_sup}}, \code{\link{hyperlink_text}},
-  \code{\link{linerange}}, \code{\link{minibar}}
+  \code{\link{linerange}}, \code{\link{lollipop}},
+  \code{\link{minibar}}
 }
 \concept{chunk elements for paragraph}
