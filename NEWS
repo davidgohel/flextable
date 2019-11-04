@@ -4,6 +4,7 @@
 
 * new function `lollipop` that lets users add mini lollipop chart to flextable
   (kindly provided by github.com/pteridin)
+* function `proc_freq` got a new argument `weight` to enable weighting of results.
 
 ## Issues
 
