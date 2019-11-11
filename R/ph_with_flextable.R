@@ -67,31 +67,10 @@ pml_flextable <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 
 #' @param type placeholder type
 #' @param index placeholder index (integer). This is to be used when a placeholder type
 #' is not unique in the current slide, e.g. two placeholders with type 'body'.
-#' @examples
-#' library(officer)
-#' ft <- flextable(head(mtcars))
-#' \donttest{
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content",
-#'                  master = "Office Theme")
-#' doc <- ph_with_flextable(doc, value = ft, type = "body")
-#' doc <- ph_with_flextable_at(doc, value = ft, left = 4, top = 5)
-#' fileout <- tempfile(fileext = ".pptx")
-#' # fileout <- "test.pptx" # uncomment to write in your working directory
-#' print(doc, target = fileout)
-#' }
-#' @importFrom officer ph_from_xml
+#' @importFrom officer ph_location_type
 ph_with_flextable <- function( x, value, type = "body", index = 1 ){
   stopifnot(inherits(x, "rpptx"))
-  graphic_frame <- pml_flextable(value)
-
-  hlinks <- attr(graphic_frame, "hlinks")
-  if( length(hlinks) > 0 ){
-    slide <- x$slide$get_slide(x$cursor)
-    rel <- slide$relationship()
-    graphic_frame <- process_url(rel, url = hlinks, str = graphic_frame, pattern = "a:hlinkClick")
-  }
-  ph_from_xml(x = x, value = graphic_frame, type = type, index = index )
+  ph_with(x, value, location = ph_location_type(type = type, id = index))
 }
 
 #' @importFrom officer ph_with
@@ -129,21 +108,9 @@ ph_with.flextable <- function( x, value, ... ){
 #' @export
 #' @param left,top location of flextable on the slide in inches
 #' @rdname ph_with_flextable
-#' @importFrom officer ph_from_xml_at
+#' @importFrom officer ph_location
 ph_with_flextable_at <- function( x, value, left, top ){
   stopifnot(inherits(x, "rpptx"))
-  graphic_frame <- pml_flextable(value)
-
-  hlinks <- attr(graphic_frame, "hlinks")
-  if( length(hlinks) > 0 ){
-    for( hl in hlinks ){
-      slide <- x$slide$get_slide(x$cursor)
-      rel <- slide$relationship()
-      graphic_frame <- process_url(rel, url=hl, str = graphic_frame, pattern = "a:hlinkClick")
-    }
-  }
-
-  ph_from_xml_at(x = x, value = graphic_frame, left = left, top = top,
-                 width = 0, height = 0 )
+  ph_with(x, value, location = ph_location(left = left, top = top, width = 3, height = 3))
 }
 

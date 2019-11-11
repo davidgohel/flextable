@@ -33,17 +33,3 @@ functions \code{\link{width}}, \code{\link{height}}, \code{\link{autofit}}
 and \code{\link{dim_pretty}} instead. The overall size is resulting from
 cells, paragraphs and text properties (i.e. padding, font size, border widths).
 }
-\examples{
-library(officer)
-ft <- flextable(head(mtcars))
-\donttest{
-doc <- read_pptx()
-doc <- add_slide(doc, layout = "Title and Content",
-                 master = "Office Theme")
-doc <- ph_with_flextable(doc, value = ft, type = "body")
-doc <- ph_with_flextable_at(doc, value = ft, left = 4, top = 5)
-fileout <- tempfile(fileext = ".pptx")
-# fileout <- "test.pptx" # uncomment to write in your working directory
-print(doc, target = fileout)
-}
-}
