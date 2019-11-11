@@ -9,6 +9,9 @@
 ## Issues
 
 * let footnotes symbols be affected by style functions (related to #137)
+* enable usage of 'webshot2' instead of 'webshot'. It enable better screenshots. It
+  can be specified with argument `webshot` in function `save_as_image` or with
+  chunk option `webshot="webshot2"`.
 
 # flextable 0.5.5
 

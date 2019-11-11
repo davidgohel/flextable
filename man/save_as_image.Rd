@@ -4,7 +4,7 @@
 \alias{save_as_image}
 \title{save a flextable as an image}
 \usage{
-save_as_image(x, path, zoom = 3, expand = 10)
+save_as_image(x, path, zoom = 3, expand = 10, webshot = "webshot")
 }
 \arguments{
 \item{x}{a flextable object}
@@ -12,9 +12,16 @@ save_as_image(x, path, zoom = 3, expand = 10)
 \item{path}{image file to be created. It should end with .png, .pdf, or .jpeg.}
 
 \item{zoom, expand}{parameters used by \code{webshot} function.}
+
+\item{webshot}{webshot package as a scalar character, one of "webshot" or
+"webshot2".}
 }
 \description{
 save a flextable as a png, pdf or jpeg image.
+
+Image generated with package 'webshot' or package 'webshot2'.
+Package 'webshot2' should be prefered as 'webshot' can have
+issues with some properties (i.e. bold are not rendered for some users).
 }
 \note{
 This function requires package webshot.

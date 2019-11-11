@@ -52,6 +52,19 @@ of the placeholder that will contain the table. They
 default to \code{{r ft.left=1, ft.left=2}}.
 }
 
+\section{PDF chunk options}{
+
+
+Using flextable with template `pdf_document` is OK if the
+flextable fits on one single page. The PDF output is not
+a real latex output but a PNG image generated with package
+'webshot' or package 'webshot2'. Package 'webshot2' should
+be prefered as 'webshot' can have issues with some properties
+(i.e. bold are not rendered for some users).
+
+To specify usage of 'webshot2', use chunk option `webshot="webshot2"`.
+}
+
 \seealso{
 Other flextable print function: \code{\link{as_raster}},
   \code{\link{docx_value}}, \code{\link{format.flextable}},
