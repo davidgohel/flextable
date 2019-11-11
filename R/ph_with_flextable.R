@@ -80,8 +80,9 @@ ph_with_flextable <- function( x, value, type = "body", index = 1 ){
 #' by \code{\link[officer]{read_pptx}}.
 #' @param x a pptx device
 #' @param value flextable object
-#' @param ... Arguments to be passed to methods, argument
-#' \code{location} is mandatory.
+#' @param location a location for a placeholder. See \code{\link[officer]{ph_location_type}}
+#' for example.
+#' @param ... unused arguments.
 #' @examples
 #' library(officer)
 #'
@@ -93,7 +94,7 @@ ph_with_flextable <- function( x, value, type = "body", index = 1 ){
 #'
 #' fileout <- tempfile(fileext = ".pptx")
 #' print(doc, target = fileout)
-ph_with.flextable <- function( x, value, ... ){
+ph_with.flextable <- function( x, value, location, ... ){
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_flextable(value)
   hlinks <- attr(graphic_frame, "hlinks")
@@ -102,7 +103,7 @@ ph_with.flextable <- function( x, value, ... ){
     rel <- slide$relationship()
     graphic_frame <- process_url(rel, url = hlinks, str = graphic_frame, pattern = "a:hlinkClick")
   }
-  ph_with(x = x, value = as_xml_document(graphic_frame), ... )
+  ph_with(x = x, value = as_xml_document(graphic_frame), location = location, ... )
 }
 
 #' @export

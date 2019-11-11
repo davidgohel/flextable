@@ -4,15 +4,17 @@
 \alias{ph_with.flextable}
 \title{add a flextable into a PowerPoint slide}
 \usage{
-\method{ph_with}{flextable}(x, value, ...)
+\method{ph_with}{flextable}(x, value, location, ...)
 }
 \arguments{
 \item{x}{a pptx device}
 
 \item{value}{flextable object}
 
-\item{...}{Arguments to be passed to methods, argument
-\code{location} is mandatory.}
+\item{location}{a location for a placeholder. See \code{\link[officer]{ph_location_type}}
+for example.}
+
+\item{...}{unused arguments.}
 }
 \description{
 Add a flextable in a PowerPoint document object produced
