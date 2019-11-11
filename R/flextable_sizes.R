@@ -17,8 +17,6 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20 ){
     fdim <- flextable_dim(x)
 
     if( fdim$widths > max_width){
-      # message("minimimising")
-      # browser()
       if( nrow_part(x, part = "body") > 0 )
         x$body$styles$text$font.size$data[] <- x$body$styles$text$font.size$data - inc
       if( nrow_part(x, part = "footer") > 0 )
