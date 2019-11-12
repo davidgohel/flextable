@@ -54,9 +54,9 @@ pml_flextable <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 
 #' @export
 #' @title add flextable into a PowerPoint slide
 #' @description add a flextable as a new shape in the current slide.
-#' These functions will be deprecated
-#' in the next release and function \code{\link{ph_with.flextable}} should
-#' be used instead.
+#'
+#' These functions will be deprecated in the next release and
+#' function \code{\link{ph_with.flextable}} should be used instead.
 #' @note
 #' The width and height of the table can not be set with this function. Use
 #' functions \code{\link{width}}, \code{\link{height}}, \code{\link{autofit}}
@@ -83,6 +83,11 @@ ph_with_flextable <- function( x, value, type = "body", index = 1 ){
 #' @param location a location for a placeholder. See \code{\link[officer]{ph_location_type}}
 #' for example.
 #' @param ... unused arguments.
+#' @note
+#' The width and height of the table can not be set with \code{location}. Use
+#' functions \code{\link{width}}, \code{\link{height}}, \code{\link{autofit}}
+#' and \code{\link{dim_pretty}} instead. The overall size is resulting from
+#' cells, paragraphs and text properties (i.e. padding, font size, border widths).
 #' @examples
 #' library(officer)
 #'

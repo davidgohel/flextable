@@ -20,6 +20,12 @@ for example.}
 Add a flextable in a PowerPoint document object produced
 by \code{\link[officer]{read_pptx}}.
 }
+\note{
+The width and height of the table can not be set with \code{location}. Use
+functions \code{\link{width}}, \code{\link{height}}, \code{\link{autofit}}
+and \code{\link{dim_pretty}} instead. The overall size is resulting from
+cells, paragraphs and text properties (i.e. padding, font size, border widths).
+}
 \examples{
 library(officer)
 
