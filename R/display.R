@@ -1,4 +1,3 @@
-#' @import officer
 #' @title Define flextable displayed values
 #' @description Modify flextable displayed values by specifying a
 #' string expression. Function is handling complex formatting as well as

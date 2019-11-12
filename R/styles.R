@@ -551,6 +551,7 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
 #' ft <- width(ft, j = c(2, 5), width = .1 )
 #' ft
 #' @export
+#' @importFrom officer shortcuts
 empty_blanks <- function(x){
   if( !inherits(x, "flextable") ) stop("empty_blanks supports only flextable objects.")
   if( length(x$blanks) < 1 ) return(x)
