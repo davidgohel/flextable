@@ -7,7 +7,8 @@
 \usage{
 as_flextable(x, ...)
 
-\method{as_flextable}{grouped_data}(x, col_keys = NULL, ...)
+\method{as_flextable}{grouped_data}(x, col_keys = NULL,
+  hide_grouplabel = FALSE, ...)
 }
 \arguments{
 \item{x}{object to be transformed as flextable}
@@ -16,6 +17,9 @@ as_flextable(x, ...)
 
 \item{col_keys}{columns names/keys to display. If some column names are not in
 the dataset, they will be added as blank columns by default.}
+
+\item{hide_grouplabel}{if TRUE, group label will not be rendered, only
+level/value will be rendered.}
 }
 \description{
 This is a convenient function

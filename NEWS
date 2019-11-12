@@ -5,6 +5,8 @@
 * new function `lollipop` that lets users add mini lollipop chart to flextable
   (kindly provided by github.com/pteridin)
 * function `proc_freq` got a new argument `weight` to enable weighting of results.
+* function `as_flextable.grouped_data()` has now an argument `hide_grouplabel` to
+let not print the group names.
 
 ## Issues
 
