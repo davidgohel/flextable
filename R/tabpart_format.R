@@ -101,7 +101,7 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE,
     rows <- paste0( "<w:tr><w:trPr>",
             ifelse(split, "", "<w:cantSplit/>"),
             "<w:trHeight w:val=",
-            shQuote( round(x$rowheights * 72*20, 0 ), type = "cmd"), "/>",
+            shQuote( round(x$rowheights * 72*20, 0 ), type = "cmd"), " w:hRule=\"exact\"/>",
             ifelse( header, "<w:tblHeader/>", ""),
             "</w:trPr>", cells, "</w:tr>")
   } else if( type == "pml"){
