@@ -7,9 +7,16 @@
 \usage{
 set_formatter(x, ..., values = NULL, part = "body")
 
-set_formatter_type(x, fmt_double = "\%.03f", fmt_integer = "\%.0f",
-  fmt_date = "\%Y-\%m-\%d", fmt_datetime = "\%Y-\%m-\%d \%H:\%M:\%S",
-  true = "true", false = "false", na_str = "")
+set_formatter_type(
+  x,
+  fmt_double = "\%.03f",
+  fmt_integer = "\%.0f",
+  fmt_date = "\%Y-\%m-\%d",
+  fmt_datetime = "\%Y-\%m-\%d \%H:\%M:\%S",
+  true = "true",
+  false = "false",
+  na_str = ""
+)
 }
 \arguments{
 \item{x}{a flextable object}

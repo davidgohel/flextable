@@ -25,11 +25,16 @@ ft <- flextable(mtcars)
 ft <- bg(ft, bg = "#DDDDDD", part = "header")
 }
 \seealso{
-Other sugar functions for table style: \code{\link{align}},
-  \code{\link{bold}}, \code{\link{color}},
-  \code{\link{empty_blanks}}, \code{\link{fontsize}},
-  \code{\link{font}}, \code{\link{italic}},
-  \code{\link{padding}}, \code{\link{rotate}},
-  \code{\link{valign}}
+Other sugar functions for table style: 
+\code{\link{align}()},
+\code{\link{bold}()},
+\code{\link{color}()},
+\code{\link{empty_blanks}()},
+\code{\link{fontsize}()},
+\code{\link{font}()},
+\code{\link{italic}()},
+\code{\link{padding}()},
+\code{\link{rotate}()},
+\code{\link{valign}()}
 }
 \concept{sugar functions for table style}

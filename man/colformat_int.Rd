@@ -7,8 +7,16 @@
 \usage{
 colformat_int(x, ...)
 
-\method{colformat_int}{flextable}(x, j = NULL, col_keys = NULL,
-  big.mark = ",", na_str = "", prefix = "", suffix = "", ...)
+\method{colformat_int}{flextable}(
+  x,
+  j = NULL,
+  col_keys = NULL,
+  big.mark = ",",
+  na_str = "",
+  prefix = "",
+  suffix = "",
+  ...
+)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -41,8 +49,10 @@ ft <- colformat_int(x = ft, col_keys = colkeys, prefix = "# ")
 autofit(ft)
 }
 \seealso{
-Other cells formatters: \code{\link{colformat_char}},
-  \code{\link{colformat_lgl}}, \code{\link{colformat_num}},
-  \code{\link{compose}}
+Other cells formatters: 
+\code{\link{colformat_char}()},
+\code{\link{colformat_lgl}()},
+\code{\link{colformat_num}()},
+\code{\link{compose}()}
 }
 \concept{cells formatters}

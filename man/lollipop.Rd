@@ -4,10 +4,21 @@
 \alias{lollipop}
 \title{mini lollipop chart chunk wrapper}
 \usage{
-lollipop(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
-  bg = "transparent", width = 1, height = 0.2, raster_width = 30,
-  positivecol = "#00CC00", negativecol = "#CC0000",
-  neutralcol = "#CCCCCC", neutralrange = c(0, 0), rectanglesize = 2)
+lollipop(
+  value,
+  min = NULL,
+  max = NULL,
+  rangecol = "#CCCCCC",
+  bg = "transparent",
+  width = 1,
+  height = 0.2,
+  raster_width = 30,
+  positivecol = "#00CC00",
+  negativecol = "#CC0000",
+  neutralcol = "#CCCCCC",
+  neutralrange = c(0, 0),
+  rectanglesize = 2
+)
 }
 \arguments{
 \item{value}{values containing the bar size}
@@ -58,11 +69,16 @@ autofit(myft)
 \seealso{
 \code{\link{compose}}, \code{\link{as_paragraph}}
 
-Other chunk elements for paragraph: \code{\link{as_bracket}},
-  \code{\link{as_b}}, \code{\link{as_chunk}},
-  \code{\link{as_image}}, \code{\link{as_i}},
-  \code{\link{as_sub}}, \code{\link{as_sup}},
-  \code{\link{hyperlink_text}}, \code{\link{linerange}},
-  \code{\link{minibar}}
+Other chunk elements for paragraph: 
+\code{\link{as_bracket}()},
+\code{\link{as_b}()},
+\code{\link{as_chunk}()},
+\code{\link{as_image}()},
+\code{\link{as_i}()},
+\code{\link{as_sub}()},
+\code{\link{as_sup}()},
+\code{\link{hyperlink_text}()},
+\code{\link{linerange}()},
+\code{\link{minibar}()}
 }
 \concept{chunk elements for paragraph}

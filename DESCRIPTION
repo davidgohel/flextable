@@ -24,7 +24,7 @@ Imports:
     xml2, data.table,
     gdtools (>= 0.1.6), rlang, 
     base64enc
-RoxygenNote: 7.0.0
+RoxygenNote: 7.0.2
 Suggests: testthat, xtable, magrittr, webshot, magick, ggplot2
 Encoding: UTF-8
 URL: https://davidgohel.github.io/flextable

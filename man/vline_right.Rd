@@ -32,11 +32,17 @@ ft <- vline_right(ft, border = std_border )
 ft
 }
 \seealso{
-Other borders management: \code{\link{border_inner_h}},
-  \code{\link{border_inner_v}}, \code{\link{border_inner}},
-  \code{\link{border_outer}}, \code{\link{border_remove}},
-  \code{\link{border}}, \code{\link{hline_bottom}},
-  \code{\link{hline_top}}, \code{\link{hline}},
-  \code{\link{vline_left}}, \code{\link{vline}}
+Other borders management: 
+\code{\link{border_inner_h}()},
+\code{\link{border_inner_v}()},
+\code{\link{border_inner}()},
+\code{\link{border_outer}()},
+\code{\link{border_remove}()},
+\code{\link{border}()},
+\code{\link{hline_bottom}()},
+\code{\link{hline_top}()},
+\code{\link{hline}()},
+\code{\link{vline_left}()},
+\code{\link{vline}()}
 }
 \concept{borders management}

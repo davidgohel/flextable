@@ -4,8 +4,13 @@
 \alias{theme_zebra}
 \title{Apply zebra theme}
 \usage{
-theme_zebra(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
-  even_header = "transparent", even_body = "transparent")
+theme_zebra(
+  x,
+  odd_header = "#CFCFCF",
+  odd_body = "#EFEFEF",
+  even_header = "transparent",
+  even_body = "transparent"
+)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -20,10 +25,13 @@ ft <- flextable(iris)
 ft <- theme_zebra(ft)
 }
 \seealso{
-Other flextable theme: \code{\link{theme_alafoli}},
-  \code{\link{theme_booktabs}}, \code{\link{theme_box}},
-  \code{\link{theme_tron_legacy}},
-  \code{\link{theme_tron}}, \code{\link{theme_vader}},
-  \code{\link{theme_vanilla}}
+Other flextable theme: 
+\code{\link{theme_alafoli}()},
+\code{\link{theme_booktabs}()},
+\code{\link{theme_box}()},
+\code{\link{theme_tron_legacy}()},
+\code{\link{theme_tron}()},
+\code{\link{theme_vader}()},
+\code{\link{theme_vanilla}()}
 }
 \concept{flextable theme}

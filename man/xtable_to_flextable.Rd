@@ -4,13 +4,16 @@
 \alias{xtable_to_flextable}
 \title{get a flextable from a xtable object}
 \usage{
-xtable_to_flextable(x, text.properties = officer::fp_text(),
+xtable_to_flextable(
+  x,
+  text.properties = officer::fp_text(),
   format.args = getOption("xtable.format.args", NULL),
   rowname_col = "rowname",
   hline.after = getOption("xtable.hline.after", c(-1, 0, nrow(x))),
   NA.string = getOption("xtable.NA.string", ""),
   include.rownames = TRUE,
-  rotate.colnames = getOption("xtable.rotate.colnames", FALSE))
+  rotate.colnames = getOption("xtable.rotate.colnames", FALSE)
+)
 }
 \arguments{
 \item{x}{\code{xtable} object}

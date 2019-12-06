@@ -61,8 +61,9 @@ ft <- theme_box(ft)
 ft
 }
 \seealso{
-Other headers and footers: \code{\link{add_header_lines}},
-  \code{\link{add_header_row}},
-  \code{\link{set_header_footer_df}}
+Other headers and footers: 
+\code{\link{add_header_lines}()},
+\code{\link{add_header_row}()},
+\code{\link{set_header_footer_df}}
 }
 \concept{headers and footers}

@@ -4,9 +4,17 @@
 \alias{linerange}
 \title{mini linerange chunk wrapper}
 \usage{
-linerange(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
-  stickcol = "#FF0000", bg = "transparent", width = 1,
-  height = 0.2, raster_width = 30)
+linerange(
+  value,
+  min = NULL,
+  max = NULL,
+  rangecol = "#CCCCCC",
+  stickcol = "#FF0000",
+  bg = "transparent",
+  width = 1,
+  height = 0.2,
+  raster_width = 30
+)
 }
 \arguments{
 \item{value}{values containing the bar size}
@@ -49,11 +57,16 @@ autofit(myft)
 \seealso{
 \code{\link{compose}}, \code{\link{as_paragraph}}
 
-Other chunk elements for paragraph: \code{\link{as_bracket}},
-  \code{\link{as_b}}, \code{\link{as_chunk}},
-  \code{\link{as_image}}, \code{\link{as_i}},
-  \code{\link{as_sub}}, \code{\link{as_sup}},
-  \code{\link{hyperlink_text}}, \code{\link{lollipop}},
-  \code{\link{minibar}}
+Other chunk elements for paragraph: 
+\code{\link{as_bracket}()},
+\code{\link{as_b}()},
+\code{\link{as_chunk}()},
+\code{\link{as_image}()},
+\code{\link{as_i}()},
+\code{\link{as_sub}()},
+\code{\link{as_sup}()},
+\code{\link{hyperlink_text}()},
+\code{\link{lollipop}()},
+\code{\link{minibar}()}
 }
 \concept{chunk elements for paragraph}

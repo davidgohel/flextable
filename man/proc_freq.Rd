@@ -4,10 +4,19 @@
 \alias{proc_freq}
 \title{frequency table as flextable}
 \usage{
-proc_freq(x, row, col, main = "", include.row_percent = TRUE,
-  include.column_percent = TRUE, include.table_percent = TRUE,
-  include.column_total = TRUE, include.row_total = TRUE,
-  include.header_row = TRUE, weight = NULL)
+proc_freq(
+  x,
+  row,
+  col,
+  main = "",
+  include.row_percent = TRUE,
+  include.column_percent = TRUE,
+  include.table_percent = TRUE,
+  include.column_total = TRUE,
+  include.row_total = TRUE,
+  include.header_row = TRUE,
+  weight = NULL
+)
 }
 \arguments{
 \item{x}{\code{data.frame} object}

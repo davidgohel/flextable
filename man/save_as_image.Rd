@@ -37,11 +37,14 @@ if( require("webshot") ){
 }
 }
 \seealso{
-Other flextable print function: \code{\link{as_raster}},
-  \code{\link{docx_value}}, \code{\link{format.flextable}},
-  \code{\link{htmltools_value}},
-  \code{\link{knit_print.flextable}},
-  \code{\link{plot.flextable}},
-  \code{\link{print.flextable}}, \code{\link{save_as_html}}
+Other flextable print function: 
+\code{\link{as_raster}()},
+\code{\link{docx_value}()},
+\code{\link{format.flextable}()},
+\code{\link{htmltools_value}()},
+\code{\link{knit_print.flextable}()},
+\code{\link{plot.flextable}()},
+\code{\link{print.flextable}()},
+\code{\link{save_as_html}()}
 }
 \concept{flextable print function}

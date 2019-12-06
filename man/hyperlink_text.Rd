@@ -40,11 +40,16 @@ ft
 \seealso{
 \code{\link{display}}
 
-Other chunk elements for paragraph: \code{\link{as_bracket}},
-  \code{\link{as_b}}, \code{\link{as_chunk}},
-  \code{\link{as_image}}, \code{\link{as_i}},
-  \code{\link{as_sub}}, \code{\link{as_sup}},
-  \code{\link{linerange}}, \code{\link{lollipop}},
-  \code{\link{minibar}}
+Other chunk elements for paragraph: 
+\code{\link{as_bracket}()},
+\code{\link{as_b}()},
+\code{\link{as_chunk}()},
+\code{\link{as_image}()},
+\code{\link{as_i}()},
+\code{\link{as_sub}()},
+\code{\link{as_sup}()},
+\code{\link{linerange}()},
+\code{\link{lollipop}()},
+\code{\link{minibar}()}
 }
 \concept{chunk elements for paragraph}

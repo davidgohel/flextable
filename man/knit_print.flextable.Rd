@@ -66,12 +66,15 @@ To specify usage of 'webshot2', use chunk option `webshot="webshot2"`.
 }
 
 \seealso{
-Other flextable print function: \code{\link{as_raster}},
-  \code{\link{docx_value}}, \code{\link{format.flextable}},
-  \code{\link{htmltools_value}},
-  \code{\link{plot.flextable}},
-  \code{\link{print.flextable}},
-  \code{\link{save_as_html}}, \code{\link{save_as_image}}
+Other flextable print function: 
+\code{\link{as_raster}()},
+\code{\link{docx_value}()},
+\code{\link{format.flextable}()},
+\code{\link{htmltools_value}()},
+\code{\link{plot.flextable}()},
+\code{\link{print.flextable}()},
+\code{\link{save_as_html}()},
+\code{\link{save_as_image}()}
 }
 \author{
 Maxim Nazarov

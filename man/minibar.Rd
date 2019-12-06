@@ -4,8 +4,14 @@
 \alias{minibar}
 \title{mini barplots chunk wrapper}
 \usage{
-minibar(value, max = NULL, barcol = "#CCCCCC", bg = "transparent",
-  width = 1, height = 0.2)
+minibar(
+  value,
+  max = NULL,
+  barcol = "#CCCCCC",
+  bg = "transparent",
+  width = 1,
+  height = 0.2
+)
 }
 \arguments{
 \item{value}{values containing the bar size}
@@ -41,11 +47,16 @@ autofit(myft)
 \seealso{
 \code{\link{compose}}, \code{\link{as_paragraph}}
 
-Other chunk elements for paragraph: \code{\link{as_bracket}},
-  \code{\link{as_b}}, \code{\link{as_chunk}},
-  \code{\link{as_image}}, \code{\link{as_i}},
-  \code{\link{as_sub}}, \code{\link{as_sup}},
-  \code{\link{hyperlink_text}}, \code{\link{linerange}},
-  \code{\link{lollipop}}
+Other chunk elements for paragraph: 
+\code{\link{as_bracket}()},
+\code{\link{as_b}()},
+\code{\link{as_chunk}()},
+\code{\link{as_image}()},
+\code{\link{as_i}()},
+\code{\link{as_sub}()},
+\code{\link{as_sup}()},
+\code{\link{hyperlink_text}()},
+\code{\link{linerange}()},
+\code{\link{lollipop}()}
 }
 \concept{chunk elements for paragraph}

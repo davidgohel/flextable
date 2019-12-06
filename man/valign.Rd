@@ -29,11 +29,16 @@ ft <- valign(ft, j = 5, valign = "top", part = "all")
 ft
 }
 \seealso{
-Other sugar functions for table style: \code{\link{align}},
-  \code{\link{bg}}, \code{\link{bold}},
-  \code{\link{color}}, \code{\link{empty_blanks}},
-  \code{\link{fontsize}}, \code{\link{font}},
-  \code{\link{italic}}, \code{\link{padding}},
-  \code{\link{rotate}}
+Other sugar functions for table style: 
+\code{\link{align}()},
+\code{\link{bg}()},
+\code{\link{bold}()},
+\code{\link{color}()},
+\code{\link{empty_blanks}()},
+\code{\link{fontsize}()},
+\code{\link{font}()},
+\code{\link{italic}()},
+\code{\link{padding}()},
+\code{\link{rotate}()}
 }
 \concept{sugar functions for table style}

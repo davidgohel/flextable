@@ -7,8 +7,7 @@
 \usage{
 as_flextable(x, ...)
 
-\method{as_flextable}{grouped_data}(x, col_keys = NULL,
-  hide_grouplabel = FALSE, ...)
+\method{as_flextable}{grouped_data}(x, col_keys = NULL, hide_grouplabel = FALSE, ...)
 }
 \arguments{
 \item{x}{object to be transformed as flextable}

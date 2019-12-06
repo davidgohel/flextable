@@ -4,8 +4,7 @@
 \alias{rotate}
 \title{rotate cell text}
 \usage{
-rotate(x, i = NULL, j = NULL, rotation, align = "center",
-  part = "body")
+rotate(x, i = NULL, j = NULL, rotation, align = "center", part = "body")
 }
 \arguments{
 \item{x}{a flextable object}
@@ -41,11 +40,16 @@ ft <- autofit(ft)
 ft <- height(ft, height = max(dim_pretty(ft, part = "header")$widths), part = "header")
 }
 \seealso{
-Other sugar functions for table style: \code{\link{align}},
-  \code{\link{bg}}, \code{\link{bold}},
-  \code{\link{color}}, \code{\link{empty_blanks}},
-  \code{\link{fontsize}}, \code{\link{font}},
-  \code{\link{italic}}, \code{\link{padding}},
-  \code{\link{valign}}
+Other sugar functions for table style: 
+\code{\link{align}()},
+\code{\link{bg}()},
+\code{\link{bold}()},
+\code{\link{color}()},
+\code{\link{empty_blanks}()},
+\code{\link{fontsize}()},
+\code{\link{font}()},
+\code{\link{italic}()},
+\code{\link{padding}()},
+\code{\link{valign}()}
 }
 \concept{sugar functions for table style}

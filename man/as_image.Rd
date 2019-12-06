@@ -41,11 +41,16 @@ autofit(myft)
 \seealso{
 \code{\link{compose}}, \code{\link{as_paragraph}}
 
-Other chunk elements for paragraph: \code{\link{as_bracket}},
-  \code{\link{as_b}}, \code{\link{as_chunk}},
-  \code{\link{as_i}}, \code{\link{as_sub}},
-  \code{\link{as_sup}}, \code{\link{hyperlink_text}},
-  \code{\link{linerange}}, \code{\link{lollipop}},
-  \code{\link{minibar}}
+Other chunk elements for paragraph: 
+\code{\link{as_bracket}()},
+\code{\link{as_b}()},
+\code{\link{as_chunk}()},
+\code{\link{as_i}()},
+\code{\link{as_sub}()},
+\code{\link{as_sup}()},
+\code{\link{hyperlink_text}()},
+\code{\link{linerange}()},
+\code{\link{lollipop}()},
+\code{\link{minibar}()}
 }
 \concept{chunk elements for paragraph}
