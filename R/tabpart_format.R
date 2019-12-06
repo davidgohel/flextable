@@ -1,12 +1,12 @@
 # utils -----
-css_px <- function(x){
+css_px <- function(x, format = "%.0fpx"){
   ifelse( is.na(x), "inherit",
-          ifelse( x < 0.001, "0", sprintf("%.0fpx", x)) )
+          ifelse( x < 0.001, "0", sprintf(format, x)) )
 }
 
 border_css <- function(color, width, style, side){
   style[!style %in% c("dotted", "dashed", "solid")] <- "solid"
-  sprintf("border-%s: %s %s %s;", side, css_px(width), style, colcodecss(color))
+  sprintf("border-%s: %s %s %s;", side, css_px(width, "%.2fpx"), style, colcodecss(color))
 }
 border_wml <- function(color, width, style, side){
   width[style %in% c("none")] <- 0
