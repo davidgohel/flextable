@@ -46,7 +46,7 @@ proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, includ
 
   tabl  <- na.omit(tabl)
   ff <- as.formula(paste0(row, "~", col))
-  tabl <- data.table::dcast(tabl, ff, value.var = "value")
+  tabl <- data.table::dcast(tabl, ff, value.var = "value", fill = 0)
   table_out <- as.data.frame(tabl[,.SD, .SDcols = 2:ncol(tabl)])
   rownames(table_out) <- unlist(tabl[, .SD, .SDcols = 1])
   colnames(table_out) <- names(tabl)[2:ncol(tabl)]
@@ -61,22 +61,22 @@ proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, includ
   ##Make table
   tab_end <- sapply(seq_len(nr), function(X){
     labels <- c("Frequency")
-    dat <- tabl[X,]
+    dat <- tabl[X,, drop = FALSE]
     if (include.row_percent) {
-      dat <- rbind(dat, tablL[X,])
+      dat <- rbind(dat, tablL[X,, drop = FALSE])
       labels <- c(labels, "Row Pct", recursive = TRUE)
     }
     if (include.column_percent) {
-      dat <- rbind(dat, tablR[X,])
+      dat <- rbind(dat, tablR[X,, drop = FALSE])
       labels <- c(labels, "Col Pct", recursive = TRUE)
     }
     if (include.table_percent) {
-      dat <- rbind(dat, tablT[X,])
+      dat <- rbind(dat, tablT[X,, drop = FALSE])
       labels <- c(labels, "Percent", recursive = TRUE)
     }
     names(dat) <- colnames(tabl)
 
-    dd <- data.table::data.table(V1 =  rownames(tabl[X,]),label = labels,dat)
+    dd <- data.table::data.table(V1 =  rownames(tabl[X,, drop = FALSE]),label = labels,dat)
     names(dd)[1] <- row
     dd
   }, simplify = FALSE)
@@ -85,7 +85,7 @@ proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, includ
 
   ##Add total
   if (include.row_total) {
-    tab_end$Total <- rowSums(tab_end[,3:ncol(tab_end)])
+    tab_end$Total <- rowSums(tab_end[,3:ncol(tab_end), drop = FALSE])
     tab_end[ which(tab_end$label == "Row Pct" | tab_end$label == "Col Pct" ),]$Total <- NA
   }
   if (include.column_total) {
