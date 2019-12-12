@@ -24,6 +24,10 @@ The function lets add hyperlinks within flextable
 objects with function \code{\link{compose}}.
 It should be used inside a call to \code{\link{as_paragraph}}.
 }
+\note{
+This chunk option requires package officedown in a R Markdown
+context with Word output format.
+}
 \examples{
 dat <- data.frame(
   col = "Google it",

@@ -254,7 +254,11 @@ as_bracket <- function(..., sep = ", ", p = "(", s = ")"){
 #' @param width,height size of the png file in inches
 #' @param ... unused argument
 #' @family chunk elements for paragraph
-#' @note PowerPoint cannot mix images and text in a paragraph, images
+#' @note
+#' This chunk option requires package officedown in a R Markdown
+#' context with Word output format.
+#'
+#' PowerPoint cannot mix images and text in a paragraph, images
 #' are removed when outputing to PowerPoint format.
 #' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
 #' @examples
@@ -293,6 +297,9 @@ as_image <- function(src, width = .5, height = .2, ...) {
 #' @description The function lets add hyperlinks within flextable
 #' objects with function \code{\link{compose}}.
 #' It should be used inside a call to \code{\link{as_paragraph}}.
+#' @note
+#' This chunk option requires package officedown in a R Markdown
+#' context with Word output format.
 #' @inheritParams as_chunk
 #' @param url url to be used
 #' @seealso \code{\link{display}}
@@ -327,7 +334,11 @@ hyperlink_text <- function(x, props = NULL, formater = format_fun, url, ...){
 #' @param barcol bar color
 #' @param bg background color
 #' @param width,height size of the resulting png file in inches
-#' @note PowerPoint cannot mix images and text in a paragraph, images
+#' @note
+#' This chunk option requires package officedown in a R Markdown
+#' context with Word output format.
+#'
+#' PowerPoint cannot mix images and text in a paragraph, images
 #' are removed when outputing to PowerPoint format.
 #' @family chunk elements for paragraph
 #' @examples
@@ -390,7 +401,11 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' @param width,height size of the resulting png file in inches
 #' @param raster_width number of pixels used as width
 #' when interpolating value.
-#' @note PowerPoint cannot mix images and text in a paragraph, images
+#' @note
+#' This chunk option requires package officedown in a R Markdown
+#' context with Word output format.
+#'
+#' PowerPoint cannot mix images and text in a paragraph, images
 #' are removed when outputing to PowerPoint format.
 #' @family chunk elements for paragraph
 #' @examples
@@ -475,7 +490,11 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @param neutralrange minimal and maximal range of neutral values (default: 0)
 #' @param rectanglesize size of the rectangle (default: 2, max: 5)
 #' when interpolating value.
-#' @note PowerPoint cannot mix images and text in a paragraph, images
+#' @note
+#' This chunk option requires package officedown in a R Markdown
+#' context with Word output format.
+#'
+#' PowerPoint cannot mix images and text in a paragraph, images
 #' are removed when outputing to PowerPoint format.
 #' @family chunk elements for paragraph
 #' @examples
