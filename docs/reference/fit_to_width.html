@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>frequency table as flextable — proc_freq • flextable</title>
+<title>fit a flextable to a maximum width — fit_to_width • flextable</title>
 
 
 <!-- jquery -->
@@ -35,9 +35,9 @@
 
 
 
-<meta property="og:title" content="frequency table as flextable — proc_freq" />
-<meta property="og:description" content="This function compute a two way contingency table
-and make a flextable with the result." />
+<meta property="og:title" content="fit a flextable to a maximum width — fit_to_width" />
+<meta property="og:description" content="decrease font size for each cell incrementally until
+it fits a given max_width." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,133 +121,72 @@ and make a flextable with the result." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>frequency table as flextable</h1>
+    <h1>fit a flextable to a maximum width</h1>
     
-    <div class="hidden name"><code>proc_freq.Rd</code></div>
+    <div class="hidden name"><code>fit_to_width.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function compute a two way contingency table
-and make a flextable with the result.</p>
+    <p>decrease font size for each cell incrementally until
+it fits a given max_width.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>proc_freq</span>(
-  <span class='no'>x</span>,
-  <span class='no'>row</span>,
-  <span class='no'>col</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>include.row_percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>include.column_percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>include.table_percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>include.column_total</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>include.row_total</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>include.header_row</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>weight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>fit_to_width</span>(<span class='no'>x</span>, <span class='no'>max_width</span>, <span class='kw'>inc</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>max_iter</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>data.frame</code> object</p></td>
+      <td><p>flextable object</p></td>
     </tr>
     <tr>
-      <th>row</th>
-      <td><p><code>characer</code> column names for row</p></td>
+      <th>max_width</th>
+      <td><p>maximum width to fit in inches</p></td>
     </tr>
     <tr>
-      <th>col</th>
-      <td><p><code>characer</code> column names for column</p></td>
+      <th>inc</th>
+      <td><p>the font size decrease for each step</p></td>
     </tr>
     <tr>
-      <th>main</th>
-      <td><p><code>characer</code> title</p></td>
-    </tr>
-    <tr>
-      <th>include.row_percent</th>
-      <td><p><code>boolean</code> whether to include the row percents; defaults to <code>TRUE</code></p></td>
-    </tr>
-    <tr>
-      <th>include.column_percent</th>
-      <td><p><code>boolean</code> whether to include the column percents; defaults to <code>TRUE</code></p></td>
-    </tr>
-    <tr>
-      <th>include.table_percent</th>
-      <td><p><code>boolean</code> whether to include the table percents; defaults to <code>TRUE</code></p></td>
-    </tr>
-    <tr>
-      <th>include.column_total</th>
-      <td><p><code>boolean</code> whether to include the row of column totals; defaults to <code>TRUE</code></p></td>
-    </tr>
-    <tr>
-      <th>include.row_total</th>
-      <td><p><code>boolean</code> whether to include the column of row totals; defaults to <code>TRUE</code></p></td>
-    </tr>
-    <tr>
-      <th>include.header_row</th>
-      <td><p><code>boolean</code> whether to include the header row; defaults to <code>TRUE</code></p></td>
-    </tr>
-    <tr>
-      <th>weight</th>
-      <td><p><code>character</code> column name for weight</p></td>
+      <th>max_iter</th>
+      <td><p>maximum iterations</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other flextable dimensions: 
+<code><a href='autofit.html'>autofit</a>()</code>,
+<code><a href='dim.flextable.html'>dim.flextable</a>()</code>,
+<code><a href='dim_pretty.html'>dim_pretty</a>()</code>,
+<code><a href='flextable_dim.html'>flextable_dim</a>()</code>,
+<code><a href='height.html'>height</a>()</code>,
+<code><a href='width.html'>width</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>proc_freq</span>(<span class='no'>mtcars</span>, <span class='st'>"vs"</span>, <span class='st'>"gear"</span>)</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `vs`, `label`, `3`, `4`, `5`, `Total` 
-#&gt; header has 2 row(s) 
-#&gt; body has 10 row(s) 
+    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>qflextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>mtcars</span>))
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='padding.html'>padding</a></span>(<span class='no'>ft</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)
+<span class='fu'>fit_to_width</span>(<span class='no'>ft</span>, <span class='kw'>max_width</span> <span class='kw'>=</span> <span class='fl'>6</span>)</div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
+#&gt; header has 1 row(s) 
+#&gt; body has 6 row(s) 
 #&gt; original dataset sample: 
-#&gt;   vs     label          3          4         5   Total
-#&gt; 1  0 Frequency 12.0000000  2.0000000 4.0000000 18.0000
-#&gt; 2  0   Row Pct  0.6666667  0.1111111 0.2222222      NA
-#&gt; 3  0   Col Pct  0.8000000  0.1666667 0.8000000      NA
-#&gt; 4  0   Percent  0.3750000  0.0625000 0.1250000  0.5625
-#&gt; 5  1 Frequency  3.0000000 10.0000000 1.0000000 14.0000</div><div class='input'><span class='fu'>proc_freq</span>(<span class='no'>mtcars</span>, <span class='st'>"gear"</span>, <span class='st'>"vs"</span>)</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `gear`, `label`, `0`, `1`, `Total` 
-#&gt; header has 2 row(s) 
-#&gt; body has 14 row(s) 
-#&gt; original dataset sample: 
-#&gt;   gear     label          0          1    Total
-#&gt; 1    3 Frequency 12.0000000  3.0000000 15.00000
-#&gt; 2    3   Row Pct  0.8000000  0.2000000       NA
-#&gt; 3    3   Col Pct  0.6666667  0.2142857       NA
-#&gt; 4    3   Percent  0.3750000  0.0937500  0.46875
-#&gt; 5    4 Frequency  2.0000000 10.0000000 12.00000</div><div class='input'><span class='fu'>proc_freq</span>(<span class='no'>mtcars</span>, <span class='st'>"gear"</span>, <span class='st'>"vs"</span>, <span class='kw'>weight</span> <span class='kw'>=</span> <span class='st'>"wt"</span>)</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `gear`, `label`, `0`, `1`, `Total` 
-#&gt; header has 2 row(s) 
-#&gt; body has 14 row(s) 
-#&gt; original dataset sample: 
-#&gt;   gear     label          0           1      Total
-#&gt; 1    3 Frequency 49.2490000  9.14000000 58.3890000
-#&gt; 2    3   Row Pct  0.8434637  0.15653633         NA
-#&gt; 3    3   Col Pct  0.7417688  0.25001368         NA
-#&gt; 4    3   Percent  0.4783686  0.08877924  0.5671478
-#&gt; 5    4 Frequency  5.4950000 25.90500000 31.4000000</div><div class='input'><span class='fu'>proc_freq</span>(<span class='no'>mtcars</span>, <span class='st'>"gear"</span>, <span class='st'>"vs"</span>, <span class='st'>"My title"</span>)</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `gear`, `label`, `0`, `1`, `Total` 
-#&gt; header has 3 row(s) 
-#&gt; body has 14 row(s) 
-#&gt; original dataset sample: 
-#&gt;   gear     label          0          1    Total
-#&gt; 1    3 Frequency 12.0000000  3.0000000 15.00000
-#&gt; 2    3   Row Pct  0.8000000  0.2000000       NA
-#&gt; 3    3   Col Pct  0.6666667  0.2142857       NA
-#&gt; 4    3   Percent  0.3750000  0.0937500  0.46875
-#&gt; 5    4 Frequency  2.0000000 10.0000000 12.00000</div></pre>
+#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
-    <h2>Author</h2>
-    <p>Titouan Robert</p>
   </div>
 </div>
 

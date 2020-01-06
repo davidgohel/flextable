@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Render as image • flextable</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><meta property="og:title" content="Render as image">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.7.5</span>
       </span>
     </div>
 
@@ -77,6 +78,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -91,12 +93,12 @@
     
     
 <p>Beeing able to render flextable as images is requiring package <code>webshot</code> to be available. Run the following command to install it. You may have to install <code>phantomjs</code> first.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"webshot"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"webshot"</span>)</a></code></pre></div>
 <div id="what-will-be-the-size" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-will-be-the-size" class="anchor"></a>What will be the size?</h2>
 <p>You can print a table as an image. In some case, you may want to know the exact width and height of the table to be sure to set up the correct aspect ratio. The function <code><a href="../../reference/flextable_dim.html">flextable_dim()</a></code> will provide these informations without the need to produce the image.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/flextable.html">flextable</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(iris))</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">ft &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/flextable.html">flextable</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(iris))</a>
 <a class="sourceLine" id="cb2-2" title="2">dims &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/flextable_dim.html">flextable_dim</a></span>(ft)</a>
 <a class="sourceLine" id="cb2-3" title="3">dims</a>
 <a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt; $widths</span></a>
@@ -113,15 +115,15 @@
 <h2 class="hasAnchor">
 <a href="#images" class="anchor"></a>Images</h2>
 <p>To get an image file from a <code>flextable</code> object, use function <code>save_as_image</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">img_file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempfile</a></span>(<span class="dt">fileext =</span> <span class="st">".png"</span>)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">img_file &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>(<span class="dt">fileext =</span> <span class="st">".png"</span>)</a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="../../reference/save_as_image.html">save_as_image</a></span>(ft, <span class="dt">path =</span> img_file)</a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmprroBN8/file17d587400cf86.png"</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpfrr0XH/file2dc91c4b14ec.png"</span></a></code></pre></div>
 </div>
 <div id="as-an-r-graphic" class="section level2">
 <h2 class="hasAnchor">
 <a href="#as-an-r-graphic" class="anchor"></a>As an R graphic</h2>
 <p>To get a plot from a <code>flextable</code> object, use function <code>plot</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(ft)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(ft)</a></code></pre></div>
 <p><img src="images_files/figure-html/unnamed-chunk-6-1.png" width="270"></p>
 <blockquote>
 <p>To add a flextable on a ggplot2 object, one can use <code><a href="../../reference/as_raster.html">flextable::as_raster</a></code> and <code>grid.raster</code> or <code>rasterGrob</code>. See <a href="./examples.html#send-your-flextable-to-ggplot">Examples</a> for an example.</p>
@@ -130,11 +132,11 @@
 <div id="with-ggplot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#with-ggplot" class="anchor"></a>With ggplot</h2>
-<p>You can also add the flextable (with <code><a href="https://www.rdocumentation.org/packages/grid/topics/grid.raster">grid::rasterGrob()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">ggplot2::annotation_custom()</a></code>) in a ggplot object. You need first to use <code><a href="../../reference/as_raster.html">as_raster()</a></code> function that will return a raster version of the flextable.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(grid)</a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(cowplot)</a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
+<p>You can also add the flextable (with <code><a href="https://rdrr.io/r/grid/grid.raster.html">grid::rasterGrob()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">ggplot2::annotation_custom()</a></code>) in a ggplot object. You need first to use <code><a href="../../reference/as_raster.html">as_raster()</a></code> function that will return a raster version of the flextable.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(grid)</a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(cowplot)</a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb5-5" title="5"></a>
 <a class="sourceLine" id="cb5-6" title="6">gg1 &lt;-<span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(iris, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(Sepal.Length, Petal.Length, <span class="dt">color =</span> Species) ) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>()</a>
 <a class="sourceLine" id="cb5-7" title="7"></a>
@@ -145,14 +147,15 @@
 <a class="sourceLine" id="cb5-12" title="12"></a>
 <a class="sourceLine" id="cb5-13" title="13">gg2 &lt;-<span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-14" title="14"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-15" title="15"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/grid/topics/grid.raster">rasterGrob</a></span>(ft_raster), <span class="dt">xmin=</span><span class="op">-</span><span class="ot">Inf</span>, <span class="dt">xmax=</span><span class="ot">Inf</span>, <span class="dt">ymin=</span><span class="op">-</span><span class="ot">Inf</span>, <span class="dt">ymax=</span><span class="ot">Inf</span>)</a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span>(<span class="kw"><a href="https://rdrr.io/r/grid/grid.raster.html">rasterGrob</a></span>(ft_raster), <span class="dt">xmin=</span><span class="op">-</span><span class="ot">Inf</span>, <span class="dt">xmax=</span><span class="ot">Inf</span>, <span class="dt">ymin=</span><span class="op">-</span><span class="ot">Inf</span>, <span class="dt">ymax=</span><span class="ot">Inf</span>)</a>
 <a class="sourceLine" id="cb5-16" title="16"></a>
-<a class="sourceLine" id="cb5-17" title="17">cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(gg1, gg2, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">rel_heights =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>, <span class="dv">1</span>) )</a></code></pre></div>
+<a class="sourceLine" id="cb5-17" title="17">cowplot<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(gg1, gg2, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">rel_heights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="dv">1</span>) )</a></code></pre></div>
 <p><img src="images_files/figure-html/unnamed-chunk-7-1.png" width="70%"></p>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -168,13 +171,14 @@
 </div>
 
 
+
       <footer><link href="../../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.5.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.5.7.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
 <script>
@@ -189,6 +193,7 @@
 </div>
 
   
+
 
   </body>
 </html>

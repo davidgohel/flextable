@@ -76,6 +76,7 @@ reference:
     - as_image
     - minibar
     - linerange
+    - lollipop
     - as_b
     - as_bracket
     - as_i
