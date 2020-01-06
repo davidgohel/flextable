@@ -45,7 +45,7 @@ proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, includ
   }
 
   tabl  <- na.omit(tabl)
-  ff <- as.formula(paste0(row, "~", col))
+  ff <- as.formula(paste0("`", row, "`~`", col, "`"))
   tabl <- data.table::dcast(tabl, ff, value.var = "value", fill = 0)
   table_out <- as.data.frame(tabl[,.SD, .SDcols = 2:ncol(tabl)])
   rownames(table_out) <- unlist(tabl[, .SD, .SDcols = 1])
