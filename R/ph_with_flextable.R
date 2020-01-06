@@ -69,6 +69,7 @@ pml_flextable <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 
 #' is not unique in the current slide, e.g. two placeholders with type 'body'.
 #' @importFrom officer ph_location_type
 ph_with_flextable <- function( x, value, type = "body", index = 1 ){
+  .Deprecated(new = "ph_with")
   stopifnot(inherits(x, "rpptx"))
   ph_with(x, value, location = ph_location_type(type = type, id = index))
 }
@@ -116,6 +117,7 @@ ph_with.flextable <- function( x, value, location, ... ){
 #' @rdname ph_with_flextable
 #' @importFrom officer ph_location
 ph_with_flextable_at <- function( x, value, left, top ){
+  .Deprecated(new = "ph_with")
   stopifnot(inherits(x, "rpptx"))
   ph_with(x, value, location = ph_location(left = left, top = top, width = 3, height = 3))
 }
