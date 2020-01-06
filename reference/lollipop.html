@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>image chunk wrapper — as_image • flextable</title>
+<title>mini lollipop chart chunk wrapper — lollipop • flextable</title>
 
 
 <!-- jquery -->
@@ -35,10 +35,10 @@
 
 
 
-<meta property="og:title" content="image chunk wrapper — as_image" />
-<meta property="og:description" content="The function lets add images within flextable
-objects with function compose.
-It should be used inside a call to as_paragraph." />
+<meta property="og:title" content="mini lollipop chart chunk wrapper — lollipop" />
+<meta property="og:description" content="This function is used to insert lollipop charts into
+flextable with function compose.
+It should be used inside a call to as_paragraph" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,33 +122,84 @@ It should be used inside a call to as_paragraph." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>image chunk wrapper</h1>
+    <h1>mini lollipop chart chunk wrapper</h1>
     
-    <div class="hidden name"><code>as_image.Rd</code></div>
+    <div class="hidden name"><code>lollipop.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function lets add images within flextable
-objects with function <code><a href='compose.html'>compose</a></code>.
-It should be used inside a call to <code><a href='as_paragraph.html'>as_paragraph</a></code>.</p>
+    <p>This function is used to insert lollipop charts into
+flextable with function <code><a href='compose.html'>compose</a></code>.
+It should be used inside a call to <code><a href='as_paragraph.html'>as_paragraph</a></code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_image</span>(<span class='no'>src</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>lollipop</span>(
+  <span class='no'>value</span>,
+  <span class='kw'>min</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>rangecol</span> <span class='kw'>=</span> <span class='st'>"#CCCCCC"</span>,
+  <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>raster_width</span> <span class='kw'>=</span> <span class='fl'>30</span>,
+  <span class='kw'>positivecol</span> <span class='kw'>=</span> <span class='st'>"#00CC00"</span>,
+  <span class='kw'>negativecol</span> <span class='kw'>=</span> <span class='st'>"#CC0000"</span>,
+  <span class='kw'>neutralcol</span> <span class='kw'>=</span> <span class='st'>"#CCCCCC"</span>,
+  <span class='kw'>neutralrange</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
+  <span class='kw'>rectanglesize</span> <span class='kw'>=</span> <span class='fl'>2</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>src</th>
-      <td><p>image filename</p></td>
+      <th>value</th>
+      <td><p>values containing the bar size</p></td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td><p>min bar size. Default min of value</p></td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td><p>max bar size. Default max of value</p></td>
+    </tr>
+    <tr>
+      <th>rangecol</th>
+      <td><p>bar color</p></td>
+    </tr>
+    <tr>
+      <th>bg</th>
+      <td><p>background color</p></td>
     </tr>
     <tr>
       <th>width, height</th>
-      <td><p>size of the png file in inches</p></td>
+      <td><p>size of the resulting png file in inches</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>unused argument</p></td>
+      <th>raster_width</th>
+      <td><p>number of pixels used as width</p></td>
+    </tr>
+    <tr>
+      <th>positivecol</th>
+      <td><p>box color of positive values</p></td>
+    </tr>
+    <tr>
+      <th>negativecol</th>
+      <td><p>box color of negative values</p></td>
+    </tr>
+    <tr>
+      <th>neutralcol</th>
+      <td><p>box color of neutral values</p></td>
+    </tr>
+    <tr>
+      <th>neutralrange</th>
+      <td><p>minimal and maximal range of neutral values (default: 0)</p></td>
+    </tr>
+    <tr>
+      <th>rectanglesize</th>
+      <td><p>size of the rectangle (default: 2, max: 5)
+when interpolating value.</p></td>
     </tr>
     </table>
 
@@ -165,39 +216,34 @@ are removed when outputing to PowerPoint format.</p>
 <code><a href='as_bracket.html'>as_bracket</a>()</code>,
 <code><a href='as_b.html'>as_b</a>()</code>,
 <code><a href='as_chunk.html'>as_chunk</a>()</code>,
+<code><a href='as_image.html'>as_image</a>()</code>,
 <code><a href='as_i.html'>as_i</a>()</code>,
 <code><a href='as_sub.html'>as_sub</a>()</code>,
 <code><a href='as_sup.html'>as_sup</a>()</code>,
 <code><a href='hyperlink_text.html'>hyperlink_text</a>()</code>,
 <code><a href='linerange.html'>linerange</a>()</code>,
-<code><a href='lollipop.html'>lollipop</a>()</code>,
 <code><a href='minibar.html'>minibar</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>officer</span>)
+    <pre class="examples"><div class='input'><span class='no'>iris</span>$<span class='no'>Sepal.Ratio</span> <span class='kw'>&lt;-</span> (<span class='no'>iris</span>$<span class='no'>Sepal.Length</span> - <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>))/<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>)
+<span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='no'>iris</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span> ))
 
-<span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>iris</span>))
-
-<span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span>( <span class='no'>myft</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>,
- <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
-   <span class='fu'>as_image</span>(<span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>.20</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>.15</span>),
-   <span class='st'>" blah blah "</span>,
-   <span class='fu'><a href='as_chunk.html'>as_chunk</a></span>(<span class='no'>Sepal.Length</span>, <span class='kw'>props</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/officer/man/fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>))
- ),
- <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
+<span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span>( <span class='no'>myft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='st'>"Sepal.Ratio"</span>,   <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
+  <span class='fu'>lollipop</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>Sepal.Ratio</span>, <span class='kw'>min</span><span class='kw'>=</span>-<span class='fl'>.25</span>, <span class='kw'>max</span><span class='kw'>=</span><span class='fl'>.25</span>)
+),
+<span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
 
 <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>myft</span>)</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
+#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species`, `Sepal.Ratio` 
 #&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
+#&gt; body has 10 row(s) 
 #&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div></pre>
+#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width   Species  Sepal.Ratio
+#&gt; 141          6.7         3.1          5.6         2.4 virginica  0.146605819
+#&gt; 142          6.9         3.1          5.1         2.3 virginica  0.180832858
+#&gt; 143          5.8         2.7          5.1         1.9 virginica -0.007415859
+#&gt; 144          6.8         3.2          5.9         2.3 virginica  0.163719338
+#&gt; 145          6.7         3.3          5.7         2.5 virginica  0.146605819</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
