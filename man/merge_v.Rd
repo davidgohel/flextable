@@ -4,7 +4,7 @@
 \alias{merge_v}
 \title{Merge flextable cells vertically}
 \usage{
-merge_v(x, j = NULL, target = NULL, part = "body")
+merge_v(x, j = NULL, target = NULL, part = "body", indata = FALSE)
 }
 \arguments{
 \item{x}{\code{flextable} object}
@@ -14,6 +14,10 @@ merge_v(x, j = NULL, target = NULL, part = "body")
 \item{target}{columns names where cells have to be merged.}
 
 \item{part}{partname of the table where merge has to be done.}
+
+\item{indata}{does parameter `j` should be read from internal dataset
+rather than from `col_keys` (printed columns). This is usefull
+when column to be used is an hidden column.}
 }
 \description{
 Merge flextable cells vertically when consecutive cells have

@@ -8,6 +8,9 @@
 #' @param j column to used to find consecutive values to be merged.
 #' @param target columns names where cells have to be merged.
 #' @param part partname of the table where merge has to be done.
+#' @param indata does parameter `j` should be read from internal dataset
+#' rather than from `col_keys` (printed columns). This is usefull
+#' when column to be used is an hidden column.
 #' @examples
 #' ft_merge <- flextable(mtcars)
 #' ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))
@@ -39,23 +42,35 @@
 #'   target = c("srdr_id", "substances"))
 #' @family flextable merging function
 #' @export
-merge_v <- function(x, j = NULL, target = NULL, part = "body" ){
+merge_v <- function(x, j = NULL, target = NULL, part = "body", indata = FALSE ){
   if( !inherits(x, "flextable") ) stop("merge_v supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
-  j <- get_columns_id(x[[part]], j = j )
-  j <- x$col_keys[j]
+  if( indata ){
+    j <- get_dataset_columns_id(x[[part]], j = j)
+    j <- colnames(x[[part]]$dataset)[j]
+  } else {
+    j <- get_columns_id(x[[part]], j = j )
+    j <- x$col_keys[j]
+  }
 
   if( !is.null(target)){
     target <- get_columns_id(x[[part]], j = target )
     target <- x$col_keys[target]
   } else {
-    target <- j
+    if(all(target %in% x$col_keys)){
+      target <- j
+    } else {
+      stop("target should only have values from col_keys.")
+    }
+
   }
-  x[[part]] <- span_columns(x = x[[part]], columns = j, target = target)
+
+  x[[part]] <- span_columns(x = x[[part]], columns = j, target = target, indata = indata)
 
   x
 }
+
 
 
 #' @title Merge flextable cells horizontally

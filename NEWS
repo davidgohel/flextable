@@ -1,3 +1,9 @@
+# flextable 0.5.7
+
+## new features
+
+* new argument `indata` to enable merge_v use hidden columns.
+
 # flextable 0.5.6
 
 ## Issues
