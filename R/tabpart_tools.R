@@ -17,13 +17,9 @@ check_merge <- function(x){
     stop("invalid merging instructions", call. = FALSE)
   x
 }
-span_columns <- function( x, columns = NULL, target = columns, indata = FALSE ){
+span_columns <- function( x, columns = NULL, target = columns){
 
-  if( indata ){
-    stopifnot(all( columns %in% colnames(x$dataset) ) )
-  } else {
-    stopifnot(all( columns %in% x$col_keys ) )
-  }
+  stopifnot(all( columns %in% colnames(x$dataset) ) )
   stopifnot(all( target %in% x$col_keys ) )
 
   if( length(target) == 1 ){

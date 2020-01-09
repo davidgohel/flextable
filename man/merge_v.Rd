@@ -4,25 +4,22 @@
 \alias{merge_v}
 \title{Merge flextable cells vertically}
 \usage{
-merge_v(x, j = NULL, target = NULL, part = "body", indata = FALSE)
+merge_v(x, j = NULL, target = NULL, part = "body")
 }
 \arguments{
 \item{x}{\code{flextable} object}
 
-\item{j}{column to used to find consecutive values to be merged.}
+\item{j}{column to used to find consecutive values to be merged. Columns
+from orignal dataset can also be used.}
 
 \item{target}{columns names where cells have to be merged.}
 
 \item{part}{partname of the table where merge has to be done.}
-
-\item{indata}{does parameter `j` should be read from internal dataset
-rather than from `col_keys` (printed columns). This is usefull
-when column to be used is an hidden column.}
 }
 \description{
 Merge flextable cells vertically when consecutive cells have
 identical values. Text of formatted values are used to compare
-values.
+values if available.
 }
 \examples{
 ft_merge <- flextable(mtcars)
