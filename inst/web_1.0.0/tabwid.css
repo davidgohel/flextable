@@ -7,7 +7,7 @@
   display: table;
   margin-top: 5px;
   margin-bottom: 5px;
-  /*white-space:pre;*/
+  white-space: pre-wrap;
 }
 .tabwid_left table{
   margin-left:0;

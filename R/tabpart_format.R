@@ -4,6 +4,11 @@ css_px <- function(x, format = "%.0fpx"){
           ifelse( x < 0.001, "0", sprintf(format, x)) )
 }
 
+css_pt <- function(x){
+  ifelse( is.na(x), "inherit",
+          ifelse( x < 0.001, "0", sprintf("%.0fpt", x)) )
+}
+
 border_css <- function(color, width, style, side){
   style[!style %in% c("dotted", "dashed", "solid")] <- "solid"
   sprintf("border-%s: %s %s %s;", side, css_px(width, "%.2fpx"), style, colcodecss(color))
