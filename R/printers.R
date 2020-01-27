@@ -86,7 +86,7 @@ print.flextable <- function(x, preview = "html", ...){
   } else if( preview == "pptx" ){
     doc <- read_pptx()
     doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-    doc <- ph_with_flextable(doc, value = x, type = "body")
+    doc <- ph_with(doc, value = x, location = ph_location_type(type = "body"))
     file_out <- print(doc, target = tempfile(fileext = ".pptx"))
     browseURL(file_out)
   } else if( preview == "docx" ){
