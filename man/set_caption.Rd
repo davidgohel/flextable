@@ -4,12 +4,15 @@
 \alias{set_caption}
 \title{set caption}
 \usage{
-set_caption(x, caption)
+set_caption(x, caption, html_escape = TRUE)
 }
 \arguments{
 \item{x}{flextable object}
 
 \item{caption}{caption value}
+
+\item{html_escape}{should HTML entities be escaped so that it can be safely
+included as text or an attribute value within an HTML document.}
 }
 \description{
 set caption value in flextable
