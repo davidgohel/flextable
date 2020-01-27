@@ -5,11 +5,9 @@
 \alias{add_footer_row}
 \title{Add labels and merge cells in a new header or footer row}
 \usage{
-add_header_row(x, top = TRUE, values = character(0),
-  colwidths = integer(0))
+add_header_row(x, top = TRUE, values = character(0), colwidths = integer(0))
 
-add_footer_row(x, top = TRUE, values = character(0),
-  colwidths = integer(0))
+add_footer_row(x, top = TRUE, values = character(0), colwidths = integer(0))
 }
 \arguments{
 \item{x}{a \code{flextable} object}
@@ -36,8 +34,9 @@ ft <- add_footer_row(ft, values = c("blah", "blah"), colwidths = c(3,2))
 ft
 }
 \seealso{
-Other headers and footers: \code{\link{add_header_lines}},
-  \code{\link{add_header}},
-  \code{\link{set_header_footer_df}}
+Other headers and footers: 
+\code{\link{add_header_lines}()},
+\code{\link{add_header}()},
+\code{\link{set_header_footer_df}}
 }
 \concept{headers and footers}

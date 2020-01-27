@@ -25,9 +25,12 @@ ft <- padding(ft, padding = 0, part = "all")
 fit_to_width(ft, max_width = 6)
 }
 \seealso{
-Other flextable dimensions: \code{\link{autofit}},
-  \code{\link{dim.flextable}}, \code{\link{dim_pretty}},
-  \code{\link{flextable_dim}}, \code{\link{height}},
-  \code{\link{width}}
+Other flextable dimensions: 
+\code{\link{autofit}()},
+\code{\link{dim.flextable}()},
+\code{\link{dim_pretty}()},
+\code{\link{flextable_dim}()},
+\code{\link{height}()},
+\code{\link{width}()}
 }
 \concept{flextable dimensions}

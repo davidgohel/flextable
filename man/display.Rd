@@ -4,8 +4,15 @@
 \alias{display}
 \title{Define flextable displayed values}
 \usage{
-display(x, i = NULL, col_key, pattern, formatters = list(),
-  fprops = list(), part = "body")
+display(
+  x,
+  i = NULL,
+  col_key,
+  pattern,
+  formatters = list(),
+  fprops = list(),
+  part = "body"
+)
 }
 \arguments{
 \item{x}{a flextable object}

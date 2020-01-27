@@ -387,9 +387,6 @@ add_cellstyle_column <- function(x, type = "html"){
     vertical.align <- ifelse(
       x$vertical.align %in% "center", "vertical-align: middle;",
       ifelse(x$vertical.align %in% "top", "vertical-align: top;", "vertical-align: bottom;") )
-    text.direction <- ifelse(
-      x$text.direction %in% "btlr", "transform: rotate(-90deg);",
-      ifelse(x$text.direction %in% "tbrl", "transform: rotate(-270deg);", "transform: rotate(0deg);") )
 
     bb <- border_css(
       color = x$border.color.bottom, width = x$border.width.bottom,
@@ -409,7 +406,7 @@ add_cellstyle_column <- function(x, type = "html"){
     margin.left <- sprintf("margin-left:%s;", css_px(x$margin.left) )
     margin.right <- sprintf("margin-right:%s;", css_px(x$margin.right) )
 
-    style_column <- paste0(width, height, background.color, vertical.align, text.direction, bb, bt, bl, br,
+    style_column <- paste0(width, height, background.color, vertical.align, bb, bt, bl, br,
                            margin.bottom, margin.top, margin.left, margin.right)
   } else if( type %in% "wml"){
 
@@ -528,7 +525,13 @@ cell_data <- function(x, par_data, type, span_rows, span_columns, colwidths, row
       ifelse(span_rows > 1, paste0(" colspan=\"", span_rows,"\""), ""),
       ifelse(span_columns > 1, paste0(" rowspan=\"", span_columns,"\""), "")
     )
-    str <- paste0("<td", tc_attr, " style=\"", dat$style_str ,"\">", dat$par_str, "</td>")
+
+    text_directions <- x$text.direction[]
+    class_ <- character(nrow(dat))
+    rotated <- text_directions %in% c("btlr", "tbrl")
+    class_[rotated] <- sprintf(" class=\"%s\"", text_directions[rotated])
+
+    str <- paste0("<td", class_, tc_attr, " style=\"", dat$style_str ,"\">", dat$par_str, "</td>")
     str[span_rows < 1 | span_columns < 1] <- ""
     dat$cell_str <- str
   }

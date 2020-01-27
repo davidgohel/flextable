@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.5.5
+Version: 0.5.7.007
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -19,12 +19,12 @@ License: GPL-3
 LazyData: TRUE
 Imports:
     stats, utils, grDevices, graphics,
-    officer (>= 0.2.0),
+    officer (>= 0.3.6),
     rmarkdown, knitr, htmltools,
     xml2, data.table,
     gdtools (>= 0.1.6), rlang, 
     base64enc
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Suggests: testthat, xtable, magrittr, webshot, magick, ggplot2
 Encoding: UTF-8
 URL: https://davidgohel.github.io/flextable

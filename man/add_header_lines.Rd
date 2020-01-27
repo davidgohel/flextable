@@ -35,8 +35,9 @@ ft <- add_header_lines(ft, values = c("blah 1", "blah 2"))
 autofit(ft)
 }
 \seealso{
-Other headers and footers: \code{\link{add_header_row}},
-  \code{\link{add_header}},
-  \code{\link{set_header_footer_df}}
+Other headers and footers: 
+\code{\link{add_header_row}()},
+\code{\link{add_header}()},
+\code{\link{set_header_footer_df}}
 }
 \concept{headers and footers}

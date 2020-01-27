@@ -5,11 +5,15 @@
 \alias{body_replace_flextable_at_bkm}
 \title{add flextable into a Word document}
 \usage{
-body_add_flextable(x, value, align = "center", pos = "after",
-  split = FALSE)
+body_add_flextable(x, value, align = "center", pos = "after", split = FALSE)
 
-body_replace_flextable_at_bkm(x, bookmark, value, align = "center",
-  split = FALSE)
+body_replace_flextable_at_bkm(
+  x,
+  bookmark,
+  value,
+  align = "center",
+  split = FALSE
+)
 }
 \arguments{
 \item{x}{an rdocx object}

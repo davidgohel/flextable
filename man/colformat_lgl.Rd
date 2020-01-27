@@ -7,8 +7,17 @@
 \usage{
 colformat_lgl(x, ...)
 
-\method{colformat_lgl}{flextable}(x, col_keys, true = "true",
-  false = "false", na_str = "", prefix = "", suffix = "", ...)
+\method{colformat_lgl}{flextable}(
+  x,
+  j = NULL,
+  col_keys = NULL,
+  true = "true",
+  false = "false",
+  na_str = "",
+  prefix = "",
+  suffix = "",
+  ...
+)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -16,7 +25,10 @@ colformat_lgl(x, ...)
 \item{...}{additional arguments, i can be used to specify a
 row selector.}
 
-\item{col_keys}{names of the colkeys}
+\item{j}{columns selection.}
+
+\item{col_keys}{names of the colkeys. Will be deprectated in favor of j in the next
+version.}
 
 \item{false, true}{string to be used for logical}
 
@@ -37,8 +49,10 @@ ft <- colformat_lgl(x = ft, col_keys = c("a", "b"))
 autofit(ft)
 }
 \seealso{
-Other cells formatters: \code{\link{colformat_char}},
-  \code{\link{colformat_int}}, \code{\link{colformat_num}},
-  \code{\link{compose}}
+Other cells formatters: 
+\code{\link{colformat_char}()},
+\code{\link{colformat_int}()},
+\code{\link{colformat_num}()},
+\code{\link{compose}()}
 }
 \concept{cells formatters}

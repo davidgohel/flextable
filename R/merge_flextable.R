@@ -2,10 +2,11 @@
 #'
 #' @description Merge flextable cells vertically when consecutive cells have
 #' identical values. Text of formatted values are used to compare
-#' values.
+#' values if available.
 #'
 #' @param x \code{flextable} object
-#' @param j column to used to find consecutive values to be merged.
+#' @param j column to used to find consecutive values to be merged. Columns
+#' from orignal dataset can also be used.
 #' @param target columns names where cells have to be merged.
 #' @param part partname of the table where merge has to be done.
 #' @examples
@@ -43,19 +44,25 @@ merge_v <- function(x, j = NULL, target = NULL, part = "body" ){
   if( !inherits(x, "flextable") ) stop("merge_v supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
-  j <- get_columns_id(x[[part]], j = j )
-  j <- x$col_keys[j]
+  j <- get_dataset_columns_id(x[[part]], j = j)
+  j <- colnames(x[[part]]$dataset)[j]
 
   if( !is.null(target)){
     target <- get_columns_id(x[[part]], j = target )
     target <- x$col_keys[target]
   } else {
-    target <- j
+    if(all(target %in% x$col_keys)){
+      target <- j
+    } else {
+      stop("target should only have values from col_keys.")
+    }
   }
+
   x[[part]] <- span_columns(x = x[[part]], columns = j, target = target)
 
   x
 }
+
 
 
 #' @title Merge flextable cells horizontally

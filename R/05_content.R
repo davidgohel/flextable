@@ -128,7 +128,7 @@ as_chunk <- function(x, props = NULL, formater = format_fun, ...) {
 #' autofit(ft)
 as_sub <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x)
+    x <- as_chunk(x, formater = format_fun)
   }
   x$vertical.align = "subscript"
   x
@@ -155,7 +155,7 @@ as_sub <- function(x){
 #' autofit(ft)
 as_sup <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x)
+    x <- as_chunk(x, formater = format_fun)
   }
   x$vertical.align = "superscript"
   x
@@ -183,7 +183,7 @@ as_sup <- function(x){
 #' autofit(ft)
 as_b <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x)
+    x <- as_chunk(x, formater = format_fun)
   }
   x$bold = TRUE
   x
@@ -210,7 +210,7 @@ as_b <- function(x){
 #' autofit(ft)
 as_i <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x)
+    x <- as_chunk(x, formater = format_fun)
   }
   x$italic = TRUE
   x
@@ -254,7 +254,11 @@ as_bracket <- function(..., sep = ", ", p = "(", s = ")"){
 #' @param width,height size of the png file in inches
 #' @param ... unused argument
 #' @family chunk elements for paragraph
-#' @note PowerPoint cannot mix images and text in a paragraph, images
+#' @note
+#' This chunk option requires package officedown in a R Markdown
+#' context with Word output format.
+#'
+#' PowerPoint cannot mix images and text in a paragraph, images
 #' are removed when outputing to PowerPoint format.
 #' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
 #' @examples
@@ -293,6 +297,9 @@ as_image <- function(src, width = .5, height = .2, ...) {
 #' @description The function lets add hyperlinks within flextable
 #' objects with function \code{\link{compose}}.
 #' It should be used inside a call to \code{\link{as_paragraph}}.
+#' @note
+#' This chunk option requires package officedown in a R Markdown
+#' context with Word output format.
 #' @inheritParams as_chunk
 #' @param url url to be used
 #' @seealso \code{\link{display}}
@@ -327,7 +334,11 @@ hyperlink_text <- function(x, props = NULL, formater = format_fun, url, ...){
 #' @param barcol bar color
 #' @param bg background color
 #' @param width,height size of the resulting png file in inches
-#' @note PowerPoint cannot mix images and text in a paragraph, images
+#' @note
+#' This chunk option requires package officedown in a R Markdown
+#' context with Word output format.
+#'
+#' PowerPoint cannot mix images and text in a paragraph, images
 #' are removed when outputing to PowerPoint format.
 #' @family chunk elements for paragraph
 #' @examples
@@ -390,7 +401,11 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' @param width,height size of the resulting png file in inches
 #' @param raster_width number of pixels used as width
 #' when interpolating value.
-#' @note PowerPoint cannot mix images and text in a paragraph, images
+#' @note
+#' This chunk option requires package officedown in a R Markdown
+#' context with Word output format.
+#'
+#' PowerPoint cannot mix images and text in a paragraph, images
 #' are removed when outputing to PowerPoint format.
 #' @family chunk elements for paragraph
 #' @examples
@@ -458,6 +473,121 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 }
 
 #' @export
+#' @title mini lollipop chart chunk wrapper
+#' @description This function is used to insert lollipop charts into
+#' flextable with function \code{\link{compose}}.
+#' It should be used inside a call to \code{\link{as_paragraph}}
+#' @param value values containing the bar size
+#' @param min min bar size. Default min of value
+#' @param max max bar size. Default max of value
+#' @param rangecol bar color
+#' @param bg background color
+#' @param width,height size of the resulting png file in inches
+#' @param raster_width number of pixels used as width
+#' @param positivecol box color of positive values
+#' @param negativecol box color of negative values
+#' @param neutralcol box color of neutral values
+#' @param neutralrange minimal and maximal range of neutral values (default: 0)
+#' @param rectanglesize size of the rectangle (default: 2, max: 5)
+#' when interpolating value.
+#' @note
+#' This chunk option requires package officedown in a R Markdown
+#' context with Word output format.
+#'
+#' PowerPoint cannot mix images and text in a paragraph, images
+#' are removed when outputing to PowerPoint format.
+#' @family chunk elements for paragraph
+#' @examples
+#' iris$Sepal.Ratio <- (iris$Sepal.Length - mean(iris$Sepal.Length))/mean(iris$Sepal.Length)
+#' myft <- flextable( tail(iris, n = 10 ))
+#'
+#' myft <- compose( myft, j = "Sepal.Ratio",   value = as_paragraph(
+#'   lollipop(value = Sepal.Ratio, min=-.25, max=.25)
+#' ),
+#' part = "body")
+#'
+#' autofit(myft)
+#' @importFrom grDevices as.raster col2rgb rgb
+#' @importFrom stats approx
+#' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
+lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
+                     bg = "transparent", width = 1,
+                     height = .2, raster_width = 30, positivecol = "#00CC00",
+                     negativecol = "#CC0000", neutralcol = "#CCCCCC", neutralrange = c(0,0),
+                     rectanglesize = 2) {
+  if( all( is.na(value) ) ){
+    min <- 0
+    max <- 1
+  }
+
+  if( raster_width < 2)
+    stop("raster_width must be greater than 1")
+
+  raster_nrow <- 9
+  raster_center <- 5
+
+  if(rectanglesize>5)
+    rectanglesize <- 5
+
+  if( is.null(max))
+    max <- max(c(0,value), na.rm = TRUE)
+  if ( is.null(min))
+    min <- min(c(0,value), na.rm = TRUE)
+
+  value[!is.finite(value)] <- max + 1 # to be sure not displayed
+
+  stopifnot(!is.null(value), !is.null(min), !is.null(min))
+
+  # transform color code
+  rangecol  <- rgb(t(col2rgb(rangecol))/255)
+  positivecol  <- rgb(t(col2rgb(positivecol))/255)
+  negativecol  <- rgb(t(col2rgb(negativecol))/255)
+  neutralcol <- rgb(t(col2rgb(neutralcol))/255)
+  bg <- ifelse( bg == "transparent", bg, rgb(t(col2rgb(bg))/255) )
+
+
+  # get value approx on range 1,raster_width
+  zero_pos <- as.integer(approx(x = c(min,max), y = c(1, raster_width), xout = 0)$y)
+
+  base <- matrix(bg, nrow = raster_nrow, ncol = raster_width)
+  base[, 1]   <- rangecol
+  base[, raster_width] <- rangecol
+  base[, zero_pos] <- rangecol
+
+  rasters <- lapply(value, function(val, def_mat) {
+    stick_pos <- as.integer(approx(x = c(min,max), y = c(1, raster_width), xout = val)$y)
+
+    newmat <- def_mat
+
+    # fix switch statement and neutral color range
+    value_position <- sign(val)
+    value_position <- ifelse(val <= neutralrange[1] & val >= neutralrange[2], 0, value_position)
+
+    rectangle_color <- switch(value_position + 2, negativecol, neutralcol, positivecol)
+
+    # create middle stick
+    if(value_position == -1)
+      newmat[row(newmat) == raster_center & col(newmat) < zero_pos & col(newmat) > stick_pos] <- rangecol
+    else
+      newmat[row(newmat) == raster_center & col(newmat) > zero_pos & col(newmat) < stick_pos] <- rangecol
+
+    # create rectangle
+    newmat[col(newmat)>=stick_pos - rectanglesize/2 & col(newmat)<=stick_pos + rectanglesize/2 &
+             row(newmat)>=raster_center - rectanglesize & row(newmat)<=raster_center + rectanglesize] <- rectangle_color
+
+    as.raster(newmat)
+  }, base)
+
+  z <- chunk_dataframe(width = as.double(rep(width, length(value)) ),
+                       height = as.double(rep(height, length(value))),
+                       img_data = rasters )
+
+  class(z) <- c("img_chunk", "chunk", "data.frame")
+  z
+
+}
+
+#' @export
 #' @title concatenate chunks in a flextable
 #' @description The function is concatenating text and images within paragraphs of
 #' a flextable object, this function is to be used with function \code{\link{compose}}.
@@ -486,9 +616,9 @@ as_paragraph <- function( ..., list_values = NULL ){
     list_values <- list(...)
   }
 
-  if( any( is_chr <- sapply(list_values, is.character) ) ){
-    list_values[is_chr] <- lapply(list_values[is_chr], function(x){
-      as_chunk(x)
+  if( any( is_atomic <- sapply(list_values, is.atomic) ) ){
+    list_values[is_atomic] <- lapply(list_values[is_atomic], function(x){
+      as_chunk(x, formater = format_fun)
     })
   }
 

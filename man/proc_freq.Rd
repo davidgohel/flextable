@@ -4,7 +4,19 @@
 \alias{proc_freq}
 \title{frequency table as flextable}
 \usage{
-proc_freq(x, row, col, main = "")
+proc_freq(
+  x,
+  row,
+  col,
+  main = "",
+  include.row_percent = TRUE,
+  include.column_percent = TRUE,
+  include.table_percent = TRUE,
+  include.column_total = TRUE,
+  include.row_total = TRUE,
+  include.header_row = TRUE,
+  weight = NULL
+)
 }
 \arguments{
 \item{x}{\code{data.frame} object}
@@ -14,6 +26,20 @@ proc_freq(x, row, col, main = "")
 \item{col}{\code{characer} column names for column}
 
 \item{main}{\code{characer} title}
+
+\item{include.row_percent}{\code{boolean} whether to include the row percents; defaults to \code{TRUE}}
+
+\item{include.column_percent}{\code{boolean} whether to include the column percents; defaults to \code{TRUE}}
+
+\item{include.table_percent}{\code{boolean} whether to include the table percents; defaults to \code{TRUE}}
+
+\item{include.column_total}{\code{boolean} whether to include the row of column totals; defaults to \code{TRUE}}
+
+\item{include.row_total}{\code{boolean} whether to include the column of row totals; defaults to \code{TRUE}}
+
+\item{include.header_row}{\code{boolean} whether to include the header row; defaults to \code{TRUE}}
+
+\item{weight}{\code{character} column name for weight}
 }
 \description{
 This function compute a two way contingency table
@@ -23,6 +49,7 @@ and make a flextable with the result.
 
 proc_freq(mtcars, "vs", "gear")
 proc_freq(mtcars, "gear", "vs")
+proc_freq(mtcars, "gear", "vs", weight = "wt")
 proc_freq(mtcars, "gear", "vs", "My title")
 }
 \author{

@@ -35,6 +35,7 @@ body_add_flextable <- function( x, value, align = "center", pos = "after", split
 #' @section body_replace_flextable_at_bkm:
 #' Use this function if you want to replace a paragraph containing
 #' a bookmark with a flextable. As a side effect, the bookmark will be lost.
+#' @importFrom officer cursor_bookmark
 body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", split = FALSE){
   x <- cursor_bookmark(x, bookmark)
   x <- body_add_flextable(x = x, value = value, pos = "on", align = align, split = split)

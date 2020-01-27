@@ -86,7 +86,7 @@ print.flextable <- function(x, preview = "html", ...){
   } else if( preview == "pptx" ){
     doc <- read_pptx()
     doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-    doc <- ph_with_flextable(doc, value = x, type = "body")
+    doc <- ph_with(doc, value = x, location = ph_location_type(type = "body"))
     file_out <- print(doc, target = tempfile(fileext = ".pptx"))
     browseURL(file_out)
   } else if( preview == "docx" ){
@@ -133,6 +133,17 @@ print.flextable <- function(x, preview = "html", ...){
 #' of the placeholder that will contain the table. They
 #' default to \code{{r ft.left=1, ft.left=2}}.
 #'
+#' @section PDF chunk options:
+#'
+#' Using flextable with template `pdf_document` is OK if the
+#' flextable fits on one single page. The PDF output is not
+#' a real latex output but a PNG image generated with package
+#' 'webshot' or package 'webshot2'. Package 'webshot2' should
+#' be prefered as 'webshot' can have issues with some properties
+#' (i.e. bold are not rendered for some users).
+#'
+#' To specify usage of 'webshot2', use chunk option `webshot="webshot2"`.
+#'
 #' @param x a \code{flextable} object
 #' @param ... further arguments, not used.
 #' @export
@@ -158,26 +169,32 @@ knit_print.flextable <- function(x, ...){
         tab_class <- "tabwid tabwid_right"
     }
     knit_print(htmltools_value(x, class = tab_class))
-  } else if ( grepl( "latex", opts_knit$get("rmarkdown.pandoc.to") ) &&
-              requireNamespace("webshot", quietly = TRUE) ) {
-    # copied from https://github.com/ropensci/magick/blob/1e92b8331cd2cad6418b5e738939ac5918947a2f/R/base.R#L126
-    plot_counter <- getFromNamespace('plot_counter', 'knitr')
-    in_base_dir <- getFromNamespace('in_base_dir', 'knitr')
-    tmp <- fig_path("png", number = plot_counter())
-    width <- flextable_dim(x)$width
-    height <- flextable_dim(x)$height
-    # save relative to 'base' directory, see discussion in #110
-    in_base_dir({
-      dir.create(dirname(tmp), showWarnings = FALSE, recursive = TRUE)
-      tf <- tempfile(fileext = ".html", tmpdir = ".")
-      save_as_html(x = x, path = tf)
-      webshot::webshot(url = basename(tf),
-                       file = tmp, selector = "body > table",
-                       zoom = 3, expand = 0 )
-      unlink(tf)
-    })
-    knit_print( asis_output(sprintf("\\includegraphics[width=%.02fin,height=%.02fin,keepaspectratio]{%s}\n", width, height, tmp)) )
+  } else if ( grepl( "latex", opts_knit$get("rmarkdown.pandoc.to") ) ) {
 
+    if( is.null( webshot_package <- opts_current$get("webshot")) ){
+      webshot_package <- "webshot"
+    }
+    if( requireNamespace(webshot_package, quietly = TRUE) ){
+      # copied from https://github.com/ropensci/magick/blob/1e92b8331cd2cad6418b5e738939ac5918947a2f/R/base.R#L126
+      webshot_fun <- getFromNamespace('webshot', webshot_package)
+
+      plot_counter <- getFromNamespace('plot_counter', 'knitr')
+      in_base_dir <- getFromNamespace('in_base_dir', 'knitr')
+      tmp <- fig_path("png", number = plot_counter())
+      width <- flextable_dim(x)$width
+      height <- flextable_dim(x)$height
+      # save relative to 'base' directory, see discussion in #110
+      in_base_dir({
+        dir.create(dirname(tmp), showWarnings = FALSE, recursive = TRUE)
+        tf <- tempfile(fileext = ".html", tmpdir = ".")
+        save_as_html(x = x, path = tf)
+        webshot_fun(url = basename(tf),
+                    file = tmp, selector = "body > table",
+                    zoom = 3, expand = 0 )
+        unlink(tf)
+      })
+      knit_print( asis_output(sprintf("\\includegraphics[width=%.02fin,height=%.02fin,keepaspectratio]{%s}\n", width, height, tmp)) )
+    }
   } else if (grepl( "docx", opts_knit$get("rmarkdown.pandoc.to") )) {
 
     if (pandoc_version() >= 2) {
@@ -293,10 +310,16 @@ save_as_html <- function(x, path){
 #' @export
 #' @title save a flextable as an image
 #' @description save a flextable as a png, pdf or jpeg image.
+#'
+#' Image generated with package 'webshot' or package 'webshot2'.
+#' Package 'webshot2' should be prefered as 'webshot' can have
+#' issues with some properties (i.e. bold are not rendered for some users).
 #' @note This function requires package webshot.
 #' @param x a flextable object
 #' @param path image file to be created. It should end with .png, .pdf, or .jpeg.
 #' @param zoom,expand parameters used by \code{webshot} function.
+#' @param webshot webshot package as a scalar character, one of "webshot" or
+#' "webshot2".
 #' @examples
 #' ft <- flextable( head( mtcars ) )
 #' ft <- autofit(ft)
@@ -307,10 +330,16 @@ save_as_html <- function(x, path){
 #' }
 #' }
 #' @family flextable print function
-save_as_image <- function(x, path, zoom = 3, expand = 10 ){
-  if (!requireNamespace("webshot", quietly = TRUE)) {
-    stop("package webshot is required when saving a flextable as an image.")
+save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot" ){
+
+  if( !inherits(x, "flextable")){
+    stop("x must be a flextable")
   }
+
+  if (!requireNamespace(webshot, quietly = TRUE)) {
+    stop("package ", webshot, " is required when saving a flextable as an image.")
+  } else webshot_fun <- getFromNamespace('webshot', webshot)
+
   curr_wd <- getwd()
   path <- absolute_path(path)
 
@@ -318,7 +347,7 @@ save_as_image <- function(x, path, zoom = 3, expand = 10 ){
   save_as_html(x = x, path = tf)
   setwd(dirname(tf))
   tryCatch({
-    webshot::webshot(url = basename(tf),
+    webshot_fun(url = basename(tf),
                    file = path, selector = "body > table",
                    zoom = zoom, expand = expand )
   }, finally = {

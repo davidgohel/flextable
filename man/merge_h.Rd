@@ -26,8 +26,10 @@ ft_merge <- merge_h(x = ft_merge)
 ft_merge
 }
 \seealso{
-Other flextable merging function: \code{\link{merge_at}},
-  \code{\link{merge_h_range}}, \code{\link{merge_none}},
-  \code{\link{merge_v}}
+Other flextable merging function: 
+\code{\link{merge_at}()},
+\code{\link{merge_h_range}()},
+\code{\link{merge_none}()},
+\code{\link{merge_v}()}
 }
 \concept{flextable merging function}

@@ -34,11 +34,16 @@ ft <- width(ft, j = c(2, 5), width = .1 )
 ft
 }
 \seealso{
-Other sugar functions for table style: \code{\link{align}},
-  \code{\link{bg}}, \code{\link{bold}},
-  \code{\link{color}}, \code{\link{fontsize}},
-  \code{\link{font}}, \code{\link{italic}},
-  \code{\link{padding}}, \code{\link{rotate}},
-  \code{\link{valign}}
+Other sugar functions for table style: 
+\code{\link{align}()},
+\code{\link{bg}()},
+\code{\link{bold}()},
+\code{\link{color}()},
+\code{\link{fontsize}()},
+\code{\link{font}()},
+\code{\link{italic}()},
+\code{\link{padding}()},
+\code{\link{rotate}()},
+\code{\link{valign}()}
 }
 \concept{sugar functions for table style}

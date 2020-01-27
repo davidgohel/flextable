@@ -83,6 +83,8 @@ as_grouped_data <- function( x, groups, columns = NULL ){
 #' @rdname as_flextable
 #' @param col_keys columns names/keys to display. If some column names are not in
 #' the dataset, they will be added as blank columns by default.
+#' @param hide_grouplabel if TRUE, group label will not be rendered, only
+#' level/value will be rendered.
 #' @examples
 #'
 #' # as_flextable and as_grouped_data -----
@@ -104,7 +106,7 @@ as_grouped_data <- function( x, groups, columns = NULL ){
 #'     width(width = c(1, 1, 1))
 #'   zz
 #' }
-as_flextable.grouped_data <- function(x, col_keys = NULL, ... ){
+as_flextable.grouped_data <- function(x, col_keys = NULL, hide_grouplabel = FALSE, ... ){
 
   if( is.null(col_keys))
     col_keys <- attr(x, "columns")
@@ -116,8 +118,12 @@ as_flextable.grouped_data <- function(x, col_keys = NULL, ... ){
   for( group in groups){
     i <- !is.na(x[[group]])
     gnames <- x[[group]][i]
-    z <- compose(z, i = i, j = 1,
-                 value = as_paragraph(as_chunk(group), ": ", as_chunk(gnames)))
+    if(!hide_grouplabel){
+      z <- compose(z, i = i, j = 1, value = as_paragraph(as_chunk(group), ": ", as_chunk(gnames)))
+    } else {
+      z <- compose(z, i = i, j = 1, value = as_paragraph(as_chunk(gnames)))
+    }
+
     z <- merge_h_range(z, i = i, j1 = 1, j2 = j2)
     z <- align(z, i = i, align = "left")
   }

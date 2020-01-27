@@ -225,13 +225,9 @@ color <- function(x, i = NULL, j = NULL, color, part = "body" ){
 #' fontname <- "Times"
 #'
 #' if( !font_family_exists(fontname) ){
-#'   # if Times is not available, we will use the first available
-#'   font_list <- sys_fonts()
-#'   fontname <- as.character(font_list$family[1])
+#'   ft <- flextable(head(iris))
+#'   ft <- font(ft, fontname = fontname, part = "header")
 #' }
-#'
-#' ft <- flextable(head(iris))
-#' ft <- font(ft, fontname = fontname, part = "header")
 font <- function(x, i = NULL, j = NULL, fontname, part = "body" ){
 
   if( !inherits(x, "flextable") ) stop("font supports only flextable objects.")
@@ -555,6 +551,7 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
 #' ft <- width(ft, j = c(2, 5), width = .1 )
 #' ft
 #' @export
+#' @importFrom officer shortcuts
 empty_blanks <- function(x){
   if( !inherits(x, "flextable") ) stop("empty_blanks supports only flextable objects.")
   if( length(x$blanks) < 1 ) return(x)

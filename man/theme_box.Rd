@@ -17,10 +17,13 @@ ft <- flextable(iris)
 ft <- theme_box(ft)
 }
 \seealso{
-Other flextable theme: \code{\link{theme_alafoli}},
-  \code{\link{theme_booktabs}},
-  \code{\link{theme_tron_legacy}},
-  \code{\link{theme_tron}}, \code{\link{theme_vader}},
-  \code{\link{theme_vanilla}}, \code{\link{theme_zebra}}
+Other flextable theme: 
+\code{\link{theme_alafoli}()},
+\code{\link{theme_booktabs}()},
+\code{\link{theme_tron_legacy}()},
+\code{\link{theme_tron}()},
+\code{\link{theme_vader}()},
+\code{\link{theme_vanilla}()},
+\code{\link{theme_zebra}()}
 }
 \concept{flextable theme}

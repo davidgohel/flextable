@@ -24,9 +24,12 @@ ft <- autofit(ft)
 flextable_dim(ft)
 }
 \seealso{
-Other flextable dimensions: \code{\link{autofit}},
-  \code{\link{dim.flextable}}, \code{\link{dim_pretty}},
-  \code{\link{fit_to_width}}, \code{\link{height}},
-  \code{\link{width}}
+Other flextable dimensions: 
+\code{\link{autofit}()},
+\code{\link{dim.flextable}()},
+\code{\link{dim_pretty}()},
+\code{\link{fit_to_width}()},
+\code{\link{height}()},
+\code{\link{width}()}
 }
 \concept{flextable dimensions}

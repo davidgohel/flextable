@@ -1,7 +1,7 @@
 # utils -----
-css_px <- function(x){
+css_px <- function(x, format = "%.0fpx"){
   ifelse( is.na(x), "inherit",
-          ifelse( x < 0.001, "0", sprintf("%.0fpx", x)) )
+          ifelse( x < 0.001, "0", sprintf(format, x)) )
 }
 
 css_pt <- function(x){
@@ -11,7 +11,7 @@ css_pt <- function(x){
 
 border_css <- function(color, width, style, side){
   style[!style %in% c("dotted", "dashed", "solid")] <- "solid"
-  sprintf("border-%s: %s %s %s;", side, css_px(width), style, colcodecss(color))
+  sprintf("border-%s: %s %s %s;", side, css_px(width, "%.2fpx"), style, colcodecss(color))
 }
 border_wml <- function(color, width, style, side){
   width[style %in% c("none")] <- 0
@@ -93,7 +93,7 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE,
 
   paragraphs <- par_data(x$styles$pars, txt_data, type = type)
   cells <- cell_data(x$styles$cells, paragraphs, type = type,
-                     span_rows = x$span$rows,
+                     span_rows = x$spans$rows,
                      span_columns = x$spans$columns, x$colwidths, x$rowheights)
   setDT(cells)
   cells <- dcast(cells, row_id ~ col_id, drop=FALSE, fill="", value.var = "cell_str", fun.aggregate = I)
@@ -106,7 +106,7 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE,
     rows <- paste0( "<w:tr><w:trPr>",
             ifelse(split, "", "<w:cantSplit/>"),
             "<w:trHeight w:val=",
-            shQuote( round(x$rowheights * 72*20, 0 ), type = "cmd"), "/>",
+            shQuote( round(x$rowheights * 72*20, 0 ), type = "cmd"), " w:hRule=\"exact\"/>",
             ifelse( header, "<w:tblHeader/>", ""),
             "</w:trPr>", cells, "</w:tr>")
   } else if( type == "pml"){

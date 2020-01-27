@@ -4,8 +4,7 @@
 \alias{footnote}
 \title{add footnotes to flextable}
 \usage{
-footnote(x, i = NULL, j = NULL, value, ref_symbols = NULL,
-  part = "body")
+footnote(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "body")
 }
 \arguments{
 \item{x}{a flextable object}

@@ -24,6 +24,10 @@ The function lets add hyperlinks within flextable
 objects with function \code{\link{compose}}.
 It should be used inside a call to \code{\link{as_paragraph}}.
 }
+\note{
+This chunk option requires package officedown in a R Markdown
+context with Word output format.
+}
 \examples{
 dat <- data.frame(
   col = "Google it",
@@ -40,10 +44,16 @@ ft
 \seealso{
 \code{\link{display}}
 
-Other chunk elements for paragraph: \code{\link{as_bracket}},
-  \code{\link{as_b}}, \code{\link{as_chunk}},
-  \code{\link{as_image}}, \code{\link{as_i}},
-  \code{\link{as_sub}}, \code{\link{as_sup}},
-  \code{\link{linerange}}, \code{\link{minibar}}
+Other chunk elements for paragraph: 
+\code{\link{as_bracket}()},
+\code{\link{as_b}()},
+\code{\link{as_chunk}()},
+\code{\link{as_image}()},
+\code{\link{as_i}()},
+\code{\link{as_sub}()},
+\code{\link{as_sup}()},
+\code{\link{linerange}()},
+\code{\link{lollipop}()},
+\code{\link{minibar}()}
 }
 \concept{chunk elements for paragraph}

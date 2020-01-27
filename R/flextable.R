@@ -115,20 +115,24 @@ qflextable <- function(data){
 #' @description set caption value in flextable
 #' @param x flextable object
 #' @param caption caption value
+#' @param html_escape should HTML entities be escaped so that it can be safely
+#' included as text or an attribute value within an HTML document.
 #' @note
 #' this will have an effect only when output is HTML or Word document.
 #' @examples
 #' ft <- flextable( head( iris ) )
 #' ft <- set_caption(ft, "my caption")
 #' ft
-set_caption <- function(x, caption){
+set_caption <- function(x, caption, html_escape = TRUE){
 
   if( !inherits(x, "flextable") ) stop("set_caption supports only flextable objects.")
 
   if( !is.character(caption) && length(caption) != 1 ){
     stop("caption should be a single character value")
   }
-
+  if(html_escape){
+    caption <- htmlEscape(caption)
+  }
   x$caption <- list(value = caption)
   x
 }

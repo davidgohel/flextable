@@ -2,7 +2,7 @@
 % Please edit documentation in R/themes.R
 \name{theme_alafoli}
 \alias{theme_alafoli}
-\title{Apply box theme}
+\title{Apply alafoli theme}
 \usage{
 theme_alafoli(x)
 }
@@ -10,16 +10,20 @@ theme_alafoli(x)
 \item{x}{a flextable object}
 }
 \description{
-Apply theme box to a flextable
+Apply theme alafoli to a flextable
 }
 \examples{
 ft <- flextable(iris)
 ft <- theme_alafoli(ft)
 }
 \seealso{
-Other flextable theme: \code{\link{theme_booktabs}},
-  \code{\link{theme_box}}, \code{\link{theme_tron_legacy}},
-  \code{\link{theme_tron}}, \code{\link{theme_vader}},
-  \code{\link{theme_vanilla}}, \code{\link{theme_zebra}}
+Other flextable theme: 
+\code{\link{theme_booktabs}()},
+\code{\link{theme_box}()},
+\code{\link{theme_tron_legacy}()},
+\code{\link{theme_tron}()},
+\code{\link{theme_vader}()},
+\code{\link{theme_vanilla}()},
+\code{\link{theme_zebra}()}
 }
 \concept{flextable theme}

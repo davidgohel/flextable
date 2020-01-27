@@ -7,8 +7,15 @@
 \usage{
 colformat_char(x, ...)
 
-\method{colformat_char}{flextable}(x, col_keys, na_str = "",
-  prefix = "", suffix = "", ...)
+\method{colformat_char}{flextable}(
+  x,
+  j = NULL,
+  col_keys = NULL,
+  na_str = "",
+  prefix = "",
+  suffix = "",
+  ...
+)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -16,7 +23,10 @@ colformat_char(x, ...)
 \item{...}{additional arguments, i can be used to specify a
 row selector.}
 
-\item{col_keys}{names of the colkeys}
+\item{j}{columns selection.}
+
+\item{col_keys}{names of the colkeys. Will be deprectated in favor of j in the next
+version.}
 
 \item{na_str}{string to be used for NA values}
 
@@ -33,8 +43,10 @@ ft <- colformat_char(
 autofit(ft)
 }
 \seealso{
-Other cells formatters: \code{\link{colformat_int}},
-  \code{\link{colformat_lgl}}, \code{\link{colformat_num}},
-  \code{\link{compose}}
+Other cells formatters: 
+\code{\link{colformat_int}()},
+\code{\link{colformat_lgl}()},
+\code{\link{colformat_num}()},
+\code{\link{compose}()}
 }
 \concept{cells formatters}

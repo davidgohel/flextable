@@ -20,9 +20,12 @@ ft <- flextable(mtcars)
 \donttest{dim_pretty(ft)}
 }
 \seealso{
-Other flextable dimensions: \code{\link{autofit}},
-  \code{\link{dim.flextable}}, \code{\link{fit_to_width}},
-  \code{\link{flextable_dim}}, \code{\link{height}},
-  \code{\link{width}}
+Other flextable dimensions: 
+\code{\link{autofit}()},
+\code{\link{dim.flextable}()},
+\code{\link{fit_to_width}()},
+\code{\link{flextable_dim}()},
+\code{\link{height}()},
+\code{\link{width}()}
 }
 \concept{flextable dimensions}

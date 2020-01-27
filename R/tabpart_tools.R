@@ -17,12 +17,9 @@ check_merge <- function(x){
     stop("invalid merging instructions", call. = FALSE)
   x
 }
-span_columns <- function( x, columns = NULL, target = columns ){
+span_columns <- function( x, columns = NULL, target = columns){
 
-  if( is.null(columns) )
-    columns <- x$col_keys
-
-  stopifnot(all( columns %in% x$col_keys ) )
+  stopifnot(all( columns %in% colnames(x$dataset) ) )
   stopifnot(all( target %in% x$col_keys ) )
 
   if( length(target) == 1 ){
@@ -33,9 +30,14 @@ span_columns <- function( x, columns = NULL, target = columns ){
   }
 
   for(k in seq_along(columns)){
-    values <- sapply(x$content[,columns[k]], function(x) {
-      paste(x$txt, collapse = "")
+    column <- columns[k]
+    if(column %in% x$col_keys){
+      values <- sapply(x$content[,columns[k]], function(x) {
+        paste(x$txt, collapse = "")
       })
+    } else {
+      values <- format(x$dataset[[column]], trim = TRUE, justify = "left")
+    }
     x$spans$columns[, match(target[k], x$col_keys)] <- merge_rle(values)
   }
 
@@ -119,6 +121,40 @@ get_columns_id <- function( x, j = NULL ){
     else if( !all( is.element(j, x$col_keys )) )
       stop("invalid columns selection:", paste(j[!is.element(j, x$col_keys )], collapse = ",") )
     else j = match(j, x$col_keys)
+  } else stop("invalid columns selection: unknown selection type")
+
+  j
+}
+
+get_dataset_columns_id <- function( x, j = NULL ){
+  maxcol <- ncol(x$dataset)
+
+  if( is.null(j) ) {
+    j <- seq_len(maxcol)
+  }
+
+  if( inherits(j, "formula") ){
+    j <- get_j_from_formula(j, x$dataset)
+  }
+
+  if( is.numeric (j) ){
+
+    if( all(j < 0 ) ){
+      j <- setdiff(seq_along(x$dataset), -j )
+    }
+
+    if( any( j < 1 | j > maxcol ) )
+      stop("invalid columns selection: out of range 1:", maxcol )
+  } else if( is.logical (j) ){
+    if( length( j ) != maxcol ) stop("invalid columns selection: j should be of length ", maxcol)
+    else j = which(j)
+
+  } else if( is.character (j) ){
+    j <- gsub("(^`|`$)", "", j)
+    if( any( is.na( j ) ) ) stop("invalid columns selection: NA in selection")
+    else if( !all( is.element(j, colnames(x$dataset) )) )
+      stop("invalid columns selection:", paste(j[!is.element(j, colnames(x$dataset) )], collapse = ",") )
+    else j = match(j, colnames(x$dataset))
   } else stop("invalid columns selection: unknown selection type")
 
   j

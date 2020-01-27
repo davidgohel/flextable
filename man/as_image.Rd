@@ -19,6 +19,9 @@ objects with function \code{\link{compose}}.
 It should be used inside a call to \code{\link{as_paragraph}}.
 }
 \note{
+This chunk option requires package officedown in a R Markdown
+context with Word output format.
+
 PowerPoint cannot mix images and text in a paragraph, images
 are removed when outputing to PowerPoint format.
 }
@@ -41,10 +44,16 @@ autofit(myft)
 \seealso{
 \code{\link{compose}}, \code{\link{as_paragraph}}
 
-Other chunk elements for paragraph: \code{\link{as_bracket}},
-  \code{\link{as_b}}, \code{\link{as_chunk}},
-  \code{\link{as_i}}, \code{\link{as_sub}},
-  \code{\link{as_sup}}, \code{\link{hyperlink_text}},
-  \code{\link{linerange}}, \code{\link{minibar}}
+Other chunk elements for paragraph: 
+\code{\link{as_bracket}()},
+\code{\link{as_b}()},
+\code{\link{as_chunk}()},
+\code{\link{as_i}()},
+\code{\link{as_sub}()},
+\code{\link{as_sup}()},
+\code{\link{hyperlink_text}()},
+\code{\link{linerange}()},
+\code{\link{lollipop}()},
+\code{\link{minibar}()}
 }
 \concept{chunk elements for paragraph}

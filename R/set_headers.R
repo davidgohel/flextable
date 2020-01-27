@@ -33,7 +33,8 @@ set_header_labels <- function(x, ..., values = NULL){
       stop("there is no header row to be replaced")
 
   }
-
+  
+  values <- values[names(values) %in% names(x$header$dataset)]
   x$header$content[nrow_part(x, "header"), names(values)] <- as_paragraph(as_chunk(unlist(values)))
 
   x

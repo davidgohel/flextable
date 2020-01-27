@@ -12,16 +12,20 @@ theme_booktabs(x, fontsize = 11)
 \item{fontsize}{font size in pixel}
 }
 \description{
-Apply theme tron to a flextable
+Apply theme booktabs to a flextable
 }
 \examples{
 ft <- flextable(iris)
 ft <- theme_booktabs(ft)
 }
 \seealso{
-Other flextable theme: \code{\link{theme_alafoli}},
-  \code{\link{theme_box}}, \code{\link{theme_tron_legacy}},
-  \code{\link{theme_tron}}, \code{\link{theme_vader}},
-  \code{\link{theme_vanilla}}, \code{\link{theme_zebra}}
+Other flextable theme: 
+\code{\link{theme_alafoli}()},
+\code{\link{theme_box}()},
+\code{\link{theme_tron_legacy}()},
+\code{\link{theme_tron}()},
+\code{\link{theme_vader}()},
+\code{\link{theme_vanilla}()},
+\code{\link{theme_zebra}()}
 }
 \concept{flextable theme}

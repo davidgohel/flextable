@@ -4,9 +4,17 @@
 \alias{border}
 \title{Set cell borders}
 \usage{
-border(x, i = NULL, j = NULL, border = NULL, border.top = NULL,
-  border.bottom = NULL, border.left = NULL, border.right = NULL,
-  part = "body")
+border(
+  x,
+  i = NULL,
+  j = NULL,
+  border = NULL,
+  border.top = NULL,
+  border.bottom = NULL,
+  border.left = NULL,
+  border.right = NULL,
+  part = "body"
+)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -40,11 +48,17 @@ ft <- flextable(mtcars)
 ft <- border(ft, border.top = fp_border(color = "orange") )
 }
 \seealso{
-Other borders management: \code{\link{border_inner_h}},
-  \code{\link{border_inner_v}}, \code{\link{border_inner}},
-  \code{\link{border_outer}}, \code{\link{border_remove}},
-  \code{\link{hline_bottom}}, \code{\link{hline_top}},
-  \code{\link{hline}}, \code{\link{vline_left}},
-  \code{\link{vline_right}}, \code{\link{vline}}
+Other borders management: 
+\code{\link{border_inner_h}()},
+\code{\link{border_inner_v}()},
+\code{\link{border_inner}()},
+\code{\link{border_outer}()},
+\code{\link{border_remove}()},
+\code{\link{hline_bottom}()},
+\code{\link{hline_top}()},
+\code{\link{hline}()},
+\code{\link{vline_left}()},
+\code{\link{vline_right}()},
+\code{\link{vline}()}
 }
 \concept{borders management}

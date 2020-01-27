@@ -1,4 +1,3 @@
-#' @import officer
 #' @title Define flextable displayed values
 #' @description Modify flextable displayed values by specifying a
 #' string expression. Function is handling complex formatting as well as
@@ -163,12 +162,10 @@ footnote <- function(x, i = NULL, j = NULL, value , ref_symbols = NULL, part = "
     ref_symbols <- as.character(seq_along(value))
   }
 
-  # create chunk for ref_symbols and set default font
-  def_fp_text <- as_fp_text_list(x[[part]]$styles$text, i = i, j = j)
-  def_fp_text <- lapply(def_fp_text, function(x) update(x, vertical.align = "superscript"))
+  # create chunk for ref_symbols
   symbols_chunks <- rep(list(NULL), length(ref_symbols))
   for(symbi in seq_along(ref_symbols)){
-    symbols_chunks[[symbi]] <- as_chunk(ref_symbols[symbi], props = def_fp_text[[symbi]])
+    symbols_chunks[[symbi]] <- as_sup(ref_symbols[symbi])
   }
 
   new <- mapply(

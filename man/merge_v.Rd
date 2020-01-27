@@ -9,7 +9,8 @@ merge_v(x, j = NULL, target = NULL, part = "body")
 \arguments{
 \item{x}{\code{flextable} object}
 
-\item{j}{column to used to find consecutive values to be merged.}
+\item{j}{column to used to find consecutive values to be merged. Columns
+from orignal dataset can also be used.}
 
 \item{target}{columns names where cells have to be merged.}
 
@@ -18,7 +19,7 @@ merge_v(x, j = NULL, target = NULL, part = "body")
 \description{
 Merge flextable cells vertically when consecutive cells have
 identical values. Text of formatted values are used to compare
-values.
+values if available.
 }
 \examples{
 ft_merge <- flextable(mtcars)
@@ -31,9 +32,9 @@ data_ex <- structure(list(srdr_id = c(
 ), substances = c(
   "alcohol",
   "alcohol", "alcohol", "alcohol", "cannabis",
-  "cannabis", "alcohol\\n cannabis\\n other drugs",
-  "alcohol\\n cannabis\\n other drugs",
-  "alcohol\\n cannabis\\n other drugs"
+  "cannabis", "alcohol\n cannabis\n other drugs",
+  "alcohol\n cannabis\n other drugs",
+  "alcohol\n cannabis\n other drugs"
 ), full_name = c(
   "TAU", "MI", "TAU", "MI (parent)", "TAU", "MI",
   "TAU", "MI", "MI"
@@ -51,8 +52,10 @@ merge_v(ft, j = "srdr_id",
   target = c("srdr_id", "substances"))
 }
 \seealso{
-Other flextable merging function: \code{\link{merge_at}},
-  \code{\link{merge_h_range}}, \code{\link{merge_h}},
-  \code{\link{merge_none}}
+Other flextable merging function: 
+\code{\link{merge_at}()},
+\code{\link{merge_h_range}()},
+\code{\link{merge_h}()},
+\code{\link{merge_none}()}
 }
 \concept{flextable merging function}

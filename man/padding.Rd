@@ -4,9 +4,17 @@
 \alias{padding}
 \title{Set paragraph paddings}
 \usage{
-padding(x, i = NULL, j = NULL, padding = NULL, padding.top = NULL,
-  padding.bottom = NULL, padding.left = NULL, padding.right = NULL,
-  part = "body")
+padding(
+  x,
+  i = NULL,
+  j = NULL,
+  padding = NULL,
+  padding.top = NULL,
+  padding.bottom = NULL,
+  padding.left = NULL,
+  padding.right = NULL,
+  part = "body"
+)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -35,11 +43,16 @@ ft <- flextable(mtcars)
 ft <- padding(ft, padding.top = 4)
 }
 \seealso{
-Other sugar functions for table style: \code{\link{align}},
-  \code{\link{bg}}, \code{\link{bold}},
-  \code{\link{color}}, \code{\link{empty_blanks}},
-  \code{\link{fontsize}}, \code{\link{font}},
-  \code{\link{italic}}, \code{\link{rotate}},
-  \code{\link{valign}}
+Other sugar functions for table style: 
+\code{\link{align}()},
+\code{\link{bg}()},
+\code{\link{bold}()},
+\code{\link{color}()},
+\code{\link{empty_blanks}()},
+\code{\link{fontsize}()},
+\code{\link{font}()},
+\code{\link{italic}()},
+\code{\link{rotate}()},
+\code{\link{valign}()}
 }
 \concept{sugar functions for table style}

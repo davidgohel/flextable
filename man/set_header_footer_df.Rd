@@ -52,7 +52,9 @@ ft <- theme_booktabs(ft)
 ft
 }
 \seealso{
-Other headers and footers: \code{\link{add_header_lines}},
-  \code{\link{add_header_row}}, \code{\link{add_header}}
+Other headers and footers: 
+\code{\link{add_header_lines}()},
+\code{\link{add_header_row}()},
+\code{\link{add_header}()}
 }
 \concept{headers and footers}

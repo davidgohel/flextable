@@ -146,6 +146,34 @@ ft <- bold(ft, i = 2:4, j = "cyl", bold = TRUE)
 ft
 ```
 
+## Compose paragraphs
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+mydata <- data.frame(
+  Espece = c("Acipenser Sturio (L. 1758) Esturgeon européen",
+             "Alosa alosa  (L.1758) Alose vraie", "Alosa fallax (Lac. 1803) Alose feinte",
+             "Anguilla anguilla  (L. 1758) Anguille", "Lampetra fluviatilis  (L. 1758) Lamproie de rivière",
+             "Liza ramada (Risso 1826) Mulet porc") , 
+  `X00` = c("",  "+", "+", "+", "",  "+"), 
+  `X01` = c("",  "+", "+", "+", "+", "+")) %>% 
+  separate(`Espece`, c("latin_name", "french_name"), sep = "\\(") %>% 
+  mutate(french_name = paste0("(", french_name) )
+mydata
+
+flextable(mydata, col_keys = c("dummy", "X00", "X01")) %>%
+  compose(j = "dummy", value = as_paragraph(as_i(latin_name), as_b(french_name))) %>% 
+  color(color=c(
+    rep("firebrick2",2),
+    rep("black",3),
+    rep("dodgerblue3",1)), 
+    part="body") %>% 
+  autofit()
+```
+
+
 ## Correlation matrix
 
 ```{r}

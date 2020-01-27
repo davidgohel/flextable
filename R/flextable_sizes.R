@@ -17,8 +17,6 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20 ){
     fdim <- flextable_dim(x)
 
     if( fdim$widths > max_width){
-      # message("minimimising")
-      # browser()
       if( nrow_part(x, part = "body") > 0 )
         x$body$styles$text$font.size$data[] <- x$body$styles$text$font.size$data - inc
       if( nrow_part(x, part = "footer") > 0 )
@@ -236,13 +234,23 @@ dim_pretty <- function( x, part = "all" ){
 autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
 
   stopifnot(inherits(x, "flextable") )
+  dimensions_ <- dim_pretty(x)
+  names(dimensions_$widths) <- x$col_keys
 
-  for(j in c("header", "body", "footer")){
-    if( nrow_part(x, j ) > 0 ){
-      dimensions_ <- optimal_sizes(x[[j]])
-      x[[j]]$colwidths <- dimensions_$widths + add_w
-      x[[j]]$rowheights <- dimensions_$heights + add_h
-    }
+  parts <- c("header", "body", "footer")
+  nrows <- lapply(parts, function(j){
+    nrow_part(x, j )
+  } )
+  heights <- list(lengths = unlist(nrows), values = parts )
+  class(heights) <- "rle"
+  heights <- data.frame( part = inverse.rle(heights),
+                         height = dimensions_$heights + add_h,
+                         stringsAsFactors = FALSE)
+  heights <- split(heights$height, heights$part)
+
+  for(j in names(heights)){
+    x[[j]]$colwidths <- dimensions_$widths + add_w
+    x[[j]]$rowheights <- heights[[j]]
   }
   x
 }

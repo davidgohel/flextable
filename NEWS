@@ -1,3 +1,34 @@
+# flextable 0.5.7
+
+## Changes
+
+* merge_v can use hidden columns.
+
+# flextable 0.5.6
+
+## Issues
+
+* force officer >= 0.3.6
+* fix rounding issue for css borders
+
+
+# flextable 0.5.6
+
+## new features
+
+* new function `lollipop` that lets users add mini lollipop chart to flextable
+  (kindly provided by github.com/pteridin)
+* function `proc_freq` got a new argument `weight` to enable weighting of results.
+* function `as_flextable.grouped_data()` has now an argument `hide_grouplabel` to
+let not print the group names.
+
+## Issues
+
+* let footnotes symbols be affected by style functions (related to #137)
+* enable usage of 'webshot2' instead of 'webshot'. It enable better screenshots. It
+  can be specified with argument `webshot` in function `save_as_image` or with
+  chunk option `webshot="webshot2"`.
+
 # flextable 0.5.5
 
 ## new features
