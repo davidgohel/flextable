@@ -95,6 +95,48 @@ height <- function(x, i = NULL, height, part = "body"){
 }
 
 #' @export
+#' @title Set flextable rule for rows heights
+#' @description control rules of each height for a part
+#' of the flextable.
+#' @param x flextable object
+#' @param i rows selection
+#' @param rule rule, one of 'auto', 'atleast', 'exact'.
+#' @param part partname of the table
+#' @examples
+#'
+#' ft <- flextable(iris)
+#' ft <- width(iris, width = 1.5)
+#' ft <- height(ft, height = 0.75, part = "header")
+#' ft <- hrule(ft, rule = "exact", part = "header")
+#'
+#' @family flextable dimensions
+hrule <- function(x, i = NULL, rule = "auto", part = "body"){
+  part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE )
+
+  if( "all" %in% part ){
+    for(i in c("body", "header", "footer") ){
+      x <- hrule(x, rule = rule, part = i)
+    }
+    return(x)
+  }
+
+  if( inherits(i, "formula") && any( c("header", "footer") %in% part ) ){
+    stop("formula in argument i cannot adress part 'header' or 'footer'.")
+  }
+
+  if( nrow_part(x, part ) < 1 ) return(x)
+
+  i <- get_rows_id(x[[part]], i )
+  if( !(length(i) == length(height) || length(height) == 1)){
+    stop("height should be of length 1 or ", length(i))
+  }
+
+  x[[part]]$hrule[i] <- rule
+  x
+}
+
+
+#' @export
 #' @rdname height
 #' @section height_all:
 #' \code{height_all} is a convenient function for

@@ -297,7 +297,7 @@ cell_struct <- function( nrow, keys,
                          border.width.bottom = 1, border.width.top = 1, border.width.left = 1, border.width.right = 1,
                          border.color.bottom = "transparent", border.color.top = "transparent", border.color.left = "transparent", border.color.right = "transparent",
                          border.style.bottom = "solid", border.style.top = "solid", border.style.left = "solid", border.style.right = "solid",
-                         background.color = "#34CC27", width = NA_real_, height = NA_real_ ){
+                         background.color = "#34CC27", width = NA_real_, height = NA_real_, hrule = "auto" ){
 
   check_choice( value = vertical.align, choices = c( "top", "center", "bottom" ) )
   check_choice( value = text.direction, choices = c( "lrtb", "tbrl", "btlr" ) )
@@ -329,7 +329,8 @@ cell_struct <- function( nrow, keys,
 
 
     text.direction = fpstruct(nrow = nrow, keys = keys, default = text.direction),
-    background.color = fpstruct(nrow = nrow, keys = keys, default = background.color)
+    background.color = fpstruct(nrow = nrow, keys = keys, default = background.color),
+    hrule = fpstruct(nrow = nrow, keys = keys, default = hrule)
   )
   class(x) <- "cell_struct"
   x
@@ -383,7 +384,8 @@ add_cellstyle_column <- function(x, type = "html"){
                        "background-color:transparent;")
 
     width <- ifelse( is.na(x$width), "", sprintf("width:%s;", css_px(x$width * 72) ) )
-    height <- ifelse( is.na(x$height), "", sprintf("height:%s;", css_px(x$height * 72 ) ) )
+    height <- ifelse( is.na(x$height) | x$hrule %in% "exact", sprintf("height:%s;", css_px(x$height * 72 ) ), "" )
+
     vertical.align <- ifelse(
       x$vertical.align %in% "center", "vertical-align: middle;",
       ifelse(x$vertical.align %in% "top", "vertical-align: top;", "vertical-align: bottom;") )
@@ -478,9 +480,10 @@ add_cellstyle_column <- function(x, type = "html"){
   x[, c("row_id", "col_id", "style_str")]
 }
 
-cell_data <- function(x, par_data, type, span_rows, span_columns, colwidths, rowheights){
+cell_data <- function(x, par_data, type, span_rows, span_columns, colwidths, rowheights, hrule){
   x[,, "width"] <- rep(colwidths, each = x$vertical.align$nrow)
   x[,, "height"] <- rep(rowheights, x$vertical.align$ncol)
+  x[,, "hrule"] <- rep(hrule, x$vertical.align$ncol)
   cells <- as.data.frame(x)
   cells <- add_cellstyle_column(cells, type = type)
   setDT(cells)
@@ -663,7 +666,7 @@ add_runstyle_column <- function(x, type = "html"){
     vertical.align <- ifelse(is.na(positioning_val), "", vertical.align)
 
     font.size <- sprintf(
-      "font-size:%s;", css_pt(x$font.size * ifelse(
+      "font-size:%s;", css_px(x$font.size * ifelse(
         x$vertical.align %in% "superscript", .6,
         ifelse(x$vertical.align %in% "subscript", .6, 1.0 )
       ) )

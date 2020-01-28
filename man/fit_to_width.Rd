@@ -31,6 +31,7 @@ Other flextable dimensions:
 \code{\link{dim_pretty}()},
 \code{\link{flextable_dim}()},
 \code{\link{height}()},
+\code{\link{hrule}()},
 \code{\link{width}()}
 }
 \concept{flextable dimensions}

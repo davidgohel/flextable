@@ -7,7 +7,7 @@
   display: table;
   margin-top: 5px;
   margin-bottom: 5px;
-  white-space: pre-wrap;
+  table-layout: fixed;
 }
 .tabwid_left table{
   margin-left:0;
@@ -22,6 +22,7 @@
 .tabwid td {
     line-height: 1em;
     padding: 0;
+    overflow: hidden;
 }
 .tabwid thead {
     background-color: transparent;

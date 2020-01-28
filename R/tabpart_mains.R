@@ -35,6 +35,7 @@ complex_tabpart <- function( data, col_keys = names(data),
                col_keys = col_keys,
                colwidths = colwidths,
                rowheights = rowheights,
+               hrule = rep("exact", nrow(data)),
                spans = spans,
                styles = list(
                  cells = pr_cell_init, pars = pr_par_init,

@@ -26,6 +26,7 @@ Other flextable dimensions:
 \code{\link{fit_to_width}()},
 \code{\link{flextable_dim}()},
 \code{\link{height}()},
+\code{\link{hrule}()},
 \code{\link{width}()}
 }
 \concept{flextable dimensions}
