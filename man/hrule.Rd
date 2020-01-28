@@ -11,13 +11,18 @@ hrule(x, i = NULL, rule = "auto", part = "body")
 
 \item{i}{rows selection}
 
-\item{rule}{rule, one of 'auto', 'atleast', 'exact'.}
+\item{rule}{specify the meaning of the height. Possible values
+are "atleast" (height should be at least the value specified), "exact"
+(height should be exactly the value specified), or the default value "auto"
+(height is determined based on the height of the contents, so the value is ignored).
+See details for more informations.}
 
-\item{part}{partname of the table}
+\item{part}{partname of the table, one of "all", "header", "body", "footer"}
 }
 \description{
 control rules of each height for a part
-of the flextable.
+of the flextable, this is only for Word and HTML outputs, it
+will not have any effect when output is PowerPoint.
 }
 \examples{
 

@@ -97,11 +97,16 @@ height <- function(x, i = NULL, height, part = "body"){
 #' @export
 #' @title Set flextable rule for rows heights
 #' @description control rules of each height for a part
-#' of the flextable.
+#' of the flextable, this is only for Word and HTML outputs, it
+#' will not have any effect when output is PowerPoint.
 #' @param x flextable object
 #' @param i rows selection
-#' @param rule rule, one of 'auto', 'atleast', 'exact'.
-#' @param part partname of the table
+#' @param rule specify the meaning of the height. Possible values
+#' are "atleast" (height should be at least the value specified), "exact"
+#' (height should be exactly the value specified), or the default value "auto"
+#' (height is determined based on the height of the contents, so the value is ignored).
+#' See details for more informations.
+#' @param part partname of the table, one of "all", "header", "body", "footer"
 #' @examples
 #'
 #' ft <- flextable(iris)
