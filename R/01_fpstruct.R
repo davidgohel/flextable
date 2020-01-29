@@ -194,14 +194,26 @@ as.data.frame.par_struct <- function(object, ...){
 }
 
 
-add_parstyle_column <- function(x, type = "html"){
+add_parstyle_column <- function(x, type = "html", text.direction, valign){
 
   if( type %in% "html"){
     shading <- ifelse( colalpha(x$shading.color) > 0,
                        sprintf("background-color:%s;", colcodecss(x$shading.color) ),
                        "background-color:transparent;")
 
+    textdir <- ifelse(text.direction %in% "tbrl", "writing-mode:vertical-rl;",
+                      ifelse(text.direction %in% "btlr", "writing-mode:vertical-lr;transform: rotate(180deg);", "")
+                      )
     textalign <- sprintf("text-align:%s;", x$text.align )
+    textalign_margins <- rep("", length(text.direction))
+
+    textalign_margins[text.direction %in% "tbrl" & valign %in% "center"] <- "margin-left:auto;margin-right:auto;"
+    textalign_margins[text.direction %in% "tbrl" & valign %in% "top"] <- "margin-left:auto;"
+    textalign_margins[text.direction %in% "tbrl" & valign %in% "bottom"] <- "margin-right:auto;"
+    textalign_margins[text.direction %in% "btlr" & valign %in% "center"] <- "margin-left:auto;margin-right:auto;"
+    textalign_margins[text.direction %in% "btlr" & valign %in% "top"] <- "margin-right:auto;"
+    textalign_margins[text.direction %in% "btlr" & valign %in% "bottom"] <- "margin-left:auto;"
+    textalign <- paste0(textalign, textalign_margins)
 
     bb <- border_css(
       color = x$border.color.bottom, width = x$border.width.bottom,
@@ -221,7 +233,7 @@ add_parstyle_column <- function(x, type = "html"){
     padding.left <- sprintf("padding-left:%s;", css_px(x$padding.left) )
     padding.right <- sprintf("padding-right:%s;", css_px(x$padding.right) )
 
-    style_column <- paste0("style=\"margin:0;", textalign, bb, bt, bl, br,
+    style_column <- paste0("style=\"margin:0;", textalign, textdir, bb, bt, bl, br,
                            padding.bottom, padding.top, padding.left, padding.right, shading, "\"" )
   } else if( type %in% "wml"){
 
@@ -268,9 +280,9 @@ add_parstyle_column <- function(x, type = "html"){
   x[, c("row_id", "col_id", "style_str")]
 }
 
-par_data <- function(x, run_data, type){
+par_data <- function(x, run_data, type, text.direction, valign){
   paragraphs <- as.data.frame(x)
-  paragraphs <- add_parstyle_column(paragraphs, type = type)
+  paragraphs <- add_parstyle_column(paragraphs, type = type, text.direction = text.direction, valign = valign)
   setDT(paragraphs)
   dat <- merge(paragraphs, run_data, by = c("row_id", "col_id"), all.x = TRUE)
   setDF(paragraphs)
@@ -376,7 +388,7 @@ as.data.frame.cell_struct <- function(object, ...){
   data
 }
 
-add_cellstyle_column <- function(x, type = "html"){
+add_cellstyle_column <- function(x, type = "html", text.align ){
 
   if( type %in% "html"){
     background.color <- ifelse( colalpha(x$background.color) > 0,
@@ -389,6 +401,9 @@ add_cellstyle_column <- function(x, type = "html"){
     vertical.align <- ifelse(
       x$vertical.align %in% "center", "vertical-align: middle;",
       ifelse(x$vertical.align %in% "top", "vertical-align: top;", "vertical-align: bottom;") )
+    vertical.align[x$text.direction %in% "tbrl" & text.align %in% "center"] <- "vertical-align:middle;"
+    vertical.align[x$text.direction %in% "tbrl" & text.align %in% "left"] <- "vertical-align:top;"
+    vertical.align[x$text.direction %in% "tbrl" & text.align %in% "right"] <- "vertical-align:bottom;"
 
     bb <- border_css(
       color = x$border.color.bottom, width = x$border.width.bottom,
@@ -480,12 +495,12 @@ add_cellstyle_column <- function(x, type = "html"){
   x[, c("row_id", "col_id", "style_str")]
 }
 
-cell_data <- function(x, par_data, type, span_rows, span_columns, colwidths, rowheights, hrule){
+cell_data <- function(x, par_data, type, span_rows, span_columns, colwidths, rowheights, hrule, text.align){
   x[,, "width"] <- rep(colwidths, each = x$vertical.align$nrow)
   x[,, "height"] <- rep(rowheights, x$vertical.align$ncol)
   x[,, "hrule"] <- rep(hrule, x$vertical.align$ncol)
   cells <- as.data.frame(x)
-  cells <- add_cellstyle_column(cells, type = type)
+  cells <- add_cellstyle_column(cells, type = type, text.align = text.align)
   setDT(cells)
   dat <- merge(cells, par_data, by = c("row_id", "col_id"), all.x = TRUE)
 
@@ -531,8 +546,8 @@ cell_data <- function(x, par_data, type, span_rows, span_columns, colwidths, row
 
     text_directions <- x$text.direction[]
     class_ <- character(nrow(dat))
-    rotated <- text_directions %in% c("btlr", "tbrl")
-    class_[rotated] <- sprintf(" class=\"%s\"", text_directions[rotated])
+    # rotated <- text_directions %in% c("btlr", "tbrl")
+    # class_[rotated] <- sprintf(" class=\"%s\"", text_directions[rotated])
 
     str <- paste0("<td", class_, tc_attr, " style=\"", dat$style_str ,"\">", dat$par_str, "</td>")
     str[span_rows < 1 | span_columns < 1] <- ""

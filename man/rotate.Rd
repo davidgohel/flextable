@@ -13,7 +13,8 @@ rotate(x, i = NULL, j = NULL, rotation, align = "center", part = "body")
 
 \item{j}{columns selection}
 
-\item{rotation}{one of "lrtb", "tbrl", "btlr"}
+\item{rotation}{one of "lrtb", "tbrl", "btlr". Note that "btlr" is ignored
+when output is HTML.}
 
 \item{align}{vertical alignment of paragraph within cell,
 one of "center" or "top" or "bottom".}
@@ -21,23 +22,41 @@ one of "center" or "top" or "bottom".}
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
-apply a rotation to cell text
+apply a rotation to cell text. The text direction can
+be "lrtb" which mean from left to right and top to bottom (the default direction).
+In some cases, it can be useful to be able
+to change the direction, when the table headers are huge for example, header labels can
+be rendered as "tbrl" (top to bottom and right to left) corresponding to a 90 degrees rotation
+or "btlr" corresponding to a 270 degrees rotation.
 }
 \details{
-One common case is to rotate text to minimise column space. When rotating,
-paragraph alignments will remain the same and often right aligned (
-with an effect of top aligned when rotated). Use
-\code{align(..., align = "center")} to center rotated text.
-
 When function \code{autofit} is used, the rotation will be
-ignored.
+ignored. In that case, use \link{dim_pretty} and \link{width} instead
+of \link{autofit}.
 }
 \examples{
+library(flextable)
+
 ft <- flextable(head(iris))
-ft <- rotate(ft, rotation = "tbrl", part = "header", align = "center")
-ft <- align(ft, align = "center")
-ft <- autofit(ft)
-ft <- height(ft, height = max(dim_pretty(ft, part = "header")$widths), part = "header")
+
+# measure column widths but only for the body part
+w_body <- dim_pretty(ft, part = "body")$widths
+# measure column widths only for the header part and get the max
+# as height value for rotated text
+h_header <- max( dim_pretty(ft, part = "header")$widths )
+
+ft <- rotate(ft, j = 1:4, rotation="btlr",part="header")
+ft <- rotate(ft, j = 5, rotation="tbrl",part="header")
+
+ft <- valign(ft, valign = "center", part = "header")
+ft <- align(ft, align = "center", part = "all")
+
+# Manage header height
+ft <- height(ft, height = h_header * 1.1, part = "header")
+# ... mainly because Word don't handle auto height with rotated headers
+ft <- hrule(ft, i = 1, rule = "exact", part = "header")
+
+ft
 }
 \seealso{
 Other sugar functions for table style: 

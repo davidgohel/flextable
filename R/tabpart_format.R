@@ -19,7 +19,7 @@ border_wml <- function(color, width, style, side){
   style[style %in% c("solid")] <- "single"
 
   out <- sprintf('<w:%s w:val="%s" w:sz="%.0f" w:space="0" w:color="%s" />', side, style, width * 8, colcode0(color))
-  out[width < 0.001 | color %in% "transparent"] <- ""
+  out[width < 0.001 | color %in% "transparent"] <- sprintf("<w:%s w:val=\"nil\"/>", side)
   out
 }
 border_pml <- function(color, width, style, side){
@@ -91,10 +91,11 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE,
 
   }
 
-  paragraphs <- par_data(x$styles$pars, txt_data, type = type)
+  paragraphs <- par_data(x$styles$pars, txt_data, type = type,
+                         text.direction = x$styles$cells$text.direction$data, valign = x$styles$cells$vertical.align$data)
   cells <- cell_data(x$styles$cells, paragraphs, type = type,
                      span_rows = x$spans$rows,
-                     span_columns = x$spans$columns, x$colwidths, x$rowheights, x$hrule)
+                     span_columns = x$spans$columns, x$colwidths, x$rowheights, x$hrule, text.align=x$styles$pars$text.align$data)
   setDT(cells)
   cells <- dcast(cells, row_id ~ col_id, drop=FALSE, fill="", value.var = "cell_str", fun.aggregate = I)
   cells$row_id <- NULL
