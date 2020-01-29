@@ -729,9 +729,6 @@ add_runstyle_column <- function(x, type = "html"){
       x$vertical.align %in% "superscript", " baseline=\"40000\"",
       ifelse(x$vertical.align %in% "subscript"," baseline=\"-40000\"", "") )
 
-
-    shading <- sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", colcode0(x$shading.color) )
-
     color <- paste0(
       sprintf("<a:solidFill><a:srgbClr val=\"%s\">", colcode0(x$color) ),
       sprintf("<a:alpha val=\"%.0f\"/>", colalpha(x$color) ),
@@ -740,6 +737,7 @@ add_runstyle_column <- function(x, type = "html"){
       sprintf("<a:highlight><a:srgbClr val=\"%s\">", colcode0(x$shading.color) ),
       sprintf("<a:alpha val=\"%.0f\"/>", colalpha(x$shading.color) ),
       "</a:srgbClr></a:highlight>" )
+    shading.color[colalpha(x$shading.color) < 1] <- ""
 
     style_column <- paste0("<a:rPr", font.size, italic, bold, underline, vertical.align, ">",
                            color, family, shading.color, "%s",
