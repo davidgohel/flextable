@@ -23,7 +23,7 @@ get_xml_ppt <- function(tab, main_folder = "pptx_folder") {
   pptx_file <- tempfile(fileext = ".pptx")
   doc <- read_pptx()
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with_flextable(doc, tab)
+  doc <- ph_with(doc, tab, location = ph_location_type(type = "body"))
   print(doc, target = pptx_file)
 
   main_folder <- file.path(getwd(), main_folder )

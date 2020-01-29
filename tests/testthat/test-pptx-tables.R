@@ -9,7 +9,7 @@ test_that("row height is valid", {
   pptx_file <- "test.pptx"
   doc <- read_pptx()
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with_flextable(doc, value = ft, type = "body")
+  doc <- ph_with(doc, value = ft, location = ph_location_type(type = "body"))
   doc <- print(doc, target = pptx_file)
 
   main_folder <- file.path(getwd(), "pptx_folder" )
@@ -34,7 +34,7 @@ test_that("location is correct", {
   pptx_file <- tempfile(fileext = ".pptx")
   doc <- read_pptx()
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with_flextable_at(doc, value = ft, left = 0, top = 0)
+  doc <- ph_with(doc, value = ft, location = ph_location(left = 0, top = 0))
   doc <- print(doc, target = pptx_file)
 
   main_folder <- file.path(getwd(), "pptx_folder" )
