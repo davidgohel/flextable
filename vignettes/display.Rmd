@@ -270,4 +270,18 @@ ft <- valign(ft, valign = "bottom", part = "header")
 autofit(ft)
 ```
 
+## Two lines in a cell
+
+> A cell is made of one single paragraph of text. Paragraphs 
+can contain several chunks of text with different formatting 
+but also images. (see [keypoints](./overview.html#keypoints))
+
+When designed, flextable was not supposed to support soft return (a new line in a paragraph).
+As requested by some users, some workarounds have been implemented to let add some `\n` 
+as *soft break* in paragraphs. 
+
+With HTML, it works fine. But with Word or PowerPoint it comes with limitations/issues (we are working on it):
+
+* With PowerPoint the padding is also applied where the soft break is written.
+* With Word, the text format is lost and the default style is used.
 
