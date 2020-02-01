@@ -3,6 +3,15 @@
 ## Changes
 
 * merge_v can use hidden columns.
+* new function `hrule` to control how row heights should be
+  understood (at least, auto, exact)
+* Allow unused values in set_header_labels - PR #172 from DanChaltiel
+
+## Issues
+
+* fix issue #180, background color of runs transparency issue with googlesheet
+* fix issue #157, issue with rotate and HTML output
+
 
 # flextable 0.5.6
 

@@ -13,9 +13,9 @@ save_as_html(x, path)
 }
 \description{
 save a flextable in an HTML file. This function
-has been implemented to help users that do not understand
-R Markdown. It is highly recommanded to use R Markdown
-instead.
+is useful to save the flextable in HTML file without using
+R Markdown (it is highly recommanded to use R Markdown
+instead).
 }
 \examples{
 ft <- flextable( head( mtcars ) )

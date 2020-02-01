@@ -32,6 +32,7 @@ reference:
     - starts_with("merge_")
     - starts_with("height")
     - width
+    - hrule
     - autofit
     - dim.flextable
     - dim_pretty

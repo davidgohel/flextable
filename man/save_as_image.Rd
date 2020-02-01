@@ -24,7 +24,7 @@ Package 'webshot2' should be prefered as 'webshot' can have
 issues with some properties (i.e. bold are not rendered for some users).
 }
 \note{
-This function requires package webshot.
+This function requires package webshot or webshot2.
 }
 \examples{
 ft <- flextable( head( mtcars ) )

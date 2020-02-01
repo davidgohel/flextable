@@ -282,9 +282,9 @@ format.flextable <- function(x, type, ...){
 #' @export
 #' @title save a flextable in an HTML file
 #' @description save a flextable in an HTML file. This function
-#' has been implemented to help users that do not understand
-#' R Markdown. It is highly recommanded to use R Markdown
-#' instead.
+#' is useful to save the flextable in HTML file without using
+#' R Markdown (it is highly recommanded to use R Markdown
+#' instead).
 #' @param x a flextable object
 #' @param path HTML file to be created
 #' @examples
@@ -314,7 +314,7 @@ save_as_html <- function(x, path){
 #' Image generated with package 'webshot' or package 'webshot2'.
 #' Package 'webshot2' should be prefered as 'webshot' can have
 #' issues with some properties (i.e. bold are not rendered for some users).
-#' @note This function requires package webshot.
+#' @note This function requires package webshot or webshot2.
 #' @param x a flextable object
 #' @param path image file to be created. It should end with .png, .pdf, or .jpeg.
 #' @param zoom,expand parameters used by \code{webshot} function.
