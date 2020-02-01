@@ -56,7 +56,7 @@ pml_flextable <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 
 #' @description add a flextable as a new shape in the current slide.
 #'
 #' These functions will be deprecated in the next release and
-#' function \code{\link{ph_with.flextable}} should be used instead.
+#' method \code{\link[officer]{ph_with}} should be used instead.
 #' @note
 #' The width and height of the table can not be set with this function. Use
 #' functions \code{\link{width}}, \code{\link{height}}, \code{\link{autofit}}
@@ -69,7 +69,7 @@ pml_flextable <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 
 #' is not unique in the current slide, e.g. two placeholders with type 'body'.
 #' @importFrom officer ph_location_type
 ph_with_flextable <- function( x, value, type = "body", index = 1 ){
-  .Deprecated(new = "ph_with")
+  .Deprecated(new = "officer::ph_with")
   stopifnot(inherits(x, "rpptx"))
   ph_with(x, value, location = ph_location_type(type = type, id = index))
 }
