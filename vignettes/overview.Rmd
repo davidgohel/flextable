@@ -249,6 +249,20 @@ rows along pages when the table need more than a page.
 
 ### PowerPoint or Word documents with officer
 
+#### Simple export
+
+Use function `save_as_docx` or `save_as_pptx` that lets users export flextable objects 
+to PowerPoint or Word documents.. 
+
+```{r eval=FALSE}
+docx_file <- tempfile(fileext = ".docx")
+pptx_file <- tempfile(fileext = ".pptx")
+# docx_file <- "example.docx"
+# pptx_file <- "example.pptx"
+save_as_docx("my table" = ft, path = docx_file)
+save_as_docx("my table" = ft, path = pptx_file)
+```
+
 #### In an interactive session
 
 If you have a Word or PowerPoint client on your machine, you can use the `print` method 

@@ -2,7 +2,7 @@
 
 ## new features
 
-* new suger functions `save_as_docx`, `save_as_pptx` that lets users export flextable
+* new suger functions `save_as_docx`, `save_as_pptx` that lets users export flextable objects
   to PowerPoint or Word documents.
 
 ## Changes
@@ -11,7 +11,7 @@
 * new function `hrule` to control how row heights should be
   understood (at least, auto, exact)
 * Allow unused values in set_header_labels - PR #172 from DanChaltiel
-* deprecation of ph_with_flextable_at
+* deprecation of ph_with_flextable_at, ph_with_flextable will be deprected in the next release
 
 ## Issues
 
