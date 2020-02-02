@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>mini barplots chunk wrapper — minibar • flextable</title>
+<title>Set flextable rule for rows heights — hrule • flextable</title>
 
 
 <!-- jquery -->
@@ -35,10 +35,10 @@
 
 
 
-<meta property="og:title" content="mini barplots chunk wrapper — minibar" />
-<meta property="og:description" content="This function is used to insert bars into
-flextable with function compose.
-It should be used inside a call to as_paragraph" />
+<meta property="og:title" content="Set flextable rule for rows heights — hrule" />
+<meta property="og:description" content="control rules of each height for a part
+of the flextable, this is only for Word and HTML outputs, it
+will not have any effect when output is PowerPoint." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,98 +122,66 @@ It should be used inside a call to as_paragraph" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>mini barplots chunk wrapper</h1>
+    <h1>Set flextable rule for rows heights</h1>
     
-    <div class="hidden name"><code>minibar.Rd</code></div>
+    <div class="hidden name"><code>hrule.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function is used to insert bars into
-flextable with function <code><a href='compose.html'>compose</a></code>.
-It should be used inside a call to <code><a href='as_paragraph.html'>as_paragraph</a></code></p>
+    <p>control rules of each height for a part
+of the flextable, this is only for Word and HTML outputs, it
+will not have any effect when output is PowerPoint.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>minibar</span>(
-  <span class='no'>value</span>,
-  <span class='kw'>max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>barcol</span> <span class='kw'>=</span> <span class='st'>"#CCCCCC"</span>,
-  <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.2</span>
-)</pre>
+    <pre class="usage"><span class='fu'>hrule</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rule</span> <span class='kw'>=</span> <span class='st'>"auto"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>value</th>
-      <td><p>values containing the bar size</p></td>
+      <th>x</th>
+      <td><p>flextable object</p></td>
     </tr>
     <tr>
-      <th>max</th>
-      <td><p>max bar size</p></td>
+      <th>i</th>
+      <td><p>rows selection</p></td>
     </tr>
     <tr>
-      <th>barcol</th>
-      <td><p>bar color</p></td>
+      <th>rule</th>
+      <td><p>specify the meaning of the height. Possible values
+are "atleast" (height should be at least the value specified), "exact"
+(height should be exactly the value specified), or the default value "auto"
+(height is determined based on the height of the contents, so the value is ignored).
+See details for more informations.</p></td>
     </tr>
     <tr>
-      <th>bg</th>
-      <td><p>background color</p></td>
-    </tr>
-    <tr>
-      <th>width, height</th>
-      <td><p>size of the resulting png file in inches</p></td>
+      <th>part</th>
+      <td><p>partname of the table, one of "all", "header", "body", "footer"</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>This chunk option requires package officedown in a R Markdown
-context with Word output format.</p>
-<p>PowerPoint cannot mix images and text in a paragraph, images
-are removed when outputing to PowerPoint format.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='compose.html'>compose</a></code>, <code><a href='as_paragraph.html'>as_paragraph</a></code></p>
-<p>Other chunk elements for paragraph: 
-<code><a href='as_bracket.html'>as_bracket</a>()</code>,
-<code><a href='as_b.html'>as_b</a>()</code>,
-<code><a href='as_chunk.html'>as_chunk</a>()</code>,
-<code><a href='as_image.html'>as_image</a>()</code>,
-<code><a href='as_i.html'>as_i</a>()</code>,
-<code><a href='as_sub.html'>as_sub</a>()</code>,
-<code><a href='as_sup.html'>as_sup</a>()</code>,
-<code><a href='hyperlink_text.html'>hyperlink_text</a>()</code>,
-<code><a href='linerange.html'>linerange</a>()</code>,
-<code><a href='lollipop.html'>lollipop</a>()</code></p></div>
+    <div class='dont-index'><p>Other flextable dimensions: 
+<code><a href='autofit.html'>autofit</a>()</code>,
+<code><a href='dim.flextable.html'>dim.flextable</a>()</code>,
+<code><a href='dim_pretty.html'>dim_pretty</a>()</code>,
+<code><a href='fit_to_width.html'>fit_to_width</a>()</code>,
+<code><a href='flextable_dim.html'>flextable_dim</a>()</code>,
+<code><a href='height.html'>height</a>()</code>,
+<code><a href='width.html'>width</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>iris</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span> ))
-
-<span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span>( <span class='no'>myft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
-    <span class='fu'>minibar</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>Sepal.Length</span>))
-  ),
-  <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-
-<span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>myft</span>)</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
-#&gt; header has 1 row(s) 
-#&gt; body has 10 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div></pre>
+    <pre class="examples"><div class='input'>
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='no'>iris</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='width.html'>width</a></span>(<span class='no'>iris</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='height.html'>height</a></span>(<span class='no'>ft</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>hrule</span>(<span class='no'>ft</span>, <span class='kw'>rule</span> <span class='kw'>=</span> <span class='st'>"exact"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#note">Note</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

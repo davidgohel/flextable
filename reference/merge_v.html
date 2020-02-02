@@ -38,7 +38,7 @@
 <meta property="og:title" content="Merge flextable cells vertically — merge_v" />
 <meta property="og:description" content="Merge flextable cells vertically when consecutive cells have
 identical values. Text of formatted values are used to compare
-values." />
+values if available." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -71,7 +71,7 @@ values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.7</span>
       </span>
     </div>
 
@@ -130,7 +130,7 @@ values." />
     <div class="ref-description">
     <p>Merge flextable cells vertically when consecutive cells have
 identical values. Text of formatted values are used to compare
-values.</p>
+values if available.</p>
     </div>
 
     <pre class="usage"><span class='fu'>merge_v</span>(<span class='no'>x</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
@@ -144,7 +144,8 @@ values.</p>
     </tr>
     <tr>
       <th>j</th>
-      <td><p>column to used to find consecutive values to be merged.</p></td>
+      <td><p>column to used to find consecutive values to be merged. Columns
+from orignal dataset can also be used.</p></td>
     </tr>
     <tr>
       <th>target</th>
@@ -228,7 +229,7 @@ values.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.7.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
