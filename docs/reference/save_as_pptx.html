@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>mini barplots chunk wrapper — minibar • flextable</title>
+<title>save flextable objects in an PowerPoint file — save_as_pptx • flextable</title>
 
 
 <!-- jquery -->
@@ -35,10 +35,8 @@
 
 
 
-<meta property="og:title" content="mini barplots chunk wrapper — minibar" />
-<meta property="og:description" content="This function is used to insert bars into
-flextable with function compose.
-It should be used inside a call to as_paragraph" />
+<meta property="og:title" content="save flextable objects in an PowerPoint file — save_as_pptx" />
+<meta property="og:description" content="sugar function to save flextable objects in an PowerPoint file." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,98 +120,63 @@ It should be used inside a call to as_paragraph" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>mini barplots chunk wrapper</h1>
+    <h1>save flextable objects in an PowerPoint file</h1>
     
-    <div class="hidden name"><code>minibar.Rd</code></div>
+    <div class="hidden name"><code>save_as_pptx.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function is used to insert bars into
-flextable with function <code><a href='compose.html'>compose</a></code>.
-It should be used inside a call to <code><a href='as_paragraph.html'>as_paragraph</a></code></p>
+    <p>sugar function to save flextable objects in an PowerPoint file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>minibar</span>(
-  <span class='no'>value</span>,
-  <span class='kw'>max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>barcol</span> <span class='kw'>=</span> <span class='st'>"#CCCCCC"</span>,
-  <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.2</span>
-)</pre>
+    <pre class="usage"><span class='fu'>save_as_pptx</span>(<span class='no'>...</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>path</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>value</th>
-      <td><p>values containing the bar size</p></td>
+      <th>...</th>
+      <td><p>flextable objects, objects, possibly named. If named objects, names are
+used as slide titles.</p></td>
     </tr>
     <tr>
-      <th>max</th>
-      <td><p>max bar size</p></td>
+      <th>values</th>
+      <td><p>a list (possibly named), each element is a flextable object. If named objects, names are
+used as slide titles. If provided, argument <code>...</code> will be ignored.</p></td>
     </tr>
     <tr>
-      <th>barcol</th>
-      <td><p>bar color</p></td>
-    </tr>
-    <tr>
-      <th>bg</th>
-      <td><p>background color</p></td>
-    </tr>
-    <tr>
-      <th>width, height</th>
-      <td><p>size of the resulting png file in inches</p></td>
+      <th>path</th>
+      <td><p>PowerPoint file to be created</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>This chunk option requires package officedown in a R Markdown
-context with Word output format.</p>
-<p>PowerPoint cannot mix images and text in a paragraph, images
-are removed when outputing to PowerPoint format.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='compose.html'>compose</a></code>, <code><a href='as_paragraph.html'>as_paragraph</a></code></p>
-<p>Other chunk elements for paragraph: 
-<code><a href='as_bracket.html'>as_bracket</a>()</code>,
-<code><a href='as_b.html'>as_b</a>()</code>,
-<code><a href='as_chunk.html'>as_chunk</a>()</code>,
-<code><a href='as_image.html'>as_image</a>()</code>,
-<code><a href='as_i.html'>as_i</a>()</code>,
-<code><a href='as_sub.html'>as_sub</a>()</code>,
-<code><a href='as_sup.html'>as_sup</a>()</code>,
-<code><a href='hyperlink_text.html'>hyperlink_text</a>()</code>,
-<code><a href='linerange.html'>linerange</a>()</code>,
-<code><a href='lollipop.html'>lollipop</a>()</code></p></div>
+    <div class='dont-index'><p>Other flextable print function: 
+<code><a href='as_raster.html'>as_raster</a>()</code>,
+<code><a href='docx_value.html'>docx_value</a>()</code>,
+<code><a href='format.flextable.html'>format.flextable</a>()</code>,
+<code><a href='htmltools_value.html'>htmltools_value</a>()</code>,
+<code><a href='knit_print.flextable.html'>knit_print.flextable</a>()</code>,
+<code><a href='plot.flextable.html'>plot.flextable</a>()</code>,
+<code><a href='print.flextable.html'>print.flextable</a>()</code>,
+<code><a href='save_as_docx.html'>save_as_docx</a>()</code>,
+<code><a href='save_as_html.html'>save_as_html</a>()</code>,
+<code><a href='save_as_image.html'>save_as_image</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>iris</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span> ))
+    <pre class="examples"><div class='input'><span class='no'>ft1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='no'>iris</span> ) )
+<span class='no'>tf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
+<span class='fu'>save_as_pptx</span>(<span class='no'>ft1</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>tf</span>)
 
-<span class='no'>myft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span>( <span class='no'>myft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
-    <span class='fu'>minibar</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>Sepal.Length</span>))
-  ),
-  <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-
-<span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>myft</span>)</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
-#&gt; header has 1 row(s) 
-#&gt; body has 10 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div></pre>
+<span class='no'>ft2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='no'>mtcars</span> ) )
+<span class='no'>tf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
+<span class='fu'>save_as_pptx</span>(<span class='kw'>`iris table`</span> <span class='kw'>=</span> <span class='no'>ft1</span>, <span class='kw'>`mtcars table`</span> <span class='kw'>=</span> <span class='no'>ft2</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>tf</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#note">Note</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

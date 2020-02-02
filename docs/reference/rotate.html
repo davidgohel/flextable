@@ -36,7 +36,12 @@
 
 
 <meta property="og:title" content="rotate cell text — rotate" />
-<meta property="og:description" content="apply a rotation to cell text" />
+<meta property="og:description" content="apply a rotation to cell text. The text direction can
+be &quot;lrtb&quot; which mean from left to right and top to bottom (the default direction).
+In some cases, it can be useful to be able
+to change the direction, when the table headers are huge for example, header labels can
+be rendered as &quot;tbrl&quot; (top to bottom and right to left) corresponding to a 90 degrees rotation
+or &quot;btlr&quot; corresponding to a 270 degrees rotation." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.7</span>
       </span>
     </div>
 
@@ -126,7 +131,12 @@
     </div>
 
     <div class="ref-description">
-    <p>apply a rotation to cell text</p>
+    <p>apply a rotation to cell text. The text direction can
+be "lrtb" which mean from left to right and top to bottom (the default direction).
+In some cases, it can be useful to be able
+to change the direction, when the table headers are huge for example, header labels can
+be rendered as "tbrl" (top to bottom and right to left) corresponding to a 90 degrees rotation
+or "btlr" corresponding to a 270 degrees rotation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>rotate</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>rotation</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
@@ -148,7 +158,8 @@
     </tr>
     <tr>
       <th>rotation</th>
-      <td><p>one of "lrtb", "tbrl", "btlr"</p></td>
+      <td><p>one of "lrtb", "tbrl", "btlr". Note that "btlr" is ignored
+when output is HTML.</p></td>
     </tr>
     <tr>
       <th>align</th>
@@ -163,12 +174,9 @@ one of "center" or "top" or "bottom".</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>One common case is to rotate text to minimise column space. When rotating,
-paragraph alignments will remain the same and often right aligned (
-with an effect of top aligned when rotated). Use
-<code><a href='align.html'>align(..., align = "center")</a></code> to center rotated text.</p>
-<p>When function <code>autofit</code> is used, the rotation will be
-ignored.</p>
+    <p>When function <code>autofit</code> is used, the rotation will be
+ignored. In that case, use <a href='dim_pretty.html'>dim_pretty</a> and <a href='width.html'>width</a> instead
+of <a href='autofit.html'>autofit</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other sugar functions for table style: 
@@ -184,11 +192,38 @@ ignored.</p>
 <code><a href='valign.html'>valign</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>iris</span>))
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>rotate</span>(<span class='no'>ft</span>, <span class='kw'>rotation</span> <span class='kw'>=</span> <span class='st'>"tbrl"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='align.html'>align</a></span>(<span class='no'>ft</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='height.html'>height</a></span>(<span class='no'>ft</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='fu'><a href='dim_pretty.html'>dim_pretty</a></span>(<span class='no'>ft</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)$<span class='no'>widths</span>), <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>flextable</span>)
+
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>iris</span>))
+
+<span class='co'># measure column widths but only for the body part</span>
+<span class='no'>w_body</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dim_pretty.html'>dim_pretty</a></span>(<span class='no'>ft</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)$<span class='no'>widths</span>
+<span class='co'># measure column widths only for the header part and get the max</span>
+<span class='co'># as height value for rotated text</span>
+<span class='no'>h_header</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>( <span class='fu'><a href='dim_pretty.html'>dim_pretty</a></span>(<span class='no'>ft</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)$<span class='no'>widths</span> )
+
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>rotate</span>(<span class='no'>ft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>4</span>, <span class='kw'>rotation</span><span class='kw'>=</span><span class='st'>"btlr"</span>,<span class='kw'>part</span><span class='kw'>=</span><span class='st'>"header"</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>rotate</span>(<span class='no'>ft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>rotation</span><span class='kw'>=</span><span class='st'>"tbrl"</span>,<span class='kw'>part</span><span class='kw'>=</span><span class='st'>"header"</span>)
+
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valign.html'>valign</a></span>(<span class='no'>ft</span>, <span class='kw'>valign</span> <span class='kw'>=</span> <span class='st'>"center"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='align.html'>align</a></span>(<span class='no'>ft</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)
+
+<span class='co'># Manage header height</span>
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='height.html'>height</a></span>(<span class='no'>ft</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='no'>h_header</span> * <span class='fl'>1.1</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
+<span class='co'># ... mainly because Word don't handle auto height with rotated headers</span>
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='hrule.html'>hrule</a></span>(<span class='no'>ft</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rule</span> <span class='kw'>=</span> <span class='st'>"exact"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
+
+<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
+#&gt; header has 1 row(s) 
+#&gt; body has 6 row(s) 
+#&gt; original dataset sample: 
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1          5.1         3.5          1.4         0.2  setosa
+#&gt; 2          4.9         3.0          1.4         0.2  setosa
+#&gt; 3          4.7         3.2          1.3         0.2  setosa
+#&gt; 4          4.6         3.1          1.5         0.2  setosa
+#&gt; 5          5.0         3.6          1.4         0.2  setosa</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -206,7 +241,7 @@ ignored.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.7.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -7,7 +7,7 @@
   display: table;
   margin-top: 5px;
   margin-bottom: 5px;
-  /*white-space:pre;*/
+  table-layout: fixed;
 }
 .tabwid_left table{
   margin-left:0;
@@ -22,6 +22,7 @@
 .tabwid td {
     line-height: 1em;
     padding: 0;
+    overflow: hidden;
 }
 .tabwid thead {
     background-color: transparent;
@@ -44,25 +45,4 @@ margin: 0;
   text-decoration: none;
 }
 
-.btlr {
-  /* FF3.5+ */
-  -moz-transform: rotate(-90.0deg);
-  /* Opera 10.5 */
-  -o-transform: rotate(-90.0deg);
-  /* Saf3.1+, Chrome */
-  -webkit-transform: rotate(-90.0deg);
-  /* Standard */
-  transform: rotate(-90.0deg);
-}
-
-.tbrl {
-  /* FF3.5+ */
-  -moz-transform: rotate(-270.0deg);
-  /* Opera 10.5 */
-  -o-transform: rotate(-270.0deg);
-  /* Saf3.1+, Chrome */
-  -webkit-transform: rotate(-270.0deg);
-  /* Standard */
-  transform: rotate(-270.0deg);
-}
 
