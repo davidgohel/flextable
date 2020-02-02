@@ -307,6 +307,90 @@ save_as_html <- function(x, path){
   invisible(path)
 }
 
+
+
+#' @export
+#' @title save flextable objects in an PowerPoint file
+#' @description sugar function to save flextable objects in an PowerPoint file.
+#' @param ... flextable objects, objects, possibly named. If named objects, names are
+#' used as slide titles.
+#' @param values a list (possibly named), each element is a flextable object. If named objects, names are
+#' used as slide titles. If provided, argument \code{...} will be ignored.
+#' @param path PowerPoint file to be created
+#' @examples
+#' ft1 <- flextable( head( iris ) )
+#' tf <- tempfile(fileext = ".pptx")
+#' save_as_pptx(ft1, path = tf)
+#'
+#' ft2 <- flextable( head( mtcars ) )
+#' tf <- tempfile(fileext = ".pptx")
+#' save_as_pptx(`iris table` = ft1, `mtcars table` = ft2, path = tf)
+#' @family flextable print function
+save_as_pptx <- function(..., values = NULL, path){
+
+  if( is.null(values) ){
+    values <- list(...)
+  }
+
+  values <- Filter(function(x) inherits(x, "flextable"), values)
+  titles <- names(values)
+  show_names <- !is.null(titles)
+  z <- read_pptx()
+  for( i in seq_along(values) ){
+    z <- add_slide(z)
+    if(show_names){
+      z <- ph_with(z, titles[i], location = ph_location_type(type = "title") )
+    }
+    z <- ph_with(z, values[[i]], location = ph_location_type(type = "body") )
+  }
+  print(z, target = path )
+  invisible(path)
+}
+
+
+
+#' @export
+#' @title save flextable objects in an Word file
+#' @description sugar function to save flextable objects in an Word file.
+#' @param ... flextable objects, objects, possibly named. If named objects, names are
+#' used as titles.
+#' @param values a list (possibly named), each element is a flextable object. If named objects, names are
+#' used as titles. If provided, argument \code{...} will be ignored.
+#' @param path Word file to be created
+#' @examples
+#' ft1 <- flextable( head( iris ) )
+#' tf <- tempfile(fileext = ".docx")
+#' save_as_docx(ft1, path = tf)
+#'
+#'
+#' ft2 <- flextable( head( mtcars ) )
+#' tf <- tempfile(fileext = ".docx")
+#' save_as_docx(`iris table` = ft1, `mtcars table` = ft2, path = tf)
+#' @family flextable print function
+#' @importFrom officer body_add_par
+save_as_docx <- function(..., values = NULL, path){
+
+  if( is.null(values) ){
+    values <- list(...)
+  }
+
+  values <- Filter(function(x) inherits(x, "flextable"), values)
+  titles <- names(values)
+  show_names <- !is.null(titles)
+
+  z <- read_docx()
+  for( i in seq_along(values) ){
+    if(show_names){
+      z <- body_add_par(z, titles[i], style = "heading 2" )
+    }
+    z <- body_add_flextable(z, values[[i]] )
+  }
+  print(z, target = path )
+  invisible(path)
+}
+
+
+
 #' @export
 #' @title save a flextable as an image
 #' @description save a flextable as a png, pdf or jpeg image.

@@ -31,6 +31,8 @@ Other flextable print function:
 \code{\link{knit_print.flextable}()},
 \code{\link{plot.flextable}()},
 \code{\link{print.flextable}()},
-\code{\link{save_as_image}()}
+\code{\link{save_as_docx}()},
+\code{\link{save_as_image}()},
+\code{\link{save_as_pptx}()}
 }
 \concept{flextable print function}
