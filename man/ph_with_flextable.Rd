@@ -2,12 +2,9 @@
 % Please edit documentation in R/deprecated.R
 \name{ph_with_flextable}
 \alias{ph_with_flextable}
-\alias{ph_with_flextable_at}
 \title{add flextable into a PowerPoint slide}
 \usage{
 ph_with_flextable(x, value, type = "body", index = 1)
-
-ph_with_flextable_at(x, value, left, top)
 }
 \arguments{
 \item{x}{an rpptx device}
@@ -18,8 +15,6 @@ ph_with_flextable_at(x, value, left, top)
 
 \item{index}{placeholder index (integer). This is to be used when a placeholder type
 is not unique in the current slide, e.g. two placeholders with type 'body'.}
-
-\item{left, top}{location of flextable on the slide in inches}
 }
 \description{
 add a flextable as a new shape in the current slide.

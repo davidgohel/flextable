@@ -1,3 +1,10 @@
+# flextable 0.5.8
+
+## Changes
+
+* deprecation of `ph_with_flextable()` and `display()`.
+* defunct of ph_with_flextable_at
+
 # flextable 0.5.7
 
 ## new features
