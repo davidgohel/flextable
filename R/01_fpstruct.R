@@ -43,7 +43,7 @@ text_struct <- function( nrow, keys,
                         bold = FALSE, italic = FALSE, underlined = FALSE,
                         font.family = "Arial",
                         vertical.align = "baseline",
-                        shading.color = "transparent" ){
+                        shading.color = "transparent", ... ){
   x <- list(
     color = fpstruct(nrow = nrow, keys = keys, default = color),
     font.size = fpstruct(nrow = nrow, keys = keys, default = font.size),
@@ -117,7 +117,7 @@ par_struct <- function( nrow, keys,
                         border.width.bottom = 0, border.width.top = 0, border.width.left = 0, border.width.right = 0,
                         border.color.bottom = "transparent", border.color.top = "transparent", border.color.left = "transparent", border.color.right = "transparent",
                         border.style.bottom = "solid", border.style.top = "solid", border.style.left = "solid", border.style.right = "solid",
-                        shading.color = "transparent" ){
+                        shading.color = "transparent", ... ){
 
   x <- list(
     text.align = fpstruct(nrow = nrow, keys = keys, default = text.align),
@@ -309,7 +309,8 @@ cell_struct <- function( nrow, keys,
                          border.width.bottom = 1, border.width.top = 1, border.width.left = 1, border.width.right = 1,
                          border.color.bottom = "transparent", border.color.top = "transparent", border.color.left = "transparent", border.color.right = "transparent",
                          border.style.bottom = "solid", border.style.top = "solid", border.style.left = "solid", border.style.right = "solid",
-                         background.color = "#34CC27", width = NA_real_, height = NA_real_, hrule = "auto" ){
+                         background.color = "#34CC27", width = NA_real_, height = NA_real_, hrule = "auto",
+                         ...){
 
   check_choice( value = vertical.align, choices = c( "top", "center", "bottom" ) )
   check_choice( value = text.direction, choices = c( "lrtb", "tbrl", "btlr" ) )
