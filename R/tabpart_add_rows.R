@@ -13,22 +13,26 @@ add_rows.complex_tabpart <- function( x, rows, first = FALSE ){
 
   span_new <- matrix( 1, ncol = ncol, nrow = nrow )
   rowheights <- x$rowheights
+  hrule <- x$hrule
 
   if( !first ){
     data <- rbind(data, rows )
     spans$rows <- rbind( spans$rows, span_new )
     spans$columns <- rbind( spans$columns, span_new )
     rowheights <- c(rowheights, rep(rev(rowheights)[1], nrow(rows)))
+    hrule <- c(hrule, rep(rev(hrule)[1], nrow(rows)))
   } else {
     data <- rbind(rows, data )
     spans$rows <- rbind( span_new, spans$rows )
     spans$columns <- rbind( span_new, spans$columns )
     rowheights <- c(rep(rowheights[1], nrow(rows)), rowheights)
+    hrule <- c(rep(hrule[1], nrow(rows)), hrule)
 
   }
   x$rowheights <- rowheights
   x$dataset <- data
   x$spans <- spans
+  x$hrule <- hrule
   x
 }
 

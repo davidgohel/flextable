@@ -5,6 +5,11 @@
 * deprecation of `ph_with_flextable()` and `display()`.
 * defunct of ph_with_flextable_at
 
+## Issues
+
+* fix issue #188, add_rows error that came with version 0.5.7
+
+
 # flextable 0.5.7
 
 ## new features
