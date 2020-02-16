@@ -21,18 +21,6 @@ test_that("columns selections", {
 })
 
 
-
-test_that("display usage", {
-  ft <- flextable(head( mtcars, n = 10))
-  expect_error(display(ft, col_key = "carb", pattern = "# {{carb}}",
-                       fprops = list(carb = fp_text(color="orange") ) ),
-               "missing definition for display")
-  expect_error(display(ft, col_key = "carb", pattern = "# {{carb}}",
-                       formatters = list(carb ~ sprintf("%.1f", carb)),
-                       fprops = list(carb = "sdf" ) ),
-               "argument fprops should be a list of fp_text")
-})
-
 test_that("part=header and formula selection for rows", {
   ft <- flextable(head( mtcars, n = 10))
   def_cell <- fp_cell(border = fp_border(color="#00FFFF"))
