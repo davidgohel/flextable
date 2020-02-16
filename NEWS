@@ -4,6 +4,14 @@
 
 * deprecation of `ph_with_flextable()` and `display()`.
 * defunct of ph_with_flextable_at
+* function `docx_value()` has new arguments `ft.align`, `ft.split` and `tab.cap.style`
+* function `htmltools_value()` has a new argument `ft.align`
+
+## new features
+
+* new function `flextable_html_dependency` to get flextable htmltools::htmlDependancy. This is
+necessary to output flextables in html R Markdown documents from loop or other nested operations.
+
 
 ## Issues
 

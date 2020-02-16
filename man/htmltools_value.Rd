@@ -4,17 +4,21 @@
 \alias{htmltools_value}
 \title{flextable as a div object}
 \usage{
-htmltools_value(x, class = "tabwid")
+htmltools_value(x, ft.align = opts_current$get("ft.align"), class = "tabwid")
 }
 \arguments{
 \item{x}{a flextable object}
 
-\item{class}{css classes (default to "tabwid"), accepted values
-are "tabwid", "tabwid tabwid_left", "tabwid tabwid_right".}
+\item{ft.align}{flextable alignment, supported values are 'left', 'center' and 'right'.}
+
+\item{class}{css classes (default to "tabwid"), if ft.align is set to 'left' or 'right',
+class 'tabwid_left' or 'tabwid_right' will be added to class.}
 }
 \description{
 get a \code{\link[htmltools]{div}} from a flextable object.
 This can be used in a shiny application.
+
+Argument \code{ft.align} can be specified also as knitr chunk options.
 }
 \examples{
 htmltools_value(flextable(iris[1:5,]))

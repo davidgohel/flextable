@@ -1,0 +1,35 @@
+---
+title: "R Markdown loop with flextable for HTML"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(flextable)
+library(htmltools)
+library(knitr)
+
+opts_chunk$set(echo = TRUE)
+
+ft_list <- list()
+
+ft1 <- qflextable( head( iris ))
+ft1 <- set_caption(ft1,"iris table")
+ft_list[[1]] <- ft1
+
+ft2 <- qflextable( tail( mtcars ))
+ft2 <- set_caption(ft2,"mtcars table")
+ft_list[[2]] <- ft2
+```
+
+```{r echo = FALSE}
+div(flextable_html_dependency())
+```
+
+```{r results='asis', echo = FALSE, ft.align="right"}
+for(i in seq_along(ft_list)){
+  cat("\n\n")
+  cat(knitr::knit_print(ft_list[[i]]))
+  cat("\n\n")
+}
+```
+
