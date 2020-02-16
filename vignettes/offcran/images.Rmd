@@ -24,8 +24,20 @@ library(officer)
 library(flextable)
 ```
 
-Beeing able to render flextable as images is requiring package `webshot` to be available.
-Run the following command to install it. You may have to install `phantomjs` first.
+Beeing able to render flextable as images is requiring package `webshot` 
+or `webshot2` to be available.
+
+Run the following command to install `webshot2`. This package should be used 
+instead of `webshot` as the latest can have some issues with html rendering.
+
+```{r eval=FALSE}
+devtools::install_github("rstudio/webshot2")
+```
+
+> Read more about it [here](https://github.com/rstudio/webshot2).
+
+Run the following command to install `webshot`. You may have to install `phantomjs` 
+first.
 
 ```{r eval=FALSE}
 install.packages("webshot")
