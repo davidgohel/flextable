@@ -8,6 +8,7 @@
 ^_pkgdown\.yml$
 ^revdep$
 ^CONDUCT\.md$
+^todo\.md$
 ^inst/mediasrc$
 ^inst/medias$
 ^cran-comments\.md$
