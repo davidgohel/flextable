@@ -21,7 +21,6 @@ docx_value(flextable(iris[1:5,]))
 \seealso{
 Other flextable print function: 
 \code{\link{as_raster}()},
-\code{\link{format.flextable}()},
 \code{\link{htmltools_value}()},
 \code{\link{knit_print.flextable}()},
 \code{\link{plot.flextable}()},

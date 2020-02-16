@@ -39,7 +39,8 @@ htmltools_value <- function(x, class = "tabwid"){
 docx_value <- function(x, print = TRUE){
   out <- paste("",
       "```{=openxml}",
-      format(x, type = "docx"),
+      docx_str(x),
+      # format(x, type = "docx"),
       "```", "", sep = "\n")
   if( print) cat(out)
   out
@@ -158,7 +159,7 @@ print.flextable <- function(x, preview = "html", ...){
 knit_print.flextable <- function(x, ...){
 
   if ( is.null(opts_knit$get("rmarkdown.pandoc.to"))){
-    knit_print(asis_output(format(x, type = "html")))
+    knit_print(asis_output(html_str(x)))
   } else if ( grepl( "html", opts_knit$get("rmarkdown.pandoc.to") ) ) {
     tab_class <- "tabwid"
 
@@ -244,39 +245,6 @@ knit_print.flextable <- function(x, ...){
   } else {
     stop("unsupported format for flextable rendering:", opts_knit$get("rmarkdown.pandoc.to"))
   }
-}
-
-#' @export
-#' @title Encode flextable in a document format.
-#'
-#' @description Encode flextable in a document format, \code{html}, \code{docx},
-#' \code{pptx}.
-#'
-#' This function is exported so that users can create their own custom
-#' component.
-#' @param x flextable object
-#' @param type one of pptx, docx or html.
-#' @param ... unused
-#' @examples
-#' ft <- flextable(head(iris, n = 2))
-#' format(ft, type = "html")
-#' @family flextable print function
-format.flextable <- function(x, type, ...){
-
-  stopifnot( length(type) == 1,
-             type %in% c("wml", "pml", "html", "pptx", "docx") )
-
-  if( type %in% "pptx") type <- "pml"
-  if( type %in% "docx") type <- "wml"
-
-  if( type == "wml" ){
-    out <- docx_str(x, ...)
-  } else if( type == "pml" ){
-    out <- pml_flextable(x)
-  } else if( type == "html" ){
-    out <- html_str(x)
-  } else stop("unimplemented")
-  out
 }
 
 #' @export

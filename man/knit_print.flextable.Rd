@@ -69,7 +69,6 @@ To specify usage of 'webshot2', use chunk option \code{webshot="webshot2"}.
 Other flextable print function: 
 \code{\link{as_raster}()},
 \code{\link{docx_value}()},
-\code{\link{format.flextable}()},
 \code{\link{htmltools_value}()},
 \code{\link{plot.flextable}()},
 \code{\link{print.flextable}()},

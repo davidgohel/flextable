@@ -23,7 +23,6 @@ htmltools_value(flextable(iris[1:5,]))
 Other flextable print function: 
 \code{\link{as_raster}()},
 \code{\link{docx_value}()},
-\code{\link{format.flextable}()},
 \code{\link{knit_print.flextable}()},
 \code{\link{plot.flextable}()},
 \code{\link{print.flextable}()},

@@ -31,7 +31,6 @@ save_as_pptx(`iris table` = ft1, `mtcars table` = ft2, path = tf)
 Other flextable print function: 
 \code{\link{as_raster}()},
 \code{\link{docx_value}()},
-\code{\link{format.flextable}()},
 \code{\link{htmltools_value}()},
 \code{\link{knit_print.flextable}()},
 \code{\link{plot.flextable}()},
