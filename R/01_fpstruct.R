@@ -60,10 +60,10 @@ text_struct <- function( nrow, keys,
 
 `[<-.text_struct` <- function( x, i, j, property, value ){
   if( inherits(value, "fp_text")) {
-    for(property in names(value)){
+    for(property in intersect(names(value), names(x))){
       x[[property]][i, j] <- value[[property]]
     }
-  } else {
+  } else if(property %in% names(x)) {
     x[[property]][i, j] <- value
   }
 
@@ -167,10 +167,10 @@ add_rows.par_struct <- function(x, nrows, first, ...){
 `[<-.par_struct` <- function( x, i, j, property, value ){
   if( inherits(value, "fp_par")) {
     value <- cast_borders(value)
-    for(property in names(value)){
+    for(property in intersect(names(value), names(x))){
       x[[property]][i, j] <- value[[property]]
     }
-  } else {
+  } else if(property %in% names(x)) {
     x[[property]][i, j] <- value
   }
 
@@ -360,10 +360,10 @@ add_rows.cell_struct <- function(x, nrows, first, ...){
 
   if( inherits(value, "fp_cell")) {
     value <- cast_borders(value)
-    for(property in names(value)){
+    for(property in intersect(names(value), names(x))){
       x[[property]][i, j] <- value[[property]]
     }
-  } else {
+  } else if(property %in% names(x)) {
     x[[property]][i, j] <- value
   }
 
