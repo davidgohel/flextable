@@ -37,7 +37,8 @@
 
 <meta property="og:title" content="flextable as a div object — htmltools_value" />
 <meta property="og:description" content="get a div from a flextable object.
-This can be used in a shiny application." />
+This can be used in a shiny application.
+Argument ft.align can be specified also as knitr chunk options." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -70,7 +71,7 @@ This can be used in a shiny application." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.8</span>
       </span>
     </div>
 
@@ -129,9 +130,10 @@ This can be used in a shiny application." />
     <div class="ref-description">
     <p>get a <code><a href='https://rdrr.io/pkg/htmltools/man/builder.html'>div</a></code> from a flextable object.
 This can be used in a shiny application.</p>
+<p>Argument <code>ft.align</code> can be specified also as knitr chunk options.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>htmltools_value</span>(<span class='no'>x</span>, <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"tabwid"</span>)</pre>
+    <pre class="usage"><span class='fu'>htmltools_value</span>(<span class='no'>x</span>, <span class='kw'>ft.align</span> <span class='kw'>=</span> <span class='no'>opts_current</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>"ft.align"</span>), <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"tabwid"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,9 +143,13 @@ This can be used in a shiny application.</p>
       <td><p>a flextable object</p></td>
     </tr>
     <tr>
+      <th>ft.align</th>
+      <td><p>flextable alignment, supported values are 'left', 'center' and 'right'.</p></td>
+    </tr>
+    <tr>
       <th>class</th>
-      <td><p>css classes (default to "tabwid"), accepted values
-are "tabwid", "tabwid tabwid_left", "tabwid tabwid_right".</p></td>
+      <td><p>css classes (default to "tabwid"), if ft.align is set to 'left' or 'right',
+class 'tabwid_left' or 'tabwid_right' will be added to class.</p></td>
     </tr>
     </table>
 
@@ -152,7 +158,6 @@ are "tabwid", "tabwid tabwid_left", "tabwid tabwid_right".</p></td>
     <div class='dont-index'><p>Other flextable print function: 
 <code><a href='as_raster.html'>as_raster</a>()</code>,
 <code><a href='docx_value.html'>docx_value</a>()</code>,
-<code><a href='format.flextable.html'>format.flextable</a>()</code>,
 <code><a href='knit_print.flextable.html'>knit_print.flextable</a>()</code>,
 <code><a href='plot.flextable.html'>plot.flextable</a>()</code>,
 <code><a href='print.flextable.html'>print.flextable</a>()</code>,
@@ -179,7 +184,7 @@ are "tabwid", "tabwid tabwid_left", "tabwid tabwid_right".</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
