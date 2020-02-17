@@ -8,6 +8,8 @@
   margin-top: 5px;
   margin-bottom: 5px;
   table-layout: fixed;
+  border-spacing: 0;
+  border-color: transparent;
 }
 .tabwid_left table{
   margin-left:0;
