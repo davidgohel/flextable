@@ -3,9 +3,12 @@
 \name{flextable-defunct}
 \alias{flextable-defunct}
 \alias{ph_with_flextable_at}
+\alias{display}
 \title{Defunct Functions in Package flextable}
 \usage{
 ph_with_flextable_at(...)
+
+display(...)
 }
 \arguments{
 \item{...}{unused arguments}
@@ -15,4 +18,6 @@ Defunct Functions in Package flextable
 }
 \details{
 \code{ph_with_flextable_at()} is replaced by \code{officer::ph_with}.
+
+\code{display()} is replaced by \code{compose}.
 }
