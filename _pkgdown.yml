@@ -98,6 +98,7 @@ reference:
     - save_as_html
     - format.flextable
     - htmltools_value
+    - docx_value
     - as_raster
 
 navbar:
