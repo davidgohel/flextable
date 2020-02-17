@@ -9,3 +9,11 @@ NULL
 ph_with_flextable_at <- function(...){
   .Defunct("officer::ph_with")
 }
+
+#' @export
+#' @rdname flextable-defunct
+#' @details `display()` is replaced by `compose`.
+display <- function(...){
+  .Defunct("compose")
+}
+
