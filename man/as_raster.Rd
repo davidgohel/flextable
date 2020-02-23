@@ -4,12 +4,15 @@
 \alias{as_raster}
 \title{get a flextable as a raster}
 \usage{
-as_raster(x, zoom = 2, expand = 2)
+as_raster(x, zoom = 2, expand = 2, webshot = "webshot")
 }
 \arguments{
 \item{x}{a flextable object}
 
 \item{zoom, expand}{parameters used by \code{webshot} function.}
+
+\item{webshot}{webshot package as a scalar character, one of "webshot" or
+"webshot2".}
 }
 \description{
 save a flextable as an image and return the corresponding

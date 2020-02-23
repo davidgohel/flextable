@@ -506,6 +506,8 @@ plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
 #' @note This function requires packages: webshot and magick.
 #' @param x a flextable object
 #' @param zoom,expand parameters used by \code{webshot} function.
+#' @param webshot webshot package as a scalar character, one of "webshot" or
+#' "webshot2".
 #' @importFrom grDevices as.raster
 #' @examples
 #' ft <- qflextable( head( mtcars ) )
@@ -516,14 +518,14 @@ plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
 #' }
 #' }
 #' @family flextable print function
-as_raster <- function(x, zoom = 2, expand = 2){
-  if (!requireNamespace("webshot", quietly = TRUE)) {
+as_raster <- function(x, zoom = 2, expand = 2, webshot = "webshot"){
+  if (!requireNamespace(webshot, quietly = TRUE)) {
     stop("package webshot is required when saving a flextable as an image.")
   }
   if (!requireNamespace("magick", quietly = TRUE)) {
     stop("package magick is required when saving a flextable as an image.")
   }
   path <- tempfile(fileext = ".png")
-  save_as_image(x, path, zoom = zoom, expand = expand )
+  save_as_image(x, path, zoom = zoom, expand = expand, webshot = webshot )
   magick::image_read(path = path)
 }
