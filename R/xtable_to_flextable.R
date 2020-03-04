@@ -139,7 +139,7 @@ xtable_to_flextable <- function(
     # val <- sprintf("value ~ formatC_with_na(%s, digits = %.0f, format = '%s', na_string = '%s')", col_names_[iter], digits_val[iter], display_val[iter], NA.string )
     ft <- compose(
       ft, j = col_names_[iter], i = rows_index[iter],
-      value = as_paragraph(as_chunk(get(col_names_[iter]), formater = format_fun)) )
+      value = as_paragraph(as_chunk(get(col_names_[iter]), formatter = format_fun)) )
   }
   ft <- border(x = ft, border = fp_border(width = 0), part = "all")
   ft <- style( x = ft, pr_t = text.properties, part = "all")

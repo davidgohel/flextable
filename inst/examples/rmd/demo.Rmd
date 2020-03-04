@@ -72,7 +72,7 @@ as_flextable( data_CO2 ) %>%
   width(width = 1.5) %>% 
   compose(i = ~ !is.na(conc), j = "conc", 
           value = as_paragraph(
-            as_chunk(conc, formater = function(x) sprintf("%.0f", x))
+            as_chunk(conc, formatter = function(x) sprintf("%.0f", x))
           )
   ) %>% add_footer_lines("dataset CO2 has been used for this flextable") %>% 
   bg(bg = "#FFFFFF", part = "footer") %>% 

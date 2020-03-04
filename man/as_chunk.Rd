@@ -4,18 +4,18 @@
 \alias{as_chunk}
 \title{chunk of text wrapper}
 \usage{
-as_chunk(x, props = NULL, formater = format_fun, ...)
+as_chunk(x, props = NULL, formatter = format_fun, ...)
 }
 \arguments{
 \item{x}{text or any element that can be formatted as text
-with function provided in argument \code{formater}.}
+with function provided in argument \code{formatter}.}
 
 \item{props}{an \code{\link[officer]{fp_text}} object to be used to format the text.
 If not specified, it will be the default value corresponding to the cell.}
 
-\item{formater}{a function that will format x as a character vector.}
+\item{formatter}{a function that will format x as a character vector.}
 
-\item{...}{additional arguments for \code{formater} function.}
+\item{...}{additional arguments for \code{formatter} function.}
 }
 \description{
 The function lets add text within flextable

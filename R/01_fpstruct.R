@@ -582,7 +582,7 @@ add_rows.chunkset_struct <- function(x, nrows, first, data, ...){
     id <- rev(rev(seq_len(x$content$nrow) )[seq_len(nrows)] )
   }
 
-  newcontent <- lapply(data[x$content$keys], function(x) as_paragraph(as_chunk(x, formater = format_fun)) )
+  newcontent <- lapply(data[x$content$keys], function(x) as_paragraph(as_chunk(x, formatter = format_fun)) )
   x$content[id,x$content$keys] <- Reduce(append, newcontent)
   x
 }

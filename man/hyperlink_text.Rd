@@ -4,20 +4,20 @@
 \alias{hyperlink_text}
 \title{chunk of text with hyperlink wrapper}
 \usage{
-hyperlink_text(x, props = NULL, formater = format_fun, url, ...)
+hyperlink_text(x, props = NULL, formatter = format_fun, url, ...)
 }
 \arguments{
 \item{x}{text or any element that can be formatted as text
-with function provided in argument \code{formater}.}
+with function provided in argument \code{formatter}.}
 
 \item{props}{an \code{\link[officer]{fp_text}} object to be used to format the text.
 If not specified, it will be the default value corresponding to the cell.}
 
-\item{formater}{a function that will format x as a character vector.}
+\item{formatter}{a function that will format x as a character vector.}
 
 \item{url}{url to be used}
 
-\item{...}{additional arguments for \code{formater} function.}
+\item{...}{additional arguments for \code{formatter} function.}
 }
 \description{
 The function lets add hyperlinks within flextable

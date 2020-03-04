@@ -460,7 +460,7 @@ as an integer column:
 zz <- zz %>% 
   compose(i = ~ !is.na(conc), j = "conc", 
           value = as_paragraph(
-            as_chunk(conc, formater = function(x) sprintf("%.0f", x))
+            as_chunk(conc, formatter = function(x) sprintf("%.0f", x))
           )
   )
 zz
@@ -474,14 +474,14 @@ zz <- zz %>%
           value = as_paragraph(
             minibar(Quebec), 
             " ", 
-            as_chunk(Quebec, formater = function(x) sprintf("%.01f", x))
+            as_chunk(Quebec, formatter = function(x) sprintf("%.01f", x))
             )
           ) %>% 
   compose(i = ~ is.na(Treatment), j = "Mississippi", 
           value = as_paragraph( minibar(Mississippi), 
                                 " ",
                                 as_chunk(Mississippi, 
-                                         formater = function(x) sprintf("%.01f", x) )
+                                         formatter = function(x) sprintf("%.01f", x) )
                                 )
           ) %>% 
   align(j = 2:3, align = "left")

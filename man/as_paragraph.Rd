@@ -24,7 +24,7 @@ myft <- compose( myft, j = 1,
   value = as_paragraph(
     minibar(value = Sepal.Length, max = max(Sepal.Length)),
     " ",
-    as_chunk( Sepal.Length, formater = formatC,
+    as_chunk( Sepal.Length, formatter = formatC,
              props = fp_text(color = "orange") ),
     " blah blah"
   ),

@@ -13,7 +13,7 @@ complex_tabpart <- function( data, col_keys = names(data),
   if( nrow(data) > 0 ){
 
     newcontent <- lapply(data[col_keys], function(x)
-      as_paragraph(as_chunk(x, formater = function(x) {
+      as_paragraph(as_chunk(x, formatter = function(x) {
         if( is.character(x) || is.factor(x) ) format_fun(x)
         else format(x, trim = TRUE)
 

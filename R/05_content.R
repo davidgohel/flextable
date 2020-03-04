@@ -48,11 +48,11 @@ default_fptext_prop <- structure(list(
 #' objects with function \code{\link{compose}}.
 #' It should be used inside a call to \code{\link{as_paragraph}}.
 #' @param x text or any element that can be formatted as text
-#' with function provided in argument \code{formater}.
+#' with function provided in argument \code{formatter}.
 #' @param props an \code{\link[officer]{fp_text}} object to be used to format the text.
 #' If not specified, it will be the default value corresponding to the cell.
-#' @param formater a function that will format x as a character vector.
-#' @param ... additional arguments for \code{formater} function.
+#' @param formatter a function that will format x as a character vector.
+#' @param ... additional arguments for \code{formatter} function.
 #' @family chunk elements for paragraph
 #' @examples
 #' library(officer)
@@ -67,13 +67,13 @@ default_fptext_prop <- structure(list(
 #'  part = "body")
 #' myft <- color(myft, color = "gray40", part = "all")
 #' autofit(myft)
-as_chunk <- function(x, props = NULL, formater = format_fun, ...) {
+as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
 
   if(is.function(x)){
     stop("argument `x` in function `as_chunk` cannot be a function", call. = FALSE)
   }
 
-  text <- formater(x, ...)
+  text <- formatter(x, ...)
 
   if( is.null(props) ){
     props <- default_fptext_prop
@@ -128,7 +128,7 @@ as_chunk <- function(x, props = NULL, formater = format_fun, ...) {
 #' autofit(ft)
 as_sub <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x, formater = format_fun)
+    x <- as_chunk(x, formatter = format_fun)
   }
   x$vertical.align = "subscript"
   x
@@ -155,7 +155,7 @@ as_sub <- function(x){
 #' autofit(ft)
 as_sup <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x, formater = format_fun)
+    x <- as_chunk(x, formatter = format_fun)
   }
   x$vertical.align = "superscript"
   x
@@ -183,7 +183,7 @@ as_sup <- function(x){
 #' autofit(ft)
 as_b <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x, formater = format_fun)
+    x <- as_chunk(x, formatter = format_fun)
   }
   x$bold = TRUE
   x
@@ -210,7 +210,7 @@ as_b <- function(x){
 #' autofit(ft)
 as_i <- function(x){
   if( !inherits(x, "chunk") ){
-    x <- as_chunk(x, formater = format_fun)
+    x <- as_chunk(x, formatter = format_fun)
   }
   x$italic = TRUE
   x
@@ -316,9 +316,9 @@ as_image <- function(src, width = .5, height = .2, ...) {
 #'     hyperlink_text(x = col, url = href ) ) )
 #' ft
 #' @family chunk elements for paragraph
-hyperlink_text <- function(x, props = NULL, formater = format_fun, url, ...){
+hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
   zz <- data.frame(x = x, url = url, stringsAsFactors = FALSE)
-  x <- as_chunk( x = zz$x, props = props, formater = formater, ...)
+  x <- as_chunk( x = zz$x, props = props, formatter = formatter, ...)
   x$url <- zz$url
   x
 }
@@ -604,7 +604,7 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #'   value = as_paragraph(
 #'     minibar(value = Sepal.Length, max = max(Sepal.Length)),
 #'     " ",
-#'     as_chunk( Sepal.Length, formater = formatC,
+#'     as_chunk( Sepal.Length, formatter = formatC,
 #'              props = fp_text(color = "orange") ),
 #'     " blah blah"
 #'   ),
@@ -618,7 +618,7 @@ as_paragraph <- function( ..., list_values = NULL ){
 
   if( any( is_atomic <- sapply(list_values, is.atomic) ) ){
     list_values[is_atomic] <- lapply(list_values[is_atomic], function(x){
-      as_chunk(x, formater = format_fun)
+      as_chunk(x, formatter = format_fun)
     })
   }
 

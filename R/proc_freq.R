@@ -129,7 +129,7 @@ proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, includ
       llflex, i = which_freq, j = j,
       value = as_paragraph(
         as_chunk(tab_end[[j]][which_freq],
-                 formater = function(x){
+                 formatter = function(x){
                    sprintf("%.0f", x)
                  })))
 
@@ -142,7 +142,7 @@ proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, includ
       llflex, i = which_percent, j = j,
       value = as_paragraph(
         as_chunk(tab_end[[j]][which_percent],
-                 formater = format_pct)))
+                 formatter = format_pct)))
 
   }
 
