@@ -191,6 +191,9 @@ myft <- autofit(myft)
 myft
 ```
 
+Note this chunk option requires package officedown in a R Markdown
+context with Word output format.
+
 ### minibar
 
 Function `compose` supports *mini barplots* insertion. Use function `minibar` in `as_paragraph` call:
@@ -207,6 +210,8 @@ myft <- compose( myft, j = 1,
 autofit(myft)
 ```
 
+Note this chunk option requires package officedown in a R Markdown
+context with Word output format.
 
 ### linerange
 
@@ -223,6 +228,9 @@ myft <- compose( myft, j = 1,
 
 autofit(myft)
 ```
+
+Note this chunk option requires package officedown in a R Markdown
+context with Word output format.
 
 ### Sugar functions for complex formatting
 
