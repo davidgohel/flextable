@@ -1,4 +1,4 @@
-#' @importFrom officer fp_sign fp_cell fp_par fp_text fp_border
+#' @importFrom officer fp_cell fp_par fp_text fp_border
 complex_tabpart <- function( data, col_keys = names(data),
                              default_pr_text = fp_text(),
                              default_pr_par = fp_par(),
