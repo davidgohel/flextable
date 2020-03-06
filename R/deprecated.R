@@ -16,7 +16,7 @@
 #' is not unique in the current slide, e.g. two placeholders with type 'body'.
 #' @importFrom officer ph_location_type
 ph_with_flextable <- function( x, value, type = "body", index = 1 ){
-  .Deprecated(new = "officer::ph_with")
+  # .Deprecated(new = "officer::ph_with")
   stopifnot(inherits(x, "rpptx"))
   ph_with(x, value, location = ph_location_type(type = type, id = index))
 }

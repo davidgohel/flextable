@@ -2,7 +2,6 @@
 
 ## Changes
 
-* deprecation of `ph_with_flextable()`.
 * defunct of `display()`
 * rename arg 'formater' to 'formatter' of `as_chunk` (#152)
 
