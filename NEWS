@@ -5,6 +5,12 @@
 * defunct of `display()`
 * rename arg 'formater' to 'formatter' of `as_chunk` (#152)
 
+## Internal
+
+* drop `officer::fp_sign` importation that was not used anymore so that officer can
+ drop digest dependency.
+
+
 # flextable 0.5.8
 
 ## Changes
