@@ -13,6 +13,4 @@ There were no ERROR, WARNING or NOTE.
 
 I could not test with package nlmixr as I am not able to install it. 
 
-There is 1 error with pacakge export because of deprecation of `ph_with_flextable_at`. 
-I have warned and also proposed a patch (https://github.com/tomwenseleers/export/pull/20) 
-on 23 Nov 2019 but it has not been reviewed yet.
+There is no error or warning with other packages
