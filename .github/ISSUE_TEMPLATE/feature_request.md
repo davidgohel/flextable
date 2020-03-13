@@ -1,20 +1,15 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: You have an idea for this package
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+When submitting a feature request, please explain the value, describe the situation and be reasonable.
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
-
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
-
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**Not a bug or feature request? If you are looking for help on how to use the 
+package correctly, please read the doc first at https://davidgohel.github.io/flextable/. 
+You can also visit [Stackoverflow](https://stackoverflow.com/questions/tagged/flextable+r) 
+and tag your question with `[flextable]`. We usually read them and answer WHEN possible.**  
