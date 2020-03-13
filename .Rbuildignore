@@ -14,4 +14,5 @@
 ^cran-comments\.md$
 ^ISSUE_TEMPLATE\.md$
 ^vignettes/offcran$
-^\\.github$
+^\.github/
+
