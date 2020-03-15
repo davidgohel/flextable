@@ -118,7 +118,7 @@ footnote <- function(x, i = NULL, j = NULL, value , ref_symbols = NULL, part = "
   
   new <- mapply(function(x, y) {
     x$seq_index <- min(y$seq_index, na.rm = TRUE) - 1
-    x <- flextable:::rbind.match.columns(list(x, y))
+    x <- rbind.match.columns(list(x, y))
     x$seq_index <- order(x$seq_index)
     x
   }, x = symbols_chunks, y = value, SIMPLIFY = FALSE)
@@ -126,11 +126,11 @@ footnote <- function(x, i = NULL, j = NULL, value , ref_symbols = NULL, part = "
   if(inline & length(new)>0)
   {
     sep <- as_paragraph(sep)[[1]]
-    new2 <- new
-    new2[-length(new2)] <- lapply(new2[-length(new2)],
-                                function(x) flextable:::rbind.match.columns(list(x,sep)))
-    new2 <- flextable:::rbind.match.columns(new2)
-    new2$seq_index <- 1:nrow(new2)
+    new <- new
+    new[-length(new)] <- lapply(new[-length(new)],
+                                function(x) rbind.match.columns(list(x,sep)))
+    new <- rbind.match.columns(new)
+    new$seq_index <- 1:nrow(new)
   }
   
   if(n_row == 0 & inline)
