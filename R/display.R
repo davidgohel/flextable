@@ -59,6 +59,8 @@ mk_par <- compose
 #' @param ref_symbols character value, symbols to append that will be used
 #' as references to notes.
 #' @param part partname of the table (one of 'body', 'header', 'footer')
+#' @param inline whether to add footnote on same line as previous footnote or not
+#' @param sep inline = T, character string to use as a separator between footnotes
 #' @examples
 #' ft <- flextable(head(iris))
 #' ft <- footnote( ft, i = 1, j = 1:3,
@@ -73,7 +75,7 @@ mk_par <- compose
 #' \donttest{ft <- autofit(ft)}
 #' @export
 #' @importFrom stats update
-footnote <- function(x, i = NULL, j = NULL, value , ref_symbols = NULL, part = "body"){
+footnote <- function(x, i = NULL, j = NULL, value , ref_symbols = NULL, part = "body", inline=F, sep="; "){
 
   if( !inherits(x, "flextable") ) stop("footnote supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
@@ -112,21 +114,39 @@ footnote <- function(x, i = NULL, j = NULL, value , ref_symbols = NULL, part = "
 
   x[[part]]$content[i, j] <- new
 
-
   n_row <- nrow_part(x, "footer")
-  x <- add_footer_lines(x, values = ref_symbols)
-
-  new <- mapply(
-    function(x, y){
-      x$seq_index <- min(y$seq_index, na.rm = TRUE) - 1
-      x <- rbind.match.columns(list(x, y))
-      x$seq_index <- order(x$seq_index)
-      x
-      }, x = symbols_chunks, y = value,
-    SIMPLIFY = FALSE )
-
-  x[["footer"]]$content[seq(n_row + 1, nrow_part(x, "footer")), 1] <- new
-
+  
+  new <- mapply(function(x, y) {
+    x$seq_index <- min(y$seq_index, na.rm = TRUE) - 1
+    x <- flextable:::rbind.match.columns(list(x, y))
+    x$seq_index <- order(x$seq_index)
+    x
+  }, x = symbols_chunks, y = value, SIMPLIFY = FALSE)
+  
+  if(inline & length(new)>0)
+  {
+    sep <- as_paragraph(sep)[[1]]
+    new2 <- new
+    new2[-length(new2)] <- lapply(new2[-length(new2)],
+                                function(x) flextable:::rbind.match.columns(list(x,sep)))
+    new2 <- flextable:::rbind.match.columns(new2)
+    new2$seq_index <- 1:nrow(new2)
+  }
+  
+  if(n_row == 0 & inline)
+  {
+    x <- add_footer_lines(x,values="")
+    footer.rows <- 1
+  } else if(inline)
+  {
+    footer.rows <- n_row
+  } else {
+    x <- add_footer_lines(x, values = ref_symbols)
+    footer.rows <- n_row + seq(1,length(new))
+  }
+  
+  x[["footer"]]$content[footer.rows, 1] <- new
+                                  
   x
 }
 
