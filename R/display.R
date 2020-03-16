@@ -73,6 +73,24 @@ mk_par <- compose
 #'             part = "header")
 #' ft <- valign(ft, valign = "bottom", part = "header")
 #' \donttest{ft <- autofit(ft)}
+#' 
+#' ft <- flextable(head(iris))
+#' ft <- autofit(ft)
+#' ft <- footnote( ft, i = 1, j = 1:2,
+#'                value = as_paragraph(
+#'                 c("This is footnote one",
+#'                    "This is footnote two")
+#'                ),
+#'                ref_symbols = c("a", "b"),
+#'                part = "header",inline=T)
+#'ft <- footnote( ft, i = 1, j = 3:4,
+#'                value = as_paragraph(
+#'                  c("This is footnote three",
+#'                    "This is footnote four")
+#'                ),
+#'                ref_symbols = c( "c","d"),
+#'                part = "header",inline=T)
+#'\donttest{ft}
 #' @export
 #' @importFrom stats update
 footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "body", 
