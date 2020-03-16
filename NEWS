@@ -1,5 +1,11 @@
 # flextable 0.5.9
 
+## new features
+
+* footnote is now able to add footnotes inline
+
+# flextable 0.5.9
+
 ## Changes
 
 * defunct of `display()`

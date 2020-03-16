@@ -4,7 +4,16 @@
 \alias{footnote}
 \title{add footnotes to flextable}
 \usage{
-footnote(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "body")
+footnote(
+  x,
+  i = NULL,
+  j = NULL,
+  value,
+  ref_symbols = NULL,
+  part = "body",
+  inline = FALSE,
+  sep = "; "
+)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -19,6 +28,10 @@ footnote(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "body")
 as references to notes.}
 
 \item{part}{partname of the table (one of 'body', 'header', 'footer')}
+
+\item{inline}{whether to add footnote on same line as previous footnote or not}
+
+\item{sep}{inline = T, character string to use as a separator between footnotes}
 }
 \description{
 add footnotes to a flextable object. A symbol is appened
@@ -37,4 +50,22 @@ ft <- footnote( ft, i = 1, j = 1:3,
             part = "header")
 ft <- valign(ft, valign = "bottom", part = "header")
 \donttest{ft <- autofit(ft)}
+
+ft <- flextable(head(iris))
+ft <- autofit(ft)
+ft <- footnote( ft, i = 1, j = 1:2,
+               value = as_paragraph(
+                c("This is footnote one",
+                   "This is footnote two")
+               ),
+               ref_symbols = c("a", "b"),
+               part = "header", inline = TRUE)
+ft <- footnote( ft, i = 1, j = 3:4,
+               value = as_paragraph(
+                 c("This is footnote three",
+                   "This is footnote four")
+               ),
+               ref_symbols = c("c","d"),
+               part = "header", inline = TRUE)
+\donttest{ft}
 }
