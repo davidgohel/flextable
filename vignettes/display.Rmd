@@ -278,6 +278,27 @@ ft <- valign(ft, valign = "bottom", part = "header")
 autofit(ft)
 ```
 
+You can also add footnotes inline using the `inline` argument and specify a seperator string with `sep` (default "; ")
+
+```{r}
+ft <- flextable(head(iris))
+ft <- autofit(ft)
+ft <- footnote( ft, i = 1, j = 1:2,
+                value = as_paragraph(
+                  c("This is footnote one",
+                    "This is footnote two")
+                ),
+                ref_symbols = c("a", "b"),
+                part = "header",inline=T)
+ft <- footnote( ft, i = 1, j = 3:4,
+                value = as_paragraph(
+                  c("This is footnote three",
+                    "This is footnote four")
+                ),
+                ref_symbols = c( "c","d"),
+                part = "header",inline=T)
+```
+
 ## Two lines in a cell
 
 > A cell is made of one single paragraph of text. Paragraphs 
