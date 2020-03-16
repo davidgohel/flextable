@@ -120,6 +120,7 @@ footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "
     sep <- as_paragraph(sep)[[1]]
     new[-1] <-lapply(new[-1], function(x) rbind.match.columns(list(sep, x)))
     new_inline <- list(rbind.match.columns(new))
+    new_inline[[1]]$seq_index <- 1:nrow(new_inline[[1]])
     
     if(n_row > 0)
     {
@@ -143,6 +144,3 @@ footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "
   x[["footer"]]$content[footer.rows, 1] <- new
   x
 }
-
-
-
