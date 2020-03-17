@@ -169,6 +169,8 @@ myft <- autofit(myft)
 myft
 ```
 
+Note that `compose` is not appending but is replacing the content. 
+
 ### Limitation for PowerPoint
 
 Using images in flextable is not supported when output format is PowerPoint. This is not a choice nor a unimplemented 
@@ -251,8 +253,6 @@ ft <- compose(ft, part = "header", j = "col1",
     value = as_paragraph(as_b("µ"), as_sup("blah")))
 ft
 ```
-
-
 
 
 ## footnotes

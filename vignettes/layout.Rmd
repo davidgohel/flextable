@@ -162,6 +162,9 @@ myft %>%
     i = 1:2, j = 1:2)
 ```
 
+Note that the content that is rendered is not the result of the concatenation of each paragraphs 
+contained into the merge cells. Only one paragraph will be kept, the top left one of all merge cells.
+
 </div>
 
 </div>
@@ -194,7 +197,6 @@ ft <- data.frame(a = 1:5, b = 6:10) %>%
 ft
 fix_border_issues(ft)
 ```
-
 
 
 ## Manage headers and footers
