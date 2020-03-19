@@ -91,7 +91,7 @@ absolute_path <- function(x){
   epath
 }
 
-#' @inportFrom knitr opts_current
+#' @importFrom knitr opts_current
 ref_label <- function() {
   label <- opts_current$get('label')
   if (is.null(label)) return('')
