@@ -26,10 +26,13 @@ flextable_html_dependency <- function(){
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param class css classes (default to "tabwid"), if ft.align is set to 'left' or 'right',
 #' class 'tabwid_left' or 'tabwid_right' will be added to class.
+#' @param bookdown `TRUE` or `FALSE` (defailt) to support cross referencing with bookdown.
 #' @family flextable print function
 #' @examples
 #' htmltools_value(flextable(iris[1:5,]))
-htmltools_value <- function(x, ft.align = opts_current$get("ft.align"), class = "tabwid"){
+htmltools_value <- function(
+  x, ft.align = opts_current$get("ft.align"), class = "tabwid", bookdown = FALSE
+){
 
   if( is.null(ft.align) ) ft.align <- "center"
 
@@ -39,7 +42,7 @@ htmltools_value <- function(x, ft.align = opts_current$get("ft.align"), class = 
     tab_class <- paste0(class, " tabwid_right")
   else tab_class <- class
 
-  codes <- html_str(x)
+  codes <- html_str(x, bookdown = bookdown)
   html_o <- div( class=tab_class,
                  flextable_html_dependency(),
                  HTML(as.character(codes))
@@ -69,13 +72,15 @@ htmltools_value <- function(x, ft.align = opts_current$get("ft.align"), class = 
 #' activated when TRUE.
 #' @param tab.cap.style specifies a Word style for table caption,
 #' default value is "Table Caption".
+#' @inheritParams htmltools_value
 #' @family flextable print function
 #' @examples
 #' docx_value(flextable(iris[1:5,]))
 docx_value <- function(x, print = TRUE,
                        ft.align = opts_current$get("ft.align"),
                        ft.split = opts_current$get("ft.split"),
-                       tab.cap.style = opts_current$get("tab.cap.style")){
+                       tab.cap.style = opts_current$get("tab.cap.style"),
+                       bookdown = FALSE){
 
   if( is.null(ft.align) ) ft.align <- "center"
   if( is.null(ft.split) ) ft.split <- FALSE
@@ -85,7 +90,9 @@ docx_value <- function(x, print = TRUE,
     caption <- paste0("\n\n::: {custom-style=\"",
                       tab.cap.style,
                       "\"}\n\n",
-                      x$caption$value, "\n\n",
+                      if (bookdown) "<caption>",
+                      if (bookdown && !has_label(x$caption$value)) ref_label(),
+                      x$caption$value, if (bookdown) "</caption>", "\n\n",
                       ":::\n\n")
   } else caption <- ""
 
@@ -242,6 +249,8 @@ print.flextable <- function(x, preview = "html", ...){
 #' }
 knit_print.flextable <- function(x, ...){
 
+  is_bookdown <- isTRUE(opts_knit$get('bookdown.internal.label'))
+
   if ( is.null(opts_knit$get("rmarkdown.pandoc.to"))){
     knit_print(asis_output(html_str(x)))
   } else if ( grepl( "(html|slidy)", opts_knit$get("rmarkdown.pandoc.to") ) ) {
@@ -253,7 +262,7 @@ knit_print.flextable <- function(x, ...){
       else if( align == "right")
         tab_class <- "tabwid tabwid_right"
     }
-    knit_print(htmltools_value(x, class = tab_class))
+    knit_print(htmltools_value(x, class = tab_class, bookdown = is_bookdown))
   } else if ( grepl( "(latex|beamer)", opts_knit$get("rmarkdown.pandoc.to") ) ) {
 
     if( is.null( webshot_package <- opts_current$get("webshot")) ){
@@ -283,7 +292,7 @@ knit_print.flextable <- function(x, ...){
   } else if (grepl( "docx", opts_knit$get("rmarkdown.pandoc.to") )) {
 
     if (pandoc_version() >= 2) {
-      str <- docx_value(x, print = FALSE)
+      str <- docx_value(x, print = FALSE, bookdown = is_bookdown)
       knit_print( asis_output(str) )
     } else {
       stop("pandoc version >= 2.0 required for flextable rendering in docx")

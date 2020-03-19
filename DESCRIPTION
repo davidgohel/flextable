@@ -27,7 +27,13 @@ Imports:
     base64enc
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
-Suggests: testthat, xtable, magrittr, webshot, magick, ggplot2
+Suggests: 
+    testthat (>= 2.1.0),
+    xtable,
+    magrittr,
+    webshot,
+    magick,
+    ggplot2
 Encoding: UTF-8
 URL: https://davidgohel.github.io/flextable
 BugReports: https://github.com/davidgohel/flextable/issues
