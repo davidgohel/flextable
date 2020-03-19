@@ -26,7 +26,7 @@ flextable_html_dependency <- function(){
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param class css classes (default to "tabwid"), if ft.align is set to 'left' or 'right',
 #' class 'tabwid_left' or 'tabwid_right' will be added to class.
-#' @param bookdown `TRUE` or `FALSE` (defailt) to support cross referencing with bookdown.
+#' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
 #' @family flextable print function
 #' @examples
 #' htmltools_value(flextable(iris[1:5,]))
