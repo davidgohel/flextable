@@ -9,7 +9,8 @@ docx_value(
   print = TRUE,
   ft.align = opts_current$get("ft.align"),
   ft.split = opts_current$get("ft.split"),
-  tab.cap.style = opts_current$get("tab.cap.style")
+  tab.cap.style = opts_current$get("tab.cap.style"),
+  bookdown = FALSE
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ activated when TRUE.}
 
 \item{tab.cap.style}{specifies a Word style for table caption,
 default value is "Table Caption".}
+
+\item{bookdown}{\code{TRUE} or \code{FALSE} (defailt) to support cross referencing with bookdown.}
 }
 \description{
 get openxml raw code for Word

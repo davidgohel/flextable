@@ -4,7 +4,12 @@
 \alias{htmltools_value}
 \title{flextable as a div object}
 \usage{
-htmltools_value(x, ft.align = opts_current$get("ft.align"), class = "tabwid")
+htmltools_value(
+  x,
+  ft.align = opts_current$get("ft.align"),
+  class = "tabwid",
+  bookdown = FALSE
+)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -13,6 +18,8 @@ htmltools_value(x, ft.align = opts_current$get("ft.align"), class = "tabwid")
 
 \item{class}{css classes (default to "tabwid"), if ft.align is set to 'left' or 'right',
 class 'tabwid_left' or 'tabwid_right' will be added to class.}
+
+\item{bookdown}{\code{TRUE} or \code{FALSE} (defailt) to support cross referencing with bookdown.}
 }
 \description{
 get a \code{\link[htmltools]{div}} from a flextable object.

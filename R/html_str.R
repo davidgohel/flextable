@@ -1,16 +1,21 @@
-html_str <- function( x ){
+html_str <- function( x, ... ){
   UseMethod("html_str")
 }
 
 
-html_str.flextable <- function( x ){
+html_str.flextable <- function( x, bookdown = FALSE ){
 
   dims <- dim(x)
 
 
   out <- paste0("<table style='border-collapse:collapse;", sprintf("width:%s;", css_px(sum(dims$widths) * 72) ), "'>")
-  if(!is.null(x$caption$value)){
-    out <- paste0(out, "<caption>", htmlEscape(x$caption$value), "</caption>" )
+  cap = x$caption$value
+  if(!is.null(cap)){
+    out <- paste0(
+      out, if ( bookdown ) "<!--/html_preserve-->", "<caption>",
+      if ( bookdown && !has_label(cap)) ref_label(), htmlEscape(cap),
+      if ( bookdown ) "<!--html_preserve-->", "</caption>"
+    )
   }
 
   if( nrow_part(x, "header") > 0 ){

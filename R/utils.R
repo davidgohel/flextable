@@ -91,3 +91,13 @@ absolute_path <- function(x){
   epath
 }
 
+#' @inportFrom knitr opts_current
+ref_label <- function() {
+  label <- opts_current$get('label')
+  if (is.null(label)) return('')
+  paste0("(\\#tab:", label, ")")
+}
+
+has_label <- function(x) {
+  grepl("^\\(\\\\#tab:[-[:alnum:]]+\\)", x)
+}
