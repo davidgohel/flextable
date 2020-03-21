@@ -1,8 +1,9 @@
-# flextable 0.5.9
+# flextable 0.5.10
 
 ## new features
 
 * footnote is now able to add footnotes inline
+* support for bookdown references
 
 # flextable 0.5.9
 
