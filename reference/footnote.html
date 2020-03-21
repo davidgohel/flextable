@@ -71,7 +71,7 @@ of the table." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
       </span>
     </div>
 
@@ -133,7 +133,16 @@ where the footnote is defined and the note is appened in the footer part
 of the table.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>footnote</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>value</span>, <span class='kw'>ref_symbols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)</pre>
+    <pre class="usage"><span class='fu'>footnote</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>value</span>,
+  <span class='kw'>ref_symbols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>,
+  <span class='kw'>inline</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"; "</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,6 +172,14 @@ as references to notes.</p></td>
       <th>part</th>
       <td><p>partname of the table (one of 'body', 'header', 'footer')</p></td>
     </tr>
+    <tr>
+      <th>inline</th>
+      <td><p>whether to add footnote on same line as previous footnote or not</p></td>
+    </tr>
+    <tr>
+      <th>sep</th>
+      <td><p>inline = T, character string to use as a separator between footnotes</p></td>
+    </tr>
     </table>
 
 
@@ -177,7 +194,35 @@ as references to notes.</p></td>
             <span class='kw'>ref_symbols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>),
             <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valign.html'>valign</a></span>(<span class='no'>ft</span>, <span class='kw'>valign</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)</div></pre>
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)
+
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>iris</span>))
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>footnote</span>( <span class='no'>ft</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>,
+               <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
+                <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"This is footnote one"</span>,
+                   <span class='st'>"This is footnote two"</span>)
+               ),
+               <span class='kw'>ref_symbols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>),
+               <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>, <span class='kw'>inline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>footnote</span>( <span class='no'>ft</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>3</span>:<span class='fl'>4</span>,
+               <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
+                 <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"This is footnote three"</span>,
+                   <span class='st'>"This is footnote four"</span>)
+               ),
+               <span class='kw'>ref_symbols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c"</span>,<span class='st'>"d"</span>),
+               <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>, <span class='kw'>inline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
+#&gt; header has 1 row(s) 
+#&gt; body has 6 row(s) 
+#&gt; original dataset sample: 
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1          5.1         3.5          1.4         0.2  setosa
+#&gt; 2          4.9         3.0          1.4         0.2  setosa
+#&gt; 3          4.7         3.2          1.3         0.2  setosa
+#&gt; 4          4.6         3.1          1.5         0.2  setosa
+#&gt; 5          5.0         3.6          1.4         0.2  setosa</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -193,7 +238,7 @@ as references to notes.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

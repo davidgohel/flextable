@@ -71,7 +71,7 @@ Argument ft.align can be specified also as knitr chunk options." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
       </span>
     </div>
 
@@ -133,7 +133,12 @@ This can be used in a shiny application.</p>
 <p>Argument <code>ft.align</code> can be specified also as knitr chunk options.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>htmltools_value</span>(<span class='no'>x</span>, <span class='kw'>ft.align</span> <span class='kw'>=</span> <span class='no'>opts_current</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>"ft.align"</span>), <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"tabwid"</span>)</pre>
+    <pre class="usage"><span class='fu'>htmltools_value</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>ft.align</span> <span class='kw'>=</span> <span class='no'>opts_current</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>"ft.align"</span>),
+  <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"tabwid"</span>,
+  <span class='kw'>bookdown</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,6 +155,10 @@ This can be used in a shiny application.</p>
       <th>class</th>
       <td><p>css classes (default to "tabwid"), if ft.align is set to 'left' or 'right',
 class 'tabwid_left' or 'tabwid_right' will be added to class.</p></td>
+    </tr>
+    <tr>
+      <th>bookdown</th>
+      <td><p><code>TRUE</code> or <code>FALSE</code> (default) to support cross referencing with bookdown.</p></td>
     </tr>
     </table>
 
@@ -184,7 +193,7 @@ class 'tabwid_left' or 'tabwid_right' will be added to class.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
