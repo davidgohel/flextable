@@ -26,7 +26,7 @@ activated when TRUE.}
 \item{tab.cap.style}{specifies a Word style for table caption,
 default value is "Table Caption".}
 
-\item{bookdown}{\code{TRUE} or \code{FALSE} (defailt) to support cross referencing with bookdown.}
+\item{bookdown}{\code{TRUE} or \code{FALSE} (default) to support cross referencing with bookdown.}
 }
 \description{
 get openxml raw code for Word

@@ -80,6 +80,10 @@ questions about how to use the package, visit Stackoverflow and use tags
 link](https://stackoverflow.com/questions/tagged/flextable+r)\! I
 usually read them and answer when possible.
 
+Don’t send me a private emails to get free R support or to ask questions
+about using the package. They are systematically ignored except if you
+are French in which case I send you a commercial proposal :)
+
 ## Contributing to the package
 
 ### Code of Conduct

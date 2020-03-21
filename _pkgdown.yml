@@ -34,6 +34,7 @@ reference:
     - width
     - hrule
     - autofit
+    - fit_to_width
     - dim.flextable
     - dim_pretty
     - flextable_dim
@@ -96,7 +97,8 @@ reference:
     - plot.flextable
     - save_as_image
     - save_as_html
-    - format.flextable
+    - save_as_docx
+    - save_as_pptx
     - htmltools_value
     - docx_value
     - as_raster

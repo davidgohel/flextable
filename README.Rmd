@@ -79,7 +79,11 @@ This project is developed and maintained on my own time. If you have
 questions about how to use the package, visit Stackoverflow and use tags
 `flextable` and `r` [Stackoverflow
 link](https://stackoverflow.com/questions/tagged/flextable+r)\! I
-usually read them and answer when possible.
+usually read them and answer when possible. 
+
+Don't send me a private emails to get free R support or to ask questions 
+about using the package. They are systematically ignored except if you are 
+French in which case I send you a commercial proposal :)
 
 ## Contributing to the package
 
@@ -89,7 +93,10 @@ Anyone getting involved in this package agrees to our [Code of Conduct](https://
 
 ### Bug reports
 
-When you file a [bug report](https://github.com/davidgohel/flextable/issues), please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.
+When you file a [bug report](https://github.com/davidgohel/flextable/issues),
+please spend some time making it easy for me to follow and reproduce. The more
+time you spend on making the bug report coherent, the more time I can dedicate
+to investigate the bug as opposed to the bug report.
 
 ### Contributing to the package development
 
@@ -102,5 +109,6 @@ If you want to submit a Pull Request to integrate functions of yours, please pro
 * corresponding tests in directory `tests/testthat`.
 
 By using rhub (run `rhub::check_for_cran()`), you will see if everything is ok.
-When submitted, the PR will be evaluated automatically on travis and appveyor and you will be able to see if something broke.
+When submitted, the PR will be evaluated automatically on travis and appveyor
+and you will be able to see if something broke.
 
