@@ -247,6 +247,18 @@ The PDF output is not a real latex output but a PNG image.
 package `pagedown`. The only current known limitation is the inability to repeat header 
 rows along pages when the table need more than a page. 
 
+#### Notes about rmarkdown::word_document
+
+This note is only relevant when using flextable in an R Markdown document with Word output.
+
+In some context, `officedown::rdocx_document()` will have to be used instead 
+of `rmarkdown::word_document()`. This is because Word don't store hyperlinks or images 
+in the main document but store *references*. This is not managed by rmarkdown unless 
+`officedown::rdocx_document()` is used. 
+
+If you don't add images or hyperlinks in a flextable rendered by `officedown::rdocx_document()` then
+you can forget about that. 
+
 ### PowerPoint or Word documents with officer
 
 #### Simple export
