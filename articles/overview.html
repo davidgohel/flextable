@@ -649,6 +649,13 @@
 <li>The best option to produce PDF documents containing flextable objects is by using package <code>pagedown</code>. The only current known limitation is the inability to repeat header rows along pages when the table need more than a page.</li>
 </ul>
 </div>
+<div id="notes-about-rmarkdownword_document" class="section level4">
+<h4 class="hasAnchor">
+<a href="#notes-about-rmarkdownword_document" class="anchor"></a>Notes about rmarkdown::word_document</h4>
+<p>This note is only relevant when using flextable in an R Markdown document with Word output.</p>
+<p>In some context, <code><a href="https://rdrr.io/pkg/officedown/man/rdocx_document.html">officedown::rdocx_document()</a></code> will have to be used instead of <code><a href="https://rdrr.io/pkg/rmarkdown/man/word_document.html">rmarkdown::word_document()</a></code>. This is because Word don’t store hyperlinks or images in the main document but store <em>references</em>. This is not managed by rmarkdown unless <code><a href="https://rdrr.io/pkg/officedown/man/rdocx_document.html">officedown::rdocx_document()</a></code> is used.</p>
+<p>If you don’t add images or hyperlinks in a flextable rendered by <code><a href="https://rdrr.io/pkg/officedown/man/rdocx_document.html">officedown::rdocx_document()</a></code> then you can forget about that.</p>
+</div>
 </div>
 <div id="powerpoint-or-word-documents-with-officer" class="section level3">
 <h3 class="hasAnchor">
