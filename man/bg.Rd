@@ -4,7 +4,7 @@
 \alias{bg}
 \title{Set background color}
 \usage{
-bg(x, i = NULL, j = NULL, bg, part = "body")
+bg(x, i = NULL, j = NULL, bg, part = "body", source = j)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -13,9 +13,14 @@ bg(x, i = NULL, j = NULL, bg, part = "body")
 
 \item{j}{columns selection}
 
-\item{bg}{color to use as background color}
+\item{bg}{color to use as background color. If a function, function need to return
+a character vector of colors.}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
+
+\item{source}{if bg is a function, source is specifying the dataset column to be used
+as argument to \code{bg}. This is only useful if j is colored with values contained in another
+(or other) column.}
 }
 \description{
 change background color of selected rows and columns of a flextable.
@@ -23,6 +28,18 @@ change background color of selected rows and columns of a flextable.
 \examples{
 ft <- flextable(mtcars)
 ft <- bg(ft, bg = "#DDDDDD", part = "header")
+
+if(require("scales")){
+  ft <- flextable(iris)
+  zz <- col_numeric(
+    palette = c("red", "orange", "green", "blue"),
+    domain = c(0, 7))
+  ft <- bg(ft, j = c("Sepal.Length", "Sepal.Width",
+                     "Petal.Length", "Petal.Width"),
+           bg = zz, part = "body")
+  ft
+}
+
 }
 \seealso{
 Other sugar functions for table style: 

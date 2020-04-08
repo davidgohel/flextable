@@ -4,7 +4,7 @@
 \alias{color}
 \title{Set font color}
 \usage{
-color(x, i = NULL, j = NULL, color, part = "body")
+color(x, i = NULL, j = NULL, color, part = "body", source = j)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -13,9 +13,14 @@ color(x, i = NULL, j = NULL, color, part = "body")
 
 \item{j}{columns selection}
 
-\item{color}{color to use as font color}
+\item{color}{color to use as font color. If a function, function need to return
+a character vector of colors.}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
+
+\item{source}{if bg is a function, source is specifying the dataset column to be used
+as argument to \code{color}. This is only useful if j is colored with values contained in another
+(or other) column.}
 }
 \description{
 change font color of selected rows and columns of a flextable.

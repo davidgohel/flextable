@@ -183,19 +183,23 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param color color to use as font color
+#' @param color color to use as font color. If a function, function need to return
+#' a character vector of colors.
+#' @param source if bg is a function, source is specifying the dataset column to be used
+#' as argument to `color`. This is only useful if j is colored with values contained in another
+#' (or other) column.
 #' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- color(ft, color = "orange", part = "header")
-color <- function(x, i = NULL, j = NULL, color, part = "body" ){
+color <- function(x, i = NULL, j = NULL, color, part = "body", source = j ){
 
   if( !inherits(x, "flextable") ) stop("color supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
     for( p in c("header", "body", "footer") ){
-      x <- color(x = x, i = i, j = j, color = color, part = p)
+      x <- color(x = x, i = i, j = j, color = color, part = p, source = source)
     }
     return(x)
   }
@@ -206,6 +210,14 @@ color <- function(x, i = NULL, j = NULL, color, part = "body" ){
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
+
+  if(is.function(color)){
+    source <- get_dataset_columns_id(x[[part]], source )
+    lcolor <- lapply(x[[part]]$dataset[source], color)
+    color <- matrix( unlist( lcolor ), ncol = length(lcolor) )
+  }
+
+
   x[[part]]$styles$text[i, j, "color"] <- color
 
   x
@@ -402,19 +414,35 @@ align_nottext_col <- function(x, align = "right", header = TRUE, footer = TRUE )
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param bg color to use as background color
+#' @param bg color to use as background color. If a function, function need to return
+#' a character vector of colors.
+#' @param source if bg is a function, source is specifying the dataset column to be used
+#' as argument to `bg`. This is only useful if j is colored with values contained in another
+#' (or other) column.
 #' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(mtcars)
 #' ft <- bg(ft, bg = "#DDDDDD", part = "header")
-bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
+#'
+#' if(require("scales")){
+#'   ft <- flextable(iris)
+#'   zz <- col_numeric(
+#'     palette = c("red", "orange", "green", "blue"),
+#'     domain = c(0, 7))
+#'   ft <- bg(ft, j = c("Sepal.Length", "Sepal.Width",
+#'                      "Petal.Length", "Petal.Width"),
+#'            bg = zz, part = "body")
+#'   ft
+#' }
+#'
+bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j ){
 
   if( !inherits(x, "flextable") ) stop("bg supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
     for( p in c("header", "body", "footer") ){
-      x <- bg(x = x, i = i, j = j, bg = bg, part = p)
+      x <- bg(x = x, i = i, j = j, bg = bg, part = p, source = source)
     }
     return(x)
   }
@@ -425,6 +453,12 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body" ){
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
+
+  if(is.function(bg)){
+    source <- get_dataset_columns_id(x[[part]], source )
+    lbg <- lapply(x[[part]]$dataset[source], bg)
+    bg <- matrix( unlist( lbg ), ncol = length(lbg) )
+  }
 
   x[[part]]$styles$cells[i, j, "background.color"] <- bg
 
