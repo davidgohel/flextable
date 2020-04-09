@@ -5,6 +5,8 @@
 * footnote is now able to add inline footnotes
 * support for bookdown references
 * bg and color now accept functions (i.e. `scales::col_numeric()`)
+* new as_flextable methods for lm and glm objects
+* new sugar function `continuous_summary()`: summarize continuous columns in a flextable
 
 # flextable 0.5.9
 

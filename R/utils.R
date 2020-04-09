@@ -101,3 +101,18 @@ ref_label <- function() {
 has_label <- function(x) {
   grepl("^\\(\\\\#tab:[-[:alnum:]]+\\)", x)
 }
+
+
+#' @importFrom stats median median sd mad
+#' @importFrom stats quantile
+Q1 <- function(z) as.double(quantile(z, probs = .25, na.rm = TRUE, names = FALSE))
+Q3 <- function(z) as.double(quantile(z, probs = .75, na.rm = TRUE, names = FALSE))
+MEDIAN <- function(z) as.double(median(z, na.rm = TRUE))
+MEAN <- function(z) as.double(mean(z, na.rm = TRUE))
+SD <- function(z) as.double(sd(z, na.rm = TRUE))
+MAD <- function(z) as.double(mad(z, na.rm = TRUE))
+MIN <- function(z) as.double(min(z, na.rm = TRUE))
+MAX <- function(z) as.double(max(z, na.rm = TRUE))
+N <- function(z) length(z)
+NAS <- function(z) sum(is.na(z))
+
