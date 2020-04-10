@@ -16,6 +16,9 @@
 #' ft <- theme_vanilla( ft )
 #' ft
 #' @export
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_set_formatter_1.png}{options: width=50\%}}
 set_formatter <- function(x, ..., values = NULL, part = "body"){
 
 
@@ -85,10 +88,13 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 #' @family cells formatters
 #' @examples
 #' dat <- iris
-#' ft <- flextable(dat)
+#' ft <- flextable(head(dat))
 #' ft <- colformat_char(
-#'   x = ft, col_keys = "Species", suffix = "!")
-#' autofit(ft)
+#'   x = ft, j = "Species", suffix = "!")
+#' ft <- autofit(ft)
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_colformat_char_1.png}{options: width=50\%}}
 colformat_char <- function(x, ...){
   UseMethod("colformat_char")
 }
@@ -104,13 +110,16 @@ colformat_char <- function(x, ...){
 #' dat[1:4, 1] <- NA
 #' dat[, 2] <- dat[, 2] * 1000000
 #'
-#' ft <- flextable(dat)
-#' colkeys = c("Sepal.Length", "Sepal.Width",
-#'             "Petal.Length", "Petal.Width")
+#' ft <- flextable(head(dat))
+#' j = c("Sepal.Length", "Sepal.Width",
+#'    "Petal.Length", "Petal.Width")
 #' ft <- colformat_num(
-#'   x = ft, col_keys = colkeys,
+#'   x = ft, j = j,
 #'   big.mark=",", digits = 2, na_str = "N/A")
 #' autofit(ft)
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_colformat_num_1.png}{options: width=50\%}}
 colformat_num <- function(x, ...){
   UseMethod("colformat_num")
 }
@@ -122,12 +131,13 @@ colformat_num <- function(x, ...){
 #' @family cells formatters
 #' @export
 #' @examples
-#' dat <- mtcars
+#' ft <- flextable(head(mtcars))
+#' j <- c("vs", "am", "gear", "carb")
+#' ft <- colformat_int(x = ft, j = j, prefix = "# ")
+#' ft
+#' @section Illustrations:
 #'
-#' ft <- flextable(dat)
-#' colkeys <- c("vs", "am", "gear", "carb")
-#' ft <- colformat_int(x = ft, col_keys = colkeys, prefix = "# ")
-#' autofit(ft)
+#' \if{html}{\figure{fig_colformat_int_1.png}{options: width=100\%}}
 colformat_int <- function(x, ...){
   UseMethod("colformat_int")
 }
@@ -142,8 +152,11 @@ colformat_int <- function(x, ...){
 #' dat <- data.frame(a = c(TRUE, FALSE), b = c(FALSE, TRUE))
 #'
 #' ft <- flextable(dat)
-#' ft <- colformat_lgl(x = ft, col_keys = c("a", "b"))
+#' ft <- colformat_lgl(x = ft, j = c("a", "b"))
 #' autofit(ft)
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_colformat_lgl_1.png}{options: width=20\%}}
 colformat_lgl <- function(x, ...){
   UseMethod("colformat_lgl")
 }

@@ -21,11 +21,11 @@ result in a new R graphics window.
 This function requires packages: webshot and magick.
 }
 \examples{
-ft <- flextable( head( mtcars ) )
-ft <- autofit(ft)
+ftab <- flextable( head( mtcars ) )
+ftab <- autofit(ftab)
 \dontrun{
 if( require("webshot") ){
-  plot(ft)
+  plot(ftab)
 }
 }
 }

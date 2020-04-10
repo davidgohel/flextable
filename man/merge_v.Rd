@@ -21,6 +21,14 @@ Merge flextable cells vertically when consecutive cells have
 identical values. Text of formatted values are used to compare
 values if available.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_merge_v_1.png}{options: width=100\%}}
+
+\if{html}{\figure{fig_merge_v_2.png}{options: width=100\%}}
+}
+
 \examples{
 ft_merge <- flextable(mtcars)
 ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))
@@ -46,10 +54,13 @@ data_ex <- structure(list(srdr_id = c(
   NA,
   -9L
 ), class = c("tbl_df", "tbl", "data.frame"))
-ft <- flextable(data_ex)
-ft <- theme_box(ft)
-merge_v(ft, j = "srdr_id",
+
+
+ft_1 <- flextable(data_ex)
+ft_1 <- theme_box(ft_1)
+ft_2 <- merge_v(ft_1, j = "srdr_id",
   target = c("srdr_id", "substances"))
+  ft_2
 }
 \seealso{
 Other flextable merging function: 

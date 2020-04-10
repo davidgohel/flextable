@@ -13,8 +13,8 @@ theme_tron(x)
 Apply theme tron to a flextable
 }
 \examples{
-ft <- flextable(iris)
-ft <- theme_tron(ft)
+ftab <- flextable(iris)
+ftab <- theme_tron(ftab)
 }
 \seealso{
 Other flextable theme: 

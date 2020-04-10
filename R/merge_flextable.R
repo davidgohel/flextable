@@ -34,12 +34,20 @@
 #'   NA,
 #'   -9L
 #' ), class = c("tbl_df", "tbl", "data.frame"))
-#' ft <- flextable(data_ex)
-#' ft <- theme_box(ft)
-#' merge_v(ft, j = "srdr_id",
+#'
+#'
+#' ft_1 <- flextable(data_ex)
+#' ft_1 <- theme_box(ft_1)
+#' ft_2 <- merge_v(ft_1, j = "srdr_id",
 #'   target = c("srdr_id", "substances"))
+#'   ft_2
 #' @family flextable merging function
 #' @export
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_merge_v_1.png}{options: width=100\%}}
+#'
+#' \if{html}{\figure{fig_merge_v_2.png}{options: width=100\%}}
 merge_v <- function(x, j = NULL, target = NULL, part = "body" ){
   if( !inherits(x, "flextable") ) stop("merge_v supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
@@ -115,6 +123,9 @@ merge_h <- function(x, i = NULL, part = "body" ){
 #'
 #' ft <- theme_tron_legacy( merge_none( ft ) )
 #' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_merge_none_1.png}{options: width=100\%}}
 merge_none <- function(x, part = "all" ){
 
   if( !inherits(x, "flextable") ) stop("merge_none supports only flextable objects.")
@@ -177,9 +188,14 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
 #' @family flextable merging function
 #' @examples
 #' ft <- flextable( head( mtcars ), cwidth = .5 )
+#' ft <- theme_box( ft )
 #' ft <- merge_h_range( ft, i =  ~ cyl == 6, j1 = "am", j2 = "carb")
+#' ft <- align( ft, i =  ~ cyl == 6, align = "center")
 #' ft
 #' @export
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_merge_h_range_1.png}{options: width=100\%}}
 merge_h_range <- function(x, i = NULL, j1 = NULL, j2 = NULL, part = "body" ){
   if( !inherits(x, "flextable") ) stop("merge_h_range supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )

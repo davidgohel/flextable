@@ -25,21 +25,32 @@ as argument to \code{bg}. This is only useful if j is colored with values contai
 \description{
 change background color of selected rows and columns of a flextable.
 }
-\examples{
-ft <- flextable(mtcars)
-ft <- bg(ft, bg = "#DDDDDD", part = "header")
+\section{Illustrations}{
 
-if(require("scales")){
-  ft <- flextable(iris)
-  zz <- col_numeric(
-    palette = c("red", "orange", "green", "blue"),
-    domain = c(0, 7))
-  ft <- bg(ft, j = c("Sepal.Length", "Sepal.Width",
-                     "Petal.Length", "Petal.Width"),
-           bg = zz, part = "body")
-  ft
+
+\if{html}{\figure{fig_bg_1.png}{options: width=100\%}}
+
+\if{html}{\figure{fig_bg_2.png}{options: width=50\%}}
 }
 
+\examples{
+ft_1 <- flextable(head(mtcars))
+ft_1 <- bg(ft_1, bg = "wheat", part = "header")
+ft_1 <- bg(ft_1, i = ~ qsec < 18, bg = "#EFEFEF", part = "body")
+ft_1 <- bg(ft_1, j = "drat", bg = "#606060", part = "all")
+ft_1 <- color(ft_1, j = "drat", color = "white", part = "all")
+ft_1
+
+if(require("scales")){
+  ft_2 <- flextable(head(iris))
+  colourer <- col_numeric(
+    palette = c("wheat", "red"),
+    domain = c(0, 7))
+  ft_2 <- bg(ft_2, j = c("Sepal.Length", "Sepal.Width",
+                     "Petal.Length", "Petal.Width"),
+           bg = colourer, part = "body")
+  ft_2
+}
 }
 \seealso{
 Other sugar functions for table style: 

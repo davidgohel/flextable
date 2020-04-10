@@ -5,6 +5,7 @@
 #' @param x object to be transformed as flextable
 #' @param ... arguments for custom methods
 #' @export
+#' @family as_flextable methods
 as_flextable <- function( x, ... ){
   UseMethod("as_flextable")
 }
@@ -31,7 +32,7 @@ as_flextable <- function( x, ... ){
 #' data_co2
 #' data_co2 <- as_grouped_data(x = data_co2, groups = c("Treatment"))
 #' data_co2
-#' @seealso \code{\link{as_flextable}}
+#' @seealso \code{\link{as_flextable.grouped_data}}
 #' @export
 as_grouped_data <- function( x, groups, columns = NULL ){
 
@@ -80,32 +81,37 @@ as_grouped_data <- function( x, groups, columns = NULL ){
 }
 
 #' @export
-#' @rdname as_flextable
+#' @title tabular summary for grouped_data object
+#' @description produce a flextable from a table
+#' produced by function [as_grouped_data()].
+#' @param x object to be transformed as flextable
 #' @param col_keys columns names/keys to display. If some column names are not in
 #' the dataset, they will be added as blank columns by default.
 #' @param hide_grouplabel if TRUE, group label will not be rendered, only
 #' level/value will be rendered.
+#' @param ... unused argument
 #' @examples
+#' library(data.table)
+#' CO2 <- CO2
+#' setDT(CO2)
+#' CO2$conc <- as.integer(CO2$conc)
 #'
-#' # as_flextable and as_grouped_data -----
-#' if( require("magrittr")){
-#'   library(data.table)
-#'   CO2 <- CO2
-#'   setDT(CO2)
-#'   CO2$conc <- as.integer(CO2$conc)
+#' data_co2 <- dcast(CO2, Treatment + conc ~ Type,
+#'                   value.var = "uptake", fun.aggregate = mean)
+#' data_co2 <- as_grouped_data(x = data_co2, groups = c("Treatment"))
 #'
-#'   data_co2 <- dcast(CO2, Treatment + conc ~ Type,
-#'                     value.var = "uptake", fun.aggregate = mean)
-#'   data_co2 <- as_grouped_data(x = data_co2, groups = c("Treatment"))
+#' ft <- as_flextable( data_co2 )
+#' ft <- add_footer_lines(ft, "dataset CO2 has been used for this flextable")
+#' ft <- add_header_lines(ft, "mean of carbon dioxide uptake in grass plants")
+#' ft <- set_header_labels(ft, conc = "Concentration")
+#' ft <- autofit(ft)
+#' ft <- width(ft, width = c(1, 1, 1))
+#' ft
+#' @section Illustrations:
 #'
-#'   zz <- as_flextable( data_co2 ) %>%
-#'     add_footer_lines("dataset CO2 has been used for this flextable") %>%
-#'     add_header_lines("mean of carbon dioxide uptake in grass plants") %>%
-#'     set_header_labels(conc = "Concentration") %>%
-#'     autofit() %>%
-#'     width(width = c(1, 1, 1))
-#'   zz
-#' }
+#' \if{html}{\figure{fig_as_flextable.grouped_data_1.png}{options: width=60\%}}
+#' @family as_flextable methods
+#' @seealso [as_grouped_data()]
 as_flextable.grouped_data <- function(x, col_keys = NULL, hide_grouplabel = FALSE, ... ){
 
   if( is.null(col_keys))
@@ -156,6 +162,10 @@ pvalue_format <- function(x){
 #'   ft <- as_flextable(probit.model)
 #'   ft
 #' }
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_flextable.glm_1.png}{options: width=60\%}}
+#' @family as_flextable methods
 as_flextable.glm <- function(x, ...){
 
 
@@ -206,7 +216,6 @@ as_flextable.glm <- function(x, ...){
 
   ft <- align(ft, i = tail(seq_len(nrow_part(ft)), n = 2), align = "center", part="footer")
 
-  width_ <- max(dimpretty$widths[-1])
   height_ <- max(dimpretty$heights)
   ft <- width(ft, j = NULL, width = dimpretty$widths)
   ft <- height_all(ft, height = height_)
@@ -224,8 +233,13 @@ as_flextable.glm <- function(x, ...){
 #' if(require("broom")){
 #'   lmod <- lm(rating ~ complaints + privileges +
 #'     learning + raises + critical, data=attitude)
-#'   as_flextable(lmod)
+#'   ft <- as_flextable(lmod)
+#'   ft
 #' }
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_flextable.lm_1.png}{options: width=60\%}}
+#' @family as_flextable methods
 as_flextable.lm <- function(x, ...){
 
   if( !requireNamespace("broom", quietly = TRUE) ){
@@ -236,13 +250,14 @@ as_flextable.lm <- function(x, ...){
   data_g <- broom::glance(x)
 
   ft <- flextable(data_t, col_keys = c("term", "estimate", "std.error", "statistic", "p.value", "signif"))
-
+  ft <- colformat_num(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
+  ft <- colformat_num(ft, j = c("p.value"), digits = 4)
   ft <- compose(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)) )
 
   ft <- set_header_labels(ft, term = "", estimate = "Estimate",
                           std.error = "Standard Error", statistic = "t value",
                           p.value = "Pr(>|t|)", signif = "" )
-  ft <- autofit(ft)
+  dimpretty <- dim_pretty(ft, part = "all")
 
   ft <- add_footer_lines(ft, values = c(
     "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05 < '.' < 0.1 < '' < 1",
@@ -260,8 +275,10 @@ as_flextable.lm <- function(x, ...){
                        values = c("", "Min", "1Q", "Median", "3Q", "Max"),
                        colwidths = rep(1,6), top = FALSE)
   ft <- add_footer(ft, values = quant_, top = FALSE)
-  width_ <- max(dim_pretty(ft)$widths[-1])
-  ft <- width(ft, j = NULL, width = width_)
+
+  height_ <- max(dimpretty$heights)
+  ft <- width(ft, j = NULL, width = dimpretty$widths)
+  ft <- height_all(ft, height = height_)
   ft
 }
 
@@ -279,8 +296,9 @@ as_flextable.lm <- function(x, ...){
 #' ft_1 <- continuous_summary(iris, names(iris)[1:4], by = "Species",
 #'   hide_grouplabel = FALSE)
 #' ft_1
-#' @section Figures:
-#' \if{html}{\figure{man_continuous_summary_1.png}{options: width=100\%}}
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_continuous_summary_1.png}{options: width=80\%}}
 continuous_summary <- function(dat, columns = NULL,
                                by = character(0),
                                hide_grouplabel = TRUE,

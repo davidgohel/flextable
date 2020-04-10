@@ -22,19 +22,26 @@ The function lets add text within flextable
 objects with function \code{\link{compose}}.
 It should be used inside a call to \code{\link{as_paragraph}}.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_as_chunk_1.png}{options: width=60\%}}
+}
+
 \examples{
 library(officer)
 
-myft <- flextable( head(iris))
+ft <- flextable( head(iris))
 
-myft <- compose( myft, j = "Sepal.Length",
+ft <- compose( ft, j = "Sepal.Length",
  value = as_paragraph(
    "Sepal.Length value is ",
    as_chunk(Sepal.Length, props = fp_text(color = "red"))
  ),
  part = "body")
-myft <- color(myft, color = "gray40", part = "all")
-autofit(myft)
+ft <- color(ft, color = "gray40", part = "all")
+ft <- autofit(ft)
+ft
 }
 \seealso{
 Other chunk elements for paragraph: 

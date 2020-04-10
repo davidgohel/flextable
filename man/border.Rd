@@ -44,8 +44,9 @@ settings to avoid overlapping borders.
 }
 \examples{
 library(officer)
-ft <- flextable(mtcars)
-ft <- border(ft, border.top = fp_border(color = "orange") )
+ftab <- flextable(head(mtcars))
+ftab <- border(ftab, border.top = fp_border(color = "orange") )
+ftab
 }
 \seealso{
 Other borders management: 

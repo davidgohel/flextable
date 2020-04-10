@@ -25,6 +25,12 @@ context with Word output format.
 PowerPoint cannot mix images and text in a paragraph, images
 are removed when outputing to PowerPoint format.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_as_image_1.png}{options: width=60\%}}
+}
+
 \examples{
 img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 library(officer)
@@ -39,7 +45,8 @@ myft <- compose( myft, i = 1:3, j = 1,
  ),
  part = "body")
 
-autofit(myft)
+ft <- autofit(myft)
+ft
 }
 \seealso{
 \code{\link{compose}}, \code{\link{as_paragraph}}

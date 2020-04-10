@@ -15,8 +15,8 @@ theme_booktabs(x, fontsize = 11)
 Apply theme booktabs to a flextable
 }
 \examples{
-ft <- flextable(iris)
-ft <- theme_booktabs(ft)
+ftab <- flextable(iris)
+ftab <- theme_booktabs(ftab)
 }
 \seealso{
 Other flextable theme: 

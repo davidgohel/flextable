@@ -15,10 +15,24 @@
 produce a flextable describing a
 linear model produced by function \code{lm}.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_as_flextable.lm_1.png}{options: width=60\%}}
+}
+
 \examples{
 if(require("broom")){
   lmod <- lm(rating ~ complaints + privileges +
     learning + raises + critical, data=attitude)
-  as_flextable(lmod)
+  ft <- as_flextable(lmod)
+  ft
 }
 }
+\seealso{
+Other as_flextable methods: 
+\code{\link{as_flextable.glm}()},
+\code{\link{as_flextable.grouped_data}()},
+\code{\link{as_flextable}()}
+}
+\concept{as_flextable methods}

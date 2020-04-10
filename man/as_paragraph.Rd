@@ -16,11 +16,17 @@ specified argument \code{...} is unused.}
 The function is concatenating text and images within paragraphs of
 a flextable object, this function is to be used with function \code{\link{compose}}.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_as_paragraph_1.png}{options: width=60\%}}
+}
+
 \examples{
 library(officer)
-myft <- flextable( head(iris, n = 10 ))
+ft <- flextable( head(iris, n = 10 ))
 
-myft <- compose( myft, j = 1,
+ft <- compose(ft, j = 1,
   value = as_paragraph(
     minibar(value = Sepal.Length, max = max(Sepal.Length)),
     " ",
@@ -30,7 +36,8 @@ myft <- compose( myft, j = 1,
   ),
   part = "body")
 
-autofit(myft)
+ft <- autofit(ft)
+ft
 }
 \seealso{
 \code{\link{as_chunk}}, \code{\link{minibar}},

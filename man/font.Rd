@@ -20,13 +20,23 @@ font(x, i = NULL, j = NULL, fontname, part = "body")
 \description{
 change font of selected rows and columns of a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_font_1.png}{options: width=70\%}}
+
+\if{html}{\figure{fig_font_2.png}{options: width=70\%}}
+}
+
 \examples{
 require("gdtools")
-fontname <- "Times"
+fontname <- "Brush Script MT"
 
-if( !font_family_exists(fontname) ){
-  ft <- flextable(head(iris))
-  ft <- font(ft, fontname = fontname, part = "header")
+if( font_family_exists(fontname) ){
+  ft_1 <- flextable(head(iris))
+  ft_2 <- font(ft_1, fontname = fontname, part = "header")
+  ft_2 <- font(ft_2, fontname = fontname, j = 5)
+  ft_2
 }
 }
 \seealso{

@@ -52,6 +52,12 @@ to specify what part of of the table should be modified.
 Function \code{regulartable} is maintained for compatibility with old codes
 mades by users but be aware it produces the same exact object than \code{flextable}.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_flextable_1.png}{options: width=100\%}}
+}
+
 \section{qflextable}{
 
 \code{qflextable} is a convenient tool to produce quickly
@@ -59,6 +65,10 @@ a flextable for reporting
 }
 
 \examples{
-ft <- flextable(mtcars)
+ft <- flextable(head(mtcars))
 ft
+}
+\seealso{
+\code{\link[=style]{style()}}, \code{\link[=autofit]{autofit()}}, \code{\link[=theme_booktabs]{theme_booktabs()}}, \code{\link[=knit_print.flextable]{knit_print.flextable()}},
+\code{\link[=compose]{compose()}}, \code{\link[=footnote]{footnote()}}
 }

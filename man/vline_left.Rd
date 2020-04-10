@@ -20,6 +20,12 @@ The function is applying vertical borders to the
 left side of one or all parts of a flextable. The line is the
 left border of selected cells of the first column.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_vline_left_1.png}{options: width=50\%}}
+}
+
 \examples{
 library(officer)
 std_border = fp_border(color="orange")

@@ -38,9 +38,22 @@ padding(
 \description{
 change paddings of selected rows and columns of a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_padding_1.png}{options: width=50\%}}
+}
+
 \examples{
-ft <- flextable(mtcars)
-ft <- padding(ft, padding.top = 4)
+ft_1 <- flextable(head(iris))
+ft_1 <- theme_vader(ft_1)
+ft_1 <- padding(ft_1, padding.top = 4, part = "all")
+ft_1 <- padding(ft_1, j = 1, padding.right = 40)
+ft_1 <- padding(ft_1, i = 3, padding.top = 40)
+ft_1 <- padding(ft_1, padding.top = 10, part = "header")
+ft_1 <- padding(ft_1, padding.bottom = 10, part = "header")
+ft_1 <- autofit(ft_1)
+ft_1
 }
 \seealso{
 Other sugar functions for table style: 

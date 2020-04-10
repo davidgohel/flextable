@@ -57,16 +57,20 @@ default_fptext_prop <- structure(list(
 #' @examples
 #' library(officer)
 #'
-#' myft <- flextable( head(iris))
+#' ft <- flextable( head(iris))
 #'
-#' myft <- compose( myft, j = "Sepal.Length",
+#' ft <- compose( ft, j = "Sepal.Length",
 #'  value = as_paragraph(
 #'    "Sepal.Length value is ",
 #'    as_chunk(Sepal.Length, props = fp_text(color = "red"))
 #'  ),
 #'  part = "body")
-#' myft <- color(myft, color = "gray40", part = "all")
-#' autofit(myft)
+#' ft <- color(ft, color = "gray40", part = "all")
+#' ft <- autofit(ft)
+#' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_chunk_1.png}{options: width=60\%}}
 as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
 
   if(is.function(x)){
@@ -125,7 +129,11 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
 #'       " anything "
 #'     ) )
 #'
-#' autofit(ft)
+#' ft <- autofit(ft)
+#' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_sub_1.png}{options: width=30\%}}
 as_sub <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x, formatter = format_fun)
@@ -152,7 +160,11 @@ as_sub <- function(x){
 #'       as_sup("Sepal.Width")
 #'     ) )
 #'
-#' autofit(ft)
+#' ft <- autofit(ft)
+#' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_sup_1.png}{options: width=30\%}}
 as_sup <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x, formatter = format_fun)
@@ -173,14 +185,18 @@ as_sup <- function(x){
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
-#' ft <- flextable( head(iris), col_keys = c("dummy") )
+#' ft <- flextable( head(iris),
+#'   col_keys = c("Sepal.Length", "dummy") )
 #'
 #' ft <- compose(ft, j = "dummy",
 #'     value = as_paragraph(
 #'       as_b(Sepal.Length)
 #'     ) )
 #'
-#' autofit(ft)
+#' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_b_1.png}{options: width=30\%}}
 as_b <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x, formatter = format_fun)
@@ -200,14 +216,16 @@ as_b <- function(x){
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
-#' ft <- flextable( head(iris), col_keys = c("dummy") )
+#' ft <- flextable( head(iris),
+#'   col_keys = c("Sepal.Length", "dummy") )
 #'
 #' ft <- compose(ft, j = "dummy",
-#'     value = as_paragraph(
-#'       as_i(Sepal.Length)
-#'     ) )
+#'   value = as_paragraph(as_i(Sepal.Length)) )
 #'
-#' autofit(ft)
+#' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_i_1.png}{options: width=30\%}}
 as_i <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x, formatter = format_fun)
@@ -234,7 +252,10 @@ as_i <- function(x){
 #'   value = as_paragraph( as_bracket(Sepal.Length, Sepal.Width) ) )
 #' ft <- compose(ft, j = "Petal",
 #'   value = as_paragraph( as_bracket(Petal.Length, Petal.Width) ) )
-#' autofit(ft)
+#' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_bracket_1.png}{options: width=35\%}}
 as_bracket <- function(..., sep = ", ", p = "(", s = ")"){
   x <- list(...)
   x <- lapply(x, formatC)
@@ -275,7 +296,11 @@ as_bracket <- function(..., sep = ", ", p = "(", s = ")"){
 #'  ),
 #'  part = "body")
 #'
-#' autofit(myft)
+#' ft <- autofit(myft)
+#' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_image_1.png}{options: width=60\%}}
 as_image <- function(src, width = .5, height = .2, ...) {
 
   if( length(src) > 1 ){
@@ -309,12 +334,12 @@ as_image <- function(src, width = .5, height = .2, ...) {
 #'   href = "https://www.google.fr/search?source=hp&q=flextable+R+package",
 #'   stringsAsFactors = FALSE)
 #'
-#' ft <- flextable(dat)
-#' ft <- compose( x = ft, j = "col",
+#' ftab <- flextable(dat)
+#' ftab <- compose( x = ftab, j = "col",
 #'   value = as_paragraph(
 #'     "This is a link: ",
 #'     hyperlink_text(x = col, url = href ) ) )
-#' ft
+#' ftab
 #' @family chunk elements for paragraph
 hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
   zz <- data.frame(x = x, url = url, stringsAsFactors = FALSE)
@@ -342,17 +367,21 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
 #' are removed when outputing to PowerPoint format.
 #' @family chunk elements for paragraph
 #' @examples
-#' myft <- flextable( head(iris, n = 10 ))
+#' ft <- flextable( head(iris, n = 10 ))
 #'
-#' myft <- compose( myft, j = 1,
+#' ft <- compose(ft, j = 1,
 #'   value = as_paragraph(
 #'     minibar(value = Sepal.Length, max = max(Sepal.Length))
 #'   ),
 #'   part = "body")
 #'
-#' autofit(myft)
+#' ft <- autofit(ft)
+#' ft
 #' @importFrom grDevices as.raster col2rgb rgb
 #' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_minibar_1.png}{options: width=60\%}}
 minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", width = 1, height = .2) {
 
 
@@ -499,17 +528,21 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @family chunk elements for paragraph
 #' @examples
 #' iris$Sepal.Ratio <- (iris$Sepal.Length - mean(iris$Sepal.Length))/mean(iris$Sepal.Length)
-#' myft <- flextable( tail(iris, n = 10 ))
+#' ft <- flextable( tail(iris, n = 10 ))
 #'
-#' myft <- compose( myft, j = "Sepal.Ratio",   value = as_paragraph(
+#' ft <- compose( ft, j = "Sepal.Ratio",   value = as_paragraph(
 #'   lollipop(value = Sepal.Ratio, min=-.25, max=.25)
 #' ),
 #' part = "body")
 #'
-#' autofit(myft)
+#' ft <- autofit(ft)
+#' ft
 #' @importFrom grDevices as.raster col2rgb rgb
 #' @importFrom stats approx
 #' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_lollipop_1.png}{options: width=60\%}}
 lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
                      bg = "transparent", width = 1,
                      height = .2, raster_width = 30, positivecol = "#00CC00",
@@ -598,9 +631,9 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' \code{\link{as_image}}, \code{\link{hyperlink_text}}
 #' @examples
 #' library(officer)
-#' myft <- flextable( head(iris, n = 10 ))
+#' ft <- flextable( head(iris, n = 10 ))
 #'
-#' myft <- compose( myft, j = 1,
+#' ft <- compose(ft, j = 1,
 #'   value = as_paragraph(
 #'     minibar(value = Sepal.Length, max = max(Sepal.Length)),
 #'     " ",
@@ -610,7 +643,11 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #'   ),
 #'   part = "body")
 #'
-#' autofit(myft)
+#' ft <- autofit(ft)
+#' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_paragraph_1.png}{options: width=60\%}}
 as_paragraph <- function( ..., list_values = NULL ){
   if( is.null(list_values)) {
     list_values <- list(...)

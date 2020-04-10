@@ -4,8 +4,9 @@
 #' @param j columns selection
 #' @param part partname of the table
 #' @examples
-#' ft <- flextable(mtcars)
-#' ft <- void(ft, ~ vs + am + gear + carb )
+#' ftab <- flextable(head(mtcars))
+#' ftab <- void(ftab, ~ vs + am + gear + carb )
+#' ftab
 #' @export
 void <- function(x, j = NULL, part = "body" ){
 

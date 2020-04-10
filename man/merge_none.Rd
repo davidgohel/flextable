@@ -14,6 +14,12 @@ merge_none(x, part = "all")
 \description{
 Delete all merging informations from a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_merge_none_1.png}{options: width=100\%}}
+}
+
 \examples{
 typology <- data.frame(
   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species" ),

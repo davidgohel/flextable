@@ -15,8 +15,8 @@ theme_vader(x, fontsize = 11)
 Apply Sith Lord Darth Vader theme to a flextable
 }
 \examples{
-ft <- flextable(iris)
-ft <- theme_vader(ft)
+ftab <- flextable(iris)
+ftab <- theme_vader(ftab)
 }
 \seealso{
 Other flextable theme: 

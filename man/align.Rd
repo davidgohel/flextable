@@ -31,27 +31,23 @@ is one of 'left', 'right', 'center', 'justify'.}
 \description{
 change text alignment of selected rows and columns of a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_align_1.png}{options: width=100\%}}
+}
+
 \examples{
-ft <- flextable(mtcars)
-ft <- align(ft, align = "center")
-ft <- flextable(mtcars)
-ft <- align_text_col(ft, align = "left")
-ft <- align_nottext_col(ft, align = "right")
+ft <- flextable(head(mtcars)[,3:6])
+ft <- align(ft, align = "right", part = "all")
+ft <- theme_tron_legacy(ft)
 ft
+ftab <- flextable(mtcars)
+ftab <- align_text_col(ftab, align = "left")
+ftab <- align_nottext_col(ftab, align = "right")
+ftab
 }
 \seealso{
-Other sugar functions for table style: 
-\code{\link{bg}()},
-\code{\link{bold}()},
-\code{\link{color}()},
-\code{\link{empty_blanks}()},
-\code{\link{fontsize}()},
-\code{\link{font}()},
-\code{\link{italic}()},
-\code{\link{padding}()},
-\code{\link{rotate}()},
-\code{\link{valign}()}
-
 Other sugar functions for table style: 
 \code{\link{bg}()},
 \code{\link{bold}()},

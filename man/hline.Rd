@@ -22,6 +22,12 @@ The function is applying an horizontal border to inner
 content of one or all parts of a flextable. The lines are the
 bottom borders of selected cells.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_hline_1.png}{options: width=50\%}}
+}
+
 \examples{
 library(officer)
 std_border = fp_border(color="gray")

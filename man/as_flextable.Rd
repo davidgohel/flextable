@@ -2,48 +2,24 @@
 % Please edit documentation in R/as_flextable.R
 \name{as_flextable}
 \alias{as_flextable}
-\alias{as_flextable.grouped_data}
 \title{method to convert object to flextable}
 \usage{
 as_flextable(x, ...)
-
-\method{as_flextable}{grouped_data}(x, col_keys = NULL, hide_grouplabel = FALSE, ...)
 }
 \arguments{
 \item{x}{object to be transformed as flextable}
 
 \item{...}{arguments for custom methods}
-
-\item{col_keys}{columns names/keys to display. If some column names are not in
-the dataset, they will be added as blank columns by default.}
-
-\item{hide_grouplabel}{if TRUE, group label will not be rendered, only
-level/value will be rendered.}
 }
 \description{
 This is a convenient function
 to let users create flextable bindings
 from any objects.
 }
-\examples{
-
-# as_flextable and as_grouped_data -----
-if( require("magrittr")){
-  library(data.table)
-  CO2 <- CO2
-  setDT(CO2)
-  CO2$conc <- as.integer(CO2$conc)
-
-  data_co2 <- dcast(CO2, Treatment + conc ~ Type,
-                    value.var = "uptake", fun.aggregate = mean)
-  data_co2 <- as_grouped_data(x = data_co2, groups = c("Treatment"))
-
-  zz <- as_flextable( data_co2 ) \%>\%
-    add_footer_lines("dataset CO2 has been used for this flextable") \%>\%
-    add_header_lines("mean of carbon dioxide uptake in grass plants") \%>\%
-    set_header_labels(conc = "Concentration") \%>\%
-    autofit() \%>\%
-    width(width = c(1, 1, 1))
-  zz
+\seealso{
+Other as_flextable methods: 
+\code{\link{as_flextable.glm}()},
+\code{\link{as_flextable.grouped_data}()},
+\code{\link{as_flextable.lm}()}
 }
-}
+\concept{as_flextable methods}

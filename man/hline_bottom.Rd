@@ -20,6 +20,12 @@ The function is applying an horizontal border to the
 bottom of one or all parts of a flextable. The line is the
 bottom border of selected parts.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_hline_bottom_1.png}{options: width=50\%}}
+}
+
 \examples{
 library(officer)
 big_border = fp_border(color="orange", width = 3)

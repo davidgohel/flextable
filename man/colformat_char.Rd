@@ -35,12 +35,18 @@ version.}
 \description{
 Format character cells in a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_colformat_char_1.png}{options: width=50\%}}
+}
+
 \examples{
 dat <- iris
-ft <- flextable(dat)
+ft <- flextable(head(dat))
 ft <- colformat_char(
-  x = ft, col_keys = "Species", suffix = "!")
-autofit(ft)
+  x = ft, j = "Species", suffix = "!")
+ft <- autofit(ft)
 }
 \seealso{
 Other cells formatters: 

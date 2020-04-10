@@ -21,12 +21,22 @@ one of "center" or "top" or "bottom".}
 \description{
 change vertical alignment of selected rows and columns of a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_valign_1.png}{options: width=50\%}}
+
+\if{html}{\figure{fig_valign_2.png}{options: width=50\%}}
+}
+
 \examples{
-ft <- flextable(iris[c(1:3, 51:53, 101:103),])
-ft <- theme_box(ft)
-ft <- merge_v( ft, j = 5)
-ft <- valign(ft, j = 5, valign = "top", part = "all")
-ft
+ft_1 <- flextable(iris[c(1:3, 51:53, 101:103),])
+ft_1 <- theme_box(ft_1)
+ft_1 <- merge_v(ft_1, j = 5)
+ft_1
+
+ft_2 <- valign(ft_1, j = 5, valign = "top", part = "all")
+ft_2
 }
 \seealso{
 Other sugar functions for table style: 

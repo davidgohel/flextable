@@ -23,10 +23,17 @@ Add an header or footer new row where some cells are merged,
 labels are associated with a number of columns to merge. The function
 is row oriented. One call allow to add one single row.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_add_header_row_1.png}{options: width=50\%}}
+}
+
 \examples{
 ft <- flextable( head( iris ) )
 ft <- add_header_row(ft, values = "blah blah", colwidths = 5)
 ft <- add_header_row(ft, values = c("blah", "blah"), colwidths = c(3,2))
+ft <- theme_tron(ft)
 ft
 ft <- flextable( head( iris ) )
 ft <- add_footer_row(ft, values = "blah blah", colwidths = 5)
@@ -37,6 +44,7 @@ ft
 Other headers and footers: 
 \code{\link{add_header_lines}()},
 \code{\link{add_header}()},
-\code{\link{set_header_footer_df}}
+\code{\link{set_header_footer_df}},
+\code{\link{set_header_labels}()}
 }
 \concept{headers and footers}

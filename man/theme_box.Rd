@@ -13,8 +13,8 @@ theme_box(x)
 Apply theme box to a flextable
 }
 \examples{
-ft <- flextable(iris)
-ft <- theme_box(ft)
+ftab <- flextable(iris)
+ftab <- theme_box(ftab)
 }
 \seealso{
 Other flextable theme: 

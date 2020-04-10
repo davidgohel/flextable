@@ -17,6 +17,12 @@ border_inner_v(x, border = NULL, part = "all")
 The function is applying a vertical border to inner content of one
 or all parts of a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_border_inner_v_1.png}{options: width=50\%}}
+}
+
 \examples{
 library(officer)
 std_border = fp_border(color="orange", width = 1)

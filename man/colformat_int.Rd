@@ -40,13 +40,17 @@ version.}
 \description{
 Format integer cells in a flextable.
 }
-\examples{
-dat <- mtcars
+\section{Illustrations}{
 
-ft <- flextable(dat)
-colkeys <- c("vs", "am", "gear", "carb")
-ft <- colformat_int(x = ft, col_keys = colkeys, prefix = "# ")
-autofit(ft)
+
+\if{html}{\figure{fig_colformat_int_1.png}{options: width=100\%}}
+}
+
+\examples{
+ft <- flextable(head(mtcars))
+j <- c("vs", "am", "gear", "carb")
+ft <- colformat_int(x = ft, j = j, prefix = "# ")
+ft
 }
 \seealso{
 Other cells formatters: 

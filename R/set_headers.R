@@ -9,20 +9,24 @@
 #' @param values a named list (names are data colnames), each element is a single character
 #' value specifying label to use. If provided, argument \code{...} will be ignored.
 #' @examples
-#' ft_1 <- flextable( head( iris ))
-#' ft_1 <- set_header_labels(ft_1, Sepal.Length = "Sepal length",
+#' ft <- flextable( head( iris ))
+#' ft <- set_header_labels(ft, Sepal.Length = "Sepal length",
 #'   Sepal.Width = "Sepal width", Petal.Length = "Petal length",
 #'   Petal.Width = "Petal width"
 #' )
 #'
-#' ft_2 <- flextable( head( iris ))
-#' ft_2 <- set_header_labels(ft_2,
+#' ft <- flextable( head( iris ))
+#' ft <- set_header_labels(ft,
 #'   values = list(Sepal.Length = "Sepal length",
 #'                 Sepal.Width = "Sepal width",
 #'                 Petal.Length = "Petal length",
 #'                 Petal.Width = "Petal width" ) )
-#' ft_2
+#' ft
 #' @export
+#' @family headers and footers
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_set_header_labels_1.png}{options: width=50\%}}
 set_header_labels <- function(x, ..., values = NULL){
 
   if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
@@ -33,7 +37,7 @@ set_header_labels <- function(x, ..., values = NULL){
       stop("there is no header row to be replaced")
 
   }
-  
+
   values <- values[names(values) %in% names(x$header$dataset)]
   x$header$content[nrow_part(x, "header"), names(values)] <- as_paragraph(as_chunk(unlist(values)))
 
@@ -53,6 +57,9 @@ set_header_labels <- function(x, ..., values = NULL){
 #' ft <- flextable( head( iris ) )
 #' ft <- delete_part(x = ft, part = "header")
 #' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_delete_part_1.png}{options: width=50\%}}
 delete_part <- function(x, part = "header"){
   if( !inherits(x, "flextable") ) stop("delete_part supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
@@ -119,7 +126,7 @@ as_new_data <- function(x, ..., values = NULL){
 #'
 #'
 #' # add a footnote in the footer part
-#' ft <- add_footer(ft, Species = "This is a footnote" )
+#' ft <- add_footer(ft, Species = "This is a note in footer" )
 #' ft <- merge_at(ft, j = 1:5, part = "footer")
 #'
 #' # theme the table
@@ -127,6 +134,8 @@ as_new_data <- function(x, ..., values = NULL){
 #'
 #' ft
 #' @family headers and footers
+#' @section Illustrations:
+#' \if{html}{\figure{fig_add_header_1.png}{options: width=60\%}}
 add_header <- function(x, top = TRUE, ..., values = NULL){
   if( !inherits(x, "flextable") ) stop("add_header supports only flextable objects.")
   header_data <- as_new_data(x = x, ..., values = values)
@@ -168,8 +177,12 @@ add_footer <- function(x, top = TRUE, ..., values = NULL){
 #' ft <- flextable( head( iris ) )
 #' ft <- add_header_row(ft, values = "blah blah", colwidths = 5)
 #' ft <- add_header_row(ft, values = c("blah", "blah"), colwidths = c(3,2))
+#' ft <- theme_tron(ft)
 #' ft
 #' @family headers and footers
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_add_header_row_1.png}{options: width=50\%}}
 add_header_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)){
 
   if( !inherits(x, "flextable") ) stop("add_header supports only flextable objects.")
@@ -258,12 +271,19 @@ add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = int
 #' @param values a character vector, each element will be added a a new
 #' row in the header or footer part.
 #' @param top should the row be inserted at the top or the bottom.
-#' @examples
-#' ft <- flextable( head( iris ) )
-#' ft <- add_footer_lines(ft, values = "blah blah")
-#' ft <- add_footer_lines(ft, values = c("blah 1", "blah 2"))
-#' autofit(ft)
 #' @family headers and footers
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_add_header_lines_1.png}{options: width=50\%}}
+#'
+#' \if{html}{\figure{fig_add_header_lines_2.png}{options: width=50\%}}
+#' @examples
+#'
+#' ft_1 <- flextable( head( iris ) )
+#' ft_1 <- add_header_lines(ft_1, values = "blah blah")
+#' ft_1 <- add_header_lines(ft_1, values = c("blah 1", "blah 2"))
+#' ft_1 <- autofit(ft_1)
+#' ft_1
 add_header_lines <- function(x, values = character(0), top = TRUE){
 
   for( value in values ){
@@ -276,10 +296,11 @@ add_header_lines <- function(x, values = character(0), top = TRUE){
 #' @export
 #' @rdname add_header_lines
 #' @examples
-#' ft <- flextable( head( iris ) )
-#' ft <- add_header_lines(ft, values = "blah blah")
-#' ft <- add_header_lines(ft, values = c("blah 1", "blah 2"))
-#' autofit(ft)
+#' ft_2 <- flextable( head( iris ) )
+#' ft_2 <- add_footer_lines(ft_2, values = "blah blah")
+#' ft_2 <- add_footer_lines(ft_2, values = c("blah 1", "blah 2"))
+#' ft_2 <- theme_tron(ft_2)
+#' ft_2
 add_footer_lines <- function(x, values = character(0), top = FALSE){
 
   for( value in values ){
@@ -351,13 +372,19 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part){
 #'   measure = c("Length", "Width", "Length", "Width", "Species"),
 #'   stringsAsFactors = FALSE )
 #'
-#' ft <- flextable( head( iris ))
-#' ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
-#' ft <- merge_h(ft, part = "header")
-#' ft <- merge_v(ft, j = "Species", part = "header")
-#' ft <- theme_vanilla(ft)
-#'
+#' ft_1 <- flextable( head( iris ))
+#' ft_1 <- set_header_df(ft_1, mapping = typology, key = "col_keys" )
+#' ft_1 <- merge_h(ft_1, part = "header")
+#' ft_1 <- merge_v(ft_1, j = "Species", part = "header")
+#' ft_1 <- theme_vanilla(ft_1)
+#' ft_1 <- fix_border_issues(ft_1)
+#' ft_1
 #' @family headers and footers
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_set_header_footer_df_1.png}{options: width=50\%}}
+#'
+#' \if{html}{\figure{fig_set_header_footer_df_2.png}{options: width=50\%}}
 set_header_df <- function(x, mapping = NULL, key = "col_keys"){
   if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   set_part_df(x, mapping = mapping, key = key, part = "header")
@@ -366,15 +393,18 @@ set_header_df <- function(x, mapping = NULL, key = "col_keys"){
 #' @rdname set_header_footer_df
 #' @export
 #' @examples
+#'
+#'
 #' typology <- data.frame(
 #'   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
 #'                 "Petal.Width", "Species" ),
 #'   unit = c("(cm)", "(cm)", "(cm)", "(cm)", ""),
 #'   stringsAsFactors = FALSE )
-#' ft <- set_footer_df(ft, mapping = typology, key = "col_keys" )
-#' ft <- italic(ft, italic = TRUE, part = "footer" )
-#' ft <- theme_booktabs(ft)
-#' ft
+#' ft_2 <- set_footer_df(ft_1, mapping = typology, key = "col_keys" )
+#' ft_2 <- italic(ft_2, italic = TRUE, part = "footer" )
+#' ft_2 <- theme_booktabs(ft_2)
+#' ft_2 <- fix_border_issues(ft_2)
+#' ft_2
 set_footer_df <- function(x, mapping = NULL, key = "col_keys"){
   if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   set_part_df(x, mapping = mapping, key = key, part = "footer")

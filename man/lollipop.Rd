@@ -58,16 +58,23 @@ context with Word output format.
 PowerPoint cannot mix images and text in a paragraph, images
 are removed when outputing to PowerPoint format.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_lollipop_1.png}{options: width=60\%}}
+}
+
 \examples{
 iris$Sepal.Ratio <- (iris$Sepal.Length - mean(iris$Sepal.Length))/mean(iris$Sepal.Length)
-myft <- flextable( tail(iris, n = 10 ))
+ft <- flextable( tail(iris, n = 10 ))
 
-myft <- compose( myft, j = "Sepal.Ratio",   value = as_paragraph(
+ft <- compose( ft, j = "Sepal.Ratio",   value = as_paragraph(
   lollipop(value = Sepal.Ratio, min=-.25, max=.25)
 ),
 part = "body")
 
-autofit(myft)
+ft <- autofit(ft)
+ft
 }
 \seealso{
 \code{\link{compose}}, \code{\link{as_paragraph}}

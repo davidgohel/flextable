@@ -15,6 +15,12 @@
 produce a flextable describing a
 generalized linear model produced by function \code{glm}.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_as_flextable.glm_1.png}{options: width=60\%}}
+}
+
 \examples{
 if(require("broom")){
   dat <- attitude
@@ -25,3 +31,10 @@ if(require("broom")){
   ft
 }
 }
+\seealso{
+Other as_flextable methods: 
+\code{\link{as_flextable.grouped_data}()},
+\code{\link{as_flextable.lm}()},
+\code{\link{as_flextable}()}
+}
+\concept{as_flextable methods}

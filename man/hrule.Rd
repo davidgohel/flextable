@@ -24,13 +24,24 @@ control rules of each height for a part
 of the flextable, this is only for Word and HTML outputs, it
 will not have any effect when output is PowerPoint.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_hrule_1.png}{options: width=70\%}}
+
+\if{html}{\figure{fig_hrule_2.png}{options: width=70\%}}
+}
+
 \examples{
 
-ft <- flextable(iris)
-ft <- width(iris, width = 1.5)
-ft <- height(ft, height = 0.75, part = "header")
-ft <- hrule(ft, rule = "exact", part = "header")
+ft_1 <- flextable(head(iris))
+ft_1 <- width(ft_1, width = 1.5)
+ft_1 <- height(ft_1, height = 0.75, part = "header")
+ft_1 <- hrule(ft_1, rule = "exact", part = "header")
+ft_1
 
+ft_2 <- hrule(ft_1, rule = "auto", part = "header")
+ft_2
 }
 \seealso{
 Other flextable dimensions: 

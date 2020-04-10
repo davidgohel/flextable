@@ -17,8 +17,9 @@
 #' settings to avoid overlapping borders.
 #' @examples
 #' library(officer)
-#' ft <- flextable(mtcars)
-#' ft <- border(ft, border.top = fp_border(color = "orange") )
+#' ftab <- flextable(head(mtcars))
+#' ftab <- border(ftab, border.top = fp_border(color = "orange") )
+#' ftab
 border <- function(x, i = NULL, j = NULL, border = NULL,
                    border.top = NULL, border.bottom = NULL,
                    border.left = NULL, border.right = NULL,
@@ -81,15 +82,20 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 #' @param x a flextable object
 #' @examples
 #' dat <- iris[c(1:5, 51:55, 101:105),]
-#' ft <- flextable(dat)
-#' ft <- theme_box(ft)
-#' ft
+#' ft_1 <- flextable(dat)
+#' ft_1 <- theme_box(ft_1)
+#' ft_1
 #'
 #' # remove all borders
-#' ft <- border_remove(x = ft)
-#' ft
+#' ft_2 <- border_remove(x = ft_1)
+#' ft_2
 #' @export
 #' @family borders management
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_border_remove_1.png}{options: width=50\%}}
+#'
+#' \if{html}{\figure{fig_border_remove_2.png}{options: width=50\%}}
 border_remove <- function(x){
   if( !inherits(x, "flextable") ) stop("border_remove supports only flextable objects.")
   x <- border(x = x, border = fp_border(width = 0), part = "all")
@@ -115,6 +121,9 @@ border_remove <- function(x){
 #' ft <- border_outer(ft, part="all", border = big_border )
 #' ft
 #' @family borders management
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_border_outer_1.png}{options: width=50\%}}
 border_outer <- function(x, border = NULL, part = "all"){
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
   if( !inherits(x, "flextable") ) stop("border_outer supports only flextable objects.")
@@ -152,6 +161,9 @@ border_outer <- function(x, border = NULL, part = "all"){
 #' ft <- border_inner_h(ft, border = std_border )
 #' ft
 #' @family borders management
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_border_inner_h_1.png}{options: width=50\%}}
 border_inner_h <- function(x, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) stop("border_inner_h supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -187,6 +199,9 @@ border_inner_h <- function(x, border = NULL, part = "body"){
 #' ft <- border_inner_v(ft, border = std_border )
 #' ft
 #' @family borders management
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_border_inner_v_1.png}{options: width=50\%}}
 border_inner_v <- function(x, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) stop("border_inner_v supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -222,6 +237,9 @@ border_inner_v <- function(x, border = NULL, part = "all"){
 #' ft <- border_inner(ft, border = std_border )
 #' ft
 #' @family borders management
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_border_inner_1.png}{options: width=50\%}}
 border_inner <- function(x, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) stop("border_inner_v supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -265,8 +283,10 @@ border_inner <- function(x, border = NULL, part = "all"){
 #' # add horizontal borders
 #' ft <- hline(ft, part="all", border = std_border )
 #' ft
-#' @rdname borders
 #' @family borders management
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_hline_1.png}{options: width=50\%}}
 hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) stop("hline supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -314,6 +334,9 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
 #' ft <- hline_top(ft, part="all", border = big_border )
 #' ft
 #' @family borders management
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_hline_top_1.png}{options: width=50\%}}
 hline_top <- function(x, j = NULL, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) stop("hline_top supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -351,6 +374,9 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body"){
 #' ft <- hline_bottom(ft, part="body", border = big_border )
 #' ft
 #' @family borders management
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_hline_bottom_1.png}{options: width=50\%}}
 hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) stop("hline_bottom supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -387,6 +413,9 @@ hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
 #' ft <- vline(ft, border = std_border )
 #' ft
 #' @family borders management
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_vline_1.png}{options: width=50\%}}
 vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) stop("vline supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -430,6 +459,9 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
 #' ft <- vline_left(ft, border = std_border )
 #' ft
 #' @family borders management
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_vline_left_1.png}{options: width=50\%}}
 vline_left <- function(x, i = NULL, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) stop("vline_left supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -465,6 +497,9 @@ vline_left <- function(x, i = NULL, border = NULL, part = "all"){
 #' ft <- vline_right(ft, border = std_border )
 #' ft
 #' @family borders management
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_vline_right_1.png}{options: width=50\%}}
 vline_right <- function(x, i = NULL, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) stop("vline_right supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )

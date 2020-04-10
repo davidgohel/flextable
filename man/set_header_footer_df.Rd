@@ -27,6 +27,14 @@ other columns will be displayed as header or footer rows. The leftmost column
 is used as the top header/footer row and the rightmost column
 is used as the bottom header/footer row.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_set_header_footer_df_1.png}{options: width=50\%}}
+
+\if{html}{\figure{fig_set_header_footer_df_2.png}{options: width=50\%}}
+}
+
 \examples{
 typology <- data.frame(
   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
@@ -35,26 +43,31 @@ typology <- data.frame(
   measure = c("Length", "Width", "Length", "Width", "Species"),
   stringsAsFactors = FALSE )
 
-ft <- flextable( head( iris ))
-ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
-ft <- merge_h(ft, part = "header")
-ft <- merge_v(ft, j = "Species", part = "header")
-ft <- theme_vanilla(ft)
+ft_1 <- flextable( head( iris ))
+ft_1 <- set_header_df(ft_1, mapping = typology, key = "col_keys" )
+ft_1 <- merge_h(ft_1, part = "header")
+ft_1 <- merge_v(ft_1, j = "Species", part = "header")
+ft_1 <- theme_vanilla(ft_1)
+ft_1 <- fix_border_issues(ft_1)
+ft_1
+
 
 typology <- data.frame(
   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
                 "Petal.Width", "Species" ),
   unit = c("(cm)", "(cm)", "(cm)", "(cm)", ""),
   stringsAsFactors = FALSE )
-ft <- set_footer_df(ft, mapping = typology, key = "col_keys" )
-ft <- italic(ft, italic = TRUE, part = "footer" )
-ft <- theme_booktabs(ft)
-ft
+ft_2 <- set_footer_df(ft_1, mapping = typology, key = "col_keys" )
+ft_2 <- italic(ft_2, italic = TRUE, part = "footer" )
+ft_2 <- theme_booktabs(ft_2)
+ft_2 <- fix_border_issues(ft_2)
+ft_2
 }
 \seealso{
 Other headers and footers: 
 \code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
-\code{\link{add_header}()}
+\code{\link{add_header}()},
+\code{\link{set_header_labels}()}
 }
 \concept{headers and footers}

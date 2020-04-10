@@ -41,16 +41,22 @@ version.}
 \description{
 Format numeric cells in a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_colformat_num_1.png}{options: width=50\%}}
+}
+
 \examples{
 dat <- iris
 dat[1:4, 1] <- NA
 dat[, 2] <- dat[, 2] * 1000000
 
-ft <- flextable(dat)
-colkeys = c("Sepal.Length", "Sepal.Width",
-            "Petal.Length", "Petal.Width")
+ft <- flextable(head(dat))
+j = c("Sepal.Length", "Sepal.Width",
+   "Petal.Length", "Petal.Width")
 ft <- colformat_num(
-  x = ft, col_keys = colkeys,
+  x = ft, j = j,
   big.mark=",", digits = 2, na_str = "N/A")
 autofit(ft)
 }

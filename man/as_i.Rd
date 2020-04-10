@@ -18,15 +18,20 @@ This is a sugar function that ease the composition of complex
 labels made of different formattings. It should be used inside a
 call to \code{\link{as_paragraph}}.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_as_i_1.png}{options: width=30\%}}
+}
+
 \examples{
-ft <- flextable( head(iris), col_keys = c("dummy") )
+ft <- flextable( head(iris),
+  col_keys = c("Sepal.Length", "dummy") )
 
 ft <- compose(ft, j = "dummy",
-    value = as_paragraph(
-      as_i(Sepal.Length)
-    ) )
+  value = as_paragraph(as_i(Sepal.Length)) )
 
-autofit(ft)
+ft
 }
 \seealso{
 Other chunk elements for paragraph: 

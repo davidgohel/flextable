@@ -36,16 +36,23 @@ context with Word output format.
 PowerPoint cannot mix images and text in a paragraph, images
 are removed when outputing to PowerPoint format.
 }
-\examples{
-myft <- flextable( head(iris, n = 10 ))
+\section{Illustrations}{
 
-myft <- compose( myft, j = 1,
+
+\if{html}{\figure{fig_minibar_1.png}{options: width=60\%}}
+}
+
+\examples{
+ft <- flextable( head(iris, n = 10 ))
+
+ft <- compose(ft, j = 1,
   value = as_paragraph(
     minibar(value = Sepal.Length, max = max(Sepal.Length))
   ),
   part = "body")
 
-autofit(myft)
+ft <- autofit(ft)
+ft
 }
 \seealso{
 \code{\link{compose}}, \code{\link{as_paragraph}}

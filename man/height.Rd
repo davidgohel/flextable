@@ -31,13 +31,13 @@ with argument \code{part}).
 
 \examples{
 
-ft <- flextable(iris)
-ft <- height(ft, height = .3)
+ftab <- flextable(head(iris))
+ft <- height(ftab, height = .3)
+ftab
 
-
-ft <- flextable(iris)
-ft <- height_all(ft, height = .3)
-
+ftab <- flextable(head(iris))
+ftab <- height_all(ftab, height = .3)
+ftab
 }
 \seealso{
 Other flextable dimensions: 

@@ -13,8 +13,8 @@ theme_alafoli(x)
 Apply theme alafoli to a flextable
 }
 \examples{
-ft <- flextable(iris)
-ft <- theme_alafoli(ft)
+ftab <- flextable(iris)
+ftab <- theme_alafoli(ftab)
 }
 \seealso{
 Other flextable theme: 

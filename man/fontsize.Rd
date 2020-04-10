@@ -20,9 +20,18 @@ fontsize(x, i = NULL, j = NULL, size = 11, part = "body")
 \description{
 change font size of selected rows and columns of a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_fontsize_1.png}{options: width=50\%}}
+}
+
 \examples{
-ft <- flextable(mtcars)
+ft <- flextable(head(iris))
 ft <- fontsize(ft, size = 14, part = "header")
+ft <- fontsize(ft, size = 14, j = 2)
+ft <- fontsize(ft, size = 7, j = 3)
+ft
 }
 \seealso{
 Other sugar functions for table style: 

@@ -17,6 +17,7 @@ void(x, j = NULL, part = "body")
 Set content display as a blank \code{" "}.
 }
 \examples{
-ft <- flextable(mtcars)
-ft <- void(ft, ~ vs + am + gear + carb )
+ftab <- flextable(head(mtcars))
+ftab <- void(ftab, ~ vs + am + gear + carb )
+ftab
 }

@@ -14,9 +14,12 @@
 #' ft <- compose(ft, j = "carb", i = ~ drat > 3.5,
 #'   value = as_paragraph("carb is ", as_chunk( sprintf("%.1f", carb)) )
 #'   )
-#' \donttest{ft <- autofit(ft)}
+#' ft <- autofit(ft)
 #' @export
 #' @family cells formatters
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_compose_1.png}{options: width=80\%}}
 compose <- function(x, i = NULL, j = NULL, value , part = "body"){
 
   if( !inherits(x, "flextable") ) stop("compose supports only flextable objects.")
@@ -62,8 +65,8 @@ mk_par <- compose
 #' @param inline whether to add footnote on same line as previous footnote or not
 #' @param sep inline = T, character string to use as a separator between footnotes
 #' @examples
-#' ft <- flextable(head(iris))
-#' ft <- footnote( ft, i = 1, j = 1:3,
+#' ft_1 <- flextable(head(iris))
+#' ft_1 <- footnote( ft_1, i = 1, j = 1:3,
 #'             value = as_paragraph(
 #'               c("This is footnote one",
 #'                 "This is footnote two",
@@ -71,28 +74,33 @@ mk_par <- compose
 #'             ),
 #'             ref_symbols = c("a", "b", "c"),
 #'             part = "header")
-#' ft <- valign(ft, valign = "bottom", part = "header")
-#' \donttest{ft <- autofit(ft)}
+#' ft_1 <- valign(ft_1, valign = "bottom", part = "header")
+#' ft_1 <- autofit(ft_1)
 #'
-#' ft <- flextable(head(iris))
-#' ft <- autofit(ft)
-#' ft <- footnote( ft, i = 1, j = 1:2,
+#' ft_2 <- flextable(head(iris))
+#' ft_2 <- autofit(ft_2)
+#' ft_2 <- footnote( ft_2, i = 1, j = 1:2,
 #'                value = as_paragraph(
 #'                 c("This is footnote one",
 #'                    "This is footnote two")
 #'                ),
 #'                ref_symbols = c("a", "b"),
 #'                part = "header", inline = TRUE)
-#'ft <- footnote( ft, i = 1, j = 3:4,
+#' ft_2 <- footnote( ft_2, i = 1, j = 3:4,
 #'                value = as_paragraph(
 #'                  c("This is footnote three",
 #'                    "This is footnote four")
 #'                ),
 #'                ref_symbols = c("c","d"),
 #'                part = "header", inline = TRUE)
-#'\donttest{ft}
+#' ft_2
 #' @export
 #' @importFrom stats update
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_footnote_1.png}{options: width=50\%}}
+#'
+#' \if{html}{\figure{fig_footnote_2.png}{options: width=50\%}}
 footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "body",
           inline = FALSE, sep = "; ")
 {

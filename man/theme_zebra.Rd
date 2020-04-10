@@ -21,8 +21,8 @@ theme_zebra(
 Apply theme zebra to a flextable
 }
 \examples{
-ft <- flextable(iris)
-ft <- theme_zebra(ft)
+ftab <- flextable(iris)
+ftab <- theme_zebra(ftab)
 }
 \seealso{
 Other flextable theme: 

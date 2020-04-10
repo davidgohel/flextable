@@ -19,18 +19,32 @@ value specifying label to use. If provided, argument \code{...} will be ignored.
 This function set labels for specified columns
 in a single row header of a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_set_header_labels_1.png}{options: width=50\%}}
+}
+
 \examples{
-ft_1 <- flextable( head( iris ))
-ft_1 <- set_header_labels(ft_1, Sepal.Length = "Sepal length",
+ft <- flextable( head( iris ))
+ft <- set_header_labels(ft, Sepal.Length = "Sepal length",
   Sepal.Width = "Sepal width", Petal.Length = "Petal length",
   Petal.Width = "Petal width"
 )
 
-ft_2 <- flextable( head( iris ))
-ft_2 <- set_header_labels(ft_2,
+ft <- flextable( head( iris ))
+ft <- set_header_labels(ft,
   values = list(Sepal.Length = "Sepal length",
                 Sepal.Width = "Sepal width",
                 Petal.Length = "Petal length",
                 Petal.Width = "Petal width" ) )
-ft_2
+ft
 }
+\seealso{
+Other headers and footers: 
+\code{\link{add_header_lines}()},
+\code{\link{add_header_row}()},
+\code{\link{add_header}()},
+\code{\link{set_header_footer_df}}
+}
+\concept{headers and footers}

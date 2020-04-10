@@ -16,8 +16,8 @@ return minimum estimated widths and heights for
 each table columns and rows in inches.
 }
 \examples{
-ft <- flextable(mtcars)
-\donttest{dim_pretty(ft)}
+ftab <- flextable(head(mtcars))
+dim_pretty(ftab)
 }
 \seealso{
 Other flextable dimensions: 

@@ -32,5 +32,5 @@ data_co2 <- as_grouped_data(x = data_co2, groups = c("Treatment"))
 data_co2
 }
 \seealso{
-\code{\link{as_flextable}}
+\code{\link{as_flextable.grouped_data}}
 }

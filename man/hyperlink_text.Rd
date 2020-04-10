@@ -34,12 +34,12 @@ dat <- data.frame(
   href = "https://www.google.fr/search?source=hp&q=flextable+R+package",
   stringsAsFactors = FALSE)
 
-ft <- flextable(dat)
-ft <- compose( x = ft, j = "col",
+ftab <- flextable(dat)
+ftab <- compose( x = ftab, j = "col",
   value = as_paragraph(
     "This is a link: ",
     hyperlink_text(x = col, url = href ) ) )
-ft
+ftab
 }
 \seealso{
 \code{\link{display}}

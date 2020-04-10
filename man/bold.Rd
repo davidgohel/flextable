@@ -20,8 +20,14 @@ bold(x, i = NULL, j = NULL, bold = TRUE, part = "body")
 \description{
 change font weight of selected rows and columns of a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_bold_1.png}{options: width=50\%}}
+}
+
 \examples{
-ft <- flextable(mtcars)
+ft <- flextable(head(iris))
 ft <- bold(ft, bold = TRUE, part = "header")
 }
 \seealso{

@@ -23,15 +23,15 @@ typology <- data.frame(
   stringsAsFactors = FALSE )
 typology
 
-ft <- flextable(head(iris), col_keys = c("Species",
+ftab <- flextable(head(iris), col_keys = c("Species",
   "break1", "Sepal.Length", "Sepal.Width",
   "break2", "Petal.Length", "Petal.Width") )
-ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
-ft <- merge_h(ft, part = "header")
-ft <- theme_vanilla(ft)
-ft <- empty_blanks(ft)
-ft <- width(ft, j = c(2, 5), width = .1 )
-ft
+ftab <- set_header_df(ftab, mapping = typology, key = "col_keys" )
+ftab <- merge_h(ftab, part = "header")
+ftab <- theme_vanilla(ftab)
+ftab <- empty_blanks(ftab)
+ftab <- width(ftab, j = c(2, 5), width = .1 )
+ftab
 }
 \seealso{
 Other sugar functions for table style: 

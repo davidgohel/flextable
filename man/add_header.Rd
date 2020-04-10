@@ -31,6 +31,11 @@ can be more than a label - resulting in more than a new row.
 when repeating values, they can be merged together with
 function \code{\link{merge_h}} and \code{\link{merge_v}}.
 }
+\section{Illustrations}{
+
+\if{html}{\figure{fig_add_header_1.png}{options: width=60\%}}
+}
+
 \examples{
 ft <- flextable( head( iris ),
    col_keys = c("Species", "Sepal.Length", "Petal.Length",
@@ -52,7 +57,7 @@ ft <- merge_h(ft, part = "header")
 
 
 # add a footnote in the footer part
-ft <- add_footer(ft, Species = "This is a footnote" )
+ft <- add_footer(ft, Species = "This is a note in footer" )
 ft <- merge_at(ft, j = 1:5, part = "footer")
 
 # theme the table
@@ -64,6 +69,7 @@ ft
 Other headers and footers: 
 \code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
-\code{\link{set_header_footer_df}}
+\code{\link{set_header_footer_df}},
+\code{\link{set_header_labels}()}
 }
 \concept{headers and footers}

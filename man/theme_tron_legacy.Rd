@@ -13,8 +13,8 @@ theme_tron_legacy(x)
 Apply theme tron legacy to a flextable
 }
 \examples{
-ft <- flextable(iris)
-ft <- theme_tron_legacy(ft)
+ftab <- flextable(iris)
+ftab <- theme_tron_legacy(ftab)
 }
 \seealso{
 Other flextable theme: 

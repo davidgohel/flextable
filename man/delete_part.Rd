@@ -15,6 +15,12 @@ delete_part(x, part = "header")
 indicate to not print a part of
 the flextable, i.e. an header, footer or the body.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_delete_part_1.png}{options: width=50\%}}
+}
+
 \examples{
 ft <- flextable( head( iris ) )
 ft <- delete_part(x = ft, part = "header")

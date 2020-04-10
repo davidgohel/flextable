@@ -28,9 +28,10 @@ level/value will be rendered.}
 \description{
 create a data.frame summary for continuous variables
 }
-\section{Figures}{
+\section{Illustrations}{
 
-\if{html}{\figure{man_continuous_summary_1.png}{options: width=100\%}}
+
+\if{html}{\figure{fig_continuous_summary_1.png}{options: width=80\%}}
 }
 
 \examples{

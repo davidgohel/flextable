@@ -17,6 +17,12 @@ border_outer(x, border = NULL, part = "all")
 The function is applying a border to outer cells of one
 or all parts of a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_border_outer_1.png}{options: width=50\%}}
+}
+
 \examples{
 library(officer)
 big_border = fp_border(color="red", width = 2)

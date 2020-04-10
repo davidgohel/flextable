@@ -24,6 +24,12 @@ mk_par(x, i = NULL, j = NULL, value, part = "body")
 Modify flextable displayed values. Function is
 handling complex formatting as well as image insertion.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_compose_1.png}{options: width=80\%}}
+}
+
 \section{mk_par}{
 
 Function \code{mk_par} is another name for \code{compose} as
@@ -36,7 +42,7 @@ ft <- flextable(head( mtcars, n = 10))
 ft <- compose(ft, j = "carb", i = ~ drat > 3.5,
   value = as_paragraph("carb is ", as_chunk( sprintf("\%.1f", carb)) )
   )
-\donttest{ft <- autofit(ft)}
+ft <- autofit(ft)
 }
 \seealso{
 Other cells formatters: 

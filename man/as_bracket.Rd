@@ -20,6 +20,12 @@ The function is producing a chunk by
 pasting values and add the result in brackets.
 It should be used inside a call to \code{\link{as_paragraph}}.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_as_bracket_1.png}{options: width=35\%}}
+}
+
 \examples{
 ft <- flextable( head(iris),
   col_keys = c("Species", "Sepal", "Petal") )
@@ -28,7 +34,7 @@ ft <- compose(ft, j = "Sepal",
   value = as_paragraph( as_bracket(Sepal.Length, Sepal.Width) ) )
 ft <- compose(ft, j = "Petal",
   value = as_paragraph( as_bracket(Petal.Length, Petal.Width) ) )
-autofit(ft)
+ft
 }
 \seealso{
 Other chunk elements for paragraph: 

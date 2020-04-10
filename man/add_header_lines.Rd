@@ -24,20 +24,32 @@ title row to a flextable, most of the time it will be used in a
 context of adding a footnote or adding a title on the top line
 of the flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_add_header_lines_1.png}{options: width=50\%}}
+
+\if{html}{\figure{fig_add_header_lines_2.png}{options: width=50\%}}
+}
+
 \examples{
-ft <- flextable( head( iris ) )
-ft <- add_footer_lines(ft, values = "blah blah")
-ft <- add_footer_lines(ft, values = c("blah 1", "blah 2"))
-autofit(ft)
-ft <- flextable( head( iris ) )
-ft <- add_header_lines(ft, values = "blah blah")
-ft <- add_header_lines(ft, values = c("blah 1", "blah 2"))
-autofit(ft)
+
+ft_1 <- flextable( head( iris ) )
+ft_1 <- add_header_lines(ft_1, values = "blah blah")
+ft_1 <- add_header_lines(ft_1, values = c("blah 1", "blah 2"))
+ft_1 <- autofit(ft_1)
+ft_1
+ft_2 <- flextable( head( iris ) )
+ft_2 <- add_footer_lines(ft_2, values = "blah blah")
+ft_2 <- add_footer_lines(ft_2, values = c("blah 1", "blah 2"))
+ft_2 <- theme_tron(ft_2)
+ft_2
 }
 \seealso{
 Other headers and footers: 
 \code{\link{add_header_row}()},
 \code{\link{add_header}()},
-\code{\link{set_header_footer_df}}
+\code{\link{set_header_footer_df}},
+\code{\link{set_header_labels}()}
 }
 \concept{headers and footers}

@@ -8,6 +8,11 @@
 * new as_flextable methods for lm and glm objects
 * new sugar function `continuous_summary()`: summarize continuous columns in a flextable
 
+## Changes
+
+* manual pages have been improved and illustrations are added
+
+
 # flextable 0.5.9
 
 ## Changes

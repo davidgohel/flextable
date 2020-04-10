@@ -13,8 +13,8 @@ theme_vanilla(x)
 Apply theme vanilla to a flextable
 }
 \examples{
-ft <- flextable(iris)
-ft <- theme_vanilla(ft)
+ftab <- flextable(iris)
+ftab <- theme_vanilla(ftab)
 }
 \seealso{
 Other flextable theme: 

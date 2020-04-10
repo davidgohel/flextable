@@ -492,11 +492,11 @@ save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot" ){
 #' @param zoom,expand parameters used by \code{webshot} function.
 #' @param ... additional parameters sent to plot function
 #' @examples
-#' ft <- flextable( head( mtcars ) )
-#' ft <- autofit(ft)
+#' ftab <- flextable( head( mtcars ) )
+#' ftab <- autofit(ftab)
 #' \dontrun{
 #' if( require("webshot") ){
-#'   plot(ft)
+#'   plot(ftab)
 #' }
 #' }
 #' @family flextable print function

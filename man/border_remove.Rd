@@ -12,15 +12,23 @@ border_remove(x)
 \description{
 The function is deleting all borders of the flextable object.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_border_remove_1.png}{options: width=50\%}}
+
+\if{html}{\figure{fig_border_remove_2.png}{options: width=50\%}}
+}
+
 \examples{
 dat <- iris[c(1:5, 51:55, 101:105),]
-ft <- flextable(dat)
-ft <- theme_box(ft)
-ft
+ft_1 <- flextable(dat)
+ft_1 <- theme_box(ft_1)
+ft_1
 
 # remove all borders
-ft <- border_remove(x = ft)
-ft
+ft_2 <- border_remove(x = ft_1)
+ft_2
 }
 \seealso{
 Other borders management: 

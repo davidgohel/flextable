@@ -18,10 +18,19 @@ compute and apply optimized widths and heights.
 This function is to be used when the table widths and heights
 should automatically be adjusted to fit the size of the content.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_autofit_1.png}{options: width=90\%}}
+
+\if{html}{\figure{fig_autofit_2.png}{options: width=70\%}}
+}
+
 \examples{
-ft <- flextable(mtcars)
-\donttest{ft <- autofit(ft)}
-ft
+ft_1 <- flextable(head(mtcars))
+ft_1
+ft_2 <- autofit(ft_1)
+ft_2
 }
 \seealso{
 Other flextable dimensions: 

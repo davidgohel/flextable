@@ -21,7 +21,7 @@ set caption value in flextable
 this will have an effect only when output is HTML or Word document.
 }
 \examples{
-ft <- flextable( head( iris ) )
-ft <- set_caption(ft, "my caption")
-ft
+ftab <- flextable( head( iris ) )
+ftab <- set_caption(ftab, "my caption")
+ftab
 }

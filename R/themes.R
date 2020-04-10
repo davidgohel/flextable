@@ -5,8 +5,8 @@
 #' @param x a flextable object
 #' @family flextable theme
 #' @examples
-#' ft <- flextable(iris)
-#' ft <- theme_vanilla(ft)
+#' ftab <- flextable(iris)
+#' ftab <- theme_vanilla(ftab)
 theme_vanilla <- function(x){
   if( !inherits(x, "flextable") ) stop("theme_vanilla supports only flextable objects.")
   std_b <- fp_border(width = 1, color = "#333333")
@@ -33,8 +33,8 @@ theme_vanilla <- function(x){
 #' @param x a flextable object
 #' @family flextable theme
 #' @examples
-#' ft <- flextable(iris)
-#' ft <- theme_box(ft)
+#' ftab <- flextable(iris)
+#' ftab <- theme_box(ftab)
 theme_box <- function(x){
   if( !inherits(x, "flextable") ) stop("theme_box supports only flextable objects.")
   x <- border_remove(x)
@@ -63,8 +63,8 @@ theme_box <- function(x){
 #' @param x a flextable object
 #' @family flextable theme
 #' @examples
-#' ft <- flextable(iris)
-#' ft <- theme_alafoli(ft)
+#' ftab <- flextable(iris)
+#' ftab <- theme_alafoli(ftab)
 theme_alafoli <- function(x){
   if( !inherits(x, "flextable") ) stop("theme_alafoli supports only flextable objects.")
   x <- border_remove(x)
@@ -88,8 +88,8 @@ theme_alafoli <- function(x){
 #' @param fontsize font size in pixel
 #' @family flextable theme
 #' @examples
-#' ft <- flextable(iris)
-#' ft <- theme_vader(ft)
+#' ftab <- flextable(iris)
+#' ftab <- theme_vader(ftab)
 theme_vader <- function(x, fontsize = 11){
   if( !inherits(x, "flextable") )
     stop("theme_vader supports only flextable objects.")
@@ -126,8 +126,8 @@ theme_vader <- function(x, fontsize = 11){
 #' @param odd_header,odd_body,even_header,even_body odd/even colors for table header and body
 #' @family flextable theme
 #' @examples
-#' ft <- flextable(iris)
-#' ft <- theme_zebra(ft)
+#' ftab <- flextable(iris)
+#' ftab <- theme_zebra(ftab)
 theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
                         even_header = "transparent", even_body = "transparent" ){
   if( !inherits(x, "flextable") ) stop("theme_zebra supports only flextable objects.")
@@ -176,8 +176,8 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
 #' @param x a flextable object
 #' @family flextable theme
 #' @examples
-#' ft <- flextable(iris)
-#' ft <- theme_tron_legacy(ft)
+#' ftab <- flextable(iris)
+#' ftab <- theme_tron_legacy(ftab)
 theme_tron_legacy <- function(x){
 
   if( !inherits(x, "flextable") ) stop("theme_tron_legacy supports only flextable objects.")
@@ -212,8 +212,8 @@ theme_tron_legacy <- function(x){
 #' @description Apply theme tron to a flextable
 #' @param x a flextable object
 #' @examples
-#' ft <- flextable(iris)
-#' ft <- theme_tron(ft)
+#' ftab <- flextable(iris)
+#' ftab <- theme_tron(ftab)
 #' @family flextable theme
 theme_tron <- function(x){
 
@@ -250,8 +250,8 @@ theme_tron <- function(x){
 #' @param x a flextable object
 #' @param fontsize font size in pixel
 #' @examples
-#' ft <- flextable(iris)
-#' ft <- theme_booktabs(ft)
+#' ftab <- flextable(iris)
+#' ftab <- theme_booktabs(ftab)
 #' @family flextable theme
 theme_booktabs <- function(x, fontsize = 11){
   if( !inherits(x, "flextable") ) stop("theme_booktabs supports only flextable objects.")

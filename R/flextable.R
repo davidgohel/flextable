@@ -24,11 +24,16 @@
 #' @note Function \code{regulartable} is maintained for compatibility with old codes
 #' mades by users but be aware it produces the same exact object than \code{flextable}.
 #' @examples
-#' ft <- flextable(mtcars)
+#' ft <- flextable(head(mtcars))
 #' ft
 #' @export
 #' @importFrom stats setNames
 #' @importFrom gdtools font_family_exists
+#' @seealso [style()], [autofit()], [theme_booktabs()], [knit_print.flextable()],
+#' [compose()], [footnote()]
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_flextable_1.png}{options: width=100\%}}
 flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25,
                        defaults = list(), theme_fun = theme_booktabs ){
 
@@ -120,9 +125,9 @@ qflextable <- function(data){
 #' @note
 #' this will have an effect only when output is HTML or Word document.
 #' @examples
-#' ft <- flextable( head( iris ) )
-#' ft <- set_caption(ft, "my caption")
-#' ft
+#' ftab <- flextable( head( iris ) )
+#' ftab <- set_caption(ftab, "my caption")
+#' ftab
 set_caption <- function(x, caption, html_escape = TRUE){
 
   if( !inherits(x, "flextable") ) stop("set_caption supports only flextable objects.")

@@ -11,11 +11,11 @@
 #' @importFrom officer body_add_xml wml_link_images docx_reference_img
 #' @examples
 #' library(officer)
-#' ft <- flextable(head(mtcars))
-#' ft <- theme_zebra(ft)
-#' \donttest{ft <- autofit(ft)}
+#' ftab <- flextable(head(mtcars))
+#' ftab <- theme_zebra(ftab)
+#' ftab <- autofit(ftab)
 #' doc <- read_docx()
-#' doc <- body_add_flextable(doc, value = ft)
+#' doc <- body_add_flextable(doc, value = ftab)
 #' fileout <- tempfile(fileext = ".docx")
 #' # fileout <- "test.docx" # uncomment to write in your working directory
 #' print(doc, target = fileout)
