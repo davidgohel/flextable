@@ -3,7 +3,7 @@
   <defs>
     <style bx:fonts="Roboto">@font-face { font-family: Roboto; font-style: normal; font-weight: 400; font-stretch: normal; font-variant: normal; font-feature-settings: normal; src: url("https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Me5Q.ttf"); }</style>
   </defs>
-  <rect x="323.82" y="20.039" width="5" height="70" style="fill: rgb(170, 170, 170);"/>
+  <rect x="323.82" y="20.039" width="5" height="95" style="fill: rgb(170, 170, 170);"/>
   <rect x="180.82" y="20.039" width="120" height="20" style="fill: rgb(235, 85, 85);"/>
   <rect x="180.82" y="45.039" width="45" height="20" style="fill: rgb(235, 85, 85);"/>
   <rect x="230.82" y="45.039" width="70" height="20" style="fill: rgb(235, 85, 85);"/>
@@ -35,17 +35,19 @@
   <rect x="180.82" y="195.039" width="45" height="20" style="fill: rgb(27, 187, 218);"/>
   <rect x="230.82" y="195.039" width="70" height="20" style="fill: rgb(27, 187, 218);"/>
   <rect x="180.82" y="220.039" width="120" height="20" style="fill: rgb(27, 187, 218);"/>
-  <rect x="323.82" y="95.039" width="5" height="95" style="fill: rgb(170, 170, 170);"/>
-  <rect x="323.82" y="195.039" width="5" height="45" style="fill: rgb(170, 170, 170);"/>
-  <text transform="matrix(0, -1, 1, 0, 283, 157.046875)" style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; text-anchor: end; white-space: pre;" x="125.071" y="33.18">Header</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.008" y="43.398">add_header()</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.008" y="58.398">set_header_labels()</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.008" y="73.398">set_header_df()</text>
-  <text transform="matrix(0, -1, 1, 0, 213, 251.046875)" style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; text-anchor: end; white-space: pre;" x="125.071" y="103.18">Body</text>
-  <text transform="matrix(0, -1, 1, 0, 106.140625, 322.0625)" style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; text-anchor: end; white-space: pre;" x="125.071" y="210.039">Footer</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.011" y="205.398">add_footer()</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.008" y="221.039">set_footer_labels()</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.011" y="235.398">set_footer_df()</text>
+  <rect x="324.82" y="143" width="5" height="95" style="fill: rgb(170, 170, 170);"/>
+  <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; text-anchor: end; white-space: pre;" x="380.071" y="34.071">Header</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.008" y="50.398">add_header_row()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.008" y="65.398">add_header_lines()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.008" y="80.398">add_header()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.008" y="95.398">set_header_labels()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.008" y="110.398">set_header_df()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; text-anchor: end; white-space: pre;" x="375.286" y="156.442">Footer</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.011" y="175">add_footer_row()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.011" y="190">add_footer_lines()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.011" y="205">add_footer()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.008" y="220">set_footer_labels()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="333.011" y="235">set_footer_df()</text>
   <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="450.808" y="33.148">Style</text>
   <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="450.808" y="53.148">style(): general style function</text>
   <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="450.808" y="68.148">align(): set text alignment</text>
@@ -57,7 +59,7 @@
   <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="450.808" y="158.148">color(): set font color</text>
   <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="450.808" y="173.148">padding(): set paragraph paddings</text>
   <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="450.808" y="188.148">rotate(): rotate cell text</text>
-  <rect x="440.82" y="21.039" width="5.503" height="186" style="fill: rgb(170, 170, 170);"/>
+  <rect x="440.82" y="21.039" width="5" height="186" style="fill: rgb(170, 170, 170);"/>
   <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="450.808" y="240.039">Borders</text>
   <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="450.808" y="260.039">border_outer() border_inner_h()</text>
   <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="450.808" y="275.039">border_inner_v() hline()</text>
@@ -79,7 +81,7 @@
   <text transform="matrix(1, 0, 0, 0.998051, 38.800003, 0.506823)" style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18">colformat_lgl() colformat_num()</text>
   <text transform="matrix(1, 0, 0, 0.998051, 38.800003, -14.464059)" style="fill: rgb(235, 85, 85); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="160.008" y="338.18">compose(as_paragraph(...))</text>
   <text transform="matrix(1, 0, 0, 0.998051, 38.800003, -9.444569)" style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="160.008" y="348.18">footnote(as_paragraph(...))</text>
-  <rect x="188.8" y="260.039" width="6" height="96" style="fill: rgb(170, 170, 170);"/>
+  <rect x="188.8" y="260.039" width="5" height="96" style="fill: rgb(170, 170, 170);"/>
   <text transform="matrix(1, 0, 0, 0.998051, -130, -239.531738)" style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="160.008" y="273.18">Merge cells</text>
   <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="293.18" transform="matrix(1, 0, 0, 0.998051, -130, -239.531738)">merge_at() merge_h()</text>
   <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, -130, -239.531738)">merge_v() </text>
@@ -87,23 +89,25 @@
   <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="160.008" y="273.18" transform="matrix(1, 0, 0, 0.998051, -130, -169.532074)">Widths and heights</text>
   <text transform="matrix(1, 0, 0, 0.998051, -130, -169.532074)" style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;"><tspan x="160.008" y="293.18" style="fill: rgb(235, 85, 85);">autofit()</tspan><tspan> width()</tspan></text>
   <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, -130, -169.532074)">height() height_all() </text>
-  <rect y="90" width="5" height="51" style="fill: rgb(170, 170, 170);" x="20"/>
-  <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="30" y="173.186">Themes</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="30" y="193.186">theme_booktabs()</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="30" y="208.186">theme_vanilla()</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="30" y="223.186">theme_box()</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="30" y="238.186">theme_tron()</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="30" y="253.186">theme_tron_legacy()</text>
-  <rect x="20" y="160.077" width="5" height="95" style="fill: rgb(170, 170, 170);"/>
-  <text style="fill: rgb(235, 85, 85); font-family: Roboto; font-size: 14px; white-space: pre;" x="30" y="289.187">Supported output</text>
-  <text style="fill: rgb(201, 7, 7); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" y="-14"><tspan x="30" y="304.399" style="fill: rgb(235, 85, 85); font-size: 8px; word-spacing: 0px;">R Markdown</tspan><tspan style="fill: rgb(51, 51, 51); font-size: 8px; word-spacing: 0px;">: HTML, Word and PowerPoint</tspan></text>
-  <text style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" y="-14"><tspan x="30" y="319.399" style="font-size: 8px; word-spacing: 0px;">Word and PowerPoint with </tspan><tspan style="fill: rgb(235, 85, 85); font-size: 8px; word-spacing: 0px;">officer</tspan></text>
-  <text style="font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;"><tspan x="30" y="334.399">plot with </tspan><tspan style="fill: rgb(235, 85, 85);">plot() </tspan><tspan>- images with </tspan><tspan style="fill: rgb(235, 85, 85);">save_as_images()</tspan></text>
-  <rect x="20" y="276.078" width="6.078" height="62" style="fill: rgb(235, 85, 85);"/>
-  <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="160.008" y="273.18" transform="matrix(1, 0, 0, 0.998051, 192.99852, 11.799742)">Utilities</text>
-  <text transform="matrix(1, 0, 0, 0.998051, 192.99852, 11.799742)" style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="160.008" y="293.18">as_flextable() </text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, 192.99852, 11.799742)">as_grouped_data() </text>
-  <rect y="271.332" width="6.863" height="70" style="fill: rgb(170, 170, 170);" x="342.998"/>
+  <rect y="90" width="5" height="66" style="fill: rgb(170, 170, 170);" x="20"/>
+  <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="30" y="182.186">Themes</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="30" y="202.186">theme_booktabs()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="30" y="217.186">theme_vanilla()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="30" y="232.186">theme_box()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="30" y="247.186">theme_tron()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="30" y="262.186">theme_tron_legacy()</text>
+  <rect x="20" y="169.077" width="5" height="95" style="fill: rgb(170, 170, 170);"/>
+  <text style="fill: rgb(235, 85, 85); font-family: Roboto; font-size: 14px; white-space: pre;" x="30" y="296.187">Supported output</text>
+  <text style="fill: rgb(201, 7, 7); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" y="-7"><tspan x="30" y="311.399" style="fill: rgb(235, 85, 85); font-size: 8px; word-spacing: 0px;">R Markdown</tspan><tspan style="fill: rgb(51, 51, 51); font-size: 8px; word-spacing: 0px;">: HTML, Word and PowerPoint</tspan></text>
+  <text style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" y="-7"><tspan x="30" y="326.399" style="font-size: 8px; word-spacing: 0px;">Word and PowerPoint with </tspan><tspan style="fill: rgb(235, 85, 85); font-size: 8px; word-spacing: 0px;">officer</tspan></text>
+  <text style="font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" y="7"><tspan x="30" y="341.399" style="font-size: 8px; word-spacing: 0px;">plot with </tspan><tspan style="fill: rgb(235, 85, 85); font-size: 8px; word-spacing: 0px;">plot() </tspan><tspan style="font-size: 8px; word-spacing: 0px;">- images with </tspan><tspan style="fill: rgb(235, 85, 85); font-size: 8px; word-spacing: 0px;">save_as_images()</tspan></text>
+  <rect x="20" y="283.078" width="5" height="62" style="fill: rgb(235, 85, 85);"/>
+  <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="160.008" y="273.18" transform="matrix(1, 0, 0, 0.998051, 192.99852, 1.799742)">Utilities</text>
+  <text transform="matrix(1, 0, 0, 0.998051, 192.99852, 1.799742)" style="fill: rgb(235, 85, 85); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="160.008" y="293.18">as_flextable()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, 192.99852, 16.780203)">as_grouped_data() </text>
+  <rect y="261.332" width="5" height="84" style="fill: rgb(170, 170, 170);" x="343.998"/>
   <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="450.801" y="203.164">valign(): vertical alignment</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, 193, 26.830688)">proc_freq() </text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, 193, 31.760662)">proc_freq() </text>
+  <text transform="matrix(1, 0, 0, 0.998051, 193, 16.850967)" style="fill: rgb(235, 85, 85); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="160.008" y="293.18">    for glm, lm, xtable</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, -130, -155.319794)">fit_to_width()</text>
 </svg>
