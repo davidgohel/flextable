@@ -32,7 +32,7 @@ Tables can be embedded within:
 
 * R Markdown documents with support for HTML, Word and PowerPoint documents.
 * Microsoft Word or PowerPoint documents.
-* PDF documents with package `pagedown` (it's only HTML) 
+* PDF documents with package `pagedown`
 
 Tables can also be rendered as R plots or graphic files (png, pdf and jpeg).
 
