@@ -215,7 +215,7 @@ data.frame(rowname = row.names(cor_matrix), stringsAsFactors = FALSE) %>%
 if( require("xtable") ){
   data(tli)
   fm3 <- glm(disadvg ~ ethnicty*grade, data = tli, family = binomial)
-  ft <- xtable_to_flextable(xtable(anova(fm3)), hline.after = c(1))
+  ft <- as_flextable(xtable(anova(fm3)), hline.after = c(1))
   ft
 }
 ```
@@ -226,7 +226,7 @@ if( require("xtable") ){
 if( require("xtable") ){
   bktbs <- xtable(matrix(1:10, ncol = 2))
   hlines <- c(-1, 0, 1, nrow(bktbs))
-  ft <- xtable_to_flextable(bktbs, hline.after = hlines)
+  ft <- as_flextable(bktbs, hline.after = hlines)
   ft
 }
 ```
@@ -240,7 +240,7 @@ if( require("xtable") ){
   data(tli)
   tli.table <- xtable(tli[1:10, ])
   xtable::align(tli.table) <- "|r|r|clr|r|"
-  ft <- xtable_to_flextable(
+  ft <- as_flextable(
     tli.table, 
     rotate.colnames = TRUE, 
     include.rownames = FALSE)
@@ -260,7 +260,7 @@ if( require("xtable") ){
   Grade6 <- c("A","A","A","B","B","B","B","B","C","C",
     "A","C","C","C","D","D","D","D","D","D")
   Cohort <- table(Grade3, Grade6)
-  ft <- xtable_to_flextable(xtable(Cohort))
+  ft <- as_flextable(xtable(Cohort))
   ft <- set_header_labels(ft, rowname = "Grade 3")
   ft <- autofit(ft)
   ft <- add_header(ft, A = "Grade 6") 
@@ -278,7 +278,7 @@ if( require("xtable") ){
 if( require("xtable") ){
   mat <- round(matrix(c(0.9, 0.89, 200, 0.045, 2.0), c(1, 5)), 4)
   mat <- xtable(mat)
-  ft <- xtable_to_flextable(x = mat, NA.string = "-")
+  ft <- as_flextable(x = mat, NA.string = "-")
   print(ft$col_keys)
   superfp <- fp_text(vertical.align = "superscript", font.size = 8)
   

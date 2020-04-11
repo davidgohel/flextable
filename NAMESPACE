@@ -3,6 +3,7 @@
 S3method(as_flextable,glm)
 S3method(as_flextable,grouped_data)
 S3method(as_flextable,lm)
+S3method(as_flextable,xtable)
 S3method(colformat_char,flextable)
 S3method(colformat_int,flextable)
 S3method(colformat_lgl,flextable)
