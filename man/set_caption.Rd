@@ -4,12 +4,31 @@
 \alias{set_caption}
 \title{set caption}
 \usage{
-set_caption(x, caption, html_escape = TRUE)
+set_caption(
+  x,
+  caption,
+  autonum = NULL,
+  ref = NULL,
+  style = "Table Caption",
+  html_escape = TRUE
+)
 }
 \arguments{
 \item{x}{flextable object}
 
 \item{caption}{caption value}
+
+\item{autonum}{an autonum representation. See \code{\link[officer]{run_autonum}}.
+This has only an effect when output is Word. If used, the caption is preceded
+by an auto-number sequence. In this case, the caption is preceded by an auto-number
+sequence.}
+
+\item{ref}{a single character identifier that will be used as bookmark label.
+This has only an effect when output is Word. If used, the caption is bookmarked
+and can be cross-referenced. See also \code{\link[officer]{run_reference}}.}
+
+\item{style}{caption paragraph style name. These names are available with
+function \code{\link[officer]{styles_info}}.}
 
 \item{html_escape}{should HTML entities be escaped so that it can be safely
 included as text or an attribute value within an HTML document.}

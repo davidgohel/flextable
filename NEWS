@@ -2,7 +2,8 @@
 
 ## new features
 
-* footnote is now able to add inline footnotes
+* flextable captions in Word can be auto-numbered and bookmarked
+* function `footnote` is now able to add inline footnotes
 * support for bookdown references
 * new as_flextable methods for lm and glm objects and xtable (replacing `xtable_to_flextable()`)
 * new sugar function `continuous_summary()`: summarize continuous columns in a flextable

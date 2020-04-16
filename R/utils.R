@@ -24,7 +24,7 @@ get_i_from_formula <- function( f, data ){
 get_j_from_formula <- function( f, data ){
   if( length(f) > 2 )
     stop("formula selection is not as expected ( ~ variables )", call. = FALSE)
-  j <- attr(terms(f), "term.labels")
+  j <- attr(terms(f, data = data), "term.labels")
   names_ <- names(data)
   if( any( invalid_names <- (!j %in% names_) ) ){
     invalid_names <- paste0("[", j[invalid_names], "]", collapse = ", ")
@@ -116,3 +116,35 @@ MAX <- function(z) as.double(max(z, na.rm = TRUE))
 N <- function(z) length(z)
 NAS <- function(z) sum(is.na(z))
 
+
+#' @importFrom uuid UUIDgenerate
+as_bookmark <- function(id, str) {
+  new_id <- UUIDgenerate()
+  bm_start_str <- sprintf("<w:bookmarkStart w:id=\"%s\" w:name=\"%s\"/>", new_id, id)
+  bm_start_end <- sprintf("<w:bookmarkEnd w:id=\"%s\"/>", new_id)
+  paste0(bm_start_str, str, bm_start_end)
+}
+
+#' @importFrom officer to_wml
+caption_chunks_str <- function(label, autonum = NULL){
+  run_str <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>",
+                     label)
+  if(!is.null(autonum)){
+    autonum <- to_wml(autonum)
+    run_str <- paste0(autonum, run_str)
+  }
+  run_str
+
+}
+pandoc_chunks_wml <- function(x, bookdown){
+  if(!bookdown){
+    run_str <- caption_chunks_str(x$caption$value, x$caption$autonum)
+    if(!is.null(x$caption$ref)){
+      run_str <- as_bookmark(x$caption$ref, run_str)
+    }
+    paste0("`", run_str, "`{=openxml}")
+  } else {
+    x$caption$value
+  }
+
+}

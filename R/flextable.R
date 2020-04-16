@@ -120,6 +120,15 @@ qflextable <- function(data){
 #' @description set caption value in flextable
 #' @param x flextable object
 #' @param caption caption value
+#' @param autonum an autonum representation. See \code{\link[officer]{run_autonum}}.
+#' This has only an effect when output is Word. If used, the caption is preceded
+#' by an auto-number sequence. In this case, the caption is preceded by an auto-number
+#' sequence.
+#' @param ref a single character identifier that will be used as bookmark label.
+#' This has only an effect when output is Word. If used, the caption is bookmarked
+#' and can be cross-referenced. See also \code{\link[officer]{run_reference}}.
+#' @param style caption paragraph style name. These names are available with
+#' function \code{\link[officer]{styles_info}}.
 #' @param html_escape should HTML entities be escaped so that it can be safely
 #' included as text or an attribute value within an HTML document.
 #' @note
@@ -128,7 +137,10 @@ qflextable <- function(data){
 #' ftab <- flextable( head( iris ) )
 #' ftab <- set_caption(ftab, "my caption")
 #' ftab
-set_caption <- function(x, caption, html_escape = TRUE){
+#' @importFrom officer run_autonum
+set_caption <- function(x, caption,
+    autonum = NULL, ref = NULL, style = "Table Caption",
+    html_escape = TRUE){
 
   if( !inherits(x, "flextable") ) stop("set_caption supports only flextable objects.")
 
@@ -139,6 +151,13 @@ set_caption <- function(x, caption, html_escape = TRUE){
     caption <- htmlEscape(caption)
   }
   x$caption <- list(value = caption)
+
+  if(!is.null(autonum) && inherits(autonum, "run_autonum")){
+    x$caption$autonum <- autonum
+  }
+  x$caption$style <- style
+  x$caption$ref <- ref
+
   x
 }
 

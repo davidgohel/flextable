@@ -85,6 +85,7 @@ docx_value <- function(x, print = TRUE,
   if( is.null(ft.align) ) ft.align <- "center"
   if( is.null(ft.split) ) ft.split <- FALSE
   if( is.null(tab.cap.style) ) tab.cap.style <- "Table Caption"
+  if( !is.null(x$caption$value) ) tab.cap.style <- x$caption$value
 
   if(!is.null(x$caption$value)){
     caption <- paste0("\n\n::: {custom-style=\"",
@@ -92,7 +93,9 @@ docx_value <- function(x, print = TRUE,
                       "\"}\n\n",
                       if (bookdown) "<caption>",
                       if (bookdown && !has_label(x$caption$value)) ref_label(),
-                      x$caption$value, if (bookdown) "</caption>", "\n\n",
+                      pandoc_chunks_wml(x, bookdown),
+                      if (bookdown) "</caption>",
+                      "\n\n",
                       ":::\n\n")
   } else caption <- ""
 

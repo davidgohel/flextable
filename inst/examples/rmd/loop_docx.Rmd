@@ -5,18 +5,20 @@ output: word_document
 
 ```{r setup, include=FALSE}
 library(flextable)
+library(officer)
 library(knitr)
 
+autonum <- officer::run_autonum()
 opts_chunk$set(echo = TRUE)
 
 ft_list <- list()
 
 ft1 <- qflextable( head( iris ))
-ft1 <- set_caption(ft1,"iris table")
+ft1 <- set_caption(ft1,"iris table", autonum = autonum)
 ft_list[[1]] <- ft1
 
 ft2 <- qflextable( tail( mtcars ))
-ft2 <- set_caption(ft2,"mtcars table")
+ft2 <- set_caption(ft2,"mtcars table", autonum = autonum)
 ft_list[[2]] <- ft2
 ```
 
