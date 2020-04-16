@@ -28,7 +28,8 @@ This has only an effect when output is Word. If used, the caption is bookmarked
 and can be cross-referenced. See also \code{\link[officer]{run_reference}}.}
 
 \item{style}{caption paragraph style name. These names are available with
-function \code{\link[officer]{styles_info}}.}
+function \code{\link[officer]{styles_info}} when output is Word; if HTML, a
+corresponding css class definition should exist.}
 
 \item{html_escape}{should HTML entities be escaped so that it can be safely
 included as text or an attribute value within an HTML document.}

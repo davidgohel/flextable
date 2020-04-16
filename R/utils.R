@@ -148,3 +148,13 @@ pandoc_chunks_wml <- function(x, bookdown){
   }
 
 }
+pandoc_chunks_html <- function(x, bookdown){
+  if(!bookdown){
+    run_str <- sprintf("<div class=\"%s\">%s</div>", x$caption$style, x$caption$value)
+  } else {
+    run_str <- x$caption$value
+  }
+  run_str
+}
+
+

@@ -14,7 +14,8 @@ html_str.flextable <- function( x, bookdown = FALSE ){
   if(!is.null(cap)){
     out <- paste0(
       out, if ( bookdown ) "<!--/html_preserve-->", "<caption>",
-      if ( bookdown && !has_label(cap)) ref_label(), htmlEscape(cap),
+      if ( bookdown && !has_label(cap)) ref_label(),
+      pandoc_chunks_html(x, bookdown),
       if ( bookdown ) "<!--html_preserve-->", "</caption>"
     )
   }
