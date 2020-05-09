@@ -63,40 +63,52 @@ htmltools_value <- function(
 #' When used inside an R Markdown document, chunk option `results`
 #' must be set to 'asis'.
 #'
-#' Arguments `ft.align`, `ft.split` and `tab.cap.style` can be
+#' Arguments `ft.align` and `ft.split` can be
 #' specified also as knitr chunk options.
 #' @param x a flextable object
 #' @param print print output if TRUE
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param ft.split Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
-#' @param tab.cap.style specifies a Word style for table caption,
-#' default value is "Table Caption".
 #' @inheritParams htmltools_value
 #' @family flextable print function
 #' @examples
 #' docx_value(flextable(iris[1:5,]))
+#' @importFrom officer opts_current_table block_caption styles_info run_autonum to_wml
 docx_value <- function(x, print = TRUE,
                        ft.align = opts_current$get("ft.align"),
                        ft.split = opts_current$get("ft.split"),
-                       tab.cap.style = opts_current$get("tab.cap.style"),
                        bookdown = FALSE){
 
   if( is.null(ft.align) ) ft.align <- "center"
   if( is.null(ft.split) ) ft.split <- FALSE
-  if( is.null(tab.cap.style) ) tab.cap.style <- "Table Caption"
-  if( !is.null(x$caption$value) ) tab.cap.style <- x$caption$value
 
+  tab_props <- opts_current_table()
   if(!is.null(x$caption$value)){
-    caption <- paste0("\n\n::: {custom-style=\"",
-                      tab.cap.style,
-                      "\"}\n\n",
-                      if (bookdown) "<caption>",
-                      if (bookdown && !has_label(x$caption$value)) ref_label(),
-                      pandoc_chunks_wml(x, bookdown),
-                      if (bookdown) "</caption>",
-                      "\n\n",
-                      ":::\n\n")
+    bc <- block_caption(label = x$caption$value, style = x$caption$style,
+                        autonum = x$caption$autonum)
+    caption <- to_wml(bc, knitting = TRUE)
+  } else if(!is.null(tab_props$cap) && !is.null(tab_props$id)) {
+    bc <- block_caption(label = tab_props$cap, style = tab_props$cap.style,
+                        autonum = run_autonum(
+                          seq_id = tab_props$tab.lp,
+                          pre_label = tab_props$cap.pre,
+                          post_label = tab_props$cap.sep,
+                          bkm = tab_props$id
+                        ))
+    caption <- to_wml(bc, knitting = TRUE)
+  } else if(bookdown) {
+    bkm <- opts_current$get("label")
+    caption <- paste0(
+      "\n\n::: {custom-style=\"",
+      tab_props$cap.style,
+      "\"}\n\n",
+      "<caption>", ref_label(), tab_props$cap, "</caption>",
+      "\n\n", ":::\n\n")
+  }  else if(!is.null(tab_props$cap)) {
+    caption <- paste0(
+      "\n\n::: {custom-style=\"", tab_props$cap.style,
+      "\"}\n\n", tab_props$cap, ":::\n\n")
   } else caption <- ""
 
   out <- paste(caption,
@@ -183,8 +195,24 @@ print.flextable <- function(x, preview = "html", ...){
 #' Word option 'Allow row to break across pages' can be
 #' activated with chunk option \code{ft.split} set to TRUE.
 #'
-#' To specify a Word style for table caption use chunk option
-#' \code{tab.cap.style}. The default value is "Table Caption".
+#' Table captioning is a flextable feature compatible with knitr. Three methods are available and are presented below in order of triggering:
+#'
+#' * with the `set_caption` function, if the function is used, this definition will be chosen.
+#' * with knitr's chunk options:
+#'
+#'     * `tab.cap.style`: Word style name to use for table captions.
+#'     * `tab.cap.pre`: Prefix for numbering chunk (default to "Table").
+#'     * `tab.cap.sep`: Suffix for numbering chunk (default to ": ").
+#'     * `tab.cap`: Caption label.
+#'     * `tab.id`: Caption reference unique identifier.
+#'
+#' * with knitr chunk and bookdown options (if you're in a bookdown):
+#'
+#'     * `tab.cap.style`: Word style name to use for table captions.
+#'     * `tab.cap.pre`: Prefix for numbering chunk (default to "Table").
+#'     * `tab.cap.sep`: Suffix for numbering chunk (default to ": ").
+#'     * `tab.cap`: Caption label.
+#'     * `label`: Caption reference unique identifier.
 #'
 #' @section PowerPoint chunk options:
 #' Position should be defined with options \code{ft.left}
@@ -313,8 +341,13 @@ knit_print.flextable <- function(x, ...){
     uid <- as.integer(runif(n=1) * 10^9)
     str <- pml_flextable(x, uid = uid, offx = left, offy = top, cx = 10, cy = 6)
 
+    caption <- ""
+    if(is_bookdown && !is.null(opts_current$get("tab.cap"))) {
+      bkm <- opts_current$get("label")
+      caption <- paste0("<caption>", ref_label(), opts_current$get("tab.cap"), "</caption>\n\n")
+    }
     knit_print( asis_output(
-      paste("```{=openxml}", str, "```", sep = "\n")
+      paste(caption, "```{=openxml}", str, "```", sep = "\n")
     ) )
 
 

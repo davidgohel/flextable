@@ -1,5 +1,6 @@
 ---
 title: "flextable example"
+output: word_document
 ---
 
 ```{r setup, include=FALSE}
@@ -61,7 +62,7 @@ ft
 
 ## flextable - demo as_grouped_data
 
-```{r}
+```{r tab.cap='mean of carbon dioxide uptake in grass plants', tab.id='CO2'}
 data_CO2 <- dcast(as.data.table(CO2), 
   Treatment + conc ~ Type, value.var = "uptake", fun.aggregate = mean)
 data_CO2 <- as_grouped_data(x = data_CO2, groups = c("Treatment"))
@@ -76,7 +77,6 @@ as_flextable( data_CO2 ) %>%
           )
   ) %>% add_footer_lines("dataset CO2 has been used for this flextable") %>% 
   bg(bg = "#FFFFFF", part = "footer") %>% 
-  set_caption("mean of carbon dioxide uptake in grass plants") %>% 
   set_header_labels(conc = "Concentration") %>% 
   width(width = c(1.5, 1, 1)) 
 ```

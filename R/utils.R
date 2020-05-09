@@ -125,29 +125,6 @@ as_bookmark <- function(id, str) {
   paste0(bm_start_str, str, bm_start_end)
 }
 
-#' @importFrom officer to_wml
-caption_chunks_str <- function(label, autonum = NULL){
-  run_str <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>",
-                     label)
-  if(!is.null(autonum)){
-    autonum <- to_wml(autonum)
-    run_str <- paste0(autonum, run_str)
-  }
-  run_str
-
-}
-pandoc_chunks_wml <- function(x, bookdown){
-  if(!bookdown){
-    run_str <- caption_chunks_str(x$caption$value, x$caption$autonum)
-    if(!is.null(x$caption$ref)){
-      run_str <- as_bookmark(x$caption$ref, run_str)
-    }
-    paste0("`", run_str, "`{=openxml}")
-  } else {
-    x$caption$value
-  }
-
-}
 pandoc_chunks_html <- function(x, bookdown){
   if(!bookdown){
     run_str <- sprintf("<div class=\"%s\">%s</div>", x$caption$style, x$caption$value)

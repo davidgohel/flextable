@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.5.10.005
+Version: 0.5.10.006
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -21,7 +21,7 @@ License: GPL-3
 LazyData: TRUE
 Imports:
     stats, utils, grDevices, graphics,
-    officer (>= 0.3.6),
+    officer (>= 0.3.10),
     rmarkdown, knitr, htmltools,
     xml2, data.table, uuid,
     gdtools (>= 0.1.6), rlang, 

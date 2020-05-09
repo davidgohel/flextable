@@ -41,8 +41,12 @@ a bookmark with a flextable. As a side effect, the bookmark will be lost.
 
 \examples{
 library(officer)
-ftab <- flextable(head(mtcars))
-ftab <- theme_zebra(ftab)
+
+# autonum for caption
+autonum <- run_autonum(seq_id = "tab", bkm = "mtcars")
+
+ftab <- flextable( head( mtcars ) )
+ftab <- set_caption(ftab, caption = "mtcars data", autonum = autonum)
 ftab <- autofit(ftab)
 doc <- read_docx()
 doc <- body_add_flextable(doc, value = ftab)

@@ -8,7 +8,6 @@ set_caption(
   x,
   caption,
   autonum = NULL,
-  ref = NULL,
   style = "Table Caption",
   html_escape = TRUE
 )
@@ -21,11 +20,7 @@ set_caption(
 \item{autonum}{an autonum representation. See \code{\link[officer]{run_autonum}}.
 This has only an effect when output is Word. If used, the caption is preceded
 by an auto-number sequence. In this case, the caption is preceded by an auto-number
-sequence.}
-
-\item{ref}{a single character identifier that will be used as bookmark label.
-This has only an effect when output is Word. If used, the caption is bookmarked
-and can be cross-referenced. See also \code{\link[officer]{run_reference}}.}
+sequence that can be cross referenced.}
 
 \item{style}{caption paragraph style name. These names are available with
 function \code{\link[officer]{styles_info}} when output is Word; if HTML, a
@@ -43,5 +38,11 @@ this will have an effect only when output is HTML or Word document.
 \examples{
 ftab <- flextable( head( iris ) )
 ftab <- set_caption(ftab, "my caption")
+ftab
+
+library(officer)
+autonum <- run_autonum(seq_id = "tab", bkm = "mtcars")
+ftab <- flextable( head( mtcars ) )
+ftab <- set_caption(ftab, caption = "mtcars data", autonum = autonum)
 ftab
 }

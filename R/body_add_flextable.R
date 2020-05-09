@@ -11,8 +11,12 @@
 #' @importFrom officer body_add_xml wml_link_images docx_reference_img block_caption
 #' @examples
 #' library(officer)
-#' ftab <- flextable(head(mtcars))
-#' ftab <- theme_zebra(ftab)
+#'
+#' # autonum for caption
+#' autonum <- run_autonum(seq_id = "tab", bkm = "mtcars")
+#'
+#' ftab <- flextable( head( mtcars ) )
+#' ftab <- set_caption(ftab, caption = "mtcars data", autonum = autonum)
 #' ftab <- autofit(ftab)
 #' doc <- read_docx()
 #' doc <- body_add_flextable(doc, value = ftab)
@@ -26,7 +30,7 @@ body_add_flextable <- function( x, value, align = "center", pos = "after", split
   if(!is.null(value$caption$value)){
     bc <- block_caption(label = value$caption$value,
                         style = value$caption$style,
-                        id = value$caption$ref, autonum = value$caption$autonum)
+                        autonum = value$caption$autonum)
     x <- body_add_xml(x = x, str = to_wml(bc, base_document = x, add_ns = TRUE), pos = pos)
   }
 

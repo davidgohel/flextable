@@ -37,8 +37,26 @@ accepts values 'left', 'center' and 'right'.
 Word option 'Allow row to break across pages' can be
 activated with chunk option \code{ft.split} set to TRUE.
 
-To specify a Word style for table caption use chunk option
-\code{tab.cap.style}. The default value is "Table Caption".
+Table captioning is a flextable feature compatible with knitr. Three methods are available and are presented below in order of triggering:
+\itemize{
+\item with the \code{set_caption} function, if the function is used, this definition will be chosen.
+\item with knitr's chunk options:
+\itemize{
+\item \code{tab.cap.style}: Word style name to use for table captions.
+\item \code{tab.cap.pre}: Prefix for numbering chunk (default to "Table").
+\item \code{tab.cap.sep}: Suffix for numbering chunk (default to ": ").
+\item \code{tab.cap}: Caption label.
+\item \code{tab.id}: Caption reference unique identifier.
+}
+\item with knitr chunk and bookdown options (if you're in a bookdown):
+\itemize{
+\item \code{tab.cap.style}: Word style name to use for table captions.
+\item \code{tab.cap.pre}: Prefix for numbering chunk (default to "Table").
+\item \code{tab.cap.sep}: Suffix for numbering chunk (default to ": ").
+\item \code{tab.cap}: Caption label.
+\item \code{label}: Caption reference unique identifier.
+}
+}
 }
 
 \section{PowerPoint chunk options}{
