@@ -31,6 +31,7 @@ reference:
     contents:
     - starts_with("merge_")
     - starts_with("height")
+    - set_table_properties
     - width
     - hrule
     - autofit
