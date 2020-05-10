@@ -125,13 +125,5 @@ as_bookmark <- function(id, str) {
   paste0(bm_start_str, str, bm_start_end)
 }
 
-pandoc_chunks_html <- function(x, bookdown){
-  if(!bookdown){
-    run_str <- sprintf("<div class=\"%s\">%s</div>", x$caption$style, x$caption$value)
-  } else {
-    run_str <- x$caption$value
-  }
-  run_str
-}
 
 

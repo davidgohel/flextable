@@ -1,0 +1,33 @@
+---
+title: "flextable example"
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(flextable)
+library(magrittr)
+library(data.table)
+opts_chunk$set(echo = FALSE)
+```
+
+
+```{r}
+data_CO2 <- dcast(as.data.table(CO2), 
+  Treatment + conc ~ Type, value.var = "uptake", fun.aggregate = mean)
+data_CO2 <- as_grouped_data(x = data_CO2, groups = c("Treatment"))
+
+ft <- as_flextable( data_CO2 ) %>% 
+  bold(j = 1, i = ~ !is.na(Treatment), bold = TRUE, part = "body" ) %>% 
+  bold(part = "header", bold = TRUE ) %>% 
+  width(width = 1.5) %>% 
+  compose(i = ~ !is.na(conc), j = "conc", 
+          value = as_paragraph(
+            as_chunk(conc, formatter = function(x) sprintf("%.0f", x))
+          )
+  ) %>% add_footer_lines("dataset CO2 has been used for this flextable") %>% 
+  bg(bg = "#FFFFFF", part = "footer") %>% 
+  set_header_labels(conc = "Concentration") %>% 
+  width(width = c(1.5, 1, 1)) 
+```
+
+

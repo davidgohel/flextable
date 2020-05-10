@@ -1,0 +1,27 @@
+---
+title: "flextable caption example"
+output: word_document
+---
+
+```{r child = 'example.Rmd'}
+```
+
+Now, let's add a caption with `set_caption`:
+
+
+```{r ft.align="left"}
+library(officer)
+set_caption(ft, 
+  caption = "mean of carbon dioxide uptake in grass plants", 
+  style = "Table Caption", 
+  autonum = run_autonum(seq_id = "tab", bkm = "tab1"))
+```
+
+
+Or use kintr chunk options:
+
+
+```{r ft.align="left", tab.cap='mean of carbon dioxide uptake in grass plants', tab.id='tab2'}
+library(officer)
+ft
+```

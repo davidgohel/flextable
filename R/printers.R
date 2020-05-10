@@ -47,6 +47,7 @@ htmltools_value <- function(
                  flextable_html_dependency(),
                  HTML(as.character(codes))
   )
+  html_o
 }
 
 #' @export

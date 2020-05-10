@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
 ```{r warning=FALSE, echo=FALSE, message=FALSE}
 library(officer)
 library(flextable)
+library(htmltools)
 ```
 
 
@@ -252,6 +253,71 @@ ft <- compose(ft, part = "header", j = "Species",
 ft <- compose(ft, part = "header", j = "col1", 
     value = as_paragraph(as_b("µ"), as_sup("blah")))
 ft
+```
+
+## Captions
+
+Captions are supported for HTML and Word output (also from a bookdown project
+with its specificities taken into account).
+
+Capacities are different from one format to another. For the Word part, we can
+produce real auto-numbered captions with a bookmark on the automatic number
+which can then be used as a reference, i.e. for cross-referencing. For the HTML
+part, you can produce real captions but without the auto-numbering.
+
+Of course, in a bookdown, we benefit from the cross reference capabilities.
+
+The recommended method to set a caption is via the function `set_caption`. If
+this function is used, the caption will be defined from here.
+
+Two other methods are available for `knitr` and are presented below in order of
+triggering:
+
+1. with knitr's chunk options:
+
+    * `tab.cap.style`: Word style name to use for table captions.
+    * `tab.cap.pre`: Prefix for Word numbering chunk (default to "Table").
+    * `tab.cap.sep`: Suffix for Word numbering chunk (default to ": ").
+    * `tab.cap`: Caption label.
+    * `tab.id`: Caption Word bookmark (unique identifier).
+
+2. with knitr chunk and bookdown options (if you're in a bookdown):
+
+    * `tab.cap.style`: Word style name to use for table captions.
+    * `tab.cap.pre`: Prefix for Word numbering chunk (default to "Table").
+    * `tab.cap.sep`: Suffix for Word numbering chunk (default to ": ").
+    * `tab.cap`: Caption label.
+    * `label`: Caption reference unique identifier.
+
+(This css instructions is only there to make the caption styled:)
+
+```{css}
+caption {
+  color:red;
+  line-height: 1.5em;
+  font-size: 10px;
+}
+```
+
+
+```{r}
+ft <- set_caption(ft, caption = "this is a caption")
+ft
+```
+
+You can have a look at R Markdown document illustrating captions for different 
+supported format here:
+
+```{r eval=FALSE}
+system.file(package = "flextable", "examples", "rmd", "captions")
+```
+
+Copy one of these files in your working directory and run knitr:
+
+```{r echo=FALSE}
+dir <- system.file(package = "flextable", "examples", "rmd", "captions")
+files <- list.files(dir, pattern = "^captions_")
+tags$ul(lapply(files, tags$li))
 ```
 
 
