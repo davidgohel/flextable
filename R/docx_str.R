@@ -13,7 +13,6 @@ docx_str.flextable <- function(x, align = "center", split = FALSE, doc = NULL, .
 
   dims <- dim(x)
   widths <- dims$widths
-  colswidths <- paste0("<w:gridCol w:w=\"", round(widths*72*20, 0), "\"/>", collapse = "")
 
   out <- paste0(
       "<w:tbl xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ",
@@ -23,14 +22,25 @@ docx_str.flextable <- function(x, align = "center", split = FALSE, doc = NULL, .
       "xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" ",
       "xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" ",
       ">")
+  if(x$properties$layout %in% "autofit"){
+    pt <- prop_table(
+      layout = table_layout(type = "autofit"),
+      align = align,
+      width = table_width(width = x$properties$width, unit = "pct"),
+      colwidths = table_colwidths(double(0L)))
+  } else {
+    pt <- prop_table(
+      layout = table_layout(type = "fixed"),
+      align = align,
+      width = table_width(unit = "in",
+                          width = sum(widths, na.rm = TRUE)
+      ),
+      colwidths = table_colwidths(widths))
+  }
+  properties_str <- to_wml(pt, add_ns= FALSE, base_document = doc)
 
-  out <- paste0(out, "<w:tblPr><w:tblLayout w:type=\"fixed\"/>",
-                sprintf( "<w:jc w:val=\"%s\"/>", align ),
-                "</w:tblPr>" )
 
-  out = paste0(out,  "<w:tblGrid>" )
-  out = paste0(out,  colswidths )
-  out = paste0(out,  "</w:tblGrid>" )
+  out <- paste0(out, properties_str )
 
   if( nrow_part(x, "header") > 0 ){
     xml_content <- format(x$header, header = TRUE, split = split, type = "wml")

@@ -48,9 +48,13 @@ border_pml <- function(color, width, style, side){
 #' @importFrom gdtools raster_write raster_str
 #' @importFrom xml2 as_xml_document xml_find_all xml_attr
 format.complex_tabpart <- function( x, type = "wml", header = FALSE,
-                                    split = FALSE, ... ){
+                                    split = FALSE, colwidth = TRUE, ... ){
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html") )
+
+  if(!colwidth){
+    x$colwidths[] <- NA_real_
+  }
 
   if( nrow(x$dataset) < 1 ) return("")
   img_data <- list(

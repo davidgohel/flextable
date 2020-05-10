@@ -28,20 +28,27 @@ html_str.flextable <- function( x, bookdown = FALSE ){
     )
   }
 
-  # out <- paste0("<table style='border-collapse:collapse;", sprintf("width:%s;", css_px(sum(dims$widths) * 72) ), "'>")
-  out <- "<table style='border-collapse:collapse;'>"
+  fixed_layout <- x$properties$layout %in% "fixed"
+  if(!fixed_layout){
+    tbl_width <- paste0("width:", formatC(x$properties$width*100), "%;")
+    tabcss <- paste0("table-layout:auto;border-collapse:collapse;", tbl_width)
+  } else {
+    tabcss <- "border-collapse:collapse;"
+  }
+
+  out <- sprintf("<table style='%s'>", tabcss)
   out <- paste0(out, caption)
 
   if( nrow_part(x, "header") > 0 ){
-    tmp <- format(x$header, type = "html", header = TRUE)
+    tmp <- format(x$header, type = "html", header = TRUE, colwidth = fixed_layout)
     out = paste0(out, "<thead>", tmp, "</thead>" )
   }
   if( nrow_part(x, "body") > 0 ){
-    tmp <- format(x$body, type = "html", header = FALSE)
+    tmp <- format(x$body, type = "html", header = FALSE, colwidth = fixed_layout)
     out = paste0(out, "<tbody>", tmp, "</tbody>" )
   }
   if( nrow_part(x, "footer") > 0 ){
-    tmp <- format(x$footer, type = "html", header = FALSE)
+    tmp <- format(x$footer, type = "html", header = FALSE, colwidth = fixed_layout)
     out = paste0(out, "<tfoot>", tmp, "</tfoot>" )
   }
 

@@ -55,6 +55,7 @@ Other flextable dimensions:
 \code{\link{flextable_dim}()},
 \code{\link{height}()},
 \code{\link{hrule}()},
+\code{\link{set_table_properties}()},
 \code{\link{width}()}
 }
 \concept{flextable dimensions}

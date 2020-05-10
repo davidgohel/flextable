@@ -10,7 +10,8 @@
 * function `autofit` can now use only some parts of the tables. This allows
 for example to no longer have gigantic columns by not taking into account the "footer" part that is often composed of long texts.
 * bookdown and xaringan HTML outputs should now be rendered as expected - table css has been overwritten.
-
+* new function `set_table_properties` lets adapt flextable size as "100%", "50%" of the available width
+for Word and HTML.
 
 ## Changes
 

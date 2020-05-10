@@ -103,6 +103,9 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
                 pr_c = fp_cell(border = fp_border(color = "transparent")), part = "all")
   if( !is.null(theme_fun) )
     out <- theme_fun(out)
+
+  out <- set_table_properties(x = out, layout = "fixed")
+
   out
 }
 

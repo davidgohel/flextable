@@ -380,6 +380,38 @@ optimal_sizes <- function( x ){
        heights = apply(heights, 1, max, na.rm = TRUE) )
 }
 
+#' @importFrom officer table_layout table_width table_colwidths prop_table
+#' @export
+#' @title Global table properties
+#' @description Set table layout and table width. Default to fixed
+#' algorithm.
+#'
+#' If layout is fixed, column widths will be used to display the table;
+#' `width` is ignored.
+#'
+#' If layout is autofit, column widths will not be used;
+#' table width is used (as a percentage).
+#' @note
+#' PowerPoint output ignore autofit layout as this algorithm does not
+#' exist for this Microsoft format.
+#' @param x flextable object
+#' @param layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
+#' @param width value of the preferred width of the table in percent.
+#' @examples
+#' library(flextable)
+#' ft_1 <- flextable(head(mtcars))
+#' ft_1 <- set_table_properties(ft_1, width = .8, layout = "autofit")
+#' print(ft_1)
+#' @family flextable dimensions
+set_table_properties <- function(x, layout = "fixed", width = 1){
+
+  stopifnot(layout %in% c("fixed", "autofit"))
+  stopifnot(is.numeric(width), width <= 1)
+
+  x$properties <- list(layout = layout, width = width)
+  x
+}
+
 # utils ----
 #' @importFrom stats reshape
 as_wide_matrix_ <- function(data, idvar, timevar = "col_key"){
