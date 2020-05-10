@@ -11,7 +11,7 @@
 
 \item{zoom, expand}{parameters used by \code{webshot} function.}
 
-\item{...}{additional parameters sent to plot function}
+\item{...}{additional parameters sent to \code{\link[=as_raster]{as_raster()}} function}
 }
 \description{
 save a flextable as an image and display the

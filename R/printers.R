@@ -526,7 +526,7 @@ save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot" ){
 #' @note This function requires packages: webshot and magick.
 #' @param x a flextable object
 #' @param zoom,expand parameters used by \code{webshot} function.
-#' @param ... additional parameters sent to plot function
+#' @param ... additional parameters sent to [as_raster()] function
 #' @examples
 #' ftab <- flextable( head( mtcars ) )
 #' ftab <- autofit(ftab)
@@ -540,7 +540,7 @@ save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot" ){
 plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
   img <- as_raster(x = x, zoom = zoom, expand = expand)
   par(mar = rep(0, 4))
-  plot(grDevices::as.raster(img), ...)
+  plot(grDevices::as.raster(img, ...))
 }
 
 #' @export
