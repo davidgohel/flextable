@@ -259,7 +259,7 @@ dim.flextable <- function(x){
 #' @family flextable dimensions
 dim_pretty <- function( x, part = "all" ){
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE )
   if( "all" %in% part ){
     part <- c("header", "body", "footer")
   }
@@ -293,6 +293,7 @@ dim_pretty <- function( x, part = "all" ){
 #' @param x flextable object
 #' @param add_w extra width to add in inches
 #' @param add_h extra height to add in inches
+#' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
 #' @examples
 #' ft_1 <- flextable(head(mtcars))
 #' ft_1
@@ -304,13 +305,18 @@ dim_pretty <- function( x, part = "all" ){
 #' \if{html}{\figure{fig_autofit_1.png}{options: width=90\%}}
 #'
 #' \if{html}{\figure{fig_autofit_2.png}{options: width=70\%}}
-autofit <- function(x, add_w = 0.1, add_h = 0.1 ){
+autofit <- function(x, add_w = 0.1, add_h = 0.1, part = "all"){
 
   stopifnot(inherits(x, "flextable") )
-  dimensions_ <- dim_pretty(x)
+
+  parts <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE )
+  if( "all" %in% parts ){
+    parts <- c("header", "body", "footer")
+  }
+
+  dimensions_ <- dim_pretty(x, part = parts)
   names(dimensions_$widths) <- x$col_keys
 
-  parts <- c("header", "body", "footer")
   nrows <- lapply(parts, function(j){
     nrow_part(x, j )
   } )

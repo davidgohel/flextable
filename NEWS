@@ -7,6 +7,8 @@
 * support for bookdown references
 * new as_flextable methods for lm and glm objects and xtable (replacing `xtable_to_flextable()`)
 * new sugar function `continuous_summary()`: summarize continuous columns in a flextable
+* function `autofit` can now use only some parts of the tables. This allows
+for example to no longer have gigantic columns by not taking into account the "footer" part that is often composed of long texts.
 
 ## Changes
 
