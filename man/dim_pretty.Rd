@@ -15,6 +15,13 @@ dim_pretty(x, part = "all")
 return minimum estimated widths and heights for
 each table columns and rows in inches.
 }
+\section{line breaks}{
+
+Soft returns (a line break in a paragraph) are not supported. Function
+\code{dim_pretty} will return wrong results if \verb{\\n} are used (they will be
+considered as "").
+}
+
 \examples{
 ftab <- flextable(head(mtcars))
 dim_pretty(ftab)

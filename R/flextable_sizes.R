@@ -253,6 +253,10 @@ dim.flextable <- function(x){
 #' each table columns and rows in inches.
 #' @param x flextable object
 #' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
+#' @section line breaks:
+#' Soft returns (a line break in a paragraph) are not supported. Function
+#' `dim_pretty` will return wrong results if `\n` are used (they will be
+#' considered as "").
 #' @examples
 #' ftab <- flextable(head(mtcars))
 #' dim_pretty(ftab)
@@ -286,9 +290,20 @@ dim_pretty <- function( x, part = "all" ){
 
 #' @export
 #' @title Adjusts cell widths and heights
-#' @description compute and apply optimized widths and heights.
+#' @description compute and apply optimized widths and heights
+#' (minimum estimated widths and heights for each table columns and rows
+#' in inches returned by function [dim_pretty()]).
+#'
 #' This function is to be used when the table widths and heights
 #' should automatically be adjusted to fit the size of the content.
+#'
+#' @note
+#' This function is not related to 'Microsoft Word' *Autofit* feature.
+#'
+#' @section line breaks:
+#' Soft returns (a line break in a paragraph) are not supported. Function
+#' `autofit` will return wrong results if `\n` are used (they will be
+#' considered as "").
 #'
 #' @param x flextable object
 #' @param add_w extra width to add in inches
