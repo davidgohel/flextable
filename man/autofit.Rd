@@ -4,7 +4,7 @@
 \alias{autofit}
 \title{Adjusts cell widths and heights}
 \usage{
-autofit(x, add_w = 0.1, add_h = 0.1, part = "all")
+autofit(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"))
 }
 \arguments{
 \item{x}{flextable object}

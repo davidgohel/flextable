@@ -305,7 +305,7 @@ dim_pretty <- function( x, part = "all" ){
 #' \if{html}{\figure{fig_autofit_1.png}{options: width=90\%}}
 #'
 #' \if{html}{\figure{fig_autofit_2.png}{options: width=70\%}}
-autofit <- function(x, add_w = 0.1, add_h = 0.1, part = "all"){
+autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header")){
 
   stopifnot(inherits(x, "flextable") )
 
