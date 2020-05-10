@@ -27,11 +27,19 @@ table width is used (as a percentage).
 PowerPoint output ignore autofit layout as this algorithm does not
 exist for this Microsoft format.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_set_table_properties_1.png}{options: width=15\%}}
+
+\if{html}{\figure{fig_set_table_properties_2.png}{options: width=75\%}}
+}
+
 \examples{
 library(flextable)
-ft_1 <- flextable(head(mtcars))
-ft_1 <- set_table_properties(ft_1, width = .8, layout = "autofit")
-print(ft_1)
+ft_1 <- qflextable(head(cars))
+ft_2 <- set_table_properties(ft_1, width = .5, layout = "autofit")
+ft_2
 }
 \seealso{
 Other flextable dimensions: 

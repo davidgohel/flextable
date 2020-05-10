@@ -395,6 +395,9 @@ Function `autofit()` optimises widths and heights of the flextable.
 This function is almost always to be called once when using 
 flextable objects, it makes compact tables.
 
+> `autofit` was not my biggest naming idea as users are thinking it is the 
+'Microsoft Word feature' (see [set_table_properties](../reference/set_table_properties.html))
+
 ```{r}
 ft <- autofit(ft_base, add_w = 0, add_h = 0)
 

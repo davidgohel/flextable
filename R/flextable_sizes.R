@@ -399,10 +399,15 @@ optimal_sizes <- function( x ){
 #' @param width value of the preferred width of the table in percent.
 #' @examples
 #' library(flextable)
-#' ft_1 <- flextable(head(mtcars))
-#' ft_1 <- set_table_properties(ft_1, width = .8, layout = "autofit")
-#' print(ft_1)
+#' ft_1 <- qflextable(head(cars))
+#' ft_2 <- set_table_properties(ft_1, width = .5, layout = "autofit")
+#' ft_2
 #' @family flextable dimensions
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_set_table_properties_1.png}{options: width=15\%}}
+#'
+#' \if{html}{\figure{fig_set_table_properties_2.png}{options: width=75\%}}
 set_table_properties <- function(x, layout = "fixed", width = 1){
 
   stopifnot(layout %in% c("fixed", "autofit"))

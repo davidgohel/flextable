@@ -19,7 +19,7 @@ drop_from_run <- c("qflextable", "ph_with.flextable", "save_as_docx",
 rd_names <- read_rd_names(pkg = "flextable")
 rd_names <- base::setdiff(rd_names, drop_from_run)
 rd_names <- c(rd_names, "as_flextable.glm", "as_flextable.lm", "as_flextable.xtable")
-
+rd_names <- "set_table_properties"
 temp_id <- UUIDgenerate()
 temp_dir <- file.path("/Users/davidgohel/Documents/sandbox/compimg/imgs/src/img", temp_id)
 build_dir <- file.path("/Users/davidgohel/Documents/sandbox/compimg/imgs/build/img", temp_id)
