@@ -92,7 +92,7 @@ docx_value <- function(x, print = TRUE,
   } else if(!is.null(tab_props$cap) && !is.null(tab_props$id)) {
     bc <- block_caption(label = tab_props$cap, style = tab_props$cap.style,
                         autonum = run_autonum(
-                          seq_id = tab_props$tab.lp,
+                          seq_id = gsub(":$", "", tab_props$tab.lp),
                           pre_label = tab_props$cap.pre,
                           post_label = tab_props$cap.sep,
                           bkm = tab_props$id
