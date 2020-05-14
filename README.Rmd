@@ -31,7 +31,7 @@ The flextable package provides a framework for easily create tables for reportin
 Tables can be embedded within:
 
 * R Markdown documents with support for HTML, Word and PowerPoint documents.
-* Microsoft Word or PowerPoint documents.
+* Microsoft Word or PowerPoint documents with package [officer](https://davidgohel.github.io/officer/).
 * PDF documents with package `pagedown`
 
 Tables can also be rendered as R plots or graphic files (png, pdf and jpeg).
