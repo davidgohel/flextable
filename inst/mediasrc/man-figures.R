@@ -1,59 +1,34 @@
-library(flextable)
-library(uuid)
-library(webshot2)
+library(logger)
+library(imgpress)
+library(magrittr)
 
-read_rd_names <- function(pkg) {
-  path <- file.path(system.file("help", package = pkg), pkg)
-  names(tools:::fetchRdDB(path))
+log_layout(layout_glue_colors)
+log_threshold(TRACE)
+
+man_names <- package_man_names(package_name = "flextable")
+drop <- c("qflextable", "ph_with.flextable", "save_as_docx",
+          "save_as_pptx", "save_as_image", "as_raster",
+          "save_as_html",
+          "dim.flextable", "fix_border_issues", "flextable",
+          "ph_with_flextable",
+          "border", "flextable-defunct", "flextable-package",
+          "footers_flextable_at_bkm", "headers_flextable_at_bkm",
+          "print.flextable")
+as_ft_methods <- man_names[grepl("^as_flextable", man_names)]
+drop <- c(drop, as_ft_methods)
+man_names <- setdiff(man_names, drop)
+man_names <- c(man_names, as_ft_methods)
+
+out <- list()
+for (man_name in man_names) {
+  log_info("watching {man_name}")
+  out[[man_name]] <- process_manual_flextable(name = man_name, pkg = "flextable")
 }
 
-drop_from_run <- c("qflextable", "ph_with.flextable", "save_as_docx",
-                   "save_as_pptx", "save_as_image", "as_raster",
-                   "as_flextable.xtable", "save_as_html",
-                   "dim.flextable", "fix_border_issues", "flextable",
-                   "as_flextable.glm", "as_flextable.lm", "ph_with_flextable",
-                   "border", "flextable-defunct", "flextable-package",
-                   "footers_flextable_at_bkm", "headers_flextable_at_bkm",
-                   "print.flextable", "as_flextable")
+out <- Filter(function(x) length(x)>0, out)
+file.copy(unlist(out), to = 'inst/medias/figures/', overwrite = TRUE)
 
-rd_names <- read_rd_names(pkg = "flextable")
-rd_names <- base::setdiff(rd_names, drop_from_run)
-rd_names <- c(rd_names, "as_flextable.glm", "as_flextable.lm", "as_flextable.xtable")
-rd_names <- "set_table_properties"
-temp_id <- UUIDgenerate()
-temp_dir <- file.path("/Users/davidgohel/Documents/sandbox/compimg/imgs/src/img", temp_id)
-build_dir <- file.path("/Users/davidgohel/Documents/sandbox/compimg/imgs/build/img", temp_id)
-dir.create(temp_dir, showWarnings = FALSE)
-rsvg::rsvg_png("inst/medias/functions.svg", file.path(temp_dir, "fig_flextable_1.png"))
-
-rm(list = ls(pattern = "^ft[_0-9]*?$"))
-
-for (rd_name in rd_names) {
-  message(rd_name)
-  current_ls <- ls()
-  example(topic = rd_name, package = "flextable", character.only = TRUE,
-          give.lines = FALSE, echo = FALSE)
-
-  ft_list <- ls(pattern = "^ft[_0-9]*?$")
-  for (i in seq_along(ft_list)) {
-    if (!inherits(get(ft_list[i]), "flextable")) {
-      stop("All `ft_#` objects should be flextable objects")
-    }
-    filename <- file.path(temp_dir, paste0("fig_", rd_name, "_", i, ".png"))
-    img_file <- save_as_image(get(ft_list[i]), path = filename, zoom = 3,
-                  webshot = "webshot2")
-    resize(img_file, "50%")
-  }
-  rm(list = setdiff(ls(), current_ls))
-}
-
-png_list <- list.files(temp_dir, ".*\\.png$")
-
-system("cd ~/Documents/sandbox/compimg;node index.js;")
-
-build_png <- file.path(build_dir, png_list)
-dest_png <- file.path("man", "figures", png_list)
-file.copy(build_png, dest_png, overwrite = TRUE)
-unlink(c(build_dir, temp_dir), recursive = TRUE, force = TRUE)
-remove(list = setdiff(ls(), "dest_png"))
+rsvg::rsvg_png("inst/medias/functions.svg", file.path("inst/medias/figures", "fig_flextable_1.png"))
+img_compress(dir_input = "inst/medias/figures",
+             dir_output = "man/figures")
 
