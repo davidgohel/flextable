@@ -367,8 +367,27 @@ ft
 
 
 
+## Table width
+
+By default, table width is fixed. This setting allows to have the same rendering 
+with Word, HTML and PowerPoint formats. 
+
+You can use another setting with function `set_table_properties()`. Alternative is 
+'autofit', an algorithm implemented by HTML and Word. It allows to size the table 
+along an available width. 
+
+```{r eval=FALSE}
+library(flextable)
+ft <- qflextable(head(cars))
+set_table_properties(ft, width = .5, layout = "autofit")
+set_table_properties(ft, width = 1, layout = "autofit")
+```
+
+
 
 ## Cell widths and heights
+
+> This oonly applies when layout is "fixed"
 
 The default sizes of flextable columns and rows are set by default values. 
 This will drive to inadequate rows heights and columns widths in some cases. 
