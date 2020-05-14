@@ -19,7 +19,7 @@ is not unique in the current slide, e.g. two placeholders with type 'body'.}
 \description{
 add a flextable as a new shape in the current slide.
 
-These functions will be deprecated in the next release and
+These functions is deprecated and
 method \code{\link[officer]{ph_with}} should be used instead.
 }
 \note{
