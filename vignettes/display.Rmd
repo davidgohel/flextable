@@ -363,6 +363,7 @@ ft <- footnote( ft, i = 1, j = 3:4,
                 ),
                 ref_symbols = c( "c","d"),
                 part = "header",inline=T)
+ft
 ```
 
 ## Two lines in a cell

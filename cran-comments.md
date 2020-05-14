@@ -1,6 +1,6 @@
 ## Test environments
 
-- local OS X install (R 3.6.1)
+- local OS X install (R 3.6.3)
 - ubuntu 14.05 (on travis-ci with older and release)
 - winbuilder (older, release and devel)
 - rhub::check_for_cran()
