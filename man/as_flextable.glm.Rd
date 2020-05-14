@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable.R
 \name{as_flextable.glm}
 \alias{as_flextable.glm}
-\title{tabular summary for lm object}
+\title{tabular summary for glm object}
 \usage{
 \method{as_flextable}{glm}(x, ...)
 }
@@ -34,6 +34,7 @@ if(require("broom")){
 \seealso{
 Other as_flextable methods: 
 \code{\link{as_flextable.grouped_data}()},
+\code{\link{as_flextable.htest}()},
 \code{\link{as_flextable.lm}()},
 \code{\link{as_flextable.xtable}()},
 \code{\link{as_flextable}()}

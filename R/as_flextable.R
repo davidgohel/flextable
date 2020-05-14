@@ -148,7 +148,7 @@ pvalue_format <- function(x){
 #' @export
 #' @importFrom stats naprint quantile
 #' @importFrom utils tail
-#' @title tabular summary for lm object
+#' @title tabular summary for glm object
 #' @description produce a flextable describing a
 #' generalized linear model produced by function `glm`.
 #' @param x glm model
@@ -185,7 +185,6 @@ as_flextable.glm <- function(x, ...){
   ft <- set_header_labels(ft, term = "", estimate = "Estimate",
                           std.error = "Standard Error", statistic = "z value",
                           p.value = "Pr(>|z|)", signif = "Signif." )
-  dimpretty <- dim_pretty(ft, part = "all")
 
   digits <- max(3L, getOption("digits") - 3L)
 
@@ -199,26 +198,12 @@ as_flextable.glm <- function(x, ...){
       if (nzchar(mess <- naprint(sum_obj$na.action)))
         paste("  (", mess, ")\n", sep = "")
       else character(0)
-    },
-    paste("AIC: ", formatC(sum_obj$aic), sep = ""),
-    " ",
-    paste("Number of Fisher Scoring iterations: ", sum_obj$iter, sep = ""),
-    "Deviance Residuals:"
+    }
   ))
   ft <- align(ft, i = 1, align = "right", part = "footer")
   ft <- italic(ft, i = 1, italic = TRUE, part = "footer")
-  quant_ <- as.list( quantile(broom::augment(x)$.resid, probs = c(0, .25, .5, .75, 1)) )
-  names(quant_) <- c(names(data_t)[2:5], "signif")
-  ft <- add_footer_row(ft,
-                       values = c("", "Min", "1Q", "Median", "3Q", "Max"),
-                       colwidths = rep(1,6), top = FALSE)
-  ft <- add_footer(ft, values = quant_, top = FALSE)
-
-  ft <- align(ft, i = tail(seq_len(nrow_part(ft)), n = 2), align = "center", part="footer")
-
-  height_ <- max(dimpretty$heights)
-  ft <- width(ft, j = NULL, width = dimpretty$widths)
-  ft <- height_all(ft, height = height_)
+  ft <- hrule(ft, rule = "auto")
+  ft <- autofit(ft, part = c("header", "body"))
   ft
 }
 
@@ -264,23 +249,77 @@ as_flextable.lm <- function(x, ...){
     "",
     sprintf("Residual standard error: %s on %.0f degrees of freedom", formatC(data_g$sigma), data_g$df.residual),
     sprintf("Multiple R-squared: %s, Adjusted R-squared: %s", formatC(data_g$r.squared), formatC(data_g$adj.r.squared)),
-    sprintf("F-statistic: %s on %.0f and %.0f DF, p-value: %.4f", formatC(data_g$statistic), data_g$df.residual, data_g$df, data_g$p.value),
-    "Residuals:"
+    sprintf("F-statistic: %s on %.0f and %.0f DF, p-value: %.4f", formatC(data_g$statistic), data_g$df.residual, data_g$df, data_g$p.value)
   ))
   ft <- align(ft, i = 1, align = "right", part = "footer")
   ft <- italic(ft, i = 1, italic = TRUE, part = "footer")
-  quant_ <- as.list( quantile(broom::augment(x)$.resid, probs = c(0, .25, .5, .75, 1)) )
-  names(quant_) <- c(names(data_t)[2:5], "signif")
-  ft <- add_footer_row(ft,
-                       values = c("", "Min", "1Q", "Median", "3Q", "Max"),
-                       colwidths = rep(1,6), top = FALSE)
-  ft <- add_footer(ft, values = quant_, top = FALSE)
-
-  height_ <- max(dimpretty$heights)
-  ft <- width(ft, j = NULL, width = dimpretty$widths)
-  ft <- height_all(ft, height = height_)
+  ft <- hrule(ft, rule = "auto")
+  ft <- autofit(ft, part = c("header", "body"))
   ft
 }
+
+
+#' @export
+#' @title tabular summary for htest object
+#' @description produce a flextable describing an
+#' object oof class `htest`.
+#' @param x htest object
+#' @param ... unused argument
+#' @examples
+#' if(require("stats")){
+#'   M <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+#'   dimnames(M) <- list(gender = c("F", "M"),
+#'   party = c("Democrat","Independent", "Republican"))
+#'   ft_1 <- as_flextable(chisq.test(M))
+#'   ft_1
+#' }
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_flextable.htest_1.png}{options: width=60\%}}
+#' @family as_flextable methods
+as_flextable.htest <- function (x, ...) {
+  ret <- x[c("estimate", "statistic", "p.value", "parameter")]
+  if (length(ret$estimate) > 1) {
+    names(ret$estimate) <- paste0("estimate", seq_along(ret$estimate))
+    ret <- c(ret$estimate, ret)
+    ret$estimate <- NULL
+    if (x$method == "Welch Two Sample t-test") {
+      ret <- c(estimate = ret$estimate1 - ret$estimate2,
+               ret)
+    }
+  }
+  if (length(x$parameter) > 1) {
+    ret$parameter <- NULL
+    if (is.null(names(x$parameter))) {
+      warning("Multiple unnamed parameters in hypothesis test; dropping them")
+    }
+    else {
+      message("Multiple parameters; naming those columns ",
+              paste(make.names(names(x$parameter)), collapse = ", "))
+      ret <- append(ret, x$parameter, after = 1)
+    }
+  }
+  ret <- Filter(Negate(is.null), ret)
+  if (!is.null(x$conf.int)) {
+    ret <- c(ret, conf.low = x$conf.int[1], conf.high = x$conf.int[2])
+  }
+  if (!is.null(x$method)) {
+    ret <- c(ret, method = as.character(x$method))
+  }
+  if (!is.null(x$alternative)) {
+    ret <- c(ret, alternative = as.character(x$alternative))
+  }
+  dat <- as.data.frame(ret, stringsAsFactors = FALSE)
+  z <- flextable(dat)
+  z <- set_formatter(z,
+                     estimate = format_fun,
+                     statistic = format_fun,
+                     p.value = format_fun )
+  z <- autofit(z)
+  z
+}
+
+
 
 #' @export
 #' @title continuous columns summary

@@ -33,6 +33,7 @@ if(require("broom")){
 Other as_flextable methods: 
 \code{\link{as_flextable.glm}()},
 \code{\link{as_flextable.grouped_data}()},
+\code{\link{as_flextable.htest}()},
 \code{\link{as_flextable.xtable}()},
 \code{\link{as_flextable}()}
 }
