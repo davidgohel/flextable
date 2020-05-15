@@ -87,16 +87,28 @@
   <a href="../articles/layout.html">Layout</a>
 </li>
 <li>
-  <a href="../articles/format.html">Format visual properties</a>
+  <a href="../articles/format.html">Visual properties</a>
 </li>
 <li>
   <a href="../articles/display.html">Format Content</a>
 </li>
-<li>
-  <a href="../articles/offcran/images.html">Render as image</a>
-</li>
-<li>
-  <a href="../articles/offcran/examples.html">Examples</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    More
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/offcran/images.html">As image</a>
+    </li>
+    <li>
+      <a href="../articles/offcran/as_flextable.html">as flextable</a>
+    </li>
+    <li>
+      <a href="../articles/offcran/examples.html">Examples</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -249,6 +261,12 @@
           <p><code><a href="height.html">height()</a></code> <code><a href="height.html">height_all()</a></code> </p>
         </td>
         <td><p>Set flextable rows height</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="set_table_properties.html">set_table_properties()</a></code> </p>
+        </td>
+        <td><p>Global table properties</p></td>
       </tr><tr>
         
         <td>
@@ -794,13 +812,19 @@
         <td>
           <p><code><a href="as_flextable.glm.html">as_flextable(<i>&lt;glm&gt;</i>)</a></code> </p>
         </td>
-        <td><p>tabular summary for lm object</p></td>
+        <td><p>tabular summary for glm object</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="as_flextable.grouped_data.html">as_flextable(<i>&lt;grouped_data&gt;</i>)</a></code> </p>
         </td>
         <td><p>tabular summary for grouped_data object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as_flextable.htest.html">as_flextable(<i>&lt;htest&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>tabular summary for htest object</p></td>
       </tr><tr>
         
         <td>

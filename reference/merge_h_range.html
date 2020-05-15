@@ -89,16 +89,28 @@ columns must be consecutive." />
   <a href="../articles/layout.html">Layout</a>
 </li>
 <li>
-  <a href="../articles/format.html">Format visual properties</a>
+  <a href="../articles/format.html">Visual properties</a>
 </li>
 <li>
   <a href="../articles/display.html">Format Content</a>
 </li>
-<li>
-  <a href="../articles/offcran/images.html">Render as image</a>
-</li>
-<li>
-  <a href="../articles/offcran/examples.html">Examples</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    More
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/offcran/images.html">As image</a>
+    </li>
+    <li>
+      <a href="../articles/offcran/as_flextable.html">as flextable</a>
+    </li>
+    <li>
+      <a href="../articles/offcran/examples.html">Examples</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -175,7 +187,8 @@ columns must be consecutive.</p>
     <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='no'>mtcars</span> ), <span class='kw'>cwidth</span> <span class='kw'>=</span> <span class='fl'>.5</span> )
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_box.html'>theme_box</a></span>( <span class='no'>ft</span> )
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>merge_h_range</span>( <span class='no'>ft</span>, <span class='kw'>i</span> <span class='kw'>=</span>  ~ <span class='no'>cyl</span> <span class='kw'>==</span> <span class='fl'>6</span>, <span class='kw'>j1</span> <span class='kw'>=</span> <span class='st'>"am"</span>, <span class='kw'>j2</span> <span class='kw'>=</span> <span class='st'>"carb"</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='align.html'>align</a></span>( <span class='no'>ft</span>, <span class='kw'>i</span> <span class='kw'>=</span>  ~ <span class='no'>cyl</span> <span class='kw'>==</span> <span class='fl'>6</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("align"): pas de méthode pour 'align' applicable pour un objet de classe "flextable"</span></div><div class='input'><span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>flextable</span><span class='kw ns'>::</span><span class='fu'><a href='align.html'>align</a></span>( <span class='no'>ft</span>, <span class='kw'>i</span> <span class='kw'>=</span>  ~ <span class='no'>cyl</span> <span class='kw'>==</span> <span class='fl'>6</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>)
+<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
 #&gt; header has 1 row(s) 
 #&gt; body has 6 row(s) 

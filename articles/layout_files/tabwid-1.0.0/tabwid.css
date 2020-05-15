@@ -48,3 +48,40 @@ margin: 0;
 }
 
 
+
+/* desable bookdown styles */
+
+
+.book .book-body .page-wrapper .page-inner section.normal .tabwid table td,.book .book-body .page-wrapper .page-inner section.normal table th {
+    padding: 0;
+}
+.book .book-body .page-wrapper .page-inner section.normal .tabwid table tr {
+    background-color: #fff;
+    border-top: 0px solid #ccc;
+}
+.book .book-body .page-wrapper .page-inner section.normal .tabwid table tr:nth-child(2n) {
+    background-color: initial;
+}
+.book .book-body .page-wrapper .page-inner section.normal .tabwid table {
+    display: table;
+    width: initial;
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow: initial;
+}
+
+
+/* disable xaringan styles */
+
+.remark-slide .tabwid thead, .remark-slide .tabwid tfoot, .remark-slide .tabwid tr:nth-child(even) {
+    background: initial;
+}
+.remark-slide .tabwid table {
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+.remark-slide-content .tabwid p{
+    font-size: inital;
+}
+
+

@@ -93,16 +93,28 @@ or &quot;btlr&quot; corresponding to a 270 degrees rotation." />
   <a href="../articles/layout.html">Layout</a>
 </li>
 <li>
-  <a href="../articles/format.html">Format visual properties</a>
+  <a href="../articles/format.html">Visual properties</a>
 </li>
 <li>
   <a href="../articles/display.html">Format Content</a>
 </li>
-<li>
-  <a href="../articles/offcran/images.html">Render as image</a>
-</li>
-<li>
-  <a href="../articles/offcran/examples.html">Examples</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    More
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/offcran/images.html">As image</a>
+    </li>
+    <li>
+      <a href="../articles/offcran/as_flextable.html">as flextable</a>
+    </li>
+    <li>
+      <a href="../articles/offcran/examples.html">Examples</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -215,7 +227,8 @@ of <a href='autofit.html'>autofit</a>.</p>
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>rotate</span>(<span class='no'>ft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>rotation</span><span class='kw'>=</span><span class='st'>"tbrl"</span>,<span class='kw'>part</span><span class='kw'>=</span><span class='st'>"header"</span>)
 
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valign.html'>valign</a></span>(<span class='no'>ft</span>, <span class='kw'>valign</span> <span class='kw'>=</span> <span class='st'>"center"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='align.html'>align</a></span>(<span class='no'>ft</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("align"): pas de méthode pour 'align' applicable pour un objet de classe "flextable"</span></div><div class='input'>
+<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>flextable</span><span class='kw ns'>::</span><span class='fu'><a href='align.html'>align</a></span>(<span class='no'>ft</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)
+
 <span class='co'># Manage header height</span>
 <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='height.html'>height</a></span>(<span class='no'>ft</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='no'>h_header</span> * <span class='fl'>1.1</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
 <span class='co'># ... mainly because Word don't handle auto height with rotated headers</span>
