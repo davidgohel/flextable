@@ -124,12 +124,14 @@ navbar:
     href: articles/format.html
   - text: Format Content
     href: articles/display.html
-  - text: As image
-    href: articles/offcran/images.html
-  - text: as flextable
-    href: articles/offcran/as_flextable.html
-  - text: Examples
-    href: articles/offcran/examples.html
+  - text: More
+    menu:
+    - text: As image
+      href: articles/offcran/images.html
+    - text: as flextable
+      href: articles/offcran/as_flextable.html
+    - text: Examples
+      href: articles/offcran/examples.html
   right:
   - text: Function reference
     href: reference/index.html

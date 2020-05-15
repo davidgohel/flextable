@@ -190,7 +190,7 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
 #' ft <- flextable( head( mtcars ), cwidth = .5 )
 #' ft <- theme_box( ft )
 #' ft <- merge_h_range( ft, i =  ~ cyl == 6, j1 = "am", j2 = "carb")
-#' ft <- align( ft, i =  ~ cyl == 6, align = "center")
+#' ft <- flextable::align( ft, i =  ~ cyl == 6, align = "center")
 #' ft
 #' @export
 #' @section Illustrations:

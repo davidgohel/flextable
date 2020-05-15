@@ -5,9 +5,10 @@ articles:
   display: display.html
   format: format.html
   layout: layout.html
+  as_flextable: offcran/as_flextable.html
   examples: offcran/examples.html
   images: offcran/images.html
   overview: overview.html
   selectors: selectors.html
-last_built: 2020-04-11T07:48Z
+last_built: 2020-05-15T09:30Z
 

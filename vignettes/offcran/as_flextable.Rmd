@@ -196,11 +196,7 @@ ft
 ```
 
 ```{r echo=FALSE}
-if( require("xtable") ){
-  if( any( xtab_l <- grepl(":xtable$", as.character(search()) ) ) )
-    detach(pos = which(xtab_l))
-}
-
+detach("package:xtable", unload = TRUE)
 ```
 
 ## Models and tests

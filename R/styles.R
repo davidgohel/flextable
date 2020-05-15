@@ -614,7 +614,7 @@ valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body" ){
 #' ft <- rotate(ft, j = 5, rotation="tbrl",part="header")
 #'
 #' ft <- valign(ft, valign = "center", part = "header")
-#' ft <- align(ft, align = "center", part = "all")
+#' ft <- flextable::align(ft, align = "center", part = "all")
 #'
 #' # Manage header height
 #' ft <- height(ft, height = h_header * 1.1, part = "header")

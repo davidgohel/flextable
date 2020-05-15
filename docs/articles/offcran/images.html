@@ -47,16 +47,28 @@
   <a href="../../articles/layout.html">Layout</a>
 </li>
 <li>
-  <a href="../../articles/format.html">Format visual properties</a>
+  <a href="../../articles/format.html">Visual properties</a>
 </li>
 <li>
   <a href="../../articles/display.html">Format Content</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    More
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="../../articles/offcran/images.html">Render as image</a>
-</li>
-<li>
-  <a href="../../articles/offcran/examples.html">Examples</a>
+      <a href="../../articles/offcran/images.html">As image</a>
+    </li>
+    <li>
+      <a href="../../articles/offcran/as_flextable.html">as flextable</a>
+    </li>
+    <li>
+      <a href="../../articles/offcran/examples.html">Examples</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -123,7 +135,7 @@
 <p>To get an image file from a <code>flextable</code> object, use function <code>save_as_image</code>.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">img_file</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>(<span class="kw">fileext</span> <span class="kw">=</span> <span class="st">".png"</span>)
 <span class="fu"><a href="../../reference/save_as_image.html">save_as_image</a></span>(<span class="no">ft</span>, <span class="kw">path</span> <span class="kw">=</span> <span class="no">img_file</span>)
-<span class="co">#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmp08zsCm/file10d8d1a6e3b17.png"</span></pre></body></html></div>
+<span class="co">#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpGVuvQ4/file4afa62c55647.png"</span></pre></body></html></div>
 </div>
 <div id="as-an-r-graphic" class="section level2">
 <h2 class="hasAnchor">

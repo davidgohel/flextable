@@ -103,6 +103,7 @@ if( require("xtable") ){
     NA.string = "-")
   ft_3
   }
+  detach("package:xtable", unload = TRUE)
 }
 }
 \seealso{

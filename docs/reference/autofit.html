@@ -40,7 +40,9 @@
 
 
 <meta property="og:title" content="Adjusts cell widths and heights — autofit" />
-<meta property="og:description" content="compute and apply optimized widths and heights.
+<meta property="og:description" content="compute and apply optimized widths and heights
+(minimum estimated widths and heights for each table columns and rows
+in inches returned by function dim_pretty()).
 This function is to be used when the table widths and heights
 should automatically be adjusted to fit the size of the content." />
 
@@ -90,16 +92,28 @@ should automatically be adjusted to fit the size of the content." />
   <a href="../articles/layout.html">Layout</a>
 </li>
 <li>
-  <a href="../articles/format.html">Format visual properties</a>
+  <a href="../articles/format.html">Visual properties</a>
 </li>
 <li>
   <a href="../articles/display.html">Format Content</a>
 </li>
-<li>
-  <a href="../articles/offcran/images.html">Render as image</a>
-</li>
-<li>
-  <a href="../articles/offcran/examples.html">Examples</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    More
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/offcran/images.html">As image</a>
+    </li>
+    <li>
+      <a href="../articles/offcran/as_flextable.html">as flextable</a>
+    </li>
+    <li>
+      <a href="../articles/offcran/examples.html">Examples</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -131,12 +145,14 @@ should automatically be adjusted to fit the size of the content." />
     </div>
 
     <div class="ref-description">
-    <p>compute and apply optimized widths and heights.
-This function is to be used when the table widths and heights
+    <p>compute and apply optimized widths and heights
+(minimum estimated widths and heights for each table columns and rows
+in inches returned by function <code><a href='dim_pretty.html'>dim_pretty()</a></code>).</p>
+<p>This function is to be used when the table widths and heights
 should automatically be adjusted to fit the size of the content.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>autofit</span>(<span class='no'>x</span>, <span class='kw'>add_w</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>add_h</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</pre>
+    <pre class="usage"><span class='fu'>autofit</span>(<span class='no'>x</span>, <span class='kw'>add_w</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>add_h</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"body"</span>, <span class='st'>"header"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,8 +169,22 @@ should automatically be adjusted to fit the size of the content.</p>
       <th>add_h</th>
       <td><p>extra height to add in inches</p></td>
     </tr>
+    <tr>
+      <th>part</th>
+      <td><p>partname of the table (one of 'all', 'body', 'header' or 'footer')</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>This function is not related to 'Microsoft Word' <em>Autofit</em> feature.</p>
+    <h2 class="hasAnchor" id="line-breaks"><a class="anchor" href="#line-breaks"></a>line breaks</h2>
+
+    
+
+<p>Soft returns (a line break in a paragraph) are not supported. Function
+<code>autofit</code> will return wrong results if <code>\n</code> are used (they will be
+considered as "").</p>
     <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
 
     
@@ -171,6 +201,7 @@ should automatically be adjusted to fit the size of the content.</p>
 <code><a href='flextable_dim.html'>flextable_dim</a>()</code>,
 <code><a href='height.html'>height</a>()</code>,
 <code><a href='hrule.html'>hrule</a>()</code>,
+<code><a href='set_table_properties.html'>set_table_properties</a>()</code>,
 <code><a href='width.html'>width</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

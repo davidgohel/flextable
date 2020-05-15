@@ -54,6 +54,7 @@
 #'     NA.string = "-")
 #'   ft_3
 #'   }
+#'   detach("package:xtable", unload = TRUE)
 #' }
 #' @export
 #' @section Illustrations:
