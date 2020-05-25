@@ -331,7 +331,7 @@ knit_print.flextable <- function(x, ...){
     }
 
   } else if (grepl( "pptx", opts_knit$get("rmarkdown.pandoc.to") ) ) {
-    if (pandoc_version() < 2.4) {
+    if (pandoc_version() < numeric_version("2.4")) {
       stop("pandoc version >= 2.4 required for printing flextable in pptx")
     }
 
