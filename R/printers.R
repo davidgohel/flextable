@@ -219,7 +219,7 @@ print.flextable <- function(x, preview = "html", ...){
 #' Position should be defined with options \code{ft.left}
 #' and \code{ft.top}. Theses are the top left coordinates
 #' of the placeholder that will contain the table. They
-#' default to \code{{r ft.left=1, ft.left=2}}.
+#' default to \code{{r ft.left=1, ft.top=2}}.
 #'
 #' @section PDF chunk options:
 #'
