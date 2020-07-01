@@ -19,6 +19,7 @@
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_set_formatter_1.png}{options: width=50\%}}
+#' @family cells formatters
 set_formatter <- function(x, ..., values = NULL, part = "body"){
 
 
@@ -53,6 +54,7 @@ set_formatter <- function(x, ..., values = NULL, part = "body"){
 #' format date and date time columns.
 #' @param false,true string to be used for logical columns
 #' @param na_str string for NA values
+#' @family cells formatters
 set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
                                fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
                                true = "true", false = "false",

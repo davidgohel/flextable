@@ -64,3 +64,19 @@ ft <- set_formatter( x = ft,
 ft <- theme_vanilla( ft )
 ft
 }
+\seealso{
+Other cells formatters: 
+\code{\link{colformat_char}()},
+\code{\link{colformat_int}()},
+\code{\link{colformat_lgl}()},
+\code{\link{colformat_num}()},
+\code{\link{compose}()}
+
+Other cells formatters: 
+\code{\link{colformat_char}()},
+\code{\link{colformat_int}()},
+\code{\link{colformat_lgl}()},
+\code{\link{colformat_num}()},
+\code{\link{compose}()}
+}
+\concept{cells formatters}

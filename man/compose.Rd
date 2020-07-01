@@ -49,6 +49,7 @@ Other cells formatters:
 \code{\link{colformat_char}()},
 \code{\link{colformat_int}()},
 \code{\link{colformat_lgl}()},
-\code{\link{colformat_num}()}
+\code{\link{colformat_num}()},
+\code{\link{set_formatter}()}
 }
 \concept{cells formatters}
