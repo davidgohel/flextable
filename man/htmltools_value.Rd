@@ -22,7 +22,7 @@ class 'tabwid_left' or 'tabwid_right' will be added to class.}
 \item{bookdown}{\code{TRUE} or \code{FALSE} (default) to support cross referencing with bookdown.}
 }
 \description{
-get a \code{\link[htmltools]{div}} from a flextable object.
+get a \code{\link[=div]{div()}} from a flextable object.
 This can be used in a shiny application.
 
 Argument \code{ft.align} can be specified also as knitr chunk options.

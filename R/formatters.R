@@ -105,7 +105,7 @@ colformat_char <- function(x, ...){
 #' @title format numeric cells
 #' @description Format numeric cells in a flextable.
 #' @inheritParams colformat_char
-#' @param big.mark,digits,decimal.mark see \code{\link[base]{formatC}}
+#' @param big.mark,digits,decimal.mark see [formatC()]
 #' @family cells formatters
 #' @examples
 #' dat <- iris
@@ -129,7 +129,7 @@ colformat_num <- function(x, ...){
 #' @title format integer cells
 #' @description Format integer cells in a flextable.
 #' @inheritParams colformat_char
-#' @param big.mark see \code{\link[base]{formatC}}
+#' @param big.mark see [formatC()]
 #' @family cells formatters
 #' @export
 #' @examples

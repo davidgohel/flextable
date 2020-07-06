@@ -17,7 +17,7 @@ flextable_html_dependency <- function(){
 #' @export
 #' @title flextable as a div object
 #'
-#' @description get a \code{\link[htmltools]{div}} from a flextable object.
+#' @description get a [div()] from a flextable object.
 #' This can be used in a shiny application.
 #'
 #' Argument `ft.align` can be specified also as knitr chunk options.

@@ -31,7 +31,7 @@ row selector.}
 \item{col_keys}{names of the colkeys. Will be deprectated in favor of j in the next
 version.}
 
-\item{big.mark, digits, decimal.mark}{see \code{\link[base]{formatC}}}
+\item{big.mark, digits, decimal.mark}{see \code{\link[=formatC]{formatC()}}}
 
 \item{na_str}{string to be used for NA values}
 
