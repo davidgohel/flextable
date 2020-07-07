@@ -358,30 +358,31 @@ knit_print.flextable <- function(x, ...){
 }
 
 #' @export
-#' @title save a flextable in an HTML file
+#' @title Save a Flextable in an HTML File
 #' @description save a flextable in an HTML file. This function
 #' is useful to save the flextable in HTML file without using
 #' R Markdown (it is highly recommanded to use R Markdown
 #' instead).
 #' @param x a flextable object
 #' @param path HTML file to be created
+#' @param encoding encoding to be used in the HTML file
 #' @examples
 #' ft <- flextable( head( mtcars ) )
 #' tf <- tempfile(fileext = ".html")
 #' save_as_html(ft, tf)
 #' @family flextable print function
-save_as_html <- function(x, path){
+save_as_html <- function(x, path, encoding = "utf-8"){
 
   if( !inherits(x, "flextable"))
     stop("x is not a flextable")
 
-  str <- paste('<!DOCTYPE htm><html><head>',
-  '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />',
+  str <- c('<!DOCTYPE htm><html><head>',
+  sprintf('<meta http-equiv="Content-Type" content="text/html; charset=%s"/>', encoding),
   '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>',
   '<title>', deparse(substitute(x)), '</title></head>',
   '<body>', html_str(x),
   '</body></html>')
-  cat(str, file = path)
+  writeLines(str, path, useBytes = TRUE)
   invisible(path)
 }
 

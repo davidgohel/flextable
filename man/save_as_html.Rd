@@ -2,14 +2,16 @@
 % Please edit documentation in R/printers.R
 \name{save_as_html}
 \alias{save_as_html}
-\title{save a flextable in an HTML file}
+\title{Save a Flextable in an HTML File}
 \usage{
-save_as_html(x, path)
+save_as_html(x, path, encoding = "utf-8")
 }
 \arguments{
 \item{x}{a flextable object}
 
 \item{path}{HTML file to be created}
+
+\item{encoding}{encoding to be used in the HTML file}
 }
 \description{
 save a flextable in an HTML file. This function

@@ -1,3 +1,9 @@
+# flextable 0.5.11
+
+## new features
+
+* save_as_html now accepts argument `encoding`
+
 # flextable 0.5.10
 
 ## new features
