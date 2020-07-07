@@ -104,8 +104,7 @@ get_columns_id <- function( x, j = NULL ){
   }
 
   if( is.numeric (j) ){
-
-    if( all(j < 0 ) ){
+    if( length(j)>0 && all(j < 0 ) ){
       j <- setdiff(seq_along(x$col_keys), -j )
     }
 
@@ -172,8 +171,7 @@ get_rows_id <- function( x, i = NULL ){
   }
 
   if( is.numeric (i) ){
-
-    if( all(i < 0 ) ){
+    if( length(i)>0 && all(i < 0 ) ){
       i <- setdiff(-i, seq_len(maxrow))
     }
 
