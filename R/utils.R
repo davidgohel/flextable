@@ -1,14 +1,10 @@
 
+#' @importFrom data.table rbindlist setDF
 rbind.match.columns <- function(list_df) {
-  col <- unique(unlist(sapply(list_df, names)))
-
-  list_df <- lapply(list_df, function(x, col) {
-    x[, setdiff(col, names(x))] <- NA
-    x
-  }, col = col)
-  list_df <- do.call(rbind, list_df)
-  row.names(list_df) <- NULL
-  list_df
+  df <- rbindlist(list_df, use.names = TRUE, fill = TRUE)
+  setDF(df)
+  row.names(df) <- NULL
+  df
 }
 
 
