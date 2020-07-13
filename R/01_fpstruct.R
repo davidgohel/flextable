@@ -814,6 +814,7 @@ run_data <- function(x, type){
   } else if( type %in% "html" ){
 
     text_nodes_str <-  gsub("\n", "<br>", htmlEscape(x$txt))
+    text_nodes_str <-  gsub("\t", "&emsp;", text_nodes_str)
 
     # manage text
     str <- character(nrow(x))
