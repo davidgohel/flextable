@@ -34,7 +34,7 @@ contain mixed type of content, text and images.
 
 
 
-![](https://www.ardata.fr/img/illustrations/html5.svg){ width=75px } ![](https://www.ardata.fr/img/illustrations/word.svg){ width=75px } ![](https://www.ardata.fr/img/illustrations/powerpoint.svg){ width=75px } ![](https://www.ardata.fr/img/illustrations/pdf.svg){ width=75px }
+![](../man/figures/fig_formats.png)
 
 
 

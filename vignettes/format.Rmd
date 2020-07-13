@@ -1,5 +1,5 @@
 ---
-title: "flextable formatting"
+title: "Format flextable objects"
 output: 
   rmarkdown::html_vignette:
     toc: true 

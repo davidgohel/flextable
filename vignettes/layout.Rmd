@@ -5,7 +5,7 @@ output:
     toc: true 
     toc_depth: 3
 vignette: >
-  %\VignetteIndexEntry{Table layout}
+  %\VignetteIndexEntry{flextable layout}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
