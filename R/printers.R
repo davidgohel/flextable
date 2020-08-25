@@ -380,7 +380,7 @@ save_as_html <- function(x, path, encoding = "utf-8"){
   sprintf('<meta http-equiv="Content-Type" content="text/html; charset=%s"/>', encoding),
   '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>',
   '<title>', deparse(substitute(x)), '</title></head>',
-  '<body>', html_str(x),
+  '<body style="background-color:transparent;">', html_str(x),
   '</body></html>')
   writeLines(str, path, useBytes = TRUE)
   invisible(path)
