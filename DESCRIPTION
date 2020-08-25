@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.5.11.008
+Version: 0.5.11.009
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -21,7 +21,7 @@ License: GPL-3
 LazyData: TRUE
 Imports:
     stats, utils, grDevices, graphics,
-    officer (>= 0.3.10),
+    officer (>= 0.3.13),
     rmarkdown, knitr, htmltools,
     xml2, data.table, uuid,
     gdtools (>= 0.1.6), rlang, 
@@ -40,3 +40,4 @@ Encoding: UTF-8
 URL: https://davidgohel.github.io/flextable
 BugReports: https://github.com/davidgohel/flextable/issues
 VignetteBuilder: knitr
+Remotes: davidgohel/officer

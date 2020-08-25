@@ -65,6 +65,7 @@ Other sugar functions for table style:
 \code{\link{fontsize}()},
 \code{\link{font}()},
 \code{\link{italic}()},
+\code{\link{line_spacing}()},
 \code{\link{rotate}()},
 \code{\link{valign}()}
 }

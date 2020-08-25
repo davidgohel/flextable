@@ -3,6 +3,8 @@
 ## new features
 
 * save_as_html now accepts argument `encoding`
+* line spacing (for Word and PowerPoint) or line height (for  HTML) can now be
+defined with function `line_spacing()` (or with function `style()`).
 
 ## Issues
 

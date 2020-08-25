@@ -427,6 +427,43 @@ align <- function(x, i = NULL, j = NULL, align = "left",
 }
 
 #' @export
+#' @title Set text alignment
+#' @description change text alignment of selected rows and columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @param space space between lines of text, 1 is single line spacing, 2 is double line spacing.
+#' @family sugar functions for table style
+#' @examples
+#' ft <- flextable(head(mtcars)[,3:6])
+#' ft <- line_spacing(ft, space = 1.6, part = "all")
+#' ft <- set_table_properties(ft, layout = "autofit")
+#' ft
+line_spacing <- function(x, i = NULL, j = NULL, space = 1, part = "body" ){
+
+  if( !inherits(x, "flextable") ) stop("align supports only flextable objects.")
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- line_spacing(x = x, i = i, j = j, space = space, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+  x[[part]]$styles$pars[i, j, "line_spacing"] <- space
+
+  x
+}
+
+#' @export
 #' @rdname align
 #' @param header should the header be aligned with the body
 #' @param footer should the footer be aligned with the body
