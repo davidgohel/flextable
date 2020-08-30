@@ -3,15 +3,13 @@ flextable R package
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Build
-Status](https://travis-ci.org/davidgohel/flextable.svg?branch=master)](https://travis-ci.org/davidgohel/flextable)
-[![Build
-status](https://ci.appveyor.com/api/projects/status/github/davidgohel/flextable?branch=master)](https://ci.appveyor.com/project/davidgohel/flextable/branch/master)
+[![R build
+status](https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/flextable/actions)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/flextable)](https://cran.r-project.org/package=flextable)
-![cranlogs](http://cranlogs.r-pkg.org./badges/flextable) [![Project
-Status: Active – The project has reached a stable, usable state and is
-being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+![cranlogs](http://cranlogs.r-pkg.org./badges/flextable) [![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Codecov test
+coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/flextable?branch=master)
 
 <p align="center">
 
