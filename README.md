@@ -8,15 +8,10 @@ status](https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/flextable)](https://cran.r-project.org/package=flextable)
 ![cranlogs](http://cranlogs.r-pkg.org./badges/flextable) [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Codecov test
-coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/flextable?branch=master)
+[![codecov test
+coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/flextable)
 
-<p align="center">
-
-<img width="15%" src="https://www.ardata.fr/img/hexbin/flextable.svg">
-
-</p>
-
+<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>.
 The flextable package provides a framework for easily create tables for
 reporting and publications. Tables can be embedded within:
 
