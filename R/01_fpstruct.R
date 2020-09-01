@@ -96,17 +96,6 @@ as.data.frame.text_struct <- function(object, ...){
   data$col_id <- factor(data$col_id, levels = object$color$keys)
   data
 }
-as_fp_text_list <- function(x, i, j){
-  props_split <- mapply(function(z, colname, i, j){
-    out <- as.vector(z$data[i, z$keys[j] , drop = FALSE])
-    as.list(out)
-  }, x, names(x), MoreArgs = list( i = i, j = j ), SIMPLIFY = FALSE)
-  props_split$FUN <- fp_text
-  props_split$SIMPLIFY <- FALSE
-  props_split$USE.NAMES <- TRUE
-  do.call(mapply, props_split)
-}
-
 
 
 # par_struct -----
