@@ -39,20 +39,12 @@ html_str.flextable <- function( x, bookdown = FALSE ){
   out <- sprintf("<table style='%s'>", tabcss)
   out <- paste0(out, caption)
 
-  if( nrow_part(x, "header") > 0 ){
-    tmp <- format(x$header, type = "html", header = TRUE, colwidth = fixed_layout)
-    out = paste0(out, "<thead>", tmp, "</thead>" )
-  }
-  if( nrow_part(x, "body") > 0 ){
-    tmp <- format(x$body, type = "html", header = FALSE, colwidth = fixed_layout)
-    out = paste0(out, "<tbody>", tmp, "</tbody>" )
-  }
-  if( nrow_part(x, "footer") > 0 ){
-    tmp <- format(x$footer, type = "html", header = FALSE, colwidth = fixed_layout)
-    out = paste0(out, "<tfoot>", tmp, "</tfoot>" )
-  }
+  codes <- html_chunks(x)
+
+  out <- paste0(out, codes$html)
 
   out = paste0(out,  "</table>" )
-  out
+
+  paste0("<style>", codes$css, "</style>", out)
 }
 
