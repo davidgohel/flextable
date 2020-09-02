@@ -33,6 +33,48 @@ fortify_style <- function(x, style_part = "pars"){
   setDF(dat)
   dat
 }
+
+fortify_span <- function(x){
+  rows <- list()
+  for(part in c("header", "body", "footer")){
+    if( nrow_part(x, part) > 0 ){
+      nr <- nrow(x[[part]]$spans$rows)
+      rows[[part]] <- data.frame(
+        col_id = rep(x$col_keys, each = nr),
+        row_id = rep(seq_len(nr), length(x$col_keys)),
+        rowspan = as.vector(x[[part]]$spans$rows),
+        colspan = as.vector(x[[part]]$spans$columns),
+        stringsAsFactors = FALSE
+      )
+    }
+  }
+  dat <- rbindlist(rows, use.names = TRUE, idcol = "part")
+  dat$part <- factor(dat$part, levels = c("header", "body", "footer"))
+  setDF(dat)
+  dat
+}
+fortify_par_style <- function(par, cell){
+  dat_par <- par
+  dat_cell <- cell
+  setDT(dat_par)
+  setDT(dat_cell)
+  dat_cell <- dat_cell[, c("part", "row_id", "col_id", "text.direction", "vertical.align")]
+  dat_par <- merge(dat_par, dat_cell, by = c("part", "row_id", "col_id"))
+  setDF(dat_par)
+  setDF(dat_cell)
+  dat_par
+}
+fortify_cell_style <- function(par, cell){
+  dat_par <- par
+  dat_cell <- cell
+  setDT(dat_par)
+  setDT(dat_cell)
+  dat_par <- dat_par[, c("part", "row_id", "col_id", "text.align")]
+  dat_cell <- merge(dat_cell, dat_par, by = c("part", "row_id", "col_id"))
+  setDF(dat_par)
+  setDF(dat_cell)
+  dat_cell
+}
 fortify_rows_styles <- function(x){
   dat <- list()
   if( nrow_part(x, "header") > 0 ){
@@ -58,9 +100,13 @@ fortify_rows_styles <- function(x){
 
 #' @importFrom data.table setDT
 #' @importFrom uuid UUIDgenerate
-part_style_list <- function(x, fun = NULL){
+part_style_list <- function(x, fun = NULL, more_args = list()){
+
   fp_columns <- intersect(names(formals(fun)), colnames(x))
   dat <- x[fp_columns]
+  if(length(more_args)>0){
+    dat[names(more_args)] <- more_args
+  }
   setDT(dat)
   uid <- unique(dat)
   classname <- UUIDgenerate(n = nrow(uid), use.time = TRUE)
@@ -69,10 +115,49 @@ part_style_list <- function(x, fun = NULL){
   setDF(uid)
   uid
 }
-cell_style_list <- function(x, fun = NULL){
+par_style_list <- function(x){
+
+  fp_columns <- intersect(names(formals(officer::fp_par)), colnames(x))
+  dat <- x[c(fp_columns, "text.direction", "vertical.align",
+             grep("^border\\.", colnames(x), value = TRUE))]
+  setDT(dat)
+  uid <- unique(dat)
+  classname <- UUIDgenerate(n = nrow(uid), use.time = TRUE)
+  classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
+  uid$classname <- classname
+
+  border.bottom <- mapply(fp_border, color = uid$border.color.bottom,
+                          style = uid$border.style.bottom,
+                          width = uid$border.width.bottom,
+                          SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  border.left <- mapply(fp_border, color = uid$border.color.left,
+                        style = uid$border.style.left,
+                        width = uid$border.width.left,
+                        SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  border.top <- mapply(fp_border, color = uid$border.color.top,
+                       style = uid$border.style.top,
+                       width = uid$border.width.top,
+                       SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  border.right <- mapply(fp_border, color = uid$border.color.right,
+                         style = uid$border.style.right,
+                         width = uid$border.width.right,
+                         SIMPLIFY = FALSE, USE.NAMES = FALSE)
+
+  # uid[, grep("^border\\.", colnames(x), value = TRUE) := NULL]
+  uid$border.bottom <- border.bottom
+  uid$border.left <- border.left
+  uid$border.top <- border.top
+  uid$border.right <- border.right
+
+  setDF(uid)
+
+  uid
+}
+
+cell_style_list <- function(x){
 
   fp_columns <- intersect(names(formals(officer::fp_cell)), colnames(x))
-  dat <- x[c(fp_columns, grep("^border\\.", colnames(x), value = TRUE))]
+  dat <- x[c(fp_columns, "text.align", grep("^border\\.", colnames(x), value = TRUE))]
   setDT(dat)
   uid <- unique(dat)
   classname <- UUIDgenerate(n = nrow(uid), use.time = TRUE)
@@ -153,23 +238,23 @@ text_css_styles <- function(x){
   paste0(".", x$classname, "{", style_column, "}", collapse = "")
 }
 
-par_css_styles <- function(x, text.direction, valign){
+par_css_styles <- function(x){
   shading <- ifelse( colalpha(x$shading.color) > 0,
                      sprintf("background-color:%s;", colcodecss(x$shading.color) ),
                      "background-color:transparent;")
 
-  textdir <- ifelse(text.direction %in% "tbrl", "writing-mode:vertical-rl;",
-                    ifelse(text.direction %in% "btlr", "writing-mode:vertical-lr;transform: rotate(180deg);", "")
+  textdir <- ifelse(x$text.direction %in% "tbrl", "writing-mode:vertical-rl;",
+                    ifelse(x$text.direction %in% "btlr", "writing-mode:vertical-lr;transform: rotate(180deg);", "")
   )
   textalign <- sprintf("text-align:%s;", x$text.align )
-  textalign_margins <- rep("", length(text.direction))
+  textalign_margins <- rep("", nrow(x))
 
-  textalign_margins[text.direction %in% "tbrl" & valign %in% "center"] <- "margin-left:auto;margin-right:auto;"
-  textalign_margins[text.direction %in% "tbrl" & valign %in% "top"] <- "margin-left:auto;"
-  textalign_margins[text.direction %in% "tbrl" & valign %in% "bottom"] <- "margin-right:auto;"
-  textalign_margins[text.direction %in% "btlr" & valign %in% "center"] <- "margin-left:auto;margin-right:auto;"
-  textalign_margins[text.direction %in% "btlr" & valign %in% "top"] <- "margin-right:auto;"
-  textalign_margins[text.direction %in% "btlr" & valign %in% "bottom"] <- "margin-left:auto;"
+  textalign_margins[x$text.direction %in% "tbrl" & x$vertical.align %in% "center"] <- "margin-left:auto;margin-right:auto;"
+  textalign_margins[x$text.direction %in% "tbrl" & x$vertical.align %in% "top"] <- "margin-left:auto;"
+  textalign_margins[x$text.direction %in% "tbrl" & x$vertical.align %in% "bottom"] <- "margin-right:auto;"
+  textalign_margins[x$text.direction %in% "btlr" & x$vertical.align %in% "center"] <- "margin-left:auto;margin-right:auto;"
+  textalign_margins[x$text.direction %in% "btlr" & x$vertical.align %in% "top"] <- "margin-right:auto;"
+  textalign_margins[x$text.direction %in% "btlr" & x$vertical.align %in% "bottom"] <- "margin-left:auto;"
   textalign <- paste0(textalign, textalign_margins)
 
   bb <- border_css(
@@ -198,7 +283,7 @@ par_css_styles <- function(x, text.direction, valign){
   paste0(".", x$classname, "{", style_column, "}", collapse = "")
 }
 
-cell_css_styles <- function(x, text.align){
+cell_css_styles <- function(x){
 
   background.color <- ifelse( colalpha(x$background.color) > 0,
                               sprintf("background-clip: padding-box;background-color:%s;", colcodecss(x$background.color) ),
@@ -210,9 +295,9 @@ cell_css_styles <- function(x, text.align){
   vertical.align <- ifelse(
     x$vertical.align %in% "center", "vertical-align: middle;",
     ifelse(x$vertical.align %in% "top", "vertical-align: top;", "vertical-align: bottom;") )
-  vertical.align[x$text.direction %in% "tbrl" & text.align %in% "center"] <- "vertical-align:middle;"
-  vertical.align[x$text.direction %in% "tbrl" & text.align %in% "left"] <- "vertical-align:top;"
-  vertical.align[x$text.direction %in% "tbrl" & text.align %in% "right"] <- "vertical-align:bottom;"
+  vertical.align[x$text.direction %in% "tbrl" & x$text.align %in% "center"] <- "vertical-align:middle;"
+  vertical.align[x$text.direction %in% "tbrl" & x$text.align %in% "left"] <- "vertical-align:top;"
+  vertical.align[x$text.direction %in% "tbrl" & x$text.align %in% "right"] <- "vertical-align:bottom;"
 
   bb <- border_css(
     color = x$border.color.bottom, width = x$border.width.bottom,
@@ -240,30 +325,48 @@ cell_css_styles <- function(x, text.align){
 #' @importFrom data.table setnames setorderv := setcolorder setDT setDF dcast
 html_chunks <- function(x){
 
+  par_data_f <- fortify_style(x, "pars")
+  cell_data_f <- fortify_style(x, "cells")
   txt_data <- as_table_text(x)
+  par_data <- fortify_par_style(par_data_f, cell_data_f)
+  cell_data <- fortify_cell_style(par_data_f, cell_data_f)
+
+  span_data <- fortify_span(x)
+
   data_ref_text <- part_style_list(txt_data, fun = officer::fp_text)
+  data_ref_pars <- par_style_list(par_data)
+  data_ref_cells <- cell_style_list(cell_data)
+
   setDT(txt_data)
   setDT(data_ref_text)
+  setDT(par_data)
+  setDT(data_ref_pars)
+  setDT(cell_data)
+  setDT(data_ref_cells)
+
   by_columns <- intersect(colnames(data_ref_text), colnames(txt_data))
   txt_data <- merge(txt_data, data_ref_text, by = by_columns)
   txt_data$txt <- sprintf("<span class=\"%s\">%s</span>", txt_data$classname, htmlize(txt_data$txt))
   txt_data <- txt_data[, list(span_tag = paste0(get("txt"), collapse = "")), by = c("part", "row_id", "col_id")]
 
-  par_data <- fortify_style(x, "pars")
-  data_ref_pars <- part_style_list(par_data, fun = officer::fp_par)
-  setDT(par_data)
-  setDT(data_ref_pars)
   by_columns <- intersect(colnames(par_data), colnames(data_ref_pars))
   par_data <- merge(par_data, data_ref_pars, by = by_columns)
   par_data <- par_data[, list(p_tag = paste0("<p class=\"", get("classname"), "\">")), by = c("part", "row_id", "col_id")]
 
-  cell_data <- fortify_style(x, "cells")
-  data_ref_cells <- cell_style_list(cell_data)
-  setDT(cell_data)
-  setDT(data_ref_cells)
   by_columns <- intersect(colnames(cell_data), colnames(data_ref_cells))
   cell_data <- merge(cell_data, data_ref_cells, by = by_columns)
-  cell_data <- cell_data[, list(td_tag = paste0("<td class=\"", get("classname"), "\">")), by = c("part", "row_id", "col_id")]
+  cell_data <- merge(cell_data, span_data, by = c("part", "row_id", "col_id"))
+
+  cell_data <- cell_data[, list(
+    td_tag = paste0("<td ",
+                    paste0(
+                      ifelse(get("rowspan") > 1, paste0(" colspan=\"", get("rowspan"),"\""), ""),
+                      ifelse(get("colspan") > 1, paste0(" rowspan=\"", get("colspan"),"\""), "")
+                    ),
+                    "class=\"", get("classname"), "\">")
+    ),
+    by = c("part", "row_id", "col_id")]
+
 
   dat <- merge(txt_data, par_data , by = c("part", "row_id", "col_id"))
   dat$p_tag <- paste0(dat$p_tag, dat$span_tag, "</p>")
@@ -274,7 +377,9 @@ html_chunks <- function(x){
   rows_data$tr_tag <- ifelse(rows_data$hrule %in% "exact", "<tr>", "<tr style=\"overflow-wrap:break-word;\">")
   rows_data <- rows_data[c("part", "row_id",  "tr_tag")]
 
-
+  dat <- merge(dat, span_data, by = c("part", "row_id", "col_id"))
+  dat$col_id <- factor(dat$col_id, levels = x$col_keys)
+  dat$td_tag[dat$rowspan < 1 | dat$colspan < 1] <- ""
 
   z <- dcast(dat, part + row_id ~ col_id, drop=TRUE, fill="", value.var = "td_tag", fun.aggregate = I)
   z <- merge(z, rows_data, by = c("part", "row_id"))
@@ -282,7 +387,6 @@ html_chunks <- function(x){
   z$tr_end <- "</tr>"
 
   parts <- z$part
-
   header_start <- head(which(parts %in% "header"), n = 1)
   header_end <- tail(which(parts %in% "header"), n = 1)
   body_start <- head(which(parts %in% "body"), n = 1)
@@ -298,12 +402,12 @@ html_chunks <- function(x){
 
   z[, c("part", "row_id") := NULL]
 
-  z <- apply(as.matrix(z), 1, paste0, collapse = "")
-  html <- paste0(z, collapse = "")
+  html <- apply(as.matrix(z), 1, paste0, collapse = "")
+  html <- paste0(html, collapse = "")
 
   span_style_str <- text_css_styles(data_ref_text)
-  par_style_str <- par_css_styles(data_ref_pars, data_ref_cells$text.direction, data_ref_cells$vertical.align)
-  cell_style_str <- cell_css_styles(data_ref_cells, data_ref_pars$text.align)
+  par_style_str <- par_css_styles(data_ref_pars)
+  cell_style_str <- cell_css_styles(data_ref_cells)
 
   list(
     html = html,
