@@ -58,6 +58,7 @@ test_that("pptx - string are html encoded", {
 test_that("html - string are html encoded", {
 
   str_ <- flextable:::html_str.flextable(ft1)
+  str_ <- gsub("<style>(.*)</style>", "", str_)
   doc <- read_xml(str_)
   text_ <- xml_text(xml_find_first(doc, "//tbody/tr/td/p/span"))
   expect_equal(text_, c("1 < 3") )
@@ -69,6 +70,7 @@ test_that("NA managment", {
   ft1 <- flextable(x)
 
   str_ <- flextable:::html_str.flextable(ft1)
+  str_ <- gsub("<style>(.*)</style>", "", str_)
   doc <- read_xml(str_)
   text_ <- xml_text(xml_find_all(doc, "tbody/tr/td/p"))
   expect_equal(text_, c("a", "") )
