@@ -50,7 +50,7 @@ jobs:
       - name: install gdtools dep
         if: matrix.config.os == 'macOS-latest'
         run: |
-           brew install cairo freetype2
+           brew install cairo freetype2 imagemagick ghostscript
 
       - name: Query dependencies
         run: |
