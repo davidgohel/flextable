@@ -47,6 +47,11 @@ jobs:
            sudo hdiutil detach /Volumes/XQuartz-${XQUARTZ_VERSION}
            rm /tmp/XQuartz.dmg
 
+      - name: install gdtools dep
+        if: matrix.config.os == 'macOS-latest'
+        run: |
+           brew install cairo freetype2
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
