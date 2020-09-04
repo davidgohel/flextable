@@ -459,11 +459,11 @@ html_chunks <- function(x){
   })
 
   # manage raster
-  txt_data[is_raster==TRUE, txt := img_as_html(img_data = .SD$img_data, width = .SD$width, height = .SD$height)]
+  txt_data[is_raster==TRUE, c("txt") := list(img_as_html(img_data = .SD$img_data, width = .SD$width, height = .SD$height))]
   # manage txt
-  txt_data[is_raster==FALSE, txt := sprintf("<span class=\"%s\">%s</span>", .SD$classname, htmlize(.SD$txt))]
+  txt_data[is_raster==FALSE, c("txt") := list(sprintf("<span class=\"%s\">%s</span>", .SD$classname, htmlize(.SD$txt)))]
   # manage hlinks
-  txt_data[is_hlink==TRUE, txt := paste0("<a href=\"", .SD$url, "\">", .SD$txt, "</a>")]
+  txt_data[is_hlink==TRUE, c("txt") := list(paste0("<a href=\"", .SD$url, "\">", .SD$txt, "</a>"))]
   txt_data <- txt_data[, list(span_tag = paste0(get("txt"), collapse = "")), by = c("part", "row_id", "col_id")]
 
   by_columns <- intersect(colnames(par_data), colnames(data_ref_pars))
@@ -483,7 +483,6 @@ html_chunks <- function(x){
                     "class=\"", get("classname"), "\">")
     ),
     by = c("part", "row_id", "col_id")]
-
 
   dat <- merge(txt_data, par_data , by = c("part", "row_id", "col_id"))
   dat$p_tag <- paste0(dat$p_tag, dat$span_tag, "</p>")
