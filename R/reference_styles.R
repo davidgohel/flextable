@@ -34,6 +34,59 @@ fortify_style <- function(x, style_part = "pars"){
   dat
 }
 
+fortify_width <- function(x){
+  dat <- list()
+  for(part in c("header", "body", "footer")){
+    nr <- nrow_part(x, part)
+    if( nr > 0 ){
+      dat[[part]] <- data.frame(
+        col_id = x$col_keys,
+        width = x[[part]]$colwidths,
+        stringsAsFactors = FALSE
+      )
+    }
+  }
+
+  dat[[1]]
+}
+fortify_height <- function(x){
+  rows <- list()
+  for(part in c("header", "body", "footer")){
+    nr <- nrow_part(x, part)
+    if( nr > 0 ){
+      rows[[part]] <- data.frame(
+        row_id = seq_len(nr),
+        height = x[[part]]$rowheights,
+        stringsAsFactors = FALSE
+      )
+    }
+  }
+
+  dat <- rbindlist(rows, use.names = TRUE, idcol = "part")
+  dat$part <- factor(dat$part, levels = c("header", "body", "footer"))
+  setDF(dat)
+  dat
+}
+
+fortify_hrule <- function(x){
+  rows <- list()
+  for(part in c("header", "body", "footer")){
+    nr <- nrow_part(x, part)
+    if( nr > 0 ){
+      rows[[part]] <- data.frame(
+        row_id = seq_len(nr),
+        hrule = x[[part]]$hrule,
+        stringsAsFactors = FALSE
+      )
+    }
+  }
+
+  dat <- rbindlist(rows, use.names = TRUE, idcol = "part")
+  dat$part <- factor(dat$part, levels = c("header", "body", "footer"))
+  setDF(dat)
+  dat
+}
+
 fortify_span <- function(x){
   rows <- list()
   for(part in c("header", "body", "footer")){
@@ -157,8 +210,10 @@ par_style_list <- function(x){
 cell_style_list <- function(x){
 
   fp_columns <- intersect(names(formals(officer::fp_cell)), colnames(x))
-  dat <- x[c(fp_columns, "text.align", grep("^border\\.", colnames(x), value = TRUE))]
+
+  dat <- x[c(fp_columns, "text.align", "width", "height", "hrule", grep("^border\\.", colnames(x), value = TRUE))]
   setDT(dat)
+
   uid <- unique(dat)
   classname <- UUIDgenerate(n = nrow(uid), use.time = TRUE)
   classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
@@ -192,13 +247,51 @@ cell_style_list <- function(x){
   uid
 }
 
-# html output ----
+
+
+
+# html chunks ----
 htmlize <- function(x){
   x <-  gsub("\n", "<br>", htmlEscape(x))
   x <-  gsub("\t", "&emsp;", x)
   x
 }
 
+img_as_html <- function(img_data, width, height){
+  str_raster <- mapply(function(img_raster, width, height ){
+    if(inherits(img_raster, "raster")){
+      img_raster <- paste("data:image/png;base64,", gdtools::raster_str(img_raster, width*72, height*72))
+    } else if(is.character(img_raster)){
+
+      if( grepl("\\.png", ignore.case = TRUE, x = img_raster) ){
+        mime <- "image/png"
+      } else if( grepl("\\.gif", ignore.case = TRUE, x = img_raster) ){
+        mime <- "image/gif"
+      } else if( grepl("\\.jpg", ignore.case = TRUE, x = img_raster) ){
+        mime <- "image/jpeg"
+      } else if( grepl("\\.jpeg", ignore.case = TRUE, x = img_raster) ){
+        mime <- "image/jpeg"
+      } else if( grepl("\\.svg", ignore.case = TRUE, x = img_raster) ){
+        mime <- "image/svg+xml"
+      } else if( grepl("\\.tiff", ignore.case = TRUE, x = img_raster) ){
+        mime <- "image/tiff"
+      } else if( grepl("\\.webp", ignore.case = TRUE, x = img_raster) ){
+        mime <- "image/webp"
+      } else {
+        stop("this format is not implemented")
+      }
+      img_raster <- base64enc::dataURI(file = img_raster, mime = mime )
+
+    } else  {
+      stop("unknown image format")
+    }
+    sprintf("<img style=\"vertical-align:middle;width:%.0fpx;height:%.0fpx;\" src=\"%s\" />", width*72, height*72, img_raster)
+  }, img_data, width, height, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  str_raster <- as.character(unlist(str_raster))
+  str_raster
+}
+
+# css ----
 text_css_styles <- function(x){
 
   shading <- ifelse(
@@ -290,7 +383,7 @@ cell_css_styles <- function(x){
                               "background-color:transparent;")
 
   width <- ifelse( is.na(x$width), "", sprintf("width:%s;", css_px(x$width * 72) ) )
-  height <- ifelse( is.na(x$height) | x$hrule %in% "exact", sprintf("height:%s;", css_px(x$height * 72 ) ), "" )
+  height <- ifelse( !is.na(x$height) & x$hrule %in% c("exact", "atleast"), sprintf("height:%s;", css_px(x$height * 72 ) ), "" )
 
   vertical.align <- ifelse(
     x$vertical.align %in% "center", "vertical-align: middle;",
@@ -322,15 +415,27 @@ cell_css_styles <- function(x){
   paste0(".", x$classname, "{", style_column, "}", collapse = "")
 }
 
+
 #' @importFrom data.table setnames setorderv := setcolorder setDT setDF dcast
 html_chunks <- function(x){
 
+  cell_heights <- fortify_height(x)
+  cell_widths <- fortify_width(x)
+  cell_hrule <- fortify_hrule(x)
   par_data_f <- fortify_style(x, "pars")
   cell_data_f <- fortify_style(x, "cells")
-  txt_data <- as_table_text(x)
-  par_data <- fortify_par_style(par_data_f, cell_data_f)
-  cell_data <- fortify_cell_style(par_data_f, cell_data_f)
 
+  txt_data <- as_table_text(x)
+
+  par_data <- fortify_par_style(par_data_f, cell_data_f)
+
+  cell_data <- fortify_cell_style(par_data_f, cell_data_f)
+  cell_data$width  <- NULL# need to get rid of originals that are empty, should probably rm them
+  cell_data$height  <- NULL
+  cell_data$hrule  <- NULL
+  cell_data <- merge(cell_data, cell_widths, by = "col_id")
+  cell_data <- merge(cell_data, cell_heights, by = c("part", "row_id"))
+  cell_data <- merge(cell_data, cell_hrule, by = c("part", "row_id"))
   span_data <- fortify_span(x)
 
   data_ref_text <- part_style_list(txt_data, fun = officer::fp_text)
@@ -346,7 +451,19 @@ html_chunks <- function(x){
 
   by_columns <- intersect(colnames(data_ref_text), colnames(txt_data))
   txt_data <- merge(txt_data, data_ref_text, by = by_columns)
-  txt_data$txt <- sprintf("<span class=\"%s\">%s</span>", txt_data$classname, htmlize(txt_data$txt))
+  setorderv(txt_data, c("row_id", "col_id", "seq_index"))
+
+  is_hlink <- !is.na(txt_data$url)
+  is_raster <- sapply(txt_data$img_data, function(x) {
+    inherits(x, "raster") || is.character(x)
+  })
+
+  # manage raster
+  txt_data[is_raster==TRUE, txt := img_as_html(img_data = .SD$img_data, width = .SD$width, height = .SD$height)]
+  # manage txt
+  txt_data[is_raster==FALSE, txt := sprintf("<span class=\"%s\">%s</span>", .SD$classname, htmlize(.SD$txt))]
+  # manage hlinks
+  txt_data[is_hlink==TRUE, txt := paste0("<a href=\"", .SD$url, "\">", .SD$txt, "</a>")]
   txt_data <- txt_data[, list(span_tag = paste0(get("txt"), collapse = "")), by = c("part", "row_id", "col_id")]
 
   by_columns <- intersect(colnames(par_data), colnames(data_ref_pars))
