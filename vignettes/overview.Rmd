@@ -171,7 +171,7 @@ can contain several chunks of text with different formatting
 but also images. 
 
 * The dimensions of the flextable elements, widths of columns and 
-heights of rows, are always defined. Beeing able to define the exact 
+heights of rows, are always defined. Being able to define the exact 
 size necessary to **display data on a single line** is a choice made 
 to make sure HTML, pptx, docx, images have all the same rendering, for 
 that exact widths and heights were needed. In most of cases, you should 
@@ -180,8 +180,8 @@ See functions `autofit()` and `dim_pretty()`.
 
 * Columns to display (`col_keys`) are by default all columns 
 of the data.frame but can be choosen from a subset of existing 
-columns and also unexisting columns. Unexisting columns are 
-containing blanks by default but this content can be customized.
+columns and also non-existent columns. Non-existent columns 
+contain blanks by default but this content can be customized.
 
 ## Flextable rendering
 
@@ -252,8 +252,8 @@ rows along pages when the table need more than a page.
 This note is only relevant when using flextable in an R Markdown document with Word output.
 
 In some context, `officedown::rdocx_document()` will have to be used instead 
-of `rmarkdown::word_document()`. This is because Word don't store hyperlinks or images 
-in the main document but store *references*. This is not managed by rmarkdown unless 
+of `rmarkdown::word_document()`. This is because Word doesn't store hyperlinks or images 
+in the main document but stores *references*. This is not managed by rmarkdown unless 
 `officedown::rdocx_document()` is used. 
 
 If you don't add images or hyperlinks in a flextable rendered by `officedown::rdocx_document()` then
@@ -324,5 +324,4 @@ img_file <- tempfile(fileext = ".png")
 save_as_image(ft, path = img_file)
 ```
 
-flextable objects can also be ploted, see [Render as image](https://davidgohel.github.io/flextable/articles/offcran/images.html) for more details.
-
+flextable objects can also be plotted, see [Render as image](https://davidgohel.github.io/flextable/articles/offcran/images.html) for more details.
