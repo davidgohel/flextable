@@ -5,11 +5,12 @@ flextable R package
 
 [![R build
 status](https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/flextable/actions)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/flextable)](https://cran.r-project.org/package=flextable)
-![cranlogs](http://cranlogs.r-pkg.org./badges/flextable) [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![codecov test
+[![version](https://www.r-pkg.org/badges/version/flextable)](https://CRAN.R-project.org/package=flextable)
+![cranlogs](https://cranlogs.r-pkg.org/badges/flextable) [![codecov test
 coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/flextable)
+![Active](https://www.repostatus.org/badges/latest/active.svg)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 <a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>.
 The flextable package provides a framework for easily create tables for
