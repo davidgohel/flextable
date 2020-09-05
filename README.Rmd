@@ -8,11 +8,11 @@ output:
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 [![R build status](https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/flextable/actions)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/flextable)](https://cran.r-project.org/package=flextable)
-![cranlogs](http://cranlogs.r-pkg.org./badges/flextable)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![version](https://www.r-pkg.org/badges/version/flextable)](https://CRAN.R-project.org/package=flextable)
+![cranlogs](https://cranlogs.r-pkg.org/badges/flextable)
 [![codecov test coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/flextable)
-
+![Active](https://www.repostatus.org/badges/latest/active.svg)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
