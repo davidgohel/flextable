@@ -1,5 +1,9 @@
 # flextable 0.5.11
 
+## Changes
+
+* HTML code is now minimized as CSS styles are now used instead of inline CSS.
+
 ## new features
 
 * save_as_html now accepts argument `encoding`

@@ -207,6 +207,51 @@ data.frame(rowname = row.names(cor_matrix), stringsAsFactors = FALSE) %>%
   
 ```
 
+## Count table
+
+```{r}
+library(data.table)
+library(scales)
+library(flextable)
+
+Cancer <- fread("http://users.stat.ufl.edu/~aa/cat/data/Cancer.dat")
+cancerCountWide <- dcast(Cancer, formula = time ~ histology + stage,
+      fill = 0, value.var = "count", fun.aggregate = sum)
+cancerCountWide
+
+my_header <- data.frame(
+  col_keys = c("time", "blank1", "1_1", "2_1", "3_1", 
+               "blank2", "1_2", "2_2", "3_2", 
+               "blank3", "1_3", "2_3","3_3", "label"),
+  line2 = c("Follow-up", "", rep("I", 3), "", rep("II", 3), "", rep("III", 3), ""),
+  line3 = c("Follow-up", rep(c("", "1", "2", "3"), 3), "")
+)
+my_header
+
+colourer <- col_numeric(
+  palette = c("transparent", "red"),
+  domain = c(0, max(Cancer$count)+1))
+
+flextable(cancerCountWide, col_keys = my_header$col_keys) %>% 
+  set_header_df(mapping = my_header, key = "col_keys") %>% 
+  theme_booktabs() %>% empty_blanks() %>% 
+  flextable::compose(part = "header", j = "label", 
+    value = as_paragraph(c("Histology", "Disease Stage"))) %>% 
+  merge_v(part = "header", j = 1) %>% merge_h(part = "header", i = 1) %>% 
+  align(align = "center", part = "all") %>% 
+  align(align = "left", part = "header", j = "label") %>% 
+  italic(part = "header", j = "label", italic = TRUE) %>% 
+  bold(part = "header", bold = TRUE) %>% 
+  bold(part = "body", bold = TRUE, j = 1) %>% 
+  bg(
+    bg = colourer, 
+    j = c("1_1", "2_1", "3_1", "1_2", "2_2", 
+          "3_2", "1_3", "2_3","3_3"), 
+    part = "body") %>% 
+  autofit() %>% 
+  fix_border_issues()
+```
+
 
 ## Using within shiny applications
 

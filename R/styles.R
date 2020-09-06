@@ -553,15 +553,15 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j ){
   if( nrow_part(x, part) < 1 )
     return(x)
 
-  check_formula_i_and_part(i, part)
-  i <- get_rows_id(x[[part]], i )
-  j <- get_columns_id(x[[part]], j )
-
   if(is.function(bg)){
     source <- get_dataset_columns_id(x[[part]], source )
     lbg <- lapply(x[[part]]$dataset[source], bg)
     bg <- matrix( unlist( lbg ), ncol = length(lbg) )
   }
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
 
   x[[part]]$styles$cells[i, j, "background.color"] <- bg
 
