@@ -190,6 +190,31 @@ ft
 </div>
 
 
+### Line spacing
+
+Line scaping can be defined with function `line_spacing()`.
+
+<div class="row">
+
+<div class="col-12 col-sm-8 col-md-6">
+
+```{r}
+ft <- flextable(head(mtcars))
+line_spacing(ft, space = 1)
+```
+
+</div>
+
+<div class="col-12 col-sm-8 col-md-6">
+
+```{r echo=FALSE}
+line_spacing(ft, space = 1.5)
+```
+
+</div>
+
+</div>
+
 ## Borders
 
 *Borders properties can be defined with function `border()` but the function 
