@@ -8,6 +8,13 @@
 
 <title>save flextable objects in an Word file — save_as_docx • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="save flextable objects in an Word file — save_as_docx" />
 <meta property="og:description" content="sugar function to save flextable objects in an Word file." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -72,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -144,7 +152,7 @@
     <p>sugar function to save flextable objects in an Word file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>save_as_docx</span>(<span class='no'>...</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>path</span>)</pre>
+    <pre class="usage"><span class='fu'>save_as_docx</span>(<span class='kw'>...</span>, values = <span class='kw'>NULL</span>, <span class='kw'>path</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,14 +187,15 @@ used as titles. If provided, argument <code>...</code> will be ignored.</p></td>
 <code><a href='save_as_pptx.html'>save_as_pptx</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='no'>iris</span> ) )
-<span class='no'>tf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>)
-<span class='fu'>save_as_docx</span>(<span class='no'>ft1</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>tf</span>)
+    <pre class="examples"><div class='input'><span class='kw'>ft1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='kw'>iris</span> ) )
+<span class='kw'>tf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(fileext = <span class='st'>".docx"</span>)
+<span class='fu'>save_as_docx</span>(<span class='kw'>ft1</span>, path = <span class='kw'>tf</span>)
 
 
-<span class='no'>ft2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='no'>mtcars</span> ) )
-<span class='no'>tf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>)
-<span class='fu'>save_as_docx</span>(<span class='kw'>`iris table`</span> <span class='kw'>=</span> <span class='no'>ft1</span>, <span class='kw'>`mtcars table`</span> <span class='kw'>=</span> <span class='no'>ft2</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>tf</span>)</div></pre>
+<span class='kw'>ft2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='kw'>mtcars</span> ) )
+<span class='kw'>tf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(fileext = <span class='st'>".docx"</span>)
+<span class='fu'>save_as_docx</span>(`iris table` = <span class='kw'>ft1</span>, `mtcars table` = <span class='kw'>ft2</span>, path = <span class='kw'>tf</span>)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -199,11 +208,11 @@ used as titles. If provided, argument <code>...</code> will be ignored.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

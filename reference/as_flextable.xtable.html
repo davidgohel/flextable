@@ -8,6 +8,13 @@
 
 <title>get a flextable from a xtable object — as_flextable.xtable • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -43,6 +50,7 @@
 <meta property="og:description" content="Get a flextable object from
 a xtable object.
 xtable_to_flextable will be deprecated in favor of as_flextable.xtable." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -74,7 +82,7 @@ xtable_to_flextable will be deprecated in favor of as_flextable.xtable." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -150,27 +158,27 @@ a <code>xtable</code> object.</p>
 
     <pre class="usage"><span class='co'># S3 method for xtable</span>
 <span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(
-  <span class='no'>x</span>,
-  <span class='kw'>text.properties</span> <span class='kw'>=</span> <span class='kw pkg'>officer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/officer/man/fp_text.html'>fp_text</a></span>(),
-  <span class='kw'>format.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.format.args"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>rowname_col</span> <span class='kw'>=</span> <span class='st'>"rowname"</span>,
-  <span class='kw'>hline.after</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.hline.after"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>x</span>))),
-  <span class='kw'>NA.string</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.NA.string"</span>, <span class='st'>""</span>),
-  <span class='kw'>include.rownames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>rotate.colnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.rotate.colnames"</span>, <span class='fl'>FALSE</span>),
-  <span class='no'>...</span>
+  <span class='kw'>x</span>,
+  text.properties = <span class='kw'>officer</span>::<span class='fu'><a href='https://rdrr.io/pkg/officer/man/fp_text.html'>fp_text</a></span>(),
+  format.args = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.format.args"</span>, <span class='kw'>NULL</span>),
+  rowname_col = <span class='st'>"rowname"</span>,
+  hline.after = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.hline.after"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>x</span>))),
+  NA.string = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.NA.string"</span>, <span class='st'>""</span>),
+  include.rownames = <span class='fl'>TRUE</span>,
+  rotate.colnames = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.rotate.colnames"</span>, <span class='fl'>FALSE</span>),
+  <span class='kw'>...</span>
 )
 
 <span class='fu'>xtable_to_flextable</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>text.properties</span> <span class='kw'>=</span> <span class='kw pkg'>officer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/officer/man/fp_text.html'>fp_text</a></span>(),
-  <span class='kw'>format.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.format.args"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>rowname_col</span> <span class='kw'>=</span> <span class='st'>"rowname"</span>,
-  <span class='kw'>hline.after</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.hline.after"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>x</span>))),
-  <span class='kw'>NA.string</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.NA.string"</span>, <span class='st'>""</span>),
-  <span class='kw'>include.rownames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>rotate.colnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.rotate.colnames"</span>, <span class='fl'>FALSE</span>),
-  <span class='no'>...</span>
+  <span class='kw'>x</span>,
+  text.properties = <span class='kw'>officer</span>::<span class='fu'><a href='https://rdrr.io/pkg/officer/man/fp_text.html'>fp_text</a></span>(),
+  format.args = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.format.args"</span>, <span class='kw'>NULL</span>),
+  rowname_col = <span class='st'>"rowname"</span>,
+  hline.after = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.hline.after"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>x</span>))),
+  NA.string = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.NA.string"</span>, <span class='st'>""</span>),
+  include.rownames = <span class='fl'>TRUE</span>,
+  rotate.colnames = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"xtable.rotate.colnames"</span>, <span class='fl'>FALSE</span>),
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -234,45 +242,46 @@ implemented.</p></td>
 <code><a href='as_flextable.html'>as_flextable</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>officer</span>)
-<span class='kw'>if</span>( <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"xtable"</span>) ){
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://davidgohel.github.io/officer'>officer</a></span>)
+<span class='co'>if</span>( <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='http://xtable.r-forge.r-project.org'>"xtable"</a></span>) ){
 
-  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>tli</span>)
-  <span class='no'>tli.table</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/xtable/man/xtable.html'>xtable</a></span>(<span class='no'>tli</span>[<span class='fl'>1</span>:<span class='fl'>10</span>, ])
-  <span class='fu'><a href='align.html'>align</a></span>(<span class='no'>tli.table</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"r"</span>, <span class='fl'>6</span>)
-  <span class='fu'><a href='align.html'>align</a></span>(<span class='no'>tli.table</span>) <span class='kw'>&lt;-</span> <span class='st'>"|r|r|clr|r|"</span>
-  <span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(
-    <span class='no'>tli.table</span>,
-    <span class='kw'>rotate.colnames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-    <span class='kw'>include.rownames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-  <span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='height.html'>height</a></span>(<span class='no'>ft_1</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-  <span class='no'>ft_1</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>tli</span>)
+  <span class='kw'>tli.table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/xtable/man/xtable.html'>xtable</a></span>(<span class='kw'>tli</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, ])
+  <span class='fu'><a href='align.html'>align</a></span>(<span class='kw'>tli.table</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"r"</span>, <span class='fl'>6</span>)
+  <span class='fu'><a href='align.html'>align</a></span>(<span class='kw'>tli.table</span>) <span class='op'>&lt;-</span> <span class='st'>"|r|r|clr|r|"</span>
+  <span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(
+    <span class='kw'>tli.table</span>,
+    rotate.colnames = <span class='fl'>TRUE</span>,
+    include.rownames = <span class='fl'>FALSE</span>)
+  <span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='height.html'>height</a></span>(<span class='kw'>ft_1</span>, i = <span class='fl'>1</span>, part = <span class='st'>"header"</span>, height = <span class='fl'>1</span>)
+  <span class='kw'>ft_1</span>
 
   <span class='co'># \donttest{</span>
-  <span class='no'>Grade3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span>,<span class='st'>"B"</span>,
+  <span class='kw'>Grade3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"A"</span>,<span class='st'>"B"</span>,
     <span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"D"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>)
-  <span class='no'>Grade6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"A"</span>,<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,
+  <span class='kw'>Grade6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"A"</span>,<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,
     <span class='st'>"A"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>,<span class='st'>"D"</span>,<span class='st'>"D"</span>,<span class='st'>"D"</span>,<span class='st'>"D"</span>,<span class='st'>"D"</span>)
-  <span class='no'>Cohort</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>Grade3</span>, <span class='no'>Grade6</span>)
-  <span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/xtable/man/xtable.html'>xtable</a></span>(<span class='no'>Cohort</span>))
-  <span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_header_labels.html'>set_header_labels</a></span>(<span class='no'>ft_2</span>, <span class='kw'>rowname</span> <span class='kw'>=</span> <span class='st'>"Grade 3"</span>)
-  <span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft_2</span>)
-  <span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_header.html'>add_header</a></span>(<span class='no'>ft_2</span>, <span class='kw'>A</span> <span class='kw'>=</span> <span class='st'>"Grade 6"</span>)
-  <span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='merge_at.html'>merge_at</a></span>(<span class='no'>ft_2</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>Cohort</span>) ) + <span class='fl'>1</span>,
-    <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span> )
-  <span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bold.html'>bold</a></span>(<span class='no'>ft_2</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-  <span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='height.html'>height_all</a></span>(<span class='no'>ft_2</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>.4</span>)
-  <span class='no'>ft_2</span>
+  <span class='kw'>Cohort</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='kw'>Grade3</span>, <span class='kw'>Grade6</span>)
+  <span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/xtable/man/xtable.html'>xtable</a></span>(<span class='kw'>Cohort</span>))
+  <span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_header_labels.html'>set_header_labels</a></span>(<span class='kw'>ft_2</span>, rowname = <span class='st'>"Grade 3"</span>)
+  <span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='kw'>ft_2</span>)
+  <span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_header.html'>add_header</a></span>(<span class='kw'>ft_2</span>, A = <span class='st'>"Grade 6"</span>)
+  <span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='merge_at.html'>merge_at</a></span>(<span class='kw'>ft_2</span>, i = <span class='fl'>1</span>, j = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='kw'>Cohort</span>) ) <span class='op'>+</span> <span class='fl'>1</span>,
+    part = <span class='st'>"header"</span> )
+  <span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bold.html'>bold</a></span>(<span class='kw'>ft_2</span>, j = <span class='fl'>1</span>, bold = <span class='fl'>TRUE</span>, part = <span class='st'>"body"</span>)
+  <span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='height.html'>height_all</a></span>(<span class='kw'>ft_2</span>, part = <span class='st'>"header"</span>, height = <span class='fl'>.4</span>)
+  <span class='kw'>ft_2</span>
 
-  <span class='no'>temp.ts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/ts.html'>ts</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='fl'>1</span> + <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>), <span class='fl'>0</span>)),
-    <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1954</span>, <span class='fl'>7</span>), <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>12</span>)
-  <span class='no'>ft_3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/xtable/man/xtable.html'>xtable</a></span>(<span class='no'>temp.ts</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>),
-    <span class='kw'>NA.string</span> <span class='kw'>=</span> <span class='st'>"-"</span>)
-  <span class='no'>ft_3</span>
+  <span class='kw'>temp.ts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/ts.html'>ts</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='fl'>1</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>), <span class='fl'>0</span>)),
+    start = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1954</span>, <span class='fl'>7</span>), frequency = <span class='fl'>12</span>)
+  <span class='kw'>ft_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(x = <span class='fu'><a href='https://rdrr.io/pkg/xtable/man/xtable.html'>xtable</a></span>(<span class='kw'>temp.ts</span>, digits = <span class='fl'>0</span>),
+    NA.string = <span class='st'>"-"</span>)
+  <span class='kw'>ft_3</span>
   <span class='co'># }</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='st'>"package:xtable"</span>, <span class='kw'>unload</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Le chargement a nécessité le package : xtable</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attachement du package : ‘xtable’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:flextable’:</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span>(<span class='st'>"package:xtable"</span>, unload = <span class='fl'>TRUE</span>)
+}
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: xtable</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘xtable’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:flextable’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    align, display</span></div></pre>
   </div>
@@ -287,11 +296,11 @@ implemented.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

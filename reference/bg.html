@@ -8,6 +8,13 @@
 
 <title>Set background color — bg • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="Set background color — bg" />
 <meta property="og:description" content="change background color of selected rows and columns of a flextable." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -72,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -144,7 +152,7 @@
     <p>change background color of selected rows and columns of a flextable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bg</span>(<span class='no'>x</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>bg</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>source</span> <span class='kw'>=</span> <span class='no'>j</span>)</pre>
+    <pre class="usage"><span class='fu'>bg</span>(<span class='kw'>x</span>, i = <span class='kw'>NULL</span>, j = <span class='kw'>NULL</span>, <span class='kw'>bg</span>, part = <span class='st'>"body"</span>, source = <span class='kw'>j</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,17 +203,19 @@ as argument to <code>bg</code>. This is only useful if j is colored with values 
 <code><a href='fontsize.html'>fontsize</a>()</code>,
 <code><a href='font.html'>font</a>()</code>,
 <code><a href='italic.html'>italic</a>()</code>,
+<code><a href='line_spacing.html'>line_spacing</a>()</code>,
 <code><a href='padding.html'>padding</a>()</code>,
 <code><a href='rotate.html'>rotate</a>()</code>,
 <code><a href='valign.html'>valign</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>mtcars</span>))
-<span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'>bg</span>(<span class='no'>ft_1</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"wheat"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
-<span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'>bg</span>(<span class='no'>ft_1</span>, <span class='kw'>i</span> <span class='kw'>=</span> ~ <span class='no'>qsec</span> <span class='kw'>&lt;</span> <span class='fl'>18</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"#EFEFEF"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-<span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'>bg</span>(<span class='no'>ft_1</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='st'>"drat"</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"#606060"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)
-<span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='color.html'>color</a></span>(<span class='no'>ft_1</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='st'>"drat"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)
-<span class='no'>ft_1</span></div><div class='output co'>#&gt; a flextable object.
+    <pre class="examples"><div class='input'><span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>mtcars</span>))
+<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'>bg</span>(<span class='kw'>ft_1</span>, bg = <span class='st'>"wheat"</span>, part = <span class='st'>"header"</span>)
+<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'>bg</span>(<span class='kw'>ft_1</span>, i = <span class='op'>~</span> <span class='kw'>qsec</span> <span class='op'>&lt;</span> <span class='fl'>18</span>, bg = <span class='st'>"#EFEFEF"</span>, part = <span class='st'>"body"</span>)
+<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'>bg</span>(<span class='kw'>ft_1</span>, j = <span class='st'>"drat"</span>, bg = <span class='st'>"#606060"</span>, part = <span class='st'>"all"</span>)
+<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='color.html'>color</a></span>(<span class='kw'>ft_1</span>, j = <span class='st'>"drat"</span>, color = <span class='st'>"white"</span>, part = <span class='st'>"all"</span>)
+<span class='kw'>ft_1</span>
+</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
 #&gt; header has 1 row(s) 
 #&gt; body has 6 row(s) 
@@ -216,16 +226,17 @@ as argument to <code>bg</code>. This is only useful if j is colored with values 
 #&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
 #&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 #&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div><div class='input'>
-<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"scales"</span>)){
-  <span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>iris</span>))
-  <span class='no'>colourer</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://scales.r-lib.org//reference/col_numeric.html'>col_numeric</a></span>(
-    <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wheat"</span>, <span class='st'>"red"</span>),
-    <span class='kw'>domain</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>7</span>))
-  <span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'>bg</span>(<span class='no'>ft_2</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>,
+<span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://scales.r-lib.org'>"scales"</a></span>)){
+  <span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>iris</span>))
+  <span class='kw'>colourer</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://scales.r-lib.org//reference/col_numeric.html'>col_numeric</a></span>(
+    palette = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wheat"</span>, <span class='st'>"red"</span>),
+    domain = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>7</span>))
+  <span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'>bg</span>(<span class='kw'>ft_2</span>, j = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>,
                      <span class='st'>"Petal.Length"</span>, <span class='st'>"Petal.Width"</span>),
-           <span class='kw'>bg</span> <span class='kw'>=</span> <span class='no'>colourer</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
-  <span class='no'>ft_2</span>
-}</div><div class='output co'>#&gt; <span class='message'>Le chargement a nécessité le package : scales</span></div><div class='output co'>#&gt; a flextable object.
+           bg = <span class='kw'>colourer</span>, part = <span class='st'>"body"</span>)
+  <span class='kw'>ft_2</span>
+}
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: scales</span></div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
 #&gt; header has 1 row(s) 
 #&gt; body has 6 row(s) 
@@ -248,11 +259,11 @@ as argument to <code>bg</code>. This is only useful if j is colored with values 
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

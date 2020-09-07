@@ -8,6 +8,13 @@
 
 <title>mini barplots chunk wrapper — minibar • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -43,6 +50,7 @@
 <meta property="og:description" content="This function is used to insert bars into
 flextable with function compose.
 It should be used inside a call to as_paragraph" />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -74,7 +82,7 @@ It should be used inside a call to as_paragraph" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -149,12 +157,12 @@ It should be used inside a call to <code><a href='as_paragraph.html'>as_paragrap
     </div>
 
     <pre class="usage"><span class='fu'>minibar</span>(
-  <span class='no'>value</span>,
-  <span class='kw'>max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>barcol</span> <span class='kw'>=</span> <span class='st'>"#CCCCCC"</span>,
-  <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.2</span>
+  <span class='kw'>value</span>,
+  max = <span class='kw'>NULL</span>,
+  barcol = <span class='st'>"#CCCCCC"</span>,
+  bg = <span class='st'>"transparent"</span>,
+  width = <span class='fl'>1</span>,
+  height = <span class='fl'>0.2</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -210,16 +218,17 @@ are removed when outputing to PowerPoint format.</p>
 <code><a href='lollipop.html'>lollipop</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>iris</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span> ))
+    <pre class="examples"><div class='input'><span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>iris</span>, n = <span class='fl'>10</span> ))
 
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span>(<span class='no'>ft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
-    <span class='fu'>minibar</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>Sepal.Length</span>))
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span>(<span class='kw'>ft</span>, j = <span class='fl'>1</span>,
+  value = <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
+    <span class='fu'>minibar</span>(value = <span class='kw'>Sepal.Length</span>, max = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>Sepal.Length</span>))
   ),
-  <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
+  part = <span class='st'>"body"</span>)
 
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='kw'>ft</span>)
+<span class='kw'>ft</span>
+</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
 #&gt; header has 1 row(s) 
 #&gt; body has 10 row(s) 
@@ -242,11 +251,11 @@ are removed when outputing to PowerPoint format.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

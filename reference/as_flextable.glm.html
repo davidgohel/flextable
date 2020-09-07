@@ -8,6 +8,13 @@
 
 <title>tabular summary for glm object — as_flextable.glm • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="tabular summary for glm object — as_flextable.glm" />
 <meta property="og:description" content="produce a flextable describing a
 generalized linear model produced by function glm." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,7 +81,7 @@ generalized linear model produced by function glm." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -147,7 +155,7 @@ generalized linear model produced by function <code>glm</code>.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for glm</span>
-<span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,14 +186,15 @@ generalized linear model produced by function <code>glm</code>.</p>
 <code><a href='as_flextable.html'>as_flextable</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"broom"</span>)){
-  <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>attitude</span>
-  <span class='no'>dat</span>$<span class='no'>high.rating</span> <span class='kw'>&lt;-</span> (<span class='no'>dat</span>$<span class='no'>rating</span> <span class='kw'>&gt;</span> <span class='fl'>70</span>)
-  <span class='no'>probit.model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>high.rating</span> ~ <span class='no'>learning</span> + <span class='no'>critical</span> +
-     <span class='no'>advance</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>binomial</a></span>(<span class='kw'>link</span> <span class='kw'>=</span> <span class='st'>"probit"</span>))
-  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='no'>probit.model</span>)
-  <span class='no'>ft</span>
-}</div><div class='output co'>#&gt; <span class='message'>Le chargement a nécessité le package : broom</span></div><div class='output co'>#&gt; a flextable object.
+    <pre class="examples"><div class='input'><span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://broom.tidymodels.org'>"broom"</a></span>)){
+  <span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='kw'>attitude</span>
+  <span class='kw'>dat</span><span class='op'>$</span><span class='kw'>high.rating</span> <span class='op'>&lt;-</span> (<span class='kw'>dat</span><span class='op'>$</span><span class='kw'>rating</span> <span class='op'>&gt;</span> <span class='fl'>70</span>)
+  <span class='kw'>probit.model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>high.rating</span> <span class='op'>~</span> <span class='kw'>learning</span> <span class='op'>+</span> <span class='kw'>critical</span> <span class='op'>+</span>
+     <span class='kw'>advance</span>, data=<span class='kw'>dat</span>, family = <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>binomial</a></span>(link = <span class='st'>"probit"</span>))
+  <span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='kw'>probit.model</span>)
+  <span class='kw'>ft</span>
+}
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: broom</span></div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `term`, `estimate`, `std.error`, `statistic`, `p.value`, `signif` 
 #&gt; header has 1 row(s) 
 #&gt; body has 4 row(s) 
@@ -207,11 +216,11 @@ generalized linear model produced by function <code>glm</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

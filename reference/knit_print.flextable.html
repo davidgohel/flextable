@@ -8,6 +8,13 @@
 
 <title>Render flextable in rmarkdown — knit_print.flextable • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="Render flextable in rmarkdown — knit_print.flextable" />
 <meta property="og:description" content="Function used to render flextable in knitr/rmarkdown documents.
 HTML, Word and PowerPoint outputs are supported." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,7 +81,7 @@ HTML, Word and PowerPoint outputs are supported." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -147,7 +155,7 @@ HTML, Word and PowerPoint outputs are supported.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for flextable</span>
-<span class='fu'>knit_print</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>knit_print</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,7 +217,7 @@ activated with chunk option <code>ft.split</code> set to TRUE.</p>
 <p>Position should be defined with options <code>ft.left</code>
 and <code>ft.top</code>. Theses are the top left coordinates
 of the placeholder that will contain the table. They
-default to <code>{r ft.left=1, ft.left=2}</code>.</p>
+default to <code>{r ft.left=1, ft.top=2}</code>.</p>
     <h2 class="hasAnchor" id="pdf-chunk-options"><a class="anchor" href="#pdf-chunk-options"></a>PDF chunk options</h2>
 
     
@@ -234,13 +242,18 @@ be prefered as 'webshot' can have issues with some properties
 <code><a href='save_as_html.html'>save_as_html</a>()</code>,
 <code><a href='save_as_image.html'>save_as_image</a>()</code>,
 <code><a href='save_as_pptx.html'>save_as_pptx</a>()</code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Maxim Nazarov</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># simple examples -----</span>
-<span class='no'>demo_docx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"flextable"</span>, <span class='st'>"examples/rmd"</span>, <span class='st'>"demo.Rmd"</span>)
-<span class='no'>rmd_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".Rmd"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='no'>demo_docx</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='no'>rmd_file</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>rmd_file</span> <span class='co'># R Markdown document used for demo</span></div><div class='output co'>#&gt; [1] "/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T//Rtmp1MNRZX/file4a4b5e6488bc.Rmd"</div><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"rmarkdown"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)){
+<span class='kw'>demo_docx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(package = <span class='st'>"flextable"</span>, <span class='st'>"examples/rmd"</span>, <span class='st'>"demo.Rmd"</span>)
+<span class='kw'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(fileext = <span class='st'>".Rmd"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='kw'>demo_docx</span>, to = <span class='kw'>rmd_file</span>, overwrite = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='kw'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
+</div><div class='output co'>#&gt; [1] "/tmp/RtmpoRdryH/file7e557472be42.Rmd"</div><div class='input'><span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly = <span class='fl'>TRUE</span>)){
 <span class='co'>#  knitr::opts_chunk$set(webshot = "webshot2")</span>
 <span class='co'>#  render(input = rmd_file, output_format = "word_document", output_file = "doc.docx")</span>
 <span class='co'>#  render(input = rmd_file, output_format = "pdf_document", output_file = "doc.pdf")</span>
@@ -249,20 +262,27 @@ be prefered as 'webshot' can have issues with some properties
 <span class='co'>#  render(input = rmd_file, output_format = "slidy_presentation", output_file = "slidy.html")</span>
 <span class='co'>#  render(input = rmd_file, output_format = "beamer_presentation", output_file = "beamer.pdf")</span>
 <span class='co'>#  render(input = rmd_file, output_format = "pagedown::html_paged", output_file = "paged.html")</span>
-}</div><div class='output co'>#&gt; NULL</div><div class='input'>
+}
+</div><div class='output co'>#&gt; NULL</div><div class='input'>
 
 <span class='co'># looping examples for Word output -----</span>
-<span class='no'>demo_loop</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"flextable"</span>, <span class='st'>"examples/rmd"</span>, <span class='st'>"loop_docx.Rmd"</span>)
-<span class='no'>rmd_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".Rmd"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='no'>demo_loop</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='no'>rmd_file</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>rmd_file</span> <span class='co'># R Markdown document used for demo</span></div><div class='output co'>#&gt; [1] "/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T//Rtmp1MNRZX/file4a4b1a4d1f0e.Rmd"</div><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"rmarkdown"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)){
+<span class='kw'>demo_loop</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(package = <span class='st'>"flextable"</span>, <span class='st'>"examples/rmd"</span>, <span class='st'>"loop_docx.Rmd"</span>)
+<span class='kw'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(fileext = <span class='st'>".Rmd"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='kw'>demo_loop</span>, to = <span class='kw'>rmd_file</span>, overwrite = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='kw'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
+</div><div class='output co'>#&gt; [1] "/tmp/RtmpoRdryH/file7e5552cdde7a.Rmd"</div><div class='input'><span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly = <span class='fl'>TRUE</span>)){
 <span class='co'>#  render(input = rmd_file, output_format = "word_document", output_file = "loop_docx.docx")</span>
-}</div><div class='output co'>#&gt; NULL</div><div class='input'>
+}
+</div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='co'># looping examples for HTML output -----</span>
-<span class='no'>demo_loop</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"flextable"</span>, <span class='st'>"examples/rmd"</span>, <span class='st'>"loop_html.Rmd"</span>)
-<span class='no'>rmd_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".Rmd"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='no'>demo_loop</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='no'>rmd_file</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>rmd_file</span> <span class='co'># R Markdown document used for demo</span></div><div class='output co'>#&gt; [1] "/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T//Rtmp1MNRZX/file4a4b3d31dd9f.Rmd"</div><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"rmarkdown"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)){
+<span class='kw'>demo_loop</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(package = <span class='st'>"flextable"</span>, <span class='st'>"examples/rmd"</span>, <span class='st'>"loop_html.Rmd"</span>)
+<span class='kw'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(fileext = <span class='st'>".Rmd"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='kw'>demo_loop</span>, to = <span class='kw'>rmd_file</span>, overwrite = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='kw'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
+</div><div class='output co'>#&gt; [1] "/tmp/RtmpoRdryH/file7e55b49401b.Rmd"</div><div class='input'><span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly = <span class='fl'>TRUE</span>)){
 <span class='co'>#  render(input = rmd_file, output_format = "html_document", output_file = "loop_html.html")</span>
-}</div><div class='output co'>#&gt; NULL</div></pre>
+}
+</div><div class='output co'>#&gt; NULL</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -275,11 +295,11 @@ be prefered as 'webshot' can have issues with some properties
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

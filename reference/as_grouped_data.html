@@ -8,6 +8,13 @@
 
 <title>grouped data transformation — as_grouped_data • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -43,6 +50,7 @@
 <meta property="og:description" content="Repeated consecutive values of group columns will
 be used to define the title of the groups and will
 be added as a row title." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -74,7 +82,7 @@ be added as a row title." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -148,7 +156,7 @@ be used to define the title of the groups and will
 be added as a row title.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_grouped_data</span>(<span class='no'>x</span>, <span class='no'>groups</span>, <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>as_grouped_data</span>(<span class='kw'>x</span>, <span class='kw'>groups</span>, columns = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,14 +181,15 @@ be added as a row title.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># as_grouped_data -----</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>data.table</span>)
-<span class='no'>CO2</span> <span class='kw'>&lt;-</span> <span class='no'>CO2</span>
-<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/setDT.html'>setDT</a></span>(<span class='no'>CO2</span>)
-<span class='no'>CO2</span>$<span class='no'>conc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>CO2</span>$<span class='no'>conc</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://r-datatable.com'>data.table</a></span>)
+<span class='kw'>CO2</span> <span class='op'>&lt;-</span> <span class='kw'>CO2</span>
+<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/setDT.html'>setDT</a></span>(<span class='kw'>CO2</span>)
+<span class='kw'>CO2</span><span class='op'>$</span><span class='kw'>conc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='kw'>CO2</span><span class='op'>$</span><span class='kw'>conc</span>)
 
-<span class='no'>data_co2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/dcast.data.table.html'>dcast</a></span>(<span class='no'>CO2</span>, <span class='no'>Treatment</span> + <span class='no'>conc</span> ~ <span class='no'>Type</span>,
-  <span class='kw'>value.var</span> <span class='kw'>=</span> <span class='st'>"uptake"</span>, <span class='kw'>fun.aggregate</span> <span class='kw'>=</span> <span class='no'>mean</span>)
-<span class='no'>data_co2</span></div><div class='output co'>#&gt;      Treatment conc   Quebec Mississippi
+<span class='kw'>data_co2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/dcast.data.table.html'>dcast</a></span>(<span class='kw'>CO2</span>, <span class='kw'>Treatment</span> <span class='op'>+</span> <span class='kw'>conc</span> <span class='op'>~</span> <span class='kw'>Type</span>,
+  value.var = <span class='st'>"uptake"</span>, fun.aggregate = <span class='kw'>mean</span>)
+<span class='kw'>data_co2</span>
+</div><div class='output co'>#&gt;      Treatment conc   Quebec Mississippi
 #&gt;  1: nonchilled   95 15.26667    11.30000
 #&gt;  2: nonchilled  175 30.03333    20.20000
 #&gt;  3: nonchilled  250 37.40000    27.53333
@@ -194,8 +203,9 @@ be added as a row title.</p>
 #&gt; 11:    chilled  350 35.80000    16.60000
 #&gt; 12:    chilled  500 36.66667    16.63333
 #&gt; 13:    chilled  675 37.50000    18.26667
-#&gt; 14:    chilled 1000 40.83333    18.73333</div><div class='input'><span class='no'>data_co2</span> <span class='kw'>&lt;-</span> <span class='fu'>as_grouped_data</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>data_co2</span>, <span class='kw'>groups</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Treatment"</span>))
-<span class='no'>data_co2</span></div><div class='output co'>#&gt;     Treatment conc   Quebec Mississippi
+#&gt; 14:    chilled 1000 40.83333    18.73333</div><div class='input'><span class='kw'>data_co2</span> <span class='op'>&lt;-</span> <span class='fu'>as_grouped_data</span>(x = <span class='kw'>data_co2</span>, groups = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Treatment"</span>))
+<span class='kw'>data_co2</span>
+</div><div class='output co'>#&gt;     Treatment conc   Quebec Mississippi
 #&gt; 1  nonchilled   NA       NA          NA
 #&gt; 3        &lt;NA&gt;   95 15.26667    11.30000
 #&gt; 4        &lt;NA&gt;  175 30.03333    20.20000
@@ -224,11 +234,11 @@ be added as a row title.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

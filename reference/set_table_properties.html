@@ -8,6 +8,13 @@
 
 <title>Global table properties — set_table_properties • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -46,6 +53,7 @@ If layout is fixed, column widths will be used to display the table;
 width is ignored.
 If layout is autofit, column widths will not be used;
 table width is used (as a percentage)." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -77,7 +85,7 @@ table width is used (as a percentage)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -154,7 +162,7 @@ algorithm.</p>
 table width is used (as a percentage).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>set_table_properties</span>(<span class='no'>x</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>set_table_properties</span>(<span class='kw'>x</span>, layout = <span class='st'>"fixed"</span>, width = <span class='fl'>1</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,10 +205,11 @@ exist for this Microsoft format.</p>
 <code><a href='width.html'>width</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>flextable</span>)
-<span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>qflextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>cars</span>))
-<span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'>set_table_properties</span>(<span class='no'>ft_1</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"autofit"</span>)
-<span class='no'>ft_2</span></div><div class='output co'>#&gt; a flextable object.
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://davidgohel.github.io/flextable'>flextable</a></span>)
+<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>qflextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>cars</span>))
+<span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'>set_table_properties</span>(<span class='kw'>ft_1</span>, width = <span class='fl'>.5</span>, layout = <span class='st'>"autofit"</span>)
+<span class='kw'>ft_2</span>
+</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `speed`, `dist` 
 #&gt; header has 1 row(s) 
 #&gt; body has 6 row(s) 
@@ -223,11 +232,11 @@ exist for this Microsoft format.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

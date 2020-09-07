@@ -8,6 +8,13 @@
 
 <title>Add labels and merge cells in a new header or footer row — add_header_row • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -43,6 +50,7 @@
 <meta property="og:description" content="Add an header or footer new row where some cells are merged,
 labels are associated with a number of columns to merge. The function
 is row oriented. One call allow to add one single row." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -74,7 +82,7 @@ is row oriented. One call allow to add one single row." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -148,9 +156,9 @@ labels are associated with a number of columns to merge. The function
 is row oriented. One call allow to add one single row.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_header_row</span>(<span class='no'>x</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>), <span class='kw'>colwidths</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>(<span class='fl'>0</span>))
+    <pre class="usage"><span class='fu'>add_header_row</span>(<span class='kw'>x</span>, top = <span class='fl'>TRUE</span>, values = <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>), colwidths = <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>(<span class='fl'>0</span>))
 
-<span class='fu'>add_footer_row</span>(<span class='no'>x</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>), <span class='kw'>colwidths</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>(<span class='fl'>0</span>))</pre>
+<span class='fu'>add_footer_row</span>(<span class='kw'>x</span>, top = <span class='fl'>TRUE</span>, values = <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>), colwidths = <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>(<span class='fl'>0</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,11 +196,12 @@ is row oriented. One call allow to add one single row.</p>
 <code><a href='set_header_labels.html'>set_header_labels</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='no'>iris</span> ) )
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>add_header_row</span>(<span class='no'>ft</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='st'>"blah blah"</span>, <span class='kw'>colwidths</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>add_header_row</span>(<span class='no'>ft</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blah"</span>, <span class='st'>"blah"</span>), <span class='kw'>colwidths</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>2</span>))
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_tron.html'>theme_tron</a></span>(<span class='no'>ft</span>)
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
+    <pre class="examples"><div class='input'><span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='kw'>iris</span> ) )
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>add_header_row</span>(<span class='kw'>ft</span>, values = <span class='st'>"blah blah"</span>, colwidths = <span class='fl'>5</span>)
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>add_header_row</span>(<span class='kw'>ft</span>, values = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blah"</span>, <span class='st'>"blah"</span>), colwidths = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>2</span>))
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='theme_tron.html'>theme_tron</a></span>(<span class='kw'>ft</span>)
+<span class='kw'>ft</span>
+</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
 #&gt; header has 3 row(s) 
 #&gt; body has 6 row(s) 
@@ -202,10 +211,11 @@ is row oriented. One call allow to add one single row.</p>
 #&gt; 2          4.9         3.0          1.4         0.2  setosa
 #&gt; 3          4.7         3.2          1.3         0.2  setosa
 #&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'><span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='no'>iris</span> ) )
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>add_footer_row</span>(<span class='no'>ft</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='st'>"blah blah"</span>, <span class='kw'>colwidths</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>add_footer_row</span>(<span class='no'>ft</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blah"</span>, <span class='st'>"blah"</span>), <span class='kw'>colwidths</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>2</span>))
-<span class='no'>ft</span></div><div class='output co'>#&gt; a flextable object.
+#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'><span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='kw'>iris</span> ) )
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>add_footer_row</span>(<span class='kw'>ft</span>, values = <span class='st'>"blah blah"</span>, colwidths = <span class='fl'>5</span>)
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>add_footer_row</span>(<span class='kw'>ft</span>, values = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blah"</span>, <span class='st'>"blah"</span>), colwidths = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>2</span>))
+<span class='kw'>ft</span>
+</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
 #&gt; header has 1 row(s) 
 #&gt; body has 6 row(s) 
@@ -228,11 +238,11 @@ is row oriented. One call allow to add one single row.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

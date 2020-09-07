@@ -8,6 +8,13 @@
 
 <title>fix border issues when cell are merged — fix_border_issues • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -45,6 +52,7 @@ of the first cell. If a column is made of three merged cells, the bottom
 border that will be seen will be the bottom border of the first cell in the
 column. From a user point of view, this is wrong, the bottom should be the one
 defined for cell 3. This function modify the border values to avoid that effect." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -76,7 +84,7 @@ defined for cell 3. This function modify the border values to avoid that effect.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -152,7 +160,7 @@ column. From a user point of view, this is wrong, the bottom should be the one
 defined for cell 3. This function modify the border values to avoid that effect.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fix_border_issues</span>(<span class='no'>x</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</pre>
+    <pre class="usage"><span class='fu'>fix_border_issues</span>(<span class='kw'>x</span>, part = <span class='st'>"all"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,17 +177,18 @@ defined for cell 3. This function modify the border values to avoid that effect.
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span>( <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>magrittr</span>) ){
-  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>officer</span>)
-  <span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>6</span>:<span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='flextable.html'>flextable</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='theme_box.html'>theme_box</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='merge_at.html'>merge_at</a></span>(<span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>4</span>:<span class='fl'>5</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='hline.html'>hline</a></span>(<span class='kw'>i</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"body"</span>,
-          <span class='kw'>border</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/officer/man/fp_border.html'>fp_border</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>5</span>) )
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>ft</span>)
-  <span class='fu'>fix_border_issues</span>(<span class='no'>ft</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>()
-}</div><div class='output co'>#&gt; <span class='message'>Le chargement a nécessité le package : magrittr</span></div><div class='output co'>#&gt; a flextable object.
+    <pre class="examples"><div class='input'><span class='co'>if</span>( <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'>magrittr</span>) ){
+  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://davidgohel.github.io/officer'>officer</a></span>)
+  <span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(a = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, b = <span class='fl'>6</span><span class='op'>:</span><span class='fl'>10</span>) <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='flextable.html'>flextable</a></span>() <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='theme_box.html'>theme_box</a></span>() <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='merge_at.html'>merge_at</a></span>(i = <span class='fl'>4</span><span class='op'>:</span><span class='fl'>5</span>, j = <span class='fl'>1</span>, part = <span class='st'>"body"</span>) <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='hline.html'>hline</a></span>(i = <span class='fl'>5</span>, part = <span class='st'>"body"</span>,
+          border = <span class='fu'><a href='https://rdrr.io/pkg/officer/man/fp_border.html'>fp_border</a></span>(color = <span class='st'>"red"</span>, width = <span class='fl'>5</span>) )
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>ft</span>)
+  <span class='fu'>fix_border_issues</span>(<span class='kw'>ft</span>) <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>()
+}
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: magrittr</span></div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `a`, `b` 
 #&gt; header has 1 row(s) 
 #&gt; body has 5 row(s) 
@@ -213,11 +222,11 @@ defined for cell 3. This function modify the border values to avoid that effect.
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

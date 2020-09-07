@@ -8,6 +8,13 @@
 
 <title>Set flextable's header or footer rows — set_header_footer_df • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -46,6 +53,7 @@ col_keys argument, this column will be used as join key. The
 other columns will be displayed as header or footer rows. The leftmost column
 is used as the top header/footer row and the rightmost column
 is used as the bottom header/footer row." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -77,7 +85,7 @@ is used as the bottom header/footer row." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -154,9 +162,9 @@ is used as the top header/footer row and the rightmost column
 is used as the bottom header/footer row.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>set_header_df</span>(<span class='no'>x</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span>)
+    <pre class="usage"><span class='fu'>set_header_df</span>(<span class='kw'>x</span>, mapping = <span class='kw'>NULL</span>, key = <span class='st'>"col_keys"</span>)
 
-<span class='fu'>set_footer_df</span>(<span class='no'>x</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span>)</pre>
+<span class='fu'>set_footer_df</span>(<span class='kw'>x</span>, mapping = <span class='kw'>NULL</span>, key = <span class='st'>"col_keys"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,20 +200,21 @@ content of the column.</p></td>
 <code><a href='set_header_labels.html'>set_header_labels</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>typology</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, <span class='st'>"Petal.Length"</span>,
+    <pre class="examples"><div class='input'><span class='kw'>typology</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  col_keys = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, <span class='st'>"Petal.Length"</span>,
                 <span class='st'>"Petal.Width"</span>, <span class='st'>"Species"</span> ),
-  <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Sepal"</span>, <span class='st'>"Sepal"</span>, <span class='st'>"Petal"</span>, <span class='st'>"Petal"</span>, <span class='st'>"Species"</span>),
-  <span class='kw'>measure</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Length"</span>, <span class='st'>"Width"</span>, <span class='st'>"Length"</span>, <span class='st'>"Width"</span>, <span class='st'>"Species"</span>),
-  <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span> )
+  what = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Sepal"</span>, <span class='st'>"Sepal"</span>, <span class='st'>"Petal"</span>, <span class='st'>"Petal"</span>, <span class='st'>"Species"</span>),
+  measure = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Length"</span>, <span class='st'>"Width"</span>, <span class='st'>"Length"</span>, <span class='st'>"Width"</span>, <span class='st'>"Species"</span>),
+  stringsAsFactors = <span class='fl'>FALSE</span> )
 
-<span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='no'>iris</span> ))
-<span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'>set_header_df</span>(<span class='no'>ft_1</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='no'>typology</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span> )
-<span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='merge_h.html'>merge_h</a></span>(<span class='no'>ft_1</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
-<span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='merge_v.html'>merge_v</a></span>(<span class='no'>ft_1</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='st'>"Species"</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"header"</span>)
-<span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_vanilla.html'>theme_vanilla</a></span>(<span class='no'>ft_1</span>)
-<span class='no'>ft_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fix_border_issues.html'>fix_border_issues</a></span>(<span class='no'>ft_1</span>)
-<span class='no'>ft_1</span></div><div class='output co'>#&gt; a flextable object.
+<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='kw'>iris</span> ))
+<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'>set_header_df</span>(<span class='kw'>ft_1</span>, mapping = <span class='kw'>typology</span>, key = <span class='st'>"col_keys"</span> )
+<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='merge_h.html'>merge_h</a></span>(<span class='kw'>ft_1</span>, part = <span class='st'>"header"</span>)
+<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='merge_v.html'>merge_v</a></span>(<span class='kw'>ft_1</span>, j = <span class='st'>"Species"</span>, part = <span class='st'>"header"</span>)
+<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='theme_vanilla.html'>theme_vanilla</a></span>(<span class='kw'>ft_1</span>)
+<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fix_border_issues.html'>fix_border_issues</a></span>(<span class='kw'>ft_1</span>)
+<span class='kw'>ft_1</span>
+</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
 #&gt; header has 2 row(s) 
 #&gt; body has 6 row(s) 
@@ -217,16 +226,17 @@ content of the column.</p></td>
 #&gt; 4          4.6         3.1          1.5         0.2  setosa
 #&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'>
 
-<span class='no'>typology</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, <span class='st'>"Petal.Length"</span>,
+<span class='kw'>typology</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  col_keys = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, <span class='st'>"Petal.Length"</span>,
                 <span class='st'>"Petal.Width"</span>, <span class='st'>"Species"</span> ),
-  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"(cm)"</span>, <span class='st'>"(cm)"</span>, <span class='st'>"(cm)"</span>, <span class='st'>"(cm)"</span>, <span class='st'>""</span>),
-  <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span> )
-<span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'>set_footer_df</span>(<span class='no'>ft_1</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='no'>typology</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"col_keys"</span> )
-<span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='italic.html'>italic</a></span>(<span class='no'>ft_2</span>, <span class='kw'>italic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"footer"</span> )
-<span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_booktabs.html'>theme_booktabs</a></span>(<span class='no'>ft_2</span>)
-<span class='no'>ft_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fix_border_issues.html'>fix_border_issues</a></span>(<span class='no'>ft_2</span>)
-<span class='no'>ft_2</span></div><div class='output co'>#&gt; a flextable object.
+  unit = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"(cm)"</span>, <span class='st'>"(cm)"</span>, <span class='st'>"(cm)"</span>, <span class='st'>"(cm)"</span>, <span class='st'>""</span>),
+  stringsAsFactors = <span class='fl'>FALSE</span> )
+<span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'>set_footer_df</span>(<span class='kw'>ft_1</span>, mapping = <span class='kw'>typology</span>, key = <span class='st'>"col_keys"</span> )
+<span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='italic.html'>italic</a></span>(<span class='kw'>ft_2</span>, italic = <span class='fl'>TRUE</span>, part = <span class='st'>"footer"</span> )
+<span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='theme_booktabs.html'>theme_booktabs</a></span>(<span class='kw'>ft_2</span>)
+<span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fix_border_issues.html'>fix_border_issues</a></span>(<span class='kw'>ft_2</span>)
+<span class='kw'>ft_2</span>
+</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
 #&gt; header has 2 row(s) 
 #&gt; body has 6 row(s) 
@@ -249,11 +259,11 @@ content of the column.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

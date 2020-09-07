@@ -8,6 +8,13 @@
 
 <title>format character cells — colformat_char • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="format character cells — colformat_char" />
 <meta property="og:description" content="Format character cells in a flextable." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -72,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -144,17 +152,17 @@
     <p>Format character cells in a flextable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>colformat_char</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>colformat_char</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for flextable</span>
 <span class='fu'>colformat_char</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>j</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col_keys</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>na_str</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='no'>...</span>
+  <span class='kw'>x</span>,
+  j = <span class='kw'>NULL</span>,
+  col_keys = <span class='kw'>NULL</span>,
+  na_str = <span class='st'>""</span>,
+  prefix = <span class='st'>""</span>,
+  suffix = <span class='st'>""</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -200,14 +208,16 @@ version.</p></td>
 <code><a href='colformat_int.html'>colformat_int</a>()</code>,
 <code><a href='colformat_lgl.html'>colformat_lgl</a>()</code>,
 <code><a href='colformat_num.html'>colformat_num</a>()</code>,
-<code><a href='compose.html'>compose</a>()</code></p></div>
+<code><a href='compose.html'>compose</a>()</code>,
+<code><a href='set_formatter.html'>set_formatter</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>dat</span>))
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'>colformat_char</span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>ft</span>, <span class='kw'>j</span> <span class='kw'>=</span> <span class='st'>"Species"</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='st'>"!"</span>)
-<span class='no'>ft</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='no'>ft</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='kw'>iris</span>
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>dat</span>))
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>colformat_char</span>(
+  x = <span class='kw'>ft</span>, j = <span class='st'>"Species"</span>, suffix = <span class='st'>"!"</span>)
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='kw'>ft</span>)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -220,11 +230,11 @@ version.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>

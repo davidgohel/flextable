@@ -8,6 +8,13 @@
 
 <title>Calculate pretty dimensions — dim_pretty • flextable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="Calculate pretty dimensions — dim_pretty" />
 <meta property="og:description" content="return minimum estimated widths and heights for
 each table columns and rows in inches." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,7 +81,7 @@ each table columns and rows in inches." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.11.010</span>
       </span>
     </div>
 
@@ -146,7 +154,7 @@ each table columns and rows in inches." />
 each table columns and rows in inches.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dim_pretty</span>(<span class='no'>x</span>, <span class='kw'>part</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</pre>
+    <pre class="usage"><span class='fu'>dim_pretty</span>(<span class='kw'>x</span>, part = <span class='st'>"all"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,13 +189,14 @@ considered as "").</p>
 <code><a href='width.html'>width</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ftab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>mtcars</span>))
-<span class='fu'>dim_pretty</span>(<span class='no'>ftab</span>)</div><div class='output co'>#&gt; $widths
-#&gt;  [1] 0.4905169 0.3745162 0.4729117 0.4425501 0.4827587 0.5685470 0.5685470
-#&gt;  [8] 0.3379630 0.4021923 0.4866378 0.4856680
+    <pre class="examples"><div class='input'><span class='kw'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>mtcars</span>))
+<span class='fu'>dim_pretty</span>(<span class='kw'>ftab</span>)
+</div><div class='output co'>#&gt; $widths
+#&gt;  [1] 0.4825349 0.3719053 0.4654518 0.4400883 0.4825349 0.5675026 0.5675026
+#&gt;  [8] 0.3379630 0.3974180 0.4909645 0.4823857
 #&gt; 
 #&gt; $heights
-#&gt; [1] 0.2212570 0.1856735 0.1856735 0.1856735 0.1856735 0.1856735 0.1856735
+#&gt; [1] 0.2164352 0.1823640 0.1823640 0.1823640 0.1823640 0.1823640 0.1823640
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -201,11 +210,11 @@ considered as "").</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.5.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.5.11.010 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
 <script>
