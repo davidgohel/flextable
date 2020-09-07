@@ -64,7 +64,7 @@ To get an image file from a `flextable` object, use function `save_as_image`.
 
 ```{r}
 img_file <- tempfile(fileext = ".png")
-save_as_image(ft, path = img_file)
+save_as_image(ft, path = img_file, webshot = "webshot2")
 ```
 
 
@@ -96,7 +96,7 @@ gg1 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species) ) + geom_po
 ft_raster <- iris %>% group_by(Species) %>% 
   summarise_all(median) %>% 
   flextable() %>% autofit() %>% add_header_lines("means per Species") %>% 
-  as_raster()
+  as_raster(webshot = "webshot2")
 
 gg2 <- ggplot() + 
   theme_void() + 
