@@ -49,7 +49,7 @@ There are articles on the flextable website that will help you get you to start 
 * [Introduction to flextable](https://davidgohel.github.io/flextable/articles/overview.html)
 * [Function reference](https://davidgohel.github.io/flextable/reference/index.html)
 
-The help pages can be read [here](https://davidgohel.github.io/flextable).
+The help pages can be read [here](https://davidgohel.github.io/flextable/).
 
 ### Installation
 

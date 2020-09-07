@@ -48,7 +48,7 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           install.packages("pkgdown")
-          install.packages("ardata-fr/ardown")
+          install.packages("ardata-fr/pkgardata")
         shell: Rscript {0}
 
       - name: Install package

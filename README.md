@@ -47,7 +47,7 @@ to start quickly:
     reference](https://davidgohel.github.io/flextable/reference/index.html)
 
 The help pages can be read
-[here](https://davidgohel.github.io/flextable).
+[here](https://davidgohel.github.io/flextable/).
 
 ### Installation
 
