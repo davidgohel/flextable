@@ -1,0 +1,63 @@
+on:
+  push:
+    branches: master
+
+name: pkgdown
+
+jobs:
+  pkgdown:
+    runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@master
+
+      - uses: r-lib/actions/setup-pandoc@master
+
+      - name: Install XQuartz
+        if: matrix.config.os == 'macOS-latest'
+        env:
+          XQUARTZ_VERSION: 2.7.11
+        run: |
+           curl -fLo /tmp/XQuartz.dmg "https://dl.bintray.com/xquartz/downloads/XQuartz-${XQUARTZ_VERSION}.dmg"
+           sudo hdiutil attach -noverify /tmp/XQuartz.dmg
+           sudo installer -pkg "/Volumes/XQuartz-${XQUARTZ_VERSION}/XQuartz.pkg" -target /
+           sudo hdiutil detach /Volumes/XQuartz-${XQUARTZ_VERSION}
+           rm /tmp/XQuartz.dmg
+
+      - name: install gdtools dep
+        if: matrix.config.os == 'macOS-latest'
+        run: |
+           brew install cairo freetype2 imagemagick ghostscript
+
+      - name: Query dependencies
+        run: |
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+        shell: Rscript {0}
+
+      - name: Cache R packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: Install dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE)
+          install.packages("pkgdown")
+          install.packages("ardata-fr/ardown")
+        shell: Rscript {0}
+
+      - name: Install package
+        run: R CMD INSTALL .
+
+      - name: Deploy package
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
