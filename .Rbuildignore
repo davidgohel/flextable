@@ -4,7 +4,6 @@
 ^README\.Rmd$
 ^\.travis\.yml$
 ^appveyor\.yml$
-^docs$
 ^_pkgdown\.yml$
 ^revdep$
 ^CONDUCT\.md$
