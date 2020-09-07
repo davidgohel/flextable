@@ -6,7 +6,7 @@ name: pkgdown
 
 jobs:
   pkgdown:
-    runs-on: macOS-latest
+    runs-on: ubuntu-16.04
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -16,21 +16,6 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
-      - name: Install XQuartz
-        env:
-          XQUARTZ_VERSION: 2.7.11
-        run: |
-           curl -fLo /tmp/XQuartz.dmg "https://dl.bintray.com/xquartz/downloads/XQuartz-${XQUARTZ_VERSION}.dmg"
-           sudo hdiutil attach -noverify /tmp/XQuartz.dmg
-           sudo installer -pkg "/Volumes/XQuartz-${XQUARTZ_VERSION}/XQuartz.pkg" -target /
-           sudo hdiutil detach /Volumes/XQuartz-${XQUARTZ_VERSION}
-           rm /tmp/XQuartz.dmg
-
-      - name: install gdtools dep
-        run: |
-           brew install cairo freetype2 imagemagick ghostscript
-           brew cask install chromium
-
       - name: Query dependencies
         run: |
           install.packages('remotes')
@@ -39,17 +24,25 @@ jobs:
         shell: Rscript {0}
 
       - name: Cache R packages
+        if: runner.os != 'Windows'
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
+      - name: Install system dependencies
+        env:
+          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+        run: |
+          Rscript -e "remotes::install_github('r-hub/sysreqs')"
+          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
+          sudo -s eval "$sysreqs"
+
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          install.packages("pkgdown")
-          webshot::install_phantomjs()
+          remotes::install_cran("pkgdown")
           remotes::install_github("ardata-fr/pkgardata")
         shell: Rscript {0}
 
