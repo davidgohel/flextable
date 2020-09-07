@@ -43,7 +43,7 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("pkgdown")
-          remotes::install_cran("magick")
+          remotes::install_cran("magick", force = TRUE)
           remotes::install_github("ardata-fr/pkgardata")
           remotes::install_github("wch/webshot")
           webshot::install_phantomjs()
