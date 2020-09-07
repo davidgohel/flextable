@@ -49,7 +49,7 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           install.packages("pkgdown")
-          remotes::install_github("rstudio/webshot2")
+          webshot::install_phantomjs()
           remotes::install_github("ardata-fr/pkgardata")
         shell: Rscript {0}
 
