@@ -28,7 +28,7 @@ jobs:
 
       - name: install gdtools dep
         run: |
-           brew install cairo freetype2 imagemagick ghostscript
+           brew install cairo freetype2 imagemagick ghostscript chromium
 
       - name: Query dependencies
         run: |
@@ -48,6 +48,7 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           install.packages("pkgdown")
+          remotes::install_github("rstudio/webshot2")
           remotes::install_github("ardata-fr/pkgardata")
         shell: Rscript {0}
 
