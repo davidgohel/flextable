@@ -207,7 +207,7 @@ line_spacing(ft, space = 1)
 
 <div class="col-12 col-sm-8 col-md-6">
 
-```{r echo=FALSE}
+```{r}
 line_spacing(ft, space = 1.5)
 ```
 
