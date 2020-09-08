@@ -63,8 +63,8 @@ ft
 num_keys <- c("mpg", "disp", "drat", "wt", "qsec")
 int_keys <- c("cyl", "hp", "vs", "am", "gear", "carb")
 
-ft <- colformat_num(x = ft, col_keys = num_keys, big.mark = ",", digits = 2, na_str = "missing")
-ft <- colformat_int(x = ft, col_keys = int_keys, big.mark = ",")
+ft <- colformat_num(x = ft, j = num_keys, big.mark = ",", digits = 2, na_str = "missing")
+ft <- colformat_int(x = ft, j = int_keys, big.mark = ",")
 autofit(ft)
 ```
 
