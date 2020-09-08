@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.5.11.010
+Version: 0.5.11
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -37,6 +37,6 @@ Suggests:
     ggplot2, scales, 
     broom
 Encoding: UTF-8
-URL: https://davidgohel.github.io/flextable
+URL: https://davidgohel.github.io/flextable/
 BugReports: https://github.com/davidgohel/flextable/issues
 VignetteBuilder: knitr

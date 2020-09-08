@@ -34,6 +34,8 @@ Tables can be embedded within:
 
 Tables can also be rendered as R plots or graphic files (png, pdf and jpeg).
 
+**Documentation**: https://davidgohel.github.io/flextable/
+
 ## Getting Started
 
 An API is available to let R users create tables for reporting and control their formatting properties and their layout. A `flextable` object is a data.frame representation, it can be manipulated with functions that give control over:

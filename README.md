@@ -25,6 +25,8 @@ reporting and publications. Tables can be embedded within:
 Tables can also be rendered as R plots or graphic files (png, pdf and
 jpeg).
 
+**Documentation**: <https://davidgohel.github.io/flextable/>
+
 ## Getting Started
 
 An API is available to let R users create tables for reporting and

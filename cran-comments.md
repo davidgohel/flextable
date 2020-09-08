@@ -1,16 +1,17 @@
 ## Test environments
 
-- local OS X install (R 3.6.3)
-- ubuntu 14.05 (on travis-ci with older and release)
-- winbuilder (older, release and devel)
+- local OS X install (R 4.0.2)
+- windows (release)
+- ubuntu 16.04 (release)
+- macOS (release and devel)
+- winbuilder (with older, release and devel) 
 - rhub::check_for_cran()
 
 ## R CMD check results
 
-There were no ERROR, WARNING or NOTE. 
+There were no ERROR, WARNING or NOTE.
 
 ## Reverse dependencies
 
-I could not test with package nlmixr as I am not able to install it. 
+There were no error or warning and few notes (not related to officer).
 
-There is no error or warning with other packages
