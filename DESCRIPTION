@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.5.11
+Version: 0.6.0.001
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -23,7 +23,7 @@ Imports:
     stats, utils, grDevices, graphics,
     officer (>= 0.3.13),
     rmarkdown, knitr, htmltools,
-    xml2, data.table, uuid,
+    xml2, data.table, uuid (>= 0.1-4),
     gdtools (>= 0.1.6), rlang, 
     base64enc
 RoxygenNote: 7.1.1
