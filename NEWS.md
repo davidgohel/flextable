@@ -1,3 +1,9 @@
+# flextable 0.6.0
+
+## new features
+
+* new function `highlight()` for text highlighting color
+
 # flextable 0.5.11
 
 ## Changes

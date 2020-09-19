@@ -192,6 +192,62 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
 }
 
 #' @export
+#' @title Text Highlight Color
+#' @description change text highlight color of selected rows and
+#' columns of a flextable.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param j columns selection
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @param color color to use as text highlighting color.
+#' If a function, function need to return a character vector of colors.
+#' @param source if color is a function, source is specifying the dataset column to be used
+#' as argument to `color`. This is only useful if j is colored with values contained in another
+#' (or other) column.
+#' @family sugar functions for table style
+#' @examples
+#' my_color_fun <- function(x){
+#'   out <- rep("yellow", length(x))
+#'   out[x < quantile(x, .75)] <- "pink"
+#'   out[x < quantile(x, .50)] <- "wheat"
+#'   out[x < quantile(x, .25)] <- "gray90"
+#'   out
+#' }
+#' ft <- flextable(head( mtcars, n = 10))
+#' ft <- highlight(ft, j = "disp", i = ~ disp > 200, color = "yellow")
+#' ft <- highlight(ft, j = ~ drat + wt + qsec, color = my_color_fun)
+#' ft
+highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", source = j){
+
+  if( !inherits(x, "flextable") ) stop("italic supports only flextable objects.")
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- highlight(x = x, i = i, j = j, color = color, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+
+  if(is.function(color)){
+    source <- get_dataset_columns_id(x[[part]], source )
+    lcolor <- lapply(x[[part]]$dataset[source], color)
+    color <- matrix( unlist( lcolor ), ncol = length(lcolor) )
+  }
+
+  x[[part]]$styles$text[i, j, "shading.color"] <- color
+
+  x
+}
+
+#' @export
 #' @title Set font color
 #' @description change font color of selected rows and columns of a flextable.
 #' @param x a flextable object
@@ -253,7 +309,6 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j ){
     lcolor <- lapply(x[[part]]$dataset[source], color)
     color <- matrix( unlist( lcolor ), ncol = length(lcolor) )
   }
-
 
   x[[part]]$styles$text[i, j, "color"] <- color
 
