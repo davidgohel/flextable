@@ -53,6 +53,7 @@ reference:
     - italic
     - bold
     - color
+    - highlight
     - padding
     - valign
     - rotate
