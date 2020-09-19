@@ -1,6 +1,14 @@
 pandoc: 2.7.3
-pkgdown: 1.6.0
+pkgdown: 1.6.1
 pkgdown_sha: ~
-articles: []
-last_built: 2020-09-08T21:17Z
+articles:
+  display: display.html
+  format: format.html
+  layout: layout.html
+  offcran/as_flextable: as_flextable.html
+  offcran/examples: examples.html
+  offcran/images: images.html
+  overview: overview.html
+  selectors: selectors.html
+last_built: 2020-09-19T17:06Z
 

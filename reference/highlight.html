@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>tabular summary for lm object — as_flextable.lm • flextable</title>
+<title>Text Highlight Color — highlight • flextable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="tabular summary for lm object — as_flextable.lm" />
-<meta property="og:description" content="produce a flextable describing a
-linear model produced by function lm." />
+<meta property="og:title" content="Text Highlight Color — highlight" />
+<meta property="og:description" content="change text highlight color of selected rows and
+columns of a flextable." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -144,29 +144,47 @@ linear model produced by function lm." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>tabular summary for lm object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/as_flextable.R'><code>R/as_flextable.R</code></a></small>
-    <div class="hidden name"><code>as_flextable.lm.Rd</code></div>
+    <h1>Text Highlight Color</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/styles.R'><code>R/styles.R</code></a></small>
+    <div class="hidden name"><code>highlight.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>produce a flextable describing a
-linear model produced by function <code>lm</code>.</p>
+    <p>change text highlight color of selected rows and
+columns of a flextable.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for lm</span>
-<span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>highlight</span>(<span class='kw'>x</span>, i = <span class='kw'>NULL</span>, j = <span class='kw'>NULL</span>, color = <span class='st'>"yellow"</span>, part = <span class='st'>"body"</span>, source = <span class='kw'>j</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>lm model</p></td>
+      <td><p>a flextable object</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>unused argument</p></td>
+      <th>i</th>
+      <td><p>rows selection</p></td>
+    </tr>
+    <tr>
+      <th>j</th>
+      <td><p>columns selection</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>color to use as text highlighting color.
+If a function, function need to return a character vector of colors.</p></td>
+    </tr>
+    <tr>
+      <th>part</th>
+      <td><p>partname of the table (one of 'all', 'body', 'header', 'footer')</p></td>
+    </tr>
+    <tr>
+      <th>source</th>
+      <td><p>if color is a function, source is specifying the dataset column to be used
+as argument to <code>color</code>. This is only useful if j is colored with values contained in another
+(or other) column.</p></td>
     </tr>
     </table>
 
@@ -175,34 +193,46 @@ linear model produced by function <code>lm</code>.</p>
     
 
 
-<p><img src='figures/fig_as_flextable.lm_1.png' width=60% /></p>
+<p><img src='figures/fig_highlight_1.png' width=80% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other as_flextable methods: 
-<code><a href='as_flextable.glm.html'>as_flextable.glm</a>()</code>,
-<code><a href='as_flextable.grouped_data.html'>as_flextable.grouped_data</a>()</code>,
-<code><a href='as_flextable.htest.html'>as_flextable.htest</a>()</code>,
-<code><a href='as_flextable.xtable.html'>as_flextable.xtable</a>()</code>,
-<code><a href='as_flextable.html'>as_flextable</a>()</code></p></div>
+    <div class='dont-index'><p>Other sugar functions for table style: 
+<code><a href='align.html'>align</a>()</code>,
+<code><a href='bg.html'>bg</a>()</code>,
+<code><a href='bold.html'>bold</a>()</code>,
+<code><a href='color.html'>color</a>()</code>,
+<code><a href='empty_blanks.html'>empty_blanks</a>()</code>,
+<code><a href='fontsize.html'>fontsize</a>()</code>,
+<code><a href='font.html'>font</a>()</code>,
+<code><a href='italic.html'>italic</a>()</code>,
+<code><a href='line_spacing.html'>line_spacing</a>()</code>,
+<code><a href='padding.html'>padding</a>()</code>,
+<code><a href='rotate.html'>rotate</a>()</code>,
+<code><a href='valign.html'>valign</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://broom.tidymodels.org'>"broom"</a></span>)){
-  <span class='kw'>lmod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>rating</span> <span class='op'>~</span> <span class='kw'>complaints</span> <span class='op'>+</span> <span class='kw'>privileges</span> <span class='op'>+</span>
-    <span class='kw'>learning</span> <span class='op'>+</span> <span class='kw'>raises</span> <span class='op'>+</span> <span class='kw'>critical</span>, data=<span class='kw'>attitude</span>)
-  <span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='kw'>lmod</span>)
-  <span class='kw'>ft</span>
+    <pre class="examples"><div class='input'><span class='kw'>my_color_fun</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>x</span>){
+  <span class='kw'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"yellow"</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>x</span>))
+  <span class='kw'>out</span>[<span class='kw'>x</span> <span class='op'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='kw'>x</span>, <span class='fl'>.75</span>)] <span class='op'>&lt;-</span> <span class='st'>"pink"</span>
+  <span class='kw'>out</span>[<span class='kw'>x</span> <span class='op'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='kw'>x</span>, <span class='fl'>.50</span>)] <span class='op'>&lt;-</span> <span class='st'>"wheat"</span>
+  <span class='kw'>out</span>[<span class='kw'>x</span> <span class='op'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='kw'>x</span>, <span class='fl'>.25</span>)] <span class='op'>&lt;-</span> <span class='st'>"gray90"</span>
+  <span class='kw'>out</span>
 }
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>( <span class='kw'>mtcars</span>, n = <span class='fl'>10</span>))
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>highlight</span>(<span class='kw'>ft</span>, j = <span class='st'>"disp"</span>, i = <span class='op'>~</span> <span class='kw'>disp</span> <span class='op'>&gt;</span> <span class='fl'>200</span>, color = <span class='st'>"yellow"</span>)
+<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>highlight</span>(<span class='kw'>ft</span>, j = <span class='op'>~</span> <span class='kw'>drat</span> <span class='op'>+</span> <span class='kw'>wt</span> <span class='op'>+</span> <span class='kw'>qsec</span>, color = <span class='kw'>my_color_fun</span>)
+<span class='kw'>ft</span>
 </div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `term`, `estimate`, `std.error`, `statistic`, `p.value`, `signif` 
+#&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
 #&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
+#&gt; body has 10 row(s) 
 #&gt; original dataset sample: 
-#&gt;          term    estimate  std.error  statistic      p.value signif
-#&gt; 1 (Intercept) 11.01113043 11.7039358  0.9408058 0.3561781673       
-#&gt; 2  complaints  0.69205262  0.1488643  4.6488827 0.0001014085       
-#&gt; 3  privileges -0.10356202  0.1347297 -0.7686650 0.4495905743       
-#&gt; 4    learning  0.24906128  0.1596189  1.5603496 0.1317679549       
-#&gt; 5      raises -0.03346062  0.2022762 -0.1654205 0.8699985577       </div></pre>
+#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
