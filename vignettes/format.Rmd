@@ -151,6 +151,17 @@ myft
 </div>
 </div>
 
+### highlight text
+
+Text can be highlighted with function `highlight`. Color 
+can be a single value, multiples values or a function (from `{scales}` 
+for example).
+
+```{r}
+ft <- flextable(head( mtcars, n = 10))
+ft <- highlight(ft, j = "disp", i = ~ disp > 200, color = "yellow")
+ft
+```
 
 ### Text rotation 
 
