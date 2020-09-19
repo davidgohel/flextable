@@ -26,6 +26,12 @@ as argument to \code{color}. This is only useful if j is colored with values con
 change text highlight color of selected rows and
 columns of a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_highlight_1.png}{options: width=80\%}}
+}
+
 \examples{
 my_color_fun <- function(x){
   out <- rep("yellow", length(x))

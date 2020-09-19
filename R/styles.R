@@ -217,6 +217,9 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
 #' ft <- highlight(ft, j = "disp", i = ~ disp > 200, color = "yellow")
 #' ft <- highlight(ft, j = ~ drat + wt + qsec, color = my_color_fun)
 #' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_highlight_1.png}{options: width=80\%}}
 highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", source = j){
 
   if( !inherits(x, "flextable") ) stop("italic supports only flextable objects.")
