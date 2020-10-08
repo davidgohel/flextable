@@ -39,7 +39,7 @@ jobs:
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
-          sudo -s export DEBIAN_FRONTEND=noninteractive; apt-get -y update && apt-get install -y libharfbuzz-dev libfribidi-dev
+          sudo -s apt-get -y update && apt-get install -y libharfbuzz-dev libfribidi-dev
 
       - name: Install dependencies
         run: |
