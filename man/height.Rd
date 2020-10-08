@@ -19,8 +19,13 @@ height_all(x, height, part = "all")
 \item{part}{partname of the table}
 }
 \description{
-control rows height for a part
-of the flextable.
+control rows height for a part of the flextable when the line
+height adjustment is "atleast" or "exact".
+}
+\note{
+This function has no effect when the rule for line height is set to
+"auto" (see \code{\link[=hrule]{hrule()}}), which is the default case, except with PowerPoint
+which does not support this automatic line height adjustment feature.
 }
 \section{height_all}{
 
@@ -30,14 +35,16 @@ with argument \code{part}).
 }
 
 \examples{
+ft_1 <- flextable(head(iris))
+ft_1 <- height(ft_1, height = .5)
+ft_1 <- hrule(ft_1, rule = "exact")
+ft_1
 
-ftab <- flextable(head(iris))
-ft <- height(ftab, height = .3)
-ftab
 
-ftab <- flextable(head(iris))
-ftab <- height_all(ftab, height = .3)
-ftab
+ft_2 <- flextable(head(iris))
+ft_2 <- height_all(ft_2, height = 1)
+ft_2 <- hrule(ft_2, rule = "exact")
+ft_2
 }
 \seealso{
 Other flextable dimensions: 

@@ -367,18 +367,19 @@ ft
 
 
 
-## Table width
+## Table width {#tabwidth}
 
-By default, table width is fixed. This setting allows to have the same rendering 
-with Word, HTML and PowerPoint formats. 
+By default, table width is fixed. This setting allows to have the same rendering
+with Word, HTML and PowerPoint formats.
 
-You can use another setting with function `set_table_properties()`. Alternative is 
-'autofit', an algorithm implemented by HTML and Word. It allows to size the table 
-along an available width. 
+You can use another setting with function `set_table_properties()` when argument
+`layout` is set to 'autofit', an algorithm implemented by HTML and Word.
 
-```{r eval=FALSE}
-library(flextable)
-ft <- qflextable(head(cars))
+When layout is set to autofit, you can also size the table along an available
+width with argument `width` (default to 1 that means 100% of the available width).
+
+```{r}
+ft <- qflextable(head(airquality))
 set_table_properties(ft, width = .5, layout = "autofit")
 set_table_properties(ft, width = 1, layout = "autofit")
 ```
@@ -387,7 +388,7 @@ set_table_properties(ft, width = 1, layout = "autofit")
 
 ## Cell widths and heights
 
-> This oonly applies when layout is "fixed"
+> This only applies when layout is "fixed" - see [Table width](#tabwidth)
 
 The default sizes of flextable columns and rows are set by default values. 
 This will drive to inadequate rows heights and columns widths in some cases. 
@@ -411,8 +412,7 @@ dim_pretty(ft_base)
 ### Adjusts automatically cell widths and heights
 
 Function `autofit()` optimises widths and heights of the flextable. 
-This function is almost always to be called once when using 
-flextable objects, it makes compact tables.
+This function makes compact tables.
 
 > `autofit` was not my biggest naming idea as users are thinking it is the 
 'Microsoft Word feature' (see [set_table_properties](../reference/set_table_properties.html))
@@ -429,14 +429,27 @@ support soft returns and may return wrong results (\n will be considered as "").
   
 ### Adjusts manually cell widths and heights
 
-Function `width()` and `height()` let you control dimensions of a flextable. `height_all()` is an helper function to set the same height to each part of the table.
+Function `width()` and `height()` let you control dimensions of a flextable.
+`height_all()` is an helper function to set the same height to each part of the
+table.
 
 ```{r}
-ft <- autofit(ft_base)
-ft <- width(ft, j = ~ mpg + cyl + disp, width = 2)
-ft <- height_all( ft, height = .4 )
+ft <- hrule(ft, rule = "exact")
+ft <- width(ft, width = .3)
+ft <- width(ft, j = ~ mpg + disp, width = 2)
+ft <- height_all( ft, height = .7 )
 ft <- height( ft, i = 3, height = 1 )
 ft
 ```
 
+Function `height()` has no effect when the rule for line height is set to
+"auto", which is the default case, except with PowerPoint which does not support
+this automatic line height adjustment feature. You can define that rule with function 
+`hrule`.
 
+Function `hrule` support three options  :
+
+* "atleast": height should be at least the value specified, 
+* "exact" : height should be exactly the value specified, 
+* "auto", the default value : height is determined based on 
+the height of the contents, so the value is ignored.
