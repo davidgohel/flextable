@@ -33,9 +33,9 @@ and specify how data should be displayed in cells. Tables content can also
 contain mixed type of content, text and images.
 
 
-
-![](../man/figures/fig_formats.png)
-
+```{r, echo = FALSE, out.width="50%"}
+knitr::include_graphics("../man/figures/fig_formats.png")
+```
 
 
 
