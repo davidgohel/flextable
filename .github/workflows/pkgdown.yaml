@@ -39,7 +39,13 @@ jobs:
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
-          sudo -s apt-get -y update && apt-get install -y libharfbuzz-dev libfribidi-dev
+
+      - name: Install pkgdown system dependencies
+        env:
+          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+        run: |
+          sysreqs="export DEBIAN_FRONTEND=noninteractive; apt-get -y update && apt-get install -y pandoc pandoc-citeproc libssl-dev libharfbuzz-dev make libxml2-dev libfribidi-dev libcurl4-openssl-dev libtiff-dev libpng-dev"
+          sudo -s eval "$sysreqs"
 
       - name: Install dependencies
         run: |
