@@ -162,18 +162,18 @@ be defined, rows heights and columns widths can be manually set or automatically
 computed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>flextable</span>(
-  <span class='kw'>data</span>,
-  col_keys = <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>data</span>),
-  cwidth = <span class='fl'>0.75</span>,
-  cheight = <span class='fl'>0.25</span>,
-  defaults = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  theme_fun = <span class='kw'>theme_booktabs</span>
-)
+    <pre class="usage"><span class='fu'>flextable</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  col_keys <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>,
+  cwidth <span class='op'>=</span> <span class='fl'>0.75</span>,
+  cheight <span class='op'>=</span> <span class='fl'>0.25</span>,
+  defaults <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  theme_fun <span class='op'>=</span> <span class='va'>theme_booktabs</span>
+<span class='op'>)</span>
 
-<span class='fu'>qflextable</span>(<span class='kw'>data</span>)
+<span class='fu'>qflextable</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
 
-<span class='fu'>regulartable</span>(<span class='kw'>data</span>, col_keys = <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>data</span>), cwidth = <span class='fl'>0.75</span>, cheight = <span class='fl'>0.25</span>)</pre>
+<span class='fu'>regulartable</span><span class='op'>(</span><span class='va'>data</span>, col_keys <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>, cwidth <span class='op'>=</span> <span class='fl'>0.75</span>, cheight <span class='op'>=</span> <span class='fl'>0.25</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -230,8 +230,8 @@ a flextable for reporting</p>
 <code><a href='compose.html'>compose()</a></code>, <code><a href='footnote.html'>footnote()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>flextable</span>(<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>mtcars</span>))
-<span class='kw'>ft</span>
+    <pre class="examples"><div class='input'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>flextable</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ft</span>
 </div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
 #&gt; header has 1 row(s) 

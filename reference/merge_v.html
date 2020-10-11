@@ -156,7 +156,7 @@ identical values. Text of formatted values are used to compare
 values if available.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>merge_v</span>(<span class='kw'>x</span>, j = <span class='kw'>NULL</span>, target = <span class='kw'>NULL</span>, part = <span class='st'>"body"</span>)</pre>
+    <pre class="usage"><span class='fu'>merge_v</span><span class='op'>(</span><span class='va'>x</span>, j <span class='op'>=</span> <span class='cn'>NULL</span>, target <span class='op'>=</span> <span class='cn'>NULL</span>, part <span class='op'>=</span> <span class='st'>"body"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -196,9 +196,9 @@ from orignal dataset can also be used.</p></td>
 <code><a href='merge_none.html'>merge_none</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>ft_merge</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='kw'>mtcars</span>)
-<span class='kw'>ft_merge</span> <span class='op'>&lt;-</span> <span class='fu'>merge_v</span>(<span class='kw'>ft_merge</span>, j = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gear"</span>, <span class='st'>"carb"</span>))
-<span class='kw'>ft_merge</span>
+    <pre class="examples"><div class='input'><span class='va'>ft_merge</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>
+<span class='va'>ft_merge</span> <span class='op'>&lt;-</span> <span class='fu'>merge_v</span><span class='op'>(</span><span class='va'>ft_merge</span>, j <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gear"</span>, <span class='st'>"carb"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ft_merge</span>
 </div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
 #&gt; header has 1 row(s) 
@@ -210,33 +210,33 @@ from orignal dataset can also be used.</p></td>
 #&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
 #&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 #&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div><div class='input'>
-<span class='kw'>data_ex</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(srdr_id = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='va'>data_ex</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>srdr_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
   <span class='st'>"175124"</span>, <span class='st'>"175124"</span>, <span class='st'>"172525"</span>, <span class='st'>"172525"</span>,
   <span class='st'>"172545"</span>, <span class='st'>"172545"</span>, <span class='st'>"172609"</span>, <span class='st'>"172609"</span>, <span class='st'>"172609"</span>
-), substances = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='op'>)</span>, substances <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
   <span class='st'>"alcohol"</span>,
   <span class='st'>"alcohol"</span>, <span class='st'>"alcohol"</span>, <span class='st'>"alcohol"</span>, <span class='st'>"cannabis"</span>,
   <span class='st'>"cannabis"</span>, <span class='st'>"alcohol\n cannabis\n other drugs"</span>,
   <span class='st'>"alcohol\n cannabis\n other drugs"</span>,
   <span class='st'>"alcohol\n cannabis\n other drugs"</span>
-), full_name = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='op'>)</span>, full_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
   <span class='st'>"TAU"</span>, <span class='st'>"MI"</span>, <span class='st'>"TAU"</span>, <span class='st'>"MI (parent)"</span>, <span class='st'>"TAU"</span>, <span class='st'>"MI"</span>,
   <span class='st'>"TAU"</span>, <span class='st'>"MI"</span>, <span class='st'>"MI"</span>
-), article_arm_name = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='op'>)</span>, article_arm_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
   <span class='st'>"Control"</span>, <span class='st'>"WISEteens"</span>,
   <span class='st'>"Treatment as usual"</span>, <span class='st'>"Brief MI (b-MI)"</span>, <span class='st'>"Assessed control"</span>,
   <span class='st'>"Intervention"</span>, <span class='st'>"Control"</span>, <span class='st'>"Computer BI"</span>, <span class='st'>"Therapist BI"</span>
-)), row.names = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
-  <span class='fl'>NA</span>,
+<span class='op'>)</span><span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+  <span class='cn'>NA</span>,
   <span class='op'>-</span><span class='fl'>9L</span>
-), class = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tbl_df"</span>, <span class='st'>"tbl"</span>, <span class='st'>"data.frame"</span>))
+<span class='op'>)</span>, class <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tbl_df"</span>, <span class='st'>"tbl"</span>, <span class='st'>"data.frame"</span><span class='op'>)</span><span class='op'>)</span>
 
 
-<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='kw'>data_ex</span>)
-<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='theme_box.html'>theme_box</a></span>(<span class='kw'>ft_1</span>)
-<span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'>merge_v</span>(<span class='kw'>ft_1</span>, j = <span class='st'>"srdr_id"</span>,
-  target = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"srdr_id"</span>, <span class='st'>"substances"</span>))
-  <span class='kw'>ft_2</span>
+<span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>data_ex</span><span class='op'>)</span>
+<span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='theme_box.html'>theme_box</a></span><span class='op'>(</span><span class='va'>ft_1</span><span class='op'>)</span>
+<span class='va'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'>merge_v</span><span class='op'>(</span><span class='va'>ft_1</span>, j <span class='op'>=</span> <span class='st'>"srdr_id"</span>,
+  target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"srdr_id"</span>, <span class='st'>"substances"</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>ft_2</span>
 </div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `srdr_id`, `substances`, `full_name`, `article_arm_name` 
 #&gt; header has 1 row(s) 

@@ -155,7 +155,7 @@ linear model produced by function <code>lm</code>.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for lm</span>
-<span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'><a href='as_flextable.html'>as_flextable</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,12 +186,12 @@ linear model produced by function <code>lm</code>.</p>
 <code><a href='as_flextable.html'>as_flextable</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://broom.tidymodels.org'>"broom"</a></span>)){
-  <span class='kw'>lmod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>rating</span> <span class='op'>~</span> <span class='kw'>complaints</span> <span class='op'>+</span> <span class='kw'>privileges</span> <span class='op'>+</span>
-    <span class='kw'>learning</span> <span class='op'>+</span> <span class='kw'>raises</span> <span class='op'>+</span> <span class='kw'>critical</span>, data=<span class='kw'>attitude</span>)
-  <span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='kw'>lmod</span>)
-  <span class='kw'>ft</span>
-}
+    <pre class="examples"><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://broom.tidymodels.org/'>"broom"</a></span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>lmod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>rating</span> <span class='op'>~</span> <span class='va'>complaints</span> <span class='op'>+</span> <span class='va'>privileges</span> <span class='op'>+</span>
+    <span class='va'>learning</span> <span class='op'>+</span> <span class='va'>raises</span> <span class='op'>+</span> <span class='va'>critical</span>, data<span class='op'>=</span><span class='va'>attitude</span><span class='op'>)</span>
+  <span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span><span class='op'>(</span><span class='va'>lmod</span><span class='op'>)</span>
+  <span class='va'>ft</span>
+<span class='op'>}</span>
 </div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `term`, `estimate`, `std.error`, `statistic`, `p.value`, `signif` 
 #&gt; header has 1 row(s) 

@@ -156,7 +156,7 @@ be used to define the title of the groups and will
 be added as a row title.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_grouped_data</span>(<span class='kw'>x</span>, <span class='kw'>groups</span>, columns = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>as_grouped_data</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>groups</span>, columns <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,14 +181,14 @@ be added as a row title.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># as_grouped_data -----</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://r-datatable.com'>data.table</a></span>)
-<span class='kw'>CO2</span> <span class='op'>&lt;-</span> <span class='kw'>CO2</span>
-<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/setDT.html'>setDT</a></span>(<span class='kw'>CO2</span>)
-<span class='kw'>CO2</span><span class='op'>$</span><span class='kw'>conc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='kw'>CO2</span><span class='op'>$</span><span class='kw'>conc</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://r-datatable.com'>data.table</a></span><span class='op'>)</span>
+<span class='va'>CO2</span> <span class='op'>&lt;-</span> <span class='va'>CO2</span>
+<span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/setDT.html'>setDT</a></span><span class='op'>(</span><span class='va'>CO2</span><span class='op'>)</span>
+<span class='va'>CO2</span><span class='op'>$</span><span class='va'>conc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>CO2</span><span class='op'>$</span><span class='va'>conc</span><span class='op'>)</span>
 
-<span class='kw'>data_co2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/dcast.data.table.html'>dcast</a></span>(<span class='kw'>CO2</span>, <span class='kw'>Treatment</span> <span class='op'>+</span> <span class='kw'>conc</span> <span class='op'>~</span> <span class='kw'>Type</span>,
-  value.var = <span class='st'>"uptake"</span>, fun.aggregate = <span class='kw'>mean</span>)
-<span class='kw'>data_co2</span>
+<span class='va'>data_co2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/dcast.data.table.html'>dcast</a></span><span class='op'>(</span><span class='va'>CO2</span>, <span class='va'>Treatment</span> <span class='op'>+</span> <span class='va'>conc</span> <span class='op'>~</span> <span class='va'>Type</span>,
+  value.var <span class='op'>=</span> <span class='st'>"uptake"</span>, fun.aggregate <span class='op'>=</span> <span class='va'>mean</span><span class='op'>)</span>
+<span class='va'>data_co2</span>
 </div><div class='output co'>#&gt;      Treatment conc   Quebec Mississippi
 #&gt;  1: nonchilled   95 15.26667    11.30000
 #&gt;  2: nonchilled  175 30.03333    20.20000
@@ -203,8 +203,8 @@ be added as a row title.</p>
 #&gt; 11:    chilled  350 35.80000    16.60000
 #&gt; 12:    chilled  500 36.66667    16.63333
 #&gt; 13:    chilled  675 37.50000    18.26667
-#&gt; 14:    chilled 1000 40.83333    18.73333</div><div class='input'><span class='kw'>data_co2</span> <span class='op'>&lt;-</span> <span class='fu'>as_grouped_data</span>(x = <span class='kw'>data_co2</span>, groups = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Treatment"</span>))
-<span class='kw'>data_co2</span>
+#&gt; 14:    chilled 1000 40.83333    18.73333</div><div class='input'><span class='va'>data_co2</span> <span class='op'>&lt;-</span> <span class='fu'>as_grouped_data</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>data_co2</span>, groups <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Treatment"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>data_co2</span>
 </div><div class='output co'>#&gt;     Treatment conc   Quebec Mississippi
 #&gt; 1  nonchilled   NA       NA          NA
 #&gt; 3        &lt;NA&gt;   95 15.26667    11.30000

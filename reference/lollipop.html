@@ -156,21 +156,21 @@ flextable with function <code><a href='compose.html'>compose</a></code>.
 It should be used inside a call to <code><a href='as_paragraph.html'>as_paragraph</a></code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>lollipop</span>(
-  <span class='kw'>value</span>,
-  min = <span class='kw'>NULL</span>,
-  max = <span class='kw'>NULL</span>,
-  rangecol = <span class='st'>"#CCCCCC"</span>,
-  bg = <span class='st'>"transparent"</span>,
-  width = <span class='fl'>1</span>,
-  height = <span class='fl'>0.2</span>,
-  raster_width = <span class='fl'>30</span>,
-  positivecol = <span class='st'>"#00CC00"</span>,
-  negativecol = <span class='st'>"#CC0000"</span>,
-  neutralcol = <span class='st'>"#CCCCCC"</span>,
-  neutralrange = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
-  rectanglesize = <span class='fl'>2</span>
-)</pre>
+    <pre class="usage"><span class='fu'>lollipop</span><span class='op'>(</span>
+  <span class='va'>value</span>,
+  min <span class='op'>=</span> <span class='cn'>NULL</span>,
+  max <span class='op'>=</span> <span class='cn'>NULL</span>,
+  rangecol <span class='op'>=</span> <span class='st'>"#CCCCCC"</span>,
+  bg <span class='op'>=</span> <span class='st'>"transparent"</span>,
+  width <span class='op'>=</span> <span class='fl'>1</span>,
+  height <span class='op'>=</span> <span class='fl'>0.2</span>,
+  raster_width <span class='op'>=</span> <span class='fl'>30</span>,
+  positivecol <span class='op'>=</span> <span class='st'>"#00CC00"</span>,
+  negativecol <span class='op'>=</span> <span class='st'>"#CC0000"</span>,
+  neutralcol <span class='op'>=</span> <span class='st'>"#CCCCCC"</span>,
+  neutralrange <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
+  rectanglesize <span class='op'>=</span> <span class='fl'>2</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -254,16 +254,16 @@ are removed when outputing to PowerPoint format.</p>
 <code><a href='minibar.html'>minibar</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>iris</span><span class='op'>$</span><span class='kw'>Sepal.Ratio</span> <span class='op'>&lt;-</span> (<span class='kw'>iris</span><span class='op'>$</span><span class='kw'>Sepal.Length</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>iris</span><span class='op'>$</span><span class='kw'>Sepal.Length</span>))<span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>iris</span><span class='op'>$</span><span class='kw'>Sepal.Length</span>)
-<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>( <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='kw'>iris</span>, n = <span class='fl'>10</span> ))
+    <pre class="examples"><div class='input'><span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Ratio</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Length</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Length</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Length</span><span class='op'>)</span>
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>iris</span>, n <span class='op'>=</span> <span class='fl'>10</span> <span class='op'>)</span><span class='op'>)</span>
 
-<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span>( <span class='kw'>ft</span>, j = <span class='st'>"Sepal.Ratio"</span>,   value = <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span>(
-  <span class='fu'>lollipop</span>(value = <span class='kw'>Sepal.Ratio</span>, min=<span class='op'>-</span><span class='fl'>.25</span>, max=<span class='fl'>.25</span>)
-),
-part = <span class='st'>"body"</span>)
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span><span class='op'>(</span> <span class='va'>ft</span>, j <span class='op'>=</span> <span class='st'>"Sepal.Ratio"</span>,   value <span class='op'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span><span class='op'>(</span>
+  <span class='fu'>lollipop</span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>Sepal.Ratio</span>, min<span class='op'>=</span><span class='op'>-</span><span class='fl'>.25</span>, max<span class='op'>=</span><span class='fl'>.25</span><span class='op'>)</span>
+<span class='op'>)</span>,
+part <span class='op'>=</span> <span class='st'>"body"</span><span class='op'>)</span>
 
-<span class='kw'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span>(<span class='kw'>ft</span>)
-<span class='kw'>ft</span>
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span><span class='op'>(</span><span class='va'>ft</span><span class='op'>)</span>
+<span class='va'>ft</span>
 </div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species`, `Sepal.Ratio` 
 #&gt; header has 1 row(s) 

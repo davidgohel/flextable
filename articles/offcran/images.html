@@ -114,23 +114,21 @@
 <p>Beeing able to render flextable as images is requiring package <code>webshot</code> or <code>webshot2</code> to be available.</p>
 <p>Run the following command to install <code>webshot2</code>. This package should be used instead of <code>webshot</code> as the latest can have some issues with html rendering.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">devtools</span>::<span class="fu">install_github</span>(<span class="st">"rstudio/webshot2"</span>)
-</pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rstudio/webshot2"</span><span class="op">)</span></pre></div>
 <blockquote>
 <p>Read more about it <a href="https://github.com/rstudio/webshot2">here</a>.</p>
 </blockquote>
 <p>Run the following command to install <code>webshot</code>. You may have to install <code>phantomjs</code> first.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"webshot"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"webshot"</span><span class="op">)</span></pre></div>
 <div id="what-will-be-the-size" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-will-be-the-size" class="anchor"></a>What will be the size?</h2>
 <p>You can print a table as an image. In some case, you may want to know the exact width and height of the table to be sure to set up the correct aspect ratio. The function <code><a href="../../reference/flextable_dim.html">flextable_dim()</a></code> will provide these informations without the need to produce the image.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/flextable.html">flextable</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">iris</span>))
-<span class="kw">dims</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/flextable_dim.html">flextable_dim</a></span>(<span class="kw">ft</span>)
-<span class="kw">dims</span>
+<span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span>
+<span class="va">dims</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/flextable_dim.html">flextable_dim</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span>
+<span class="va">dims</span>
 <span class="co">#&gt; $widths</span>
 <span class="co">#&gt; [1] 3.75</span>
 <span class="co">#&gt; </span>
@@ -138,8 +136,7 @@
 <span class="co">#&gt; [1] 1.75</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $aspect_ratio</span>
-<span class="co">#&gt; [1] 0.4666667</span>
-</pre></div>
+<span class="co">#&gt; [1] 0.4666667</span></pre></div>
 <p>Results are in inches. You can reuse them as values for knitr chunk options <code>fig.asp</code>, <code>fig.width</code> and <code>fig.height</code>.</p>
 </div>
 <div id="images" class="section level2">
@@ -147,18 +144,16 @@
 <a href="#images" class="anchor"></a>Images</h2>
 <p>To get an image file from a <code>flextable</code> object, use function <code>save_as_image</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">img_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>(fileext = <span class="st">".png"</span>)
-<span class="fu"><a href="../../reference/save_as_image.html">save_as_image</a></span>(<span class="kw">ft</span>, path = <span class="kw">img_file</span>)
-<span class="co">#&gt; [1] "/tmp/RtmpztR9Zl/file7e9545f4f3f6.png"</span>
-</pre></div>
+<span class="va">img_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".png"</span><span class="op">)</span>
+<span class="fu"><a href="../../reference/save_as_image.html">save_as_image</a></span><span class="op">(</span><span class="va">ft</span>, path <span class="op">=</span> <span class="va">img_file</span><span class="op">)</span>
+<span class="co">#&gt; [1] "/tmp/Rtmp1yrOl0/filee42129bc27f.png"</span></pre></div>
 </div>
 <div id="as-an-r-graphic" class="section level2">
 <h2 class="hasAnchor">
 <a href="#as-an-r-graphic" class="anchor"></a>As an R graphic</h2>
 <p>To get a plot from a <code>flextable</code> object, use function <code>plot</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">ft</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></pre></div>
 <p><img src="images_files/figure-html/unnamed-chunk-7-1.png" width="270"></p>
 <blockquote>
 <p>To add a flextable on a ggplot2 object, one can use <code><a href="../../reference/as_raster.html">flextable::as_raster</a></code> and <code>grid.raster</code> or <code>rasterGrob</code>. See <a href="./examples.html#send-your-flextable-to-ggplot">Examples</a> for an example.</p>
@@ -169,24 +164,23 @@
 <a href="#with-ggplot" class="anchor"></a>With ggplot</h2>
 <p>You can also add the flextable (with <code><a href="https://rdrr.io/r/grid/grid.raster.html">grid::rasterGrob()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">ggplot2::annotation_custom()</a></code>) in a ggplot object. You need first to use <code><a href="../../reference/as_raster.html">as_raster()</a></code> function that will return a raster version of the flextable.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">grid</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://wilkelab.org/cowplot">cowplot</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
-<span class="kw">gg1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">Sepal.Length</span>, <span class="kw">Petal.Length</span>, color = <span class="kw">Species</span>) ) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>()
+<span class="va">gg1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Petal.Length</span>, color <span class="op">=</span> <span class="va">Species</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="kw">ft_raster</span> <span class="op">&lt;-</span> <span class="kw">iris</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">Species</span>) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_all</a></span>(<span class="kw">median</span>) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../../reference/flextable.html">flextable</a></span>() <span class="op">%&gt;%</span> <span class="fu"><a href="../../reference/autofit.html">autofit</a></span>() <span class="op">%&gt;%</span> <span class="fu"><a href="../../reference/add_header_lines.html">add_header_lines</a></span>(<span class="st">"means per Species"</span>) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../../reference/as_raster.html">as_raster</a></span>()
+<span class="va">ft_raster</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_all</a></span><span class="op">(</span><span class="va">median</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../../reference/flextable.html">flextable</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../../reference/autofit.html">autofit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../../reference/add_header_lines.html">add_header_lines</a></span><span class="op">(</span><span class="st">"means per Species"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../../reference/as_raster.html">as_raster</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="kw">gg2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>() <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span>() <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span>(<span class="fu"><a href="https://rdrr.io/r/grid/grid.raster.html">rasterGrob</a></span>(<span class="kw">ft_raster</span>), xmin=<span class="op">-</span><span class="fl">Inf</span>, xmax=<span class="fl">Inf</span>, ymin=<span class="op">-</span><span class="fl">Inf</span>, ymax=<span class="fl">Inf</span>)
+<span class="va">gg2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.raster.html">rasterGrob</a></span><span class="op">(</span><span class="va">ft_raster</span><span class="op">)</span>, xmin<span class="op">=</span><span class="op">-</span><span class="cn">Inf</span>, xmax<span class="op">=</span><span class="cn">Inf</span>, ymin<span class="op">=</span><span class="op">-</span><span class="cn">Inf</span>, ymax<span class="op">=</span><span class="cn">Inf</span><span class="op">)</span>
 
-<span class="kw">cowplot</span>::<span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="kw">gg1</span>, <span class="kw">gg2</span>, nrow = <span class="fl">2</span>, ncol = <span class="fl">1</span>, rel_heights = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">1</span>) )
-</pre></div>
+<span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">gg1</span>, <span class="va">gg2</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">1</span>, rel_heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">)</span></pre></div>
 <p><img src="images_files/figure-html/unnamed-chunk-8-1.png" width="70%"></p>
 </div>
   </div>

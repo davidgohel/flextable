@@ -152,7 +152,7 @@
     <p>The function is deleting all borders of the flextable object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>border_remove</span>(<span class='kw'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>border_remove</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,10 +186,10 @@
 <code><a href='vline.html'>vline</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='kw'>iris</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>51</span><span class='op'>:</span><span class='fl'>55</span>, <span class='fl'>101</span><span class='op'>:</span><span class='fl'>105</span>),]
-<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span>(<span class='kw'>dat</span>)
-<span class='kw'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='theme_box.html'>theme_box</a></span>(<span class='kw'>ft_1</span>)
-<span class='kw'>ft_1</span>
+    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>iris</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>51</span><span class='op'>:</span><span class='fl'>55</span>, <span class='fl'>101</span><span class='op'>:</span><span class='fl'>105</span><span class='op'>)</span>,<span class='op'>]</span>
+<span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span>
+<span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='theme_box.html'>theme_box</a></span><span class='op'>(</span><span class='va'>ft_1</span><span class='op'>)</span>
+<span class='va'>ft_1</span>
 </div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
 #&gt; header has 1 row(s) 
@@ -202,8 +202,8 @@
 #&gt; 4          4.6         3.1          1.5         0.2  setosa
 #&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'>
 <span class='co'># remove all borders</span>
-<span class='kw'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'>border_remove</span>(x = <span class='kw'>ft_1</span>)
-<span class='kw'>ft_2</span>
+<span class='va'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'>border_remove</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ft_1</span><span class='op'>)</span>
+<span class='va'>ft_2</span>
 </div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
 #&gt; header has 1 row(s) 
