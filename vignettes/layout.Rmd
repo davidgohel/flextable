@@ -435,9 +435,10 @@ table.
 
 ```{r}
 ft <- hrule(ft, rule = "exact")
-ft <- width(ft, width = .3)
-ft <- width(ft, j = ~ mpg + disp, width = 2)
-ft <- height_all( ft, height = .7 )
+ft <- valign(ft, valign = "top")
+ft <- width(ft, width = .5)
+ft <- width(ft, j = ~ mpg + disp, width = 1.5)
+ft <- height_all( ft, height = .6 )
 ft <- height( ft, i = 3, height = 1 )
 ft
 ```
