@@ -34,8 +34,12 @@ html_str <- function(x, bookdown = FALSE, ... ){
 
   codes <- html_gen(x)
 
-  sprintf("<style>%s</style><table style='%s'>%s%s</table>",
-          codes$css, tabcss, caption, codes$html)
+  classname <- UUIDgenerate(n = 1, use.time = TRUE)
+  classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
+  tabcss <- paste0(".", classname, "{", tabcss, "}")
+
+  sprintf("<style>%s%s</style><table class='%s'>%s%s</table>",
+          tabcss, codes$css, classname, caption, codes$html)
 }
 
 # to html/css  ----
