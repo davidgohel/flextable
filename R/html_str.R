@@ -61,8 +61,8 @@ html_gen <- function(x){
   cell_data$height  <- NULL
   cell_data$hrule  <- NULL
   cell_data <- merge(cell_data, cell_widths, by = "col_id")
-  cell_data <- merge(cell_data, cell_heights, by = c("part", "row_id"))
-  cell_data <- merge(cell_data, cell_hrule, by = c("part", "row_id"))
+  cell_data <- merge(cell_data, cell_heights, by = c("part", "ft_row_id"))
+  cell_data <- merge(cell_data, cell_hrule, by = c("part", "ft_row_id"))
   span_data <- fortify_span(x)
 
   data_ref_text <- part_style_list(txt_data, fun = officer::fp_text)
@@ -78,7 +78,7 @@ html_gen <- function(x){
 
   by_columns <- intersect(colnames(data_ref_text), colnames(txt_data))
   txt_data <- merge(txt_data, data_ref_text, by = by_columns)
-  setorderv(txt_data, c("row_id", "col_id", "seq_index"))
+  setorderv(txt_data, c("ft_row_id", "col_id", "seq_index"))
 
   is_hlink <- !is.na(txt_data$url)
   is_raster <- sapply(txt_data$img_data, function(x) {
@@ -91,15 +91,15 @@ html_gen <- function(x){
   txt_data[is_raster==FALSE, c("txt") := list(sprintf("<span class=\"%s\">%s</span>", .SD$classname, htmlize(.SD$txt)))]
   # manage hlinks
   txt_data[is_hlink==TRUE, c("txt") := list(paste0("<a href=\"", .SD$url, "\">", .SD$txt, "</a>"))]
-  txt_data <- txt_data[, list(span_tag = paste0(get("txt"), collapse = "")), by = c("part", "row_id", "col_id")]
+  txt_data <- txt_data[, list(span_tag = paste0(get("txt"), collapse = "")), by = c("part", "ft_row_id", "col_id")]
 
   by_columns <- intersect(colnames(par_data), colnames(data_ref_pars))
   par_data <- merge(par_data, data_ref_pars, by = by_columns)
-  par_data <- par_data[, list(p_tag = paste0("<p class=\"", get("classname"), "\">")), by = c("part", "row_id", "col_id")]
+  par_data <- par_data[, list(p_tag = paste0("<p class=\"", get("classname"), "\">")), by = c("part", "ft_row_id", "col_id")]
 
   by_columns <- intersect(colnames(cell_data), colnames(data_ref_cells))
   cell_data <- merge(cell_data, data_ref_cells, by = by_columns)
-  cell_data <- merge(cell_data, span_data, by = c("part", "row_id", "col_id"))
+  cell_data <- merge(cell_data, span_data, by = c("part", "ft_row_id", "col_id"))
 
   cell_data <- cell_data[, list(
     td_tag = paste0("<td ",
@@ -109,24 +109,24 @@ html_gen <- function(x){
                     ),
                     "class=\"", get("classname"), "\">")
   ),
-  by = c("part", "row_id", "col_id")]
+  by = c("part", "ft_row_id", "col_id")]
 
-  dat <- merge(txt_data, par_data , by = c("part", "row_id", "col_id"))
+  dat <- merge(txt_data, par_data , by = c("part", "ft_row_id", "col_id"))
   dat$p_tag <- paste0(dat$p_tag, dat$span_tag, "</p>")
-  dat <- merge(dat, cell_data , by = c("part", "row_id", "col_id"))
+  dat <- merge(dat, cell_data , by = c("part", "ft_row_id", "col_id"))
   dat$td_tag <- paste0(dat$td_tag, dat$p_tag, "</td>")
 
   rows_data <- fortify_rows_styles(x)
   rows_data$tr_tag <- ifelse(rows_data$hrule %in% "exact", "<tr>", "<tr style=\"overflow-wrap:break-word;\">")
-  rows_data <- rows_data[c("part", "row_id",  "tr_tag")]
+  rows_data <- rows_data[c("part", "ft_row_id",  "tr_tag")]
 
-  dat <- merge(dat, span_data, by = c("part", "row_id", "col_id"))
+  dat <- merge(dat, span_data, by = c("part", "ft_row_id", "col_id"))
   dat$col_id <- factor(dat$col_id, levels = x$col_keys)
   dat$td_tag[dat$rowspan < 1 | dat$colspan < 1] <- ""
 
-  z <- dcast(dat, part + row_id ~ col_id, drop=TRUE, fill="", value.var = "td_tag", fun.aggregate = I)
-  z <- merge(z, rows_data, by = c("part", "row_id"))
-  setorderv(z, c("part", "row_id"))
+  z <- dcast(dat, part + ft_row_id ~ col_id, drop=TRUE, fill="", value.var = "td_tag", fun.aggregate = I)
+  z <- merge(z, rows_data, by = c("part", "ft_row_id"))
+  setorderv(z, c("part", "ft_row_id"))
   z$tr_end <- "</tr>"
 
   parts <- z$part
@@ -143,7 +143,7 @@ html_gen <- function(x){
   z$tpart_end[body_end] <- "</tbody>"
   setcolorder(z, neworder = c("tpart_start", "tr_tag"))
 
-  z[, c("part", "row_id") := NULL]
+  z[, c("part", "ft_row_id") := NULL]
 
   html <- apply(as.matrix(z), 1, paste0, collapse = "")
   html <- paste0(html, collapse = "")

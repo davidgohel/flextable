@@ -96,8 +96,8 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE,
                      span_rows = x$spans$rows,
                      span_columns = x$spans$columns, x$colwidths, x$rowheights, x$hrule, text.align=x$styles$pars$text.align$data)
   setDT(cells)
-  cells <- dcast(cells, row_id ~ col_id, drop=FALSE, fill="", value.var = "cell_str", fun.aggregate = I)
-  cells$row_id <- NULL
+  cells <- dcast(cells, ft_row_id ~ col_id, drop=FALSE, fill="", value.var = "cell_str", fun.aggregate = I)
+  cells$ft_row_id <- NULL
   cells <- apply(as.matrix(cells), 1, paste0, collapse = "")
 
   if( type == "html"){

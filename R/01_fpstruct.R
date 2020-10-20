@@ -90,7 +90,7 @@ as.data.frame.text_struct <- function(object, ...){
   data <- lapply( object, function(x){
     as.vector(x$data)
   })
-  data$row_id <- rep( seq_len(nrow(object$color$data)), ncol(object$color$data) )
+  data$ft_row_id <- rep( seq_len(nrow(object$color$data)), ncol(object$color$data) )
   data$col_id <- rep( object$color$keys, each = nrow(object$color$data) )
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   data$col_id <- factor(data$col_id, levels = object$color$keys)
@@ -178,7 +178,7 @@ as.data.frame.par_struct <- function(object, ...){
   data <- lapply( object, function(x){
     as.vector(x$data)
   })
-  data$row_id <- rep( seq_len(nrow(object$text.align$data)), ncol(object$text.align$data) )
+  data$ft_row_id <- rep( seq_len(nrow(object$text.align$data)), ncol(object$text.align$data) )
   data$col_id <- rep( object$text.align$keys, each = nrow(object$text.align$data) )
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   data$col_id <- factor(data$col_id, levels = object$text.align$keys)
@@ -272,14 +272,14 @@ add_parstyle_column <- function(x, type = "html", text.direction, valign){
   }
 
   x$style_str <- style_column
-  x[, c("row_id", "col_id", "style_str")]
+  x[, c("ft_row_id", "col_id", "style_str")]
 }
 
 par_data <- function(x, run_data, type, text.direction, valign){
   paragraphs <- as.data.frame(x)
   paragraphs <- add_parstyle_column(paragraphs, type = type, text.direction = text.direction, valign = valign)
   setDT(paragraphs)
-  dat <- merge(paragraphs, run_data, by = c("row_id", "col_id"), all.x = TRUE)
+  dat <- merge(paragraphs, run_data, by = c("ft_row_id", "col_id"), all.x = TRUE)
   setDF(paragraphs)
 
   if( type %in% "wml" ){
@@ -291,8 +291,8 @@ par_data <- function(x, run_data, type, text.direction, valign){
   }
   dat$col_id <- factor(dat$col_id, levels = x$text.align$keys)
 
-  dat <- dat[order(dat$row_id, dat$col_id), ]
-  dat[, c("row_id", "col_id", "par_str")]
+  dat <- dat[order(dat$ft_row_id, dat$col_id), ]
+  dat[, c("ft_row_id", "col_id", "par_str")]
 }
 
 
@@ -377,7 +377,7 @@ as.data.frame.cell_struct <- function(object, ...){
     as.vector(x$data)
   })
 
-  data$row_id <- rep( seq_len(nrow(object$background.color$data)), ncol(object$background.color$data) )
+  data$ft_row_id <- rep( seq_len(nrow(object$background.color$data)), ncol(object$background.color$data) )
   data$col_id <- rep( object$background.color$keys, each = nrow(object$background.color$data) )
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   data$col_id <- factor(data$col_id, levels = object$background.color$keys)
@@ -488,7 +488,7 @@ add_cellstyle_column <- function(x, type = "html", text.align ){
   }
 
   x$style_str <- style_column
-  x[, c("row_id", "col_id", "style_str")]
+  x[, c("ft_row_id", "col_id", "style_str")]
 }
 
 cell_data <- function(x, par_data, type, span_rows, span_columns, colwidths, rowheights, hrule, text.align){
@@ -498,9 +498,9 @@ cell_data <- function(x, par_data, type, span_rows, span_columns, colwidths, row
   cells <- as.data.frame(x)
   cells <- add_cellstyle_column(cells, type = type, text.align = text.align)
   setDT(cells)
-  dat <- merge(cells, par_data, by = c("row_id", "col_id"), all.x = TRUE)
+  dat <- merge(cells, par_data, by = c("ft_row_id", "col_id"), all.x = TRUE)
 
-  setorderv(dat, cols = c("col_id", "row_id"))
+  setorderv(dat, cols = c("col_id", "ft_row_id"))
   setDF(dat)
   if( type %in% "wml" ){
 
@@ -549,8 +549,8 @@ cell_data <- function(x, par_data, type, span_rows, span_columns, colwidths, row
     str[span_rows < 1 | span_columns < 1] <- ""
     dat$cell_str <- str
   }
-  dat <- dat[order(dat$row_id, dat$col_id), ]
-  dat <- dat[, c("row_id", "col_id", "cell_str")]
+  dat <- dat[order(dat$ft_row_id, dat$col_id), ]
+  dat <- dat[, c("ft_row_id", "col_id", "cell_str")]
   dat$col_id <- factor(dat$col_id, levels = x$vertical.align$keys)
 
   dat
@@ -641,7 +641,7 @@ fortify_content <- function(x, default_chunk_fmt, ...){
   x$content$data, SIMPLIFY = FALSE, USE.NAMES = FALSE ) )
 
   out <- rbindlist( apply(x$content$data, 2, rbindlist))
-  out$row_id <- row_id
+  out$ft_row_id <- row_id
   out$col_id <- col_id
   setDF(out)
 
@@ -649,7 +649,7 @@ fortify_content <- function(x, default_chunk_fmt, ...){
   out <- replace_missing_fptext_by_default(out, default_props)
 
   out$col_id <- factor( out$col_id, levels = default_chunk_fmt$color$keys )
-  out <- out[order(out$col_id, out$row_id, out$seq_index) ,]
+  out <- out[order(out$col_id, out$ft_row_id, out$seq_index) ,]
   out
 
 }
@@ -856,8 +856,8 @@ run_data <- function(x, type){
   }
 
   z <- as.data.table(x)
-  setorderv(z, cols = c("row_id", "col_id", "seq_index") )
-  z <- z[, lapply(.SD, function(x) paste0(x, collapse = "")), by = c("row_id", "col_id"), .SDcols = "par_nodes_str"]
+  setorderv(z, cols = c("ft_row_id", "col_id", "seq_index") )
+  z <- z[, lapply(.SD, function(x) paste0(x, collapse = "")), by = c("ft_row_id", "col_id"), .SDcols = "par_nodes_str"]
   setDF(z)
   z
 }

@@ -362,10 +362,10 @@ optimal_sizes <- function( x ){
 
   sizes <- text_metric(x)
   sizes$col_id <- factor(sizes$col_id, levels = x$col_keys)
-  sizes <- sizes[order(sizes$col_id, sizes$row_id ), ]
-  widths <- as_wide_matrix_(data = sizes[, c("col_id", "width", "row_id")], idvar = "row_id", timevar = "col_id")
+  sizes <- sizes[order(sizes$col_id, sizes$ft_row_id ), ]
+  widths <- as_wide_matrix_(data = sizes[, c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
   dimnames(widths)[[2]] <- gsub("^width\\.", "", dimnames(widths)[[2]])
-  heights <- as_wide_matrix_(data = sizes[, c("col_id", "height", "row_id")], idvar = "row_id", timevar = "col_id")
+  heights <- as_wide_matrix_(data = sizes[, c("col_id", "height", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
   dimnames(heights)[[2]] <- gsub("^height\\.", "", dimnames(heights)[[2]])
 
   par_dim <- dim_paragraphs(x)
@@ -435,11 +435,11 @@ dim_paragraphs <- function(x){
   par_dim <- as.data.frame(x$styles$pars)
   par_dim$width <- as.vector(x$styles$pars[,,"padding.right"] + x$styles$pars[,,"padding.left"]) * (4/3) / 72
   par_dim$height <- as.vector(x$styles$pars[,,"padding.top"] + x$styles$pars[,,"padding.bottom"]) * (4/3) / 72
-  selection_ <- c("row_id", "col_id", "width", "height")
+  selection_ <- c("ft_row_id", "col_id", "width", "height")
   par_dim[, selection_]
 
-  list( widths = as_wide_matrix_( par_dim[,c("col_id", "width", "row_id")], idvar = "row_id", timevar = "col_id" ),
-        heights = as_wide_matrix_( par_dim[,c("col_id", "height", "row_id")], idvar = "row_id", timevar = "col_id" )
+  list( widths = as_wide_matrix_( par_dim[,c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id" ),
+        heights = as_wide_matrix_( par_dim[,c("col_id", "height", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id" )
   )
 }
 
@@ -447,11 +447,11 @@ dim_cells <- function(x){
   cell_dim <- as.data.frame(x$styles$cells)
   cell_dim$width <- as.vector(x$styles$cells[,,"margin.right"] + x$styles$cells[,,"margin.left"]) * (4/3) / 72
   cell_dim$height <- as.vector(x$styles$cells[,,"margin.top"] + x$styles$cells[,,"margin.bottom"]) * (4/3) / 72
-  selection_ <- c("row_id", "col_id", "width", "height")
+  selection_ <- c("ft_row_id", "col_id", "width", "height")
   cell_dim <- cell_dim[, selection_]
 
-  cellwidths <- as_wide_matrix_( cell_dim[,c("col_id", "width", "row_id")], idvar = "row_id", timevar = "col_id" )
-  cellheights <- as_wide_matrix_( cell_dim[,c("col_id", "height", "row_id")], idvar = "row_id", timevar = "col_id")
+  cellwidths <- as_wide_matrix_( cell_dim[,c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id" )
+  cellheights <- as_wide_matrix_( cell_dim[,c("col_id", "height", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
 
   list( widths = cellwidths, heights = cellheights )
 }
@@ -475,11 +475,11 @@ text_metric <- function( x ){
   dimnames(str_extents_) <- list(NULL, c("width", "height"))
   txt_data <- cbind( txt_data, str_extents_ )
 
-  selection_ <- c("row_id", "col_id", "seq_index", "width", "height")
+  selection_ <- c("ft_row_id", "col_id", "seq_index", "width", "height")
   txt_data <- txt_data[, selection_]
   setDT(txt_data)
   txt_data <- txt_data[, c(list(width=sum(width, na.rm = TRUE), height = max(height, na.rm = TRUE) )),
-                         by= c("row_id", "col_id") ]
+                         by= c("ft_row_id", "col_id") ]
   setDF(txt_data)
   txt_data
 }

@@ -55,9 +55,9 @@ fortify_height <- function(x){
     nr <- nrow_part(x, part)
     if( nr > 0 ){
       rows[[part]] <- data.frame(
-        row_id = seq_len(nr),
+        ft_row_id = seq_len(nr),
         height = x[[part]]$rowheights,
-        stringsAsFactors = FALSE
+        stringsAsFactors = FALSE, check.names = FALSE
       )
     }
   }
@@ -74,9 +74,9 @@ fortify_hrule <- function(x){
     nr <- nrow_part(x, part)
     if( nr > 0 ){
       rows[[part]] <- data.frame(
-        row_id = seq_len(nr),
+        ft_row_id = seq_len(nr),
         hrule = x[[part]]$hrule,
-        stringsAsFactors = FALSE
+        stringsAsFactors = FALSE, check.names = FALSE
       )
     }
   }
@@ -94,10 +94,10 @@ fortify_span <- function(x){
       nr <- nrow(x[[part]]$spans$rows)
       rows[[part]] <- data.frame(
         col_id = rep(x$col_keys, each = nr),
-        row_id = rep(seq_len(nr), length(x$col_keys)),
+        ft_row_id = rep(seq_len(nr), length(x$col_keys)),
         rowspan = as.vector(x[[part]]$spans$rows),
         colspan = as.vector(x[[part]]$spans$columns),
-        stringsAsFactors = FALSE
+        stringsAsFactors = FALSE, check.names = FALSE
       )
     }
   }
@@ -111,8 +111,8 @@ fortify_par_style <- function(par, cell){
   dat_cell <- cell
   setDT(dat_par)
   setDT(dat_cell)
-  dat_cell <- dat_cell[, c("part", "row_id", "col_id", "text.direction", "vertical.align")]
-  dat_par <- merge(dat_par, dat_cell, by = c("part", "row_id", "col_id"))
+  dat_cell <- dat_cell[, c("part", "ft_row_id", "col_id", "text.direction", "vertical.align")]
+  dat_par <- merge(dat_par, dat_cell, by = c("part", "ft_row_id", "col_id"))
   setDF(dat_par)
   setDF(dat_cell)
   dat_par
@@ -122,8 +122,8 @@ fortify_cell_style <- function(par, cell){
   dat_cell <- cell
   setDT(dat_par)
   setDT(dat_cell)
-  dat_par <- dat_par[, c("part", "row_id", "col_id", "text.align")]
-  dat_cell <- merge(dat_cell, dat_par, by = c("part", "row_id", "col_id"))
+  dat_par <- dat_par[, c("part", "ft_row_id", "col_id", "text.align")]
+  dat_cell <- merge(dat_cell, dat_par, by = c("part", "ft_row_id", "col_id"))
   setDF(dat_par)
   setDF(dat_cell)
   dat_cell
@@ -131,19 +131,16 @@ fortify_cell_style <- function(par, cell){
 fortify_rows_styles <- function(x){
   dat <- list()
   if( nrow_part(x, "header") > 0 ){
-    dat$header <- data.frame(hrule = x$header$hrule,
-                             row_id = seq_len(nrow_part(x, "header")),
-                             stringsAsFactors = FALSE)
+    dat$header <- data.frame(hrule = x$header$hrule, ft_row_id = seq_len(nrow_part(x, "header")),
+                             stringsAsFactors = FALSE, check.names = FALSE)
   }
   if( nrow_part(x, "body") > 0 ){
-    dat$body <- data.frame(hrule = x$body$hrule,
-                           row_id = seq_len(nrow_part(x, "body")),
-                           stringsAsFactors = FALSE)
+    dat$body <- data.frame(hrule = x$body$hrule, ft_row_id = seq_len(nrow_part(x, "body")),
+                           stringsAsFactors = FALSE, check.names = FALSE)
   }
   if( nrow_part(x, "footer") > 0 ){
-    dat$footer <- data.frame(hrule = x$footer$hrule,
-                             row_id = seq_len(nrow_part(x, "footer")),
-                             stringsAsFactors = FALSE)
+    dat$footer <- data.frame(hrule = x$footer$hrule, ft_row_id = seq_len(nrow_part(x, "footer")),
+                             stringsAsFactors = FALSE, check.names = FALSE)
   }
   dat <- rbindlist(dat, use.names = TRUE, idcol = "part")
   dat$part <- factor(dat$part, levels = c("header", "body", "footer"))
