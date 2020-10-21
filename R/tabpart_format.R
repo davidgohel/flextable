@@ -1,12 +1,32 @@
 # utils -----
-css_px <- function(x, format = "%.0fpx"){
-  ifelse( is.na(x), "inherit",
-          ifelse( x < 0.001, "0", sprintf(format, x)) )
+css_px <- function(x, digits = 0){
+  old_loc_num <- Sys.getlocale("LC_NUMERIC")
+  if(!"C" %in% old_loc_num) Sys.setlocale("LC_NUMERIC","C")
+
+  x <- ifelse( is.na(x), "inherit",
+          ifelse( x < 0.001, "0",
+                  paste0(format_double(x, digits = digits),"px")))
+  if(!"C" %in% old_loc_num) Sys.setlocale("LC_NUMERIC", old_loc_num)
+  x
+}
+css_no_unit <- function(x, digits = 0){
+  old_loc_num <- Sys.getlocale("LC_NUMERIC")
+  if(!"C" %in% old_loc_num) Sys.setlocale("LC_NUMERIC","C")
+
+  x <- ifelse( is.na(x), "inherit",
+          ifelse( x < 0.001, "0",
+                  format_double(x, digits = digits)))
+  if(!"C" %in% old_loc_num) Sys.setlocale("LC_NUMERIC", old_loc_num)
+  x
 }
 
 border_css <- function(color, width, style, side){
+  old_loc_num <- Sys.getlocale("LC_NUMERIC")
+  if(!"C" %in% old_loc_num) Sys.setlocale("LC_NUMERIC","C")
   style[!style %in% c("dotted", "dashed", "solid")] <- "solid"
-  sprintf("border-%s: %s %s %s;", side, css_px(width, "%.2fpx"), style, colcodecss(color))
+  x <- sprintf("border-%s: %s %s %s;", side, css_px(width, 2), style, colcodecss(color))
+  if(!"C" %in% old_loc_num) Sys.setlocale("LC_NUMERIC", old_loc_num)
+  x
 }
 border_wml <- function(color, width, style, side){
   width[style %in% c("none")] <- 0

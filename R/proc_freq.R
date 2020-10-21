@@ -1,5 +1,5 @@
 format_pct <- function(x){
-  ifelse(is.na(x), "", sprintf("%.02f%%", x*100) )
+  ifelse(is.na(x), "", paste0(css_no_unit(x*100, digits = 2), "%") )
 }
 
 #' @title frequency table as flextable

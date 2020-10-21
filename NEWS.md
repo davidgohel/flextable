@@ -6,6 +6,11 @@
 * new function `set_flextable_defaults()` to set some default 
 formatting properties.
 
+## Issues
+
+* fix bug in HTML output with invalid css when locale makes decimal separator not `.`
+
+
 # flextable 0.5.11
 
 ## Changes

@@ -121,5 +121,8 @@ as_bookmark <- function(id, str) {
   paste0(bm_start_str, str, bm_start_end)
 }
 
+format_double <- function(x, digits = 2){
+  formatC(x, format = "f", digits = 2, decimal.mark = ".", drop0trailing = TRUE )
+}
 
 

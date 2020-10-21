@@ -225,7 +225,7 @@ add_parstyle_column <- function(x, type = "html", text.direction, valign){
     padding.left <- sprintf("padding-left:%s;", css_px(x$padding.left) )
     padding.right <- sprintf("padding-right:%s;", css_px(x$padding.right) )
 
-    line_spacing <- sprintf("line-height: %.2f;", x$line_spacing )
+    line_spacing <- sprintf("line-height: %s;", css_no_unit(x$line_spacing, 2) )
 
     style_column <- paste0("style=\"margin:0;", textalign, textdir, bb, bt, bl, br,
                            padding.bottom, padding.top, padding.left, padding.right,
