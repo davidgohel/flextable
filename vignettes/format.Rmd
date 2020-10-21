@@ -25,8 +25,9 @@ library(flextable)
 
 ## Default formatting properties
 
-When a flextable is created, some default values are used 
-as formatting properties. They can be read with function 
+When a flextable is created (when function `flextable` is called), 
+some default values are used as formatting properties, the font family,
+the font size, padding, texr alignment... They can be read with function 
 function `get_flextable_defaults()`.
 
 ```{r}
@@ -35,9 +36,10 @@ as.data.frame(get_flextable_defaults())
 
 They can be updated with function `set_flextable_defaults()`.
 
-It makes possible to set some global options that apply to all 
-tables in e.g. an Rmd file. They can be set in the first chunk 
-for instance.
+It makes possible to set some global options that apply to all tables in e.g. an
+Rmd file where they should be set in the first chunk. In short, call this
+feature at the beginning of your Markdown script or documentR Markdown to get
+flextables that share the same font, font size, color, alignment, and so on.
 
 ```{r}
 set_flextable_defaults(
