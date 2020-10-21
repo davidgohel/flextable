@@ -108,6 +108,9 @@ set_flextable_defaults <- function(
   if( !is.null(theme_fun) && is.character(theme_fun) && length(theme_fun) == 1 ){
     x$theme_fun <- theme_fun
   }
+  if( !is.null(theme_fun) && is.function(theme_fun) ){
+    x$theme_fun <- theme_fun
+  }
 
   flextable_defaults <- flextable_global$defaults
 
