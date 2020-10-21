@@ -41,8 +41,8 @@ valid color (e.g. "#000000" or "black").}
 
 \item{table.layout}{'autofit' or 'fixed' algorithm. Default to 'autofit'.}
 
-\item{theme_fun}{a single character value, the name of the theme function
-to be applied}
+\item{theme_fun}{a single character value (the name of the theme function
+to be applied) or a theme function (input is a flextable, output is a flextable).}
 }
 \value{
 a list containing previous default values.

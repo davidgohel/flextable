@@ -36,8 +36,8 @@ flextable_global$defaults <- list(
 #' @param background.color cell background color - a single character value specifying a
 #' valid color (e.g. "#000000" or "black").
 #' @param table.layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
-#' @param theme_fun a single character value, the name of the theme function
-#' to be applied
+#' @param theme_fun a single character value (the name of the theme function
+#' to be applied) or a theme function (input is a flextable, output is a flextable).
 #' @return a list containing previous default values.
 #' @examples
 #' ft_1 <- flextable(head(mtcars))
