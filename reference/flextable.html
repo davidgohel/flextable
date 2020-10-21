@@ -52,7 +52,10 @@ flextable are designed to make tabular reporting easier for
 R users. Functions are available to let you format text, paragraphs and cells;
 table cells can be merge vertically or horizontally, row headers can easilly
 be defined, rows heights and columns widths can be manually set or automatically
-computed." />
+computed.
+Default formatting properties are automatically applied to every
+flextable you produce. You can change these default values with
+function set_flextable_defaults()." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -85,7 +88,7 @@ computed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.005</span>
       </span>
     </div>
 
@@ -160,6 +163,9 @@ R users. Functions are available to let you format text, paragraphs and cells;
 table cells can be merge vertically or horizontally, row headers can easilly
 be defined, rows heights and columns widths can be manually set or automatically
 computed.</p>
+<p>Default formatting properties are automatically applied to every
+flextable you produce. You can change these default values with
+function <code><a href='set_flextable_defaults.html'>set_flextable_defaults()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>flextable</span><span class='op'>(</span>
@@ -192,14 +198,8 @@ the dataset, they will be added as blank columns by default.</p></td>
       <td><p>initial width and height to use for cell sizes in inches.</p></td>
     </tr>
     <tr>
-      <th>defaults</th>
-      <td><p>a list of default values for formats, supported options are
-<code>fontname</code>, <code>font.size</code>, <code>color</code> and <code>padding</code>.</p></td>
-    </tr>
-    <tr>
-      <th>theme_fun</th>
-      <td><p>a function theme to apply before returning the flextable.
-set to NULL for none.</p></td>
+      <th>defaults, theme_fun</th>
+      <td><p>deprecated, use <code><a href='set_flextable_defaults.html'>set_flextable_defaults()</a></code> instead.</p></td>
     </tr>
     </table>
 
@@ -211,7 +211,8 @@ to specify what part of of the table should be modified.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Function <code>regulartable</code> is maintained for compatibility with old codes
-mades by users but be aware it produces the same exact object than <code>flextable</code>.</p>
+mades by users but be aware it produces the same exact object than <code>flextable</code>.
+This function should be deprecated then removed in the next versions.</p>
     <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
 
     
@@ -223,7 +224,8 @@ mades by users but be aware it produces the same exact object than <code>flextab
     
 
 <p><code>qflextable</code> is a convenient tool to produce quickly
-a flextable for reporting</p>
+a flextable for reporting where layoout is fixed and columns
+widths adjusted with <code><a href='autofit.html'>autofit()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='style.html'>style()</a></code>, <code><a href='autofit.html'>autofit()</a></code>, <code><a href='theme_booktabs.html'>theme_booktabs()</a></code>, <code><a href='knit_print.flextable.html'>knit_print.flextable()</a></code>,
@@ -255,7 +257,7 @@ a flextable for reporting</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0.003 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.0.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
