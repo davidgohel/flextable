@@ -25,7 +25,9 @@ ftab <- flextable(iris)
 ftab <- theme_zebra(ftab)
 }
 \seealso{
-Other flextable theme: 
+Other functions related to themes: 
+\code{\link{get_flextable_defaults}()},
+\code{\link{set_flextable_defaults}()},
 \code{\link{theme_alafoli}()},
 \code{\link{theme_booktabs}()},
 \code{\link{theme_box}()},
@@ -34,4 +36,4 @@ Other flextable theme:
 \code{\link{theme_vader}()},
 \code{\link{theme_vanilla}()}
 }
-\concept{flextable theme}
+\concept{functions related to themes}

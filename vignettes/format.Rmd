@@ -23,6 +23,32 @@ library(officer)
 library(flextable)
 ```
 
+## Default formatting properties
+
+When a flextable is created, some default values are used 
+as formatting properties. They can be read with function 
+function `get_flextable_defaults()`.
+
+```{r}
+as.data.frame(get_flextable_defaults())
+```
+
+They can be updated with function `set_flextable_defaults()`.
+
+It makes possible to set some global options that apply to all 
+tables in e.g. an Rmd file. They can be set in the first chunk 
+for instance.
+
+```{r}
+set_flextable_defaults(
+  font.family = "Helvetica", font.size = 12, font.color = "black",
+  text.align = "left", 
+  table.layout = "fixed",
+  theme_fun = "theme_booktabs")
+```
+
+## Using part
+
 A flextable is made of parts, an header, a body and a footer. **To specify 
 which part formatting instructions should affect, use argument `part`.**
 Possible values are:
@@ -34,6 +60,7 @@ Possible values are:
 
 
 ## Shortcuts functions
+
 
 There are simple functions to modify formatting properties of flextable objects: `bg`, `bold`, `border`, `color`, `padding`, `fontsize`, `italic`, `align`, ...
 
@@ -132,7 +159,7 @@ myft
 ### add padding
 
 ```{r}
-myft <- padding( myft, padding = 3, part = "all" )
+myft <- padding( myft, padding = 6, part = "all" )
 myft
 ```
 
@@ -227,9 +254,6 @@ line_spacing(ft, space = 1.5)
 </div>
 
 ## Borders
-
-*Borders properties can be defined with function `border()` but the function 
-requires careful settings to avoid overlapping borders.*
 
 If no special formatting is needed, best is to use `border_outer()`, 
 `border_inner_h()` and `border_inner_v()`.
@@ -330,5 +354,42 @@ ft
 
 ft <- style( ft, pr_t = def_text_header, part = "header")  
 ft
+```
+
+## Theme functions
+
+A set of theme functions are made available. 
+
+```{r}
+ft <- flextable(head(airquality))
+ft <- add_header_row(ft, top = TRUE, 
+                     values = c("measures", "time"), 
+                     colwidths = c(4, 2))
+ft <- align(ft, i = 1, align = "center", part = "header")
+theme_booktabs(ft)
+```
+
+```{r}
+theme_alafoli(ft)
+theme_vader(ft)
+theme_box(ft)
+theme_vanilla(ft)
+theme_tron_legacy(ft)
+```
+
+You can also use them to create your theme. 
+
+```{r}
+my_theme <- function(x, ...) {
+    x <- set_formatter_type(x, fmt_double = "%.02f", na_str="na")
+    x <- set_table_properties(x, layout = "fixed")
+    x <- border_remove(x)
+    std_border <- fp_border(width = 1, color = "red")
+    x <- border_outer(x, part="all", border = std_border )
+    x <- border_inner_h(x, border = update(std_border, style = "dashed"), part="all")
+    x <- border_inner_v(x, border = update(std_border, style = "dashed"), part="all")
+    x
+}
+my_theme(ft)
 ```
 

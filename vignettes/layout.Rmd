@@ -396,7 +396,7 @@ You can use function `dim` to get flextable dimensions.
 
 ```{r}
 ft_base <- flextable(head(mtcars))
-ft_base <- theme_vader(ft_base, fontsize = 13)
+ft_base <- theme_vader(ft_base)
 ft_base
 dim(ft_base)
 ```

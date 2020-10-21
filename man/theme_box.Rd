@@ -17,7 +17,9 @@ ftab <- flextable(iris)
 ftab <- theme_box(ftab)
 }
 \seealso{
-Other flextable theme: 
+Other functions related to themes: 
+\code{\link{get_flextable_defaults}()},
+\code{\link{set_flextable_defaults}()},
 \code{\link{theme_alafoli}()},
 \code{\link{theme_booktabs}()},
 \code{\link{theme_tron_legacy}()},
@@ -26,4 +28,4 @@ Other flextable theme:
 \code{\link{theme_vanilla}()},
 \code{\link{theme_zebra}()}
 }
-\concept{flextable theme}
+\concept{functions related to themes}

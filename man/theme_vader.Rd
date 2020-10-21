@@ -4,12 +4,12 @@
 \alias{theme_vader}
 \title{Apply Sith Lord Darth Vader}
 \usage{
-theme_vader(x, fontsize = 11)
+theme_vader(x, ...)
 }
 \arguments{
 \item{x}{a flextable object}
 
-\item{fontsize}{font size in pixel}
+\item{...}{unused}
 }
 \description{
 Apply Sith Lord Darth Vader theme to a flextable
@@ -19,7 +19,9 @@ ftab <- flextable(iris)
 ftab <- theme_vader(ftab)
 }
 \seealso{
-Other flextable theme: 
+Other functions related to themes: 
+\code{\link{get_flextable_defaults}()},
+\code{\link{set_flextable_defaults}()},
 \code{\link{theme_alafoli}()},
 \code{\link{theme_booktabs}()},
 \code{\link{theme_box}()},
@@ -28,4 +30,4 @@ Other flextable theme:
 \code{\link{theme_vanilla}()},
 \code{\link{theme_zebra}()}
 }
-\concept{flextable theme}
+\concept{functions related to themes}

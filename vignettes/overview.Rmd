@@ -121,13 +121,14 @@ myft
 
 Table layout can be modified. One can add or change header/footer rows, change cells height and width and merge cells. 
 
-Also, there is an important function named `autofit` (it adjusts widths and heights regarding to text widths and heights).
+Also, there is an important function named `autofit` (it adjusts widths and heights regarding to text widths and heights). 
 
 
 ```{r warning=FALSE}
 myft <- merge_v(myft, j = c("am", "carb") )
 myft <- set_header_labels( myft, carb = "# carb." )
 myft <- autofit(myft)
+myft <- theme_vader(myft)
 myft
 ```
 
@@ -143,6 +144,9 @@ Many sugar functions can be used to format flextables: `bg()`, `fontsize()`, `it
 Conditional formatting can be made by using the selector arguments. All formatting functions are accepting selector arguments. 
 
 ```{r}
+myft <- theme_vanilla(myft)
+myft <- color(myft, color = "black", part = "all")
+myft <- bg(myft, bg = "transparent", part = "all")
 myft <- italic(myft, j = 1)
 myft <- bg(myft, bg = "#C90000", part = "header")
 myft <- color(myft, color = "white", part = "header")
@@ -164,7 +168,9 @@ part is not implemented by default.
 
 
 * Any formatting property related to text, paragraphs, 
-cells in the table can be modified. 
+cells in the table can be modified. Lot of default values 
+are available with function `get_flextable_defaults()` and 
+can be updated with function `set_flextable_defaults()`.
 
 * A cell is made of one single paragraph of text. Paragraphs 
 can contain several chunks of text with different formatting 

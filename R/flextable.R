@@ -8,6 +8,10 @@
 #' be defined, rows heights and columns widths can be manually set or automatically
 #' computed.
 #'
+#' Default formatting properties are automatically applied to every
+#' flextable you produce. You can change these default values with
+#' function [set_flextable_defaults()].
+#'
 #' @details
 #' A \code{flextable} is made of 3 parts: header, body and footer.
 #'
@@ -17,12 +21,10 @@
 #' @param col_keys columns names/keys to display. If some column names are not in
 #' the dataset, they will be added as blank columns by default.
 #' @param cwidth,cheight initial width and height to use for cell sizes in inches.
-#' @param defaults a list of default values for formats, supported options are
-#' \code{fontname}, \code{font.size}, \code{color} and \code{padding}.
-#' @param theme_fun a function theme to apply before returning the flextable.
-#' set to NULL for none.
+#' @param defaults,theme_fun deprecated, use [set_flextable_defaults()] instead.
 #' @note Function \code{regulartable} is maintained for compatibility with old codes
 #' mades by users but be aware it produces the same exact object than \code{flextable}.
+#' This function should be deprecated then removed in the next versions.
 #' @examples
 #' ft <- flextable(head(mtcars))
 #' ft
@@ -61,7 +63,7 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
 
   header <- complex_tabpart( data = header_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
 
-  # header
+  # footer
   footer_data <- header_data[FALSE, , drop = FALSE]
   footer <- complex_tabpart( data = footer_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
 
@@ -70,41 +72,8 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
                blanks = blanks )
   class(out) <- c("flextable")
 
-  # default values for formats
-  if( "fontname" %in% names(defaults) ){
-    font_family <- defaults$fontname
-  } else {
-    font_family <- ifelse( font_family_exists(font_family = "Roboto"), "Roboto", "Arial" )
-  }
-  if( "font.size" %in% names(defaults) ){
-    font.size <- defaults$font.size
-  } else {
-    font.size <- 11
-  }
-  if( "color" %in% names(defaults) ){
-    color <- defaults$color
-  } else {
-    color <- "#111111"
-  }
-  if( "padding" %in% names(defaults) ){
-    padding.left <- padding.right <- padding.bottom <- padding.top <- defaults$padding
-  } else {
-    padding.left <- padding.right <- 5
-    padding.bottom <- padding.top <- 2
-  }
-
-  out <- style( x = out,
-                pr_t = fp_text(
-                  font.family = font_family,
-                  font.size = font.size, color = color
-                ),
-                pr_p = fp_par(text.align = "right", padding.left = padding.left, padding.right = padding.right,
-                              padding.bottom = padding.bottom, padding.top = padding.top),
-                pr_c = fp_cell(border = fp_border(color = "transparent")), part = "all")
-  if( !is.null(theme_fun) )
-    out <- theme_fun(out)
-
-  out <- set_table_properties(x = out, layout = "fixed")
+  out <- do.call(flextable_global$defaults$theme_fun, list(out))
+  out <- set_table_properties(x = out, layout = flextable_global$defaults$table.layout)
 
   out
 }
@@ -113,9 +82,12 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
 #' @rdname flextable
 #' @section qflextable:
 #' \code{qflextable} is a convenient tool to produce quickly
-#' a flextable for reporting
+#' a flextable for reporting where layoout is fixed and columns
+#' widths adjusted with [autofit()].
 qflextable <- function(data){
-  autofit(flextable(data))
+  ft <- flextable(data)
+  ft <- set_table_properties(ft, layout = "fixed")
+  autofit(ft)
 }
 
 #' @export

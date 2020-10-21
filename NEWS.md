@@ -3,6 +3,8 @@
 ## new features
 
 * new function `highlight()` for text highlighting color
+* new function `set_flextable_defaults()` to set some default 
+formatting properties.
 
 # flextable 0.5.11
 

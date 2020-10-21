@@ -27,11 +27,7 @@ the dataset, they will be added as blank columns by default.}
 
 \item{cwidth, cheight}{initial width and height to use for cell sizes in inches.}
 
-\item{defaults}{a list of default values for formats, supported options are
-\code{fontname}, \code{font.size}, \code{color} and \code{padding}.}
-
-\item{theme_fun}{a function theme to apply before returning the flextable.
-set to NULL for none.}
+\item{defaults, theme_fun}{deprecated, use \code{\link[=set_flextable_defaults]{set_flextable_defaults()}} instead.}
 }
 \description{
 Create a flextable object with function \code{flextable}.
@@ -41,6 +37,10 @@ R users. Functions are available to let you format text, paragraphs and cells;
 table cells can be merge vertically or horizontally, row headers can easilly
 be defined, rows heights and columns widths can be manually set or automatically
 computed.
+
+Default formatting properties are automatically applied to every
+flextable you produce. You can change these default values with
+function \code{\link[=set_flextable_defaults]{set_flextable_defaults()}}.
 }
 \details{
 A \code{flextable} is made of 3 parts: header, body and footer.
@@ -51,6 +51,7 @@ to specify what part of of the table should be modified.
 \note{
 Function \code{regulartable} is maintained for compatibility with old codes
 mades by users but be aware it produces the same exact object than \code{flextable}.
+This function should be deprecated then removed in the next versions.
 }
 \section{Illustrations}{
 
@@ -61,7 +62,8 @@ mades by users but be aware it produces the same exact object than \code{flextab
 \section{qflextable}{
 
 \code{qflextable} is a convenient tool to produce quickly
-a flextable for reporting
+a flextable for reporting where layoout is fixed and columns
+widths adjusted with \code{\link[=autofit]{autofit()}}.
 }
 
 \examples{
