@@ -98,9 +98,9 @@ mk_par <- compose
 #' @importFrom stats update
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_footnote_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_footnote_1.png}{options: width=70\%}}
 #'
-#' \if{html}{\figure{fig_footnote_2.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_footnote_2.png}{options: width=70\%}}
 footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "body",
           inline = FALSE, sep = "; ")
 {

@@ -4,12 +4,13 @@
 
 * new function `highlight()` for text highlighting color
 * new function `set_flextable_defaults()` to set some default 
-formatting properties.
+formatting properties, i.e. default border color, foont color, padding...
 
 ## Issues
 
 * fix bug in HTML output with invalid css when locale makes decimal separator not `.`
-
+* `fix_border_issues` is the last instruction of all theme functions so that borders 
+are corrected if some cells have been merged.
 
 # flextable 0.5.11
 

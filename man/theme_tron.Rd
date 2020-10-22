@@ -12,9 +12,16 @@ theme_tron(x)
 \description{
 Apply theme tron to a flextable
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_theme_tron_1.png}{options: width=60\%}}
+}
+
 \examples{
-ftab <- flextable(iris)
-ftab <- theme_tron(ftab)
+ft <- flextable(head(airquality))
+ft <- theme_tron(ft)
+ft
 }
 \seealso{
 Other functions related to themes: 

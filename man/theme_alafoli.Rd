@@ -12,9 +12,16 @@ theme_alafoli(x)
 \description{
 Apply theme alafoli to a flextable
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_theme_alafoli_1.png}{options: width=60\%}}
+}
+
 \examples{
-ftab <- flextable(iris)
-ftab <- theme_alafoli(ftab)
+ft <- flextable(head(airquality))
+ft <- theme_alafoli(ft)
+ft
 }
 \seealso{
 Other functions related to themes: 

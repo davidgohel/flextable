@@ -7,11 +7,12 @@ def_fonts <- if( Sys.info()["sysname"] == "Windows" ){
 }
 
 flextable_global <- new.env(parent = emptyenv())
+
 flextable_global$defaults <- list(
   font.family = def_fonts, font.size = 11, font.color = "black",
   text.align = "left", padding.bottom = 3, padding.top = 3,
   padding.left = 3, padding.right = 3,
-  border.color = "transparent",
+  border.color = "black",
   background.color = "transparent",
   table.layout = "fixed",
   theme_fun = "theme_booktabs")
@@ -40,22 +41,23 @@ flextable_global$defaults <- list(
 #' to be applied) or a theme function (input is a flextable, output is a flextable).
 #' @return a list containing previous default values.
 #' @examples
-#' ft_1 <- flextable(head(mtcars))
+#' ft_1 <- qflextable(head(airquality))
 #' ft_1
-#' set_flextable_defaults(
-#'   table.layout = "autofit",
-#'   font.size = 12,  font.color = "gray10",
-#'   background.color = "gray90")
 #'
-#' set_flextable_defaults(theme_fun = "theme_vanilla" )
-#' ft_2 <- flextable(head(mtcars))
+#' old <- set_flextable_defaults(
+#'   font.color = "#AA8855",
+#'   border.color = "#8855AA")
+#' ft_2 <- qflextable(head(airquality))
 #' ft_2
 #'
-#' set_flextable_defaults(theme_fun = "theme_vader" )
-#' ft_3 <- flextable(head(mtcars))
-#' ft_3
+#' do.call(set_flextable_defaults, old)
 #' @family functions related to themes
 #' @importFrom utils modifyList
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_set_flextable_defaults_1.png}{options: width=50\%}}
+#'
+#' \if{html}{\figure{fig_set_flextable_defaults_2.png}{options: width=50\%}}
 set_flextable_defaults <- function(
   font.family = NULL, font.size = NULL, font.color = NULL,
   text.align = NULL, padding.bottom = NULL, padding.top = NULL,
@@ -120,6 +122,7 @@ set_flextable_defaults <- function(
   flextable_global$defaults <- flextable_new_defaults
   invisible(flextable_defaults)
 }
+
 
 #' @export
 #' @title Get flextable defaults formatting properties

@@ -498,6 +498,9 @@ align <- function(x, i = NULL, j = NULL, align = "left",
 #' ft <- line_spacing(ft, space = 1.6, part = "all")
 #' ft <- set_table_properties(ft, layout = "autofit")
 #' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_line_spacing_1.png}{options: width=70\%}}
 line_spacing <- function(x, i = NULL, j = NULL, space = 1, part = "body" ){
 
   if( !inherits(x, "flextable") ) stop("align supports only flextable objects.")

@@ -27,12 +27,15 @@ library(flextable)
 
 When a flextable is created (when function `flextable` is called), 
 some default values are used as formatting properties, the font family,
-the font size, padding, texr alignment... They can be read with function 
-function `get_flextable_defaults()`.
+the font size, padding, text alignment... They can be read with function 
+`get_flextable_defaults()`.
 
 ```{r}
 as.data.frame(get_flextable_defaults())
 ```
+
+These default properties will be used when creating the flextable 
+and sometimes by the theme functions. 
 
 They can be updated with function `set_flextable_defaults()`.
 
@@ -48,6 +51,11 @@ set_flextable_defaults(
   table.layout = "fixed",
   theme_fun = "theme_booktabs")
 ```
+
+Note that it is also possible to set the default theme that will be the last
+instruction called when creating the flextable. If you don't want to apply a
+theme, fill in the default theme with this function: `theme_fun = function(x)
+x`.
 
 ## Using part
 
@@ -109,6 +117,12 @@ myft
 myft <- color(myft, color = "#E4C994")
 myft
 ```
+
+
+`color` can be a vector and also a function that returns a 
+character vector of colors (see `scales::col_numeric`).
+
+
 
 </div>
 
@@ -332,11 +346,14 @@ ft
 
 ## Function style
 
-The `style` function lets you style a selection of the flextable with several formatting properties. 
+The `style` function lets you style a selection of the flextable with several
+formatting properties. The function will apply formatting properties for text,
+paragraphs and table cells. It can be used to make the code less verbose.
 
 > Its main advantage is to let specify a set of formatting properties for a selection. 
 
-Package officer needs to be loaded, it provides the following formatting properties:
+Package officer needs to be loaded, it comes with the following 
+formatting properties that can be used as arguments:
 
 * for text: `fp_text`
 * for paragraphs: `fp_par`
@@ -345,16 +362,22 @@ Package officer needs to be loaded, it provides the following formatting propert
 
 ```{r}
 library(officer)
-def_cell <- fp_cell(border = fp_border(color="#00C9C9"))
 def_par <- fp_par(text.align = "center")
-def_text <- fp_text(color="#999999", italic = TRUE)
-def_text_header <- update(color="black", def_text, bold = TRUE)
+def_text <- fp_text(font.size = 13, italic = TRUE)
+def_text_header <- update(color="#c90000", def_text, bold = TRUE)
 
-ft <- flextable(head(mtcars, n = 10 ))
-ft <- style( ft, pr_c = def_cell, pr_p = def_par, pr_t = def_text, part = "all")  
+ft <- flextable(head(airquality))
 ft
 
-ft <- style( ft, pr_t = def_text_header, part = "header")  
+ft <- style(
+  x = ft, 
+  pr_p = def_par, pr_t = def_text, 
+  part = "all")  
+ft
+
+ft <- style(
+  x = ft, pr_t = def_text_header, 
+  part = "header")  
 ft
 ```
 

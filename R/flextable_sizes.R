@@ -90,6 +90,11 @@ width <- function(x, j = NULL, width){
 #' ft_1 <- hrule(ft_1, rule = "exact")
 #' ft_1
 #' @family flextable dimensions
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_height_1.png}{options: width=70\%}}
+#'
+#' \if{html}{\figure{fig_height_2.png}{options: width=70\%}}
 height <- function(x, i = NULL, height, part = "body"){
 
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )

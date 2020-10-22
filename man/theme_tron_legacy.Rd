@@ -12,9 +12,16 @@ theme_tron_legacy(x)
 \description{
 Apply theme tron legacy to a flextable
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_theme_tron_legacy_1.png}{options: width=60\%}}
+}
+
 \examples{
-ftab <- flextable(iris)
-ftab <- theme_tron_legacy(ftab)
+ft <- flextable(head(airquality))
+ft <- theme_tron_legacy(ft)
+ft
 }
 \seealso{
 Other functions related to themes: 

@@ -12,9 +12,16 @@ theme_box(x)
 \description{
 Apply theme box to a flextable
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_theme_box_1.png}{options: width=60\%}}
+}
+
 \examples{
-ftab <- flextable(iris)
-ftab <- theme_box(ftab)
+ft <- flextable(head(airquality))
+ft <- theme_box(ft)
+ft
 }
 \seealso{
 Other functions related to themes: 

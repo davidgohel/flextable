@@ -52,21 +52,25 @@ The current formatting properties (see \code{\link[=get_flextable_defaults]{get_
 are automatically applied to every flextable you produce.
 Use \code{set_flextable_defaults()} to override them.
 }
-\examples{
-ft_1 <- flextable(head(mtcars))
-ft_1
-set_flextable_defaults(
-  table.layout = "autofit",
-  font.size = 12,  font.color = "gray10",
-  background.color = "gray90")
+\section{Illustrations}{
 
-set_flextable_defaults(theme_fun = "theme_vanilla" )
-ft_2 <- flextable(head(mtcars))
+
+\if{html}{\figure{fig_set_flextable_defaults_1.png}{options: width=50\%}}
+
+\if{html}{\figure{fig_set_flextable_defaults_2.png}{options: width=50\%}}
+}
+
+\examples{
+ft_1 <- qflextable(head(airquality))
+ft_1
+
+old <- set_flextable_defaults(
+  font.color = "#AA8855",
+  border.color = "#8855AA")
+ft_2 <- qflextable(head(airquality))
 ft_2
 
-set_flextable_defaults(theme_fun = "theme_vader" )
-ft_3 <- flextable(head(mtcars))
-ft_3
+do.call(set_flextable_defaults, old)
 }
 \seealso{
 Other functions related to themes: 

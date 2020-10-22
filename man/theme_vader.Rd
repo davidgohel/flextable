@@ -14,9 +14,16 @@ theme_vader(x, ...)
 \description{
 Apply Sith Lord Darth Vader theme to a flextable
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_theme_vader_1.png}{options: width=60\%}}
+}
+
 \examples{
-ftab <- flextable(iris)
-ftab <- theme_vader(ftab)
+ft <- flextable(head(airquality))
+ft <- theme_vader(ft)
+ft
 }
 \seealso{
 Other functions related to themes: 

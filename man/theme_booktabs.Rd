@@ -14,9 +14,16 @@ theme_booktabs(x, ...)
 \description{
 Apply theme booktabs to a flextable
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_theme_booktabs_1.png}{options: width=60\%}}
+}
+
 \examples{
-ftab <- flextable(iris)
-ftab <- theme_booktabs(ftab)
+ft <- flextable(head(airquality))
+ft <- theme_booktabs(ft)
+ft
 }
 \seealso{
 Other functions related to themes: 
