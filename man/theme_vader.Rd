@@ -2,7 +2,7 @@
 % Please edit documentation in R/themes.R
 \name{theme_vader}
 \alias{theme_vader}
-\title{Apply Sith Lord Darth Vader}
+\title{Apply Sith Lord Darth Vader theme}
 \usage{
 theme_vader(x, ...)
 }

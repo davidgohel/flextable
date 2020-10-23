@@ -10,7 +10,7 @@ theme_alafoli(x)
 \item{x}{a flextable object}
 }
 \description{
-Apply theme alafoli to a flextable
+Apply alafoli theme
 }
 \section{Illustrations}{
 

@@ -76,7 +76,7 @@ theme_box <- function(x) {
 #' @importFrom officer fp_border fp_par
 #' @export
 #' @title Apply alafoli theme
-#' @description Apply theme alafoli to a flextable
+#' @description Apply alafoli theme
 #' @param x a flextable object
 #' @family functions related to themes
 #' @examples
@@ -111,7 +111,7 @@ theme_alafoli <- function(x) {
 }
 
 #' @export
-#' @title Apply Sith Lord Darth Vader
+#' @title Apply Sith Lord Darth Vader theme
 #' @description Apply Sith Lord Darth Vader theme to a flextable
 #' @param x a flextable object
 #' @param ... unused
