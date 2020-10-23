@@ -83,7 +83,7 @@ instead)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.007</span>
       </span>
     </div>
 
@@ -158,14 +158,26 @@ R Markdown (it is highly recommanded to use R Markdown
 instead).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>save_as_html</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>path</span>, encoding <span class='op'>=</span> <span class='st'>"utf-8"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>save_as_html</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  values <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>path</span>,
+  encoding <span class='op'>=</span> <span class='st'>"utf-8"</span>,
+  title <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/deparse.html'>deparse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>sys.call</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>a flextable object</p></td>
+      <th>...</th>
+      <td><p>flextable objects, objects, possibly named. If named objects, names are
+used as titles.</p></td>
+    </tr>
+    <tr>
+      <th>values</th>
+      <td><p>a list (possibly named), each element is a flextable object. If named objects, names are
+used as titles. If provided, argument <code>...</code> will be ignored.</p></td>
     </tr>
     <tr>
       <th>path</th>
@@ -174,6 +186,10 @@ instead).</p>
     <tr>
       <th>encoding</th>
       <td><p>encoding to be used in the HTML file</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>page title</p></td>
     </tr>
     </table>
 
@@ -191,9 +207,19 @@ instead).</p>
 <code><a href='save_as_pptx.html'>save_as_pptx</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span> <span class='va'>mtcars</span> <span class='op'>)</span> <span class='op'>)</span>
-<span class='va'>tf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".html"</span><span class='op'>)</span>
-<span class='fu'>save_as_html</span><span class='op'>(</span><span class='va'>ft</span>, <span class='va'>tf</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>ft1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span> <span class='va'>iris</span> <span class='op'>)</span> <span class='op'>)</span>
+<span class='va'>tf1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".html"</span><span class='op'>)</span>
+<span class='fu'>save_as_html</span><span class='op'>(</span><span class='va'>ft1</span>, path <span class='op'>=</span> <span class='va'>tf1</span><span class='op'>)</span>
+<span class='co'># browseURL(tf1)</span>
+
+<span class='va'>ft2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span> <span class='va'>mtcars</span> <span class='op'>)</span> <span class='op'>)</span>
+<span class='va'>tf2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".html"</span><span class='op'>)</span>
+<span class='fu'>save_as_html</span><span class='op'>(</span>
+  `iris table` <span class='op'>=</span> <span class='va'>ft1</span>,
+  `mtcars table` <span class='op'>=</span> <span class='va'>ft2</span>,
+  path <span class='op'>=</span> <span class='va'>tf2</span>,
+  title <span class='op'>=</span> <span class='st'>"rhoooo"</span><span class='op'>)</span>
+<span class='co'># browseURL(tf2)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -207,7 +233,7 @@ instead).</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.0.007 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

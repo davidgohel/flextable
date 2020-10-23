@@ -81,7 +81,7 @@ handling complex formatting as well as image insertion." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.007</span>
       </span>
     </div>
 
@@ -145,7 +145,7 @@ handling complex formatting as well as image insertion." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Define flextable displayed values</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/display.R'><code>R/display.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/compose.R'><code>R/compose.R</code></a></small>
     <div class="hidden name"><code>compose.Rd</code></div>
     </div>
 
@@ -205,7 +205,7 @@ there is an unwanted conflict with package <code>purrr</code>.</p>
 <code><a href='set_formatter.html'>set_formatter</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://davidgohel.github.io/officer/'>officer</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
 <span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span> <span class='va'>mtcars</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>compose</span><span class='op'>(</span><span class='va'>ft</span>, j <span class='op'>=</span> <span class='st'>"carb"</span>, i <span class='op'>=</span> <span class='op'>~</span> <span class='va'>drat</span> <span class='op'>&gt;</span> <span class='fl'>3.5</span>,
   value <span class='op'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span><span class='op'>(</span><span class='st'>"carb is "</span>, <span class='fu'><a href='as_chunk.html'>as_chunk</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span><span class='st'>"%.1f"</span>, <span class='va'>carb</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
@@ -224,7 +224,7 @@ there is an unwanted conflict with package <code>purrr</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.0.007 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

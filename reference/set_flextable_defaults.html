@@ -82,7 +82,7 @@ Use set_flextable_defaults() to override them." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.007</span>
       </span>
     </div>
 
@@ -213,14 +213,21 @@ valid color (e.g. "#000000" or "black").</p></td>
     </tr>
     <tr>
       <th>theme_fun</th>
-      <td><p>a single character value, the name of the theme function
-to be applied</p></td>
+      <td><p>a single character value (the name of the theme function
+to be applied) or a theme function (input is a flextable, output is a flextable).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a list containing previous default values.</p>
+    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
+
+    
+
+
+<p><img src='figures/fig_set_flextable_defaults_1.png' width=50% /></p>
+<p><img src='figures/fig_set_flextable_defaults_2.png' width=50% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other functions related to themes: 
@@ -235,51 +242,37 @@ to be applied</p></td>
 <code><a href='theme_zebra.html'>theme_zebra</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>qflextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>ft_1</span>
 </div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
+#&gt; col_keys: `Ozone`, `Solar.R`, `Wind`, `Temp`, `Month`, `Day` 
 #&gt; header has 1 row(s) 
 #&gt; body has 6 row(s) 
 #&gt; original dataset sample: 
-#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div><div class='input'><span class='fu'>set_flextable_defaults</span><span class='op'>(</span>
-  table.layout <span class='op'>=</span> <span class='st'>"autofit"</span>,
-  font.size <span class='op'>=</span> <span class='fl'>12</span>,  font.color <span class='op'>=</span> <span class='st'>"gray10"</span>,
-  background.color <span class='op'>=</span> <span class='st'>"gray90"</span><span class='op'>)</span>
-
-<span class='fu'>set_flextable_defaults</span><span class='op'>(</span>theme_fun <span class='op'>=</span> <span class='st'>"theme_vanilla"</span> <span class='op'>)</span>
-<span class='va'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span>
+#&gt;   Ozone Solar.R Wind Temp Month Day
+#&gt; 1    41     190  7.4   67     5   1
+#&gt; 2    36     118  8.0   72     5   2
+#&gt; 3    12     149 12.6   74     5   3
+#&gt; 4    18     313 11.5   62     5   4
+#&gt; 5    NA      NA 14.3   56     5   5</div><div class='input'>
+<span class='va'>old</span> <span class='op'>&lt;-</span> <span class='fu'>set_flextable_defaults</span><span class='op'>(</span>
+  font.color <span class='op'>=</span> <span class='st'>"#AA8855"</span>,
+  border.color <span class='op'>=</span> <span class='st'>"#8855AA"</span><span class='op'>)</span>
+<span class='va'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>qflextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>ft_2</span>
 </div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
+#&gt; col_keys: `Ozone`, `Solar.R`, `Wind`, `Temp`, `Month`, `Day` 
 #&gt; header has 1 row(s) 
 #&gt; body has 6 row(s) 
 #&gt; original dataset sample: 
-#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div><div class='input'>
-<span class='fu'>set_flextable_defaults</span><span class='op'>(</span>theme_fun <span class='op'>=</span> <span class='st'>"theme_vader"</span> <span class='op'>)</span>
-<span class='va'>ft_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>ft_3</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
-#&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
-#&gt; original dataset sample: 
-#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div></pre>
+#&gt;   Ozone Solar.R Wind Temp Month Day
+#&gt; 1    41     190  7.4   67     5   1
+#&gt; 2    36     118  8.0   72     5   2
+#&gt; 3    12     149 12.6   74     5   3
+#&gt; 4    18     313 11.5   62     5   4
+#&gt; 5    NA      NA 14.3   56     5   5</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>set_flextable_defaults</span>, <span class='va'>old</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -292,7 +285,7 @@ to be applied</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.0.007 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
