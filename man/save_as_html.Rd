@@ -4,14 +4,26 @@
 \alias{save_as_html}
 \title{Save a Flextable in an HTML File}
 \usage{
-save_as_html(x, path, encoding = "utf-8")
+save_as_html(
+  ...,
+  values = NULL,
+  path,
+  encoding = "utf-8",
+  title = deparse(sys.call())
+)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{...}{flextable objects, objects, possibly named. If named objects, names are
+used as titles.}
+
+\item{values}{a list (possibly named), each element is a flextable object. If named objects, names are
+used as titles. If provided, argument \code{...} will be ignored.}
 
 \item{path}{HTML file to be created}
 
 \item{encoding}{encoding to be used in the HTML file}
+
+\item{title}{page title}
 }
 \description{
 save a flextable in an HTML file. This function
@@ -20,9 +32,19 @@ R Markdown (it is highly recommanded to use R Markdown
 instead).
 }
 \examples{
-ft <- flextable( head( mtcars ) )
-tf <- tempfile(fileext = ".html")
-save_as_html(ft, tf)
+ft1 <- flextable( head( iris ) )
+tf1 <- tempfile(fileext = ".html")
+save_as_html(ft1, path = tf1)
+# browseURL(tf1)
+
+ft2 <- flextable( head( mtcars ) )
+tf2 <- tempfile(fileext = ".html")
+save_as_html(
+  `iris table` = ft1,
+  `mtcars table` = ft2,
+  path = tf2,
+  title = "rhoooo")
+# browseURL(tf2)
 }
 \seealso{
 Other flextable print function: 

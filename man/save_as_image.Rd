@@ -20,7 +20,7 @@ save_as_image(x, path, zoom = 3, expand = 10, webshot = "webshot")
 save a flextable as a png, pdf or jpeg image.
 
 Image generated with package 'webshot' or package 'webshot2'.
-Package 'webshot2' should be prefered as 'webshot' can have
+\strong{Package 'webshot2' should be prefered} as 'webshot' can have
 issues with some properties (i.e. bold are not rendered for some users).
 }
 \note{

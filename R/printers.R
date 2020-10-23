@@ -363,24 +363,54 @@ knit_print.flextable <- function(x, ...){
 #' is useful to save the flextable in HTML file without using
 #' R Markdown (it is highly recommanded to use R Markdown
 #' instead).
-#' @param x a flextable object
+#' @param ... flextable objects, objects, possibly named. If named objects, names are
+#' used as titles.
+#' @param values a list (possibly named), each element is a flextable object. If named objects, names are
+#' used as titles. If provided, argument \code{...} will be ignored.
 #' @param path HTML file to be created
 #' @param encoding encoding to be used in the HTML file
+#' @param title page title
 #' @examples
-#' ft <- flextable( head( mtcars ) )
-#' tf <- tempfile(fileext = ".html")
-#' save_as_html(ft, tf)
+#' ft1 <- flextable( head( iris ) )
+#' tf1 <- tempfile(fileext = ".html")
+#' save_as_html(ft1, path = tf1)
+#' # browseURL(tf1)
+#'
+#' ft2 <- flextable( head( mtcars ) )
+#' tf2 <- tempfile(fileext = ".html")
+#' save_as_html(
+#'   `iris table` = ft1,
+#'   `mtcars table` = ft2,
+#'   path = tf2,
+#'   title = "rhoooo")
+#' # browseURL(tf2)
 #' @family flextable print function
-save_as_html <- function(x, path, encoding = "utf-8"){
+save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = deparse(sys.call())){
 
-  if( !inherits(x, "flextable"))
-    stop("x is not a flextable")
+  if( is.null(values) ){
+    values <- list(...)
+  }
+  values <- Filter(function(x) inherits(x, "flextable"), values)
+  titles <- names(values)
+  show_names <- !is.null(titles)
+
+  val <- character(length(values))
+
+  for( i in seq_along(values) ){
+    txt <- character(2L)
+    if(show_names){
+      txt[1] <- paste0("<h2>", titles[i], "</h2>")
+    }
+    txt[2] <- html_str(values[[i]])
+    val[i] <- paste(txt, collapse = "")
+  }
 
   str <- c('<!DOCTYPE htm><html><head>',
   sprintf('<meta http-equiv="Content-Type" content="text/html; charset=%s"/>', encoding),
   '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>',
-  '<title>', deparse(substitute(x)), '</title></head>',
-  '<body style="background-color:transparent;">', html_str(x),
+  '<title>', title, '</title></head>',
+  '<body style="background-color:transparent;">',
+  val,
   '</body></html>')
   writeLines(str, path, useBytes = TRUE)
   invisible(path)
@@ -436,18 +466,30 @@ save_as_pptx <- function(..., values = NULL, path){
 #' @param values a list (possibly named), each element is a flextable object. If named objects, names are
 #' used as titles. If provided, argument \code{...} will be ignored.
 #' @param path Word file to be created
+#' @param pr_section a [prop_section] object that can be used to define page
+#' layout such as orientation, width and height.
 #' @examples
-#' ft1 <- flextable( head( iris ) )
+#'
 #' tf <- tempfile(fileext = ".docx")
+#'
+#' library(officer)
+#' ft1 <- flextable( head( iris ) )
 #' save_as_docx(ft1, path = tf)
 #'
 #'
 #' ft2 <- flextable( head( mtcars ) )
-#' tf <- tempfile(fileext = ".docx")
-#' save_as_docx(`iris table` = ft1, `mtcars table` = ft2, path = tf)
+#' sect_properties <- prop_section(
+#'   page_size = page_size(orient = "landscape",
+#'     width = 8.3, height = 11.7),
+#'   type = "continuous",
+#'   page_margins = page_mar()
+#' )
+#' save_as_docx(`iris table` = ft1, `mtcars table` = ft2,
+#'   path = tf, pr_section = sect_properties)
 #' @family flextable print function
-#' @importFrom officer body_add_par
-save_as_docx <- function(..., values = NULL, path){
+#' @importFrom officer body_add_par prop_section body_set_default_section
+#'   page_size page_mar
+save_as_docx <- function(..., values = NULL, path, pr_section = NULL){
 
   if( is.null(values) ){
     values <- list(...)
@@ -457,13 +499,27 @@ save_as_docx <- function(..., values = NULL, path){
   titles <- names(values)
   show_names <- !is.null(titles)
 
+  if(is.null(pr_section)){
+    pr_section <- prop_section(
+      page_size = page_size(orient = "portrait", width = 8.3, height = 11.7),
+      type = "continuous",
+      page_margins = page_mar()
+    )
+  }
+
+  if(!inherits(pr_section, "prop_section")){
+    stop("pr_section is not a prop_section object, use officer::prop_section.")
+  }
+
   z <- read_docx()
+
   for( i in seq_along(values) ){
     if(show_names){
       z <- body_add_par(z, titles[i], style = "heading 2" )
     }
     z <- body_add_flextable(z, values[[i]] )
   }
+  z <- body_set_default_section(z, pr_section)
   print(z, target = path )
   invisible(path)
 }
@@ -475,7 +531,7 @@ save_as_docx <- function(..., values = NULL, path){
 #' @description save a flextable as a png, pdf or jpeg image.
 #'
 #' Image generated with package 'webshot' or package 'webshot2'.
-#' Package 'webshot2' should be prefered as 'webshot' can have
+#' **Package 'webshot2' should be prefered** as 'webshot' can have
 #' issues with some properties (i.e. bold are not rendered for some users).
 #' @note This function requires package webshot or webshot2.
 #' @param x a flextable object

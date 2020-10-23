@@ -45,6 +45,7 @@ reference:
   - title: Format flextable
     desc:  Modify flextable`s formatting properties.
     contents:
+    - get_flextable_defaults
     - style
     - align
     - bg
@@ -53,6 +54,7 @@ reference:
     - italic
     - bold
     - color
+    - line_spacing
     - highlight
     - padding
     - valign

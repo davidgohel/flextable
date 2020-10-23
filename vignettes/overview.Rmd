@@ -269,8 +269,8 @@ you can forget about that.
 
 #### Simple export
 
-Use function `save_as_docx` or `save_as_pptx` that lets users export flextable objects 
-to PowerPoint or Word documents.. 
+Use function `save_as_docx` or `save_as_pptx` that lets users export flextable
+objects to PowerPoint or Word documents. Note `save_as_html` is also available.
 
 ```{r eval=FALSE}
 docx_file <- tempfile(fileext = ".docx")

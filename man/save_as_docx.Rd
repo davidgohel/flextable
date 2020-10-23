@@ -4,7 +4,7 @@
 \alias{save_as_docx}
 \title{save flextable objects in an Word file}
 \usage{
-save_as_docx(..., values = NULL, path)
+save_as_docx(..., values = NULL, path, pr_section = NULL)
 }
 \arguments{
 \item{...}{flextable objects, objects, possibly named. If named objects, names are
@@ -14,19 +14,31 @@ used as titles.}
 used as titles. If provided, argument \code{...} will be ignored.}
 
 \item{path}{Word file to be created}
+
+\item{pr_section}{a \link{prop_section} object that can be used to define page
+layout such as orientation, width and height.}
 }
 \description{
 sugar function to save flextable objects in an Word file.
 }
 \examples{
-ft1 <- flextable( head( iris ) )
+
 tf <- tempfile(fileext = ".docx")
+
+library(officer)
+ft1 <- flextable( head( iris ) )
 save_as_docx(ft1, path = tf)
 
 
 ft2 <- flextable( head( mtcars ) )
-tf <- tempfile(fileext = ".docx")
-save_as_docx(`iris table` = ft1, `mtcars table` = ft2, path = tf)
+sect_properties <- prop_section(
+  page_size = page_size(orient = "landscape",
+    width = 8.3, height = 11.7),
+  type = "continuous",
+  page_margins = page_mar()
+)
+save_as_docx(`iris table` = ft1, `mtcars table` = ft2,
+  path = tf, pr_section = sect_properties)
 }
 \seealso{
 Other flextable print function: 

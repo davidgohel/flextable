@@ -5,6 +5,8 @@
 * new function `highlight()` for text highlighting color
 * new function `set_flextable_defaults()` to set some default 
 formatting properties, i.e. default border color, foont color, padding...
+* `save_as_docx` gained a new argument `pr_section` to define page 
+layout with section properties.
 
 ## Issues
 
