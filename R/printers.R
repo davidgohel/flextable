@@ -419,6 +419,7 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
 
 
 #' @export
+#' @importFrom officer ph_location_type
 #' @title save flextable objects in an PowerPoint file
 #' @description sugar function to save flextable objects in an PowerPoint file.
 #' @param ... flextable objects, objects, possibly named. If named objects, names are

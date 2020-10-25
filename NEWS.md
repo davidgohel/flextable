@@ -8,6 +8,10 @@ formatting properties, i.e. default border color, foont color, padding...
 * `save_as_docx` gained a new argument `pr_section` to define page 
 layout with section properties.
 
+## changes
+
+* defunct of `ph_with_flextable()`
+
 ## Issues
 
 * fix bug in HTML output with invalid css when locale makes decimal separator not `.`
