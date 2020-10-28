@@ -122,7 +122,7 @@ as_bookmark <- function(id, str) {
 }
 
 format_double <- function(x, digits = 2){
-  formatC(x, format = "f", digits = 2, decimal.mark = ".", drop0trailing = TRUE )
+  formatC(x, format = "f", digits = digits, decimal.mark = ".", drop0trailing = TRUE )
 }
 
 
