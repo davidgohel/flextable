@@ -18,6 +18,9 @@ a single table.
 * fix bug in HTML output with invalid css when locale makes decimal separator not `.`
 * `fix_border_issues` is the last instruction of all theme functions so that borders 
 are corrected if some cells have been merged.
+* caption was always printed in bookdown and now it's conditionned by 
+testing if `tab_props$cap` has a value.
+
 
 # flextable 0.5.11
 

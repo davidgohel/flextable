@@ -98,7 +98,7 @@ docx_value <- function(x, print = TRUE,
                           bkm = tab_props$id
                         ))
     caption <- to_wml(bc, knitting = TRUE)
-  } else if(bookdown) {
+  } else if(bookdown && !is.null(tab_props$cap) && !"" %in% tab_props$cap) {
     bkm <- opts_current$get("label")
     caption <- paste0(
       "\n\n::: {custom-style=\"",
