@@ -133,7 +133,13 @@ html_gen <- function(x){
   header_start <- head(which(parts %in% "header"), n = 1)
   header_end <- tail(which(parts %in% "header"), n = 1)
   body_start <- head(which(parts %in% "body"), n = 1)
-  body_end <- nrow(z)
+  body_end <- tail(which(parts %in% "body"), n = 1)
+  if ("footer" %in% parts) {
+    footer_start <- head(which(parts %in% "footer"), n = 1)
+    footer_end <- nrow(z)
+  } else {
+    body_end <- nrow(z)
+  }
 
   z$tpart_start <- ""
   z$tpart_end <- ""
@@ -141,6 +147,8 @@ html_gen <- function(x){
   z$tpart_end[header_end] <- "</thead>"
   z$tpart_start[body_start] <- "<tbody>"
   z$tpart_end[body_end] <- "</tbody>"
+  if (exists("footer_start")) z$tpart_start[footer_start] <- "<tfoot>"
+  if (exists("footer_end")) z$tpart_end[footer_end] <- "</tfoot>"
   setcolorder(z, neworder = c("tpart_start", "tr_tag"))
 
   z[, c("part", "ft_row_id") := NULL]
