@@ -16,18 +16,16 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 The flextable package provides a framework for easily create tables for
 reporting and publications. Tables can be easily formatted with a set of
 verbs such as `bold()`, `color()`, they can receive a header of more
-than one line, cells can be merged or contain an image.
-
-<img src="./man/figures/fig_formats.png" width="50%" />
-
-Tables can be embedded within HTML, PDF, Word and PowerPoint documents
-from R Markdown documents and within Microsoft Word or PowerPoint
-documents with package [officer](https://davidgohel.github.io/officer/).
-
-Tables can also be rendered as R plots or graphic files (png, pdf and
-jpeg).
+than one line, cells can be merged or contain an image. The package make
+it possible to build any table for publication from a \`data.frame’.
 
 **Documentation**: <https://davidgohel.github.io/flextable/>
+
+<img src="man/figures/fig_formats.png" alt="flextable formats" align="left" />
+Tables can be embedded within HTML, PDF, Word and PowerPoint documents
+from R Markdown documents and within Microsoft Word or PowerPoint
+documents with package officer. Tables can also be rendered as R plots
+or graphic files (png, pdf and jpeg).
 
 ## Getting Started
 
