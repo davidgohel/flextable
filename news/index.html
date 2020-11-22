@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.013</span>
       </span>
     </div>
 
@@ -154,10 +154,19 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>new features</h2>
 <ul>
+<li>flextable now supports PDF/latex output format.</li>
 <li>new function <code><a href="../reference/highlight.html">highlight()</a></code> for text highlighting color</li>
 <li>new function <code><a href="../reference/set_flextable_defaults.html">set_flextable_defaults()</a></code> to set some default formatting properties, i.e. default border color, foont color, padding…</li>
 <li>
-<code>save_as_docx</code> gained a new argument <code>pr_section</code> to define page layout with section properties.</li>
+<code>save_as_docx</code> gained a new argument <code>pr_section</code> to define page layout with section properties, <code>save_as_html</code> can now output more than a single table.</li>
+</ul>
+</div>
+<div id="changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes" class="anchor"></a>changes</h2>
+<ul>
+<li>defunct of <code><a href="../reference/flextable-defunct.html">ph_with_flextable()</a></code>
+</li>
 </ul>
 </div>
 <div id="issues" class="section level2">
@@ -168,6 +177,8 @@
 </li>
 <li>
 <code>fix_border_issues</code> is the last instruction of all theme functions so that borders are corrected if some cells have been merged.</li>
+<li>caption was always printed in bookdown and now it’s conditionned by testing if <code>tab_props$cap</code> has a value.</li>
+<li>fix missing tfoot tag in HTML output</li>
 </ul>
 </div>
 </div>
@@ -175,9 +186,9 @@
 <h1 class="page-header" data-toc-text="0.5.11">
 <a href="#flextable-0511" class="anchor"></a>flextable 0.5.11<small> 2020-09-09 </small>
 </h1>
-<div id="changes" class="section level2">
+<div id="changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes" class="anchor"></a>Changes</h2>
+<a href="#changes-1" class="anchor"></a>Changes</h2>
 <ul>
 <li>HTML code is now minimized as CSS styles are now used instead of inline CSS.</li>
 </ul>
@@ -218,9 +229,9 @@
 <li>new function <code>set_table_properties</code> lets adapt flextable size as “100%”, “50%” of the available width for Word and HTML.</li>
 </ul>
 </div>
-<div id="changes-1" class="section level2">
+<div id="changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-1" class="anchor"></a>Changes</h2>
+<a href="#changes-2" class="anchor"></a>Changes</h2>
 <ul>
 <li>manual pages have been improved and illustrations are added</li>
 <li>
@@ -232,9 +243,9 @@
 <h1 class="page-header" data-toc-text="0.5.9">
 <a href="#flextable-059" class="anchor"></a>flextable 0.5.9<small> 2020-03-06 </small>
 </h1>
-<div id="changes-2" class="section level2">
+<div id="changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-2" class="anchor"></a>Changes</h2>
+<a href="#changes-3" class="anchor"></a>Changes</h2>
 <ul>
 <li>defunct of <code><a href="../reference/flextable-defunct.html">display()</a></code>
 </li>
@@ -253,9 +264,9 @@
 <h1 class="page-header" data-toc-text="0.5.8">
 <a href="#flextable-058" class="anchor"></a>flextable 0.5.8<small> 2020-02-17 </small>
 </h1>
-<div id="changes-3" class="section level2">
+<div id="changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-3" class="anchor"></a>Changes</h2>
+<a href="#changes-4" class="anchor"></a>Changes</h2>
 <ul>
 <li>deprecation of <code><a href="../reference/flextable-defunct.html">display()</a></code>.</li>
 <li>defunct of <code><a href="../reference/flextable-defunct.html">ph_with_flextable_at()</a></code>
@@ -292,9 +303,9 @@
 <li>new suger functions <code>save_as_docx</code>, <code>save_as_pptx</code> that lets users export flextable objects to PowerPoint or Word documents.</li>
 </ul>
 </div>
-<div id="changes-4" class="section level2">
+<div id="changes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-4" class="anchor"></a>Changes</h2>
+<a href="#changes-5" class="anchor"></a>Changes</h2>
 <ul>
 <li>merge_v can use hidden columns.</li>
 <li>new function <code>hrule</code> to control how row heights should be understood (at least, auto, exact)</li>
@@ -611,9 +622,9 @@
 <li>new function <code><a href="https://rdrr.io/pkg/knitr/man/knit_print.html">knit_print()</a></code> to render flextable in rmarkdown.</li>
 </ul>
 </div>
-<div id="changes-5" class="section level2">
+<div id="changes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-5" class="anchor"></a>Changes</h2>
+<a href="#changes-6" class="anchor"></a>Changes</h2>
 <ul>
 <li>function tabwid() is deprecated in favor of a knit_print implementation.</li>
 <li>list of dependencies has been reduced.</li>
@@ -655,9 +666,9 @@
 </li>
 </ul>
 </div>
-<div id="changes-6" class="section level2">
+<div id="changes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-6" class="anchor"></a>Changes</h2>
+<a href="#changes-7" class="anchor"></a>Changes</h2>
 <ul>
 <li>function display() now works with a mustache template</li>
 </ul>
@@ -684,7 +695,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0.007 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.0.013 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -82,7 +82,7 @@ Use set_flextable_defaults() to override them." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.013</span>
       </span>
     </div>
 
@@ -168,6 +168,7 @@ Use <code>set_flextable_defaults()</code> to override them.</p>
   border.color <span class='op'>=</span> <span class='cn'>NULL</span>,
   background.color <span class='op'>=</span> <span class='cn'>NULL</span>,
   table.layout <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fonts_ignore <span class='op'>=</span> <span class='cn'>NULL</span>,
   theme_fun <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
@@ -210,6 +211,12 @@ valid color (e.g. "#000000" or "black").</p></td>
     <tr>
       <th>table.layout</th>
       <td><p>'autofit' or 'fixed' algorithm. Default to 'autofit'.</p></td>
+    </tr>
+    <tr>
+      <th>fonts_ignore</th>
+      <td><p>if TRUE, pdf-engine pdflatex can be used instead of
+xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
+not supported by pdflatex, whereas with the xelatex and lualatex engines they are.</p></td>
     </tr>
     <tr>
       <th>theme_fun</th>
@@ -285,7 +292,7 @@ to be applied) or a theme function (input is a flextable, output is a flextable)
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0.007 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.0.013 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

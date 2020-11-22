@@ -48,7 +48,9 @@
 
 <meta property="og:title" content="Render flextable in rmarkdown — knit_print.flextable" />
 <meta property="og:description" content="Function used to render flextable in knitr/rmarkdown documents.
-HTML, Word and PowerPoint outputs are supported." />
+HTML, Word, PowerPoint and PDF outputs are supported.
+Table captioning is a flextable feature compatible with R Markdown
+documents. The feature is available for HTML, PDF and Word document" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -81,7 +83,7 @@ HTML, Word and PowerPoint outputs are supported." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.013</span>
       </span>
     </div>
 
@@ -151,7 +153,9 @@ HTML, Word and PowerPoint outputs are supported." />
 
     <div class="ref-description">
     <p>Function used to render flextable in knitr/rmarkdown documents.
-HTML, Word and PowerPoint outputs are supported.</p>
+HTML, Word, PowerPoint and PDF outputs are supported.</p>
+<p>Table captioning is a flextable feature compatible with R Markdown
+documents. The feature is available for HTML, PDF and Word document</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for flextable</span>
@@ -184,6 +188,20 @@ will be raised.</p>
 
 <p>Result can be aligned with chunk option <code>ft.align</code> that
 accepts values 'left', 'center' and 'right'.</p>
+<p>Three methods are available to add a caption and are presented below
+in order of triggering:</p><ul>
+<li><p>with the <code>set_caption</code> function, if the function is used, this label definition
+will be chosen.</p></li>
+<li><p>with knitr's chunk options:</p><ul>
+<li><p><code>tab.cap</code>: Caption label.</p></li>
+<li><p><code>tab.id</code>: Caption reference unique identifier.</p></li>
+</ul></li>
+<li><p>with knitr chunk and bookdown options (if you're in a bookdown):</p><ul>
+<li><p><code>tab.cap</code>: Caption label.</p></li>
+<li><p><code>label</code>: Caption reference unique identifier.</p></li>
+</ul></li>
+</ul>
+
     <h2 class="hasAnchor" id="word-chunk-options"><a class="anchor" href="#word-chunk-options"></a>Word chunk options</h2>
 
     
@@ -192,7 +210,7 @@ accepts values 'left', 'center' and 'right'.</p>
 accepts values 'left', 'center' and 'right'.</p>
 <p>Word option 'Allow row to break across pages' can be
 activated with chunk option <code>ft.split</code> set to TRUE.</p>
-<p>Table captioning is a flextable feature compatible with knitr. Three methods are available and are presented below in order of triggering:</p><ul>
+<p>Three methods are available and are presented below in order of triggering:</p><ul>
 <li><p>with the <code>set_caption</code> function, if the function is used, this definition will be chosen.</p></li>
 <li><p>with knitr's chunk options:</p><ul>
 <li><p><code>tab.cap.style</code>: Word style name to use for table captions.</p></li>
@@ -223,28 +241,44 @@ default to <code>{r ft.left=1, ft.top=2}</code>.</p>
     
 
 
-<p>Using flextable with template <code>pdf_document</code> is OK if the
-flextable fits on one single page. The PDF output is not
-a real latex output but a PNG image generated with package
-'webshot' or package 'webshot2'. Package 'webshot2' should
-be prefered as 'webshot' can have issues with some properties
-(i.e. bold are not rendered for some users).</p>
-<p>To specify usage of 'webshot2', use chunk option <code>webshot="webshot2"</code>.</p>
+<p>Result can be aligned with chunk option <code>ft.align</code> that
+accepts values 'left', 'center' and 'right'.</p>
+<p>paddings are not supported in latex but you can set the values for
+column spacing and row stretch:</p><ul>
+<li><p>Use chunk option <code>ft.tabcolsep=6</code> to change the space between the text
+and the left/right border of its containing cell to 6 points, the default
+value is 8 points.</p></li>
+<li><p>Use chunk option <code>ft.arraystretch=2</code> to change the height of each row
+to 2 relative to its default height, the default value is 1.5.</p></li>
+</ul>
+
+<p>Three methods are available to add a caption and are presented below
+in order of triggering:</p><ul>
+<li><p>with the <code>set_caption</code> function, if the function is used, this label definition
+will be chosen.</p></li>
+<li><p>with knitr's chunk options:</p><ul>
+<li><p><code>tab.cap</code>: Caption label.</p></li>
+<li><p><code>tab.id</code>: Caption reference unique identifier.</p></li>
+</ul></li>
+<li><p>with knitr chunk and bookdown options (if you're in a bookdown):</p><ul>
+<li><p><code>tab.cap</code>: Caption label.</p></li>
+<li><p><code>label</code>: Caption reference unique identifier.</p></li>
+</ul></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other flextable print function: 
 <code><a href='as_raster.html'>as_raster</a>()</code>,
 <code><a href='docx_value.html'>docx_value</a>()</code>,
 <code><a href='htmltools_value.html'>htmltools_value</a>()</code>,
+<code><a href='latex_value.html'>latex_value</a>()</code>,
 <code><a href='plot.flextable.html'>plot.flextable</a>()</code>,
 <code><a href='print.flextable.html'>print.flextable</a>()</code>,
 <code><a href='save_as_docx.html'>save_as_docx</a>()</code>,
 <code><a href='save_as_html.html'>save_as_html</a>()</code>,
 <code><a href='save_as_image.html'>save_as_image</a>()</code>,
 <code><a href='save_as_pptx.html'>save_as_pptx</a>()</code></p></div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Maxim Nazarov</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -253,7 +287,7 @@ be prefered as 'webshot' can have issues with some properties
 <span class='va'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".Rmd"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='va'>demo_docx</span>, to <span class='op'>=</span> <span class='va'>rmd_file</span>, overwrite <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
-</div><div class='output co'>#&gt; [1] "/tmp/RtmpXwquWf/file49d84024d191.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+</div><div class='output co'>#&gt; [1] "/tmp/RtmpV4HVSA/filef0d4505985a.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
 <span class='co'>#  knitr::opts_chunk$set(webshot = "webshot2")</span>
 <span class='co'>#  render(input = rmd_file, output_format = "word_document", output_file = "doc.docx")</span>
 <span class='co'>#  render(input = rmd_file, output_format = "pdf_document", output_file = "doc.pdf")</span>
@@ -270,7 +304,7 @@ be prefered as 'webshot' can have issues with some properties
 <span class='va'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".Rmd"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='va'>demo_loop</span>, to <span class='op'>=</span> <span class='va'>rmd_file</span>, overwrite <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
-</div><div class='output co'>#&gt; [1] "/tmp/RtmpXwquWf/file49d88eef001.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+</div><div class='output co'>#&gt; [1] "/tmp/RtmpV4HVSA/filef0d2d429a21.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
 <span class='co'>#  render(input = rmd_file, output_format = "word_document", output_file = "loop_docx.docx")</span>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; NULL</div><div class='input'>
@@ -279,7 +313,7 @@ be prefered as 'webshot' can have issues with some properties
 <span class='va'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".Rmd"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='va'>demo_loop</span>, to <span class='op'>=</span> <span class='va'>rmd_file</span>, overwrite <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
-</div><div class='output co'>#&gt; [1] "/tmp/RtmpXwquWf/file49d88d933e7.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+</div><div class='output co'>#&gt; [1] "/tmp/RtmpV4HVSA/filef0db913e84.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
 <span class='co'>#  render(input = rmd_file, output_format = "html_document", output_file = "loop_html.html")</span>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; NULL</div></pre>
@@ -295,7 +329,7 @@ be prefered as 'webshot' can have issues with some properties
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0.007 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.0.013 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
