@@ -13,7 +13,7 @@ colformat_lgl(x, ...)
   col_keys = NULL,
   true = "true",
   false = "false",
-  na_str = "",
+  na_str = flextable_global$defaults$na_str,
   prefix = "",
   suffix = "",
   ...

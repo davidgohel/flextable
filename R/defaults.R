@@ -15,6 +15,10 @@ flextable_global$defaults <- list(
   border.color = "black",
   background.color = "transparent",
   table.layout = "fixed",
+  decimal.mark = ".",
+  big.mark = ",",
+  digits = 2,
+  na_str  = "",
   fonts_ignore = FALSE,
   theme_fun = "theme_booktabs")
 
@@ -38,6 +42,8 @@ flextable_global$defaults <- list(
 #' @param background.color cell background color - a single character value specifying a
 #' valid color (e.g. "#000000" or "black").
 #' @param table.layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
+#' @param decimal.mark,big.mark,digits,na_str [formatC] arguments used by [colformat_num()]
+#' and [colformat_int()].
 #' @param fonts_ignore if TRUE, pdf-engine pdflatex can be used instead of
 #' xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
 #' not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
@@ -67,7 +73,9 @@ set_flextable_defaults <- function(
   text.align = NULL, padding.bottom = NULL, padding.top = NULL,
   padding.left = NULL, padding.right = NULL,
   border.color = NULL, background.color = NULL,
-  table.layout = NULL, fonts_ignore = NULL, theme_fun = NULL
+  table.layout = NULL,
+  decimal.mark = NULL, big.mark = NULL, digits = NULL, na_str = NULL,
+  fonts_ignore = NULL, theme_fun = NULL
   ){
 
   x <- list()
@@ -109,6 +117,18 @@ set_flextable_defaults <- function(
   }
   if( !is.null(table.layout) ){
     x$table.layout <- table.layout
+  }
+  if( !is.null(big.mark) ){
+    x$big.mark <- big.mark
+  }
+  if( !is.null(decimal.mark) ){
+    x$decimal.mark <- decimal.mark
+  }
+  if( !is.null(digits) ){
+    x$digits <- digits
+  }
+  if( !is.null(na_str) ){
+    x$na_str <- na_str
   }
   if( !is.null(fonts_ignore) ){
     x$fonts_ignore <- fonts_ignore

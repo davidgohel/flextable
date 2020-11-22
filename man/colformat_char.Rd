@@ -11,7 +11,7 @@ colformat_char(x, ...)
   x,
   j = NULL,
   col_keys = NULL,
-  na_str = "",
+  na_str = flextable_global$defaults$na_str,
   prefix = "",
   suffix = "",
   ...

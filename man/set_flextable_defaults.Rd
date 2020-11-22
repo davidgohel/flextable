@@ -16,6 +16,10 @@ set_flextable_defaults(
   border.color = NULL,
   background.color = NULL,
   table.layout = NULL,
+  decimal.mark = NULL,
+  big.mark = NULL,
+  digits = NULL,
+  na_str = NULL,
   fonts_ignore = NULL,
   theme_fun = NULL
 )
@@ -41,6 +45,9 @@ positive integer value.}
 valid color (e.g. "#000000" or "black").}
 
 \item{table.layout}{'autofit' or 'fixed' algorithm. Default to 'autofit'.}
+
+\item{decimal.mark, big.mark, digits, na_str}{\link{formatC} arguments used by \code{\link[=colformat_num]{colformat_num()}}
+and \code{\link[=colformat_int]{colformat_int()}}.}
 
 \item{fonts_ignore}{if TRUE, pdf-engine pdflatex can be used instead of
 xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are

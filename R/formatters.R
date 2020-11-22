@@ -166,9 +166,13 @@ colformat_lgl <- function(x, ...){
 
 #' @export
 #' @rdname colformat_num
-colformat_num.flextable <- function(x, j = NULL, col_keys = NULL, big.mark=",",
-                                    decimal.mark = getOption("OutDec"),
-                                    digits = 2, na_str = "", prefix = "", suffix = "", ...){
+colformat_num.flextable <- function(
+  x, j = NULL, col_keys = NULL,
+  big.mark = flextable_global$defaults$big.mark,
+  decimal.mark = flextable_global$defaults$decimal.mark,
+  digits = flextable_global$defaults$digits,
+  na_str = flextable_global$defaults$na_str,
+  prefix = "", suffix = "", ...){
 
   if(!is.null(col_keys)){
     warning("argument col_keys is deprecated in favor of argument j")
@@ -185,7 +189,11 @@ colformat_num.flextable <- function(x, j = NULL, col_keys = NULL, big.mark=",",
 
 #' @export
 #' @rdname colformat_int
-colformat_int.flextable <- function(x, j = NULL, col_keys = NULL, big.mark=",", na_str = "", prefix = "", suffix = "", ...){
+colformat_int.flextable <- function(
+  x, j = NULL, col_keys = NULL,
+  big.mark = flextable_global$defaults$big.mark,
+  na_str = flextable_global$defaults$na_str,
+  prefix = "", suffix = "", ...){
 
   if(!is.null(col_keys)){
     warning("argument col_keys is deprecated in favor of argument j")
@@ -201,9 +209,11 @@ colformat_int.flextable <- function(x, j = NULL, col_keys = NULL, big.mark=",", 
 
 #' @export
 #' @rdname colformat_lgl
-colformat_lgl.flextable <- function(x, j = NULL, col_keys = NULL,
-                                       true = "true", false = "false",
-                                       na_str = "", prefix = "", suffix = "", ...){
+colformat_lgl.flextable <- function(
+  x, j = NULL, col_keys = NULL,
+  true = "true", false = "false",
+  na_str = flextable_global$defaults$na_str,
+  prefix = "", suffix = "", ...){
 
   if(!is.null(col_keys)){
     warning("argument col_keys is deprecated in favor of argument j")
@@ -220,7 +230,10 @@ colformat_lgl.flextable <- function(x, j = NULL, col_keys = NULL,
 
 #' @export
 #' @rdname colformat_char
-colformat_char.flextable <- function(x, j = NULL, col_keys = NULL, na_str = "", prefix = "", suffix = "", ...){
+colformat_char.flextable <- function(
+  x, j = NULL, col_keys = NULL,
+  na_str = flextable_global$defaults$na_str,
+  prefix = "", suffix = "", ...){
 
   if(!is.null(col_keys)){
     warning("argument col_keys is deprecated in favor of argument j")
@@ -228,7 +241,7 @@ colformat_char.flextable <- function(x, j = NULL, col_keys = NULL, na_str = "", 
   }
 
   fun_ <- function(x) {
-    out <- paste0(prefix, x, suffix )
+    out <- paste0(prefix, as.character(x), suffix )
     ifelse(is.na(x), na_str, out)
   }
   docall_display(j, fun_, x, ...)

@@ -11,8 +11,8 @@ colformat_int(x, ...)
   x,
   j = NULL,
   col_keys = NULL,
-  big.mark = ",",
-  na_str = "",
+  big.mark = flextable_global$defaults$big.mark,
+  na_str = flextable_global$defaults$na_str,
   prefix = "",
   suffix = "",
   ...
