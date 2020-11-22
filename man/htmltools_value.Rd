@@ -35,6 +35,7 @@ Other flextable print function:
 \code{\link{as_raster}()},
 \code{\link{docx_value}()},
 \code{\link{knit_print.flextable}()},
+\code{\link{latex_value}()},
 \code{\link{plot.flextable}()},
 \code{\link{print.flextable}()},
 \code{\link{save_as_docx}()},

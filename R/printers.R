@@ -120,6 +120,80 @@ docx_value <- function(x, print = TRUE,
   invisible(out)
 }
 
+#' @export
+#' @title flextable latex string for PDF
+#'
+#' @description get latex raw code for PDF
+#' from a flextable object.
+#'
+#' The function is particularly useful when you want
+#' to generate flextable in a loop from a R Markdown document.
+#' By default, the output is printed and is returned as a
+#' character scalar.
+#'
+#' **When used inside an R Markdown document, chunk option `results`
+#' must be set to 'asis'.**
+#'
+#' Arguments `ft.align`, `ft.tabcolsep` and `ft.arraystretch` can be
+#' specified also as knitr chunk options.
+#' @param x a flextable object
+#' @param print print output if TRUE
+#' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
+#' @param ft.tabcolsep space between the text and the left/right border of its containing
+#' cell to 6 points, the default value is 8 points.
+#' @param ft.arraystretch height of each row relative to its default
+#' height, the default value is 1.5.
+#' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
+#' @family flextable print function
+#' @examples
+#' latex_value(flextable(airquality[1:5,]))
+#' @importFrom officer opts_current_table block_caption styles_info run_autonum to_wml
+latex_value <- function(x, print = TRUE,
+                        ft.align = opts_current$get("ft.align"),
+                        ft.tabcolsep = opts_current$get("ft.tabcolsep"),
+                        ft.arraystretch = opts_current$get("ft.arraystretch"),
+                        bookdown) {
+  if (is.null(ft.align)) ft.align <- "center"
+  if (is.null(ft.tabcolsep)) ft.tabcolsep <- 8
+  if (is.null(ft.arraystretch)) ft.arraystretch <- 1.5
+
+
+  fonts_ignore <- flextable_global$defaults$fonts_ignore
+  fontspec_compat <- get_pdf_engine() %in% c("xelatex", "lualatex")
+  if (!fonts_ignore && !fontspec_compat) {
+    warning("Warning: fonts used in `flextable` are ignored because ",
+      "the `pdflatex` engine is used and not `xelatex` or ",
+      "`lualatex`. You can avoid this warning by using the ",
+      "`set_flextable_defaults(fonts_ignore=TRUE)` command or ",
+      "use a compatible engine by defining `latex_engine: xelatex` ",
+      "in the YAML header of the R Markdown document.",
+      call. = FALSE
+    )
+  }
+  if (fontspec_compat) {
+    usepackage_latex("fontspec")
+  }
+  usepackage_latex("multirow")
+  usepackage_latex("multicol")
+  usepackage_latex("colortbl")
+  usepackage_latex("hhline")
+  usepackage_latex("longtable")
+  usepackage_latex("array")
+  usepackage_latex("hyperref")
+
+  out <- paste(
+    cline_cmd,
+    latex_str(x,
+      ft.align = ft.align,
+      ft.tabcolsep = ft.tabcolsep,
+      ft.arraystretch = ft.arraystretch,
+      bookdown = bookdown
+    ),
+    sep = "\n\n"
+  )
+  if (print) cat(out)
+  invisible(out)
+}
 
 #' @importFrom htmltools HTML browsable
 #' @export
@@ -176,7 +250,10 @@ print.flextable <- function(x, preview = "html", ...){
 
 #' @title Render flextable in rmarkdown
 #' @description Function used to render flextable in knitr/rmarkdown documents.
-#' HTML, Word and PowerPoint outputs are supported.
+#' HTML, Word, PowerPoint and PDF outputs are supported.
+#'
+#' Table captioning is a flextable feature compatible with R Markdown
+#' documents. The feature is available for HTML, PDF and Word document
 #' @note
 #' For Word (docx) output, if pandoc version >= 2.0 is used, a raw XML block
 #' with the table code will be inserted. If pandoc version < 2.0 is used, an
@@ -189,6 +266,21 @@ print.flextable <- function(x, preview = "html", ...){
 #' Result can be aligned with chunk option \code{ft.align} that
 #' accepts values 'left', 'center' and 'right'.
 #'
+#' Three methods are available to add a caption and are presented below
+#' in order of triggering:
+#'
+#' * with the `set_caption` function, if the function is used, this label definition
+#'   will be chosen.
+#' * with knitr's chunk options:
+#'
+#'     * `tab.cap`: Caption label.
+#'     * `tab.id`: Caption reference unique identifier.
+#'
+#' * with knitr chunk and bookdown options (if you're in a bookdown):
+#'
+#'     * `tab.cap`: Caption label.
+#'     * `label`: Caption reference unique identifier.
+#'
 #' @section Word chunk options:
 #' Result can be aligned with chunk option \code{ft.align} that
 #' accepts values 'left', 'center' and 'right'.
@@ -196,7 +288,7 @@ print.flextable <- function(x, preview = "html", ...){
 #' Word option 'Allow row to break across pages' can be
 #' activated with chunk option \code{ft.split} set to TRUE.
 #'
-#' Table captioning is a flextable feature compatible with knitr. Three methods are available and are presented below in order of triggering:
+#' Three methods are available and are presented below in order of triggering:
 #'
 #' * with the `set_caption` function, if the function is used, this definition will be chosen.
 #' * with knitr's chunk options:
@@ -223,19 +315,36 @@ print.flextable <- function(x, preview = "html", ...){
 #'
 #' @section PDF chunk options:
 #'
-#' Using flextable with template `pdf_document` is OK if the
-#' flextable fits on one single page. The PDF output is not
-#' a real latex output but a PNG image generated with package
-#' 'webshot' or package 'webshot2'. Package 'webshot2' should
-#' be prefered as 'webshot' can have issues with some properties
-#' (i.e. bold are not rendered for some users).
+#' Result can be aligned with chunk option \code{ft.align} that
+#' accepts values 'left', 'center' and 'right'.
 #'
-#' To specify usage of 'webshot2', use chunk option `webshot="webshot2"`.
+#' paddings are not supported in latex but you can set the values for
+#' column spacing and row stretch:
+#'
+#' * Use chunk option `ft.tabcolsep=6` to change the space between the text
+#' and the left/right border of its containing cell to 6 points, the default
+#' value is 8 points.
+#' * Use chunk option `ft.arraystretch=2` to change the height of each row
+#' to 2 relative to its default height, the default value is 1.5.
+#'
+#' Three methods are available to add a caption and are presented below
+#' in order of triggering:
+#'
+#' * with the `set_caption` function, if the function is used, this label definition
+#'   will be chosen.
+#' * with knitr's chunk options:
+#'
+#'     * `tab.cap`: Caption label.
+#'     * `tab.id`: Caption reference unique identifier.
+#'
+#' * with knitr chunk and bookdown options (if you're in a bookdown):
+#'
+#'     * `tab.cap`: Caption label.
+#'     * `label`: Caption reference unique identifier.
 #'
 #' @param x a \code{flextable} object
 #' @param ... further arguments, not used.
 #' @export
-#' @author Maxim Nazarov
 #' @importFrom utils getFromNamespace
 #' @importFrom htmltools HTML div
 #' @importFrom knitr knit_print asis_output opts_knit opts_current fig_path
@@ -286,6 +395,7 @@ knit_print.flextable <- function(x, ...){
   if ( is.null(opts_knit$get("rmarkdown.pandoc.to"))){
     knit_print(asis_output(html_str(x)))
   } else if ( grepl( "(html|slidy)", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+    # knit_print html ----
     tab_class <- "tabwid"
 
     if( !is.null(align <- opts_current$get("ft.align")) ){
@@ -295,8 +405,8 @@ knit_print.flextable <- function(x, ...){
         tab_class <- "tabwid tabwid_right"
     }
     knit_print(htmltools_value(x, class = tab_class, bookdown = is_bookdown))
-  } else if ( grepl( "(latex|beamer)", opts_knit$get("rmarkdown.pandoc.to") ) ) {
-
+  } else if ( grepl( "beamer", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+    # knit_print beamer ----
     if( is.null( webshot_package <- opts_current$get("webshot")) ){
       webshot_package <- "webshot"
     }
@@ -321,8 +431,12 @@ knit_print.flextable <- function(x, ...){
       })
       knit_print( asis_output(sprintf("\\includegraphics[width=%.02fin,height=%.02fin,keepaspectratio]{%s}\n", width, height, tmp)) )
     }
+  } else if ( grepl( "latex", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+    # knit_print latex ----
+    str <- latex_value(x, bookdown = is_bookdown, print = FALSE)
+    knit_print(asis_output(str))
   } else if (grepl( "docx", opts_knit$get("rmarkdown.pandoc.to") )) {
-
+    # knit_print docx ----
     if (pandoc_version() >= 2) {
       str <- docx_value(x, print = FALSE, bookdown = is_bookdown)
       knit_print( asis_output(str) )
@@ -331,6 +445,7 @@ knit_print.flextable <- function(x, ...){
     }
 
   } else if (grepl( "pptx", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+    # knit_print pptx ----
     if (pandoc_version() < numeric_version("2.4")) {
       stop("pandoc version >= 2.4 required for printing flextable in pptx")
     }
@@ -353,6 +468,7 @@ knit_print.flextable <- function(x, ...){
 
 
   } else {
+    # knit_print no format ----
     stop("unsupported format for flextable rendering:", opts_knit$get("rmarkdown.pandoc.to"))
   }
 }

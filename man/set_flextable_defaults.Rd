@@ -16,6 +16,7 @@ set_flextable_defaults(
   border.color = NULL,
   background.color = NULL,
   table.layout = NULL,
+  fonts_ignore = NULL,
   theme_fun = NULL
 )
 }
@@ -40,6 +41,10 @@ positive integer value.}
 valid color (e.g. "#000000" or "black").}
 
 \item{table.layout}{'autofit' or 'fixed' algorithm. Default to 'autofit'.}
+
+\item{fonts_ignore}{if TRUE, pdf-engine pdflatex can be used instead of
+xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
+not supported by pdflatex, whereas with the xelatex and lualatex engines they are.}
 
 \item{theme_fun}{a single character value (the name of the theme function
 to be applied) or a theme function (input is a flextable, output is a flextable).}

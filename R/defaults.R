@@ -15,6 +15,7 @@ flextable_global$defaults <- list(
   border.color = "black",
   background.color = "transparent",
   table.layout = "fixed",
+  fonts_ignore = FALSE,
   theme_fun = "theme_booktabs")
 
 
@@ -37,6 +38,9 @@ flextable_global$defaults <- list(
 #' @param background.color cell background color - a single character value specifying a
 #' valid color (e.g. "#000000" or "black").
 #' @param table.layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
+#' @param fonts_ignore if TRUE, pdf-engine pdflatex can be used instead of
+#' xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
+#' not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
 #' @param theme_fun a single character value (the name of the theme function
 #' to be applied) or a theme function (input is a flextable, output is a flextable).
 #' @return a list containing previous default values.
@@ -63,7 +67,7 @@ set_flextable_defaults <- function(
   text.align = NULL, padding.bottom = NULL, padding.top = NULL,
   padding.left = NULL, padding.right = NULL,
   border.color = NULL, background.color = NULL,
-  table.layout = NULL, theme_fun = NULL
+  table.layout = NULL, fonts_ignore = NULL, theme_fun = NULL
   ){
 
   x <- list()
@@ -105,6 +109,9 @@ set_flextable_defaults <- function(
   }
   if( !is.null(table.layout) ){
     x$table.layout <- table.layout
+  }
+  if( !is.null(fonts_ignore) ){
+    x$fonts_ignore <- fonts_ignore
   }
 
   if( !is.null(theme_fun) && is.character(theme_fun) && length(theme_fun) == 1 ){

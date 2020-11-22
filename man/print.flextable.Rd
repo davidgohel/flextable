@@ -38,6 +38,7 @@ Other flextable print function:
 \code{\link{docx_value}()},
 \code{\link{htmltools_value}()},
 \code{\link{knit_print.flextable}()},
+\code{\link{latex_value}()},
 \code{\link{plot.flextable}()},
 \code{\link{save_as_docx}()},
 \code{\link{save_as_html}()},

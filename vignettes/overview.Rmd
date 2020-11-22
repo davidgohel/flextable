@@ -191,7 +191,8 @@ contain blanks by default but this content can be customized.
 
 ## Flextable rendering
 
-When working in RStudio, flextable will be printed in the rstudio viewer pane, the default format is HTML output. 
+**When working in RStudio, flextable will be printed in the rstudio 
+viewer pane, the default format is HTML output. **
 
 We will use the following example:
 
@@ -238,20 +239,13 @@ knitr::knit_print(knitr::asis_output(as.character(code)))
 
 Supported formats require some minimum [pandoc](https://pandoc.org/installing.html) versions: 
 
-|                    R Markdown output | pandoc version |                 comment                |
-|-------------------------------------:|:--------------:|:--------------------------------------:|
-|                  `rmarkdown::html_*` |     >= 1.12    |                                        |
-|           `rmarkdown::word_document` |     >= 2.0     | require a recent RStudio (> june 2018) |
-| `rmarkdown::powerpoint_presentation` |     >= 2.4     |       require pandoc installation      |
-|            `rmarkdown::pdf_document` |     >= 1.12    |  produces an image - limited support   |
+|     Output format | pandoc version |
+|------------------:|:--------------:|
+|              HTML |     >= 1.12    |
+|       Word (docx) |     >= 2.0     |
+| PowerPoint (pptx) |     >= 2.4     |
+|               PDF |     >= 1.12    |
 
-#### Notes about PDF
-
-* Using flextable with template `pdf_document` is OK if the flextable fits on one single page. 
-The PDF output is not a real latex output but a PNG image.
-* The best option to produce PDF documents containing flextable objects is by using 
-package `pagedown`. The only current known limitation is the inability to repeat header 
-rows along pages when the table need more than a page. 
 
 #### Notes about rmarkdown::word_document
 
@@ -265,6 +259,21 @@ in the main document but stores *references*. This is not managed by rmarkdown u
 If you don't add images or hyperlinks in a flextable rendered by `officedown::rdocx_document()` then
 you can forget about that. 
 
+#### Notes about rmarkdown::pdf_document
+
+The PDF version of the flextable ignore some features 
+of flextable, here is the list of unsupported/ignored options:
+
+* padding is not taken into account (it is instead recommended 
+to use the arguments `ft.tabcolsep` and `ft.arraystretch`), 
+* the borders can only be full (no dash for example),  
+* the height of the lines cannot be defined.
+
+In order to be able to change latex font in a flextable, 
+PDF engine should be specified by adding `latex_engine: xelatex` 
+in the YAML header of the R Markdown document. The default one 
+`pdflatex` does not enable the use of system fonts.
+
 ### PowerPoint or Word documents with officer
 
 #### Simple export
@@ -275,10 +284,12 @@ objects to PowerPoint or Word documents. Note `save_as_html` is also available.
 ```{r eval=FALSE}
 docx_file <- tempfile(fileext = ".docx")
 pptx_file <- tempfile(fileext = ".pptx")
+html_file <- tempfile(fileext = ".html")
 # docx_file <- "example.docx"
 # pptx_file <- "example.pptx"
 save_as_docx("my table" = ft, path = docx_file)
 save_as_docx("my table" = ft, path = pptx_file)
+save_as_html("my table" = ft, path = html_file, title = "example")
 ```
 
 #### In an interactive session

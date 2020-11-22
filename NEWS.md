@@ -2,6 +2,7 @@
 
 ## new features
 
+* flextable now supports PDF/latex output format.
 * new function `highlight()` for text highlighting color
 * new function `set_flextable_defaults()` to set some default 
 formatting properties, i.e. default border color, foont color, padding...

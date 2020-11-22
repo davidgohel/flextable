@@ -13,7 +13,10 @@
 }
 \description{
 Function used to render flextable in knitr/rmarkdown documents.
-HTML, Word and PowerPoint outputs are supported.
+HTML, Word, PowerPoint and PDF outputs are supported.
+
+Table captioning is a flextable feature compatible with R Markdown
+documents. The feature is available for HTML, PDF and Word document
 }
 \note{
 For Word (docx) output, if pandoc version >= 2.0 is used, a raw XML block
@@ -27,6 +30,23 @@ will be raised.
 
 Result can be aligned with chunk option \code{ft.align} that
 accepts values 'left', 'center' and 'right'.
+
+Three methods are available to add a caption and are presented below
+in order of triggering:
+\itemize{
+\item with the \code{set_caption} function, if the function is used, this label definition
+will be chosen.
+\item with knitr's chunk options:
+\itemize{
+\item \code{tab.cap}: Caption label.
+\item \code{tab.id}: Caption reference unique identifier.
+}
+\item with knitr chunk and bookdown options (if you're in a bookdown):
+\itemize{
+\item \code{tab.cap}: Caption label.
+\item \code{label}: Caption reference unique identifier.
+}
+}
 }
 
 \section{Word chunk options}{
@@ -37,7 +57,7 @@ accepts values 'left', 'center' and 'right'.
 Word option 'Allow row to break across pages' can be
 activated with chunk option \code{ft.split} set to TRUE.
 
-Table captioning is a flextable feature compatible with knitr. Three methods are available and are presented below in order of triggering:
+Three methods are available and are presented below in order of triggering:
 \itemize{
 \item with the \code{set_caption} function, if the function is used, this definition will be chosen.
 \item with knitr's chunk options:
@@ -70,14 +90,35 @@ default to \code{{r ft.left=1, ft.top=2}}.
 \section{PDF chunk options}{
 
 
-Using flextable with template \code{pdf_document} is OK if the
-flextable fits on one single page. The PDF output is not
-a real latex output but a PNG image generated with package
-'webshot' or package 'webshot2'. Package 'webshot2' should
-be prefered as 'webshot' can have issues with some properties
-(i.e. bold are not rendered for some users).
+Result can be aligned with chunk option \code{ft.align} that
+accepts values 'left', 'center' and 'right'.
 
-To specify usage of 'webshot2', use chunk option \code{webshot="webshot2"}.
+paddings are not supported in latex but you can set the values for
+column spacing and row stretch:
+\itemize{
+\item Use chunk option \code{ft.tabcolsep=6} to change the space between the text
+and the left/right border of its containing cell to 6 points, the default
+value is 8 points.
+\item Use chunk option \code{ft.arraystretch=2} to change the height of each row
+to 2 relative to its default height, the default value is 1.5.
+}
+
+Three methods are available to add a caption and are presented below
+in order of triggering:
+\itemize{
+\item with the \code{set_caption} function, if the function is used, this label definition
+will be chosen.
+\item with knitr's chunk options:
+\itemize{
+\item \code{tab.cap}: Caption label.
+\item \code{tab.id}: Caption reference unique identifier.
+}
+\item with knitr chunk and bookdown options (if you're in a bookdown):
+\itemize{
+\item \code{tab.cap}: Caption label.
+\item \code{label}: Caption reference unique identifier.
+}
+}
 }
 
 \examples{
@@ -122,14 +163,12 @@ Other flextable print function:
 \code{\link{as_raster}()},
 \code{\link{docx_value}()},
 \code{\link{htmltools_value}()},
+\code{\link{latex_value}()},
 \code{\link{plot.flextable}()},
 \code{\link{print.flextable}()},
 \code{\link{save_as_docx}()},
 \code{\link{save_as_html}()},
 \code{\link{save_as_image}()},
 \code{\link{save_as_pptx}()}
-}
-\author{
-Maxim Nazarov
 }
 \concept{flextable print function}

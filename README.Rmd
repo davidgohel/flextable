@@ -25,12 +25,20 @@ knitr::opts_chunk$set(
 
 
 
-<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>. The flextable package provides a framework for easily create tables for reporting and publications. 
-Tables can be embedded within:
+<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>. 
+The flextable package provides a framework for easily create tables for 
+reporting and publications. Tables can be easily formatted with 
+a set of verbs such as `bold()`, `color()`, they can receive a 
+header of more than one line, cells can be merged or contain 
+an image.
 
-* R Markdown documents with support for HTML, Word and PowerPoint documents.
-* Microsoft Word or PowerPoint documents with package [officer](https://davidgohel.github.io/officer/).
-* PDF documents with package `pagedown`
+```{r, echo = FALSE, out.width="50%"}
+knitr::include_graphics("./man/figures/fig_formats.png")
+```
+
+Tables can be embedded within HTML, PDF, Word and PowerPoint documents 
+from R Markdown documents and within Microsoft Word or PowerPoint 
+documents with package [officer](https://davidgohel.github.io/officer/).
 
 Tables can also be rendered as R plots or graphic files (png, pdf and jpeg).
 
