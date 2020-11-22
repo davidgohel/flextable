@@ -14,7 +14,7 @@ complex_tabpart <- function( data, col_keys = names(data),
                              ),
                              default_pr_cell = fp_cell(
                                background.color = flextable_global$defaults$background.color,
-                               border = fp_border(color = flextable_global$defaults$border.color)
+                               border = fp_border(color = "transparent", width = 0)
                              ),
                              cwidth = NULL, cheight = NULL ){
 
