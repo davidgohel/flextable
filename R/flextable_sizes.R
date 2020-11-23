@@ -406,7 +406,11 @@ optimal_sizes <- function( x ){
 #' exist for this Microsoft format.
 #' @param x flextable object
 #' @param layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
-#' @param width value of the preferred width of the table in percent.
+#' @param width The parameter has a different effect depending on the
+#' output format. In HTML, it is the width of the space that the
+#' table should occupy. In Word, it is a preferred size and Word
+#' may decide not to strictly stick to it. It has no effect on
+#' PowerPoint and PDF output.
 #' @examples
 #' library(flextable)
 #' ft_1 <- qflextable(head(cars))

@@ -11,7 +11,11 @@ set_table_properties(x, layout = "fixed", width = 1)
 
 \item{layout}{'autofit' or 'fixed' algorithm. Default to 'autofit'.}
 
-\item{width}{value of the preferred width of the table in percent.}
+\item{width}{The parameter has a different effect depending on the
+output format. In HTML, it is the width of the space that the
+table should occupy. In Word, it is a preferred size and Word
+may decide not to strictly stick to it. It has no effect on
+PowerPoint and PDF output.}
 }
 \description{
 Set table layout and table width. Default to fixed
