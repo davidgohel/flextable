@@ -224,11 +224,11 @@ text_css_styles <- function(x){
   positioning_what <- ifelse( x$vertical.align %in% "superscript", "bottom",
                               ifelse(x$vertical.align %in% "subscript", "top", NA_character_ ) )
   vertical.align <- sprintf("position: relative;%s:%s;", positioning_what,
-                            css_px(x$font.size * positioning_val))
+                            css_pt(x$font.size * positioning_val))
   vertical.align <- ifelse(is.na(positioning_val), "", vertical.align)
 
   font.size <- sprintf(
-    "font-size:%s;", css_px(x$font.size * ifelse(
+    "font-size:%s;", css_pt(x$font.size * ifelse(
       x$vertical.align %in% "superscript", .6,
       ifelse(x$vertical.align %in% "subscript", .6, 1.0 )
     ) )
@@ -277,10 +277,10 @@ par_css_styles <- function(x){
     color = x$border.color.right, width = x$border.width.right,
     style = x$border.style.right, side = "right")
 
-  padding.bottom <- sprintf("padding-bottom:%s;", css_px(x$padding.bottom) )
-  padding.top <- sprintf("padding-top:%s;", css_px(x$padding.top) )
-  padding.left <- sprintf("padding-left:%s;", css_px(x$padding.left) )
-  padding.right <- sprintf("padding-right:%s;", css_px(x$padding.right) )
+  padding.bottom <- sprintf("padding-bottom:%s;", css_pt(x$padding.bottom) )
+  padding.top <- sprintf("padding-top:%s;", css_pt(x$padding.top) )
+  padding.left <- sprintf("padding-left:%s;", css_pt(x$padding.left) )
+  padding.right <- sprintf("padding-right:%s;", css_pt(x$padding.right) )
 
   line_spacing <- sprintf("line-height: %s;", css_no_unit(x$line_spacing, 2) )
 
@@ -296,8 +296,8 @@ cell_css_styles <- function(x){
                               sprintf("background-clip: padding-box;background-color:%s;", colcodecss(x$background.color) ),
                               "background-color:transparent;")
 
-  width <- ifelse( is.na(x$width), "", sprintf("width:%s;", css_px(x$width * 72) ) )
-  height <- ifelse( !is.na(x$height) & x$hrule %in% c("exact", "atleast"), sprintf("height:%s;", css_px(x$height * 72 ) ), "" )
+  width <- ifelse( is.na(x$width), "", sprintf("width:%s;", css_pt(x$width * 72) ) )
+  height <- ifelse( !is.na(x$height) & x$hrule %in% c("exact", "atleast"), sprintf("height:%s;", css_pt(x$height * 72 ) ), "" )
 
   vertical.align <- ifelse(
     x$vertical.align %in% "center", "vertical-align: middle;",
@@ -319,10 +319,10 @@ cell_css_styles <- function(x){
     color = x$border.color.right, width = x$border.width.right,
     style = x$border.style.right, side = "right")
 
-  margin.bottom <- sprintf("margin-bottom:%s;", css_px(x$margin.bottom) )
-  margin.top <- sprintf("margin-top:%s;", css_px(x$margin.top) )
-  margin.left <- sprintf("margin-left:%s;", css_px(x$margin.left) )
-  margin.right <- sprintf("margin-right:%s;", css_px(x$margin.right) )
+  margin.bottom <- sprintf("margin-bottom:%s;", css_pt(x$margin.bottom) )
+  margin.top <- sprintf("margin-top:%s;", css_pt(x$margin.top) )
+  margin.left <- sprintf("margin-left:%s;", css_pt(x$margin.left) )
+  margin.right <- sprintf("margin-right:%s;", css_pt(x$margin.right) )
 
   style_column <- paste0(width, height, background.color, vertical.align, bb, bt, bl, br,
                          margin.bottom, margin.top, margin.left, margin.right)
