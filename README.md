@@ -12,7 +12,7 @@ coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.s
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
-<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>.
+<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>
 The flextable package provides a framework for easily create tables for
 reporting and publications. Tables can be easily formatted with a set of
 verbs such as `bold()`, `color()`, they can receive a header of more
@@ -21,7 +21,7 @@ it possible to build any table for publication from a \`data.frame’.
 
 **Documentation**: <https://davidgohel.github.io/flextable/>
 
-<img src="man/figures/fig_formats.png" alt="flextable formats" align="left" />
+<img src="man/figures/fig_formats.png" width="170px" alt="flextable formats" align="left" />
 Tables can be embedded within HTML, PDF, Word and PowerPoint documents
 from R Markdown documents and within Microsoft Word or PowerPoint
 documents with package officer. Tables can also be rendered as R plots

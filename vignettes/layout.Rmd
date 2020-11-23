@@ -102,9 +102,6 @@ myft <- theme_box(myft)
 myft
 ```
 
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ### vertical merging of similar values
 
@@ -114,9 +111,6 @@ myft
 merge_v(myft, j = ~ letters1 + letters2 )
 ```
 
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ### horizontal merging of similar values
 
@@ -125,13 +119,6 @@ merge_v(myft, j = ~ letters1 + letters2 )
 ```{r}
 merge_h(myft)
 ```
-
-</div>
-
-</div>
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
 
 
 ### horizontal merging of columns
@@ -144,12 +131,6 @@ merge_h_range(myft,
   i =  ~ number < 3, 
   j1 = "letters1", j2 = "letters2")
 ```
-
-
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
-
 
 ### general merging function
 
@@ -164,10 +145,6 @@ myft %>%
 
 Note that the content that is rendered is not the result of the concatenation of each paragraphs 
 contained into the merge cells. Only one paragraph will be kept, the top left one of all merge cells.
-
-</div>
-
-</div>
 
 
 
@@ -233,9 +210,6 @@ Now let's add new row of labels.
 
 ### Add a row of labels
 
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ```{r}
 ft <- add_header_row(ft, 
@@ -243,24 +217,14 @@ ft <- add_header_row(ft,
 ft <- theme_box(ft)
 ```
 
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ```{r echo=FALSE}
 ft
 ```
 
-</div>
-
-</div>
-
 
 ### Add lines of text
 
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ```{r}
 ft <- add_header_lines(ft, 
@@ -269,19 +233,10 @@ ft <- add_header_lines(ft,
 ft <- theme_box(ft)
 ```
 
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ```{r echo=FALSE}
 ft
 ```
-
-</div>
-
-</div>
-
-
 
 
 ### Define headers with a reference table
@@ -297,9 +252,6 @@ column keys (defined by argument `col_keys` of `flextable()` function).
 This key column will not be displayed. Other variables will added as 
 rows. Note that variables names are not displayed. 
 
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ```{r}
 typology <- data.frame(
@@ -315,17 +267,10 @@ typology <- data.frame(
   stringsAsFactors = FALSE )
 ```
 
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ```{r echo=FALSE}
 autofit( theme_vanilla(flextable(typology)) )
 ```
-
-</div>
-
-</div>
 
 
 2. Use it as header rows
@@ -336,9 +281,6 @@ to permform the join operation.
 > Order of columns matters, first column will be first row, second one will 
   be the second row, etc.
 
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ```{r}
 ft <- flextable( head( iris ) )
@@ -353,17 +295,10 @@ ft <- fix_border_issues(ft)
 ```
 
 
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ```{r echo=FALSE}
 ft
 ```
-
-</div>
-
-</div>
 
 
 

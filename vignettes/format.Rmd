@@ -81,9 +81,6 @@ myft <- flextable(head(iris))
 myft
 ```
 
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ### bold
 
@@ -93,9 +90,6 @@ myft <- bold(myft, part = "header") # bold header
 myft
 ```
 
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ### Font size
 
@@ -104,12 +98,6 @@ myft <- fontsize(myft, part = "header", size = 12)
 myft
 ```
 
-</div>
-</div>
-
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ### change font color
 
@@ -123,11 +111,6 @@ myft
 character vector of colors (see `scales::col_numeric`).
 
 
-
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
-
 ### Italic
 
 ```{r}
@@ -135,13 +118,6 @@ myft <- italic(myft, i = ~ Sepal.Length > 5,
          j = ~ Sepal.Length + Sepal.Width, italic = TRUE)
 myft
 ```
-
-</div>
-</div>
-
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ### change background color
 
@@ -153,24 +129,12 @@ myft <-  bg(myft, bg = "#333333", part = "body")
 myft
 ```
 
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
-
 ### Text alignment
 
 ```{r}
 myft <- align( myft, align = "center", part = "all" )
 myft
 ```
-
-</div>
-</div>
-
-
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ### add padding
 
@@ -179,10 +143,6 @@ myft <- padding( myft, padding = 6, part = "all" )
 myft
 ```
 
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
-
 ### change font
 
 ```{r}
@@ -190,9 +150,6 @@ myft <- font(myft, j = "Species", fontname = "Times")
 myft <- fontsize(myft, j = "Species", size = 14)
 myft
 ```
-
-</div>
-</div>
 
 ### highlight text
 
@@ -219,10 +176,6 @@ Argument `rotation` is mandatory and expects one of these values:
 Argument `align` is used for cell content vertical alignment, it should be one of these values: "top", "bottom" or "center".
 
 
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
-
 ```{r}
 ft <- flextable(head(iris))
 ft <- rotate(ft, rotation = "tbrl", align = "center", part = "header")
@@ -231,43 +184,26 @@ ft <- valign(ft, valign = "center", part = "header")
 ft <- align(ft, align = "center", part = "body")
 ```
 
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ```{r echo=FALSE}
 ft
 ```
-
-</div>
-
-</div>
 
 
 ### Line spacing
 
 Line scaping can be defined with function `line_spacing()`.
 
-<div class="row">
-
-<div class="col-12 col-sm-8 col-md-6">
 
 ```{r}
 ft <- flextable(head(mtcars))
 line_spacing(ft, space = 1)
 ```
 
-</div>
-
-<div class="col-12 col-sm-8 col-md-6">
-
 ```{r}
 line_spacing(ft, space = 1.5)
 ```
 
-</div>
-
-</div>
 
 ## Borders
 

@@ -45,6 +45,7 @@ reference:
   - title: Format flextable
     desc:  Modify flextable`s formatting properties.
     contents:
+    - set_flextable_defaults
     - get_flextable_defaults
     - style
     - align
@@ -105,6 +106,7 @@ reference:
     - save_as_pptx
     - htmltools_value
     - docx_value
+    - latex_value
     - as_raster
   - title: as_flextable
     desc:  get flextable from objects and utilities
