@@ -186,51 +186,9 @@ as.data.frame.par_struct <- function(object, ...){
 }
 
 
-add_parstyle_column <- function(x, type = "html", text.direction, valign){
+add_parstyle_column <- function(x, type = "wml", text.direction, valign){
 
-  if( type %in% "html"){
-    shading <- ifelse( colalpha(x$shading.color) > 0,
-                       sprintf("background-color:%s;", colcodecss(x$shading.color) ),
-                       "background-color:transparent;")
-
-    textdir <- ifelse(text.direction %in% "tbrl", "writing-mode:vertical-rl;",
-                      ifelse(text.direction %in% "btlr", "writing-mode:vertical-lr;transform: rotate(180deg);", "")
-                      )
-    textalign <- sprintf("text-align:%s;", x$text.align )
-    textalign_margins <- rep("", length(text.direction))
-
-    textalign_margins[text.direction %in% "tbrl" & valign %in% "center"] <- "margin-left:auto;margin-right:auto;"
-    textalign_margins[text.direction %in% "tbrl" & valign %in% "top"] <- "margin-left:auto;"
-    textalign_margins[text.direction %in% "tbrl" & valign %in% "bottom"] <- "margin-right:auto;"
-    textalign_margins[text.direction %in% "btlr" & valign %in% "center"] <- "margin-left:auto;margin-right:auto;"
-    textalign_margins[text.direction %in% "btlr" & valign %in% "top"] <- "margin-right:auto;"
-    textalign_margins[text.direction %in% "btlr" & valign %in% "bottom"] <- "margin-left:auto;"
-    textalign <- paste0(textalign, textalign_margins)
-
-    bb <- border_css(
-      color = x$border.color.bottom, width = x$border.width.bottom,
-      style = x$border.style.bottom, side = "bottom")
-    bt <- border_css(
-      color = x$border.color.top, width = x$border.width.top,
-      style = x$border.style.top, side = "top")
-    bl <- border_css(
-      color = x$border.color.left, width = x$border.width.left,
-      style = x$border.style.left, side = "left")
-    br <- border_css(
-      color = x$border.color.right, width = x$border.width.right,
-      style = x$border.style.right, side = "right")
-
-    padding.bottom <- sprintf("padding-bottom:%s;", css_px(x$padding.bottom) )
-    padding.top <- sprintf("padding-top:%s;", css_px(x$padding.top) )
-    padding.left <- sprintf("padding-left:%s;", css_px(x$padding.left) )
-    padding.right <- sprintf("padding-right:%s;", css_px(x$padding.right) )
-
-    line_spacing <- sprintf("line-height: %s;", css_no_unit(x$line_spacing, 2) )
-
-    style_column <- paste0("style=\"margin:0;", textalign, textdir, bb, bt, bl, br,
-                           padding.bottom, padding.top, padding.left, padding.right,
-                           line_spacing, shading, "\"" )
-  } else if( type %in% "wml"){
+  if( type %in% "wml"){
 
     shading <- ifelse( colalpha(x$shading.color) > 0,
             sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", colcode0(x$shading.color) ),
@@ -286,8 +244,6 @@ par_data <- function(x, run_data, type, text.direction, valign){
     dat$par_str <- paste0("<w:p>", dat$style_str, dat$par_nodes_str, "</w:p>")
   } else if( type %in% "pml" ){
     dat$par_str <- paste0("<a:p>", dat$style_str, dat$par_nodes_str, "</a:p>")
-  } else if( type %in% "html" ){
-    dat$par_str <- sprintf("<p %s>%s</p>", dat$style_str, dat$par_nodes_str)
   }
   dat$col_id <- factor(dat$col_id, levels = x$text.align$keys)
 
@@ -384,44 +340,9 @@ as.data.frame.cell_struct <- function(object, ...){
   data
 }
 
-add_cellstyle_column <- function(x, type = "html", text.align ){
+add_cellstyle_column <- function(x, type = "wml", text.align ){
 
-  if( type %in% "html"){
-    background.color <- ifelse( colalpha(x$background.color) > 0,
-                       sprintf("background-clip: padding-box;background-color:%s;", colcodecss(x$background.color) ),
-                       "background-color:transparent;")
-
-    width <- ifelse( is.na(x$width), "", sprintf("width:%s;", css_px(x$width * 72) ) )
-    height <- ifelse( is.na(x$height) | x$hrule %in% "exact", sprintf("height:%s;", css_px(x$height * 72 ) ), "" )
-
-    vertical.align <- ifelse(
-      x$vertical.align %in% "center", "vertical-align: middle;",
-      ifelse(x$vertical.align %in% "top", "vertical-align: top;", "vertical-align: bottom;") )
-    vertical.align[x$text.direction %in% "tbrl" & text.align %in% "center"] <- "vertical-align:middle;"
-    vertical.align[x$text.direction %in% "tbrl" & text.align %in% "left"] <- "vertical-align:top;"
-    vertical.align[x$text.direction %in% "tbrl" & text.align %in% "right"] <- "vertical-align:bottom;"
-
-    bb <- border_css(
-      color = x$border.color.bottom, width = x$border.width.bottom,
-      style = x$border.style.bottom, side = "bottom")
-    bt <- border_css(
-      color = x$border.color.top, width = x$border.width.top,
-      style = x$border.style.top, side = "top")
-    bl <- border_css(
-      color = x$border.color.left, width = x$border.width.left,
-      style = x$border.style.left, side = "left")
-    br <- border_css(
-      color = x$border.color.right, width = x$border.width.right,
-      style = x$border.style.right, side = "right")
-
-    margin.bottom <- sprintf("margin-bottom:%s;", css_px(x$margin.bottom) )
-    margin.top <- sprintf("margin-top:%s;", css_px(x$margin.top) )
-    margin.left <- sprintf("margin-left:%s;", css_px(x$margin.left) )
-    margin.right <- sprintf("margin-right:%s;", css_px(x$margin.right) )
-
-    style_column <- paste0(width, height, background.color, vertical.align, bb, bt, bl, br,
-                           margin.bottom, margin.top, margin.left, margin.right)
-  } else if( type %in% "wml"){
+  if( type %in% "wml"){
 
     background.color <- sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", colcode0(x$background.color) )
     vertical.align <- ifelse( x$vertical.align %in% c("center", "top"), sprintf("<w:vAlign w:val=\"%s\"/>", x$vertical.align), "<w:vAlign w:val=\"bottom\"/>" )
@@ -533,22 +454,8 @@ cell_data <- function(x, par_data, type, span_rows, span_columns, colwidths, row
                            paste0( "<a:txBody><a:bodyPr/><a:lstStyle/>",
                                    dat$par_str, "</a:txBody>" ),
                            dat$style_str, "</a:tc>")
-  } else if( type %in% "html" ){
-
-    tc_attr <- paste0(
-      ifelse(span_rows > 1, paste0(" colspan=\"", span_rows,"\""), ""),
-      ifelse(span_columns > 1, paste0(" rowspan=\"", span_columns,"\""), "")
-    )
-
-    text_directions <- x$text.direction[]
-    class_ <- character(nrow(dat))
-    # rotated <- text_directions %in% c("btlr", "tbrl")
-    # class_[rotated] <- sprintf(" class=\"%s\"", text_directions[rotated])
-
-    str <- paste0("<td", class_, tc_attr, " style=\"", dat$style_str ,"\">", dat$par_str, "</td>")
-    str[span_rows < 1 | span_columns < 1] <- ""
-    dat$cell_str <- str
   }
+
   dat <- dat[order(dat$ft_row_id, dat$col_id), ]
   dat <- dat[, c("ft_row_id", "col_id", "cell_str")]
   dat$col_id <- factor(dat$col_id, levels = x$vertical.align$keys)
@@ -654,43 +561,9 @@ fortify_content <- function(x, default_chunk_fmt, ...){
 
 }
 
-add_runstyle_column <- function(x, type = "html"){
+add_runstyle_column <- function(x, type = "wml"){
 
-  if( type %in% "html"){
-    shading <- ifelse(
-      colalpha(x$shading.color) > 0,
-      sprintf("background-color:%s;", colcodecss(x$shading.color) ),
-      "background-color:transparent;")
-    color <- ifelse(
-      colalpha(x$color) > 0,
-      sprintf("color:%s;", colcodecss(x$color) ),
-      "")
-
-    family <- sprintf("font-family:'%s';", x$font.family )
-
-    positioning_val <- ifelse( x$vertical.align %in% "superscript", .3,
-                               ifelse(x$vertical.align %in% "subscript", .3, NA_real_ ) )
-    positioning_what <- ifelse( x$vertical.align %in% "superscript", "bottom",
-                                ifelse(x$vertical.align %in% "subscript", "top", NA_character_ ) )
-    vertical.align <- sprintf("position: relative;%s:%s;", positioning_what,
-                              css_px(x$font.size * positioning_val))
-    vertical.align <- ifelse(is.na(positioning_val), "", vertical.align)
-
-    font.size <- sprintf(
-      "font-size:%s;", css_px(x$font.size * ifelse(
-        x$vertical.align %in% "superscript", .6,
-        ifelse(x$vertical.align %in% "subscript", .6, 1.0 )
-      ) )
-    )
-
-    bold <- ifelse(x$bold, "font-weight:bold;", "font-weight:normal;" )
-    italic <- ifelse(x$italic, "font-style:italic;", "font-style:normal;" )
-    underline <- ifelse(x$underlined, "text-decoration:underline;", "text-decoration:none;" )
-
-
-    style_column <- paste0("style=\"", family, font.size, bold, italic, underline,
-                           color, shading, vertical.align, "\"")
-  } else if( type %in% "wml"){
+  if( type %in% "wml"){
 
     family <- sprintf("<w:rFonts w:ascii=\"%s\" w:hAnsi=\"%s\" w:eastAsia=\"%s\" w:cs=\"%s\"/>",
                       x$font.family, x$font.family, x$font.family, x$font.family )
@@ -806,53 +679,6 @@ run_data <- function(x, type){
     link_pr <- ifelse(is_hlink, paste0("<a:hlinkClick r:id=\"", htmlEscape(x$url), "\"/>"), "" )
 
     x$par_nodes_str <- paste0("<a:r>", sprintf(x$style_str, link_pr), text_nodes_str, "</a:r>")
-  } else if( type %in% "html" ){
-
-    text_nodes_str <-  gsub("\n", "<br>", htmlEscape(x$txt))
-    text_nodes_str <-  gsub("\t", "&emsp;", text_nodes_str)
-
-    # manage text
-    str <- character(nrow(x))
-    str[!is_raster] <- sprintf("<span %s>%s</span>", x$style_str[!is_raster], text_nodes_str[!is_raster])
-
-    # manage images
-
-    str_raster <- mapply(function(img_raster, width, height ){
-      if(inherits(img_raster, "raster")){
-        img_raster <- paste("data:image/png;base64,", gdtools::raster_str(img_raster, width*72, height*72))
-      } else if(is.character(img_raster)){
-
-        if( grepl("\\.png", ignore.case = TRUE, x = img_raster) ){
-          mime <- "image/png"
-        } else if( grepl("\\.gif", ignore.case = TRUE, x = img_raster) ){
-          mime <- "image/gif"
-        } else if( grepl("\\.jpg", ignore.case = TRUE, x = img_raster) ){
-          mime <- "image/jpeg"
-        } else if( grepl("\\.jpeg", ignore.case = TRUE, x = img_raster) ){
-          mime <- "image/jpeg"
-        } else if( grepl("\\.svg", ignore.case = TRUE, x = img_raster) ){
-          mime <- "image/svg+xml"
-        } else if( grepl("\\.tiff", ignore.case = TRUE, x = img_raster) ){
-          mime <- "image/tiff"
-        } else if( grepl("\\.webp", ignore.case = TRUE, x = img_raster) ){
-          mime <- "image/webp"
-        } else {
-          stop("this format is not implemented")
-        }
-        img_raster <- base64enc::dataURI(file = img_raster, mime = mime )
-
-      } else  {
-        stop("unknown image format")
-      }
-      sprintf("<img style=\"vertical-align:middle;width:%.0fpx;height:%.0fpx;\" src=\"%s\" />", width*72, height*72, img_raster)
-    }, x$img_data[is_raster], x$width[is_raster], x$height[is_raster], SIMPLIFY = FALSE, USE.NAMES = FALSE)
-    str_raster <- as.character(unlist(str_raster))
-    str[is_raster] <- str_raster
-
-    # manage hlinks
-    str[is_hlink] <- paste0("<a href=\"", x$url[is_hlink], "\">", str[is_hlink], "</a>")
-
-    x$par_nodes_str <- str
   }
 
   z <- as.data.table(x)
