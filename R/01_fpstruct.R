@@ -1,3 +1,7 @@
+add_rows <- function(x, ...){
+  UseMethod("add_rows")
+}
+
 # fpstruct ------
 
 fpstruct <- function(nrow, keys, default){
