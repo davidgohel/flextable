@@ -327,7 +327,7 @@ as_image <- function(src, width = .5, height = .2, ...) {
 #' context with Word output format.
 #' @inheritParams as_chunk
 #' @param url url to be used
-#' @seealso \code{\link{display}}
+#' @seealso [compose()]
 #' @examples
 #' dat <- data.frame(
 #'   col = "Google it",

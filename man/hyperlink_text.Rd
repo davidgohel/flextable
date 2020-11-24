@@ -42,7 +42,7 @@ ftab <- compose( x = ftab, j = "col",
 ftab
 }
 \seealso{
-\code{\link{display}}
+\code{\link[=compose]{compose()}}
 
 Other chunk elements for paragraph: 
 \code{\link{as_bracket}()},
