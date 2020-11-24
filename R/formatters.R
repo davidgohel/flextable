@@ -80,68 +80,176 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 #' @title format character cells
 #' @description Format character cells in a flextable.
 #' @param x a flextable object
-#' @param col_keys names of the colkeys. Will be deprectated in favor of j in the next
-#' version.
+#' @param i rows selection
 #' @param j columns selection.
 #' @param na_str string to be used for NA values
 #' @param prefix,suffix string to be used as prefix or suffix
-#' @param ... additional arguments, i can be used to specify a
-#' row selector.
 #' @family cells formatters
 #' @examples
 #' dat <- iris
-#' ft <- flextable(head(dat))
+#' z <- flextable(head(dat))
 #' ft <- colformat_char(
-#'   x = ft, j = "Species", suffix = "!")
-#' ft <- autofit(ft)
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_colformat_char_1.png}{options: width=50\%}}
-colformat_char <- function(x, ...){
-  UseMethod("colformat_char")
+#'   x = z, j = "Species", suffix = "!")
+#' z <- autofit(z)
+#' z
+colformat_char <- function(
+  x, i = NULL, j = NULL,
+  na_str = get_flextable_defaults()$na_str,
+  prefix = "", suffix = ""){
+
+  stopifnot(inherits(x, "flextable"))
+
+  col_keys <- filter_col_keys(x, j, function(x) is.character(x) || is.factor(x))
+  fun_ <- function(x) format_fun.character(x, na_str = na_str, prefix = prefix, suffix = suffix)
+  docall_display(col_keys, fun_, x, i = i)
 }
 
 #' @export
 #' @title format numeric cells
 #' @description Format numeric cells in a flextable.
 #' @inheritParams colformat_char
-#' @param big.mark,digits,decimal.mark see [formatC()]
+#' @param big.mark,digits,decimal.mark see [format()]
 #' @family cells formatters
 #' @examples
-#' dat <- iris
-#' dat[1:4, 1] <- NA
-#' dat[, 2] <- dat[, 2] * 1000000
-#'
+#' dat <- mtcars
 #' ft <- flextable(head(dat))
-#' j = c("Sepal.Length", "Sepal.Width",
-#'    "Petal.Length", "Petal.Width")
-#' ft <- colformat_num(
-#'   x = ft, j = j,
+#' ft <- colformat_double(x = ft,
 #'   big.mark=",", digits = 2, na_str = "N/A")
 #' autofit(ft)
+colformat_double <- function(
+  x, i = NULL, j = NULL,
+  big.mark = get_flextable_defaults()$big.mark,
+  decimal.mark = get_flextable_defaults()$decimal.mark,
+  digits = get_flextable_defaults()$digits,
+  na_str = get_flextable_defaults()$na_str,
+  prefix = "", suffix = ""){
+
+  stopifnot(inherits(x, "flextable"))
+
+  col_keys <- filter_col_keys(x, j, is.double)
+  fun_ <- function(x)
+    format_fun.double(
+      x, big.mark = big.mark, decimal.mark = decimal.mark,
+      digits = digits, na_str = na_str, prefix = prefix, suffix = suffix)
+  docall_display(col_keys, fun_, x, i = i)
+}
+#' @export
+#' @title format numeric cells
+#' @description Format numeric cells in a flextable.
+#' @inheritParams colformat_char
+#' @param big.mark,digits,decimal.mark see [format()]
+#' @family cells formatters
+#' @examples
+#' dat <- mtcars
+#' ft <- flextable(head(dat))
+#' ft <- colformat_num(x = ft,
+#'   big.mark=",", digits = 2, na_str = "N/A")
+#' ft <- autofit(ft)
+#' ft
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_colformat_num_1.png}{options: width=50\%}}
-colformat_num <- function(x, ...){
-  UseMethod("colformat_num")
+colformat_num <- function(
+  x, i = NULL, j = NULL,
+  big.mark = get_flextable_defaults()$big.mark,
+  decimal.mark = get_flextable_defaults()$decimal.mark,
+  digits = get_flextable_defaults()$digits,
+  na_str = get_flextable_defaults()$na_str,
+  prefix = "", suffix = ""){
+
+  stopifnot(inherits(x, "flextable"))
+
+  col_keys <- filter_col_keys(x, j, is.numeric)
+  fun_ <- function(x)
+    format_fun.default(
+      x, big.mark = big.mark, decimal.mark = decimal.mark,
+      digits = digits, na_str = na_str, prefix = prefix, suffix = suffix)
+  docall_display(col_keys, fun_, x, i = i)
+}
+
+#' @title format date cells
+#' @description Format date cells in a flextable.
+#' @inheritParams colformat_char
+#' @param fmt_date see [strptime()]
+#' @family cells formatters
+#' @export
+#' @examples
+#' dat <- data.frame(z = Sys.Date() + 1:3,
+#'   w = Sys.Date() - 1:3)
+#' ft <- flextable(dat)
+#' ft <- colformat_date(x = ft)
+#' ft <- autofit(ft)
+#' ft
+colformat_date <- function(
+  x, i = NULL, j = NULL,
+  fmt_date = get_flextable_defaults()$fmt_date,
+  na_str = get_flextable_defaults()$na_str,
+  prefix = "", suffix = ""){
+
+  stopifnot(inherits(x, "flextable"))
+
+  col_keys <- filter_col_keys(x, j, function(x) inherits(x, c("Date", "POSIXt")) )
+  fun_ <- function(x)
+    format_fun.Date(
+      x, fmt_date = fmt_date, na_str = na_str, prefix = prefix, suffix = suffix)
+
+  docall_display(col_keys, fun_, x, i = i)
+}
+
+#' @title format datetime cells
+#' @description Format datetime cells in a flextable.
+#' @inheritParams colformat_char
+#' @param fmt_datetime see [strptime()]
+#' @family cells formatters
+#' @export
+#' @examples
+#' dat <- data.frame(z = Sys.time() + (1:3)*24,
+#'   w = Sys.Date() - (1:3)*24)
+#' ft <- flextable(dat)
+#' ft <- colformat_datetime(x = ft)
+#' ft <- autofit(ft)
+#' ft
+colformat_datetime <- function(
+  x, i = NULL, j = NULL,
+  fmt_datetime = get_flextable_defaults()$fmt_datetime,
+  na_str = get_flextable_defaults()$na_str,
+  prefix = "", suffix = ""){
+
+  stopifnot(inherits(x, "flextable"))
+
+  col_keys <- filter_col_keys(x, j, function(x) inherits(x, c("Date", "POSIXt")) )
+  fun_ <- function(x)
+    format_fun.POSIXt(
+      x, fmt_datetime = fmt_datetime, na_str = na_str, prefix = prefix, suffix = suffix)
+
+  docall_display(col_keys, fun_, x, i = i)
 }
 
 #' @title format integer cells
 #' @description Format integer cells in a flextable.
 #' @inheritParams colformat_char
-#' @param big.mark see [formatC()]
+#' @param big.mark see [format()]
 #' @family cells formatters
 #' @export
 #' @examples
-#' ft <- flextable(head(mtcars))
+#' z <- flextable(head(mtcars))
 #' j <- c("vs", "am", "gear", "carb")
-#' ft <- colformat_int(x = ft, j = j, prefix = "# ")
-#' ft
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_colformat_int_1.png}{options: width=100\%}}
-colformat_int <- function(x, ...){
-  UseMethod("colformat_int")
+#' z <- colformat_int(x = z, j = j, prefix = "# ")
+#' z
+colformat_int <- function(
+  x, i = NULL, j = NULL,
+  big.mark = get_flextable_defaults()$big.mark,
+  na_str = get_flextable_defaults()$na_str,
+  prefix = "", suffix = ""){
+
+  stopifnot(inherits(x, "flextable"))
+
+  col_keys <- filter_col_keys(x, j, is.numeric)
+  fun_ <- function(x)
+    format_fun.integer(
+      x, big.mark = big.mark, na_str = na_str, prefix = prefix, suffix = suffix)
+
+  docall_display(col_keys, fun_, x, i = i)
 }
 
 #' @title format logical cells
@@ -153,108 +261,38 @@ colformat_int <- function(x, ...){
 #' @examples
 #' dat <- data.frame(a = c(TRUE, FALSE), b = c(FALSE, TRUE))
 #'
-#' ft <- flextable(dat)
-#' ft <- colformat_lgl(x = ft, j = c("a", "b"))
-#' autofit(ft)
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_colformat_lgl_1.png}{options: width=20\%}}
-colformat_lgl <- function(x, ...){
-  UseMethod("colformat_lgl")
-}
-
-
-#' @export
-#' @rdname colformat_num
-colformat_num.flextable <- function(
-  x, j = NULL, col_keys = NULL,
-  big.mark = flextable_global$defaults$big.mark,
-  decimal.mark = flextable_global$defaults$decimal.mark,
-  digits = flextable_global$defaults$digits,
-  na_str = flextable_global$defaults$na_str,
-  prefix = "", suffix = "", ...){
-
-  if(!is.null(col_keys)){
-    warning("argument col_keys is deprecated in favor of argument j")
-    j <- col_keys
-  }
-
-  fun_ <- function(x) {
-    out <- paste0(prefix, formatC(x, format="f", big.mark=big.mark, digits = digits, decimal.mark = decimal.mark), suffix )
-    ifelse(is.na(x), na_str, out)
-  }
-  docall_display(j, fun_, x, ...)
-}
-
-
-#' @export
-#' @rdname colformat_int
-colformat_int.flextable <- function(
-  x, j = NULL, col_keys = NULL,
-  big.mark = flextable_global$defaults$big.mark,
-  na_str = flextable_global$defaults$na_str,
-  prefix = "", suffix = "", ...){
-
-  if(!is.null(col_keys)){
-    warning("argument col_keys is deprecated in favor of argument j")
-    j <- col_keys
-  }
-
-  fun_ <- function(x) {
-    out <- paste0(prefix, formatC(x, format="f", big.mark=big.mark, digits = 0), suffix )
-    ifelse(is.na(x), na_str, out)
-  }
-  docall_display(j, fun_, x, ...)
-}
-
-#' @export
-#' @rdname colformat_lgl
-colformat_lgl.flextable <- function(
-  x, j = NULL, col_keys = NULL,
+#' z <- flextable(dat)
+#' z <- colformat_lgl(x = z, j = c("a", "b"))
+#' autofit(z)
+colformat_lgl <- function(
+  x, i = NULL, j = NULL,
   true = "true", false = "false",
-  na_str = flextable_global$defaults$na_str,
-  prefix = "", suffix = "", ...){
+  na_str = get_flextable_defaults()$na_str,
+  prefix = "", suffix = ""){
 
-  if(!is.null(col_keys)){
-    warning("argument col_keys is deprecated in favor of argument j")
-    j <- col_keys
-  }
+  stopifnot(inherits(x, "flextable"))
 
-  fun_ <- function(x) {
-    out <- ifelse(x, true, false)
-    ifelse(is.na(x), na_str, out)
-  }
-  docall_display(j, fun_, x, ...)
+  col_keys <- filter_col_keys(x, j, is.logical)
+  fun_ <- function(x)
+    format_fun.logical(
+      x, true = true, false = false,
+      na_str = na_str, prefix = prefix, suffix = suffix)
+
+  docall_display(col_keys, fun_, x, i = i)
 }
 
 
-#' @export
-#' @rdname colformat_char
-colformat_char.flextable <- function(
-  x, j = NULL, col_keys = NULL,
-  na_str = flextable_global$defaults$na_str,
-  prefix = "", suffix = "", ...){
-
-  if(!is.null(col_keys)){
-    warning("argument col_keys is deprecated in favor of argument j")
-    j <- col_keys
-  }
-
-  fun_ <- function(x) {
-    out <- paste0(prefix, as.character(x), suffix )
-    ifelse(is.na(x), na_str, out)
-  }
-  docall_display(j, fun_, x, ...)
-}
-
-
-docall_display <- function(j, format_fun, x, i = NULL){
-
-  check_formula_i_and_part(i, "body")
+filter_col_keys <- function(x, j, fun){
   j <- get_columns_id(x[["body"]], j )
   col_keys <- x$col_keys[j]
+  col_keys[sapply(x[["body"]]$dataset[col_keys], fun)]
+}
+
+docall_display <- function(col_keys, fun, x, i = NULL){
+
+  check_formula_i_and_part(i, "body")
   for( varname in col_keys){
-    x <- compose(x = x, j = varname, i = i, value = as_paragraph(as_chunk(format_fun(get(varname)))), part = "body" )
+    x <- compose(x = x, j = varname, i = i, value = as_paragraph(as_chunk(fun(get(varname)))), part = "body" )
   }
   x
 }

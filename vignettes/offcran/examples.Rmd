@@ -319,6 +319,7 @@ dat <- tibble::tribble(
 ```
 
 ```{r}
+border <- officer::fp_border(color = "gray", width = 1.5)
 ft <- flextable(dat, cwidth = c(1.7, .7, .7, .7, 1, .7)) %>%
   flextable::add_header_lines("Top 10 Box Plus/Minus") %>%
   set_header_labels(namePlayer = "", ratioBPM = "BPM", ratioOBPM = "OBPM",
@@ -337,16 +338,17 @@ ft <- flextable(dat, cwidth = c(1.7, .7, .7, .7, 1, .7)) %>%
                 "Offensive Box Plus/Minus.", "Defensive Box Plus/Minus.")
             ), part = "header") %>% 
   theme_zebra(odd_header="transparent") %>% 
-  valign(valign = "bottom", part = "all") %>% 
+  bg(j = 1, bg = "transparent", part = "all") %>% 
   fontsize(i = 1, part = "header", size = 20) %>% 
   bold(i = 1, part = "header", bold = TRUE) %>% 
   bold(part = "footer", bold = FALSE) %>% 
   italic(part = "footer", italic = TRUE) %>% 
   color(j = 5, color = "#337ab7") %>% 
-  vline(j = 1, part = "body", border = officer::fp_border()) %>% 
-  border_inner_h(part = "header", border = officer::fp_border()) %>% 
-  hline_bottom(part = "all", border = officer::fp_border()) %>% 
-  colformat_num(col_keys = c("ratioBPM", "ratioOBPM", "ratioDBPM"), digits = 1 )
+  vline(j = 1, part = "body", border = border) %>% 
+  border_inner_h(part = "header", border = border) %>% 
+  hline_bottom(part = "all", border = border) %>% 
+  autofit(part = "body") %>% 
+  width(j = 1, width = 2)
 
 ft
 ```

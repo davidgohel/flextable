@@ -2,36 +2,28 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_num}
 \alias{colformat_num}
-\alias{colformat_num.flextable}
 \title{format numeric cells}
 \usage{
-colformat_num(x, ...)
-
-\method{colformat_num}{flextable}(
+colformat_num(
   x,
+  i = NULL,
   j = NULL,
-  col_keys = NULL,
-  big.mark = flextable_global$defaults$big.mark,
-  decimal.mark = flextable_global$defaults$decimal.mark,
-  digits = flextable_global$defaults$digits,
-  na_str = flextable_global$defaults$na_str,
+  big.mark = get_flextable_defaults()$big.mark,
+  decimal.mark = get_flextable_defaults()$decimal.mark,
+  digits = get_flextable_defaults()$digits,
+  na_str = get_flextable_defaults()$na_str,
   prefix = "",
-  suffix = "",
-  ...
+  suffix = ""
 )
 }
 \arguments{
 \item{x}{a flextable object}
 
-\item{...}{additional arguments, i can be used to specify a
-row selector.}
+\item{i}{rows selection}
 
 \item{j}{columns selection.}
 
-\item{col_keys}{names of the colkeys. Will be deprectated in favor of j in the next
-version.}
-
-\item{big.mark, digits, decimal.mark}{see \code{\link[=formatC]{formatC()}}}
+\item{big.mark, digits, decimal.mark}{see \code{\link[=format]{format()}}}
 
 \item{na_str}{string to be used for NA values}
 
@@ -49,21 +41,19 @@ Format numeric cells in a flextable.
 }
 
 \examples{
-dat <- iris
-dat[1:4, 1] <- NA
-dat[, 2] <- dat[, 2] * 1000000
-
+dat <- mtcars
 ft <- flextable(head(dat))
-j = c("Sepal.Length", "Sepal.Width",
-   "Petal.Length", "Petal.Width")
-ft <- colformat_num(
-  x = ft, j = j,
+ft <- colformat_num(x = ft,
   big.mark=",", digits = 2, na_str = "N/A")
-autofit(ft)
+ft <- autofit(ft)
+ft
 }
 \seealso{
 Other cells formatters: 
 \code{\link{colformat_char}()},
+\code{\link{colformat_datetime}()},
+\code{\link{colformat_date}()},
+\code{\link{colformat_double}()},
 \code{\link{colformat_int}()},
 \code{\link{colformat_lgl}()},
 \code{\link{compose}()},

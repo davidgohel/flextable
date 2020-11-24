@@ -19,6 +19,7 @@ flextable_global$defaults <- list(
   big.mark = ",",
   digits = 2,
   na_str  = "",
+  fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
   fonts_ignore = FALSE,
   theme_fun = "theme_booktabs")
 
@@ -44,6 +45,8 @@ flextable_global$defaults <- list(
 #' @param table.layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
 #' @param decimal.mark,big.mark,digits,na_str [formatC] arguments used by [colformat_num()]
 #' and [colformat_int()].
+#' @param fmt_date,fmt_datetime formats for date and datetime columns as
+#' documented in [strptime()]. Default to '%Y-%m-%d' and '%Y-%m-%d %H:%M:%S'.
 #' @param fonts_ignore if TRUE, pdf-engine pdflatex can be used instead of
 #' xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
 #' not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
@@ -75,6 +78,7 @@ set_flextable_defaults <- function(
   border.color = NULL, background.color = NULL,
   table.layout = NULL,
   decimal.mark = NULL, big.mark = NULL, digits = NULL, na_str = NULL,
+  fmt_date = NULL, fmt_datetime = NULL,
   fonts_ignore = NULL, theme_fun = NULL
   ){
 

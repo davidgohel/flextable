@@ -2,34 +2,26 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_int}
 \alias{colformat_int}
-\alias{colformat_int.flextable}
 \title{format integer cells}
 \usage{
-colformat_int(x, ...)
-
-\method{colformat_int}{flextable}(
+colformat_int(
   x,
+  i = NULL,
   j = NULL,
-  col_keys = NULL,
-  big.mark = flextable_global$defaults$big.mark,
-  na_str = flextable_global$defaults$na_str,
+  big.mark = get_flextable_defaults()$big.mark,
+  na_str = get_flextable_defaults()$na_str,
   prefix = "",
-  suffix = "",
-  ...
+  suffix = ""
 )
 }
 \arguments{
 \item{x}{a flextable object}
 
-\item{...}{additional arguments, i can be used to specify a
-row selector.}
+\item{i}{rows selection}
 
 \item{j}{columns selection.}
 
-\item{col_keys}{names of the colkeys. Will be deprectated in favor of j in the next
-version.}
-
-\item{big.mark}{see \code{\link[=formatC]{formatC()}}}
+\item{big.mark}{see \code{\link[=format]{format()}}}
 
 \item{na_str}{string to be used for NA values}
 
@@ -40,21 +32,18 @@ version.}
 \description{
 Format integer cells in a flextable.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_colformat_int_1.png}{options: width=100\%}}
-}
-
 \examples{
-ft <- flextable(head(mtcars))
+z <- flextable(head(mtcars))
 j <- c("vs", "am", "gear", "carb")
-ft <- colformat_int(x = ft, j = j, prefix = "# ")
-ft
+z <- colformat_int(x = z, j = j, prefix = "# ")
+z
 }
 \seealso{
 Other cells formatters: 
 \code{\link{colformat_char}()},
+\code{\link{colformat_datetime}()},
+\code{\link{colformat_date}()},
+\code{\link{colformat_double}()},
 \code{\link{colformat_lgl}()},
 \code{\link{colformat_num}()},
 \code{\link{compose}()},

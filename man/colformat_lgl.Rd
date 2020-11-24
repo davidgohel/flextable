@@ -2,33 +2,25 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_lgl}
 \alias{colformat_lgl}
-\alias{colformat_lgl.flextable}
 \title{format logical cells}
 \usage{
-colformat_lgl(x, ...)
-
-\method{colformat_lgl}{flextable}(
+colformat_lgl(
   x,
+  i = NULL,
   j = NULL,
-  col_keys = NULL,
   true = "true",
   false = "false",
-  na_str = flextable_global$defaults$na_str,
+  na_str = get_flextable_defaults()$na_str,
   prefix = "",
-  suffix = "",
-  ...
+  suffix = ""
 )
 }
 \arguments{
 \item{x}{a flextable object}
 
-\item{...}{additional arguments, i can be used to specify a
-row selector.}
+\item{i}{rows selection}
 
 \item{j}{columns selection.}
-
-\item{col_keys}{names of the colkeys. Will be deprectated in favor of j in the next
-version.}
 
 \item{false, true}{string to be used for logical}
 
@@ -41,22 +33,19 @@ version.}
 \description{
 Format logical cells in a flextable.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_colformat_lgl_1.png}{options: width=20\%}}
-}
-
 \examples{
 dat <- data.frame(a = c(TRUE, FALSE), b = c(FALSE, TRUE))
 
-ft <- flextable(dat)
-ft <- colformat_lgl(x = ft, j = c("a", "b"))
-autofit(ft)
+z <- flextable(dat)
+z <- colformat_lgl(x = z, j = c("a", "b"))
+autofit(z)
 }
 \seealso{
 Other cells formatters: 
 \code{\link{colformat_char}()},
+\code{\link{colformat_datetime}()},
+\code{\link{colformat_date}()},
+\code{\link{colformat_double}()},
 \code{\link{colformat_int}()},
 \code{\link{colformat_num}()},
 \code{\link{compose}()},

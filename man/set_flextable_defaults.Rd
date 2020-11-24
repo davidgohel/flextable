@@ -20,6 +20,8 @@ set_flextable_defaults(
   big.mark = NULL,
   digits = NULL,
   na_str = NULL,
+  fmt_date = NULL,
+  fmt_datetime = NULL,
   fonts_ignore = NULL,
   theme_fun = NULL
 )
@@ -48,6 +50,9 @@ valid color (e.g. "#000000" or "black").}
 
 \item{decimal.mark, big.mark, digits, na_str}{\link{formatC} arguments used by \code{\link[=colformat_num]{colformat_num()}}
 and \code{\link[=colformat_int]{colformat_int()}}.}
+
+\item{fmt_date, fmt_datetime}{formats for date and datetime columns as
+documented in \code{\link[=strptime]{strptime()}}. Default to '\%Y-\%m-\%d' and '\%Y-\%m-\%d \%H:\%M:\%S'.}
 
 \item{fonts_ignore}{if TRUE, pdf-engine pdflatex can be used instead of
 xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
