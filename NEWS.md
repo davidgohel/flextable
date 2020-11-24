@@ -9,6 +9,8 @@ formatting properties, i.e. default border color, font color, padding, decimal.m
 * `save_as_docx` gained a new argument `pr_section` to define page 
 layout with section properties, `save_as_html` can now output more than 
 a single table.
+* `colformat_` functions now use default values and filter columns that 
+are irrelevant (i.e. if colformat_num, only numeric values are formatted).
 
 ## changes
 
