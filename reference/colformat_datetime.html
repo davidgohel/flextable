@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>format integer cells — colformat_int • flextable</title>
+<title>format datetime cells — colformat_datetime • flextable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="format integer cells — colformat_int" />
-<meta property="og:description" content="Format integer cells in a flextable." />
+<meta property="og:title" content="format datetime cells — colformat_datetime" />
+<meta property="og:description" content="Format datetime cells in a flextable." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -143,20 +143,20 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>format integer cells</h1>
+    <h1>format datetime cells</h1>
     <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/formatters.R'><code>R/formatters.R</code></a></small>
-    <div class="hidden name"><code>colformat_int.Rd</code></div>
+    <div class="hidden name"><code>colformat_datetime.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Format integer cells in a flextable.</p>
+    <p>Format datetime cells in a flextable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>colformat_int</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>colformat_datetime</span><span class='op'>(</span>
   <span class='va'>x</span>,
   i <span class='op'>=</span> <span class='cn'>NULL</span>,
   j <span class='op'>=</span> <span class='cn'>NULL</span>,
-  big.mark <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>big.mark</span>,
+  fmt_datetime <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>fmt_datetime</span>,
   na_str <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>na_str</span>,
   prefix <span class='op'>=</span> <span class='st'>""</span>,
   suffix <span class='op'>=</span> <span class='st'>""</span>
@@ -178,8 +178,8 @@
       <td><p>columns selection.</p></td>
     </tr>
     <tr>
-      <th>big.mark</th>
-      <td><p>see <code><a href='https://rdrr.io/r/base/format.html'>format()</a></code></p></td>
+      <th>fmt_datetime</th>
+      <td><p>see <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></code></p></td>
     </tr>
     <tr>
       <th>na_str</th>
@@ -199,30 +199,30 @@
 
     <div class='dont-index'><p>Other cells formatters: 
 <code><a href='colformat_char.html'>colformat_char</a>()</code>,
-<code><a href='colformat_datetime.html'>colformat_datetime</a>()</code>,
 <code><a href='colformat_date.html'>colformat_date</a>()</code>,
 <code><a href='colformat_double.html'>colformat_double</a>()</code>,
+<code><a href='colformat_int.html'>colformat_int</a>()</code>,
 <code><a href='colformat_lgl.html'>colformat_lgl</a>()</code>,
 <code><a href='colformat_num.html'>colformat_num</a>()</code>,
 <code><a href='compose.html'>compose</a>()</code>,
 <code><a href='set_formatter.html'>set_formatter</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>j</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"vs"</span>, <span class='st'>"am"</span>, <span class='st'>"gear"</span>, <span class='st'>"carb"</span><span class='op'>)</span>
-<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'>colformat_int</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>z</span>, j <span class='op'>=</span> <span class='va'>j</span>, prefix <span class='op'>=</span> <span class='st'>"# "</span><span class='op'>)</span>
-<span class='va'>z</span>
+    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>24</span>,
+  w <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>24</span><span class='op'>)</span>
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span>
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>colformat_datetime</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ft</span><span class='op'>)</span>
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span><span class='op'>(</span><span class='va'>ft</span><span class='op'>)</span>
+<span class='va'>ft</span>
 </div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
+#&gt; col_keys: `z`, `w` 
 #&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
+#&gt; body has 3 row(s) 
 #&gt; original dataset sample: 
-#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div></pre>
+#&gt;                     z          w
+#&gt; 1 2020-11-25 14:00:07 2020-11-01
+#&gt; 2 2020-11-25 14:00:31 2020-10-08
+#&gt; 3 2020-11-25 14:00:55 2020-09-14</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

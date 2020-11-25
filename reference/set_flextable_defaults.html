@@ -82,7 +82,7 @@ Use set_flextable_defaults() to override them." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.015</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -172,6 +172,8 @@ Use <code>set_flextable_defaults()</code> to override them.</p>
   big.mark <span class='op'>=</span> <span class='cn'>NULL</span>,
   digits <span class='op'>=</span> <span class='cn'>NULL</span>,
   na_str <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fmt_date <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fmt_datetime <span class='op'>=</span> <span class='cn'>NULL</span>,
   fonts_ignore <span class='op'>=</span> <span class='cn'>NULL</span>,
   theme_fun <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
@@ -220,6 +222,11 @@ valid color (e.g. "#000000" or "black").</p></td>
       <th>decimal.mark, big.mark, digits, na_str</th>
       <td><p><a href='https://rdrr.io/r/base/formatc.html'>formatC</a> arguments used by <code><a href='colformat_num.html'>colformat_num()</a></code>
 and <code><a href='colformat_int.html'>colformat_int()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>fmt_date, fmt_datetime</th>
+      <td><p>formats for date and datetime columns as
+documented in <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></code>. Default to '%Y-%m-%d' and '%Y-%m-%d %H:%M:%S'.</p></td>
     </tr>
     <tr>
       <th>fonts_ignore</th>
@@ -301,7 +308,7 @@ to be applied) or a theme function (input is a flextable, output is a flextable)
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0.015 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

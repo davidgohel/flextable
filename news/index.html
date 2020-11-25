@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.015</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -159,6 +159,9 @@
 <li>new function <code><a href="../reference/set_flextable_defaults.html">set_flextable_defaults()</a></code> to set some default formatting properties, i.e. default border color, font color, padding, decimal.mark …</li>
 <li>
 <code>save_as_docx</code> gained a new argument <code>pr_section</code> to define page layout with section properties, <code>save_as_html</code> can now output more than a single table.</li>
+<li>
+<code>colformat_</code> functions now use default values and filter columns that are irrelevant (i.e. if colformat_num, only numeric values are formatted). Also, new <code>colformat_</code> functions have been implemented (<code>colformat_date</code>, <code>colformat_datetime</code> and <code>colformat_double</code>).</li>
+<li>new functions <code>plot_chunk</code> and <code>gg_chunk</code> to add miniplots or ggplots into a flextable</li>
 </ul>
 </div>
 <div id="changes" class="section level2">
@@ -247,7 +250,7 @@
 <h2 class="hasAnchor">
 <a href="#changes-3" class="anchor"></a>Changes</h2>
 <ul>
-<li>defunct of <code><a href="../reference/flextable-defunct.html">display()</a></code>
+<li>defunct of <code><a href="https://rdrr.io/pkg/xtable/man/table.attributes.html">display()</a></code>
 </li>
 <li>rename arg ‘formater’ to ‘formatter’ of <code>as_chunk</code> (<a href='https://github.com/davidgohel/flextable/issues/152'>#152</a>)</li>
 </ul>
@@ -268,8 +271,8 @@
 <h2 class="hasAnchor">
 <a href="#changes-4" class="anchor"></a>Changes</h2>
 <ul>
-<li>deprecation of <code><a href="../reference/flextable-defunct.html">display()</a></code>.</li>
-<li>defunct of <code><a href="../reference/flextable-defunct.html">ph_with_flextable_at()</a></code>
+<li>deprecation of <code><a href="https://rdrr.io/pkg/xtable/man/table.attributes.html">display()</a></code>.</li>
+<li>defunct of <code>ph_with_flextable_at()</code>
 </li>
 <li>function <code><a href="../reference/docx_value.html">docx_value()</a></code> has new arguments <code>ft.align</code>, <code>ft.split</code> and <code>tab.cap.style</code>
 </li>
@@ -511,7 +514,7 @@
 <h2 class="hasAnchor">
 <a href="#issues-10" class="anchor"></a>Issues</h2>
 <ul>
-<li>fix issue (unordered and duplicated chunk of text) in function <code><a href="../reference/flextable-defunct.html">display()</a></code>
+<li>fix issue (unordered and duplicated chunk of text) in function <code><a href="https://rdrr.io/pkg/xtable/man/table.attributes.html">display()</a></code>
 </li>
 </ul>
 </div>
@@ -695,7 +698,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0.015 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
