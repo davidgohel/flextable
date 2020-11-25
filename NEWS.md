@@ -10,7 +10,10 @@ formatting properties, i.e. default border color, font color, padding, decimal.m
 layout with section properties, `save_as_html` can now output more than 
 a single table.
 * `colformat_` functions now use default values and filter columns that 
-are irrelevant (i.e. if colformat_num, only numeric values are formatted).
+are irrelevant (i.e. if colformat_num, only numeric values are formatted). 
+Also, new `colformat_` functions have been implemented (`colformat_date`, `colformat_datetime`
+and `colformat_double`).
+* new functions `plot_chunk` and `gg_chunk` to add miniplots or ggplots into a flextable
 
 ## changes
 
