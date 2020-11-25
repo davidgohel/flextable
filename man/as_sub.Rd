@@ -44,9 +44,11 @@ Other chunk elements for paragraph:
 \code{\link{as_image}()},
 \code{\link{as_i}()},
 \code{\link{as_sup}()},
+\code{\link{gg_chunk}()},
 \code{\link{hyperlink_text}()},
 \code{\link{linerange}()},
 \code{\link{lollipop}()},
-\code{\link{minibar}()}
+\code{\link{minibar}()},
+\code{\link{plot_chunk}()}
 }
 \concept{chunk elements for paragraph}

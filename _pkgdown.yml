@@ -76,11 +76,13 @@ reference:
     desc:  Define flextable`s content
     contents:
     - starts_with("colformat_")
-    - compose
     - starts_with("set_formatter")
+    - compose
     - as_paragraph
     - as_chunk
     - as_image
+    - plot_chunk
+    - gg_chunk
     - minibar
     - linerange
     - lollipop
