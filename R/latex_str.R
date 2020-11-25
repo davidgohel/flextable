@@ -131,7 +131,7 @@ latex_str <- function(x, ft.align = "center",
     sprintf("\\renewcommand*{\\arraystretch}{%s}", format_double(ft.arraystretch, 2)),
     align_tag,
     table_start, caption,
-    txt_data$txt[txt_data$part %in% "header"],
+    paste(txt_data$txt[txt_data$part %in% "header"], collapse = ""),
     "\\endfirsthead",
     latex, table_end,
     sep = "\n\n"
@@ -296,7 +296,7 @@ latex_hhline <- function(w, cols, digits = 0) {
   z
 }
 latex_cline <- function(w, cols, from, to) {
-  size <- format_double(w, digits = 0)
+  size <- format_double(w, digits = 1)
   is_transparent <- colalpha(cols) < 1
   cols <- colcode0(cols)
   z <- sprintf(
