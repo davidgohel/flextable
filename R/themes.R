@@ -132,6 +132,7 @@ theme_vader <- function(x, ...) {
   x <- bg(x, bg = "#242424", part = "all")
   x <- color(x, color = "#dfdfdf", part = "all")
   x <- bold(x = x, bold = FALSE, part = "all")
+  x <- bold(x = x, bold = TRUE, part = "header")
   x <- italic(x = x, italic = FALSE, part = "all")
 
   big_border <- fp_border(color = "#ff0000", width = 3)
