@@ -4,8 +4,7 @@
 - windows (release)
 - ubuntu 16.04 (release)
 - macOS (release and devel)
-- winbuilder (with older, release and devel) 
-- rhub::check_for_cran()
+- winbuilder (with release and devel) 
 
 ## R CMD check results
 
@@ -13,5 +12,4 @@ There were no ERROR, WARNING or NOTE.
 
 ## Reverse dependencies
 
-There were no error or warning and few notes (not related to officer).
-
+There is 1 expected error related to customLayout. 
