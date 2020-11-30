@@ -85,7 +85,7 @@ flextable_to_rmd <- function(
 
   if ( is_xaringan || is.null(opts_knit$get("rmarkdown.pandoc.to"))){
     # xaringan, or with markdown package ----
-    html_value(x, ft.align = ft.align, bookdown = FALSE, pandoc2 = FALSE)
+    str <- html_value(x, ft.align = ft.align, bookdown = FALSE, pandoc2 = FALSE)
   } else if ( grepl( "(html|slidy)", opts_knit$get("rmarkdown.pandoc.to") ) ) {
     #  html ----
     str <- html_value(x, ft.align = ft.align, bookdown = bookdown, pandoc2 = pandoc2)
