@@ -72,6 +72,6 @@ test_that("NA managment", {
   str_ <- flextable:::html_str(ft1)
   str_ <- gsub("<style>(.*)</style>", "", str_)
   doc <- read_xml(str_)
-  text_ <- xml_text(xml_find_all(doc, "tbody/tr/td/p"))
+  text_ <- xml_text(xml_find_all(doc, "/div/table/tbody/tr/td/p"))
   expect_equal(text_, c("a", "") )
 })

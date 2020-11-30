@@ -5,6 +5,7 @@ title: "flextable example"
 ```{r setup, include=FALSE}
 library(knitr)
 library(flextable)
+library(officer)
 library(magrittr)
 library(data.table)
 opts_chunk$set(echo = FALSE, message = FALSE)
@@ -55,13 +56,14 @@ ft <- height(ft, height = h_header * 1.1, part = "header")
 # ... mainly because Word don't handle auto height with rotated headers
 ft <- hrule(ft, i = 1, rule = "exact", part = "header")
 
+ft <- set_caption(ft, caption = "iris dataset", autonum = run_autonum(bkm = "iris"))
 ft
 ```
 
 
 ## flextable - demo as_grouped_data
 
-```{r tab.cap='mean of carbon dioxide uptake in grass plants', tab.id='CO2'}
+```{r tab.cap='mean of carbon dioxide uptake in grass plants', tab.id='CO2-id', label='CO2-label'}
 data_CO2 <- dcast(as.data.table(CO2), 
   Treatment + conc ~ Type, value.var = "uptake", fun.aggregate = mean)
 data_CO2 <- as_grouped_data(x = data_CO2, groups = c("Treatment"))

@@ -2,30 +2,23 @@
 % Please edit documentation in R/printers.R
 \name{htmltools_value}
 \alias{htmltools_value}
-\title{flextable as a div object}
+\title{flextable as an HTML object}
 \usage{
-htmltools_value(
-  x,
-  ft.align = opts_current$get("ft.align"),
-  class = "tabwid",
-  bookdown = FALSE
-)
+htmltools_value(x, ft.align = "center")
 }
 \arguments{
 \item{x}{a flextable object}
 
 \item{ft.align}{flextable alignment, supported values are 'left', 'center' and 'right'.}
-
-\item{class}{css classes (default to "tabwid"), if ft.align is set to 'left' or 'right',
-class 'tabwid_left' or 'tabwid_right' will be added to class.}
-
-\item{bookdown}{\code{TRUE} or \code{FALSE} (default) to support cross referencing with bookdown.}
+}
+\value{
+an object marked as \link{HTML} ready to be used within
+a call to \code{shiny::renderUI} for example.
 }
 \description{
 get a \code{\link[=div]{div()}} from a flextable object.
-This can be used in a shiny application.
-
-Argument \code{ft.align} can be specified also as knitr chunk options.
+This can be used in a shiny application. For an output within
+"R Markdown" document, use \link{knit_print.flextable}.
 }
 \examples{
 htmltools_value(flextable(iris[1:5,]))
@@ -33,9 +26,8 @@ htmltools_value(flextable(iris[1:5,]))
 \seealso{
 Other flextable print function: 
 \code{\link{as_raster}()},
-\code{\link{docx_value}()},
+\code{\link{flextable_to_rmd}()},
 \code{\link{knit_print.flextable}()},
-\code{\link{latex_value}()},
 \code{\link{plot.flextable}()},
 \code{\link{print.flextable}()},
 \code{\link{save_as_docx}()},

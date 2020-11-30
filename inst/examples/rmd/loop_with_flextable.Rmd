@@ -12,8 +12,8 @@ opts_chunk$set(echo = TRUE)
 
 ft_list <- list()
 
-ft1 <- qflextable( head( iris ))
-ft1 <- set_caption(ft1,"iris table")
+ft1 <- qflextable( head( airquality ))
+ft1 <- set_caption(ft1,"airquality table")
 ft_list[[1]] <- ft1
 
 ft2 <- qflextable( tail( mtcars ))
@@ -25,11 +25,9 @@ ft_list[[2]] <- ft2
 div(flextable_html_dependency())
 ```
 
-```{r results='asis', echo = FALSE, ft.align="right"}
+```{r results='asis', echo = FALSE}
 for(i in seq_along(ft_list)){
-  cat("\n\n")
-  cat(knitr::knit_print(ft_list[[i]]))
-  cat("\n\n")
+  flextable_to_rmd(ft_list[[i]])
 }
 ```
 

@@ -33,10 +33,9 @@ if( require("ggplot2") && require("webshot") ){
 }
 \seealso{
 Other flextable print function: 
-\code{\link{docx_value}()},
+\code{\link{flextable_to_rmd}()},
 \code{\link{htmltools_value}()},
 \code{\link{knit_print.flextable}()},
-\code{\link{latex_value}()},
 \code{\link{plot.flextable}()},
 \code{\link{print.flextable}()},
 \code{\link{save_as_docx}()},

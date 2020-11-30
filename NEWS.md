@@ -18,6 +18,7 @@ and `colformat_double`).
 ## changes
 
 * defunct of `ph_with_flextable()`
+* use pandoc's raw attribute when possible within "R Markdown" documents.
 
 ## Issues
 

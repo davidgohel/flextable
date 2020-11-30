@@ -6,7 +6,6 @@
 \usage{
 docx_value(
   x,
-  print = TRUE,
   ft.align = opts_current$get("ft.align"),
   ft.split = opts_current$get("ft.split"),
   bookdown = FALSE
@@ -14,8 +13,6 @@ docx_value(
 }
 \arguments{
 \item{x}{a flextable object}
-
-\item{print}{print output if TRUE}
 
 \item{ft.align}{flextable alignment, supported values are 'left', 'center' and 'right'.}
 
@@ -27,32 +24,8 @@ activated when TRUE.}
 \description{
 get openxml raw code for Word
 from a flextable object.
-
-The function is particularly useful when you want
-to generate flextable in a loop from a R Markdown document.
-By default, the output is printed and is returned as a
-character scalar.
-
-When used inside an R Markdown document, chunk option \code{results}
-must be set to 'asis'.
-
-Arguments \code{ft.align} and \code{ft.split} can be
-specified also as knitr chunk options.
 }
 \examples{
 docx_value(flextable(iris[1:5,]))
 }
-\seealso{
-Other flextable print function: 
-\code{\link{as_raster}()},
-\code{\link{htmltools_value}()},
-\code{\link{knit_print.flextable}()},
-\code{\link{latex_value}()},
-\code{\link{plot.flextable}()},
-\code{\link{print.flextable}()},
-\code{\link{save_as_docx}()},
-\code{\link{save_as_html}()},
-\code{\link{save_as_image}()},
-\code{\link{save_as_pptx}()}
-}
-\concept{flextable print function}
+\keyword{internal}

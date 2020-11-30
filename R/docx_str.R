@@ -1,8 +1,4 @@
-docx_str <- function( x, ... ){
-  UseMethod("docx_str")
-}
-
-docx_str.flextable <- function(x, align = "center", split = FALSE, doc = NULL, ...){
+docx_str <- function(x, align = "center", split = FALSE, doc = NULL, ...){
 
   imgs <- character(0)
   hlinks <- character(0)
@@ -89,3 +85,55 @@ docx_str.flextable <- function(x, align = "center", split = FALSE, doc = NULL, .
 }
 
 
+caption_docx_bookdown <- function(x){
+  tab_props <- opts_current_table()
+
+  if(!is.null(x$caption$autonum$bookmark)){
+    tab_props$id <- x$caption$autonum$bookmark
+  } else if(is.null(tab_props$id)){
+    tab_props$id <- opts_current$get('label')
+  }
+
+  if(!is.null(x$caption$value)){
+    tab_props$cap <- x$caption$value
+  }
+
+  has_caption_label <- !is.null(tab_props$cap)
+
+  caption <- ""
+  if(has_caption_label) {
+    caption <- paste("",
+      paste0("<caption>(\\#tab:", tab_props$id, ")", tab_props$cap, "</caption>"),
+      "", sep = "\n")
+  }
+  caption
+}
+
+caption_docx_standard <- function(x){
+  tab_props <- opts_current_table()
+  caption <- ""
+  if(!is.null(x$caption$value)){
+    bc <- block_caption(label = x$caption$value, style = x$caption$style,
+                        autonum = x$caption$autonum)
+    caption <- to_wml(bc, knitting = TRUE)
+  } else if(!is.null(tab_props$cap) && !is.null(tab_props$id)) {
+    bc <- block_caption(label = tab_props$cap, style = tab_props$cap.style,
+                        autonum = run_autonum(
+                          seq_id = gsub(":$", "", tab_props$tab.lp),
+                          pre_label = tab_props$cap.pre,
+                          post_label = tab_props$cap.sep,
+                          bkm = tab_props$id, bkm_all = FALSE
+                        ))
+    caption <- to_wml(bc, knitting = TRUE)
+  } else if(!is.null(tab_props$cap) && is.null(tab_props$id)) {
+    bc <- block_caption(label = tab_props$cap, style = tab_props$cap.style)
+    caption <- to_wml(bc, knitting = TRUE)
+  }
+
+  caption
+}
+
+caption_docx_str <- function(x, bookdown = FALSE){
+  if(bookdown) caption_docx_bookdown(x)
+  else caption_docx_standard(x)
+}

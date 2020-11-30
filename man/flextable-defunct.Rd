@@ -2,9 +2,15 @@
 % Please edit documentation in R/defunct.R
 \name{flextable-defunct}
 \alias{flextable-defunct}
+\alias{ph_with_flextable_at}
+\alias{display}
 \alias{ph_with_flextable}
 \title{Defunct Functions in Package flextable}
 \usage{
+ph_with_flextable_at(...)
+
+display(...)
+
 ph_with_flextable(...)
 }
 \arguments{
@@ -14,5 +20,9 @@ ph_with_flextable(...)
 Defunct Functions in Package flextable
 }
 \details{
+\code{ph_with_flextable_at()} is replaced by \code{officer::ph_with}.
+
+\code{display()} is replaced by \code{compose}.
+
 \code{ph_with_flextable()} is replaced by \code{officer::ph_with}.
 }

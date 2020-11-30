@@ -30,10 +30,9 @@ save_as_pptx(`iris table` = ft1, `mtcars table` = ft2, path = tf)
 \seealso{
 Other flextable print function: 
 \code{\link{as_raster}()},
-\code{\link{docx_value}()},
+\code{\link{flextable_to_rmd}()},
 \code{\link{htmltools_value}()},
 \code{\link{knit_print.flextable}()},
-\code{\link{latex_value}()},
 \code{\link{plot.flextable}()},
 \code{\link{print.flextable}()},
 \code{\link{save_as_docx}()},

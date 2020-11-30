@@ -1,28 +1,34 @@
-html_str <- function(x, bookdown = FALSE, ... ){
-
-  dims <- dim(x)
+caption_html_str <- function(x, bookdown = FALSE){
   tab_props <- opts_current_table()
 
-  # caption str value
+  # caption "bookmark"
   bookdown_ref_label <- ref_label()
-  if(!is.null(tab_props$id)){
+  if(bookdown && !is.null(x$caption$autonum$bookmark)){
+    bookdown_ref_label <- paste0("(\\#tab:", x$caption$autonum$bookmark, ")")
+  } else if(bookdown && !is.null(tab_props$id)){
     bookdown_ref_label <- paste0("(\\#tab:", tab_props$id, ")")
   }
+
+  caption_style <- tab_props$style
+  if(!is.null(x$caption$style)){
+    caption_style <- x$caption$style
+  }
+  if(is.null(caption_style)) caption_style <- ""
+
   caption_label <- tab_props$cap
   if(!is.null(x$caption$value)){
     caption_label <- x$caption$value
   }
   caption <- ""
-  if(!is.null(caption_label)){
-    caption <- paste0(
-      if ( bookdown ) "<!--/html_preserve-->",
-      "<caption>",
-      if(bookdown) bookdown_ref_label,
-      caption_label,
-      "</caption>",
-      if ( bookdown ) "<!--html_preserve-->"
-    )
+  has_caption_label <- !is.null(caption_label)
+  if(has_caption_label) {
+    caption <- paste0(sprintf("<caption class=\"%s\">", caption_style),
+                      if(bookdown) bookdown_ref_label,
+                      caption_label, "</caption>")
   }
+  caption
+}
+html_str <- function(x, ft.align = NULL, class = "tabwid", caption = ""){
 
   fixed_layout <- x$properties$layout %in% "fixed"
   if(!fixed_layout){
@@ -38,9 +44,23 @@ html_str <- function(x, bookdown = FALSE, ... ){
   classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
   tabcss <- paste0(".", classname, "{", tabcss, "}")
 
-  sprintf("<style>%s%s</style><table class='%s'>%s%s</table>",
+  codes <- sprintf("<style>%s%s</style><table class='%s'>%s%s</table>",
           tabcss, codes$css, classname, caption, codes$html)
+
+  if( is.null(ft.align) ) ft.align <- "center"
+
+  if( "left" %in% ft.align )
+    tab_class <- paste0(class, " tabwid_left")
+  else if( "right" %in% ft.align )
+    tab_class <- paste0(class, " tabwid_right")
+  else tab_class <- class
+
+  paste0("<div class=\"", tab_class, "\">",
+         as.character(codes),
+         "</div>")
 }
+
+
 
 # to html/css  ----
 #' @importFrom data.table setnames setorderv := setcolorder setDT setDF dcast
@@ -329,4 +349,20 @@ cell_css_styles <- function(x){
   paste0(".", x$classname, "{", style_column, "}", collapse = "")
 }
 
+# htmlDependency ----
+#' @importFrom htmltools htmlDependency
+#' @export
+#' @title htmlDependency for flextable objects
+#' @description When using loops in an R Markdown for HTML document, the
+#' htmlDependency object for flextable must also be added at least once.
+#' @examples
+#' if(require("htmltools"))
+#'   div(flextable_html_dependency())
+flextable_html_dependency <- function(){
+  htmlDependency("tabwid",
+                 "1.0.0",
+                 src = system.file(package="flextable", "web_1.0.0"),
+                 stylesheet = "tabwid.css", script = "tabwid.js")
+
+}
 

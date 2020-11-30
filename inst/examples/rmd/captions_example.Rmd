@@ -1,17 +1,14 @@
 ---
-title: "flextable example"
+title: "flextable caption example"
 ---
 
-```{r setup, include=FALSE}
+```{r}
 library(knitr)
 library(flextable)
 library(magrittr)
 library(data.table)
 opts_chunk$set(echo = FALSE)
-```
 
-
-```{r}
 data_CO2 <- dcast(as.data.table(CO2), 
   Treatment + conc ~ Type, value.var = "uptake", fun.aggregate = mean)
 data_CO2 <- as_grouped_data(x = data_CO2, groups = c("Treatment"))
@@ -30,4 +27,22 @@ ft <- as_flextable( data_CO2 ) %>%
   width(width = c(1.5, 1, 1)) 
 ```
 
+Now, let's add a caption with `set_caption`:
 
+```{r ft.align="left"}
+library(officer)
+set_caption(ft, 
+  caption = "mean of carbon dioxide uptake in grass plants", 
+  style = "Table Caption", 
+  autonum = run_autonum(seq_id = "tab", bkm = "tab1"))
+```
+
+Or use kintr chunk options:
+
+```{r ft.align="left", tab.cap='mean of carbon dioxide uptake in grass plants', tab.id='tab2', label='tab2'}
+ft
+```
+
+This is a reference to flextable \@ref(tab:tab1).
+
+This is a reference to flextable \@ref(tab:tab2).
