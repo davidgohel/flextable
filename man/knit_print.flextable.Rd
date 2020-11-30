@@ -85,6 +85,22 @@ label         \tab \strong{Caption reference unique identifier}                \
 }
 }
 
+\section{PDF output}{
+
+
+Some features are not implemented in PDF due to technical
+infeasibility. These are the padding, line_spacing and
+height properties.
+}
+
+\section{PowerPoint output}{
+
+
+Auto-adjust Layout is not available for PowerPoint.
+
+Also images cannot be integrated into tables with the PowerPoint format.
+}
+
 \examples{
 
 # simple examples -----

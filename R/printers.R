@@ -391,6 +391,18 @@ print.flextable <- function(x, preview = "html", ...){
 #'   tab.id        \tab \strong{Caption reference unique identifier}                \tab yes \tab no \cr
 #'   label         \tab \strong{Caption reference unique identifier}                \tab no  \tab yes
 #' }
+#' @section PDF output:
+#'
+#' Some features are not implemented in PDF due to technical
+#' infeasibility. These are the padding, line_spacing and
+#' height properties.
+#'
+#' @section PowerPoint output:
+#'
+#' Auto-adjust Layout is not available for PowerPoint.
+#'
+#' Also images cannot be integrated into tables with the PowerPoint format.
+#'
 #' @param x a \code{flextable} object
 #' @param ... further arguments, not used.
 #' @export
