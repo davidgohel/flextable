@@ -48,9 +48,15 @@
 
 <meta property="og:title" content="Render flextable in rmarkdown — knit_print.flextable" />
 <meta property="og:description" content="Function used to render flextable in knitr/rmarkdown documents.
-HTML, Word, PowerPoint and PDF outputs are supported.
+You should not call this method directly. This function is used by the knitr
+package to automatically display a flextable in an &quot;R Markdown&quot; document from
+a chunk. However, it is recommended to read its documentation in order to get
+familiar with the different options available.
+ HTML, Word, PowerPoint and PDF outputs are supported.
 Table captioning is a flextable feature compatible with R Markdown
-documents. The feature is available for HTML, PDF and Word document" />
+documents. The feature is available for HTML, PDF and Word documents.
+Compatibility with the &quot;bookdown&quot; package is also ensured, including the
+ability to produce captions so that they can be used in cross-referencing." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -83,7 +89,7 @@ documents. The feature is available for HTML, PDF and Word document" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.017</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.018</span>
       </span>
     </div>
 
@@ -152,10 +158,16 @@ documents. The feature is available for HTML, PDF and Word document" />
     </div>
 
     <div class="ref-description">
-    <p>Function used to render flextable in knitr/rmarkdown documents.
-HTML, Word, PowerPoint and PDF outputs are supported.</p>
+    <p>Function used to render flextable in knitr/rmarkdown documents.</p>
+<p>You should not call this method directly. This function is used by the knitr
+package to automatically display a flextable in an "R Markdown" document from
+a chunk. However, it is recommended to read its documentation in order to get
+familiar with the different options available.
+<img src='figures/fig_formats.png' width=200px /> HTML, Word, PowerPoint and PDF outputs are supported.</p>
 <p>Table captioning is a flextable feature compatible with R Markdown
-documents. The feature is available for HTML, PDF and Word document</p>
+documents. The feature is available for HTML, PDF and Word documents.
+Compatibility with the "bookdown" package is also ensured, including the
+ability to produce captions so that they can be used in cross-referencing.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for flextable</span>
@@ -176,103 +188,85 @@ documents. The feature is available for HTML, PDF and Word document</p>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>For Word (docx) output, if pandoc version &gt;= 2.0 is used, a raw XML block
-with the table code will be inserted. If pandoc version &lt; 2.0 is used, an
-error will be raised. Insertion of images is not supported
-with rmarkdown for Word documents (use the package officedown instead).
-For PowerPoint (pptx) output, if pandoc version &lt; 2.4 is used, an error
-will be raised.</p>
-    <h2 class="hasAnchor" id="html-chunk-options"><a class="anchor" href="#html-chunk-options"></a>HTML chunk options</h2>
+    <p>Supported formats require some
+minimum <a href='https://pandoc.org/installing.html'>pandoc</a> versions:</p>
+<table class='table'>
+<tr><td><strong>Output format</strong></td><td><strong>pandoc minimal version</strong></td></tr>
+<tr><td>HTML</td><td>&gt;= 1.12</td></tr>
+<tr><td>Word (docx)</td><td>&gt;= 2.0</td></tr>
+<tr><td>PowerPoint (pptx)</td><td>&gt;= 2.4</td></tr>
+<tr><td>PDF</td><td>&gt;= 1.12</td></tr>
+</table>
 
-    
 
-<p>Result can be aligned with chunk option <code>ft.align</code> that
-accepts values 'left', 'center' and 'right'.</p>
-<p>Three methods are available to add a caption and are presented below
-in order of triggering:</p><ul>
-<li><p>with the <code>set_caption</code> function, if the function is used, this label definition
-will be chosen.</p></li>
-<li><p>with knitr's chunk options:</p><ul>
-<li><p><code>tab.cap</code>: Caption label.</p></li>
-<li><p><code>tab.id</code>: Caption reference unique identifier.</p></li>
-</ul></li>
-<li><p>with knitr chunk and bookdown options (if you're in a bookdown):</p><ul>
-<li><p><code>tab.cap</code>: Caption label.</p></li>
-<li><p><code>label</code>: Caption reference unique identifier.</p></li>
-</ul></li>
-</ul>
-
-    <h2 class="hasAnchor" id="word-chunk-options"><a class="anchor" href="#word-chunk-options"></a>Word chunk options</h2>
-
-    
-
-<p>Result can be aligned with chunk option <code>ft.align</code> that
-accepts values 'left', 'center' and 'right'.</p>
-<p>Word option 'Allow row to break across pages' can be
-activated with chunk option <code>ft.split</code> set to TRUE.</p>
-<p>Three methods are available and are presented below in order of triggering:</p><ul>
-<li><p>with the <code>set_caption</code> function, if the function is used, this definition will be chosen.</p></li>
-<li><p>with knitr's chunk options:</p><ul>
-<li><p><code>tab.cap.style</code>: Word style name to use for table captions.</p></li>
-<li><p><code>tab.cap.pre</code>: Prefix for numbering chunk (default to "Table").</p></li>
-<li><p><code>tab.cap.sep</code>: Suffix for numbering chunk (default to ": ").</p></li>
-<li><p><code>tab.cap</code>: Caption label.</p></li>
-<li><p><code>tab.id</code>: Caption reference unique identifier.</p></li>
-</ul></li>
-<li><p>with knitr chunk and bookdown options (if you're in a bookdown):</p><ul>
-<li><p><code>tab.cap.style</code>: Word style name to use for table captions.</p></li>
-<li><p><code>tab.cap.pre</code>: Prefix for numbering chunk (default to "Table").</p></li>
-<li><p><code>tab.cap.sep</code>: Suffix for numbering chunk (default to ": ").</p></li>
-<li><p><code>tab.cap</code>: Caption label.</p></li>
-<li><p><code>label</code>: Caption reference unique identifier.</p></li>
-</ul></li>
-</ul>
-
-    <h2 class="hasAnchor" id="powerpoint-chunk-options"><a class="anchor" href="#powerpoint-chunk-options"></a>PowerPoint chunk options</h2>
-
-    
-
-<p>Position should be defined with options <code>ft.left</code>
-and <code>ft.top</code>. Theses are the top left coordinates
-of the placeholder that will contain the table. They
-default to <code>{r ft.left=1, ft.top=2}</code>.</p>
-    <h2 class="hasAnchor" id="pdf-chunk-options"><a class="anchor" href="#pdf-chunk-options"></a>PDF chunk options</h2>
+    <h2 class="hasAnchor" id="chunk-options"><a class="anchor" href="#chunk-options"></a>Chunk options</h2>
 
     
 
 
-<p>Result can be aligned with chunk option <code>ft.align</code> that
-accepts values 'left', 'center' and 'right'.</p>
-<p>paddings are not supported in latex but you can set the values for
-column spacing and row stretch:</p><ul>
-<li><p>Use chunk option <code>ft.tabcolsep=6</code> to change the space between the text
-and the left/right border of its containing cell to 6 points, the default
-value is 8 points.</p></li>
-<li><p>Use chunk option <code>ft.arraystretch=2</code> to change the height of each row
-to 2 relative to its default height, the default value is 1.5.</p></li>
-</ul>
+<p>Some features, often specific to an output format, are available to help you
+configure some global settings relatve to the table output. knitr's chunk options
+are to be used to change the default settings:</p>
+<table class='table'>
+<tr><td><strong>chunk option</strong></td><td><strong>property</strong></td><td><strong>default value</strong></td><td><strong>HTML</strong></td><td><strong>docx</strong></td><td><strong>PDF</strong></td><td><strong>pptx</strong></td></tr>
+<tr><td>ft.align</td><td>flextable alignment, supported values are 'left', 'center' and 'right'</td><td>'center'</td><td>yes</td><td>yes</td><td>yes</td><td>no</td></tr>
+<tr><td>ft.split</td><td>Word option 'Allow row to break across pages' can be activated when TRUE.</td><td>FALSE</td><td>no</td><td>yes</td><td>no</td><td>no</td></tr>
+<tr><td>ft.tabcolsep</td><td>space between the text and the left/right border of its containing cell</td><td>8.0</td><td>no</td><td>no</td><td>yes</td><td>no</td></tr>
+<tr><td>ft.arraystretch</td><td>height of each row relative to its default height</td><td>1.5</td><td>no</td><td>no</td><td>yes</td><td>no</td></tr>
+<tr><td>ft.left</td><td>left coordinates in inches</td><td>1.0</td><td>no</td><td>no</td><td>no</td><td>yes</td></tr>
+<tr><td>ft.top</td><td>top coordinates in inches</td><td>2.0</td><td>no</td><td>no</td><td>no</td><td>yes</td></tr>
+</table>
 
-<p>Three methods are available to add a caption and are presented below
-in order of triggering:</p><ul>
-<li><p>with the <code>set_caption</code> function, if the function is used, this label definition
-will be chosen.</p></li>
-<li><p>with knitr's chunk options:</p><ul>
-<li><p><code>tab.cap</code>: Caption label.</p></li>
-<li><p><code>tab.id</code>: Caption reference unique identifier.</p></li>
-</ul></li>
-<li><p>with knitr chunk and bookdown options (if you're in a bookdown):</p><ul>
-<li><p><code>tab.cap</code>: Caption label.</p></li>
-<li><p><code>label</code>: Caption reference unique identifier.</p></li>
-</ul></li>
-</ul>
 
+    <h2 class="hasAnchor" id="table-caption"><a class="anchor" href="#table-caption"></a>Table caption</h2>
+
+    
+
+
+<p>Captions can be defined in two ways.</p>
+<p>The first is with the <code>set_caption</code> function. If it is used,
+the other method will be ignored. The second method is by using
+knitr chunk option <code>tab.cap</code>.</p><pre><span class='fu'><a href='set_caption.html'>set_caption</a></span><span class='op'>(</span><span class='va'>x</span>, caption <span class='op'>=</span> <span class='st'>"my caption"</span><span class='op'>)</span>
+</pre>
+
+<p>If <code>set_caption</code> function is not used, caption identifier will be
+read from knitr's chunk option <code>tab.id</code> or <code>label</code> if in a bookdown
+(this is to respect the bookdown standards).</p>
+<p><code>tab.id='my_id'</code> or <code>label='my_id'</code></p>
+<p>Word output provide more options such as ability to choose the prefix for numbering chunk for
+example. The table below expose these options:</p>
+<table class='table'>
+<tr><td><strong>chunk option</strong></td><td><strong>purpose</strong></td><td><strong>rmarkdown</strong></td><td><strong>bookdown</strong></td></tr>
+<tr><td>tab.cap.style</td><td>(Word only) style name to use for table captions</td><td>yes</td><td>yes</td></tr>
+<tr><td>tab.cap.pre</td><td>(Word only) Prefix for numbering chunk (default to "Table")</td><td>yes</td><td>yes</td></tr>
+<tr><td>tab.cap.sep</td><td>(Word only) Suffix for numbering chunk (default to ": ")</td><td>yes</td><td>yes</td></tr>
+<tr><td>tab.cap</td><td><strong>Caption label</strong></td><td>yes</td><td>yes</td></tr>
+<tr><td>tab.id</td><td><strong>Caption reference unique identifier</strong></td><td>yes</td><td>no</td></tr>
+<tr><td>label</td><td><strong>Caption reference unique identifier</strong></td><td>no</td><td>yes</td></tr>
+</table>
+
+
+    <h2 class="hasAnchor" id="pdf-output"><a class="anchor" href="#pdf-output"></a>PDF output</h2>
+
+    
+
+
+<p>Some features are not implemented in PDF due to technical
+infeasibility. These are the padding, line_spacing and
+height properties.</p>
+    <h2 class="hasAnchor" id="powerpoint-output"><a class="anchor" href="#powerpoint-output"></a>PowerPoint output</h2>
+
+    
+
+
+<p>Auto-adjust Layout is not available for PowerPoint.</p>
+<p>Also images cannot be integrated into tables with the PowerPoint format.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other flextable print function: 
 <code><a href='as_raster.html'>as_raster</a>()</code>,
-<code><a href='docx_value.html'>docx_value</a>()</code>,
+<code><a href='flextable_to_rmd.html'>flextable_to_rmd</a>()</code>,
 <code><a href='htmltools_value.html'>htmltools_value</a>()</code>,
-<code><a href='latex_value.html'>latex_value</a>()</code>,
 <code><a href='plot.flextable.html'>plot.flextable</a>()</code>,
 <code><a href='print.flextable.html'>print.flextable</a>()</code>,
 <code><a href='save_as_docx.html'>save_as_docx</a>()</code>,
@@ -287,7 +281,7 @@ will be chosen.</p></li>
 <span class='va'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".Rmd"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='va'>demo_docx</span>, to <span class='op'>=</span> <span class='va'>rmd_file</span>, overwrite <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
-</div><div class='output co'>#&gt; [1] "/tmp/Rtmp33KoeI/file462d393963c3.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+</div><div class='output co'>#&gt; [1] "/tmp/RtmpVf7Q70/file455d2ab06ff0.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
 <span class='co'>#  knitr::opts_chunk$set(webshot = "webshot2")</span>
 <span class='co'>#  render(input = rmd_file, output_format = "word_document", output_file = "doc.docx")</span>
 <span class='co'>#  render(input = rmd_file, output_format = "pdf_document", output_file = "doc.pdf")</span>
@@ -299,24 +293,52 @@ will be chosen.</p></li>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; NULL</div><div class='input'>
 
-<span class='co'># looping examples for Word output -----</span>
-<span class='va'>demo_loop</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>package <span class='op'>=</span> <span class='st'>"flextable"</span>, <span class='st'>"examples/rmd"</span>, <span class='st'>"loop_docx.Rmd"</span><span class='op'>)</span>
-<span class='va'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".Rmd"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='va'>demo_loop</span>, to <span class='op'>=</span> <span class='va'>rmd_file</span>, overwrite <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
-</div><div class='output co'>#&gt; [1] "/tmp/Rtmp33KoeI/file462d74e9577.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
-<span class='co'>#  render(input = rmd_file, output_format = "word_document", output_file = "loop_docx.docx")</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; NULL</div><div class='input'>
-<span class='co'># looping examples for HTML output -----</span>
-<span class='va'>demo_loop</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>package <span class='op'>=</span> <span class='st'>"flextable"</span>, <span class='st'>"examples/rmd"</span>, <span class='st'>"loop_html.Rmd"</span><span class='op'>)</span>
-<span class='va'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".Rmd"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='va'>demo_loop</span>, to <span class='op'>=</span> <span class='va'>rmd_file</span>, overwrite <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
-</div><div class='output co'>#&gt; [1] "/tmp/Rtmp33KoeI/file462d4cf0ed30.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
-<span class='co'>#  render(input = rmd_file, output_format = "html_document", output_file = "loop_html.html")</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; NULL</div></pre>
+<span class='co'>## bookdown examples wth captions and cross ref -----</span>
+<span class='co'># captions_example &lt;- system.file(</span>
+<span class='co'>#   package = "flextable",</span>
+<span class='co'>#   "examples/rmd", "captions_example.Rmd")</span>
+<span class='co'>#</span>
+<span class='co'># dir_tmp &lt;- tempfile(pattern = "dir")</span>
+<span class='co'># dir.create(dir_tmp, showWarnings = FALSE, recursive = TRUE)</span>
+<span class='co'># file.copy(captions_example, dir_tmp)</span>
+<span class='co'># rmd_file &lt;- file.path(dir_tmp, basename(captions_example))</span>
+<span class='co'>#</span>
+<span class='co'># file.copy(captions_example, to = rmd_file, overwrite = TRUE)</span>
+<span class='co'>#</span>
+<span class='co'># if(require("rmarkdown", quietly = TRUE)){</span>
+<span class='co'>#   render(input = rmd_file,</span>
+<span class='co'>#          output_format = word_document(),</span>
+<span class='co'>#          output_file = "doc.docx")</span>
+<span class='co'>#   render(input = rmd_file,</span>
+<span class='co'>#          output_format = pdf_document(latex_engine = "xelatex"),</span>
+<span class='co'>#          output_file = "doc.pdf")</span>
+<span class='co'>#   render(input = rmd_file,</span>
+<span class='co'>#          output_format = html_document(),</span>
+<span class='co'>#          output_file = "doc.html")</span>
+<span class='co'>#</span>
+<span class='co'>#   # bookdown ----</span>
+<span class='co'>#   if(require("bookdown", quietly = TRUE)){</span>
+<span class='co'>#     render(input = rmd_file, output_format = word_document2(),</span>
+<span class='co'>#            output_file = "book.docx")</span>
+<span class='co'>#     render(input = rmd_file,</span>
+<span class='co'>#            output_format = pdf_document2(latex_engine = "xelatex"),</span>
+<span class='co'>#            output_file = "book.pdf")</span>
+<span class='co'>#     render(input = rmd_file,</span>
+<span class='co'>#            output_format = html_document2(),</span>
+<span class='co'>#            output_file = "book.html")</span>
+<span class='co'>#</span>
+<span class='co'>#     # officedown ----</span>
+<span class='co'>#     if(require("officedown", quietly = TRUE)){</span>
+<span class='co'>#       render(input = rmd_file,</span>
+<span class='co'>#              output_format = markdown_document2(base_format=rdocx_document),</span>
+<span class='co'>#              output_file = "officedown.docx")</span>
+<span class='co'>#     }</span>
+<span class='co'>#   }</span>
+<span class='co'># }</span>
+<span class='co'># browseURL(dirname(rmd_file))</span>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -329,7 +351,7 @@ will be chosen.</p></li>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0.017 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.0.018 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

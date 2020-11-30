@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>flextable as a div object — htmltools_value • flextable</title>
+<title>flextable as an HTML object — htmltools_value • flextable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,10 @@
 
 
 
-<meta property="og:title" content="flextable as a div object — htmltools_value" />
+<meta property="og:title" content="flextable as an HTML object — htmltools_value" />
 <meta property="og:description" content="get a div() from a flextable object.
-This can be used in a shiny application.
-Argument ft.align can be specified also as knitr chunk options." />
+This can be used in a shiny application. For an output within
+&quot;R Markdown&quot; document, use knit_print.flextable." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -82,7 +82,7 @@ Argument ft.align can be specified also as knitr chunk options." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.017</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.018</span>
       </span>
     </div>
 
@@ -145,23 +145,18 @@ Argument ft.align can be specified also as knitr chunk options." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>flextable as a div object</h1>
+    <h1>flextable as an HTML object</h1>
     <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/printers.R'><code>R/printers.R</code></a></small>
     <div class="hidden name"><code>htmltools_value.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>get a <code><a href='https://rdrr.io/pkg/htmltools/man/builder.html'>div()</a></code> from a flextable object.
-This can be used in a shiny application.</p>
-<p>Argument <code>ft.align</code> can be specified also as knitr chunk options.</p>
+This can be used in a shiny application. For an output within
+"R Markdown" document, use <a href='knit_print.flextable.html'>knit_print.flextable</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>htmltools_value</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  ft.align <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ft.align"</span><span class='op'>)</span>,
-  class <span class='op'>=</span> <span class='st'>"tabwid"</span>,
-  bookdown <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>htmltools_value</span><span class='op'>(</span><span class='va'>x</span>, ft.align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,24 +169,18 @@ This can be used in a shiny application.</p>
       <th>ft.align</th>
       <td><p>flextable alignment, supported values are 'left', 'center' and 'right'.</p></td>
     </tr>
-    <tr>
-      <th>class</th>
-      <td><p>css classes (default to "tabwid"), if ft.align is set to 'left' or 'right',
-class 'tabwid_left' or 'tabwid_right' will be added to class.</p></td>
-    </tr>
-    <tr>
-      <th>bookdown</th>
-      <td><p><code>TRUE</code> or <code>FALSE</code> (default) to support cross referencing with bookdown.</p></td>
-    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>an object marked as <a href='https://rdrr.io/pkg/htmltools/man/HTML.html'>HTML</a> ready to be used within
+a call to <code>shiny::renderUI</code> for example.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other flextable print function: 
 <code><a href='as_raster.html'>as_raster</a>()</code>,
-<code><a href='docx_value.html'>docx_value</a>()</code>,
+<code><a href='flextable_to_rmd.html'>flextable_to_rmd</a>()</code>,
 <code><a href='knit_print.flextable.html'>knit_print.flextable</a>()</code>,
-<code><a href='latex_value.html'>latex_value</a>()</code>,
 <code><a href='plot.flextable.html'>plot.flextable</a>()</code>,
 <code><a href='print.flextable.html'>print.flextable</a>()</code>,
 <code><a href='save_as_docx.html'>save_as_docx</a>()</code>,
@@ -201,7 +190,7 @@ class 'tabwid_left' or 'tabwid_right' will be added to class.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>htmltools_value</span><span class='op'>(</span><span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,<span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;div class="tabwid"&gt;&lt;style&gt;.cl-b2d81640{border-collapse:collapse;}.cl-b2d119bc{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b2d13618{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-b2d13640{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-b2d18c3a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b2d18c62{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b2d18c76{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b2d18c8a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b2d18c94{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b2d18c9e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table class='cl-b2d81640'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-b2d18c94"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;Sepal.Length&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c94"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;Sepal.Width&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c94"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;Petal.Length&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c94"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;Petal.Width&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c9e"&gt;&lt;p class="cl-b2d13640"&gt;&lt;span class="cl-b2d119bc"&gt;Species&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;5.1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;3.5&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;1.4&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;0.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c62"&gt;&lt;p class="cl-b2d13640"&gt;&lt;span class="cl-b2d119bc"&gt;setosa&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;4.9&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;3.0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;1.4&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;0.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c62"&gt;&lt;p class="cl-b2d13640"&gt;&lt;span class="cl-b2d119bc"&gt;setosa&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;4.7&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;3.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;1.3&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;0.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c62"&gt;&lt;p class="cl-b2d13640"&gt;&lt;span class="cl-b2d119bc"&gt;setosa&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;4.6&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;3.1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;1.5&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c3a"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;0.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c62"&gt;&lt;p class="cl-b2d13640"&gt;&lt;span class="cl-b2d119bc"&gt;setosa&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-b2d18c76"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;5.0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c76"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;3.6&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c76"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;1.4&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c76"&gt;&lt;p class="cl-b2d13618"&gt;&lt;span class="cl-b2d119bc"&gt;0.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b2d18c8a"&gt;&lt;p class="cl-b2d13640"&gt;&lt;span class="cl-b2d119bc"&gt;setosa&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;</div></pre>
+</div><div class='output co'>#&gt; &lt;div class="tabwid"&gt;&lt;style&gt;.cl-9996584a{border-collapse:collapse;}.cl-99902286{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-99903fe6{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-9990400e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-99908a00{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-99908a28{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-99908a32{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-99908a3c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-99908a50{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-99908a5a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table class='cl-9996584a'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-99908a50"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;Sepal.Length&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a50"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;Sepal.Width&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a50"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;Petal.Length&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a50"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;Petal.Width&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a5a"&gt;&lt;p class="cl-9990400e"&gt;&lt;span class="cl-99902286"&gt;Species&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;5.1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;3.5&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;1.4&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;0.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a28"&gt;&lt;p class="cl-9990400e"&gt;&lt;span class="cl-99902286"&gt;setosa&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;4.9&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;3.0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;1.4&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;0.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a28"&gt;&lt;p class="cl-9990400e"&gt;&lt;span class="cl-99902286"&gt;setosa&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;4.7&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;3.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;1.3&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;0.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a28"&gt;&lt;p class="cl-9990400e"&gt;&lt;span class="cl-99902286"&gt;setosa&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;4.6&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;3.1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;1.5&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a00"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;0.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a28"&gt;&lt;p class="cl-9990400e"&gt;&lt;span class="cl-99902286"&gt;setosa&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-99908a32"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;5.0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a32"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;3.6&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a32"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;1.4&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a32"&gt;&lt;p class="cl-99903fe6"&gt;&lt;span class="cl-99902286"&gt;0.2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-99908a3c"&gt;&lt;p class="cl-9990400e"&gt;&lt;span class="cl-99902286"&gt;setosa&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -214,7 +203,7 @@ class 'tabwid_left' or 'tabwid_right' will be added to class.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0.017 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.0.018 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

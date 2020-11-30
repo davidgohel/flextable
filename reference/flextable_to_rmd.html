@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>save flextable objects in an PowerPoint file — save_as_pptx • flextable</title>
+<title>flextable raw code — flextable_to_rmd • flextable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,14 @@
 
 
 
-<meta property="og:title" content="save flextable objects in an PowerPoint file — save_as_pptx" />
-<meta property="og:description" content="sugar function to save flextable objects in an PowerPoint file." />
+<meta property="og:title" content="flextable raw code — flextable_to_rmd" />
+<meta property="og:description" content="Print openxml, latex or html code of a
+flextable. The function is particularly useful when you want
+to generate flextable in a loop from a R Markdown document.
+Inside R Markdown document, chunk option results must be
+set to 'asis'.
+All arguments whose name starts with ft. can be set in the chunk options.
+See knit_print.flextable for more details." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -143,33 +149,85 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>save flextable objects in an PowerPoint file</h1>
+    <h1>flextable raw code</h1>
     <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/printers.R'><code>R/printers.R</code></a></small>
-    <div class="hidden name"><code>save_as_pptx.Rd</code></div>
+    <div class="hidden name"><code>flextable_to_rmd.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>sugar function to save flextable objects in an PowerPoint file.</p>
+    <p>Print openxml, latex or html code of a
+flextable. The function is particularly useful when you want
+to generate flextable in a loop from a R Markdown document.</p>
+<p>Inside R Markdown document, chunk option <code>results</code> must be
+set to 'asis'.</p>
+<p>All arguments whose name starts with <code>ft.</code> can be set in the chunk options.</p>
+<p>See <a href='knit_print.flextable.html'>knit_print.flextable</a> for more details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>save_as_pptx</span><span class='op'>(</span><span class='va'>...</span>, values <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>path</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>flextable_to_rmd</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  ft.align <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ft.align"</span><span class='op'>)</span>,
+  ft.split <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ft.split"</span><span class='op'>)</span>,
+  ft.tabcolsep <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ft.tabcolsep"</span><span class='op'>)</span>,
+  ft.arraystretch <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ft.arraystretch"</span><span class='op'>)</span>,
+  ft.left <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ft.left"</span><span class='op'>)</span>,
+  ft.top <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ft.top"</span><span class='op'>)</span>,
+  webshot <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"webshot"</span><span class='op'>)</span>,
+  bookdown <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  pandoc2 <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  print <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>flextable objects, objects, possibly named. If named objects, names are
-used as slide titles.</p></td>
+      <th>x</th>
+      <td><p>a flextable object</p></td>
     </tr>
     <tr>
-      <th>values</th>
-      <td><p>a list (possibly named), each element is a flextable object. If named objects, names are
-used as slide titles. If provided, argument <code>...</code> will be ignored.</p></td>
+      <th>ft.align</th>
+      <td><p>flextable alignment, supported values are 'left', 'center' and 'right'.</p></td>
     </tr>
     <tr>
-      <th>path</th>
-      <td><p>PowerPoint file to be created</p></td>
+      <th>ft.split</th>
+      <td><p>Word option 'Allow row to break across pages' can be
+activated when TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>ft.tabcolsep</th>
+      <td><p>space between the text and the left/right border of its containing
+cell, the default value is 8 points.</p></td>
+    </tr>
+    <tr>
+      <th>ft.arraystretch</th>
+      <td><p>height of each row relative to its default
+height, the default value is 1.5.</p></td>
+    </tr>
+    <tr>
+      <th>ft.left, ft.top</th>
+      <td><p>Position should be defined with options <code>ft.left</code>
+and <code>ft.top</code>. Theses are the top left coordinates in inches
+of the placeholder that will contain the table. Their
+default valuues are 1 and 2 inches.</p></td>
+    </tr>
+    <tr>
+      <th>webshot</th>
+      <td><p>webshot package as a scalar character, one of "webshot" or
+"webshot2".</p></td>
+    </tr>
+    <tr>
+      <th>bookdown</th>
+      <td><p><code>TRUE</code> or <code>FALSE</code> (default) to support cross referencing with bookdown.</p></td>
+    </tr>
+    <tr>
+      <th>pandoc2</th>
+      <td><p><code>TRUE</code> (default) or <code>FALSE</code> to get the string in a pandoc raw HTML attribute
+(only valid when pandoc version is <code>&gt;= 2</code>.</p></td>
+    </tr>
+    <tr>
+      <th>print</th>
+      <td><p>print output if TRUE</p></td>
     </tr>
     </table>
 
@@ -177,23 +235,30 @@ used as slide titles. If provided, argument <code>...</code> will be ignored.</p
 
     <div class='dont-index'><p>Other flextable print function: 
 <code><a href='as_raster.html'>as_raster</a>()</code>,
-<code><a href='flextable_to_rmd.html'>flextable_to_rmd</a>()</code>,
 <code><a href='htmltools_value.html'>htmltools_value</a>()</code>,
 <code><a href='knit_print.flextable.html'>knit_print.flextable</a>()</code>,
 <code><a href='plot.flextable.html'>plot.flextable</a>()</code>,
 <code><a href='print.flextable.html'>print.flextable</a>()</code>,
 <code><a href='save_as_docx.html'>save_as_docx</a>()</code>,
 <code><a href='save_as_html.html'>save_as_html</a>()</code>,
-<code><a href='save_as_image.html'>save_as_image</a>()</code></p></div>
+<code><a href='save_as_image.html'>save_as_image</a>()</code>,
+<code><a href='save_as_pptx.html'>save_as_pptx</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ft1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span> <span class='va'>iris</span> <span class='op'>)</span> <span class='op'>)</span>
-<span class='va'>tf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".pptx"</span><span class='op'>)</span>
-<span class='fu'>save_as_pptx</span><span class='op'>(</span><span class='va'>ft1</span>, path <span class='op'>=</span> <span class='va'>tf</span><span class='op'>)</span>
-
-<span class='va'>ft2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span> <span class='va'>mtcars</span> <span class='op'>)</span> <span class='op'>)</span>
-<span class='va'>tf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".pptx"</span><span class='op'>)</span>
-<span class='fu'>save_as_pptx</span><span class='op'>(</span>`iris table` <span class='op'>=</span> <span class='va'>ft1</span>, `mtcars table` <span class='op'>=</span> <span class='va'>ft2</span>, path <span class='op'>=</span> <span class='va'>tf</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>demo_loop</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>package <span class='op'>=</span> <span class='st'>"flextable"</span>, <span class='st'>"examples/rmd"</span>, <span class='st'>"loop_with_flextable.Rmd"</span><span class='op'>)</span>
+<span class='va'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".Rmd"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='va'>demo_loop</span>, to <span class='op'>=</span> <span class='va'>rmd_file</span>, overwrite <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
+</div><div class='output co'>#&gt; [1] "/tmp/RtmpVf7Q70/file455d36dc794f.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+<span class='co'>#  render(input = rmd_file, output_format = "word_document",</span>
+<span class='co'>#    output_file = "loop_with_flextable.docx")</span>
+<span class='co'>#  render(input = rmd_file, output_format = "html_document",</span>
+<span class='co'>#    output_file = "loop_with_flextable.html")</span>
+<span class='co'>#  render(input = rmd_file,</span>
+<span class='co'>#    output_format = rmarkdown::pdf_document(latex_engine = "xelatex"),</span>
+<span class='co'>#    output_file = "loop_with_flextable.pdf")</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; NULL</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
