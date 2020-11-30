@@ -18,7 +18,7 @@ plot_chunk(
 
 \item{width, height}{size of the resulting png file in inches}
 
-\item{type}{type of the plot: 'box', 'line', 'points' or 'dens'.}
+\item{type}{type of the plot: 'box', 'line', 'points' or 'density'.}
 
 \item{free_scale}{Should scales be free (TRUE or FALSE, the default value).}
 
@@ -29,7 +29,7 @@ This function is used to insert mini plots into
 flextable with function \code{\link{compose}}.
 It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
 
-Available plots are 'box', 'line', 'points', 'dens'.
+Available plots are 'box', 'line', 'points', 'density'.
 }
 \note{
 This chunk option requires package officedown in a R Markdown

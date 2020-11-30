@@ -328,10 +328,10 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' flextable with function \code{\link{compose}}.
 #' It should be used inside a call to [as_paragraph()].
 #'
-#' Available plots are 'box', 'line', 'points', 'dens'.
+#' Available plots are 'box', 'line', 'points', 'density'.
 #' @param value a numeric vector, stored in a list column.
 #' @param width,height size of the resulting png file in inches
-#' @param type type of the plot: 'box', 'line', 'points' or 'dens'.
+#' @param type type of the plot: 'box', 'line', 'points' or 'density'.
 #' @param free_scale Should scales be free (TRUE or FALSE, the default value).
 #' @param ... arguments sent to plot functions (see [par()])
 #' @note
@@ -366,6 +366,8 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @importFrom stats density
 plot_chunk <- function(value, width = 1, height = .2,
                        type = "box", free_scale = FALSE, ...) {
+
+  type <- match.arg(arg = type, choices = c('box', 'line', 'points', 'density'), several.ok = FALSE)
 
   width <- as.double(rep(width, length(value)))
   height <- as.double(rep(height, length(value)))

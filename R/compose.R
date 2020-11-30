@@ -3,10 +3,13 @@
 #' @title Define flextable displayed values
 #' @description Modify flextable displayed values. Function is
 #' handling complex formatting as well as image insertion.
+#'
+#' Function `mk_par` is another name for `compose` as
+#' there is an unwanted conflict with package `purrr`.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j column selection
-#' @param value a call to function \code{\link{as_paragraph}}.
+#' @param value a call to function [as_paragraph()].
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @examples
 #' library(officer)
@@ -44,9 +47,6 @@ compose <- function(x, i = NULL, j = NULL, value , part = "body"){
 }
 
 #' @rdname compose
-#' @section mk_par:
-#' Function \code{mk_par} is another name for \code{compose} as
-#' there is an unwanted conflict with package \code{purrr}.
 #' @export
 mk_par <- compose
 

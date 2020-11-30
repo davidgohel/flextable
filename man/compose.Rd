@@ -16,24 +16,21 @@ mk_par(x, i = NULL, j = NULL, value, part = "body")
 
 \item{j}{column selection}
 
-\item{value}{a call to function \code{\link{as_paragraph}}.}
+\item{value}{a call to function \code{\link[=as_paragraph]{as_paragraph()}}.}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 Modify flextable displayed values. Function is
 handling complex formatting as well as image insertion.
+
+Function \code{mk_par} is another name for \code{compose} as
+there is an unwanted conflict with package \code{purrr}.
 }
 \section{Illustrations}{
 
 
 \if{html}{\figure{fig_compose_1.png}{options: width=80\%}}
-}
-
-\section{mk_par}{
-
-Function \code{mk_par} is another name for \code{compose} as
-there is an unwanted conflict with package \code{purrr}.
 }
 
 \examples{
