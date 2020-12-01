@@ -56,7 +56,7 @@ footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "
     stop("footnote supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"),
                     several.ok = FALSE)
-  if (part == "all") {
+  if (part == "all") {  # TODO: What does this do? Does it need to be reproduced for the new function??
     for (p in c("header", "body", "footer")) {
       x <- compose(x = x, i = i, j = j, value = value,
                    part = p)
@@ -65,9 +65,7 @@ footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "
   }
   if (nrow_part(x, part) < 1)
     return(x)
-  check_formula_i_and_part(i, part)
-  i <- get_rows_id(x[[part]], i)
-  j <- get_columns_id(x[[part]], j)
+
   if (is.null(ref_symbols)) {
     ref_symbols <- as.character(seq_along(value))
   }
@@ -75,12 +73,62 @@ footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "
   for (symbi in seq_along(ref_symbols)) {
     symbols_chunks[[symbi]] <- as_sup(ref_symbols[symbi])
   }
+
+  x <- footnote_callout(x, i, j, symbols_chunks, part)
+  x <- footnote_value(x, value, ref_symbols, symbols_chunks, inline, sep)
+  x
+}
+
+#' TODO: Document this function
+#' TODO: Maybe body should be a list??
+#' @export
+footnote_multi_callout <- function(x, i_list, j_list, value, ref_symbols = NULL,
+                              part = "body", inline = FALSE, sep = "; ") {
+  if (!inherits(x, "flextable"))
+    stop("footnote_multi_callout supports only flextable objects.")
+  part <- match.arg(part, c("body", "header", "footer"),
+                    several.ok = FALSE)
+  # TODO: do we need to do the part=="all" thing??
+  if (nrow_part(x, part) < 1)
+    return(x)
+  if (length(value) > 1) {
+    stop("footnote_multi_callout supports only a single value.")
+  }
+  if (length(ref_symbols) > 1) {
+    stop("footnote_multi_callout supports only a single value of ref_symbols.")
+  }
+  if (length(i_list) != length(j_list)) {
+    stop("i_list and j_list must be the same length.")
+  }
+
+  if (is.null(ref_symbols)) {
+    ref_symbols <- as.character(1)
+  }
+  symbols_chunks <- list(as_sup(ref_symbols))
+
+  for (indexi in seq_along(i_list)) {
+    i <- i_list[[indexi]]
+    j <- j_list[[indexi]]
+    x <- footnote_callout(x, i, j, symbols_chunks, part)
+  }
+  x <- footnote_value(x, value, ref_symbols, symbols_chunks, inline, sep)
+  x
+}
+
+footnote_callout <- function(x, i, j, symbols_chunks, part) {
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i)
+  j <- get_columns_id(x[[part]], j)
+
   new <- mapply(function(x, y) {
     y$seq_index <- max(x$seq_index, na.rm = TRUE) + 1
     rbind.match.columns(list(x, y))
   }, x = x[[part]]$content[i, j], y = symbols_chunks, SIMPLIFY = FALSE)
   x[[part]]$content[i, j] <- new
+  x
+}
 
+footnote_value <- function(x, value, ref_symbols, symbols_chunks, inline, sep) {
   n_row <- nrow_part(x, "footer")
   new <- mapply(function(x, y) {
     x$seq_index <- min(y$seq_index, na.rm = TRUE) - 1

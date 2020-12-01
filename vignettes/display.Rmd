@@ -368,6 +368,40 @@ ft <- footnote( ft, i = 1, j = 3:4,
 ft
 ```
 
+
+```{r}
+ft <- flextable(head(iris))
+ft <- footnote_multi_callout(ft, i_list = list(1, 3, ~ Petal.Length == 1.7), j_list = list(1, 2, "Petal.Length"),
+                             value = as_paragraph("This is footnote one"),
+                             ref_symbols = "(a)",
+                             part = "body")
+ft <- footnote_multi_callout(ft, i_list = list(1, 5), j_list = list(1, 2),
+                             value = as_paragraph("This is footnote two"),
+                             ref_symbols = "(b)",
+                             part = "body")
+ft <- valign(ft, valign = "bottom", part = "header")
+autofit(ft)
+```
+
+```{r}
+ft <- flextable(head(iris))
+ft <- footnote_multi_callout(ft, i_list = list(1, 3, ~ Petal.Length == 1.7), j_list = list(1, 2, "Petal.Length"),
+                             value = as_paragraph("This is footnote one"),
+                             ref_symbols = "(a)",
+                             part = "body",
+                             inline = TRUE)
+ft <- footnote_multi_callout(ft, i_list = list(1, 5), j_list = list(1, 2),
+                             value = as_paragraph("This is footnote two"),
+                             ref_symbols = "(b)",
+                             part = "body",
+                             inline = TRUE)
+ft <- valign(ft, valign = "bottom", part = "header")
+autofit(ft)
+```
+
+
+TODO: Update this vignette
+
 ## Two lines in a cell
 
 > A cell is made of one single paragraph of text. Paragraphs 
