@@ -401,12 +401,12 @@ plot_chunk <- function(value, width = 1, height = .2,
       parcall$type = "l"
       parcall$ylim = lims
       do.call(plot, parcall)
-    } else if("point" %in% type){
+    } else if("points" %in% type){
       parcall$x <- seq_along(x)
       parcall$y <- x
       parcall$ylim = lims
       do.call(plot, parcall)
-    } else if("dens" %in% type){
+    } else if("density" %in% type){
       parcall$x <- density(x)
       parcall$xlim = lims
       do.call(plot, parcall)
