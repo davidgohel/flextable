@@ -99,8 +99,14 @@ colformat_char <- function(
 
   stopifnot(inherits(x, "flextable"))
 
+  quo_fun <- quo(format_fun.character(
+    x, na_str = na_str, prefix = prefix, suffix = suffix
+  ))
+  fun_ <- new_function(
+    pairlist2(x = , na_str = na_str, prefix = prefix, suffix = suffix),
+    get_expr(quo_fun))
+
   col_keys <- filter_col_keys(x, j, function(x) is.character(x) || is.factor(x))
-  fun_ <- function(x) format_fun.character(x, na_str = na_str, prefix = prefix, suffix = suffix)
   docall_display(col_keys, fun_, x, i = i)
 }
 
@@ -116,6 +122,7 @@ colformat_char <- function(
 #' ft <- colformat_double(x = ft,
 #'   big.mark=",", digits = 2, na_str = "N/A")
 #' autofit(ft)
+#' @importFrom rlang new_function
 colformat_double <- function(
   x, i = NULL, j = NULL,
   big.mark = get_flextable_defaults()$big.mark,
@@ -127,10 +134,16 @@ colformat_double <- function(
   stopifnot(inherits(x, "flextable"))
 
   col_keys <- filter_col_keys(x, j, is.double)
-  fun_ <- function(x)
-    format_fun.double(
-      x, big.mark = big.mark, decimal.mark = decimal.mark,
-      digits = digits, na_str = na_str, prefix = prefix, suffix = suffix)
+
+  quo_fun <- quo(format_fun.double(
+    x, big.mark = big.mark, decimal.mark = decimal.mark,
+    digits = digits, na_str = na_str, prefix = prefix, suffix = suffix
+  ))
+  fun_ <- new_function(
+    pairlist2(x = , big.mark = big.mark, decimal.mark = decimal.mark,
+              digits = digits, na_str = na_str, prefix = prefix, suffix = suffix),
+    get_expr(quo_fun))
+
   docall_display(col_keys, fun_, x, i = i)
 }
 #' @export
@@ -158,12 +171,17 @@ colformat_num <- function(
   prefix = "", suffix = ""){
 
   stopifnot(inherits(x, "flextable"))
-
   col_keys <- filter_col_keys(x, j, is.numeric)
-  fun_ <- function(x)
-    format_fun.default(
-      x, big.mark = big.mark, decimal.mark = decimal.mark,
-      digits = digits, na_str = na_str, prefix = prefix, suffix = suffix)
+
+  quo_fun <- quo(format_fun.default(
+    x, big.mark = big.mark, decimal.mark = decimal.mark,
+    digits = digits, na_str = na_str, prefix = prefix, suffix = suffix
+  ))
+  fun_ <- new_function(
+    pairlist2(x = , big.mark = big.mark, decimal.mark = decimal.mark,
+              digits = digits, na_str = na_str, prefix = prefix, suffix = suffix),
+    get_expr(quo_fun))
+
   docall_display(col_keys, fun_, x, i = i)
 }
 
@@ -189,9 +207,12 @@ colformat_date <- function(
   stopifnot(inherits(x, "flextable"))
 
   col_keys <- filter_col_keys(x, j, function(x) inherits(x, c("Date", "POSIXt")) )
-  fun_ <- function(x)
-    format_fun.Date(
-      x, fmt_date = fmt_date, na_str = na_str, prefix = prefix, suffix = suffix)
+
+  quo_fun <- quo(format_fun.Date(
+    x, fmt_date = fmt_date, na_str = na_str, prefix = prefix, suffix = suffix))
+  fun_ <- new_function(
+    pairlist2(x = , fmt_date = fmt_date, na_str = na_str, prefix = prefix, suffix = suffix),
+    get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)
 }
@@ -218,9 +239,12 @@ colformat_datetime <- function(
   stopifnot(inherits(x, "flextable"))
 
   col_keys <- filter_col_keys(x, j, function(x) inherits(x, c("Date", "POSIXt")) )
-  fun_ <- function(x)
-    format_fun.POSIXt(
-      x, fmt_datetime = fmt_datetime, na_str = na_str, prefix = prefix, suffix = suffix)
+
+  quo_fun <- quo(format_fun.POSIXt(
+    x, fmt_datetime = fmt_datetime, na_str = na_str, prefix = prefix, suffix = suffix))
+  fun_ <- new_function(
+    pairlist2(x = , fmt_datetime = fmt_datetime, na_str = na_str, prefix = prefix, suffix = suffix),
+    get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)
 }
@@ -244,10 +268,13 @@ colformat_int <- function(
 
   stopifnot(inherits(x, "flextable"))
 
-  col_keys <- filter_col_keys(x, j, is.numeric)
-  fun_ <- function(x)
-    format_fun.integer(
-      x, big.mark = big.mark, na_str = na_str, prefix = prefix, suffix = suffix)
+  col_keys <- filter_col_keys(x, j, is.integer)
+
+  quo_fun <- quo(format_fun.integer(
+    x, big.mark = big.mark, na_str = na_str, prefix = prefix, suffix = suffix))
+  fun_ <- new_function(
+    pairlist2(x = , big.mark = big.mark, na_str = na_str, prefix = prefix, suffix = suffix),
+    get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)
 }
@@ -273,10 +300,14 @@ colformat_lgl <- function(
   stopifnot(inherits(x, "flextable"))
 
   col_keys <- filter_col_keys(x, j, is.logical)
-  fun_ <- function(x)
-    format_fun.logical(
-      x, true = true, false = false,
-      na_str = na_str, prefix = prefix, suffix = suffix)
+
+  quo_fun <- quo(format_fun.logical(
+    x, true = true, false = false,
+    na_str = na_str, prefix = prefix, suffix = suffix))
+  fun_ <- new_function(
+    pairlist2(x = , true = true, false = false,
+              na_str = na_str, prefix = prefix, suffix = suffix),
+    get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)
 }
