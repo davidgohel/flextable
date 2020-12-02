@@ -158,7 +158,7 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), bookdown = FA
   out
 }
 
-#' @export
+#' @noRd
 #' @title flextable Office Open XML string for Word
 #'
 #' @description get openxml raw code for Word
@@ -171,7 +171,6 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), bookdown = FA
 #' @examples
 #' docx_value(flextable(iris[1:5,]))
 #' @importFrom officer opts_current_table block_caption styles_info run_autonum to_wml
-#' @keywords internal
 docx_value <- function(x,
                        ft.align = opts_current$get("ft.align"),
                        ft.split = opts_current$get("ft.split"),

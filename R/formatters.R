@@ -122,7 +122,7 @@ colformat_char <- function(
 #' ft <- colformat_double(x = ft,
 #'   big.mark=",", digits = 2, na_str = "N/A")
 #' autofit(ft)
-#' @importFrom rlang new_function
+#' @importFrom rlang new_function quo get_expr pairlist2
 colformat_double <- function(
   x, i = NULL, j = NULL,
   big.mark = get_flextable_defaults()$big.mark,
