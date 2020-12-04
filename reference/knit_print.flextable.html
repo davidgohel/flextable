@@ -89,7 +89,7 @@ ability to produce captions so that they can be used in cross-referencing." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1.006</span>
       </span>
     </div>
 
@@ -162,8 +162,8 @@ ability to produce captions so that they can be used in cross-referencing." />
 <p>You should not call this method directly. This function is used by the knitr
 package to automatically display a flextable in an "R Markdown" document from
 a chunk. However, it is recommended to read its documentation in order to get
-familiar with the different options available.
-<img src='figures/fig_formats.png' width=200px /> HTML, Word, PowerPoint and PDF outputs are supported.</p>
+familiar with the different options available.</p>
+<p><img src='figures/fig_formats.png' width=200px /> HTML, Word, PowerPoint and PDF outputs are supported.</p>
 <p>Table captioning is a flextable feature compatible with R Markdown
 documents. The feature is available for HTML, PDF and Word documents.
 Compatibility with the "bookdown" package is also ensured, including the
@@ -246,6 +246,16 @@ example. The table below expose these options:</p>
 </table>
 
 
+    <h2 class="hasAnchor" id="html-output"><a class="anchor" href="#html-output"></a>HTML output</h2>
+
+    
+
+
+<p>HTML output is using shadow dom to encapsule the table
+into an isolated part of the page so that no clash happens
+with styles. Some output may not support this feature. To our
+knowledge, only the pagedown output is concerned.
+Use knitr chunk option <code>ft.shadow=FALSE</code> to disable shadow dom.</p>
     <h2 class="hasAnchor" id="pdf-output"><a class="anchor" href="#pdf-output"></a>PDF output</h2>
 
     
@@ -281,7 +291,7 @@ height properties.</p>
 <span class='va'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".Rmd"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='va'>demo_docx</span>, to <span class='op'>=</span> <span class='va'>rmd_file</span>, overwrite <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
-</div><div class='output co'>#&gt; [1] "/tmp/RtmpWu5mXl/file45f677aeb3ed.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+</div><div class='output co'>#&gt; [1] "/tmp/Rtmp5MCXlD/file47d83ec1abbd.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
 <span class='co'>#  knitr::opts_chunk$set(webshot = "webshot2")</span>
 <span class='co'>#  render(input = rmd_file, output_format = "word_document", output_file = "doc.docx")</span>
 <span class='co'>#  render(input = rmd_file, output_format = "pdf_document", output_file = "doc.pdf")</span>
@@ -351,7 +361,7 @@ height properties.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.1.006 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
