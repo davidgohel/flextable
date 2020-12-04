@@ -129,11 +129,13 @@ latex_str <- function(x, ft.align = "center",
   latex <- paste(
     sprintf("\\setlength{\\tabcolsep}{%spt}", format_double(ft.tabcolsep, 0)),
     sprintf("\\renewcommand*{\\arraystretch}{%s}", format_double(ft.arraystretch, 2)),
+    "\\begin{table}",
     align_tag,
     table_start, caption,
     paste(txt_data$txt[txt_data$part %in% "header"], collapse = ""),
     "\\endfirsthead",
     latex, table_end,
+    "\\end{table}",
     sep = "\n\n"
   )
 
