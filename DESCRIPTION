@@ -22,7 +22,7 @@ Imports:
     stats, utils, grDevices, graphics,
     officer (>= 0.3.15),
     rmarkdown, knitr, htmltools,
-    xml2, data.table, uuid (>= 0.1-4),
+    xml2, data.table (>= 1.13.0), uuid (>= 0.1-4),
     gdtools (>= 0.1.6), rlang, 
     base64enc
 RoxygenNote: 7.1.1
