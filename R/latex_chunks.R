@@ -132,6 +132,9 @@ img_to_latex <- function(img_data, width, height){
     if(inherits(img_raster, "raster")){
       gdtools::raster_write(img_raster, path = new_file, width = width*72, height = height*72)
     } else if(is.character(img_raster)){
+      if(!file.exists(img_raster)){
+        stop("file ", shQuote(img_raster), " could not be read")
+      }
       file.copy(from = img_raster, to = new_file, overwrite = TRUE)
     } else  {
       stop("unknown image format")
