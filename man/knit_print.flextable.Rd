@@ -18,6 +18,7 @@ You should not call this method directly. This function is used by the knitr
 package to automatically display a flextable in an "R Markdown" document from
 a chunk. However, it is recommended to read its documentation in order to get
 familiar with the different options available.
+
 \if{html}{\figure{fig_formats.png}{options: width=200px}} HTML, Word, PowerPoint and PDF outputs are supported.
 
 Table captioning is a flextable feature compatible with R Markdown
@@ -83,6 +84,16 @@ tab.cap       \tab \strong{Caption label}                                      \
 tab.id        \tab \strong{Caption reference unique identifier}                \tab yes \tab no \cr
 label         \tab \strong{Caption reference unique identifier}                \tab no  \tab yes
 }
+}
+
+\section{HTML output}{
+
+
+HTML output is using shadow dom to encapsule the table
+into an isolated part of the page so that no clash happens
+with styles. Some output may not support this feature. To our
+knowledge, only the pagedown output is concerned.
+Use knitr chunk option \code{ft.shadow=FALSE} to disable shadow dom.
 }
 
 \section{PDF output}{

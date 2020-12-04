@@ -28,7 +28,7 @@ caption_html_str <- function(x, bookdown = FALSE){
   }
   caption
 }
-html_str <- function(x, ft.align = NULL, class = "tabwid", caption = ""){
+html_str <- function(x, ft.align = NULL, class = "tabwid", caption = "", shadow = TRUE){
 
   fixed_layout <- x$properties$layout %in% "fixed"
   if(!fixed_layout){
@@ -55,9 +55,29 @@ html_str <- function(x, ft.align = NULL, class = "tabwid", caption = ""){
     tab_class <- paste0(class, " tabwid_right")
   else tab_class <- class
 
-  paste0("<div class=\"", tab_class, "\">",
+  html <- paste0("<div class=\"", tab_class, "\">",
          as.character(codes),
          "</div>")
+  if(shadow){
+    uid <- UUIDgenerate(n = 2L)
+
+    tabwid_css <- paste(c("<style>", readLines(system.file(package="flextable", "web_1.0.0", "tabwid.css"), encoding = "UTF-8"), "</style>"), collapse = "\n")
+
+    html <- paste0("<template id=\"", uid[1], "\">",
+                   tabwid_css,
+                   html,
+           "</template>",
+           "\n<div id=\"", uid[2], "\"></div>",
+           "\n<script>",
+           "\nvar dest = document.getElementById(\"", uid[2], "\");",
+           "\nvar template = document.getElementById(\"", uid[1], "\");",
+           "\nvar fantome = dest.attachShadow({mode: 'open'});",
+           "\nvar templateContent = template.content;",
+           "\nfantome.appendChild(templateContent);",
+           "\n</script>\n"
+    )
+  }
+  html
 }
 
 
@@ -362,7 +382,7 @@ flextable_html_dependency <- function(){
   htmlDependency("tabwid",
                  "1.0.0",
                  src = system.file(package="flextable", "web_1.0.0"),
-                 stylesheet = "tabwid.css", script = "tabwid.js")
+                 stylesheet = "tabwid.css")
 
 }
 

@@ -39,7 +39,7 @@ set_caption(ft,
 
 Or use kintr chunk options:
 
-```{r ft.align="left", tab.cap='mean of carbon dioxide uptake in grass plants', tab.id='tab2', label='tab2'}
+```{r ft.align="center", tab.cap='mean of carbon dioxide uptake in grass plants', tab.id='tab2', label='tab2'}
 ft
 ```
 

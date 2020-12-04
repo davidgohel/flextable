@@ -14,7 +14,9 @@
 #' @importFrom htmltools tagList
 htmltools_value <- function(x, ft.align = "center"){
   html_o <- tagList(flextable_html_dependency(),
-                    HTML(html_str(x, ft.align = ft.align, class = "tabwid", caption = caption_html_str(x, bookdown = FALSE)))
+                    HTML(html_str(x, ft.align = ft.align, class = "tabwid",
+                                  caption = caption_html_str(x, bookdown = FALSE),
+                                  shadow = TRUE))
   )
   html_o
 }
@@ -70,38 +72,51 @@ htmltools_value <- function(x, ft.align = "center"){
 #' }
 #'
 flextable_to_rmd <- function(
-  x,
-  ft.align = opts_current$get("ft.align"),
-  ft.split = opts_current$get("ft.split"),
-  ft.tabcolsep = opts_current$get("ft.tabcolsep"),
-  ft.arraystretch = opts_current$get("ft.arraystretch"),
-  ft.left = opts_current$get("ft.left"),
-  ft.top = opts_current$get("ft.top"),
-  webshot = opts_current$get("webshot"),
-  bookdown = FALSE, pandoc2 = TRUE, print = TRUE){
-
+                             x,
+                             ft.align = opts_current$get("ft.align"),
+                             ft.split = opts_current$get("ft.split"),
+                             ft.tabcolsep = opts_current$get("ft.tabcolsep"),
+                             ft.arraystretch = opts_current$get("ft.arraystretch"),
+                             ft.left = opts_current$get("ft.left"),
+                             ft.top = opts_current$get("ft.top"),
+                             webshot = opts_current$get("webshot"),
+                             bookdown = FALSE, pandoc2 = TRUE, print = TRUE) {
   str <- ""
   is_xaringan <- !is.null(getOption("xaringan.page_number.offset"))
 
-  if ( is_xaringan || is.null(opts_knit$get("rmarkdown.pandoc.to"))){
-    # xaringan, or with markdown package ----
-    str <- html_value(x, ft.align = ft.align, bookdown = FALSE, pandoc2 = FALSE)
-  } else if ( grepl( "(html|slidy)", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+  if (is.null(opts_knit$get("rmarkdown.pandoc.to"))) {
+    # with markdown package ----
+    str <- html_value(x,
+      ft.align = ft.align, bookdown = FALSE,
+      pandoc2 = FALSE, ft.shadow = FALSE
+    )
+  } else if (is_xaringan) {
+    # xaringan ----
+    str <- html_value(x,
+      ft.align = ft.align, bookdown = FALSE,
+      pandoc2 = FALSE, ft.shadow = TRUE
+    )
+    # return(htmltools_value(x, ft.align = ft.align))
+  } else if (grepl("(html|slidy)", opts_knit$get("rmarkdown.pandoc.to"))) {
     #  html ----
     str <- html_value(x, ft.align = ft.align, bookdown = bookdown, pandoc2 = pandoc2)
-  } else if ( grepl( "latex", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+  } else if (grepl("latex", opts_knit$get("rmarkdown.pandoc.to"))) {
     # latex ----
-    str <- latex_value(x, ft.tabcolsep = ft.tabcolsep, ft.align = ft.align,
-                       ft.arraystretch = ft.arraystretch, bookdown = bookdown)
-  } else if (grepl( "docx", opts_knit$get("rmarkdown.pandoc.to") )) {
+    str <- latex_value(x,
+      ft.tabcolsep = ft.tabcolsep, ft.align = ft.align,
+      ft.arraystretch = ft.arraystretch, bookdown = bookdown
+    )
+  } else if (grepl("docx", opts_knit$get("rmarkdown.pandoc.to"))) {
     # docx ----
-    if(pandoc2){
-      str <- docx_value(x, bookdown = bookdown, ft.align = ft.align,
-                        ft.split = ft.split)
+    if (pandoc2) {
+      str <- docx_value(x,
+        bookdown = bookdown, ft.align = ft.align,
+        ft.split = ft.split
+      )
     } else {
       stop("pandoc version >= 2.0 required for flextable rendering in docx")
     }
-  } else if (grepl( "pptx", opts_knit$get("rmarkdown.pandoc.to") ) ) {
+  } else if (grepl("pptx", opts_knit$get("rmarkdown.pandoc.to"))) {
     # pptx ----
     if (pandoc_version() < numeric_version("2.4")) {
       stop("pandoc version >= 2.4 required for printing flextable in pptx")
@@ -109,13 +124,13 @@ flextable_to_rmd <- function(
     str <- pptx_value(x, ft.left = ft.left, ft.top = ft.top, bookdown = bookdown)
   } else {
     # default ----
-    if( is.null( webshot_package <- webshot) ){
+    if (is.null(webshot_package <- webshot)) {
       webshot_package <- "webshot"
     }
-    if( requireNamespace(webshot_package, quietly = TRUE) ){
+    if (requireNamespace(webshot_package, quietly = TRUE)) {
       # copied from https://github.com/ropensci/magick/blob/1e92b8331cd2cad6418b5e738939ac5918947a2f/R/base.R#L126
-      plot_counter <- getFromNamespace('plot_counter', 'knitr')
-      in_base_dir <- getFromNamespace('in_base_dir', 'knitr')
+      plot_counter <- getFromNamespace("plot_counter", "knitr")
+      in_base_dir <- getFromNamespace("in_base_dir", "knitr")
       tmp <- fig_path("png", number = plot_counter())
       width <- flextable_dim(x)$width
       height <- flextable_dim(x)$height
@@ -127,8 +142,9 @@ flextable_to_rmd <- function(
       str <- sprintf("\\includegraphics[width=%.02fin,height=%.02fin,keepaspectratio]{%s}\n", width, height, tmp)
     }
   }
-  if(print)
+  if (print) {
     cat(str, "\n", sep = "")
+  }
   invisible(str)
 }
 
@@ -137,11 +153,17 @@ flextable_to_rmd <- function(
 #' @description get a string for HTML output with pandoc.
 #' @param x a flextable object
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
+#' @param ft.shadow use shadow dom, this option is existing mainly
+#' to disable shadow dom (sett to `FALSE`) for pagedown that can not support it for now.
 #' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
 #' @param pandoc2 `TRUE` (default) or `FALSE` to get the string in a pandoc raw HTML attribute.
 #' @examples
 #' html_value(flextable(iris[1:5,]))
-html_value <- function(x, ft.align = opts_current$get("ft.align"), bookdown = FALSE, pandoc2 = TRUE){
+html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = opts_current$get("ft.shadow"), bookdown = FALSE, pandoc2 = TRUE){
+
+  if(is.null(ft.shadow)){
+    ft.shadow <- TRUE
+  }
 
   caption_str <- caption_html_str(x, bookdown = bookdown)
   if(pandoc2 && bookdown) {
@@ -150,7 +172,7 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), bookdown = FA
   }
   out <- paste(
     if(pandoc2) "```{=html}",
-    html_str(x, ft.align = ft.align, caption = caption_str),
+    html_str(x, ft.align = ft.align, caption = caption_str, shadow = ft.shadow),
     if(pandoc2) "```",
     sep = "\n")
   knit_meta_add(list(flextable_html_dependency()))
@@ -326,6 +348,7 @@ print.flextable <- function(x, preview = "html", ...){
 #' package to automatically display a flextable in an "R Markdown" document from
 #' a chunk. However, it is recommended to read its documentation in order to get
 #' familiar with the different options available.
+#'
 #' \if{html}{\figure{fig_formats.png}{options: width=200px}} HTML, Word, PowerPoint and PDF outputs are supported.
 #'
 #'
@@ -390,6 +413,14 @@ print.flextable <- function(x, preview = "html", ...){
 #'   tab.id        \tab \strong{Caption reference unique identifier}                \tab yes \tab no \cr
 #'   label         \tab \strong{Caption reference unique identifier}                \tab no  \tab yes
 #' }
+#' @section HTML output:
+#'
+#' HTML output is using shadow dom to encapsule the table
+#' into an isolated part of the page so that no clash happens
+#' with styles. Some output may not support this feature. To our
+#' knowledge, only the pagedown output is concerned.
+#' Use knitr chunk option `ft.shadow=FALSE` to disable shadow dom.
+#'
 #' @section PDF output:
 #'
 #' Some features are not implemented in PDF due to technical
@@ -529,7 +560,8 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
       txt[1] <- paste0("<h2>", titles[i], "</h2>")
     }
     txt[2] <- html_str(values[[i]],
-                       caption = caption_html_str(values[[i]], bookdown = FALSE))
+                       caption = caption_html_str(values[[i]], bookdown = FALSE),
+                       shadow = FALSE)
 
     val[i] <- paste(txt, collapse = "")
   }
