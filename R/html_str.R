@@ -68,19 +68,30 @@ html_str <- function(x, ft.align = NULL, class = "tabwid", caption = "", shadow 
                    html,
            "</template>",
            "\n<div id=\"", uid[2], "\"></div>",
-           "\n<script>",
-           "\nvar dest = document.getElementById(\"", uid[2], "\");",
-           "\nvar template = document.getElementById(\"", uid[1], "\");",
-           "\nvar fantome = dest.attachShadow({mode: 'open'});",
-           "\nvar templateContent = template.content;",
-           "\nfantome.appendChild(templateContent);",
-           "\n</script>\n"
+           to_shadow_dom(uid1 = uid[1], uid2 = uid[2])
     )
   }
   html
 }
 
-
+to_shadow_dom <- function(uid1, uid2){
+  script_commands <- c("", "<script>",
+    paste0("var dest = document.getElementById(\"", uid2, "\");"),
+    paste0("var template = document.getElementById(\"", uid1, "\");"),
+    "var caption = template.content.querySelector(\"caption\");",
+    "if(caption) {",
+    "  caption.style.cssText = \"display:block;\"",
+    "  var newcapt = document.createElement(\"p\");",
+    "  newcapt.appendChild(caption)",
+    "  dest.parentNode.insertBefore(newcapt, dest.previousSibling);",
+    "}",
+    "var fantome = dest.attachShadow({mode: 'open'});",
+    "var templateContent = template.content;",
+    "fantome.appendChild(templateContent);",
+    "fantome.appendChild(templateContent);",
+    "</script>", "")
+  paste(script_commands, collapse = "\n")
+}
 
 # to html/css  ----
 #' @importFrom data.table setnames setorderv := setcolorder setDT setDF dcast
