@@ -12,4 +12,4 @@ There were no ERROR, WARNING or NOTE.
 
 ## Reverse dependencies
 
-There is 1 expected error related to customLayout. 
+There is 1 expected error related to processR. 

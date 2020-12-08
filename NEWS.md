@@ -1,3 +1,21 @@
+# flextable 0.6.1
+
+## new features
+
+* HTML flextable are now isolated from the document CSS (except caption which 
+is copied before).
+
+## Issues
+
+* correction of latex tables which resulted in a centering of the following text.
+* minor correction for density graphs inserted in tables
+* fix suffix/prefix usage in colformat_* functions
+
+## changes
+
+* drop defunct functions.
+
+
 # flextable 0.6.0
 
 ## new features
