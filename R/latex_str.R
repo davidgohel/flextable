@@ -119,8 +119,8 @@ latex_str <- function(x, ft.align = "center",
   align_tag <- latex_table_align()
 
   table_start <- sprintf(
-    "\\begin{longtable}{%s}",
-    paste(column_sizes_latex, collapse = "")
+    "\\begin{longtable}[%s]{%s}",
+    align_tag, paste(column_sizes_latex, collapse = "")
   )
   table_end <- "\\end{longtable}"
   latex <- paste0(txt_data$txt, txt_data$part_sep, collapse = "\n\n")
@@ -129,13 +129,12 @@ latex_str <- function(x, ft.align = "center",
   latex <- paste(
     sprintf("\\setlength{\\tabcolsep}{%spt}", format_double(ft.tabcolsep, 0)),
     sprintf("\\renewcommand*{\\arraystretch}{%s}", format_double(ft.arraystretch, 2)),
-    "\\begin{table}",
-    align_tag,
+    # "\\begin{table}",
     table_start, caption,
     paste(txt_data$txt[txt_data$part %in% "header"], collapse = ""),
     "\\endfirsthead",
     latex, table_end,
-    "\\end{table}",
+    # "\\end{table}",
     sep = "\n\n"
   )
 
@@ -516,11 +515,11 @@ latex_caption <- function(x, bookdown) {
 latex_table_align <- function() {
   ft.align <- opts_current$get("ft.align")
   if ("left" %in% ft.align) {
-    align_tag <- "\\raggedright"
+    align_tag <- "l"
   } else if ("right" %in% ft.align) {
-    align_tag <- "\\raggedleft"
+    align_tag <- "r"
   } else {
-    align_tag <- "\\centering"
+    align_tag <- "c"
   }
   align_tag
 }
