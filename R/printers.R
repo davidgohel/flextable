@@ -174,6 +174,7 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
     if(pandoc2) "```{=html}",
     html_str(x, ft.align = ft.align, caption = caption_str, shadow = ft.shadow),
     if(pandoc2) "```",
+    "", "",
     sep = "\n")
   knit_meta_add(list(flextable_html_dependency()))
 
