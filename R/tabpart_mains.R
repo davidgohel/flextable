@@ -27,7 +27,7 @@ complex_tabpart <- function( data, col_keys = names(data),
     newcontent <- lapply(
       data[col_keys],
       function(x) {
-        as_paragraph(as_chunk(x, formatter = format_fun.default) )
+        as_paragraph(as_chunk(x) )
       })
     content$content[,col_keys] <- Reduce(append, newcontent)
   }
