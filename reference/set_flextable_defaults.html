@@ -82,7 +82,7 @@ Use set_flextable_defaults() to override them." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.006</span>
       </span>
     </div>
 
@@ -128,7 +128,7 @@ Use set_flextable_defaults() to override them." />
 </li>
 <li>
   <a href="https://github.com/davidgohel/flextable">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -174,6 +174,7 @@ Use <code>set_flextable_defaults()</code> to override them.</p>
   na_str <span class='op'>=</span> <span class='cn'>NULL</span>,
   fmt_date <span class='op'>=</span> <span class='cn'>NULL</span>,
   fmt_datetime <span class='op'>=</span> <span class='cn'>NULL</span>,
+  extra_css <span class='op'>=</span> <span class='cn'>NULL</span>,
   fonts_ignore <span class='op'>=</span> <span class='cn'>NULL</span>,
   theme_fun <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
@@ -227,6 +228,11 @@ and <code><a href='colformat_int.html'>colformat_int()</a></code>.</p></td>
       <th>fmt_date, fmt_datetime</th>
       <td><p>formats for date and datetime columns as
 documented in <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></code>. Default to '%Y-%m-%d' and '%Y-%m-%d %H:%M:%S'.</p></td>
+    </tr>
+    <tr>
+      <th>extra_css</th>
+      <td><p>css instructions to be integrated with the table. By default, it
+contains only the style for captions.</p></td>
     </tr>
     <tr>
       <th>fonts_ignore</th>
@@ -308,7 +314,7 @@ to be applied) or a theme function (input is a flextable, output is a flextable)
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.2.006 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

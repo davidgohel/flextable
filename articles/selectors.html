@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.006</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
 </li>
 <li>
   <a href="https://github.com/davidgohel/flextable">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -98,8 +98,7 @@
 
       
 
-      </header><script src="selectors_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="selectors_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="selectors_files/anchor-sections-1.0/anchor-sections.js"></script><link href="selectors_files/tabwid-1.0.0/tabwid.css" rel="stylesheet">
+      </header><script src="selectors_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="selectors_files/tabwid-1.0.0/tabwid.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -123,7 +122,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/flextable.html">qflextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/color.html">color</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Sepal.Length</span> <span class="op">&lt;</span> <span class="fl">5</span>, color <span class="op">=</span> <span class="st">"orange"</span>, <span class="op">~</span> <span class="va">Sepal.Width</span> <span class="op">+</span> <span class="va">Petal.Length</span> <span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/color.html">color</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Sepal.Length</span> <span class="op">&gt;</span> <span class="fl">4.99</span>, <span class="op">~</span> <span class="va">Sepal.Length</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
-<template id="1931e305-4cab-426b-b7c1-31621c94e62b"><style>
+<template id="da6dbfc3-7490-4e04-9b5e-5cac2775bb46"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -133,7 +132,6 @@
   display: table;
   margin-top: 5px;
   margin-bottom: 5px;
-  table-layout: fixed;
   border-spacing: 0;
   border-color: transparent;
 }
@@ -160,74 +158,66 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-4baa442e{border-collapse:collapse;}.cl-4ba2930a{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4ba2933c{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-4ba29346{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-4ba2b01a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4ba2b042{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4ba2fcfa{width:78pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fd22{width:84pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fd36{width:87pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fd40{width:58pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fd4a{width:81pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fd5e{width:84pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fd68{width:58pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fd72{width:78pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fd7c{width:81pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fd86{width:87pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fd90{width:87pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fda4{width:78pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fdae{width:81pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fdb8{width:84pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4ba2fdc2{width:58pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table class="table cl-4baa442e">
+<style>.cl-68d819a0{border-collapse:collapse;}.cl-68cf4c8a{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-68cf4cbc{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-68cf4cc6{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-68cf702a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-68cf7048{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-68cfd556{width:78.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd57e{width:84.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd588{width:87.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd592{width:57.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd5a6{width:81.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd5b0{width:84.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd5ba{width:57.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd5c4{width:78.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd5ce{width:81.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd5d8{width:87.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd5e2{width:87.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd5ec{width:78.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd5f6{width:81.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd60a{width:84.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68cfd614{width:57.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style>
+<table class="table cl-68d819a0">
 <thead><tr style="overflow-wrap:break-word;">
-<td class="cl-4ba2fd90"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">Sepal.Length</span></p></td>
-<td class="cl-4ba2fdae"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">Sepal.Width</span></p></td>
-<td class="cl-4ba2fdb8"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">Petal.Length</span></p></td>
-<td class="cl-4ba2fda4"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">Petal.Width</span></p></td>
-<td class="cl-4ba2fdc2"><p class="cl-4ba2b042"><span class="cl-4ba2930a">Species</span></p></td>
+<td class="cl-68cfd5e2"><p class="cl-68cf702a"><span class="cl-68cf4c8a">Sepal.Length</span></p></td>
+<td class="cl-68cfd5f6"><p class="cl-68cf702a"><span class="cl-68cf4c8a">Sepal.Width</span></p></td>
+<td class="cl-68cfd60a"><p class="cl-68cf702a"><span class="cl-68cf4c8a">Petal.Length</span></p></td>
+<td class="cl-68cfd5ec"><p class="cl-68cf702a"><span class="cl-68cf4c8a">Petal.Width</span></p></td>
+<td class="cl-68cfd614"><p class="cl-68cf7048"><span class="cl-68cf4c8a">Species</span></p></td>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4ba2fd36"><p class="cl-4ba2b01a"><span class="cl-4ba2933c">5.1</span></p></td>
-<td class="cl-4ba2fd4a"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">3.5</span></p></td>
-<td class="cl-4ba2fd22"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">1.4</span></p></td>
-<td class="cl-4ba2fcfa"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">0.2</span></p></td>
-<td class="cl-4ba2fd40"><p class="cl-4ba2b042"><span class="cl-4ba2930a">setosa</span></p></td>
+<td class="cl-68cfd588"><p class="cl-68cf702a"><span class="cl-68cf4cbc">5.10</span></p></td>
+<td class="cl-68cfd5a6"><p class="cl-68cf702a"><span class="cl-68cf4c8a">3.50</span></p></td>
+<td class="cl-68cfd57e"><p class="cl-68cf702a"><span class="cl-68cf4c8a">1.40</span></p></td>
+<td class="cl-68cfd556"><p class="cl-68cf702a"><span class="cl-68cf4c8a">0.20</span></p></td>
+<td class="cl-68cfd592"><p class="cl-68cf7048"><span class="cl-68cf4c8a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4ba2fd36"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">4.9</span></p></td>
-<td class="cl-4ba2fd4a"><p class="cl-4ba2b01a"><span class="cl-4ba29346">3.0</span></p></td>
-<td class="cl-4ba2fd22"><p class="cl-4ba2b01a"><span class="cl-4ba29346">1.4</span></p></td>
-<td class="cl-4ba2fcfa"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">0.2</span></p></td>
-<td class="cl-4ba2fd40"><p class="cl-4ba2b042"><span class="cl-4ba2930a">setosa</span></p></td>
+<td class="cl-68cfd588"><p class="cl-68cf702a"><span class="cl-68cf4c8a">4.90</span></p></td>
+<td class="cl-68cfd5a6"><p class="cl-68cf702a"><span class="cl-68cf4cc6">3.00</span></p></td>
+<td class="cl-68cfd57e"><p class="cl-68cf702a"><span class="cl-68cf4cc6">1.40</span></p></td>
+<td class="cl-68cfd556"><p class="cl-68cf702a"><span class="cl-68cf4c8a">0.20</span></p></td>
+<td class="cl-68cfd592"><p class="cl-68cf7048"><span class="cl-68cf4c8a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4ba2fd36"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">4.7</span></p></td>
-<td class="cl-4ba2fd4a"><p class="cl-4ba2b01a"><span class="cl-4ba29346">3.2</span></p></td>
-<td class="cl-4ba2fd22"><p class="cl-4ba2b01a"><span class="cl-4ba29346">1.3</span></p></td>
-<td class="cl-4ba2fcfa"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">0.2</span></p></td>
-<td class="cl-4ba2fd40"><p class="cl-4ba2b042"><span class="cl-4ba2930a">setosa</span></p></td>
+<td class="cl-68cfd588"><p class="cl-68cf702a"><span class="cl-68cf4c8a">4.70</span></p></td>
+<td class="cl-68cfd5a6"><p class="cl-68cf702a"><span class="cl-68cf4cc6">3.20</span></p></td>
+<td class="cl-68cfd57e"><p class="cl-68cf702a"><span class="cl-68cf4cc6">1.30</span></p></td>
+<td class="cl-68cfd556"><p class="cl-68cf702a"><span class="cl-68cf4c8a">0.20</span></p></td>
+<td class="cl-68cfd592"><p class="cl-68cf7048"><span class="cl-68cf4c8a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4ba2fd36"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">4.6</span></p></td>
-<td class="cl-4ba2fd4a"><p class="cl-4ba2b01a"><span class="cl-4ba29346">3.1</span></p></td>
-<td class="cl-4ba2fd22"><p class="cl-4ba2b01a"><span class="cl-4ba29346">1.5</span></p></td>
-<td class="cl-4ba2fcfa"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">0.2</span></p></td>
-<td class="cl-4ba2fd40"><p class="cl-4ba2b042"><span class="cl-4ba2930a">setosa</span></p></td>
+<td class="cl-68cfd588"><p class="cl-68cf702a"><span class="cl-68cf4c8a">4.60</span></p></td>
+<td class="cl-68cfd5a6"><p class="cl-68cf702a"><span class="cl-68cf4cc6">3.10</span></p></td>
+<td class="cl-68cfd57e"><p class="cl-68cf702a"><span class="cl-68cf4cc6">1.50</span></p></td>
+<td class="cl-68cfd556"><p class="cl-68cf702a"><span class="cl-68cf4c8a">0.20</span></p></td>
+<td class="cl-68cfd592"><p class="cl-68cf7048"><span class="cl-68cf4c8a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4ba2fd36"><p class="cl-4ba2b01a"><span class="cl-4ba2933c">5.0</span></p></td>
-<td class="cl-4ba2fd4a"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">3.6</span></p></td>
-<td class="cl-4ba2fd22"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">1.4</span></p></td>
-<td class="cl-4ba2fcfa"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">0.2</span></p></td>
-<td class="cl-4ba2fd40"><p class="cl-4ba2b042"><span class="cl-4ba2930a">setosa</span></p></td>
+<td class="cl-68cfd588"><p class="cl-68cf702a"><span class="cl-68cf4cbc">5.00</span></p></td>
+<td class="cl-68cfd5a6"><p class="cl-68cf702a"><span class="cl-68cf4c8a">3.60</span></p></td>
+<td class="cl-68cfd57e"><p class="cl-68cf702a"><span class="cl-68cf4c8a">1.40</span></p></td>
+<td class="cl-68cfd556"><p class="cl-68cf702a"><span class="cl-68cf4c8a">0.20</span></p></td>
+<td class="cl-68cfd592"><p class="cl-68cf7048"><span class="cl-68cf4c8a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4ba2fd86"><p class="cl-4ba2b01a"><span class="cl-4ba2933c">5.4</span></p></td>
-<td class="cl-4ba2fd7c"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">3.9</span></p></td>
-<td class="cl-4ba2fd5e"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">1.7</span></p></td>
-<td class="cl-4ba2fd72"><p class="cl-4ba2b01a"><span class="cl-4ba2930a">0.4</span></p></td>
-<td class="cl-4ba2fd68"><p class="cl-4ba2b042"><span class="cl-4ba2930a">setosa</span></p></td>
+<td class="cl-68cfd5d8"><p class="cl-68cf702a"><span class="cl-68cf4cbc">5.40</span></p></td>
+<td class="cl-68cfd5ce"><p class="cl-68cf702a"><span class="cl-68cf4c8a">3.90</span></p></td>
+<td class="cl-68cfd5b0"><p class="cl-68cf702a"><span class="cl-68cf4c8a">1.70</span></p></td>
+<td class="cl-68cfd5c4"><p class="cl-68cf702a"><span class="cl-68cf4c8a">0.40</span></p></td>
+<td class="cl-68cfd5ba"><p class="cl-68cf7048"><span class="cl-68cf4c8a">setosa</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div id="27e47715-eba5-4a3b-8351-6ba1b8dd4a2f"></div>
+</div></template><div id="bce987a8-7f74-4446-b4c3-3e9fe69e9047"></div>
 <script>
-var dest = document.getElementById("27e47715-eba5-4a3b-8351-6ba1b8dd4a2f");
-var template = document.getElementById("1931e305-4cab-426b-b7c1-31621c94e62b");
-var caption = template.content.querySelector("caption");
-if(caption) {
-  caption.style.cssText = "display:block;"
-  var newcapt = document.createElement("p");
-  newcapt.appendChild(caption)
-  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
-}
+var dest = document.getElementById("bce987a8-7f74-4446-b4c3-3e9fe69e9047");
+var template = document.getElementById("da6dbfc3-7490-4e04-9b5e-5cac2775bb46");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
-fantome.appendChild(templateContent);
 fantome.appendChild(templateContent);
 </script><p>Default values for <code>i</code> and <code>j</code> are <code>NULL</code>, <code>NULL</code> value is interpreted as <em>all rows</em> or <em>all columns</em>.</p>
 </div>
@@ -250,7 +240,7 @@ fantome.appendChild(templateContent);
             j <span class="op">=</span> <span class="op">~</span> <span class="va">Sepal.Length</span> <span class="op">+</span> <span class="va">Sepal.Width</span>, 
             color <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span>
 <span class="va">ft</span></code></pre></div>
-<template id="5360c641-cea0-439e-8a05-9e2840146723"><style>
+<template id="65bdd644-0b71-4348-bad8-8cb0b592b347"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -260,7 +250,6 @@ fantome.appendChild(templateContent);
   display: table;
   margin-top: 5px;
   margin-bottom: 5px;
-  table-layout: fixed;
   border-spacing: 0;
   border-color: transparent;
 }
@@ -287,102 +276,94 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-4bcb02c2{border-collapse:collapse;}.cl-4bc4a530{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4bc4a558{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-4bc4b6ec{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4bc4b70a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4bc4fed6{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4bc4fef4{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4bc4ff08{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4bc4ff12{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4bc4ff1c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4bc4ff26{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table class="table cl-4bcb02c2">
+<style>.cl-68f9da2c{border-collapse:collapse;}.cl-68f2ca70{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-68f2ca98{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-68f2de3e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-68f2de66{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-68f328bc{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68f328da{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68f328ee{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68f328f8{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68f32902{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68f3290c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style>
+<table class="table cl-68f9da2c">
 <thead><tr style="overflow-wrap:break-word;">
-<td class="cl-4bc4ff26"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">Sepal.Length</span></p></td>
-<td class="cl-4bc4ff26"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">Sepal.Width</span></p></td>
-<td class="cl-4bc4ff26"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">Petal.Length</span></p></td>
-<td class="cl-4bc4ff26"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">Petal.Width</span></p></td>
-<td class="cl-4bc4ff1c"><p class="cl-4bc4b70a"><span class="cl-4bc4a530">Species</span></p></td>
+<td class="cl-68f3290c"><p class="cl-68f2de3e"><span class="cl-68f2ca70">Sepal.Length</span></p></td>
+<td class="cl-68f3290c"><p class="cl-68f2de3e"><span class="cl-68f2ca70">Sepal.Width</span></p></td>
+<td class="cl-68f3290c"><p class="cl-68f2de3e"><span class="cl-68f2ca70">Petal.Length</span></p></td>
+<td class="cl-68f3290c"><p class="cl-68f2de3e"><span class="cl-68f2ca70">Petal.Width</span></p></td>
+<td class="cl-68f32902"><p class="cl-68f2de66"><span class="cl-68f2ca70">Species</span></p></td>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">5.1</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">3.5</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">1.4</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">0.2</span></p></td>
-<td class="cl-4bc4fef4"><p class="cl-4bc4b70a"><span class="cl-4bc4a530">setosa</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">5.10</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">3.50</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">1.40</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">0.20</span></p></td>
+<td class="cl-68f328da"><p class="cl-68f2de66"><span class="cl-68f2ca70">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">4.9</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">3.0</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">1.4</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">0.2</span></p></td>
-<td class="cl-4bc4fef4"><p class="cl-4bc4b70a"><span class="cl-4bc4a530">setosa</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca98">4.90</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca98">3.00</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">1.40</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">0.20</span></p></td>
+<td class="cl-68f328da"><p class="cl-68f2de66"><span class="cl-68f2ca70">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">4.7</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">3.2</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">1.3</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">0.2</span></p></td>
-<td class="cl-4bc4fef4"><p class="cl-4bc4b70a"><span class="cl-4bc4a530">setosa</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca98">4.70</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca98">3.20</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">1.30</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">0.20</span></p></td>
+<td class="cl-68f328da"><p class="cl-68f2de66"><span class="cl-68f2ca70">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">4.6</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">3.1</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">1.5</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">0.2</span></p></td>
-<td class="cl-4bc4fef4"><p class="cl-4bc4b70a"><span class="cl-4bc4a530">setosa</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca98">4.60</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca98">3.10</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">1.50</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">0.20</span></p></td>
+<td class="cl-68f328da"><p class="cl-68f2de66"><span class="cl-68f2ca70">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">5.0</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">3.6</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">1.4</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">0.2</span></p></td>
-<td class="cl-4bc4fef4"><p class="cl-4bc4b70a"><span class="cl-4bc4a530">setosa</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">5.00</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">3.60</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">1.40</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">0.20</span></p></td>
+<td class="cl-68f328da"><p class="cl-68f2de66"><span class="cl-68f2ca70">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">5.4</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">3.9</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">1.7</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">0.4</span></p></td>
-<td class="cl-4bc4fef4"><p class="cl-4bc4b70a"><span class="cl-4bc4a530">setosa</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">5.40</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">3.90</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">1.70</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">0.40</span></p></td>
+<td class="cl-68f328da"><p class="cl-68f2de66"><span class="cl-68f2ca70">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">4.6</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">3.4</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">1.4</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">0.3</span></p></td>
-<td class="cl-4bc4fef4"><p class="cl-4bc4b70a"><span class="cl-4bc4a530">setosa</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca98">4.60</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca98">3.40</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">1.40</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">0.30</span></p></td>
+<td class="cl-68f328da"><p class="cl-68f2de66"><span class="cl-68f2ca70">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">5.0</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">3.4</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">1.5</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">0.2</span></p></td>
-<td class="cl-4bc4fef4"><p class="cl-4bc4b70a"><span class="cl-4bc4a530">setosa</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">5.00</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">3.40</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">1.50</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">0.20</span></p></td>
+<td class="cl-68f328da"><p class="cl-68f2de66"><span class="cl-68f2ca70">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">4.4</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">2.9</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">1.4</span></p></td>
-<td class="cl-4bc4fed6"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">0.2</span></p></td>
-<td class="cl-4bc4fef4"><p class="cl-4bc4b70a"><span class="cl-4bc4a530">setosa</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca98">4.40</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca98">2.90</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">1.40</span></p></td>
+<td class="cl-68f328bc"><p class="cl-68f2de3e"><span class="cl-68f2ca70">0.20</span></p></td>
+<td class="cl-68f328da"><p class="cl-68f2de66"><span class="cl-68f2ca70">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4bc4ff08"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">4.9</span></p></td>
-<td class="cl-4bc4ff08"><p class="cl-4bc4b6ec"><span class="cl-4bc4a558">3.1</span></p></td>
-<td class="cl-4bc4ff08"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">1.5</span></p></td>
-<td class="cl-4bc4ff08"><p class="cl-4bc4b6ec"><span class="cl-4bc4a530">0.1</span></p></td>
-<td class="cl-4bc4ff12"><p class="cl-4bc4b70a"><span class="cl-4bc4a530">setosa</span></p></td>
+<td class="cl-68f328ee"><p class="cl-68f2de3e"><span class="cl-68f2ca98">4.90</span></p></td>
+<td class="cl-68f328ee"><p class="cl-68f2de3e"><span class="cl-68f2ca98">3.10</span></p></td>
+<td class="cl-68f328ee"><p class="cl-68f2de3e"><span class="cl-68f2ca70">1.50</span></p></td>
+<td class="cl-68f328ee"><p class="cl-68f2de3e"><span class="cl-68f2ca70">0.10</span></p></td>
+<td class="cl-68f328f8"><p class="cl-68f2de66"><span class="cl-68f2ca70">setosa</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div id="7a6ebe51-6c8a-4705-9018-d5145ed99d5d"></div>
+</div></template><div id="bf8011fe-ec68-48db-9f7b-98ced035460c"></div>
 <script>
-var dest = document.getElementById("7a6ebe51-6c8a-4705-9018-d5145ed99d5d");
-var template = document.getElementById("5360c641-cea0-439e-8a05-9e2840146723");
-var caption = template.content.querySelector("caption");
-if(caption) {
-  caption.style.cssText = "display:block;"
-  var newcapt = document.createElement("p");
-  newcapt.appendChild(caption)
-  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
-}
+var dest = document.getElementById("bf8011fe-ec68-48db-9f7b-98ced035460c");
+var template = document.getElementById("65bdd644-0b71-4348-bad8-8cb0b592b347");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
-fantome.appendChild(templateContent);
 fantome.appendChild(templateContent);
 </script>
 </div>
@@ -396,7 +377,7 @@ fantome.appendChild(templateContent);
 <span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/color.html">color</a></span><span class="op">(</span><span class="va">ft</span>, j <span class="op">=</span> <span class="st">"Sepal.Length"</span>, color <span class="op">=</span> <span class="st">"orange"</span>, part <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span>
 <span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bold.html">bold</a></span><span class="op">(</span><span class="va">ft</span>, j <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sepal.Width"</span>, <span class="st">"Species"</span><span class="op">)</span>, bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">ft</span></code></pre></div>
-<template id="7c2f0cdd-cd1d-4691-befe-db709d4a14b6"><style>
+<template id="a1e37713-7b6b-4dda-9a5f-c80a2456ef77"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -406,7 +387,6 @@ fantome.appendChild(templateContent);
   display: table;
   margin-top: 5px;
   margin-bottom: 5px;
-  table-layout: fixed;
   border-spacing: 0;
   border-color: transparent;
 }
@@ -433,102 +413,94 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-4bec7286{border-collapse:collapse;}.cl-4be5ee84{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-4be5eeac{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4be5eec0{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4be60298{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4be602c0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4be64c44{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4be64c6c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4be64c76{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4be64c8a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4be64c94{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4be64c9e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table class="table cl-4bec7286">
+<style>.cl-691c41d4{border-collapse:collapse;}.cl-69150540{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-69150568{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6915057c{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-69151922{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-69151940{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-691565bc{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-691565da{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-691565ee{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-691565f8{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69156602{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6915660c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style>
+<table class="table cl-691c41d4">
 <thead><tr style="overflow-wrap:break-word;">
-<td class="cl-4be64c9e"><p class="cl-4be60298"><span class="cl-4be5ee84">Sepal.Length</span></p></td>
-<td class="cl-4be64c9e"><p class="cl-4be60298"><span class="cl-4be5eeac">Sepal.Width</span></p></td>
-<td class="cl-4be64c9e"><p class="cl-4be60298"><span class="cl-4be5eeac">Petal.Length</span></p></td>
-<td class="cl-4be64c9e"><p class="cl-4be60298"><span class="cl-4be5eeac">Petal.Width</span></p></td>
-<td class="cl-4be64c94"><p class="cl-4be602c0"><span class="cl-4be5eeac">Species</span></p></td>
+<td class="cl-6915660c"><p class="cl-69151922"><span class="cl-69150540">Sepal.Length</span></p></td>
+<td class="cl-6915660c"><p class="cl-69151922"><span class="cl-69150568">Sepal.Width</span></p></td>
+<td class="cl-6915660c"><p class="cl-69151922"><span class="cl-69150568">Petal.Length</span></p></td>
+<td class="cl-6915660c"><p class="cl-69151922"><span class="cl-69150568">Petal.Width</span></p></td>
+<td class="cl-69156602"><p class="cl-69151940"><span class="cl-69150568">Species</span></p></td>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5ee84">5.1</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eec0">3.5</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">1.4</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">0.2</span></p></td>
-<td class="cl-4be64c6c"><p class="cl-4be602c0"><span class="cl-4be5eec0">setosa</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150540">5.10</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-6915057c">3.50</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">1.40</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">0.20</span></p></td>
+<td class="cl-691565da"><p class="cl-69151940"><span class="cl-6915057c">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5ee84">4.9</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eec0">3.0</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">1.4</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">0.2</span></p></td>
-<td class="cl-4be64c6c"><p class="cl-4be602c0"><span class="cl-4be5eec0">setosa</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150540">4.90</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-6915057c">3.00</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">1.40</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">0.20</span></p></td>
+<td class="cl-691565da"><p class="cl-69151940"><span class="cl-6915057c">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5ee84">4.7</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eec0">3.2</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">1.3</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">0.2</span></p></td>
-<td class="cl-4be64c6c"><p class="cl-4be602c0"><span class="cl-4be5eec0">setosa</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150540">4.70</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-6915057c">3.20</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">1.30</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">0.20</span></p></td>
+<td class="cl-691565da"><p class="cl-69151940"><span class="cl-6915057c">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5ee84">4.6</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eec0">3.1</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">1.5</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">0.2</span></p></td>
-<td class="cl-4be64c6c"><p class="cl-4be602c0"><span class="cl-4be5eec0">setosa</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150540">4.60</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-6915057c">3.10</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">1.50</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">0.20</span></p></td>
+<td class="cl-691565da"><p class="cl-69151940"><span class="cl-6915057c">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5ee84">5.0</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eec0">3.6</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">1.4</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">0.2</span></p></td>
-<td class="cl-4be64c6c"><p class="cl-4be602c0"><span class="cl-4be5eec0">setosa</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150540">5.00</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-6915057c">3.60</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">1.40</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">0.20</span></p></td>
+<td class="cl-691565da"><p class="cl-69151940"><span class="cl-6915057c">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5ee84">5.4</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eec0">3.9</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">1.7</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">0.4</span></p></td>
-<td class="cl-4be64c6c"><p class="cl-4be602c0"><span class="cl-4be5eec0">setosa</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150540">5.40</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-6915057c">3.90</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">1.70</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">0.40</span></p></td>
+<td class="cl-691565da"><p class="cl-69151940"><span class="cl-6915057c">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5ee84">4.6</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eec0">3.4</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">1.4</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">0.3</span></p></td>
-<td class="cl-4be64c6c"><p class="cl-4be602c0"><span class="cl-4be5eec0">setosa</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150540">4.60</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-6915057c">3.40</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">1.40</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">0.30</span></p></td>
+<td class="cl-691565da"><p class="cl-69151940"><span class="cl-6915057c">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5ee84">5.0</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eec0">3.4</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">1.5</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">0.2</span></p></td>
-<td class="cl-4be64c6c"><p class="cl-4be602c0"><span class="cl-4be5eec0">setosa</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150540">5.00</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-6915057c">3.40</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">1.50</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">0.20</span></p></td>
+<td class="cl-691565da"><p class="cl-69151940"><span class="cl-6915057c">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5ee84">4.4</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eec0">2.9</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">1.4</span></p></td>
-<td class="cl-4be64c44"><p class="cl-4be60298"><span class="cl-4be5eeac">0.2</span></p></td>
-<td class="cl-4be64c6c"><p class="cl-4be602c0"><span class="cl-4be5eec0">setosa</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150540">4.40</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-6915057c">2.90</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">1.40</span></p></td>
+<td class="cl-691565bc"><p class="cl-69151922"><span class="cl-69150568">0.20</span></p></td>
+<td class="cl-691565da"><p class="cl-69151940"><span class="cl-6915057c">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4be64c76"><p class="cl-4be60298"><span class="cl-4be5ee84">4.9</span></p></td>
-<td class="cl-4be64c76"><p class="cl-4be60298"><span class="cl-4be5eec0">3.1</span></p></td>
-<td class="cl-4be64c76"><p class="cl-4be60298"><span class="cl-4be5eeac">1.5</span></p></td>
-<td class="cl-4be64c76"><p class="cl-4be60298"><span class="cl-4be5eeac">0.1</span></p></td>
-<td class="cl-4be64c8a"><p class="cl-4be602c0"><span class="cl-4be5eec0">setosa</span></p></td>
+<td class="cl-691565ee"><p class="cl-69151922"><span class="cl-69150540">4.90</span></p></td>
+<td class="cl-691565ee"><p class="cl-69151922"><span class="cl-6915057c">3.10</span></p></td>
+<td class="cl-691565ee"><p class="cl-69151922"><span class="cl-69150568">1.50</span></p></td>
+<td class="cl-691565ee"><p class="cl-69151922"><span class="cl-69150568">0.10</span></p></td>
+<td class="cl-691565f8"><p class="cl-69151940"><span class="cl-6915057c">setosa</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div id="c4cd84a0-ee4a-4b8b-bfb2-4651196ba5a5"></div>
+</div></template><div id="942d0766-23dd-42c3-a50c-d32a8f0cd01c"></div>
 <script>
-var dest = document.getElementById("c4cd84a0-ee4a-4b8b-bfb2-4651196ba5a5");
-var template = document.getElementById("7c2f0cdd-cd1d-4691-befe-db709d4a14b6");
-var caption = template.content.querySelector("caption");
-if(caption) {
-  caption.style.cssText = "display:block;"
-  var newcapt = document.createElement("p");
-  newcapt.appendChild(caption)
-  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
-}
+var dest = document.getElementById("942d0766-23dd-42c3-a50c-d32a8f0cd01c");
+var template = document.getElementById("a1e37713-7b6b-4dda-9a5f-c80a2456ef77");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
-fantome.appendChild(templateContent);
 fantome.appendChild(templateContent);
 </script>
 </div>
@@ -540,7 +512,7 @@ fantome.appendChild(templateContent);
 <code class="sourceCode R"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>
 <span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/color.html">color</a></span><span class="op">(</span><span class="va">ft</span>, i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, j <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, color <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span>
 <span class="va">ft</span></code></pre></div>
-<template id="b6e0a311-4e5a-4e91-9561-e7ea1098a5dd"><style>
+<template id="86dc1678-be93-4f56-a7e5-d1305087655d"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -550,7 +522,6 @@ fantome.appendChild(templateContent);
   display: table;
   margin-top: 5px;
   margin-bottom: 5px;
-  table-layout: fixed;
   border-spacing: 0;
   border-color: transparent;
 }
@@ -577,102 +548,94 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-4c0dbf7c{border-collapse:collapse;}.cl-4c06c9e2{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4c06ca14{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-4c06dbe4{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4c06dc02{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4c072162{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c07218a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c07219e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c0721a8{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c0721b2{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c0721c6{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table class="table cl-4c0dbf7c">
+<style>.cl-693efbf2{border-collapse:collapse;}.cl-69371392{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-693713ba{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-693726b6{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-693726d4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-69376f36{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69376f5e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69376f68{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69376f72{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69376f7c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69376f86{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style>
+<table class="table cl-693efbf2">
 <thead><tr style="overflow-wrap:break-word;">
-<td class="cl-4c0721c6"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">Sepal.Length</span></p></td>
-<td class="cl-4c0721c6"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">Sepal.Width</span></p></td>
-<td class="cl-4c0721c6"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">Petal.Length</span></p></td>
-<td class="cl-4c0721c6"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">Petal.Width</span></p></td>
-<td class="cl-4c0721b2"><p class="cl-4c06dc02"><span class="cl-4c06c9e2">Species</span></p></td>
+<td class="cl-69376f86"><p class="cl-693726b6"><span class="cl-69371392">Sepal.Length</span></p></td>
+<td class="cl-69376f86"><p class="cl-693726b6"><span class="cl-69371392">Sepal.Width</span></p></td>
+<td class="cl-69376f86"><p class="cl-693726b6"><span class="cl-69371392">Petal.Length</span></p></td>
+<td class="cl-69376f86"><p class="cl-693726b6"><span class="cl-69371392">Petal.Width</span></p></td>
+<td class="cl-69376f7c"><p class="cl-693726d4"><span class="cl-69371392">Species</span></p></td>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06ca14">5.1</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06ca14">3.5</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06ca14">1.4</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">0.2</span></p></td>
-<td class="cl-4c07218a"><p class="cl-4c06dc02"><span class="cl-4c06c9e2">setosa</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-693713ba">5.10</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-693713ba">3.50</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-693713ba">1.40</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">0.20</span></p></td>
+<td class="cl-69376f5e"><p class="cl-693726d4"><span class="cl-69371392">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06ca14">4.9</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06ca14">3.0</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06ca14">1.4</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">0.2</span></p></td>
-<td class="cl-4c07218a"><p class="cl-4c06dc02"><span class="cl-4c06c9e2">setosa</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-693713ba">4.90</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-693713ba">3.00</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-693713ba">1.40</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">0.20</span></p></td>
+<td class="cl-69376f5e"><p class="cl-693726d4"><span class="cl-69371392">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06ca14">4.7</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06ca14">3.2</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06ca14">1.3</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">0.2</span></p></td>
-<td class="cl-4c07218a"><p class="cl-4c06dc02"><span class="cl-4c06c9e2">setosa</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-693713ba">4.70</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-693713ba">3.20</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-693713ba">1.30</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">0.20</span></p></td>
+<td class="cl-69376f5e"><p class="cl-693726d4"><span class="cl-69371392">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">4.6</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">3.1</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">1.5</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">0.2</span></p></td>
-<td class="cl-4c07218a"><p class="cl-4c06dc02"><span class="cl-4c06c9e2">setosa</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">4.60</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">3.10</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">1.50</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">0.20</span></p></td>
+<td class="cl-69376f5e"><p class="cl-693726d4"><span class="cl-69371392">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">5.0</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">3.6</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">1.4</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">0.2</span></p></td>
-<td class="cl-4c07218a"><p class="cl-4c06dc02"><span class="cl-4c06c9e2">setosa</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">5.00</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">3.60</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">1.40</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">0.20</span></p></td>
+<td class="cl-69376f5e"><p class="cl-693726d4"><span class="cl-69371392">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">5.4</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">3.9</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">1.7</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">0.4</span></p></td>
-<td class="cl-4c07218a"><p class="cl-4c06dc02"><span class="cl-4c06c9e2">setosa</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">5.40</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">3.90</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">1.70</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">0.40</span></p></td>
+<td class="cl-69376f5e"><p class="cl-693726d4"><span class="cl-69371392">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">4.6</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">3.4</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">1.4</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">0.3</span></p></td>
-<td class="cl-4c07218a"><p class="cl-4c06dc02"><span class="cl-4c06c9e2">setosa</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">4.60</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">3.40</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">1.40</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">0.30</span></p></td>
+<td class="cl-69376f5e"><p class="cl-693726d4"><span class="cl-69371392">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">5.0</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">3.4</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">1.5</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">0.2</span></p></td>
-<td class="cl-4c07218a"><p class="cl-4c06dc02"><span class="cl-4c06c9e2">setosa</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">5.00</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">3.40</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">1.50</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">0.20</span></p></td>
+<td class="cl-69376f5e"><p class="cl-693726d4"><span class="cl-69371392">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">4.4</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">2.9</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">1.4</span></p></td>
-<td class="cl-4c072162"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">0.2</span></p></td>
-<td class="cl-4c07218a"><p class="cl-4c06dc02"><span class="cl-4c06c9e2">setosa</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">4.40</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">2.90</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">1.40</span></p></td>
+<td class="cl-69376f36"><p class="cl-693726b6"><span class="cl-69371392">0.20</span></p></td>
+<td class="cl-69376f5e"><p class="cl-693726d4"><span class="cl-69371392">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c07219e"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">4.9</span></p></td>
-<td class="cl-4c07219e"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">3.1</span></p></td>
-<td class="cl-4c07219e"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">1.5</span></p></td>
-<td class="cl-4c07219e"><p class="cl-4c06dbe4"><span class="cl-4c06c9e2">0.1</span></p></td>
-<td class="cl-4c0721a8"><p class="cl-4c06dc02"><span class="cl-4c06c9e2">setosa</span></p></td>
+<td class="cl-69376f68"><p class="cl-693726b6"><span class="cl-69371392">4.90</span></p></td>
+<td class="cl-69376f68"><p class="cl-693726b6"><span class="cl-69371392">3.10</span></p></td>
+<td class="cl-69376f68"><p class="cl-693726b6"><span class="cl-69371392">1.50</span></p></td>
+<td class="cl-69376f68"><p class="cl-693726b6"><span class="cl-69371392">0.10</span></p></td>
+<td class="cl-69376f72"><p class="cl-693726d4"><span class="cl-69371392">setosa</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div id="60ee3341-ed96-43bd-a388-b1ff0ef8e383"></div>
+</div></template><div id="c71490f0-e4cf-4d66-9673-123155ff8d3e"></div>
 <script>
-var dest = document.getElementById("60ee3341-ed96-43bd-a388-b1ff0ef8e383");
-var template = document.getElementById("b6e0a311-4e5a-4e91-9561-e7ea1098a5dd");
-var caption = template.content.querySelector("caption");
-if(caption) {
-  caption.style.cssText = "display:block;"
-  var newcapt = document.createElement("p");
-  newcapt.appendChild(caption)
-  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
-}
+var dest = document.getElementById("c71490f0-e4cf-4d66-9673-123155ff8d3e");
+var template = document.getElementById("86dc1678-be93-4f56-a7e5-d1305087655d");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
-fantome.appendChild(templateContent);
 fantome.appendChild(templateContent);
 </script>
 </div>
@@ -685,7 +648,7 @@ fantome.appendChild(templateContent);
 
 <span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/color.html">color</a></span><span class="op">(</span><span class="va">ft</span>, i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>, <span class="fl">5</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span>
 <span class="va">ft</span></code></pre></div>
-<template id="1dae5dee-779d-46d9-8777-822626d8d4af"><style>
+<template id="bc539876-a920-48ec-8473-c821727de6b3"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -695,7 +658,6 @@ fantome.appendChild(templateContent);
   display: table;
   margin-top: 5px;
   margin-bottom: 5px;
-  table-layout: fixed;
   border-spacing: 0;
   border-color: transparent;
 }
@@ -722,102 +684,94 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-4c2edf7c{border-collapse:collapse;}.cl-4c27eb54{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4c27eb7c{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-4c27fdce{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4c27fdec{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4c28473e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c284766{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c28477a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c284784{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c28478e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c2847a2{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table class="table cl-4c2edf7c">
+<style>.cl-6961eefa{border-collapse:collapse;}.cl-695a8d40{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-695a8d68{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-695aa212{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-695aa23a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-695aefec{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-695af014{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-695af01e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-695af028{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-695af032{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-695af03c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style>
+<table class="table cl-6961eefa">
 <thead><tr style="overflow-wrap:break-word;">
-<td class="cl-4c2847a2"><p class="cl-4c27fdce"><span class="cl-4c27eb54">Sepal.Length</span></p></td>
-<td class="cl-4c2847a2"><p class="cl-4c27fdce"><span class="cl-4c27eb54">Sepal.Width</span></p></td>
-<td class="cl-4c2847a2"><p class="cl-4c27fdce"><span class="cl-4c27eb54">Petal.Length</span></p></td>
-<td class="cl-4c2847a2"><p class="cl-4c27fdce"><span class="cl-4c27eb54">Petal.Width</span></p></td>
-<td class="cl-4c28478e"><p class="cl-4c27fdec"><span class="cl-4c27eb54">Species</span></p></td>
+<td class="cl-695af03c"><p class="cl-695aa212"><span class="cl-695a8d40">Sepal.Length</span></p></td>
+<td class="cl-695af03c"><p class="cl-695aa212"><span class="cl-695a8d40">Sepal.Width</span></p></td>
+<td class="cl-695af03c"><p class="cl-695aa212"><span class="cl-695a8d40">Petal.Length</span></p></td>
+<td class="cl-695af03c"><p class="cl-695aa212"><span class="cl-695a8d40">Petal.Width</span></p></td>
+<td class="cl-695af032"><p class="cl-695aa23a"><span class="cl-695a8d40">Species</span></p></td>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">5.1</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">3.5</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">1.4</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">0.2</span></p></td>
-<td class="cl-4c284766"><p class="cl-4c27fdec"><span class="cl-4c27eb7c">setosa</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">5.10</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">3.50</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">1.40</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">0.20</span></p></td>
+<td class="cl-695af014"><p class="cl-695aa23a"><span class="cl-695a8d68">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">4.9</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">3.0</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">1.4</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">0.2</span></p></td>
-<td class="cl-4c284766"><p class="cl-4c27fdec"><span class="cl-4c27eb54">setosa</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">4.90</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">3.00</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">1.40</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">0.20</span></p></td>
+<td class="cl-695af014"><p class="cl-695aa23a"><span class="cl-695a8d40">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">4.7</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">3.2</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">1.3</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">0.2</span></p></td>
-<td class="cl-4c284766"><p class="cl-4c27fdec"><span class="cl-4c27eb7c">setosa</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">4.70</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">3.20</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">1.30</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">0.20</span></p></td>
+<td class="cl-695af014"><p class="cl-695aa23a"><span class="cl-695a8d68">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">4.6</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">3.1</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">1.5</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">0.2</span></p></td>
-<td class="cl-4c284766"><p class="cl-4c27fdec"><span class="cl-4c27eb54">setosa</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">4.60</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">3.10</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">1.50</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">0.20</span></p></td>
+<td class="cl-695af014"><p class="cl-695aa23a"><span class="cl-695a8d40">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">5.0</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">3.6</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">1.4</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">0.2</span></p></td>
-<td class="cl-4c284766"><p class="cl-4c27fdec"><span class="cl-4c27eb7c">setosa</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">5.00</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">3.60</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">1.40</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">0.20</span></p></td>
+<td class="cl-695af014"><p class="cl-695aa23a"><span class="cl-695a8d68">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">5.4</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">3.9</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">1.7</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">0.4</span></p></td>
-<td class="cl-4c284766"><p class="cl-4c27fdec"><span class="cl-4c27eb54">setosa</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">5.40</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">3.90</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">1.70</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">0.40</span></p></td>
+<td class="cl-695af014"><p class="cl-695aa23a"><span class="cl-695a8d40">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">4.6</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">3.4</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">1.4</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">0.3</span></p></td>
-<td class="cl-4c284766"><p class="cl-4c27fdec"><span class="cl-4c27eb7c">setosa</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">4.60</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">3.40</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">1.40</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">0.30</span></p></td>
+<td class="cl-695af014"><p class="cl-695aa23a"><span class="cl-695a8d68">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">5.0</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">3.4</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">1.5</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb54">0.2</span></p></td>
-<td class="cl-4c284766"><p class="cl-4c27fdec"><span class="cl-4c27eb54">setosa</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">5.00</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">3.40</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">1.50</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d40">0.20</span></p></td>
+<td class="cl-695af014"><p class="cl-695aa23a"><span class="cl-695a8d40">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">4.4</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">2.9</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">1.4</span></p></td>
-<td class="cl-4c28473e"><p class="cl-4c27fdce"><span class="cl-4c27eb7c">0.2</span></p></td>
-<td class="cl-4c284766"><p class="cl-4c27fdec"><span class="cl-4c27eb7c">setosa</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">4.40</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">2.90</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">1.40</span></p></td>
+<td class="cl-695aefec"><p class="cl-695aa212"><span class="cl-695a8d68">0.20</span></p></td>
+<td class="cl-695af014"><p class="cl-695aa23a"><span class="cl-695a8d68">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c28477a"><p class="cl-4c27fdce"><span class="cl-4c27eb54">4.9</span></p></td>
-<td class="cl-4c28477a"><p class="cl-4c27fdce"><span class="cl-4c27eb54">3.1</span></p></td>
-<td class="cl-4c28477a"><p class="cl-4c27fdce"><span class="cl-4c27eb54">1.5</span></p></td>
-<td class="cl-4c28477a"><p class="cl-4c27fdce"><span class="cl-4c27eb54">0.1</span></p></td>
-<td class="cl-4c284784"><p class="cl-4c27fdec"><span class="cl-4c27eb54">setosa</span></p></td>
+<td class="cl-695af01e"><p class="cl-695aa212"><span class="cl-695a8d40">4.90</span></p></td>
+<td class="cl-695af01e"><p class="cl-695aa212"><span class="cl-695a8d40">3.10</span></p></td>
+<td class="cl-695af01e"><p class="cl-695aa212"><span class="cl-695a8d40">1.50</span></p></td>
+<td class="cl-695af01e"><p class="cl-695aa212"><span class="cl-695a8d40">0.10</span></p></td>
+<td class="cl-695af028"><p class="cl-695aa23a"><span class="cl-695a8d40">setosa</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div id="de60868c-e273-4924-b442-0b9da36ed685"></div>
+</div></template><div id="4083fa34-3fbb-483a-a2fe-f536f487c1c7"></div>
 <script>
-var dest = document.getElementById("de60868c-e273-4924-b442-0b9da36ed685");
-var template = document.getElementById("1dae5dee-779d-46d9-8777-822626d8d4af");
-var caption = template.content.querySelector("caption");
-if(caption) {
-  caption.style.cssText = "display:block;"
-  var newcapt = document.createElement("p");
-  newcapt.appendChild(caption)
-  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
-}
+var dest = document.getElementById("4083fa34-3fbb-483a-a2fe-f536f487c1c7");
+var template = document.getElementById("bc539876-a920-48ec-8473-c821727de6b3");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
-fantome.appendChild(templateContent);
 fantome.appendChild(templateContent);
 </script>
 </div>
@@ -834,7 +788,7 @@ fantome.appendChild(templateContent);
 <span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>
 <span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vline.html">vline</a></span><span class="op">(</span><span class="va">ft</span>, j <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Sepal.Length'</span>, <span class="st">'Sepal.Width'</span><span class="op">)</span>, border <span class="op">=</span> <span class="va">border</span>, part <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span>
 <span class="va">ft</span></code></pre></div>
-<template id="d6dc0785-69d6-46d8-ac41-11b6bcedecb1"><style>
+<template id="cde72533-4343-45c4-9e82-93e6a4a24ce8"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -844,7 +798,6 @@ fantome.appendChild(templateContent);
   display: table;
   margin-top: 5px;
   margin-bottom: 5px;
-  table-layout: fixed;
   border-spacing: 0;
   border-color: transparent;
 }
@@ -871,102 +824,94 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-4c509784{border-collapse:collapse;}.cl-4c49d1e2{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4c49e31c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4c49e33a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4c4a2732{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a275a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a2764{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a2778{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a2782{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a278c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a2796{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a27aa{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a27b4{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a27be{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a27c8{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a27d2{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a27e6{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a27f0{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c4a27fa{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table class="table cl-4c509784">
+<style>.cl-6985d7ac{border-collapse:collapse;}.cl-697c588a{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-697c6cbc{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-697c6cda{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-697cb8fc{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb91a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb92e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb938{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb942{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb94c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb956{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb96a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb974{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb97e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb988{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb992{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb9a6{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb9b0{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697cb9ba{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style>
+<table class="table cl-6985d7ac">
 <thead><tr style="overflow-wrap:break-word;">
-<td class="cl-4c4a27f0"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">Sepal.Length</span></p></td>
-<td class="cl-4c4a27fa"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">Sepal.Width</span></p></td>
-<td class="cl-4c4a27d2"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">Petal.Length</span></p></td>
-<td class="cl-4c4a27e6"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">Petal.Width</span></p></td>
-<td class="cl-4c4a27c8"><p class="cl-4c49e33a"><span class="cl-4c49d1e2">Species</span></p></td>
+<td class="cl-697cb9b0"><p class="cl-697c6cbc"><span class="cl-697c588a">Sepal.Length</span></p></td>
+<td class="cl-697cb9ba"><p class="cl-697c6cbc"><span class="cl-697c588a">Sepal.Width</span></p></td>
+<td class="cl-697cb992"><p class="cl-697c6cbc"><span class="cl-697c588a">Petal.Length</span></p></td>
+<td class="cl-697cb9a6"><p class="cl-697c6cbc"><span class="cl-697c588a">Petal.Width</span></p></td>
+<td class="cl-697cb988"><p class="cl-697c6cda"><span class="cl-697c588a">Species</span></p></td>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c4a2732"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">5.1</span></p></td>
-<td class="cl-4c4a2778"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">3.5</span></p></td>
-<td class="cl-4c4a2782"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">1.4</span></p></td>
-<td class="cl-4c4a2764"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">0.2</span></p></td>
-<td class="cl-4c4a275a"><p class="cl-4c49e33a"><span class="cl-4c49d1e2">setosa</span></p></td>
+<td class="cl-697cb8fc"><p class="cl-697c6cbc"><span class="cl-697c588a">5.10</span></p></td>
+<td class="cl-697cb938"><p class="cl-697c6cbc"><span class="cl-697c588a">3.50</span></p></td>
+<td class="cl-697cb942"><p class="cl-697c6cbc"><span class="cl-697c588a">1.40</span></p></td>
+<td class="cl-697cb92e"><p class="cl-697c6cbc"><span class="cl-697c588a">0.20</span></p></td>
+<td class="cl-697cb91a"><p class="cl-697c6cda"><span class="cl-697c588a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c4a2732"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">4.9</span></p></td>
-<td class="cl-4c4a2778"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">3.0</span></p></td>
-<td class="cl-4c4a2782"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">1.4</span></p></td>
-<td class="cl-4c4a2764"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">0.2</span></p></td>
-<td class="cl-4c4a275a"><p class="cl-4c49e33a"><span class="cl-4c49d1e2">setosa</span></p></td>
+<td class="cl-697cb8fc"><p class="cl-697c6cbc"><span class="cl-697c588a">4.90</span></p></td>
+<td class="cl-697cb938"><p class="cl-697c6cbc"><span class="cl-697c588a">3.00</span></p></td>
+<td class="cl-697cb942"><p class="cl-697c6cbc"><span class="cl-697c588a">1.40</span></p></td>
+<td class="cl-697cb92e"><p class="cl-697c6cbc"><span class="cl-697c588a">0.20</span></p></td>
+<td class="cl-697cb91a"><p class="cl-697c6cda"><span class="cl-697c588a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c4a2732"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">4.7</span></p></td>
-<td class="cl-4c4a2778"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">3.2</span></p></td>
-<td class="cl-4c4a2782"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">1.3</span></p></td>
-<td class="cl-4c4a2764"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">0.2</span></p></td>
-<td class="cl-4c4a275a"><p class="cl-4c49e33a"><span class="cl-4c49d1e2">setosa</span></p></td>
+<td class="cl-697cb8fc"><p class="cl-697c6cbc"><span class="cl-697c588a">4.70</span></p></td>
+<td class="cl-697cb938"><p class="cl-697c6cbc"><span class="cl-697c588a">3.20</span></p></td>
+<td class="cl-697cb942"><p class="cl-697c6cbc"><span class="cl-697c588a">1.30</span></p></td>
+<td class="cl-697cb92e"><p class="cl-697c6cbc"><span class="cl-697c588a">0.20</span></p></td>
+<td class="cl-697cb91a"><p class="cl-697c6cda"><span class="cl-697c588a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c4a2732"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">4.6</span></p></td>
-<td class="cl-4c4a2778"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">3.1</span></p></td>
-<td class="cl-4c4a2782"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">1.5</span></p></td>
-<td class="cl-4c4a2764"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">0.2</span></p></td>
-<td class="cl-4c4a275a"><p class="cl-4c49e33a"><span class="cl-4c49d1e2">setosa</span></p></td>
+<td class="cl-697cb8fc"><p class="cl-697c6cbc"><span class="cl-697c588a">4.60</span></p></td>
+<td class="cl-697cb938"><p class="cl-697c6cbc"><span class="cl-697c588a">3.10</span></p></td>
+<td class="cl-697cb942"><p class="cl-697c6cbc"><span class="cl-697c588a">1.50</span></p></td>
+<td class="cl-697cb92e"><p class="cl-697c6cbc"><span class="cl-697c588a">0.20</span></p></td>
+<td class="cl-697cb91a"><p class="cl-697c6cda"><span class="cl-697c588a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c4a2732"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">5.0</span></p></td>
-<td class="cl-4c4a2778"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">3.6</span></p></td>
-<td class="cl-4c4a2782"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">1.4</span></p></td>
-<td class="cl-4c4a2764"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">0.2</span></p></td>
-<td class="cl-4c4a275a"><p class="cl-4c49e33a"><span class="cl-4c49d1e2">setosa</span></p></td>
+<td class="cl-697cb8fc"><p class="cl-697c6cbc"><span class="cl-697c588a">5.00</span></p></td>
+<td class="cl-697cb938"><p class="cl-697c6cbc"><span class="cl-697c588a">3.60</span></p></td>
+<td class="cl-697cb942"><p class="cl-697c6cbc"><span class="cl-697c588a">1.40</span></p></td>
+<td class="cl-697cb92e"><p class="cl-697c6cbc"><span class="cl-697c588a">0.20</span></p></td>
+<td class="cl-697cb91a"><p class="cl-697c6cda"><span class="cl-697c588a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c4a2732"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">5.4</span></p></td>
-<td class="cl-4c4a2778"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">3.9</span></p></td>
-<td class="cl-4c4a2782"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">1.7</span></p></td>
-<td class="cl-4c4a2764"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">0.4</span></p></td>
-<td class="cl-4c4a275a"><p class="cl-4c49e33a"><span class="cl-4c49d1e2">setosa</span></p></td>
+<td class="cl-697cb8fc"><p class="cl-697c6cbc"><span class="cl-697c588a">5.40</span></p></td>
+<td class="cl-697cb938"><p class="cl-697c6cbc"><span class="cl-697c588a">3.90</span></p></td>
+<td class="cl-697cb942"><p class="cl-697c6cbc"><span class="cl-697c588a">1.70</span></p></td>
+<td class="cl-697cb92e"><p class="cl-697c6cbc"><span class="cl-697c588a">0.40</span></p></td>
+<td class="cl-697cb91a"><p class="cl-697c6cda"><span class="cl-697c588a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c4a2732"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">4.6</span></p></td>
-<td class="cl-4c4a2778"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">3.4</span></p></td>
-<td class="cl-4c4a2782"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">1.4</span></p></td>
-<td class="cl-4c4a2764"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">0.3</span></p></td>
-<td class="cl-4c4a275a"><p class="cl-4c49e33a"><span class="cl-4c49d1e2">setosa</span></p></td>
+<td class="cl-697cb8fc"><p class="cl-697c6cbc"><span class="cl-697c588a">4.60</span></p></td>
+<td class="cl-697cb938"><p class="cl-697c6cbc"><span class="cl-697c588a">3.40</span></p></td>
+<td class="cl-697cb942"><p class="cl-697c6cbc"><span class="cl-697c588a">1.40</span></p></td>
+<td class="cl-697cb92e"><p class="cl-697c6cbc"><span class="cl-697c588a">0.30</span></p></td>
+<td class="cl-697cb91a"><p class="cl-697c6cda"><span class="cl-697c588a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c4a2732"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">5.0</span></p></td>
-<td class="cl-4c4a2778"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">3.4</span></p></td>
-<td class="cl-4c4a2782"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">1.5</span></p></td>
-<td class="cl-4c4a2764"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">0.2</span></p></td>
-<td class="cl-4c4a275a"><p class="cl-4c49e33a"><span class="cl-4c49d1e2">setosa</span></p></td>
+<td class="cl-697cb8fc"><p class="cl-697c6cbc"><span class="cl-697c588a">5.00</span></p></td>
+<td class="cl-697cb938"><p class="cl-697c6cbc"><span class="cl-697c588a">3.40</span></p></td>
+<td class="cl-697cb942"><p class="cl-697c6cbc"><span class="cl-697c588a">1.50</span></p></td>
+<td class="cl-697cb92e"><p class="cl-697c6cbc"><span class="cl-697c588a">0.20</span></p></td>
+<td class="cl-697cb91a"><p class="cl-697c6cda"><span class="cl-697c588a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c4a2732"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">4.4</span></p></td>
-<td class="cl-4c4a2778"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">2.9</span></p></td>
-<td class="cl-4c4a2782"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">1.4</span></p></td>
-<td class="cl-4c4a2764"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">0.2</span></p></td>
-<td class="cl-4c4a275a"><p class="cl-4c49e33a"><span class="cl-4c49d1e2">setosa</span></p></td>
+<td class="cl-697cb8fc"><p class="cl-697c6cbc"><span class="cl-697c588a">4.40</span></p></td>
+<td class="cl-697cb938"><p class="cl-697c6cbc"><span class="cl-697c588a">2.90</span></p></td>
+<td class="cl-697cb942"><p class="cl-697c6cbc"><span class="cl-697c588a">1.40</span></p></td>
+<td class="cl-697cb92e"><p class="cl-697c6cbc"><span class="cl-697c588a">0.20</span></p></td>
+<td class="cl-697cb91a"><p class="cl-697c6cda"><span class="cl-697c588a">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c4a2796"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">4.9</span></p></td>
-<td class="cl-4c4a27be"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">3.1</span></p></td>
-<td class="cl-4c4a278c"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">1.5</span></p></td>
-<td class="cl-4c4a27b4"><p class="cl-4c49e31c"><span class="cl-4c49d1e2">0.1</span></p></td>
-<td class="cl-4c4a27aa"><p class="cl-4c49e33a"><span class="cl-4c49d1e2">setosa</span></p></td>
+<td class="cl-697cb956"><p class="cl-697c6cbc"><span class="cl-697c588a">4.90</span></p></td>
+<td class="cl-697cb97e"><p class="cl-697c6cbc"><span class="cl-697c588a">3.10</span></p></td>
+<td class="cl-697cb94c"><p class="cl-697c6cbc"><span class="cl-697c588a">1.50</span></p></td>
+<td class="cl-697cb974"><p class="cl-697c6cbc"><span class="cl-697c588a">0.10</span></p></td>
+<td class="cl-697cb96a"><p class="cl-697c6cda"><span class="cl-697c588a">setosa</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div id="fcc27aa2-c70b-424f-9f5f-4ba7e6c41e96"></div>
+</div></template><div id="135676b2-bf3b-4632-a16e-ad63333a7665"></div>
 <script>
-var dest = document.getElementById("fcc27aa2-c70b-424f-9f5f-4ba7e6c41e96");
-var template = document.getElementById("d6dc0785-69d6-46d8-ac41-11b6bcedecb1");
-var caption = template.content.querySelector("caption");
-if(caption) {
-  caption.style.cssText = "display:block;"
-  var newcapt = document.createElement("p");
-  newcapt.appendChild(caption)
-  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
-}
+var dest = document.getElementById("135676b2-bf3b-4632-a16e-ad63333a7665");
+var template = document.getElementById("cde72533-4343-45c4-9e82-93e6a4a24ce8");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
-fantome.appendChild(templateContent);
 fantome.appendChild(templateContent);
 </script><ul>
 <li>change color only on the first row of the header part, use <code>part="header", i = 1</code> as selector.</li>
@@ -974,7 +919,7 @@ fantome.appendChild(templateContent);
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/color.html">color</a></span><span class="op">(</span><span class="va">ft</span>, i <span class="op">=</span> <span class="fl">1</span>, color <span class="op">=</span> <span class="st">"red"</span>, part <span class="op">=</span> <span class="st">"header"</span><span class="op">)</span>
 <span class="va">ft</span></code></pre></div>
-<template id="6980c50c-4e7a-4f1f-9b3e-a04f4e28c4ea"><style>
+<template id="8615fad9-1a5d-437a-8f1b-1c515dc5a688"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -984,7 +929,6 @@ fantome.appendChild(templateContent);
   display: table;
   margin-top: 5px;
   margin-bottom: 5px;
-  table-layout: fixed;
   border-spacing: 0;
   border-color: transparent;
 }
@@ -1011,102 +955,94 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-4c6a8a5e{border-collapse:collapse;}.cl-4c637854{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-4c63787c{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4c638a9c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4c638aba{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4c63ce58{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63ce80{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63ce94{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63ce9e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63ceb2{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63cebc{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63cec6{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63ced0{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63ceda{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63ceee{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63cef8{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63cf02{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63cf0c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63cf16{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c63cf20{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table class="table cl-4c6a8a5e">
+<style>.cl-69a1d8e4{border-collapse:collapse;}.cl-69996e66{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-69996f10{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-699982e8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-69998306{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-6999e404{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e42c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e436{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e440{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e44a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e45e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e468{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e472{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e47c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e486{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e490{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e49a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e4ae{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e4b8{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6999e4c2{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style>
+<table class="table cl-69a1d8e4">
 <thead><tr style="overflow-wrap:break-word;">
-<td class="cl-4c63cf16"><p class="cl-4c638a9c"><span class="cl-4c637854">Sepal.Length</span></p></td>
-<td class="cl-4c63cf20"><p class="cl-4c638a9c"><span class="cl-4c637854">Sepal.Width</span></p></td>
-<td class="cl-4c63cf02"><p class="cl-4c638a9c"><span class="cl-4c637854">Petal.Length</span></p></td>
-<td class="cl-4c63cf0c"><p class="cl-4c638a9c"><span class="cl-4c637854">Petal.Width</span></p></td>
-<td class="cl-4c63cef8"><p class="cl-4c638aba"><span class="cl-4c637854">Species</span></p></td>
+<td class="cl-6999e4b8"><p class="cl-699982e8"><span class="cl-69996e66">Sepal.Length</span></p></td>
+<td class="cl-6999e4c2"><p class="cl-699982e8"><span class="cl-69996e66">Sepal.Width</span></p></td>
+<td class="cl-6999e49a"><p class="cl-699982e8"><span class="cl-69996e66">Petal.Length</span></p></td>
+<td class="cl-6999e4ae"><p class="cl-699982e8"><span class="cl-69996e66">Petal.Width</span></p></td>
+<td class="cl-6999e490"><p class="cl-69998306"><span class="cl-69996e66">Species</span></p></td>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c63ce58"><p class="cl-4c638a9c"><span class="cl-4c63787c">5.1</span></p></td>
-<td class="cl-4c63ce9e"><p class="cl-4c638a9c"><span class="cl-4c63787c">3.5</span></p></td>
-<td class="cl-4c63ceb2"><p class="cl-4c638a9c"><span class="cl-4c63787c">1.4</span></p></td>
-<td class="cl-4c63ce94"><p class="cl-4c638a9c"><span class="cl-4c63787c">0.2</span></p></td>
-<td class="cl-4c63ce80"><p class="cl-4c638aba"><span class="cl-4c63787c">setosa</span></p></td>
+<td class="cl-6999e404"><p class="cl-699982e8"><span class="cl-69996f10">5.10</span></p></td>
+<td class="cl-6999e440"><p class="cl-699982e8"><span class="cl-69996f10">3.50</span></p></td>
+<td class="cl-6999e44a"><p class="cl-699982e8"><span class="cl-69996f10">1.40</span></p></td>
+<td class="cl-6999e436"><p class="cl-699982e8"><span class="cl-69996f10">0.20</span></p></td>
+<td class="cl-6999e42c"><p class="cl-69998306"><span class="cl-69996f10">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c63ce58"><p class="cl-4c638a9c"><span class="cl-4c63787c">4.9</span></p></td>
-<td class="cl-4c63ce9e"><p class="cl-4c638a9c"><span class="cl-4c63787c">3.0</span></p></td>
-<td class="cl-4c63ceb2"><p class="cl-4c638a9c"><span class="cl-4c63787c">1.4</span></p></td>
-<td class="cl-4c63ce94"><p class="cl-4c638a9c"><span class="cl-4c63787c">0.2</span></p></td>
-<td class="cl-4c63ce80"><p class="cl-4c638aba"><span class="cl-4c63787c">setosa</span></p></td>
+<td class="cl-6999e404"><p class="cl-699982e8"><span class="cl-69996f10">4.90</span></p></td>
+<td class="cl-6999e440"><p class="cl-699982e8"><span class="cl-69996f10">3.00</span></p></td>
+<td class="cl-6999e44a"><p class="cl-699982e8"><span class="cl-69996f10">1.40</span></p></td>
+<td class="cl-6999e436"><p class="cl-699982e8"><span class="cl-69996f10">0.20</span></p></td>
+<td class="cl-6999e42c"><p class="cl-69998306"><span class="cl-69996f10">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c63ce58"><p class="cl-4c638a9c"><span class="cl-4c63787c">4.7</span></p></td>
-<td class="cl-4c63ce9e"><p class="cl-4c638a9c"><span class="cl-4c63787c">3.2</span></p></td>
-<td class="cl-4c63ceb2"><p class="cl-4c638a9c"><span class="cl-4c63787c">1.3</span></p></td>
-<td class="cl-4c63ce94"><p class="cl-4c638a9c"><span class="cl-4c63787c">0.2</span></p></td>
-<td class="cl-4c63ce80"><p class="cl-4c638aba"><span class="cl-4c63787c">setosa</span></p></td>
+<td class="cl-6999e404"><p class="cl-699982e8"><span class="cl-69996f10">4.70</span></p></td>
+<td class="cl-6999e440"><p class="cl-699982e8"><span class="cl-69996f10">3.20</span></p></td>
+<td class="cl-6999e44a"><p class="cl-699982e8"><span class="cl-69996f10">1.30</span></p></td>
+<td class="cl-6999e436"><p class="cl-699982e8"><span class="cl-69996f10">0.20</span></p></td>
+<td class="cl-6999e42c"><p class="cl-69998306"><span class="cl-69996f10">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c63ce58"><p class="cl-4c638a9c"><span class="cl-4c63787c">4.6</span></p></td>
-<td class="cl-4c63ce9e"><p class="cl-4c638a9c"><span class="cl-4c63787c">3.1</span></p></td>
-<td class="cl-4c63ceb2"><p class="cl-4c638a9c"><span class="cl-4c63787c">1.5</span></p></td>
-<td class="cl-4c63ce94"><p class="cl-4c638a9c"><span class="cl-4c63787c">0.2</span></p></td>
-<td class="cl-4c63ce80"><p class="cl-4c638aba"><span class="cl-4c63787c">setosa</span></p></td>
+<td class="cl-6999e404"><p class="cl-699982e8"><span class="cl-69996f10">4.60</span></p></td>
+<td class="cl-6999e440"><p class="cl-699982e8"><span class="cl-69996f10">3.10</span></p></td>
+<td class="cl-6999e44a"><p class="cl-699982e8"><span class="cl-69996f10">1.50</span></p></td>
+<td class="cl-6999e436"><p class="cl-699982e8"><span class="cl-69996f10">0.20</span></p></td>
+<td class="cl-6999e42c"><p class="cl-69998306"><span class="cl-69996f10">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c63ce58"><p class="cl-4c638a9c"><span class="cl-4c63787c">5.0</span></p></td>
-<td class="cl-4c63ce9e"><p class="cl-4c638a9c"><span class="cl-4c63787c">3.6</span></p></td>
-<td class="cl-4c63ceb2"><p class="cl-4c638a9c"><span class="cl-4c63787c">1.4</span></p></td>
-<td class="cl-4c63ce94"><p class="cl-4c638a9c"><span class="cl-4c63787c">0.2</span></p></td>
-<td class="cl-4c63ce80"><p class="cl-4c638aba"><span class="cl-4c63787c">setosa</span></p></td>
+<td class="cl-6999e404"><p class="cl-699982e8"><span class="cl-69996f10">5.00</span></p></td>
+<td class="cl-6999e440"><p class="cl-699982e8"><span class="cl-69996f10">3.60</span></p></td>
+<td class="cl-6999e44a"><p class="cl-699982e8"><span class="cl-69996f10">1.40</span></p></td>
+<td class="cl-6999e436"><p class="cl-699982e8"><span class="cl-69996f10">0.20</span></p></td>
+<td class="cl-6999e42c"><p class="cl-69998306"><span class="cl-69996f10">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c63ce58"><p class="cl-4c638a9c"><span class="cl-4c63787c">5.4</span></p></td>
-<td class="cl-4c63ce9e"><p class="cl-4c638a9c"><span class="cl-4c63787c">3.9</span></p></td>
-<td class="cl-4c63ceb2"><p class="cl-4c638a9c"><span class="cl-4c63787c">1.7</span></p></td>
-<td class="cl-4c63ce94"><p class="cl-4c638a9c"><span class="cl-4c63787c">0.4</span></p></td>
-<td class="cl-4c63ce80"><p class="cl-4c638aba"><span class="cl-4c63787c">setosa</span></p></td>
+<td class="cl-6999e404"><p class="cl-699982e8"><span class="cl-69996f10">5.40</span></p></td>
+<td class="cl-6999e440"><p class="cl-699982e8"><span class="cl-69996f10">3.90</span></p></td>
+<td class="cl-6999e44a"><p class="cl-699982e8"><span class="cl-69996f10">1.70</span></p></td>
+<td class="cl-6999e436"><p class="cl-699982e8"><span class="cl-69996f10">0.40</span></p></td>
+<td class="cl-6999e42c"><p class="cl-69998306"><span class="cl-69996f10">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c63ce58"><p class="cl-4c638a9c"><span class="cl-4c63787c">4.6</span></p></td>
-<td class="cl-4c63ce9e"><p class="cl-4c638a9c"><span class="cl-4c63787c">3.4</span></p></td>
-<td class="cl-4c63ceb2"><p class="cl-4c638a9c"><span class="cl-4c63787c">1.4</span></p></td>
-<td class="cl-4c63ce94"><p class="cl-4c638a9c"><span class="cl-4c63787c">0.3</span></p></td>
-<td class="cl-4c63ce80"><p class="cl-4c638aba"><span class="cl-4c63787c">setosa</span></p></td>
+<td class="cl-6999e404"><p class="cl-699982e8"><span class="cl-69996f10">4.60</span></p></td>
+<td class="cl-6999e440"><p class="cl-699982e8"><span class="cl-69996f10">3.40</span></p></td>
+<td class="cl-6999e44a"><p class="cl-699982e8"><span class="cl-69996f10">1.40</span></p></td>
+<td class="cl-6999e436"><p class="cl-699982e8"><span class="cl-69996f10">0.30</span></p></td>
+<td class="cl-6999e42c"><p class="cl-69998306"><span class="cl-69996f10">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c63ce58"><p class="cl-4c638a9c"><span class="cl-4c63787c">5.0</span></p></td>
-<td class="cl-4c63ce9e"><p class="cl-4c638a9c"><span class="cl-4c63787c">3.4</span></p></td>
-<td class="cl-4c63ceb2"><p class="cl-4c638a9c"><span class="cl-4c63787c">1.5</span></p></td>
-<td class="cl-4c63ce94"><p class="cl-4c638a9c"><span class="cl-4c63787c">0.2</span></p></td>
-<td class="cl-4c63ce80"><p class="cl-4c638aba"><span class="cl-4c63787c">setosa</span></p></td>
+<td class="cl-6999e404"><p class="cl-699982e8"><span class="cl-69996f10">5.00</span></p></td>
+<td class="cl-6999e440"><p class="cl-699982e8"><span class="cl-69996f10">3.40</span></p></td>
+<td class="cl-6999e44a"><p class="cl-699982e8"><span class="cl-69996f10">1.50</span></p></td>
+<td class="cl-6999e436"><p class="cl-699982e8"><span class="cl-69996f10">0.20</span></p></td>
+<td class="cl-6999e42c"><p class="cl-69998306"><span class="cl-69996f10">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c63ce58"><p class="cl-4c638a9c"><span class="cl-4c63787c">4.4</span></p></td>
-<td class="cl-4c63ce9e"><p class="cl-4c638a9c"><span class="cl-4c63787c">2.9</span></p></td>
-<td class="cl-4c63ceb2"><p class="cl-4c638a9c"><span class="cl-4c63787c">1.4</span></p></td>
-<td class="cl-4c63ce94"><p class="cl-4c638a9c"><span class="cl-4c63787c">0.2</span></p></td>
-<td class="cl-4c63ce80"><p class="cl-4c638aba"><span class="cl-4c63787c">setosa</span></p></td>
+<td class="cl-6999e404"><p class="cl-699982e8"><span class="cl-69996f10">4.40</span></p></td>
+<td class="cl-6999e440"><p class="cl-699982e8"><span class="cl-69996f10">2.90</span></p></td>
+<td class="cl-6999e44a"><p class="cl-699982e8"><span class="cl-69996f10">1.40</span></p></td>
+<td class="cl-6999e436"><p class="cl-699982e8"><span class="cl-69996f10">0.20</span></p></td>
+<td class="cl-6999e42c"><p class="cl-69998306"><span class="cl-69996f10">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c63cec6"><p class="cl-4c638a9c"><span class="cl-4c63787c">4.9</span></p></td>
-<td class="cl-4c63ceee"><p class="cl-4c638a9c"><span class="cl-4c63787c">3.1</span></p></td>
-<td class="cl-4c63cebc"><p class="cl-4c638a9c"><span class="cl-4c63787c">1.5</span></p></td>
-<td class="cl-4c63ceda"><p class="cl-4c638a9c"><span class="cl-4c63787c">0.1</span></p></td>
-<td class="cl-4c63ced0"><p class="cl-4c638aba"><span class="cl-4c63787c">setosa</span></p></td>
+<td class="cl-6999e468"><p class="cl-699982e8"><span class="cl-69996f10">4.90</span></p></td>
+<td class="cl-6999e486"><p class="cl-699982e8"><span class="cl-69996f10">3.10</span></p></td>
+<td class="cl-6999e45e"><p class="cl-699982e8"><span class="cl-69996f10">1.50</span></p></td>
+<td class="cl-6999e47c"><p class="cl-699982e8"><span class="cl-69996f10">0.10</span></p></td>
+<td class="cl-6999e472"><p class="cl-69998306"><span class="cl-69996f10">setosa</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div id="bcc75970-dec0-43ef-8d33-d1ba3c742fe3"></div>
+</div></template><div id="39ce1bd6-e2eb-469e-9a8c-995d028aec5f"></div>
 <script>
-var dest = document.getElementById("bcc75970-dec0-43ef-8d33-d1ba3c742fe3");
-var template = document.getElementById("6980c50c-4e7a-4f1f-9b3e-a04f4e28c4ea");
-var caption = template.content.querySelector("caption");
-if(caption) {
-  caption.style.cssText = "display:block;"
-  var newcapt = document.createElement("p");
-  newcapt.appendChild(caption)
-  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
-}
+var dest = document.getElementById("39ce1bd6-e2eb-469e-9a8c-995d028aec5f");
+var template = document.getElementById("8615fad9-1a5d-437a-8f1b-1c515dc5a688");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
-fantome.appendChild(templateContent);
 fantome.appendChild(templateContent);
 </script><ul>
 <li>change color in column ‘col1’ and ‘col3’ in body part when values of ‘col2’ are negative, use <code>part="body", i = ~ col2 &lt; 0, j = c('col1', 'col3)</code> as selector.</li>
@@ -1116,7 +1052,7 @@ fantome.appendChild(templateContent);
                j <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Petal.Length'</span>, <span class="st">'Petal.Width'</span><span class="op">)</span>, 
                color <span class="op">=</span> <span class="st">"red"</span>, part <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span>
 <span class="va">ft</span></code></pre></div>
-<template id="46d4ad31-cc5e-47ff-ac82-a41029073465"><style>
+<template id="ca65a746-4395-4206-9878-9518a06f342c"><style>
 .tabwid table{
   border-collapse:collapse;
   line-height:1;
@@ -1126,7 +1062,6 @@ fantome.appendChild(templateContent);
   display: table;
   margin-top: 5px;
   margin-bottom: 5px;
-  table-layout: fixed;
   border-spacing: 0;
   border-color: transparent;
 }
@@ -1153,102 +1088,94 @@ background-color: transparent;
 }
 </style>
 <div class="tabwid">
-<style>.cl-4c847a40{border-collapse:collapse;}.cl-4c7d12b4{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-4c7d12e6{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4c7d268c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4c7d26b4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-4c7d6fac{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d6fd4{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d6fe8{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d6ff2{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d7006{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d7010{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d701a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d702e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d7038{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d7042{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d7056{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d7060{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d706a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d707e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4c7d7088{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table class="table cl-4c847a40">
+<style>.cl-69bba10c{border-collapse:collapse;}.cl-69b32f4a{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-69b32f72{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-69b3462e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-69b34656{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-69b396a6{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b396c4{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b396ce{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b396e2{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b396ec{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b396f6{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b39700{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b3970a{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b39714{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b3971e{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b39728{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b39732{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b3973c{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b39746{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69b39750{width:54pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}</style>
+<table class="table cl-69bba10c">
 <thead><tr style="overflow-wrap:break-word;">
-<td class="cl-4c7d707e"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">Sepal.Length</span></p></td>
-<td class="cl-4c7d7088"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">Sepal.Width</span></p></td>
-<td class="cl-4c7d7060"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">Petal.Length</span></p></td>
-<td class="cl-4c7d706a"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">Petal.Width</span></p></td>
-<td class="cl-4c7d7056"><p class="cl-4c7d26b4"><span class="cl-4c7d12b4">Species</span></p></td>
+<td class="cl-69b39746"><p class="cl-69b3462e"><span class="cl-69b32f4a">Sepal.Length</span></p></td>
+<td class="cl-69b39750"><p class="cl-69b3462e"><span class="cl-69b32f4a">Sepal.Width</span></p></td>
+<td class="cl-69b39732"><p class="cl-69b3462e"><span class="cl-69b32f4a">Petal.Length</span></p></td>
+<td class="cl-69b3973c"><p class="cl-69b3462e"><span class="cl-69b32f4a">Petal.Width</span></p></td>
+<td class="cl-69b39728"><p class="cl-69b34656"><span class="cl-69b32f4a">Species</span></p></td>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c7d6fac"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">5.1</span></p></td>
-<td class="cl-4c7d6ff2"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">3.5</span></p></td>
-<td class="cl-4c7d7006"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">1.4</span></p></td>
-<td class="cl-4c7d6fe8"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">0.2</span></p></td>
-<td class="cl-4c7d6fd4"><p class="cl-4c7d26b4"><span class="cl-4c7d12e6">setosa</span></p></td>
+<td class="cl-69b396a6"><p class="cl-69b3462e"><span class="cl-69b32f72">5.10</span></p></td>
+<td class="cl-69b396e2"><p class="cl-69b3462e"><span class="cl-69b32f72">3.50</span></p></td>
+<td class="cl-69b396ec"><p class="cl-69b3462e"><span class="cl-69b32f72">1.40</span></p></td>
+<td class="cl-69b396ce"><p class="cl-69b3462e"><span class="cl-69b32f72">0.20</span></p></td>
+<td class="cl-69b396c4"><p class="cl-69b34656"><span class="cl-69b32f72">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c7d6fac"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">4.9</span></p></td>
-<td class="cl-4c7d6ff2"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">3.0</span></p></td>
-<td class="cl-4c7d7006"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">1.4</span></p></td>
-<td class="cl-4c7d6fe8"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">0.2</span></p></td>
-<td class="cl-4c7d6fd4"><p class="cl-4c7d26b4"><span class="cl-4c7d12e6">setosa</span></p></td>
+<td class="cl-69b396a6"><p class="cl-69b3462e"><span class="cl-69b32f72">4.90</span></p></td>
+<td class="cl-69b396e2"><p class="cl-69b3462e"><span class="cl-69b32f72">3.00</span></p></td>
+<td class="cl-69b396ec"><p class="cl-69b3462e"><span class="cl-69b32f4a">1.40</span></p></td>
+<td class="cl-69b396ce"><p class="cl-69b3462e"><span class="cl-69b32f4a">0.20</span></p></td>
+<td class="cl-69b396c4"><p class="cl-69b34656"><span class="cl-69b32f72">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c7d6fac"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">4.7</span></p></td>
-<td class="cl-4c7d6ff2"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">3.2</span></p></td>
-<td class="cl-4c7d7006"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">1.3</span></p></td>
-<td class="cl-4c7d6fe8"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">0.2</span></p></td>
-<td class="cl-4c7d6fd4"><p class="cl-4c7d26b4"><span class="cl-4c7d12e6">setosa</span></p></td>
+<td class="cl-69b396a6"><p class="cl-69b3462e"><span class="cl-69b32f72">4.70</span></p></td>
+<td class="cl-69b396e2"><p class="cl-69b3462e"><span class="cl-69b32f72">3.20</span></p></td>
+<td class="cl-69b396ec"><p class="cl-69b3462e"><span class="cl-69b32f4a">1.30</span></p></td>
+<td class="cl-69b396ce"><p class="cl-69b3462e"><span class="cl-69b32f4a">0.20</span></p></td>
+<td class="cl-69b396c4"><p class="cl-69b34656"><span class="cl-69b32f72">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c7d6fac"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">4.6</span></p></td>
-<td class="cl-4c7d6ff2"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">3.1</span></p></td>
-<td class="cl-4c7d7006"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">1.5</span></p></td>
-<td class="cl-4c7d6fe8"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">0.2</span></p></td>
-<td class="cl-4c7d6fd4"><p class="cl-4c7d26b4"><span class="cl-4c7d12e6">setosa</span></p></td>
+<td class="cl-69b396a6"><p class="cl-69b3462e"><span class="cl-69b32f72">4.60</span></p></td>
+<td class="cl-69b396e2"><p class="cl-69b3462e"><span class="cl-69b32f72">3.10</span></p></td>
+<td class="cl-69b396ec"><p class="cl-69b3462e"><span class="cl-69b32f4a">1.50</span></p></td>
+<td class="cl-69b396ce"><p class="cl-69b3462e"><span class="cl-69b32f4a">0.20</span></p></td>
+<td class="cl-69b396c4"><p class="cl-69b34656"><span class="cl-69b32f72">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c7d6fac"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">5.0</span></p></td>
-<td class="cl-4c7d6ff2"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">3.6</span></p></td>
-<td class="cl-4c7d7006"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">1.4</span></p></td>
-<td class="cl-4c7d6fe8"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">0.2</span></p></td>
-<td class="cl-4c7d6fd4"><p class="cl-4c7d26b4"><span class="cl-4c7d12e6">setosa</span></p></td>
+<td class="cl-69b396a6"><p class="cl-69b3462e"><span class="cl-69b32f72">5.00</span></p></td>
+<td class="cl-69b396e2"><p class="cl-69b3462e"><span class="cl-69b32f72">3.60</span></p></td>
+<td class="cl-69b396ec"><p class="cl-69b3462e"><span class="cl-69b32f72">1.40</span></p></td>
+<td class="cl-69b396ce"><p class="cl-69b3462e"><span class="cl-69b32f72">0.20</span></p></td>
+<td class="cl-69b396c4"><p class="cl-69b34656"><span class="cl-69b32f72">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c7d6fac"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">5.4</span></p></td>
-<td class="cl-4c7d6ff2"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">3.9</span></p></td>
-<td class="cl-4c7d7006"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">1.7</span></p></td>
-<td class="cl-4c7d6fe8"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">0.4</span></p></td>
-<td class="cl-4c7d6fd4"><p class="cl-4c7d26b4"><span class="cl-4c7d12e6">setosa</span></p></td>
+<td class="cl-69b396a6"><p class="cl-69b3462e"><span class="cl-69b32f72">5.40</span></p></td>
+<td class="cl-69b396e2"><p class="cl-69b3462e"><span class="cl-69b32f72">3.90</span></p></td>
+<td class="cl-69b396ec"><p class="cl-69b3462e"><span class="cl-69b32f72">1.70</span></p></td>
+<td class="cl-69b396ce"><p class="cl-69b3462e"><span class="cl-69b32f72">0.40</span></p></td>
+<td class="cl-69b396c4"><p class="cl-69b34656"><span class="cl-69b32f72">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c7d6fac"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">4.6</span></p></td>
-<td class="cl-4c7d6ff2"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">3.4</span></p></td>
-<td class="cl-4c7d7006"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">1.4</span></p></td>
-<td class="cl-4c7d6fe8"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">0.3</span></p></td>
-<td class="cl-4c7d6fd4"><p class="cl-4c7d26b4"><span class="cl-4c7d12e6">setosa</span></p></td>
+<td class="cl-69b396a6"><p class="cl-69b3462e"><span class="cl-69b32f72">4.60</span></p></td>
+<td class="cl-69b396e2"><p class="cl-69b3462e"><span class="cl-69b32f72">3.40</span></p></td>
+<td class="cl-69b396ec"><p class="cl-69b3462e"><span class="cl-69b32f4a">1.40</span></p></td>
+<td class="cl-69b396ce"><p class="cl-69b3462e"><span class="cl-69b32f4a">0.30</span></p></td>
+<td class="cl-69b396c4"><p class="cl-69b34656"><span class="cl-69b32f72">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c7d6fac"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">5.0</span></p></td>
-<td class="cl-4c7d6ff2"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">3.4</span></p></td>
-<td class="cl-4c7d7006"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">1.5</span></p></td>
-<td class="cl-4c7d6fe8"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">0.2</span></p></td>
-<td class="cl-4c7d6fd4"><p class="cl-4c7d26b4"><span class="cl-4c7d12e6">setosa</span></p></td>
+<td class="cl-69b396a6"><p class="cl-69b3462e"><span class="cl-69b32f72">5.00</span></p></td>
+<td class="cl-69b396e2"><p class="cl-69b3462e"><span class="cl-69b32f72">3.40</span></p></td>
+<td class="cl-69b396ec"><p class="cl-69b3462e"><span class="cl-69b32f72">1.50</span></p></td>
+<td class="cl-69b396ce"><p class="cl-69b3462e"><span class="cl-69b32f72">0.20</span></p></td>
+<td class="cl-69b396c4"><p class="cl-69b34656"><span class="cl-69b32f72">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c7d6fac"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">4.4</span></p></td>
-<td class="cl-4c7d6ff2"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">2.9</span></p></td>
-<td class="cl-4c7d7006"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">1.4</span></p></td>
-<td class="cl-4c7d6fe8"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">0.2</span></p></td>
-<td class="cl-4c7d6fd4"><p class="cl-4c7d26b4"><span class="cl-4c7d12e6">setosa</span></p></td>
+<td class="cl-69b396a6"><p class="cl-69b3462e"><span class="cl-69b32f72">4.40</span></p></td>
+<td class="cl-69b396e2"><p class="cl-69b3462e"><span class="cl-69b32f72">2.90</span></p></td>
+<td class="cl-69b396ec"><p class="cl-69b3462e"><span class="cl-69b32f4a">1.40</span></p></td>
+<td class="cl-69b396ce"><p class="cl-69b3462e"><span class="cl-69b32f4a">0.20</span></p></td>
+<td class="cl-69b396c4"><p class="cl-69b34656"><span class="cl-69b32f72">setosa</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-4c7d701a"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">4.9</span></p></td>
-<td class="cl-4c7d7042"><p class="cl-4c7d268c"><span class="cl-4c7d12e6">3.1</span></p></td>
-<td class="cl-4c7d7010"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">1.5</span></p></td>
-<td class="cl-4c7d7038"><p class="cl-4c7d268c"><span class="cl-4c7d12b4">0.1</span></p></td>
-<td class="cl-4c7d702e"><p class="cl-4c7d26b4"><span class="cl-4c7d12e6">setosa</span></p></td>
+<td class="cl-69b39700"><p class="cl-69b3462e"><span class="cl-69b32f72">4.90</span></p></td>
+<td class="cl-69b3971e"><p class="cl-69b3462e"><span class="cl-69b32f72">3.10</span></p></td>
+<td class="cl-69b396f6"><p class="cl-69b3462e"><span class="cl-69b32f4a">1.50</span></p></td>
+<td class="cl-69b39714"><p class="cl-69b3462e"><span class="cl-69b32f4a">0.10</span></p></td>
+<td class="cl-69b3970a"><p class="cl-69b34656"><span class="cl-69b32f72">setosa</span></p></td>
 </tr>
 </tbody>
 </table>
-</div></template><div id="b8e736b3-3f22-4437-83d0-03f16d636898"></div>
+</div></template><div id="a8d7588f-b261-490e-9eca-b644c6eed256"></div>
 <script>
-var dest = document.getElementById("b8e736b3-3f22-4437-83d0-03f16d636898");
-var template = document.getElementById("46d4ad31-cc5e-47ff-ac82-a41029073465");
-var caption = template.content.querySelector("caption");
-if(caption) {
-  caption.style.cssText = "display:block;"
-  var newcapt = document.createElement("p");
-  newcapt.appendChild(caption)
-  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
-}
+var dest = document.getElementById("a8d7588f-b261-490e-9eca-b644c6eed256");
+var template = document.getElementById("ca65a746-4395-4206-9878-9518a06f342c");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
-fantome.appendChild(templateContent);
 fantome.appendChild(templateContent);
 </script><p>The most efficient selector for rows is the formula expression.</p>
 <p>The most efficient selector for columns is the character vector.</p>
@@ -1275,7 +1202,7 @@ row selector expressed as a formula is not supported (it can not as header datas
 
       <footer><link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.6.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.6.2.006 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
