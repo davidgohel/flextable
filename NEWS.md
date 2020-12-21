@@ -4,6 +4,7 @@
 
 * fix encoding issue with Windows platforms
 * bring back caption into the table
+* 
 
 # flextable 0.6.1
 
