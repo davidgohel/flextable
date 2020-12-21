@@ -66,6 +66,17 @@ test_that("html - string are html encoded", {
   text_ <- xml_text(xml_find_first(doc, "//tbody/tr/td/p/span"))
   expect_equal(text_, c("1 < 3") )
 })
+test_that("utf8 is preserved", {
+  ft <- flextable(data.frame(a = c('\U2265 4.7')))
+  str_ <- flextable:::html_str(ft)
+  str_ <- gsub("<style>(.*)</style>", "", str_)
+  str_ <- gsub("<script>(.*)</script>", "", str_)
+  str_ <- gsub("<template id=\"[0-9a-z\\-]+\">", "", str_)
+  str_ <- gsub("</div></template(.*)", "", str_)
+  doc <- read_xml(str_)
+  text_ <- xml_text(xml_find_first(doc, "//tbody/tr/td/p/span"))
+  expect_equal(text_, c("\U2265 4.7") )
+})
 
 test_that("NA managment", {
 

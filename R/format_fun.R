@@ -7,11 +7,32 @@ format_fun.default <-
            big.mark = flextable_global$defaults$big.mark,
            decimal.mark = flextable_global$defaults$decimal.mark,
            digits = flextable_global$defaults$digits,
+           fmt_date = flextable_global$defaults$fmt_date,
+           fmt_datetime = flextable_global$defaults$fmt_datetime,
            prefix = "", suffix = "", ...) {
-    out <- format(x, trim = TRUE, big.mark = big.mark,
-                  decimal.mark = decimal.mark, justify = "none",
-                  digits = digits)
-    ifelse(is.na(x), na_str, out)
+    if(is.double(x)){
+      out <- format_fun.double(x, na_str = na_str, big.mark = big.mark,
+                               decimal.mark = decimal.mark,
+                               digits = digits, prefix = prefix, suffix = suffix)
+    } else if(is.integer(x)){
+      out <- format_fun.integer(x, na_str = na_str, big.mark = big.mark,
+                                digits = digits, prefix = prefix, suffix = suffix)
+    } else if(is.character(x)){
+      out <- format_fun.character(x, na_str = na_str, prefix = prefix, suffix = suffix)
+    } else if(is.factor(x)){
+      out <- format_fun.factor(x, na_str = na_str, prefix = prefix, suffix = suffix)
+    } else if(inherits(x, "Date")){
+      out <- format_fun.Date(x, fmt_date = fmt_date, na_str = na_str, prefix = prefix, suffix = suffix)
+    } else if(inherits(x, "POSIXt")){
+      out <- format_fun.POSIXt(x, fmt_datetime = fmt_datetime, na_str = na_str, prefix = prefix, suffix = suffix)
+    } else {
+      out <- format(x, trim = TRUE, big.mark = big.mark,
+                    decimal.mark = decimal.mark, justify = "none",
+                    scientific = FALSE,
+                    digits = digits)
+      out <- ifelse(is.na(x), na_str, out)
+    }
+    out
   }
 
 format_fun.character <-
