@@ -235,15 +235,15 @@ highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", so
   if( nrow_part(x, part) < 1 )
     return(x)
 
-  check_formula_i_and_part(i, part)
-  i <- get_rows_id(x[[part]], i )
-  j <- get_columns_id(x[[part]], j )
-
   if(is.function(color)){
     source <- get_dataset_columns_id(x[[part]], source )
     lcolor <- lapply(x[[part]]$dataset[source], color)
     color <- matrix( unlist( lcolor ), ncol = length(lcolor) )
   }
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
 
   x[[part]]$styles$text[i, j, "shading.color"] <- color
 
@@ -303,15 +303,15 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j ){
   if( nrow_part(x, part) < 1 )
     return(x)
 
-  check_formula_i_and_part(i, part)
-  i <- get_rows_id(x[[part]], i )
-  j <- get_columns_id(x[[part]], j )
-
   if(is.function(color)){
     source <- get_dataset_columns_id(x[[part]], source )
     lcolor <- lapply(x[[part]]$dataset[source], color)
     color <- matrix( unlist( lcolor ), ncol = length(lcolor) )
   }
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- x$col_keys[get_columns_id(x[[part]], j )]
 
   x[[part]]$styles$text[i, j, "color"] <- color
 
