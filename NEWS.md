@@ -1,3 +1,10 @@
+# flextable 0.6.2
+
+## Issues
+
+* fix encoding issue with Windows platforms
+* bring back caption into the table
+
 # flextable 0.6.1
 
 ## new features

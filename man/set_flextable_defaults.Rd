@@ -22,6 +22,7 @@ set_flextable_defaults(
   na_str = NULL,
   fmt_date = NULL,
   fmt_datetime = NULL,
+  extra_css = NULL,
   fonts_ignore = NULL,
   theme_fun = NULL
 )
@@ -53,6 +54,9 @@ and \code{\link[=colformat_int]{colformat_int()}}.}
 
 \item{fmt_date, fmt_datetime}{formats for date and datetime columns as
 documented in \code{\link[=strptime]{strptime()}}. Default to '\%Y-\%m-\%d' and '\%Y-\%m-\%d \%H:\%M:\%S'.}
+
+\item{extra_css}{css instructions to be integrated with the table. By default, it
+contains only the style for captions.}
 
 \item{fonts_ignore}{if TRUE, pdf-engine pdflatex can be used instead of
 xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are

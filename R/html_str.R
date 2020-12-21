@@ -44,8 +44,8 @@ html_str <- function(x, ft.align = NULL, class = "tabwid", caption = "", shadow 
   classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
   tabcss <- paste0(".", classname, "{", tabcss, "}")
 
-  codes <- sprintf("<style>%s%s</style><table class='%s'>%s%s</table>",
-          tabcss, codes$css, classname, caption, codes$html)
+  codes <- sprintf("<style>%s%s%s</style><table class='%s'>%s%s</table>",
+          tabcss, codes$css, flextable_global$defaults$extra_css, classname, caption, codes$html)
 
   if( is.null(ft.align) ) ft.align <- "center"
 
@@ -78,16 +78,8 @@ to_shadow_dom <- function(uid1, uid2){
   script_commands <- c("", "<script>",
     paste0("var dest = document.getElementById(\"", uid2, "\");"),
     paste0("var template = document.getElementById(\"", uid1, "\");"),
-    "var caption = template.content.querySelector(\"caption\");",
-    "if(caption) {",
-    "  caption.style.cssText = \"display:block;\"",
-    "  var newcapt = document.createElement(\"p\");",
-    "  newcapt.appendChild(caption)",
-    "  dest.parentNode.insertBefore(newcapt, dest.previousSibling);",
-    "}",
     "var fantome = dest.attachShadow({mode: 'open'});",
     "var templateContent = template.content;",
-    "fantome.appendChild(templateContent);",
     "fantome.appendChild(templateContent);",
     "</script>", "")
   paste(script_commands, collapse = "\n")

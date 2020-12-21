@@ -21,6 +21,7 @@ flextable_global$defaults <- list(
   na_str  = "",
   fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
   fonts_ignore = FALSE,
+  extra_css = "caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}",
   theme_fun = "theme_booktabs")
 
 
@@ -50,6 +51,8 @@ flextable_global$defaults <- list(
 #' @param fonts_ignore if TRUE, pdf-engine pdflatex can be used instead of
 #' xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
 #' not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
+#' @param extra_css css instructions to be integrated with the table. By default, it
+#' contains only the style for captions.
 #' @param theme_fun a single character value (the name of the theme function
 #' to be applied) or a theme function (input is a flextable, output is a flextable).
 #' @return a list containing previous default values.
@@ -78,7 +81,7 @@ set_flextable_defaults <- function(
   border.color = NULL, background.color = NULL,
   table.layout = NULL,
   decimal.mark = NULL, big.mark = NULL, digits = NULL, na_str = NULL,
-  fmt_date = NULL, fmt_datetime = NULL,
+  fmt_date = NULL, fmt_datetime = NULL, extra_css = NULL,
   fonts_ignore = NULL, theme_fun = NULL
   ){
 
@@ -136,6 +139,9 @@ set_flextable_defaults <- function(
   }
   if( !is.null(fonts_ignore) ){
     x$fonts_ignore <- fonts_ignore
+  }
+  if( !is.null(extra_css) ){
+    x$extra_css <- extra_css
   }
 
   if( !is.null(theme_fun) && is.character(theme_fun) && length(theme_fun) == 1 ){
