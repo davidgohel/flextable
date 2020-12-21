@@ -1,5 +1,5 @@
 # utils -----
-css_pt <- function(x, digits = 0){
+css_pt <- function(x, digits = 1){
   x <- ifelse( is.na(x), "inherit",
           ifelse( x < 0.001, "0",
                   paste0(format_double(x, digits = digits),"pt")))
