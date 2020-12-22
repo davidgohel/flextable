@@ -4,7 +4,7 @@
 \alias{merge_v}
 \title{Merge flextable cells vertically}
 \usage{
-merge_v(x, j = NULL, target = NULL, part = "body")
+merge_v(x, j = NULL, target = NULL, part = "body", combine = FALSE)
 }
 \arguments{
 \item{x}{\code{flextable} object}
@@ -15,11 +15,20 @@ from orignal dataset can also be used.}
 \item{target}{columns names where cells have to be merged.}
 
 \item{part}{partname of the table where merge has to be done.}
+
+\item{combine}{If the value is TRUE, the columns defined by \code{j} will
+be combined into a single column/value and the consecutive values of
+this result will be used. Otherwise, the columns are inspected one
+by one to perform cell merges.}
 }
 \description{
 Merge flextable cells vertically when consecutive cells have
 identical values. Text of formatted values are used to compare
 values if available.
+
+Two options are available, either a column-by-column algorithm or an
+algorithm where the combinations of these columns are used once for all
+target columns.
 }
 \section{Illustrations}{
 

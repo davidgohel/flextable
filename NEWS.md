@@ -1,5 +1,10 @@
 # flextable 0.6.2
 
+## new features
+
+* `merge_v` has a new argument `combine` to let use j columns 
+be used as a single value (all values are pasted).
+
 ## Issues
 
 * fix encoding issue with Windows platforms

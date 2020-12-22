@@ -4,11 +4,19 @@
 #' identical values. Text of formatted values are used to compare
 #' values if available.
 #'
+#' Two options are available, either a column-by-column algorithm or an
+#' algorithm where the combinations of these columns are used once for all
+#' target columns.
+#'
 #' @param x \code{flextable} object
 #' @param j column to used to find consecutive values to be merged. Columns
 #' from orignal dataset can also be used.
 #' @param target columns names where cells have to be merged.
 #' @param part partname of the table where merge has to be done.
+#' @param combine If the value is TRUE, the columns defined by `j` will
+#' be combined into a single column/value and the consecutive values of
+#' this result will be used. Otherwise, the columns are inspected one
+#' by one to perform cell merges.
 #' @examples
 #' ft_merge <- flextable(mtcars)
 #' ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))
@@ -48,7 +56,7 @@
 #' \if{html}{\figure{fig_merge_v_1.png}{options: width=100\%}}
 #'
 #' \if{html}{\figure{fig_merge_v_2.png}{options: width=100\%}}
-merge_v <- function(x, j = NULL, target = NULL, part = "body" ){
+merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE){
   if( !inherits(x, "flextable") ) stop("merge_v supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
@@ -66,7 +74,7 @@ merge_v <- function(x, j = NULL, target = NULL, part = "body" ){
     }
   }
 
-  x[[part]] <- span_columns(x = x[[part]], columns = j, target = target)
+  x[[part]] <- span_columns(x = x[[part]], columns = j, target = target, combine = combine)
 
   x
 }

@@ -17,7 +17,7 @@ check_merge <- function(x){
     stop("invalid merging instructions", call. = FALSE)
   x
 }
-span_columns <- function( x, columns = NULL, target = columns){
+span_columns <- function( x, columns = NULL, target = columns, combine = FALSE){
 
   stopifnot(all( columns %in% colnames(x$dataset) ) )
   stopifnot(all( target %in% x$col_keys ) )
@@ -29,16 +29,34 @@ span_columns <- function( x, columns = NULL, target = columns){
     columns <- rep(columns, length(target))
   }
 
-  for(k in seq_along(columns)){
-    column <- columns[k]
-    if(column %in% x$col_keys){
-      values <- sapply(x$content[,columns[k]], function(x) {
-        paste(x$txt, collapse = "")
-      })
-    } else {
-      values <- format(x$dataset[[column]], trim = TRUE, justify = "left")
+  if(combine){
+    temp <- rep(list(NULL), length(columns))
+    for(k in seq_along(columns)){
+      column <- columns[k]
+      if(column %in% x$col_keys){
+        values <- sapply(x$content[,columns[k]], function(x) {
+          paste(x$txt, collapse = "")
+        })
+      } else {
+        values <- format(x$dataset[[column]], trim = TRUE, justify = "left")
+      }
+      temp[[k]] <- values
     }
-    x$spans$columns[, match(target[k], x$col_keys)] <- merge_rle(values)
+    values <- do.call(cbind, temp)
+    values <- apply(values, 1, paste0, collapse = "_")
+    x$spans$columns[, match(target, x$col_keys)] <- merge_rle(values)
+  } else {
+    for(k in seq_along(columns)){
+      column <- columns[k]
+      if(column %in% x$col_keys){
+        values <- sapply(x$content[,columns[k]], function(x) {
+          paste(x$txt, collapse = "")
+        })
+      } else {
+        values <- format(x$dataset[[column]], trim = TRUE, justify = "left")
+      }
+      x$spans$columns[, match(target[k], x$col_keys)] <- merge_rle(values)
+    }
   }
 
   check_merge(x)
