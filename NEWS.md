@@ -4,7 +4,7 @@
 
 * fix encoding issue with Windows platforms
 * bring back caption into the table
-* 
+* fix overlapping issue with hline_top #244
 
 # flextable 0.6.1
 

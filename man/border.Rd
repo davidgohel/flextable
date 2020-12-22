@@ -37,10 +37,10 @@ border(
 }
 \description{
 change borders of selected rows and columns of a flextable.
-}
-\note{
-this function requires careful
-settings to avoid overlapping borders.
+This function is not to be used by end user (it requires careful
+settings to avoid overlapping borders) but only for programming purposes.
+If you need to add borders, use instead functions \code{\link[=hline]{hline()}}, \code{\link[=vline]{vline()}},
+\code{\link[=border_outer]{border_outer()}}, ...
 }
 \examples{
 library(officer)
@@ -63,3 +63,4 @@ Other borders management:
 \code{\link{vline}()}
 }
 \concept{borders management}
+\keyword{internal}

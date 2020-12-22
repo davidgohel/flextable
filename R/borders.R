@@ -3,6 +3,10 @@
 #' @export
 #' @title Set cell borders
 #' @description change borders of selected rows and columns of a flextable.
+#' This function is not to be used by end user (it requires careful
+#' settings to avoid overlapping borders) but only for programming purposes.
+#' If you need to add borders, use instead functions [hline()], [vline()],
+#' [border_outer()], ...
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
@@ -13,13 +17,12 @@
 #' @param border.left border left
 #' @param border.right border right
 #' @family borders management
-#' @note this function requires careful
-#' settings to avoid overlapping borders.
 #' @examples
 #' library(officer)
 #' ftab <- flextable(head(mtcars))
 #' ftab <- border(ftab, border.top = fp_border(color = "orange") )
 #' ftab
+#' @keywords internal
 border <- function(x, i = NULL, j = NULL, border = NULL,
                    border.top = NULL, border.bottom = NULL,
                    border.left = NULL, border.right = NULL,
@@ -107,7 +110,7 @@ border_remove <- function(x){
 #' or all parts of a flextable.
 #' @param x a flextable object
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param border border defined by a call to \code{\link[officer]{fp_border}}
+#' @param border border properties defined by a call to [fp_border()]
 #' @export
 #' @examples
 #' library(officer)
@@ -370,7 +373,15 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body"){
     return(x)
 
   j <- get_columns_id(x[[part]], j )
-  x <- border(x, i = 1, j = j, border.top = border, part = part )
+
+  if(part %in% "body" && nrow_part(x, "header")>0){
+    x <- border(x, i = nrow_part(x, "header"), j = j, border.bottom = border, part = "header" )
+  } else if(part %in% "footer" && nrow_part(x, "body")>0){
+    x <- border(x, i = nrow_part(x, "body"), j = j, border.bottom = border, part = "body" )
+  } else {
+    x <- border(x, i = 1, j = j, border.top = border, part = part )
+  }
+
   x
 }
 

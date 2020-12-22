@@ -13,7 +13,7 @@ vline(x, i = NULL, j = NULL, border = NULL, part = "all")
 
 \item{j}{columns selection}
 
-\item{border}{border defined by a call to \code{\link[officer]{fp_border}}}
+\item{border}{border properties defined by a call to \code{\link[=fp_border]{fp_border()}}}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }

@@ -66,7 +66,10 @@ reference:
     contents:
     - starts_with("hline")
     - starts_with("vline")
-    - starts_with("border")
+    - border_inner
+    - border_inner_h
+    - border_inner_v
+    - border_outer
     - fix_border_issues
   - title: Flextable themes
     desc:  Apply theme functions.
