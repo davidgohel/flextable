@@ -47,7 +47,11 @@
 
 
 <meta property="og:title" content="Set cell borders — border" />
-<meta property="og:description" content="change borders of selected rows and columns of a flextable." />
+<meta property="og:description" content="change borders of selected rows and columns of a flextable.
+This function is not to be used by end user (it requires careful
+settings to avoid overlapping borders) but only for programming purposes.
+If you need to add borders, use instead functions hline(), vline(),
+border_outer(), ..." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.007</span>
       </span>
     </div>
 
@@ -149,7 +153,11 @@
     </div>
 
     <div class="ref-description">
-    <p>change borders of selected rows and columns of a flextable.</p>
+    <p>change borders of selected rows and columns of a flextable.
+This function is not to be used by end user (it requires careful
+settings to avoid overlapping borders) but only for programming purposes.
+If you need to add borders, use instead functions <code><a href='hline.html'>hline()</a></code>, <code><a href='vline.html'>vline()</a></code>,
+<code><a href='border_outer.html'>border_outer()</a></code>, ...</p>
     </div>
 
     <pre class="usage"><span class='fu'>border</span><span class='op'>(</span>
@@ -205,10 +213,6 @@
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>this function requires careful
-settings to avoid overlapping borders.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other borders management: 
@@ -252,7 +256,7 @@ settings to avoid overlapping borders.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.2.006 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.2.007 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
