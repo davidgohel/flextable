@@ -89,6 +89,8 @@ to_shadow_dom <- function(uid1, uid2){
 #' @importFrom data.table setnames setorderv := setcolorder setDT setDF dcast
 html_gen <- function(x){
 
+  fixed_layout <- x$properties$layout %in% "fixed"
+
   cell_heights <- fortify_height(x)
   cell_widths <- fortify_width(x)
   cell_hrule <- fortify_hrule(x)
@@ -198,7 +200,9 @@ html_gen <- function(x){
   span_style_str <- text_css_styles(data_ref_text)
   par_style_str <- par_css_styles(data_ref_pars)
   cell_style_str <- cell_css_styles(data_ref_cells)
-
+  if(!fixed_layout) {
+    cell_style_str <- gsub("width:[ ]*[0-9\\.]+pt;", "", cell_style_str)
+  }
   list(
     html = html,
     css = paste0(span_style_str, par_style_str, cell_style_str)
