@@ -621,7 +621,6 @@ add_runstyle_column <- function(x, type = "wml"){
   x
 }
 
-#' @importFrom gdtools raster_write
 #' @import data.table
 add_raster_as_filecolumn <- function(x){
 
@@ -629,7 +628,11 @@ add_raster_as_filecolumn <- function(x){
   files <- mapply(function(x, width, height){
     if(inherits(x, "raster")){
       file <- tempfile(fileext = ".png")
-      raster_write(x, width = width*72, height = height*72, path = file)
+      png(filename = file, units = "in", res = 300, bg = "transparent", width = width, height = height)
+      op <- par(mar=rep(0, 4))
+      plot(x, interpolate = FALSE, asp=NA)
+      par(op)
+      dev.off()
     } else if(is.character(x)){
       file <- x
     } else {

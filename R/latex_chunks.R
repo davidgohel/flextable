@@ -130,7 +130,11 @@ img_to_latex <- function(img_data, width, height){
 
   str_raster <- mapply(function(img_raster, new_file, width, height ){
     if(inherits(img_raster, "raster")){
-      gdtools::raster_write(img_raster, path = new_file, width = width*72, height = height*72)
+      png(filename = new_file, units = "in", res = 300, bg = "transparent", width = width, height = height)
+      op <- par(mar=rep(0, 4))
+      plot(img_raster, interpolate = FALSE, asp=NA)
+      par(op)
+      dev.off()
     } else if(is.character(img_raster)){
       if(!file.exists(img_raster)){
         stop("file ", shQuote(img_raster), " could not be read")

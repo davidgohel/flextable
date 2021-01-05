@@ -49,7 +49,6 @@ border_pml <- function(color, width, style, side){
 # main -----
 
 #' @importFrom htmltools htmlEscape
-#' @importFrom gdtools raster_write raster_str
 #' @importFrom xml2 as_xml_document xml_find_all xml_attr
 format.complex_tabpart <- function( x, type = "wml", header = FALSE,
                                     split = FALSE, colwidth = TRUE, ... ){

@@ -30,7 +30,6 @@
 #' ft
 #' @export
 #' @importFrom stats setNames
-#' @importFrom gdtools font_family_exists
 #' @seealso [style()], [autofit()], [theme_booktabs()], [knit_print.flextable()],
 #' [compose()], [footnote()]
 #' @section Illustrations:

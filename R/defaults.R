@@ -87,7 +87,7 @@ set_flextable_defaults <- function(
 
   x <- list()
 
-  if( !is.null(font.family) && font_family_exists(font_family = font.family) ){
+  if( !is.null(font.family) ){
     x$font.family <- font.family
   }
 

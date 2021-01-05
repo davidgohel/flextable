@@ -220,9 +220,18 @@ htmlize <- function(x){
 
 img_as_html <- function(img_data, width, height){
   str_raster <- mapply(function(img_raster, width, height ){
+
     if(inherits(img_raster, "raster")){
-      img_raster <- paste("data:image/png;base64,", gdtools::raster_str(img_raster, width*72, height*72))
-    } else if(is.character(img_raster)){
+      outfile <- tempfile(fileext = ".png")
+      png(filename = outfile, units = "in", res = 300, bg = "transparent", width = width, height = height)
+      op <- par(mar=rep(0, 4))
+      plot(img_raster, interpolate = FALSE, asp=NA)
+      par(op)
+      dev.off()
+      img_raster <- outfile
+    }
+
+    if(is.character(img_raster)){
 
       if( grepl("\\.png", ignore.case = TRUE, x = img_raster) ){
         mime <- "image/png"
