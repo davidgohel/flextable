@@ -77,3 +77,6 @@ ft_2 <- footnote( ft_2, i = 1, j = 3:4,
                part = "header", inline = TRUE)
 ft_2
 }
+\seealso{
+\code{\link{footnote_multi_callout}}
+}
