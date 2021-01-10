@@ -126,3 +126,36 @@ format_double <- function(x, digits = 2){
 }
 
 
+
+#' Peek at a flextable
+#' 
+#' Create a dummy MS Word document containing only the flextable and open it.
+#' This is most useful for copy-pasting.
+#'
+#' @param x a flextable
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' ft = flextable(iris) 
+#' peek_flextable(ft)
+#' }
+peek_flextable = function(x){
+  temp=tempfile(fileext=".docx")
+  tryCatch({
+    if(file.exists(temp)) {
+      file.remove(temp )
+    }
+    doc <- body_add_flextable(read_docx(), x)
+    print(doc, temp)
+    shell.exec(temp)
+  }, error=function(e) {
+    message("Error: File is probably already open")
+    message(e)
+  }, warning=function(w) {
+    message("Warning: File is probably already open")
+    message(w)
+  }, finally={}
+  )
+}
