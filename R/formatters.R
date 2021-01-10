@@ -316,7 +316,7 @@ colformat_lgl <- function(
 filter_col_keys <- function(x, j, fun){
   j <- get_columns_id(x[["body"]], j )
   col_keys <- x$col_keys[j]
-  col_keys[sapply(x[["body"]]$dataset[col_keys], fun)]
+  col_keys[vapply(x[["body"]]$dataset[col_keys], fun, FUN.VALUE = NA_character_)]
 }
 
 docall_display <- function(col_keys, fun, x, i = NULL){
