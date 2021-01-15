@@ -45,14 +45,14 @@ default_fptext_prop <- structure(list(
 #' @export
 #' @title chunk of text wrapper
 #' @description The function lets add text within flextable
-#' objects with function \code{\link{compose}}.
-#' It should be used inside a call to \code{\link{as_paragraph}}.
+#' objects with function [compose()].
+#' It should be used inside a call to [as_paragraph()].
 #' @param x text or any element that can be formatted as text
-#' with function provided in argument \code{formatter}.
-#' @param props an \code{\link[officer]{fp_text}} object to be used to format the text.
+#' with function provided in argument `formatter`.
+#' @param props an [officer::fp_text()] object to be used to format the text.
 #' If not specified, it will be the default value corresponding to the cell.
 #' @param formatter a function that will format x as a character vector.
-#' @param ... additional arguments for \code{formatter} function.
+#' @param ... additional arguments for `formatter` function.
 #' @family chunk elements for paragraph
 #' @examples
 #' library(officer)
@@ -117,7 +117,7 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
 #' @note
 #' This is a sugar function that ease the composition of complex
 #' labels made of different formattings. It should be used inside a
-#' call to \code{\link{as_paragraph}}.
+#' call to [as_paragraph()].
 #' @param x value, if a chunk, the chunk will be updated
 #' @family chunk elements for paragraph
 #' @examples
@@ -149,7 +149,7 @@ as_sub <- function(x){
 #' @note
 #' This is a sugar function that ease the composition of complex
 #' labels made of different formattings. It should be used inside a
-#' call to \code{\link{as_paragraph}}.
+#' call to [as_paragraph()].
 #' @family chunk elements for paragraph
 #' @examples
 #' ft <- flextable( head(iris), col_keys = c("dummy") )
@@ -181,7 +181,7 @@ as_sup <- function(x){
 #' @note
 #' This is a sugar function that ease the composition of complex
 #' labels made of different formattings. It should be used inside a
-#' call to \code{\link{as_paragraph}}.
+#' call to [as_paragraph()].
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
@@ -212,7 +212,7 @@ as_b <- function(x){
 #' @note
 #' This is a sugar function that ease the composition of complex
 #' labels made of different formattings. It should be used inside a
-#' call to \code{\link{as_paragraph}}.
+#' call to [as_paragraph()].
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
@@ -238,7 +238,7 @@ as_i <- function(x){
 #' @title chunk with values in brackets
 #' @description The function is producing a chunk by
 #' pasting values and add the result in brackets.
-#' It should be used inside a call to \code{\link{as_paragraph}}.
+#' It should be used inside a call to [as_paragraph()].
 #' @param ... text and column names
 #' @param sep separator
 #' @param p prefix, default to '('
@@ -268,8 +268,8 @@ as_bracket <- function(..., sep = ", ", p = "(", s = ")"){
 #' @export
 #' @title chunk of text with hyperlink wrapper
 #' @description The function lets add hyperlinks within flextable
-#' objects with function \code{\link{compose}}.
-#' It should be used inside a call to \code{\link{as_paragraph}}.
+#' objects with function [compose()].
+#' It should be used inside a call to [as_paragraph()].
 #' @note
 #' This chunk option requires package officedown in a R Markdown
 #' context with Word output format.
@@ -300,12 +300,12 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
 #' @export
 #' @title concatenate chunks in a flextable
 #' @description The function is concatenating text and images within paragraphs of
-#' a flextable object, this function is to be used with function \code{\link{compose}}.
+#' a flextable object, this function is to be used with function [compose()].
 #' @param ... chunk elements that are defining paragraph
 #' @param list_values a list of chunk elements that are defining paragraph. If
-#' specified argument \code{...} is unused.
-#' @seealso \code{\link{as_chunk}}, \code{\link{minibar}},
-#' \code{\link{as_image}}, \code{\link{hyperlink_text}}
+#' specified argument `...` is unused.
+#' @seealso [as_chunk()], [minibar()],
+#' [as_image()], [hyperlink_text()]
 #' @examples
 #' library(officer)
 #' ft <- flextable( head(iris, n = 10 ))

@@ -30,7 +30,7 @@ external client linked to these HTML format is used to display the table.
 If RStudio is used, the Viewer is used to display the table.
 
 Note also that a print method is used when flextable are used within
-R markdown documents. See \code{\link{knit_print.flextable}}.
+R markdown documents. See \code{\link[=knit_print.flextable]{knit_print.flextable()}}.
 }
 \seealso{
 Other flextable print function: 

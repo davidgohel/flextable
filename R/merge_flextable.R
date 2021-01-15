@@ -8,7 +8,7 @@
 #' algorithm where the combinations of these columns are used once for all
 #' target columns.
 #'
-#' @param x \code{flextable} object
+#' @param x `flextable` object
 #' @param j column to used to find consecutive values to be merged. Columns
 #' from orignal dataset can also be used.
 #' @param target columns names where cells have to be merged.
@@ -87,7 +87,7 @@ merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE){
 #' identical values. Text of formatted values are used to compare
 #' values.
 #'
-#' @param x \code{flextable} object
+#' @param x `flextable` object
 #' @param i rows where cells have to be merged.
 #' @param part partname of the table where merge has to be done.
 #' @family flextable merging function
@@ -114,7 +114,7 @@ merge_h <- function(x, i = NULL, part = "body" ){
 #'
 #' @description Delete all merging informations from a flextable.
 #'
-#' @param x \code{flextable} object
+#' @param x `flextable` object
 #' @param part partname of the table where merge has to be done.
 #' @family flextable merging function
 #' @export
@@ -160,7 +160,7 @@ merge_none <- function(x, part = "all" ){
 #' @description Merge flextable cells into a single one. All
 #' rows and columns must be consecutive.
 #'
-#' @param x \code{flextable} object
+#' @param x `flextable` object
 #' @param i,j columns and rows to merge
 #' @param part partname of the table where merge has to be done.
 #' @family flextable merging function
@@ -189,7 +189,7 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
 #' @description Merge flextable columns into a single one for each selected rows. All
 #' columns must be consecutive.
 #'
-#' @param x \code{flextable} object
+#' @param x `flextable` object
 #' @param i selected rows
 #' @param j1,j2 selected columns that will define the range of columns to merge.
 #' @param part partname of the table where merge has to be done.

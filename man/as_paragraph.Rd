@@ -14,7 +14,7 @@ specified argument \code{...} is unused.}
 }
 \description{
 The function is concatenating text and images within paragraphs of
-a flextable object, this function is to be used with function \code{\link{compose}}.
+a flextable object, this function is to be used with function \code{\link[=compose]{compose()}}.
 }
 \section{Illustrations}{
 
@@ -40,6 +40,6 @@ ft <- autofit(ft)
 ft
 }
 \seealso{
-\code{\link{as_chunk}}, \code{\link{minibar}},
-\code{\link{as_image}}, \code{\link{hyperlink_text}}
+\code{\link[=as_chunk]{as_chunk()}}, \code{\link[=minibar]{minibar()}},
+\code{\link[=as_image]{as_image()}}, \code{\link[=hyperlink_text]{hyperlink_text()}}
 }

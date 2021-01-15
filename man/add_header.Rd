@@ -29,7 +29,7 @@ can be more than a label - resulting in more than a new row.
 }
 \note{
 when repeating values, they can be merged together with
-function \code{\link{merge_h}} and \code{\link{merge_v}}.
+function \code{\link[=merge_h]{merge_h()}} and \code{\link[=merge_v]{merge_v()}}.
 }
 \section{Illustrations}{
 

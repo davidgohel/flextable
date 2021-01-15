@@ -2,7 +2,7 @@
 #' @title add flextable into a Word document
 #' @description add a flextable into a Word document.
 #' @param x an rdocx object
-#' @param value \code{flextable} object
+#' @param value `flextable` object
 #' @param align left, center (default) or right.
 #' @param split set to TRUE if you want to activate Word
 #' option 'Allow row to break across pages'.

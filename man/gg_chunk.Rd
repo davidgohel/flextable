@@ -13,7 +13,7 @@ gg_chunk(value, width = 1, height = 0.2)
 }
 \description{
 This function is used to insert mini gg plots into
-flextable with function \code{\link{compose}}.
+flextable with function \code{\link[=compose]{compose()}}.
 It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
 }
 \note{

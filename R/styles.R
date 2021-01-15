@@ -2,14 +2,14 @@
 #' @title Set flextable style
 #' @description Modify flextable text, paragraphs and cells formatting properties.
 #' It allows to specify a set of formatting properties for a selection instead
-#' of using multiple functions (.i.e \code{bold}, \code{italic}, \code{bg}) that
+#' of using multiple functions (.i.e `bold`, `italic`, `bg`) that
 #' should all be applied to the same selection of rows and columns.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param pr_t object(s) of class \code{fp_text}
-#' @param pr_p object(s) of class \code{fp_par}
-#' @param pr_c object(s) of class \code{fp_cell}
+#' @param pr_t object(s) of class `fp_text`
+#' @param pr_p object(s) of class `fp_par`
+#' @param pr_c object(s) of class `fp_cell`
 #' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
 #' @importFrom stats terms
 #' @examples
@@ -693,7 +693,7 @@ valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body" ){
 #' @param align vertical alignment of paragraph within cell,
 #' one of "center" or "top" or "bottom".
 #' @details
-#' When function \code{autofit} is used, the rotation will be
+#' When function `autofit` is used, the rotation will be
 #' ignored. In that case, use [dim_pretty] and [width] instead
 #' of [autofit].
 #' @family sugar functions for table style

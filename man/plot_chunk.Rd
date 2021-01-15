@@ -26,7 +26,7 @@ plot_chunk(
 }
 \description{
 This function is used to insert mini plots into
-flextable with function \code{\link{compose}}.
+flextable with function \code{\link[=compose]{compose()}}.
 It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
 
 Available plots are 'box', 'line', 'points', 'density'.

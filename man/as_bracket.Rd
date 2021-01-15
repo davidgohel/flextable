@@ -18,7 +18,7 @@ as_bracket(..., sep = ", ", p = "(", s = ")")
 \description{
 The function is producing a chunk by
 pasting values and add the result in brackets.
-It should be used inside a call to \code{\link{as_paragraph}}.
+It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
 }
 \section{Illustrations}{
 

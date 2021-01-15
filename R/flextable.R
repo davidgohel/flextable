@@ -1,8 +1,8 @@
 #' @title flextable creation
 #'
-#' @description Create a flextable object with function \code{flextable}.
+#' @description Create a flextable object with function `flextable`.
 #'
-#' \code{flextable} are designed to make tabular reporting easier for
+#' `flextable` are designed to make tabular reporting easier for
 #' R users. Functions are available to let you format text, paragraphs and cells;
 #' table cells can be merge vertically or horizontally, row headers can easilly
 #' be defined, rows heights and columns widths can be manually set or automatically
@@ -13,17 +13,17 @@
 #' function [set_flextable_defaults()].
 #'
 #' @details
-#' A \code{flextable} is made of 3 parts: header, body and footer.
+#' A `flextable` is made of 3 parts: header, body and footer.
 #'
-#' Most functions have an argument named \code{part} that will be used
+#' Most functions have an argument named `part` that will be used
 #' to specify what part of of the table should be modified.
 #' @param data dataset
 #' @param col_keys columns names/keys to display. If some column names are not in
 #' the dataset, they will be added as blank columns by default.
 #' @param cwidth,cheight initial width and height to use for cell sizes in inches.
 #' @param defaults,theme_fun deprecated, use [set_flextable_defaults()] instead.
-#' @note Function \code{regulartable} is maintained for compatibility with old codes
-#' mades by users but be aware it produces the same exact object than \code{flextable}.
+#' @note Function `regulartable` is maintained for compatibility with old codes
+#' mades by users but be aware it produces the same exact object than `flextable`.
 #' This function should be deprecated then removed in the next versions.
 #' @examples
 #' ft <- flextable(head(mtcars))
@@ -80,7 +80,7 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
 #' @export
 #' @rdname flextable
 #' @section qflextable:
-#' \code{qflextable} is a convenient tool to produce quickly
+#' `qflextable` is a convenient tool to produce quickly
 #' a flextable for reporting where layoout is fixed and columns
 #' widths adjusted with [autofit()].
 qflextable <- function(data){
@@ -94,12 +94,12 @@ qflextable <- function(data){
 #' @description set caption value in flextable
 #' @param x flextable object
 #' @param caption caption value
-#' @param autonum an autonum representation. See \code{\link[officer]{run_autonum}}.
+#' @param autonum an autonum representation. See [officer::run_autonum()].
 #' This has only an effect when output is Word. If used, the caption is preceded
 #' by an auto-number sequence. In this case, the caption is preceded by an auto-number
 #' sequence that can be cross referenced.
 #' @param style caption paragraph style name. These names are available with
-#' function \code{\link[officer]{styles_info}} when output is Word; if HTML, a
+#' function [officer::styles_info()] when output is Word; if HTML, a
 #' corresponding css class definition should exist.
 #' @param html_escape should HTML entities be escaped so that it can be safely
 #' included as text or an attribute value within an HTML document.

@@ -11,19 +11,19 @@
 
 \item{value}{flextable object}
 
-\item{location}{a location for a placeholder. See \code{\link[officer]{ph_location_type}}
+\item{location}{a location for a placeholder. See \code{\link[officer:ph_location_type]{officer::ph_location_type()}}
 for example.}
 
 \item{...}{unused arguments.}
 }
 \description{
 Add a flextable in a PowerPoint document object produced
-by \code{\link[officer]{read_pptx}}.
+by \code{\link[officer:read_pptx]{officer::read_pptx()}}.
 }
 \note{
 The width and height of the table can not be set with \code{location}. Use
-functions \code{\link{width}}, \code{\link{height}}, \code{\link{autofit}}
-and \code{\link{dim_pretty}} instead. The overall size is resulting from
+functions \code{\link[=width]{width()}}, \code{\link[=height]{height()}}, \code{\link[=autofit]{autofit()}}
+and \code{\link[=dim_pretty]{dim_pretty()}} instead. The overall size is resulting from
 cells, paragraphs and text properties (i.e. padding, font size, border widths).
 }
 \examples{

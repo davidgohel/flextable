@@ -32,7 +32,7 @@ as_flextable <- function( x, ... ){
 #' data_co2
 #' data_co2 <- as_grouped_data(x = data_co2, groups = c("Treatment"))
 #' data_co2
-#' @seealso \code{\link{as_flextable.grouped_data}}
+#' @seealso [as_flextable.grouped_data()]
 #' @export
 as_grouped_data <- function( x, groups, columns = NULL ){
 

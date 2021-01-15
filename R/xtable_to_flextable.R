@@ -1,21 +1,21 @@
 #' @importFrom officer fp_text fp_par fp_border
 #' @title get a flextable from a xtable object
 #'
-#' @description Get a \code{flextable} object from
-#' a \code{xtable} object.
+#' @description Get a `flextable` object from
+#' a `xtable` object.
 #'
 #' `xtable_to_flextable` will be deprecated in favor of `as_flextable.xtable`.
 #'
-#' @param x \code{xtable} object
+#' @param x `xtable` object
 #' @param text.properties default text formatting properties
 #' @param format.args List of arguments for the formatC function.
-#' See argument \code{format.args} of \code{print.xtable}. Not yet
+#' See argument `format.args` of `print.xtable`. Not yet
 #' implemented.
 #' @param rowname_col colname used for row names column
-#' @param hline.after see \code{?print.xtable}.
-#' @param NA.string see \code{?print.xtable}.
-#' @param include.rownames see \code{?print.xtable}.
-#' @param rotate.colnames see \code{?print.xtable}.
+#' @param hline.after see `?print.xtable`.
+#' @param NA.string see `?print.xtable`.
+#' @param include.rownames see `?print.xtable`.
+#' @param rotate.colnames see `?print.xtable`.
 #' @param ... unused arguments
 #' @examples
 #' library(officer)

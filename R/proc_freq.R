@@ -7,17 +7,17 @@ format_pct <- function(x){
 #' @description This function compute a two way contingency table
 #' and make a flextable with the result.
 #'
-#' @param x \code{data.frame} object
-#' @param row \code{characer} column names for row
-#' @param col \code{characer} column names for column
-#' @param main \code{characer} title
-#' @param include.row_percent \code{boolean} whether to include the row percents; defaults to \code{TRUE}
-#' @param include.column_percent \code{boolean} whether to include the column percents; defaults to \code{TRUE}
-#' @param include.table_percent \code{boolean} whether to include the table percents; defaults to \code{TRUE}
-#' @param include.column_total \code{boolean} whether to include the row of column totals; defaults to \code{TRUE}
-#' @param include.row_total \code{boolean} whether to include the column of row totals; defaults to \code{TRUE}
-#' @param include.header_row \code{boolean} whether to include the header row; defaults to \code{TRUE}
-#' @param weight \code{character} column name for weight
+#' @param x `data.frame` object
+#' @param row `characer` column names for row
+#' @param col `characer` column names for column
+#' @param main `characer` title
+#' @param include.row_percent `boolean` whether to include the row percents; defaults to `TRUE`
+#' @param include.column_percent `boolean` whether to include the column percents; defaults to `TRUE`
+#' @param include.table_percent `boolean` whether to include the table percents; defaults to `TRUE`
+#' @param include.column_total `boolean` whether to include the row of column totals; defaults to `TRUE`
+#' @param include.row_total `boolean` whether to include the column of row totals; defaults to `TRUE`
+#' @param include.header_row `boolean` whether to include the header row; defaults to `TRUE`
+#' @param weight `character` column name for weight
 #'
 #'
 #' @importFrom stats as.formula na.omit
