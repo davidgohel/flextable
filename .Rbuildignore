@@ -2,8 +2,6 @@
 ^\.gitattributes$
 ^\.Rproj\.user$
 ^README\.Rmd$
-^\.travis\.yml$
-^appveyor\.yml$
 ^_pkgdown\.yml$
 ^revdep$
 ^CONDUCT\.md$

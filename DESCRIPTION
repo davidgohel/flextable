@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.6.2.010
+Version: 0.6.2.011
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -11,7 +11,7 @@ Authors@R: c(
     person(given = "Titouan", family = "Robert", role = c("ctb")),
     person(given = "Michael", family = "Barrowman", role = c("ctb"), comment = "inline footnotes"),
     person(given = "Atsushi", family = "Yasumoto", role = c("ctb"), comment = "support for bookdown cross reference"),
-    person(given = "Paul", family = "Julian", role = c("ctb"),comment = "support for gam objects")
+    person(given = "Paul", family = "Julian", role = c("ctb"), comment = "support for gam objects")
     )
 Description: Create pretty tables for 'HTML', 'PDF', 'Microsoft Word' and 'Microsoft PowerPoint' 
   documents from 'R Markdown'. Functions are provided to let users create tables, modify and format 
@@ -35,7 +35,7 @@ Suggests:
     webshot,
     magick,
     ggplot2, scales, 
-    broom
+    broom, mgcv
 Encoding: UTF-8
 URL: https://davidgohel.github.io/flextable/
 BugReports: https://github.com/davidgohel/flextable/issues

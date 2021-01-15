@@ -4,6 +4,8 @@
 
 * `merge_v` has a new argument `combine` to let use j columns 
 be used as a single value (all values are pasted).
+* new function `add_body` for adding rows into a flextable body
+* new method `as_flextable` for `gam` models
 
 ## Issues
 
