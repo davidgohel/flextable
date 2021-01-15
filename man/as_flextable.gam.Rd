@@ -16,18 +16,18 @@ produce a flextable describing a
 generalized additive model produced by function \code{mgcv::gam}.
 }
 \examples{
-library(mgcv)
-set.seed(2)
+if (require("mgcv")) {
+  set.seed(2)
 
-# Simulated data
-dat <- gamSim(1,n=400,dist="normal",scale=2)
+  # Simulated data
+  dat <- gamSim(1, n = 400, dist = "normal", scale = 2)
 
-# basic GAM model
-b <- gam(y~s(x0)+s(x1)+s(x2)+s(x3),data=dat)
+  # basic GAM model
+  b <- gam(y ~ s(x0) + s(x1) + s(x2) + s(x3), data = dat)
 
-ft <- as_flextable(b)
-ft
-
+  ft <- as_flextable(b)
+  ft
+}
 }
 \seealso{
 Other as_flextable methods: 
