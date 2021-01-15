@@ -10,7 +10,7 @@ as_chunk(x, props = NULL, formatter = format_fun, ...)
 \item{x}{text or any element that can be formatted as text
 with function provided in argument \code{formatter}.}
 
-\item{props}{an \code{\link[officer]{fp_text}} object to be used to format the text.
+\item{props}{an \code{\link[officer:fp_text]{officer::fp_text()}} object to be used to format the text.
 If not specified, it will be the default value corresponding to the cell.}
 
 \item{formatter}{a function that will format x as a character vector.}
@@ -19,8 +19,8 @@ If not specified, it will be the default value corresponding to the cell.}
 }
 \description{
 The function lets add text within flextable
-objects with function \code{\link{compose}}.
-It should be used inside a call to \code{\link{as_paragraph}}.
+objects with function \code{\link[=compose]{compose()}}.
+It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
 }
 \section{Illustrations}{
 

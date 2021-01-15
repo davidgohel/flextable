@@ -22,7 +22,7 @@ footnote(
 
 \item{j}{column selection}
 
-\item{value}{a call to function \code{\link{as_paragraph}}.}
+\item{value}{a call to function \code{\link[=as_paragraph]{as_paragraph()}}.}
 
 \item{ref_symbols}{character value, symbols to append that will be used
 as references to notes.}

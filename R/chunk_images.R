@@ -2,8 +2,8 @@
 #' @export
 #' @title image chunk wrapper
 #' @description The function lets add images within flextable
-#' objects with function \code{\link{compose}}.
-#' It should be used inside a call to \code{\link{as_paragraph}}.
+#' objects with function [compose()].
+#' It should be used inside a call to [as_paragraph()].
 #' @param src image filename
 #' @param width,height size of the png file in inches
 #' @param ... unused argument
@@ -14,7 +14,7 @@
 #'
 #' PowerPoint cannot mix images and text in a paragraph, images
 #' are removed when outputing to PowerPoint format.
-#' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
+#' @seealso [compose()], [as_paragraph()]
 #' @examples
 #' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 #' library(officer)
@@ -53,8 +53,8 @@ as_image <- function(src, width = .5, height = .2, ...) {
 #' @export
 #' @title mini barplots chunk wrapper
 #' @description This function is used to insert bars into
-#' flextable with function \code{\link{compose}}.
-#' It should be used inside a call to \code{\link{as_paragraph}}
+#' flextable with function [compose()].
+#' It should be used inside a call to [as_paragraph()]
 #' @param value values containing the bar size
 #' @param max max bar size
 #' @param barcol bar color
@@ -79,7 +79,7 @@ as_image <- function(src, width = .5, height = .2, ...) {
 #' ft <- autofit(ft)
 #' ft
 #' @importFrom grDevices as.raster col2rgb rgb
-#' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
+#' @seealso [compose()], [as_paragraph()]
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_minibar_1.png}{options: width=60\%}}
@@ -120,8 +120,8 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' @export
 #' @title mini linerange chunk wrapper
 #' @description This function is used to insert lineranges into
-#' flextable with function \code{\link{compose}}.
-#' It should be used inside a call to \code{\link{as_paragraph}}
+#' flextable with function [compose()].
+#' It should be used inside a call to [as_paragraph()]
 #' @param value values containing the bar size
 #' @param min min bar size. Default min of value
 #' @param max max bar size. Default max of value
@@ -150,7 +150,7 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' autofit(myft)
 #' @importFrom grDevices as.raster col2rgb rgb
 #' @importFrom stats approx
-#' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
+#' @seealso [compose()], [as_paragraph()]
 linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
                       stickcol = "#FF0000", bg = "transparent", width = 1,
                       height = .2, raster_width = 30) {
@@ -205,8 +205,8 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @export
 #' @title mini lollipop chart chunk wrapper
 #' @description This function is used to insert lollipop charts into
-#' flextable with function \code{\link{compose}}.
-#' It should be used inside a call to \code{\link{as_paragraph}}
+#' flextable with function [compose()].
+#' It should be used inside a call to [as_paragraph()]
 #' @param value values containing the bar size
 #' @param min min bar size. Default min of value
 #' @param max max bar size. Default max of value
@@ -240,7 +240,7 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' ft
 #' @importFrom grDevices as.raster col2rgb rgb
 #' @importFrom stats approx
-#' @seealso \code{\link{compose}}, \code{\link{as_paragraph}}
+#' @seealso [compose()], [as_paragraph()]
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_lollipop_1.png}{options: width=60\%}}
@@ -325,7 +325,7 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @export
 #' @title mini plots chunk wrapper
 #' @description This function is used to insert mini plots into
-#' flextable with function \code{\link{compose}}.
+#' flextable with function [compose()].
 #' It should be used inside a call to [as_paragraph()].
 #'
 #' Available plots are 'box', 'line', 'points', 'density'.
@@ -429,7 +429,7 @@ plot_chunk <- function(value, width = 1, height = .2,
 #' @export
 #' @title gg plots chunk wrapper
 #' @description This function is used to insert mini gg plots into
-#' flextable with function \code{\link{compose}}.
+#' flextable with function [compose()].
 #' It should be used inside a call to [as_paragraph()].
 #'
 #' @param value gg objects, stored in a list column.

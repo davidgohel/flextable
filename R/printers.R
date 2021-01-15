@@ -45,8 +45,8 @@ htmltools_value <- function(x, ft.align = "center"){
 #' cell, the default value is 8 points.
 #' @param ft.arraystretch height of each row relative to its default
 #' height, the default value is 1.5.
-#' @param ft.left,ft.top Position should be defined with options \code{ft.left}
-#' and \code{ft.top}. Theses are the top left coordinates in inches
+#' @param ft.left,ft.top Position should be defined with options `ft.left`
+#' and `ft.top`. Theses are the top left coordinates in inches
 #' of the placeholder that will contain the table. Their
 #' default valuues are 1 and 2 inches.
 #' @param webshot webshot package as a scalar character, one of "webshot" or
@@ -293,25 +293,25 @@ pptx_value <- function(x, ft.left = opts_current$get("ft.left"),
 #' @export
 #' @title flextable printing
 #'
-#' @description print a flextable object to format \code{html}, \code{docx},
-#' \code{pptx} or as text (not for display but for informative purpose).
+#' @description print a flextable object to format `html`, `docx`,
+#' `pptx` or as text (not for display but for informative purpose).
 #' This function is to be used in an interactive context.
 #'
 #' @note
-#' When argument \code{preview} is set to \code{"docx"} or \code{"pptx"}, an
+#' When argument `preview` is set to `"docx"` or `"pptx"`, an
 #' external client linked to these formats (Office is installed) is used to
 #' edit a document. The document is saved in the temporary directory of
 #' the R session and will be removed when R session will be ended.
 #'
-#' When argument \code{preview} is set to \code{"html"}, an
+#' When argument `preview` is set to `"html"`, an
 #' external client linked to these HTML format is used to display the table.
 #' If RStudio is used, the Viewer is used to display the table.
 #'
 #' Note also that a print method is used when flextable are used within
-#' R markdown documents. See \code{\link{knit_print.flextable}}.
+#' R markdown documents. See [knit_print.flextable()].
 #' @param x flextable object
 #' @param preview preview type, one of c("html", "pptx", "docx", "log").
-#' When \code{"log"} is used, a description of the flextable is printed.
+#' When `"log"` is used, a description of the flextable is printed.
 #' @param ... unused argument
 #' @family flextable print function
 #' @importFrom utils browseURL
@@ -362,7 +362,7 @@ print.flextable <- function(x, preview = "html", ...){
 #' minimum [pandoc](https://pandoc.org/installing.html) versions:
 #'
 #' \tabular{rc}{
-#'   \strong{Output format} \tab \strong{pandoc minimal version} \cr
+#'   **Output format** \tab **pandoc minimal version** \cr
 #'   HTML              \tab >= 1.12\cr
 #'   Word (docx)       \tab >= 2.0 \cr
 #'   PowerPoint (pptx) \tab >= 2.4 \cr
@@ -375,7 +375,7 @@ print.flextable <- function(x, preview = "html", ...){
 #' are to be used to change the default settings:
 #'
 #' \tabular{lcccccc}{
-#'   \strong{chunk option} \tab \strong{property} \tab \strong{default value} \tab \strong{HTML} \tab \strong{docx} \tab \strong{PDF} \tab \strong{pptx} \cr
+#'   **chunk option** \tab **property** \tab **default value** \tab **HTML** \tab **docx** \tab **PDF** \tab **pptx** \cr
 #'   ft.align        \tab flextable alignment, supported values are 'left', 'center' and 'right'    \tab 'center' \tab yes \tab yes \tab yes \tab no \cr
 #'   ft.split        \tab Word option 'Allow row to break across pages' can be activated when TRUE. \tab FALSE    \tab no  \tab yes \tab no  \tab no \cr
 #'   ft.tabcolsep    \tab space between the text and the left/right border of its containing cell   \tab 8.0      \tab no  \tab no  \tab yes \tab no \cr
@@ -406,13 +406,13 @@ print.flextable <- function(x, preview = "html", ...){
 #' example. The table below expose these options:
 #'
 #' \tabular{llll}{
-#'   \strong{chunk option} \tab \strong{purpose} \tab \strong{rmarkdown} \tab \strong{bookdown} \cr
+#'   **chunk option** \tab **purpose** \tab **rmarkdown** \tab **bookdown** \cr
 #'   tab.cap.style \tab (Word only) style name to use for table captions            \tab yes \tab yes\cr
 #'   tab.cap.pre   \tab (Word only) Prefix for numbering chunk (default to "Table") \tab yes \tab yes\cr
 #'   tab.cap.sep   \tab (Word only) Suffix for numbering chunk (default to ": ")    \tab yes \tab yes\cr
-#'   tab.cap       \tab \strong{Caption label}                                      \tab yes \tab yes\cr
-#'   tab.id        \tab \strong{Caption reference unique identifier}                \tab yes \tab no \cr
-#'   label         \tab \strong{Caption reference unique identifier}                \tab no  \tab yes
+#'   tab.cap       \tab **Caption label**                                      \tab yes \tab yes\cr
+#'   tab.id        \tab **Caption reference unique identifier**                \tab yes \tab no \cr
+#'   label         \tab **Caption reference unique identifier**                \tab no  \tab yes
 #' }
 #' @section HTML output:
 #'
@@ -434,7 +434,7 @@ print.flextable <- function(x, preview = "html", ...){
 #'
 #' Also images cannot be integrated into tables with the PowerPoint format.
 #'
-#' @param x a \code{flextable} object
+#' @param x a `flextable` object
 #' @param ... further arguments, not used.
 #' @export
 #' @importFrom utils getFromNamespace
@@ -525,7 +525,7 @@ knit_print.flextable <- function(x, ...){
 #' @param ... flextable objects, objects, possibly named. If named objects, names are
 #' used as titles.
 #' @param values a list (possibly named), each element is a flextable object. If named objects, names are
-#' used as titles. If provided, argument \code{...} will be ignored.
+#' used as titles. If provided, argument `...` will be ignored.
 #' @param path HTML file to be created
 #' @param encoding encoding to be used in the HTML file
 #' @param title page title
@@ -588,7 +588,7 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
 #' @param ... flextable objects, objects, possibly named. If named objects, names are
 #' used as slide titles.
 #' @param values a list (possibly named), each element is a flextable object. If named objects, names are
-#' used as slide titles. If provided, argument \code{...} will be ignored.
+#' used as slide titles. If provided, argument `...` will be ignored.
 #' @param path PowerPoint file to be created
 #' @examples
 #' ft1 <- flextable( head( iris ) )
@@ -628,7 +628,7 @@ save_as_pptx <- function(..., values = NULL, path){
 #' @param ... flextable objects, objects, possibly named. If named objects, names are
 #' used as titles.
 #' @param values a list (possibly named), each element is a flextable object. If named objects, names are
-#' used as titles. If provided, argument \code{...} will be ignored.
+#' used as titles. If provided, argument `...` will be ignored.
 #' @param path Word file to be created
 #' @param pr_section a [prop_section] object that can be used to define page
 #' layout such as orientation, width and height.
@@ -700,7 +700,7 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL){
 #' @note This function requires package webshot or webshot2.
 #' @param x a flextable object
 #' @param path image file to be created. It should end with .png, .pdf, or .jpeg.
-#' @param zoom,expand parameters used by \code{webshot} function.
+#' @param zoom,expand parameters used by `webshot` function.
 #' @param webshot webshot package as a scalar character, one of "webshot" or
 #' "webshot2".
 #' @examples
@@ -747,7 +747,7 @@ save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot" ){
 #' result in a new R graphics window.
 #' @note This function requires packages: webshot and magick.
 #' @param x a flextable object
-#' @param zoom,expand parameters used by \code{webshot} function.
+#' @param zoom,expand parameters used by `webshot` function.
 #' @param ... additional parameters sent to [as_raster()] function
 #' @examples
 #' ftab <- flextable( head( mtcars ) )
@@ -772,7 +772,7 @@ plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
 #' on a ggplot object.
 #' @note This function requires packages: webshot and magick.
 #' @param x a flextable object
-#' @param zoom,expand parameters used by \code{webshot} function.
+#' @param zoom,expand parameters used by `webshot` function.
 #' @param webshot webshot package as a scalar character, one of "webshot" or
 #' "webshot2".
 #' @importFrom grDevices as.raster

@@ -16,7 +16,7 @@ bold font.
 \note{
 This is a sugar function that ease the composition of complex
 labels made of different formattings. It should be used inside a
-call to \code{\link{as_paragraph}}.
+call to \code{\link[=as_paragraph]{as_paragraph()}}.
 }
 \section{Illustrations}{
 

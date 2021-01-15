@@ -10,7 +10,8 @@ Authors@R: c(
       comment = "rmarkdown for docx output"),
     person(given = "Titouan", family = "Robert", role = c("ctb")),
     person(given = "Michael", family = "Barrowman", role = c("ctb"), comment = "inline footnotes"),
-    person(given = "Atsushi", family = "Yasumoto", role = c("ctb"), comment = "support for bookdown cross reference")
+    person(given = "Atsushi", family = "Yasumoto", role = c("ctb"), comment = "support for bookdown cross reference"),
+    person(given = "Paul", family = "Julian", role = c("ctb"),comment = "support for gam objects")
     )
 Description: Create pretty tables for 'HTML', 'PDF', 'Microsoft Word' and 'Microsoft PowerPoint' 
   documents from 'R Markdown'. Functions are provided to let users create tables, modify and format 

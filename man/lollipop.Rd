@@ -48,8 +48,8 @@ when interpolating value.}
 }
 \description{
 This function is used to insert lollipop charts into
-flextable with function \code{\link{compose}}.
-It should be used inside a call to \code{\link{as_paragraph}}
+flextable with function \code{\link[=compose]{compose()}}.
+It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}
 }
 \note{
 This chunk option requires package officedown in a R Markdown
@@ -77,7 +77,7 @@ ft <- autofit(ft)
 ft
 }
 \seealso{
-\code{\link{compose}}, \code{\link{as_paragraph}}
+\code{\link[=compose]{compose()}}, \code{\link[=as_paragraph]{as_paragraph()}}
 
 Other chunk elements for paragraph: 
 \code{\link{as_bracket}()},

@@ -5,7 +5,7 @@
 #' @param x a flextable object
 #' @param ... Name-value pairs of functions, names should be existing col_key values
 #' @param values a list of name-value pairs of functions, names should be existing col_key values.
-#' If values is supplied argument \code{...} is ignored.
+#' If values is supplied argument `...` is ignored.
 #' @param part partname of the table (one of 'body' or 'header' or 'footer')
 #' @examples
 #' ft <- flextable( head( iris ) )
@@ -46,11 +46,11 @@ set_formatter <- function(x, ..., values = NULL, part = "body"){
 #' @export
 #' @rdname set_formatter
 #' @section set_formatter_type:
-#' \code{set_formatter_type} is an helper function to quickly define
+#' `set_formatter_type` is an helper function to quickly define
 #' formatter functions regarding to column types.
-#' @param fmt_double,fmt_integer arguments used by \code{sprintf} to
+#' @param fmt_double,fmt_integer arguments used by `sprintf` to
 #' format double and integer columns.
-#' @param fmt_date,fmt_datetime arguments used by \code{format} to
+#' @param fmt_date,fmt_datetime arguments used by `format` to
 #' format date and date time columns.
 #' @param false,true string to be used for logical columns
 #' @param na_str string for NA values

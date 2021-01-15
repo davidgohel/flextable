@@ -6,7 +6,7 @@
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j column selection
-#' @param value a call to function \code{\link{as_paragraph}}.
+#' @param value a call to function [as_paragraph()].
 #' @param ref_symbols character value, symbols to append that will be used
 #' as references to notes.
 #' @param part partname of the table (one of 'body', 'header', 'footer')

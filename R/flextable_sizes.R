@@ -172,9 +172,9 @@ hrule <- function(x, i = NULL, rule = "auto", part = "body"){
 #' @export
 #' @rdname height
 #' @section height_all:
-#' \code{height_all} is a convenient function for
+#' `height_all` is a convenient function for
 #' setting the same height to all rows (selected
-#' with argument \code{part}).
+#' with argument `part`).
 #' @examples
 #'
 #'
@@ -209,9 +209,9 @@ height_all <- function(x, height, part = "all"){
 #' @description Returns the width, height and
 #' aspect ratio of a flextable in a named list.
 #' The width and height are in inches. The aspect ratio
-#' is the ratio corresponding to \code{height/width}.
+#' is the ratio corresponding to `height/width`.
 #'
-#' Names of the list are \code{width}, \code{height} and \code{aspect_ratio}.
+#' Names of the list are `width`, `height` and `aspect_ratio`.
 #' @param x a flextable object
 #' @examples
 #' ftab <- flextable(head(iris))

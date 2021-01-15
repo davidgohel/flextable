@@ -1,6 +1,6 @@
 #' @title Delete flextable content
-#' @description Set content display as a blank \code{" "}.
-#' @param x \code{flextable} object
+#' @description Set content display as a blank `" "`.
+#' @param x `flextable` object
 #' @param j columns selection
 #' @param part partname of the table
 #' @examples

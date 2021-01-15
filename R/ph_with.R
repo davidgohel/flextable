@@ -55,16 +55,16 @@ pml_flextable <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 
 #' @export
 #' @title add a flextable into a PowerPoint slide
 #' @description Add a flextable in a PowerPoint document object produced
-#' by \code{\link[officer]{read_pptx}}.
+#' by [officer::read_pptx()].
 #' @param x a pptx device
 #' @param value flextable object
-#' @param location a location for a placeholder. See \code{\link[officer]{ph_location_type}}
+#' @param location a location for a placeholder. See [officer::ph_location_type()]
 #' for example.
 #' @param ... unused arguments.
 #' @note
-#' The width and height of the table can not be set with \code{location}. Use
-#' functions \code{\link{width}}, \code{\link{height}}, \code{\link{autofit}}
-#' and \code{\link{dim_pretty}} instead. The overall size is resulting from
+#' The width and height of the table can not be set with `location`. Use
+#' functions [width()], [height()], [autofit()]
+#' and [dim_pretty()] instead. The overall size is resulting from
 #' cells, paragraphs and text properties (i.e. padding, font size, border widths).
 #' @examples
 #' library(officer)

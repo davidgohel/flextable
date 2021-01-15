@@ -15,8 +15,8 @@ as_image(src, width = 0.5, height = 0.2, ...)
 }
 \description{
 The function lets add images within flextable
-objects with function \code{\link{compose}}.
-It should be used inside a call to \code{\link{as_paragraph}}.
+objects with function \code{\link[=compose]{compose()}}.
+It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
 }
 \note{
 This chunk option requires package officedown in a R Markdown
@@ -49,7 +49,7 @@ ft <- autofit(myft)
 ft
 }
 \seealso{
-\code{\link{compose}}, \code{\link{as_paragraph}}
+\code{\link[=compose]{compose()}}, \code{\link[=as_paragraph]{as_paragraph()}}
 
 Other chunk elements for paragraph: 
 \code{\link{as_bracket}()},
