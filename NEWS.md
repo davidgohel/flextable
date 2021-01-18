@@ -7,6 +7,10 @@ be used as a single value (all values are pasted).
 * new function `add_body` for adding rows into a flextable body
 * new function `colformat_image` for images in flextable
 * new method `as_flextable` for `gam` models
+* function `set_flextable_defaults` gained 4 new arguments 
+ `post_process_pdf`, `post_process_html`, `post_process_docx` 
+ and `post_process_pptx` to enable flextable post-treatments 
+ conditionned by the output format.
 
 ## Issues
 

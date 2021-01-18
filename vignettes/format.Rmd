@@ -31,7 +31,7 @@ the font size, padding, text alignment... They can be read with function
 `get_flextable_defaults()`.
 
 ```{r}
-as.data.frame(get_flextable_defaults())
+get_flextable_defaults()
 ```
 
 These default properties will be used when creating the flextable 

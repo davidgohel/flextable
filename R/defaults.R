@@ -22,7 +22,12 @@ flextable_global$defaults <- list(
   fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
   fonts_ignore = FALSE,
   extra_css = "caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}",
-  theme_fun = "theme_booktabs")
+  theme_fun = "theme_booktabs",
+  post_process_pdf = function(x) x,
+  post_process_docx = function(x) x,
+  post_process_html = function(x) x,
+  post_process_pptx = function(x) x
+  )
 
 
 #' @export
@@ -55,6 +60,9 @@ flextable_global$defaults <- list(
 #' contains only the style for captions.
 #' @param theme_fun a single character value (the name of the theme function
 #' to be applied) or a theme function (input is a flextable, output is a flextable).
+#' @param post_process_pdf,post_process_docx,post_process_html,post_process_pptx Post-processing functions
+#' that will allow you to customize the display by output type (pdf, html, docx, pptx).
+#' They are executed just before printing the table.
 #' @return a list containing previous default values.
 #' @examples
 #' ft_1 <- qflextable(head(airquality))
@@ -82,7 +90,11 @@ set_flextable_defaults <- function(
   table.layout = NULL,
   decimal.mark = NULL, big.mark = NULL, digits = NULL, na_str = NULL,
   fmt_date = NULL, fmt_datetime = NULL, extra_css = NULL,
-  fonts_ignore = NULL, theme_fun = NULL
+  fonts_ignore = NULL, theme_fun = NULL,
+  post_process_pdf = NULL,
+  post_process_docx = NULL,
+  post_process_html = NULL,
+  post_process_pptx = NULL
   ){
 
   x <- list()
@@ -149,6 +161,19 @@ set_flextable_defaults <- function(
   }
   if( !is.null(theme_fun) && is.function(theme_fun) ){
     x$theme_fun <- theme_fun
+  }
+
+  if( !is.null(post_process_pdf) && is.function(post_process_pdf) ){
+    x$post_process_pdf <- post_process_pdf
+  }
+  if( !is.null(post_process_docx) && is.function(post_process_docx) ){
+    x$post_process_docx <- post_process_docx
+  }
+  if( !is.null(post_process_html) && is.function(post_process_html) ){
+    x$post_process_html <- post_process_html
+  }
+  if( !is.null(post_process_pptx) && is.function(post_process_pptx) ){
+    x$post_process_pptx <- post_process_pptx
   }
 
   flextable_defaults <- flextable_global$defaults

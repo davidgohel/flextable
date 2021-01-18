@@ -13,6 +13,9 @@
 #' htmltools_value(flextable(iris[1:5,]))
 #' @importFrom htmltools tagList
 htmltools_value <- function(x, ft.align = "center"){
+
+  x <- flextable_global$defaults$post_process_html(x)
+
   html_o <- tagList(flextable_html_dependency(),
                     HTML(html_str(x, ft.align = ft.align, class = "tabwid",
                                   caption = caption_html_str(x, bookdown = FALSE),
@@ -161,6 +164,8 @@ flextable_to_rmd <- function(
 #' html_value(flextable(iris[1:5,]))
 html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = opts_current$get("ft.shadow"), bookdown = FALSE, pandoc2 = TRUE){
 
+  x <- flextable_global$defaults$post_process_html(x)
+
   if(is.null(ft.shadow)){
     ft.shadow <- TRUE
   }
@@ -199,6 +204,8 @@ docx_value <- function(x,
                        ft.split = opts_current$get("ft.split"),
                        bookdown = FALSE){
 
+  x <- flextable_global$defaults$post_process_docx(x)
+
   if( is.null(ft.align) ) ft.align <- "center"
   if( is.null(ft.split) ) ft.split <- FALSE
 
@@ -235,6 +242,7 @@ latex_value <- function(x,
   if (is.null(ft.tabcolsep)) ft.tabcolsep <- 8
   if (is.null(ft.arraystretch)) ft.arraystretch <- 1.5
 
+  x <- flextable_global$defaults$post_process_pdf(x)
 
   fonts_ignore <- flextable_global$defaults$fonts_ignore
   fontspec_compat <- get_pdf_engine() %in% c("xelatex", "lualatex")
@@ -279,6 +287,7 @@ pptx_value <- function(x, ft.left = opts_current$get("ft.left"),
     ft.left <- 1
   if( is.null(ft.top) )
     ft.top <- 2
+  x <- flextable_global$defaults$post_process_pptx(x)
 
   uid <- as.integer(runif(n=1) * 10^9)
 
@@ -560,6 +569,8 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
     if(show_names){
       txt[1] <- paste0("<h2>", titles[i], "</h2>")
     }
+    values[[i]] <- flextable_global$defaults$post_process_html(values[[i]])
+
     txt[2] <- html_str(values[[i]],
                        caption = caption_html_str(values[[i]], bookdown = FALSE),
                        shadow = FALSE)
