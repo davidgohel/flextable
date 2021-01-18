@@ -22,6 +22,8 @@ get_text_data <- function(x){
   })
   dat[is_hlink, c("txt") := list(paste0("\\href{", sanitize_latex_str(.SD$url), "}{", .SD$txt, "}"))]
   dat[is_raster==TRUE, c("txt") := list(img_to_latex(.SD$img_data, .SD$width, .SD$height))]
+  dat[is_raster==FALSE, c("txt") := list(gsub("\n", "\\linebreak ", .SD$txt, fixed = TRUE))]
+  dat[is_raster==FALSE, c("txt") := list(gsub("\t", "\\quad ", .SD$txt, fixed = TRUE))]
   dat[is_raster==FALSE, c("txt") := list(sprintf("%s%s%s", .SD$left, .SD$txt, .SD$right))]
 
   dat[, c("left", "right") := NULL]

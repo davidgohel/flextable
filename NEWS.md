@@ -13,6 +13,7 @@ be used as a single value (all values are pasted).
 * fix encoding issue with Windows platforms
 * bring back caption into the table
 * fix overlapping issue with hline_top #244
+* fix `\n` and `\t` usage for pdf
 
 # flextable 0.6.1
 
