@@ -10,7 +10,11 @@ format_fun.default <-
            fmt_date = flextable_global$defaults$fmt_date,
            fmt_datetime = flextable_global$defaults$fmt_datetime,
            prefix = "", suffix = "", ...) {
-    if(is.double(x)){
+    if(inherits(x, "Date")){
+      out <- format_fun.Date(x, fmt_date = fmt_date, na_str = na_str, prefix = prefix, suffix = suffix)
+    } else if(inherits(x, "POSIXt")){
+      out <- format_fun.POSIXt(x, fmt_datetime = fmt_datetime, na_str = na_str, prefix = prefix, suffix = suffix)
+    } else if(is.double(x)){
       out <- format_fun.double(x, na_str = na_str, big.mark = big.mark,
                                decimal.mark = decimal.mark,
                                digits = digits, prefix = prefix, suffix = suffix)
@@ -21,10 +25,6 @@ format_fun.default <-
       out <- format_fun.character(x, na_str = na_str, prefix = prefix, suffix = suffix)
     } else if(is.factor(x)){
       out <- format_fun.factor(x, na_str = na_str, prefix = prefix, suffix = suffix)
-    } else if(inherits(x, "Date")){
-      out <- format_fun.Date(x, fmt_date = fmt_date, na_str = na_str, prefix = prefix, suffix = suffix)
-    } else if(inherits(x, "POSIXt")){
-      out <- format_fun.POSIXt(x, fmt_datetime = fmt_datetime, na_str = na_str, prefix = prefix, suffix = suffix)
     } else {
       out <- format(x, trim = TRUE, big.mark = big.mark,
                     decimal.mark = decimal.mark, justify = "none",

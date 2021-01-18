@@ -17,7 +17,7 @@ flextable_global$defaults <- list(
   table.layout = "fixed",
   decimal.mark = ".",
   big.mark = ",",
-  digits = 2,
+  digits = 1,
   na_str  = "",
   fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
   fonts_ignore = FALSE,
