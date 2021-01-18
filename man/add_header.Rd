@@ -20,7 +20,7 @@ to insert data of the same type as the original data,
 otherwise it will be transformed (probably into strings if
 you add a \verb{character' where a }double' is expected). This keeps
 the ability to format cell contents with the \verb{colformat_*} functions,
-for example \code{\link[=colformat_numeric]{colformat_numeric()}}.}
+for example \code{\link[=colformat_num]{colformat_num()}}.}
 
 \item{values}{a list of name-value pairs of labels or values,
 names should be existing col_key values. This argument can be used

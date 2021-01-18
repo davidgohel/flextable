@@ -48,6 +48,9 @@ set_formatter <- function(x, ..., values = NULL, part = "body"){
 #' @section set_formatter_type:
 #' `set_formatter_type` is an helper function to quickly define
 #' formatter functions regarding to column types.
+#'
+#' This function will be deprecated in favor of the `colformat_*` functions,
+#' for example [colformat_double()].
 #' @param fmt_double,fmt_integer arguments used by `sprintf` to
 #' format double and integer columns.
 #' @param fmt_date,fmt_datetime arguments used by `format` to
@@ -310,6 +313,50 @@ colformat_lgl <- function(
     get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)
+}
+
+#' @title format cells as images
+#' @description Format image paths as images in a flextable.
+#' @inheritParams colformat_char
+#' @param width,height size of the png file in inches
+#' @family cells formatters
+#' @export
+#' @examples
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#'
+#' dat <- head(iris)
+#' dat$Species <- as.character(dat$Species)
+#' dat[c(1, 3, 5), "Species"] <- img.file
+#'
+#' myft <- flextable( dat)
+#' myft <- colformat_image(
+#'   myft, i = c(1, 3, 5),
+#'   j = "Species", width = .20, height = .15)
+#' ft <- autofit(myft)
+#' ft
+colformat_image <- function(
+  x, i = NULL, j = NULL,
+  width, height,
+  na_str = get_flextable_defaults()$na_str,
+  prefix = "", suffix = ""){
+
+  stopifnot(inherits(x, "flextable"))
+
+  col_keys <- filter_col_keys(x, j, is.character)
+
+  check_formula_i_and_part(i, "body")
+  for( varname in col_keys){
+    x <- compose(x = x, j = varname, i = i, value =
+                   as_paragraph(
+                     prefix,
+                     as_image(get(varname), width = width, height = height),
+                     suffix
+                    ),
+                 part = "body"
+                 )
+  }
+  x
+
 }
 
 

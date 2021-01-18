@@ -53,6 +53,9 @@ values as a character vector.
 
 \code{set_formatter_type} is an helper function to quickly define
 formatter functions regarding to column types.
+
+This function will be deprecated in favor of the \verb{colformat_*} functions,
+for example \code{\link[=colformat_double]{colformat_double()}}.
 }
 
 \examples{
@@ -70,6 +73,7 @@ Other cells formatters:
 \code{\link{colformat_datetime}()},
 \code{\link{colformat_date}()},
 \code{\link{colformat_double}()},
+\code{\link{colformat_image}()},
 \code{\link{colformat_int}()},
 \code{\link{colformat_lgl}()},
 \code{\link{colformat_num}()},
@@ -80,6 +84,7 @@ Other cells formatters:
 \code{\link{colformat_datetime}()},
 \code{\link{colformat_date}()},
 \code{\link{colformat_double}()},
+\code{\link{colformat_image}()},
 \code{\link{colformat_int}()},
 \code{\link{colformat_lgl}()},
 \code{\link{colformat_num}()},

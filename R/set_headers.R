@@ -102,7 +102,7 @@ as_new_data <- function(x, ..., values = NULL){
 #' otherwise it will be transformed (probably into strings if
 #' you add a `character' where a `double' is expected). This keeps
 #' the ability to format cell contents with the `colformat_*` functions,
-#' for example [colformat_numeric()].
+#' for example [colformat_num()].
 #' @param values a list of name-value pairs of labels or values,
 #' names should be existing col_key values. This argument can be used
 #' instead of `...` for programming purpose (If `values` is

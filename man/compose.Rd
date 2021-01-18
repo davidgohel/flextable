@@ -47,6 +47,7 @@ Other cells formatters:
 \code{\link{colformat_datetime}()},
 \code{\link{colformat_date}()},
 \code{\link{colformat_double}()},
+\code{\link{colformat_image}()},
 \code{\link{colformat_int}()},
 \code{\link{colformat_lgl}()},
 \code{\link{colformat_num}()},
