@@ -95,12 +95,18 @@ as_new_data <- function(x, ..., values = NULL){
 #' can be more than a value - resulting in more than a new row.
 #'
 #' @param x a `flextable` object
-#' @param top should the row be inserted at the top or the bottom.
+#' @param top should the rows be inserted at the top or the bottom.
 #' @param ... a named list (names are data colnames) of strings
-#' specifying corresponding labels to add.
+#' specifying corresponding values to add. It is important
+#' to insert data of the same type as the original data,
+#' otherwise it will be transformed (probably into strings if
+#' you add a `character' where a `double' is expected). This keeps
+#' the ability to format cell contents with the `colformat_*` functions,
+#' for example [colformat_numeric()].
 #' @param values a list of name-value pairs of labels or values,
-#' names should be existing col_key values.
-#' If `values` is supplied argument `...` is ignored.
+#' names should be existing col_key values. This argument can be used
+#' instead of `...` for programming purpose (If `values` is
+#' supplied argument `...` is ignored).
 #' @examples
 #' ft <- flextable(head(iris),
 #'   col_keys = c(
@@ -138,13 +144,7 @@ add_body <- function(x, top = TRUE, ..., values = NULL){
 #' when repeating values, they can be merged together with
 #' function [merge_h()] and [merge_v()].
 #'
-#' @param x a `flextable` object
-#' @param top should the row be inserted at the top or the bottom.
-#' @param ... a named list (names are data colnames) of strings
-#' specifying corresponding labels to add.
-#' @param values a list of name-value pairs of labels or values,
-#' names should be existing col_key values.
-#' If values is supplied argument `...` is ignored.
+#' @inheritParams add_body
 #' @examples
 #' ft <- flextable( head( iris ),
 #'    col_keys = c("Species", "Sepal.Length", "Petal.Length",

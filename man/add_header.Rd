@@ -12,14 +12,20 @@ add_footer(x, top = TRUE, ..., values = NULL)
 \arguments{
 \item{x}{a \code{flextable} object}
 
-\item{top}{should the row be inserted at the top or the bottom.}
+\item{top}{should the rows be inserted at the top or the bottom.}
 
 \item{...}{a named list (names are data colnames) of strings
-specifying corresponding labels to add.}
+specifying corresponding values to add. It is important
+to insert data of the same type as the original data,
+otherwise it will be transformed (probably into strings if
+you add a \verb{character' where a }double' is expected). This keeps
+the ability to format cell contents with the \verb{colformat_*} functions,
+for example \code{\link[=colformat_numeric]{colformat_numeric()}}.}
 
 \item{values}{a list of name-value pairs of labels or values,
-names should be existing col_key values.
-If values is supplied argument \code{...} is ignored.}
+names should be existing col_key values. This argument can be used
+instead of \code{...} for programming purpose (If \code{values} is
+supplied argument \code{...} is ignored).}
 }
 \description{
 Add rows of labels in the flextable's header
