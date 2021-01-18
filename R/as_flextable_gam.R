@@ -33,21 +33,26 @@ as_flextable.gam <- function(x, ...) {
   ft <- border_remove(ft)
   ft <- set_header_labels(ft, values = param.head)
 
-  ft <- add_body(ft, Component = NA_character_, top = FALSE)
-  for (i in seq_along(param.head)) {
-    ft <- compose(ft,
-      i = nrow_part(ft, "body"),
-      j = i,
-      value = as_paragraph(param.head[i])
-    )
+  if(nrow(data_t$smooth)>0){
+    ft <- add_body(ft, Component = NA_character_, top = FALSE)
+    ft <- add_body(ft, values = setNames(data_t$smooth, names(data_t$parametric)), top = FALSE)
   }
-
-  ft <- add_body(ft, values = setNames(data_t$smooth, names(data_t$parametric)), top = FALSE)
   ft <- compose(ft, j = "p.value", value = as_paragraph(pvalue_format(p.value)))
   ft <- colformat_num(ft, j = 3:5, digits = 3)
-  ft <- hline(ft, i = nrow(data_t$parametric) + c(0, 1), border = std_border)
+
+  if(nrow(data_t$smooth)>0)
+    for (i in seq_along(smooth.head)) {
+    ft <- compose(ft,
+                  i = nrow(data_t$parametric) + 1,
+                  j = i,
+                  value = as_paragraph(smooth.head[i])
+    )
+    ft <- hline(ft, i = nrow(data_t$parametric) + c(0, 1), border = std_border)
+    ft <- bold(ft, i = nrow(data_t$parametric) + 1)
+  }
+
+
   ft <- hline_bottom(ft, border = std_border)
-  ft <- bold(ft, i = nrow(data_t$parametric) + 1)
   ft <- bold(ft, part = "header")
   ft <- hline_top(ft, border = std_border, part = "header")
   ft <- hline(ft, border = std_border, part = "header")
@@ -80,11 +85,13 @@ tidy_gam <- function(model) {
   colnames(ptab) <- c("Component", "Term", "Estimate", "Std.Error", "t.value", "p.value")
 
   stab <- data.frame(summary(model)$s.table)
-  stab$term <- rownames(stab)
-  rownames(stab) <- NULL
-  stab$Component <- "B. smooth terms"
-  stab <- stab[, c(6, 5, 1:4)]
-  colnames(stab) <- c("Component", "Term", "edf", "Ref. df", "F.value", "p.value")
+  if(nrow(stab)>0){
+    stab$term <- rownames(stab)
+    stab$Component <- "B. smooth terms"
+    stab <- stab[, c(6, 5, 1:4)]
+    colnames(stab) <- c("Component", "Term", "edf", "Ref. df", "F.value", "p.value")
+    rownames(stab) <- NULL
+  }
 
   list(parametric = ptab, smooth = stab)
 }
