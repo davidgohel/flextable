@@ -11,6 +11,8 @@ be used as a single value (all values are pasted).
  `post_process_pdf`, `post_process_html`, `post_process_docx` 
  and `post_process_pptx` to enable flextable post-treatments 
  conditionned by the output format.
+* new helper functions `fp_text_default` and `fp_border_default`.
+
 
 ## Issues
 
