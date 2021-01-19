@@ -40,13 +40,8 @@ as_flextable.gam <- function(x, ...) {
   ft <- compose(ft, j = "p.value", value = as_paragraph(pvalue_format(p.value)))
   ft <- colformat_num(ft, j = 3:5, digits = 3)
 
-  if(nrow(data_t$smooth)>0)
-    for (i in seq_along(smooth.head)) {
-    ft <- compose(ft,
-                  i = nrow(data_t$parametric) + 1,
-                  j = i,
-                  value = as_paragraph(smooth.head[i])
-    )
+  if(nrow(data_t$smooth)>0){
+    ft <- compose(ft, i = nrow(data_t$parametric) + 1, value = as_paragraph(smooth.head))
     ft <- hline(ft, i = nrow(data_t$parametric) + c(0, 1), border = std_border)
     ft <- bold(ft, i = nrow(data_t$parametric) + 1)
   }
