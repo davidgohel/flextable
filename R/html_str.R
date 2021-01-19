@@ -250,6 +250,9 @@ img_as_html <- function(img_data, width, height){
       } else {
         stop("this format is not implemented")
       }
+      if(!file.exists(img_raster)){
+        stop("file ", shQuote(img_raster), " can not be found.")
+      }
       img_raster <- base64enc::dataURI(file = img_raster, mime = mime )
 
     } else  {
