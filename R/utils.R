@@ -8,27 +8,6 @@ rbind.match.columns <- function(list_df) {
 }
 
 
-
-get_i_from_formula <- function( f, data ){
-  if( length(f) > 2 )
-    stop("formula selection is not as expected ( ~ condition )", call. = FALSE)
-  i <- eval(as.call(f[[2]]), envir = data)
-  if( !is.logical(i) )
-    stop("formula selection should return a logical vector", call. = FALSE)
-  i
-}
-get_j_from_formula <- function( f, data ){
-  if( length(f) > 2 )
-    stop("formula selection is not as expected ( ~ variables )", call. = FALSE)
-  j <- attr(terms(f, data = data), "term.labels")
-  names_ <- names(data)
-  if( any( invalid_names <- (!j %in% names_) ) ){
-    invalid_names <- paste0("[", j[invalid_names], "]", collapse = ", ")
-    stop("unknown variables:", invalid_names, call. = FALSE)
-  }
-  j
-}
-
 check_formula_i_and_part <- function(i, part){
   if( inherits(i, "formula") && "header" %in% part ){
     stop("formula in argument i cannot adress part '", part, "'.", call. = FALSE)

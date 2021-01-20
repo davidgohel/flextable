@@ -4,10 +4,12 @@
 \alias{theme_booktabs}
 \title{Apply booktabs theme}
 \usage{
-theme_booktabs(x, ...)
+theme_booktabs(x, bold_header = FALSE, ...)
 }
 \arguments{
 \item{x}{a flextable object}
+
+\item{bold_header}{header will be bold if TRUE.}
 
 \item{...}{unused}
 }

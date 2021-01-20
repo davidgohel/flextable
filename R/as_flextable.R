@@ -192,8 +192,8 @@ as_flextable.glm <- function(x, ...){
     "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05 < '.' < 0.1 < '' < 1",
     " ",
     paste("(Dispersion parameter for ", x$family$family, " family taken to be ", format(sum_obj$dispersion), ")", sep = ""),
-    sprintf("Null deviance: %s on %s degrees of freedom", format(sum_obj$null.deviance), format(sum_obj$df.null)),
-    sprintf("Residual deviance: %s on %s degrees of freedom", format(sum_obj$deviance), format(sum_obj$df.residual)),
+    sprintf("Null deviance: %s on %s degrees of freedom", formatC(sum_obj$null.deviance), formatC(sum_obj$df.null)),
+    sprintf("Residual deviance: %s on %s degrees of freedom", formatC(sum_obj$deviance), formatC(sum_obj$df.residual)),
     {
       if (nzchar(mess <- naprint(sum_obj$na.action)))
         paste("  (", mess, ")\n", sep = "")
