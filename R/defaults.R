@@ -10,9 +10,9 @@ flextable_global <- new.env(parent = emptyenv())
 
 flextable_global$defaults <- list(
   font.family = def_fonts, font.size = 11, font.color = "black",
-  text.align = "left", padding.bottom = 3, padding.top = 3,
-  padding.left = 3, padding.right = 3,
-  border.color = "black",
+  text.align = "left", padding.bottom = 5, padding.top = 5,
+  padding.left = 5, padding.right = 5,
+  border.color = "#666666",
   background.color = "transparent",
   table.layout = "fixed",
   decimal.mark = ".",

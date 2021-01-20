@@ -239,7 +239,7 @@ latex_value <- function(x,
                         ft.arraystretch = opts_current$get("ft.arraystretch"),
                         bookdown) {
   if (is.null(ft.align)) ft.align <- "center"
-  if (is.null(ft.tabcolsep)) ft.tabcolsep <- 8
+  if (is.null(ft.tabcolsep)) ft.tabcolsep <- 2
   if (is.null(ft.arraystretch)) ft.arraystretch <- 1.5
 
   x <- flextable_global$defaults$post_process_pdf(x)

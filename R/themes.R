@@ -299,6 +299,7 @@ theme_tron <- function(x) {
 #' @title Apply booktabs theme
 #' @description Apply theme booktabs to a flextable
 #' @param x a flextable object
+#' @param bold_header header will be bold if TRUE.
 #' @param ... unused
 #' @family functions related to themes
 #' @examples
@@ -308,7 +309,7 @@ theme_tron <- function(x) {
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_theme_booktabs_1.png}{options: width=60\%}}
-theme_booktabs <- function(x, ...) {
+theme_booktabs <- function(x, bold_header = FALSE, ...) {
   if (!inherits(x, "flextable")) {
     stop("theme_booktabs supports only flextable objects.")
   }
@@ -326,6 +327,7 @@ theme_booktabs <- function(x, ...) {
     x <- hline_top(x, border = big_border, part = "header")
     x <- hline(x, border = std_border, part = "header")
     x <- hline_bottom(x, border = big_border, part = "header")
+    x <- bold(x, bold = bold_header, part = "header")
   }
   if (f_nrow > 0) {
     x <- hline_bottom(x, border = big_border, part = "footer")
