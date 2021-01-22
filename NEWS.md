@@ -1,5 +1,10 @@
 # flextable 0.6.2
 
+## changes
+
+* new documentation! See at https://ardata-fr.github.io/flextable-book/
+
+
 ## new features
 
 * `merge_v` has a new argument `combine` to let use j columns 
