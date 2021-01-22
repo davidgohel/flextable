@@ -79,53 +79,23 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.018</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/overview.html">Overview</a>
+  <a href="../reference/index.html">Function reference</a>
 </li>
 <li>
-  <a href="../articles/selectors.html">Selectors</a>
-</li>
-<li>
-  <a href="../articles/layout.html">Layout</a>
-</li>
-<li>
-  <a href="../articles/format.html">Visual properties</a>
-</li>
-<li>
-  <a href="../articles/display.html">Format Content</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    More
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/offcran/images.html">As image</a>
-    </li>
-    <li>
-      <a href="../articles/offcran/as_flextable.html">as flextable</a>
-    </li>
-    <li>
-      <a href="../articles/offcran/examples.html">Examples</a>
-    </li>
-  </ul>
+  <a href="https://ardata-fr.github.io/flextable-book/">User Documentation</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Function reference</a>
-</li>
-<li>
-  <a href="https://github.com/davidgohel/flextable">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/flextable/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -150,6 +120,27 @@
 <h1 class="page-header" data-toc-text="0.6.2">
 <a href="#flextable-062" class="anchor"></a>flextable 0.6.2<small> Unreleased </small>
 </h1>
+<div id="changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes" class="anchor"></a>changes</h2>
+<ul>
+<li>new documentation! See at <a href="https://ardata-fr.github.io/flextable-book/" class="uri">https://ardata-fr.github.io/flextable-book/</a>
+</li>
+</ul>
+</div>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>new features</h2>
+<ul>
+<li>
+<code>merge_v</code> has a new argument <code>combine</code> to let use j columns be used as a single value (all values are pasted).</li>
+<li>new function <code>add_body</code> for adding rows into a flextable body</li>
+<li>new function <code>colformat_image</code> for images in flextable</li>
+<li>new method <code>as_flextable</code> for <code>gam</code> models</li>
+<li>function <code>set_flextable_defaults</code> gained 4 new arguments <code>post_process_pdf</code>, <code>post_process_html</code>, <code>post_process_docx</code> and <code>post_process_pptx</code> to enable flextable post-treatments conditionned by the output format.</li>
+<li>new helper functions <code>fp_text_default</code> and <code>fp_border_default</code>.</li>
+</ul>
+</div>
 <div id="issues" class="section level2">
 <h2 class="hasAnchor">
 <a href="#issues" class="anchor"></a>Issues</h2>
@@ -157,6 +148,7 @@
 <li>fix encoding issue with Windows platforms</li>
 <li>bring back caption into the table</li>
 <li>fix overlapping issue with hline_top <a href='https://github.com/davidgohel/flextable/issues/244'>#244</a></li>
+<li>fix <code>\n</code> and <code>\t</code> usage for pdf</li>
 </ul>
 </div>
 </div>
@@ -164,9 +156,9 @@
 <h1 class="page-header" data-toc-text="0.6.1">
 <a href="#flextable-061" class="anchor"></a>flextable 0.6.1<small> 2020-12-08 </small>
 </h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>new features</h2>
+<a href="#new-features-1" class="anchor"></a>new features</h2>
 <ul>
 <li>HTML flextable are now isolated from the document CSS (except caption which is copied before).</li>
 </ul>
@@ -180,9 +172,9 @@
 <li>fix suffix/prefix usage in colformat_* functions</li>
 </ul>
 </div>
-<div id="changes" class="section level2">
+<div id="changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes" class="anchor"></a>changes</h2>
+<a href="#changes-1" class="anchor"></a>changes</h2>
 <ul>
 <li>drop defunct functions.</li>
 </ul>
@@ -192,9 +184,9 @@
 <h1 class="page-header" data-toc-text="0.6.0">
 <a href="#flextable-060" class="anchor"></a>flextable 0.6.0<small> 2020-12-01 </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>new features</h2>
+<a href="#new-features-2" class="anchor"></a>new features</h2>
 <ul>
 <li>flextable now supports PDF/latex output format.</li>
 <li>new function <code><a href="../reference/highlight.html">highlight()</a></code> for text highlighting color</li>
@@ -206,9 +198,9 @@
 <li>new functions <code>plot_chunk</code> and <code>gg_chunk</code> to add miniplots or ggplots into a flextable</li>
 </ul>
 </div>
-<div id="changes-1" class="section level2">
+<div id="changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-1" class="anchor"></a>changes</h2>
+<a href="#changes-2" class="anchor"></a>changes</h2>
 <ul>
 <li>defunct of <code>ph_with_flextable()</code>
 </li>
@@ -232,16 +224,16 @@
 <h1 class="page-header" data-toc-text="0.5.11">
 <a href="#flextable-0511" class="anchor"></a>flextable 0.5.11<small> 2020-09-09 </small>
 </h1>
-<div id="changes-2" class="section level2">
+<div id="changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-2" class="anchor"></a>Changes</h2>
+<a href="#changes-3" class="anchor"></a>Changes</h2>
 <ul>
 <li>HTML code is now minimized as CSS styles are now used instead of inline CSS.</li>
 </ul>
 </div>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>new features</h2>
+<a href="#new-features-3" class="anchor"></a>new features</h2>
 <ul>
 <li>save_as_html now accepts argument <code>encoding</code>
 </li>
@@ -261,9 +253,9 @@
 <h1 class="page-header" data-toc-text="0.5.10">
 <a href="#flextable-0510" class="anchor"></a>flextable 0.5.10<small> 2020-05-15 </small>
 </h1>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>new features</h2>
+<a href="#new-features-4" class="anchor"></a>new features</h2>
 <ul>
 <li>flextable captions in Word can be auto-numbered and bookmarked</li>
 <li>function <code>footnote</code> is now able to add inline footnotes</li>
@@ -275,9 +267,9 @@
 <li>new function <code>set_table_properties</code> lets adapt flextable size as “100%”, “50%” of the available width for Word and HTML.</li>
 </ul>
 </div>
-<div id="changes-3" class="section level2">
+<div id="changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-3" class="anchor"></a>Changes</h2>
+<a href="#changes-4" class="anchor"></a>Changes</h2>
 <ul>
 <li>manual pages have been improved and illustrations are added</li>
 <li>
@@ -289,9 +281,9 @@
 <h1 class="page-header" data-toc-text="0.5.9">
 <a href="#flextable-059" class="anchor"></a>flextable 0.5.9<small> 2020-03-06 </small>
 </h1>
-<div id="changes-4" class="section level2">
+<div id="changes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-4" class="anchor"></a>Changes</h2>
+<a href="#changes-5" class="anchor"></a>Changes</h2>
 <ul>
 <li>defunct of <code><a href="https://rdrr.io/pkg/xtable/man/table.attributes.html">display()</a></code>
 </li>
@@ -310,9 +302,9 @@
 <h1 class="page-header" data-toc-text="0.5.8">
 <a href="#flextable-058" class="anchor"></a>flextable 0.5.8<small> 2020-02-17 </small>
 </h1>
-<div id="changes-5" class="section level2">
+<div id="changes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-5" class="anchor"></a>Changes</h2>
+<a href="#changes-6" class="anchor"></a>Changes</h2>
 <ul>
 <li>deprecation of <code><a href="https://rdrr.io/pkg/xtable/man/table.attributes.html">display()</a></code>.</li>
 <li>defunct of <code>ph_with_flextable_at()</code>
@@ -323,9 +315,9 @@
 </li>
 </ul>
 </div>
-<div id="new-features-4" class="section level2">
+<div id="new-features-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>new features</h2>
+<a href="#new-features-5" class="anchor"></a>new features</h2>
 <ul>
 <li>new function <code>flextable_html_dependency</code> to get flextable htmltools::htmlDependancy. This is necessary to output flextables in html R Markdown documents from loop or other nested operations.</li>
 </ul>
@@ -342,16 +334,16 @@
 <h1 class="page-header" data-toc-text="0.5.7">
 <a href="#flextable-057" class="anchor"></a>flextable 0.5.7<small> 2020-02-03 </small>
 </h1>
-<div id="new-features-5" class="section level2">
+<div id="new-features-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-5" class="anchor"></a>new features</h2>
+<a href="#new-features-6" class="anchor"></a>new features</h2>
 <ul>
 <li>new suger functions <code>save_as_docx</code>, <code>save_as_pptx</code> that lets users export flextable objects to PowerPoint or Word documents.</li>
 </ul>
 </div>
-<div id="changes-6" class="section level2">
+<div id="changes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-6" class="anchor"></a>Changes</h2>
+<a href="#changes-7" class="anchor"></a>Changes</h2>
 <ul>
 <li>merge_v can use hidden columns.</li>
 <li>new function <code>hrule</code> to control how row heights should be understood (at least, auto, exact)</li>
@@ -385,9 +377,9 @@
 <h1 class="page-header" data-toc-text="0.5.6">
 <a href="#flextable-056-1" class="anchor"></a>flextable 0.5.6<small> 2019-11-12 </small>
 </h1>
-<div id="new-features-6" class="section level2">
+<div id="new-features-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-6" class="anchor"></a>new features</h2>
+<a href="#new-features-7" class="anchor"></a>new features</h2>
 <ul>
 <li>new function <code>lollipop</code> that lets users add mini lollipop chart to flextable (kindly provided by github.com/pteridin)</li>
 <li>function <code>proc_freq</code> got a new argument <code>weight</code> to enable weighting of results.</li>
@@ -407,9 +399,9 @@
 <h1 class="page-header" data-toc-text="0.5.5">
 <a href="#flextable-055" class="anchor"></a>flextable 0.5.5<small> 2019-06-25 </small>
 </h1>
-<div id="new-features-7" class="section level2">
+<div id="new-features-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-7" class="anchor"></a>new features</h2>
+<a href="#new-features-8" class="anchor"></a>new features</h2>
 <ul>
 <li>new function <code>docx_value</code> to let display flextables from non top level calls inside R Markdown document.</li>
 <li>ph_with method for flextable object. This enable <code>ph_location*</code> usage and make placement into slides easier.</li>
@@ -430,9 +422,9 @@
 <h1 class="page-header" data-toc-text="0.5.3">
 <a href="#flextable-053" class="anchor"></a>flextable 0.5.3<small> Unreleased </small>
 </h1>
-<div id="new-features-8" class="section level2">
+<div id="new-features-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-8" class="anchor"></a>new features</h2>
+<a href="#new-features-9" class="anchor"></a>new features</h2>
 <ul>
 <li>new functions to render flextable in plot (see <code>plot</code>), as an image (see <code>save_as_image</code>) and raster for ggplot2 (see <code>as_raster</code>).</li>
 <li>new function <code>footnote</code> to ease footnotes management</li>
@@ -444,9 +436,9 @@
 <h1 class="page-header" data-toc-text="0.5.2">
 <a href="#flextable-052" class="anchor"></a>flextable 0.5.2<small> 2019-04-02 </small>
 </h1>
-<div id="new-features-9" class="section level2">
+<div id="new-features-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-9" class="anchor"></a>new features</h2>
+<a href="#new-features-10" class="anchor"></a>new features</h2>
 <ul>
 <li>new function <code>valign</code> to align vertically paragraphs in cell</li>
 <li>new function <code>proc_freq</code> that mimic SAS proc freq provided by Titouan Robert.</li>
@@ -474,9 +466,9 @@
 <li>fix issues with colors for Windows RStudio viewer</li>
 </ul>
 </div>
-<div id="new-features-10" class="section level2">
+<div id="new-features-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-10" class="anchor"></a>new features</h2>
+<a href="#new-features-11" class="anchor"></a>new features</h2>
 <ul>
 <li>new themes functions <code><a href="../reference/theme_alafoli.html">theme_alafoli()</a></code> and <code><a href="../reference/theme_vader.html">theme_vader()</a></code>
 </li>
@@ -503,9 +495,9 @@
 <li>this version a big refactoring and got rid of R6</li>
 </ul>
 </div>
-<div id="new-features-11" class="section level2">
+<div id="new-features-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-11" class="anchor"></a>new features</h2>
+<a href="#new-features-12" class="anchor"></a>new features</h2>
 <ul>
 <li>new function <code>compose</code> that will replace <code>display</code>
 </li>
@@ -517,12 +509,12 @@
 <h1 class="page-header" data-toc-text="0.4.7">
 <a href="#flextable-047" class="anchor"></a>flextable 0.4.7<small> Unreleased </small>
 </h1>
-<div id="new-features-12" class="section level2">
+<div id="new-features-13" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-12" class="anchor"></a>new features</h2>
+<a href="#new-features-13" class="anchor"></a>new features</h2>
 <ul>
 <li>
-<code><a href="https://rdrr.io/pkg/knitr/man/knit_print.html">knit_print()</a></code> can be used with rmarkdown when rendering to PowerPoint.</li>
+<code>knit_print()</code> can be used with rmarkdown when rendering to PowerPoint.</li>
 </ul>
 </div>
 <div id="issues-11" class="section level2">
@@ -537,9 +529,9 @@
 <h1 class="page-header" data-toc-text="0.4.6">
 <a href="#flextable-046" class="anchor"></a>flextable 0.4.6<small> 2018-10-31 </small>
 </h1>
-<div id="new-features-13" class="section level2">
+<div id="new-features-14" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-13" class="anchor"></a>new features</h2>
+<a href="#new-features-14" class="anchor"></a>new features</h2>
 <ul>
 <li>a new helper function <code>body_replace_flextable_at_bkm</code> to replace a bookmarked paragraph by a flextable.</li>
 <li>new functions <code>colformat_*</code> to make content formatting easier. It also deals with NA.</li>
@@ -587,9 +579,9 @@
 <h1 class="page-header" data-toc-text="0.4.4">
 <a href="#flextable-044" class="anchor"></a>flextable 0.4.4<small> 2018-04-19 </small>
 </h1>
-<div id="new-features-14" class="section level2">
+<div id="new-features-15" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-14" class="anchor"></a>new features</h2>
+<a href="#new-features-15" class="anchor"></a>new features</h2>
 <ul>
 <li>Soft return <code>\n</code> is now supported. Function <code>autofit</code> and <code>dim_pretty</code> do not support soft returns and may return wrong results (\n will be considered as "").</li>
 <li>format function for flextable objects.</li>
@@ -608,9 +600,9 @@
 <h1 class="page-header" data-toc-text="0.4.3">
 <a href="#flextable-043" class="anchor"></a>flextable 0.4.3<small> 2018-03-14 </small>
 </h1>
-<div id="new-features-15" class="section level2">
+<div id="new-features-16" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-15" class="anchor"></a>new features</h2>
+<a href="#new-features-16" class="anchor"></a>new features</h2>
 <ul>
 <li>new functions: <code><a href="../reference/hyperlink_text.html">hyperlink_text()</a></code> to be used with <code>display</code>, <code><a href="../reference/font.html">font()</a></code>
 </li>
@@ -636,9 +628,9 @@
 <h1 class="page-header" data-toc-text="0.4.2">
 <a href="#flextable-042" class="anchor"></a>flextable 0.4.2<small> 2018-01-10 </small>
 </h1>
-<div id="new-features-16" class="section level2">
+<div id="new-features-17" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-16" class="anchor"></a>new features</h2>
+<a href="#new-features-17" class="anchor"></a>new features</h2>
 <ul>
 <li>new function <code><a href="../reference/as_flextable.xtable.html">xtable_to_flextable()</a></code> that is returning a flextable from an xtable object.</li>
 <li>function <code><a href="../reference/htmltools_value.html">htmltools_value()</a></code> is exported for shiny applications.</li>
@@ -649,9 +641,9 @@
 <h1 class="page-header" data-toc-text="0.4.1">
 <a href="#flextable-041" class="anchor"></a>flextable 0.4.1<small> Unreleased </small>
 </h1>
-<div id="new-features-17" class="section level2">
+<div id="new-features-18" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-17" class="anchor"></a>new features</h2>
+<a href="#new-features-18" class="anchor"></a>new features</h2>
 <ul>
 <li>flextables have now a footer part</li>
 </ul>
@@ -661,16 +653,16 @@
 <h1 class="page-header" data-toc-text="0.4.0">
 <a href="#flextable-040" class="anchor"></a>flextable 0.4.0<small> 2017-12-08 </small>
 </h1>
-<div id="new-features-18" class="section level2">
+<div id="new-features-19" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-18" class="anchor"></a>new features</h2>
+<a href="#new-features-19" class="anchor"></a>new features</h2>
 <ul>
-<li>new function <code><a href="https://rdrr.io/pkg/knitr/man/knit_print.html">knit_print()</a></code> to render flextable in rmarkdown.</li>
+<li>new function <code>knit_print()</code> to render flextable in rmarkdown.</li>
 </ul>
 </div>
-<div id="changes-7" class="section level2">
+<div id="changes-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-7" class="anchor"></a>Changes</h2>
+<a href="#changes-8" class="anchor"></a>Changes</h2>
 <ul>
 <li>function tabwid() is deprecated in favor of a knit_print implementation.</li>
 <li>list of dependencies has been reduced.</li>
@@ -681,9 +673,9 @@
 <h1 class="page-header" data-toc-text="0.3">
 <a href="#flextable-03" class="anchor"></a>flextable 0.3<small> Unreleased </small>
 </h1>
-<div id="new-features-19" class="section level2">
+<div id="new-features-20" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-19" class="anchor"></a>new features</h2>
+<a href="#new-features-20" class="anchor"></a>new features</h2>
 <ul>
 <li>new function <code>regulartable</code>, faster and simpler than <code>flextable</code>
 </li>
@@ -702,9 +694,9 @@
 <h1 class="page-header" data-toc-text="0.2">
 <a href="#flextable-02" class="anchor"></a>flextable 0.2<small> Unreleased </small>
 </h1>
-<div id="new-features-20" class="section level2">
+<div id="new-features-21" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-20" class="anchor"></a>new features</h2>
+<a href="#new-features-21" class="anchor"></a>new features</h2>
 <ul>
 <li>new function <code>ph_with_flextable_at</code> to add a flextable at any position in a slide.</li>
 <li>new function <code>merge_at</code> is providing a general way of merging cells.</li>
@@ -712,9 +704,9 @@
 </li>
 </ul>
 </div>
-<div id="changes-8" class="section level2">
+<div id="changes-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-8" class="anchor"></a>Changes</h2>
+<a href="#changes-9" class="anchor"></a>Changes</h2>
 <ul>
 <li>function display() now works with a mustache template</li>
 </ul>
@@ -741,7 +733,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.2.007 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.2.018 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

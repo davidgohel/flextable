@@ -83,53 +83,23 @@ can be more than a label - resulting in more than a new row." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.018</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/overview.html">Overview</a>
+  <a href="../reference/index.html">Function reference</a>
 </li>
 <li>
-  <a href="../articles/selectors.html">Selectors</a>
-</li>
-<li>
-  <a href="../articles/layout.html">Layout</a>
-</li>
-<li>
-  <a href="../articles/format.html">Visual properties</a>
-</li>
-<li>
-  <a href="../articles/display.html">Format Content</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    More
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/offcran/images.html">As image</a>
-    </li>
-    <li>
-      <a href="../articles/offcran/as_flextable.html">as flextable</a>
-    </li>
-    <li>
-      <a href="../articles/offcran/examples.html">Examples</a>
-    </li>
-  </ul>
+  <a href="https://ardata-fr.github.io/flextable-book/">User Documentation</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Function reference</a>
-</li>
-<li>
-  <a href="https://github.com/davidgohel/flextable">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/flextable/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -171,25 +141,31 @@ can be more than a label - resulting in more than a new row.</p>
     </tr>
     <tr>
       <th>top</th>
-      <td><p>should the row be inserted at the top or the bottom.</p></td>
+      <td><p>should the rows be inserted at the top or the bottom.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>a named list (names are data colnames) of strings
-specifying corresponding labels to add.</p></td>
+specifying corresponding values to add. It is important
+to insert data of the same type as the original data,
+otherwise it will be transformed (probably into strings if
+you add a <code>character' where a </code>double' is expected). This keeps
+the ability to format cell contents with the <code>colformat_*</code> functions,
+for example <code><a href='colformat_num.html'>colformat_num()</a></code>.</p></td>
     </tr>
     <tr>
       <th>values</th>
       <td><p>a list of name-value pairs of labels or values,
-names should be existing col_key values.
-If values is supplied argument <code>...</code> is ignored.</p></td>
+names should be existing col_key values. This argument can be used
+instead of <code>...</code> for programming purpose (If <code>values</code> is
+supplied argument <code>...</code> is ignored).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>when repeating values, they can be merged together with
-function <code><a href='merge_h.html'>merge_h</a></code> and <code><a href='merge_v.html'>merge_v</a></code>.</p>
+function <code><a href='merge_h.html'>merge_h()</a></code> and <code><a href='merge_v.html'>merge_v()</a></code>.</p>
     <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
 
     
@@ -254,7 +230,7 @@ function <code><a href='merge_h.html'>merge_h</a></code> and <code><a href='merg
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.2.007 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.2.018 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

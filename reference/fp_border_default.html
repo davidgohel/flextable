@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>bold chunk — as_b • flextable</title>
+<title>Border formatting properties — fp_border_default • flextable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,10 @@
 
 
 
-<meta property="og:title" content="bold chunk — as_b" />
-<meta property="og:description" content="The function is producing a chunk with
-bold font." />
+<meta property="og:title" content="Border formatting properties — fp_border_default" />
+<meta property="og:description" content="Create a fp_border() object that uses
+defaut values defined in flextable defaults formatting properties, i.e.
+default border color (see set_flextable_defaults())." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -114,75 +115,49 @@ bold font." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>bold chunk</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/05_content.R'><code>R/05_content.R</code></a></small>
-    <div class="hidden name"><code>as_b.Rd</code></div>
+    <h1>Border formatting properties</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/defaults.R'><code>R/defaults.R</code></a></small>
+    <div class="hidden name"><code>fp_border_default.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function is producing a chunk with
-bold font.</p>
+    <p>Create a <code><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border()</a></code> object that uses
+defaut values defined in flextable defaults formatting properties, i.e.
+default border color (see <code><a href='set_flextable_defaults.html'>set_flextable_defaults()</a></code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_b</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>fp_border_default</span><span class='op'>(</span>
+  color <span class='op'>=</span> <span class='va'>flextable_global</span><span class='op'>$</span><span class='va'>defaults</span><span class='op'>$</span><span class='va'>border.color</span>,
+  style <span class='op'>=</span> <span class='st'>"solid"</span>,
+  width <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>value, if a chunk, the chunk will be updated</p></td>
+      <th>color</th>
+      <td><p>border color - single character value (e.g. "#000000" or "black")</p></td>
+    </tr>
+    <tr>
+      <th>style</th>
+      <td><p>border style - single character value : "none" or "solid" or "dotted" or "dashed"</p></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p>border width - an integer value : 0&gt;= value</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>This is a sugar function that ease the composition of complex
-labels made of different formattings. It should be used inside a
-call to <code><a href='as_paragraph.html'>as_paragraph()</a></code>.</p>
-    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
-
-    
-
-
-<p><img src='figures/fig_as_b_1.png' width=30% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other chunk elements for paragraph: 
-<code><a href='as_bracket.html'>as_bracket</a>()</code>,
-<code><a href='as_chunk.html'>as_chunk</a>()</code>,
-<code><a href='as_image.html'>as_image</a>()</code>,
-<code><a href='as_i.html'>as_i</a>()</code>,
-<code><a href='as_sub.html'>as_sub</a>()</code>,
-<code><a href='as_sup.html'>as_sup</a>()</code>,
-<code><a href='gg_chunk.html'>gg_chunk</a>()</code>,
-<code><a href='hyperlink_text.html'>hyperlink_text</a>()</code>,
-<code><a href='linerange.html'>linerange</a>()</code>,
-<code><a href='lollipop.html'>lollipop</a>()</code>,
-<code><a href='minibar.html'>minibar</a>()</code>,
-<code><a href='plot_chunk.html'>plot_chunk</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='hline.html'>hline()</a></code>, <code><a href='vline.html'>vline()</a></code></p>
+<p>Other functions for defining formatting properties: 
+<code><a href='fp_text_default.html'>fp_text_default</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>,
-  col_keys <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sepal.Length"</span>, <span class='st'>"dummy"</span><span class='op'>)</span> <span class='op'>)</span>
-
-<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span><span class='op'>(</span><span class='va'>ft</span>, j <span class='op'>=</span> <span class='st'>"dummy"</span>,
-    value <span class='op'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span><span class='op'>(</span>
-      <span class='fu'>as_b</span><span class='op'>(</span><span class='va'>Sepal.Length</span><span class='op'>)</span>
-    <span class='op'>)</span> <span class='op'>)</span>
-
-<span class='va'>ft</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Sepal.Length`, `dummy` 
-#&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species dummy
-#&gt; 1          5.1         3.5          1.4         0.2  setosa      
-#&gt; 2          4.9         3.0          1.4         0.2  setosa      
-#&gt; 3          4.7         3.2          1.3         0.2  setosa      
-#&gt; 4          4.6         3.1          1.5         0.2  setosa      
-#&gt; 5          5.0         3.6          1.4         0.2  setosa      </div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>fp_border_default</span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; line: color: #666666, width: 2, style: solid</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

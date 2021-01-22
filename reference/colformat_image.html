@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>bold chunk — as_b • flextable</title>
+<title>format cells as images — colformat_image • flextable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="bold chunk — as_b" />
-<meta property="og:description" content="The function is producing a chunk with
-bold font." />
+<meta property="og:title" content="format cells as images — colformat_image" />
+<meta property="og:description" content="Format image paths as images in a flextable." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -114,75 +113,102 @@ bold font." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>bold chunk</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/05_content.R'><code>R/05_content.R</code></a></small>
-    <div class="hidden name"><code>as_b.Rd</code></div>
+    <h1>format cells as images</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/formatters.R'><code>R/formatters.R</code></a></small>
+    <div class="hidden name"><code>colformat_image.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function is producing a chunk with
-bold font.</p>
+    <p>Format image paths as images in a flextable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_b</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>colformat_image</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  i <span class='op'>=</span> <span class='cn'>NULL</span>,
+  j <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>width</span>,
+  <span class='va'>height</span>,
+  na_str <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>na_str</span>,
+  prefix <span class='op'>=</span> <span class='st'>""</span>,
+  suffix <span class='op'>=</span> <span class='st'>""</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>value, if a chunk, the chunk will be updated</p></td>
+      <td><p>a flextable object</p></td>
+    </tr>
+    <tr>
+      <th>i</th>
+      <td><p>rows selection</p></td>
+    </tr>
+    <tr>
+      <th>j</th>
+      <td><p>columns selection.</p></td>
+    </tr>
+    <tr>
+      <th>width, height</th>
+      <td><p>size of the png file in inches</p></td>
+    </tr>
+    <tr>
+      <th>na_str</th>
+      <td><p>string to be used for NA values</p></td>
+    </tr>
+    <tr>
+      <th>prefix</th>
+      <td><p>string to be used as prefix or suffix</p></td>
+    </tr>
+    <tr>
+      <th>suffix</th>
+      <td><p>string to be used as prefix or suffix</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>This is a sugar function that ease the composition of complex
-labels made of different formattings. It should be used inside a
-call to <code><a href='as_paragraph.html'>as_paragraph()</a></code>.</p>
-    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
-
-    
-
-
-<p><img src='figures/fig_as_b_1.png' width=30% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other chunk elements for paragraph: 
-<code><a href='as_bracket.html'>as_bracket</a>()</code>,
-<code><a href='as_chunk.html'>as_chunk</a>()</code>,
-<code><a href='as_image.html'>as_image</a>()</code>,
-<code><a href='as_i.html'>as_i</a>()</code>,
-<code><a href='as_sub.html'>as_sub</a>()</code>,
-<code><a href='as_sup.html'>as_sup</a>()</code>,
-<code><a href='gg_chunk.html'>gg_chunk</a>()</code>,
-<code><a href='hyperlink_text.html'>hyperlink_text</a>()</code>,
-<code><a href='linerange.html'>linerange</a>()</code>,
-<code><a href='lollipop.html'>lollipop</a>()</code>,
-<code><a href='minibar.html'>minibar</a>()</code>,
-<code><a href='plot_chunk.html'>plot_chunk</a>()</code></p></div>
+    <div class='dont-index'><p>Other cells formatters: 
+<code><a href='colformat_char.html'>colformat_char</a>()</code>,
+<code><a href='colformat_datetime.html'>colformat_datetime</a>()</code>,
+<code><a href='colformat_date.html'>colformat_date</a>()</code>,
+<code><a href='colformat_double.html'>colformat_double</a>()</code>,
+<code><a href='colformat_int.html'>colformat_int</a>()</code>,
+<code><a href='colformat_lgl.html'>colformat_lgl</a>()</code>,
+<code><a href='colformat_num.html'>colformat_num</a>()</code>,
+<code><a href='compose.html'>compose</a>()</code>,
+<code><a href='set_formatter.html'>set_formatter</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>,
-  col_keys <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sepal.Length"</span>, <span class='st'>"dummy"</span><span class='op'>)</span> <span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>img.file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> <span class='op'>)</span>
 
-<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span><span class='op'>(</span><span class='va'>ft</span>, j <span class='op'>=</span> <span class='st'>"dummy"</span>,
-    value <span class='op'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span><span class='op'>(</span>
-      <span class='fu'>as_b</span><span class='op'>(</span><span class='va'>Sepal.Length</span><span class='op'>)</span>
-    <span class='op'>)</span> <span class='op'>)</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>
+<span class='va'>dat</span><span class='op'>$</span><span class='va'>Species</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>
+<span class='va'>dat</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span><span class='op'>)</span>, <span class='st'>"Species"</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>img.file</span>
 
+<span class='va'>myft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='va'>dat</span><span class='op'>)</span>
+<span class='va'>myft</span> <span class='op'>&lt;-</span> <span class='fu'>colformat_image</span><span class='op'>(</span>
+  <span class='va'>myft</span>, i <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span><span class='op'>)</span>,
+  j <span class='op'>=</span> <span class='st'>"Species"</span>, width <span class='op'>=</span> <span class='fl'>.20</span>, height <span class='op'>=</span> <span class='fl'>.15</span><span class='op'>)</span>
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span><span class='op'>(</span><span class='va'>myft</span><span class='op'>)</span>
 <span class='va'>ft</span>
 </div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Sepal.Length`, `dummy` 
+#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
 #&gt; header has 1 row(s) 
 #&gt; body has 6 row(s) 
 #&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species dummy
-#&gt; 1          5.1         3.5          1.4         0.2  setosa      
-#&gt; 2          4.9         3.0          1.4         0.2  setosa      
-#&gt; 3          4.7         3.2          1.3         0.2  setosa      
-#&gt; 4          4.6         3.1          1.5         0.2  setosa      
-#&gt; 5          5.0         3.6          1.4         0.2  setosa      </div></pre>
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width
+#&gt; 1          5.1         3.5          1.4         0.2
+#&gt; 2          4.9         3.0          1.4         0.2
+#&gt; 3          4.7         3.2          1.3         0.2
+#&gt; 4          4.6         3.1          1.5         0.2
+#&gt; 5          5.0         3.6          1.4         0.2
+#&gt;                                Species
+#&gt; 1 /opt/R/4.0.3/lib/R/doc/html/logo.jpg
+#&gt; 2                               setosa
+#&gt; 3 /opt/R/4.0.3/lib/R/doc/html/logo.jpg
+#&gt; 4                               setosa
+#&gt; 5 /opt/R/4.0.3/lib/R/doc/html/logo.jpg</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
