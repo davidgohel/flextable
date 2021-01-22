@@ -8,17 +8,16 @@
 #' @param x flextable object
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @examples
-#' if( require(magrittr) ){
-#'   library(officer)
-#'   ft <- data.frame(a = 1:5, b = 6:10) %>%
-#'     flextable() %>%
-#'     theme_box() %>%
-#'     merge_at(i = 4:5, j = 1, part = "body") %>%
-#'     hline(i = 5, part = "body",
-#'           border = fp_border(color = "red", width = 5) )
-#'   print(ft)
-#'   fix_border_issues(ft) %>% print()
-#' }
+#' library(officer)
+#' dat <- data.frame(a = 1:5, b = 6:10)
+#' ft <- flextable(dat)
+#'   ft <- theme_box(ft)
+#'   ft <- merge_at(ft, i = 4:5, j = 1, part = "body")
+#'   ft <- hline(ft, i = 5, part = "body",
+#'         border = fp_border(color = "red", width = 5) )
+#' print(ft)
+#' ft <- fix_border_issues(ft)
+#' print(ft)
 fix_border_issues <- function(x, part = "all"){
   if( !inherits(x, "flextable") ) stop("fix_border_issues supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )

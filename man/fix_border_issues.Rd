@@ -19,15 +19,14 @@ column. From a user point of view, this is wrong, the bottom should be the one
 defined for cell 3. This function modify the border values to avoid that effect.
 }
 \examples{
-if( require(magrittr) ){
-  library(officer)
-  ft <- data.frame(a = 1:5, b = 6:10) \%>\%
-    flextable() \%>\%
-    theme_box() \%>\%
-    merge_at(i = 4:5, j = 1, part = "body") \%>\%
-    hline(i = 5, part = "body",
-          border = fp_border(color = "red", width = 5) )
-  print(ft)
-  fix_border_issues(ft) \%>\% print()
-}
+library(officer)
+dat <- data.frame(a = 1:5, b = 6:10)
+ft <- flextable(dat)
+  ft <- theme_box(ft)
+  ft <- merge_at(ft, i = 4:5, j = 1, part = "body")
+  ft <- hline(ft, i = 5, part = "body",
+        border = fp_border(color = "red", width = 5) )
+print(ft)
+ft <- fix_border_issues(ft)
+print(ft)
 }

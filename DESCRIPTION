@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.6.2.016
+Version: 0.6.2.017
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -31,7 +31,6 @@ Roxygen: list(markdown = TRUE)
 Suggests: 
     testthat (>= 2.1.0),
     xtable,
-    magrittr,
     webshot,
     magick,
     ggplot2, scales, 
