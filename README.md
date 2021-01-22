@@ -67,7 +67,13 @@ devtools::install_github("davidgohel/flextable")
 
 ### Online documentation
 
-The help pages are located at <https://davidgohel.github.io/flextable/>.
+The help pages are in a bookdown located at:
+
+<https://ardata-fr.github.io/flextable-book/>
+
+Manuals are available at:
+
+<https://davidgohel.github.io/flextable/>.
 
 ### Getting help
 

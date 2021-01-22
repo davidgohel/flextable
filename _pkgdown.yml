@@ -123,26 +123,7 @@ navbar:
   title: flextable
   type: default
   left:
-  - text: Overview
-    href: articles/overview.html
-  - text: Selectors
-    href: articles/selectors.html
-  - text: Layout
-    href: articles/layout.html
-  - text: Visual properties
-    href: articles/format.html
-  - text: Format Content
-    href: articles/display.html
-  - text: More
-    menu:
-    - text: As image
-      href: articles/offcran/images.html
-    - text: as flextable
-      href: articles/offcran/as_flextable.html
-    - text: Examples
-      href: articles/offcran/examples.html
-  right:
   - text: Function reference
     href: reference/index.html
-  - icon: fa-github fa-lg
-    href: https://github.com/davidgohel/flextable
+  - text: User Documentation
+    href: https://ardata-fr.github.io/flextable-book/

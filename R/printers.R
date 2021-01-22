@@ -798,7 +798,7 @@ plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
 #' @family flextable print function
 as_raster <- function(x, zoom = 2, expand = 2, webshot = "webshot"){
   if (!requireNamespace(webshot, quietly = TRUE)) {
-    stop("package webshot2 is required when saving a flextable as an image.")
+    stop("package ", webshot, " is required when saving a flextable as an image.")
   }
   if (!requireNamespace("magick", quietly = TRUE)) {
     stop("package magick is required when saving a flextable as an image.")
