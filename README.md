@@ -12,6 +12,8 @@ coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.s
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
+**Documentation**: <https://ardata-fr.github.io/flextable-book/>
+
 <a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>
 The flextable package provides a framework for easily create tables for
 reporting and publications. Tables can be easily formatted with a set of
@@ -19,15 +21,11 @@ verbs such as `bold()`, `color()`, they can receive a header of more
 than one line, cells can be merged or contain an image. The package make
 it possible to build any table for publication from a \`data.frame’.
 
-**Documentation**: <https://davidgohel.github.io/flextable/>
-
 <img src="man/figures/fig_formats.png" width="170px" alt="flextable formats" align="left" />
 Tables can be embedded within HTML, PDF, Word and PowerPoint documents
 from R Markdown documents and within Microsoft Word or PowerPoint
 documents with package officer. Tables can also be rendered as R plots
 or graphic files (png, pdf and jpeg).
-
-## Getting Started
 
 An API is available to let R users create tables for reporting and
 control their formatting properties and their layout. A `flextable`
@@ -40,18 +38,7 @@ functions that give control over:
 
 ![](https://www.ardata.fr/img/illustrations/flextable_functions.svg)
 
-There are articles on the flextable website that will help you get you
-to start quickly:
-
-  - [Introduction to
-    flextable](https://davidgohel.github.io/flextable/articles/overview.html)
-  - [Function
-    reference](https://davidgohel.github.io/flextable/reference/index.html)
-
-The help pages can be read
-[here](https://davidgohel.github.io/flextable/).
-
-### Installation
+## Installation
 
 ``` r
 install.packages("flextable")
@@ -65,15 +52,13 @@ devtools::install_github("davidgohel/flextable")
 
 ## Resources
 
-### Online documentation
+### Documentation
 
 The help pages are in a bookdown located at:
-
 <https://ardata-fr.github.io/flextable-book/>
 
 Manuals are available at:
-
-<https://davidgohel.github.io/flextable/>.
+<https://davidgohel.github.io/flextable/reference/index.html>
 
 ### Getting help
 
@@ -82,10 +67,6 @@ questions about how to use the package, visit Stackoverflow and use tags
 `flextable` and `r` [Stackoverflow
 link](https://stackoverflow.com/questions/tagged/flextable+r)\! I
 usually read them and answer when possible.
-
-Don’t send me a private emails to get free R support or to ask questions
-about using the package. They are systematically ignored except if you
-are French in which case I send you a commercial proposal :)
 
 ## Contributing to the package
 
