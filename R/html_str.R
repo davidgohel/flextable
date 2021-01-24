@@ -68,16 +68,27 @@ html_str <- function(x, ft.align = NULL, class = "tabwid", caption = "", shadow 
                    html,
            "</template>",
            "\n<div id=\"", uid[2], "\"></div>",
-           to_shadow_dom(uid1 = uid[1], uid2 = uid[2])
+           to_shadow_dom(uid1 = uid[1], uid2 = uid[2], ft.align = ft.align)
     )
   }
   html
 }
 
-to_shadow_dom <- function(uid1, uid2){
+to_shadow_dom <- function(uid1, uid2, ft.align = NULL){
+
+  if( is.null(ft.align) )
+    ft.align <- "center"
+
   script_commands <- c("", "<script>",
     paste0("var dest = document.getElementById(\"", uid2, "\");"),
     paste0("var template = document.getElementById(\"", uid1, "\");"),
+    "var caption = template.content.querySelector(\"caption\");",
+    "if(caption) {",
+    paste0("  caption.style.cssText = \"display:block;text-align:", ft.align, ";\";"),
+    "  var newcapt = document.createElement(\"p\");",
+    "  newcapt.appendChild(caption)",
+    "  dest.parentNode.insertBefore(newcapt, dest.previousSibling);",
+    "}",
     "var fantome = dest.attachShadow({mode: 'open'});",
     "var templateContent = template.content;",
     "fantome.appendChild(templateContent);",
