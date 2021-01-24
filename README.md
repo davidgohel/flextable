@@ -9,8 +9,8 @@ status](https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg)
 ![cranlogs](https://cranlogs.r-pkg.org/badges/flextable) [![codecov test
 coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/flextable)
 ![Active](https://www.repostatus.org/badges/latest/active.svg)
-[![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
 
 **Documentation**: <https://ardata-fr.github.io/flextable-book/>
 

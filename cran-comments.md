@@ -1,7 +1,6 @@
 ## Test environments
 
-- local OS X install (R 4.0.2)
-- windows (release)
+- local OS X install (R 4.0.3)
 - ubuntu 16.04 (release)
 - macOS (release and devel)
 - winbuilder (with release and devel) 
@@ -12,4 +11,4 @@ There were no ERROR, WARNING or NOTE.
 
 ## Reverse dependencies
 
-There is 1 expected error related to processR. 
+There were no ERROR, WARNING or NOTE related to flextable.
