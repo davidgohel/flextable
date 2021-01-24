@@ -31,7 +31,7 @@
 #' @export
 #' @importFrom stats setNames
 #' @seealso [style()], [autofit()], [theme_booktabs()], [knit_print.flextable()],
-#' [compose()], [footnote()]
+#' [compose()], [footnote()], [set_caption()]
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_flextable_1.png}{options: width=100\%}}
@@ -90,8 +90,15 @@ qflextable <- function(data){
 }
 
 #' @export
-#' @title set caption
-#' @description set caption value in flextable
+#' @title Set Caption
+#' @description Set caption value in a flextable.
+#'
+#' * The caption will be associated with a paragraph style when
+#' the output is Word. Also it can be numbered as a auto-numbered
+#' Word computed value.
+#' * In HTML and PDF, the style of the caption
+#' is managed at the document level and not with flextable.
+#' * The PowerPoint format ignores captions.
 #' @param x flextable object
 #' @param caption caption value
 #' @param autonum an autonum representation. See [officer::run_autonum()].
@@ -99,12 +106,10 @@ qflextable <- function(data){
 #' by an auto-number sequence. In this case, the caption is preceded by an auto-number
 #' sequence that can be cross referenced.
 #' @param style caption paragraph style name. These names are available with
-#' function [officer::styles_info()] when output is Word; if HTML, a
-#' corresponding css class definition should exist.
+#' function [officer::styles_info()] when output is Word; if HTML, the
+#' value is set as class value in the `caption` tag.
 #' @param html_escape should HTML entities be escaped so that it can be safely
 #' included as text or an attribute value within an HTML document.
-#' @note
-#' this will have an effect only when output is HTML or Word document.
 #' @examples
 #' ftab <- flextable( head( iris ) )
 #' ftab <- set_caption(ftab, "my caption")
@@ -116,6 +121,7 @@ qflextable <- function(data){
 #' ftab <- set_caption(ftab, caption = "mtcars data", autonum = autonum)
 #' ftab
 #' @importFrom officer run_autonum
+#' @seealso [flextable()]
 set_caption <- function(x, caption,
     autonum = NULL, style = "Table Caption",
     html_escape = TRUE){

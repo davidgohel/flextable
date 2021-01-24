@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable.R
 \name{set_caption}
 \alias{set_caption}
-\title{set caption}
+\title{Set Caption}
 \usage{
 set_caption(
   x,
@@ -23,17 +23,22 @@ by an auto-number sequence. In this case, the caption is preceded by an auto-num
 sequence that can be cross referenced.}
 
 \item{style}{caption paragraph style name. These names are available with
-function \code{\link[officer:styles_info]{officer::styles_info()}} when output is Word; if HTML, a
-corresponding css class definition should exist.}
+function \code{\link[officer:styles_info]{officer::styles_info()}} when output is Word; if HTML, the
+value is set as class value in the \code{caption} tag.}
 
 \item{html_escape}{should HTML entities be escaped so that it can be safely
 included as text or an attribute value within an HTML document.}
 }
 \description{
-set caption value in flextable
+Set caption value in a flextable.
+\itemize{
+\item The caption will be associated with a paragraph style when
+the output is Word. Also it can be numbered as a auto-numbered
+Word computed value.
+\item In HTML and PDF, the style of the caption
+is managed at the document level and not with flextable.
+\item The PowerPoint format ignores captions.
 }
-\note{
-this will have an effect only when output is HTML or Word document.
 }
 \examples{
 ftab <- flextable( head( iris ) )
@@ -45,4 +50,7 @@ autonum <- run_autonum(seq_id = "tab", bkm = "mtcars")
 ftab <- flextable( head( mtcars ) )
 ftab <- set_caption(ftab, caption = "mtcars data", autonum = autonum)
 ftab
+}
+\seealso{
+\code{\link[=flextable]{flextable()}}
 }
