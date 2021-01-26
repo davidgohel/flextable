@@ -1,12 +1,12 @@
 ---
-title: "Using officer"
+title: "Using flextable"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using officer}
+  %\VignetteIndexEntry{Using flextable}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 The documentation is available here: 
 
-https://ardata-fr.github.io/officeverse/
+https://ardata-fr.github.io/flextable-book/
