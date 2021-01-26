@@ -41,7 +41,12 @@ compose <- function(x, i = NULL, j = NULL, value , part = "body"){
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
-  x[[part]]$content[i, j] <- eval_tidy(enquo(value), data = x[[part]]$dataset[i,, drop = FALSE])
+
+  for(jcol in j){
+    tmp_data <- x[[part]]$dataset
+    tmp_data$. <- x[[part]]$dataset[,jcol]
+    x[[part]]$content[i, jcol] <- eval_tidy(enquo(value), data = tmp_data)
+  }
 
   x
 }
