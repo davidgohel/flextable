@@ -5,9 +5,9 @@
 \alias{mk_par}
 \title{Define flextable displayed values}
 \usage{
-compose(x, i = NULL, j = NULL, value, part = "body")
+compose(x, i = NULL, j = NULL, value, part = "body", use_dot = FALSE)
 
-mk_par(x, i = NULL, j = NULL, value, part = "body")
+mk_par(x, i = NULL, j = NULL, value, part = "body", use_dot = FALSE)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -19,6 +19,10 @@ mk_par(x, i = NULL, j = NULL, value, part = "body")
 \item{value}{a call to function \code{\link[=as_paragraph]{as_paragraph()}}.}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
+
+\item{use_dot}{by default \code{use_dot=FALSE}; if \code{use_dot=TRUE},
+\code{value} is evaluated within a data.frame augmented of a column named \code{.}
+containing the \code{j}th column.}
 }
 \description{
 Modify flextable displayed values. Function is

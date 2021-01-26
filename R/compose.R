@@ -11,6 +11,9 @@
 #' @param j column selection
 #' @param value a call to function [as_paragraph()].
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @param use_dot by default `use_dot=FALSE`; if `use_dot=TRUE`,
+#' `value` is evaluated within a data.frame augmented of a column named `.`
+#' containing the `j`th column.
 #' @examples
 #' library(officer)
 #' ft <- flextable(head( mtcars, n = 10))
@@ -23,7 +26,7 @@
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_compose_1.png}{options: width=80\%}}
-compose <- function(x, i = NULL, j = NULL, value , part = "body"){
+compose <- function(x, i = NULL, j = NULL, value , part = "body", use_dot = FALSE){
 
   if( !inherits(x, "flextable") ) stop("compose supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
@@ -38,14 +41,18 @@ compose <- function(x, i = NULL, j = NULL, value , part = "body"){
   if( nrow_part(x, part) < 1 )
     return(x)
 
+  defused_value <- enquo(value)
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )
-
-  for(jcol in j){
-    tmp_data <- x[[part]]$dataset
-    tmp_data$. <- x[[part]]$dataset[,jcol]
-    x[[part]]$content[i, jcol] <- eval_tidy(enquo(value), data = tmp_data)
+  tmp_data <- x[[part]]$dataset[i, , drop = FALSE]
+  if( use_dot ){
+    for(jcol in j){
+      tmp_data$. <- tmp_data[,jcol]
+      x[[part]]$content[i, jcol] <- eval_tidy(defused_value, data = tmp_data)
+    }
+  } else {
+    x[[part]]$content[i, j] <- eval_tidy(defused_value, data = tmp_data)
   }
 
   x

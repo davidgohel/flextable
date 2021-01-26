@@ -1,3 +1,10 @@
+# flextable 0.6.3
+
+## new features
+
+* `compose` has a new argument `use_dot` to let 
+use `.` and loop over columns 
+
 # flextable 0.6.2
 
 ## changes
