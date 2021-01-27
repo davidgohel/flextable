@@ -10,8 +10,10 @@ latex_str <- function(x, ft.align = "center",
     stringsAsFactors = FALSE
   )
 
-  dat <- get_text_data(x)
+
   properties_df <- merge_table_properties(x)
+  linespacing_df <- properties_df[, c("part", "ft_row_id", "col_id", "line_spacing")]
+  dat <- get_text_data(x, linespacing_df)
 
   # hhlines and vborders ----
   augment_borders(properties_df)

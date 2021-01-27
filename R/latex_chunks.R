@@ -1,11 +1,17 @@
-get_text_data <- function(x){
+get_text_data <- function(x, ls_df){
 
   txt_data <- as_table_text(x)
   txt_data$col_id <- factor(txt_data$col_id, levels = x$col_keys)
-
-  data_ref_text <- part_style_list(txt_data, fun = officer::fp_text)
-
   setDT(txt_data)
+  txt_data <- merge(txt_data, ls_df, by = c("part", "ft_row_id", "col_id"))
+
+  data_ref_text <- part_style_list(as.data.frame(txt_data),
+                                   fun = function( color = "black", font.size = 10,
+                                                   bold = FALSE, italic = FALSE, underlined = FALSE,
+                                                   font.family = "Arial",
+                                                   vertical.align = "baseline",
+                                                   shading.color = "transparent", line_spacing = 2 ){})
+
 
   by_columns <- intersect(colnames(data_ref_text), colnames(txt_data))
   txt_data <- merge(txt_data, data_ref_text, by = by_columns)
@@ -61,6 +67,15 @@ text_latex_styles <- function(x){
   left <- paste0(left, hg_left)
   right <- paste0(hg_right, right)
 
+
+  font.size <- latex_fontsize(x$font.size, x$line_spacing)
+  left <- paste0(font.size, "{", left)
+  right <- paste0(right, "}")
+  fonts_ok <- get_pdf_engine() %in% c("xelatex", "lualatex")
+  if(fonts_ok && !flextable_global$defaults$fonts_ignore ){
+    left <- paste0(left, sprintf("\\global\\setmainfont{%s}", x$font.family))
+  }
+
   left <- paste0(left, ifelse(x$bold, "\\textbf{", "" ))
   right <- paste0(right, ifelse(x$bold, "}", "" ))
 
@@ -71,21 +86,14 @@ text_latex_styles <- function(x){
   right <- paste0(right, ifelse(x$underlined, "}", "" ))
 
 
-  font.size <- latex_fontsize(x$font.size)
-  left <- paste0(font.size, "{", left)
-  right <- paste0(right, "}")
-  fonts_ok <- get_pdf_engine() %in% c("xelatex", "lualatex")
-  if(fonts_ok && !flextable_global$defaults$fonts_ignore ){
-    left <- paste0(left, sprintf("\\global\\setmainfont{%s}", x$font.family))
-  }
 
 
   data.frame(left = left, right = right, classname = x$classname, stringsAsFactors = TRUE)
 }
 
-latex_fontsize <- function(x, digits = 0){
+latex_fontsize <- function(x, line_spacing = 1, digits = 0){
   size <- format_double(x, digits = 0)
-  baselineskip <- format_double(x*1.2, digits = 0)
+  baselineskip <- format_double(x*line_spacing, digits = 0)
   z <- sprintf("\\fontsize{%s}{%s}\\selectfont", size, baselineskip)
   z[is.na(x)] <- ""
   z
