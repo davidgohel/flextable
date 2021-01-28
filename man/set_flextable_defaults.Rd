@@ -2,6 +2,7 @@
 % Please edit documentation in R/defaults.R
 \name{set_flextable_defaults}
 \alias{set_flextable_defaults}
+\alias{init_flextable_defaults}
 \title{Modify flextable defaults formatting properties}
 \usage{
 set_flextable_defaults(
@@ -30,6 +31,8 @@ set_flextable_defaults(
   post_process_html = NULL,
   post_process_pptx = NULL
 )
+
+init_flextable_defaults()
 }
 \arguments{
 \item{font.family}{single character value specifying font name.}
@@ -79,7 +82,8 @@ a list containing previous default values.
 \description{
 The current formatting properties (see \code{\link[=get_flextable_defaults]{get_flextable_defaults()}})
 are automatically applied to every flextable you produce.
-Use \code{set_flextable_defaults()} to override them.
+Use \code{set_flextable_defaults()} to override them. Use \code{init_flextable_defaults()}
+to re-init all values with the package defaults.
 }
 \section{Illustrations}{
 

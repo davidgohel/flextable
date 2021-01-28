@@ -4,6 +4,12 @@
 
 * `compose` has a new argument `use_dot` to let 
 use `.` and loop over columns 
+* new function `init_flextable_defaults()`
+
+## Issues
+
+* fix line spacing with pdf output
+
 
 # flextable 0.6.2
 
