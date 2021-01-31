@@ -70,7 +70,7 @@ as_flextable.gam <- function(x, ...) {
 
 #' Summarize a(n) gam object
 #' @description summarizes information about the components of a model
-#' @keywords internal
+#' @noRd
 tidy_gam <- function(model) {
   ptab <- data.frame(summary(model)$p.table)
   ptab$term <- rownames(ptab)
@@ -93,7 +93,7 @@ tidy_gam <- function(model) {
 
 #' Summarize a(n) gam object
 #' @description provides model summaries in one line
-#' @keywords internal
+#' @noRd
 #' @importFrom stats AIC BIC logLik df.residual nobs
 glance_gam <- function(model) {
   data.frame(
