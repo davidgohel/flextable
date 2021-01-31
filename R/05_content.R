@@ -307,19 +307,17 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
 #' @seealso [as_chunk()], [minibar()],
 #' [as_image()], [hyperlink_text()]
 #' @examples
-#' library(officer)
-#' ft <- flextable( head(iris, n = 10 ))
-#'
-#' ft <- compose(ft, j = 1,
+#' library(flextable)
+#' ft <- flextable(airquality[sample.int(150, size = 10), ])
+#' ft <- compose(ft,
+#'   j = "Wind",
 #'   value = as_paragraph(
-#'     minibar(value = Sepal.Length, max = max(Sepal.Length)),
+#'     as_chunk(Wind, props = fp_text_default(color = "orange")),
 #'     " ",
-#'     as_chunk( Sepal.Length, formatter = formatC,
-#'              props = fp_text(color = "orange") ),
-#'     " blah blah"
+#'     minibar(value = Wind, max = max(airquality$Wind), barcol = "orange", bg = "black", height = .15)
 #'   ),
-#'   part = "body")
-#'
+#'   part = "body"
+#' )
 #' ft <- autofit(ft)
 #' ft
 #' @section Illustrations:

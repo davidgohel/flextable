@@ -157,9 +157,11 @@ colformat_double <- function(
 #' @family cells formatters
 #' @examples
 #' dat <- mtcars
+#' dat[2,1] <- NA
 #' ft <- flextable(head(dat))
 #' ft <- colformat_num(x = ft,
-#'   big.mark=",", digits = 2, na_str = "N/A")
+#'   big.mark=" ", decimal.mark = ",",
+#'   digits = 2, na_str = "N/A")
 #' ft <- autofit(ft)
 #' ft
 #' @section Illustrations:

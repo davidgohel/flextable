@@ -17,6 +17,9 @@
 #'   ft <- as_flextable(b)
 #'   ft
 #' }
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_flextable.gam_1.png}{options: width=60\%}}
 #' @family as_flextable methods
 as_flextable.gam <- function(x, ...) {
   data_t <- tidy_gam(x)

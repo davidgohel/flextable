@@ -8,11 +8,10 @@
 #' @param max_iter maximum iterations
 #' @examples
 #' ft_1 <- qflextable(head(mtcars))
-#' ft_1 <- padding(ft_1, padding = 0, part = "all")
 #' ft_1 <- width(ft_1, width = 1)
 #' ft_1
 #'
-#' ft_2 <- fit_to_width(ft_1, max_width = 5.5)
+#' ft_2 <- fit_to_width(ft_1, max_width = 4)
 #' ft_2
 #' @family flextable dimensions
 #' @section Illustrations:
