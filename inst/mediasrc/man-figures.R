@@ -63,6 +63,8 @@ process_manual_flextable <- function(name, pkg, pattern = "^ft[_0-9]*?$", dir = 
     filename <- file.path(dir, paste0("fig_", name, "_", i, ".png"))
     save_as_html(obj, path = htmlname)
     screenshot(htmlname, file = filename, selector = "body > div > table")
+    image_write(image_scale(image_read(filename), geometry = "50%x"),
+                path = filename, format = "png")
     out[obj_list[i]] <- filename
   }
   rm(list = setdiff(ls(envir = .GlobalEnv), obj_start), envir = .GlobalEnv)
