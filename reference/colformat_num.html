@@ -47,7 +47,11 @@
 
 
 <meta property="og:title" content="format numeric cells — colformat_num" />
-<meta property="og:description" content="Format numeric cells in a flextable." />
+<meta property="og:description" content="Format numeric cells in a flextable.
+The function is different from colformat_double() on numeric type
+columns. The function uses the format() function of R on numeric
+type columns. So this is normally what you see on the R console
+most of the time (but scientific mode is disabled, NA are replaced, etc.)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3.006</span>
       </span>
     </div>
 
@@ -120,6 +124,10 @@
 
     <div class="ref-description">
     <p>Format numeric cells in a flextable.</p>
+<p>The function is different from <code><a href='colformat_double.html'>colformat_double()</a></code> on numeric type
+columns. The function uses the <code><a href='https://rdrr.io/r/base/format.html'>format()</a></code> function of R on numeric
+type columns. So this is normally what you see on the R console
+most of the time (but scientific mode is disabled, NA are replaced, etc.).</p>
     </div>
 
     <pre class="usage"><span class='fu'>colformat_num</span><span class='op'>(</span>
@@ -128,7 +136,6 @@
   j <span class='op'>=</span> <span class='cn'>NULL</span>,
   big.mark <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>big.mark</span>,
   decimal.mark <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>decimal.mark</span>,
-  digits <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>digits</span>,
   na_str <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>na_str</span>,
   prefix <span class='op'>=</span> <span class='st'>""</span>,
   suffix <span class='op'>=</span> <span class='st'>""</span>
@@ -150,7 +157,7 @@
       <td><p>columns selection.</p></td>
     </tr>
     <tr>
-      <th>big.mark, digits, decimal.mark</th>
+      <th>big.mark, decimal.mark</th>
       <td><p>see <code><a href='https://rdrr.io/r/base/format.html'>format()</a></code></p></td>
     </tr>
     <tr>
@@ -188,9 +195,11 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>mtcars</span>
+<span class='va'>dat</span><span class='op'>[</span><span class='fl'>2</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>NA</span>
 <span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>colformat_num</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ft</span>,
-  big.mark<span class='op'>=</span><span class='st'>","</span>, digits <span class='op'>=</span> <span class='fl'>2</span>, na_str <span class='op'>=</span> <span class='st'>"N/A"</span><span class='op'>)</span>
+  big.mark<span class='op'>=</span><span class='st'>" "</span>, decimal.mark <span class='op'>=</span> <span class='st'>","</span>,
+  na_str <span class='op'>=</span> <span class='st'>"N/A"</span><span class='op'>)</span>
 <span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span><span class='op'>(</span><span class='va'>ft</span><span class='op'>)</span>
 <span class='va'>ft</span>
 </div><div class='output co'>#&gt; a flextable object.
@@ -200,7 +209,7 @@
 #&gt; original dataset sample: 
 #&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 #&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+#&gt; Mazda RX4 Wag       NA   6  160 110 3.90 2.875 17.02  0  1    4    4
 #&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
 #&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 #&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div></pre>
@@ -216,7 +225,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.2 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.3.006 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

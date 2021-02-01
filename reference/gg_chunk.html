@@ -82,7 +82,7 @@ It should be used inside a call to as_paragraph()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3.006</span>
       </span>
     </div>
 
@@ -147,6 +147,12 @@ It should be used inside a call to <code><a href='as_paragraph.html'>as_paragrap
 context with Word output format.</p>
 <p>PowerPoint cannot mix images and text in a paragraph, images
 are removed when outputing to PowerPoint format.</p>
+    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
+
+    
+
+
+<p><img src='figures/fig_gg_chunk_1.png' width=70% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other chunk elements for paragraph: 
@@ -187,7 +193,7 @@ are removed when outputing to PowerPoint format.</p>
                value <span class='op'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span><span class='op'>(</span>
                  <span class='fu'>gg_chunk</span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>gg</span>, width <span class='op'>=</span> <span class='fl'>1</span>, height <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
                <span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>ft</span><span class='op'>)</span>
+  <span class='va'>ft</span>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required package: ggplot2</span></div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Species`, `gg` 
@@ -198,10 +204,10 @@ are removed when outputing to PowerPoint format.</p>
 #&gt; 1     setosa
 #&gt; 2 versicolor
 #&gt; 3  virginica
-#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    gg
-#&gt; 1             Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.7425467, 0.2671758, 0.2780984, 0.7425467, 1, 0.1777, 0.232752, 0.2671758, 0.1777, 1, 0.33163, 0.2780984, 0.232752, 0.33163, 1, &lt;environment: 0xfe05ef0&gt;, &lt;environment: 0x106afd10&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0xfed9740&gt;, &lt;environment: 0xf98f498&gt;, &lt;environment: 0xf7878e8&gt;, var1, var2, correlation
-#&gt; 2 Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.5259107, 0.754049, 0.5464611, 0.5259107, 1, 0.5605221, 0.6639987, 0.754049, 0.5605221, 1, 0.7866681, 0.5464611, 0.6639987, 0.7866681, 1, &lt;environment: 0x10441f18&gt;, &lt;environment: 0xd6b9af8&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0xebe80a8&gt;, &lt;environment: 0x112bcfb8&gt;, &lt;environment: 0x10719b60&gt;, var1, var2, correlation
-#&gt; 3    Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.4572278, 0.8642247, 0.2811077, 0.4572278, 1, 0.4010446, 0.537728, 0.8642247, 0.4010446, 1, 0.3221082, 0.2811077, 0.537728, 0.3221082, 1, &lt;environment: 0xd7b9fa8&gt;, &lt;environment: 0xeb2d968&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0xd424738&gt;, &lt;environment: 0xfcd0178&gt;, &lt;environment: 0xedaf270&gt;, var1, var2, correlation</div></pre>
+#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 gg
+#&gt; 1           Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.7425467, 0.2671758, 0.2780984, 0.7425467, 1, 0.1777, 0.232752, 0.2671758, 0.1777, 1, 0.33163, 0.2780984, 0.232752, 0.33163, 1, &lt;environment: 0x6fbf1d8&gt;, &lt;environment: 0x6bad308&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0x6f758c8&gt;, &lt;environment: 0x8000fe8&gt;, &lt;environment: 0x8a0ced0&gt;, var1, var2, correlation
+#&gt; 2 Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.5259107, 0.754049, 0.5464611, 0.5259107, 1, 0.5605221, 0.6639987, 0.754049, 0.5605221, 1, 0.7866681, 0.5464611, 0.6639987, 0.7866681, 1, &lt;environment: 0xac87328&gt;, &lt;environment: 0xad3fc60&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0xac9d450&gt;, &lt;environment: 0xac053f0&gt;, &lt;environment: 0x6b99720&gt;, var1, var2, correlation
+#&gt; 3 Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.4572278, 0.8642247, 0.2811077, 0.4572278, 1, 0.4010446, 0.537728, 0.8642247, 0.4010446, 1, 0.3221082, 0.2811077, 0.537728, 0.3221082, 1, &lt;environment: 0xae5eb58&gt;, &lt;environment: 0xafea370&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0xae7f8c0&gt;, &lt;environment: 0xada2e00&gt;, &lt;environment: 0xad49ad8&gt;, var1, var2, correlation</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -214,7 +220,7 @@ are removed when outputing to PowerPoint format.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.2 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.3.006 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

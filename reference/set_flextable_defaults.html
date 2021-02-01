@@ -49,7 +49,8 @@
 <meta property="og:title" content="Modify flextable defaults formatting properties — set_flextable_defaults" />
 <meta property="og:description" content="The current formatting properties (see get_flextable_defaults())
 are automatically applied to every flextable you produce.
-Use set_flextable_defaults() to override them." />
+Use set_flextable_defaults() to override them. Use init_flextable_defaults()
+to re-init all values with the package defaults." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -82,7 +83,7 @@ Use set_flextable_defaults() to override them." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3.006</span>
       </span>
     </div>
 
@@ -123,7 +124,8 @@ Use set_flextable_defaults() to override them." />
     <div class="ref-description">
     <p>The current formatting properties (see <code><a href='get_flextable_defaults.html'>get_flextable_defaults()</a></code>)
 are automatically applied to every flextable you produce.
-Use <code>set_flextable_defaults()</code> to override them.</p>
+Use <code>set_flextable_defaults()</code> to override them. Use <code>init_flextable_defaults()</code>
+to re-init all values with the package defaults.</p>
     </div>
 
     <pre class="usage"><span class='fu'>set_flextable_defaults</span><span class='op'>(</span>
@@ -151,7 +153,9 @@ Use <code>set_flextable_defaults()</code> to override them.</p>
   post_process_docx <span class='op'>=</span> <span class='cn'>NULL</span>,
   post_process_html <span class='op'>=</span> <span class='cn'>NULL</span>,
   post_process_pptx <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span>
+
+<span class='fu'>init_flextable_defaults</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,8 +199,8 @@ valid color (e.g. "#000000" or "black").</p></td>
     </tr>
     <tr>
       <th>decimal.mark, big.mark, digits, na_str</th>
-      <td><p><a href='https://rdrr.io/r/base/formatc.html'>formatC</a> arguments used by <code><a href='colformat_num.html'>colformat_num()</a></code>
-and <code><a href='colformat_int.html'>colformat_int()</a></code>.</p></td>
+      <td><p><a href='https://rdrr.io/r/base/formatc.html'>formatC</a> arguments used by <code><a href='colformat_num.html'>colformat_num()</a></code>,
+<code><a href='colformat_double.html'>colformat_double()</a></code>, and <code><a href='colformat_int.html'>colformat_int()</a></code>.</p></td>
     </tr>
     <tr>
       <th>fmt_date, fmt_datetime</th>
@@ -294,7 +298,7 @@ They are executed just before printing the table.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.2 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.3.006 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
