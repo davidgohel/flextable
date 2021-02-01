@@ -15,7 +15,7 @@ format_fun.default <-
     } else if(inherits(x, "POSIXt")){
       out <- format_fun.POSIXt(x, fmt_datetime = fmt_datetime, na_str = na_str, prefix = prefix, suffix = suffix)
     } else if(is.double(x)){
-      out <- format_fun.double(x, na_str = na_str, big.mark = big.mark,
+      out <- format_fun_defaultnum(x, na_str = na_str, big.mark = big.mark,
                                decimal.mark = decimal.mark,
                                digits = digits, prefix = prefix, suffix = suffix)
     } else if(is.integer(x)){
@@ -56,6 +56,22 @@ format_fun.logical <-
     ifelse(is.na(x), na_str, out)
   }
 
+
+format_fun_defaultnum <-
+  function(x, na_str = flextable_global$defaults$na_str, prefix = "", suffix = "",
+           big.mark = flextable_global$defaults$big.mark,
+           decimal.mark = flextable_global$defaults$decimal.mark,
+           digits = flextable_global$defaults$digits, ...) {
+    out <- paste0(
+      prefix,
+      format(x, trim = TRUE, scientific = FALSE,
+        big.mark = big.mark,
+        decimal.mark = decimal.mark
+      ),
+      suffix
+    )
+    ifelse(is.na(x), na_str, out)
+  }
 
 format_fun.double <-
   function(x, na_str = flextable_global$defaults$na_str, prefix = "", suffix = "",

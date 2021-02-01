@@ -51,8 +51,8 @@ flextable_global$defaults <- default_flextable_settings
 #' @param background.color cell background color - a single character value specifying a
 #' valid color (e.g. "#000000" or "black").
 #' @param table.layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
-#' @param decimal.mark,big.mark,digits,na_str [formatC] arguments used by [colformat_num()]
-#' and [colformat_int()].
+#' @param decimal.mark,big.mark,digits,na_str [formatC] arguments used by [colformat_num()],
+#' [colformat_double()], and [colformat_int()].
 #' @param fmt_date,fmt_datetime formats for date and datetime columns as
 #' documented in [strptime()]. Default to '%Y-%m-%d' and '%Y-%m-%d %H:%M:%S'.
 #' @param fonts_ignore if TRUE, pdf-engine pdflatex can be used instead of

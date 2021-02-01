@@ -37,11 +37,11 @@ content <- structure(c("Paul Maillet L'Levy", "Laurent-Noel Perrier", "Josephine
 "Dorothee Guillaume", "Thibaut Riou-Joubert", "Frederic Neveu L'Baudry",
 "Jules L'Seguin", "21/02/2022", "08/08/1992", "30/12/2025", "14/06/2026",
 "11/07/2033", "10/08/2024", "09/03/2006", "14/09/1995", "22/07/2006",
-"12/01/2009", "4,00", "4,00", "4,00", "2,00", "0,00", "1,00",
-"3,00", "2,00", "0,00", "4,00", "86,42", "na", "na", "na", "80,58",
-"56,91", "65,64", "66,16", "81,81", "65,35", "174,22", "165,91",
-"163,44", "169,66", "172,14", "170,46", "160,96", "167,70", "170,85",
-"168,73", "722 672", "859 897", "953 004", "1 057 745", "957 027",
+"12/01/2009", "4", "4", "4", "2", "0", "1", "3", "2", "0", "4",
+"86,42203", "na", "na", "na", "80,58191", "56,91447", "65,63746",
+"66,16361", "81,81358", "65,35044", "174,2184", "165,9083", "163,4377",
+"169,6560", "172,1362", "170,4639", "160,9598", "167,7047", "170,8510",
+"168,7294", "722 672", "859 897", "953 004", "1 057 745", "957 027",
 "803 071", "1 045 133", "669 134", "841 065", "801 122", "color: dark",
 "color: dark", "color: blue", "color: blue", "color: dark", "color: dark",
 "color: green", "color: blue", "color: dark", "color: dark"), .Dim = c(10L,
@@ -56,7 +56,7 @@ content_matrix <- function(x){
 
 test_that("colformat functions have the expected effect", {
   ft <- flextable(dat)
-  ft <- colformat_num(x = ft, big.mark = " ", decimal.mark = ",", digits = 2, na_str = "na")
+  ft <- colformat_num(x = ft, big.mark = " ", decimal.mark = ",", na_str = "na")
   ft <- colformat_int(x = ft, big.mark = " ")
   ft <- colformat_char(x = ft, j = "eye_color", prefix = "color: ")
   ft <- colformat_date(x = ft, fmt_date = "%d/%m/%Y")
