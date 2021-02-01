@@ -41,7 +41,7 @@ as_flextable.gam <- function(x, ...) {
     ft <- add_body(ft, values = setNames(data_t$smooth, names(data_t$parametric)), top = FALSE)
   }
   ft <- compose(ft, j = "p.value", value = as_paragraph(pvalue_format(p.value)))
-  ft <- colformat_num(ft, j = 3:5, digits = 3)
+  ft <- colformat_double(ft, j = 3:5, digits = 3)
 
   if(nrow(data_t$smooth)>0){
     ft <- compose(ft, i = nrow(data_t$parametric) + 1, value = as_paragraph(smooth.head))

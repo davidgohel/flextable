@@ -56,8 +56,8 @@ valid color (e.g. "#000000" or "black").}
 
 \item{table.layout}{'autofit' or 'fixed' algorithm. Default to 'autofit'.}
 
-\item{decimal.mark, big.mark, digits, na_str}{\link{formatC} arguments used by \code{\link[=colformat_num]{colformat_num()}}
-and \code{\link[=colformat_int]{colformat_int()}}.}
+\item{decimal.mark, big.mark, digits, na_str}{\link{formatC} arguments used by \code{\link[=colformat_num]{colformat_num()}},
+\code{\link[=colformat_double]{colformat_double()}}, and \code{\link[=colformat_int]{colformat_int()}}.}
 
 \item{fmt_date, fmt_datetime}{formats for date and datetime columns as
 documented in \code{\link[=strptime]{strptime()}}. Default to '\%Y-\%m-\%d' and '\%Y-\%m-\%d \%H:\%M:\%S'.}

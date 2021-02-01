@@ -10,7 +10,6 @@ colformat_num(
   j = NULL,
   big.mark = get_flextable_defaults()$big.mark,
   decimal.mark = get_flextable_defaults()$decimal.mark,
-  digits = get_flextable_defaults()$digits,
   na_str = get_flextable_defaults()$na_str,
   prefix = "",
   suffix = ""
@@ -23,7 +22,7 @@ colformat_num(
 
 \item{j}{columns selection.}
 
-\item{big.mark, digits, decimal.mark}{see \code{\link[=format]{format()}}}
+\item{big.mark, decimal.mark}{see \code{\link[=format]{format()}}}
 
 \item{na_str}{string to be used for NA values}
 
@@ -33,6 +32,11 @@ colformat_num(
 }
 \description{
 Format numeric cells in a flextable.
+
+The function is different from \code{\link[=colformat_double]{colformat_double()}} on numeric type
+columns. The function uses the \code{\link[=format]{format()}} function of R on numeric
+type columns. So this is normally what you see on the console
+most of the time (scientific mode is disabled, NA are replaced, etc.).
 }
 \section{Illustrations}{
 
@@ -46,7 +50,7 @@ dat[2,1] <- NA
 ft <- flextable(head(dat))
 ft <- colformat_num(x = ft,
   big.mark=" ", decimal.mark = ",",
-  digits = 2, na_str = "N/A")
+  na_str = "N/A")
 ft <- autofit(ft)
 ft
 }

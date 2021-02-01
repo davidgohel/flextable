@@ -178,8 +178,8 @@ as_flextable.glm <- function(x, ...){
   sum_obj <- summary(x)
 
   ft <- flextable(data_t, col_keys = c("term", "estimate", "std.error", "statistic", "p.value", "signif"))
-  ft <- colformat_num(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
-  ft <- colformat_num(ft, j = c("p.value"), digits = 4)
+  ft <- colformat_double(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
+  ft <- colformat_double(ft, j = c("p.value"), digits = 4)
   ft <- mk_par(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)) )
 
   ft <- set_header_labels(ft, term = "", estimate = "Estimate",
@@ -235,8 +235,8 @@ as_flextable.lm <- function(x, ...){
   data_g <- broom::glance(x)
 
   ft <- flextable(data_t, col_keys = c("term", "estimate", "std.error", "statistic", "p.value", "signif"))
-  ft <- colformat_num(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
-  ft <- colformat_num(ft, j = c("p.value"), digits = 4)
+  ft <- colformat_double(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
+  ft <- colformat_double(ft, j = c("p.value"), digits = 4)
   ft <- compose(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)) )
 
   ft <- set_header_labels(ft, term = "", estimate = "Estimate",
@@ -379,7 +379,7 @@ continuous_summary <- function(dat, columns = NULL,
 
 
   ft <- colformat_int(ft, j = c("N", "NAS"))
-  ft <- colformat_num(ft, j = setdiff(fun_list, c("N", "NAS")), digits = digits)
+  ft <- colformat_double(ft, j = setdiff(fun_list, c("N", "NAS")), digits = digits)
   ft <- set_header_labels(ft, values = c("MIN" = "min.", "MAX" = "max.",
                                          "Q1" = "q1", "Q3" = "q3",
                                          "MEDIAN" = "median", "MEAN" = "mean", "SD" = "sd",
