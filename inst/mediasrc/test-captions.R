@@ -1,9 +1,15 @@
-# bookdown examples wth captions and cross ref -----
-library(imgpress)
 library(pagedown)
 library(knitr)
 
-imgpress::set_imgpress_defaults(temp_dir="/Users/davidgohel/Downloads/officer_man_out")
+if(!require("doconv")){
+  stop("please install doconv before using that script with command:\n",
+       "remotes::install_github('ardata-fr/doconv')")
+}
+python_available(error = TRUE)
+if(!docx2pdf_available()){
+  install_docx2pdf()
+}
+
 
 captions_example <- system.file(
   package = "flextable",
@@ -49,18 +55,18 @@ if(require("rmarkdown", quietly = TRUE)){
 }
 browseURL(dirname(rmd_file))
 
-office_to_miniature(file.path(dirname(rmd_file), "rmarkdown-word.docx"),
-                    width = 700,
-                    fileout = "inst/fig_ref/test-caption-rmarkdown-docx.png")
-office_to_miniature(file.path(dirname(rmd_file), "book-word.docx"),
-                    width = 700,
-                    fileout = "inst/fig_ref/test-caption-book-word.png")
+docx_to_miniature(file.path(dirname(rmd_file), "rmarkdown-word.docx"),
+                  width = 700,
+                  fileout = "inst/fig_ref/test-caption-rmarkdown-docx.png")
+docx_to_miniature(file.path(dirname(rmd_file), "book-word.docx"),
+                  width = 700,
+                  fileout = "inst/fig_ref/test-caption-book-word.png")
 
 pdf_to_miniature(file.path(dirname(rmd_file), "rmarkdown-latex.pdf"),
-                    width = 700,
+                 width = 700,
                  fileout = "inst/fig_ref/test-caption-rmarkdown-pdf.png")
 pdf_to_miniature(file.path(dirname(rmd_file), "book-pdf.pdf"),
-                    width = 700,
+                 width = 700,
                  fileout = "inst/fig_ref/test-caption-book-pdf.png")
 
 chrome_print(file.path(dirname(rmd_file), "rmarkdown-html.html"), output = "inst/fig_ref/test-caption-rmarkdown-html.png",
@@ -68,6 +74,6 @@ chrome_print(file.path(dirname(rmd_file), "rmarkdown-html.html"), output = "inst
 chrome_print(file.path(dirname(rmd_file), "book-html.html"), output = "inst/fig_ref/test-caption-book-html.png",
              wait = 2, format = "png", scale = 2)
 
-office_to_miniature(file.path(dirname(rmd_file), "officedown.docx"),
-                    width = 700,
-                    fileout = "inst/fig_ref/test-caption-officedown-docx.png")
+docx_to_miniature(file.path(dirname(rmd_file), "officedown.docx"),
+                  width = 700,
+                  fileout = "inst/fig_ref/test-caption-officedown-docx.png")
