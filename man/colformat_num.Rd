@@ -35,8 +35,8 @@ Format numeric cells in a flextable.
 
 The function is different from \code{\link[=colformat_double]{colformat_double()}} on numeric type
 columns. The function uses the \code{\link[=format]{format()}} function of R on numeric
-type columns. So this is normally what you see on the console
-most of the time (scientific mode is disabled, NA are replaced, etc.).
+type columns. So this is normally what you see on the R console
+most of the time (but scientific mode is disabled, NA are replaced, etc.).
 }
 \section{Illustrations}{
 
