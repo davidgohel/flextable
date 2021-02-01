@@ -5,6 +5,8 @@
 * `compose` has a new argument `use_dot` to let 
 use `.` and loop over columns 
 * new function `init_flextable_defaults()`
+* inst/mediasrc/man-figures.R can also be used for visual testing 
+with `git diff`
 
 ## Issues
 

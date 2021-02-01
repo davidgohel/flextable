@@ -22,6 +22,7 @@ reference:
     - add_header_lines
     - add_footer_lines
     - add_header
+    - add_body
     - add_footer
     - set_header_labels
     - set_header_df
