@@ -468,7 +468,7 @@ plot_chunk <- function(value, width = 1, height = .2,
 #'                value = as_paragraph(
 #'                  gg_chunk(value = gg, width = 1, height = 1)
 #'                ))
-#'   print(ft)
+#'   ft
 #' }
 #' @section Illustrations:
 #'

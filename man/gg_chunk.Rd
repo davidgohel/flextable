@@ -53,7 +53,7 @@ if(require("ggplot2")){
                value = as_paragraph(
                  gg_chunk(value = gg, width = 1, height = 1)
                ))
-  print(ft)
+  ft
 }
 }
 \seealso{

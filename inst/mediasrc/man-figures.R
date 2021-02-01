@@ -9,6 +9,9 @@ node_available(error = TRUE)
 if(!compress_images_npm_available()){
   install_compress_images_npm()
 }
+if(!puppeteer_npm_available()){
+  install_puppeteer_npm()
+}
 
 # funs -----
 #' @title topic names from a package
@@ -38,7 +41,7 @@ package_man_names <- function(package_name) {
 #' process_manual_flextable(name = "theme_vader", pkg = "flextable")
 #' @importFrom utils example
 #' @importFrom flextable save_as_image
-process_manual_flextable <- function(name, pkg, pattern = "^ft[_0-9]*?$", dir = tempfile(), webshot = "webshot"){
+process_manual_flextable <- function(name, pkg, pattern = "^ft[_0-9]*?$", dir = tempfile()){
   obj_start <- ls(envir = .GlobalEnv)
 
   if(!dir.exists(dir)){
@@ -56,9 +59,10 @@ process_manual_flextable <- function(name, pkg, pattern = "^ft[_0-9]*?$", dir = 
     if (!inherits(obj, "flextable")) {
       next
     }
+    htmlname <- file.path(dir, paste0("fig_", name, "_", i, ".html"))
     filename <- file.path(dir, paste0("fig_", name, "_", i, ".png"))
-    img_file <- save_as_image(obj, path = filename, zoom = 1.1, webshot = webshot)
-
+    save_as_html(obj, path = htmlname)
+    screenshot(htmlname, file = filename, selector = "body > div > table")
     out[obj_list[i]] <- filename
   }
   rm(list = setdiff(ls(envir = .GlobalEnv), obj_start), envir = .GlobalEnv)
@@ -89,11 +93,7 @@ for (man_index in seq_along(man_names)) {
   out[[man_name]] <- process_manual_flextable(name = man_name, pkg = "flextable", dir = dir)
 }
 
-# because phantom is not always good, re-render those webshot2 do better ----
-out[["as_flextable.xtable"]] <- process_manual_flextable(name = "as_flextable.xtable", pkg = "flextable", dir = dir, webshot = "webshot2")
-out[["merge_v"]] <- process_manual_flextable(name = "merge_v", pkg = "flextable", dir = dir, webshot = "webshot2")
-out[["rotate"]] <- process_manual_flextable(name = "rotate", pkg = "flextable", dir = dir, webshot = "webshot2")
-out[["set_header_footer_df"]] <- process_manual_flextable(name = "set_header_footer_df", pkg = "flextable", dir = dir, webshot = "webshot2")
+
 out[["logo"]] <- file.path(dir, "logo.png")
 out[["fig_flextable"]] <- file.path(dir, "fig_flextable_1.png")
 rsvg::rsvg_png("inst/flextablelogo.svg", file.path(dir, "logo.png"))
@@ -109,7 +109,6 @@ zz <- list(
 zz <- lapply(zz, image_scale, "x100")
 img_stack <- do.call(c, zz)
 img_stack <- image_append(img_stack, stack = FALSE)
-out <- file.path(dir_out, "fig_formats.png")
 image_write(img_stack, path = file.path(dir, "fig_formats.png"))
 
 
