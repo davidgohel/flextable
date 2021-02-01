@@ -72,6 +72,7 @@ reference:
     - border_inner_v
     - border_outer
     - fix_border_issues
+    - border_remove
   - title: Flextable themes
     desc:  Apply theme functions.
     contents:
@@ -84,6 +85,8 @@ reference:
     - compose
     - as_paragraph
     - as_chunk
+    - fp_border_default
+    - fp_text_default
     - as_image
     - plot_chunk
     - gg_chunk
