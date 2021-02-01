@@ -33,6 +33,12 @@ colformat_image(
 \description{
 Format image paths as images in a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_colformat_image_1.png}{options: width=70\%}}
+}
+
 \examples{
 img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 

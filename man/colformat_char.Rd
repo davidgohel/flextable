@@ -27,6 +27,12 @@ colformat_char(
 \description{
 Format character cells in a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_colformat_char_1.png}{options: width=50\%}}
+}
+
 \examples{
 dat <- iris
 z <- flextable(head(dat))

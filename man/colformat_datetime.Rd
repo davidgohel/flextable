@@ -32,6 +32,12 @@ colformat_datetime(
 \description{
 Format datetime cells in a flextable.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{fig_colformat_datetime_1.png}{options: width=40\%}}
+}
+
 \examples{
 dat <- data.frame(z = Sys.time() + (1:3)*24,
   w = Sys.Date() - (1:3)*24)

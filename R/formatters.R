@@ -95,6 +95,9 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 #'   x = z, j = "Species", suffix = "!")
 #' z <- autofit(z)
 #' z
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_colformat_char_1.png}{options: width=50\%}}
 colformat_char <- function(
   x, i = NULL, j = NULL,
   na_str = get_flextable_defaults()$na_str,
@@ -126,6 +129,9 @@ colformat_char <- function(
 #'   big.mark=",", digits = 2, na_str = "N/A")
 #' autofit(ft)
 #' @importFrom rlang new_function quo get_expr pairlist2
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_colformat_double_1.png}{options: width=70\%}}
 colformat_double <- function(
   x, i = NULL, j = NULL,
   big.mark = get_flextable_defaults()$big.mark,
@@ -207,6 +213,9 @@ colformat_num <- function(
 #' ft <- colformat_date(x = ft)
 #' ft <- autofit(ft)
 #' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_colformat_date_1.png}{options: width=30\%}}
 colformat_date <- function(
   x, i = NULL, j = NULL,
   fmt_date = get_flextable_defaults()$fmt_date,
@@ -239,6 +248,9 @@ colformat_date <- function(
 #' ft <- colformat_datetime(x = ft)
 #' ft <- autofit(ft)
 #' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_colformat_datetime_1.png}{options: width=40\%}}
 colformat_datetime <- function(
   x, i = NULL, j = NULL,
   fmt_datetime = get_flextable_defaults()$fmt_datetime,
@@ -340,6 +352,9 @@ colformat_lgl <- function(
 #'   j = "Species", width = .20, height = .15)
 #' ft <- autofit(myft)
 #' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_colformat_image_1.png}{options: width=70\%}}
 colformat_image <- function(
   x, i = NULL, j = NULL,
   width, height,
