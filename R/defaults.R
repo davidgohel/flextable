@@ -46,6 +46,7 @@ flextable_global$defaults <- default_flextable_settings
 #' is one of 'left', 'right', 'center', 'justify'.
 #' @param padding.bottom,padding.top,padding.left,padding.right paragraph paddings - 0 or
 #' positive integer value.
+#' @param padding padding (shortcut for top, bottom, left and right padding)
 #' @param border.color border color - single character value
 #' (e.g. "#000000" or "black").
 #' @param background.color cell background color - a single character value specifying a
@@ -86,7 +87,9 @@ flextable_global$defaults <- default_flextable_settings
 #' \if{html}{\figure{fig_set_flextable_defaults_2.png}{options: width=50\%}}
 set_flextable_defaults <- function(
   font.family = NULL, font.size = NULL, font.color = NULL,
-  text.align = NULL, padding.bottom = NULL, padding.top = NULL,
+  text.align = NULL,
+  padding = NULL,
+  padding.bottom = NULL, padding.top = NULL,
   padding.left = NULL, padding.right = NULL,
   border.color = NULL, background.color = NULL,
   table.layout = NULL,
@@ -100,6 +103,13 @@ set_flextable_defaults <- function(
   ){
 
   x <- list()
+
+  if( !is.null(padding) ){
+    if( is.null( padding.top) ) padding.top <- padding
+    if( is.null( padding.bottom) ) padding.bottom <- padding
+    if( is.null( padding.left) ) padding.left <- padding
+    if( is.null( padding.right) ) padding.right <- padding
+  }
 
   if( !is.null(font.family) ){
     x$font.family <- font.family

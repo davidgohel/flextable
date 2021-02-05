@@ -10,6 +10,7 @@ set_flextable_defaults(
   font.size = NULL,
   font.color = NULL,
   text.align = NULL,
+  padding = NULL,
   padding.bottom = NULL,
   padding.top = NULL,
   padding.left = NULL,
@@ -44,6 +45,8 @@ a valid color (e.g. "#000000" or "black").}
 
 \item{text.align}{text alignment - a single character value, expected value
 is one of 'left', 'right', 'center', 'justify'.}
+
+\item{padding}{padding (shortcut for top, bottom, left and right padding)}
 
 \item{padding.bottom, padding.top, padding.left, padding.right}{paragraph paddings - 0 or
 positive integer value.}
