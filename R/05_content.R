@@ -238,6 +238,7 @@ as_i <- function(x){
 #' @title colorize chunk
 #' @description The function is producing a chunk with
 #' a font in color.
+#' @param color color to use as text highlighting color as character vector.
 #' @note
 #' This is a sugar function that ease the composition of complex
 #' labels made of different formattings. It should be used inside a
@@ -249,17 +250,16 @@ as_i <- function(x){
 #'   col_keys = c("Sepal.Length", "dummy") )
 #'
 #' ft <- compose(ft, j = "dummy",
-#'   value = as_paragraph(colorize(Sepal.Length, col = "red")) )
+#'   value = as_paragraph(colorize(Sepal.Length, color = "red")) )
 #'
 #' ft
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_colorize_1.png}{options: width=30\%}}
-colorize <- function(x, col){
+colorize <- function(x, color){
+
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x, formatter = format_fun)
   }
-  x$color = col
+
+  x$color <- color
   x
 }
 
@@ -267,6 +267,7 @@ colorize <- function(x, col){
 #' @title highlight chunk
 #' @description The function is producing a chunk with
 #' an highlight chunk.
+#' @param color color to use as text highlighting color as character vector.
 #' @note
 #' This is a sugar function that ease the composition of complex
 #' labels made of different formattings. It should be used inside a
@@ -278,17 +279,15 @@ colorize <- function(x, col){
 #'   col_keys = c("Sepal.Length", "dummy") )
 #'
 #' ft <- compose(ft, j = "dummy",
-#'   value = as_paragraph(as_highlight(Sepal.Length, col = "yellow")) )
+#'   value = as_paragraph(as_highlight(Sepal.Length, color = "yellow")) )
 #'
 #' ft
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_as_highlight_1.png}{options: width=30\%}}
-as_highlight <- function(x, col){
+as_highlight <- function(x, color){
+
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x, formatter = format_fun)
   }
-  x$shading.color = col
+  x$shading.color <- color
   x
 }
 

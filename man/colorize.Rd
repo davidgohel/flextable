@@ -4,10 +4,12 @@
 \alias{colorize}
 \title{colorize chunk}
 \usage{
-colorize(x, col)
+colorize(x, color)
 }
 \arguments{
 \item{x}{value, if a chunk, the chunk will be updated}
+
+\item{color}{color to use as text highlighting color as character vector.}
 }
 \description{
 The function is producing a chunk with
@@ -18,18 +20,12 @@ This is a sugar function that ease the composition of complex
 labels made of different formattings. It should be used inside a
 call to \code{\link[=as_paragraph]{as_paragraph()}}.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_colorize_1.png}{options: width=30\%}}
-}
-
 \examples{
 ft <- flextable( head(iris),
   col_keys = c("Sepal.Length", "dummy") )
 
 ft <- compose(ft, j = "dummy",
-  value = as_paragraph(colorize(Sepal.Length, col = "red")) )
+  value = as_paragraph(colorize(Sepal.Length, color = "red")) )
 
 ft
 }
