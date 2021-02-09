@@ -1,10 +1,11 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.6.4.001
+Version: 0.6.4.002
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
+    person("Clementine", "Jager", role = c("ctb")),
     person("Quentin", "Fazilleau", role = c("ctb")),
     person("Maxim", "Nazarov", role = c("ctb"),
       comment = "rmarkdown for docx output"),
