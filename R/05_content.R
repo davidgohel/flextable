@@ -235,6 +235,64 @@ as_i <- function(x){
 }
 
 #' @export
+#' @title colorize chunk
+#' @description The function is producing a chunk with
+#' a font in color.
+#' @note
+#' This is a sugar function that ease the composition of complex
+#' labels made of different formattings. It should be used inside a
+#' call to [as_paragraph()].
+#' @inheritParams as_sub
+#' @family chunk elements for paragraph
+#' @examples
+#' ft <- flextable( head(iris),
+#'   col_keys = c("Sepal.Length", "dummy") )
+#'
+#' ft <- compose(ft, j = "dummy",
+#'   value = as_paragraph(colorize(Sepal.Length, col = "red")) )
+#'
+#' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_colorize_1.png}{options: width=30\%}}
+colorize <- function(x, col){
+  if( !inherits(x, "chunk") ){
+    x <- as_chunk(x, formatter = format_fun)
+  }
+  x$color = col
+  x
+}
+
+#' @export
+#' @title highlight chunk
+#' @description The function is producing a chunk with
+#' an highlight chunk.
+#' @note
+#' This is a sugar function that ease the composition of complex
+#' labels made of different formattings. It should be used inside a
+#' call to [as_paragraph()].
+#' @inheritParams as_sub
+#' @family chunk elements for paragraph
+#' @examples
+#' ft <- flextable( head(iris),
+#'   col_keys = c("Sepal.Length", "dummy") )
+#'
+#' ft <- compose(ft, j = "dummy",
+#'   value = as_paragraph(as_highlight(Sepal.Length, col = "yellow")) )
+#'
+#' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_as_highlight_1.png}{options: width=30\%}}
+as_highlight <- function(x, col){
+  if( !inherits(x, "chunk") ){
+    x <- as_chunk(x, formatter = format_fun)
+  }
+  x$shading.color = col
+  x
+}
+
+#' @export
 #' @title chunk with values in brackets
 #' @description The function is producing a chunk by
 #' pasting values and add the result in brackets.
