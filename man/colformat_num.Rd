@@ -12,7 +12,8 @@ colformat_num(
   decimal.mark = get_flextable_defaults()$decimal.mark,
   na_str = get_flextable_defaults()$na_str,
   prefix = "",
-  suffix = ""
+  suffix = "",
+  ...
 )
 }
 \arguments{
@@ -29,6 +30,8 @@ colformat_num(
 \item{prefix}{string to be used as prefix or suffix}
 
 \item{suffix}{string to be used as prefix or suffix}
+
+\item{...}{unused argument.}
 }
 \description{
 Format numeric cells in a flextable.
