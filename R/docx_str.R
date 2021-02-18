@@ -97,13 +97,27 @@ caption_docx_bookdown <- function(x){
   if(!is.null(x$caption$value)){
     tab_props$cap <- x$caption$value
   }
+  if(!is.null(x$caption$style)){
+    tab_props$cap.style <- x$caption$style
+  }
 
   has_caption_label <- !is.null(tab_props$cap)
+  has_caption_style <- !is.null(tab_props$cap.style)
+  style_start <- ""
+  style_end <- ""
+
+  if(has_caption_style) {
+    style_start <- sprintf("::: {custom-style=\"%s\"}\n", tab_props$cap.style)
+    style_end <- "\n:::\n"
+  }
 
   caption <- ""
   if(has_caption_label) {
-    caption <- paste("",
+    caption <- paste(
+      "",
+      style_start,
       paste0("<caption>(\\#tab:", tab_props$id, ")", tab_props$cap, "</caption>"),
+      style_end,
       "", sep = "\n")
   }
   caption
