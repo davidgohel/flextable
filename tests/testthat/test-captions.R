@@ -17,6 +17,7 @@ writeLines(rmd_str, rmd_file)
 
 test_that("word_document2 captions", {
   skip_if_not_installed("bookdown")
+  skip_if_not(pandoc_version() >= numeric_version("2"))
   render(rmd_file, output_file = "caption.docx", quiet = TRUE)
   dir_xml <- tempfile(pattern = "xml_tmp")
   officer::unpack_folder(file.path(dirname(rmd_file), "caption.docx"), dir_xml)
@@ -24,13 +25,14 @@ test_that("word_document2 captions", {
   xml_file <- file.path(dir_xml, "/word/document.xml" )
   x <- read_xml(xml_file)
 
-  caption <- xml_find_first(x, "//w:p[2]")
+  xml_captions <- xml_find_all(x, "/w:document/w:body/w:tbl/preceding-sibling::*[1]")
+  caption <- xml_captions[[1]]
   pstyle <- xml_child(caption, "w:pPr/w:pStyle")
   expect_equal(xml_attr(pstyle, "val"), "TableCaption")
   txt <- xml_child(caption, "w:r/w:t")
   expect_equal(xml_text(txt), "Table 1: a table caption")
 
-  caption <- xml_find_first(x, "//w:p[4]")
+  caption <- xml_captions[[2]]
   pstyle <- xml_child(caption, "w:pPr/w:pStyle")
   expect_equal(xml_attr(pstyle, "val"), "TableCaption")
   txt <- xml_child(caption, "w:r/w:t")
