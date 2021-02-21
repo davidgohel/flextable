@@ -5,20 +5,24 @@ library(xml2)
 library(officer)
 library(rmarkdown)
 
-rmd_str <- c("---", "output:", "  bookdown::word_document2:", "    keep_md: true",
-  "---", "", "```{r setup, include=FALSE}", "knitr::opts_chunk$set(echo=FALSE)",
-  "```", "", "```{r libs}", "library(flextable)", "```", "", "Table \\@ref(tab:table1).",
-  "", "```{r table1, tab.cap=\"a table caption\", tab.cap.style=\"Table Caption\"}",
-  "df <- head(iris)", "ft <- flextable(df)", "ft", "```", "", "Table \\@ref(tab:table2).",
-  "", "```{r table2}", "ft <- set_caption(", "  x = ft, ", "  caption =\"a table caption\", ",
-  "  style = \"Table Caption\")", "ft", "```", "")
+rmd_str <- c("```{r setup, include=FALSE}", "knitr::opts_chunk$set(echo=FALSE)",
+"```", "", "```{r libs}", "library(flextable)", "```", "", "Table \\@ref(tab:table1).",
+"", "```{r table1, tab.cap=\"a table caption\", tab.cap.style=\"Table Caption\"}",
+"df <- head(iris)", "ft <- flextable(df)", "ft", "```", "", "Table \\@ref(tab:table2).",
+"", "```{r table2}", "ft <- set_caption(", "  x = ft, ", "  caption =\"a table caption\", ",
+"  style = \"Table Caption\")", "ft", "```", "")
 rmd_file <- tempfile(fileext = ".Rmd")
 writeLines(rmd_str, rmd_file)
 
 test_that("word_document2 captions", {
   skip_if_not_installed("bookdown")
   skip_if_not(pandoc_version() >= numeric_version("2"))
-  render(rmd_file, output_file = "caption.docx", quiet = TRUE)
+
+  template <- tempfile(fileext = ".docx")
+  print(read_docx(), target = template)
+
+  render(rmd_file, output_format = bookdown::word_document2(reference_docx=template),
+         output_file = "caption.docx", quiet = TRUE)
   dir_xml <- tempfile(pattern = "xml_tmp")
   officer::unpack_folder(file.path(dirname(rmd_file), "caption.docx"), dir_xml)
 
