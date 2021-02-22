@@ -53,6 +53,7 @@ format_fun.logical <-
   function(x, na_str = flextable_global$defaults$na_str, prefix = "", suffix = "",
            true = "true", false = "false", ...) {
     out <- ifelse(x, true, false)
+    out <- paste0(prefix, out, suffix)
     ifelse(is.na(x), na_str, out)
   }
 
