@@ -43,6 +43,8 @@ Other flextable dimensions:
 \code{\link{flextable_dim}()},
 \code{\link{height}()},
 \code{\link{hrule}()},
+\code{\link{ncol_keys}()},
+\code{\link{nrow_part}()},
 \code{\link{set_table_properties}()},
 \code{\link{width}()}
 }

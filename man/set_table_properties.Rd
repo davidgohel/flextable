@@ -54,6 +54,8 @@ Other flextable dimensions:
 \code{\link{flextable_dim}()},
 \code{\link{height}()},
 \code{\link{hrule}()},
+\code{\link{ncol_keys}()},
+\code{\link{nrow_part}()},
 \code{\link{width}()}
 }
 \concept{flextable dimensions}

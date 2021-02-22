@@ -4,6 +4,8 @@
 
 * `set_flextable_defaults` now accept argument `padding` that set values for padding 
 top, bottom, left and right.
+* new functions `colorize`, `as_highlight`
+* new functions `nrow_part` and `ncol_keys`
 
 # flextable 0.6.3
 
