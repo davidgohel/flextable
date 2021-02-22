@@ -29,17 +29,9 @@ test_that("word_document2 captions", {
   xml_file <- file.path(dir_xml, "/word/document.xml" )
   x <- read_xml(xml_file)
 
-  xml_captions <- xml_find_all(x, "/w:document/w:body/w:tbl/preceding-sibling::*[1]")
-  caption <- xml_captions[[1]]
-  pstyle <- xml_child(caption, "w:pPr/w:pStyle")
-  expect_equal(xml_attr(pstyle, "val"), "TableCaption")
-  txt <- xml_child(caption, "w:r/w:t")
-  expect_equal(xml_text(txt), "Table 1: a table caption")
-
-  caption <- xml_captions[[2]]
-  pstyle <- xml_child(caption, "w:pPr/w:pStyle")
-  expect_equal(xml_attr(pstyle, "val"), "TableCaption")
-  txt <- xml_child(caption, "w:r/w:t")
-  expect_equal(xml_text(txt), "Table 2: a table caption")
+  style_nodes <- xml_find_all(x, "/w:document/w:body/w:tbl/preceding-sibling::*[1]/w:pPr/w:pStyle[@w:val='TableCaption']")
+  expect_length(style_nodes, 2)
+  txt_nodes <- xml_find_all(x, "/w:document/w:body/w:tbl/preceding-sibling::*[1]/w:r/w:t")
+  expect_equal(xml_text(txt_nodes), c("Table 1: a table caption", "Table 2: a table caption"))
 })
 
