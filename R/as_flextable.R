@@ -109,7 +109,7 @@ as_grouped_data <- function( x, groups, columns = NULL ){
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_as_flextable.grouped_data_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_as_flextable.grouped_data_1.png}{options: width=40\%}}
 #' @family as_flextable methods
 #' @seealso [as_grouped_data()]
 as_flextable.grouped_data <- function(x, col_keys = NULL, hide_grouplabel = FALSE, ... ){
