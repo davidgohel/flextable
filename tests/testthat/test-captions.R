@@ -49,7 +49,7 @@ test_that("html_document2 captions", {
   doc <- read_html(file.path(dirname(rmd_file), "caption.html"))
   captions_ids <- xml_find_all(doc, "//table/caption/span")
   expect_equal(xml_attr(captions_ids, "id"), c("tab:table1", "tab:table2"))
-  txt <- gsub("[\\n\\r]", "", xml_text(xml_find_all(doc, "//table/caption")))
+  txt <- gsub("[\n\r]+", "", xml_text(xml_find_all(doc, "//table/caption")))
   expect_equal(txt, c("Table 1: a table caption", "Table 2: a table caption"))
 })
 
