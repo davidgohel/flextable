@@ -10,7 +10,7 @@ ncol_keys(x)
 \item{x}{flextable object}
 }
 \description{
-returns the number of columns displayed into the \code{flextable}
+returns the number of columns displayed
 }
 \examples{
 library(flextable)

@@ -2,17 +2,17 @@
 % Please edit documentation in R/utils.R
 \name{nrow_part}
 \alias{nrow_part}
-\title{Number of rows for each part}
+\title{Number of rows of a part}
 \usage{
 nrow_part(x, part = "body")
 }
 \arguments{
 \item{x}{flextable object}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
+\item{part}{partname of the table (one of 'body', 'header', 'footer')}
 }
 \description{
-returns the number of lines in each part of the flextable.
+returns the number of lines in a part of flextable.
 }
 \examples{
 library(flextable)

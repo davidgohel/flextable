@@ -18,11 +18,11 @@ check_formula_i_and_part <- function(i, part){
 }
 
 #' @export
-#' @title Number of rows for each part
+#' @title Number of rows of a part
 #' @family flextable dimensions
-#' @description returns the number of lines in each part of the flextable.
+#' @description returns the number of lines in a part of flextable.
 #' @param x flextable object
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @param part partname of the table (one of 'body', 'header', 'footer')
 #' @examples
 #' library(flextable)
 #' ft <- qflextable(head(cars))
@@ -39,7 +39,7 @@ nrow_part <- function(x, part = "body"){
 #' @export
 #' @title Number of columns
 #' @family flextable dimensions
-#' @description returns the number of columns displayed into the `flextable`
+#' @description returns the number of columns displayed
 #' @param x flextable object
 #' @examples
 #' library(flextable)
