@@ -20,7 +20,7 @@ default_flextable_settings <- list(
   na_str  = "",
   fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
   fonts_ignore = FALSE,
-  extra_css = "caption {color: #777;margin-top: 10px;margin-bottom: 10px;text-align: center;}",
+  extra_css = "",
   theme_fun = "theme_booktabs",
   post_process_pdf = function(x) x,
   post_process_docx = function(x) x,
@@ -59,8 +59,7 @@ flextable_global$defaults <- default_flextable_settings
 #' @param fonts_ignore if TRUE, pdf-engine pdflatex can be used instead of
 #' xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
 #' not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
-#' @param extra_css css instructions to be integrated with the table. By default, it
-#' contains only the style for captions.
+#' @param extra_css css instructions to be integrated with the table.
 #' @param theme_fun a single character value (the name of the theme function
 #' to be applied) or a theme function (input is a flextable, output is a flextable).
 #' @param post_process_pdf,post_process_docx,post_process_html,post_process_pptx Post-processing functions
@@ -250,7 +249,7 @@ print.flextable_defaults <- function(x, ...){
   message("")
 
   message("## table.layout is:", x$table.layout, "\n")
-  message("## default theme is:", x$theme_fun, "\n")
+  if(is.character(x$theme_fun)) message("## default theme is:", x$theme_fun, "\n")
 
   message("## HTML specific:")
   message("extra_css:", x$extra_css)

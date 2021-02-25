@@ -65,8 +65,7 @@ valid color (e.g. "#000000" or "black").}
 \item{fmt_date, fmt_datetime}{formats for date and datetime columns as
 documented in \code{\link[=strptime]{strptime()}}. Default to '\%Y-\%m-\%d' and '\%Y-\%m-\%d \%H:\%M:\%S'.}
 
-\item{extra_css}{css instructions to be integrated with the table. By default, it
-contains only the style for captions.}
+\item{extra_css}{css instructions to be integrated with the table.}
 
 \item{fonts_ignore}{if TRUE, pdf-engine pdflatex can be used instead of
 xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
