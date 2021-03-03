@@ -18,6 +18,9 @@ set_flextable_defaults(
   border.color = NULL,
   background.color = NULL,
   table.layout = NULL,
+  cs.family = NULL,
+  eastasia.family = NULL,
+  hansi.family = NULL,
   decimal.mark = NULL,
   big.mark = NULL,
   digits = NULL,
@@ -36,7 +39,8 @@ set_flextable_defaults(
 init_flextable_defaults()
 }
 \arguments{
-\item{font.family}{single character value specifying font name.}
+\item{font.family}{single character value. Specifies the font to
+be used to format characters in the Unicode range (U+0000-U+007F).}
 
 \item{font.size}{font size (in point) - 0 or positive integer value.}
 
@@ -58,6 +62,18 @@ positive integer value.}
 valid color (e.g. "#000000" or "black").}
 
 \item{table.layout}{'autofit' or 'fixed' algorithm. Default to 'autofit'.}
+
+\item{cs.family}{optional font to be used to format
+characters in a complex script Unicode range. For example, Arabic
+text might be displayed using the "Arial Unicode MS" font.}
+
+\item{eastasia.family}{optional font to be used to
+format characters in an East Asian Unicode range. For example,
+Japanese text might be displayed using the "MS Mincho" font.}
+
+\item{hansi.family}{optional. Specifies the font to be used to format
+characters in a Unicode range which does not fall into one of the
+other categories.}
 
 \item{decimal.mark, big.mark, digits, na_str}{\link{formatC} arguments used by \code{\link[=colformat_num]{colformat_num()}},
 \code{\link[=colformat_double]{colformat_double()}}, and \code{\link[=colformat_int]{colformat_int()}}.}

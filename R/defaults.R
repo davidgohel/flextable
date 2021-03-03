@@ -8,7 +8,9 @@ def_fonts <- if( Sys.info()["sysname"] == "Windows" ){
 
 flextable_global <- new.env(parent = emptyenv())
 default_flextable_settings <- list(
-  font.family = def_fonts, font.size = 11, font.color = "black",
+  font.family = def_fonts,
+  cs.family = def_fonts, eastasia.family = def_fonts, hansi.family = def_fonts,
+  font.size = 11, font.color = "black",
   text.align = "left", padding.bottom = 5, padding.top = 5,
   padding.left = 5, padding.right = 5,
   border.color = "#666666",
@@ -38,7 +40,17 @@ flextable_global$defaults <- default_flextable_settings
 #' are automatically applied to every flextable you produce.
 #' Use `set_flextable_defaults()` to override them. Use `init_flextable_defaults()`
 #' to re-init all values with the package defaults.
-#' @param font.family single character value specifying font name.
+#' @param font.family single character value. Specifies the font to
+#' be used to format characters in the Unicode range (U+0000-U+007F).
+#' @param cs.family optional font to be used to format
+#' characters in a complex script Unicode range. For example, Arabic
+#' text might be displayed using the "Arial Unicode MS" font.
+#' @param eastasia.family optional font to be used to
+#' format characters in an East Asian Unicode range. For example,
+#' Japanese text might be displayed using the "MS Mincho" font.
+#' @param hansi.family optional. Specifies the font to be used to format
+#' characters in a Unicode range which does not fall into one of the
+#' other categories.
 #' @param font.size font size (in point) - 0 or positive integer value.
 #' @param font.color font color - a single character value specifying
 #' a valid color (e.g. "#000000" or "black").
@@ -85,13 +97,15 @@ flextable_global$defaults <- default_flextable_settings
 #'
 #' \if{html}{\figure{fig_set_flextable_defaults_2.png}{options: width=50\%}}
 set_flextable_defaults <- function(
-  font.family = NULL, font.size = NULL, font.color = NULL,
+  font.family = NULL,
+  font.size = NULL, font.color = NULL,
   text.align = NULL,
   padding = NULL,
   padding.bottom = NULL, padding.top = NULL,
   padding.left = NULL, padding.right = NULL,
   border.color = NULL, background.color = NULL,
   table.layout = NULL,
+  cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
   decimal.mark = NULL, big.mark = NULL, digits = NULL, na_str = NULL,
   fmt_date = NULL, fmt_datetime = NULL, extra_css = NULL,
   fonts_ignore = NULL, theme_fun = NULL,
@@ -112,6 +126,15 @@ set_flextable_defaults <- function(
 
   if( !is.null(font.family) ){
     x$font.family <- font.family
+  }
+  if( !is.null(cs.family) ){
+    x$cs.family <- cs.family
+  }
+  if( !is.null(eastasia.family) ){
+    x$eastasia.family <- eastasia.family
+  }
+  if( !is.null(hansi.family) ){
+    x$hansi.family <- hansi.family
   }
 
   if( !is.null(font.size) && is.numeric(font.size) && !(font.size<0) ){
@@ -296,6 +319,7 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
                             italic = FALSE,
                             underlined = FALSE,
                             font.family = flextable_global$defaults$font.family,
+                            cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
                             vertical.align = "baseline",
                             shading.color = "transparent"){
   fp_text(
@@ -305,6 +329,7 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
     italic = italic,
     underlined = underlined,
     font.family = font.family,
+    cs.family = cs.family, eastasia.family = eastasia.family, hansi.family = hansi.family,
     vertical.align = vertical.align,
     shading.color = shading.color
   )

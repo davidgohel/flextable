@@ -11,6 +11,9 @@ fp_text_default(
   italic = FALSE,
   underlined = FALSE,
   font.family = flextable_global$defaults$font.family,
+  cs.family = NULL,
+  eastasia.family = NULL,
+  hansi.family = NULL,
   vertical.align = "baseline",
   shading.color = "transparent"
 )
@@ -27,7 +30,20 @@ a valid color (e.g. "#000000" or "black").}
 
 \item{underlined}{is underlined}
 
-\item{font.family}{single character value specifying font name.}
+\item{font.family}{single character value. Specifies the font to
+be used to format characters in the Unicode range (U+0000-U+007F).}
+
+\item{cs.family}{optional font to be used to format
+characters in a complex script Unicode range. For example, Arabic
+text might be displayed using the "Arial Unicode MS" font.}
+
+\item{eastasia.family}{optional font to be used to
+format characters in an East Asian Unicode range. For example,
+Japanese text might be displayed using the "MS Mincho" font.}
+
+\item{hansi.family}{optional. Specifies the font to be used to format
+characters in a Unicode range which does not fall into one of the
+other categories.}
 
 \item{vertical.align}{single character value specifying font vertical alignments.
 Expected value is one of the following : default \code{'baseline'}
