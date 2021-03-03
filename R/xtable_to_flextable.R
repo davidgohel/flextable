@@ -66,7 +66,7 @@
 #' \if{html}{\figure{fig_as_flextable.xtable_3.png}{options: width=100\%}}
 #' @family as_flextable methods
 as_flextable.xtable <- function(
-  x, text.properties = officer::fp_text(),
+  x, text.properties = fp_text_default(),
   format.args = getOption("xtable.format.args", NULL),
   rowname_col = "rowname",
   hline.after = getOption("xtable.hline.after", c(-1,0,nrow(x))),

@@ -24,6 +24,6 @@ void <- function(x, j = NULL, part = "body" ){
     return(x)
 
   j <- get_columns_id(x[[part]], j )
-  x[[part]]$content[,x$col_keys[j]] <- as_paragraph(as_chunk(x = "", fp_text()))
+  x[[part]]$content[,x$col_keys[j]] <- as_paragraph(as_chunk(x = "", fp_text_default()))
   x
 }

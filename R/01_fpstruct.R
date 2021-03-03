@@ -46,6 +46,7 @@ text_struct <- function( nrow, keys,
                         color = "black", font.size = 10,
                         bold = FALSE, italic = FALSE, underlined = FALSE,
                         font.family = "Arial",
+                        hansi.family = "Arial", eastasia.family = "Arial", cs.family = "Arial",
                         vertical.align = "baseline",
                         shading.color = "transparent", ... ){
   x <- list(
@@ -55,6 +56,9 @@ text_struct <- function( nrow, keys,
     italic = fpstruct(nrow = nrow, keys = keys, default = italic),
     underlined = fpstruct(nrow = nrow, keys = keys, default = underlined),
     font.family = fpstruct(nrow = nrow, keys = keys, default = font.family),
+    hansi.family = fpstruct(nrow = nrow, keys = keys, default = hansi.family),
+    eastasia.family = fpstruct(nrow = nrow, keys = keys, default = eastasia.family),
+    cs.family = fpstruct(nrow = nrow, keys = keys, default = cs.family),
     vertical.align = fpstruct(nrow = nrow, keys = keys, default = vertical.align),
     shading.color = fpstruct(nrow = nrow, keys = keys, default = shading.color)
   )
@@ -516,7 +520,9 @@ print.chunkset_struct <- function(x, ...){
 
 
 replace_missing_fptext_by_default <- function(x, default){
-  by_columns <- c("font.size", "italic", "bold", "underlined", "color", "shading.color", "font.family", "vertical.align")
+  by_columns <- c("font.size", "italic", "bold", "underlined", "color", "shading.color",
+                  "font.family", "hansi.family", "eastasia.family", "cs.family",
+                  "vertical.align")
 
   keys <- default[, setdiff(names(default), by_columns), drop = FALSE]
   values <- default[, by_columns, drop = FALSE]
@@ -568,7 +574,6 @@ fortify_content <- function(x, default_chunk_fmt, ...){
 add_runstyle_column <- function(x, type = "wml"){
 
   if( type %in% "wml"){
-
     family <- sprintf("<w:rFonts w:ascii=\"%s\" w:hAnsi=\"%s\" w:eastAsia=\"%s\" w:cs=\"%s\"/>",
                       x$font.family, x$hansi.family, x$eastasia.family, x$cs.family )
     bold <- ifelse(x$bold, "<w:b/>", "" )
@@ -592,9 +597,10 @@ add_runstyle_column <- function(x, type = "wml"){
                            color, shading, "</w:rPr>" )
   } else if( type %in% "pml"){
 
-    family <- sprintf(
-      "<a:latin typeface=\"%s\"/><a:cs typeface=\"%s\"/><a:ea typeface=\"%s\"/><a:sym typeface=\"%s\"/>",
-      x$font.family, x$cs.family, x$eastasia.family, x$hansi.family)
+    # family <- sprintf(
+    #   "<a:latin typeface=\"%s\"/><a:cs typeface=\"%s\"/><a:ea typeface=\"%s\"/><a:sym typeface=\"%s\"/>",
+    #   x$font.family, x$cs.family, x$eastasia.family, x$hansi.family)
+    family <- sprintf("<a:latin typeface=\"%s\"/>", x$font.family)
     bold <- ifelse(x$bold, " b=\"1\"", "" )
     italic <- ifelse(x$italic, " i=\"1\"", "" )
     underline <- ifelse(x$underlined, " u=\"1\"", "" )

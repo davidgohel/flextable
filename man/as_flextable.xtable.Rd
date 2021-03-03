@@ -7,7 +7,7 @@
 \usage{
 \method{as_flextable}{xtable}(
   x,
-  text.properties = officer::fp_text(),
+  text.properties = fp_text_default(),
   format.args = getOption("xtable.format.args", NULL),
   rowname_col = "rowname",
   hline.after = getOption("xtable.hline.after", c(-1, 0, nrow(x))),
@@ -19,7 +19,7 @@
 
 xtable_to_flextable(
   x,
-  text.properties = officer::fp_text(),
+  text.properties = fp_text_default(),
   format.args = getOption("xtable.format.args", NULL),
   rowname_col = "rowname",
   hline.after = getOption("xtable.hline.after", c(-1, 0, nrow(x))),

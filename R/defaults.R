@@ -40,15 +40,15 @@ flextable_global$defaults <- default_flextable_settings
 #' are automatically applied to every flextable you produce.
 #' Use `set_flextable_defaults()` to override them. Use `init_flextable_defaults()`
 #' to re-init all values with the package defaults.
-#' @param font.family single character value. Specifies the font to
+#' @param font.family single character value. When format is Word, it specifies the font to
 #' be used to format characters in the Unicode range (U+0000-U+007F).
-#' @param cs.family optional font to be used to format
+#' @param cs.family optional and only for Word. Font to be used to format
 #' characters in a complex script Unicode range. For example, Arabic
 #' text might be displayed using the "Arial Unicode MS" font.
-#' @param eastasia.family optional font to be used to
+#' @param eastasia.family optional and only for Word. Font to be used to
 #' format characters in an East Asian Unicode range. For example,
 #' Japanese text might be displayed using the "MS Mincho" font.
-#' @param hansi.family optional. Specifies the font to be used to format
+#' @param hansi.family optional and only for Word. Font to be used to format
 #' characters in a Unicode range which does not fall into one of the
 #' other categories.
 #' @param font.size font size (in point) - 0 or positive integer value.
@@ -255,7 +255,8 @@ get_flextable_defaults <- function(){
 print.flextable_defaults <- function(x, ...){
 
   message("## style properties\n")
-  styles <- c("font.family", "font.size", "font.color", "text.align", "padding.bottom",
+  styles <- c("font.family", "hansi.family", "eastasia.family", "cs.family",
+              "font.size", "font.color", "text.align", "padding.bottom",
     "padding.top", "padding.left", "padding.right", "border.color",
     "background.color")
   df <- data.frame(property = styles, value = unlist(x[styles]), stringsAsFactors = FALSE)

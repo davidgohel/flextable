@@ -39,7 +39,7 @@ set_flextable_defaults(
 init_flextable_defaults()
 }
 \arguments{
-\item{font.family}{single character value. Specifies the font to
+\item{font.family}{single character value. When format is Word, it specifies the font to
 be used to format characters in the Unicode range (U+0000-U+007F).}
 
 \item{font.size}{font size (in point) - 0 or positive integer value.}
@@ -63,15 +63,15 @@ valid color (e.g. "#000000" or "black").}
 
 \item{table.layout}{'autofit' or 'fixed' algorithm. Default to 'autofit'.}
 
-\item{cs.family}{optional font to be used to format
+\item{cs.family}{optional and only for Word. Font to be used to format
 characters in a complex script Unicode range. For example, Arabic
 text might be displayed using the "Arial Unicode MS" font.}
 
-\item{eastasia.family}{optional font to be used to
+\item{eastasia.family}{optional and only for Word. Font to be used to
 format characters in an East Asian Unicode range. For example,
 Japanese text might be displayed using the "MS Mincho" font.}
 
-\item{hansi.family}{optional. Specifies the font to be used to format
+\item{hansi.family}{optional and only for Word. Font to be used to format
 characters in a Unicode range which does not fall into one of the
 other categories.}
 

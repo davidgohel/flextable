@@ -17,6 +17,9 @@ chunk_dataframe <- function(...){
     color = def_chr,
     shading.color = def_chr,
     font.family = def_chr,
+    hansi.family = def_chr,
+    eastasia.family = def_chr,
+    cs.family = def_chr,
     vertical.align = def_chr,
     width = def_dbl,
     height = def_dbl,
@@ -38,6 +41,9 @@ default_fptext_prop <- structure(list(
   color = NA_character_,
   shading.color = NA_character_,
   font.family = NA_character_,
+  hansi.family = NA_character_,
+  eastasia.family = NA_character_,
+  cs.family = NA_character_,
   vertical.align = NA_character_),
   class = "fp_text")
 
@@ -95,7 +101,6 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
       stop("props should be a list of length ", length(text) )
     }
   }
-
   data <- chunk_dataframe(txt = text,
                   font.size = sapply(props, function(x) x$font.size),
                   italic = sapply(props, function(x) x$italic),
@@ -104,6 +109,9 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
                   color = sapply(props, function(x) x$color),
                   shading.color = sapply(props, function(x) x$shading.color),
                   font.family = sapply(props, function(x) x$font.family),
+                  hansi.family = sapply(props, function(x) x$hansi.family),
+                  eastasia.family = sapply(props, function(x) x$eastasia.family),
+                  cs.family = sapply(props, function(x) x$cs.family),
                   vertical.align = sapply(props, function(x) x$vertical.align) )
   class(data) <- c("chunk", "data.frame")
   data

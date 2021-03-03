@@ -2,6 +2,9 @@
 complex_tabpart <- function( data, col_keys = names(data),
                              default_pr_text = fp_text(
                                font.family = flextable_global$defaults$font.family,
+                               cs.family = flextable_global$defaults$cs.family,
+                               eastasia.family = flextable_global$defaults$eastasia.family,
+                               hansi.family = flextable_global$defaults$hansi.family,
                                font.size = flextable_global$defaults$font.size,
                                color = flextable_global$defaults$font.color
                              ),
