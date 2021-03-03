@@ -56,13 +56,7 @@ footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "
     stop("footnote supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"),
                     several.ok = FALSE)
-  if (part == "all") {
-    for (p in c("header", "body", "footer")) {
-      x <- compose(x = x, i = i, j = j, value = value,
-                   part = p)
-    }
-    return(x)
-  }
+
   if (nrow_part(x, part) < 1)
     return(x)
   check_formula_i_and_part(i, part)
