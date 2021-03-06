@@ -89,6 +89,10 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
   if( all( is.na(value) ) ){
     max <- 1
   }
+  if (all(is.na(value)) || all(value == 0, na.rm = TRUE)) {
+    max <- 1
+  }
+
   value[is.na(value)] <- 0
 
   if( is.null(max))

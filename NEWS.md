@@ -7,6 +7,10 @@ top, bottom, left and right.
 * new functions `colorize`, `as_highlight`
 * new functions `nrow_part` and `ncol_keys`
 
+## Issues
+
+* fix for minibar when all values are equal to zero (thanks to Martin Durian)
+
 # flextable 0.6.3
 
 ## new features
