@@ -67,7 +67,7 @@ html_str <- function(x, ft.align = NULL, class = "tabwid", caption = "", shadow 
                    tabwid_css,
                    html,
            "</template>",
-           "\n<div id=\"", uid[2], "\"></div>",
+           "\n<div class=\"flextable-shadow-host\" id=\"", uid[2], "\"></div>",
            to_shadow_dom(uid1 = uid[1], uid2 = uid[2], ft.align = ft.align)
     )
   }
