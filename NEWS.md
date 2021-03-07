@@ -2,6 +2,7 @@
 
 ## new features
 
+* shadow hosts HTML elements get the class `flextable-shadow-host`.
 * `set_flextable_defaults` now accept argument `padding` that set values for padding 
 top, bottom, left and right.
 * new functions `colorize`, `as_highlight`
