@@ -2,6 +2,7 @@
 
 ## new features
 
+* in R Markdown for Word, bookmarks are now added to captions when output format is from bookdown
 * shadow hosts HTML elements get the class `flextable-shadow-host`.
 * `set_flextable_defaults` now accept argument `padding` that set values for padding 
 top, bottom, left and right.
