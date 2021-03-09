@@ -45,7 +45,7 @@ as_image <- function(src, width = .5, height = .2, ...) {
                           height = as.double(height),
                           img_data = src
   )
-  class(data) <- c("img_src", "chunk", "data.frame")
+  class(data) <- c("img_src", class(data))
   data
 }
 
@@ -117,7 +117,7 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
                        height = as.double(rep(height, length(value))),
                        img_data = rasters )
 
-  class(z) <- c("img_chunk", "chunk", "data.frame")
+  class(z) <- c("img_chunk", class(data))
   z
 }
 
@@ -201,7 +201,7 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
                        height = as.double(rep(height, length(value))),
                        img_data = rasters )
 
-  class(z) <- c("img_chunk", "chunk", "data.frame")
+  class(z) <- c("img_chunk", class(data))
   z
 
 }
@@ -320,7 +320,7 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
                        height = as.double(rep(height, length(value))),
                        img_data = rasters )
 
-  class(z) <- c("img_chunk", "chunk", "data.frame")
+  class(z) <- c("img_chunk", class(data))
   z
 
 }
@@ -428,7 +428,7 @@ plot_chunk <- function(value, width = 1, height = .2,
   files <- as.character(unlist(files))
 
   z <- chunk_dataframe(width = width, height = height, img_data = files )
-  class(z) <- c("img_chunk", "chunk", "data.frame")
+  class(z) <- c("img_chunk", class(data))
   z
 }
 
@@ -496,6 +496,6 @@ gg_chunk <- function(value, width = 1, height = .2) {
   files <- as.character(unlist(files))
 
   z <- chunk_dataframe(width = width, height = height, img_data = files )
-  class(z) <- c("img_chunk", "chunk", "data.frame")
+  class(z) <- c("img_chunk", class(data))
   z
 }

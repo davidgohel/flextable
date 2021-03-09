@@ -535,7 +535,9 @@ replace_missing_fptext_by_default <- function(x, default){
   newx <- newx[defdata, on=names(keys)]
   setDF(newx)
   for( j in by_columns){
-    newx[[j]] <- ifelse(is.na(newx[[j]]), newx[[paste0(j, "_default")]], newx[[j]])
+    if(!is.null(newx[[j]]))
+      newx[[j]] <- ifelse(is.na(newx[[j]]), newx[[paste0(j, "_default")]], newx[[j]])
+    else newx[[j]] <- newx[[paste0(j, "_default")]]
     newx[[paste0(j, "_default")]] <- NULL
   }
   newx
@@ -557,7 +559,7 @@ fortify_content <- function(x, default_chunk_fmt, ...){
   columns = rep( x$content$keys, each = nrow(x$content$data) ),
   x$content$data, SIMPLIFY = FALSE, USE.NAMES = FALSE ) )
 
-  out <- rbindlist( apply(x$content$data, 2, rbindlist))
+  out <- rbindlist( apply(x$content$data, 2, rbindlist), use.names=TRUE, fill=TRUE)
   out$ft_row_id <- row_id
   out$col_id <- col_id
   setDF(out)

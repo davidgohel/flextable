@@ -1,3 +1,62 @@
+#' @export
+#' @title create a chunk representation suitable for flextable
+#' @description This function is to be used by external packages
+#' that want to provide an object that can be inserted as a chunk
+#' object in paragraphs of a flextable object.
+#' @param ... values to set.
+#' @section  text pattern with default values:
+#'
+#' ```
+#' chunk_dataframe(txt = c("any text", "other text"))
+#' ```
+#' @section  text pattern with bold set to TRUE:
+#'
+#' ```
+#' chunk_dataframe(
+#'   txt = c("any text", "other text"),
+#'   bold = c(TRUE, TRUE))
+#' ```
+#' @section  text pattern with control over all formatting properties:
+#'
+#' ```
+#' chunk_dataframe(
+#'   txt = c("any text", "other text"),
+#'   font.size = c(12, 10),
+#'   italic = c(FALSE, TRUE),
+#'   bold = c(FALSE, TRUE),
+#'   underlined = c(FALSE, TRUE),
+#'   color = c("black", "red"),
+#'   shading.color = c("transparent", "yellow"),
+#'   font.family = c("Arial", "Arial"),
+#'   hansi.family = c("Arial", "Arial"),
+#'   eastasia.family = c("Arial", "Arial"),
+#'   cs.family = c("Arial", "Arial"),
+#'   vertical.align = c("top", "bottom") )
+#' ```
+#' @section  text with url pattern:
+#' ```
+#' chunk_dataframe(
+#'   txt = c("any text", "other text"),
+#'   url = rep("https://www.google.fr", 2),
+#'   font.size = c(12, 10),
+#'   italic = c(FALSE, TRUE),
+#'   bold = c(FALSE, TRUE),
+#'   underlined = c(FALSE, TRUE),
+#'   color = c("black", "red"),
+#'   shading.color = c("transparent", "yellow"),
+#'   font.family = c("Arial", "Arial"),
+#'   hansi.family = c("Arial", "Arial"),
+#'   eastasia.family = c("Arial", "Arial"),
+#'   cs.family = c("Arial", "Arial"),
+#'   vertical.align = c("top", "bottom") )
+#' ```
+#' @section  images pattern:
+#' ```
+#' chunk_dataframe(width = width, height = height, img_data = files )
+#' ```
+#' @keywords internal
+#' @return a data.frame with an additional class "chunk" that makes it
+#' suitable for beeing used in [as_paragraph()]
 chunk_dataframe <- function(...){
   x <- list(...)
 
@@ -30,6 +89,7 @@ chunk_dataframe <- function(...){
   data0[names(x)] <- x
   if( !is.null(img_data))
     data0$img_data <- img_data
+  class(data0) <- c("chunk", "data.frame")
   data0
 }
 
@@ -113,7 +173,7 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
                   eastasia.family = sapply(props, function(x) x$eastasia.family),
                   cs.family = sapply(props, function(x) x$cs.family),
                   vertical.align = sapply(props, function(x) x$vertical.align) )
-  class(data) <- c("chunk", "data.frame")
+
   data
 }
 
