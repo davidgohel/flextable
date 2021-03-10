@@ -4,9 +4,10 @@ caption_html_str <- function(x, bookdown = FALSE){
   # caption "bookmark"
   bookdown_ref_label <- ref_label()
   if(bookdown && !is.null(x$caption$autonum$bookmark)){
-    bookdown_ref_label <- paste0("(\\#tab:", x$caption$autonum$bookmark, ")")
+    bookdown_ref_label <- paste0("(\\#", x$caption$autonum$seq_id, ":",
+                                 x$caption$autonum$bookmark, ")")
   } else if(bookdown && !is.null(tab_props$id)){
-    bookdown_ref_label <- paste0("(\\#tab:", tab_props$id, ")")
+    bookdown_ref_label <- paste0("(\\#", tab_props$tab.lp, tab_props$id, ")")
   }
 
   caption_style <- tab_props$style
