@@ -1,11 +1,12 @@
 library(pagedown)
 library(knitr)
+library(locatexec)
 
 if(!require("doconv")){
   stop("please install doconv before using that script with command:\n",
        "remotes::install_github('ardata-fr/doconv')")
 }
-python_available(error = TRUE)
+exec_available(exec = "python", error = TRUE)
 if(!docx2pdf_available()){
   install_docx2pdf()
 }
@@ -55,17 +56,17 @@ if(require("rmarkdown", quietly = TRUE)){
 }
 browseURL(dirname(rmd_file))
 
-docx_to_miniature(file.path(dirname(rmd_file), "rmarkdown-word.docx"),
-                  width = 700,
+to_miniature(file.path(dirname(rmd_file), "rmarkdown-word.docx"),
+                  width = 700, use_docx2pdf = TRUE,
                   fileout = "inst/fig_ref/test-caption-rmarkdown-docx.png")
-docx_to_miniature(file.path(dirname(rmd_file), "book-word.docx"),
-                  width = 700,
+to_miniature(file.path(dirname(rmd_file), "book-word.docx"),
+                  width = 700, use_docx2pdf = TRUE,
                   fileout = "inst/fig_ref/test-caption-book-word.png")
 
-pdf_to_miniature(file.path(dirname(rmd_file), "rmarkdown-latex.pdf"),
+to_miniature(file.path(dirname(rmd_file), "rmarkdown-latex.pdf"),
                  width = 700,
                  fileout = "inst/fig_ref/test-caption-rmarkdown-pdf.png")
-pdf_to_miniature(file.path(dirname(rmd_file), "book-pdf.pdf"),
+to_miniature(file.path(dirname(rmd_file), "book-pdf.pdf"),
                  width = 700,
                  fileout = "inst/fig_ref/test-caption-book-pdf.png")
 
@@ -74,6 +75,6 @@ chrome_print(file.path(dirname(rmd_file), "rmarkdown-html.html"), output = "inst
 chrome_print(file.path(dirname(rmd_file), "book-html.html"), output = "inst/fig_ref/test-caption-book-html.png",
              wait = 2, format = "png", scale = 2)
 
-docx_to_miniature(file.path(dirname(rmd_file), "officedown.docx"),
-                  width = 700,
+to_miniature(file.path(dirname(rmd_file), "officedown.docx"),
+                  width = 700, use_docx2pdf = TRUE,
                   fileout = "inst/fig_ref/test-caption-officedown-docx.png")

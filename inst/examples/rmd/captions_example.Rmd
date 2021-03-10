@@ -2,7 +2,7 @@
 title: "flextable caption example"
 ---
 
-```{r}
+```{r include=FALSE}
 library(knitr)
 library(flextable)
 library(magrittr)
@@ -12,7 +12,9 @@ opts_chunk$set(echo = FALSE)
 data_CO2 <- dcast(as.data.table(CO2), 
   Treatment + conc ~ Type, value.var = "uptake", fun.aggregate = mean)
 data_CO2 <- as_grouped_data(x = data_CO2, groups = c("Treatment"))
+```
 
+```{r}
 ft <- as_flextable( data_CO2 ) %>% 
   bold(j = 1, i = ~ !is.na(Treatment), bold = TRUE, part = "body" ) %>% 
   bold(part = "header", bold = TRUE ) %>% 
@@ -26,6 +28,23 @@ ft <- as_flextable( data_CO2 ) %>%
   set_header_labels(conc = "Concentration") %>% 
   width(width = c(1.5, 1, 1)) 
 ```
+
+```{r}
+ft <- as_flextable( data_CO2 ) %>% 
+  bold(j = 1, i = ~ !is.na(Treatment), bold = TRUE, part = "body" ) %>% 
+  bold(part = "header", bold = TRUE ) %>% 
+  width(width = 1.5) %>% 
+  compose(i = ~ !is.na(conc), j = "conc", 
+          value = as_paragraph(
+            as_chunk(conc, formatter = function(x) sprintf("%.0f", x))
+          )
+  ) %>% add_footer_lines("dataset CO2 has been used for this flextable") %>% 
+  bg(bg = "#FFFFFF", part = "footer") %>% 
+  set_header_labels(conc = "Concentration") %>% 
+  width(width = c(1.5, 1, 1)) 
+```
+
+## Captions
 
 Now, let's add a caption with `set_caption`:
 
@@ -43,6 +62,8 @@ Or use kintr chunk options:
 ft
 ```
 
-This is a reference to flextable \@ref(tab:tab1).
+## Cross-references
 
-This is a reference to flextable \@ref(tab:tab2).
+* This is a reference to flextable \@ref(tab:tab1).
+* This is a reference to flextable \@ref(tab:tab2).
+* This is a link to [flextable](#tab:tab1)
