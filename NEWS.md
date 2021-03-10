@@ -14,6 +14,7 @@ top, bottom, left and right.
 ## Issues
 
 * fix for minibar when all values are equal to zero (thanks to Martin Durian)
+* fix URLs formatted incorrectly in Word and PowerPoint (thanks to David Czihak)
 
 # flextable 0.6.3
 

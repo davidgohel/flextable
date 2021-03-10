@@ -666,6 +666,7 @@ add_raster_as_filecolumn <- function(x){
 
 }
 #' @importFrom base64enc dataURI
+#' @importFrom htmltools urlEncodePath
 run_data <- function(x, type){
 
   is_hlink <- !is.na(x$url)
@@ -686,14 +687,16 @@ run_data <- function(x, type){
       paste0(sprintf("<w:r %s>", base_ns), x$style_str, text_nodes_str, "</w:r>"),
       x$img_str )
     # manage hlinks
-    text_nodes_str[is_hlink] <- paste0("<w:hyperlink r:id=\"", htmlEscape(x$url[is_hlink]), "\">", text_nodes_str[is_hlink], "</w:hyperlink>")
+    url_vals <- vapply(x$url[is_hlink], urlEncodePath, FUN.VALUE = "", USE.NAMES = FALSE)
+    text_nodes_str[is_hlink] <- paste0("<w:hyperlink r:id=\"", url_vals, "\">", text_nodes_str[is_hlink], "</w:hyperlink>")
     x$par_nodes_str <- text_nodes_str
 
   } else if( type %in% "pml" ){
     text_nodes_str <- ifelse( !is_raster, paste0("<a:t>", htmlEscape(x$txt), "</a:t>"), "<a:t></a:t>")
 
     # manage hlinks
-    link_pr <- ifelse(is_hlink, paste0("<a:hlinkClick r:id=\"", htmlEscape(x$url), "\"/>"), "" )
+    x$url[is_hlink] <- vapply(x$url[is_hlink], urlEncodePath, FUN.VALUE = "", USE.NAMES = FALSE)
+    link_pr <- ifelse(is_hlink, paste0("<a:hlinkClick r:id=\"", x$url, "\"/>"), "" )
 
     x$par_nodes_str <- paste0("<a:r>", sprintf(x$style_str, link_pr), text_nodes_str, "</a:r>")
   }
