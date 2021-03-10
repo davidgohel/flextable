@@ -12,7 +12,7 @@ coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.s
 ![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
 
-**Documentation**: <https://ardata-fr.github.io/flextable-book/>
+**User Documentation**: <https://ardata-fr.github.io/flextable-book/>
 
 <a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>
 The flextable package provides a framework for easily create tables for
@@ -65,8 +65,7 @@ Manuals are available at:
 This project is developed and maintained on my own time. If you have
 questions about how to use the package, visit Stackoverflow and use tags
 `flextable` and `r` [Stackoverflow
-link](https://stackoverflow.com/questions/tagged/flextable+r)\! I
-usually read them and answer when possible.
+link](https://stackoverflow.com/questions/tagged/flextable+r)\!
 
 ## Contributing to the package
 

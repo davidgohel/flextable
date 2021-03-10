@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 ```
 
 
-**Documentation**: https://ardata-fr.github.io/flextable-book/
+**User Documentation**: https://ardata-fr.github.io/flextable-book/
 
 
 <a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a> 
@@ -77,8 +77,7 @@ Manuals are available at: https://davidgohel.github.io/flextable/reference/index
 This project is developed and maintained on my own time. If you have
 questions about how to use the package, visit Stackoverflow and use tags
 `flextable` and `r` [Stackoverflow
-link](https://stackoverflow.com/questions/tagged/flextable+r)\! I
-usually read them and answer when possible. 
+link](https://stackoverflow.com/questions/tagged/flextable+r)\! 
 
 ## Contributing to the package
 
