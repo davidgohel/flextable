@@ -83,7 +83,7 @@ to re-init all values with the package defaults." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.4</span>
       </span>
     </div>
 
@@ -133,6 +133,7 @@ to re-init all values with the package defaults.</p>
   font.size <span class='op'>=</span> <span class='cn'>NULL</span>,
   font.color <span class='op'>=</span> <span class='cn'>NULL</span>,
   text.align <span class='op'>=</span> <span class='cn'>NULL</span>,
+  padding <span class='op'>=</span> <span class='cn'>NULL</span>,
   padding.bottom <span class='op'>=</span> <span class='cn'>NULL</span>,
   padding.top <span class='op'>=</span> <span class='cn'>NULL</span>,
   padding.left <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -140,6 +141,9 @@ to re-init all values with the package defaults.</p>
   border.color <span class='op'>=</span> <span class='cn'>NULL</span>,
   background.color <span class='op'>=</span> <span class='cn'>NULL</span>,
   table.layout <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cs.family <span class='op'>=</span> <span class='cn'>NULL</span>,
+  eastasia.family <span class='op'>=</span> <span class='cn'>NULL</span>,
+  hansi.family <span class='op'>=</span> <span class='cn'>NULL</span>,
   decimal.mark <span class='op'>=</span> <span class='cn'>NULL</span>,
   big.mark <span class='op'>=</span> <span class='cn'>NULL</span>,
   digits <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -162,7 +166,8 @@ to re-init all values with the package defaults.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>font.family</th>
-      <td><p>single character value specifying font name.</p></td>
+      <td><p>single character value. When format is Word, it specifies the font to
+be used to format characters in the Unicode range (U+0000-U+007F).</p></td>
     </tr>
     <tr>
       <th>font.size</th>
@@ -177,6 +182,10 @@ a valid color (e.g. "#000000" or "black").</p></td>
       <th>text.align</th>
       <td><p>text alignment - a single character value, expected value
 is one of 'left', 'right', 'center', 'justify'.</p></td>
+    </tr>
+    <tr>
+      <th>padding</th>
+      <td><p>padding (shortcut for top, bottom, left and right padding)</p></td>
     </tr>
     <tr>
       <th>padding.bottom, padding.top, padding.left, padding.right</th>
@@ -198,6 +207,24 @@ valid color (e.g. "#000000" or "black").</p></td>
       <td><p>'autofit' or 'fixed' algorithm. Default to 'autofit'.</p></td>
     </tr>
     <tr>
+      <th>cs.family</th>
+      <td><p>optional and only for Word. Font to be used to format
+characters in a complex script Unicode range. For example, Arabic
+text might be displayed using the "Arial Unicode MS" font.</p></td>
+    </tr>
+    <tr>
+      <th>eastasia.family</th>
+      <td><p>optional and only for Word. Font to be used to
+format characters in an East Asian Unicode range. For example,
+Japanese text might be displayed using the "MS Mincho" font.</p></td>
+    </tr>
+    <tr>
+      <th>hansi.family</th>
+      <td><p>optional and only for Word. Font to be used to format
+characters in a Unicode range which does not fall into one of the
+other categories.</p></td>
+    </tr>
+    <tr>
       <th>decimal.mark, big.mark, digits, na_str</th>
       <td><p><a href='https://rdrr.io/r/base/formatc.html'>formatC</a> arguments used by <code><a href='colformat_num.html'>colformat_num()</a></code>,
 <code><a href='colformat_double.html'>colformat_double()</a></code>, and <code><a href='colformat_int.html'>colformat_int()</a></code>.</p></td>
@@ -209,8 +236,7 @@ documented in <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a
     </tr>
     <tr>
       <th>extra_css</th>
-      <td><p>css instructions to be integrated with the table. By default, it
-contains only the style for captions.</p></td>
+      <td><p>css instructions to be integrated with the table.</p></td>
     </tr>
     <tr>
       <th>fonts_ignore</th>
@@ -298,7 +324,7 @@ They are executed just before printing the table.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.4 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -83,7 +83,7 @@ default font color, font size and font family (see set_flextable_defaults()).
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.4</span>
       </span>
     </div>
 
@@ -135,6 +135,9 @@ default font color, font size and font family (see <code><a href='set_flextable_
   italic <span class='op'>=</span> <span class='cn'>FALSE</span>,
   underlined <span class='op'>=</span> <span class='cn'>FALSE</span>,
   font.family <span class='op'>=</span> <span class='va'>flextable_global</span><span class='op'>$</span><span class='va'>defaults</span><span class='op'>$</span><span class='va'>font.family</span>,
+  cs.family <span class='op'>=</span> <span class='cn'>NULL</span>,
+  eastasia.family <span class='op'>=</span> <span class='cn'>NULL</span>,
+  hansi.family <span class='op'>=</span> <span class='cn'>NULL</span>,
   vertical.align <span class='op'>=</span> <span class='st'>"baseline"</span>,
   shading.color <span class='op'>=</span> <span class='st'>"transparent"</span>
 <span class='op'>)</span></pre>
@@ -165,7 +168,26 @@ a valid color (e.g. "#000000" or "black").</p></td>
     </tr>
     <tr>
       <th>font.family</th>
-      <td><p>single character value specifying font name.</p></td>
+      <td><p>single character value. Specifies the font to
+be used to format characters in the Unicode range (U+0000-U+007F).</p></td>
+    </tr>
+    <tr>
+      <th>cs.family</th>
+      <td><p>optional font to be used to format
+characters in a complex script Unicode range. For example, Arabic
+text might be displayed using the "Arial Unicode MS" font.</p></td>
+    </tr>
+    <tr>
+      <th>eastasia.family</th>
+      <td><p>optional font to be used to
+format characters in an East Asian Unicode range. For example,
+Japanese text might be displayed using the "MS Mincho" font.</p></td>
+    </tr>
+    <tr>
+      <th>hansi.family</th>
+      <td><p>optional. Specifies the font to be used to format
+characters in a Unicode range which does not fall into one of the
+other categories.</p></td>
     </tr>
     <tr>
       <th>vertical.align</th>
@@ -188,8 +210,10 @@ a valid color (e.g. "#000000" or "black").</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>fp_text_default</span><span class='op'>(</span>bold <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   size italic bold underlined color     shading    fontname vertical_align
-#&gt; 1   11  FALSE TRUE      FALSE black transparent DejaVu Sans       baseline</div></pre>
+</div><div class='output co'>#&gt;   size italic bold underlined color     shading    fontname fontname_cs
+#&gt; 1   11  FALSE TRUE      FALSE black transparent DejaVu Sans DejaVu Sans
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1       DejaVu Sans    DejaVu Sans       baseline</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -202,7 +226,7 @@ a valid color (e.g. "#000000" or "black").</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.4 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>subscript chunk — as_sub • flextable</title>
+<title>highlight chunk — as_highlight • flextable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="subscript chunk — as_sub" />
+<meta property="og:title" content="highlight chunk — as_highlight" />
 <meta property="og:description" content="The function is producing a chunk with
-subscript vertical alignment." />
+an highlight chunk." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -114,17 +114,17 @@ subscript vertical alignment." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>subscript chunk</h1>
+    <h1>highlight chunk</h1>
     <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/05_content.R'><code>R/05_content.R</code></a></small>
-    <div class="hidden name"><code>as_sub.Rd</code></div>
+    <div class="hidden name"><code>as_highlight.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>The function is producing a chunk with
-subscript vertical alignment.</p>
+an highlight chunk.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_sub</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>as_highlight</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>color</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,6 +133,10 @@ subscript vertical alignment.</p>
       <th>x</th>
       <td><p>value, if a chunk, the chunk will be updated</p></td>
     </tr>
+    <tr>
+      <th>color</th>
+      <td><p>color to use as text highlighting color as character vector.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
@@ -140,21 +144,15 @@ subscript vertical alignment.</p>
     <p>This is a sugar function that ease the composition of complex
 labels made of different formattings. It should be used inside a
 call to <code><a href='as_paragraph.html'>as_paragraph()</a></code>.</p>
-    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
-
-    
-
-
-<p><img src='figures/fig_as_sub_1.png' width=30% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other chunk elements for paragraph: 
 <code><a href='as_bracket.html'>as_bracket</a>()</code>,
 <code><a href='as_b.html'>as_b</a>()</code>,
 <code><a href='as_chunk.html'>as_chunk</a>()</code>,
-<code><a href='as_highlight.html'>as_highlight</a>()</code>,
 <code><a href='as_image.html'>as_image</a>()</code>,
 <code><a href='as_i.html'>as_i</a>()</code>,
+<code><a href='as_sub.html'>as_sub</a>()</code>,
 <code><a href='as_sup.html'>as_sup</a>()</code>,
 <code><a href='colorize.html'>colorize</a>()</code>,
 <code><a href='gg_chunk.html'>gg_chunk</a>()</code>,
@@ -165,18 +163,15 @@ call to <code><a href='as_paragraph.html'>as_paragraph()</a></code>.</p>
 <code><a href='plot_chunk.html'>plot_chunk</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>, col_keys <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dummy"</span><span class='op'>)</span> <span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>,
+  col_keys <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sepal.Length"</span>, <span class='st'>"dummy"</span><span class='op'>)</span> <span class='op'>)</span>
 
-<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span><span class='op'>(</span><span class='va'>ft</span>, i <span class='op'>=</span> <span class='fl'>1</span>, j <span class='op'>=</span> <span class='st'>"dummy"</span>, part <span class='op'>=</span> <span class='st'>"header"</span>,
-    value <span class='op'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span><span class='op'>(</span>
-      <span class='fu'>as_sub</span><span class='op'>(</span><span class='st'>"Sepal.Length"</span><span class='op'>)</span>,
-      <span class='st'>" anything "</span>
-    <span class='op'>)</span> <span class='op'>)</span>
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span><span class='op'>(</span><span class='va'>ft</span>, j <span class='op'>=</span> <span class='st'>"dummy"</span>,
+  value <span class='op'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span><span class='op'>(</span><span class='fu'>as_highlight</span><span class='op'>(</span><span class='va'>Sepal.Length</span>, color <span class='op'>=</span> <span class='st'>"yellow"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
 
-<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span><span class='op'>(</span><span class='va'>ft</span><span class='op'>)</span>
 <span class='va'>ft</span>
 </div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `dummy` 
+#&gt; col_keys: `Sepal.Length`, `dummy` 
 #&gt; header has 1 row(s) 
 #&gt; body has 6 row(s) 
 #&gt; original dataset sample: 
