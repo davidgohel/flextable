@@ -137,6 +137,7 @@ html_gen <- function(x){
   txt_data <- merge(txt_data, data_ref_text, by = by_columns)
   setorderv(txt_data, c("ft_row_id", "col_id", "seq_index"))
 
+  is_eq <- !is.na(txt_data$eq_data)
   is_hlink <- !is.na(txt_data$url)
   is_raster <- sapply(txt_data$img_data, function(x) {
     inherits(x, "raster") || is.character(x)
@@ -146,6 +147,12 @@ html_gen <- function(x){
   txt_data[is_raster==TRUE, c("txt") := list(img_as_html(img_data = .SD$img_data, width = .SD$width, height = .SD$height))]
   # manage txt
   txt_data[is_raster==FALSE, c("txt") := list(sprintf("<span class=\"%s\">%s</span>", .SD$classname, htmlize(.SD$txt)))]
+
+  if (requireNamespace("equatags", quietly = TRUE) && any(is_eq)) {
+    transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
+    txt_data[is_eq==TRUE, c("txt") := list(transform_mathjax(.SD$eq_data, to = "svg"))]
+  }
+
   # manage hlinks
   txt_data[is_hlink==TRUE, c("txt") := list(paste0("<a href=\"", .SD$url, "\">", .SD$txt, "</a>"))]
   txt_data <- txt_data[, list(span_tag = paste0(get("txt"), collapse = "")), by = c("part", "ft_row_id", "col_id")]

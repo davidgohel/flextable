@@ -22,6 +22,9 @@ get_text_data <- function(x, ls_df){
 
   dat <- merge(txt_data, span_style_str, by =  "classname")
   dat[, c("txt") := list(sanitize_latex_str(.SD$txt))]
+
+  is_eq <- !is.na(dat$eq_data)
+  dat[is_eq==TRUE, c("txt") := list(paste0('$', .SD$eq_data, '$'))]
   is_hlink <- !is.na(dat$url)
   is_raster <- sapply(dat$img_data, function(x) {
     inherits(x, "raster") || is.character(x)

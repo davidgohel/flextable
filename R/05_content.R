@@ -83,6 +83,7 @@ chunk_dataframe <- function(...){
     width = def_dbl,
     height = def_dbl,
     url = def_chr,
+    eq_data = def_chr,
     stringsAsFactors = FALSE )
   data0$img_data <- def_lst
 
@@ -420,6 +421,49 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
   x$url <- zz$url
   x
 }
+
+#' @export
+#' @title equation chunk
+#' @description This function is used to insert equations into
+#' flextable with function [compose()].
+#' It should be used inside a call to [as_paragraph()]
+#' @param x values containing the 'MathJax' equations
+#' @param width,height size of the resulting equation in inches
+#' @examples
+#' library(flextable)
+#' if(require("equatags") && mathjax_available()){
+#'
+#' eqs <- c(
+#'   "(ax^2 + bx + c = 0)",
+#'   "a \\ne 0",
+#'   "x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}")
+#' df <- data.frame(formula = eqs)
+#' df
+#'
+#'
+#' ft <- flextable(df)
+#' ft <- compose(
+#'   x = ft, j = "formula",
+#'   value = as_paragraph(as_equation(formula, width = 2, height = .5)))
+#' ft <- align(ft, align = "center", part = "all")
+#' ft <- width(ft, width = 2)
+#' ft
+#'
+#' }
+as_equation <- function(x, width = 1, height = .2){
+
+  if( length(x) > 1 ){
+    if( length(width) == 1 ) width <- rep(width, length(x))
+    if( length(height) == 1 ) height <- rep(height, length(x))
+  }
+
+  x <- chunk_dataframe(width = as.double(width),
+                       height = as.double(height),
+                       eq_data = x)
+  class(x) <- c("chunk", "data.frame")
+  x
+}
+
 
 
 #' @export

@@ -669,6 +669,7 @@ add_raster_as_filecolumn <- function(x){
 #' @importFrom htmltools urlEncodePath
 run_data <- function(x, type){
 
+  is_eq <- !is.na(x$eq_data)
   is_hlink <- !is.na(x$url)
   is_raster <- sapply(x$img_data, function(x) {
     inherits(x, "raster") || is.character(x)
@@ -689,6 +690,11 @@ run_data <- function(x, type){
     # manage hlinks
     url_vals <- vapply(x$url[is_hlink], urlEncodePath, FUN.VALUE = "", USE.NAMES = FALSE)
     text_nodes_str[is_hlink] <- paste0("<w:hyperlink r:id=\"", url_vals, "\">", text_nodes_str[is_hlink], "</w:hyperlink>")
+    if (requireNamespace("equatags", quietly = TRUE) && any(is_eq)) {
+      transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
+      text_nodes_str[is_eq] <- transform_mathjax(x$eq_data[is_eq], to = "mml")
+    }
+
     x$par_nodes_str <- text_nodes_str
 
   } else if( type %in% "pml" ){
@@ -697,8 +703,20 @@ run_data <- function(x, type){
     # manage hlinks
     x$url[is_hlink] <- vapply(x$url[is_hlink], urlEncodePath, FUN.VALUE = "", USE.NAMES = FALSE)
     link_pr <- ifelse(is_hlink, paste0("<a:hlinkClick r:id=\"", x$url, "\"/>"), "" )
+    if (requireNamespace("equatags", quietly = TRUE) && any(is_eq)) {
+      transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
+      text_nodes_str[is_eq] <-
+        paste0("<mc:AlternateContent xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\"><mc:Choice xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\" Requires=\"a14\">",
+               "<a14:m xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\"><m:oMathPara xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\"><m:oMathParaPr><m:jc m:val=\"centerGroup\"/></m:oMathParaPr>",
+               transform_mathjax(x$eq_data[is_eq], to = "mml"),
+               "</m:oMathPara></a14:m>",
+               "</mc:Choice></mc:AlternateContent>")
+    }
 
-    x$par_nodes_str <- paste0("<a:r>", sprintf(x$style_str, link_pr), text_nodes_str, "</a:r>")
+    x$par_nodes_str <- paste0(ifelse(is_eq, "", "<a:r>"),
+                              sprintf(x$style_str, link_pr), text_nodes_str,
+                              ifelse(is_eq, "", "</a:r>")
+                              )
   }
 
   z <- as.data.table(x)
