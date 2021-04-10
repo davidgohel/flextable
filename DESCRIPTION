@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.6.5.001
+Version: 0.6.5.002
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -19,7 +19,6 @@ Description: Create pretty tables for 'HTML', 'PDF', 'Microsoft Word' and 'Micro
   their content. It also extends package 'officer' that does not contain any feature for customized 
   tabular reporting.
 License: GPL-3
-LazyData: TRUE
 Imports:
     stats, utils, grDevices, graphics,
     officer (>= 0.3.17),
