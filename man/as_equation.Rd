@@ -14,7 +14,11 @@ as_equation(x, width = 1, height = 0.2)
 \description{
 This function is used to insert equations into
 flextable with function \code{\link[=compose]{compose()}}.
-It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}
+It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
+
+To use this function, package 'equatags' is required;
+also \code{equatags::mathjax_install()} must be executed only once
+to install necessary dependencies.
 }
 \examples{
 library(flextable)
@@ -38,3 +42,22 @@ ft
 
 }
 }
+\seealso{
+Other chunk elements for paragraph: 
+\code{\link{as_bracket}()},
+\code{\link{as_b}()},
+\code{\link{as_chunk}()},
+\code{\link{as_highlight}()},
+\code{\link{as_image}()},
+\code{\link{as_i}()},
+\code{\link{as_sub}()},
+\code{\link{as_sup}()},
+\code{\link{colorize}()},
+\code{\link{gg_chunk}()},
+\code{\link{hyperlink_text}()},
+\code{\link{linerange}()},
+\code{\link{lollipop}()},
+\code{\link{minibar}()},
+\code{\link{plot_chunk}()}
+}
+\concept{chunk elements for paragraph}

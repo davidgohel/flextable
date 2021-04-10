@@ -1,3 +1,9 @@
+# flextable 0.6.5
+
+## new features
+
+* add function `as_equation` for 'MathJax' equations.
+
 # flextable 0.6.4
 
 ## new features

@@ -426,9 +426,15 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
 #' @title equation chunk
 #' @description This function is used to insert equations into
 #' flextable with function [compose()].
-#' It should be used inside a call to [as_paragraph()]
+#' It should be used inside a call to [as_paragraph()].
+#'
+#' To use this function, package 'equatags' is required;
+#' also `equatags::mathjax_install()` must be executed only once
+#' to install necessary dependencies.
+#'
 #' @param x values containing the 'MathJax' equations
 #' @param width,height size of the resulting equation in inches
+#' @family chunk elements for paragraph
 #' @examples
 #' library(flextable)
 #' if(require("equatags") && mathjax_available()){

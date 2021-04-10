@@ -70,6 +70,7 @@ Other chunk elements for paragraph:
 \code{\link{as_bracket}()},
 \code{\link{as_b}()},
 \code{\link{as_chunk}()},
+\code{\link{as_equation}()},
 \code{\link{as_highlight}()},
 \code{\link{as_image}()},
 \code{\link{as_i}()},
