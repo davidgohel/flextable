@@ -85,20 +85,23 @@ reference:
     - compose
     - as_paragraph
     - as_chunk
-    - fp_border_default
-    - fp_text_default
-    - as_image
-    - plot_chunk
-    - gg_chunk
-    - minibar
-    - linerange
-    - lollipop
     - as_b
-    - as_bracket
     - as_i
     - as_sub
     - as_sup
+    - as_highlight
+    - colorize
+    - fp_border_default
+    - fp_text_default
+    - plot_chunk
+    - gg_chunk
+    - as_image
+    - minibar
+    - linerange
+    - lollipop
+    - as_bracket
     - hyperlink_text
+    - as_equation
     - set_caption
     - footnote
     - void
