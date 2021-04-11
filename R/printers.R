@@ -51,7 +51,9 @@ htmltools_value <- function(x, ft.align = "center"){
 #' @param ft.left,ft.top Position should be defined with options `ft.left`
 #' and `ft.top`. Theses are the top left coordinates in inches
 #' of the placeholder that will contain the table. Their
-#' default valuues are 1 and 2 inches.
+#' default values are 1 and 2 inches.
+#' @param text_after The string you put here will be added after printing the content of the flextable.
+#' For example, you can put "\\\\pagebreak" here to have tables produced with page breaks.
 #' @param webshot webshot package as a scalar character, one of "webshot" or
 #' "webshot2".
 #' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
@@ -82,6 +84,7 @@ flextable_to_rmd <- function(
                              ft.arraystretch = opts_current$get("ft.arraystretch"),
                              ft.left = opts_current$get("ft.left"),
                              ft.top = opts_current$get("ft.top"),
+                             text_after = "",
                              webshot = opts_current$get("webshot"),
                              bookdown = FALSE, pandoc2 = TRUE, print = TRUE) {
   str <- ""
@@ -145,6 +148,8 @@ flextable_to_rmd <- function(
       str <- sprintf("\\includegraphics[width=%.02fin,height=%.02fin,keepaspectratio]{%s}\n", width, height, tmp)
     }
   }
+
+  str <- paste0(str, text_after)
   if (print) {
     cat(str, "\n", sep = "")
   }

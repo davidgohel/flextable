@@ -12,6 +12,7 @@ flextable_to_rmd(
   ft.arraystretch = opts_current$get("ft.arraystretch"),
   ft.left = opts_current$get("ft.left"),
   ft.top = opts_current$get("ft.top"),
+  text_after = "",
   webshot = opts_current$get("webshot"),
   bookdown = FALSE,
   pandoc2 = TRUE,
@@ -35,7 +36,10 @@ height, the default value is 1.5.}
 \item{ft.left, ft.top}{Position should be defined with options \code{ft.left}
 and \code{ft.top}. Theses are the top left coordinates in inches
 of the placeholder that will contain the table. Their
-default valuues are 1 and 2 inches.}
+default values are 1 and 2 inches.}
+
+\item{text_after}{The string you put here will be added after printing the content of the flextable.
+For example, you can put "\\\\pagebreak" here to have tables produced with page breaks.}
 
 \item{webshot}{webshot package as a scalar character, one of "webshot" or
 "webshot2".}
