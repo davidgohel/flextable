@@ -86,7 +86,7 @@ See knit_print.flextable for more details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.5</span>
       </span>
     </div>
 
@@ -142,6 +142,7 @@ set to 'asis'.</p>
   ft.arraystretch <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ft.arraystretch"</span><span class='op'>)</span>,
   ft.left <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ft.left"</span><span class='op'>)</span>,
   ft.top <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"ft.top"</span><span class='op'>)</span>,
+  text_after <span class='op'>=</span> <span class='st'>""</span>,
   webshot <span class='op'>=</span> <span class='va'>opts_current</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"webshot"</span><span class='op'>)</span>,
   bookdown <span class='op'>=</span> <span class='cn'>FALSE</span>,
   pandoc2 <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -179,7 +180,12 @@ height, the default value is 1.5.</p></td>
       <td><p>Position should be defined with options <code>ft.left</code>
 and <code>ft.top</code>. Theses are the top left coordinates in inches
 of the placeholder that will contain the table. Their
-default valuues are 1 and 2 inches.</p></td>
+default values are 1 and 2 inches.</p></td>
+    </tr>
+    <tr>
+      <th>text_after</th>
+      <td><p>The string you put here will be added after printing the content of the flextable.
+For example, you can put "\\pagebreak" here to have tables produced with page breaks.</p></td>
     </tr>
     <tr>
       <th>webshot</th>
@@ -219,7 +225,7 @@ default valuues are 1 and 2 inches.</p></td>
 <span class='va'>rmd_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".Rmd"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span><span class='op'>(</span><span class='va'>demo_loop</span>, to <span class='op'>=</span> <span class='va'>rmd_file</span>, overwrite <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>rmd_file</span> <span class='co'># R Markdown document used for demo</span>
-</div><div class='output co'>#&gt; [1] "/tmp/Rtmpy7abNP/file497722dc23dc.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+</div><div class='output co'>#&gt; [1] "/tmp/Rtmppsx55O/file9535e7e4a14.Rmd"</div><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/rmarkdown'>"rmarkdown"</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
 <span class='co'>#  render(input = rmd_file, output_format = "word_document",</span>
 <span class='co'>#    output_file = "loop_with_flextable.docx")</span>
 <span class='co'>#  render(input = rmd_file, output_format = "html_document",</span>
@@ -242,7 +248,7 @@ default valuues are 1 and 2 inches.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.4 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

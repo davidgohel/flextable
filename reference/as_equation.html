@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>htmlDependency for flextable objects — flextable_html_dependency • flextable</title>
+<title>equation chunk — as_equation • flextable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,13 @@
 
 
 
-<meta property="og:title" content="htmlDependency for flextable objects — flextable_html_dependency" />
-<meta property="og:description" content="When using loops in an R Markdown for HTML document, the
-htmlDependency object for flextable must also be added at least once." />
+<meta property="og:title" content="equation chunk — as_equation" />
+<meta property="og:description" content="This function is used to insert equations into
+flextable with function compose().
+It should be used inside a call to as_paragraph().
+To use this function, package 'equatags' is required;
+also equatags::mathjax_install() must be executed only once
+to install necessary dependencies." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -114,24 +118,76 @@ htmlDependency object for flextable must also be added at least once." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>htmlDependency for flextable objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/html_str.R'><code>R/html_str.R</code></a></small>
-    <div class="hidden name"><code>flextable_html_dependency.Rd</code></div>
+    <h1>equation chunk</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/05_content.R'><code>R/05_content.R</code></a></small>
+    <div class="hidden name"><code>as_equation.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>When using loops in an R Markdown for HTML document, the
-htmlDependency object for flextable must also be added at least once.</p>
+    <p>This function is used to insert equations into
+flextable with function <code><a href='compose.html'>compose()</a></code>.
+It should be used inside a call to <code><a href='as_paragraph.html'>as_paragraph()</a></code>.</p>
+<p>To use this function, package 'equatags' is required;
+also <code><a href='https://rdrr.io/pkg/equatags/man/mathjax_install.html'>equatags::mathjax_install()</a></code> must be executed only once
+to install necessary dependencies.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>flextable_html_dependency</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>as_equation</span><span class='op'>(</span><span class='va'>x</span>, width <span class='op'>=</span> <span class='fl'>1</span>, height <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>values containing the 'MathJax' equations</p></td>
+    </tr>
+    <tr>
+      <th>width, height</th>
+      <td><p>size of the resulting equation in inches</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other chunk elements for paragraph: 
+<code><a href='as_bracket.html'>as_bracket</a>()</code>,
+<code><a href='as_b.html'>as_b</a>()</code>,
+<code><a href='as_chunk.html'>as_chunk</a>()</code>,
+<code><a href='as_highlight.html'>as_highlight</a>()</code>,
+<code><a href='as_image.html'>as_image</a>()</code>,
+<code><a href='as_i.html'>as_i</a>()</code>,
+<code><a href='as_sub.html'>as_sub</a>()</code>,
+<code><a href='as_sup.html'>as_sup</a>()</code>,
+<code><a href='colorize.html'>colorize</a>()</code>,
+<code><a href='gg_chunk.html'>gg_chunk</a>()</code>,
+<code><a href='hyperlink_text.html'>hyperlink_text</a>()</code>,
+<code><a href='linerange.html'>linerange</a>()</code>,
+<code><a href='lollipop.html'>lollipop</a>()</code>,
+<code><a href='minibar.html'>minibar</a>()</code>,
+<code><a href='plot_chunk.html'>plot_chunk</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/rstudio/htmltools'>"htmltools"</a></span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/builder.html'>div</a></span><span class='op'>(</span><span class='fu'>flextable_html_dependency</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: htmltools</span></div><div class='output co'>#&gt; &lt;div&gt;&lt;/div&gt;</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/flextable-book/'>flextable</a></span><span class='op'>)</span>
+<span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"equatags"</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/pkg/equatags/man/mathjax_available.html'>mathjax_available</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+
+<span class='va'>eqs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+  <span class='st'>"(ax^2 + bx + c = 0)"</span>,
+  <span class='st'>"a \\ne 0"</span>,
+  <span class='st'>"x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}"</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>formula <span class='op'>=</span> <span class='va'>eqs</span><span class='op'>)</span>
+<span class='va'>df</span>
+
+
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compose.html'>compose</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>ft</span>, j <span class='op'>=</span> <span class='st'>"formula"</span>,
+  value <span class='op'>=</span> <span class='fu'><a href='as_paragraph.html'>as_paragraph</a></span><span class='op'>(</span><span class='fu'>as_equation</span><span class='op'>(</span><span class='va'>formula</span>, width <span class='op'>=</span> <span class='fl'>2</span>, height <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='align.html'>align</a></span><span class='op'>(</span><span class='va'>ft</span>, align <span class='op'>=</span> <span class='st'>"center"</span>, part <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='width.html'>width</a></span><span class='op'>(</span><span class='va'>ft</span>, width <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>ft</span>
+
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: equatags</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
