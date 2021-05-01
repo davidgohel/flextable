@@ -1,3 +1,10 @@
+# flextable 0.6.6
+
+## new features
+
+* add argument `ft.shadow = TRUE` to htmltools_value so that 
+shadow dom can not be used.
+
 # flextable 0.6.5
 
 ## new features

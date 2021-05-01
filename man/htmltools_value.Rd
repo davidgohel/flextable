@@ -4,12 +4,15 @@
 \alias{htmltools_value}
 \title{flextable as an HTML object}
 \usage{
-htmltools_value(x, ft.align = "center")
+htmltools_value(x, ft.align = "center", ft.shadow = TRUE)
 }
 \arguments{
 \item{x}{a flextable object}
 
 \item{ft.align}{flextable alignment, supported values are 'left', 'center' and 'right'.}
+
+\item{ft.shadow}{use shadow dom, this option is existing
+to disable shadow dom (set to \code{FALSE}) for pagedown that can not support it for now.}
 }
 \value{
 an object marked as \link{HTML} ready to be used within

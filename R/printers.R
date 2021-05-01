@@ -8,18 +8,20 @@
 #' a call to `shiny::renderUI` for example.
 #' @param x a flextable object
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
+#' @param ft.shadow use shadow dom, this option is existing
+#' to disable shadow dom (set to `FALSE`) for pagedown that can not support it for now.
 #' @family flextable print function
 #' @examples
 #' htmltools_value(flextable(iris[1:5,]))
 #' @importFrom htmltools tagList
-htmltools_value <- function(x, ft.align = "center"){
+htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE){
 
   x <- flextable_global$defaults$post_process_html(x)
 
   html_o <- tagList(flextable_html_dependency(),
                     HTML(html_str(x, ft.align = ft.align, class = "tabwid",
                                   caption = caption_html_str(x, bookdown = FALSE),
-                                  shadow = TRUE))
+                                  shadow = ft.shadow))
   )
   html_o
 }
@@ -162,7 +164,7 @@ flextable_to_rmd <- function(
 #' @param x a flextable object
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param ft.shadow use shadow dom, this option is existing mainly
-#' to disable shadow dom (sett to `FALSE`) for pagedown that can not support it for now.
+#' to disable shadow dom (set to `FALSE`) for pagedown that can not support it for now.
 #' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
 #' @param pandoc2 `TRUE` (default) or `FALSE` to get the string in a pandoc raw HTML attribute.
 #' @examples
