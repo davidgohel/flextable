@@ -9,8 +9,6 @@ status](https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg)
 ![cranlogs](https://cranlogs.r-pkg.org/badges/flextable) [![codecov test
 coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/flextable)
 ![Active](https://www.repostatus.org/badges/latest/active.svg)
-![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
 
 **User Documentation**: <https://ardata-fr.github.io/flextable-book/>
 
@@ -32,9 +30,9 @@ control their formatting properties and their layout. A `flextable`
 object is a data.frame representation, it can be manipulated with
 functions that give control over:
 
-  - header, body and footer content
-  - text, paragraphs, cells and border formatting of any element
-  - displayed values
+-   header, body and footer content
+-   text, paragraphs, cells and border formatting of any element
+-   displayed values
 
 ![](https://www.ardata.fr/img/illustrations/flextable_functions.svg)
 
@@ -60,12 +58,15 @@ The help pages are in a bookdown located at:
 Manuals are available at:
 <https://davidgohel.github.io/flextable/reference/index.html>
 
+A gallery of examples is available here:
+<https://ardata-fr.github.io/flextable-gallery/gallery/>
+
 ### Getting help
 
 This project is developed and maintained on my own time. If you have
 questions about how to use the package, visit Stackoverflow and use tags
 `flextable` and `r` [Stackoverflow
-link](https://stackoverflow.com/questions/tagged/flextable+r)\!
+link](https://stackoverflow.com/questions/tagged/flextable+r)!
 
 ## Contributing to the package
 
@@ -90,10 +91,10 @@ documentation.
 If you want to submit a Pull Request to integrate functions of yours,
 please provide:
 
-  - the new function(s) with code and roxygen tags (with examples)
-  - a new section in the appropriate vignette that describes how to use
+-   the new function(s) with code and roxygen tags (with examples)
+-   a new section in the appropriate vignette that describes how to use
     the new function
-  - corresponding tests in directory `tests/testthat`.
+-   corresponding tests in directory `tests/testthat`.
 
 By using rhub (run `rhub::check_for_cran()`), you will see if everything
 is ok. When submitted, the PR will be evaluated automatically on travis
