@@ -576,6 +576,8 @@ align_nottext_col <- function(x, align = "right", header = TRUE, footer = TRUE )
 #' as argument to `bg`. This is only useful if j is colored with values contained in another
 #' (or other) column.
 #' @family sugar functions for table style
+#' @note
+#' Word does not allow you to apply transparency to table cells or paragraph shading.
 #' @examples
 #' ft_1 <- flextable(head(mtcars))
 #' ft_1 <- bg(ft_1, bg = "wheat", part = "header")

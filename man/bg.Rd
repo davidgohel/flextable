@@ -25,6 +25,9 @@ as argument to \code{bg}. This is only useful if j is colored with values contai
 \description{
 change background color of selected rows and columns of a flextable.
 }
+\note{
+Word does not allow you to apply transparency to table cells or paragraph shading.
+}
 \section{Illustrations}{
 
 
