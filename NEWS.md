@@ -4,6 +4,7 @@
 
 * add argument `ft.shadow = TRUE` to htmltools_value so that 
 shadow dom can not be used.
+* add arguments "cs.family", "hansi.family" and "eastasia.family" to `fontname`.
 
 # flextable 0.6.5
 

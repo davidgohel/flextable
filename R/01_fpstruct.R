@@ -599,10 +599,8 @@ add_runstyle_column <- function(x, type = "wml"){
                            color, shading, "</w:rPr>" )
   } else if( type %in% "pml"){
 
-    # family <- sprintf(
-    #   "<a:latin typeface=\"%s\"/><a:cs typeface=\"%s\"/><a:ea typeface=\"%s\"/><a:sym typeface=\"%s\"/>",
-    #   x$font.family, x$cs.family, x$eastasia.family, x$hansi.family)
-    family <- sprintf("<a:latin typeface=\"%s\"/>", x$font.family)
+    family <- sprintf("<a:latin typeface=\"%s\"/><a:cs typeface=\"%s\"/><a:ea typeface=\"%s\"/><a:sym typeface=\"%s\"/>",
+                      x$font.family, x$cs.family, x$eastasia.family, x$hansi.family)
     bold <- ifelse(x$bold, " b=\"1\"", "" )
     italic <- ifelse(x$italic, " i=\"1\"", "" )
     underline <- ifelse(x$underlined, " u=\"1\"", "" )

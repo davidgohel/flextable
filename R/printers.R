@@ -153,7 +153,7 @@ flextable_to_rmd <- function(
 
   str <- paste0(str, text_after)
   if (print) {
-    cat(str, "\n", sep = "")
+    cat("\n\n", str, "\n\n", sep = "")
   }
   invisible(str)
 }

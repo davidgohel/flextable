@@ -4,7 +4,16 @@
 \alias{font}
 \title{Set font}
 \usage{
-font(x, i = NULL, j = NULL, fontname, part = "body")
+font(
+  x,
+  i = NULL,
+  j = NULL,
+  fontname,
+  part = "body",
+  cs.family = fontname,
+  hansi.family = fontname,
+  eastasia.family = fontname
+)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -13,9 +22,28 @@ font(x, i = NULL, j = NULL, fontname, part = "body")
 
 \item{j}{columns selection}
 
-\item{fontname}{string value, the font name.}
+\item{fontname}{single character value. With Word and PowerPoint output, the value specifies the font to
+be used to format characters in the Unicode range (U+0000-U+007F).}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
+
+\item{cs.family}{Optional font to be used to format
+characters in a complex script Unicode range. For example, Arabic
+text might be displayed using the "Arial Unicode MS" font.
+Used only with Word and PowerPoint outputs. Its default value is the value
+of \code{fontname}.}
+
+\item{hansi.family}{optional. Specifies the font to be used to format
+characters in a Unicode range which does not fall into one of the
+other categories.
+Used only with Word and PowerPoint outputs. Its default value is the value
+of \code{fontname}.}
+
+\item{eastasia.family}{optional font to be used to
+format characters in an East Asian Unicode range. For example,
+Japanese text might be displayed using the "MS Mincho" font.
+Used only with Word and PowerPoint outputs. Its default value is the value
+of \code{fontname}.}
 }
 \description{
 change font of selected rows and columns of a flextable.
