@@ -43,7 +43,8 @@ get_text_data <- function(x, ls_df){
 
 #  https://stackoverflow.com/questions/5406071/r-sweave-latex-escape-variables-to-be-printed-in-latex
 sanitize_latex_str <- function(str) {
-  gsub('([#$%&~_\\^\\\\{}])', '\\\\\\1', str, perl = TRUE);
+  z <- gsub('([#$%&~_\\^\\\\{}])', '\\\\\\1', str, perl = TRUE)
+  gsub(" ", "\\ ", z, , fixed = TRUE)
 }
 
 text_latex_styles <- function(x){

@@ -6,6 +6,10 @@
 shadow dom can not be used.
 * add arguments "cs.family", "hansi.family" and "eastasia.family" to `fontname`.
 
+## Issues
+
+* fix issue with spaces in latex - see #314
+
 # flextable 0.6.5
 
 ## new features
