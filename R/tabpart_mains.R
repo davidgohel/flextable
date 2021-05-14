@@ -13,7 +13,8 @@ complex_tabpart <- function( data, col_keys = names(data),
                                padding.left = flextable_global$defaults$padding.left,
                                padding.right = flextable_global$defaults$padding.right,
                                padding.bottom = flextable_global$defaults$padding.bottom,
-                               padding.top = flextable_global$defaults$padding.top
+                               padding.top = flextable_global$defaults$padding.top,
+                               line_spacing = flextable_global$defaults$line_spacing
                              ),
                              default_pr_cell = fp_cell(
                                background.color = flextable_global$defaults$background.color,

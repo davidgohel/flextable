@@ -13,6 +13,7 @@ default_flextable_settings <- list(
   font.size = 11, font.color = "black",
   text.align = "left", padding.bottom = 5, padding.top = 5,
   padding.left = 5, padding.right = 5,
+  line_spacing = 1,
   border.color = "#666666",
   background.color = "transparent",
   table.layout = "fixed",
@@ -59,6 +60,7 @@ flextable_global$defaults <- default_flextable_settings
 #' @param padding.bottom,padding.top,padding.left,padding.right paragraph paddings - 0 or
 #' positive integer value.
 #' @param padding padding (shortcut for top, bottom, left and right padding)
+#' @param line_spacing space between lines of text, 1 is single line spacing, 2 is double line spacing.
 #' @param border.color border color - single character value
 #' (e.g. "#000000" or "black").
 #' @param background.color cell background color - a single character value specifying a
@@ -104,6 +106,7 @@ set_flextable_defaults <- function(
   padding.bottom = NULL, padding.top = NULL,
   padding.left = NULL, padding.right = NULL,
   border.color = NULL, background.color = NULL,
+  line_spacing = NULL,
   table.layout = NULL,
   cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
   decimal.mark = NULL, big.mark = NULL, digits = NULL, na_str = NULL,
@@ -160,6 +163,9 @@ set_flextable_defaults <- function(
   }
   if( !is.null(padding.right) && is.numeric(padding.right) && !(padding.right<0) ){
     x$padding.right <- padding.right
+  }
+  if( !is.null(line_spacing) && is.numeric(line_spacing) && !(line_spacing<0) ){
+    x$line_spacing <- line_spacing
   }
 
   if( !is.null(border.color) ){
@@ -257,7 +263,7 @@ print.flextable_defaults <- function(x, ...){
   message("## style properties\n")
   styles <- c("font.family", "hansi.family", "eastasia.family", "cs.family",
               "font.size", "font.color", "text.align", "padding.bottom",
-    "padding.top", "padding.left", "padding.right", "border.color",
+    "padding.top", "padding.left", "padding.right", "line_spacing", "border.color",
     "background.color")
   df <- data.frame(property = styles, value = unlist(x[styles]), stringsAsFactors = FALSE)
   row.names(df) <- NULL

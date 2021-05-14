@@ -17,6 +17,7 @@ set_flextable_defaults(
   padding.right = NULL,
   border.color = NULL,
   background.color = NULL,
+  line_spacing = NULL,
   table.layout = NULL,
   cs.family = NULL,
   eastasia.family = NULL,
@@ -60,6 +61,8 @@ positive integer value.}
 
 \item{background.color}{cell background color - a single character value specifying a
 valid color (e.g. "#000000" or "black").}
+
+\item{line_spacing}{space between lines of text, 1 is single line spacing, 2 is double line spacing.}
 
 \item{table.layout}{'autofit' or 'fixed' algorithm. Default to 'autofit'.}
 

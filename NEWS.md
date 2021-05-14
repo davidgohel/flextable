@@ -5,6 +5,7 @@
 * add argument `ft.shadow = TRUE` to htmltools_value so that 
 shadow dom can not be used.
 * add arguments "cs.family", "hansi.family" and "eastasia.family" to `fontname`.
+* add "line_spacing" to defaults formatting properties (see `set_flextable_defaults(line_spacing=1)`)
 
 ## Issues
 
