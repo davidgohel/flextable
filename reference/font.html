@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6</span>
       </span>
     </div>
 
@@ -122,7 +122,16 @@
     <p>change font of selected rows and columns of a flextable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>font</span><span class='op'>(</span><span class='va'>x</span>, i <span class='op'>=</span> <span class='cn'>NULL</span>, j <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>fontname</span>, part <span class='op'>=</span> <span class='st'>"body"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>font</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  i <span class='op'>=</span> <span class='cn'>NULL</span>,
+  j <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>fontname</span>,
+  part <span class='op'>=</span> <span class='st'>"body"</span>,
+  cs.family <span class='op'>=</span> <span class='va'>fontname</span>,
+  hansi.family <span class='op'>=</span> <span class='va'>fontname</span>,
+  eastasia.family <span class='op'>=</span> <span class='va'>fontname</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,11 +150,36 @@
     </tr>
     <tr>
       <th>fontname</th>
-      <td><p>string value, the font name.</p></td>
+      <td><p>single character value. With Word and PowerPoint output, the value specifies the font to
+be used to format characters in the Unicode range (U+0000-U+007F).</p></td>
     </tr>
     <tr>
       <th>part</th>
       <td><p>partname of the table (one of 'all', 'body', 'header', 'footer')</p></td>
+    </tr>
+    <tr>
+      <th>cs.family</th>
+      <td><p>Optional font to be used to format
+characters in a complex script Unicode range. For example, Arabic
+text might be displayed using the "Arial Unicode MS" font.
+Used only with Word and PowerPoint outputs. Its default value is the value
+of <code>fontname</code>.</p></td>
+    </tr>
+    <tr>
+      <th>hansi.family</th>
+      <td><p>optional. Specifies the font to be used to format
+characters in a Unicode range which does not fall into one of the
+other categories.
+Used only with Word and PowerPoint outputs. Its default value is the value
+of <code>fontname</code>.</p></td>
+    </tr>
+    <tr>
+      <th>eastasia.family</th>
+      <td><p>optional font to be used to
+format characters in an East Asian Unicode range. For example,
+Japanese text might be displayed using the "MS Mincho" font.
+Used only with Word and PowerPoint outputs. Its default value is the value
+of <code>fontname</code>.</p></td>
     </tr>
     </table>
 
@@ -195,7 +229,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.6.001 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

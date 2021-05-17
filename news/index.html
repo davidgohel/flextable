@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6</span>
       </span>
     </div>
 
@@ -125,6 +125,17 @@
 <a href="#new-features" class="anchor"></a>new features</h2>
 <ul>
 <li>add argument <code>ft.shadow = TRUE</code> to htmltools_value so that shadow dom can not be used.</li>
+<li>add arguments “cs.family”, “hansi.family” and “eastasia.family” to <code>fontname</code>.</li>
+<li>add “line_spacing” to defaults formatting properties (see <code><a href="../reference/set_flextable_defaults.html">set_flextable_defaults(line_spacing=1)</a></code>)</li>
+</ul>
+</div>
+<div id="issues" class="section level2">
+<h2 class="hasAnchor">
+<a href="#issues" class="anchor"></a>Issues</h2>
+<ul>
+<li>fix issue with spaces in latex - see <a href='https://github.com/davidgohel/flextable/issues/314'>#314</a></li>
+<li>fix issue with powerpoint hyperlinks - see <a href='https://github.com/davidgohel/flextable/issues/310'>#310</a></li>
+<li>fix issue with conditional color with scale - see <a href='https://github.com/davidgohel/flextable/issues/309'>#309</a></li>
 </ul>
 </div>
 </div>
@@ -159,9 +170,9 @@
 <li>functions <code>nrow_part</code> and <code>ncol_keys</code> are now exported</li>
 </ul>
 </div>
-<div id="issues" class="section level2">
+<div id="issues-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues" class="anchor"></a>Issues</h2>
+<a href="#issues-1" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix for minibar when all values are equal to zero (thanks to Martin Durian)</li>
 <li>fix URLs formatted incorrectly in Word and PowerPoint (thanks to David Czihak)</li>
@@ -184,9 +195,9 @@
 </li>
 </ul>
 </div>
-<div id="issues-1" class="section level2">
+<div id="issues-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-1" class="anchor"></a>Issues</h2>
+<a href="#issues-2" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix line spacing with pdf output</li>
 <li>Now <code>colformat_num</code> calls the <code>format</code> function on the numeric values (integer and float) which are therefore displayed as in console R. This function is used during the creation of a flextable so that by default the content of the cells is the same as that displayed in console R.</li>
@@ -218,9 +229,9 @@
 <li>new helper functions <code>fp_text_default</code> and <code>fp_border_default</code>.</li>
 </ul>
 </div>
-<div id="issues-2" class="section level2">
+<div id="issues-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-2" class="anchor"></a>Issues</h2>
+<a href="#issues-3" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix encoding issue with Windows platforms</li>
 <li>bring back caption into the table</li>
@@ -240,9 +251,9 @@
 <li>HTML flextable are now isolated from the document CSS (except caption which is copied before).</li>
 </ul>
 </div>
-<div id="issues-3" class="section level2">
+<div id="issues-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-3" class="anchor"></a>Issues</h2>
+<a href="#issues-4" class="anchor"></a>Issues</h2>
 <ul>
 <li>correction of latex tables which resulted in a centering of the following text.</li>
 <li>minor correction for density graphs inserted in tables</li>
@@ -284,9 +295,9 @@
 <li>use pandoc’s raw attribute when possible within “R Markdown” documents.</li>
 </ul>
 </div>
-<div id="issues-4" class="section level2">
+<div id="issues-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-4" class="anchor"></a>Issues</h2>
+<a href="#issues-5" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix bug in HTML output with invalid css when locale makes decimal separator not <code>.</code>
 </li>
@@ -317,9 +328,9 @@
 <li>line spacing (for Word and PowerPoint) or line height (for HTML) can now be defined with function <code><a href="../reference/line_spacing.html">line_spacing()</a></code> (or with function <code><a href="../reference/style.html">style()</a></code>).</li>
 </ul>
 </div>
-<div id="issues-5" class="section level2">
+<div id="issues-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-5" class="anchor"></a>Issues</h2>
+<a href="#issues-6" class="anchor"></a>Issues</h2>
 <ul>
 <li>selection when i or j was integer(0) was resulting to all rows, it’s now fixed. To select all rows or columns, use <code>i = NULL</code> or <code>j = NULL</code>, to select none, <code>i = integer(0)</code> or <code>j = integer(0)</code>.</li>
 <li>tab were not displayed when output was HTML</li>
@@ -399,9 +410,9 @@
 <li>new function <code>flextable_html_dependency</code> to get flextable htmltools::htmlDependancy. This is necessary to output flextables in html R Markdown documents from loop or other nested operations.</li>
 </ul>
 </div>
-<div id="issues-6" class="section level2">
+<div id="issues-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-6" class="anchor"></a>Issues</h2>
+<a href="#issues-7" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue <a href='https://github.com/davidgohel/flextable/issues/188'>#188</a>, add_rows error that came with version 0.5.7</li>
 </ul>
@@ -428,9 +439,9 @@
 <li>deprecation of ph_with_flextable_at, ph_with_flextable will be deprected in the next release</li>
 </ul>
 </div>
-<div id="issues-7" class="section level2">
+<div id="issues-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-7" class="anchor"></a>Issues</h2>
+<a href="#issues-8" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue <a href='https://github.com/davidgohel/flextable/issues/180'>#180</a>, background color of runs transparency issue with googlesheet</li>
 <li>fix issue <a href='https://github.com/davidgohel/flextable/issues/157'>#157</a>, issue with rotate and HTML output</li>
@@ -441,9 +452,9 @@
 <h1 class="page-header" data-toc-text="0.5.6">
 <a href="#flextable-056" class="anchor"></a>flextable 0.5.6<small> 2019-11-12 </small>
 </h1>
-<div id="issues-8" class="section level2">
+<div id="issues-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-8" class="anchor"></a>Issues</h2>
+<a href="#issues-9" class="anchor"></a>Issues</h2>
 <ul>
 <li>force officer &gt;= 0.3.6</li>
 <li>fix rounding issue for css borders</li>
@@ -463,9 +474,9 @@
 <li>function <code><a href="../reference/as_flextable.grouped_data.html">as_flextable.grouped_data()</a></code> has now an argument <code>hide_grouplabel</code> to let not print the group names.</li>
 </ul>
 </div>
-<div id="issues-9" class="section level2">
+<div id="issues-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-9" class="anchor"></a>Issues</h2>
+<a href="#issues-10" class="anchor"></a>Issues</h2>
 <ul>
 <li>let footnotes symbols be affected by style functions (related to <a href='https://github.com/davidgohel/flextable/issues/137'>#137</a>)</li>
 <li>enable usage of ‘webshot2’ instead of ‘webshot’. It enable better screenshots. It can be specified with argument <code>webshot</code> in function <code>save_as_image</code> or with chunk option <code>webshot="webshot2"</code>.</li>
@@ -487,9 +498,9 @@
 <code>set_caption</code> can now be used with R Markdown for Word document and caption style can be defined with chunk option <code>tab.cap.style</code>.</li>
 </ul>
 </div>
-<div id="issues-10" class="section level2">
+<div id="issues-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-10" class="anchor"></a>Issues</h2>
+<a href="#issues-11" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue with <code>save_as_image</code> with R for Windows</li>
 </ul>
@@ -522,9 +533,9 @@
 <li>new function <code>linerange</code> to produce mini lineranges.</li>
 </ul>
 </div>
-<div id="issues-11" class="section level2">
+<div id="issues-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-11" class="anchor"></a>Issues</h2>
+<a href="#issues-12" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue with <code>set_footer_df</code>
 </li>
@@ -535,9 +546,9 @@
 <h1 class="page-header" data-toc-text="0.5.1">
 <a href="#flextable-051" class="anchor"></a>flextable 0.5.1<small> 2019-02-07 </small>
 </h1>
-<div id="issues-12" class="section level2">
+<div id="issues-13" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-12" class="anchor"></a>Issues</h2>
+<a href="#issues-13" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue with font colors in powerpoint</li>
 <li>fix issues with colors for Windows RStudio viewer</li>
@@ -594,9 +605,9 @@
 <code>knit_print()</code> can be used with rmarkdown when rendering to PowerPoint.</li>
 </ul>
 </div>
-<div id="issues-13" class="section level2">
+<div id="issues-14" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-13" class="anchor"></a>Issues</h2>
+<a href="#issues-14" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue with <code>regulartable</code> and logical columns</li>
 </ul>
@@ -622,9 +633,9 @@
 <li>new knitr chunk options <code>ft.align</code> to align tables in <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/word_document.html">rmarkdown::word_document</a></code> and <code>ft.split</code> to activate Word option ‘Allow row to break across pages’.</li>
 </ul>
 </div>
-<div id="issues-14" class="section level2">
+<div id="issues-15" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-14" class="anchor"></a>Issues</h2>
+<a href="#issues-15" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue (unordered and duplicated chunk of text) in function <code><a href="https://rdrr.io/pkg/xtable/man/table.attributes.html">display()</a></code>
 </li>
@@ -642,9 +653,9 @@
 <li>flextable will not be split across rows at a page break in Word documents.</li>
 </ul>
 </div>
-<div id="issues-15" class="section level2">
+<div id="issues-16" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-15" class="anchor"></a>Issues</h2>
+<a href="#issues-16" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix border rendering with <code><a href="../reference/vline.html">vline()</a></code>
 </li>
@@ -664,9 +675,9 @@
 <li>format function for flextable objects.</li>
 </ul>
 </div>
-<div id="issues-16" class="section level2">
+<div id="issues-17" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-16" class="anchor"></a>Issues</h2>
+<a href="#issues-17" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix border rendering with <code><a href="../reference/border_outer.html">border_outer()</a></code>
 </li>
@@ -693,9 +704,9 @@
 <li>manuals have been refactored</li>
 </ul>
 </div>
-<div id="issues-17" class="section level2">
+<div id="issues-18" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-17" class="anchor"></a>Issues</h2>
+<a href="#issues-18" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix display issue when a cell was containing NA</li>
 </ul>
@@ -758,9 +769,9 @@
 </li>
 </ul>
 </div>
-<div id="issues-18" class="section level2">
+<div id="issues-19" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-18" class="anchor"></a>Issues</h2>
+<a href="#issues-19" class="anchor"></a>Issues</h2>
 <ul>
 <li>characters &lt;, &gt; and &amp; are now html encoded</li>
 <li>fix columns widths when output format is HTML</li>
@@ -788,9 +799,9 @@
 <li>function display() now works with a mustache template</li>
 </ul>
 </div>
-<div id="issues-19" class="section level2">
+<div id="issues-20" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-19" class="anchor"></a>Issues</h2>
+<a href="#issues-20" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix fontsize when part == “all”</li>
 </ul>
@@ -810,7 +821,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.6.001 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
