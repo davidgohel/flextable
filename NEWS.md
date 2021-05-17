@@ -10,6 +10,7 @@ shadow dom can not be used.
 ## Issues
 
 * fix issue with spaces in latex - see #314
+* fix issue with powerpoint hyperlinks - see #310
 
 # flextable 0.6.5
 

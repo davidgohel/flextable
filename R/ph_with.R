@@ -84,7 +84,7 @@ ph_with.flextable <- function( x, value, location, ... ){
   if( length(hlinks) > 0 ){
     slide <- x$slide$get_slide(x$cursor)
     rel <- slide$relationship()
-    graphic_frame <- process_url(rel, url = hlinks, str = graphic_frame, pattern = "a:hlinkClick")
+    graphic_frame <- process_url(rel, url = hlinks, str = graphic_frame, pattern = "a:hlinkClick", double_esc = FALSE)
   }
   ph_with(x = x, value = as_xml_document(graphic_frame), location = location, ... )
 }
