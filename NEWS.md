@@ -11,6 +11,7 @@ shadow dom can not be used.
 
 * fix issue with spaces in latex - see #314
 * fix issue with powerpoint hyperlinks - see #310
+* fix issue with conditional color with scale - see #309
 
 # flextable 0.6.5
 

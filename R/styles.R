@@ -236,8 +236,11 @@ highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", so
     return(x)
 
   if(is.function(color)){
+    i_index <- i
+    check_formula_i_and_part(i_index, part)
+    i_index <- get_rows_id(x[[part]], i_index )
     source <- get_dataset_columns_id(x[[part]], source )
-    lcolor <- lapply(x[[part]]$dataset[source], color)
+    lcolor <- lapply(x[[part]]$dataset[source][i_index,], color)
     color <- matrix( unlist( lcolor ), ncol = length(lcolor) )
   }
 
@@ -304,8 +307,11 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j ){
     return(x)
 
   if(is.function(color)){
+    i_index <- i
+    check_formula_i_and_part(i_index, part)
+    i_index <- get_rows_id(x[[part]], i_index )
     source <- get_dataset_columns_id(x[[part]], source )
-    lcolor <- lapply(x[[part]]$dataset[source], color)
+    lcolor <- lapply(x[[part]]$dataset[source][i_index,], color)
     color <- matrix( unlist( lcolor ), ncol = length(lcolor) )
   }
 
@@ -636,8 +642,11 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j ){
     return(x)
 
   if(is.function(bg)){
+    i_index <- i
+    check_formula_i_and_part(i_index, part)
+    i_index <- get_rows_id(x[[part]], i_index )
     source <- get_dataset_columns_id(x[[part]], source )
-    lbg <- lapply(x[[part]]$dataset[source], bg)
+    lbg <- lapply(x[[part]]$dataset[source][i_index,], bg)
     bg <- matrix( unlist( lbg ), ncol = length(lbg) )
   }
 
