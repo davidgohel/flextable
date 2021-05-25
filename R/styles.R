@@ -399,11 +399,11 @@ font <- function(x, i = NULL, j = NULL, fontname, part = "body", cs.family = fon
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param padding padding (shortcut for top, bottom, left and right)
-#' @param padding.top padding top
-#' @param padding.bottom padding bottom
-#' @param padding.left padding left
-#' @param padding.right padding right
+#' @param padding padding (shortcut for top, bottom, left and right), unit is pts (points).
+#' @param padding.top padding top, unit is pts (points).
+#' @param padding.bottom padding bottom, unit is pts (points).
+#' @param padding.left padding left, unit is pts (points).
+#' @param padding.right padding right, unit is pts (points).
 #' @family sugar functions for table style
 #' @examples
 #' ft_1 <- flextable(head(iris))

@@ -23,15 +23,15 @@ padding(
 
 \item{j}{columns selection}
 
-\item{padding}{padding (shortcut for top, bottom, left and right)}
+\item{padding}{padding (shortcut for top, bottom, left and right), unit is pts (points).}
 
-\item{padding.top}{padding top}
+\item{padding.top}{padding top, unit is pts (points).}
 
-\item{padding.bottom}{padding bottom}
+\item{padding.bottom}{padding bottom, unit is pts (points).}
 
-\item{padding.left}{padding left}
+\item{padding.left}{padding left, unit is pts (points).}
 
-\item{padding.right}{padding right}
+\item{padding.right}{padding right, unit is pts (points).}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
