@@ -1,7 +1,9 @@
 #' @title method to convert object to flextable
 #' @description This is a convenient function
 #' to let users create flextable bindings
-#' from any objects.
+#' from any objects. Users should consult documentation
+#' of corresponding method to understand the details and
+#' see what arguments can be used.
 #' @param x object to be transformed as flextable
 #' @param ... arguments for custom methods
 #' @export
