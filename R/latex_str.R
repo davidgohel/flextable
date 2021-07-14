@@ -254,7 +254,7 @@ augment_borders <- function(properties_df) {
   properties_df[, c("vborder_left", "vborder_right", "hhlines_bottom", "hhlines_top") :=
     list(
       latex_vborder(w = .SD$border.width.left, cols = .SD$border.color.left),
-      fcase(.SD$col_id %in% tail(levels(.SD$col_id), 1),
+      fcase(as.numeric(.SD$col_id) + .SD$rowspan == nlevels(.SD$col_id) + 1,
         latex_vborder(w = .SD$border.width.right, cols = .SD$border.color.right),
         default = ""
       ),
