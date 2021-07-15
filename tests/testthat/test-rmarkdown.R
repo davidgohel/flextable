@@ -6,7 +6,7 @@ cat("
 title: test
 ---
 
-```{r}
+```{r tab.lp='table:', tab.cap='caption', tab.id='tab1'}
 library(flextable)
 knitr::opts_chunk$set(echo = TRUE)
 rt <- flextable(head(mtcars))
@@ -37,5 +37,21 @@ test_that("docx output", {
     expect_error({out <- rmarkdown::render(rmd_file, output_format = "word_document", output_file = docx_file, quiet = TRUE)},
                  regexp = "2.0 required for flextable rendering in docx")
   }
+})
+
+test_that("tab.lp is updated in HTML", {
+
+  skip_if_not(Sys.which('pandoc') != "")
+  skip_if_not(Sys.which('pandoc-citeproc') != "")
+  skip_if_not(rmarkdown::pandoc_available("1.12.3"))
+  skip_if_not(rmarkdown::pandoc_version() >= 2)
+
+  html <- rmarkdown::render(rmd_file, output_format = "bookdown::html_document2", output_file = html_file, quiet = TRUE)
+
+  doc <- read_html(html)
+  elt <- xml_find_first(doc, "body/div/template/div/table/caption")
+  expect_true(grepl("(#table:tab1)caption", xml_text(elt), fixed = TRUE))
+  # docx <- rmarkdown::render(rmd_file, output_format = "bookdown::word_document2", output_file = docx_file, quiet = TRUE)
+  # officer::docx_summary(officer::read_docx(docx))
 })
 

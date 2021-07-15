@@ -1,3 +1,11 @@
+# flextable 0.6.7
+
+## new features
+
+* tab.lp is now a knitr supported chunk option and can be use to change the 
+label prefix for the table sequence id when a caption is used. See 
+https://github.com/davidgohel/officedown/issues/71.
+
 # flextable 0.6.6
 
 ## new features

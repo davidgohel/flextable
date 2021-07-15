@@ -487,10 +487,10 @@ latex_caption <- function(x, bookdown) {
   std_ref_label <- NULL
   if(bookdown && !is.null(x$caption$autonum$bookmark)){
     std_ref_label <- x$caption$autonum$bookmark
-    bookdown_ref_label <- paste0("(\\#tab:", x$caption$autonum$bookmark, ")")
+    bookdown_ref_label <- paste0("(\\#", tab_props$tab.lp, x$caption$autonum$bookmark, ")")
   } else if(bookdown && !is.null(tab_props$id)){
     std_ref_label <- tab_props$id
-    bookdown_ref_label <- paste0("(\\#tab:", tab_props$id, ")")
+    bookdown_ref_label <- paste0("(\\#", tab_props$tab.lp, tab_props$id, ")")
   }
 
 
@@ -506,7 +506,7 @@ latex_caption <- function(x, bookdown) {
       if (bookdown) {
         bookdown_ref_label
       } else if (!is.null(std_ref_label)) {
-        sprintf("\\label{tab:%s}", std_ref_label)
+        sprintf("\\label{", tab_props$tab.lp, "%s}", std_ref_label)
       },
       "\\\\"
     )

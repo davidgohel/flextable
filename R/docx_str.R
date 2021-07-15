@@ -135,7 +135,7 @@ caption_docx_bookdown <- function(x){
     caption <- paste(
       "",
       style_start,
-      paste0("<caption>(\\#tab:", tab_props$id, ")", zz, "</caption>"),
+      paste0("<caption>(\\#", tab_props$tab.lp, tab_props$id, ")", zz, "</caption>"),
       style_end,
       "", sep = "\n")
   }
