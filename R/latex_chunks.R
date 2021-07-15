@@ -77,7 +77,8 @@ text_latex_styles <- function(x){
   right <- paste0(right, "}")
   fonts_ok <- get_pdf_engine() %in% c("xelatex", "lualatex")
   if(fonts_ok && !flextable_global$defaults$fonts_ignore ){
-    left <- paste0(left, sprintf("\\global\\setmainfont{%s}", x$font.family))
+    left <- paste0(left, sprintf("\\global\\setmainfont{%s}{", x$font.family))
+    right <- paste0(right, "}")
   }
 
   left <- paste0(left, ifelse(x$bold, "\\textbf{", "" ))

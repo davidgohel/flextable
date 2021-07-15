@@ -9,7 +9,8 @@ https://github.com/davidgohel/officedown/issues/71.
 ## Issues
 
 * fix issue with white spaces instead of empty borders in HTML output
-* fix issue with missing top or right border in LaTeX output (thanks to huaixv)
+* fix issue with missing top or right border in LaTeX output (thanks to huaixv for the fix)
+* Table cells containing square braces were causing errors (thanks to Nick Bart for the fix)
 
 # flextable 0.6.6
 
