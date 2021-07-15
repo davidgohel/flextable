@@ -235,7 +235,7 @@ augment_part_separators <- function(z) {
 augment_top_borders <- function(properties_df) {
   hhline_top_data <- properties_df[
     properties_df$ft_row_id %in% 1 &
-    as.numeric(properties_df$part) == min(as.numeric(properties_df$part)),
+      as.integer(properties_df$part) == min(as.integer(properties_df$part)),
     list(
       hhline_top = paste0("\\hhline{", paste0(.SD$hhlines_top, collapse = ""), "}")
     ),
@@ -253,13 +253,13 @@ augment_borders <- function(properties_df) {
   properties_df[, c("vborder_left", "vborder_right", "hhlines_bottom", "hhlines_top") :=
     list(
       latex_vborder(w = .SD$border.width.left, cols = .SD$border.color.left),
-      fcase(as.numeric(.SD$col_id) + .SD$rowspan == nlevels(.SD$col_id) + 1,
+      fcase((as.integer(.SD$col_id) + .SD$rowspan) == (nlevels(.SD$col_id) + 1L),
         latex_vborder(w = .SD$border.width.right, cols = .SD$border.color.right),
         default = ""
       ),
       latex_hhline(w = .SD$border.width.bottom, cols = .SD$border.color.bottom),
       fcase(.SD$ft_row_id %in% 1 &
-        as.numeric(.SD$part) == min(as.numeric(.SD$part)),
+              as.integer(.SD$part) == min(as.integer(.SD$part)),
       latex_hhline(w = .SD$border.width.top, cols = .SD$border.color.top),
       default = ""
       )

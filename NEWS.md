@@ -8,8 +8,8 @@ https://github.com/davidgohel/officedown/issues/71.
 
 ## Issues
 
-* fix issue with white spaces instead of empty borders in HTML rendering
-
+* fix issue with white spaces instead of empty borders in HTML output
+* fix issue with missing top or right border in LaTeX output (thanks to huaixv)
 
 # flextable 0.6.6
 
