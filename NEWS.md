@@ -6,6 +6,11 @@
 label prefix for the table sequence id when a caption is used. See 
 https://github.com/davidgohel/officedown/issues/71.
 
+## Issues
+
+* fix issue with white spaces instead of empty borders in HTML rendering
+
+
 # flextable 0.6.6
 
 ## new features

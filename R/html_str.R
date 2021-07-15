@@ -372,7 +372,7 @@ par_css_styles <- function(x){
 cell_css_styles <- function(x){
 
   background.color <- ifelse( colalpha(x$background.color) > 0,
-                              sprintf("background-clip: padding-box;background-color:%s;", colcodecss(x$background.color) ),
+                              sprintf("background-color:%s;", colcodecss(x$background.color) ),
                               "background-color:transparent;")
 
   width <- ifelse( is.na(x$width), "", sprintf("width:%s;", css_pt(x$width * 72) ) )
