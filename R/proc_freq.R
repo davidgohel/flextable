@@ -86,7 +86,9 @@ proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, includ
   ##Add total
   if (include.row_total) {
     tab_end$Total <- rowSums(tab_end[,3:ncol(tab_end), drop = FALSE])
-    tab_end[ which(tab_end$label == "Row Pct" | tab_end$label == "Col Pct" ),]$Total <- NA
+    index <- which(tab_end$label == "Row Pct" | tab_end$label == "Col Pct" )
+    if(length(index)>0)
+      tab_end[ index,]$Total <- NA
   }
   if (include.column_total) {
     labels <- c("Frequency")
@@ -124,54 +126,41 @@ proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, includ
   names_ll <- names(tab_end)
   which_freq <- tab_end$label %in% "Frequency"
   ##Remove digit for Frequency
-  for(j in col_id_counts){
-    llflex <- flextable::compose(
-      llflex, i = which_freq, j = j,
-      value = as_paragraph(
-        as_chunk(tab_end[[j]][which_freq],
-                 formatter = function(x){
-                   sprintf("%.0f", x)
-                 })))
-
-  }
+  llflex <- mk_par(
+    llflex, i = ~ label %in% "Frequency", j = col_id_counts,
+    value = as_paragraph(as_chunk(.,formatter = function(x) sprintf("%.0f", x))),
+    use_dot = TRUE, part = "body")
 
   ##Add %
-  which_percent <- !which_freq
-  for(j in col_id_counts){
-    llflex <- flextable::compose(
-      llflex, i = which_percent, j = j,
-      value = as_paragraph(
-        as_chunk(tab_end[[j]][which_percent],
-                 formatter = format_pct)))
-
-  }
-
+  llflex <- mk_par(
+    llflex, i = ~ !label %in% "Frequency", j = col_id_counts,
+    value = as_paragraph(as_chunk(.,formatter = format_pct)),
+    use_dot = TRUE, part = "body")
 
   ##Style
   fq <- which(tab_end$label == "Frequency")
-  llflex <- flextable::bold(llflex, fq, 2:ncol(tab_end))
-  llflex <- flextable::bold(llflex, 1:nrow(tab_end), 1)
-
-  llflex <- flextable::border(llflex, fq, 1:ncol(tab_end), border.top = officer::fp_border(color = "black"))
+  llflex <- bold(llflex, j = 1)
+  llflex <- border(llflex, i = ~label %in% "Frequency",
+                   border.top = fp_border_default())
 
   if (include.header_row) {
     llflex <- add_header_row(llflex, values = c("", col), colwidths = c(2,ncol(tab_end)-2))
   }
   llflex <- align(llflex, align = "center", part = "header")
-  llflex <- flextable::bold(llflex, part = "header")
+  llflex <- bold(llflex, part = "header")
   llflex <- align(llflex, align = "center", part = "body")
   llflex <- valign(llflex, j = 1, valign = "top", part = "body")
   llflex <- fix_border_issues(llflex)
 
   if(main != ""){
 
-    llflex <- flextable::add_header_lines(llflex,  values = main)
-    llflex <- flextable::bold(llflex, part = "header")
+    llflex <- add_header_lines(llflex,  values = main)
+    llflex <- bold(llflex, part = "header")
     llflex <- align(llflex, i = 1, align = "left", part = "header")
 
   }
-  llflex <- flextable::hline(llflex, part = "header", border = officer::fp_border(color = "black", width = 1))
-  llflex <- flextable::hline_bottom(llflex, part = "header", border = officer::fp_border(color = "black", width = 2))
+  llflex <- hline(llflex, part = "header", border = officer::fp_border(color = "black", width = 1))
+  llflex <- hline_bottom(llflex, part = "header", border = officer::fp_border(color = "black", width = 2))
 
   llflex
 

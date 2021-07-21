@@ -15,6 +15,8 @@ to match with.
 * fix issue with white spaces instead of empty borders in HTML output
 * fix issue with missing top or right border in LaTeX output (thanks to huaixv for the fix)
 * Table cells containing square braces were causing errors (thanks to Nick Bart for the fix)
+* fix proc_freq error when include.row_percent, include.table_percent and include.column_percent are 
+all set to FALSE.
 
 # flextable 0.6.6
 
