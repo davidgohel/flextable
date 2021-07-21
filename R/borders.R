@@ -559,3 +559,42 @@ vline_right <- function(x, i = NULL, border = NULL, part = "all"){
   x
 }
 
+
+
+#' @export
+#' @title is an element before a match with entries
+#' @description return a logical vector of the same length as x, indicating
+#' if elements are located before a set of entries to match or not.
+#' @param x an atomic vector of values to be tested
+#' @param entries a sequence of items to be searched in `x`.
+#' @seealso [hline()]
+#' @examples
+#' library(flextable)
+#' library(officer)
+#'
+#' dat <- data.frame(
+#'   stringsAsFactors = FALSE,
+#'   check.names = FALSE,
+#'   Level = c("setosa", "versicolor", "virginica", "<NA>", "Total"),
+#'   Freq = as.integer(c(50, 50, 50, 0, 150)),
+#'   `% Valid` = c(100/3,
+#'                 100/3,100/3,NA,100),
+#'   `% Valid Cum.` = c(100/3, 100*2/3, 100, NA, 100),
+#'   `% Total` = c(100/3,
+#'                 100/3,100/3,0,100),
+#'   `% Total Cum.` = c(100/3,
+#'                      100*2/3,100,100,100)
+#' )
+#'
+#' ft <- flextable(dat)
+#' ft <- hline(ft, i = ~ before(Level, "Total"),
+#'             border = fp_border_default(width = 2))
+#' ft
+before <- function(x, entries){
+  z <- rep(FALSE, length(x))
+  index <- which(x %in% entries) -1
+  index <- index[is.finite(index) & index > 0]
+  z[index] <- TRUE
+  z
+}
+

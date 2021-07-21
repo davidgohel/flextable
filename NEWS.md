@@ -7,6 +7,8 @@ label prefix for the table sequence id when a caption is used. See
 https://github.com/davidgohel/officedown/issues/71.
 * support for `tab.topcaption` that let modify the table caption 
 position from "top" (TRUE) to "bottom" (FALSE). 
+* add helper function `before()` to ease addition of `hline()` before some values 
+to match with.
 
 ## Issues
 
