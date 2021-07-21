@@ -5,7 +5,14 @@
 \alias{body_replace_flextable_at_bkm}
 \title{add flextable into a Word document}
 \usage{
-body_add_flextable(x, value, align = "center", pos = "after", split = FALSE)
+body_add_flextable(
+  x,
+  value,
+  align = "center",
+  pos = "after",
+  split = FALSE,
+  topcaption = TRUE
+)
 
 body_replace_flextable_at_bkm(
   x,
@@ -27,6 +34,9 @@ one of "after", "before", "on" (end of line).}
 
 \item{split}{set to TRUE if you want to activate Word
 option 'Allow row to break across pages'.}
+
+\item{topcaption}{if TRUE caption is added before the table, if FALSE,
+caption is added after the table.}
 
 \item{bookmark}{bookmark id}
 }

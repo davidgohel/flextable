@@ -8,6 +8,8 @@
 #' option 'Allow row to break across pages'.
 #' @param pos where to add the flextable relative to the cursor,
 #' one of "after", "before", "on" (end of line).
+#' @param topcaption if TRUE caption is added before the table, if FALSE,
+#' caption is added after the table.
 #' @importFrom officer body_add_xml wml_link_images docx_reference_img block_caption
 #' @examples
 #' library(officer)
@@ -23,20 +25,30 @@
 #' fileout <- tempfile(fileext = ".docx")
 #' # fileout <- "test.docx" # uncomment to write in your working directory
 #' print(doc, target = fileout)
-body_add_flextable <- function( x, value, align = "center", pos = "after", split = FALSE) {
+body_add_flextable <- function( x, value, align = "center", pos = "after", split = FALSE,
+                                topcaption = TRUE) {
 
   stopifnot(inherits(x, "rdocx"))
 
-  if(!is.null(value$caption$value)){
+  if(topcaption && !is.null(value$caption$value)){
+    bc <- block_caption(label = value$caption$value,
+                        style = value$caption$style,
+                        autonum = value$caption$autonum)
+    x <- body_add_xml(x = x, str = to_wml(bc, base_document = x, add_ns = TRUE), pos = pos)
+  }
+  out <- docx_str(value, doc = x, align = align, split = split)
+
+  x <- body_add_xml(x = x, str = out, pos = pos)
+
+  if(!topcaption && !is.null(value$caption$value)){
     bc <- block_caption(label = value$caption$value,
                         style = value$caption$style,
                         autonum = value$caption$autonum)
     x <- body_add_xml(x = x, str = to_wml(bc, base_document = x, add_ns = TRUE), pos = pos)
   }
 
-  out <- docx_str(value, doc = x, align = align, split = split)
+  x
 
-  body_add_xml(x = x, str = out, pos = pos)
 
 }
 
