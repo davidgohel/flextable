@@ -1,3 +1,19 @@
+# utils -----
+coalesce_options <- function(a=NULL, b=NULL) {
+  if(is.null(a)) return(b)
+  if(is.null(b)) return(a)
+  if( length(b) == 1 ){
+    b <- rep(b, length(a))
+  }
+  out <- a
+  out[!is.finite(a)] <- b[!is.finite(a)]
+  out
+}
+mcoalesce_options <- function(...) {
+  Reduce(coalesce_options, list(...))
+}
+
+# docx_str -----
 docx_str <- function(x, align = "center", split = FALSE, doc = NULL, ...){
 
   imgs <- character(0)
@@ -84,22 +100,12 @@ docx_str <- function(x, align = "center", split = FALSE, doc = NULL, ...){
 
 }
 
-
+#' @importFrom officer run_bookmark ftext
 caption_docx_bookdown <- function(x){
   tab_props <- opts_current_table()
-
-  if(!is.null(x$caption$autonum$bookmark)){
-    tab_props$id <- x$caption$autonum$bookmark
-  } else if(is.null(tab_props$id)){
-    tab_props$id <- opts_current$get('label')
-  }
-
-  if(!is.null(x$caption$value)){
-    tab_props$cap <- x$caption$value
-  }
-  if(!is.null(x$caption$style)){
-    tab_props$cap.style <- x$caption$style
-  }
+  tab_props$id <- mcoalesce_options(x$caption$autonum$bookmark, opts_current$get('label'))
+  tab_props$cap <- mcoalesce_options(x$caption$value, tab_props$cap)
+  tab_props$cap.style <- mcoalesce_options(x$caption$style, tab_props$cap.style)
 
   has_caption_label <- !is.null(tab_props$cap)
   has_caption_style <- !is.null(tab_props$cap.style)
@@ -114,20 +120,9 @@ caption_docx_bookdown <- function(x){
   caption <- ""
   if(has_caption_label) {
     zz <- if(!is.null(tab_props$id)){
-      structure(
-        list(
-          id = paste0(tab_props$tab.lp, tab_props$id),
-          run = list(
-            structure(list(
-              value = tab_props$cap, pr = NULL),
-              class = c("ftext", "cot", "run")))),
-        class = c("run_bookmark", "run")
-        )
-      #TODO: when officer update on cran, run_bookmark(paste0(tab_props$tab.lp, tab_props$id), ftext(tab_props$cap))
+      run_bookmark(paste0(tab_props$tab.lp, tab_props$id), ftext(tab_props$cap))
     } else {
-      structure(list(
-        value = tab_props$cap, pr = NULL),
-        class = c("ftext", "cot", "run"))
+      ftext(tab_props$cap)
     }
 
     zz <- paste("`", to_wml(zz), "`{=openxml}", sep = "")
@@ -144,24 +139,25 @@ caption_docx_bookdown <- function(x){
 
 caption_docx_standard <- function(x){
   tab_props <- opts_current_table()
-  caption <- ""
-  if(!is.null(x$caption$value)){
-    bc <- block_caption(label = x$caption$value, style = x$caption$style,
-                        autonum = x$caption$autonum)
-    caption <- to_wml(bc, knitting = TRUE)
-  } else if(!is.null(tab_props$cap) && !is.null(tab_props$id)) {
-    bc <- block_caption(label = tab_props$cap, style = tab_props$cap.style,
-                        autonum = run_autonum(
-                          seq_id = gsub(":$", "", tab_props$tab.lp),
-                          pre_label = tab_props$cap.pre,
-                          post_label = tab_props$cap.sep,
-                          bkm = tab_props$id, bkm_all = FALSE
-                        ))
-    caption <- to_wml(bc, knitting = TRUE)
-  } else if(!is.null(tab_props$cap) && is.null(tab_props$id)) {
-    bc <- block_caption(label = tab_props$cap, style = tab_props$cap.style)
-    caption <- to_wml(bc, knitting = TRUE)
-  }
+
+  caption_label <- mcoalesce_options(x$caption$value, tab_props$cap)
+  caption_style <- mcoalesce_options(x$caption$style, tab_props$cap.style)
+  caption_id <- mcoalesce_options(x$caption$autonum$bookmark, tab_props$id)
+  caption_lp <- mcoalesce_options(if( !is.null(tab_props$tab.lp) )
+                                    gsub(":$", "", tab_props$tab.lp)
+                                  else NULL,
+                                  x$caption$autonum$seq_id)
+  caption_pre_label <- mcoalesce_options(tab_props$cap.pre, x$caption$autonum$pre_label)
+  caption_post_label <- mcoalesce_options(tab_props$cap.sep, x$caption$autonum$post_label)
+
+  autonum <- run_autonum(
+    seq_id = caption_lp,
+    pre_label = caption_pre_label,
+    post_label = caption_post_label,
+    bkm = caption_id, bkm_all = FALSE
+  )
+  bc <- block_caption(label = caption_label, style = caption_style, autonum = autonum)
+  caption <- to_wml(bc, knitting = TRUE)
 
   caption
 }
