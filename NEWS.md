@@ -5,6 +5,8 @@
 * tab.lp is now a knitr supported chunk option and can be use to change the 
 label prefix for the table sequence id when a caption is used. See 
 https://github.com/davidgohel/officedown/issues/71.
+* support for `tab.topcaption` that let modify the table caption 
+position from "top" (TRUE) to "bottom" (FALSE). 
 
 ## Issues
 

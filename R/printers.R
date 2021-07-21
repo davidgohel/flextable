@@ -182,9 +182,13 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
     # This is unfortunate but mandatory as bookdown need to scan captions...
     caption_str <- paste0("\n```\n", caption_str, "\n```{=html}\n")
   }
+
+  tab_props <- opts_current_table()
+  topcaption <- tab_props$topcaption
+
   out <- paste(
     if(pandoc2) "```{=html}",
-    html_str(x, ft.align = ft.align, caption = caption_str, shadow = ft.shadow),
+    html_str(x, ft.align = ft.align, caption = caption_str, shadow = ft.shadow, topcaption = topcaption),
     if(pandoc2) "```",
     "", "",
     sep = "\n")
@@ -217,10 +221,16 @@ docx_value <- function(x,
   if( is.null(ft.split) ) ft.split <- FALSE
 
   caption <- caption_docx_str(x, bookdown = bookdown)
-  out <- paste(caption,
+  tab_props <- opts_current_table()
+  topcaption <- tab_props$topcaption
+
+  out <- paste(if(topcaption) caption,
       "```{=openxml}",
       docx_str(x, align = ft.align, split = ft.split),
-      "```\n\n", sep = "\n")
+      "```\n\n",
+      if(!topcaption) caption,
+      "\n\n",
+      sep = "\n")
 
   out
 }

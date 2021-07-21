@@ -70,17 +70,22 @@ html_str <- function(x, ft.align = NULL, class = "tabwid", caption = "", shadow 
                    html,
            "</template>",
            "\n<div class=\"flextable-shadow-host\" id=\"", uid[2], "\"></div>",
-           to_shadow_dom(uid1 = uid[1], uid2 = uid[2], ft.align = ft.align)
+           to_shadow_dom(uid1 = uid[1], uid2 = uid[2], ft.align = ft.align, topcaption = topcaption)
     )
   }
   html
 }
 
-to_shadow_dom <- function(uid1, uid2, ft.align = NULL){
+to_shadow_dom <- function(uid1, uid2, ft.align = NULL, topcaption = TRUE){
 
   if( is.null(ft.align) )
     ft.align <- "center"
 
+  if(topcaption){
+    move_inst <- "  dest.parentNode.insertBefore(newcapt, dest.previousSibling);"
+  } else {
+    move_inst <- "  dest.parentNode.insertBefore(newcapt, dest.nextSibling);"
+  }
   script_commands <- c("", "<script>",
     paste0("var dest = document.getElementById(\"", uid2, "\");"),
     paste0("var template = document.getElementById(\"", uid1, "\");"),
@@ -89,7 +94,7 @@ to_shadow_dom <- function(uid1, uid2, ft.align = NULL){
     paste0("  caption.style.cssText = \"display:block;text-align:", ft.align, ";\";"),
     "  var newcapt = document.createElement(\"p\");",
     "  newcapt.appendChild(caption)",
-    "  dest.parentNode.insertBefore(newcapt, dest.previousSibling);",
+    move_inst,
     "}",
     "var fantome = dest.attachShadow({mode: 'open'});",
     "var templateContent = template.content;",

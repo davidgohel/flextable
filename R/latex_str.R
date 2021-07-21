@@ -117,6 +117,8 @@ latex_str <- function(x, ft.align = "center",
     column_sizes_latex <- rep("c", length(dims$widths))
   }
 
+  tab_props <- opts_current_table()
+  topcaption <- tab_props$topcaption
   caption <- latex_caption(x, bookdown = bookdown)
   align_tag <- latex_table_align()
 
@@ -132,10 +134,12 @@ latex_str <- function(x, ft.align = "center",
     sprintf("\\setlength{\\tabcolsep}{%spt}", format_double(ft.tabcolsep, 0)),
     sprintf("\\renewcommand*{\\arraystretch}{%s}", format_double(ft.arraystretch, 2)),
     # "\\begin{table}",
-    table_start, caption,
+    table_start, if(topcaption) caption,
     paste(txt_data$txt[txt_data$part %in% "header"], collapse = ""),
     "\\endfirsthead",
-    latex, table_end,
+    latex,
+    if(!topcaption) caption,
+    table_end,
     # "\\end{table}",
     sep = "\n\n"
   )
