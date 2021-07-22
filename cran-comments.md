@@ -1,7 +1,7 @@
 ## Test environments
 
-- local OS X install (R 4.0.5)
-- ubuntu 16.04 (release)
+- local OS X install (R 4.1.0)
+- ubuntu 18.04 (release)
 - macOS (release)
 - winbuilder (with older, release and devel) 
 
