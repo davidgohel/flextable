@@ -125,6 +125,8 @@ proc_freq <- function(x, row, col, main = "", include.row_percent = TRUE, includ
   col_id_counts <- seq(3, ncol(tab_end), by = 1L )
   names_ll <- names(tab_end)
   which_freq <- tab_end$label %in% "Frequency"
+
+  . <- NULL
   ##Remove digit for Frequency
   llflex <- mk_par(
     llflex, i = ~ label %in% "Frequency", j = col_id_counts,
