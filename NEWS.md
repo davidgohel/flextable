@@ -1,3 +1,10 @@
+# flextable 0.6.8
+
+## Issues
+
+* fix issue with border spaces and widths in HTML output. #343 
+
+
 # flextable 0.6.7
 
 ## new features

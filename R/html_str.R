@@ -33,9 +33,9 @@ html_str <- function(x, ft.align = NULL, class = "tabwid", caption = "", shadow 
   fixed_layout <- x$properties$layout %in% "fixed"
   if(!fixed_layout){
     tbl_width <- paste0("width:", formatC(x$properties$width*100), "%;")
-    tabcss <- paste0("table-layout:auto;border-collapse:collapse;", tbl_width)
+    tabcss <- paste0("table-layout:auto;", tbl_width)
   } else {
-    tabcss <- "border-collapse:collapse;"
+    tabcss <- ""
   }
 
   codes <- html_gen(x)
