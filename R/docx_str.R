@@ -32,16 +32,16 @@ docx_str <- function(x, align = "center", split = FALSE, doc = NULL, ...){
       "xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" ",
       "xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" ",
       "xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" ",
-      "xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" ",
+      "xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"",
       ">")
   if(x$properties$layout %in% "autofit"){
-    pt <- prop_table(
+    pt <- prop_table(style = NULL,
       layout = table_layout(type = "autofit"),
       align = align,
       width = table_width(width = x$properties$width, unit = "pct"),
       colwidths = table_colwidths(double(0L)))
   } else {
-    pt <- prop_table(
+    pt <- prop_table(style = NULL,
       layout = table_layout(type = "fixed"),
       align = align,
       width = table_width(unit = "in",
@@ -49,6 +49,7 @@ docx_str <- function(x, align = "center", split = FALSE, doc = NULL, ...){
       ),
       colwidths = table_colwidths(widths))
   }
+
   properties_str <- to_wml(pt, add_ns= FALSE, base_document = doc)
 
 
