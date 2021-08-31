@@ -5,6 +5,7 @@ on:
   pull_request:
     branches:
       - master
+      - test-branch
 
 name: R-CMD-check
 
@@ -18,10 +19,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: 'release'}
-          - {os: macOS-latest, r: 'release'}
-          - {os: macOS-latest, r: 'devel'}
-          - {os: ubuntu-16.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          - {os: windows-latest, r: 'release', pandoc : '2.11.4'}
+          - {os: macOS-latest, r: 'release', pandoc : '2.11.4'}
+          - {os: macOS-latest, r: 'devel', pandoc : '2.14.2'}
+          - {os: ubuntu-16.04, r: 'release', pandoc : '2.14.2', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -35,6 +36,8 @@ jobs:
           r-version: ${{ matrix.config.r }}
 
       - uses: r-lib/actions/setup-pandoc@master
+        with:
+          pandoc-version: ${{ matrix.config.pandoc }}
 
       - name: install freetype2 and imagemagick deps
         if: matrix.config.os == 'macOS-latest'

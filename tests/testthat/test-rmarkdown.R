@@ -26,8 +26,6 @@ test_that("html output", {
 
 test_that("docx output", {
 
-  skip_if_not(Sys.which('pandoc') != "")
-  skip_if_not(Sys.which('pandoc-citeproc') != "")
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
 
   if (rmarkdown::pandoc_version() >= 2){
@@ -41,8 +39,6 @@ test_that("docx output", {
 
 test_that("tab.lp is updated in HTML", {
 
-  skip_if_not(Sys.which('pandoc') != "")
-  skip_if_not(Sys.which('pandoc-citeproc') != "")
   skip_if_not(rmarkdown::pandoc_available("1.12.3"))
   skip_if_not(rmarkdown::pandoc_version() >= 2)
 
@@ -51,7 +47,5 @@ test_that("tab.lp is updated in HTML", {
   doc <- read_html(html)
   elt <- xml_find_first(doc, "body/div/template/div/table/caption")
   expect_true(grepl("(#table:tab1)caption", xml_text(elt), fixed = TRUE))
-  # docx <- rmarkdown::render(rmd_file, output_format = "bookdown::word_document2", output_file = docx_file, quiet = TRUE)
-  # officer::docx_summary(officer::read_docx(docx))
 })
 
