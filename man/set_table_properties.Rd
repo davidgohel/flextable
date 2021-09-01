@@ -4,7 +4,7 @@
 \alias{set_table_properties}
 \title{Global table properties}
 \usage{
-set_table_properties(x, layout = "fixed", width = 1)
+set_table_properties(x, layout = "fixed", width = 0)
 }
 \arguments{
 \item{x}{flextable object}
@@ -12,10 +12,13 @@ set_table_properties(x, layout = "fixed", width = 1)
 \item{layout}{'autofit' or 'fixed' algorithm. Default to 'autofit'.}
 
 \item{width}{The parameter has a different effect depending on the
-output format. In HTML, it is the width of the space that the
+output format. Users should consider it as a minimum width.
+In HTML, it is the minimum width of the space that the
 table should occupy. In Word, it is a preferred size and Word
 may decide not to strictly stick to it. It has no effect on
-PowerPoint and PDF output.}
+PowerPoint and PDF output. Its default value is 0, as an effect, it
+only use necessary width to display all content. It is not used by the
+PDF output.}
 }
 \description{
 Set table layout and table width. Default to fixed
@@ -28,8 +31,7 @@ If layout is autofit, column widths will not be used;
 table width is used (as a percentage).
 }
 \note{
-PowerPoint output ignore autofit layout as this algorithm does not
-exist for this Microsoft format.
+PowerPoint output ignore autofit layout.
 }
 \section{Illustrations}{
 
