@@ -4,7 +4,7 @@
 \alias{line_spacing}
 \title{Set text alignment}
 \usage{
-line_spacing(x, i = NULL, j = NULL, space = 1, part = "body")
+line_spacing(x, i = NULL, j = NULL, space = 1, part = "body", unit = "in")
 }
 \arguments{
 \item{x}{a flextable object}
@@ -16,6 +16,8 @@ line_spacing(x, i = NULL, j = NULL, space = 1, part = "body")
 \item{space}{space between lines of text, 1 is single line spacing, 2 is double line spacing.}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
+
+\item{unit}{unit for space, one of "in", "cm", "mm".}
 }
 \description{
 change text alignment of selected rows and columns of a flextable.

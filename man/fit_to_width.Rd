@@ -4,7 +4,7 @@
 \alias{fit_to_width}
 \title{fit a flextable to a maximum width}
 \usage{
-fit_to_width(x, max_width, inc = 1L, max_iter = 20)
+fit_to_width(x, max_width, inc = 1L, max_iter = 20, unit = "in")
 }
 \arguments{
 \item{x}{flextable object}
@@ -14,6 +14,8 @@ fit_to_width(x, max_width, inc = 1L, max_iter = 20)
 \item{inc}{the font size decrease for each step}
 
 \item{max_iter}{maximum iterations}
+
+\item{unit}{unit for max_width, one of "in", "cm", "mm".}
 }
 \description{
 decrease font size for each cell incrementally until

@@ -4,16 +4,17 @@
 \alias{flextable_dim}
 \title{width and height of a flextable object}
 \usage{
-flextable_dim(x)
+flextable_dim(x, unit = "in")
 }
 \arguments{
 \item{x}{a flextable object}
+
+\item{unit}{unit for returned values, one of "in", "cm", "mm".}
 }
 \description{
 Returns the width, height and
 aspect ratio of a flextable in a named list.
-The width and height are in inches. The aspect ratio
-is the ratio corresponding to \code{height/width}.
+The aspect ratio is the ratio corresponding to \code{height/width}.
 
 Names of the list are \code{width}, \code{height} and \code{aspect_ratio}.
 }

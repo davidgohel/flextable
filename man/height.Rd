@@ -5,9 +5,9 @@
 \alias{height_all}
 \title{Set flextable rows height}
 \usage{
-height(x, i = NULL, height, part = "body")
+height(x, i = NULL, height, part = "body", unit = "in")
 
-height_all(x, height, part = "all")
+height_all(x, height, part = "all", unit = "in")
 }
 \arguments{
 \item{x}{flextable object}
@@ -17,6 +17,8 @@ height_all(x, height, part = "all")
 \item{height}{height in inches}
 
 \item{part}{partname of the table}
+
+\item{unit}{unit for height, one of "in", "cm", "mm".}
 }
 \description{
 control rows height for a part of the flextable when the line

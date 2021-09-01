@@ -4,7 +4,7 @@
 \alias{autofit}
 \title{Adjusts cell widths and heights}
 \usage{
-autofit(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"))
+autofit(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"), unit = "in")
 }
 \arguments{
 \item{x}{flextable object}
@@ -14,6 +14,8 @@ autofit(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"))
 \item{add_h}{extra height to add in inches}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header' or 'footer')}
+
+\item{unit}{unit for add_h and add_w, one of "in", "cm", "mm".}
 }
 \description{
 compute and apply optimized widths and heights

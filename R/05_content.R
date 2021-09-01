@@ -434,6 +434,7 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
 #'
 #' @param x values containing the 'MathJax' equations
 #' @param width,height size of the resulting equation in inches
+#' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @family chunk elements for paragraph
 #' @examples
 #' library(flextable)
@@ -456,7 +457,10 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
 #' ft
 #'
 #' }
-as_equation <- function(x, width = 1, height = .2){
+as_equation <- function(x, width = 1, height = .2, unit = "in"){
+
+  width <- convin(unit = unit, x = width)
+  height <- convin(unit = unit, x = height)
 
   if( length(x) > 1 ){
     if( length(width) == 1 ) width <- rep(width, length(x))

@@ -10,7 +10,8 @@ minibar(
   barcol = "#CCCCCC",
   bg = "transparent",
   width = 1,
-  height = 0.2
+  height = 0.2,
+  unit = "in"
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ minibar(
 \item{bg}{background color}
 
 \item{width, height}{size of the resulting png file in inches}
+
+\item{unit}{unit for width and height, one of "in", "cm", "mm".}
 }
 \description{
 This function is used to insert bars into

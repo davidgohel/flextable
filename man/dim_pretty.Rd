@@ -4,12 +4,14 @@
 \alias{dim_pretty}
 \title{Calculate pretty dimensions}
 \usage{
-dim_pretty(x, part = "all")
+dim_pretty(x, part = "all", unit = "in")
 }
 \arguments{
 \item{x}{flextable object}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header' or 'footer')}
+
+\item{unit}{unit for returned values, one of "in", "cm", "mm".}
 }
 \description{
 return minimum estimated widths and heights for

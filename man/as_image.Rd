@@ -4,12 +4,14 @@
 \alias{as_image}
 \title{image chunk wrapper}
 \usage{
-as_image(src, width = 0.5, height = 0.2, ...)
+as_image(src, width = 0.5, height = 0.2, unit = "in", ...)
 }
 \arguments{
 \item{src}{image filename}
 
 \item{width, height}{size of the png file in inches}
+
+\item{unit}{unit for width and height, one of "in", "cm", "mm".}
 
 \item{...}{unused argument}
 }

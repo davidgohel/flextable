@@ -6,6 +6,7 @@
 #' @param max_width maximum width to fit in inches
 #' @param inc the font size decrease for each step
 #' @param max_iter maximum iterations
+#' @param unit unit for max_width, one of "in", "cm", "mm".
 #' @examples
 #' ft_1 <- qflextable(head(mtcars))
 #' ft_1 <- width(ft_1, width = 1)
@@ -19,7 +20,9 @@
 #' \if{html}{\figure{fig_fit_to_width_1.png}{options: width=400}}
 #'
 #' \if{html}{\figure{fig_fit_to_width_2.png}{options: width=150}}
-fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20 ){
+fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in" ){
+  max_width <- convin(unit = unit, x = max_width)
+
   go <- TRUE
   while(go){
     fdim <- flextable_dim(x)
@@ -45,6 +48,7 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20 ){
 #' @param x flextable object
 #' @param j columns selection
 #' @param width width in inches
+#' @param unit unit for width, one of "in", "cm", "mm".
 #' @details
 #' Heights are not used when flextable is been rendered into HTML.
 #' @examples
@@ -56,8 +60,9 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20 ){
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_width_1.png}{options: width=100\%}}
-width <- function(x, j = NULL, width){
+width <- function(x, j = NULL, width, unit = "in"){
 
+  width <- convin(unit = unit, x = width)
   j <- get_columns_id(x[["body"]], j )
 
   stopifnot(length(j)==length(width) || length(width) == 1)
@@ -82,6 +87,7 @@ width <- function(x, j = NULL, width){
 #' @param x flextable object
 #' @param i rows selection
 #' @param height height in inches
+#' @param unit unit for height, one of "in", "cm", "mm".
 #' @param part partname of the table
 #' @examples
 #' ft_1 <- flextable(head(iris))
@@ -94,7 +100,8 @@ width <- function(x, j = NULL, width){
 #' \if{html}{\figure{fig_height_1.png}{options: width=70\%}}
 #'
 #' \if{html}{\figure{fig_height_2.png}{options: width=70\%}}
-height <- function(x, i = NULL, height, part = "body"){
+height <- function(x, i = NULL, height, part = "body", unit = "in"){
+  height <- convin(unit = unit, x = height)
 
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
@@ -181,7 +188,8 @@ hrule <- function(x, i = NULL, rule = "auto", part = "body"){
 #' ft_2 <- height_all(ft_2, height = 1)
 #' ft_2 <- hrule(ft_2, rule = "exact")
 #' ft_2
-height_all <- function(x, height, part = "all"){
+height_all <- function(x, height, part = "all", unit = "in"){
+  height <- convin(unit = unit, x = height)
 
   part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE )
   if( length(height) != 1 || !is.numeric(height) || height < 0.0 ){
@@ -207,19 +215,19 @@ height_all <- function(x, height, part = "all"){
 #' @title width and height of a flextable object
 #' @description Returns the width, height and
 #' aspect ratio of a flextable in a named list.
-#' The width and height are in inches. The aspect ratio
-#' is the ratio corresponding to `height/width`.
+#' The aspect ratio is the ratio corresponding to `height/width`.
 #'
 #' Names of the list are `width`, `height` and `aspect_ratio`.
 #' @param x a flextable object
+#' @param unit unit for returned values, one of "in", "cm", "mm".
 #' @examples
 #' ftab <- flextable(head(iris))
 #' flextable_dim(ftab)
 #' ftab <- autofit(ftab)
 #' flextable_dim(ftab)
 #' @family flextable dimensions
-flextable_dim <- function(x){
-  dims <- lapply( dim(x), sum)
+flextable_dim <- function(x, unit = "in"){
+  dims <- lapply( dim(x), function(x) convin(unit = unit, x = sum(x)))
   dims$aspect_ratio <- dims$height / dims$width
   dims
 }
@@ -262,6 +270,7 @@ dim.flextable <- function(x){
 #' each table columns and rows in inches.
 #' @param x flextable object
 #' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
+#' @param unit unit for returned values, one of "in", "cm", "mm".
 #' @section line breaks:
 #' Soft returns (a line break in a paragraph) are not supported. Function
 #' `dim_pretty` will return wrong results if `\n` are used (they will be
@@ -270,7 +279,7 @@ dim.flextable <- function(x){
 #' ftab <- flextable(head(mtcars))
 #' dim_pretty(ftab)
 #' @family flextable dimensions
-dim_pretty <- function( x, part = "all" ){
+dim_pretty <- function( x, part = "all", unit = "in" ){
 
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE )
   if( "all" %in% part ){
@@ -291,8 +300,7 @@ dim_pretty <- function( x, part = "all" ){
   heights <- lapply( dimensions, function(x) x$heights )
   heights <- as.numeric(do.call(c, heights))
 
-
-  list(widths = widths, heights = heights)
+  list(widths = convin(unit = unit, x = widths), heights = convin(unit = unit, x = heights))
 }
 
 
@@ -317,6 +325,7 @@ dim_pretty <- function( x, part = "all" ){
 #' @param x flextable object
 #' @param add_w extra width to add in inches
 #' @param add_h extra height to add in inches
+#' @param unit unit for add_h and add_w, one of "in", "cm", "mm".
 #' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
 #' @examples
 #' ft_1 <- flextable(head(mtcars))
@@ -329,7 +338,10 @@ dim_pretty <- function( x, part = "all" ){
 #' \if{html}{\figure{fig_autofit_1.png}{options: width=90\%}}
 #'
 #' \if{html}{\figure{fig_autofit_2.png}{options: width=70\%}}
-autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header")){
+autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"), unit = "in"){
+
+  add_w <- convin(unit = unit, x = add_w)
+  add_h <- convin(unit = unit, x = add_h)
 
   stopifnot(inherits(x, "flextable") )
 

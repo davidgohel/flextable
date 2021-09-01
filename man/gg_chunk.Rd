@@ -4,12 +4,14 @@
 \alias{gg_chunk}
 \title{gg plots chunk wrapper}
 \usage{
-gg_chunk(value, width = 1, height = 0.2)
+gg_chunk(value, width = 1, height = 0.2, unit = "in")
 }
 \arguments{
 \item{value}{gg objects, stored in a list column.}
 
 \item{width, height}{size of the resulting png file in inches}
+
+\item{unit}{unit for width and height, one of "in", "cm", "mm".}
 }
 \description{
 This function is used to insert mini gg plots into

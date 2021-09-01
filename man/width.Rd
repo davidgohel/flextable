@@ -4,7 +4,7 @@
 \alias{width}
 \title{Set flextable columns width}
 \usage{
-width(x, j = NULL, width)
+width(x, j = NULL, width, unit = "in")
 }
 \arguments{
 \item{x}{flextable object}
@@ -12,6 +12,8 @@ width(x, j = NULL, width)
 \item{j}{columns selection}
 
 \item{width}{width in inches}
+
+\item{unit}{unit for width, one of "in", "cm", "mm".}
 }
 \description{
 control columns width

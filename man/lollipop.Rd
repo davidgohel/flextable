@@ -12,6 +12,7 @@ lollipop(
   bg = "transparent",
   width = 1,
   height = 0.2,
+  unit = "in",
   raster_width = 30,
   positivecol = "#00CC00",
   negativecol = "#CC0000",
@@ -32,6 +33,8 @@ lollipop(
 \item{bg}{background color}
 
 \item{width, height}{size of the resulting png file in inches}
+
+\item{unit}{unit for width and height, one of "in", "cm", "mm".}
 
 \item{raster_width}{number of pixels used as width}
 

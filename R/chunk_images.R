@@ -6,6 +6,7 @@
 #' It should be used inside a call to [as_paragraph()].
 #' @param src image filename
 #' @param width,height size of the png file in inches
+#' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @param ... unused argument
 #' @family chunk elements for paragraph
 #' @note
@@ -34,7 +35,10 @@
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_as_image_1.png}{options: width=60\%}}
-as_image <- function(src, width = .5, height = .2, ...) {
+as_image <- function(src, width = .5, height = .2, unit = "in", ...) {
+
+  width <- convin(unit = unit, x = width)
+  height <- convin(unit = unit, x = height)
 
   if( length(src) > 1 ){
     if( length(width) == 1 ) width <- rep(width, length(src))
@@ -60,6 +64,7 @@ as_image <- function(src, width = .5, height = .2, ...) {
 #' @param barcol bar color
 #' @param bg background color
 #' @param width,height size of the resulting png file in inches
+#' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @note
 #' This chunk option requires package officedown in a R Markdown
 #' context with Word output format.
@@ -83,8 +88,10 @@ as_image <- function(src, width = .5, height = .2, ...) {
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_minibar_1.png}{options: width=60\%}}
-minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", width = 1, height = .2) {
+minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", width = 1, height = .2, unit = "in") {
 
+  width <- convin(unit = unit, x = width)
+  height <- convin(unit = unit, x = height)
 
   if( all( is.na(value) ) ){
     max <- 1
@@ -133,6 +140,7 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' @param stickcol jauge color
 #' @param bg background color
 #' @param width,height size of the resulting png file in inches
+#' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @param raster_width number of pixels used as width
 #' when interpolating value.
 #' @note
@@ -157,7 +165,11 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' @seealso [compose()], [as_paragraph()]
 linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
                       stickcol = "#FF0000", bg = "transparent", width = 1,
-                      height = .2, raster_width = 30) {
+                      height = .2, raster_width = 30, unit = "in") {
+
+  width <- convin(unit = unit, x = width)
+  height <- convin(unit = unit, x = height)
+
   if( all( is.na(value) ) ){
     min <- 0
     max <- 1
@@ -217,6 +229,7 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @param rangecol bar color
 #' @param bg background color
 #' @param width,height size of the resulting png file in inches
+#' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @param raster_width number of pixels used as width
 #' @param positivecol box color of positive values
 #' @param negativecol box color of negative values
@@ -250,9 +263,13 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' \if{html}{\figure{fig_lollipop_1.png}{options: width=60\%}}
 lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
                      bg = "transparent", width = 1,
-                     height = .2, raster_width = 30, positivecol = "#00CC00",
+                     height = .2, unit = "in", raster_width = 30, positivecol = "#00CC00",
                      negativecol = "#CC0000", neutralcol = "#CCCCCC", neutralrange = c(0,0),
                      rectanglesize = 2) {
+
+  width <- convin(unit = unit, x = width)
+  height <- convin(unit = unit, x = height)
+
   if( all( is.na(value) ) ){
     min <- 0
     max <- 1
@@ -337,6 +354,7 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @param width,height size of the resulting png file in inches
 #' @param type type of the plot: 'box', 'line', 'points' or 'density'.
 #' @param free_scale Should scales be free (TRUE or FALSE, the default value).
+#' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @param ... arguments sent to plot functions (see [par()])
 #' @note
 #' This chunk option requires package officedown in a R Markdown
@@ -372,7 +390,10 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #'
 #' \if{html}{\figure{fig_plot_chunk_1.png}{options: width=70\%}}
 plot_chunk <- function(value, width = 1, height = .2,
-                       type = "box", free_scale = FALSE, ...) {
+                       type = "box", free_scale = FALSE, unit = "in", ...) {
+
+  width <- convin(unit = unit, x = width)
+  height <- convin(unit = unit, x = height)
 
   type <- match.arg(arg = type, choices = c('box', 'line', 'points', 'density'), several.ok = FALSE)
 
@@ -441,6 +462,7 @@ plot_chunk <- function(value, width = 1, height = .2,
 #'
 #' @param value gg objects, stored in a list column.
 #' @param width,height size of the resulting png file in inches
+#' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @note
 #' This chunk option requires package officedown in a R Markdown
 #' context with Word output format.
@@ -477,7 +499,10 @@ plot_chunk <- function(value, width = 1, height = .2,
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_gg_chunk_1.png}{options: width=70\%}}
-gg_chunk <- function(value, width = 1, height = .2) {
+gg_chunk <- function(value, width = 1, height = .2, unit = "in") {
+
+  width <- convin(unit = unit, x = width)
+  height <- convin(unit = unit, x = height)
 
   width <- as.double(rep(width, length(value)))
   height <- as.double(rep(height, length(value)))

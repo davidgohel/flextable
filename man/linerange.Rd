@@ -13,7 +13,8 @@ linerange(
   bg = "transparent",
   width = 1,
   height = 0.2,
-  raster_width = 30
+  raster_width = 30,
+  unit = "in"
 )
 }
 \arguments{
@@ -33,6 +34,8 @@ linerange(
 
 \item{raster_width}{number of pixels used as width
 when interpolating value.}
+
+\item{unit}{unit for width and height, one of "in", "cm", "mm".}
 }
 \description{
 This function is used to insert lineranges into
