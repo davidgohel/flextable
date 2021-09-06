@@ -3,7 +3,7 @@
 ## Issues
 
 * fix issue with border spaces and widths in HTML output. #343 
-
+* fix tests obfuscations with "pandoc-citeproc" that was not necessary.
 
 # flextable 0.6.7
 
