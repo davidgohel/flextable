@@ -85,7 +85,7 @@ table width is used (as a percentage)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
       </span>
     </div>
 
@@ -132,7 +132,7 @@ algorithm.</p>
 table width is used (as a percentage).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>set_table_properties</span><span class='op'>(</span><span class='va'>x</span>, layout <span class='op'>=</span> <span class='st'>"fixed"</span>, width <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>set_table_properties</span><span class='op'>(</span><span class='va'>x</span>, layout <span class='op'>=</span> <span class='st'>"fixed"</span>, width <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,17 +148,19 @@ table width is used (as a percentage).</p>
     <tr>
       <th>width</th>
       <td><p>The parameter has a different effect depending on the
-output format. In HTML, it is the width of the space that the
+output format. Users should consider it as a minimum width.
+In HTML, it is the minimum width of the space that the
 table should occupy. In Word, it is a preferred size and Word
 may decide not to strictly stick to it. It has no effect on
-PowerPoint and PDF output.</p></td>
+PowerPoint and PDF output. Its default value is 0, as an effect, it
+only use necessary width to display all content. It is not used by the
+PDF output.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>PowerPoint output ignore autofit layout as this algorithm does not
-exist for this Microsoft format.</p>
+    <p>PowerPoint output ignore autofit layout.</p>
     <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
 
     
@@ -208,7 +210,7 @@ exist for this Microsoft format.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

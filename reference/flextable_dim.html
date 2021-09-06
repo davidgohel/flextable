@@ -49,8 +49,7 @@
 <meta property="og:title" content="width and height of a flextable object — flextable_dim" />
 <meta property="og:description" content="Returns the width, height and
 aspect ratio of a flextable in a named list.
-The width and height are in inches. The aspect ratio
-is the ratio corresponding to height/width.
+The aspect ratio is the ratio corresponding to height/width.
 Names of the list are width, height and aspect_ratio." />
 <meta property="og:image" content="/logo.png" />
 
@@ -84,7 +83,7 @@ Names of the list are width, height and aspect_ratio." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
       </span>
     </div>
 
@@ -125,12 +124,11 @@ Names of the list are width, height and aspect_ratio." />
     <div class="ref-description">
     <p>Returns the width, height and
 aspect ratio of a flextable in a named list.
-The width and height are in inches. The aspect ratio
-is the ratio corresponding to <code>height/width</code>.</p>
+The aspect ratio is the ratio corresponding to <code>height/width</code>.</p>
 <p>Names of the list are <code>width</code>, <code>height</code> and <code>aspect_ratio</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>flextable_dim</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>flextable_dim</span><span class='op'>(</span><span class='va'>x</span>, unit <span class='op'>=</span> <span class='st'>"in"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,6 +136,10 @@ is the ratio corresponding to <code>height/width</code>.</p>
     <tr>
       <th>x</th>
       <td><p>a flextable object</p></td>
+    </tr>
+    <tr>
+      <th>unit</th>
+      <td><p>unit for returned values, one of "in", "cm", "mm".</p></td>
     </tr>
     </table>
 
@@ -189,7 +191,7 @@ is the ratio corresponding to <code>height/width</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
       </span>
     </div>
 
@@ -122,7 +122,14 @@
     <p>add a flextable into a Word document.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>body_add_flextable</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, align <span class='op'>=</span> <span class='st'>"center"</span>, pos <span class='op'>=</span> <span class='st'>"after"</span>, split <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>body_add_flextable</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>value</span>,
+  align <span class='op'>=</span> <span class='st'>"center"</span>,
+  pos <span class='op'>=</span> <span class='st'>"after"</span>,
+  split <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  topcaption <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
 <span class='fu'>body_replace_flextable_at_bkm</span><span class='op'>(</span>
   <span class='va'>x</span>,
@@ -156,6 +163,11 @@ one of "after", "before", "on" (end of line).</p></td>
       <th>split</th>
       <td><p>set to TRUE if you want to activate Word
 option 'Allow row to break across pages'.</p></td>
+    </tr>
+    <tr>
+      <th>topcaption</th>
+      <td><p>if TRUE caption is added before the table, if FALSE,
+caption is added after the table.</p></td>
     </tr>
     <tr>
       <th>bookmark</th>
@@ -197,7 +209,7 @@ a bookmark with a flextable. As a side effect, the bookmark will be lost.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

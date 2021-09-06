@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate pretty dimensions — dim_pretty • flextable</title>
+<title>is an element before a match with entries — before • flextable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Calculate pretty dimensions — dim_pretty" />
-<meta property="og:description" content="return minimum estimated widths and heights for
-each table columns and rows in inches." />
+<meta property="og:title" content="is an element before a match with entries — before" />
+<meta property="og:description" content="return a logical vector of the same length as x, indicating
+if elements are located before a set of entries to match or not." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -114,66 +114,68 @@ each table columns and rows in inches." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate pretty dimensions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/flextable_sizes.R'><code>R/flextable_sizes.R</code></a></small>
-    <div class="hidden name"><code>dim_pretty.Rd</code></div>
+    <h1>is an element before a match with entries</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/borders.R'><code>R/borders.R</code></a></small>
+    <div class="hidden name"><code>before.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>return minimum estimated widths and heights for
-each table columns and rows in inches.</p>
+    <p>return a logical vector of the same length as x, indicating
+if elements are located before a set of entries to match or not.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dim_pretty</span><span class='op'>(</span><span class='va'>x</span>, part <span class='op'>=</span> <span class='st'>"all"</span>, unit <span class='op'>=</span> <span class='st'>"in"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>before</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>entries</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>flextable object</p></td>
+      <td><p>an atomic vector of values to be tested</p></td>
     </tr>
     <tr>
-      <th>part</th>
-      <td><p>partname of the table (one of 'all', 'body', 'header' or 'footer')</p></td>
-    </tr>
-    <tr>
-      <th>unit</th>
-      <td><p>unit for returned values, one of "in", "cm", "mm".</p></td>
+      <th>entries</th>
+      <td><p>a sequence of items to be searched in <code>x</code>.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="line-breaks"><a class="anchor" href="#line-breaks"></a>line breaks</h2>
-
-    
-
-<p>Soft returns (a line break in a paragraph) are not supported. Function
-<code>dim_pretty</code> will return wrong results if <code>\n</code> are used (they will be
-considered as "").</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other flextable dimensions: 
-<code><a href='autofit.html'>autofit</a>()</code>,
-<code><a href='dim.flextable.html'>dim.flextable</a>()</code>,
-<code><a href='fit_to_width.html'>fit_to_width</a>()</code>,
-<code><a href='flextable_dim.html'>flextable_dim</a>()</code>,
-<code><a href='height.html'>height</a>()</code>,
-<code><a href='hrule.html'>hrule</a>()</code>,
-<code><a href='ncol_keys.html'>ncol_keys</a>()</code>,
-<code><a href='nrow_part.html'>nrow_part</a>()</code>,
-<code><a href='set_table_properties.html'>set_table_properties</a>()</code>,
-<code><a href='width.html'>width</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='hline.html'>hline()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>dim_pretty</span><span class='op'>(</span><span class='va'>ftab</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $widths
-#&gt;  [1] 0.5279654 0.4020431 0.5011845 0.4767908 0.5253545 0.6225563 0.6225563
-#&gt;  [8] 0.3551952 0.4276304 0.5325905 0.5225943
-#&gt; 
-#&gt; $heights
-#&gt; [1] 0.3329716 0.3008536 0.3008536 0.3008536 0.3008536 0.3008536 0.3008536
-#&gt; </div></pre>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/flextable-book/'>flextable</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
+
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  check.names <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  Level <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"setosa"</span>, <span class='st'>"versicolor"</span>, <span class='st'>"virginica"</span>, <span class='st'>"&lt;NA&gt;"</span>, <span class='st'>"Total"</span><span class='op'>)</span>,
+  Freq <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>50</span>, <span class='fl'>50</span>, <span class='fl'>0</span>, <span class='fl'>150</span><span class='op'>)</span><span class='op'>)</span>,
+  `% Valid` <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>/</span><span class='fl'>3</span>,
+                <span class='fl'>100</span><span class='op'>/</span><span class='fl'>3</span>,<span class='fl'>100</span><span class='op'>/</span><span class='fl'>3</span>,<span class='cn'>NA</span>,<span class='fl'>100</span><span class='op'>)</span>,
+  `% Valid Cum.` <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>/</span><span class='fl'>3</span>, <span class='fl'>100</span><span class='op'>*</span><span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, <span class='fl'>100</span>, <span class='cn'>NA</span>, <span class='fl'>100</span><span class='op'>)</span>,
+  `% Total` <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>/</span><span class='fl'>3</span>,
+                <span class='fl'>100</span><span class='op'>/</span><span class='fl'>3</span>,<span class='fl'>100</span><span class='op'>/</span><span class='fl'>3</span>,<span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span>,
+  `% Total Cum.` <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>/</span><span class='fl'>3</span>,
+                     <span class='fl'>100</span><span class='op'>*</span><span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>100</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span>
+<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='hline.html'>hline</a></span><span class='op'>(</span><span class='va'>ft</span>, i <span class='op'>=</span> <span class='op'>~</span> <span class='fu'>before</span><span class='op'>(</span><span class='va'>Level</span>, <span class='st'>"Total"</span><span class='op'>)</span>,
+            border <span class='op'>=</span> <span class='fu'><a href='fp_border_default.html'>fp_border_default</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ft</span>
+</div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `Level`, `Freq`, `% Valid`, `% Valid Cum.`, `% Total`, `% Total Cum.` 
+#&gt; header has 1 row(s) 
+#&gt; body has 5 row(s) 
+#&gt; original dataset sample: 
+#&gt;        Level Freq   % Valid % Valid Cum.   % Total % Total Cum.
+#&gt; 1     setosa   50  33.33333     33.33333  33.33333     33.33333
+#&gt; 2 versicolor   50  33.33333     66.66667  33.33333     66.66667
+#&gt; 3  virginica   50  33.33333    100.00000  33.33333    100.00000
+#&gt; 4       &lt;NA&gt;    0        NA           NA   0.00000    100.00000
+#&gt; 5      Total  150 100.00000    100.00000 100.00000    100.00000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
