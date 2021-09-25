@@ -36,6 +36,7 @@ get_text_data <- function(x, ls_df){
   dat[is_raster==FALSE, c("txt") := list(sprintf("%s%s%s", .SD$left, .SD$txt, .SD$right))]
 
   dat[, c("left", "right") := NULL]
+  setorderv(dat, c("ft_row_id", "col_id", "seq_index"))
   dat <- dat[, list(txt = paste0(get("txt"), collapse = "")), by = c("part", "ft_row_id", "col_id")]
   setDF(dat)
   dat

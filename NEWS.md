@@ -3,6 +3,7 @@
 ## Issues
 
 * fix width with border overlaps in pdf
+* chunks are now ordered as expected in pdf
 
 ## new features
 
