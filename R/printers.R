@@ -336,13 +336,14 @@ pptx_value <- function(x, ft.left = opts_current$get("ft.left"),
 #' Note also that a print method is used when flextable are used within
 #' R markdown documents. See [knit_print.flextable()].
 #' @param x flextable object
-#' @param preview preview type, one of c("html", "pptx", "docx", "log").
+#' @param preview preview type, one of c("html", "pptx", "docx", "pdf, "log").
 #' When `"log"` is used, a description of the flextable is printed.
 #' @param ... unused argument
 #' @family flextable print function
 #' @importFrom utils browseURL
+#' @importFrom rmarkdown render pdf_document
 #' @importFrom officer read_pptx add_slide read_docx
-print.flextable <- function(x, preview = "html", ...){
+print.flextable <- function(x, preview = "html", latex_engine = "xelatex", ...){
   if (!interactive() || "log" %in% preview ){
     cat("a flextable object.\n")
     cat( "col_keys:", paste0("`", x$col_keys, "`", collapse = ", " ), "\n" )
@@ -362,6 +363,12 @@ print.flextable <- function(x, preview = "html", ...){
     doc <- read_docx()
     doc <- body_add_flextable(doc, value = x, align = "center")
     file_out <- print(doc, target = tempfile(fileext = ".docx"))
+    browseURL(file_out)
+  } else if( preview == "pdf" ){
+    rmd <- tempfile(fileext = ".Rmd")
+    cat("```{r echo=FALSE}\nx\n```\n", file = rmd)
+    render(rmd, output_format = pdf_document(latex_engine = latex_engine), quiet = TRUE)
+    file_out <- gsub("\\.Rmd$", ".pdf", rmd)
     browseURL(file_out)
   }
 

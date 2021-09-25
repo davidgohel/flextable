@@ -1,3 +1,9 @@
+# flextable 0.6.9
+
+## new features
+
+* add "pdf" option for previewing a flextable in PDF with `print(x, preview ="pdf")`.
+
 # flextable 0.6.8
 
 ## Issues
