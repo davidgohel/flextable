@@ -16,7 +16,7 @@ latex_str <- function(x, ft.align = "center",
   dat <- get_text_data(x, linespacing_df)
 
   # hhlines and vborders ----
-  augment_borders(properties_df)
+  properties_df <- augment_borders(properties_df)
 
   # cell background color -----
   properties_df[, c("background_color") := list(
@@ -251,9 +251,70 @@ augment_top_borders <- function(properties_df) {
   hhline_top_data
 }
 
+#' @importFrom data.table copy
+#' @noRd
+#' @title make border top and bottom restructured
+#' as hline. If two borders overlap, the largest is
+#' choosen.
+as_border_latex <- function(x){
+  properties_df <- copy(x)
+  col_id_levels <- levels(properties_df$col_id)
+
+  top <- dcast(properties_df, part + ft_row_id ~ col_id, value.var = "border.width.top")
+  bottom <- dcast(properties_df, part + ft_row_id ~ col_id, value.var = "border.width.bottom")
+  top_mat <- as.matrix(top[, 3:ncol(top)])
+  bot_mat <- as.matrix(bottom[, 3:ncol(top)])
+
+  new_row_n <- nrow(top) + 1
+
+  if(new_row_n > 2){ # at least 3 rows
+
+    hlinemat <- matrix(0.0, nrow = new_row_n, ncol = ncol(top_mat))
+
+    hlinemat[1,] <- top_mat[1, , drop = FALSE]
+    hlinemat[nrow(hlinemat),] <- bot_mat[nrow(bot_mat),, drop = FALSE]
+    hlinemat[setdiff(seq_len(new_row_n), c(1, new_row_n)),] <- pmax(bot_mat[-nrow(bot_mat),, drop = FALSE], top_mat[-1,, drop = FALSE])
+
+    # now lets replace values
+    bottom[, 3:ncol(top)] <- as.data.table(hlinemat[-1,])
+    top[1, 3:ncol(top)] <- as.data.table(hlinemat[1,, drop = FALSE])
+    top[2:nrow(top), 3:ncol(top)] <- 0.0
+
+    top <- melt(top,
+                id.vars = c("part", "ft_row_id"),
+                variable.name = "col_id",
+                value.name = "border.width.top",
+                variable.factor = FALSE)
+    top$col_id <- factor(top$col_id, levels = col_id_levels)
+    bottom <- melt(bottom,
+                   id.vars = c("part", "ft_row_id"),
+                   variable.name = "col_id",
+                   value.name = "border.width.bottom",
+                   variable.factor = FALSE)
+    bottom$col_id <- factor(bottom$col_id, levels = col_id_levels)
+
+    properties_df$border.width.bottom <- NULL
+    properties_df$border.width.top <- NULL
+
+    properties_df <- merge(
+      x = properties_df,
+      y = top,
+      by = c("part", "ft_row_id", "col_id"))
+    properties_df <- merge(
+      x = properties_df,
+      y = bottom,
+      by = c("part", "ft_row_id", "col_id"))
+  }
+
+  properties_df
+}
+
+
 augment_borders <- function(properties_df) {
   stopifnot(is.data.table(properties_df))
   # hhlines and vborders ----
+
+  properties_df = as_border_latex(properties_df)
   properties_df[, c("vborder_left", "vborder_right", "hhlines_bottom", "hhlines_top") :=
     list(
       latex_vborder(w = .SD$border.width.left, cols = .SD$border.color.left),

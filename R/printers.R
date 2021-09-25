@@ -338,12 +338,12 @@ pptx_value <- function(x, ft.left = opts_current$get("ft.left"),
 #' @param x flextable object
 #' @param preview preview type, one of c("html", "pptx", "docx", "pdf, "log").
 #' When `"log"` is used, a description of the flextable is printed.
-#' @param ... unused argument
+#' @param ... arguments for 'pdf_document' call when preview is "pdf".
 #' @family flextable print function
 #' @importFrom utils browseURL
 #' @importFrom rmarkdown render pdf_document
 #' @importFrom officer read_pptx add_slide read_docx
-print.flextable <- function(x, preview = "html", latex_engine = "xelatex", ...){
+print.flextable <- function(x, preview = "html", ...){
   if (!interactive() || "log" %in% preview ){
     cat("a flextable object.\n")
     cat( "col_keys:", paste0("`", x$col_keys, "`", collapse = ", " ), "\n" )
@@ -367,7 +367,7 @@ print.flextable <- function(x, preview = "html", latex_engine = "xelatex", ...){
   } else if( preview == "pdf" ){
     rmd <- tempfile(fileext = ".Rmd")
     cat("```{r echo=FALSE}\nx\n```\n", file = rmd)
-    render(rmd, output_format = pdf_document(latex_engine = latex_engine), quiet = TRUE)
+    render(rmd, output_format = pdf_document(...), quiet = TRUE)
     file_out <- gsub("\\.Rmd$", ".pdf", rmd)
     browseURL(file_out)
   }

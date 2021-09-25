@@ -4,7 +4,7 @@
 \alias{print.flextable}
 \title{flextable printing}
 \usage{
-\method{print}{flextable}(x, preview = "html", latex_engine = "xelatex", ...)
+\method{print}{flextable}(x, preview = "html", ...)
 }
 \arguments{
 \item{x}{flextable object}
@@ -12,7 +12,7 @@
 \item{preview}{preview type, one of c("html", "pptx", "docx", "pdf, "log").
 When \code{"log"} is used, a description of the flextable is printed.}
 
-\item{...}{unused argument}
+\item{...}{arguments for 'pdf_document' call when preview is "pdf".}
 }
 \description{
 print a flextable object to format \code{html}, \code{docx},

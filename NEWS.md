@@ -1,5 +1,9 @@
 # flextable 0.6.9
 
+## Issues
+
+* fix width with border overlaps in pdf
+
 ## new features
 
 * add "pdf" option for previewing a flextable in PDF with `print(x, preview ="pdf")`.
