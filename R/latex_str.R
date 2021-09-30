@@ -314,20 +314,20 @@ augment_borders <- function(properties_df) {
   stopifnot(is.data.table(properties_df))
   # hhlines and vborders ----
 
-  properties_df = as_border_latex(properties_df)
+  properties_df <- as_border_latex(properties_df)
   properties_df[, c("vborder_left", "vborder_right", "hhlines_bottom", "hhlines_top") :=
     list(
       latex_vborder(w = .SD$border.width.left, cols = .SD$border.color.left),
-      fcase((as.integer(.SD$col_id) + .SD$rowspan) == (nlevels(.SD$col_id) + 1L),
+      fcase(
+        (as.integer(.SD$col_id) + .SD$rowspan) == (nlevels(.SD$col_id) + 1L),
         latex_vborder(w = .SD$border.width.right, cols = .SD$border.color.right),
         default = ""
       ),
       latex_hhline(w = .SD$border.width.bottom, cols = .SD$border.color.bottom),
-      fcase(.SD$ft_row_id %in% 1 &
-              as.integer(.SD$part) == min(as.integer(.SD$part)),
-      latex_hhline(w = .SD$border.width.top, cols = .SD$border.color.top),
-      default = ""
-      )
+      fcase(
+        .SD$ft_row_id %in% 1 & as.integer(.SD$part) == min(as.integer(.SD$part)),
+        latex_hhline(w = .SD$border.width.top, cols = .SD$border.color.top),
+        default = "")
     )]
   void_merged_colspan <- function(hhline, colspan) {
     ifelse(c(colspan[-1], 1) < 1, "~", hhline)
