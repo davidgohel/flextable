@@ -96,7 +96,7 @@ flextable_to_rmd <- function(
     # with markdown package ----
     str <- html_value(x,
       ft.align = ft.align, bookdown = FALSE,
-      pandoc2 = FALSE, ft.shadow = FALSE
+      pandoc2 = pandoc2, ft.shadow = FALSE
     )
   } else if (is_xaringan) {
     # xaringan ----
@@ -178,8 +178,8 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
   }
 
   caption_str <- caption_html_str(x, bookdown = bookdown)
-  if(pandoc2 && bookdown) {
-    # This is unfortunate but mandatory as bookdown need to scan captions...
+  if(pandoc2) {
+    # This is unfortunate but mandatory to let the caption be converted by pandoc...
     caption_str <- paste0("\n```\n", caption_str, "\n```{=html}\n")
   }
 

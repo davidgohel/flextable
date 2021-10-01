@@ -119,14 +119,18 @@ caption_docx_bookdown <- function(x){
   }
 
   caption <- ""
-  if(has_caption_label) {
-    zz <- if(!is.null(tab_props$id)){
-      run_bookmark(paste0(tab_props$tab.lp, tab_props$id), ftext(tab_props$cap))
-    } else {
-      ftext(tab_props$cap)
-    }
 
+
+  if(has_caption_label) {
+    caption <- tab_props$cap
+
+    zz <- if(!is.null(tab_props$id)){
+      run_bookmark(paste0(tab_props$tab.lp, tab_props$id), ftext("TABCAPTION"))
+    } else {
+      ftext("TABCAPTION")
+    }
     zz <- paste("`", to_wml(zz), "`{=openxml}", sep = "")
+    zz <- gsub("TABCAPTION", paste0("`{=openxml}", caption, "`"), zz)
 
     caption <- paste(
       "",

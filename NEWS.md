@@ -4,6 +4,7 @@
 
 * fix width with border overlaps in pdf
 * chunks are now ordered as expected in pdf
+* markdown can be used in table captions in R Markdown documents
 
 ## new features
 

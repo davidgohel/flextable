@@ -564,6 +564,18 @@ latex_caption <- function(x, bookdown) {
   }
   caption <- ""
   if (!is.null(caption_label)) {
+
+    if (requireNamespace("commonmark", quietly = TRUE)) {
+      gmatch <- gregexpr(pattern = "\\$[^\\$]+\\$", caption_label)
+      equations <- regmatches(caption_label, gmatch)[[1]]
+      names(equations) <- paste0("EQUATIONN", seq_along(equations))
+      regmatches(caption_label, gmatch) <- list(names(equations))
+      caption_label <- commonmark::markdown_latex(caption_label)
+      for(eq in names(equations)){
+        caption_label <- gsub(eq, equations[eq], caption_label)
+      }
+    }
+
     caption <- paste0(
       "\\caption{",
       caption_label, "}",

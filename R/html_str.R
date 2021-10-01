@@ -22,9 +22,9 @@ caption_html_str <- function(x, bookdown = FALSE){
   caption <- ""
   has_caption_label <- !is.null(caption_label)
   if(has_caption_label) {
-    caption <- paste0(sprintf("<caption class=\"%s\">", caption_style),
+    caption <- paste0(sprintf("<caption class=\"%s\">\n\n", caption_style),
                       if(bookdown) bookdown_ref_label,
-                      caption_label, "</caption>")
+                      caption_label, "\n\n</caption>")
   }
   caption
 }
