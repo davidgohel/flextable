@@ -85,12 +85,7 @@ latex_str <- function(x, ft.align = "center",
   txt_data[, c("txt") := list(paste0(.SD$txt, " \\\\"))]
   setorderv(txt_data, c("part", "ft_row_id"))
 
-  if (any(!cell_properties_df$background_color %in% "")) {
-    # need hhline as cline does not work when there is a background_color
-    hhline_data <- extract_hhline_bottom(cell_properties_df)
-  } else {
-    hhline_data <- extract_cline(cell_properties_df)
-  }
+  hhline_data <- extract_hhline_bottom(cell_properties_df)
 
   hhline_top_data <- augment_top_borders(cell_properties_df)
   txt_data <- merge(txt_data, hhline_top_data, by = c("part", "ft_row_id"), all.x = TRUE, all.y = TRUE)
@@ -362,17 +357,6 @@ latex_hhline <- function(w, cols, digits = 0) {
   z[w < .001 | is_transparent] <- "~"
   z
 }
-latex_cline <- function(w, cols, from, to) {
-  size <- format_double(w, digits = 1)
-  is_transparent <- colalpha(cols) < 1
-  cols <- colcode0(cols)
-  z <- sprintf(
-    "\\docline{%spt}{%s}{%s}",
-    size, cols, paste(from, to, sep = "-")
-  )
-  z[w < .001 | is_transparent] <- ""
-  z
-}
 
 extract_hhline_bottom <- function(cell_data) {
   was_dt <- is.data.table(cell_data)
@@ -397,38 +381,6 @@ extract_hhline_bottom <- function(cell_data) {
   if (!was_dt) setDF(cell_data)
 
   hhline
-}
-
-extract_cline <- function(df) {
-  border_bottom <- df[, c(
-    "part", "col_id", "ft_row_id", "colspan",
-    "border.width.bottom", "border.color.bottom", "border.style.bottom"
-  )]
-  setorderv(border_bottom, cols = c("part", "ft_row_id", "col_id"))
-  border_bottom[border_bottom$colspan < 1, c("border.width.bottom") := list(0), ]
-  border_bottom[, c("border_uid") :=
-    list(
-      rleid(
-        .SD$border.width.bottom,
-        .SD$border.color.bottom,
-        .SD$border.style.bottom
-      )
-    ), by = c("part", "ft_row_id")]
-
-  border_bottom <- border_bottom[, list(
-    cline = latex_cline(
-      w = head(.SD$border.width.bottom, n = 1),
-      cols = head(.SD$border.color.bottom, n = 1),
-      from = min(as.integer(.SD$col_id)),
-      to = max(as.integer(.SD$col_id))
-    )
-  ), by = c("part", "ft_row_id", "border_uid")]
-  border_bottom <- border_bottom[, list(
-    hhline = paste(.SD$cline, collapse = "")
-  ), by = c("part", "ft_row_id")]
-
-  setDF(border_bottom)
-  border_bottom
 }
 
 cline_cmd <- paste0(
@@ -568,7 +520,7 @@ latex_caption <- function(x, bookdown) {
     if (requireNamespace("commonmark", quietly = TRUE)) {
       gmatch <- gregexpr(pattern = "\\$[^\\$]+\\$", caption_label)
       equations <- regmatches(caption_label, gmatch)[[1]]
-      names(equations) <- paste0("EQUATIONN", seq_along(equations))
+      names(equations) <- sprintf("EQUATIONN%.0f", seq_along(equations))
       regmatches(caption_label, gmatch) <- list(names(equations))
       caption_label <- commonmark::markdown_latex(caption_label)
       for(eq in names(equations)){
