@@ -1,12 +1,30 @@
 # borders format ----
 
 #' @export
-#' @title Set cell borders
+#' @title cell borders update
 #' @description change borders of selected rows and columns of a flextable.
 #' This function is not to be used by end user (it requires careful
 #' settings to avoid overlapping borders) but only for programming purposes.
-#' If you need to add borders, use instead functions [hline()], [vline()],
-#' [border_outer()], ...
+#'
+#' If you need to add borders, use instead other functions:
+#'
+#' These set borders for the whole table : [border_outer()],
+#' [border_inner_h()] and [border_inner_v()].
+#'
+#' All the following functions also support the
+#' row and column selector `i` and `j`:
+#'
+#' * [hline()]: set bottom borders (inner horizontal)
+#' * [vline()]: set right borders (inner vertical)
+#' * [hline_top()]: set the top border (outer horizontal)
+#' * [hline_bottom()]: set the bottom border (outer horizontal)
+#' * [vline_left()]: set the left border (outer vertical)
+#' * [vline_right()]: set the right border (outer vertical)
+#'
+#' If you want to highlight specific cells with some borders, use
+#' [surround()].
+#' @note
+#' pdf and pptx outputs do not support `border()` usage.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
@@ -16,7 +34,6 @@
 #' @param border.bottom border bottom
 #' @param border.left border left
 #' @param border.right border right
-#' @family borders management
 #' @examples
 #' library(officer)
 #' ftab <- flextable(head(mtcars))
@@ -597,4 +614,115 @@ before <- function(x, entries){
   z[index] <- TRUE
   z
 }
+
+#' @export
+#' @title Set borders for a selection of cells
+#' @description Highlight specific cells with borders.
+#'
+#' To set borders for the whole table, use [border_outer()],
+#' [border_inner_h()] and [border_inner_v()].
+#'
+#' All the following functions also support the
+#' row and column selector `i` and `j`:
+#'
+#' * [hline()]: set bottom borders (inner horizontal)
+#' * [vline()]: set right borders (inner vertical)
+#' * [hline_top()]: set the top border (outer horizontal)
+#' * [vline_left()]: set the left border (outer vertical)
+#'
+#' @inheritParams border
+#' @family borders management
+#' @examples
+#' library(officer)
+#' library(flextable)
+#'
+#' # cell to highlight
+#' vary_i <- 1:3
+#' vary_j <- 1:3
+#'
+#' std_border <- fp_border(color = "orange")
+#'
+#' ft <- flextable(head(iris))
+#' ft <- border_remove(x = ft)
+#' ft <- border_outer(x = ft, border = std_border)
+#'
+#' for (id in seq_along(vary_i)) {
+#'   ft <- bg(
+#'     x = ft,
+#'     i = vary_i[id],
+#'     j = vary_j[id], bg = "yellow"
+#'   )
+#'   ft <- surround(
+#'     x = ft,
+#'     i = vary_i[id],
+#'     j = vary_j[id],
+#'     border.left = std_border,
+#'     border.right = std_border,
+#'     part = "body"
+#'   )
+#' }
+#'
+#' ft <- autofit(ft)
+#' ft
+#' # # render
+#' # print(ft, preview = "pptx")
+#' # print(ft, preview = "docx")
+#' # print(ft, preview = "pdf")
+#' # print(ft, preview = "html")
+surround <- function(x, i = NULL, j = NULL, border = NULL,
+                     border.top = NULL, border.bottom = NULL,
+                     border.left = NULL, border.right = NULL,
+                     part = "body"){
+  if( !inherits(x, "flextable") ) stop("vline supports only flextable objects.")
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( !is.null(border) ){
+    if( is.null( border.top) ) border.top <- border
+    if( is.null( border.bottom) ) border.bottom <- border
+    if( is.null( border.left) ) border.left <- border
+    if( is.null( border.right) ) border.right <- border
+  }
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- surround(x = x, i = i, j = j,
+                  border.top = border.top, border.bottom = border.bottom,
+                  border.left = border.left, border.right = border.right,
+                  part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+
+  if(!is.null(border.top)){
+    itop <- setdiff(i, 1) - 1
+    x <- hline(x, i = itop, j = j, part = part, border = border.top)
+    if(1 %in% i){
+      x <- hline_top(x, j = j, part = part, border = border.top)
+    }
+  }
+  if(!is.null(border.bottom)){
+    x <- hline(x, i = i, j = j, part = part, border = border.bottom)
+  }
+  if(!is.null(border.left)){
+    jleft <- setdiff(j, 1) - 1
+    x <- vline(x, i = i, j = jleft, part = part, border = border.left)
+    if(1 %in% j){
+      x <- vline_left(x, i = i, part = part, border = border.left)
+    }
+  }
+  if(!is.null(border.right)){
+    x <- vline(x, i = i, j = j, part = part, border = border.right)
+  }
+
+  x
+}
+
+
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{border}
 \alias{border}
-\title{Set cell borders}
+\title{cell borders update}
 \usage{
 border(
   x,
@@ -39,8 +39,28 @@ border(
 change borders of selected rows and columns of a flextable.
 This function is not to be used by end user (it requires careful
 settings to avoid overlapping borders) but only for programming purposes.
-If you need to add borders, use instead functions \code{\link[=hline]{hline()}}, \code{\link[=vline]{vline()}},
-\code{\link[=border_outer]{border_outer()}}, ...
+
+If you need to add borders, use instead other functions:
+
+These set borders for the whole table : \code{\link[=border_outer]{border_outer()}},
+\code{\link[=border_inner_h]{border_inner_h()}} and \code{\link[=border_inner_v]{border_inner_v()}}.
+
+All the following functions also support the
+row and column selector \code{i} and \code{j}:
+\itemize{
+\item \code{\link[=hline]{hline()}}: set bottom borders (inner horizontal)
+\item \code{\link[=vline]{vline()}}: set right borders (inner vertical)
+\item \code{\link[=hline_top]{hline_top()}}: set the top border (outer horizontal)
+\item \code{\link[=hline_bottom]{hline_bottom()}}: set the bottom border (outer horizontal)
+\item \code{\link[=vline_left]{vline_left()}}: set the left border (outer vertical)
+\item \code{\link[=vline_right]{vline_right()}}: set the right border (outer vertical)
+}
+
+If you want to highlight specific cells with some borders, use
+\code{\link[=surround]{surround()}}.
+}
+\note{
+pdf and pptx outputs do not support \code{border()} usage.
 }
 \examples{
 library(officer)
@@ -48,19 +68,4 @@ ftab <- flextable(head(mtcars))
 ftab <- border(ftab, border.top = fp_border(color = "orange") )
 ftab
 }
-\seealso{
-Other borders management: 
-\code{\link{border_inner_h}()},
-\code{\link{border_inner_v}()},
-\code{\link{border_inner}()},
-\code{\link{border_outer}()},
-\code{\link{border_remove}()},
-\code{\link{hline_bottom}()},
-\code{\link{hline_top}()},
-\code{\link{hline}()},
-\code{\link{vline_left}()},
-\code{\link{vline_right}()},
-\code{\link{vline}()}
-}
-\concept{borders management}
 \keyword{internal}

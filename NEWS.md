@@ -4,7 +4,8 @@
 
 * add "nan" option in formatting functions  
 `colformat_*` and `set_flextable_defaults`.
-
+* new function `surround()` to ease the highlighting 
+of specific cells with borders.
 
 ## Issues
 
