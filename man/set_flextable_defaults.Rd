@@ -26,6 +26,7 @@ set_flextable_defaults(
   big.mark = NULL,
   digits = NULL,
   na_str = NULL,
+  nan_str = NULL,
   fmt_date = NULL,
   fmt_datetime = NULL,
   extra_css = NULL,
@@ -78,7 +79,7 @@ Japanese text might be displayed using the "MS Mincho" font.}
 characters in a Unicode range which does not fall into one of the
 other categories.}
 
-\item{decimal.mark, big.mark, digits, na_str}{\link{formatC} arguments used by \code{\link[=colformat_num]{colformat_num()}},
+\item{decimal.mark, big.mark, digits, na_str, nan_str}{\link{formatC} arguments used by \code{\link[=colformat_num]{colformat_num()}},
 \code{\link[=colformat_double]{colformat_double()}}, and \code{\link[=colformat_int]{colformat_int()}}.}
 
 \item{fmt_date, fmt_datetime}{formats for date and datetime columns as

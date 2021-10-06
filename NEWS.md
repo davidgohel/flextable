@@ -1,5 +1,11 @@
 # flextable 0.6.9
 
+## new features
+
+* add "nan" option in formatting functions  
+`colformat_*` and `set_flextable_defaults`.
+
+
 ## Issues
 
 * fix width with border overlaps in pdf

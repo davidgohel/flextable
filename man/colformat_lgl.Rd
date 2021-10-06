@@ -11,6 +11,7 @@ colformat_lgl(
   true = "true",
   false = "false",
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "",
   suffix = ""
 )
@@ -24,7 +25,9 @@ colformat_lgl(
 
 \item{false, true}{string to be used for logical}
 
-\item{na_str}{string to be used for NA values}
+\item{na_str}{string to be used for NA and NaN values}
+
+\item{nan_str}{string to be used for NA and NaN values}
 
 \item{prefix}{string to be used as prefix or suffix}
 

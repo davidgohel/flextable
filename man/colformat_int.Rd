@@ -10,6 +10,7 @@ colformat_int(
   j = NULL,
   big.mark = get_flextable_defaults()$big.mark,
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "",
   suffix = ""
 )
@@ -23,7 +24,9 @@ colformat_int(
 
 \item{big.mark}{see \code{\link[=format]{format()}}}
 
-\item{na_str}{string to be used for NA values}
+\item{na_str}{string to be used for NA and NaN values}
+
+\item{nan_str}{string to be used for NA and NaN values}
 
 \item{prefix}{string to be used as prefix or suffix}
 

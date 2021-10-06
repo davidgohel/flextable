@@ -9,6 +9,7 @@ colformat_char(
   i = NULL,
   j = NULL,
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "",
   suffix = ""
 )
@@ -20,7 +21,7 @@ colformat_char(
 
 \item{j}{columns selection.}
 
-\item{na_str}{string to be used for NA values}
+\item{na_str, nan_str}{string to be used for NA and NaN values}
 
 \item{prefix, suffix}{string to be used as prefix or suffix}
 }

@@ -21,6 +21,7 @@ default_flextable_settings <- list(
   big.mark = ",",
   digits = 1,
   na_str  = "",
+  nan_str  = "",
   fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
   fonts_ignore = FALSE,
   extra_css = "",
@@ -66,7 +67,7 @@ flextable_global$defaults <- default_flextable_settings
 #' @param background.color cell background color - a single character value specifying a
 #' valid color (e.g. "#000000" or "black").
 #' @param table.layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
-#' @param decimal.mark,big.mark,digits,na_str [formatC] arguments used by [colformat_num()],
+#' @param decimal.mark,big.mark,digits,na_str,nan_str [formatC] arguments used by [colformat_num()],
 #' [colformat_double()], and [colformat_int()].
 #' @param fmt_date,fmt_datetime formats for date and datetime columns as
 #' documented in [strptime()]. Default to '%Y-%m-%d' and '%Y-%m-%d %H:%M:%S'.
@@ -109,7 +110,8 @@ set_flextable_defaults <- function(
   line_spacing = NULL,
   table.layout = NULL,
   cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
-  decimal.mark = NULL, big.mark = NULL, digits = NULL, na_str = NULL,
+  decimal.mark = NULL, big.mark = NULL, digits = NULL,
+  na_str = NULL, nan_str = NULL,
   fmt_date = NULL, fmt_datetime = NULL, extra_css = NULL,
   fonts_ignore = NULL, theme_fun = NULL,
   post_process_pdf = NULL,
@@ -188,6 +190,9 @@ set_flextable_defaults <- function(
   }
   if( !is.null(na_str) ){
     x$na_str <- na_str
+  }
+  if( !is.null(nan_str) ){
+    x$nan_str <- nan_str
   }
   if( !is.null(fonts_ignore) ){
     x$fonts_ignore <- fonts_ignore
@@ -272,7 +277,7 @@ print.flextable_defaults <- function(x, ...){
 
   message("## cell content settings\n")
   contents <- c("decimal.mark", "big.mark",
-              "digits", "na_str", "fmt_date", "fmt_datetime")
+              "digits", "na_str", "nan_str", "fmt_date", "fmt_datetime")
   df <- data.frame(property = contents, value = unlist(x[contents]), stringsAsFactors = FALSE)
   row.names(df) <- NULL
   print(df)

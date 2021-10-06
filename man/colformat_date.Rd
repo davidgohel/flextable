@@ -10,6 +10,7 @@ colformat_date(
   j = NULL,
   fmt_date = get_flextable_defaults()$fmt_date,
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "",
   suffix = ""
 )
@@ -23,7 +24,9 @@ colformat_date(
 
 \item{fmt_date}{see \code{\link[=strptime]{strptime()}}}
 
-\item{na_str}{string to be used for NA values}
+\item{na_str}{string to be used for NA and NaN values}
+
+\item{nan_str}{string to be used for NA and NaN values}
 
 \item{prefix}{string to be used as prefix or suffix}
 

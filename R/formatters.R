@@ -85,7 +85,7 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection.
-#' @param na_str string to be used for NA values
+#' @param na_str,nan_str string to be used for NA and NaN values
 #' @param prefix,suffix string to be used as prefix or suffix
 #' @family cells formatters
 #' @examples
@@ -101,15 +101,16 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 colformat_char <- function(
   x, i = NULL, j = NULL,
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "", suffix = ""){
 
   stopifnot(inherits(x, "flextable"))
 
   quo_fun <- quo(format_fun.character(
-    x, na_str = na_str, prefix = prefix, suffix = suffix
+    x, na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix
   ))
   fun_ <- new_function(
-    pairlist2(x = , na_str = na_str, prefix = prefix, suffix = suffix),
+    pairlist2(x = , na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix),
     get_expr(quo_fun))
 
   col_keys <- filter_col_keys(x, j, function(x) is.character(x) || is.factor(x))
@@ -138,6 +139,7 @@ colformat_double <- function(
   decimal.mark = get_flextable_defaults()$decimal.mark,
   digits = get_flextable_defaults()$digits,
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "", suffix = ""){
 
   stopifnot(inherits(x, "flextable"))
@@ -146,11 +148,11 @@ colformat_double <- function(
 
   quo_fun <- quo(format_fun.double(
     x, big.mark = big.mark, decimal.mark = decimal.mark,
-    digits = digits, na_str = na_str, prefix = prefix, suffix = suffix
+    digits = digits, na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix
   ))
   fun_ <- new_function(
     pairlist2(x = , big.mark = big.mark, decimal.mark = decimal.mark,
-              digits = digits, na_str = na_str, prefix = prefix, suffix = suffix),
+              digits = digits, na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix),
     get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)
@@ -184,6 +186,7 @@ colformat_num <- function(
   big.mark = get_flextable_defaults()$big.mark,
   decimal.mark = get_flextable_defaults()$decimal.mark,
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "", suffix = "", ...){
 
   stopifnot(inherits(x, "flextable"))
@@ -191,11 +194,11 @@ colformat_num <- function(
 
   quo_fun <- quo(format_fun.default(
     x, big.mark = big.mark, decimal.mark = decimal.mark,
-    na_str = na_str, prefix = prefix, suffix = suffix
+    na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix
   ))
   fun_ <- new_function(
     pairlist2(x = , big.mark = big.mark, decimal.mark = decimal.mark,
-              na_str = na_str, prefix = prefix, suffix = suffix),
+              na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix),
     get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)
@@ -221,6 +224,7 @@ colformat_date <- function(
   x, i = NULL, j = NULL,
   fmt_date = get_flextable_defaults()$fmt_date,
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "", suffix = ""){
 
   stopifnot(inherits(x, "flextable"))
@@ -228,9 +232,9 @@ colformat_date <- function(
   col_keys <- filter_col_keys(x, j, function(x) inherits(x, "Date") )
 
   quo_fun <- quo(format_fun.Date(
-    x, fmt_date = fmt_date, na_str = na_str, prefix = prefix, suffix = suffix))
+    x, fmt_date = fmt_date, na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix))
   fun_ <- new_function(
-    pairlist2(x = , fmt_date = fmt_date, na_str = na_str, prefix = prefix, suffix = suffix),
+    pairlist2(x = , fmt_date = fmt_date, na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix),
     get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)
@@ -256,6 +260,7 @@ colformat_datetime <- function(
   x, i = NULL, j = NULL,
   fmt_datetime = get_flextable_defaults()$fmt_datetime,
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "", suffix = ""){
 
   stopifnot(inherits(x, "flextable"))
@@ -263,9 +268,9 @@ colformat_datetime <- function(
   col_keys <- filter_col_keys(x, j, function(x) inherits(x, "POSIXt") )
 
   quo_fun <- quo(format_fun.POSIXt(
-    x, fmt_datetime = fmt_datetime, na_str = na_str, prefix = prefix, suffix = suffix))
+    x, fmt_datetime = fmt_datetime, na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix))
   fun_ <- new_function(
-    pairlist2(x = , fmt_datetime = fmt_datetime, na_str = na_str, prefix = prefix, suffix = suffix),
+    pairlist2(x = , fmt_datetime = fmt_datetime, na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix),
     get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)
@@ -286,6 +291,7 @@ colformat_int <- function(
   x, i = NULL, j = NULL,
   big.mark = get_flextable_defaults()$big.mark,
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "", suffix = ""){
 
   stopifnot(inherits(x, "flextable"))
@@ -293,9 +299,9 @@ colformat_int <- function(
   col_keys <- filter_col_keys(x, j, is.integer)
 
   quo_fun <- quo(format_fun.integer(
-    x, big.mark = big.mark, na_str = na_str, prefix = prefix, suffix = suffix))
+    x, big.mark = big.mark, na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix))
   fun_ <- new_function(
-    pairlist2(x = , big.mark = big.mark, na_str = na_str, prefix = prefix, suffix = suffix),
+    pairlist2(x = , big.mark = big.mark, na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix),
     get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)
@@ -317,6 +323,7 @@ colformat_lgl <- function(
   x, i = NULL, j = NULL,
   true = "true", false = "false",
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "", suffix = ""){
 
   stopifnot(inherits(x, "flextable"))
@@ -325,10 +332,11 @@ colformat_lgl <- function(
 
   quo_fun <- quo(format_fun.logical(
     x, true = true, false = false,
-    na_str = na_str, prefix = prefix, suffix = suffix))
+    na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix))
   fun_ <- new_function(
     pairlist2(x = , true = true, false = false,
-              na_str = na_str, prefix = prefix, suffix = suffix),
+              na_str = na_str, nan_str = nan_str,
+              prefix = prefix, suffix = suffix),
     get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)
@@ -360,6 +368,7 @@ colformat_image <- function(
   x, i = NULL, j = NULL,
   width, height,
   na_str = get_flextable_defaults()$na_str,
+  nan_str = get_flextable_defaults()$nan_str,
   prefix = "", suffix = ""){
 
   stopifnot(inherits(x, "flextable"))
