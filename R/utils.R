@@ -99,7 +99,7 @@ cm_to_inches <- function(x) {
   x / 2.54
 }
 mm_to_inches <- function(x) {
-  x / 254
+  x / 25.4
 }
 convin <- function(unit, x) {
   unit <- match.arg(unit, choices = c("in", "cm", "mm"), several.ok = FALSE)

@@ -1,3 +1,10 @@
+# flextable 0.6.10
+
+## Issues
+
+* fix convertion when unit = "mm"
+
+
 # flextable 0.6.9
 
 ## new features
