@@ -93,16 +93,3 @@ test_that("word_document captions", {
   expect_equal(xml_text(wordfields), c("SEQ tab \\* Arabic", "SEQ tab \\* Arabic"))
 })
 
-test_that("html_document captions", {
-  skip_if_not(pandoc_version() >= numeric_version("2"))
-
-  render(rmd_file, output_format = "rmarkdown::html_document",
-         output_file = "caption.html", quiet = TRUE)
-  doc <- read_html(file.path(dirname(rmd_file), "caption.html"))
-  captions <- xml_find_all(doc, "//table/caption")
-  expect_equal(
-    sum(grepl("a table caption", xml_text(captions))),
-    2
-  )
-})
-

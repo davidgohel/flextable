@@ -3,7 +3,7 @@
 ## Issues
 
 * fix convertion when unit = "mm"
-
+* fix regression with captions when bookdown generate a 'Word' document #354
 
 # flextable 0.6.9
 

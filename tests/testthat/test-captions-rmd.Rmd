@@ -1,0 +1,39 @@
+---
+title: none
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(flextable)
+library(magrittr)
+library(officer)
+caption_md <- "This is $E = m c^2$ figure with an inline latex equation ($y=mx+b$) and some markdown (*italics*, ~subscript~, **bold**)"
+knitr::opts_chunk$set(tab.lp = "tab:")
+ft <- flextable(head(mtcars)) %>% 
+  theme_vanilla() %>% 
+  autofit()
+
+```
+
+
+Cross-reference is there: \@ref(tab:id1)
+
+## A caption, no id
+
+```{r tab.cap=caption_md}
+ft
+```
+
+
+## A caption and an id
+
+```{r tab.cap=caption_md, tab.id="id1"}
+ft
+```
+
+## No caption and an id
+
+```{r tab.id="tab3"}
+ft
+```
+
