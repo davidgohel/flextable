@@ -5,6 +5,10 @@
 * fix convertion when unit = "mm"
 * fix regression with captions when bookdown generate a 'Word' document #354
 
+## Enhancement
+
+* Theme functions behavior is now more detailed in the manual.
+
 # flextable 0.6.9
 
 ## new features
@@ -13,16 +17,14 @@
 `colformat_*` and `set_flextable_defaults`.
 * new function `surround()` to ease the highlighting 
 of specific cells with borders.
+* add "pdf" option for previewing a flextable in PDF 
+with `print(x, preview ="pdf")`.
 
 ## Issues
 
 * fix width with border overlaps in pdf
 * chunks are now ordered as expected in pdf
 * markdown can be used in table captions in R Markdown documents
-
-## new features
-
-* add "pdf" option for previewing a flextable in PDF with `print(x, preview ="pdf")`.
 
 # flextable 0.6.8
 

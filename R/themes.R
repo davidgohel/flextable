@@ -8,6 +8,27 @@
 #' are black 0.5 point thick. Header text is bold,
 #' text columns are left aligned, other columns are
 #' right aligned.
+#' @section behavior:
+#' Theme functions are not like 'ggplot2' themes. They are applied to the existing
+#' table **immediately**. If you add a row in the footer, the new row is not formatted
+#' with the theme. The theme function applies the theme only to existing elements
+#' when the function is called.
+#'
+#' That is why theme functions should be applied after all elements of the table
+#' have been added (mainly additionnal header or footer rows).
+#'
+#' If you want to automatically apply a theme function to each flextable,
+#' you can use the `theme_fun` argument of [set_flextable_defaults()]; be
+#' aware that this theme function is applied as the last instruction when
+#' calling `flextable()` - so if you add headers or footers to the array,
+#' they will not be formatted with the theme.
+#'
+#' You can also use the `post_process_html` argument
+#' of [set_flextable_defaults()] (or `post_process_pdf()`,
+#' `post_process_docx()`, `post_process_pptx()`) to specify a theme
+#' to be applied systematically before the `flextable()` is printed;
+#' in this case, don't forget to take care that the theme doesn't
+#' override any formatting done before the print statement.
 #' @param x a flextable object
 #' @family functions related to themes
 #' @examples
@@ -43,6 +64,7 @@ theme_vanilla <- function(x) {
 #' @description Apply theme box to a flextable
 #' @param x a flextable object
 #' @family functions related to themes
+#' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
 #' ft <- theme_box(ft)
@@ -79,6 +101,7 @@ theme_box <- function(x) {
 #' @description Apply alafoli theme
 #' @param x a flextable object
 #' @family functions related to themes
+#' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
 #' ft <- theme_alafoli(ft)
@@ -116,6 +139,7 @@ theme_alafoli <- function(x) {
 #' @param x a flextable object
 #' @param ... unused
 #' @family functions related to themes
+#' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
 #' ft <- theme_vader(ft)
@@ -158,6 +182,7 @@ theme_vader <- function(x, ...) {
 #' @param x a flextable object
 #' @param odd_header,odd_body,even_header,even_body odd/even colors for table header and body
 #' @family functions related to themes
+#' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
 #' ft <- theme_zebra(ft)
@@ -212,6 +237,7 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
 #' @description Apply theme tron legacy to a flextable
 #' @param x a flextable object
 #' @family functions related to themes
+#' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
 #' ft <- theme_tron_legacy(ft)
@@ -256,6 +282,7 @@ theme_tron_legacy <- function(x) {
 #' @description Apply theme tron to a flextable
 #' @param x a flextable object
 #' @family functions related to themes
+#' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
 #' ft <- theme_tron(ft)
@@ -302,6 +329,7 @@ theme_tron <- function(x) {
 #' @param bold_header header will be bold if TRUE.
 #' @param ... unused
 #' @family functions related to themes
+#' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
 #' ft <- theme_booktabs(ft)
