@@ -40,6 +40,8 @@ jobs:
         with:
           pandoc-version: ${{ matrix.config.pandoc }}
 
+      - uses: r-lib/actions/setup-tinytex@v1
+
       - name: install freetype2 and imagemagick deps
         if: matrix.config.os == 'macOS-latest'
         run: |
