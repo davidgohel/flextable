@@ -33,6 +33,7 @@ if( require("ggplot2") && require("webshot") ){
 }
 \seealso{
 Other flextable print function: 
+\code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
 \code{\link{htmltools_value}()},
 \code{\link{knit_print.flextable}()},

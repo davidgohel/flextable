@@ -1,5 +1,10 @@
 # flextable 0.6.10
 
+## new features
+
+* add function `df_printer` that can be used via the `df_print` option 
+of R Markdown documents.
+
 ## Issues
 
 * fix convertion when unit = "mm"

@@ -32,6 +32,7 @@ if( require("webshot") ){
 \seealso{
 Other flextable print function: 
 \code{\link{as_raster}()},
+\code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
 \code{\link{htmltools_value}()},
 \code{\link{knit_print.flextable}()},
