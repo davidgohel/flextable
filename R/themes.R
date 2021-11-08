@@ -24,8 +24,8 @@
 #' they will not be formatted with the theme.
 #'
 #' You can also use the `post_process_html` argument
-#' of [set_flextable_defaults()] (or `post_process_pdf()`,
-#' `post_process_docx()`, `post_process_pptx()`) to specify a theme
+#' of [set_flextable_defaults()] (or `post_process_pdf`,
+#' `post_process_docx`, `post_process_pptx`) to specify a theme
 #' to be applied systematically before the `flextable()` is printed;
 #' in this case, don't forget to take care that the theme doesn't
 #' override any formatting done before the print statement.
