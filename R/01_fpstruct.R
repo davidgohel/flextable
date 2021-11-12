@@ -621,7 +621,7 @@ add_runstyle_column <- function(x, type = "wml"){
     shading.color[colalpha(x$shading.color) < 1] <- ""
 
     style_column <- paste0("<a:rPr", font.size, italic, bold, underline, vertical.align, ">",
-                           color, family, shading.color, "%s",
+                           color, shading.color, family, "%s",
                            "</a:rPr>" )
   }
 

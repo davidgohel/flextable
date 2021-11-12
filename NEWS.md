@@ -11,6 +11,7 @@ in function `opts_current_table()`.
 
 * fix convertion when unit = "mm"
 * fix regression with captions when bookdown generate a 'Word' document #354
+* fix highlight for PowerPoint
 
 ## Enhancement
 
