@@ -21,6 +21,8 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
+      - uses: r-lib/actions/setup-tinytex@v1
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
