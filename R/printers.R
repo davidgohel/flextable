@@ -439,15 +439,19 @@ print.flextable <- function(x, preview = "html", ...){
 #' Word output provide more options such as ability to choose the prefix for numbering chunk for
 #' example. The table below expose these options:
 #'
-#' \tabular{llll}{
-#'   **chunk option** \tab **purpose** \tab **rmarkdown** \tab **bookdown** \cr
-#'   tab.cap.style \tab (Word only) style name to use for table captions            \tab yes \tab yes\cr
-#'   tab.cap.pre   \tab (Word only) Prefix for numbering chunk (default to "Table") \tab yes \tab yes\cr
-#'   tab.cap.sep   \tab (Word only) Suffix for numbering chunk (default to ": ")    \tab yes \tab yes\cr
-#'   tab.cap       \tab **Caption label**                                      \tab yes \tab yes\cr
-#'   tab.id        \tab **Caption reference unique identifier**                \tab yes \tab no \cr
-#'   label         \tab **Caption reference unique identifier**                \tab no  \tab yes
-#' }
+#' | **label**                                               |    **name**     | **value**  |
+#' |:--------------------------------------------------------|:---------------:|:----------:|
+#' | Word stylename to use for table captions.               | tab.cap.style   |    NULL    |
+#' | prefix for numbering chunk (default to   "Table ").     | tab.cap.pre     |   Table    |
+#' | suffix for numbering chunk (default to   ": ").         | tab.cap.sep     |    " :"    |
+#' | title number depth                                      | tab.cap.tnd     |      0     |
+#' | caption prefix formatting properties                    | tab.cap.fp_text | fp_text_lite(bold = TRUE) |
+#' | separator to use between title number and table number. | tab.cap.tns     |     "-"    |
+#' | caption id/bookmark                                     | tab.id          |    NULL    |
+#' | caption                                                 | tab.cap         |    NULL    |
+#' | display table caption on top of the table or not        | tab.topcaption  |    TRUE    |
+#' | caption table sequence identifier.                      | tab.lp          |   "tab:"   |
+#'
 #' @section HTML output:
 #'
 #' HTML output is using shadow dom to encapsule the table

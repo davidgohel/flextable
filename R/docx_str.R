@@ -114,6 +114,7 @@ caption_docx_bookdown <- function(x){
   tab_props$id <- mcoalesce_options(x$caption$autonum$bookmark, tab_props$id, opts_current$get('label'))
   tab_props$cap <- mcoalesce_options(x$caption$value, tab_props$cap)
   tab_props$cap.style <- mcoalesce_options(x$caption$style, tab_props$cap.style)
+  tab_props$cap.fp_text <- mcoalesce_options(x$caption$fp_text, tab_props$cap.fp_text)
 
   has_caption_label <- !is.null(tab_props$cap)
   has_caption_style <- !is.null(tab_props$cap.style)
@@ -135,8 +136,24 @@ caption_docx_bookdown <- function(x){
     ftext("TABCAPTION")
   }
   zz <- paste("`", to_wml(zz), "`{=openxml}", sep = "")
+
+
   # break the xml so that pandoc manage captions
-  zz <- gsub("<w:r>(.*)</w:r>", paste0("`{=openxml}", paste0("(\\\\#", tab_props$tab.lp, tab_props$id, ")"), "`"), zz)
+
+  replacement <- paste0(
+    "`{=openxml}",
+    paste0(
+      if(isTRUE(tab_props$cap.fp_text$bold)) "**",
+      if(isTRUE(tab_props$cap.fp_text$italic)) "*",
+      "(\\\\#",
+      tab_props$tab.lp, tab_props$id,
+      ")",
+      if(isTRUE(tab_props$cap.fp_text$italic)) "*",
+      if(isTRUE(tab_props$cap.fp_text$bold)) "**"
+    ),
+    "`")
+
+  zz <- gsub("<w:r>(.*)</w:r>", replacement, zz)
 
   caption <- paste(
     style_start,
@@ -159,12 +176,18 @@ caption_docx_standard <- function(x){
                                   x$caption$autonum$seq_id)
   caption_pre_label <- mcoalesce_options(tab_props$cap.pre, x$caption$autonum$pre_label)
   caption_post_label <- mcoalesce_options(tab_props$cap.sep, x$caption$autonum$post_label)
+  caption_tnd <- mcoalesce_options(tab_props$cap.tnd, x$caption$autonum$tnd)
+  caption_tns <- mcoalesce_options(tab_props$cap.tns, x$caption$autonum$tns)
+  caption_fp_text <- mcoalesce_options(tab_props$cap.fp_text, x$caption$autonum$pr)
 
   autonum <- run_autonum(
     seq_id = caption_lp,
     pre_label = caption_pre_label,
     post_label = caption_post_label,
-    bkm = caption_id, bkm_all = FALSE
+    bkm = caption_id, bkm_all = FALSE,
+    tnd = caption_tnd,
+    tns = caption_tns,
+    prop = caption_fp_text
   )
   bc <- block_caption(label = caption_label, style = caption_style, autonum = autonum)
   caption <- to_wml(bc, knitting = TRUE)

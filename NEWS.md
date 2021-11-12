@@ -4,6 +4,8 @@
 
 * add function `df_printer` that can be used via the `df_print` option 
 of R Markdown documents.
+* add support to knitr table options `tab.cap.fp_text` to let format caption prefix 
+in function `opts_current_table()`.
 
 ## Issues
 

@@ -33,13 +33,33 @@ included as text or an attribute value within an HTML document.}
 Set caption value in a flextable.
 \itemize{
 \item The caption will be associated with a paragraph style when
-the output is Word. Also it can be numbered as a auto-numbered
+the output is Word. It can also be numbered as a auto-numbered
 Word computed value.
-\item In HTML and PDF, the style of the caption
-is managed at the document level and not with flextable.
 \item The PowerPoint format ignores captions.
 }
 }
+\section{R Markdown}{
+
+
+flextable captions can be defined from R Markdown documents by using
+\code{knitr::opts_chunk$set()}. The following options are available:\tabular{lcc}{
+   \strong{label} \tab \strong{name} \tab \strong{value} \cr
+   Word stylename to use for table captions. \tab tab.cap.style \tab NULL \cr
+   prefix for numbering chunk (default to   "Table "). \tab tab.cap.pre \tab Table \cr
+   suffix for numbering chunk (default to   ": "). \tab tab.cap.sep \tab " :" \cr
+   title number depth \tab tab.cap.tnd \tab 0 \cr
+   separator to use between title number and table number. \tab tab.cap.tns \tab "-" \cr
+   caption prefix formatting properties \tab tab.cap.fp_text \tab fp_text_lite(bold = TRUE) \cr
+   caption id/bookmark \tab tab.id \tab NULL \cr
+   caption \tab tab.cap \tab NULL \cr
+   display table caption on top of the table or not \tab tab.topcaption \tab TRUE \cr
+   caption table sequence identifier. \tab tab.lp \tab "tab:" \cr
+}
+
+
+See \link{knit_print.flextable} for more details.
+}
+
 \examples{
 ftab <- flextable( head( iris ) )
 ftab <- set_caption(ftab, "my caption")

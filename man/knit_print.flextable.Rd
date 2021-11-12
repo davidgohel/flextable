@@ -74,16 +74,18 @@ read from knitr's chunk option \code{tab.id} or \code{label} if in a bookdown
 \code{tab.id='my_id'} or \code{label='my_id'}
 
 Word output provide more options such as ability to choose the prefix for numbering chunk for
-example. The table below expose these options:
-
-\tabular{llll}{
-\strong{chunk option} \tab \strong{purpose} \tab \strong{rmarkdown} \tab \strong{bookdown} \cr
-tab.cap.style \tab (Word only) style name to use for table captions            \tab yes \tab yes\cr
-tab.cap.pre   \tab (Word only) Prefix for numbering chunk (default to "Table") \tab yes \tab yes\cr
-tab.cap.sep   \tab (Word only) Suffix for numbering chunk (default to ": ")    \tab yes \tab yes\cr
-tab.cap       \tab \strong{Caption label}                                      \tab yes \tab yes\cr
-tab.id        \tab \strong{Caption reference unique identifier}                \tab yes \tab no \cr
-label         \tab \strong{Caption reference unique identifier}                \tab no  \tab yes
+example. The table below expose these options:\tabular{lcc}{
+   \strong{label} \tab \strong{name} \tab \strong{value} \cr
+   Word stylename to use for table captions. \tab tab.cap.style \tab NULL \cr
+   prefix for numbering chunk (default to   "Table "). \tab tab.cap.pre \tab Table \cr
+   suffix for numbering chunk (default to   ": "). \tab tab.cap.sep \tab " :" \cr
+   title number depth \tab tab.cap.tnd \tab 0 \cr
+   caption prefix formatting properties \tab tab.cap.fp_text \tab fp_text_lite(bold = TRUE) \cr
+   separator to use between title number and table number. \tab tab.cap.tns \tab "-" \cr
+   caption id/bookmark \tab tab.id \tab NULL \cr
+   caption \tab tab.cap \tab NULL \cr
+   display table caption on top of the table or not \tab tab.topcaption \tab TRUE \cr
+   caption table sequence identifier. \tab tab.lp \tab "tab:" \cr
 }
 }
 
