@@ -6,6 +6,7 @@
 of R Markdown documents.
 * add support to knitr table options `tab.cap.fp_text` to let format caption prefix 
 in function `opts_current_table()`.
+* Applies existing formatting properties to new header/footer lines
 
 ## Issues
 

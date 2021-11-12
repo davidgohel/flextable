@@ -27,11 +27,19 @@ print.fpstruct <- function( x, ... ){
 }
 
 
-
+#' @importFrom utils head tail
 add_rows.fpstruct <- function(x, nrows, first, default = x$default, ...){
 
-  new <- matrix( rep(default, x$ncol * nrows), ncol = x$ncol)
-
+  if(nrow(x$data) < 1)
+    new <- matrix( rep(default, x$ncol * nrows), ncol = x$ncol)
+  else if( first ){
+    default <- as.vector(head(x$data, n = 1))
+    new <- matrix( rep(default, each=nrows), ncol = x$ncol)
+  }
+  else {
+    default <- as.vector(tail(x$data, n = 1))
+    new <- matrix( rep(default, each=nrows), ncol = x$ncol)
+  }
   if( first ){
     x$data <- rbind(new, x$data)
   } else {
