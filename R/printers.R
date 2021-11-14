@@ -434,7 +434,16 @@ print.flextable <- function(x, preview = "html", ...){
 #' read from knitr's chunk option `tab.id` or `label` if in a bookdown
 #' (this is to respect the bookdown standards).
 #'
-#' `tab.id='my_id'` or `label='my_id'`
+#' `tab.id='my_id'` or `label='my_id'`.
+#'
+#' Some options are available to customise captions for any output:
+#'
+#' | **label**                                        |    **name**     | **value**  |
+#' |:-------------------------------------------------|:---------------:|:----------:|
+#' | caption id/bookmark                              | tab.id          |    NULL    |
+#' | caption                                          | tab.cap         |    NULL    |
+#' | display table caption on top of the table or not | tab.topcaption  |    TRUE    |
+#' | caption table sequence identifier.               | tab.lp          |   "tab:"   |
 #'
 #' Word output provide more options such as ability to choose the prefix for numbering chunk for
 #' example. The table below expose these options:
@@ -447,10 +456,6 @@ print.flextable <- function(x, preview = "html", ...){
 #' | title number depth                                      | tab.cap.tnd     |      0     |
 #' | caption prefix formatting properties                    | tab.cap.fp_text | fp_text_lite(bold = TRUE) |
 #' | separator to use between title number and table number. | tab.cap.tns     |     "-"    |
-#' | caption id/bookmark                                     | tab.id          |    NULL    |
-#' | caption                                                 | tab.cap         |    NULL    |
-#' | display table caption on top of the table or not        | tab.topcaption  |    TRUE    |
-#' | caption table sequence identifier.                      | tab.lp          |   "tab:"   |
 #'
 #' @section HTML output:
 #'
@@ -460,17 +465,24 @@ print.flextable <- function(x, preview = "html", ...){
 #' knowledge, only the pagedown output is concerned.
 #' Use knitr chunk option `ft.shadow=FALSE` to disable shadow dom.
 #'
+#' If `ft.shadow=TRUE` some global CSS rules may change the
+#' desired output of flextables.
+#'
 #' @section PDF output:
 #'
 #' Some features are not implemented in PDF due to technical
 #' infeasibility. These are the padding, line_spacing and
 #' height properties.
 #'
+#' Background color and merged cells are also sources of trouble
+#' with PDF format. Authors are hoping to fix these issues in
+#' the future.
+#'
 #' @section PowerPoint output:
 #'
 #' Auto-adjust Layout is not available for PowerPoint.
 #'
-#' Also images cannot be integrated into tables with the PowerPoint format.
+#' Images cannot be integrated into tables with the PowerPoint format.
 #'
 #' @param x a `flextable` object
 #' @param ... further arguments, not used.

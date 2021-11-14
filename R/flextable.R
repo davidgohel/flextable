@@ -17,6 +17,10 @@
 #'
 #' Most functions have an argument named `part` that will be used
 #' to specify what part of of the table should be modified.
+#'
+#' If working with R Markdown document, you should read about knitr
+#' chunk options in [knit_print.flextable()] and about setting
+#' default values with [set_flextable_defaults()].
 #' @param data dataset
 #' @param col_keys columns names/keys to display. If some column names are not in
 #' the dataset, they will be added as blank columns by default.

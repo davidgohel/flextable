@@ -3,7 +3,7 @@
 ## new features
 
 * add function `df_printer` that can be used via the `df_print` option 
-of R Markdown documents.
+of R Markdown documents or by calling `use_df_printer()`.
 * add support to knitr table options `tab.cap.fp_text` to let format caption prefix 
 in function `opts_current_table()`.
 * Applies existing formatting properties to new header/footer lines

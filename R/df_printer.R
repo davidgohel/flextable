@@ -12,19 +12,33 @@
 #' ---
 #' ```
 #'
+#' We notice an unexpected behavior with bookdown. When using bookdown it
+#' is necessary to use [use_df_printer()] instead in a setup run chunk:
+#'
+#' ```
+#' use_df_printer()
+#' ```
+#'
 #' @param dat the data.frame
 #' @param ... unused argument
 #' @details
 #' 'knitr' chunk options are available to customize the output:
 #'
-#' * `ft_max_row`: The number of rows to print.
-#' * `ft_split_colnames`: Should the column names be split (with non alpha-numeric characters)
-#' * `ft_short_strings`: Should the character column be shorten
-#' * `ft_short_size`: Maximum length of character column
-#' * `ft_short_suffix`: Suffix to add when character values are shorten
-#' * `ft_do_autofit`: Use autofit() before rendering the table
-#' * `ft_show_coltype`: Show column types
-#' * `ft_color_coltype`: Color to use for column types
+#' * `ft_max_row`: The number of rows to print. Default to 10.
+#' * `ft_split_colnames`: Should the column names be split
+#' (with non alpha-numeric characters). Default to FALSE.
+#' * `ft_short_strings`: Should the character column be shorten.
+#' Default to FALSE.
+#' * `ft_short_size`: Maximum length of character column if
+#' `ft_short_strings` is TRUE. Default to 35.
+#' * `ft_short_suffix`: Suffix to add when character values are shorten.
+#' Default to "...".
+#' * `ft_do_autofit`: Use autofit() before rendering the table.
+#' Default to TRUE.
+#' * `ft_show_coltype`: Show column types.
+#' Default to TRUE.
+#' * `ft_color_coltype`: Color to use for column types.
+#' Default to "#999999".
 #' @family flextable print function
 #' @examples
 #' df_printer(head(mtcars))
@@ -103,6 +117,26 @@ df_printer <- function(dat, ...) {
     ft <- color(ft, i = nrow_part(ft, "header"), part = "header", color = color_coltype)
   }
   ft <- align(ft, align = "left", part = "footer")
-
   knitr::knit_print(ft)
+}
+
+#' @export
+#' @title Summarize a data.frame as a flextable
+#' @description Define [df_printer()] as data.frame
+#' print method in an R Markdown document.
+#'
+#' In a setup run chunk:
+#'
+#' ```
+#' flextable::use_df_printer()
+#' ```
+#' @seealso [df_printer()], [flextable()]
+use_df_printer <- function(){
+  registerS3method("knit_print", "data.frame", df_printer)
+  registerS3method("knit_print", "data.table", df_printer)
+  registerS3method("knit_print", "tibble", df_printer)
+  registerS3method("knit_print", "grouped_df", df_printer)
+  registerS3method("knit_print", "spec_tbl_df", df_printer)
+  registerS3method("knit_print", "tbl", df_printer)
+  invisible()
 }

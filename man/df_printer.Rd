@@ -20,18 +20,29 @@ header of your R Markdown document:\preformatted{---
 df_print: !expr function(x) flextable::df_printer(x)
 ---
 }
+
+We notice an unexpected behavior with bookdown. When using bookdown it
+is necessary to use \code{\link[=use_df_printer]{use_df_printer()}} instead in a setup run chunk:\preformatted{use_df_printer()
+}
 }
 \details{
 'knitr' chunk options are available to customize the output:
 \itemize{
-\item \code{ft_max_row}: The number of rows to print.
-\item \code{ft_split_colnames}: Should the column names be split (with non alpha-numeric characters)
-\item \code{ft_short_strings}: Should the character column be shorten
-\item \code{ft_short_size}: Maximum length of character column
-\item \code{ft_short_suffix}: Suffix to add when character values are shorten
-\item \code{ft_do_autofit}: Use autofit() before rendering the table
-\item \code{ft_show_coltype}: Show column types
-\item \code{ft_color_coltype}: Color to use for column types
+\item \code{ft_max_row}: The number of rows to print. Default to 10.
+\item \code{ft_split_colnames}: Should the column names be split
+(with non alpha-numeric characters). Default to FALSE.
+\item \code{ft_short_strings}: Should the character column be shorten.
+Default to FALSE.
+\item \code{ft_short_size}: Maximum length of character column if
+\code{ft_short_strings} is TRUE. Default to 35.
+\item \code{ft_short_suffix}: Suffix to add when character values are shorten.
+Default to "...".
+\item \code{ft_do_autofit}: Use autofit() before rendering the table.
+Default to TRUE.
+\item \code{ft_show_coltype}: Show column types.
+Default to TRUE.
+\item \code{ft_color_coltype}: Color to use for column types.
+Default to "#999999".
 }
 }
 \examples{

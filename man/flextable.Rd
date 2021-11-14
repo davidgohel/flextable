@@ -47,6 +47,10 @@ A \code{flextable} is made of 3 parts: header, body and footer.
 
 Most functions have an argument named \code{part} that will be used
 to specify what part of of the table should be modified.
+
+If working with R Markdown document, you should read about knitr
+chunk options in \code{\link[=knit_print.flextable]{knit_print.flextable()}} and about setting
+default values with \code{\link[=set_flextable_defaults]{set_flextable_defaults()}}.
 }
 \note{
 Function \code{regulartable} is maintained for compatibility with old codes
