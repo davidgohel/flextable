@@ -29,6 +29,7 @@ body_add_flextable <- function( x, value, align = "center", pos = "after", split
                                 topcaption = TRUE) {
 
   stopifnot(inherits(x, "rdocx"))
+  stopifnot(inherits(value, "flextable"))
 
   if(topcaption && !is.null(value$caption$value)){
     bc <- block_caption(label = value$caption$value,
