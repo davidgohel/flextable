@@ -6,7 +6,7 @@ name: pkgdown
 
 jobs:
   pkgdown:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-20.04
     if: "contains(github.event.head_commit.message, 'sitedeploy')"
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -50,11 +50,8 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran(c("pkgdown", "cowplot", "dplyr"))
-          remotes::install_cran("magick", force = TRUE)
+          remotes::install_cran(c("pkgdown")
           remotes::install_github("ardata-fr/pkgardata")
-          remotes::install_github("wch/webshot")
-          webshot::install_phantomjs(force = TRUE)
         shell: Rscript {0}
 
       - name: Install package

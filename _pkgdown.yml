@@ -119,6 +119,8 @@ reference:
     - htmltools_value
     - as_raster
     - flextable_to_rmd
+    - df_printer
+    - use_df_printer
   - title: as_flextable
     desc:  get flextable from objects and utilities
     contents:
