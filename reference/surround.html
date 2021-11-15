@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>cell borders update — border • flextable</title>
+<title>Set borders for a selection of cells — surround • flextable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,25 +46,18 @@
 
 
 
-<meta property="og:title" content="cell borders update — border" />
-<meta property="og:description" content="change borders of selected rows and columns of a flextable.
-This function is not to be used by end user (it requires careful
-settings to avoid overlapping borders) but only for programming purposes.
-If you need to add borders, use instead other functions:
-These set borders for the whole table : border_outer(),
+<meta property="og:title" content="Set borders for a selection of cells — surround" />
+<meta property="og:description" content="Highlight specific cells with borders.
+To set borders for the whole table, use border_outer(),
 border_inner_h() and border_inner_v().
 All the following functions also support the
 row and column selector i and j:
 hline(): set bottom borders (inner horizontal)
 vline(): set right borders (inner vertical)
 hline_top(): set the top border (outer horizontal)
-hline_bottom(): set the bottom border (outer horizontal)
 vline_left(): set the left border (outer vertical)
-vline_right(): set the right border (outer vertical)
 
-
-If you want to highlight specific cells with some borders, use
-surround()." />
+" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -130,33 +123,26 @@ surround()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>cell borders update</h1>
+    <h1>Set borders for a selection of cells</h1>
     <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/borders.R'><code>R/borders.R</code></a></small>
-    <div class="hidden name"><code>border.Rd</code></div>
+    <div class="hidden name"><code>surround.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>change borders of selected rows and columns of a flextable.
-This function is not to be used by end user (it requires careful
-settings to avoid overlapping borders) but only for programming purposes.</p>
-<p>If you need to add borders, use instead other functions:</p>
-<p>These set borders for the whole table : <code><a href='border_outer.html'>border_outer()</a></code>,
+    <p>Highlight specific cells with borders.</p>
+<p>To set borders for the whole table, use <code><a href='border_outer.html'>border_outer()</a></code>,
 <code><a href='border_inner_h.html'>border_inner_h()</a></code> and <code><a href='border_inner_v.html'>border_inner_v()</a></code>.</p>
 <p>All the following functions also support the
 row and column selector <code>i</code> and <code>j</code>:</p><ul>
 <li><p><code><a href='hline.html'>hline()</a></code>: set bottom borders (inner horizontal)</p></li>
 <li><p><code><a href='vline.html'>vline()</a></code>: set right borders (inner vertical)</p></li>
 <li><p><code><a href='hline_top.html'>hline_top()</a></code>: set the top border (outer horizontal)</p></li>
-<li><p><code><a href='hline_bottom.html'>hline_bottom()</a></code>: set the bottom border (outer horizontal)</p></li>
 <li><p><code><a href='vline_left.html'>vline_left()</a></code>: set the left border (outer vertical)</p></li>
-<li><p><code><a href='vline_right.html'>vline_right()</a></code>: set the right border (outer vertical)</p></li>
 </ul>
 
-<p>If you want to highlight specific cells with some borders, use
-<code><a href='surround.html'>surround()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>border</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>surround</span><span class='op'>(</span>
   <span class='va'>x</span>,
   i <span class='op'>=</span> <span class='cn'>NULL</span>,
   j <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -209,26 +195,69 @@ row and column selector <code>i</code> and <code>j</code>:</p><ul>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>pdf and pptx outputs do not support <code>border()</code> usage.</p>
+    <div class='dont-index'><p>Other borders management: 
+<code><a href='border_inner_h.html'>border_inner_h</a>()</code>,
+<code><a href='border_inner_v.html'>border_inner_v</a>()</code>,
+<code><a href='border_inner.html'>border_inner</a>()</code>,
+<code><a href='border_outer.html'>border_outer</a>()</code>,
+<code><a href='border_remove.html'>border_remove</a>()</code>,
+<code><a href='hline_bottom.html'>hline_bottom</a>()</code>,
+<code><a href='hline_top.html'>hline_top</a>()</code>,
+<code><a href='hline.html'>hline</a>()</code>,
+<code><a href='vline_left.html'>vline_left</a>()</code>,
+<code><a href='vline_right.html'>vline_right</a>()</code>,
+<code><a href='vline.html'>vline</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'>border</span><span class='op'>(</span><span class='va'>ftab</span>, border.top <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span> <span class='op'>)</span></span>
-<span class='r-in'><span class='va'>ftab</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/flextable-book/'>flextable</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># cell to highlight</span></span>
+<span class='r-in'><span class='va'>vary_i</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span></span>
+<span class='r-in'><span class='va'>vary_j</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>std_border</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='border_remove.html'>border_remove</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ft</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='border_outer.html'>border_outer</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ft</span>, border <span class='op'>=</span> <span class='va'>std_border</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>for</span> <span class='op'>(</span><span class='va'>id</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>vary_i</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bg.html'>bg</a></span><span class='op'>(</span></span>
+<span class='r-in'>    x <span class='op'>=</span> <span class='va'>ft</span>,</span>
+<span class='r-in'>    i <span class='op'>=</span> <span class='va'>vary_i</span><span class='op'>[</span><span class='va'>id</span><span class='op'>]</span>,</span>
+<span class='r-in'>    j <span class='op'>=</span> <span class='va'>vary_j</span><span class='op'>[</span><span class='va'>id</span><span class='op'>]</span>, bg <span class='op'>=</span> <span class='st'>"yellow"</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>surround</span><span class='op'>(</span></span>
+<span class='r-in'>    x <span class='op'>=</span> <span class='va'>ft</span>,</span>
+<span class='r-in'>    i <span class='op'>=</span> <span class='va'>vary_i</span><span class='op'>[</span><span class='va'>id</span><span class='op'>]</span>,</span>
+<span class='r-in'>    j <span class='op'>=</span> <span class='va'>vary_j</span><span class='op'>[</span><span class='va'>id</span><span class='op'>]</span>,</span>
+<span class='r-in'>    border.left <span class='op'>=</span> <span class='va'>std_border</span>,</span>
+<span class='r-in'>    border.right <span class='op'>=</span> <span class='va'>std_border</span>,</span>
+<span class='r-in'>    part <span class='op'>=</span> <span class='st'>"body"</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span><span class='op'>(</span><span class='va'>ft</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> body has 6 row(s) </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1          5.1         3.5          1.4         0.2  setosa</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2          4.9         3.0          1.4         0.2  setosa</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3          4.7         3.2          1.3         0.2  setosa</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4          4.6         3.1          1.5         0.2  setosa</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5          5.0         3.6          1.4         0.2  setosa</span>
+<span class='r-in'><span class='co'># # render</span></span>
+<span class='r-in'><span class='co'># print(ft, preview = "pptx")</span></span>
+<span class='r-in'><span class='co'># print(ft, preview = "docx")</span></span>
+<span class='r-in'><span class='co'># print(ft, preview = "pdf")</span></span>
+<span class='r-in'><span class='co'># print(ft, preview = "html")</span></span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

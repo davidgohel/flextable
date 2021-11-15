@@ -83,7 +83,7 @@ Names of the list are width, height and aspect_ratio." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.10</span>
       </span>
     </div>
 
@@ -158,27 +158,29 @@ The aspect ratio is the ratio corresponding to <code>height/width</code>.</p>
 <code><a href='width.html'>width</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>flextable_dim</span><span class='op'>(</span><span class='va'>ftab</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $widths
-#&gt; [1] 3.75
-#&gt; 
-#&gt; $heights
-#&gt; [1] 1.75
-#&gt; 
-#&gt; $aspect_ratio
-#&gt; [1] 0.4666667
-#&gt; </div><div class='input'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span><span class='op'>(</span><span class='va'>ftab</span><span class='op'>)</span>
-<span class='fu'>flextable_dim</span><span class='op'>(</span><span class='va'>ftab</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $widths
-#&gt; [1] 5.774125
-#&gt; 
-#&gt; $heights
-#&gt; [1] 2.838093
-#&gt; 
-#&gt; $aspect_ratio
-#&gt; [1] 0.4915192
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>flextable_dim</span><span class='op'>(</span><span class='va'>ftab</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $widths</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 3.75</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $heights</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1.75</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $aspect_ratio</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.4666667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span><span class='op'>(</span><span class='va'>ftab</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>flextable_dim</span><span class='op'>(</span><span class='va'>ftab</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $widths</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 5.774125</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $heights</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2.837469</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $aspect_ratio</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.4914111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -191,7 +193,7 @@ The aspect ratio is the ratio corresponding to <code>height/width</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -85,7 +85,7 @@ table width is used (as a percentage)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.10</span>
       </span>
     </div>
 
@@ -183,21 +183,22 @@ PDF output.</p></td>
 <code><a href='width.html'>width</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/flextable-book/'>flextable</a></span><span class='op'>)</span>
-<span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>qflextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>cars</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'>set_table_properties</span><span class='op'>(</span><span class='va'>ft_1</span>, width <span class='op'>=</span> <span class='fl'>.5</span>, layout <span class='op'>=</span> <span class='st'>"autofit"</span><span class='op'>)</span>
-<span class='va'>ft_2</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `speed`, `dist` 
-#&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
-#&gt; original dataset sample: 
-#&gt;   speed dist
-#&gt; 1     4    2
-#&gt; 2     4   10
-#&gt; 3     7    4
-#&gt; 4     7   22
-#&gt; 5     8   16</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/flextable-book/'>flextable</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>qflextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>cars</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'>set_table_properties</span><span class='op'>(</span><span class='va'>ft_1</span>, width <span class='op'>=</span> <span class='fl'>.5</span>, layout <span class='op'>=</span> <span class='st'>"autofit"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft_2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `speed`, `dist` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 6 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   speed dist</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     4    2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     4   10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     7    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4     7   22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5     8   16</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -210,7 +211,7 @@ PDF output.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

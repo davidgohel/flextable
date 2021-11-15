@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.10</span>
       </span>
     </div>
 
@@ -128,6 +128,7 @@
   j <span class='op'>=</span> <span class='cn'>NULL</span>,
   big.mark <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>big.mark</span>,
   na_str <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>na_str</span>,
+  nan_str <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>nan_str</span>,
   prefix <span class='op'>=</span> <span class='st'>""</span>,
   suffix <span class='op'>=</span> <span class='st'>""</span>
 <span class='op'>)</span></pre>
@@ -153,7 +154,11 @@
     </tr>
     <tr>
       <th>na_str</th>
-      <td><p>string to be used for NA values</p></td>
+      <td><p>string to be used for NA and NaN values</p></td>
+    </tr>
+    <tr>
+      <th>nan_str</th>
+      <td><p>string to be used for NA and NaN values</p></td>
     </tr>
     <tr>
       <th>prefix</th>
@@ -179,21 +184,22 @@
 <code><a href='set_formatter.html'>set_formatter</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>j</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"vs"</span>, <span class='st'>"am"</span>, <span class='st'>"gear"</span>, <span class='st'>"carb"</span><span class='op'>)</span>
-<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'>colformat_int</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>z</span>, j <span class='op'>=</span> <span class='va'>j</span>, prefix <span class='op'>=</span> <span class='st'>"# "</span><span class='op'>)</span>
-<span class='va'>z</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
-#&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
-#&gt; original dataset sample: 
-#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>j</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"vs"</span>, <span class='st'>"am"</span>, <span class='st'>"gear"</span>, <span class='st'>"carb"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'>colformat_int</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>z</span>, j <span class='op'>=</span> <span class='va'>j</span>, prefix <span class='op'>=</span> <span class='st'>"# "</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>z</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 6 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -206,7 +212,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

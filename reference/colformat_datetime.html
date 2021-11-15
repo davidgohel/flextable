@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.10</span>
       </span>
     </div>
 
@@ -128,6 +128,7 @@
   j <span class='op'>=</span> <span class='cn'>NULL</span>,
   fmt_datetime <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>fmt_datetime</span>,
   na_str <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>na_str</span>,
+  nan_str <span class='op'>=</span> <span class='fu'><a href='get_flextable_defaults.html'>get_flextable_defaults</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>nan_str</span>,
   prefix <span class='op'>=</span> <span class='st'>""</span>,
   suffix <span class='op'>=</span> <span class='st'>""</span>
 <span class='op'>)</span></pre>
@@ -153,7 +154,11 @@
     </tr>
     <tr>
       <th>na_str</th>
-      <td><p>string to be used for NA values</p></td>
+      <td><p>string to be used for NA and NaN values</p></td>
+    </tr>
+    <tr>
+      <th>nan_str</th>
+      <td><p>string to be used for NA and NaN values</p></td>
     </tr>
     <tr>
       <th>prefix</th>
@@ -185,21 +190,22 @@
 <code><a href='set_formatter.html'>set_formatter</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>24</span>,
-  w <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>24</span><span class='op'>)</span>
-<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span>
-<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>colformat_datetime</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ft</span><span class='op'>)</span>
-<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span><span class='op'>(</span><span class='va'>ft</span><span class='op'>)</span>
-<span class='va'>ft</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `z`, `w` 
-#&gt; header has 1 row(s) 
-#&gt; body has 3 row(s) 
-#&gt; original dataset sample: 
-#&gt;                     z          w
-#&gt; 1 2021-09-06 10:19:49 2021-08-13
-#&gt; 2 2021-09-06 10:20:13 2021-07-20
-#&gt; 3 2021-09-06 10:20:37 2021-06-26</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>24</span>,</span>
+<span class='r-in'>  w <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>24</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>colformat_datetime</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ft</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autofit.html'>autofit</a></span><span class='op'>(</span><span class='va'>ft</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `z`, `w` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 3 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     z          w</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 2021-11-15 21:55:24 2021-10-22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 2021-11-15 21:55:48 2021-09-28</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 2021-11-15 21:56:12 2021-09-04</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -212,7 +218,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

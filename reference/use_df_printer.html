@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply Sith Lord Darth Vader theme — theme_vader • flextable</title>
+<title>Summarize a data.frame as a flextable — use_df_printer • flextable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,12 @@
 
 
 
-<meta property="og:title" content="Apply Sith Lord Darth Vader theme — theme_vader" />
-<meta property="og:description" content="Apply Sith Lord Darth Vader theme to a flextable" />
+<meta property="og:title" content="Summarize a data.frame as a flextable — use_df_printer" />
+<meta property="og:description" content="Define df_printer() as data.frame
+print method in an R Markdown document.
+In a setup run chunk:flextable::use_df_printer()
+
+" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -113,86 +117,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Apply Sith Lord Darth Vader theme</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/themes.R'><code>R/themes.R</code></a></small>
-    <div class="hidden name"><code>theme_vader.Rd</code></div>
+    <h1>Summarize a data.frame as a flextable</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/flextable/blob/master/R/df_printer.R'><code>R/df_printer.R</code></a></small>
+    <div class="hidden name"><code>use_df_printer.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Apply Sith Lord Darth Vader theme to a flextable</p>
+    <p>Define <code><a href='df_printer.html'>df_printer()</a></code> as data.frame
+print method in an R Markdown document.</p>
+<p>In a setup run chunk:</p><pre><span class='fu'>flextable</span><span class='fu'>::</span><span class='fu'>use_df_printer</span><span class='op'>(</span><span class='op'>)</span>
+</pre>
+
     </div>
 
-    <pre class="usage"><span class='fu'>theme_vader</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>a flextable object</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>unused</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
-
-    
+    <pre class="usage"><span class='fu'>use_df_printer</span><span class='op'>(</span><span class='op'>)</span></pre>
 
 
-<p><img src='figures/fig_theme_vader_1.png' width=60% /></p>
-    <h2 class="hasAnchor" id="behavior"><a class="anchor" href="#behavior"></a>behavior</h2>
-
-    
-
-<p>Theme functions are not like 'ggplot2' themes. They are applied to the existing
-table <strong>immediately</strong>. If you add a row in the footer, the new row is not formatted
-with the theme. The theme function applies the theme only to existing elements
-when the function is called.</p>
-<p>That is why theme functions should be applied after all elements of the table
-have been added (mainly additionnal header or footer rows).</p>
-<p>If you want to automatically apply a theme function to each flextable,
-you can use the <code>theme_fun</code> argument of <code><a href='set_flextable_defaults.html'>set_flextable_defaults()</a></code>; be
-aware that this theme function is applied as the last instruction when
-calling <code><a href='flextable.html'>flextable()</a></code> - so if you add headers or footers to the array,
-they will not be formatted with the theme.</p>
-<p>You can also use the <code>post_process_html</code> argument
-of <code><a href='set_flextable_defaults.html'>set_flextable_defaults()</a></code> (or <code>post_process_pdf</code>,
-<code>post_process_docx</code>, <code>post_process_pptx</code>) to specify a theme
-to be applied systematically before the <code><a href='flextable.html'>flextable()</a></code> is printed;
-in this case, don't forget to take care that the theme doesn't
-override any formatting done before the print statement.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other functions related to themes: 
-<code><a href='get_flextable_defaults.html'>get_flextable_defaults</a>()</code>,
-<code><a href='set_flextable_defaults.html'>set_flextable_defaults</a>()</code>,
-<code><a href='theme_alafoli.html'>theme_alafoli</a>()</code>,
-<code><a href='theme_booktabs.html'>theme_booktabs</a>()</code>,
-<code><a href='theme_box.html'>theme_box</a>()</code>,
-<code><a href='theme_tron_legacy.html'>theme_tron_legacy</a>()</code>,
-<code><a href='theme_tron.html'>theme_tron</a>()</code>,
-<code><a href='theme_vanilla.html'>theme_vanilla</a>()</code>,
-<code><a href='theme_zebra.html'>theme_zebra</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='df_printer.html'>df_printer()</a></code>, <code><a href='flextable.html'>flextable()</a></code></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>theme_vader</span><span class='op'>(</span><span class='va'>ft</span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>ft</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `Ozone`, `Solar.R`, `Wind`, `Temp`, `Month`, `Day` </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 6 row(s) </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   Ozone Solar.R Wind Temp Month Day</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    41     190  7.4   67     5   1</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2    36     118  8.0   72     5   2</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 3    12     149 12.6   74     5   3</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    18     313 11.5   62     5   4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 5    NA      NA 14.3   56     5   5</span>
-</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

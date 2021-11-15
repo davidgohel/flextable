@@ -82,7 +82,7 @@ These default values are returned by this function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.10</span>
       </span>
     </div>
 
@@ -146,40 +146,66 @@ These default values are returned by this function.</p>
 <code><a href='theme_zebra.html'>theme_zebra</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>get_flextable_defaults</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>## style properties</span></div><div class='output co'>#&gt;            property       value
-#&gt; 1       font.family DejaVu Sans
-#&gt; 2      hansi.family DejaVu Sans
-#&gt; 3   eastasia.family DejaVu Sans
-#&gt; 4         cs.family DejaVu Sans
-#&gt; 5         font.size          11
-#&gt; 6        font.color       black
-#&gt; 7        text.align        left
-#&gt; 8    padding.bottom           5
-#&gt; 9       padding.top           5
-#&gt; 10     padding.left           5
-#&gt; 11    padding.right           5
-#&gt; 12     line_spacing           1
-#&gt; 13     border.color     #666666
-#&gt; 14 background.color transparent</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>## cell content settings</span></div><div class='output co'>#&gt;       property             value
-#&gt; 1 decimal.mark                 .
-#&gt; 2     big.mark                 ,
-#&gt; 3       digits                 1
-#&gt; 4       na_str                  
-#&gt; 5     fmt_date          %Y-%m-%d
-#&gt; 6 fmt_datetime %Y-%m-%d %H:%M:%S</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>## table.layout is:fixed</span></div><div class='output co'>#&gt; <span class='message'>## default theme is:theme_booktabs</span></div><div class='output co'>#&gt; <span class='message'>## HTML specific:</span></div><div class='output co'>#&gt; <span class='message'>extra_css:</span></div><div class='output co'>#&gt; <span class='message'>post_process_html:</span></div><div class='output co'>#&gt; function (x) 
-#&gt; x
-#&gt; &lt;bytecode: 0x5f19980&gt;
-#&gt; &lt;environment: namespace:flextable&gt;</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>## latex specific:</span></div><div class='output co'>#&gt; <span class='message'>post_process_pdf:</span></div><div class='output co'>#&gt; function (x) 
-#&gt; x
-#&gt; &lt;bytecode: 0x5f15db8&gt;
-#&gt; &lt;environment: namespace:flextable&gt;</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>## Word specific:</span></div><div class='output co'>#&gt; <span class='message'>post_process_docx:</span></div><div class='output co'>#&gt; function (x) 
-#&gt; x
-#&gt; &lt;bytecode: 0x5f19a60&gt;
-#&gt; &lt;environment: namespace:flextable&gt;</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>## PowerPoint specific:</span></div><div class='output co'>#&gt; <span class='message'>post_process_pptx:</span></div><div class='output co'>#&gt; function (x) 
-#&gt; x
-#&gt; &lt;bytecode: 0x5f19868&gt;
-#&gt; &lt;environment: namespace:flextable&gt;</div><div class='output co'>#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>get_flextable_defaults</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ## style properties</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            property       value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1       font.family DejaVu Sans</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2      hansi.family DejaVu Sans</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   eastasia.family DejaVu Sans</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4         cs.family DejaVu Sans</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5         font.size          11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6        font.color       black</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7        text.align        left</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8    padding.bottom           5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9       padding.top           5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10     padding.left           5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11    padding.right           5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12     line_spacing           1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13     border.color     #666666</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 background.color transparent</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ## cell content settings</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       property             value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 decimal.mark                 .</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     big.mark                 ,</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3       digits                 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4       na_str                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5      nan_str                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6     fmt_date          %Y-%m-%d</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7 fmt_datetime %Y-%m-%d %H:%M:%S</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ## table.layout is:fixed</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ## default theme is:theme_booktabs</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ## HTML specific:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> extra_css:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> post_process_html:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> function (x) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;bytecode: 0x5622c619f4e8&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: namespace:flextable&gt;</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ## latex specific:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> post_process_pdf:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> function (x) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;bytecode: 0x5622c6199958&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: namespace:flextable&gt;</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ## Word specific:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> post_process_docx:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> function (x) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;bytecode: 0x5622c619f5c8&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: namespace:flextable&gt;</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ## PowerPoint specific:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> post_process_pptx:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> function (x) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;bytecode: 0x5622c619f408&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: namespace:flextable&gt;</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -192,7 +218,7 @@ These default values are returned by this function.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

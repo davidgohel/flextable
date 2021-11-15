@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.10</span>
       </span>
     </div>
 
@@ -139,6 +139,27 @@
 
 
 <p><img src='figures/fig_theme_tron_legacy_1.png' width=60% /></p>
+    <h2 class="hasAnchor" id="behavior"><a class="anchor" href="#behavior"></a>behavior</h2>
+
+    
+
+<p>Theme functions are not like 'ggplot2' themes. They are applied to the existing
+table <strong>immediately</strong>. If you add a row in the footer, the new row is not formatted
+with the theme. The theme function applies the theme only to existing elements
+when the function is called.</p>
+<p>That is why theme functions should be applied after all elements of the table
+have been added (mainly additionnal header or footer rows).</p>
+<p>If you want to automatically apply a theme function to each flextable,
+you can use the <code>theme_fun</code> argument of <code><a href='set_flextable_defaults.html'>set_flextable_defaults()</a></code>; be
+aware that this theme function is applied as the last instruction when
+calling <code><a href='flextable.html'>flextable()</a></code> - so if you add headers or footers to the array,
+they will not be formatted with the theme.</p>
+<p>You can also use the <code>post_process_html</code> argument
+of <code><a href='set_flextable_defaults.html'>set_flextable_defaults()</a></code> (or <code>post_process_pdf</code>,
+<code>post_process_docx</code>, <code>post_process_pptx</code>) to specify a theme
+to be applied systematically before the <code><a href='flextable.html'>flextable()</a></code> is printed;
+in this case, don't forget to take care that the theme doesn't
+override any formatting done before the print statement.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other functions related to themes: 
@@ -153,20 +174,21 @@
 <code><a href='theme_zebra.html'>theme_zebra</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>theme_tron_legacy</span><span class='op'>(</span><span class='va'>ft</span><span class='op'>)</span>
-<span class='va'>ft</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Ozone`, `Solar.R`, `Wind`, `Temp`, `Month`, `Day` 
-#&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Ozone Solar.R Wind Temp Month Day
-#&gt; 1    41     190  7.4   67     5   1
-#&gt; 2    36     118  8.0   72     5   2
-#&gt; 3    12     149 12.6   74     5   3
-#&gt; 4    18     313 11.5   62     5   4
-#&gt; 5    NA      NA 14.3   56     5   5</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>airquality</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'>theme_tron_legacy</span><span class='op'>(</span><span class='va'>ft</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `Ozone`, `Solar.R`, `Wind`, `Temp`, `Month`, `Day` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 6 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Ozone Solar.R Wind Temp Month Day</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    41     190  7.4   67     5   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2    36     118  8.0   72     5   2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3    12     149 12.6   74     5   3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    18     313 11.5   62     5   4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5    NA      NA 14.3   56     5   5</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -179,7 +201,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

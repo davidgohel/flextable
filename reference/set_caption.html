@@ -49,10 +49,8 @@
 <meta property="og:title" content="Set Caption — set_caption" />
 <meta property="og:description" content="Set caption value in a flextable.
 The caption will be associated with a paragraph style when
-the output is Word. Also it can be numbered as a auto-numbered
+the output is Word. It can also be numbered as a auto-numbered
 Word computed value.
-In HTML and PDF, the style of the caption
-is managed at the document level and not with flextable.
 The PowerPoint format ignores captions.
 
 " />
@@ -88,7 +86,7 @@ The PowerPoint format ignores captions.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.10</span>
       </span>
     </div>
 
@@ -129,10 +127,8 @@ The PowerPoint format ignores captions.
     <div class="ref-description">
     <p>Set caption value in a flextable.</p><ul>
 <li><p>The caption will be associated with a paragraph style when
-the output is Word. Also it can be numbered as a auto-numbered
+the output is Word. It can also be numbered as a auto-numbered
 Word computed value.</p></li>
-<li><p>In HTML and PDF, the style of the caption
-is managed at the document level and not with flextable.</p></li>
 <li><p>The PowerPoint format ignores captions.</p></li>
 </ul>
 
@@ -177,41 +173,66 @@ included as text or an attribute value within an HTML document.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="r-markdown"><a class="anchor" href="#r-markdown"></a>R Markdown</h2>
+
+    
+
+
+<p>flextable captions can be defined from R Markdown documents by using
+<code>knitr::opts_chunk$set()</code>. The following options are available:</p><table class='table'>
+<tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr>
+<tr><td>Word stylename to use for table captions.</td><td>tab.cap.style</td><td>NULL</td></tr>
+<tr><td>prefix for numbering chunk (default to   "Table ").</td><td>tab.cap.pre</td><td>Table</td></tr>
+<tr><td>suffix for numbering chunk (default to   ": ").</td><td>tab.cap.sep</td><td>" :"</td></tr>
+<tr><td>title number depth</td><td>tab.cap.tnd</td><td>0</td></tr>
+<tr><td>separator to use between title number and table number.</td><td>tab.cap.tns</td><td>"-"</td></tr>
+<tr><td>caption prefix formatting properties</td><td>tab.cap.fp_text</td><td>fp_text_lite(bold = TRUE)</td></tr>
+<tr><td>caption id/bookmark</td><td>tab.id</td><td>NULL</td></tr>
+<tr><td>caption</td><td>tab.cap</td><td>NULL</td></tr>
+<tr><td>display table caption on top of the table or not</td><td>tab.topcaption</td><td>TRUE</td></tr>
+<tr><td>caption table sequence identifier.</td><td>tab.lp</td><td>"tab:"</td></tr>
+</table>
+
+
+
+<p>See <a href='knit_print.flextable.html'>knit_print.flextable</a> for more details.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='flextable.html'>flextable()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span> <span class='va'>iris</span> <span class='op'>)</span> <span class='op'>)</span>
-<span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'>set_caption</span><span class='op'>(</span><span class='va'>ftab</span>, <span class='st'>"my caption"</span><span class='op'>)</span>
-<span class='va'>ftab</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` 
-#&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
-#&gt; original dataset sample: 
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1          5.1         3.5          1.4         0.2  setosa
-#&gt; 2          4.9         3.0          1.4         0.2  setosa
-#&gt; 3          4.7         3.2          1.3         0.2  setosa
-#&gt; 4          4.6         3.1          1.5         0.2  setosa
-#&gt; 5          5.0         3.6          1.4         0.2  setosa</div><div class='input'>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
-<span class='va'>autonum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/run_autonum.html'>run_autonum</a></span><span class='op'>(</span>seq_id <span class='op'>=</span> <span class='st'>"tab"</span>, bkm <span class='op'>=</span> <span class='st'>"mtcars"</span><span class='op'>)</span>
-<span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span> <span class='va'>mtcars</span> <span class='op'>)</span> <span class='op'>)</span>
-<span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'>set_caption</span><span class='op'>(</span><span class='va'>ftab</span>, caption <span class='op'>=</span> <span class='st'>"mtcars data"</span>, autonum <span class='op'>=</span> <span class='va'>autonum</span><span class='op'>)</span>
-<span class='va'>ftab</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
-#&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
-#&gt; original dataset sample: 
-#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span> <span class='va'>iris</span> <span class='op'>)</span> <span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'>set_caption</span><span class='op'>(</span><span class='va'>ftab</span>, <span class='st'>"my caption"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ftab</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 6 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1          5.1         3.5          1.4         0.2  setosa</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2          4.9         3.0          1.4         0.2  setosa</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3          4.7         3.2          1.3         0.2  setosa</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4          4.6         3.1          1.5         0.2  setosa</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5          5.0         3.6          1.4         0.2  setosa</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>autonum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/run_autonum.html'>run_autonum</a></span><span class='op'>(</span>seq_id <span class='op'>=</span> <span class='st'>"tab"</span>, bkm <span class='op'>=</span> <span class='st'>"mtcars"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span> <span class='va'>mtcars</span> <span class='op'>)</span> <span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ftab</span> <span class='op'>&lt;-</span> <span class='fu'>set_caption</span><span class='op'>(</span><span class='va'>ftab</span>, caption <span class='op'>=</span> <span class='st'>"mtcars data"</span>, autonum <span class='op'>=</span> <span class='va'>autonum</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ftab</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 6 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -224,7 +245,7 @@ included as text or an attribute value within an HTML document.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

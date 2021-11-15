@@ -85,7 +85,7 @@ target columns." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.10</span>
       </span>
     </div>
 
@@ -179,58 +179,60 @@ by one to perform cell merges.</p></td>
 <code><a href='merge_none.html'>merge_none</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ft_merge</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>
-<span class='va'>ft_merge</span> <span class='op'>&lt;-</span> <span class='fu'>merge_v</span><span class='op'>(</span><span class='va'>ft_merge</span>, j <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gear"</span>, <span class='st'>"carb"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>ft_merge</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` 
-#&gt; header has 1 row(s) 
-#&gt; body has 32 row(s) 
-#&gt; original dataset sample: 
-#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</div><div class='input'>
-<span class='va'>data_ex</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>srdr_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"175124"</span>, <span class='st'>"175124"</span>, <span class='st'>"172525"</span>, <span class='st'>"172525"</span>,
-  <span class='st'>"172545"</span>, <span class='st'>"172545"</span>, <span class='st'>"172609"</span>, <span class='st'>"172609"</span>, <span class='st'>"172609"</span>
-<span class='op'>)</span>, substances <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"alcohol"</span>,
-  <span class='st'>"alcohol"</span>, <span class='st'>"alcohol"</span>, <span class='st'>"alcohol"</span>, <span class='st'>"cannabis"</span>,
-  <span class='st'>"cannabis"</span>, <span class='st'>"alcohol\n cannabis\n other drugs"</span>,
-  <span class='st'>"alcohol\n cannabis\n other drugs"</span>,
-  <span class='st'>"alcohol\n cannabis\n other drugs"</span>
-<span class='op'>)</span>, full_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"TAU"</span>, <span class='st'>"MI"</span>, <span class='st'>"TAU"</span>, <span class='st'>"MI (parent)"</span>, <span class='st'>"TAU"</span>, <span class='st'>"MI"</span>,
-  <span class='st'>"TAU"</span>, <span class='st'>"MI"</span>, <span class='st'>"MI"</span>
-<span class='op'>)</span>, article_arm_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"Control"</span>, <span class='st'>"WISEteens"</span>,
-  <span class='st'>"Treatment as usual"</span>, <span class='st'>"Brief MI (b-MI)"</span>, <span class='st'>"Assessed control"</span>,
-  <span class='st'>"Intervention"</span>, <span class='st'>"Control"</span>, <span class='st'>"Computer BI"</span>, <span class='st'>"Therapist BI"</span>
-<span class='op'>)</span><span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='cn'>NA</span>,
-  <span class='op'>-</span><span class='fl'>9L</span>
-<span class='op'>)</span>, class <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tbl_df"</span>, <span class='st'>"tbl"</span>, <span class='st'>"data.frame"</span><span class='op'>)</span><span class='op'>)</span>
-
-
-<span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>data_ex</span><span class='op'>)</span>
-<span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='theme_box.html'>theme_box</a></span><span class='op'>(</span><span class='va'>ft_1</span><span class='op'>)</span>
-<span class='va'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'>merge_v</span><span class='op'>(</span><span class='va'>ft_1</span>, j <span class='op'>=</span> <span class='st'>"srdr_id"</span>,
-  target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"srdr_id"</span>, <span class='st'>"substances"</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='va'>ft_2</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `srdr_id`, `substances`, `full_name`, `article_arm_name` 
-#&gt; header has 1 row(s) 
-#&gt; body has 9 row(s) 
-#&gt; original dataset sample: 
-#&gt;   srdr_id substances   full_name   article_arm_name
-#&gt; 1  175124    alcohol         TAU            Control
-#&gt; 2  175124    alcohol          MI          WISEteens
-#&gt; 3  172525    alcohol         TAU Treatment as usual
-#&gt; 4  172525    alcohol MI (parent)    Brief MI (b-MI)
-#&gt; 5  172545   cannabis         TAU   Assessed control</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>ft_merge</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft_merge</span> <span class='op'>&lt;-</span> <span class='fu'>merge_v</span><span class='op'>(</span><span class='va'>ft_merge</span>, j <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gear"</span>, <span class='st'>"carb"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft_merge</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 32 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>data_ex</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>srdr_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='st'>"175124"</span>, <span class='st'>"175124"</span>, <span class='st'>"172525"</span>, <span class='st'>"172525"</span>,</span>
+<span class='r-in'>  <span class='st'>"172545"</span>, <span class='st'>"172545"</span>, <span class='st'>"172609"</span>, <span class='st'>"172609"</span>, <span class='st'>"172609"</span></span>
+<span class='r-in'><span class='op'>)</span>, substances <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='st'>"alcohol"</span>,</span>
+<span class='r-in'>  <span class='st'>"alcohol"</span>, <span class='st'>"alcohol"</span>, <span class='st'>"alcohol"</span>, <span class='st'>"cannabis"</span>,</span>
+<span class='r-in'>  <span class='st'>"cannabis"</span>, <span class='st'>"alcohol\n cannabis\n other drugs"</span>,</span>
+<span class='r-in'>  <span class='st'>"alcohol\n cannabis\n other drugs"</span>,</span>
+<span class='r-in'>  <span class='st'>"alcohol\n cannabis\n other drugs"</span></span>
+<span class='r-in'><span class='op'>)</span>, full_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='st'>"TAU"</span>, <span class='st'>"MI"</span>, <span class='st'>"TAU"</span>, <span class='st'>"MI (parent)"</span>, <span class='st'>"TAU"</span>, <span class='st'>"MI"</span>,</span>
+<span class='r-in'>  <span class='st'>"TAU"</span>, <span class='st'>"MI"</span>, <span class='st'>"MI"</span></span>
+<span class='r-in'><span class='op'>)</span>, article_arm_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='st'>"Control"</span>, <span class='st'>"WISEteens"</span>,</span>
+<span class='r-in'>  <span class='st'>"Treatment as usual"</span>, <span class='st'>"Brief MI (b-MI)"</span>, <span class='st'>"Assessed control"</span>,</span>
+<span class='r-in'>  <span class='st'>"Intervention"</span>, <span class='st'>"Control"</span>, <span class='st'>"Computer BI"</span>, <span class='st'>"Therapist BI"</span></span>
+<span class='r-in'><span class='op'>)</span><span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='cn'>NA</span>,</span>
+<span class='r-in'>  <span class='op'>-</span><span class='fl'>9L</span></span>
+<span class='r-in'><span class='op'>)</span>, class <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tbl_df"</span>, <span class='st'>"tbl"</span>, <span class='st'>"data.frame"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>data_ex</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='theme_box.html'>theme_box</a></span><span class='op'>(</span><span class='va'>ft_1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft_2</span> <span class='op'>&lt;-</span> <span class='fu'>merge_v</span><span class='op'>(</span><span class='va'>ft_1</span>, j <span class='op'>=</span> <span class='st'>"srdr_id"</span>,</span>
+<span class='r-in'>  target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"srdr_id"</span>, <span class='st'>"substances"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>ft_2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `srdr_id`, `substances`, `full_name`, `article_arm_name` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 9 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   srdr_id substances   full_name   article_arm_name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  175124    alcohol         TAU            Control</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  175124    alcohol          MI          WISEteens</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  172525    alcohol         TAU Treatment as usual</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  172525    alcohol MI (parent)    Brief MI (b-MI)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  172545   cannabis         TAU   Assessed control</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -243,7 +245,7 @@ by one to perform cell merges.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

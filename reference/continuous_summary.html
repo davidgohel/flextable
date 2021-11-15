@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.10</span>
       </span>
     </div>
 
@@ -165,26 +165,27 @@ level/value will be rendered.</p></td>
 <p><img src='figures/fig_continuous_summary_1.png' width=80% /></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'>continuous_summary</span><span class='op'>(</span><span class='va'>iris</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, by <span class='op'>=</span> <span class='st'>"Species"</span>,
-  hide_grouplabel <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='va'>ft_1</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Species`, `N`, `MIN`, `Q1`, `MEDIAN`, `Q3`, `MAX`, `MEAN`, `SD`, `MAD`, `NAS` 
-#&gt; header has 1 row(s) 
-#&gt; body has 16 row(s) 
-#&gt; original dataset sample: 
-#&gt;       variable    Species  N MIN    Q1 MEDIAN  Q3 MAX  MEAN        SD     MAD
-#&gt; 1 Sepal.Length       &lt;NA&gt; NA  NA    NA     NA  NA  NA    NA        NA      NA
-#&gt; 5         &lt;NA&gt;     setosa 50 4.3 4.800    5.0 5.2 5.8 5.006 0.3524897 0.29652
-#&gt; 6         &lt;NA&gt; versicolor 50 4.9 5.600    5.9 6.3 7.0 5.936 0.5161711 0.51891
-#&gt; 7         &lt;NA&gt;  virginica 50 4.9 6.225    6.5 6.9 7.9 6.588 0.6358796 0.59304
-#&gt; 2  Sepal.Width       &lt;NA&gt; NA  NA    NA     NA  NA  NA    NA        NA      NA
-#&gt;   NAS
-#&gt; 1  NA
-#&gt; 5   0
-#&gt; 6   0
-#&gt; 7   0
-#&gt; 2  NA</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>ft_1</span> <span class='op'>&lt;-</span> <span class='fu'>continuous_summary</span><span class='op'>(</span><span class='va'>iris</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, by <span class='op'>=</span> <span class='st'>"Species"</span>,</span>
+<span class='r-in'>  hide_grouplabel <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ft_1</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `Species`, `N`, `MIN`, `Q1`, `MEDIAN`, `Q3`, `MAX`, `MEAN`, `SD`, `MAD`, `NAS` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 16 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       variable    Species  N MIN    Q1 MEDIAN  Q3 MAX  MEAN        SD     MAD</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 Sepal.Length       &lt;NA&gt; NA  NA    NA     NA  NA  NA    NA        NA      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5         &lt;NA&gt;     setosa 50 4.3 4.800    5.0 5.2 5.8 5.006 0.3524897 0.29652</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6         &lt;NA&gt; versicolor 50 4.9 5.600    5.9 6.3 7.0 5.936 0.5161711 0.51891</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7         &lt;NA&gt;  virginica 50 4.9 6.225    6.5 6.9 7.9 6.588 0.6358796 0.59304</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  Sepal.Width       &lt;NA&gt; NA  NA    NA     NA  NA  NA    NA        NA      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   NAS</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  NA</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -197,7 +198,7 @@ level/value will be rendered.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

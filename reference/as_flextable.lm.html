@@ -81,7 +81,7 @@ linear model produced by function lm." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.10</span>
       </span>
     </div>
 
@@ -157,23 +157,24 @@ linear model produced by function <code>lm</code>.</p>
 <code><a href='as_flextable.html'>as_flextable</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://broom.tidymodels.org/'>"broom"</a></span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
-  <span class='va'>lmod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>rating</span> <span class='op'>~</span> <span class='va'>complaints</span> <span class='op'>+</span> <span class='va'>privileges</span> <span class='op'>+</span>
-    <span class='va'>learning</span> <span class='op'>+</span> <span class='va'>raises</span> <span class='op'>+</span> <span class='va'>critical</span>, data<span class='op'>=</span><span class='va'>attitude</span><span class='op'>)</span>
-  <span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span><span class='op'>(</span><span class='va'>lmod</span><span class='op'>)</span>
-  <span class='va'>ft</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `term`, `estimate`, `std.error`, `statistic`, `p.value`, `signif` 
-#&gt; header has 1 row(s) 
-#&gt; body has 6 row(s) 
-#&gt; original dataset sample: 
-#&gt;          term    estimate  std.error  statistic      p.value signif
-#&gt; 1 (Intercept) 11.01113043 11.7039358  0.9408058 0.3561781673       
-#&gt; 2  complaints  0.69205262  0.1488643  4.6488827 0.0001014085       
-#&gt; 3  privileges -0.10356202  0.1347297 -0.7686650 0.4495905743       
-#&gt; 4    learning  0.24906128  0.1596189  1.5603496 0.1317679549       
-#&gt; 5      raises -0.03346062  0.2022762 -0.1654205 0.8699985577       </div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://broom.tidymodels.org/'>"broom"</a></span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span></span>
+<span class='r-in'>  <span class='va'>lmod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>rating</span> <span class='op'>~</span> <span class='va'>complaints</span> <span class='op'>+</span> <span class='va'>privileges</span> <span class='op'>+</span></span>
+<span class='r-in'>    <span class='va'>learning</span> <span class='op'>+</span> <span class='va'>raises</span> <span class='op'>+</span> <span class='va'>critical</span>, data<span class='op'>=</span><span class='va'>attitude</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>ft</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as_flextable.html'>as_flextable</a></span><span class='op'>(</span><span class='va'>lmod</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>ft</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `term`, `estimate`, `std.error`, `statistic`, `p.value`, `signif` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 6 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          term    estimate  std.error  statistic      p.value signif</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 (Intercept) 11.01113043 11.7039358  0.9408058 0.3561781673       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  complaints  0.69205262  0.1488643  4.6488827 0.0001014085       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  privileges -0.10356202  0.1347297 -0.7686650 0.4495905743       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    learning  0.24906128  0.1596189  1.5603496 0.1317679549       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5      raises -0.03346062  0.2022762 -0.1654205 0.8699985577       </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -186,7 +187,7 @@ linear model produced by function <code>lm</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.6.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.6.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
