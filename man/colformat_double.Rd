@@ -24,7 +24,7 @@ colformat_double(
 
 \item{j}{columns selection.}
 
-\item{big.mark, digits, decimal.mark}{see \code{\link[=format]{format()}}}
+\item{big.mark, digits, decimal.mark}{see \code{\link[=formatC]{formatC()}}}
 
 \item{na_str}{string to be used for NA and NaN values}
 

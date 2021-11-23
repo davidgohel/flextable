@@ -79,8 +79,10 @@ Japanese text might be displayed using the "MS Mincho" font.}
 characters in a Unicode range which does not fall into one of the
 other categories.}
 
-\item{decimal.mark, big.mark, digits, na_str, nan_str}{\link{formatC} arguments used by \code{\link[=colformat_num]{colformat_num()}},
+\item{decimal.mark, big.mark, na_str, nan_str}{\link{formatC} arguments used by \code{\link[=colformat_num]{colformat_num()}},
 \code{\link[=colformat_double]{colformat_double()}}, and \code{\link[=colformat_int]{colformat_int()}}.}
+
+\item{digits}{\link{formatC} argument used by \code{\link[=colformat_double]{colformat_double()}}.}
 
 \item{fmt_date, fmt_datetime}{formats for date and datetime columns as
 documented in \code{\link[=strptime]{strptime()}}. Default to '\%Y-\%m-\%d' and '\%Y-\%m-\%d \%H:\%M:\%S'.}

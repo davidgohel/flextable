@@ -121,7 +121,7 @@ colformat_char <- function(
 #' @title format numeric cells
 #' @description Format numeric cells in a flextable.
 #' @inheritParams colformat_char
-#' @param big.mark,digits,decimal.mark see [format()]
+#' @param big.mark,digits,decimal.mark see [formatC()]
 #' @family cells formatters
 #' @examples
 #' dat <- mtcars
@@ -165,6 +165,10 @@ colformat_double <- function(
 #' columns. The function uses the [format()] function of R on numeric
 #' type columns. So this is normally what you see on the R console
 #' most of the time (but scientific mode is disabled, NA are replaced, etc.).
+#'
+#' @note
+#' It does not support `digits` argument, it uses default R options
+#' through calls to `format()`.
 #' @inheritParams colformat_char
 #' @param big.mark,decimal.mark see [format()]
 #' @param ... unused argument.

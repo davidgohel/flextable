@@ -44,6 +44,10 @@ columns. The function uses the \code{\link[=format]{format()}} function of R on 
 type columns. So this is normally what you see on the R console
 most of the time (but scientific mode is disabled, NA are replaced, etc.).
 }
+\note{
+It does not support \code{digits} argument, it uses default R options
+through calls to \code{format()}.
+}
 \section{Illustrations}{
 
 
