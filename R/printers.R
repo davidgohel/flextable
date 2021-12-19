@@ -556,7 +556,7 @@ knit_print.flextable <- function(x, ...){
   is_bookdown <- isTRUE(opts_knit$get('bookdown.internal.label'))
   pandoc2 <- pandoc_version() >= numeric_version("2.0")
   str <- flextable_to_rmd(x, bookdown = is_bookdown, pandoc2 = pandoc2,
-                          print = FALSE, ...)
+                          print = FALSE)
   knit_print(asis_output(str))
 }
 
