@@ -1,3 +1,11 @@
+# flextable 0.6.11
+
+## new features
+
+* pass `...` to `format()` function when using `colformat_num()`. It 
+makes possible to use arguments for `format()`, for example 
+`colformat_num(drop0trailing = TRUE)`.
+
 # flextable 0.6.10
 
 ## new features

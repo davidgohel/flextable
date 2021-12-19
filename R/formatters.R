@@ -198,11 +198,14 @@ colformat_num <- function(
 
   quo_fun <- quo(format_fun.default(
     x, big.mark = big.mark, decimal.mark = decimal.mark,
-    na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix
+    na_str = na_str, nan_str = nan_str,
+    prefix = prefix, suffix = suffix,
+    ...
   ))
   fun_ <- new_function(
     pairlist2(x = , big.mark = big.mark, decimal.mark = decimal.mark,
-              na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix),
+              na_str = na_str, nan_str = nan_str, prefix = prefix, suffix = suffix,
+              ...),
     get_expr(quo_fun))
 
   docall_display(col_keys, fun_, x, i = i)

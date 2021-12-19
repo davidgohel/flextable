@@ -27,7 +27,9 @@ format_fun.default <-
                                    nan_str = nan_str,
                                    big.mark = big.mark,
                                decimal.mark = decimal.mark,
-                               digits = digits, prefix = prefix, suffix = suffix)
+                               digits = digits,
+                               prefix = prefix, suffix = suffix,
+                               ...)
     } else if(is.integer(x)){
       out <- format_fun.integer(x,
                                 na_str = na_str,
@@ -51,7 +53,7 @@ format_fun.default <-
       out <- format(x, trim = TRUE, big.mark = big.mark,
                     decimal.mark = decimal.mark, justify = "none",
                     scientific = FALSE,
-                    digits = digits)
+                    digits = digits, ...)
       out[is.na(x)] <- na_str
       out[is.nan(x)] <- nan_str
     }
@@ -106,7 +108,8 @@ format_fun_defaultnum <-
       prefix,
       format(x, trim = TRUE, scientific = FALSE,
         big.mark = big.mark,
-        decimal.mark = decimal.mark
+        decimal.mark = decimal.mark,
+        ...
       ),
       suffix
     )
