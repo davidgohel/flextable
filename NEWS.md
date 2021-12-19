@@ -9,6 +9,8 @@ makes possible to use arguments for `format()`, for example
 to function `body_add_flextable()` that enable the Word option 
 'keep rows together', so that page break within a table is 
 avoided when possible.
+* new function `add_latex_dep()` to manually add flextable latex 
+dependencies to the knitr session.
 
 # flextable 0.6.10
 

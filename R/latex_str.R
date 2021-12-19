@@ -1,3 +1,48 @@
+#' @export
+#' @title add latex dependencies
+#' @description Manually add flextable latex dependencies to
+#' the knitr session via [knit_meta_add()].
+#'
+#' When enabling caching in 'R Markdown' documents for PDF output,
+#' the flextable cached result is used directly. Call `add_latex_dep()` in a
+#' non cached chunk so that flextable latex dependencies are added
+#' to knitr metadata.
+#' @return NULL
+#' @examples
+#' add_latex_dep()
+add_latex_dep <- function(){
+
+  pandoc_to <- opts_knit$get("rmarkdown.pandoc.to")
+  if(is.null(pandoc_to)) pandoc_to <- ""
+  if(!grepl("latex", pandoc_to)){
+    return(invisible(NULL))
+  }
+
+  fonts_ignore <- flextable_global$defaults$fonts_ignore
+  fontspec_compat <- get_pdf_engine() %in% c("xelatex", "lualatex")
+  if (!fonts_ignore && !fontspec_compat) {
+    warning("Warning: fonts used in `flextable` are ignored because ",
+            "the `pdflatex` engine is used and not `xelatex` or ",
+            "`lualatex`. You can avoid this warning by using the ",
+            "`set_flextable_defaults(fonts_ignore=TRUE)` command or ",
+            "use a compatible engine by defining `latex_engine: xelatex` ",
+            "in the YAML header of the R Markdown document.",
+            call. = FALSE
+    )
+  }
+  if (fontspec_compat) {
+    usepackage_latex("fontspec")
+  }
+  usepackage_latex("multirow")
+  usepackage_latex("multicol")
+  usepackage_latex("colortbl")
+  usepackage_latex("hhline")
+  usepackage_latex("longtable")
+  usepackage_latex("array")
+  usepackage_latex("hyperref")
+  invisible(NULL)
+}
+
 latex_str <- function(x, ft.align = "center",
                       ft.tabcolsep = 8,
                       ft.arraystretch = 1.5,

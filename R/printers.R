@@ -271,28 +271,7 @@ latex_value <- function(x,
 
   x <- flextable_global$defaults$post_process_pdf(x)
 
-  fonts_ignore <- flextable_global$defaults$fonts_ignore
-  fontspec_compat <- get_pdf_engine() %in% c("xelatex", "lualatex")
-  if (!fonts_ignore && !fontspec_compat) {
-    warning("Warning: fonts used in `flextable` are ignored because ",
-      "the `pdflatex` engine is used and not `xelatex` or ",
-      "`lualatex`. You can avoid this warning by using the ",
-      "`set_flextable_defaults(fonts_ignore=TRUE)` command or ",
-      "use a compatible engine by defining `latex_engine: xelatex` ",
-      "in the YAML header of the R Markdown document.",
-      call. = FALSE
-    )
-  }
-  if (fontspec_compat) {
-    usepackage_latex("fontspec")
-  }
-  usepackage_latex("multirow")
-  usepackage_latex("multicol")
-  usepackage_latex("colortbl")
-  usepackage_latex("hhline")
-  usepackage_latex("longtable")
-  usepackage_latex("array")
-  usepackage_latex("hyperref")
+  add_latex_dep()
 
   out <- paste(
     cline_cmd,
@@ -488,6 +467,9 @@ print.flextable <- function(x, preview = "html", ...){
 #' Background color and merged cells are also sources of trouble
 #' with PDF format. Authors are hoping to fix these issues in
 #' the future.
+#'
+#' See [add_latex_dep()] if caching flextable results in 'R Markdown'
+#' documents.
 #'
 #' @section PowerPoint output:
 #'

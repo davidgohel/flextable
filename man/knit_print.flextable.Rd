@@ -118,6 +118,9 @@ height properties.
 Background color and merged cells are also sources of trouble
 with PDF format. Authors are hoping to fix these issues in
 the future.
+
+See \code{\link[=add_latex_dep]{add_latex_dep()}} if caching flextable results in 'R Markdown'
+documents.
 }
 
 \section{PowerPoint output}{
