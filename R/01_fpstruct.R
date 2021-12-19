@@ -202,7 +202,7 @@ as.data.frame.par_struct <- function(object, ...){
 }
 
 
-add_parstyle_column <- function(x, type = "wml", text.direction, valign){
+add_parstyle_column <- function(x, type = "wml", text.direction, valign, keep_with_next){
 
   if( type %in% "wml"){
 
@@ -229,8 +229,9 @@ add_parstyle_column <- function(x, type = "wml", text.direction, valign){
                        x$padding.bottom*20, x$padding.top*20,
                        x$line_spacing*240,
                        x$padding.left*20, x$padding.right*20 )
-
-    style_column <- paste0("<w:pPr>", textalign, bb, bt, bl, br,
+    keep_next <- ""
+    if(keep_with_next) keep_next <- "<w:keepNext/>"
+    style_column <- paste0("<w:pPr>", keep_next, textalign, bb, bt, bl, br,
                            padding, shading, "</w:pPr>" )
   } else if( type %in% "pml"){
 
@@ -249,9 +250,9 @@ add_parstyle_column <- function(x, type = "wml", text.direction, valign){
   x[, c("ft_row_id", "col_id", "style_str")]
 }
 
-par_data <- function(x, run_data, type, text.direction, valign){
+par_data <- function(x, run_data, type, text.direction, valign, keep_with_next){
   paragraphs <- as.data.frame(x)
-  paragraphs <- add_parstyle_column(paragraphs, type = type, text.direction = text.direction, valign = valign)
+  paragraphs <- add_parstyle_column(paragraphs, type = type, text.direction = text.direction, valign = valign, keep_with_next = keep_with_next)
   setDT(paragraphs)
   dat <- merge(paragraphs, run_data, by = c("ft_row_id", "col_id"), all.x = TRUE)
   setDF(paragraphs)

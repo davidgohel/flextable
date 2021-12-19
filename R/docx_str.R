@@ -20,7 +20,7 @@ mcoalesce_options <- function(...) {
 }
 
 # docx_str -----
-docx_str <- function(x, align = "center", split = FALSE, doc = NULL, ...){
+docx_str <- function(x, align = "center", split = FALSE, keep_with_next = TRUE, doc = NULL, ...){
 
   imgs <- character(0)
   hlinks <- character(0)
@@ -62,20 +62,26 @@ docx_str <- function(x, align = "center", split = FALSE, doc = NULL, ...){
   out <- paste0(out, properties_str )
 
   if( nrow_part(x, "header") > 0 ){
-    xml_content <- format(x$header, header = TRUE, split = split, type = "wml")
+    xml_content <- format(x$header, header = TRUE,
+                          split = split, keep_with_next = keep_with_next,
+                          type = "wml")
     imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
     hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
     out = paste0(out, xml_content )
   }
   if( nrow_part(x, "body") > 0 ){
-    xml_content <- format(x$body, header = FALSE, split = split, type = "wml")
+    xml_content <- format(x$body, header = FALSE,
+                          split = split, keep_with_next = keep_with_next,
+                          type = "wml")
     imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
     hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
 
     out = paste0(out, xml_content )
   }
   if( nrow_part(x, "footer") > 0 ){
-    xml_content <- format(x$footer, header = FALSE, split = split, type = "wml")
+    xml_content <- format(x$footer, header = FALSE,
+                          split = split, keep_with_next = keep_with_next,
+                          type = "wml")
     imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
     hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
     out = paste0(out, xml_content )

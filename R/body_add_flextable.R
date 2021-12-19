@@ -6,6 +6,8 @@
 #' @param align left, center (default) or right.
 #' @param split set to TRUE if you want to activate Word
 #' option 'Allow row to break across pages'.
+#' @param keepnext Word option 'keep rows together' can be
+#' activated when TRUE. It avoids page break within tables.
 #' @param pos where to add the flextable relative to the cursor,
 #' one of "after", "before", "on" (end of line).
 #' @param topcaption if TRUE caption is added before the table, if FALSE,
@@ -26,7 +28,8 @@
 #' # fileout <- "test.docx" # uncomment to write in your working directory
 #' print(doc, target = fileout)
 body_add_flextable <- function( x, value, align = "center", pos = "after", split = FALSE,
-                                topcaption = TRUE) {
+                                topcaption = TRUE,
+                                keepnext = TRUE) {
 
   stopifnot(inherits(x, "rdocx"))
   stopifnot(inherits(value, "flextable"))
@@ -37,7 +40,8 @@ body_add_flextable <- function( x, value, align = "center", pos = "after", split
                         autonum = value$caption$autonum)
     x <- body_add_xml(x = x, str = to_wml(bc, base_document = x, add_ns = TRUE), pos = pos)
   }
-  out <- docx_str(value, doc = x, align = align, split = split)
+  out <- docx_str(value, doc = x, align = align, split = split,
+                  keep_with_next = keepnext)
 
   x <- body_add_xml(x = x, str = out, pos = pos)
 
@@ -79,7 +83,7 @@ body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", 
 #' @param value a flextable object
 headers_flextable_at_bkm <- function( x, bookmark, value ){
   stopifnot(inherits(x, "rdocx"), inherits(value, "flextable"))
-  str <- docx_str(value, doc = x, align = "center")
+  str <- docx_str(value, doc = x, align = "center", keep_with_next = FALSE)
   xml_elt <- as_xml_document(str)
   for(header in x$headers){
     if( header$has_bookmark(bookmark) ){
@@ -105,7 +109,7 @@ headers_flextable_at_bkm <- function( x, bookmark, value ){
 #' @param value a flextable object
 footers_flextable_at_bkm <- function( x, bookmark, value ){
   stopifnot(inherits(x, "rdocx"), inherits(value, "flextable"))
-  str <- docx_str(value, doc = x, align = "center")
+  str <- docx_str(value, doc = x, align = "center", keep_with_next = FALSE)
   xml_elt <- as_xml_document(str)
   for(footer in x$footers){
     if( footer$has_bookmark(bookmark) ){

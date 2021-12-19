@@ -8,6 +8,7 @@ flextable_to_rmd(
   x,
   ft.align = opts_current$get("ft.align"),
   ft.split = opts_current$get("ft.split"),
+  ft.keepnext = opts_current$get("ft.keepnext"),
   ft.tabcolsep = opts_current$get("ft.tabcolsep"),
   ft.arraystretch = opts_current$get("ft.arraystretch"),
   ft.left = opts_current$get("ft.left"),
@@ -16,7 +17,8 @@ flextable_to_rmd(
   webshot = opts_current$get("webshot"),
   bookdown = FALSE,
   pandoc2 = TRUE,
-  print = TRUE
+  print = TRUE,
+  ...
 )
 }
 \arguments{
@@ -26,6 +28,9 @@ flextable_to_rmd(
 
 \item{ft.split}{Word option 'Allow row to break across pages' can be
 activated when TRUE.}
+
+\item{ft.keepnext}{Word option 'keep rows together' can be
+activated when TRUE. It avoids page break within tables.}
 
 \item{ft.tabcolsep}{space between the text and the left/right border of its containing
 cell, the default value is 8 points.}
@@ -50,6 +55,8 @@ For example, you can put "\\\\pagebreak" here to have tables produced with page 
 (only valid when pandoc version is \verb{>= 2}.}
 
 \item{print}{print output if TRUE}
+
+\item{...}{unused arguments}
 }
 \description{
 Print openxml, latex or html code of a

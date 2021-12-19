@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{a \code{flextable} object}
 
-\item{...}{further arguments, not used.}
+\item{...}{arguments passed to \code{\link[=flextable_to_rmd]{flextable_to_rmd()}}.}
 }
 \description{
 Function used to render flextable in knitr/rmarkdown documents.
@@ -50,6 +50,7 @@ are to be used to change the default settings:
 ft.align        \tab flextable alignment, supported values are 'left', 'center' and 'right'    \tab 'center' \tab yes \tab yes \tab yes \tab no \cr
 ft.shadow       \tab HTML option, disable shadow dom (set to \code{FALSE}) for pagedown. \tab TRUE    \tab yes  \tab no \tab no  \tab no \cr
 ft.split        \tab Word option 'Allow row to break across pages' can be activated when TRUE. \tab FALSE    \tab no  \tab yes \tab no  \tab no \cr
+ft.keepnext     \tab Word option 'keep rows together' can be activated when TRUE. \tab TRUE    \tab no  \tab yes \tab no  \tab no \cr
 ft.tabcolsep    \tab space between the text and the left/right border of its containing cell   \tab 8.0      \tab no  \tab no  \tab yes \tab no \cr
 ft.arraystretch \tab height of each row relative to its default height                         \tab 1.5      \tab no  \tab no  \tab yes \tab no \cr
 ft.left         \tab left coordinates in inches                                                \tab 1.0      \tab no  \tab no  \tab no  \tab yes\cr

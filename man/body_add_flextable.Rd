@@ -11,7 +11,8 @@ body_add_flextable(
   align = "center",
   pos = "after",
   split = FALSE,
-  topcaption = TRUE
+  topcaption = TRUE,
+  keepnext = TRUE
 )
 
 body_replace_flextable_at_bkm(
@@ -37,6 +38,9 @@ option 'Allow row to break across pages'.}
 
 \item{topcaption}{if TRUE caption is added before the table, if FALSE,
 caption is added after the table.}
+
+\item{keepnext}{Word option 'keep rows together' can be
+activated when TRUE. It avoids page break within tables.}
 
 \item{bookmark}{bookmark id}
 }

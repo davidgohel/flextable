@@ -5,6 +5,10 @@
 * pass `...` to `format()` function when using `colformat_num()`. It 
 makes possible to use arguments for `format()`, for example 
 `colformat_num(drop0trailing = TRUE)`.
+* add knitr chunk option `ft.keepnext` and parameter `keepnext` 
+to function `body_add_flextable()` that enable the Word option 
+'keep rows together', so that page break within a table is 
+avoided when possible.
 
 # flextable 0.6.10
 

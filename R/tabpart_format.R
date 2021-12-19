@@ -51,7 +51,8 @@ border_pml <- function(color, width, style, side){
 #' @importFrom htmltools htmlEscape
 #' @importFrom xml2 as_xml_document xml_find_all xml_attr
 format.complex_tabpart <- function( x, type = "wml", header = FALSE,
-                                    split = FALSE, colwidth = TRUE, ... ){
+                                    split = FALSE, colwidth = TRUE,
+                                    keep_with_next = TRUE, ... ){
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml") )
 
@@ -99,7 +100,9 @@ format.complex_tabpart <- function( x, type = "wml", header = FALSE,
   }
 
   paragraphs <- par_data(x$styles$pars, txt_data, type = type,
-                         text.direction = x$styles$cells$text.direction$data, valign = x$styles$cells$vertical.align$data)
+                         text.direction = x$styles$cells$text.direction$data,
+                         valign = x$styles$cells$vertical.align$data,
+                         keep_with_next = keep_with_next)
   cells <- cell_data(x$styles$cells, paragraphs, type = type,
                      span_rows = x$spans$rows,
                      span_columns = x$spans$columns, x$colwidths, x$rowheights, x$hrule, text.align=x$styles$pars$text.align$data)

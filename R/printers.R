@@ -46,6 +46,8 @@ htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE){
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param ft.split Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
+#' @param ft.keepnext Word option 'keep rows together' can be
+#' activated when TRUE. It avoids page break within tables.
 #' @param ft.tabcolsep space between the text and the left/right border of its containing
 #' cell, the default value is 8 points.
 #' @param ft.arraystretch height of each row relative to its default
@@ -61,6 +63,7 @@ htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE){
 #' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
 #' @param pandoc2 `TRUE` (default) or `FALSE` to get the string in a pandoc raw HTML attribute
 #' (only valid when pandoc version is `>= 2`.
+#' @param ... unused arguments
 #' @param print print output if TRUE
 #' @family flextable print function
 #' @examples
@@ -82,13 +85,15 @@ flextable_to_rmd <- function(
                              x,
                              ft.align = opts_current$get("ft.align"),
                              ft.split = opts_current$get("ft.split"),
+                             ft.keepnext = opts_current$get("ft.keepnext"),
                              ft.tabcolsep = opts_current$get("ft.tabcolsep"),
                              ft.arraystretch = opts_current$get("ft.arraystretch"),
                              ft.left = opts_current$get("ft.left"),
                              ft.top = opts_current$get("ft.top"),
                              text_after = "",
                              webshot = opts_current$get("webshot"),
-                             bookdown = FALSE, pandoc2 = TRUE, print = TRUE) {
+                             bookdown = FALSE, pandoc2 = TRUE, print = TRUE,
+                             ...) {
   str <- ""
   is_xaringan <- !is.null(getOption("xaringan.page_number.offset"))
 
@@ -119,7 +124,7 @@ flextable_to_rmd <- function(
     if (pandoc2) {
       str <- docx_value(x,
         bookdown = bookdown, ft.align = ft.align,
-        ft.split = ft.split
+        ft.split = ft.split, ft.keepnext = ft.keepnext
       )
     } else {
       stop("pandoc version >= 2.0 required for flextable rendering in docx")
@@ -206,6 +211,8 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param ft.split Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
+#' @param ft.keepnext Word option 'keep rows together' can be
+#' activated when TRUE. It avoids page break within tables.
 #' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
 #' @examples
 #' docx_value(flextable(iris[1:5,]))
@@ -213,12 +220,14 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
 docx_value <- function(x,
                        ft.align = opts_current$get("ft.align"),
                        ft.split = opts_current$get("ft.split"),
+                       ft.keepnext = opts_current$get("ft.keepnext"),
                        bookdown = FALSE){
 
   x <- flextable_global$defaults$post_process_docx(x)
 
   if( is.null(ft.align) ) ft.align <- "center"
   if( is.null(ft.split) ) ft.split <- FALSE
+  if( is.null(ft.keepnext) ) ft.keepnext <- TRUE
 
   caption <- caption_docx_str(x, bookdown = bookdown)
   tab_props <- opts_current_table()
@@ -226,7 +235,8 @@ docx_value <- function(x,
 
   out <- paste(if(topcaption) caption,
       "```{=openxml}",
-      docx_str(x, align = ft.align, split = ft.split),
+      docx_str(x, align = ft.align, split = ft.split,
+               keep_with_next = ft.keepnext),
       "```\n\n",
       if(!topcaption) caption,
       "\n\n",
@@ -412,6 +422,7 @@ print.flextable <- function(x, preview = "html", ...){
 #'   ft.align        \tab flextable alignment, supported values are 'left', 'center' and 'right'    \tab 'center' \tab yes \tab yes \tab yes \tab no \cr
 #'   ft.shadow       \tab HTML option, disable shadow dom (set to `FALSE`) for pagedown. \tab TRUE    \tab yes  \tab no \tab no  \tab no \cr
 #'   ft.split        \tab Word option 'Allow row to break across pages' can be activated when TRUE. \tab FALSE    \tab no  \tab yes \tab no  \tab no \cr
+#'   ft.keepnext     \tab Word option 'keep rows together' can be activated when TRUE. \tab TRUE    \tab no  \tab yes \tab no  \tab no \cr
 #'   ft.tabcolsep    \tab space between the text and the left/right border of its containing cell   \tab 8.0      \tab no  \tab no  \tab yes \tab no \cr
 #'   ft.arraystretch \tab height of each row relative to its default height                         \tab 1.5      \tab no  \tab no  \tab yes \tab no \cr
 #'   ft.left         \tab left coordinates in inches                                                \tab 1.0      \tab no  \tab no  \tab no  \tab yes\cr
@@ -485,7 +496,7 @@ print.flextable <- function(x, preview = "html", ...){
 #' Images cannot be integrated into tables with the PowerPoint format.
 #'
 #' @param x a `flextable` object
-#' @param ... further arguments, not used.
+#' @param ... arguments passed to [flextable_to_rmd()].
 #' @export
 #' @importFrom utils getFromNamespace
 #' @importFrom htmltools HTML div
@@ -562,7 +573,8 @@ knit_print.flextable <- function(x, ...){
 
   is_bookdown <- isTRUE(opts_knit$get('bookdown.internal.label'))
   pandoc2 <- pandoc_version() >= numeric_version("2.0")
-  str <- flextable_to_rmd(x, bookdown = is_bookdown, pandoc2 = pandoc2, print = FALSE)
+  str <- flextable_to_rmd(x, bookdown = is_bookdown, pandoc2 = pandoc2,
+                          print = FALSE, ...)
   knit_print(asis_output(str))
 }
 
