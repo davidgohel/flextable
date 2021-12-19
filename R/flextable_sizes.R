@@ -79,7 +79,7 @@ width <- function(x, j = NULL, width, unit = "in"){
 #' @export
 #' @title Set flextable rows height
 #' @description control rows height for a part of the flextable when the line
-#' height adjustment is "atleast" or "exact".
+#' height adjustment is "atleast" or "exact" (see [hrule()]).
 #' @note
 #' This function has no effect when the rule for line height is set to
 #' "auto" (see [hrule()]), which is the default case, except with PowerPoint
@@ -124,8 +124,8 @@ height <- function(x, i = NULL, height, part = "body", unit = "in"){
 #' @export
 #' @title Set flextable rule for rows heights
 #' @description control rules of each height for a part
-#' of the flextable, this is only for Word and HTML outputs, it
-#' will not have any effect when output is PowerPoint.
+#' of the flextable, this is only for Word and PowerPoint outputs, it
+#' will not have any effect when output is HTML.
 #' @param x flextable object
 #' @param i rows selection
 #' @param rule specify the meaning of the height. Possible values

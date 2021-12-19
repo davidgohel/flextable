@@ -22,7 +22,7 @@ height_all(x, height, part = "all", unit = "in")
 }
 \description{
 control rows height for a part of the flextable when the line
-height adjustment is "atleast" or "exact".
+height adjustment is "atleast" or "exact" (see \code{\link[=hrule]{hrule()}}).
 }
 \note{
 This function has no effect when the rule for line height is set to
