@@ -34,7 +34,8 @@ colformat_num(
 
 \item{suffix}{string to be used as prefix or suffix}
 
-\item{...}{unused argument.}
+\item{...}{additional argument for function \code{\link[=format]{format()}}, \code{scientific}
+and \code{digits} can not be used.}
 }
 \description{
 Format numeric cells in a flextable.
@@ -44,10 +45,29 @@ columns. The function uses the \code{\link[=format]{format()}} function of R on 
 type columns. So this is normally what you see on the R console
 most of the time (but scientific mode is disabled, NA are replaced, etc.).
 }
-\note{
-It does not support \code{digits} argument, it uses default R options
-through calls to \code{format()}.
+\section{format call}{
+
+
+Function \code{\link[=format]{format()}} is called with the following values:
+\itemize{
+\item \code{trim} is set to TRUE,
+\item \code{scientific} is set to FALSE,
+\item \code{big.mark} is set to the value of \code{big.mark} argument,
+\item \code{decimal.mark} is set to the value of \code{decimal.mark} argument,
+\item other arguments are passed 'as is' to the format function.
 }
+
+argument \code{digits} is ignored as it is not the same \code{digits} that users
+want, this one will be used by \code{\link[=format]{format()}} and not \code{\link[=formatC]{formatC()}}.
+To change the digit argument use \code{options(digits=4)} instead.
+
+This argument will not be changed because \code{colformat_num()}
+is supposed to format things roughly as what you see on the R console.
+
+If you are not happy with these choices, use \code{\link[=set_formatter]{set_formatter()}}
+and define your own format.
+}
+
 \section{Illustrations}{
 
 

@@ -166,12 +166,30 @@ colformat_double <- function(
 #' type columns. So this is normally what you see on the R console
 #' most of the time (but scientific mode is disabled, NA are replaced, etc.).
 #'
-#' @note
-#' It does not support `digits` argument, it uses default R options
-#' through calls to `format()`.
+#' @section format call:
+#'
+#' Function [format()] is called with the following values:
+#'
+#' * `trim` is set to TRUE,
+#' * `scientific` is set to FALSE,
+#' * `big.mark` is set to the value of `big.mark` argument,
+#' * `decimal.mark` is set to the value of `decimal.mark` argument,
+#' * other arguments are passed 'as is' to the format function.
+#'
+#' argument `digits` is ignored as it is not the same `digits` that users
+#' want, this one will be used by [format()] and not [formatC()].
+#' To change the digit argument use `options(digits=4)` instead.
+#'
+#' This argument will not be changed because `colformat_num()`
+#' is supposed to format things roughly as what you see on the R console.
+#'
+#' If you are not happy with these choices, use [set_formatter()]
+#' and define your own format.
+#'
 #' @inheritParams colformat_char
 #' @param big.mark,decimal.mark see [format()]
-#' @param ... unused argument.
+#' @param ... additional argument for function [format()], `scientific`
+#' and `digits` can not be used.
 #' @family cells formatters
 #' @examples
 #' dat <- mtcars
