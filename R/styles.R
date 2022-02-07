@@ -789,8 +789,10 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
 #' @title make blank columns as transparent
 #' @description blank columns are set as transparent. This is a shortcut function
 #' that will delete top and bottom borders, change background color to
-#' transparent and display empty content.
+#' transparent, display empty content and set blank columns' width.
 #' @param x a flextable object
+#' @param width width of blank columns (.1 inch by default).
+#' @param unit unit for width, one of "in", "cm", "mm".
 #' @family sugar functions for table style
 #' @examples
 #' typology <- data.frame(
@@ -812,7 +814,7 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
 #' ftab
 #' @export
 #' @importFrom officer shortcuts
-empty_blanks <- function(x){
+empty_blanks <- function(x, width = .05, unit = "in"){
   if( !inherits(x, "flextable") ) stop("empty_blanks supports only flextable objects.")
   if( length(x$blanks) < 1 ) return(x)
 
@@ -820,6 +822,7 @@ empty_blanks <- function(x){
                border.top = shortcuts$b_null(), border.bottom = shortcuts$b_null(), part = "all" )
   x <- bg(x, j = x$blanks, bg = "transparent", part = "all")
   x <- void(x, j = x$blanks, part = "all")
+  x <- width(x, j = x$blanks, width = width, unit = unit)
   x
 
 }

@@ -4,15 +4,19 @@
 \alias{empty_blanks}
 \title{make blank columns as transparent}
 \usage{
-empty_blanks(x)
+empty_blanks(x, width = 0.05, unit = "in")
 }
 \arguments{
 \item{x}{a flextable object}
+
+\item{width}{width of blank columns (.1 inch by default).}
+
+\item{unit}{unit for width, one of "in", "cm", "mm".}
 }
 \description{
 blank columns are set as transparent. This is a shortcut function
 that will delete top and bottom borders, change background color to
-transparent and display empty content.
+transparent, display empty content and set blank columns' width.
 }
 \examples{
 typology <- data.frame(

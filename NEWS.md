@@ -1,7 +1,9 @@
-# flextable 0.6.11
+# flextable 0.7.0
 
 ## new features
 
+* `empty_blanks()` gained arguments `width` so that users can also 
+set blank columns' width.
 * pass `...` to `format()` function when using `colformat_num()`. It 
 makes possible to use arguments for `format()`, for example 
 `colformat_num(drop0trailing = TRUE)`.
