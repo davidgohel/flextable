@@ -1,5 +1,5 @@
 #' @export
-#' @title Summarize a data.frame as a flextable
+#' @title data.frame automatic printing as a flextable
 #' @description Create a summary from a data.frame as a flextable. This function
 #' is to be used in an R Markdown document.
 #'
@@ -121,7 +121,7 @@ df_printer <- function(dat, ...) {
 }
 
 #' @export
-#' @title Summarize a data.frame as a flextable
+#' @title set data.frame automatic printing as a flextable
 #' @description Define [df_printer()] as data.frame
 #' print method in an R Markdown document.
 #'

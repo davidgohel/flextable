@@ -1,17 +1,5 @@
 library(flextable)
 library(magick)
-# need package cookimage -----
-if(!require("cookimage")){
-  stop("please install cookimage before using that script with command:\n",
-       "remotes::install_github('ardata-fr/cookimage')")
-}
-node_available(error = TRUE)
-if(!compress_images_npm_available()){
-  install_compress_images_npm()
-}
-if(!puppeteer_npm_available()){
-  install_puppeteer_npm()
-}
 
 # funs -----
 #' @title topic names from a package
@@ -59,12 +47,8 @@ process_manual_flextable <- function(name, pkg, pattern = "^ft[_0-9]*?$", dir = 
     if (!inherits(obj, "flextable")) {
       next
     }
-    htmlname <- file.path(dir, paste0("fig_", name, "_", i, ".html"))
     filename <- file.path(dir, paste0("fig_", name, "_", i, ".png"))
-    save_as_html(obj, path = htmlname)
-    screenshot(htmlname, file = filename, selector = "body > div > table")
-    image_write(image_scale(image_read(filename), geometry = "50%x"),
-                path = filename, format = "png")
+    save_as_image(obj, path = filename, webshot = "webshot2")
     out[obj_list[i]] <- filename
   }
   rm(list = setdiff(ls(envir = .GlobalEnv), obj_start), envir = .GlobalEnv)
@@ -85,6 +69,7 @@ as_ft_methods <- man_names[grepl("^as_flextable", man_names)]
 drop <- c(drop, as_ft_methods)
 man_names <- setdiff(man_names, drop)
 man_names <- c(man_names, as_ft_methods)
+
 out <- list()
 
 dir <- file.path(tempfile(), "figures")
@@ -113,6 +98,5 @@ img_stack <- do.call(c, zz)
 img_stack <- image_append(img_stack, stack = FALSE)
 image_write(img_stack, path = file.path(dir, "fig_formats.png"))
 
-
 # compress all images ----
-cookimage::compress_images(dir_input = dir, "man")
+minimage::compress_images(input = dir, "man/figures")

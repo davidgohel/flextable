@@ -4,7 +4,7 @@
 \alias{empty_blanks}
 \title{make blank columns as transparent}
 \usage{
-empty_blanks(x, width = 0.05, unit = "in")
+empty_blanks(x, width = 0.05, unit = "in", part = "all")
 }
 \arguments{
 \item{x}{a flextable object}
@@ -12,6 +12,8 @@ empty_blanks(x, width = 0.05, unit = "in")
 \item{width}{width of blank columns (.1 inch by default).}
 
 \item{unit}{unit for width, one of "in", "cm", "mm".}
+
+\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 blank columns are set as transparent. This is a shortcut function

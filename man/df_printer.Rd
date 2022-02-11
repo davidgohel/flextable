@@ -2,7 +2,7 @@
 % Please edit documentation in R/df_printer.R
 \name{df_printer}
 \alias{df_printer}
-\title{Summarize a data.frame as a flextable}
+\title{data.frame automatic printing as a flextable}
 \usage{
 df_printer(dat, ...)
 }

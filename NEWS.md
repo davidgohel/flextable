@@ -2,6 +2,11 @@
 
 ## new features
 
+* new function `tabulator()` and its method 
+`as_flextable.tabulator()` that help the creation 
+of tables used by pharmaceutical industry. It also 
+comes with function `summarizor()` and sugar function 
+`format_summarizor_cols()`.
 * `empty_blanks()` gained arguments `width` so that users can also 
 set blank columns' width.
 * pass `...` to `format()` function when using `colformat_num()`. It 

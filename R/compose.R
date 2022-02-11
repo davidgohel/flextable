@@ -1,5 +1,5 @@
 #' @export
-#' @importFrom rlang eval_tidy enquo
+#' @importFrom rlang eval_tidy enquo quo_name
 #' @title Define flextable displayed values
 #' @description Modify flextable displayed values. Function is
 #' handling complex formatting as well as image insertion.
@@ -42,6 +42,11 @@ compose <- function(x, i = NULL, j = NULL, value , part = "body", use_dot = FALS
     return(x)
 
   defused_value <- enquo(value)
+  call_label <- quo_name(defused_value)
+  if(!grepl("as_paragraph", call_label)){
+    stop("argument `value` is expected to be a call to `as_paragraph()` but the value is: `", call_label, "`")
+  }
+
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i )
   j <- get_columns_id(x[[part]], j )

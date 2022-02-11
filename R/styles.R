@@ -793,6 +793,7 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
 #' @param x a flextable object
 #' @param width width of blank columns (.1 inch by default).
 #' @param unit unit for width, one of "in", "cm", "mm".
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @family sugar functions for table style
 #' @examples
 #' typology <- data.frame(
@@ -814,14 +815,14 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "bo
 #' ftab
 #' @export
 #' @importFrom officer shortcuts
-empty_blanks <- function(x, width = .05, unit = "in"){
+empty_blanks <- function(x, width = .05, unit = "in", part = "all"){
   if( !inherits(x, "flextable") ) stop("empty_blanks supports only flextable objects.")
   if( length(x$blanks) < 1 ) return(x)
 
   x <- border( x, j = x$blanks,
-               border.top = shortcuts$b_null(), border.bottom = shortcuts$b_null(), part = "all" )
-  x <- bg(x, j = x$blanks, bg = "transparent", part = "all")
-  x <- void(x, j = x$blanks, part = "all")
+               border.top = shortcuts$b_null(), border.bottom = shortcuts$b_null(), part = part)
+  x <- bg(x, j = x$blanks, bg = "transparent", part = part)
+  x <- void(x, j = x$blanks, part = part)
   x <- width(x, j = x$blanks, width = width, unit = unit)
   x
 
