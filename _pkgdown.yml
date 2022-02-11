@@ -48,6 +48,7 @@ reference:
     contents:
     - set_flextable_defaults
     - get_flextable_defaults
+    - init_flextable_defaults
     - style
     - align
     - bg
@@ -124,6 +125,8 @@ reference:
   - title: as_flextable
     desc:  get flextable from objects and utilities
     contents:
+    - tabulator
+    - summarizor
     - starts_with("as_flextable")
     - continuous_summary
     - proc_freq
