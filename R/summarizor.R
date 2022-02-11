@@ -103,8 +103,9 @@ summarizor <- function(x, by = character(), overall_label = NULL){
   dat <- rbindlist(dat$data)
 
   first_levels <- c("Min.", "1st Qu.", "Mean", "Median", "3rd Qu.",
-                    "Max.", "Missing")
-  levs <- c(first_levels, setdiff(unique(dat$stat), first_levels) )
+                    "Max.")
+  last_levels <- c("Missing")
+  levs <- c(first_levels, setdiff(unique(dat$stat), c(first_levels, last_levels)), last_levels)
   dat$stat <- factor(dat$stat, levels = levs)
   setDF(dat)
   dat
