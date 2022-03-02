@@ -6,26 +6,75 @@
 \usage{
 \method{as_flextable}{tabulator}(
   x,
+  separate_with = character(0),
   big_border = fp_border_default(width = 1.5),
   small_border = fp_border_default(width = 0.75),
+  rows_alignment = "left",
+  columns_alignment = "center",
   sep_w = 0.05,
+  unit = "in",
   ...
 )
 }
 \arguments{
 \item{x}{result from \code{\link[=tabulator]{tabulator()}}}
 
+\item{separate_with}{columns used to sepatate the groups
+with an horizontal line.}
+
 \item{big_border, small_border}{big and small border properties defined
 by a call to \code{\link[=fp_border_default]{fp_border_default()}} or \code{\link[=fp_border]{fp_border()}}.}
 
-\item{sep_w}{blank column separators' width to be used. If 0,
+\item{rows_alignment, columns_alignment}{alignments to apply to
+columns corresponding to \code{rows} and \code{columns}; see arguments
+\code{rows} and \code{columns} in \code{\link[=tabulator]{tabulator()}}.}
+
+\item{sep_w}{blank column separators'width to be used. If 0,
 blank column separators will not be used.}
+
+\item{unit}{unit of argument \code{sep_w}, one of "in", "cm", "mm".}
 
 \item{...}{unused argument}
 }
 \description{
 \code{tabulator} object can be transformed as a flextable
 with method \code{\link[=as_flextable]{as_flextable()}}.
+}
+\examples{
+library(flextable)
+
+set_flextable_defaults(digits = 2, border.color = "gray")
+
+if(require("stats")){
+  dat <- aggregate(breaks ~ wool + tension,
+    data = warpbreaks, mean)
+
+  cft_1 <- tabulator(x = dat,
+                     rows = "wool",
+    columns = "tension",
+    `mean` = as_paragraph(as_chunk(breaks)),
+    `(N)` = as_paragraph(
+      as_chunk(length(breaks) ))
+  )
+
+  ft_1 <- as_flextable(cft_1, sep_w = .1)
+  ft_1
+
+  set_flextable_defaults(padding = 1, font.size = 9, border.color = "orange")
+  ft_2 <- as_flextable(cft_1, sep_w = 0)
+  ft_2
+
+  set_flextable_defaults(padding = 6, font.size = 11,
+                         border.color = "white", font.color = "white",
+                         background.color = "#333333")
+  ft_3 <- as_flextable(
+    x = cft_1, sep_w = 0,
+    rows_alignment = "center",
+    columns_alignment = "right")
+  ft_3
+}
+
+init_flextable_defaults()
 }
 \seealso{
 \code{\link[=summarizor]{summarizor()}}, \code{\link[=as_grouped_data]{as_grouped_data()}}

@@ -19,7 +19,7 @@
 #' tab_1 <- tabulator(
 #'   x = z,
 #'   rows = c("variable", "stat"),
-#'   cols = "Treatment",
+#'   columns = "Treatment",
 #'   blah = as_paragraph(
 #'     as_chunk(
 #'       format_summarizor_cols(
@@ -49,7 +49,7 @@
 #'
 #' tab_2 <- tabulator(z,
 #'   rows = c("variable", "stat"),
-#'   cols = "Treatment",
+#'   columns = "Treatment",
 #'   `Est.` = as_paragraph(as_chunk(value)),
 #'   `N` = as_paragraph(as_chunk(n_format(cts, percent)))
 #' )

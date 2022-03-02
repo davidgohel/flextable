@@ -8,8 +8,7 @@
 tabulator(
   x,
   rows,
-  cols,
-  separate = rows[1],
+  columns,
   supp_data = NULL,
   hidden_data = NULL,
   row_compose = list(),
@@ -23,10 +22,7 @@ tabulator(
 
 \item{rows}{column names to use in rows dimensions}
 
-\item{cols}{column names to use in columns dimensions}
-
-\item{separate}{used to sepatate the groups with an horizontal
-line.}
+\item{columns}{column names to use in columns dimensions}
 
 \item{supp_data}{additional data that will be merged with
 table and presented after the columns presenting
@@ -61,10 +57,9 @@ across rows and columns.
 \itemize{
 \item \code{summary}: call \code{summary()} to get
 a data.frame describing mappings between variables
-and their names in the flextable. This data.frame can
-then be then used when programming with flextable as
-column names used by the resulting flextable
-are available in the dataset.
+and their names in the flextable. This data.frame contains
+a column named \code{col_keys} where are stored the names that
+can be used for further selections.
 }}
 
 \note{
@@ -98,7 +93,7 @@ if(require("stats")){
 
   cft_1 <- tabulator(
     x = dat, rows = "wool",
-    cols = "tension",
+    columns = "tension",
     `mean` = as_paragraph(as_chunk(breaks)),
     `(N)` = as_paragraph(
       as_chunk(length(breaks), formatter = n_format ))
@@ -133,7 +128,7 @@ if(require("data.table") && require("ggplot2")){
 
   tab_2 <- tabulator(
     x = dat, rows = c("cut", "color"),
-    cols = "clarity",
+    columns = "clarity",
     `z stats` = as_paragraph(
       as_chunk(z.mean, formatter = myformat)),
     `y stats` = as_paragraph(
@@ -168,11 +163,11 @@ dat <- melt(as.data.table(iris),
 
 tab_3 <- tabulator(
   x = dat, rows = c("Species"),
-  cols = "name",
-  separate = character(0),
-  `mean (sd)` = as_paragraph( as_chunk(avg),  " (", as_chunk(sd),  ")")
+  columns = "name",
+  `mean (sd)` = as_paragraph( as_chunk(avg),
+     " (", as_chunk(sd),  ")")
   )
-ft_3 <- as_flextable(tab_3)
+ft_3 <- as_flextable(tab_3, separate_with = character(0))
 ft_3
 }
 
