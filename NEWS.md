@@ -2,6 +2,9 @@
 
 ## new features
 
+* new function `append_chunks()` to append chunks of content
+in flextable cells as with `as_paragraph()` but without 
+replacing the whole content.
 * new function `tabulator()` and its method 
 `as_flextable.tabulator()` that help the creation 
 of tables used by pharmaceutical industry. It also 
