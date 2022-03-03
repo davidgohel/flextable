@@ -25,7 +25,7 @@ It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_as_chunk_1.png}{options: width=60\%}}
+\if{html}{\figure{fig_as_chunk_1.png}{options: width="400"}}
 }
 
 \examples{

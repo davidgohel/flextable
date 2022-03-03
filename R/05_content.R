@@ -137,7 +137,7 @@ default_fptext_prop <- structure(list(
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_as_chunk_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_as_chunk_1.png}{options: width="400"}}
 as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
 
   if(is.function(x)){
@@ -202,7 +202,7 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_as_sub_1.png}{options: width=30\%}}
+#' \if{html}{\figure{fig_as_sub_1.png}{options: width="300"}}
 as_sub <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x, formatter = format_fun)
@@ -233,7 +233,7 @@ as_sub <- function(x){
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_as_sup_1.png}{options: width=30\%}}
+#' \if{html}{\figure{fig_as_sup_1.png}{options: width="300"}}
 as_sup <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x, formatter = format_fun)
@@ -265,7 +265,7 @@ as_sup <- function(x){
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_as_b_1.png}{options: width=30\%}}
+#' \if{html}{\figure{fig_as_b_1.png}{options: width="300"}}
 as_b <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x, formatter = format_fun)
@@ -294,7 +294,7 @@ as_b <- function(x){
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_as_i_1.png}{options: width=30\%}}
+#' \if{html}{\figure{fig_as_i_1.png}{options: width="300"}}
 as_i <- function(x){
   if( !inherits(x, "chunk") ){
     x <- as_chunk(x, formatter = format_fun)
@@ -381,7 +381,7 @@ as_highlight <- function(x, color){
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_as_bracket_1.png}{options: width=35\%}}
+#' \if{html}{\figure{fig_as_bracket_1.png}{options: width="300"}}
 as_bracket <- function(..., sep = ", ", p = "(", s = ")"){
   x <- list(...)
   x <- lapply(x, formatC)
@@ -501,7 +501,7 @@ as_equation <- function(x, width = 1, height = .2, unit = "in"){
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_as_paragraph_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_as_paragraph_1.png}{options: width="400"}}
 as_paragraph <- function( ..., list_values = NULL ){
   if( is.null(list_values)) {
     list_values <- list(...)

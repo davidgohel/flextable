@@ -71,7 +71,7 @@ and define your own format.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_colformat_num_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_colformat_num_1.png}{options: width="400"}}
 }
 
 \examples{

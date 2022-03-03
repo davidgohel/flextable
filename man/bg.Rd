@@ -31,9 +31,9 @@ Word does not allow you to apply transparency to table cells or paragraph shadin
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_bg_1.png}{options: width=100\%}}
+\if{html}{\figure{fig_bg_1.png}{options: width="400"}}
 
-\if{html}{\figure{fig_bg_2.png}{options: width=50\%}}
+\if{html}{\figure{fig_bg_2.png}{options: width="300"}}
 }
 
 \examples{

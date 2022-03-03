@@ -44,7 +44,7 @@ are removed when outputing to PowerPoint format.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_plot_chunk_1.png}{options: width=70\%}}
+\if{html}{\figure{fig_plot_chunk_1.png}{options: width="400"}}
 }
 
 \examples{

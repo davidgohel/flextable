@@ -18,7 +18,7 @@ the flextable, i.e. an header, footer or the body.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_delete_part_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_delete_part_1.png}{options: width="300"}}
 }
 
 \examples{

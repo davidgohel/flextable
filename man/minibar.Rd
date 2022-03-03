@@ -42,7 +42,7 @@ are removed when outputing to PowerPoint format.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_minibar_1.png}{options: width=60\%}}
+\if{html}{\figure{fig_minibar_1.png}{options: width="400"}}
 }
 
 \examples{

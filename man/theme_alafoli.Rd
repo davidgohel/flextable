@@ -15,7 +15,7 @@ Apply alafoli theme
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_theme_alafoli_1.png}{options: width=60\%}}
+\if{html}{\figure{fig_theme_alafoli_1.png}{options: width="400"}}
 }
 
 \section{behavior}{

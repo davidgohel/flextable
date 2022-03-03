@@ -38,7 +38,7 @@ should all be applied to the same selection of rows and columns.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_style_1.png}{options: width=100\%}}
+\if{html}{\figure{fig_style_1.png}{options: width="500"}}
 }
 
 \examples{

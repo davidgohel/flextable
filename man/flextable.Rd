@@ -60,7 +60,7 @@ This function should be deprecated then removed in the next versions.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_flextable_1.png}{options: width=100\%}}
+\if{html}{\figure{fig_flextable_1.png}{options: width="600"}}
 }
 
 \section{qflextable}{

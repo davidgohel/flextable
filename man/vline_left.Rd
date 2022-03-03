@@ -23,7 +23,7 @@ left border of selected cells of the first column.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_vline_left_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_vline_left_1.png}{options: width="400"}}
 }
 
 \examples{

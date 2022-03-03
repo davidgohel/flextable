@@ -38,9 +38,9 @@ considered as "").
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_autofit_1.png}{options: width=90\%}}
+\if{html}{\figure{fig_autofit_1.png}{options: width="500"}}
 
-\if{html}{\figure{fig_autofit_2.png}{options: width=70\%}}
+\if{html}{\figure{fig_autofit_2.png}{options: width="400"}}
 }
 
 \examples{

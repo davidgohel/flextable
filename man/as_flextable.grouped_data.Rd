@@ -24,7 +24,7 @@ produced by function \code{\link[=as_grouped_data]{as_grouped_data()}}.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_as_flextable.grouped_data_1.png}{options: width=40\%}}
+\if{html}{\figure{fig_as_flextable.grouped_data_1.png}{options: width="400"}}
 }
 
 \examples{

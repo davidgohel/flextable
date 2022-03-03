@@ -18,7 +18,7 @@
 #' @export
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_set_formatter_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_set_formatter_1.png}{options: width="400"}}
 #' @family cells formatters
 set_formatter <- function(x, ..., values = NULL, part = "body"){
 
@@ -97,7 +97,7 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 #' z
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_colformat_char_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_colformat_char_1.png}{options: width="400"}}
 colformat_char <- function(
   x, i = NULL, j = NULL,
   na_str = get_flextable_defaults()$na_str,
@@ -132,7 +132,7 @@ colformat_char <- function(
 #' @importFrom rlang new_function quo get_expr pairlist2
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_colformat_double_1.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_colformat_double_1.png}{options: width="400"}}
 colformat_double <- function(
   x, i = NULL, j = NULL,
   big.mark = get_flextable_defaults()$big.mark,
@@ -202,7 +202,7 @@ colformat_double <- function(
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_colformat_num_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_colformat_num_1.png}{options: width="400"}}
 colformat_num <- function(
   x, i = NULL, j = NULL,
   big.mark = get_flextable_defaults()$big.mark,
@@ -244,7 +244,7 @@ colformat_num <- function(
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_colformat_date_1.png}{options: width=30\%}}
+#' \if{html}{\figure{fig_colformat_date_1.png}{options: width="300"}}
 colformat_date <- function(
   x, i = NULL, j = NULL,
   fmt_date = get_flextable_defaults()$fmt_date,
@@ -280,7 +280,7 @@ colformat_date <- function(
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_colformat_datetime_1.png}{options: width=40\%}}
+#' \if{html}{\figure{fig_colformat_datetime_1.png}{options: width="300"}}
 colformat_datetime <- function(
   x, i = NULL, j = NULL,
   fmt_datetime = get_flextable_defaults()$fmt_datetime,
@@ -388,7 +388,7 @@ colformat_lgl <- function(
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_colformat_image_1.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_colformat_image_1.png}{options: width="400"}}
 colformat_image <- function(
   x, i = NULL, j = NULL,
   width, height,

@@ -39,7 +39,7 @@ function \code{\link[=merge_h]{merge_h()}} and \code{\link[=merge_v]{merge_v()}}
 }
 \section{Illustrations}{
 
-\if{html}{\figure{fig_add_header_1.png}{options: width=60\%}}
+\if{html}{\figure{fig_add_header_1.png}{options: width="400"}}
 }
 
 \examples{

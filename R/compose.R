@@ -25,7 +25,7 @@
 #' @family cells formatters
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_compose_1.png}{options: width=80\%}}
+#' \if{html}{\figure{fig_compose_1.png}{options: width="500"}}
 compose <- function(x, i = NULL, j = NULL, value , part = "body", use_dot = FALSE){
 
   if( !inherits(x, "flextable") ) stop("compose supports only flextable objects.")

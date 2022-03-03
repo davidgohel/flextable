@@ -38,7 +38,7 @@ Format date cells in a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_colformat_date_1.png}{options: width=30\%}}
+\if{html}{\figure{fig_colformat_date_1.png}{options: width="300"}}
 }
 
 \examples{

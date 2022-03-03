@@ -17,7 +17,7 @@ Delete all merging informations from a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_merge_none_1.png}{options: width=100\%}}
+\if{html}{\figure{fig_merge_none_1.png}{options: width="500"}}
 }
 
 \examples{

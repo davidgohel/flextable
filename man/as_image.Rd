@@ -30,7 +30,7 @@ are removed when outputing to PowerPoint format.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_as_image_1.png}{options: width=60\%}}
+\if{html}{\figure{fig_as_image_1.png}{options: width="400"}}
 }
 
 \examples{

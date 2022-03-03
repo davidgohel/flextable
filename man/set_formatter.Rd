@@ -46,7 +46,7 @@ values as a character vector.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_set_formatter_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_set_formatter_1.png}{options: width="400"}}
 }
 
 \section{set_formatter_type}{

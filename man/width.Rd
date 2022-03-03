@@ -24,7 +24,7 @@ Heights are not used when flextable is been rendered into HTML.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_width_1.png}{options: width=100\%}}
+\if{html}{\figure{fig_width_1.png}{options: width="400"}}
 }
 
 \examples{

@@ -41,9 +41,9 @@ of the table.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_footnote_1.png}{options: width=70\%}}
+\if{html}{\figure{fig_footnote_1.png}{options: width="400"}}
 
-\if{html}{\figure{fig_footnote_2.png}{options: width=70\%}}
+\if{html}{\figure{fig_footnote_2.png}{options: width="400"}}
 }
 
 \examples{

@@ -53,9 +53,9 @@
 #' @export
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_merge_v_1.png}{options: width=100\%}}
+#' \if{html}{\figure{fig_merge_v_1.png}{options: width="600"}}
 #'
-#' \if{html}{\figure{fig_merge_v_2.png}{options: width=100\%}}
+#' \if{html}{\figure{fig_merge_v_2.png}{options: width="600"}}
 merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE){
   if( !inherits(x, "flextable") ) stop("merge_v supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
@@ -133,7 +133,7 @@ merge_h <- function(x, i = NULL, part = "body" ){
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_merge_none_1.png}{options: width=100\%}}
+#' \if{html}{\figure{fig_merge_none_1.png}{options: width="500"}}
 merge_none <- function(x, part = "all" ){
 
   if( !inherits(x, "flextable") ) stop("merge_none supports only flextable objects.")
@@ -203,7 +203,7 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
 #' @export
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_merge_h_range_1.png}{options: width=100\%}}
+#' \if{html}{\figure{fig_merge_h_range_1.png}{options: width="500"}}
 merge_h_range <- function(x, i = NULL, j1 = NULL, j2 = NULL, part = "body" ){
   if( !inherits(x, "flextable") ) stop("merge_h_range supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )

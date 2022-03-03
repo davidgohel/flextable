@@ -112,9 +112,9 @@ to re-init all values with the package defaults.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_set_flextable_defaults_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_set_flextable_defaults_1.png}{options: width="400"}}
 
-\if{html}{\figure{fig_set_flextable_defaults_2.png}{options: width=50\%}}
+\if{html}{\figure{fig_set_flextable_defaults_2.png}{options: width="400"}}
 }
 
 \examples{

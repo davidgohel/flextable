@@ -39,7 +39,7 @@ Format image paths as images in a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_colformat_image_1.png}{options: width=70\%}}
+\if{html}{\figure{fig_colformat_image_1.png}{options: width="400"}}
 }
 
 \examples{

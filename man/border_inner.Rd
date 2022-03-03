@@ -20,7 +20,7 @@ or all parts of a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_border_inner_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_border_inner_1.png}{options: width="400"}}
 }
 
 \examples{

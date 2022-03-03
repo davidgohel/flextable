@@ -19,7 +19,7 @@ a flextable object, this function is to be used with function \code{\link[=compo
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_as_paragraph_1.png}{options: width=60\%}}
+\if{html}{\figure{fig_as_paragraph_1.png}{options: width="400"}}
 }
 
 \examples{

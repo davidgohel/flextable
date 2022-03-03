@@ -23,7 +23,7 @@ top border of selected parts.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_hline_top_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_hline_top_1.png}{options: width="400"}}
 }
 
 \examples{

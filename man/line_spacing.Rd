@@ -25,7 +25,7 @@ change text alignment of selected rows and columns of a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_line_spacing_1.png}{options: width=70\%}}
+\if{html}{\figure{fig_line_spacing_1.png}{options: width="400"}}
 }
 
 \examples{

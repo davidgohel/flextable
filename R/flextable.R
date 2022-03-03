@@ -38,7 +38,7 @@
 #' [compose()], [footnote()], [set_caption()]
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_flextable_1.png}{options: width=100\%}}
+#' \if{html}{\figure{fig_flextable_1.png}{options: width="600"}}
 flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25,
                        defaults = list(), theme_fun = theme_booktabs ){
 

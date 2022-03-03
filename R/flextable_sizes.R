@@ -17,9 +17,9 @@
 #' @family flextable dimensions
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_fit_to_width_1.png}{options: width=400}}
+#' \if{html}{\figure{fig_fit_to_width_1.png}{options: width="400"}}
 #'
-#' \if{html}{\figure{fig_fit_to_width_2.png}{options: width=150}}
+#' \if{html}{\figure{fig_fit_to_width_2.png}{options: width="150"}}
 fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in" ){
   max_width <- convin(unit = unit, x = max_width)
 
@@ -59,7 +59,7 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in" ){
 #' @family flextable dimensions
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_width_1.png}{options: width=100\%}}
+#' \if{html}{\figure{fig_width_1.png}{options: width="400"}}
 width <- function(x, j = NULL, width, unit = "in"){
 
   width <- convin(unit = unit, x = width)
@@ -97,9 +97,9 @@ width <- function(x, j = NULL, width, unit = "in"){
 #' @family flextable dimensions
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_height_1.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_height_1.png}{options: width="400"}}
 #'
-#' \if{html}{\figure{fig_height_2.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_height_2.png}{options: width="400"}}
 height <- function(x, i = NULL, height, part = "body", unit = "in"){
   height <- convin(unit = unit, x = height)
 
@@ -146,9 +146,9 @@ height <- function(x, i = NULL, height, part = "body", unit = "in"){
 #' @family flextable dimensions
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_hrule_1.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_hrule_1.png}{options: width="400"}}
 #'
-#' \if{html}{\figure{fig_hrule_2.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_hrule_2.png}{options: width="400"}}
 hrule <- function(x, i = NULL, rule = "auto", part = "body"){
   part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE )
 
@@ -335,9 +335,9 @@ dim_pretty <- function( x, part = "all", unit = "in" ){
 #' @family flextable dimensions
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_autofit_1.png}{options: width=90\%}}
+#' \if{html}{\figure{fig_autofit_1.png}{options: width="500"}}
 #'
-#' \if{html}{\figure{fig_autofit_2.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_autofit_2.png}{options: width="400"}}
 autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"), unit = "in"){
 
   add_w <- convin(unit = unit, x = add_w)
@@ -413,7 +413,7 @@ optimal_sizes <- function( x ){
 #' If layout is autofit, column widths will not be used;
 #' table width is used (as a percentage).
 #' @note
-#' PowerPoint output ignore autofit layout.
+#' PowerPoint output ignore 'autofit layout'.
 #' @param x flextable object
 #' @param layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
 #' @param width The parameter has a different effect depending on the
@@ -432,9 +432,9 @@ optimal_sizes <- function( x ){
 #' @family flextable dimensions
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_set_table_properties_1.png}{options: width=15\%}}
+#' \if{html}{\figure{fig_set_table_properties_1.png}{options: width="100"}}
 #'
-#' \if{html}{\figure{fig_set_table_properties_2.png}{options: width=75\%}}
+#' \if{html}{\figure{fig_set_table_properties_2.png}{options: width="400"}}
 set_table_properties <- function(x, layout = "fixed", width = 0){
 
   stopifnot(layout %in% c("fixed", "autofit"))

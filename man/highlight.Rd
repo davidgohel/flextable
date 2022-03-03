@@ -29,7 +29,7 @@ columns of a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_highlight_1.png}{options: width=80\%}}
+\if{html}{\figure{fig_highlight_1.png}{options: width="500"}}
 }
 
 \examples{

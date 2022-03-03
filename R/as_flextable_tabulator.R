@@ -123,13 +123,13 @@
 #' init_flextable_defaults()
 #' @section Illustrations:
 #'
-#' ft_1:
+#' ft_1 appears as:
 #'
-#' \if{html}{\figure{fig_tabulator_1.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_tabulator_1.png}{options: width="300"}}
 #'
-#' ft_3:
+#' ft_2 appears as:
 #'
-#' \if{html}{\figure{fig_tabulator_3.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_tabulator_2.png}{options: width="500"}}
 #' @importFrom rlang enquos enquo call_args
 #' @importFrom data.table rleidv as.data.table
 #' @seealso [as_flextable.tabulator()], [summarizor()], [as_grouped_data()]

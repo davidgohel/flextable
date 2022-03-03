@@ -31,7 +31,7 @@ create a data.frame summary for continuous variables
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_continuous_summary_1.png}{options: width=80\%}}
+\if{html}{\figure{fig_continuous_summary_1.png}{options: width="500"}}
 }
 
 \examples{

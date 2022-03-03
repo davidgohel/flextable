@@ -23,7 +23,7 @@ change font decoration of selected rows and columns of a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_italic_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_italic_1.png}{options: width="400"}}
 }
 
 \examples{

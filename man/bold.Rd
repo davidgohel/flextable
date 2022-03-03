@@ -23,7 +23,7 @@ change font weight of selected rows and columns of a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_bold_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_bold_1.png}{options: width="400"}}
 }
 
 \examples{

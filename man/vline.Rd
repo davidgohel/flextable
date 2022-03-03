@@ -25,7 +25,7 @@ right borders of selected cells.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_vline_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_vline_1.png}{options: width="400"}}
 }
 
 \examples{

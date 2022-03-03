@@ -28,7 +28,7 @@ are removed when outputing to PowerPoint format.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_gg_chunk_1.png}{options: width=70\%}}
+\if{html}{\figure{fig_gg_chunk_1.png}{options: width="200"}}
 }
 
 \examples{

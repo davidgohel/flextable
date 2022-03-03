@@ -27,9 +27,9 @@ of the flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_add_header_lines_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_add_header_lines_1.png}{options: width="400"}}
 
-\if{html}{\figure{fig_add_header_lines_2.png}{options: width=50\%}}
+\if{html}{\figure{fig_add_header_lines_2.png}{options: width="400"}}
 }
 
 \examples{

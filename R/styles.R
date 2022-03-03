@@ -27,7 +27,7 @@
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_style_1.png}{options: width=100\%}}
+#' \if{html}{\figure{fig_style_1.png}{options: width="500"}}
 style <- function(x, i = NULL, j = NULL,
                   pr_t = NULL, pr_p = NULL, pr_c = NULL, part = "body" ){
 
@@ -88,7 +88,7 @@ style <- function(x, i = NULL, j = NULL,
 #' ft <- bold(ft, bold = TRUE, part = "header")
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_bold_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_bold_1.png}{options: width="400"}}
 bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
 
   if( !inherits(x, "flextable") ) stop("bold supports only flextable objects.")
@@ -129,7 +129,7 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body" ){
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_fontsize_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_fontsize_1.png}{options: width="400"}}
 fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
 
   if( !inherits(x, "flextable") ) stop("fontsize supports only flextable objects.")
@@ -167,7 +167,7 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body" ){
 #' ft <- italic(ft, italic = TRUE, part = "header")
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_italic_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_italic_1.png}{options: width="400"}}
 italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
 
   if( !inherits(x, "flextable") ) stop("italic supports only flextable objects.")
@@ -219,7 +219,7 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body" ){
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_highlight_1.png}{options: width=80\%}}
+#' \if{html}{\figure{fig_highlight_1.png}{options: width="500"}}
 highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", source = j){
 
   if( !inherits(x, "flextable") ) stop("italic supports only flextable objects.")
@@ -288,9 +288,9 @@ highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", so
 #' }
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_color_1.png}{options: width=100\%}}
+#' \if{html}{\figure{fig_color_1.png}{options: width="600"}}
 #'
-#' \if{html}{\figure{fig_color_2.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_color_2.png}{options: width="400"}}
 color <- function(x, i = NULL, j = NULL, color, part = "body", source = j ){
 
   if( !inherits(x, "flextable") ) stop("color supports only flextable objects.")
@@ -361,9 +361,9 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j ){
 #' }
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_font_1.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_font_1.png}{options: width="500"}}
 #'
-#' \if{html}{\figure{fig_font_2.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_font_2.png}{options: width="500"}}
 font <- function(x, i = NULL, j = NULL, fontname, part = "body", cs.family = fontname, hansi.family = fontname, eastasia.family = fontname ){
 
   if( !inherits(x, "flextable") ) stop("font supports only flextable objects.")
@@ -417,7 +417,7 @@ font <- function(x, i = NULL, j = NULL, fontname, part = "body", cs.family = fon
 #' ft_1
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_padding_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_padding_1.png}{options: width="400"}}
 padding <- function(x, i = NULL, j = NULL, padding = NULL,
                     padding.top = NULL, padding.bottom = NULL,
                     padding.left = NULL, padding.right = NULL,
@@ -484,7 +484,7 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_align_1.png}{options: width=100\%}}
+#' \if{html}{\figure{fig_align_1.png}{options: width="400"}}
 align <- function(x, i = NULL, j = NULL, align = "left",
                   part = "body" ){
 
@@ -526,7 +526,7 @@ align <- function(x, i = NULL, j = NULL, align = "left",
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_line_spacing_1.png}{options: width=70\%}}
+#' \if{html}{\figure{fig_line_spacing_1.png}{options: width="400"}}
 line_spacing <- function(x, i = NULL, j = NULL, space = 1, part = "body", unit = "in" ){
 
   space <- convin(unit = unit, x = space)
@@ -626,9 +626,9 @@ align_nottext_col <- function(x, align = "right", header = TRUE, footer = TRUE )
 #' }
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_bg_1.png}{options: width=100\%}}
+#' \if{html}{\figure{fig_bg_1.png}{options: width="400"}}
 #'
-#' \if{html}{\figure{fig_bg_2.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_bg_2.png}{options: width="300"}}
 bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j ){
 
   if( !inherits(x, "flextable") ) stop("bg supports only flextable objects.")
@@ -681,9 +681,9 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j ){
 #' ft_2
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_valign_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_valign_1.png}{options: width="400"}}
 #'
-#' \if{html}{\figure{fig_valign_2.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_valign_2.png}{options: width="400"}}
 valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body" ){
 
   if( !inherits(x, "flextable") ) stop("valign supports only flextable objects.")
@@ -755,7 +755,7 @@ valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body" ){
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_rotate_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_rotate_1.png}{options: width="400"}}
 rotate <- function(x, i = NULL, j = NULL, rotation, align = "center", part = "body" ){
 
   if( !inherits(x, "flextable") ) stop("rotate supports only flextable objects.")

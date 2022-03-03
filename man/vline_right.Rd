@@ -23,7 +23,7 @@ right border of selected cells of the last column.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_vline_right_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_vline_right_1.png}{options: width="400"}}
 }
 
 \examples{

@@ -45,7 +45,7 @@ override any formatting done before the print statement.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_theme_vanilla_1.png}{options: width=60\%}}
+\if{html}{\figure{fig_theme_vanilla_1.png}{options: width="400"}}
 }
 
 \examples{

@@ -33,9 +33,9 @@ target columns.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_merge_v_1.png}{options: width=100\%}}
+\if{html}{\figure{fig_merge_v_1.png}{options: width="600"}}
 
-\if{html}{\figure{fig_merge_v_2.png}{options: width=100\%}}
+\if{html}{\figure{fig_merge_v_2.png}{options: width="600"}}
 }
 
 \examples{

@@ -15,7 +15,7 @@ Apply theme tron legacy to a flextable
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_theme_tron_legacy_1.png}{options: width=60\%}}
+\if{html}{\figure{fig_theme_tron_legacy_1.png}{options: width="400"}}
 }
 
 \section{behavior}{

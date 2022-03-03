@@ -30,9 +30,9 @@ is used as the bottom header/footer row.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_set_header_footer_df_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_set_header_footer_df_1.png}{options: width="400"}}
 
-\if{html}{\figure{fig_set_header_footer_df_2.png}{options: width=50\%}}
+\if{html}{\figure{fig_set_header_footer_df_2.png}{options: width="400"}}
 }
 
 \examples{

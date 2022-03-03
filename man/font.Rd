@@ -51,9 +51,9 @@ change font of selected rows and columns of a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_font_1.png}{options: width=70\%}}
+\if{html}{\figure{fig_font_1.png}{options: width="500"}}
 
-\if{html}{\figure{fig_font_2.png}{options: width=70\%}}
+\if{html}{\figure{fig_font_2.png}{options: width="500"}}
 }
 
 \examples{

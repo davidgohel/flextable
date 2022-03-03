@@ -40,7 +40,7 @@ Format numeric cells in a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_colformat_double_1.png}{options: width=70\%}}
+\if{html}{\figure{fig_colformat_double_1.png}{options: width="400"}}
 }
 
 \examples{

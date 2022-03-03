@@ -22,6 +22,12 @@ avoided when possible.
 * new function `add_latex_dep()` to manually add flextable latex 
 dependencies to the knitr session.
 
+## Issues
+
+* fix Rd files which when converted to HTML had `<img>` entries with
+invalid width attributes e.g. `width=40\%`.
+
+
 # flextable 0.6.10
 
 ## new features

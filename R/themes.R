@@ -37,7 +37,7 @@
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_theme_vanilla_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_theme_vanilla_1.png}{options: width="400"}}
 theme_vanilla <- function(x) {
   if (!inherits(x, "flextable")) {
     stop("theme_vanilla supports only flextable objects.")
@@ -71,7 +71,7 @@ theme_vanilla <- function(x) {
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_theme_box_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_theme_box_1.png}{options: width="400"}}
 theme_box <- function(x) {
   if (!inherits(x, "flextable")) {
     stop("theme_box supports only flextable objects.")
@@ -108,7 +108,7 @@ theme_box <- function(x) {
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_theme_alafoli_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_theme_alafoli_1.png}{options: width="400"}}
 theme_alafoli <- function(x) {
   if (!inherits(x, "flextable")) {
     stop("theme_alafoli supports only flextable objects.")
@@ -146,7 +146,7 @@ theme_alafoli <- function(x) {
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_theme_vader_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_theme_vader_1.png}{options: width="400"}}
 theme_vader <- function(x, ...) {
   if (!inherits(x, "flextable")) {
     stop("theme_vader supports only flextable objects.")
@@ -189,7 +189,7 @@ theme_vader <- function(x, ...) {
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_theme_zebra_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_theme_zebra_1.png}{options: width="400"}}
 theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
                         even_header = "transparent", even_body = "transparent") {
   if (!inherits(x, "flextable")) {
@@ -244,7 +244,7 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_theme_tron_legacy_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_theme_tron_legacy_1.png}{options: width="400"}}
 theme_tron_legacy <- function(x) {
   if (!inherits(x, "flextable")) {
     stop("theme_tron_legacy supports only flextable objects.")
@@ -289,7 +289,7 @@ theme_tron_legacy <- function(x) {
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_theme_tron_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_theme_tron_1.png}{options: width="400"}}
 theme_tron <- function(x) {
   if (!inherits(x, "flextable")) {
     stop("theme_tron supports only flextable objects.")
@@ -336,7 +336,7 @@ theme_tron <- function(x) {
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_theme_booktabs_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_theme_booktabs_1.png}{options: width="400"}}
 theme_booktabs <- function(x, bold_header = FALSE, ...) {
   if (!inherits(x, "flextable")) {
     stop("theme_booktabs supports only flextable objects.")

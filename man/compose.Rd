@@ -34,7 +34,7 @@ there is an unwanted conflict with package \code{purrr}.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_compose_1.png}{options: width=80\%}}
+\if{html}{\figure{fig_compose_1.png}{options: width="500"}}
 }
 
 \examples{

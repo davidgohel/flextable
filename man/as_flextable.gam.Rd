@@ -18,7 +18,7 @@ generalized additive model produced by function \code{mgcv::gam}.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_as_flextable.gam_1.png}{options: width=60\%}}
+\if{html}{\figure{fig_as_flextable.gam_1.png}{options: width="400"}}
 }
 
 \examples{

@@ -18,7 +18,7 @@ generalized linear model produced by function \code{glm}.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_as_flextable.glm_1.png}{options: width=60\%}}
+\if{html}{\figure{fig_as_flextable.glm_1.png}{options: width="500"}}
 }
 
 \examples{

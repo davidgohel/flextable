@@ -22,7 +22,7 @@ columns must be consecutive.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_merge_h_range_1.png}{options: width=100\%}}
+\if{html}{\figure{fig_merge_h_range_1.png}{options: width="500"}}
 }
 
 \examples{

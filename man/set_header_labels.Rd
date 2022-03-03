@@ -22,7 +22,7 @@ in a single row header of a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_set_header_labels_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_set_header_labels_1.png}{options: width="400"}}
 }
 
 \examples{

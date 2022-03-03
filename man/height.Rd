@@ -32,9 +32,9 @@ which does not support this automatic line height adjustment feature.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_height_1.png}{options: width=70\%}}
+\if{html}{\figure{fig_height_1.png}{options: width="400"}}
 
-\if{html}{\figure{fig_height_2.png}{options: width=70\%}}
+\if{html}{\figure{fig_height_2.png}{options: width="400"}}
 }
 
 \section{height_all}{

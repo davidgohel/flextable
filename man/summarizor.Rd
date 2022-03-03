@@ -24,13 +24,13 @@ can evolve or change.
 }
 \section{Illustrations}{
 
-ft_1:
+ft_1 appears as:
 
-\if{html}{\figure{fig_summarizor_1.png}{options: width=70\%}}
+\if{html}{\figure{fig_summarizor_1.png}{options: width="500"}}
 
-ft_2:
+ft_2 appears as:
 
-\if{html}{\figure{fig_summarizor_2.png}{options: width=70\%}}
+\if{html}{\figure{fig_summarizor_2.png}{options: width="500"}}
 }
 
 \examples{
@@ -55,7 +55,7 @@ tab_1 <- tabulator(
   )
 )
 
-ft_1 <- as_flextable(tab_1)
+ft_1 <- as_flextable(tab_1, separate_with = "variable")
 ft_1
 
 # version 2 ----
@@ -79,6 +79,6 @@ tab_2 <- tabulator(z,
   `N` = as_paragraph(as_chunk(n_format(cts, percent)))
 )
 
-ft_2 <- as_flextable(tab_2)
+ft_2 <- as_flextable(tab_2, separate_with = "variable")
 ft_2
 }

@@ -26,7 +26,7 @@ is row oriented. One call allow to add one single row.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_add_header_row_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_add_header_row_1.png}{options: width="400"}}
 }
 
 \examples{

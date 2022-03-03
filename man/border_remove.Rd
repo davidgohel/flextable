@@ -15,9 +15,9 @@ The function is deleting all borders of the flextable object.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_border_remove_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_border_remove_1.png}{options: width="400"}}
 
-\if{html}{\figure{fig_border_remove_2.png}{options: width=50\%}}
+\if{html}{\figure{fig_border_remove_2.png}{options: width="400"}}
 }
 
 \examples{

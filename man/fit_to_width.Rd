@@ -24,9 +24,9 @@ it fits a given max_width.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_fit_to_width_1.png}{options: width=400}}
+\if{html}{\figure{fig_fit_to_width_1.png}{options: width="400"}}
 
-\if{html}{\figure{fig_fit_to_width_2.png}{options: width=150}}
+\if{html}{\figure{fig_fit_to_width_2.png}{options: width="150"}}
 }
 
 \examples{

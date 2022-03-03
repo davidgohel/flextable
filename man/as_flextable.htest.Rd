@@ -18,7 +18,7 @@ object oof class \code{htest}.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_as_flextable.htest_1.png}{options: width=60\%}}
+\if{html}{\figure{fig_as_flextable.htest_1.png}{options: width="500"}}
 }
 
 \examples{

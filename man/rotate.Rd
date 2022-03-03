@@ -37,7 +37,7 @@ of \link{autofit}.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_rotate_1.png}{options: width=50\%}}
+\if{html}{\figure{fig_rotate_1.png}{options: width="400"}}
 }
 
 \examples{

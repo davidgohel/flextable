@@ -26,7 +26,7 @@
 #' @family headers and footers
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_set_header_labels_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_set_header_labels_1.png}{options: width="400"}}
 set_header_labels <- function(x, ..., values = NULL){
 
   if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
@@ -59,7 +59,7 @@ set_header_labels <- function(x, ..., values = NULL){
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_delete_part_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_delete_part_1.png}{options: width="300"}}
 delete_part <- function(x, part = "header"){
   if( !inherits(x, "flextable") ) stop("delete_part supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
@@ -175,7 +175,7 @@ add_body <- function(x, top = TRUE, ..., values = NULL){
 #' ft
 #' @family headers and footers
 #' @section Illustrations:
-#' \if{html}{\figure{fig_add_header_1.png}{options: width=60\%}}
+#' \if{html}{\figure{fig_add_header_1.png}{options: width="400"}}
 add_header <- function(x, top = TRUE, ..., values = NULL){
   if( !inherits(x, "flextable") ) stop("add_header supports only flextable objects.")
   header_data <- as_new_data(x = x, ..., values = values)
@@ -222,7 +222,7 @@ add_footer <- function(x, top = TRUE, ..., values = NULL){
 #' @family headers and footers
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_add_header_row_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_add_header_row_1.png}{options: width="400"}}
 add_header_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)){
 
   if( !inherits(x, "flextable") ) stop("add_header supports only flextable objects.")
@@ -314,9 +314,9 @@ add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = int
 #' @family headers and footers
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_add_header_lines_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_add_header_lines_1.png}{options: width="400"}}
 #'
-#' \if{html}{\figure{fig_add_header_lines_2.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_add_header_lines_2.png}{options: width="400"}}
 #' @examples
 #'
 #' ft_1 <- flextable( head( iris ) )
@@ -422,9 +422,9 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part){
 #' @family headers and footers
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_set_header_footer_df_1.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_set_header_footer_df_1.png}{options: width="400"}}
 #'
-#' \if{html}{\figure{fig_set_header_footer_df_2.png}{options: width=50\%}}
+#' \if{html}{\figure{fig_set_header_footer_df_2.png}{options: width="400"}}
 set_header_df <- function(x, mapping = NULL, key = "col_keys"){
   if( !inherits(x, "flextable") ) stop("set_header_labels supports only flextable objects.")
   set_part_df(x, mapping = mapping, key = key, part = "header")

@@ -28,9 +28,9 @@ change font color of selected rows and columns of a flextable.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_color_1.png}{options: width=100\%}}
+\if{html}{\figure{fig_color_1.png}{options: width="600"}}
 
-\if{html}{\figure{fig_color_2.png}{options: width=50\%}}
+\if{html}{\figure{fig_color_2.png}{options: width="400"}}
 }
 
 \examples{
