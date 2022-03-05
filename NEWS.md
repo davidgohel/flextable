@@ -7,9 +7,9 @@ in flextable cells as with `as_paragraph()` but without
 replacing the whole content.
 * new function `tabulator()` and its method 
 `as_flextable.tabulator()` that help the creation 
-of tables used by pharmaceutical industry. It also 
+of tables used in life science industry. It also 
 comes with function `summarizor()` and sugar function 
-`format_summarizor_cols()`.
+`fmt_2stats()`.
 * `empty_blanks()` gained arguments `width` so that users can also 
 set blank columns' width.
 * pass `...` to `format()` function when using `colformat_num()`. It 

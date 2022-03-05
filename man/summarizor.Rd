@@ -47,9 +47,8 @@ tab_1 <- tabulator(
   columns = "Treatment",
   blah = as_paragraph(
     as_chunk(
-      format_summarizor_cols(
-        stat, data_type,
-        value, cts, percent
+      fmt_2stats(
+        num1 = stat, num2 = value, cts = cts, pcts = percent
       )
     )
   )
@@ -81,4 +80,7 @@ tab_2 <- tabulator(z,
 
 ft_2 <- as_flextable(tab_2, separate_with = "variable")
 ft_2
+}
+\seealso{
+\code{\link[=fmt_2stats]{fmt_2stats()}}
 }
