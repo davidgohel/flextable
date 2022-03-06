@@ -27,6 +27,13 @@ dependencies to the knitr session.
 * fix Rd files which when converted to HTML had `<img>` entries with
 invalid width attributes e.g. `width=40\%`.
 
+## Changes
+
+* In a bookdown context and without package officedown, it is not possible to keep 
+the cross-references as they are provided by bookdown and to provide a
+real Word cross-reference on table captions (the reference number only is displayed).
+That's why when using bookdown without package officedown : 1. Word auto-numbering is 
+desactivated and 2. caption prefix formatting feature.
 
 # flextable 0.6.10
 

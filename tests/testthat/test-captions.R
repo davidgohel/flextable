@@ -37,8 +37,7 @@ test_that("word_document2 captions", {
   expect_length(style_nodes, 2)
   txt_nodes <- xml_find_all(x, "/w:document/w:body/w:tbl/preceding-sibling::*[1]/w:r/w:t")
   expect_equal(
-    sum(xml_text(txt_nodes) %in% "a table caption"),
-    2
+    xml_text(txt_nodes), c("Table 1: a table caption", "Table 2: a table caption")
   )
 })
 

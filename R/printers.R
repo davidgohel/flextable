@@ -421,10 +421,11 @@ print.flextable <- function(x, preview = "html", ...){
 #'
 #'
 #' If `set_caption` function is not used, caption identifier will be
-#' read from knitr's chunk option `tab.id` or `label` if in a bookdown
-#' (this is to respect the bookdown standards).
+#' read from knitr's chunk option `tab.id`. Note that in a bookdown and
+#' when not using `officedown::rdocx_document()`, the usual numbering
+#' features of bookdown are used.
 #'
-#' `tab.id='my_id'` or `label='my_id'`.
+#' `tab.id='my_id'`.
 #'
 #' Some options are available to customise captions for any output:
 #'
@@ -553,7 +554,12 @@ print.flextable <- function(x, preview = "html", ...){
 #'
 knit_print.flextable <- function(x, ...){
 
-  is_bookdown <- isTRUE(opts_knit$get('bookdown.internal.label'))
+
+  is_rdocx_document <- opts_current$get('is_rdocx_document')
+  if(is.null(is_rdocx_document)) is_rdocx_document <- FALSE
+
+  is_bookdown <- isTRUE(opts_knit$get('bookdown.internal.label')) &&
+    isTRUE(!is_rdocx_document)
   pandoc2 <- pandoc_version() >= numeric_version("2.0")
   str <- flextable_to_rmd(x, bookdown = is_bookdown, pandoc2 = pandoc2,
                           print = FALSE)

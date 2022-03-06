@@ -120,7 +120,6 @@ caption_docx_bookdown <- function(x){
   tab_props$id <- mcoalesce_options(x$caption$autonum$bookmark, tab_props$id, opts_current$get('label'))
   tab_props$cap <- mcoalesce_options(x$caption$value, tab_props$cap)
   tab_props$cap.style <- mcoalesce_options(x$caption$style, tab_props$cap.style)
-  tab_props$cap.fp_text <- mcoalesce_options(x$caption$fp_text, tab_props$cap.fp_text)
 
   has_caption_label <- !is.null(tab_props$cap)
   has_caption_style <- !is.null(tab_props$cap.style)
@@ -137,29 +136,10 @@ caption_docx_bookdown <- function(x){
   caption <- tab_props$cap
 
   zz <- if(!is.null(tab_props$id)){
-    run_bookmark(tab_props$id, ftext("TABCAPTION"))
+    paste0("(\\#", tab_props$tab.lp, tab_props$id,")")
   } else {
-    ftext("TABCAPTION")
+    ""
   }
-  zz <- paste("`", to_wml(zz), "`{=openxml}", sep = "")
-
-
-  # break the xml so that pandoc manage captions
-
-  replacement <- paste0(
-    "`{=openxml}",
-    paste0(
-      if(isTRUE(tab_props$cap.fp_text$bold)) "**",
-      if(isTRUE(tab_props$cap.fp_text$italic)) "*",
-      "(\\\\#",
-      tab_props$tab.lp, tab_props$id,
-      ")",
-      if(isTRUE(tab_props$cap.fp_text$italic)) "*",
-      if(isTRUE(tab_props$cap.fp_text$bold)) "**"
-    ),
-    "`")
-
-  zz <- gsub("<w:r>(.*)</w:r>", replacement, zz)
 
   caption <- paste(
     style_start,
@@ -175,7 +155,7 @@ caption_docx_standard <- function(x){
 
   caption_label <- mcoalesce_options(x$caption$value, tab_props$cap)
   caption_style <- mcoalesce_options(x$caption$style, tab_props$cap.style)
-  caption_id <- mcoalesce_options(x$caption$autonum$bookmark, tab_props$id)
+  caption_id <- mcoalesce_options(x$caption$autonum$bookmark, tab_props$id, opts_current$get('label'))
   caption_lp <- mcoalesce_options(if( !is.null(tab_props$tab.lp) )
                                     gsub(":$", "", tab_props$tab.lp)
                                   else NULL,

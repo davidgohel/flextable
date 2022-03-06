@@ -69,10 +69,11 @@ knitr chunk option \code{tab.cap}.\preformatted{set_caption(x, caption = "my cap
 }
 
 If \code{set_caption} function is not used, caption identifier will be
-read from knitr's chunk option \code{tab.id} or \code{label} if in a bookdown
-(this is to respect the bookdown standards).
+read from knitr's chunk option \code{tab.id}. Note that in a bookdown and
+when not using \code{officedown::rdocx_document()}, the usual numbering
+features of bookdown are used.
 
-\code{tab.id='my_id'} or \code{label='my_id'}.
+\code{tab.id='my_id'}.
 
 Some options are available to customise captions for any output:\tabular{lcc}{
    \strong{label} \tab \strong{name} \tab \strong{value} \cr
