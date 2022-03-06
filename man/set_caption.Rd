@@ -42,18 +42,24 @@ Word computed value.
 
 
 flextable captions can be defined from R Markdown documents by using
-\code{knitr::opts_chunk$set()}. The following options are available:\tabular{lcc}{
+\code{knitr::opts_chunk$set()}. The following options are available
+with \code{officedown::rdocx_document} and/or bookdown:\tabular{lcc}{
    \strong{label} \tab \strong{name} \tab \strong{value} \cr
    Word stylename to use for table captions. \tab tab.cap.style \tab NULL \cr
+   caption id/bookmark \tab tab.id \tab NULL \cr
+   caption \tab tab.cap \tab NULL \cr
+   display table caption on top of the table or not \tab tab.topcaption \tab TRUE \cr
+   caption table sequence identifier. \tab tab.lp \tab "tab:" \cr
+}
+
+
+The following options are only available when used with \code{officedown::rdocx_document}:\tabular{lcc}{
+   \strong{label} \tab \strong{name} \tab \strong{value} \cr
    prefix for numbering chunk (default to   "Table "). \tab tab.cap.pre \tab Table \cr
    suffix for numbering chunk (default to   ": "). \tab tab.cap.sep \tab " :" \cr
    title number depth \tab tab.cap.tnd \tab 0 \cr
    separator to use between title number and table number. \tab tab.cap.tns \tab "-" \cr
    caption prefix formatting properties \tab tab.cap.fp_text \tab fp_text_lite(bold = TRUE) \cr
-   caption id/bookmark \tab tab.id \tab NULL \cr
-   caption \tab tab.cap \tab NULL \cr
-   display table caption on top of the table or not \tab tab.topcaption \tab TRUE \cr
-   caption table sequence identifier. \tab tab.lp \tab "tab:" \cr
 }
 
 

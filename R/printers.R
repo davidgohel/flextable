@@ -372,13 +372,24 @@ print.flextable <- function(x, preview = "html", ...){
 #' a chunk. However, it is recommended to read its documentation in order to get
 #' familiar with the different options available.
 #'
-#' \if{html}{\figure{fig_formats.png}{options: width=200px}} HTML, Word, PowerPoint and PDF outputs are supported.
+#' R Markdown outputs can be :
+#'
+#' * HTML
+#' * 'Microsoft Word'
+#' * 'Microsoft PowerPoint'
+#' * PDF
+#'
+#' \if{html}{\figure{fig_formats.png}{options: width="200"}}
 #'
 #'
 #' Table captioning is a flextable feature compatible with R Markdown
 #' documents. The feature is available for HTML, PDF and Word documents.
 #' Compatibility with the "bookdown" package is also ensured, including the
 #' ability to produce captions so that they can be used in cross-referencing.
+#'
+#' For Word, it's recommanded to work with package 'officedown' that supports
+#' all features of flextable.
+#'
 #' @note
 #' Supported formats require some
 #' minimum [pandoc](https://pandoc.org/installing.html) versions:
@@ -423,7 +434,7 @@ print.flextable <- function(x, preview = "html", ...){
 #' If `set_caption` function is not used, caption identifier will be
 #' read from knitr's chunk option `tab.id`. Note that in a bookdown and
 #' when not using `officedown::rdocx_document()`, the usual numbering
-#' features of bookdown are used.
+#' feature of bookdown is used.
 #'
 #' `tab.id='my_id'`.
 #'
@@ -431,17 +442,18 @@ print.flextable <- function(x, preview = "html", ...){
 #'
 #' | **label**                                        |    **name**     | **value**  |
 #' |:-------------------------------------------------|:---------------:|:----------:|
+#' | Word stylename to use for table captions.        | tab.cap.style   |    NULL    |
 #' | caption id/bookmark                              | tab.id          |    NULL    |
 #' | caption                                          | tab.cap         |    NULL    |
 #' | display table caption on top of the table or not | tab.topcaption  |    TRUE    |
 #' | caption table sequence identifier.               | tab.lp          |   "tab:"   |
 #'
-#' Word output provide more options such as ability to choose the prefix for numbering chunk for
+#' Word output when `officedown::rdocx_document()` is used is coming with
+#' more options such as ability to choose the prefix for numbering chunk for
 #' example. The table below expose these options:
 #'
 #' | **label**                                               |    **name**     | **value**  |
 #' |:--------------------------------------------------------|:---------------:|:----------:|
-#' | Word stylename to use for table captions.               | tab.cap.style   |    NULL    |
 #' | prefix for numbering chunk (default to   "Table ").     | tab.cap.pre     |   Table    |
 #' | suffix for numbering chunk (default to   ": ").         | tab.cap.sep     |    " :"    |
 #' | title number depth                                      | tab.cap.tnd     |      0     |
@@ -474,7 +486,9 @@ print.flextable <- function(x, preview = "html", ...){
 #'
 #' @section PowerPoint output:
 #'
-#' Auto-adjust Layout is not available for PowerPoint.
+#' Auto-adjust Layout is not available for PowerPoint, PowerPoint only support
+#' fixed layout. It's then often necessary to call function [autofit()] so
+#' that the columns' widths are adjusted if user does not provide the withs.
 #'
 #' Images cannot be integrated into tables with the PowerPoint format.
 #'
