@@ -23,7 +23,6 @@ reference:
     - add_header_lines
     - add_footer_lines
     - add_header
-    - add_body
     - add_footer
     - set_header_labels
     - set_header_df
@@ -44,6 +43,7 @@ reference:
     - as_grouped_data
     - xtable_to_flextable
     - as_flextable
+    - add_body
     - nrow_part
     - ncol_keys
   - title: Format flextable
@@ -111,7 +111,7 @@ reference:
     - footnote
     - void
     - before
-    - format_summarizor_cols
+    - fmt_2stats
   - title: Output functions
     contents:
     - print.flextable
