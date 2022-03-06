@@ -40,6 +40,9 @@
     <loc>/reference/align.html</loc>
   </url>
   <url>
+    <loc>/reference/append_chunks.html</loc>
+  </url>
+  <url>
     <loc>/reference/as_b.html</loc>
   </url>
   <url>
@@ -208,6 +211,9 @@
     <loc>/reference/flextable_to_rmd.html</loc>
   </url>
   <url>
+    <loc>/reference/fmt_2stats.html</loc>
+  </url>
+  <url>
     <loc>/reference/font.html</loc>
   </url>
   <url>
@@ -218,9 +224,6 @@
   </url>
   <url>
     <loc>/reference/footnote.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_summarizor_cols.html</loc>
   </url>
   <url>
     <loc>/reference/fp_border_default.html</loc>

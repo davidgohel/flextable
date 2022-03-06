@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0.006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
       </span>
     </div>
 
@@ -51,12 +51,21 @@
 <h2 class="page-header" data-toc-text="0.7.0" id="flextable-070">flextable 0.7.0<a class="anchor" aria-label="anchor" href="#flextable-070"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-7-0">new features<a class="anchor" aria-label="anchor" href="#new-features-0-7-0"></a></h3>
-<ul><li>new function <code><a href="../reference/tabulator.html">tabulator()</a></code> and its method <code><a href="../reference/as_flextable.tabulator.html">as_flextable.tabulator()</a></code> that help the creation of tables used by pharmaceutical industry. It also comes with function <code><a href="../reference/summarizor.html">summarizor()</a></code> and sugar function <code><a href="../reference/format_summarizor_cols.html">format_summarizor_cols()</a></code>.</li>
+<ul><li>new function <code><a href="../reference/append_chunks.html">append_chunks()</a></code> to append chunks of content in flextable cells as with <code><a href="../reference/as_paragraph.html">as_paragraph()</a></code> but without replacing the whole content.</li>
+<li>new function <code><a href="../reference/tabulator.html">tabulator()</a></code> and its method <code><a href="../reference/as_flextable.tabulator.html">as_flextable.tabulator()</a></code> that help the creation of tables used in life science industry. It also comes with function <code><a href="../reference/summarizor.html">summarizor()</a></code> and sugar function <code><a href="../reference/fmt_2stats.html">fmt_2stats()</a></code>.</li>
 <li>
 <code><a href="../reference/empty_blanks.html">empty_blanks()</a></code> gained arguments <code>width</code> so that users can also set blank columns’ width.</li>
 <li>pass <code>...</code> to <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code> function when using <code><a href="../reference/colformat_num.html">colformat_num()</a></code>. It makes possible to use arguments for <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code>, for example <code>colformat_num(drop0trailing = TRUE)</code>.</li>
 <li>add knitr chunk option <code>ft.keepnext</code> and parameter <code>keepnext</code> to function <code><a href="../reference/body_add_flextable.html">body_add_flextable()</a></code> that enable the Word option ‘keep rows together’, so that page break within a table is avoided when possible.</li>
 <li>new function <code><a href="../reference/add_latex_dep.html">add_latex_dep()</a></code> to manually add flextable latex dependencies to the knitr session.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-7-0">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-0"></a></h3>
+<ul><li>fix Rd files which when converted to HTML had <code>&lt;img&gt;</code> entries with invalid width attributes e.g. <code>width=40\%</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-0-7-0">Changes<a class="anchor" aria-label="anchor" href="#changes-0-7-0"></a></h3>
+<ul><li>In a bookdown context and without package officedown, it is not possible to keep the cross-references as they are provided by bookdown and to provide a real Word cross-reference on table captions (the reference number only is displayed). That’s why when using bookdown without package officedown : 1. Word auto-numbering is desactivated and 2. caption prefix formatting feature.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -574,7 +583,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0.006 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

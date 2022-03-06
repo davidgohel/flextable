@@ -21,7 +21,7 @@ across rows and columns."><meta property="og:image" content="/logo.png"><!-- mat
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0.006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
       </span>
     </div>
 
@@ -64,8 +64,7 @@ across rows and columns.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tabulator</span><span class="op">(</span>
   <span class="va">x</span>,
   <span class="va">rows</span>,
-  <span class="va">cols</span>,
-  separate <span class="op">=</span> <span class="va">rows</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
+  <span class="va">columns</span>,
   supp_data <span class="op">=</span> <span class="cn">NULL</span>,
   hidden_data <span class="op">=</span> <span class="cn">NULL</span>,
   row_compose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
@@ -82,11 +81,8 @@ across rows and columns.</p>
 <dd><p>an aggregated data.frame</p></dd>
 <dt>rows</dt>
 <dd><p>column names to use in rows dimensions</p></dd>
-<dt>cols</dt>
+<dt>columns</dt>
 <dd><p>column names to use in columns dimensions</p></dd>
-<dt>separate</dt>
-<dd><p>used to sepatate the groups with an horizontal
-line.</p></dd>
 <dt>supp_data</dt>
 <dd><p>additional data that will be merged with
 table and presented after the columns presenting
@@ -116,10 +112,9 @@ when the flextable is created.</p></dd>
     
 <ul><li><p><code>summary</code>: call <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> to get
 a data.frame describing mappings between variables
-and their names in the flextable. This data.frame can
-then be then used when programming with flextable as
-column names used by the resulting flextable
-are available in the dataset.</p></li>
+and their names in the flextable. This data.frame contains
+a column named <code>col_keys</code> where are stored the names that
+can be used for further selections.</p></li>
 </ul></div>
     <div id="note">
     <h2>Note</h2>
@@ -131,10 +126,10 @@ can evolve or change.</p>
     
 
 
-<p>ft_1:</p>
-<p><img src="figures/fig_tabulator_1.png" width="70%"></p>
-<p>ft_3:</p>
-<p><img src="figures/fig_tabulator_3.png" width="70%"></p>
+<p>ft_1 appears as:</p>
+<p><img src="figures/fig_tabulator_1.png" width="300"></p>
+<p>ft_2 appears as:</p>
+<p><img src="figures/fig_tabulator_2.png" width="500"></p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -157,7 +152,7 @@ can evolve or change.</p>
 <span class="r-in"></span>
 <span class="r-in">  <span class="va">cft_1</span> <span class="op">&lt;-</span> <span class="fu">tabulator</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="va">dat</span>, rows <span class="op">=</span> <span class="st">"wool"</span>,</span>
-<span class="r-in">    cols <span class="op">=</span> <span class="st">"tension"</span>,</span>
+<span class="r-in">    columns <span class="op">=</span> <span class="st">"tension"</span>,</span>
 <span class="r-in">    `mean` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">breaks</span><span class="op">)</span><span class="op">)</span>,</span>
 <span class="r-in">    `(N)` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span>
 <span class="r-in">      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">breaks</span><span class="op">)</span>, formatter <span class="op">=</span> <span class="va">n_format</span> <span class="op">)</span><span class="op">)</span></span>
@@ -167,16 +162,16 @@ can evolve or change.</p>
 <span class="r-in">  <span class="va">ft_1</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `wool`, `dummy@L`, `mean@L`, `(N)@L`, `dummy@M`, `mean@M`, `(N)@M`, `dummy@H`, `mean@H`, `(N)@H` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `wool`, `dummy`, `@L@mean`, `@L@(N)`, `dummy2`, `@M@mean`, `@M@(N)`, `dummy3`, `@H@mean`, `@H@(N)` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 2 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   wool breaks@L breaks@M breaks@H mean@L mean@M mean@H (N)@L (N)@M (N)@H</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    A 44.55556 24.00000 24.55556                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    B 28.22222 28.77778 18.77778                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   dummy@L dummy@M dummy@H</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   wool breaks@L breaks@M breaks@H mean@L mean@M mean@H (N)@L (N)@M (N)@H dummy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    A 44.55556 24.00000 24.55556                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    B 28.22222 28.77778 18.77778                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   @L@mean @L@(N) dummy2 @M@mean @M@(N) dummy3 @H@mean @H@(N)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                           </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com" class="external-link">"data.table"</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span class="r-in"></span>
@@ -203,7 +198,7 @@ can evolve or change.</p>
 <span class="r-in"></span>
 <span class="r-in">  <span class="va">tab_2</span> <span class="op">&lt;-</span> <span class="fu">tabulator</span><span class="op">(</span></span>
 <span class="r-in">    x <span class="op">=</span> <span class="va">dat</span>, rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cut"</span>, <span class="st">"color"</span><span class="op">)</span>,</span>
-<span class="r-in">    cols <span class="op">=</span> <span class="st">"clarity"</span>,</span>
+<span class="r-in">    columns <span class="op">=</span> <span class="st">"clarity"</span>,</span>
 <span class="r-in">    `z stats` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span>
 <span class="r-in">      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">z.mean</span>, formatter <span class="op">=</span> <span class="va">myformat</span><span class="op">)</span><span class="op">)</span>,</span>
 <span class="r-in">    `y stats` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span>
@@ -218,7 +213,7 @@ can evolve or change.</p>
 <span class="r-in">  <span class="va">ft_2</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `cut`, `color`, `dummy@I1`, `z stats@I1`, `y stats@I1`, `dummy@SI1`, `z stats@SI1`, `y stats@SI1`, `dummy@VS2`, `z stats@VS2`, `y stats@VS2` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `cut`, `color`, `dummy`, `@I1@z stats`, `@I1@y stats`, `dummy2`, `@SI1@z stats`, `@SI1@y stats`, `dummy3`, `@VS2@z stats`, `@VS2@y stats` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 21 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
@@ -234,18 +229,18 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  6.040571   5.871325   5.626226 1.0820350 0.8438367 0.6970742           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4  6.434906   5.922754   6.137333 1.0849683 0.6362248 0.7873442           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5  6.858462   6.355467   6.161220 1.0348428 0.8221269 0.9045750           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   z stats@SI1 z stats@VS2 y stats@I1 y stats@SI1 y stats@VS2 dummy@I1 dummy@SI1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   z stats@SI1 z stats@VS2 y stats@I1 y stats@SI1 y stats@VS2 dummy @I1@z stats</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   @I1@y stats dummy2 @SI1@z stats @SI1@y stats dummy3 @VS2@z stats @VS2@y stats</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   dummy@VS2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com" class="external-link">"data.table"</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span class="r-in"><span class="co">#' # data.table version</span></span>
@@ -267,16 +262,16 @@ can evolve or change.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">tab_3</span> <span class="op">&lt;-</span> <span class="fu">tabulator</span><span class="op">(</span></span>
 <span class="r-in">  x <span class="op">=</span> <span class="va">dat</span>, rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span>,</span>
-<span class="r-in">  cols <span class="op">=</span> <span class="st">"name"</span>,</span>
-<span class="r-in">  separate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">  `mean (sd)` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span> <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">avg</span><span class="op">)</span>,  <span class="st">" ("</span>, <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">sd</span><span class="op">)</span>,  <span class="st">")"</span><span class="op">)</span></span>
+<span class="r-in">  columns <span class="op">=</span> <span class="st">"name"</span>,</span>
+<span class="r-in">  `mean (sd)` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span> <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">avg</span><span class="op">)</span>,</span>
+<span class="r-in">     <span class="st">" ("</span>, <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">sd</span><span class="op">)</span>,  <span class="st">")"</span><span class="op">)</span></span>
 <span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_3</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">ft_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_3</span>, separate_with <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">ft_3</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Species`, `dummy@Sepal.Length`, `mean (sd)@Sepal.Length`, `dummy@Sepal.Width`, `mean (sd)@Sepal.Width`, `dummy@Petal.Length`, `mean (sd)@Petal.Length`, `dummy@Petal.Width`, `mean (sd)@Petal.Width` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Species`, `dummy`, `Sepal.Length@mean (sd)`, `dummy2`, `Sepal.Width@mean (sd)`, `dummy3`, `Petal.Length@mean (sd)`, `dummy4`, `Petal.Width@mean (sd)` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 3 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Species avg@Sepal.Length avg@Sepal.Width avg@Petal.Length avg@Petal.Width</span>
@@ -291,14 +286,18 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   mean (sd)@Petal.Width dummy@Sepal.Length dummy@Sepal.Width dummy@Petal.Length</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   dummy@Petal.Width</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   mean (sd)@Petal.Width dummy Sepal.Length@mean (sd) dummy2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sepal.Width@mean (sd) dummy3 Petal.Length@mean (sd) dummy4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Petal.Width@mean (sd)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                      </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="set_flextable_defaults.html">init_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span></span>
 </code></pre></div>
@@ -311,7 +310,7 @@ can evolve or change.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0.006 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

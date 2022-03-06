@@ -19,7 +19,7 @@ the tabulator() function."><meta property="og:image" content="/logo.png"><!-- ma
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0.006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
       </span>
     </div>
 
@@ -78,10 +78,14 @@ can evolve or change.</p>
     <h2>Illustrations</h2>
     
 
-<p>ft_1:</p>
-<p><img src="figures/fig_summarizor_1.png" width="70%"></p>
-<p>ft_2:</p>
-<p><img src="figures/fig_summarizor_2.png" width="70%"></p>
+<p>ft_1 appears as:</p>
+<p><img src="figures/fig_summarizor_1.png" width="500"></p>
+<p>ft_2 appears as:</p>
+<p><img src="figures/fig_summarizor_2.png" width="500"></p>
+    </div>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index"><p><code><a href="fmt_2stats.html">fmt_2stats()</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -96,35 +100,34 @@ can evolve or change.</p>
 <span class="r-in"><span class="va">tab_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="tabulator.html">tabulator</a></span><span class="op">(</span></span>
 <span class="r-in">  x <span class="op">=</span> <span class="va">z</span>,</span>
 <span class="r-in">  rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"variable"</span>, <span class="st">"stat"</span><span class="op">)</span>,</span>
-<span class="r-in">  cols <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
+<span class="r-in">  columns <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span class="r-in">  blah <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span>
 <span class="r-in">    <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span></span>
-<span class="r-in">      <span class="fu"><a href="format_summarizor_cols.html">format_summarizor_cols</a></span><span class="op">(</span></span>
-<span class="r-in">        <span class="va">stat</span>, <span class="va">data_type</span>,</span>
-<span class="r-in">        <span class="va">value</span>, <span class="va">cts</span>, <span class="va">percent</span></span>
+<span class="r-in">      <span class="fu"><a href="fmt_2stats.html">fmt_2stats</a></span><span class="op">(</span></span>
+<span class="r-in">        num1 <span class="op">=</span> <span class="va">stat</span>, num2 <span class="op">=</span> <span class="va">value</span>, cts <span class="op">=</span> <span class="va">cts</span>, pcts <span class="op">=</span> <span class="va">percent</span></span>
 <span class="r-in">      <span class="op">)</span></span>
 <span class="r-in">    <span class="op">)</span></span>
 <span class="r-in">  <span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_1</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_1</span>, separate_with <span class="op">=</span> <span class="st">"variable"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">ft_1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy@nonchilled`, `blah@nonchilled`, `dummy@chilled`, `blah@chilled`, `dummy@Overall`, `blah@Overall` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy`, `nonchilled@blah`, `dummy2`, `chilled@blah`, `dummy3`, `Overall@blah` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 30 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   variable    stat cts@nonchilled cts@chilled cts@Overall percent@nonchilled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Plant Missing              0           0           0              0.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    Plant     Qn1              5           0           5              0.125</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    Plant     Qn2              7           0           7              0.175</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    Plant     Qn3              7           0           7              0.175</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    Plant     Qc1              0           7           7              0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   variable stat cts@nonchilled cts@chilled cts@Overall percent@nonchilled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Plant  Qn1              5           0           5              0.125</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    Plant  Qn2              7           0           7              0.175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    Plant  Qn3              7           0           7              0.175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    Plant  Qc1              0           7           7              0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    Plant  Qc3              0           7           7              0.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   percent@chilled percent@Overall data_type@nonchilled data_type@chilled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.0000000      0.00000000             discrete          discrete</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.0000000      0.06097561             discrete          discrete</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.0000000      0.06097561             discrete          discrete</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.0000000      0.08536585             discrete          discrete</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3       0.0000000      0.08536585             discrete          discrete</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       0.0000000      0.08536585             discrete          discrete</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       0.1666667      0.08536585             discrete          discrete</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5       0.1666667      0.08536585             discrete          discrete</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   data_type@Overall value@nonchilled value@chilled value@Overall</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1          discrete               NA            NA            NA</span>
@@ -132,18 +135,18 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3          discrete               NA            NA            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4          discrete               NA            NA            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   blah@nonchilled blah@chilled blah@Overall dummy@nonchilled dummy@chilled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   dummy@Overall</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   blah@nonchilled blah@chilled blah@Overall dummy nonchilled@blah dummy2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   chilled@blah dummy3 Overall@blah</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                 </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># version 2 ----</span></span>
 <span class="r-in"><span class="va">n_format</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">percent</span><span class="op">)</span> <span class="op">{</span></span>
@@ -161,29 +164,29 @@ can evolve or change.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">tab_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="tabulator.html">tabulator</a></span><span class="op">(</span><span class="va">z</span>,</span>
 <span class="r-in">  rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"variable"</span>, <span class="st">"stat"</span><span class="op">)</span>,</span>
-<span class="r-in">  cols <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
+<span class="r-in">  columns <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
 <span class="r-in">  `Est.` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>,</span>
 <span class="r-in">  `N` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="fu">n_format</span><span class="op">(</span><span class="va">cts</span>, <span class="va">percent</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_2</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_2</span>, separate_with <span class="op">=</span> <span class="st">"variable"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">ft_2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy@nonchilled`, `Est.@nonchilled`, `N@nonchilled`, `dummy@chilled`, `Est.@chilled`, `N@chilled`, `dummy@Overall`, `Est.@Overall`, `N@Overall` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy`, `@nonchilled@Est.`, `@nonchilled@N`, `dummy2`, `@chilled@Est.`, `@chilled@N`, `dummy3`, `@Overall@Est.`, `@Overall@N` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 30 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   variable    stat cts@nonchilled cts@chilled cts@Overall percent@nonchilled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Plant Missing              0           0           0              0.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    Plant     Qn1              5           0           5              0.125</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    Plant     Qn2              7           0           7              0.175</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    Plant     Qn3              7           0           7              0.175</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    Plant     Qc1              0           7           7              0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   variable stat cts@nonchilled cts@chilled cts@Overall percent@nonchilled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Plant  Qn1              5           0           5              0.125</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    Plant  Qn2              7           0           7              0.175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    Plant  Qn3              7           0           7              0.175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    Plant  Qc1              0           7           7              0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    Plant  Qc3              0           7           7              0.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   percent@chilled percent@Overall data_type@nonchilled data_type@chilled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.0000000      0.00000000             discrete          discrete</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.0000000      0.06097561             discrete          discrete</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.0000000      0.06097561             discrete          discrete</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.0000000      0.08536585             discrete          discrete</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3       0.0000000      0.08536585             discrete          discrete</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       0.0000000      0.08536585             discrete          discrete</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       0.1666667      0.08536585             discrete          discrete</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5       0.1666667      0.08536585             discrete          discrete</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   data_type@Overall value@nonchilled value@chilled value@Overall</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1          discrete               NA            NA            NA</span>
@@ -197,12 +200,18 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   dummy@nonchilled dummy@chilled dummy@Overall</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dummy @nonchilled@Est. @nonchilled@N dummy2 @chilled@Est. @chilled@N dummy3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   @Overall@Est. @Overall@N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                         </span>
 </code></pre></div>
     </div>
   </div>
@@ -213,7 +222,7 @@ can evolve or change.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0.006 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
