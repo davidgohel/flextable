@@ -109,6 +109,7 @@ reference:
     - as_equation
     - set_caption
     - footnote
+    - append_chunks
     - void
     - before
     - fmt_2stats
