@@ -33,7 +33,7 @@ Suggests:
     xtable,
     webshot,
     magick,
-    ggplot2, scales, 
+    ggplot2, scales, tidyselect,
     broom, mgcv,
     bookdown, equatags,
     commonmark,pdftools
