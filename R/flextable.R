@@ -45,7 +45,10 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
 
   stopifnot(is.data.frame(data), ncol(data) > 0 )
   if( requireNamespace("tidyselect", quietly = TRUE) && requireNamespace("rlang", quietly = TRUE) ){
-    col_keys <- names(tidyselect::eval_select(rlang::enexpr(col_keys), data))
+    try_col_keys <- try(col_keys, silent=TRUE)
+    if( inherits(try_col_keys, "try-error") ){
+      col_keys <- names(tidyselect::eval_select(rlang::enquo(col_keys), data, strict = FALSE))
+    }
   }
   if( any( duplicated(col_keys) ) ){
     stop("duplicated col_keys")
