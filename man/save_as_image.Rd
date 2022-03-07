@@ -22,9 +22,23 @@ save a flextable as a png, pdf or jpeg image.
 Image generated with package 'webshot' or package 'webshot2'.
 \strong{Package 'webshot2' should be prefered} as 'webshot' can have
 issues with some properties (i.e. bold are not rendered for some users).
+
+The image is coming from a screenshot of the 'HTML' output.
+\code{save_as_image()} is a tool to make life easier for users.
+Nevertheless, the features have some limitations that can't
+be solved with flextable because they are not related to
+flextable:
+\itemize{
+\item \code{png} does support transparency,
+\item \code{jpeg} does not support transparency,
+\item webshot2 does not allow transparent background,
+\item webshot does allow transparent background.
+}
 }
 \note{
 This function requires package webshot or webshot2.
+The screenshot process is rather slow because it is managed by
+an external program (see webshot or webshot2 documentation).
 }
 \examples{
 ft <- flextable( head( mtcars ) )

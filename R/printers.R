@@ -763,7 +763,21 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL){
 #' Image generated with package 'webshot' or package 'webshot2'.
 #' **Package 'webshot2' should be prefered** as 'webshot' can have
 #' issues with some properties (i.e. bold are not rendered for some users).
+#'
+#' The image is coming from a screenshot of the 'HTML' output.
+#' `save_as_image()` is a tool to make life easier for users.
+#' Nevertheless, the features have some limitations that can't
+#' be solved with flextable because they are not related to
+#' flextable:
+#'
+#' * `png` does support transparency,
+#' * `jpeg` does not support transparency,
+#' * webshot2 does not allow transparent background,
+#' * webshot does allow transparent background.
+#'
 #' @note This function requires package webshot or webshot2.
+#' The screenshot process is rather slow because it is managed by
+#' an external program (see webshot or webshot2 documentation).
 #' @param x a flextable object
 #' @param path image file to be created. It should end with .png, .pdf, or .jpeg.
 #' @param zoom,expand parameters used by `webshot` function.
