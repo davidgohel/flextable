@@ -16,9 +16,6 @@
 #' ft <- theme_vanilla( ft )
 #' ft
 #' @export
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_set_formatter_1.png}{options: width="400"}}
 #' @family cells formatters
 set_formatter <- function(x, ..., values = NULL, part = "body"){
 
@@ -95,9 +92,6 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 #'   x = z, j = "Species", suffix = "!")
 #' z <- autofit(z)
 #' z
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_colformat_char_1.png}{options: width="400"}}
 colformat_char <- function(
   x, i = NULL, j = NULL,
   na_str = get_flextable_defaults()$na_str,
@@ -164,7 +158,7 @@ colformat_double <- function(
 #' The function is different from [colformat_double()] on numeric type
 #' columns. The function uses the [format()] function of R on numeric
 #' type columns. So this is normally what you see on the R console
-#' most of the time (but scientific mode is disabled, NA are replaced, etc.).
+#' most of the time (but scientific mode is disabled and NA are replaced).
 #'
 #' @section format call:
 #'
@@ -183,8 +177,8 @@ colformat_double <- function(
 #' This argument will not be changed because `colformat_num()`
 #' is supposed to format things roughly as what you see on the R console.
 #'
-#' If you are not happy with these choices, use [set_formatter()]
-#' and define your own format.
+#' If these functions does not fit your needs, use [set_formatter()]
+#' that lets you use any format function.
 #'
 #' @inheritParams colformat_char
 #' @param big.mark,decimal.mark see [format()]
@@ -242,9 +236,6 @@ colformat_num <- function(
 #' ft <- colformat_date(x = ft)
 #' ft <- autofit(ft)
 #' ft
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_colformat_date_1.png}{options: width="300"}}
 colformat_date <- function(
   x, i = NULL, j = NULL,
   fmt_date = get_flextable_defaults()$fmt_date,
@@ -278,9 +269,6 @@ colformat_date <- function(
 #' ft <- colformat_datetime(x = ft)
 #' ft <- autofit(ft)
 #' ft
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_colformat_datetime_1.png}{options: width="300"}}
 colformat_datetime <- function(
   x, i = NULL, j = NULL,
   fmt_datetime = get_flextable_defaults()$fmt_datetime,

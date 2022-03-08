@@ -43,7 +43,7 @@ Format numeric cells in a flextable.
 The function is different from \code{\link[=colformat_double]{colformat_double()}} on numeric type
 columns. The function uses the \code{\link[=format]{format()}} function of R on numeric
 type columns. So this is normally what you see on the R console
-most of the time (but scientific mode is disabled, NA are replaced, etc.).
+most of the time (but scientific mode is disabled and NA are replaced).
 }
 \section{format call}{
 
@@ -64,8 +64,8 @@ To change the digit argument use \code{options(digits=4)} instead.
 This argument will not be changed because \code{colformat_num()}
 is supposed to format things roughly as what you see on the R console.
 
-If you are not happy with these choices, use \code{\link[=set_formatter]{set_formatter()}}
-and define your own format.
+If these functions does not fit your needs, use \code{\link[=set_formatter]{set_formatter()}}
+that lets you use any format function.
 }
 
 \section{Illustrations}{
