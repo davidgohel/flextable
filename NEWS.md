@@ -2,6 +2,7 @@
 
 * fix append_chunks usage by adding `i`, `j` and `part` 
 at the end of the function arguments, after the `...`.
+* add forgotten `supp_data` in the result table of `tabulator()`
 
 # flextable 0.7.0
 

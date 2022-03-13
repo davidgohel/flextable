@@ -157,9 +157,10 @@ tabulator <- function(x, rows, columns,
     rows = rows)
 
   x <- add_fake_columns(x, col_expr_names)
-
+  supp_colnames <- setdiff(colnames(supp_data), rows)
   visible_columns <- map_visible_columns(
     dat = x, columns = columns, rows = rows,
+    supp_colnames = supp_colnames,
     value_names = col_expr_names)
 
   # check dimensions
@@ -404,7 +405,15 @@ as_flextable.tabulator <- function(
 #' @param object an object returned by function
 #' `tabulator()`.
 summary.tabulator <- function(object, ...){
-  object$visible_columns
+
+  hidden_columns <- object$hidden_columns
+  names(hidden_columns)[names(hidden_columns) %in% ".user_columns"] <- "column"
+  hidden_columns$type <- "hidden"
+
+  visible_columns <- object$visible_columns
+  names(visible_columns)[names(visible_columns) %in% ".tab_columns"] <- "column"
+  dat <- rbind(visible_columns, hidden_columns)
+  dat
 }
 
 #' @export
@@ -431,6 +440,17 @@ print.tabulator <- function(x, ...){
 
 
 # utils -----
+#' @importFrom rlang quo_text
+check_filter_expr <- function(filter_expr, x){
+  filter_varnames <- all.vars(filter_expr)
+  missing_varnames <- setdiff(filter_varnames, colnames(x))
+
+  if(length(missing_varnames) > 0){
+    stop(quo_text(filter_expr), " is using unknown variable(s): ",
+         paste0("`", missing_varnames, "`", collapse = ","),
+         call. = FALSE)
+  }
+}
 
 add_fake_columns <- function(x, fake_columns){
   x[fake_columns] <- rep(list(character(nrow(x))), length(fake_columns))
@@ -447,7 +467,8 @@ merge_additional_dataset <- function(a, b, rows){
 }
 
 #' @importFrom data.table setorderv
-map_visible_columns <- function(dat, columns, rows, value_names = character(0)){
+map_visible_columns <- function(dat, columns, rows, value_names = character(0),
+                                supp_colnames = character(0)){
 
   dat <- dat[c(columns, rows)]
   dat[value_names] <- lapply(value_names, function(x, n) character(n), n = nrow(dat))
@@ -472,6 +493,7 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0)){
   ldims <- do.call(rbind, ldims)
 
   sel_columns <- columns[seq_len(length(columns) - 2)]
+
   for(j in rev(seq_along(sel_columns))){
     ldims <- split(ldims, rleid(ldims[[j]]))
     ldims <- lapply(ldims, function(x, j){
@@ -491,23 +513,33 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0)){
   colnames(rdims) <- names(ldims)
   rdims <- as.data.frame(rdims, row.names = FALSE)
 
+  rdims_supp <- NULL
+  if(length(supp_colnames) > 0){
+    rdims_supp <- lapply(supp_colnames, function(x, n) rep(x, n), n = ncol(ldims))
+    rdims_supp <- do.call(rbind, rdims_supp)
+    x1 <- rdims_supp[1,]
+    x1[] <- "dummy"
+    rdims_supp <- rbind(rdims_supp, x1)
+    colnames(rdims_supp) <- names(ldims)
+    rdims_supp <- as.data.frame(rdims_supp, row.names = FALSE)
+    rdims_supp$type <- "rows_supp"
+  }
+
 
   ldims$type <- "columns"
   rdims$type <- "rows"
   last_column <- columns[length(columns)]
-  dims <- rbind(rdims, ldims)
-
+  dims <- rbind(rdims, rdims_supp, ldims)
 
   is_dummy <- dims[[last_column]] %in% "dummy"
-
   dims$col_keys <- do.call(paste, append(as.list(dims[uid_cols]), list(sep = "@")))
-
   if(length(value_names) > 1){
     dims$col_keys <- paste0(dims$.stat_name, "@", dims$col_keys)
   }
-
   dims$col_keys[is_dummy] <- paste0("dummy", seq_len(sum(is_dummy)))
-  dims$col_keys[dims$type %in% "rows"] <- dims[[last_column]][dims$type %in% "rows"]
+
+  dims$col_keys[dims$type %in% "rows" & !is_dummy] <- dims[[last_column]][dims$type %in% "rows" & !is_dummy]
+  dims$col_keys[dims$type %in% "rows_supp" & !is_dummy] <- dims[[last_column]][dims$type %in% "rows_supp" & !is_dummy]
   setDF(dims)
   dims
 }
@@ -521,6 +553,7 @@ map_hidden_columns <- function(dat, columns, rows){
               measure.vars = user_columns, variable.name = ".user_columns")
   columns <- c(columns, ".user_columns")
   dims <- dat[, .SD, .SDcols = columns]
+  setDF(dat)
   dims <- unique(dims)
   dims$col_keys <- do.call(paste, append(as.list(dims[, .SD, .SDcols = columns[-length(columns)]]), list(sep = "@")))
   dims$col_keys <- paste0(dims$.user_columns, "@", dims$col_keys)
