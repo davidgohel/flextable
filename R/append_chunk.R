@@ -3,10 +3,10 @@
 #' @description append chunks (for example chunk [as_chunk()])
 #' in a flextable.
 #' @param x a flextable object
-#' @param i rows selection
-#' @param j column selection
 #' @param ... chunks to be appened, see [as_chunk()], [gg_chunk()] and other
 #' chunk elements for paragraph.
+#' @param i rows selection
+#' @param j column selection
 #' @param part partname of the table (one of 'body', 'header', 'footer')
 #' @examples
 #' library(flextable)
@@ -54,7 +54,7 @@
 #' ft_1 <- autofit(ft_1)
 #'
 #' ft_1
-append_chunks <- function (x, i = NULL, j = NULL, ..., part = "body"){
+append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
   if (!inherits(x, "flextable"))
     stop("append_chunks supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"),
@@ -62,6 +62,7 @@ append_chunks <- function (x, i = NULL, j = NULL, ..., part = "body"){
 
   if (nrow_part(x, part) < 1)
     return(x)
+
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
@@ -71,12 +72,16 @@ append_chunks <- function (x, i = NULL, j = NULL, ..., part = "body"){
   tmp_data <- x[[part]]$dataset[i, , drop = FALSE]
 
   for(col_expr in col_exprs){
+
     value <- eval_tidy(col_expr, data = tmp_data)
-    if(nrow(value) == 1L && nrow(value) < nrow(tmp_data)){
+
+    if(is.data.frame(value) && nrow(value) == 1L && nrow(value) < nrow(tmp_data)){
       value <- rep(list(value), nrow(tmp_data))
       value <- rbind.match.columns(value)
     }
-    value <- split(value, i)
+
+    if(is.data.frame(value))
+      value <- split(value, i)
 
     new <- mapply(function(x, y) {
       y$seq_index <- max(x$seq_index, na.rm = TRUE) + 1

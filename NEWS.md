@@ -1,3 +1,8 @@
+# flextable 0.7.1
+
+* fix append_chunks usage by adding `i`, `j` and `part` 
+at the end of the function arguments, after the `...`.
+
 # flextable 0.7.0
 
 ## new features

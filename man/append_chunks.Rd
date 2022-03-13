@@ -4,17 +4,17 @@
 \alias{append_chunks}
 \title{append chunks to flextable content}
 \usage{
-append_chunks(x, i = NULL, j = NULL, ..., part = "body")
+append_chunks(x, ..., i = NULL, j = NULL, part = "body")
 }
 \arguments{
 \item{x}{a flextable object}
 
+\item{...}{chunks to be appened, see \code{\link[=as_chunk]{as_chunk()}}, \code{\link[=gg_chunk]{gg_chunk()}} and other
+chunk elements for paragraph.}
+
 \item{i}{rows selection}
 
 \item{j}{column selection}
-
-\item{...}{chunks to be appened, see \code{\link[=as_chunk]{as_chunk()}}, \code{\link[=gg_chunk]{gg_chunk()}} and other
-chunk elements for paragraph.}
 
 \item{part}{partname of the table (one of 'body', 'header', 'footer')}
 }
