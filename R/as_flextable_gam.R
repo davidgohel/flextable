@@ -99,18 +99,37 @@ tidy_gam <- function(model) {
 #' @noRd
 #' @importFrom stats AIC BIC logLik df.residual nobs
 glance_gam <- function(model) {
+  df <- sum(model$edf)
+  if(length(df) < 1) df <- NA_real_
+  df.res <- df.residual(model)
+  if(length(df.res) < 1) df.res <- NA_real_
+  logLik <- as.numeric(logLik(model))
+  if(length(logLik) < 1) logLik <- NA_real_
+  aic <- AIC(model)
+  if(length(aic) < 1) aic <- NA_real_
+  bic <- BIC(model)
+  if(length(bic) < 1) bic <- NA_real_
+  dev <- summary(model)$dev.expl
+  if(length(dev) < 1) dev <- NA_real_
+  adj.r.squared <- summary(model)$r.sq
+  if(length(adj.r.squared) < 1) adj.r.squared <- NA_real_
+  scale.est <- summary(model)$scale
+  if(length(scale.est) < 1) scale.est <- NA_real_
+  sp.criterion <- as.numeric(summary(model)$sp.criterion)
+  if(length(sp.criterion) < 1) sp.criterion <- NA_real_
+
   data.frame(
-    df = sum(model$edf),
-    df.residual = df.residual(model),
-    logLik = as.numeric(logLik(model)),
-    AIC = AIC(model),
-    BIC = BIC(model),
-    adj.r.squared = summary(model)$r.sq,
-    deviance = summary(model)$dev.expl,
-    nobs = nobs(model),
+    df = df,
+    df.residual = df.res,
+    logLik = logLik,
+    AIC = aic,
+    BIC = bic,
+    adj.r.squared = adj.r.squared,
+    deviance = dev,
+    nobs = length(model$y),
     method = as.character(summary(model)$method),
-    sp.crit = as.numeric(summary(model)$sp.criterion),
-    scale.est = summary(model)$scale,
+    sp.crit = sp.criterion,
+    scale.est = scale.est,
     stringsAsFactors = FALSE
   )
 }

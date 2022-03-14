@@ -1,5 +1,15 @@
 # flextable 0.7.1
 
+## new features
+
+* function `as_flextable()` has now methods for 
+lm, glm, models from package 'lme' and 'lme4',
+htest (t.test, chisq.test, ...), gam, kmeans and pam.
+* new function `use_model_printer()` to set model automatic 
+printing as a flextable in an R Markdown document.
+
+## Issues
+
 * fix append_chunks usage by adding `i`, `j` and `part` 
 at the end of the function arguments, after the `...`.
 * add forgotten `supp_data` in the result table of `tabulator()`

@@ -176,10 +176,12 @@ tabulator <- function(x, rows, columns,
   .formula <- paste(paste0("`", rows, "`", collapse = "+"),
                     "~", paste0("`", columns, "`", collapse = "+"))
   value_vars <- c(data_colnames, col_expr_names)
+
   dat <- dcast(
     data = as.data.table(x),
     formula = .formula,
     value.var = value_vars, sep = "@")
+  setDF(dat)
 
   dat <- merge_additional_dataset(dat, supp_data, rows = rows)
   dat <- merge_additional_dataset(dat, hidden_data, rows = rows)
@@ -325,7 +327,6 @@ as_flextable.tabulator <- function(
   for(j in names(visible_columns_mapping)){
     visible_columns_mapping_j <- visible_columns_mapping[[j]]
     replication_info <- hidden_columns_mapping[[j]]
-
     ft$body$dataset[as.character(replication_info$.user_columns)] <- ft$body$dataset[replication_info$col_keys]
 
     for(i in seq_len(nrow(visible_columns_mapping_j))){
@@ -416,6 +417,48 @@ summary.tabulator <- function(object, ...){
   dat
 }
 
+#' @importFrom rlang quo_text
+#' @noRd
+#' @title column keys of tabulator objects
+#' @description The function provides a way to get column keys
+#' associated with the flextable corresponding to a [tabulator()]
+#' object. It helps in customizing or programing with `tabulator`.
+#'
+#' The function is using column names from the original
+#' dataset, eventually filters and returns the names
+#' corresponding to the selection.
+#'
+#' @examples
+#' if(require("stats")){
+#'   dat <- aggregate(breaks ~ wool + tension,
+#'     data = warpbreaks, mean)
+#'
+#'   cft_1 <- tabulator(
+#'     x = dat, rows = "wool",
+#'     columns = "tension",
+#'     `mean` = as_paragraph(as_chunk(breaks)),
+#'     `(N)` = as_paragraph(
+#'       as_chunk(length(breaks), formatter = n_format ))
+#'   )
+#'
+#'   ft_1 <- as_flextable(cft_1)
+#'   ft_1
+#' }
+tabulator_keys <- function(x, columns, ...){
+  dat <- summary(x)
+  exprs <- enquos(...)
+  exprs_evals <- lapply(exprs, function(expr_filter, dat){
+    check_filter_expr(expr_filter, dat)
+    eval_tidy({{expr_filter}}, data = dat)
+  }, dat = dat)
+  exprs_evals <- append(exprs_evals, list(dat$column %in% columns))
+  keep <- Reduce(`&`, exprs_evals)
+
+  dat["col_keys"][keep,]
+}
+
+
+
 #' @export
 print.tabulator <- function(x, ...){
 
@@ -457,11 +500,16 @@ add_fake_columns <- function(x, fake_columns){
   x
 }
 
-
+#' @importFrom data.table copy
 merge_additional_dataset <- function(a, b, rows){
   if(!is.null(b)){
     by <- intersect(rows, colnames(b))
-    a <- merge(a, b, by = by, all.x = TRUE, all.y = FALSE)
+    a$.keep_order_a <- seq_len(nrow(a))
+    b$.keep_order_b <- seq_len(nrow(b))
+    z <- merge(a, b, by = by, all.x = TRUE, all.y = FALSE)
+    z <- z[order(z$.keep_order_a, z$.keep_order_b), ]
+    z[c(".keep_order_a", ".keep_order_b")] <- list(NULL, NULL)
+    a <- z
   }
   a
 }
