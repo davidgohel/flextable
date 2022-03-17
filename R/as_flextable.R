@@ -190,7 +190,7 @@ as_flextable.glm <- function(x, ...){
 
   ft <- set_header_labels(ft, term = "", estimate = "Estimate",
                           std.error = "Standard Error", statistic = "z value",
-                          p.value = "Pr(>|z|)", signif = "Signif." )
+                          p.value = "Pr(>|z|)")
 
   digits <- max(3L, getOption("digits") - 3L)
 
@@ -210,6 +210,7 @@ as_flextable.glm <- function(x, ...){
   ft <- italic(ft, i = 1, italic = TRUE, part = "footer")
   ft <- hrule(ft, rule = "auto")
   ft <- autofit(ft, part = c("header", "body"))
+  ft <- width(ft, j = "signif", width = .4)
   ft
 }
 
@@ -261,6 +262,7 @@ as_flextable.lm <- function(x, ...){
   ft <- italic(ft, i = 1, italic = TRUE, part = "footer")
   ft <- hrule(ft, rule = "auto")
   ft <- autofit(ft, part = c("header", "body"))
+  ft <- width(ft, j = "signif", width = .4)
   ft
 }
 
@@ -435,24 +437,31 @@ as_flextable.merMod <- function(x, ...){
   has_pvalue <- if("p.value" %in% colnames(data_t)) TRUE else FALSE
 
   col_keys <- c("effect", "group", "term", "estimate",
-                "std.error", "df", "statistic", if(has_pvalue) "p.value")
+                "std.error", "df", "statistic", if(has_pvalue) c("p.value", "signif"))
   data_t <- as_grouped_data(x = data_t, groups = "effect", )
 
   ft <- as_flextable(data_t, col_keys = col_keys,
                      hide_grouplabel = TRUE)
   ft <- colformat_double(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
   ft <- colformat_double(ft, j = c("df"), digits = 0)
-
   if(has_pvalue){
     ft <- colformat_double(ft, j = "p.value", digits = 4)
-    ft <- append_chunks(x = ft, j = "p.value", part = "body",
-                        dumb = as_chunk(p.value, formatter = pvalue_format))
   }
   ft <- set_header_labels(ft, term = "", estimate = "Estimate",
                           std.error = "Standard Error",
                           p.value = "p-value")
   ft <- autofit(ft, part = c("header", "body"))
+
+  if(has_pvalue){
+    ft <- compose(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)))
+    ft <- width(ft, j = "signif", width = .4)
+  }
   ft <- align(ft, i = ~ !is.na(effect), align = "center")
+
+  ft <- add_footer_lines(ft, values = c(
+    "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
+    ""
+  ))
 
   mod_stats <- c("sigma", "logLik", "AIC", "BIC")
   mod_gl <- data.frame(
@@ -464,17 +473,17 @@ as_flextable.merMod <- function(x, ...){
                "Bayesian Information Criterion"
     )
   )
-  for(i in seq_len(nrow(mod_gl))){
-    frow <- c(
-      mod_gl[i, "stat"],
-      formatC(mod_gl[i, "value"], digits = 3, format = "f"),
-      mod_gl[i, "labels"])
-    ft <- add_footer_row(ft,top = FALSE,
-                         values = frow, colwidths = c(1, 1, ncol_keys(ft)-2))
-  }
-  ft <- align(ft, j = 1, align = "right", part = "footer")
-  ft <- align(ft, j = 2, align = "center", part = "footer")
-  ft <- align(ft, j = 3, align = "left", part = "footer")
+  mod_qual <- paste0(
+    c("square root of the estimated residual variance",
+      "data's log-likelihood under the model",
+      "Akaike Information Criterion",
+      "Bayesian Information Criterion"),
+    ": ",
+    format_fun(unlist(data_g[mod_stats]))
+  )
+  ft <- add_footer_lines(ft, values = mod_qual)
+  ft <- align(ft, align = "left", part = "footer")
+  ft <- align(ft, i = 1, align = "right", part = "footer")
   ft <- hrule(ft, rule = "auto")
   ft
 }

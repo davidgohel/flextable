@@ -32,23 +32,27 @@ as_flextable.gam <- function(x, ...) {
   names(param.head) <- names(data_t$parametric)
   names(smooth.head) <- names(data_t$parametric)
 
-  ft <- flextable(data_t$parametric)
+  ft <- flextable(data_t$parametric, col_keys = c(names(data_t$parametric), "signif"))
   ft <- border_remove(ft)
   ft <- set_header_labels(ft, values = param.head)
 
   if(nrow(data_t$smooth)>0){
     ft <- add_body(ft, Component = NA_character_, top = FALSE)
-    ft <- add_body(ft, values = setNames(data_t$smooth, names(data_t$parametric)), top = FALSE)
+    new_dat <- data_t$smooth
+    names(new_dat) <- names(data_t$parametric)
+    new_dat[["signif"]] <- ""
+    ft <- add_body(ft, values = new_dat, top = FALSE)
   }
-  ft <- compose(ft, j = "p.value", value = as_paragraph(pvalue_format(p.value)))
+
   ft <- colformat_double(ft, j = 3:5, digits = 3)
+  ft <- colformat_double(ft, j = 6, digits = 4)
+  ft <- mk_par(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)))
 
   if(nrow(data_t$smooth)>0){
-    ft <- compose(ft, i = nrow(data_t$parametric) + 1, value = as_paragraph(smooth.head))
+    ft <- mk_par(ft, i = nrow(data_t$parametric) + 1, value = as_paragraph(c(smooth.head, "")))
     ft <- hline(ft, i = nrow(data_t$parametric) + c(0, 1), border = std_border)
     ft <- bold(ft, i = nrow(data_t$parametric) + 1)
   }
-
 
   ft <- hline_bottom(ft, border = std_border)
   ft <- bold(ft, part = "header")
@@ -60,13 +64,14 @@ as_flextable.gam <- function(x, ...) {
   ft <- align_text_col(ft)
   ft <- fix_border_issues(ft)
   ft <- add_footer_lines(ft, values = c(
-    "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05 < '.' < 0.1 < '' < 1",
-    # "p-values for smooth terms are approximate.",
+    "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
     "",
     sprintf("Adjusted R-squared: %s, Deviance explained %s", format(data_g$adj.r.squared, digits = 3, format = "f", nsmall = 3), format(data_g$deviance, digits = 3, format = "f", nsmall = 3)),
     sprintf("%s : %s, Scale est: %s, N: %d", data_g$method, format(data_g$sp.crit, format = "f", digits = 3, nsmall = 3), format(data_g$scale.est, digits = 3, nsmall = 3), data_g$nobs)
   ))
+  ft <- align(ft, i = 1, align = "right", part = "footer")
   ft <- autofit(ft, part = c("header", "body"))
+  ft <- width(ft, j = "signif", width = .4)
   ft
 }
 
