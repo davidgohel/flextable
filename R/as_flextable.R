@@ -762,6 +762,8 @@ use_model_printer <- function() {
   registerS3method("knit_print", "glmmTMB", fun)
   registerS3method("knit_print", "glmmadmb", fun)
   registerS3method("knit_print", "gam", fun)
+  registerS3method("knit_print", "pam", fun)
+  registerS3method("knit_print", "kmeans", fun)
   invisible()
 }
 
