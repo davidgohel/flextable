@@ -272,7 +272,7 @@ wml_rows <- function(value, split = FALSE){
   wml <- apply(as.matrix(cells), 1, paste0, collapse = "")
 
   split_str <- ""
-  if(split) split_str <- "<w:cantSplit/>"
+  if(!split) split_str <- "<w:cantSplit/>"
 
   hrule <- cell_hrule$hrule
   hrule[hrule %in% "atleast"] <- "atLeast"
