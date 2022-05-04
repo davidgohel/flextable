@@ -184,7 +184,7 @@ pml_cells <- function(value){
   fp_cell_pml <- data_ref_cells
   classnames <- data_ref_cells$classname
   fp_cell_pml$classname <- NULL
-  cols <- intersect(names(formals(fp_par)), colnames(fp_cell_pml))
+  cols <- intersect(names(formals(fp_cell)), colnames(fp_cell_pml))
   fp_cell_pml <- fp_cell_pml[cols]
   fp_cell_pml <- split(fp_cell_pml, classnames)
   fp_cell_pml <- lapply(fp_cell_pml, function(x){
