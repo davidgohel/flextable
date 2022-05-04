@@ -313,9 +313,7 @@ docx_str <- function(x, align = "center", split = FALSE, keep_with_next = TRUE, 
   dims <- dim(x)
   widths <- dims$widths
 
-  if(keep_with_next) {
-    x <- keep_wn(x, part  = "all", keep_with_next = TRUE)
-  }
+  x <- keep_wn(x, part  = "all", keep_with_next = keep_with_next)
 
   out <- paste0(
       "<w:tbl xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ",
