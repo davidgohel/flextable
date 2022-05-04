@@ -28,6 +28,8 @@ pml_runs <- function(value) {
     stringsAsFactors = FALSE
   )
 
+  is_soft_return <- txt_data$txt %in% "<br>"
+  is_tab <- txt_data$txt %in% "<tab>"
   is_eq <- !is.na(txt_data$eq_data)
   is_hlink <- !is.na(txt_data$url)
   is_raster <- sapply(txt_data$img_data, function(x) {
@@ -44,8 +46,10 @@ pml_runs <- function(value) {
       "ft_row_id", "col_id", "fp_text_pml"
     )
   ]
-
-  text_nodes_str <- ifelse(!is_raster, paste0("<a:t>", htmlEscape(txt_data$txt), "</a:t>"), "<a:t></a:t>")
+  text_nodes_str <- paste0("<a:t>", htmlEscape(txt_data$txt), "</a:t>")
+  text_nodes_str[is_raster] <- "<a:t></a:t>"
+  text_nodes_str[is_soft_return] <- ""
+  text_nodes_str[is_tab] <- "<a:t>\t</a:t>"
 
   # manage hlinks
   txt_data$url[is_hlink] <- vapply(txt_data$url[is_hlink], urlEncodePath, FUN.VALUE = "", USE.NAMES = FALSE)
@@ -64,16 +68,22 @@ pml_runs <- function(value) {
       )
   }
 
-  # TODO : add url with gsub
+  # add url
   gmatch <- gregexpr(pattern = "</a:rPr>", txt_data$fp_text_pml, fixed = TRUE)
   end_tag <- paste0(link_pr, "</a:rPr>")
   regmatches(txt_data$fp_text_pml, gmatch) <- as.list(end_tag)
 
+  opening_tag <- rep("<a:r>", nrow(txt_data))
+  closing_tag <- rep("</a:r>", nrow(txt_data))
+  opening_tag[is_eq] <- ""
+  closing_tag[is_eq] <- ""
+  opening_tag[is_soft_return] <- "<a:br>"
+  closing_tag[is_soft_return] <- "</a:br>"
 
   txt_data$par_nodes_str <- paste0(
-    ifelse(is_eq, "", "<a:r>"),
+    opening_tag,
     txt_data$fp_text_pml, text_nodes_str,
-    ifelse(is_eq, "", "</a:r>")
+    closing_tag
   )
 
   setorderv(txt_data, cols = c("part", "ft_row_id", "col_id", "seq_index"))

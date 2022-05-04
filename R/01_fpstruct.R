@@ -364,8 +364,41 @@ replace_missing_fptext_by_default <- function(x, default){
 
 }
 
+expand_soft_return <- function(x){
+  if(!any(grepl("\n", x$txt))){
+    return(x)
+  }
+
+  tmp_txt <- gsub("\n", "\n<br>\n", x$txt)
+  tmp_txt <- strsplit(tmp_txt, split = "\n")[[1]]
+
+  tmp_txt <- tmp_txt[!tmp_txt %in% ""]
+  x$txt <- NULL
+  x <- rbind.match.columns(rep(list(x), length(tmp_txt)))
+  x <- cbind(data.frame(txt = tmp_txt, stringsAsFactors = FALSE), x)
+  x$seq_index <- seq_len(nrow(x))
+  x
+}
+expand_tabulation <- function(x){
+  if(!any(grepl("\t", x$txt))){
+    return(x)
+  }
+
+  tmp_txt <- gsub("\t", "\t<tab>\t", x$txt)
+  tmp_txt <- strsplit(tmp_txt, split = "\t")[[1]]
+
+  tmp_txt <- tmp_txt[!tmp_txt %in% ""]
+  x$txt <- NULL
+  x <- rbind.match.columns(rep(list(x), length(tmp_txt)))
+  x <- cbind(data.frame(txt = tmp_txt, stringsAsFactors = FALSE), x)
+  x$seq_index <- seq_len(nrow(x))
+  x
+}
 
 fortify_content <- function(x, default_chunk_fmt, ...){
+
+  x$content$data[] <- lapply(x$content$data, expand_soft_return)
+  x$content$data[] <- lapply(x$content$data, expand_tabulation)
 
   row_id <- unlist( mapply( function(rows, data){
     rep(rows, nrow(data) )

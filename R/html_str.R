@@ -143,16 +143,21 @@ html_gen <- function(x){
   txt_data <- merge(txt_data, data_ref_text, by = by_columns)
   setorderv(txt_data, c("ft_row_id", "col_id", "seq_index"))
 
+  is_soft_return <- txt_data$txt %in% "<br>"
+  is_tab <- txt_data$txt %in% "<tab>"
   is_eq <- !is.na(txt_data$eq_data)
   is_hlink <- !is.na(txt_data$url)
   is_raster <- sapply(txt_data$img_data, function(x) {
     inherits(x, "raster") || is.character(x)
   })
 
+
   # manage raster
   txt_data[is_raster==TRUE, c("txt") := list(img_as_html(img_data = .SD$img_data, width = .SD$width, height = .SD$height))]
   # manage txt
   txt_data[is_raster==FALSE, c("txt") := list(sprintf("<span class=\"%s\">%s</span>", .SD$classname, htmlize(.SD$txt)))]
+  txt_data[is_soft_return==TRUE, c("txt") := list("<br>")]
+  txt_data[is_tab==TRUE, c("txt") := list("&emsp;")]
 
   if (requireNamespace("equatags", quietly = TRUE) && any(is_eq)) {
     transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
@@ -238,7 +243,7 @@ html_gen <- function(x){
 
 # html chunks ----
 htmlize <- function(x){
-  x <-  gsub("\n", "<br>", htmlEscape(x))
+  x <-  htmlEscape(x)
   x <-  gsub("\t", "&emsp;", x)
   x
 }

@@ -42,6 +42,8 @@ wml_runs <- function(value) {
     stringsAsFactors = FALSE
   )
 
+  is_soft_return <- txt_data$txt %in% "<br>"
+  is_tab <- txt_data$txt %in% "<tab>"
   is_eq <- !is.na(txt_data$eq_data)
   is_hlink <- !is.na(txt_data$url)
   is_raster <- sapply(txt_data$img_data, function(x) {
@@ -60,9 +62,9 @@ wml_runs <- function(value) {
   ]
   txt_data <- add_raster_as_filecolumn(txt_data)
 
-  text_nodes_t <- htmlEscape(txt_data$txt)
-  text_nodes_t <- gsub("\n", "</w:t><w:br/><w:t xml:space=\"preserve\">", text_nodes_t)
-  text_nodes_t <- paste0("<w:t xml:space=\"preserve\">", text_nodes_t, "</w:t>")
+  text_nodes_t <- paste0("<w:t xml:space=\"preserve\">", htmlEscape(txt_data$txt), "</w:t>")
+  text_nodes_t[is_soft_return] <- "<w:br/>"
+  text_nodes_t[is_tab] <- "<w:tab/>"
 
   text_nodes_run <- paste0(sprintf("<w:r %s>", base_ns), txt_data$fp_text_wml, text_nodes_t, "</w:r>")
   text_nodes_run[is_raster] <- txt_data$img_str[is_raster]

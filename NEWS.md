@@ -14,6 +14,7 @@ printing as a flextable in an R Markdown document.
 at the end of the function arguments, after the `...`.
 * add forgotten `supp_data` in the result table of `tabulator()`
 * merged horizontal borders are now visible in PowerPoint (#378)
+* PowerPoint 'soft returns' are now real 'soft returns'. (#379)
 
 ## Changes
 

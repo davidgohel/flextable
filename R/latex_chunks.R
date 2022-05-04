@@ -23,6 +23,8 @@ latex_text_dataset <- function(x, ls_df){
   dat <- merge(txt_data, span_style_str, by =  "classname")
   dat[, c("txt") := list(sanitize_latex_str(.SD$txt))]
 
+  is_soft_return <- dat$txt %in% "<br>"
+  is_tab <- dat$txt %in% "<tab>"
   is_eq <- !is.na(dat$eq_data)
   dat[is_eq==TRUE, c("txt") := list(paste0('$', .SD$eq_data, '$'))]
   is_hlink <- !is.na(dat$url)
@@ -31,8 +33,8 @@ latex_text_dataset <- function(x, ls_df){
   })
   dat[is_hlink, c("txt") := list(paste0("\\href{", sanitize_latex_str(.SD$url), "}{", .SD$txt, "}"))]
   dat[is_raster==TRUE, c("txt") := list(img_to_latex(.SD$img_data, .SD$width, .SD$height))]
-  dat[is_raster==FALSE, c("txt") := list(gsub("\n", "\\linebreak ", .SD$txt, fixed = TRUE))]
-  dat[is_raster==FALSE, c("txt") := list(gsub("\t", "\\quad ", .SD$txt, fixed = TRUE))]
+  dat[is_soft_return==TRUE, c("txt") := list("\\linebreak ")]
+  dat[is_tab==TRUE, c("txt") := list("\\quad ")]
   dat[is_raster==FALSE, c("txt") := list(sprintf("%s%s%s", .SD$left, .SD$txt, .SD$right))]
 
   dat[, c("left", "right") := NULL]
