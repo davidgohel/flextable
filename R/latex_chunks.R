@@ -1,4 +1,4 @@
-get_text_data <- function(x, ls_df){
+latex_text_dataset <- function(x, ls_df){
 
   txt_data <- as_table_text(x)
   txt_data$col_id <- factor(txt_data$col_id, levels = x$col_keys)

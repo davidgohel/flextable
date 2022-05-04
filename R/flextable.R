@@ -151,6 +151,7 @@ qflextable <- function(data){
 #' ftab <- set_caption(ftab, caption = "mtcars data", autonum = autonum)
 #' ftab
 #' @importFrom officer run_autonum
+#' @importFrom htmltools htmlEscape
 #' @seealso [flextable()]
 set_caption <- function(x, caption,
     autonum = NULL, style = "Table Caption",

@@ -19,6 +19,285 @@ mcoalesce_options <- function(...) {
   Reduce(coalesce_options, list(...))
 }
 
+#' @importFrom htmltools urlEncodePath
+wml_runs <- function(value) {
+  txt_data <- as_table_text(value)
+  txt_data$col_id <- factor(txt_data$col_id, levels = value$col_keys)
+
+  data_ref_text <- part_style_list(
+    as.data.frame(txt_data),
+    fun = dummy_fp_text_fun
+  )
+
+  fp_text_wml <- sapply(
+    split(data_ref_text[-ncol(data_ref_text)], data_ref_text$classname),
+    function(x) {
+      z <- do.call(officer::fp_text_lite, x)
+      format(z, type = "wml")
+    }
+  )
+  style_dat <- data.frame(
+    fp_text_wml = as.character(fp_text_wml),
+    classname = data_ref_text$classname,
+    stringsAsFactors = FALSE
+  )
+
+  is_eq <- !is.na(txt_data$eq_data)
+  is_hlink <- !is.na(txt_data$url)
+  is_raster <- sapply(txt_data$img_data, function(x) {
+    inherits(x, "raster") || is.character(x)
+  })
+
+  setDT(txt_data)
+  txt_data <- merge(txt_data, data_ref_text, by = colnames(data_ref_text)[-ncol(data_ref_text)])
+  txt_data <- merge(txt_data, style_dat, by = "classname")
+  txt_data <- txt_data[, .SD,
+                       .SDcols = c(
+                         "part", "txt", "width", "height", "url",
+                         "eq_data", "img_data", "seq_index",
+                         "ft_row_id", "col_id", "fp_text_wml"
+                       )
+  ]
+  txt_data <- add_raster_as_filecolumn(txt_data)
+
+  text_nodes_t <- htmlEscape(txt_data$txt)
+  text_nodes_t <- gsub("\n", "</w:t><w:br/><w:t xml:space=\"preserve\">", text_nodes_t)
+  text_nodes_t <- paste0("<w:t xml:space=\"preserve\">", text_nodes_t, "</w:t>")
+
+  text_nodes_run <- paste0(sprintf("<w:r %s>", base_ns), txt_data$fp_text_wml, text_nodes_t, "</w:r>")
+  text_nodes_run[is_raster] <- txt_data$img_str[is_raster]
+
+  # manage hlinks
+  url_vals <- vapply(txt_data$url[is_hlink], urlEncodePath, FUN.VALUE = "", USE.NAMES = FALSE)
+  text_nodes_run[is_hlink] <- paste0("<w:hyperlink r:id=\"", url_vals, "\">", text_nodes_run[is_hlink], "</w:hyperlink>")
+
+  # manage formula
+  if (requireNamespace("equatags", quietly = TRUE) && any(is_eq)) {
+    transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
+    text_nodes_run[is_eq] <- transform_mathjax(txt_data$eq_data[is_eq], to = "mml")
+  }
+
+  txt_data$par_nodes_str <- text_nodes_run
+
+  setorderv(txt_data, cols = c("part", "ft_row_id", "col_id", "seq_index"))
+
+  unique_url <- unique(na.omit(txt_data$url))
+  unique_img <- unique(na.omit(txt_data$file[is_raster]))
+
+  txt_data <- txt_data[, lapply(.SD, function(x) paste0(x, collapse = "")), by = c("part", "ft_row_id", "col_id"), .SDcols = "par_nodes_str"]
+  setDF(txt_data)
+  attr(txt_data, "url") <- unique_url
+  attr(txt_data, "imgs") <- unique_img
+  txt_data
+}
+
+wml_pars <- function(value){
+
+  par_data <- fortify_style(value, "pars")
+  par_data$col_id <- factor(par_data$col_id, levels = value$col_keys)
+
+  data_ref_pars <- par_style_list(par_data)
+
+  ## par style wml
+  fp_par_wml <- data_ref_pars
+  classnames <- data_ref_pars$classname
+  fp_par_wml$classname <- NULL
+  cols <- intersect(names(formals(fp_par)), colnames(fp_par_wml))
+  fp_par_wml <- fp_par_wml[cols]
+  fp_par_wml <- split(fp_par_wml, classnames)
+  fp_par_wml <- lapply(fp_par_wml, function(x){
+    zz <- as.list(x)
+    zz$border.bottom <- zz$border.bottom[[1]]
+    zz$border.top <- zz$border.top[[1]]
+    zz$border.right <- zz$border.right[[1]]
+    zz$border.left <- zz$border.left[[1]]
+    zz <- do.call(fp_par, zz)
+    format(zz, type = "wml")
+  })
+  style_dat <- data.frame(
+    fp_par_wml = as.character(fp_par_wml),
+    classname = classnames,
+    stringsAsFactors = FALSE
+  )
+
+  # organise everything
+  setDT(par_data)
+  par_data <- merge(par_data, data_ref_pars, by = intersect(colnames(par_data), colnames(data_ref_pars)))
+  par_data <- merge(par_data, style_dat, by = "classname")
+  par_data <- par_data[, .SD,
+                       .SDcols = c(
+                         "part", "ft_row_id",
+                         "col_id", "fp_par_wml"
+                       )
+  ]
+  setDF(par_data)
+  par_data
+}
+
+wml_spans <- function(value){
+
+  span_data <- fortify_span(value)
+
+  gridspan <- rep("", nrow(span_data))
+  gridspan[span_data$rowspan > 1] <-
+    paste0("<w:gridSpan w:val=\"",
+           span_data$rowspan[span_data$rowspan > 1],
+           "\"/>")
+
+  vmerge <- rep("", nrow(span_data))
+  vmerge[span_data$colspan > 1] <- "<w:vMerge w:val=\"restart\"/>"
+  vmerge[span_data$colspan < 1] <- "<w:vMerge/>"
+
+  span_data$gridspan <- gridspan
+  span_data$vmerge <- vmerge
+  span_data
+}
+
+#' @importFrom data.table shift fcoalesce
+wml_cells <- function(value){
+
+  cell_heights <- fortify_height(value)
+  cell_widths <- fortify_width(value)
+  # cell_hrule <- fortify_hrule(value)
+
+  cell_data <- fortify_style(value, "cells")
+  cell_data$col_id <- factor(cell_data$col_id, levels = value$col_keys)
+  cell_data$part <- factor(cell_data$part, levels = c("header", "body", "footer"))
+
+  cell_data$width  <- NULL# need to get rid of originals that are empty, should probably rm them
+  cell_data$height  <- NULL
+  # cell_data$hrule  <- NULL
+  cell_data <- merge(cell_data, cell_widths, by = "col_id")
+  cell_data <- merge(cell_data, cell_heights, by = c("part", "ft_row_id"))
+  # cell_data <- merge(cell_data, cell_hrule, by = c("part", "ft_row_id"))
+
+  setDT(cell_data)
+  setorderv(cell_data, cols = c("part", "ft_row_id", "col_id"))
+  cell_data[, c("border.width.top", "border.color.top", "border.style.top" ) :=
+              list(
+                fcoalesce(shift(.SD$border.width.bottom, 1L, type="lag"), .SD$border.width.bottom),
+                fcoalesce(shift(.SD$border.color.bottom, 1L, type="lag"), .SD$border.color.bottom),
+                fcoalesce(shift(.SD$border.style.bottom, 1L, type="lag"), .SD$border.style.bottom)
+              ),
+            by = "col_id"]
+
+  data_ref_cells <- cell_style_list(cell_data)
+
+  ## cell style wml
+  fp_cell_wml <- data_ref_cells
+  classnames <- data_ref_cells$classname
+  fp_cell_wml$classname <- NULL
+
+  cols <- intersect(names(formals(fp_cell)), colnames(fp_cell_wml))
+  fp_cell_wml <- fp_cell_wml[cols]
+  fp_cell_wml <- split(fp_cell_wml, classnames)
+  fp_cell_wml <- lapply(fp_cell_wml, function(x){
+    zz <- as.list(x)
+    zz$border.bottom <- zz$border.bottom[[1]]
+    zz$border.top <- zz$border.top[[1]]
+    zz$border.right <- zz$border.right[[1]]
+    zz$border.left <- zz$border.left[[1]]
+    zz <- do.call(fp_cell, zz)
+    zz <- format(zz, type = "wml")
+    zz <- gsub("<w:tcPr>", "", zz, fixed = TRUE)
+    zz <- gsub("</w:tcPr>", "", zz, fixed = TRUE)
+    zz
+  })
+  style_dat <- data.frame(
+    fp_cell_wml = as.character(fp_cell_wml),
+    classname = classnames,
+    stringsAsFactors = FALSE
+  )
+
+  # organise everything
+  cell_data <- merge(cell_data, data_ref_cells,
+                     by = intersect(colnames(cell_data), colnames(data_ref_cells)))
+  cell_data <- merge(cell_data, style_dat, by = "classname")
+  cell_data <- cell_data[, .SD,
+                         .SDcols = c(
+                           "part", "ft_row_id",
+                           "col_id", "fp_cell_wml"
+                         )
+  ]
+  setDF(cell_data)
+  cell_data
+}
+
+wml_rows <- function(value, split = FALSE){
+
+  txt_data <- wml_runs(value)
+  par_data <- wml_pars(value)
+  span_data <- wml_spans(value)
+  cell_data <- wml_cells(value)
+  cell_heights <- fortify_height(value)
+  cell_hrule <- fortify_hrule(value)
+
+  hlinks <- attr(txt_data, "url")
+  imgs <- attr(txt_data, "imgs")
+
+  setDT(cell_data)
+
+  tab_data <- merge(cell_data, par_data, by = c("part", "ft_row_id", "col_id"))
+  tab_data <- merge(tab_data, txt_data, by = c("part", "ft_row_id", "col_id"))
+  tab_data <- merge(tab_data, span_data, by = c("part", "ft_row_id", "col_id"))
+  tab_data$col_id <- factor(tab_data$col_id, levels = value$col_keys)
+  setorderv(tab_data, cols = c("part", "ft_row_id", "col_id"))
+
+  tab_data[, c("wml", "fp_par_wml", "par_nodes_str") := list(
+    paste0("<w:p>", .SD$fp_par_wml,
+           .SD$par_nodes_str, "</w:p>"),
+    NULL,
+    NULL
+  )]
+
+  tab_data[ tab_data$colspan < 1, c("wml") := list(
+    gsub("<w:r\\b[^<]*>[^<]*(?:<[^<]*)*</w:r>", "", .SD$wml)
+  )]
+  tab_data[, c("wml") := list(
+    paste0("<w:tc>",
+           "<w:tcPr>", .SD$gridspan, .SD$vmerge, .SD$fp_cell_wml, "</w:tcPr>",
+           .SD$wml, "</w:tc>")
+  )]
+  tab_data[ tab_data$rowspan < 1, c("wml") := list("")]
+
+  tab_data[, c("fp_cell_wml", "gridspan", "vmerge", "colspan", "rowspan") := list(NULL, NULL, NULL, NULL, NULL)]
+
+  cells <- dcast(
+    data = tab_data, formula = part + ft_row_id ~ col_id,
+    drop = TRUE, fill = "", value.var = "wml",
+    fun.aggregate = I)
+
+  wml <- apply(as.matrix(cells), 1, paste0, collapse = "")
+
+  split_str <- ""
+  if(split) split_str <- "<w:cantSplit/>"
+
+  hrule <- cell_hrule$hrule
+  hrule[hrule %in% "atleast"] <- "atLeast"
+
+  header_str <- rep("", nrow(cell_hrule))
+  header_str[cell_hrule$part %in% "header"] <- "<w:tblHeader/>"
+
+  rows <- paste0( "<w:tr><w:trPr>",
+                  split_str,
+                  "<w:trHeight",
+                  " w:val=",
+                  shQuote( round(cell_heights$height * 72*20, 0 ), type = "cmd"),
+                  " w:hRule=\"",
+                  hrule ,
+                  "\"/>",
+                  header_str,
+                  "</w:trPr>", wml, "</w:tr>")
+
+  rows <- paste0(rows, collapse = "")
+
+  attr(rows, "imgs") <- imgs
+  attr(rows, "htxt") <- hlinks
+
+  rows
+}
+
+
 # docx_str -----
 docx_str <- function(x, align = "center", split = FALSE, keep_with_next = TRUE, doc = NULL, ...){
 
@@ -31,6 +310,10 @@ docx_str <- function(x, align = "center", split = FALSE, keep_with_next = TRUE, 
 
   dims <- dim(x)
   widths <- dims$widths
+
+  if(keep_with_next) {
+    x <- keep_wn(x, part  = "all", keep_with_next = TRUE)
+  }
 
   out <- paste0(
       "<w:tbl xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ",
@@ -58,39 +341,13 @@ docx_str <- function(x, align = "center", split = FALSE, keep_with_next = TRUE, 
 
   properties_str <- to_wml(pt, add_ns= FALSE, base_document = doc)
 
-
   out <- paste0(out, properties_str )
 
-  if( nrow_part(x, "header") > 0 ){
-    xml_content <- format(x$header, header = TRUE,
-                          split = split, keep_with_next = keep_with_next,
-                          type = "wml")
-    imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
-    hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
-    out = paste0(out, xml_content )
-  }
-  if( nrow_part(x, "body") > 0 ){
-    xml_content <- format(x$body, header = FALSE,
-                          split = split, keep_with_next = keep_with_next,
-                          type = "wml")
-    imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
-    hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
+  tab_str <- wml_rows(x, split = split)
+  out <- paste0(out, tab_str,  "</w:tbl>")
 
-    out = paste0(out, xml_content )
-  }
-  if( nrow_part(x, "footer") > 0 ){
-    xml_content <- format(x$footer, header = FALSE,
-                          split = split, keep_with_next = keep_with_next,
-                          type = "wml")
-    imgs <- append( imgs, attr(xml_content, "imgs")$image_src )
-    hlinks <- append( hlinks, attr(xml_content, "htxt")$href )
-    out = paste0(out, xml_content )
-  }
-
-  imgs <- unique(imgs)
-  hlinks <- unique(hlinks)
-
-  out <- paste0(out,  "</w:tbl>" )
+  imgs <- unique(attr(tab_str, "imgs"))
+  hlinks <- unique(attr(tab_str, "htxt"))
 
   if( length(imgs) > 0 ) {
     if (!is.null(doc)) {

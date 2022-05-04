@@ -297,7 +297,7 @@ pptx_value <- function(x, ft.left = opts_current$get("ft.left"),
 
   uid <- as.integer(runif(n=1) * 10^9)
 
-  str <- pml_flextable(x, uid = uid, offx = ft.left, offy = ft.top, cx = 10, cy = 6)
+  str <- pptx_str(x, uid = uid, offx = ft.left, offy = ft.top, cx = 10, cy = 6)
 
   caption <- caption_html_str(x, bookdown = bookdown)
 

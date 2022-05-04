@@ -175,18 +175,21 @@ pvalue_format <- function(x){
 as_flextable.glm <- function(x, ...){
 
 
-  if( !requireNamespace("broom", quietly = TRUE) ){
-    stop("broom package should be install to create a flextable from a glm object.")
+  if(!requireNamespace("broom", quietly = TRUE)){
+    stop("broom package should be install to create ",
+      "a flextable from a glm object.")
   }
 
   data_t <- broom::tidy(x)
-  data_g <- broom::glance(x)
   sum_obj <- summary(x)
 
-  ft <- flextable(data_t, col_keys = c("term", "estimate", "std.error", "statistic", "p.value", "signif"))
-  ft <- colformat_double(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
-  ft <- colformat_double(ft, j = c("p.value"), digits = 4)
-  ft <- mk_par(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)) )
+  ft <- flextable(data_t, col_keys = c("term", "estimate", 
+    "std.error", "statistic", "p.value", "signif"))
+  ft <- colformat_double(ft, j = c("estimate", "std.error", 
+    "statistic"), digits = 3)
+  ft <- colformat_double(ft, j = c("p.value"), digits = 4) # nolint
+  ft <- mk_par(ft, j = "signif", 
+    value = as_paragraph(pvalue_format(p.value)))
 
   ft <- set_header_labels(ft, term = "", estimate = "Estimate",
                           std.error = "Standard Error", statistic = "z value",

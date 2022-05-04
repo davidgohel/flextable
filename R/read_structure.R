@@ -168,7 +168,11 @@ part_style_list <- function(x, fun = NULL, more_args = list()){
 par_style_list <- function(x){
 
   fp_columns <- intersect(names(formals(officer::fp_par)), colnames(x))
-  dat <- as.data.frame(x)[c(fp_columns, "text.direction", "vertical.align",
+
+  also <- c("text.direction", "vertical.align")
+  also <- also[also %in% colnames(x)]
+
+  dat <- as.data.frame(x)[c(fp_columns, also,
              grep("^border\\.", colnames(x), value = TRUE))]
   setDT(dat)
   uid <- unique(dat)
@@ -209,7 +213,9 @@ cell_style_list <- function(x){
   fp_columns <- intersect(names(formals(officer::fp_cell)), colnames(x))
 
   dat <- as.data.frame(x)
-  dat <- dat[c(fp_columns, "text.align", "width", "height", "hrule", grep("^border\\.", colnames(dat), value = TRUE))]
+  also <- c("text.align", "width", "height", "hrule")
+  also <- also[also %in% colnames(x)]
+  dat <- dat[c(fp_columns, also, grep("^border\\.", colnames(dat), value = TRUE))]
 
   uid <- unique(dat)
   classname <- UUIDgenerate(n = nrow(uid), use.time = TRUE)

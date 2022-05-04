@@ -18,7 +18,7 @@ check_formula_i_and_part <- function(i, part){
 }
 
 
-#' @importFrom xml2 xml_attr<-
+#' @importFrom xml2 xml_attr<- xml_find_all xml_attr
 process_url <- function(rel, url, str, pattern, double_esc = TRUE){
 
   if(double_esc)

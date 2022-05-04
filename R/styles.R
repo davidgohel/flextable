@@ -509,6 +509,29 @@ align <- function(x, i = NULL, j = NULL, align = "left",
   x
 }
 
+keep_wn <- function(x, i = NULL, j = NULL, keep_with_next = TRUE,
+                  part = "body" ){
+
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+
+  if( part == "all" ){
+    for( p in c("header", "body", "footer") ){
+      x <- keep_wn(x = x, i = i, j = j, keep_with_next = keep_with_next, part = p)
+    }
+    return(x)
+  }
+
+  if( nrow_part(x, part) < 1 )
+    return(x)
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i )
+  j <- get_columns_id(x[[part]], j )
+  x[[part]]$styles$pars[i, j, "keep_with_next"] <- keep_with_next
+
+  x
+}
+
 #' @export
 #' @title Set text alignment
 #' @description change text alignment of selected rows and columns of a flextable.

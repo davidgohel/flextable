@@ -243,6 +243,7 @@ htmlize <- function(x){
   x
 }
 
+#' @importFrom base64enc dataURI
 img_as_html <- function(img_data, width, height){
   str_raster <- mapply(function(img_raster, width, height ){
 
@@ -290,6 +291,26 @@ img_as_html <- function(img_data, width, height){
 }
 
 # css ----
+
+css_pt <- function(x, digits = 1){
+  x <- ifelse( is.na(x), "inherit",
+               ifelse( x < 0.001, "0",
+                       paste0(format_double(x, digits = digits),"pt")))
+  x
+}
+css_no_unit <- function(x, digits = 0){
+  x <- ifelse( is.na(x), "inherit",
+               ifelse( x < 0.001, "0",
+                       format_double(x, digits = digits)))
+  x
+}
+
+border_css <- function(color, width, style, side){
+  style[!style %in% c("dotted", "dashed", "solid")] <- "solid"
+  x <- sprintf("border-%s: %s %s %s;", side, css_pt(width, 2), style, colcodecss(color))
+  x
+}
+
 text_css_styles <- function(x){
 
   shading <- ifelse(

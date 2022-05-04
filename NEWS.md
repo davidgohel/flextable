@@ -13,6 +13,11 @@ printing as a flextable in an R Markdown document.
 * fix append_chunks usage by adding `i`, `j` and `part` 
 at the end of the function arguments, after the `...`.
 * add forgotten `supp_data` in the result table of `tabulator()`
+* merged horizontal borders are now visible in PowerPoint (#378)
+
+## Changes
+
+* refactor the code for pptx and docx output
 
 # flextable 0.7.0
 
