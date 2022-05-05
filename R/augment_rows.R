@@ -79,6 +79,8 @@ delete_part <- function(x, part = "header") {
 as_new_data <- function(x, ..., values = NULL) {
   if (is.null(values)) {
     values <- list(...)
+  } else if (is.atomic(values)) {
+    values <- as.list(values)
   }
 
   if (!is.list(values)) {
@@ -269,7 +271,16 @@ add_footer <- function(x, top = TRUE, ..., values = NULL) {
 #' The function can add only one single row by call.
 #' @param x a flextable object
 #' @param top should the row be inserted at the top or the bottom.
-#' @param values values to add (as a list).
+#' @param values values to add. It can be a `list` or a `character()` vector.
+#' If it is a list, it must be a named list using the names of the columns of the
+#' original data.frame or the `colkeys`; this is the recommended method because
+#' it allows to keep the original data types and therefore allows to perform
+#' conditional formatting. If a character, columns of the original data.frame
+#' stored in the flextable object are changed to `character()`; this is often
+#' not an issue with footer and header but can be inconvenient if adding
+#' rows into body as it will change data types to character and prevent
+#' efficient conditional formatting.
+#'
 #' @param colwidths the number of columns to merge in the row for each label
 #'
 #' @examples
@@ -369,8 +380,8 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
   }
   if (is.list(values)) {
     values <- as.character(unlist(values))
-  } else if (!is.character(values)) {
-    stop("'values' must be a character vector or a list.")
+  } else if (!is.atomic(values)) {
+    stop("'values' must be an atomic vector or a list.")
   }
 
   values_ <- inverse.rle(structure(list(lengths = colwidths, values = values), class = "rle"))
@@ -424,7 +435,7 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
 #' ft_1
 #' @section Illustrations:
 #' \if{html}{\figure{fig_add_footer_row_1.png}{options: width="300"}}
-add_footer_row <- function(x, top = TRUE, values = list(), colwidths = integer(0)) {
+add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)) {
   if (!inherits(x, "flextable")) {
     stop("add_footer_row supports only flextable objects.")
   }
@@ -432,8 +443,7 @@ add_footer_row <- function(x, top = TRUE, values = list(), colwidths = integer(0
   if (sum(colwidths) != length(x$col_keys)) {
     stop("colwidths' sum must be equal to the number of col_keys (", length(x$col_keys), ")")
   }
-
-  if (is.character(values)) {
+  if (is.atomic(values)) {
     values <- as.list(values)
   }
 

@@ -62,7 +62,11 @@ merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE){
 
   j <- as_col_keys(x[[part]], j)
 
-  target <- as_col_keys(x[[part]], target)
+  if( !is.null(target)){
+    target <- as_col_keys(x[[part]], target)
+  } else {
+    target <- j
+  }
 
   x[[part]] <- span_columns(x = x[[part]], columns = j, target = target, combine = combine)
 

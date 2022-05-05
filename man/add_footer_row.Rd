@@ -4,14 +4,22 @@
 \alias{add_footer_row}
 \title{Add footer labels}
 \usage{
-add_footer_row(x, top = TRUE, values = list(), colwidths = integer(0))
+add_footer_row(x, top = TRUE, values = character(0), colwidths = integer(0))
 }
 \arguments{
 \item{x}{a flextable object}
 
 \item{top}{should the row be inserted at the top or the bottom.}
 
-\item{values}{values to add (as a list).}
+\item{values}{values to add. It can be a \code{list} or a \code{character()} vector.
+If it is a list, it must be a named list using the names of the columns of the
+original data.frame or the \code{colkeys}; this is the recommended method because
+it allows to keep the original data types and therefore allows to perform
+conditional formatting. If a character, columns of the original data.frame
+stored in the flextable object are changed to \code{character()}; this is often
+not an issue with footer and header but can be inconvenient if adding
+rows into body as it will change data types to character and prevent
+efficient conditional formatting.}
 
 \item{colwidths}{the number of columns to merge in the row for each label}
 }
