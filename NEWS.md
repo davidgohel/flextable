@@ -7,6 +7,8 @@ lm, glm, models from package 'lme' and 'lme4',
 htest (t.test, chisq.test, ...), gam, kmeans and pam.
 * new function `use_model_printer()` to set model automatic 
 printing as a flextable in an R Markdown document.
+* new function `add_body_row()` to add a row in the body part 
+with eventually merged/spanned columns.  
 
 ## Issues
 

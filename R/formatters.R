@@ -410,11 +410,16 @@ filter_col_keys <- function(x, j, fun){
   col_keys[vapply(x[["body"]]$dataset[col_keys], fun, FUN.VALUE = NA)]
 }
 
-docall_display <- function(col_keys, fun, x, i = NULL){
+docall_display <- function(col_keys, fun, x, i = NULL, part = "body"){
 
-  check_formula_i_and_part(i, "body")
+  check_formula_i_and_part(i, part)
   for( varname in col_keys){
-    x <- compose(x = x, j = varname, i = i, value = as_paragraph(as_chunk(fun(get(varname)))), part = "body" )
+    x <- mk_par(x = x,
+                j = varname,
+                i = i,
+                value = as_paragraph(as_chunk(fun(get(varname)))),
+                part = part
+                )
   }
   x
 }
