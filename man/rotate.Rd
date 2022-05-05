@@ -49,10 +49,10 @@ ft <- flextable(head(iris))
 w_body <- dim_pretty(ft, part = "body")$widths
 # measure column widths only for the header part and get the max
 # as height value for rotated text
-h_header <- max( dim_pretty(ft, part = "header")$widths )
+h_header <- max(dim_pretty(ft, part = "header")$widths)
 
-ft <- rotate(ft, j = 1:4, rotation="btlr",part="header")
-ft <- rotate(ft, j = 5, rotation="tbrl",part="header")
+ft <- rotate(ft, j = 1:4, rotation = "btlr", part = "header")
+ft <- rotate(ft, j = 5, rotation = "tbrl", part = "header")
 
 ft <- valign(ft, valign = "center", part = "header")
 ft <- flextable::align(ft, align = "center", part = "all")

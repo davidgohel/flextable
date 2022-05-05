@@ -17,6 +17,9 @@ at the end of the function arguments, after the `...`.
 * add forgotten `supp_data` in the result table of `tabulator()`
 * merged horizontal borders are now visible in PowerPoint (#378)
 * PowerPoint 'soft returns' are now real 'soft returns'. (#379)
+* mapping between argument `j` and `source` when color is a function 
+(in `bg()`, `highlight()` and `color()`) is now based on colnames 
+to avoid mistake while mapping. #395
 
 ## Changes
 

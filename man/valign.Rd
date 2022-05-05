@@ -30,7 +30,7 @@ change vertical alignment of selected rows and columns of a flextable.
 }
 
 \examples{
-ft_1 <- flextable(iris[c(1:3, 51:53, 101:103),])
+ft_1 <- flextable(iris[c(1:3, 51:53, 101:103), ])
 ft_1 <- theme_box(ft_1)
 ft_1 <- merge_v(ft_1, j = 5)
 ft_1

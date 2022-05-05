@@ -29,7 +29,7 @@ change text alignment of selected rows and columns of a flextable.
 }
 
 \examples{
-ft <- flextable(head(mtcars)[,3:6])
+ft <- flextable(head(mtcars)[, 3:6])
 ft <- line_spacing(ft, space = 1.6, part = "all")
 ft <- set_table_properties(ft, layout = "autofit")
 ft

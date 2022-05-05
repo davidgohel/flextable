@@ -22,21 +22,26 @@ transparent, display empty content and set blank columns' width.
 }
 \examples{
 typology <- data.frame(
-  col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length",
-                "Petal.Width", "Species" ),
+  col_keys = c(
+    "Sepal.Length", "Sepal.Width", "Petal.Length",
+    "Petal.Width", "Species"
+  ),
   what = c("Sepal", "Sepal", "Petal", "Petal", " "),
   measure = c("Length", "Width", "Length", "Width", "Species"),
-  stringsAsFactors = FALSE )
+  stringsAsFactors = FALSE
+)
 typology
 
-ftab <- flextable(head(iris), col_keys = c("Species",
+ftab <- flextable(head(iris), col_keys = c(
+  "Species",
   "break1", "Sepal.Length", "Sepal.Width",
-  "break2", "Petal.Length", "Petal.Width") )
-ftab <- set_header_df(ftab, mapping = typology, key = "col_keys" )
+  "break2", "Petal.Length", "Petal.Width"
+))
+ftab <- set_header_df(ftab, mapping = typology, key = "col_keys")
 ftab <- merge_h(ftab, part = "header")
 ftab <- theme_vanilla(ftab)
 ftab <- empty_blanks(ftab)
-ftab <- width(ftab, j = c(2, 5), width = .1 )
+ftab <- width(ftab, j = c(2, 5), width = .1)
 ftab
 }
 \seealso{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{highlight}
 \alias{highlight}
-\title{Text Highlight Color}
+\title{Text highlight color}
 \usage{
 highlight(x, i = NULL, j = NULL, color = "yellow", part = "body", source = j)
 }
@@ -19,12 +19,20 @@ If a function, function need to return a character vector of colors.}
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 
 \item{source}{if color is a function, source is specifying the dataset column to be used
-as argument to \code{color}. This is only useful if j is colored with values contained in another
-(or other) column.}
+as argument to \code{color}. This is only useful if j is colored with values contained in
+other columns.}
 }
 \description{
-change text highlight color of selected rows and
-columns of a flextable.
+Change text highlight color of selected rows and
+columns of a flextable. A function can be used instead of
+fixed colors.
+
+When \code{color} is a function, it is possible to color cells based on values
+located in other columns, using hidden columns (those not used by
+argument \code{colkeys}) is a common use case. The argument \code{source}
+has to be used to define what are the columns to be used for the color
+definition and the argument \code{j} has to be used to define where to apply
+the colors and only accept values from \code{colkeys}.
 }
 \section{Illustrations}{
 
@@ -33,14 +41,14 @@ columns of a flextable.
 }
 
 \examples{
-my_color_fun <- function(x){
+my_color_fun <- function(x) {
   out <- rep("yellow", length(x))
   out[x < quantile(x, .75)] <- "pink"
   out[x < quantile(x, .50)] <- "wheat"
   out[x < quantile(x, .25)] <- "gray90"
   out
 }
-ft <- flextable(head( mtcars, n = 10))
+ft <- flextable(head(mtcars, n = 10))
 ft <- highlight(ft, j = "disp", i = ~ disp > 200, color = "yellow")
 ft <- highlight(ft, j = ~ drat + wt + qsec, color = my_color_fun)
 ft

@@ -60,19 +60,9 @@ merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE){
   if( !inherits(x, "flextable") ) stop("merge_v supports only flextable objects.")
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
-  j <- get_dataset_columns_id(x[[part]], j = j)
-  j <- colnames(x[[part]]$dataset)[j]
+  j <- as_col_keys(x[[part]], j)
 
-  if( !is.null(target)){
-    target <- get_columns_id(x[[part]], j = target )
-    target <- x$col_keys[target]
-  } else {
-    if(all(target %in% x$col_keys)){
-      target <- j
-    } else {
-      stop("target should only have values from col_keys.")
-    }
-  }
+  target <- as_col_keys(x[[part]], target)
 
   x[[part]] <- span_columns(x = x[[part]], columns = j, target = target, combine = combine)
 

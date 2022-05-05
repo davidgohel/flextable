@@ -18,12 +18,21 @@ a character vector of colors.}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 
-\item{source}{if bg is a function, source is specifying the dataset column to be used
-as argument to \code{color}. This is only useful if j is colored with values contained in another
-(or other) column.}
+\item{source}{if color is a function, source is specifying the dataset column to be used
+as argument to \code{color}. This is only useful if j is colored with values contained in
+other columns.}
 }
 \description{
-change font color of selected rows and columns of a flextable.
+Change text color of selected rows and
+columns of a flextable. A function can be used instead of
+fixed colors.
+
+When \code{color} is a function, it is possible to color cells based on values
+located in other columns, using hidden columns (those not used by
+argument \code{colkeys}) is a common use case. The argument \code{source}
+has to be used to define what are the columns to be used for the color
+definition and the argument \code{j} has to be used to define where to apply
+the colors and only accept values from \code{colkeys}.
 }
 \section{Illustrations}{
 
@@ -36,17 +45,22 @@ change font color of selected rows and columns of a flextable.
 \examples{
 ft <- flextable(head(mtcars))
 ft <- color(ft, color = "orange", part = "header")
-ft <- color(ft, color = "red",
-  i = ~ qsec < 18 & vs < 1 )
+ft <- color(ft,
+  color = "red",
+  i = ~ qsec < 18 & vs < 1
+)
 ft
 
-if(require("scales")){
-scale <- scales::col_numeric(domain= c(-1, 1), palette ="RdBu")
+if (require("scales")) {
+  scale <- scales::col_numeric(domain = c(-1, 1), palette = "RdBu")
   x <- as.data.frame(cor(iris[-5]))
   x <- cbind(
-    data.frame(colname = colnames(x),
-               stringsAsFactors = FALSE),
-    x)
+    data.frame(
+      colname = colnames(x),
+      stringsAsFactors = FALSE
+    ),
+    x
+  )
 
   ft_2 <- flextable(x)
   ft_2 <- color(ft_2, j = x$colname, color = scale)

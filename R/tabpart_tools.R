@@ -143,41 +143,6 @@ get_columns_id <- function( x, j = NULL ){
   j
 }
 
-get_dataset_columns_id <- function( x, j = NULL ){
-  maxcol <- ncol(x$dataset)
-
-  if( is.null(j) ) {
-    j <- seq_len(maxcol)
-  }
-
-  if( inherits(j, "formula") ){
-    j <- get_j_from_formula(j, x$dataset)
-  }
-
-  if( is.numeric (j) ){
-
-    if( all(j < 0 ) ){
-      j <- setdiff(seq_along(x$dataset), -j )
-    }
-
-    if( any( j < 1 | j > maxcol ) )
-      stop("invalid columns selection: out of range 1:", maxcol )
-  } else if( is.logical (j) ){
-    if( length( j ) != maxcol ) stop("invalid columns selection: j should be of length ", maxcol)
-    else j = which(j)
-
-  } else if( is.character (j) ){
-    j <- gsub("(^`|`$)", "", j)
-    if( any( is.na( j ) ) ) stop("invalid columns selection: NA in selection")
-    else if( !all( is.element(j, colnames(x$dataset) )) )
-      stop("invalid columns selection:", paste(j[!is.element(j, colnames(x$dataset) )], collapse = ",") )
-    else j = match(j, colnames(x$dataset))
-  } else stop("invalid columns selection: unknown selection type")
-
-  j
-}
-
-
 get_rows_id <- function( x, i = NULL ){
   maxrow <- nrow(x$dataset)
 

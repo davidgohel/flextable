@@ -60,7 +60,7 @@ change font of selected rows and columns of a flextable.
 require("gdtools")
 fontname <- "Brush Script MT"
 
-if( font_family_exists(fontname) ){
+if (font_family_exists(fontname)) {
   ft_1 <- flextable(head(iris))
   ft_2 <- font(ft_1, fontname = fontname, part = "header")
   ft_2 <- font(ft_2, fontname = fontname, j = 5)

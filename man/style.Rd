@@ -43,15 +43,16 @@ should all be applied to the same selection of rows and columns.
 
 \examples{
 library(officer)
-def_cell <- fp_cell(border = fp_border(color="wheat"))
+def_cell <- fp_cell(border = fp_border(color = "wheat"))
 
 def_par <- fp_par(text.align = "center")
 
 ft <- flextable(head(mtcars))
 
-ft <- style( ft, pr_c = def_cell, pr_p = def_par, part = "all")
+ft <- style(ft, pr_c = def_cell, pr_p = def_par, part = "all")
 ft <- style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
-  pr_t = fp_text(color="red", italic = TRUE) )
+  pr_t = fp_text(color = "red", italic = TRUE)
+)
 
 ft
 }

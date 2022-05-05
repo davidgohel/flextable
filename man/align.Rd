@@ -38,7 +38,7 @@ change text alignment of selected rows and columns of a flextable.
 }
 
 \examples{
-ft <- flextable(head(mtcars)[,3:6])
+ft <- flextable(head(mtcars)[, 3:6])
 ft <- align(ft, align = "right", part = "all")
 ft <- theme_tron_legacy(ft)
 ft
