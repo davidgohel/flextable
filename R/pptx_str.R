@@ -170,7 +170,8 @@ pml_cells <- function(value){
 
   setDT(cell_data)
   setorderv(cell_data, cols = c("part", "ft_row_id", "col_id"))
-  cell_data[, c("border.width.top", "border.color.top", "border.style.top" ) :=
+  cell_data[!(cell_data$part %in% "header" & cell_data$ft_row_id %in% 1),
+            c("border.width.top", "border.color.top", "border.style.top" ) :=
               list(
                 fcoalesce(shift(.SD$border.width.bottom, 1L, type="lag"), .SD$border.width.bottom),
                 fcoalesce(shift(.SD$border.color.bottom, 1L, type="lag"), .SD$border.color.bottom),
