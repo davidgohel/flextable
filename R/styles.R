@@ -727,21 +727,17 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j) {
 as_col_keys <- function(x, j = NULL) {
   if (is.null(j)) {
     j <- x$col_keys
-  }
-  if (inherits(j, "formula")) {
+  } else if (inherits(j, "formula")) {
     j <- get_j_from_formula(j, x$dataset)
-  }
-  if (is.logical(j)) {
+  } else if (is.logical(j)) {
     if (length(j) != length(x$col_keys)) {
       stop("j (as logical) is expected to have the same length than 'col_keys'.")
     }
     j <- x$col_keys[j]
-  }
-  if (is.character(j)) {
-    j <- intersect(x$col_keys, j)
-  }
-  if (is.numeric(j)) {
-    j <- x$col_keys[intersect(seq_along(x$col_keys), j)]
+  } else if (is.character(j)) {
+    j <- intersect(colnames(x$dataset), j)
+  } else if (is.numeric(j)) {
+    j <- x$col_keys[intersect(seq_along(ncol(x$dataset)), j)]
   }
 
   j

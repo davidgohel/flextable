@@ -9,6 +9,8 @@ htest (t.test, chisq.test, ...), gam, kmeans and pam.
 printing as a flextable in an R Markdown document.
 * new function `add_body_row()` to add a row in the body part 
 with eventually merged/spanned columns.  
+* new function `tabulator_colnames()` to get column names 
+of a `tabulator` object.
 
 ## Issues
 

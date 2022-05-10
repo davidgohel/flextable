@@ -174,5 +174,6 @@ ft_3
 init_flextable_defaults()
 }
 \seealso{
-\code{\link[=as_flextable.tabulator]{as_flextable.tabulator()}}, \code{\link[=summarizor]{summarizor()}}, \code{\link[=as_grouped_data]{as_grouped_data()}}
+\code{\link[=as_flextable.tabulator]{as_flextable.tabulator()}}, \code{\link[=summarizor]{summarizor()}},
+\code{\link[=as_grouped_data]{as_grouped_data()}}, \code{\link[=tabulator_colnames]{tabulator_colnames()}}
 }

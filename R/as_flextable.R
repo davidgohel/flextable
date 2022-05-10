@@ -183,12 +183,12 @@ as_flextable.glm <- function(x, ...){
   data_t <- broom::tidy(x)
   sum_obj <- summary(x)
 
-  ft <- flextable(data_t, col_keys = c("term", "estimate", 
+  ft <- flextable(data_t, col_keys = c("term", "estimate",
     "std.error", "statistic", "p.value", "signif"))
-  ft <- colformat_double(ft, j = c("estimate", "std.error", 
+  ft <- colformat_double(ft, j = c("estimate", "std.error",
     "statistic"), digits = 3)
   ft <- colformat_double(ft, j = c("p.value"), digits = 4) # nolint
-  ft <- mk_par(ft, j = "signif", 
+  ft <- mk_par(ft, j = "signif",
     value = as_paragraph(pvalue_format(p.value)))
 
   ft <- set_header_labels(ft, term = "", estimate = "Estimate",
@@ -590,8 +590,8 @@ as_flextable.kmeans <- function(x, digits = 4, ...) {
   ft <- as_flextable(ct)
   ft <- add_footer_lines(ft, c("(*) Centers", w_labels))
 
-  zz_labs <- tabulator_keys(ct, columns = "zz")
-  value_labq <- tabulator_keys(ct, columns = "value")
+  zz_labs <- tabulator_colnames(ct, type = "columns", columns = "zz")
+  value_labq <- tabulator_colnames(ct, type = "hidden", columns = "value")
 
   for (j in seq_along(zz_labs)) {
     sym_val <- sym(value_labq[j])
@@ -676,8 +676,8 @@ as_flextable.pam <- function(x, digits = 4, ...){
   ft <- as_flextable(ct)
   ft <- add_footer_lines(ft, "(*) Centers")
 
-  zz_labs <- tabulator_keys(ct, columns = "zz")
-  value_labq <- tabulator_keys(ct, columns = "value")
+  zz_labs <- tabulator_colnames(ct, type = "columns", columns = "zz")
+  value_labq <- tabulator_colnames(ct, type = "hidden", columns = "value")
 
   for (j in seq_along(zz_labs)) {
     sym_val <- sym(value_labq[j])
