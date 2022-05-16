@@ -69,11 +69,22 @@ footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "
   for (symbi in seq_along(ref_symbols)) {
     symbols_chunks[[symbi]] <- as_sup(ref_symbols[symbi])
   }
-  new <- mapply(function(x, y) {
-    y$seq_index <- max(x$seq_index, na.rm = TRUE) + 1
-    rbind.match.columns(list(x, y))
-  }, x = x[[part]]$content[i, j], y = symbols_chunks, SIMPLIFY = FALSE)
-  x[[part]]$content[i, j] <- new
+
+  cell_index <- data.frame(i, j)
+  # Assert that either one footnote, or that footnote symbol length matches number
+  # of cells to tag
+  stopifnot(length(symbols_chunks) == 1 || length(symbols_chunks) == nrow(cell_index))
+
+  for (n in seq_len(nrow(cell_index))) {
+    i_cell <- cell_index[["i"]][n]
+    j_cell <- cell_index[["j"]][n]
+    
+    old_cell <- as.data.frame(x[[part]]$content[i_cell, j_cell][[1]])
+    new_symb <- as.data.frame(symbols_chunks)
+    new_symb$seq_index <- max(old_cell$seq_index, na.rm = TRUE) + 1
+
+    x[[part]]$content[i_cell, j_cell] <- list(rbind.match.columns(list(old_cell, new_symb)))
+  }
 
   n_row <- nrow_part(x, "footer")
   new <- mapply(function(x, y) {
