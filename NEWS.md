@@ -11,6 +11,9 @@ printing as a flextable in an R Markdown document.
 with eventually merged/spanned columns.  
 * new function `tabulator_colnames()` to get column names 
 of a `tabulator` object.
+* new function `prepend_chunks()` to prepend chunks of content
+in flextable cells as with `as_paragraph()` but without 
+replacing the whole content.
 
 ## Issues
 
@@ -22,6 +25,8 @@ at the end of the function arguments, after the `...`.
 * mapping between argument `j` and `source` when color is a function 
 (in `bg()`, `highlight()` and `color()`) is now based on colnames 
 to avoid mistake while mapping. #395
+* Fix issue with footnotes forcing rectangular extent for selection; 
+thanks to Sean Browning
 
 ## Changes
 

@@ -18,9 +18,7 @@ footnote(
 \arguments{
 \item{x}{a flextable object}
 
-\item{i}{rows selection}
-
-\item{j}{column selection}
+\item{i, j}{cellwise rows and columns selection}
 
 \item{value}{a call to function \code{\link[=as_paragraph]{as_paragraph()}}.}
 
@@ -31,12 +29,18 @@ as references to notes.}
 
 \item{inline}{whether to add footnote on same line as previous footnote or not}
 
-\item{sep}{inline = T, character string to use as a separator between footnotes}
+\item{sep}{used only when inline = TRUE, character string to use as
+a separator between footnotes.}
 }
 \description{
-add footnotes to a flextable object. A symbol is appened
-where the footnote is defined and the note is appened in the footer part
-of the table.
+The function let add footnotes to a flextable object
+by adding some symbols in the flextable and associated notes in
+the footer of the flextable.
+
+Symbols are added to the cells designated by the selection \code{i}
+and \code{j}. If you use i = c(1,3) and j = c(2,5), then you will
+add the symbols (or the repeated symbol) to cells \verb{[1,2]}
+and \verb{[3,5]}.
 }
 \section{Illustrations}{
 
@@ -76,4 +80,13 @@ ft_2 <- footnote( ft_2, i = 1, j = 3:4,
                ref_symbols = c("c","d"),
                part = "header", inline = TRUE)
 ft_2
+
+ft_3 <- flextable(head(iris))
+ft_3 <- autofit(ft_3)
+ft_3 <- footnote(
+  x = ft_3, i = 1:3, j = 1:3,
+  ref_symbols = "a",
+  value = as_paragraph("This is footnote one")
+)
+ft_3
 }

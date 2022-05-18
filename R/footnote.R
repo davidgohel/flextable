@@ -1,17 +1,22 @@
 #' @export
 #' @title add footnotes to flextable
-#' @description add footnotes to a flextable object. A symbol is appened
-#' where the footnote is defined and the note is appened in the footer part
-#' of the table.
+#' @description The function let add footnotes to a flextable object
+#' by adding some symbols in the flextable and associated notes in
+#' the footer of the flextable.
+#'
+#' Symbols are added to the cells designated by the selection `i`
+#' and `j`. If you use i = c(1,3) and j = c(2,5), then you will
+#' add the symbols (or the repeated symbol) to cells `[1,2]`
+#' and `[3,5]`.
 #' @param x a flextable object
-#' @param i rows selection
-#' @param j column selection
+#' @param i,j cellwise rows and columns selection
 #' @param value a call to function [as_paragraph()].
 #' @param ref_symbols character value, symbols to append that will be used
 #' as references to notes.
 #' @param part partname of the table (one of 'body', 'header', 'footer')
 #' @param inline whether to add footnote on same line as previous footnote or not
-#' @param sep inline = T, character string to use as a separator between footnotes
+#' @param sep used only when inline = TRUE, character string to use as
+#' a separator between footnotes.
 #' @examples
 #' ft_1 <- flextable(head(iris))
 #' ft_1 <- footnote( ft_1, i = 1, j = 1:3,
@@ -42,6 +47,15 @@
 #'                ref_symbols = c("c","d"),
 #'                part = "header", inline = TRUE)
 #' ft_2
+#'
+#' ft_3 <- flextable(head(iris))
+#' ft_3 <- autofit(ft_3)
+#' ft_3 <- footnote(
+#'   x = ft_3, i = 1:3, j = 1:3,
+#'   ref_symbols = "a",
+#'   value = as_paragraph("This is footnote one")
+#' )
+#' ft_3
 #' @export
 #' @importFrom stats update
 #' @section Illustrations:
@@ -59,63 +73,65 @@ footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "
 
   if (nrow_part(x, part) < 1)
     return(x)
+
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
-  if (is.null(ref_symbols)) {
-    ref_symbols <- as.character(seq_along(value))
-  }
-  symbols_chunks <- rep(list(NULL), length(ref_symbols))
-  for (symbi in seq_along(ref_symbols)) {
-    symbols_chunks[[symbi]] <- as_sup(ref_symbols[symbi])
-  }
 
-  cell_index <- data.frame(i, j)
+  if (is.null(ref_symbols)) {
+    symbols_str <- as.character(seq_along(value))
+  } else {
+    symbols_str <- ref_symbols
+  }
+  sep_str <- rep(sep, length(value))
+  sep_str[length(sep_str)] <- ""
+
+  cell_index <- data.frame(i=i, j=j)
+  if(length(symbols_str) == 1) {
+    symbols_str <- rep(symbols_str, nrow(cell_index))
+  }
   # Assert that either one footnote, or that footnote symbol length matches number
   # of cells to tag
-  stopifnot(length(symbols_chunks) == 1 || length(symbols_chunks) == nrow(cell_index))
+  stopifnot(length(symbols_str) == nrow(cell_index))
 
   for (n in seq_len(nrow(cell_index))) {
     i_cell <- cell_index[["i"]][n]
     j_cell <- cell_index[["j"]][n]
-    
-    old_cell <- as.data.frame(x[[part]]$content[i_cell, j_cell][[1]])
-    new_symb <- as.data.frame(symbols_chunks)
-    new_symb$seq_index <- max(old_cell$seq_index, na.rm = TRUE) + 1
+    x <- append_chunks(x, i = i_cell, j = j_cell,
+                        part = part,
+                        as_sup(symbols_str[n]))
 
-    x[[part]]$content[i_cell, j_cell] <- list(rbind.match.columns(list(old_cell, new_symb)))
   }
 
   n_row <- nrow_part(x, "footer")
-  new <- mapply(function(x, y) {
-    x$seq_index <- min(y$seq_index, na.rm = TRUE) - 1
-    x <- rbind.match.columns(list(x, y))
-    x$seq_index <- order(x$seq_index)
-    x
-  }, x = symbols_chunks, y = value, SIMPLIFY = FALSE)
 
-  if (inline){
-    sep <- as_paragraph(sep)[[1]]
-    new[-1] <-lapply(new[-1], function(x) rbind.match.columns(list(sep, x)))
-    new_inline <- list(rbind.match.columns(new))
-    new_inline[[1]]$seq_index <- seq_len(nrow(new_inline[[1]]))
+  if (inline) {
+    # init a new line
+    x <- add_footer_lines(x, values = "")
 
-    if(n_row > 0){
-      new_inline <- list(x[["footer"]]$content[n_row, 1][[1]],
-                         sep,new_inline[[1]])
-      new_inline <- rbind.match.columns(new_inline)
-      new_inline$seq_index <- seq_len(nrow(new_inline))
-      new_inline <- list(new_inline)
-      footer.rows <- n_row
-    } else {
-      x <- add_footer_lines(x,values="")
-      footer.rows <- 1
-    }
-    new <- new_inline
+    paras <- mapply(rbind,
+           as_paragraph(as_sup(ref_symbols)),
+           value,
+           as_paragraph(sep_str),
+           SIMPLIFY = FALSE)
+    paras <- do.call(rbind, paras)
+    paras$seq_index <- seq_len(nrow(paras))
+    x[["footer"]]$content[nrow_part(x, "footer"), 1] <- list(paras)
+
   } else {
+    # init new lines
     x <- add_footer_lines(x, values = ref_symbols)
-    footer.rows <- n_row + seq_len(length(new))
+
+    for(v in seq_along(value)){
+      x <- mk_par(
+        x = x, part = "footer",
+        i = n_row + v, j = 1,
+        value = value[v])
+      x <- prepend_chunks(x, i = n_row + v, j = 1,
+                         part = "footer",
+                         as_sup(ref_symbols[v]))
+
+    }
   }
-  x[["footer"]]$content[footer.rows, 1] <- new
   x
 }
