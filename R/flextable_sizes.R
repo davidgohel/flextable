@@ -271,6 +271,7 @@ dim.flextable <- function(x){
 #' @param x flextable object
 #' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
 #' @param unit unit for returned values, one of "in", "cm", "mm".
+#' @param .newline_adj logical, adjust size estimates to account for newline chars?  Default FALSE
 #' @section line breaks:
 #' Soft returns (a line break in a paragraph) are not supported. Function
 #' `dim_pretty` will return wrong results if `\n` are used (they will be
@@ -279,7 +280,7 @@ dim.flextable <- function(x){
 #' ftab <- flextable(head(mtcars))
 #' dim_pretty(ftab)
 #' @family flextable dimensions
-dim_pretty <- function( x, part = "all", unit = "in" ){
+dim_pretty <- function( x, part = "all", unit = "in", .newline_adj = FALSE){
 
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE )
   if( "all" %in% part ){
@@ -288,10 +289,10 @@ dim_pretty <- function( x, part = "all", unit = "in" ){
   dimensions <- list()
   for(j in part){
     if( nrow_part(x, j ) > 0 ){
-      dimensions[[j]] <- optimal_sizes(x[[j]])
+      dimensions[[j]] <- optimal_sizes(x[[j]], .newline_adj = .newline_adj)
     } else {
       dimensions[[j]] <- list(widths = rep(0, length(x$col_keys) ),
-           heights = numeric(0) )
+                              heights = numeric(0) )
     }
   }
   widths <- lapply( dimensions, function(x) x$widths )
@@ -327,6 +328,7 @@ dim_pretty <- function( x, part = "all", unit = "in" ){
 #' @param add_h extra height to add in inches
 #' @param unit unit for add_h and add_w, one of "in", "cm", "mm".
 #' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
+#' @param .newline_adj logical, adjust size estimates to account for newline chars?  Default FALSE
 #' @examples
 #' ft_1 <- flextable(head(mtcars))
 #' ft_1
@@ -338,7 +340,8 @@ dim_pretty <- function( x, part = "all", unit = "in" ){
 #' \if{html}{\figure{fig_autofit_1.png}{options: width="500"}}
 #'
 #' \if{html}{\figure{fig_autofit_2.png}{options: width="400"}}
-autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"), unit = "in"){
+autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"),
+                    unit = "in", .newline_adj = FALSE){
 
   add_w <- convin(unit = unit, x = add_w)
   add_h <- convin(unit = unit, x = add_h)
@@ -350,7 +353,7 @@ autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"), uni
     parts <- c("header", "body", "footer")
   }
 
-  dimensions_ <- dim_pretty(x, part = parts)
+  dimensions_ <- dim_pretty(x, part = parts, .newline_adj = .newline_adj)
   names(dimensions_$widths) <- x$col_keys
 
   nrows <- lapply(parts, function(j){
@@ -374,9 +377,9 @@ autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"), uni
 
 
 #' @importFrom gdtools m_str_extents
-optimal_sizes <- function( x ){
+optimal_sizes <- function( x, .newline_adj){
 
-  sizes <- text_metric(x)
+  sizes <- text_metric(x, .newline_adj)
   sizes$col_id <- factor(sizes$col_id, levels = x$col_keys)
   sizes <- sizes[order(sizes$col_id, sizes$ft_row_id ), ]
   widths <- as_wide_matrix_(data = sizes[, c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
@@ -479,7 +482,7 @@ dim_cells <- function(x){
 }
 
 
-text_metric <- function( x ){
+text_metric <- function( x, .newline_adj){
   txt_data <- fortify_content(x$content, default_chunk_fmt = x$styles$text)
 
   widths <- txt_data$width
@@ -489,9 +492,44 @@ text_metric <- function( x ){
 
   fontsize <- txt_data$font.size
   fontsize[!(txt_data$vertical.align %in% "baseline")] <- fontsize[!(txt_data$vertical.align %in% "baseline")]/2
-  str_extents_ <- m_str_extents(txt_data$txt, fontname = txt_data$font.family,
-                fontsize = fontsize, bold = txt_data$bold,
-                italic = txt_data$italic) / 72
+
+  if(.newline_adj){
+
+    str_extents_pre1 <-
+      mapply(
+        FUN = m_str_extents,
+        x = strsplit(txt_data$txt, "\n"),
+        fontname = txt_data$font.family,
+        fontsize = fontsize,
+        bold = txt_data$bold,
+        italic = txt_data$italic
+      )
+
+    str_extents_pre2 <-
+      lapply(
+        str_extents_pre1,
+        function(x){
+          w <- max(x[,1]) # Widest of the elements in each set:
+          h <- sum(x[,2]) # Sum of heights
+          return(matrix(c(w, h), nrow = 1))
+        }
+      )
+
+    str_extents_ <-
+      do.call(rbind, str_extents_pre2) / 72
+
+  } else {
+
+    str_extents_ <-
+      m_str_extents(
+        x= txt_data$txt,
+        fontname = txt_data$font.family,
+        fontsize = fontsize,
+        bold = txt_data$bold,
+        italic = txt_data$italic
+      ) / 72
+  }
+
   str_extents_[,1] <- ifelse(is.na(str_extents_[,1]) & !is.null(widths), widths, str_extents_[,1] )
   str_extents_[,2] <- ifelse(is.na(str_extents_[,2]) & !is.null(heights), heights, str_extents_[,2] )
   dimnames(str_extents_) <- list(NULL, c("width", "height"))
@@ -501,7 +539,7 @@ text_metric <- function( x ){
   txt_data <- txt_data[, selection_]
   setDT(txt_data)
   txt_data <- txt_data[, c(list(width=sum(width, na.rm = TRUE), height = max(height, na.rm = TRUE) )),
-                         by= c("ft_row_id", "col_id") ]
+                       by= c("ft_row_id", "col_id") ]
   setDF(txt_data)
   txt_data
 }
