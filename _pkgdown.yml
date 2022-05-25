@@ -16,7 +16,7 @@ reference:
     - qflextable
     - flextable-package
   - title: Headers and footers
-    desc:  Add or modify flextable`s headers or footers
+    desc:  Add rows in headers, footers and body parts
     contents:
     - add_header_row
     - add_footer_row
@@ -28,6 +28,8 @@ reference:
     - set_header_df
     - set_footer_df
     - delete_part
+    - add_body
+    - add_body_row
   - title: Manage flextable layout
     contents:
     - starts_with("merge_")
@@ -43,7 +45,6 @@ reference:
     - as_grouped_data
     - xtable_to_flextable
     - as_flextable
-    - add_body
     - nrow_part
     - ncol_keys
   - title: Format flextable
@@ -82,37 +83,52 @@ reference:
     desc:  Apply theme functions.
     contents:
     - starts_with("theme_")
-  - title: Content
-    desc:  Define flextable`s content
+
+  - title: Mixed content
+    desc: >
+      How to define complex paragraphs with mixed content or to
+      add images or chunks of text in existing cells.
     contents:
-    - starts_with("colformat_")
-    - starts_with("set_formatter")
     - compose
     - as_paragraph
+    - append_chunks
+    - prepend_chunks
+    - footnote
+  - title: Elements for mixed content
+    desc: >
+      The functions that can be called to create rich formated content
+    contents:
     - as_chunk
+    - as_image
+    - gg_chunk
+    - plot_chunk
     - as_b
     - as_i
     - as_sub
     - as_sup
     - as_highlight
     - colorize
-    - fp_border_default
-    - fp_text_default
-    - plot_chunk
-    - gg_chunk
-    - as_image
     - minibar
     - linerange
     - lollipop
     - as_bracket
     - hyperlink_text
     - as_equation
+  - title: Easy formatting
+    desc:  Define quickly how numbers and characters of tables are displayed
+    contents:
+    - starts_with("colformat_")
+    - starts_with("set_formatter")
+  - title: Caption
+    contents:
     - set_caption
-    - footnote
-    - append_chunks
-    - void
-    - before
+  - title: miscellaneous
+    contents:
     - fmt_2stats
+    - fp_border_default
+    - fp_text_default
+    - before
+    - void
   - title: Output functions
     contents:
     - print.flextable
@@ -129,6 +145,7 @@ reference:
     - flextable_to_rmd
     - df_printer
     - use_df_printer
+    - use_model_printer
     - add_latex_dep
     - flextable_html_dependency
     - footers_flextable_at_bkm

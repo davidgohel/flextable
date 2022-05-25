@@ -23,10 +23,21 @@ compute and apply optimized widths and heights
 in inches returned by function \code{\link[=dim_pretty]{dim_pretty()}}).
 
 This function is to be used when the table widths and heights
-should automatically be adjusted to fit the size of the content.
-}
-\note{
-This function is not related to 'Microsoft Word' \emph{Autofit} feature.
+should be adjusted to fit the size of the content.
+
+The function does not let you adjust a content that is too
+wide in a paginated document.
+It simply calculates the width of the columns so that each
+content has the minimum width necessary to display the content
+on one line.
+
+Note that this function is not related to 'Microsoft Word'
+\emph{Autofit} feature.
+
+There is an alternative to fixed-width layouts that works
+well with HTML and Word output that can be set
+with \code{set_table_properties(layout = "autofit")}, see
+\code{\link[=set_table_properties]{set_table_properties()}}.
 }
 \section{line breaks}{
 
@@ -40,7 +51,7 @@ considered as "").
 
 \if{html}{\figure{fig_autofit_1.png}{options: width="500"}}
 
-\if{html}{\figure{fig_autofit_2.png}{options: width="400"}}
+\if{html}{\figure{fig_autofit_2.png}{options: width="379"}}
 }
 
 \examples{

@@ -3,7 +3,6 @@
 \name{flextable}
 \alias{flextable}
 \alias{qflextable}
-\alias{regulartable}
 \title{flextable creation}
 \usage{
 flextable(
@@ -16,8 +15,6 @@ flextable(
 )
 
 qflextable(data)
-
-regulartable(data, col_keys = names(data), cwidth = 0.75, cheight = 0.25)
 }
 \arguments{
 \item{data}{dataset}
@@ -52,22 +49,12 @@ If working with R Markdown document, you should read about knitr
 chunk options in \code{\link[=knit_print.flextable]{knit_print.flextable()}} and about setting
 default values with \code{\link[=set_flextable_defaults]{set_flextable_defaults()}}.
 }
-\note{
-Function \code{regulartable} is maintained for compatibility with old codes
-mades by users but be aware it produces the same exact object than \code{flextable}.
-This function should be deprecated then removed in the next versions.
-}
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_flextable_1.png}{options: width="600"}}
-}
-
 \section{qflextable}{
 
 \code{qflextable} is a convenient tool to produce quickly
-a flextable for reporting where layoout is fixed and columns
-widths adjusted with \code{\link[=autofit]{autofit()}}.
+a flextable for reporting where layout is fixed (see
+\code{\link[=set_table_properties]{set_table_properties()}}) and columns
+widths are adjusted with \code{\link[=autofit]{autofit()}}.
 }
 
 \examples{

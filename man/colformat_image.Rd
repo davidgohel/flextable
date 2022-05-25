@@ -25,13 +25,9 @@ colformat_image(
 
 \item{width, height}{size of the png file in inches}
 
-\item{na_str}{string to be used for NA and NaN values}
+\item{na_str, nan_str}{string to be used for NA and NaN values}
 
-\item{nan_str}{string to be used for NA and NaN values}
-
-\item{prefix}{string to be used as prefix or suffix}
-
-\item{suffix}{string to be used as prefix or suffix}
+\item{prefix, suffix}{string to be used as prefix or suffix}
 }
 \description{
 Format image paths as images in a flextable.
@@ -65,7 +61,6 @@ Other cells formatters:
 \code{\link{colformat_int}()},
 \code{\link{colformat_lgl}()},
 \code{\link{colformat_num}()},
-\code{\link{compose}()},
 \code{\link{set_formatter}()}
 }
 \concept{cells formatters}

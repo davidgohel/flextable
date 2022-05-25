@@ -1,11 +1,21 @@
 #' @export
 #' @importFrom rlang eval_tidy enquo quo_name
-#' @title Define flextable displayed values
-#' @description Modify flextable displayed values. Function is
-#' handling complex formatting as well as image insertion.
+#' @title Define displayed values and mixed content
+#' @description Modify flextable displayed values with eventually
+#' mixed content paragraphs.
+#'
+#' Function is handling complex formatting as image insertion with
+#' [as_image()], superscript with [as_sup()], formated
+#' text with [as_chunk()] and several other *chunk* functions.
 #'
 #' Function `mk_par` is another name for `compose` as
-#' there is an unwanted conflict with package `purrr`.
+#' there is an unwanted **conflict with package 'purrr'**.
+#'
+#' If you only need to add some content at the end
+#' or the beginning of paragraphs and keep existing
+#' content as it is, functions [append_chunks()] and
+#' [prepend_chunks()] should be prefered.
+#'
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j column selection
@@ -15,17 +25,41 @@
 #' `value` is evaluated within a data.frame augmented of a column named `.`
 #' containing the `j`th column.
 #' @examples
-#' library(officer)
-#' ft <- flextable(head( mtcars, n = 10))
-#' ft <- compose(ft, j = "carb", i = ~ drat > 3.5,
-#'   value = as_paragraph("carb is ", as_chunk( sprintf("%.1f", carb)) )
+#' ft_1 <- flextable(head(cars, n = 5), col_keys = c("speed", "dist", "comment"))
+#' ft_1 <- mk_par(
+#'   x = ft_1, j = "comment",
+#'   i = ~ dist > 9,
+#'   value = as_paragraph(
+#'     colorize(as_i("speed: "), color = "gray"),
+#'     as_sup(sprintf("%.0f", speed))
 #'   )
-#' ft <- autofit(ft)
+#' )
+#' ft_1 <- set_table_properties(ft_1, layout = "autofit")
+#' ft_1
+#'
+#' # using `use_dot = TRUE` ----
+#' set.seed(8)
+#' dat <- iris[sample.int(n = 150, size = 10),]
+#' dat <- dat[order(dat$Species),]
+#'
+#'
+#' ft_2 <- flextable(dat)
+#' ft_2 <- mk_par(ft_2, j = ~ . -Species,
+#'   value = as_paragraph(
+#'     minibar(., barcol = "white",
+#'             height = .1)
+#'   ), use_dot = TRUE
+#'   )
+#' ft_2 <- theme_vader(ft_2)
+#' ft_2 <- autofit(ft_2)
+#' ft_2
 #' @export
-#' @family cells formatters
+#' @family functions for mixed content paragraphs
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_compose_1.png}{options: width="500"}}
+#' \if{html}{\figure{fig_compose_1.png}{options: width="117"}}
+#'
+#' \if{html}{\figure{fig_compose_2.png}{options: width="400"}}
 compose <- function(x, i = NULL, j = NULL, value , part = "body", use_dot = FALSE){
 
   if( !inherits(x, "flextable") ) stop("compose supports only flextable objects.")

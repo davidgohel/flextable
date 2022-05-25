@@ -19,8 +19,10 @@ of class:
 \item kmeans and pam
 }
 
-In a setup run chunk:\preformatted{flextable::use_model_printer()
-}
+In a setup run chunk:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{flextable::use_model_printer()
+}\if{html}{\out{</div>}}
 }
 \seealso{
 \code{\link[=use_df_printer]{use_df_printer()}}, \code{\link[=flextable]{flextable()}}

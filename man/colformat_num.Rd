@@ -26,13 +26,9 @@ colformat_num(
 
 \item{big.mark, decimal.mark}{see \code{\link[=format]{format()}}}
 
-\item{na_str}{string to be used for NA and NaN values}
+\item{na_str, nan_str}{string to be used for NA and NaN values}
 
-\item{nan_str}{string to be used for NA and NaN values}
-
-\item{prefix}{string to be used as prefix or suffix}
-
-\item{suffix}{string to be used as prefix or suffix}
+\item{prefix, suffix}{string to be used as prefix or suffix}
 
 \item{...}{additional argument for function \code{\link[=format]{format()}}, \code{scientific}
 and \code{digits} can not be used.}
@@ -93,7 +89,6 @@ Other cells formatters:
 \code{\link{colformat_image}()},
 \code{\link{colformat_int}()},
 \code{\link{colformat_lgl}()},
-\code{\link{compose}()},
 \code{\link{set_formatter}()}
 }
 \concept{cells formatters}

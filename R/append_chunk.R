@@ -8,51 +8,26 @@
 #' @param i rows selection
 #' @param j column selection
 #' @param part partname of the table (one of 'body', 'header', 'footer')
+#' @seealso [as_chunk()], [as_sup()], [as_sub()], [colorize()]
+#' @family functions for mixed content paragraphs
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_append_chunks_1.png}{options: width="100"}}
 #' @examples
 #' library(flextable)
+#' img.file <- file.path(R.home("doc"), "html", "logo.jpg")
 #'
-#' f1 <- function(x) {
-#'   formatC(x, digits = 1,
-#'           format = "f")
-#' }
-#' f2 <- function(x) {
-#'   paste0(
-#'     " (",
-#'     formatC(x, digits = 1,
-#'             format = "f"), ")")
-#' }
+#' ft_1 <- flextable(head(cars))
 #'
-#' ft_1 <- flextable(
-#'   data = head(mtcars),
-#'   col_keys = c("am", "gear", "carb", "mycol")
+#' ft_1 <- append_chunks(ft_1,
+#'   # where to append
+#'   i = c(1, 3, 5),
+#'   j = 1,
+#'   # what to append
+#'   as_chunk(" "),
+#'   as_image(src = img.file, width = .20, height = .15)
 #' )
-#' ft_1 <- merge_v(ft_1, j = "am")
-#' ft_1 <- valign(ft_1, valign = "top")
-#' ft_1 <- theme_vanilla(ft_1)
-#' ft_1 <- mk_par(ft_1,
-#'   j = "mycol", part = "body",
-#'   value = as_paragraph(
-#'     as_chunk(mpg, formatter = f1), " ",
-#'     colorize(as_chunk(wt, formatter = f2), "gray")
-#'   )
-#' )
-#'
-#' ft_1 <-
-#'   append_chunks(ft_1,
-#'     i = 1, j = "mycol", part = "header",
-#'     as_chunk("mpg "),
-#'     colorize(as_bracket("wt"), "gray")
-#'   )
-#'
-#' ft_1 <- align(
-#'   x = ft_1, j = c("am", "gear", "carb"),
-#'   align = "center", part = "all")
-#' ft_1 <- align(
-#'   x = ft_1, j = "mycol",
-#'   align = "right", part = "all")
-#'
-#' ft_1 <- autofit(ft_1)
-#'
+#' ft_1 <- set_table_properties(ft_1, layout = "autofit")
 #' ft_1
 append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
   if (!inherits(x, "flextable"))
@@ -102,14 +77,15 @@ append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
 #' @param i rows selection
 #' @param j column selection
 #' @param part partname of the table (one of 'body', 'header', 'footer')
+#' @family functions for mixed content paragraphs
 #' @examples
-#' ft_1 <- flextable(head(iris))
-#' ft_1 <- prepend_chunks(
-#'   ft_1,
+#' x <- flextable(head(iris))
+#' x <- prepend_chunks(
+#'   x,
 #'   i = 1, j = 1,
 #'   colorize(as_b("coucou "), color = "red")
 #' )
-#' ft_1
+#' x
 prepend_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
   if (!inherits(x, "flextable"))
     stop("append_chunks supports only flextable objects.")

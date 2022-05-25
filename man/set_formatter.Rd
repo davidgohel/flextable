@@ -70,8 +70,7 @@ Other cells formatters:
 \code{\link{colformat_image}()},
 \code{\link{colformat_int}()},
 \code{\link{colformat_lgl}()},
-\code{\link{colformat_num}()},
-\code{\link{compose}()}
+\code{\link{colformat_num}()}
 
 Other cells formatters: 
 \code{\link{colformat_char}()},
@@ -81,7 +80,6 @@ Other cells formatters:
 \code{\link{colformat_image}()},
 \code{\link{colformat_int}()},
 \code{\link{colformat_lgl}()},
-\code{\link{colformat_num}()},
-\code{\link{compose}()}
+\code{\link{colformat_num}()}
 }
 \concept{cells formatters}

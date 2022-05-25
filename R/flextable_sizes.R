@@ -43,9 +43,17 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in" ){
 
 
 #' @export
-#' @title Set flextable columns width
-#' @description control columns width
-#' @param x flextable object
+#' @title Set columns width
+#' @description Defines the widths of one or more columns in the
+#' table. This function will have no effect if you have
+#' used `set_table_properties(layout = "autofit")`.
+#'
+#' [set_table_properties()] can provide an alternative to fixed-width layouts
+#' that is supported with HTML and Word output that can be set
+#' with `set_table_properties(layout = "autofit")`.
+#'
+#'
+#' @param x a [flextable()] object
 #' @param j columns selection
 #' @param width width in inches
 #' @param unit unit for width, one of "in", "cm", "mm".
@@ -312,10 +320,21 @@ dim_pretty <- function( x, part = "all", unit = "in" ){
 #' in inches returned by function [dim_pretty()]).
 #'
 #' This function is to be used when the table widths and heights
-#' should automatically be adjusted to fit the size of the content.
+#' should be adjusted to fit the size of the content.
 #'
-#' @note
-#' This function is not related to 'Microsoft Word' *Autofit* feature.
+#' The function does not let you adjust a content that is too
+#' wide in a paginated document.
+#' It simply calculates the width of the columns so that each
+#' content has the minimum width necessary to display the content
+#' on one line.
+#'
+#' Note that this function is not related to 'Microsoft Word'
+#' *Autofit* feature.
+#'
+#' There is an alternative to fixed-width layouts that works
+#' well with HTML and Word output that can be set
+#' with `set_table_properties(layout = "autofit")`, see
+#' [set_table_properties()].
 #'
 #' @section line breaks:
 #' Soft returns (a line break in a paragraph) are not supported. Function
@@ -337,7 +356,7 @@ dim_pretty <- function( x, part = "all", unit = "in" ){
 #'
 #' \if{html}{\figure{fig_autofit_1.png}{options: width="500"}}
 #'
-#' \if{html}{\figure{fig_autofit_2.png}{options: width="400"}}
+#' \if{html}{\figure{fig_autofit_2.png}{options: width="379"}}
 autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"), unit = "in"){
 
   add_w <- convin(unit = unit, x = add_w)

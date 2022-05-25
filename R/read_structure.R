@@ -1,3 +1,66 @@
+expand_soft_return <- function(x){
+  if(!any(grepl("\n", x$txt))){
+    return(x)
+  }
+
+  tmp_txt <- gsub("\n", "\n<br>\n", x$txt)
+  tmp_txt <- strsplit(tmp_txt, split = "\n")[[1]]
+
+  tmp_txt <- tmp_txt[!tmp_txt %in% ""]
+  x$txt <- NULL
+  x <- rbind.match.columns(rep(list(x), length(tmp_txt)))
+  x <- cbind(data.frame(txt = tmp_txt, stringsAsFactors = FALSE), x)
+  x$seq_index <- seq_len(nrow(x))
+  x
+}
+expand_tabulation <- function(x){
+  if(!any(grepl("\t", x$txt))){
+    return(x)
+  }
+
+  tmp_txt <- gsub("\t", "\t<tab>\t", x$txt)
+  tmp_txt <- strsplit(tmp_txt, split = "\t")[[1]]
+
+  tmp_txt <- tmp_txt[!tmp_txt %in% ""]
+  x$txt <- NULL
+  x <- rbind.match.columns(rep(list(x), length(tmp_txt)))
+  x <- cbind(data.frame(txt = tmp_txt, stringsAsFactors = FALSE), x)
+  x$seq_index <- seq_len(nrow(x))
+  x
+}
+
+fortify_content <- function(x, default_chunk_fmt, ...){
+
+  x$content$data[] <- lapply(x$content$data, expand_soft_return)
+  x$content$data[] <- lapply(x$content$data, expand_tabulation)
+
+  row_id <- unlist( mapply( function(rows, data){
+    rep(rows, nrow(data) )
+  },
+  rows = rep( seq_len(nrow(x$content$data)), ncol(x$content$data) ),
+  x$content$data, SIMPLIFY = FALSE, USE.NAMES = FALSE ) )
+
+  col_id <- unlist( mapply( function(columns, data){
+    rep(columns, nrow(data) )
+  },
+  columns = rep( x$content$keys, each = nrow(x$content$data) ),
+  x$content$data, SIMPLIFY = FALSE, USE.NAMES = FALSE ) )
+
+  out <- rbindlist( apply(x$content$data, 2, rbindlist), use.names=TRUE, fill=TRUE)
+  out$ft_row_id <- row_id
+  out$col_id <- col_id
+  setDF(out)
+
+  default_props <- as.data.frame(default_chunk_fmt, stringsAsFactors = FALSE)
+  out <- replace_missing_fptext_by_default(out, default_props)
+
+  out$col_id <- factor( out$col_id, levels = default_chunk_fmt$color$keys )
+  out <- out[order(out$col_id, out$ft_row_id, out$seq_index) ,]
+  out
+
+}
+
+
 #' @importFrom data.table rbindlist setDF
 as_table_text <- function(x){
   dat <- list()

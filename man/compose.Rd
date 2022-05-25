@@ -3,7 +3,7 @@
 \name{compose}
 \alias{compose}
 \alias{mk_par}
-\title{Define flextable displayed values}
+\title{Define displayed values and mixed content}
 \usage{
 compose(x, i = NULL, j = NULL, value, part = "body", use_dot = FALSE)
 
@@ -25,36 +25,63 @@ mk_par(x, i = NULL, j = NULL, value, part = "body", use_dot = FALSE)
 containing the \code{j}th column.}
 }
 \description{
-Modify flextable displayed values. Function is
-handling complex formatting as well as image insertion.
+Modify flextable displayed values with eventually
+mixed content paragraphs.
+
+Function is handling complex formatting as image insertion with
+\code{\link[=as_image]{as_image()}}, superscript with \code{\link[=as_sup]{as_sup()}}, formated
+text with \code{\link[=as_chunk]{as_chunk()}} and several other \emph{chunk} functions.
 
 Function \code{mk_par} is another name for \code{compose} as
-there is an unwanted conflict with package \code{purrr}.
+there is an unwanted \strong{conflict with package 'purrr'}.
+
+If you only need to add some content at the end
+or the beginning of paragraphs and keep existing
+content as it is, functions \code{\link[=append_chunks]{append_chunks()}} and
+\code{\link[=prepend_chunks]{prepend_chunks()}} should be prefered.
 }
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_compose_1.png}{options: width="500"}}
+\if{html}{\figure{fig_compose_1.png}{options: width="117"}}
+
+\if{html}{\figure{fig_compose_2.png}{options: width="400"}}
 }
 
 \examples{
-library(officer)
-ft <- flextable(head( mtcars, n = 10))
-ft <- compose(ft, j = "carb", i = ~ drat > 3.5,
-  value = as_paragraph("carb is ", as_chunk( sprintf("\%.1f", carb)) )
+ft_1 <- flextable(head(cars, n = 5), col_keys = c("speed", "dist", "comment"))
+ft_1 <- mk_par(
+  x = ft_1, j = "comment",
+  i = ~ dist > 9,
+  value = as_paragraph(
+    colorize(as_i("speed: "), color = "gray"),
+    as_sup(sprintf("\%.0f", speed))
   )
-ft <- autofit(ft)
+)
+ft_1 <- set_table_properties(ft_1, layout = "autofit")
+ft_1
+
+# using `use_dot = TRUE` ----
+set.seed(8)
+dat <- iris[sample.int(n = 150, size = 10),]
+dat <- dat[order(dat$Species),]
+
+
+ft_2 <- flextable(dat)
+ft_2 <- mk_par(ft_2, j = ~ . -Species,
+  value = as_paragraph(
+    minibar(., barcol = "white",
+            height = .1)
+  ), use_dot = TRUE
+  )
+ft_2 <- theme_vader(ft_2)
+ft_2 <- autofit(ft_2)
+ft_2
 }
 \seealso{
-Other cells formatters: 
-\code{\link{colformat_char}()},
-\code{\link{colformat_datetime}()},
-\code{\link{colformat_date}()},
-\code{\link{colformat_double}()},
-\code{\link{colformat_image}()},
-\code{\link{colformat_int}()},
-\code{\link{colformat_lgl}()},
-\code{\link{colformat_num}()},
-\code{\link{set_formatter}()}
+Other functions for mixed content paragraphs: 
+\code{\link{append_chunks}()},
+\code{\link{as_paragraph}()},
+\code{\link{prepend_chunks}()}
 }
-\concept{cells formatters}
+\concept{functions for mixed content paragraphs}

@@ -26,9 +26,6 @@
 #' the dataset, they will be added as blank columns by default.
 #' @param cwidth,cheight initial width and height to use for cell sizes in inches.
 #' @param defaults,theme_fun deprecated, use [set_flextable_defaults()] instead.
-#' @note Function `regulartable` is maintained for compatibility with old codes
-#' mades by users but be aware it produces the same exact object than `flextable`.
-#' This function should be deprecated then removed in the next versions.
 #' @examples
 #' ft <- flextable(head(mtcars))
 #' ft
@@ -36,9 +33,6 @@
 #' @importFrom stats setNames
 #' @seealso [style()], [autofit()], [theme_booktabs()], [knit_print.flextable()],
 #' [compose()], [footnote()], [set_caption()]
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_flextable_1.png}{options: width="600"}}
 flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25,
                        defaults = list(), theme_fun = theme_booktabs ){
 
@@ -85,8 +79,9 @@ flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25
 #' @rdname flextable
 #' @section qflextable:
 #' `qflextable` is a convenient tool to produce quickly
-#' a flextable for reporting where layoout is fixed and columns
-#' widths adjusted with [autofit()].
+#' a flextable for reporting where layout is fixed (see
+#' [set_table_properties()]) and columns
+#' widths are adjusted with [autofit()].
 qflextable <- function(data){
   ft <- flextable(data)
   ft <- set_table_properties(ft, layout = "fixed")
@@ -175,7 +170,15 @@ set_caption <- function(x, caption,
   x
 }
 
-#' @rdname flextable
+#' @keywords internal
+#' @title flextable old functions
+#' @description The function is maintained for compatibility with old codes
+#' mades by users but be aware it produces the same exact object than [flextable()].
+#' This function should be deprecated then removed in the next versions.
+#' @param data dataset
+#' @param col_keys columns names/keys to display. If some column names are not in
+#' the dataset, they will be added as blank columns by default.
+#' @param cwidth,cheight initial width and height to use for cell sizes in inches.
 #' @export
 regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
   flextable(data = data, col_keys = col_keys, cwidth = cwidth, cheight = cheight)

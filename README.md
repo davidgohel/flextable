@@ -9,31 +9,49 @@ status](https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg)
 ![cranlogs](https://cranlogs.r-pkg.org/badges/flextable)
 ![Active](https://www.repostatus.org/badges/latest/active.svg)
 
-**User Documentation**: <https://ardata-fr.github.io/flextable-book/>
+**The user documentation is available here**:
+<https://ardata-fr.github.io/flextable-book/>
 
-<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>
+<img src="man/figures/logo.png" alt="flextable logo" align="right" />
 The flextable package provides a framework for easily create tables for
 reporting and publications. Tables can be easily formatted with a set of
 verbs such as `bold()`, `color()`, they can receive a header of more
 than one line, cells can be merged or contain an image. The package make
-it possible to build any table for publication from a \`data.frame’.
+it possible to build any table for publication from a `data.frame`.
 
-<img src="man/figures/fig_formats.png" width="170px" alt="flextable formats" align="left" />
+``` r
+set_flextable_defaults(
+  font.family = "Arial", font.size = 10, 
+  border.color = "gray")
+
+flextable(head(cars)) %>% 
+  bold(part = "header") %>% 
+  add_footer_lines("The 'cars' dataset")
+```
+
 Tables can be embedded within HTML, PDF, Word and PowerPoint documents
 from R Markdown documents and within Microsoft Word or PowerPoint
 documents with package officer. Tables can also be rendered as R plots
 or graphic files (png, pdf and jpeg).
 
-An API is available to let R users create tables for reporting and
-control their formatting properties and their layout. A `flextable`
-object is a data.frame representation, it can be manipulated with
-functions that give control over:
+``` r
+flextable(mtcars) %>% 
+  theme_vanilla() %>% 
+  save_as_docx(path = "mytable.docx")
+```
+
+<img src="man/figures/fig_formats.png" width="170px" alt="flextable formats" align="center" />
+
+A `flextable` object is a data.frame representation. An API is available
+to let R users create tables for reporting and control their formatting
+properties and their layout. The package provides functions that give
+control over:
 
 -   header, body and footer content
 -   text, paragraphs, cells and border formatting of any element
 -   displayed values
 
-![](https://www.ardata.fr/img/illustrations/flextable_functions.svg)
+![](man/figures/flextable_functions.png)
 
 ## Installation
 
@@ -60,12 +78,13 @@ Manuals are available at:
 A gallery of examples is available here:
 <https://ardata-fr.github.io/flextable-gallery/gallery/>
 
-### Getting help
+### Getting help / questions
 
-This project is developed and maintained on my own time. If you have
-questions about how to use the package, visit Stackoverflow and use tags
-`flextable` and `r` [Stackoverflow
-link](https://stackoverflow.com/questions/tagged/flextable+r)!
+If you have questions about how to use the package, visit Stackoverflow
+and use tags `flextable` and `r` [Stackoverflow
+link](https://stackoverflow.com/questions/tagged/flextable+r)! You can
+also use <https://github.com/davidgohel/flextable/discussions> to start
+a discussion.
 
 ## Contributing to the package
 

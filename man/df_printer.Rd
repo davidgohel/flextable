@@ -16,14 +16,18 @@ Create a summary from a data.frame as a flextable. This function
 is to be used in an R Markdown document.
 
 To use that function, you must declare it in the part \code{df_print} of the 'YAML'
-header of your R Markdown document:\preformatted{---
+header of your R Markdown document:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{---
 df_print: !expr function(x) flextable::df_printer(x)
 ---
-}
+}\if{html}{\out{</div>}}
 
 We notice an unexpected behavior with bookdown. When using bookdown it
-is necessary to use \code{\link[=use_df_printer]{use_df_printer()}} instead in a setup run chunk:\preformatted{use_df_printer()
-}
+is necessary to use \code{\link[=use_df_printer]{use_df_printer()}} instead in a setup run chunk:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{use_df_printer()
+}\if{html}{\out{</div>}}
 }
 \details{
 'knitr' chunk options are available to customize the output:

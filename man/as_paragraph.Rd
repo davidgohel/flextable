@@ -40,4 +40,10 @@ ft
 \seealso{
 \code{\link[=as_chunk]{as_chunk()}}, \code{\link[=minibar]{minibar()}},
 \code{\link[=as_image]{as_image()}}, \code{\link[=hyperlink_text]{hyperlink_text()}}
+
+Other functions for mixed content paragraphs: 
+\code{\link{append_chunks}()},
+\code{\link{compose}()},
+\code{\link{prepend_chunks}()}
 }
+\concept{functions for mixed content paragraphs}

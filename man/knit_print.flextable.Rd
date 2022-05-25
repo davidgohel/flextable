@@ -76,8 +76,10 @@ Captions can be defined in two ways.
 
 The first is with the \code{set_caption} function. If it is used,
 the other method will be ignored. The second method is by using
-knitr chunk option \code{tab.cap}.\preformatted{set_caption(x, caption = "my caption")
-}
+knitr chunk option \code{tab.cap}.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{set_caption(x, caption = "my caption")
+}\if{html}{\out{</div>}}
 
 If \code{set_caption} function is not used, caption identifier will be
 read from knitr's chunk option \code{tab.id}. Note that in a bookdown and

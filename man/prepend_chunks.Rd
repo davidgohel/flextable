@@ -23,11 +23,18 @@ prepend chunks (for example chunk \code{\link[=as_chunk]{as_chunk()}})
 in a flextable.
 }
 \examples{
-ft_1 <- flextable(head(iris))
-ft_1 <- prepend_chunks(
-  ft_1,
+x <- flextable(head(iris))
+x <- prepend_chunks(
+  x,
   i = 1, j = 1,
   colorize(as_b("coucou "), color = "red")
 )
-ft_1
+x
 }
+\seealso{
+Other functions for mixed content paragraphs: 
+\code{\link{append_chunks}()},
+\code{\link{as_paragraph}()},
+\code{\link{compose}()}
+}
+\concept{functions for mixed content paragraphs}

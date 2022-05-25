@@ -27,7 +27,7 @@ Imports:
     xml2, data.table (>= 1.13.0), uuid (>= 0.1-4),
     gdtools (>= 0.1.6), rlang, 
     base64enc
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
 Suggests: 
     testthat (>= 2.1.0),

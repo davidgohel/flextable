@@ -24,13 +24,9 @@ colformat_int(
 
 \item{big.mark}{see \code{\link[=format]{format()}}}
 
-\item{na_str}{string to be used for NA and NaN values}
+\item{na_str, nan_str}{string to be used for NA and NaN values}
 
-\item{nan_str}{string to be used for NA and NaN values}
-
-\item{prefix}{string to be used as prefix or suffix}
-
-\item{suffix}{string to be used as prefix or suffix}
+\item{prefix, suffix}{string to be used as prefix or suffix}
 }
 \description{
 Format integer cells in a flextable.
@@ -50,7 +46,6 @@ Other cells formatters:
 \code{\link{colformat_image}()},
 \code{\link{colformat_lgl}()},
 \code{\link{colformat_num}()},
-\code{\link{compose}()},
 \code{\link{set_formatter}()}
 }
 \concept{cells formatters}

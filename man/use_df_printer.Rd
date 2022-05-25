@@ -10,8 +10,10 @@ use_df_printer()
 Define \code{\link[=df_printer]{df_printer()}} as data.frame
 print method in an R Markdown document.
 
-In a setup run chunk:\preformatted{flextable::use_df_printer()
-}
+In a setup run chunk:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{flextable::use_df_printer()
+}\if{html}{\out{</div>}}
 }
 \seealso{
 \code{\link[=df_printer]{df_printer()}}, \code{\link[=flextable]{flextable()}}

@@ -2,12 +2,12 @@
 % Please edit documentation in R/flextable_sizes.R
 \name{width}
 \alias{width}
-\title{Set flextable columns width}
+\title{Set columns width}
 \usage{
 width(x, j = NULL, width, unit = "in")
 }
 \arguments{
-\item{x}{flextable object}
+\item{x}{a \code{\link[=flextable]{flextable()}} object}
 
 \item{j}{columns selection}
 
@@ -16,7 +16,13 @@ width(x, j = NULL, width, unit = "in")
 \item{unit}{unit for width, one of "in", "cm", "mm".}
 }
 \description{
-control columns width
+Defines the widths of one or more columns in the
+table. This function will have no effect if you have
+used \code{set_table_properties(layout = "autofit")}.
+
+\code{\link[=set_table_properties]{set_table_properties()}} can provide an alternative to fixed-width layouts
+that is supported with HTML and Word output that can be set
+with \code{set_table_properties(layout = "autofit")}.
 }
 \details{
 Heights are not used when flextable is been rendered into HTML.

@@ -483,6 +483,7 @@ as_equation <- function(x, width = 1, height = .2, unit = "in"){
 #' @param ... chunk elements that are defining paragraph
 #' @param list_values a list of chunk elements that are defining paragraph. If
 #' specified argument `...` is unused.
+#' @family functions for mixed content paragraphs
 #' @seealso [as_chunk()], [minibar()],
 #' [as_image()], [hyperlink_text()]
 #' @examples
