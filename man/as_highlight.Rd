@@ -14,11 +14,10 @@ as_highlight(x, color)
 \description{
 The function is producing a chunk with
 an highlight chunk.
-}
-\note{
-This is a sugar function that ease the composition of complex
-labels made of different formattings. It should be used inside a
-call to \code{\link[=as_paragraph]{as_paragraph()}}.
+
+It is used to add it to the content of a cell of the
+flextable with the functions \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}
+or \code{\link[=prepend_chunks]{prepend_chunks()}}.
 }
 \examples{
 ft <- flextable( head(iris),
@@ -39,6 +38,7 @@ Other chunk elements for paragraph:
 \code{\link{as_i}()},
 \code{\link{as_sub}()},
 \code{\link{as_sup}()},
+\code{\link{as_word_field}()},
 \code{\link{colorize}()},
 \code{\link{gg_chunk}()},
 \code{\link{hyperlink_text}()},

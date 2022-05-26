@@ -45,6 +45,7 @@ wml_runs <- function(value) {
   is_soft_return <- txt_data$txt %in% "<br>"
   is_tab <- txt_data$txt %in% "<tab>"
   is_eq <- !is.na(txt_data$eq_data)
+  is_word_field <- !is.na(txt_data$word_field_data)
   is_hlink <- !is.na(txt_data$url)
   is_raster <- sapply(txt_data$img_data, function(x) {
     inherits(x, "raster") || is.character(x)
@@ -57,6 +58,7 @@ wml_runs <- function(value) {
                        .SDcols = c(
                          "part", "txt", "width", "height", "url",
                          "eq_data", "img_data", "seq_index",
+                         "word_field_data",
                          "ft_row_id", "col_id", "fp_text_wml"
                        )
   ]
@@ -68,6 +70,8 @@ wml_runs <- function(value) {
 
   text_nodes_run <- paste0(sprintf("<w:r %s>", base_ns), txt_data$fp_text_wml, text_nodes_t, "</w:r>")
   text_nodes_run[is_raster] <- txt_data$img_str[is_raster]
+
+  text_nodes_run[is_word_field] <- to_wml_word_field(txt_data$word_field_data[is_word_field], pr_txt = txt_data$fp_text_wml[is_word_field])
 
   # manage hlinks
   url_vals <- vapply(txt_data$url[is_hlink], urlEncodePath, FUN.VALUE = "", USE.NAMES = FALSE)

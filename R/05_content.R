@@ -84,7 +84,8 @@ chunk_dataframe <- function(...){
     height = def_dbl,
     url = def_chr,
     eq_data = def_chr,
-    stringsAsFactors = FALSE )
+    word_field_data = def_chr,
+    stringsAsFactors = FALSE)
   data0$img_data <- def_lst
 
   data0[names(x)] <- x
@@ -111,8 +112,13 @@ default_fptext_prop <- structure(list(
 
 #' @export
 #' @title chunk of text wrapper
-#' @description The function lets add text within flextable
-#' objects with function [compose()].
+#' @description The function lets add formated text in flextable
+#' cells.
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
+#'
 #' It should be used inside a call to [as_paragraph()].
 #' @param x text or any element that can be formatted as text
 #' with function provided in argument `formatter`.
@@ -183,10 +189,10 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
 #' @title subscript chunk
 #' @description The function is producing a chunk with
 #' subscript vertical alignment.
-#' @note
-#' This is a sugar function that ease the composition of complex
-#' labels made of different formattings. It should be used inside a
-#' call to [as_paragraph()].
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
 #' @param x value, if a chunk, the chunk will be updated
 #' @family chunk elements for paragraph
 #' @examples
@@ -214,6 +220,11 @@ as_sub <- function(x){
 #' @title superscript chunk
 #' @description The function is producing a chunk with
 #' superscript vertical alignment.
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
+#'
 #' @inheritParams as_sub
 #' @note
 #' This is a sugar function that ease the composition of complex
@@ -247,10 +258,11 @@ as_sup <- function(x){
 #' @title bold chunk
 #' @description The function is producing a chunk with
 #' bold font.
-#' @note
-#' This is a sugar function that ease the composition of complex
-#' labels made of different formattings. It should be used inside a
-#' call to [as_paragraph()].
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
+#'
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
@@ -278,10 +290,11 @@ as_b <- function(x){
 #' @title italic chunk
 #' @description The function is producing a chunk with
 #' italic font.
-#' @note
-#' This is a sugar function that ease the composition of complex
-#' labels made of different formattings. It should be used inside a
-#' call to [as_paragraph()].
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
+#'
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
@@ -307,11 +320,12 @@ as_i <- function(x){
 #' @title colorize chunk
 #' @description The function is producing a chunk with
 #' a font in color.
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
+#'
 #' @param color color to use as text highlighting color as character vector.
-#' @note
-#' This is a sugar function that ease the composition of complex
-#' labels made of different formattings. It should be used inside a
-#' call to [as_paragraph()].
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
@@ -336,11 +350,12 @@ colorize <- function(x, color){
 #' @title highlight chunk
 #' @description The function is producing a chunk with
 #' an highlight chunk.
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
+#'
 #' @param color color to use as text highlighting color as character vector.
-#' @note
-#' This is a sugar function that ease the composition of complex
-#' labels made of different formattings. It should be used inside a
-#' call to [as_paragraph()].
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
@@ -364,7 +379,11 @@ as_highlight <- function(x, color){
 #' @title chunk with values in brackets
 #' @description The function is producing a chunk by
 #' pasting values and add the result in brackets.
-#' It should be used inside a call to [as_paragraph()].
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
+#'
 #' @param ... text and column names
 #' @param sep separator
 #' @param p prefix, default to '('
@@ -394,8 +413,12 @@ as_bracket <- function(..., sep = ", ", p = "(", s = ")"){
 #' @export
 #' @title chunk of text with hyperlink wrapper
 #' @description The function lets add hyperlinks within flextable
-#' objects with function [compose()].
-#' It should be used inside a call to [as_paragraph()].
+#' objects.
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
+#'
 #' @note
 #' This chunk option requires package officedown in a R Markdown
 #' context with Word output format.
@@ -425,15 +448,18 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
 #' @export
 #' @title equation chunk
 #' @description This function is used to insert equations into
-#' flextable with function [compose()].
-#' It should be used inside a call to [as_paragraph()].
+#' flextable.
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
 #'
 #' To use this function, package 'equatags' is required;
 #' also `equatags::mathjax_install()` must be executed only once
 #' to install necessary dependencies.
 #'
 #' @param x values containing the 'MathJax' equations
-#' @param width,height size of the resulting equation in inches
+#' @param width,height size of the resulting equation
 #' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @family chunk elements for paragraph
 #' @examples
@@ -472,6 +498,143 @@ as_equation <- function(x, width = 1, height = .2, unit = "in"){
                        eq_data = x)
   class(x) <- c("chunk", "data.frame")
   x
+}
+
+
+#' @export
+#' @title 'Word' computed field
+#' @description This function is used to insert
+#' 'Word' computed field into flextable.
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
+#'
+#' This has only effect on 'Word' output. If you want to
+#' condition its execution only for Word output, you can
+#' use it in the post processing step (see
+#' `set_flextable_defaults(post_process_docx = ...)`)
+#'
+#' **Do not forget to update the computed field in Word**.
+#' Fields are defined but are not computed, this computing is an
+#' operation that has to be made by 'Microsoft Word'
+#' (select all text and hit `F9` when on mac os).
+#' @param x computed field strings
+#' @param props text properties (see [fp_text_default()] or [officer::fp_text()])
+#' object to be used to format the text. If not specified, it will use
+#' the default text properties of the cell(s).
+#' @param width,height size computed field
+#' @param unit unit for width and height, one of "in", "cm", "mm".
+#' @family chunk elements for paragraph
+#' @examples
+#' library(flextable)
+#'
+#' # define some default values ----
+#' set_flextable_defaults(font.size = 22, border.color = "gray")
+#'
+#' # an example with append_chunks ----
+#' pp_docx = function(x) {
+#'   x <- add_header_lines(x, "Page ")
+#'   x <- append_chunks(
+#'     x = x, i = 1, part = "header", j = 1,
+#'     as_word_field(x = "Page")
+#'   )
+#'   align(x, part = "header", align = "left")
+#' }
+#' ft_1 <- flextable(cars)
+#' ft_1 <- autofit(ft_1)
+#' ft_1 <- pp_docx(ft_1)
+#'
+#' ## or:
+#' # set_flextable_defaults(post_process_docx = pp_docx)
+#' ## to prevent this line addition when output is not docx
+#'
+#' # print(ft_1, preview = "docx")
+#'
+#' # an example with compose ----
+#'
+#' library(officer)
+#' ft_2 <- flextable(head(cars))
+#' ft_2 <- add_footer_lines(ft_2, "temp text")
+#' ft_2 <- compose(
+#'   x = ft_2, part = "footer", i = 1, j = 1,
+#'   as_paragraph("p. ",
+#'                as_word_field(x = "Page", width = .05),
+#'                " on ", as_word_field(x = "NumPages", width = .05))
+#' )
+#' ft_2 <- autofit(ft_2, part = c("header", "body"))
+#'
+#' doc <- read_docx()
+#' doc <- body_add_flextable(doc, ft_2)
+#' doc <- body_add_break(doc)
+#' doc <- body_add_flextable(doc, ft_2)
+#' outfile <- print(doc, target = tempfile(fileext = ".docx"))
+#'
+#' # reset default values ----
+#' init_flextable_defaults()
+as_word_field <- function(x, props = NULL, width = .1, height = .15, unit = "in"){
+
+  width <- convin(unit = unit, x = width)
+  height <- convin(unit = unit, x = height)
+
+  if( is.null(props) ){
+    props <- default_fptext_prop
+  }
+
+  if( inherits(props, "fp_text") ){
+    props <- rep(list(props), length(x))
+  }
+
+  if( length(props) > 0 && is.list(props) ){
+    if( !all(sapply(props, inherits, "fp_text")) ){
+      stop("props should be a list of fp_text object")
+    }
+    if( length(props) != length(x) ){
+      stop("props should be a list of length ", length(x) )
+    }
+  }
+
+  x <- chunk_dataframe(width = as.double(width),
+                       height = as.double(height),
+                       word_field_data = x,
+                       font.size = sapply(props, function(x) x$font.size),
+                       italic = sapply(props, function(x) x$italic),
+                       bold = sapply(props, function(x) x$bold),
+                       underlined = sapply(props, function(x) x$underlined),
+                       color = sapply(props, function(x) x$color),
+                       shading.color = sapply(props, function(x) x$shading.color),
+                       font.family = sapply(props, function(x) x$font.family),
+                       hansi.family = sapply(props, function(x) x$hansi.family),
+                       eastasia.family = sapply(props, function(x) x$eastasia.family),
+                       cs.family = sapply(props, function(x) x$cs.family),
+                       vertical.align = sapply(props, function(x) x$vertical.align)
+                       )
+  class(x) <- c("chunk", "data.frame")
+  x
+}
+to_wml_word_field <- function(x, pr_txt) {
+
+  xml_elt_1 <- paste0(
+    "<w:r>",
+    pr_txt,
+    "<w:fldChar w:fldCharType=\"begin\" w:dirty=\"true\"/>",
+    "</w:r>"
+  )
+  xml_elt_2 <- paste0(
+    "<w:r>",
+    pr_txt,
+    sprintf("<w:instrText xml:space=\"preserve\" w:dirty=\"true\">%s</w:instrText>", x),
+    "</w:r>"
+  )
+  xml_elt_3 <- paste0(
+    "<w:r>",
+    pr_txt,
+    "<w:fldChar w:fldCharType=\"end\" w:dirty=\"true\"/>",
+    "</w:r>"
+  )
+  out <- paste0(xml_elt_1, xml_elt_2, xml_elt_3)
+
+  out
 }
 
 

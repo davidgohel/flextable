@@ -12,6 +12,10 @@ as_sup(x)
 \description{
 The function is producing a chunk with
 superscript vertical alignment.
+
+It is used to add it to the content of a cell of the
+flextable with the functions \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}
+or \code{\link[=prepend_chunks]{prepend_chunks()}}.
 }
 \note{
 This is a sugar function that ease the composition of complex
@@ -46,6 +50,7 @@ Other chunk elements for paragraph:
 \code{\link{as_image}()},
 \code{\link{as_i}()},
 \code{\link{as_sub}()},
+\code{\link{as_word_field}()},
 \code{\link{colorize}()},
 \code{\link{gg_chunk}()},
 \code{\link{hyperlink_text}()},

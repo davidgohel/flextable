@@ -18,7 +18,10 @@ as_bracket(..., sep = ", ", p = "(", s = ")")
 \description{
 The function is producing a chunk by
 pasting values and add the result in brackets.
-It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
+
+It is used to add it to the content of a cell of the
+flextable with the functions \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}
+or \code{\link[=prepend_chunks]{prepend_chunks()}}.
 }
 \section{Illustrations}{
 
@@ -46,6 +49,7 @@ Other chunk elements for paragraph:
 \code{\link{as_i}()},
 \code{\link{as_sub}()},
 \code{\link{as_sup}()},
+\code{\link{as_word_field}()},
 \code{\link{colorize}()},
 \code{\link{gg_chunk}()},
 \code{\link{hyperlink_text}()},

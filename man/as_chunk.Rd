@@ -18,8 +18,13 @@ If not specified, it will be the default value corresponding to the cell.}
 \item{...}{additional arguments for \code{formatter} function.}
 }
 \description{
-The function lets add text within flextable
-objects with function \code{\link[=compose]{compose()}}.
+The function lets add formated text in flextable
+cells.
+
+It is used to add it to the content of a cell of the
+flextable with the functions \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}
+or \code{\link[=prepend_chunks]{prepend_chunks()}}.
+
 It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
 }
 \section{Illustrations}{
@@ -53,6 +58,7 @@ Other chunk elements for paragraph:
 \code{\link{as_i}()},
 \code{\link{as_sub}()},
 \code{\link{as_sup}()},
+\code{\link{as_word_field}()},
 \code{\link{colorize}()},
 \code{\link{gg_chunk}()},
 \code{\link{hyperlink_text}()},

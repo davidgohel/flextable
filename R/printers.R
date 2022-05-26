@@ -349,6 +349,7 @@ print.flextable <- function(x, preview = "html", ...){
     file_out <- print(doc, target = tempfile(fileext = ".pptx"))
     browseURL(file_out)
   } else if( preview == "docx" ){
+    x <- flextable_global$defaults$post_process_docx(x)
     doc <- read_docx()
     doc <- body_add_flextable(doc, value = x, align = "center")
     file_out <- print(doc, target = tempfile(fileext = ".docx"))
@@ -726,6 +727,8 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL){
   }
 
   values <- Filter(function(x) inherits(x, "flextable"), values)
+  values <- lapply(values, flextable_global$defaults$post_process_docx)
+
   titles <- names(values)
   show_names <- !is.null(titles)
 

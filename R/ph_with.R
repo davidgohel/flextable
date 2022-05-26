@@ -26,6 +26,9 @@
 #' print(doc, target = fileout)
 ph_with.flextable <- function( x, value, location, ... ){
   stopifnot(inherits(x, "rpptx"))
+
+  value <- flextable_global$defaults$post_process_pptx(value)
+
   graphic_frame <- pptx_str(value)
   hlinks <- attr(graphic_frame, "hlinks")
   if( length(hlinks) > 0 ){
