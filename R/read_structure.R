@@ -150,9 +150,9 @@ fortify_hrule <- function(x){
   dat
 }
 
-fortify_span <- function(x){
+fortify_span <- function(x, parts = c("header", "body", "footer")){
   rows <- list()
-  for(part in c("header", "body", "footer")){
+  for(part in parts){
     if( nrow_part(x, part) > 0 ){
       nr <- nrow(x[[part]]$spans$rows)
       rows[[part]] <- data.frame(

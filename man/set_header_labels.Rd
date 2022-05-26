@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment_rows.R
 \name{set_header_labels}
 \alias{set_header_labels}
-\title{Set flextable's headers labels}
+\title{Change headers labels}
 \usage{
 set_header_labels(x, ..., values = NULL)
 }
@@ -16,8 +16,8 @@ value specifying label to use.}
 value specifying label to use. If provided, argument \code{...} will be ignored.}
 }
 \description{
-This function set labels for specified columns
-in a single row header of a flextable.
+This function set labels for specified
+columns in the bottom row header of a flextable.
 }
 \section{Illustrations}{
 
@@ -52,6 +52,7 @@ Other functions to add rows in header or footer:
 \code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
 \code{\link{add_header}()},
+\code{\link{separate_header}()},
 \code{\link{set_header_footer_df}}
 }
 \concept{functions to add rows in header or footer}

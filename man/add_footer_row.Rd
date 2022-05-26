@@ -65,6 +65,7 @@ Other functions to add rows in header or footer:
 \code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
 \code{\link{add_header}()},
+\code{\link{separate_header}()},
 \code{\link{set_header_footer_df}},
 \code{\link{set_header_labels}()}
 }

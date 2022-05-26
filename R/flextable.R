@@ -33,8 +33,9 @@
 #' @importFrom stats setNames
 #' @seealso [style()], [autofit()], [theme_booktabs()], [knit_print.flextable()],
 #' [compose()], [footnote()], [set_caption()]
-flextable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25,
-                       defaults = list(), theme_fun = theme_booktabs ){
+flextable <- function(data, col_keys = names(data),
+                      cwidth = .75, cheight = .25,
+                      defaults = list(), theme_fun = theme_booktabs ){
 
 
   stopifnot(is.data.frame(data), ncol(data) > 0 )

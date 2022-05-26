@@ -16,6 +16,8 @@ in flextable cells as with `as_paragraph()` but without
 replacing the whole content.
 * addition of chunk function `as_word_field()` to let add 'Word' computed
 values into a flextable, as `as_word_field(x = "Page")` for a page number.
+* new function `separate_header()` to Separate collapsed 
+colnames into multiple rows.
 
 ## Issues
 

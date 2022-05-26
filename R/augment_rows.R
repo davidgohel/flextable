@@ -1,7 +1,7 @@
-#' @title Set flextable's headers labels
+#' @title Change headers labels
 #'
-#' @description This function set labels for specified columns
-#' in a single row header of a flextable.
+#' @description This function set labels for specified
+#' columns in the bottom row header of a flextable.
 #'
 #' @param x a `flextable` object
 #' @param ... named arguments (names are data colnames), each element is a single character
@@ -548,30 +548,40 @@ add_footer_lines <- function(x, values = character(0), top = FALSE) {
 # add header/footer with reference table ----
 
 set_part_df <- function(x, mapping = NULL, key = "col_keys", part) {
-  keys <- data.frame(col_keys = x$col_keys, stringsAsFactors = FALSE)
+
+  keys <- data.frame(
+    col_keys = x$col_keys,
+    stringsAsFactors = FALSE)
   names(keys) <- key
 
-  header_data <- merge(keys, mapping, by = key, all.x = TRUE, all.y = FALSE, sort = FALSE)
-  header_data <- header_data[match(keys[[key]], header_data[[key]]), ]
+  part_data <- merge(keys, mapping, by = key, all.x = TRUE, all.y = FALSE, sort = FALSE)
+  part_data <- part_data[match(keys[[key]], part_data[[key]]), ]
 
-  header_data[[key]] <- NULL
+  part_data[[key]] <- NULL
 
-  header_data <- do.call(rbind, header_data)
-  dimnames(header_data) <- NULL
+  part_data <- do.call(rbind, part_data)
+  dimnames(part_data) <- NULL
 
-  header_data <- as.data.frame(header_data, stringsAsFactors = FALSE)
-  names(header_data) <- x$col_keys
+  part_data <- as.data.frame(part_data, stringsAsFactors = FALSE)
+  names(part_data) <- x$col_keys
 
   if (length(x$blanks)) {
-    blank_ <- character(nrow(header_data))
+    blank_ <- character(nrow(part_data))
     replace_ <- lapply(x$blanks, function(x, bl) bl, blank_)
     names(replace_) <- x$blanks
-    header_data[x$blanks] <- replace_
+    part_data[x$blanks] <- replace_
   }
 
 
   colwidths <- x[[part]]$colwidths
-  x[[part]] <- eval(call(class(x[[part]]), data = header_data, col_keys = x$col_keys, cwidth = .75, cheight = .25))
+  x[[part]] <- eval(
+    call(
+      class(x[[part]]),
+      data = part_data,
+      col_keys = x$col_keys,
+      cwidth = .75, cheight = .25
+    )
+  )
   cheight <- optimal_sizes(x[[part]])$heights
 
   x[[part]]$colwidths <- colwidths
@@ -646,4 +656,139 @@ set_header_df <- function(x, mapping = NULL, key = "col_keys") {
 set_footer_df <- function(x, mapping = NULL, key = "col_keys") {
   if (!inherits(x, "flextable")) stop("set_header_labels supports only flextable objects.")
   set_part_df(x, mapping = mapping, key = key, part = "footer")
+}
+
+#' @importFrom data.table tstrsplit
+#' @export
+#' @title Separate collapsed colnames into multiple rows
+#' @description If your variable names contain
+#' multiple delimited labels, they will be separated
+#' and placed in their own rows.
+#' @param x a flextable object
+#' @param opts optional treatments to apply
+#' to the resulting header part as a character
+#' vector with multiple supported values.
+#'
+#' The supported values are:
+#'
+#' * "span-top": span empty cells with the
+#' first non empty cell, this operation is made
+#' column by column.
+#' * "center-hspan": center the cells that are
+#' horizontally spanned.
+#' * "bottom-vspan": bottom align the cells treated
+#' when "span-top" is applied.
+#' * "default-theme": apply to the new header part
+#' the theme set in `set_flextable_defaults(theme_fun = ...)`.
+#' @param split a regular expression (unless `fixed = TRUE`)
+#' to use for splitting.
+#' @param fixed logical. If TRUE match `split` exactly,
+#' otherwise use regular expressions.
+#' @family functions to add rows in header or footer
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_separate_header_1.png}{options: width="500"}}
+#' @examples
+#' library(flextable)
+#'
+#' x <- data.frame(
+#'   Species = as.factor(c("setosa", "versicolor", "virginica")),
+#'   Sepal.Length_mean = c(5.006, 5.936, 6.588),
+#'   Sepal.Length_sd = c(0.35249, 0.51617, 0.63588),
+#'   Sepal.Width_mean = c(3.428, 2.77, 2.974),
+#'   Sepal.Width_sd = c(0.37906, 0.3138, 0.3225),
+#'   Petal.Length_mean = c(1.462, 4.26, 5.552),
+#'   Petal.Length_sd = c(0.17366, 0.46991, 0.55189),
+#'   Petal.Width_mean = c(0.246, 1.326, 2.026),
+#'   Petal.Width_sd = c(0.10539, 0.19775, 0.27465)
+#' )
+#'
+#' ft_1 <- flextable(x)
+#' ft_1 <- colformat_double(ft_1, digits = 2)
+#' ft_1 <- theme_box(ft_1)
+#' ft_1 <- separate_header(
+#'   x = ft_1,
+#'   opts = c("span-top", "bottom-vspan")
+#' )
+#' ft_1
+separate_header <- function(x,
+                            opts = c(
+                              "span-top", "center-hspan",
+                              "bottom-vspan", "default-theme"
+                            ),
+                            split = "[_\\.]",
+                            fixed = FALSE) {
+  if (nrow_part(x, "header") > 1) {
+    stop(
+      "the flextable object already have additional row(s),",
+      " run `separate_header()` before any header row",
+      " augmentation"
+    )
+  }
+
+  ref_list <- tstrsplit(x$col_keys, split = split, fill = "", fixed = fixed)
+  ref_list <- rev(ref_list)
+  last_names <- ref_list[[1]]
+  names(last_names) <- x$col_keys
+  x <- set_header_labels(x, values = last_names)
+  add_labels <- ref_list[-1]
+  for (labels in add_labels) {
+
+    # dont span ""
+    tmp_labels <- labels
+    tmp_labels[tmp_labels %in% ""] <-
+      paste0("dummy-", seq_len(sum(tmp_labels %in% "")))
+    rle_labs <- rle(tmp_labels)
+    rle_labs$values[grepl("^dummy\\-", rle_labs$values)] <- ""
+
+    x <- add_header_row(
+      x = x, top = TRUE,
+      values = rle_labs$values,
+      colwidths = rle_labs$lengths
+    )
+  }
+  names(ref_list) <- letters[seq_along(ref_list)]
+  ref_list <- matrix(unlist(ref_list) %in% "", ncol = length(ref_list))
+
+  if ("default-theme" %in% opts) {
+    tmp <- do.call(
+      get_flextable_defaults()$theme_fun,
+      list(x)
+    )
+    x$header <- tmp$header
+  }
+
+  if ("span-top" %in% opts) {
+    for (j in seq_len(nrow(ref_list))) {
+      if (ref_list[j, 1]) {
+        to <- rle(ref_list[j, ])$lengths[1] + 1
+
+        x <- merge_at(
+          x = x, i = seq(1, to), j = j,
+          part = "header"
+        )
+
+        if ("bottom-vspan" %in% opts) {
+          x <- valign(
+            x = x, i = seq(1, to), j = j,
+            valign = "bottom", part = "header"
+          )
+        }
+      }
+    }
+  }
+
+  if ("center-hspan" %in% opts) {
+    nr <- nrow(x[["header"]]$spans$rows)
+    header_spans <- fortify_span(x, parts = "header")
+    header_spans <- header_spans[header_spans$rowspan > 1, ]
+    header_spans <- split(header_spans$col_id, header_spans$ft_row_id)
+    for (i in seq_along(header_spans)) {
+      x <- align(
+        x = x, i = i, j = header_spans[[i]],
+        align = "center", part = "header"
+      )
+    }
+  }
+  fix_border_issues(x)
 }
