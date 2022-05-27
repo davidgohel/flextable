@@ -8,19 +8,51 @@
 #' be defined, rows heights and columns widths can be manually set or automatically
 #' computed.
 #'
-#' Default formatting properties are automatically applied to every
-#' flextable you produce. You can change these default values with
-#' function [set_flextable_defaults()].
+#' If working with 'R Markdown' documents, you should read about knitr
+#' chunk options in [knit_print.flextable()] and about setting
+#' default values with [set_flextable_defaults()].
 #'
-#' @details
+#' @section Reuse frequently used parameters:
+#'
+#' Some default formatting properties are automatically
+#' applied to every flextable you produce.
+#'
+#' It is highly recommended to use this function because
+#' its use will minimize the code. For example, instead of
+#' calling the `fontsize()` function over and over again for
+#' each new flextable, set the font size default value by
+#' calling (before creating the flextables)
+#' `set_flextable_defaults(font.size = 11)`. This is also
+#' a simple way to have homogeneous arrays and make the
+#' documents containing them easier to read.
+#'
+#' You can change these default values with function
+#' [set_flextable_defaults()]. You can reset them
+#' with function [init_flextable_defaults()]. You
+#' can access these values by calling [get_flextable_defaults()].
+#'
+#' @section new lines and tabulations:
+#'
+#' The 'flextable' package will translate for you
+#' the new lines expressed in the form `\n` and
+#' the tabs expressed in the form `\t`.
+#'
+#' The new lines will be transformed into "soft-return",
+#' that is to say a simple carriage return and not a
+#' new paragraph.
+#'
+#' Tabs are different depending on the output format:
+#'
+#' - HTML is using entity *em space* (tag "&emsp;")
+#' - Word - a Word 'tab' element
+#' - PowerPoint - a PowerPoint 'tab' element
+#' - latex - tag "\\quad "
+#' @section flextable parts:
+#'
 #' A `flextable` is made of 3 parts: header, body and footer.
 #'
 #' Most functions have an argument named `part` that will be used
 #' to specify what part of of the table should be modified.
-#'
-#' If working with R Markdown document, you should read about knitr
-#' chunk options in [knit_print.flextable()] and about setting
-#' default values with [set_flextable_defaults()].
 #' @param data dataset
 #' @param col_keys columns names/keys to display. If some column names are not in
 #' the dataset, they will be added as blank columns by default.

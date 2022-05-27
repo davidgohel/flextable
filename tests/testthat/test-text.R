@@ -92,3 +92,28 @@ test_that("NA managment", {
   text_ <- xml_text(xml_find_all(doc, "/table/tbody/tr/td/p"))
   expect_equal(text_, c("a", "") )
 })
+
+test_that("newlines and tabulations expand correctly", {
+  z <- flextable(data.frame(a = c("")))
+  z <- compose(
+    x = z, i = 1, j = 1,
+    value = as_paragraph(
+      "this\nis\nit",
+      "\n\t", "This", "\n",
+      "is", "\n", "it", "\n",
+      "this\tis\tit\nthatsit\n"
+    )
+  )
+  z <- delete_part(z, part = "header")
+
+  chunks_txt <- flextable:::as_table_text(z)$txt
+
+  expect_equal(
+    chunks_txt,
+    c("this", "<br>", "is", "<br>", "it",
+      "<br>", "<tab>", "This", "<br>",
+      "is", "<br>", "it", "<br>", "this",
+      "<tab>", "is", "<tab>", "it", "<br>",
+      "thatsit", "<br>")
+  )
+})

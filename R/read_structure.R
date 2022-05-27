@@ -1,38 +1,36 @@
-expand_soft_return <- function(x){
-  if(!any(grepl("\n", x$txt))){
+expand_special_char <- function(x, what = "\n", with = "<br>"){
+  if(!any(grepl(what, x$txt))){
     return(x)
   }
+  str <- x$txt
+  str[str %in% what] <- with
+  tmp_txt <- strsplit(str, split = what)
+  tmp_x <- split(x, seq_len(nrow(x)))
+  tmp_txt <- mapply(function(z, str, dat) {
+    if(length(z) > 1) {
+      add <- rep(with, length(z))
+      if(!grepl(paste0(what, "$"), str)) {
+        add[length(add)] <- NA_character_
+      }
+      z <- as.character(t(matrix(c(z, add), ncol = 2)))
+      z <- z[!is.na(z)]
+    }
+    dat <- rbind.match.columns(rep(list(dat), length(z)))
+    dat$txt <- z
+    dat
+  }, tmp_txt, str, tmp_x, SIMPLIFY = FALSE)
 
-  tmp_txt <- gsub("\n", "\n<br>\n", x$txt)
-  tmp_txt <- strsplit(tmp_txt, split = "\n")[[1]]
-
-  tmp_txt <- tmp_txt[!tmp_txt %in% ""]
-  x$txt <- NULL
-  x <- rbind.match.columns(rep(list(x), length(tmp_txt)))
-  x <- cbind(data.frame(txt = tmp_txt, stringsAsFactors = FALSE), x)
-  x$seq_index <- seq_len(nrow(x))
-  x
-}
-expand_tabulation <- function(x){
-  if(!any(grepl("\t", x$txt))){
-    return(x)
-  }
-
-  tmp_txt <- gsub("\t", "\t<tab>\t", x$txt)
-  tmp_txt <- strsplit(tmp_txt, split = "\t")[[1]]
-
-  tmp_txt <- tmp_txt[!tmp_txt %in% ""]
-  x$txt <- NULL
-  x <- rbind.match.columns(rep(list(x), length(tmp_txt)))
-  x <- cbind(data.frame(txt = tmp_txt, stringsAsFactors = FALSE), x)
+  x <- rbind.match.columns(tmp_txt)
   x$seq_index <- seq_len(nrow(x))
   x
 }
 
 fortify_content <- function(x, default_chunk_fmt, ...){
 
-  x$content$data[] <- lapply(x$content$data, expand_soft_return)
-  x$content$data[] <- lapply(x$content$data, expand_tabulation)
+  x$content$data[] <- lapply(x$content$data, expand_special_char,
+                             what = "\n", with = "<br>")
+  x$content$data[] <- lapply(x$content$data, expand_special_char,
+                             what = "\t", with = "<tab>")
 
   row_id <- unlist( mapply( function(rows, data){
     rep(rows, nrow(data) )

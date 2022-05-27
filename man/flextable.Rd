@@ -35,20 +35,60 @@ table cells can be merge vertically or horizontally, row headers can easilly
 be defined, rows heights and columns widths can be manually set or automatically
 computed.
 
-Default formatting properties are automatically applied to every
-flextable you produce. You can change these default values with
-function \code{\link[=set_flextable_defaults]{set_flextable_defaults()}}.
+If working with 'R Markdown' documents, you should read about knitr
+chunk options in \code{\link[=knit_print.flextable]{knit_print.flextable()}} and about setting
+default values with \code{\link[=set_flextable_defaults]{set_flextable_defaults()}}.
 }
-\details{
+\section{Reuse frequently used parameters}{
+
+
+Some default formatting properties are automatically
+applied to every flextable you produce.
+
+It is highly recommended to use this function because
+its use will minimize the code. For example, instead of
+calling the \code{fontsize()} function over and over again for
+each new flextable, set the font size default value by
+calling (before creating the flextables)
+\code{set_flextable_defaults(font.size = 11)}. This is also
+a simple way to have homogeneous arrays and make the
+documents containing them easier to read.
+
+You can change these default values with function
+\code{\link[=set_flextable_defaults]{set_flextable_defaults()}}. You can reset them
+with function \code{\link[=init_flextable_defaults]{init_flextable_defaults()}}. You
+can access these values by calling \code{\link[=get_flextable_defaults]{get_flextable_defaults()}}.
+}
+
+\section{new lines and tabulations}{
+
+
+The 'flextable' package will translate for you
+the new lines expressed in the form \verb{\\n} and
+the tabs expressed in the form \verb{\\t}.
+
+The new lines will be transformed into "soft-return",
+that is to say a simple carriage return and not a
+new paragraph.
+
+Tabs are different depending on the output format:
+\itemize{
+\item HTML is using entity \emph{em space} (tag " ")
+\item Word - a Word 'tab' element
+\item PowerPoint - a PowerPoint 'tab' element
+\item latex - tag "\\quad "
+}
+}
+
+\section{flextable parts}{
+
+
 A \code{flextable} is made of 3 parts: header, body and footer.
 
 Most functions have an argument named \code{part} that will be used
 to specify what part of of the table should be modified.
-
-If working with R Markdown document, you should read about knitr
-chunk options in \code{\link[=knit_print.flextable]{knit_print.flextable()}} and about setting
-default values with \code{\link[=set_flextable_defaults]{set_flextable_defaults()}}.
 }
+
 \section{qflextable}{
 
 \code{qflextable} is a convenient tool to produce quickly
