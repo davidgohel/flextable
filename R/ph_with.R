@@ -16,7 +16,7 @@
 #' @examples
 #' library(officer)
 #'
-#' ft = flextable(head(iris))
+#' ft <- flextable(head(iris))
 #'
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, "Title and Content", "Office Theme")
@@ -24,18 +24,22 @@
 #'
 #' fileout <- tempfile(fileext = ".pptx")
 #' print(doc, target = fileout)
-ph_with.flextable <- function( x, value, location, ... ){
+ph_with.flextable <- function(x, value, location, ...) {
   stopifnot(inherits(x, "rpptx"))
 
   value <- flextable_global$defaults$post_process_pptx(value)
 
   graphic_frame <- pptx_str(value)
   hlinks <- attr(graphic_frame, "hlinks")
-  if( length(hlinks) > 0 ){
+  if (length(hlinks) > 0) {
     slide <- x$slide$get_slide(x$cursor)
     rel <- slide$relationship()
-    graphic_frame <- process_url(rel, url = hlinks, str = graphic_frame, pattern = "a:hlinkClick", double_esc = FALSE)
+    graphic_frame <- process_url(
+      relation_object = rel,
+      urls_set = hlinks,
+      ooxml_str = graphic_frame,
+      pattern = "a:hlinkClick"
+    )
   }
-  ph_with(x = x, value = as_xml_document(graphic_frame), location = location, ... )
+  ph_with(x = x, value = as_xml_document(graphic_frame), location = location, ...)
 }
-

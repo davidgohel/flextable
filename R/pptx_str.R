@@ -31,7 +31,10 @@ pml_runs <- function(value) {
   is_soft_return <- txt_data$txt %in% "<br>"
   is_tab <- txt_data$txt %in% "<tab>"
   is_eq <- !is.na(txt_data$eq_data)
+
   is_hlink <- !is.na(txt_data$url)
+  unique_url_key <- urls_to_keys(urls = txt_data$url, is_hlink = is_hlink)
+
   is_raster <- sapply(txt_data$img_data, function(x) {
     inherits(x, "raster") || is.character(x)
   })
@@ -52,7 +55,7 @@ pml_runs <- function(value) {
   text_nodes_str[is_tab] <- "<a:t>\t</a:t>"
 
   # manage hlinks
-  txt_data$url[is_hlink] <- vapply(txt_data$url[is_hlink], urlEncodePath, FUN.VALUE = "", USE.NAMES = FALSE)
+  txt_data$url[is_hlink] <- as.character(unique_url_key[txt_data$url[is_hlink]])
   link_pr <- ifelse(is_hlink, paste0("<a:hlinkClick r:id=\"", txt_data$url, "\"/>"), "")
 
   # manage formula
@@ -88,11 +91,9 @@ pml_runs <- function(value) {
 
   setorderv(txt_data, cols = c("part", "ft_row_id", "col_id", "seq_index"))
 
-  unique_url <- unique(na.omit(txt_data$url))
-
   txt_data <- txt_data[, lapply(.SD, function(x) paste0(x, collapse = "")), by = c("part", "ft_row_id", "col_id"), .SDcols = "par_nodes_str"]
   setDF(txt_data)
-  attr(txt_data, "url") <- unique_url
+  attr(txt_data, "url") <- unique_url_key
   txt_data
 }
 

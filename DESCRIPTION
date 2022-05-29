@@ -1,14 +1,13 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.7.1.017
+Version: 0.7.1.018
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
     person("Clementine", "Jager", role = c("ctb")),
     person("Quentin", "Fazilleau", role = c("ctb")),
-    person("Maxim", "Nazarov", role = c("ctb"),
-      comment = "rmarkdown for docx output"),
+    person("Maxim", "Nazarov", role = c("ctb"), comment = "rmarkdown for docx output"),
     person(given = "Titouan", family = "Robert", role = c("ctb")),
     person(given = "Michael", family = "Barrowman", role = c("ctb"), comment = "inline footnotes"),
     person(given = "Atsushi", family = "Yasumoto", role = c("ctb"), comment = "support for bookdown cross reference"),

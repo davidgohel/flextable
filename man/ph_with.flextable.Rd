@@ -29,7 +29,7 @@ cells, paragraphs and text properties (i.e. padding, font size, border widths).
 \examples{
 library(officer)
 
-ft = flextable(head(iris))
+ft <- flextable(head(iris))
 
 doc <- read_pptx()
 doc <- add_slide(doc, "Title and Content", "Office Theme")

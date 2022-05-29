@@ -20,91 +20,6 @@ mcoalesce_options <- function(...) {
 }
 
 
-ooxml_rotation_alignments <- function(rotation, align, valign) {
-  halign_out <- align
-  valign_out <- valign
-
-  left_top <- rotation %in% "btlr" & valign %in% "top" & align %in% "left"
-  center_top <- rotation %in% "btlr" & valign %in% "top" & align %in% "center"
-  right_top <- rotation %in% "btlr" & valign %in% "top" & align %in% "right"
-  left_middle <- rotation %in% "btlr" & valign %in% "center" & align %in% "left"
-  center_middle <- rotation %in% "btlr" & valign %in% "center" & align %in% "center"
-  right_middle <- rotation %in% "btlr" & valign %in% "center" & align %in% "right"
-  left_bottom <- rotation %in% "btlr" & valign %in% "bottom" & align %in% "left"
-  center_bottom <- rotation %in% "btlr" & valign %in% "bottom" & align %in% "center"
-  right_bottom <- rotation %in% "btlr" & valign %in% "bottom" & align %in% "right"
-
-  # left-top to right-top
-  halign_out[left_top] <- "right"
-  valign_out[left_top] <- "top"
-  # center-top to right-center
-  halign_out[center_top] <- "right"
-  valign_out[center_top] <- "center"
-  # right-top to right-bottom
-  halign_out[right_top] <- "right"
-  valign_out[right_top] <- "bottom"
-  # left_middle to center-top
-  halign_out[left_middle] <- "center"
-  valign_out[left_middle] <- "top"
-  # center_middle to center-center
-  halign_out[center_middle] <- "center"
-  valign_out[center_middle] <- "center"
-  # right_middle to center-bottom
-  halign_out[right_middle] <- "center"
-  valign_out[right_middle] <- "bottom"
-  # left_bottom to left-top
-  halign_out[left_bottom] <- "left"
-  valign_out[left_bottom] <- "top"
-  # center_bottom to left-center
-  halign_out[center_bottom] <- "left"
-  valign_out[center_bottom] <- "center"
-  # right_bottom to left-bottom
-  halign_out[right_bottom] <- "left"
-  valign_out[right_bottom] <- "bottom"
-
-  left_top <- rotation %in% "tbrl" & valign %in% "top" & align %in% "left"
-  center_top <- rotation %in% "tbrl" & valign %in% "top" & align %in% "center"
-  right_top <- rotation %in% "tbrl" & valign %in% "top" & align %in% "right"
-  left_middle <- rotation %in% "tbrl" & valign %in% "center" & align %in% "left"
-  center_middle <- rotation %in% "tbrl" & valign %in% "center" & align %in% "center"
-  right_middle <- rotation %in% "tbrl" & valign %in% "center" & align %in% "right"
-  left_bottom <- rotation %in% "tbrl" & valign %in% "bottom" & align %in% "left"
-  center_bottom <- rotation %in% "tbrl" & valign %in% "bottom" & align %in% "center"
-  right_bottom <- rotation %in% "tbrl" & valign %in% "bottom" & align %in% "right"
-
-  # left-top to left-bottom
-  halign_out[left_top] <- "left"
-  valign_out[left_top] <- "bottom"
-  # center-top to left-center
-  halign_out[center_top] <- "left"
-  valign_out[center_top] <- "center"
-  # right-top to left-top
-  halign_out[right_top] <- "left"
-  valign_out[right_top] <- "top"
-
-  # left_middle
-  halign_out[left_middle] <- "center"
-  valign_out[left_middle] <- "bottom"
-  # center_middle
-  halign_out[center_middle] <- "center"
-  valign_out[center_middle] <- "center"
-  # right_middle
-  halign_out[right_middle] <- "center"
-  valign_out[right_middle] <- "top"
-
-  # left_bottom
-  halign_out[left_bottom] <- "right"
-  valign_out[left_bottom] <- "bottom"
-  # center_bottom
-  halign_out[center_bottom] <- "right"
-  valign_out[center_bottom] <- "center"
-  # right_bottom
-  halign_out[right_bottom] <- "right"
-  valign_out[right_bottom] <- "top"
-
-  list(align = halign_out, valign = valign_out)
-}
-
 #' @importFrom htmltools urlEncodePath
 wml_runs <- function(value) {
   txt_data <- as_table_text(value)
@@ -132,7 +47,10 @@ wml_runs <- function(value) {
   is_tab <- txt_data$txt %in% "<tab>"
   is_eq <- !is.na(txt_data$eq_data)
   is_word_field <- !is.na(txt_data$word_field_data)
+
   is_hlink <- !is.na(txt_data$url)
+  unique_url_key <- urls_to_keys(urls = txt_data$url, is_hlink = is_hlink)
+
   is_raster <- sapply(txt_data$img_data, function(x) {
     inherits(x, "raster") || is.character(x)
   })
@@ -160,7 +78,7 @@ wml_runs <- function(value) {
   text_nodes_run[is_word_field] <- to_wml_word_field(txt_data$word_field_data[is_word_field], pr_txt = txt_data$fp_text_wml[is_word_field])
 
   # manage hlinks
-  url_vals <- vapply(txt_data$url[is_hlink], urlEncodePath, FUN.VALUE = "", USE.NAMES = FALSE)
+  url_vals <- as.character(unique_url_key[txt_data$url[is_hlink]])
   text_nodes_run[is_hlink] <- paste0("<w:hyperlink r:id=\"", url_vals, "\">", text_nodes_run[is_hlink], "</w:hyperlink>")
 
   # manage formula
@@ -173,12 +91,11 @@ wml_runs <- function(value) {
 
   setorderv(txt_data, cols = c("part", "ft_row_id", "col_id", "seq_index"))
 
-  unique_url <- unique(na.omit(txt_data$url))
   unique_img <- unique(na.omit(txt_data$file[is_raster]))
 
   txt_data <- txt_data[, lapply(.SD, function(x) paste0(x, collapse = "")), by = c("part", "ft_row_id", "col_id"), .SDcols = "par_nodes_str"]
   setDF(txt_data)
-  attr(txt_data, "url") <- unique_url
+  attr(txt_data, "hlinks") <- unique_url_key
   attr(txt_data, "imgs") <- unique_img
   txt_data
 }
@@ -334,7 +251,7 @@ wml_rows <- function(value, split = FALSE){
   cell_heights <- fortify_height(value)
   cell_hrule <- fortify_hrule(value)
 
-  hlinks <- attr(txt_data, "url")
+  hlinks <- attr(txt_data, "hlinks")
   imgs <- attr(txt_data, "imgs")
 
   setDT(cell_data)
@@ -394,7 +311,7 @@ wml_rows <- function(value, split = FALSE){
   rows <- paste0(rows, collapse = "")
 
   attr(rows, "imgs") <- imgs
-  attr(rows, "htxt") <- hlinks
+  attr(rows, "hlinks") <- hlinks
 
   rows
 }
@@ -402,9 +319,6 @@ wml_rows <- function(value, split = FALSE){
 
 # docx_str -----
 docx_str <- function(x, align = "center", split = FALSE, keep_with_next = TRUE, doc = NULL, ...){
-
-  imgs <- character(0)
-  hlinks <- character(0)
 
   align <- match.arg(align, c("center", "left", "right"), several.ok = FALSE)
   align <- c("center" = "center", "left" = "start", "right" = "end")[align]
@@ -447,7 +361,7 @@ docx_str <- function(x, align = "center", split = FALSE, keep_with_next = TRUE, 
   out <- paste0(out, tab_str,  "</w:tbl>")
 
   imgs <- unique(attr(tab_str, "imgs"))
-  hlinks <- unique(attr(tab_str, "htxt"))
+  hlinks <- attr(tab_str, "hlinks")
 
   if( length(imgs) > 0 ) {
     if (!is.null(doc)) {
@@ -459,10 +373,13 @@ docx_str <- function(x, align = "center", split = FALSE, keep_with_next = TRUE, 
   if( length(hlinks) > 0 ){
     if (!is.null(doc)) {
       stopifnot(inherits(doc, "rdocx"))
-      for( hl in hlinks ){
-        rel <- doc$doc_obj$relationship()
-        out <- process_url(rel, url = hl, str = out, pattern = "w:hyperlink", double_esc = FALSE)
-      }
+      rel <- doc$doc_obj$relationship()
+      out <- process_url(
+        relation_object = rel,
+        urls_set = hlinks,
+        ooxml_str = out,
+        pattern = "w:hyperlink"
+      )
     }
   }
 

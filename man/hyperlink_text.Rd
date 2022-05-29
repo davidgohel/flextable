@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{hyperlink_text}
 \alias{hyperlink_text}
-\title{chunk of text with hyperlink wrapper}
+\title{Chunk of text with hyperlink}
 \usage{
 hyperlink_text(x, props = NULL, formatter = format_fun, url, ...)
 }
@@ -26,6 +26,8 @@ objects.
 It is used to add it to the content of a cell of the
 flextable with the functions \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}
 or \code{\link[=prepend_chunks]{prepend_chunks()}}.
+
+URL are not encoded, they are preserved 'as is'.
 }
 \note{
 This chunk option requires package officedown in a R Markdown

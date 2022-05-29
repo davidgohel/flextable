@@ -1,4 +1,4 @@
-context("check cells text")
+context("check hyperlink")
 
 library(xml2)
 library(officer)
@@ -6,84 +6,42 @@ library(officer)
 data <- data.frame(
   code = c("X01", "X02"),
   name = c("X Number 1", "X Number 2"),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 url_base <- "https://example.com?/path&project=%s"
 ft <- flextable(data)
-ft <- flextable::compose(ft,
-                         j = ~ code,
-                         value = as_paragraph(
-                           hyperlink_text(code, url = sprintf(url_base, code))
-                         )
+ft <- mk_par(
+  x = ft,
+  j = ~code,
+  value = as_paragraph(
+    hyperlink_text(code, url = sprintf(url_base, code))
+  )
 )
 
-get_xml_doc <- function(tab, main_folder = "docx_folder") {
-  docx_file <- tempfile(fileext = ".docx")
-  doc <- read_docx()
-  doc <- body_add_flextable(doc, value = tab)
-  print(doc, target = docx_file)
 
-  main_folder <- file.path(getwd(), main_folder )
-  unlink(main_folder, recursive = TRUE, force = TRUE)
-
-  unpack_folder(file = docx_file, folder = main_folder)
-  doc_file <- file.path(main_folder, "/word/document.xml" )
-  read_xml( doc_file )
-}
-
-get_xml_ppt <- function(tab, main_folder = "pptx_folder") {
-  pptx_file <- tempfile(fileext = ".pptx")
-  doc <- read_pptx()
-  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with(doc, tab, location = ph_location_type(type = "body"))
-  print(doc, target = pptx_file)
-
-  main_folder <- file.path(getwd(), main_folder )
-  unlink(main_folder, recursive = TRUE, force = TRUE)
-  unpack_folder(file = pptx_file, folder = main_folder)
-  doc_file <- file.path(main_folder, "/ppt/slides/slide1.xml" )
-  read_xml( doc_file )
-}
-
-test_that("docx - url encoding", {
-  main_folder <- "docx_folder"
-
-  doc <- get_xml_doc( tab = ft, main_folder = main_folder )
-  rid <- xml_attr(xml_find_all(doc, "//w:hyperlink"), "id")
-  rels <- read_xml(file.path(main_folder, "word", "_rels", "document.xml.rels"))
-  urls <- sapply(rid, function(id, x){
-    z <- xml_find_first(x, sprintf("//*[@Id='%s']", id))
-    xml_attr(z, "Target")
-  }, rels)
-
-  expect_equivalent(urls, c("https%3A//example.com%3F/path%26project%3DX01",
-                       "https%3A//example.com%3F/path%26project%3DX02" )
-               )
-
-  unlink(main_folder, recursive = TRUE, force = TRUE)
+test_that("URL are preserved in docx", {
+  outfile <- tempfile(fileext = ".docx")
+  save_as_docx(ft, path = outfile)
+  doc <- read_docx(path = outfile)
+  body <- docx_body_xml(doc)
+  rid <- xml_attr(xml_find_all(body, "//w:hyperlink"), "id")
+  rels <- doc$doc_obj$rel_df()
+  urls <- rels[rels$id %in% rid, "target"]
+  expect_equivalent(urls, sprintf(url_base, data$code))
 })
 
-test_that("pptx - url encoding", {
-
-  main_folder <- "pptx_folder"
-
-  doc <- get_xml_ppt( tab = ft, main_folder = main_folder )
-  rid <- xml_attr(xml_find_all(doc, "//a:hlinkClick"), "id")
-  rels <- read_xml(file.path(main_folder, "ppt/slides/_rels/slide1.xml.rels"))
-  urls <- sapply(rid, function(id, x){
-    z <- xml_find_first(x, sprintf("//*[@Id='%s']", id))
-    xml_attr(z, "Target")
-  }, rels)
-
-  expect_equivalent(urls, c("https%3A//example.com%3F/path%26project%3DX01",
-                       "https%3A//example.com%3F/path%26project%3DX02" )
-  )
-
-
-  unlink(main_folder, recursive = TRUE, force = TRUE)
+test_that("URL are preserved in pptx", {
+  outfile <- tempfile(fileext = ".pptx")
+  save_as_pptx(ft, path = outfile)
+  doc <- read_pptx(path = outfile)
+  xml_slide <- doc$slide$get_slide(1)$get()
+  rid <- xml_attr(xml_find_all(xml_slide, "//a:hlinkClick"), "id")
+  rels <- doc$slide$get_slide(1)$rel_df()
+  urls <- rels[rels$id %in% rid, "target"]
+  expect_equivalent(urls, sprintf(url_base, data$code))
 })
 
-test_that("html - url encoding", {
-
+test_that("URL are preserved in html", {
   str_ <- flextable:::html_str(ft)
   str_ <- gsub("<style>(.*)</style>", "", str_)
   str_ <- gsub("<script>(.*)</script>", "", str_)
@@ -91,5 +49,5 @@ test_that("html - url encoding", {
   str_ <- gsub("</div></template(.*)", "", str_)
   doc <- read_html(str_)
   urls <- xml_attr(xml_find_all(doc, "//a"), "href")
-  expect_equivalent(urls, sprintf(url_base, data$code) )
+  expect_equivalent(urls, sprintf(url_base, data$code))
 })

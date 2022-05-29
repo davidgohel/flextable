@@ -411,13 +411,15 @@ as_bracket <- function(..., sep = ", ", p = "(", s = ")"){
 }
 
 #' @export
-#' @title chunk of text with hyperlink wrapper
+#' @title Chunk of text with hyperlink
 #' @description The function lets add hyperlinks within flextable
 #' objects.
 #'
 #' It is used to add it to the content of a cell of the
 #' flextable with the functions [compose()], [append_chunks()]
 #' or [prepend_chunks()].
+#'
+#' URL are not encoded, they are preserved 'as is'.
 #'
 #' @note
 #' This chunk option requires package officedown in a R Markdown

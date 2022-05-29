@@ -17,29 +17,6 @@ check_formula_i_and_part <- function(i, part){
   TRUE
 }
 
-
-#' @importFrom xml2 xml_attr<- xml_find_all xml_attr
-process_url <- function(rel, url, str, pattern, double_esc = TRUE){
-
-  if(double_esc)
-    escape <- function(x) htmlEscape(htmlEscape(x))
-  else escape <- function(x) htmlEscape(x)# it seems that word does not behave as powerpoint
-
-
-  doc <- as_xml_document(str)
-  for(url_ in url){
-    new_rid <- sprintf("rId%.0f", rel$get_next_id())
-    rel$add(
-      id = new_rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
-      target = escape(url_), target_mode = "External" )
-
-    linknodes <- xml_find_all(doc, paste0("//", pattern, "[@r:id=", shQuote(url_), "]"))
-    xml_attr(linknodes, "r:id") <- new_rid
-  }
-
-  as.character(doc)
-}
-
 absolute_path <- function(x){
 
   if (length(x) != 1L)
