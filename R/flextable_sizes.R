@@ -133,7 +133,7 @@ height <- function(x, i = NULL, height, part = "body", unit = "in"){
 #' @title Set flextable rule for rows heights
 #' @description control rules of each height for a part
 #' of the flextable, this is only for Word and PowerPoint outputs, it
-#' will not have any effect when output is HTML.
+#' will not have any effect when output is HTML or PDF.
 #' @param x flextable object
 #' @param i rows selection
 #' @param rule specify the meaning of the height. Possible values

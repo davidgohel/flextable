@@ -107,13 +107,18 @@ to_shadow_dom <- function(uid1, uid2, ft.align = NULL, topcaption = TRUE){
 #' @importFrom data.table setnames setorderv := setcolorder setDT setDF dcast
 html_gen <- function(x){
 
+  cell_data_f <- fortify_style(x, "cells")
+  cell_data_f$col_id <- factor(cell_data_f$col_id, levels = x$col_keys)
+  cell_data_f$part <- factor(cell_data_f$part, levels = c("header", "body", "footer"))
+
+  par_data_f <- fortify_style(x, "pars")
+  par_data_f$col_id <- factor(par_data_f$col_id, levels = x$col_keys)
+
   fixed_layout <- x$properties$layout %in% "fixed"
 
   cell_heights <- fortify_height(x)
   cell_widths <- fortify_width(x)
   cell_hrule <- fortify_hrule(x)
-  par_data_f <- fortify_style(x, "pars")
-  cell_data_f <- fortify_style(x, "cells")
 
   txt_data <- as_table_text(x)
 
@@ -355,24 +360,33 @@ text_css_styles <- function(x){
   paste0(".", x$classname, "{", style_column, "}", collapse = "")
 }
 
+css_align <- function(text.direction, align) {
+
+  textdir <- rep("", length(text.direction))
+  textdir[text.direction %in% "btlr"] <- "writing-mode: vertical-rl;transform: rotate(180deg);"
+  textdir[text.direction %in% "tbrl"] <- "writing-mode: vertical-rl;"
+
+  textalign <- sprintf("text-align:%s;", align )
+
+  textalign_margins <- rep("", length(text.direction))
+  textalign_margins[text.direction %in% "tbrl" & align %in% "center"] <- "margin-left:auto;margin-right:auto;"
+  textalign_margins[text.direction %in% "tbrl" & align %in% "left"] <-"margin-right:auto;"
+  textalign_margins[text.direction %in% "tbrl" & align %in% "right"] <- "margin-left:auto;"
+
+  textalign_margins[text.direction %in% "btlr" & align %in% "center"] <- "margin-left:auto;margin-right:auto;"
+  textalign_margins[text.direction %in% "btlr" & align %in% "left"] <- "margin-right:auto;"
+  textalign_margins[text.direction %in% "btlr" & align %in% "right"] <- "margin-left:auto;"
+
+  paste0(textalign, textalign_margins, textdir)
+}
+
 par_css_styles <- function(x){
-  shading <- ifelse( colalpha(x$shading.color) > 0,
-                     sprintf("background-color:%s;", colcodecss(x$shading.color) ),
-                     "background-color:transparent;")
 
-  textdir <- ifelse(x$text.direction %in% "tbrl", "writing-mode:vertical-rl;",
-                    ifelse(x$text.direction %in% "btlr", "writing-mode:vertical-lr;transform: rotate(180deg);", "")
-  )
-  textalign <- sprintf("text-align:%s;", x$text.align )
-  textalign_margins <- rep("", nrow(x))
+  shading <- rep("background-color:transparent;", nrow(x))
+  has_shading <- colalpha(x$shading.color) > 0
+  shading[has_shading] <- sprintf("background-color:%s;", colcodecss(x$shading.color[has_shading]))
 
-  textalign_margins[x$text.direction %in% "tbrl" & x$vertical.align %in% "center"] <- "margin-left:auto;margin-right:auto;"
-  textalign_margins[x$text.direction %in% "tbrl" & x$vertical.align %in% "top"] <- "margin-left:auto;"
-  textalign_margins[x$text.direction %in% "tbrl" & x$vertical.align %in% "bottom"] <- "margin-right:auto;"
-  textalign_margins[x$text.direction %in% "btlr" & x$vertical.align %in% "center"] <- "margin-left:auto;margin-right:auto;"
-  textalign_margins[x$text.direction %in% "btlr" & x$vertical.align %in% "top"] <- "margin-right:auto;"
-  textalign_margins[x$text.direction %in% "btlr" & x$vertical.align %in% "bottom"] <- "margin-left:auto;"
-  textalign <- paste0(textalign, textalign_margins)
+  textalign <- css_align(x$text.direction, x$text.align)
 
   bb <- border_css(
     color = x$border.color.bottom, width = x$border.width.bottom,
@@ -394,7 +408,7 @@ par_css_styles <- function(x){
 
   line_spacing <- sprintf("line-height: %s;", css_no_unit(x$line_spacing, 2) )
 
-  style_column <- paste0("margin:0;", textalign, textdir, bb, bt, bl, br,
+  style_column <- paste0("margin:0;", textalign, bb, bt, bl, br,
                          padding.bottom, padding.top, padding.left, padding.right,
                          line_spacing, shading )
   paste0(".", x$classname, "{", style_column, "}", collapse = "")
@@ -409,12 +423,9 @@ cell_css_styles <- function(x){
   width <- ifelse( is.na(x$width), "", sprintf("width:%s;", css_pt(x$width * 72) ) )
   height <- ifelse( !is.na(x$height) & x$hrule %in% c("exact", "atleast"), sprintf("height:%s;", css_pt(x$height * 72 ) ), "" )
 
-  vertical.align <- ifelse(
-    x$vertical.align %in% "center", "vertical-align: middle;",
-    ifelse(x$vertical.align %in% "top", "vertical-align: top;", "vertical-align: bottom;") )
-  vertical.align[x$text.direction %in% "tbrl" & x$text.align %in% "center"] <- "vertical-align:middle;"
-  vertical.align[x$text.direction %in% "tbrl" & x$text.align %in% "left"] <- "vertical-align:top;"
-  vertical.align[x$text.direction %in% "tbrl" & x$text.align %in% "right"] <- "vertical-align:bottom;"
+  vertical.align <- rep("vertical-align: middle;", nrow(x))
+  vertical.align[x$vertical.align %in% "top"] <- "vertical-align: top;"
+  vertical.align[x$vertical.align %in% "bottom"] <- "vertical-align: bottom;"
 
   bb <- border_css(
     color = x$border.color.bottom, width = x$border.width.bottom,

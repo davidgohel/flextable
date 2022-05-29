@@ -75,6 +75,8 @@ extract_example(file = "man/as_chunk.Rd", dir = "figures2", webshot = "webshot")
 extract_example(file = "man/compose.Rd", dir = "figures2", webshot = "webshot")
 extract_example(file = "man/separate_header.Rd", dir = "figures2", webshot = "webshot",
                 base_width = 500)
+extract_example(file = "man/rotate.Rd", dir = "figures2", webshot = "webshot2",
+                base_width = 400)
 
 fs::dir_info("figures2")
 minimage::compress_images(input = "figures2", output = "man/figures", overwrite = TRUE)

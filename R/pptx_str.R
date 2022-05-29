@@ -96,10 +96,7 @@ pml_runs <- function(value) {
   txt_data
 }
 
-pml_pars <- function(value){
-
-  par_data <- fortify_style(value, "pars")
-  par_data$col_id <- factor(par_data$col_id, levels = value$col_keys)
+pml_pars <- function(value, par_data){
 
   data_ref_pars <- par_style_list(par_data)
 
@@ -151,15 +148,11 @@ pml_spans <- function(value){
 }
 
 #' @importFrom data.table shift fcoalesce
-pml_cells <- function(value){
+pml_cells <- function(value, cell_data){
 
   cell_heights <- fortify_height(value)
   cell_widths <- fortify_width(value)
   cell_hrule <- fortify_hrule(value)
-
-  cell_data <- fortify_style(value, "cells")
-  cell_data$col_id <- factor(cell_data$col_id, levels = value$col_keys)
-  cell_data$part <- factor(cell_data$part, levels = c("header", "body", "footer"))
 
   cell_data$width  <- NULL# need to get rid of originals that are empty, should probably rm them
   cell_data$height  <- NULL
@@ -218,10 +211,25 @@ pml_cells <- function(value){
 
 pptx_str <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0){
 
+  cell_attributes <- fortify_style(value, "cells")
+  cell_attributes$col_id <- factor(cell_attributes$col_id, levels = value$col_keys)
+  cell_attributes$part <- factor(cell_attributes$part, levels = c("header", "body", "footer"))
+
+  par_attributes <- fortify_style(value, "pars")
+  par_attributes$col_id <- factor(par_attributes$col_id, levels = value$col_keys)
+
+  new_pos <- ooxml_rotation_alignments(
+    rotation = cell_attributes$text.direction,
+    valign = cell_attributes$vertical.align,
+    align = par_attributes$text.align)
+
+  par_attributes$text.align <- new_pos$align
+  cell_attributes$vertical.align <- new_pos$valign
+
   txt_data <- pml_runs(value)
-  par_data <- pml_pars(value)
+  par_data <- pml_pars(value, par_attributes)
   span_data <- pml_spans(value)
-  cell_data <- pml_cells(value)
+  cell_data <- pml_cells(value, cell_attributes)
   cell_heights <- fortify_height(value)
 
   hlinks <- attr(txt_data, "url")

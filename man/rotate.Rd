@@ -4,7 +4,7 @@
 \alias{rotate}
 \title{rotate cell text}
 \usage{
-rotate(x, i = NULL, j = NULL, rotation, align = "center", part = "body")
+rotate(x, i = NULL, j = NULL, rotation, align = NULL, part = "body")
 }
 \arguments{
 \item{x}{a flextable object}
@@ -13,8 +13,7 @@ rotate(x, i = NULL, j = NULL, rotation, align = "center", part = "body")
 
 \item{j}{columns selection}
 
-\item{rotation}{one of "lrtb", "tbrl", "btlr". Note that "btlr" is ignored
-when output is HTML.}
+\item{rotation}{one of "lrtb", "tbrl", "btlr".}
 
 \item{align}{vertical alignment of paragraph within cell,
 one of "center" or "top" or "bottom".}
@@ -22,12 +21,22 @@ one of "center" or "top" or "bottom".}
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
-apply a rotation to cell text. The text direction can
-be "lrtb" which mean from left to right and top to bottom (the default direction).
-In some cases, it can be useful to be able
-to change the direction, when the table headers are huge for example, header labels can
-be rendered as "tbrl" (top to bottom and right to left) corresponding to a 90 degrees rotation
-or "btlr" corresponding to a 270 degrees rotation.
+It can be useful to be able to change the direction,
+when the table headers are huge for example, header labels can
+be rendered as "tbrl" (top to bottom and right to left) corresponding
+to a 90 degrees rotation or "btlr" corresponding to a 270
+degrees rotation.
+The function change cell text direction. By default, it is
+"lrtb" which mean from left to right and top to bottom.
+
+'Word' and 'PowerPoint' don't handle auto height with rotated headers.
+So you need to set header heights (with function \code{\link[=height]{height()}})
+and set rule "exact" for rows heights (with function \code{\link[=hrule]{hrule()}})
+otherwise Word and PowerPoint outputs will have small height
+not corresponding to the necessary height to display the text.
+
+Note that PDF does not yet support vertical alignments when
+text is rotated.
 }
 \details{
 When function \code{autofit} is used, the rotation will be
@@ -43,26 +52,41 @@ of \link{autofit}.
 \examples{
 library(flextable)
 
-ft <- flextable(head(iris))
+ft_1 <- flextable(head(iris))
 
-# measure column widths but only for the body part
-w_body <- dim_pretty(ft, part = "body")$widths
-# measure column widths only for the header part and get the max
-# as height value for rotated text
-h_header <- max(dim_pretty(ft, part = "header")$widths)
+ft_1 <- rotate(ft_1, j = 1:4, align = "bottom", rotation = "tbrl", part = "header")
+ft_1 <- rotate(ft_1, j = 5, align = "bottom", rotation = "btlr", part = "header")
 
-ft <- rotate(ft, j = 1:4, rotation = "btlr", part = "header")
-ft <- rotate(ft, j = 5, rotation = "tbrl", part = "header")
+# if output is docx or pptx, think about (1) set header heights
+# and (2) set rule "exact" for rows heights because Word
+# and PowerPoint don't handle auto height with rotated headers
+ft_1 <- height(ft_1, height = 1.2, part = "header")
+ft_1 <- hrule(ft_1, i = 1, rule = "exact", part = "header")
 
-ft <- valign(ft, valign = "center", part = "header")
-ft <- flextable::align(ft, align = "center", part = "all")
+ft_1
 
-# Manage header height
-ft <- height(ft, height = h_header * 1.1, part = "header")
-# ... mainly because Word don't handle auto height with rotated headers
-ft <- hrule(ft, i = 1, rule = "exact", part = "header")
+dat <- data.frame(
+  a = c("left-top", "left-middle", "left-bottom"),
+  b = c("center-top", "center-middle", "center-bottom"),
+  c = c("right-top", "right-middle", "right-bottom")
+)
 
-ft
+ft_2 <- flextable(dat)
+ft_2 <- theme_box(ft_2)
+ft_2 <- height_all(x = ft_2, height = 1.3, part = "body")
+ft_2 <- hrule(ft_2, rule = "exact")
+ft_2 <- rotate(ft_2, rotation = "tbrl")
+ft_2 <- width(ft_2, width = 1.3)
+
+ft_2 <- align(ft_2, j = 1, align = "left")
+ft_2 <- align(ft_2, j = 2, align = "center")
+ft_2 <- align(ft_2, j = 3, align = "right")
+
+ft_2 <- valign(ft_2, i = 1, valign = "top")
+ft_2 <- valign(ft_2, i = 2, valign = "center")
+ft_2 <- valign(ft_2, i = 3, valign = "bottom")
+
+ft_2
 }
 \seealso{
 Other sugar functions for table style: 

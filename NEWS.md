@@ -31,6 +31,9 @@ at the end of the function arguments, after the `...`.
 to avoid mistake while mapping. #395
 * Fix issue with footnotes forcing rectangular extent for selection; 
 thanks to Sean Browning
+* fix horizontal and vertical alignements when rotating paragraphs for 
+pptx, docx and html outputs
+
 
 ## Changes
 
