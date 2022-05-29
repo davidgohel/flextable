@@ -363,8 +363,8 @@ text_css_styles <- function(x){
 css_align <- function(text.direction, align) {
 
   textdir <- rep("", length(text.direction))
-  textdir[text.direction %in% "btlr"] <- "writing-mode: vertical-rl;transform: rotate(180deg);"
-  textdir[text.direction %in% "tbrl"] <- "writing-mode: vertical-rl;"
+  textdir[text.direction %in% "btlr"] <- "writing-mode: vertical-rl;transform: rotate(180deg);-ms-writing-mode:bt-lr;-webkit-writing-mode:vertical-rl;"
+  textdir[text.direction %in% "tbrl"] <- "writing-mode: vertical-rl;-ms-writing-mode:tb-rl;-webkit-writing-mode:vertical-rl;"
 
   textalign <- sprintf("text-align:%s;", align )
 
