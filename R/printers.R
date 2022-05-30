@@ -52,7 +52,7 @@ htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE){
 #' cell, the default value is 8 points.
 #' @param ft.arraystretch height of each row relative to its default
 #' height, the default value is 1.5.
-#' @param ft.latex.float type of placement in the document, one of:
+#' @param ft.latex.float type of floating placement in the document, one of:
 #' * 'none' (the default value), table is placed after the preceding
 #' paragraph.
 #' * 'float', table can float to a place in the text where it fits best
@@ -450,7 +450,7 @@ print.flextable <- function(x, preview = "html", ...){
 #'   ft.keepnext     \tab Word option 'keep rows together' can be activated when TRUE. \tab TRUE    \tab no  \tab yes \tab no  \tab no \cr
 #'   ft.tabcolsep    \tab space between the text and the left/right border of its containing cell   \tab 8.0      \tab no  \tab no  \tab yes \tab no \cr
 #'   ft.arraystretch \tab height of each row relative to its default height                         \tab 1.5      \tab no  \tab no  \tab yes \tab no \cr
-#'   ft.latex.float    \tab type of placement in the document, one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o' \tab 'none'      \tab no  \tab no  \tab yes \tab no \cr
+#'   ft.latex.float  \tab type of floating placement in the document, one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o' \tab 'none'      \tab no  \tab no  \tab yes \tab no \cr
 #'   ft.left         \tab left coordinates in inches                                                \tab 1.0      \tab no  \tab no  \tab no  \tab yes\cr
 #'   ft.top          \tab top coordinates in inches                                                 \tab 2.0      \tab no  \tab no  \tab no  \tab yes
 #' }

@@ -22,7 +22,7 @@ colnames into multiple rows.
 * `autofit()` and `dim_pretty()` now have an argument `hspans` 
 to help specify how horizontally spanned cells should affect 
 the results.
-* PDF output now supports various placement options with 
+* PDF output now supports various floating placement options with 
 knitr option `ft.latex.float`, supported values are 'none' 
 (the default value), 'float', 'wrap-r', 'wrap-l', 
 'wrap-i' and 'wrap-o'.

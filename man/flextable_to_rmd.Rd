@@ -39,7 +39,7 @@ cell, the default value is 8 points.}
 \item{ft.arraystretch}{height of each row relative to its default
 height, the default value is 1.5.}
 
-\item{ft.latex.float}{type of placement in the document, one of:
+\item{ft.latex.float}{type of floating placement in the document, one of:
 \itemize{
 \item 'none' (the default value), table is placed after the preceding
 paragraph.
