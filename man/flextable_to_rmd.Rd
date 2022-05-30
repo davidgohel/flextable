@@ -11,6 +11,7 @@ flextable_to_rmd(
   ft.keepnext = opts_current$get("ft.keepnext"),
   ft.tabcolsep = opts_current$get("ft.tabcolsep"),
   ft.arraystretch = opts_current$get("ft.arraystretch"),
+  ft.latex.float = opts_current$get("ft.latex.float"),
   ft.left = opts_current$get("ft.left"),
   ft.top = opts_current$get("ft.top"),
   text_after = "",
@@ -37,6 +38,17 @@ cell, the default value is 8 points.}
 
 \item{ft.arraystretch}{height of each row relative to its default
 height, the default value is 1.5.}
+
+\item{ft.latex.float}{type of placement in the document, one of:
+\itemize{
+\item 'none' (the default value), table is placed after the preceding
+paragraph.
+\item 'float', table can float to a place in the text where it fits best
+\item 'wrap-r', wrap text around the table positioned to the right side of the text
+\item 'wrap-l', wrap text around the table positioned to the left side of the text
+\item 'wrap-i', wrap text around the table positioned inside edge–near the binding
+\item 'wrap-o', wrap text around the table positioned outside edge–far from the binding
+}}
 
 \item{ft.left, ft.top}{Position should be defined with options \code{ft.left}
 and \code{ft.top}. Theses are the top left coordinates in inches

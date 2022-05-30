@@ -4,7 +4,12 @@
 \alias{add_latex_dep}
 \title{add latex dependencies}
 \usage{
-add_latex_dep()
+add_latex_dep(float = FALSE, wrapfig = FALSE)
+}
+\arguments{
+\item{float}{load package 'float'}
+
+\item{wrapfig}{load package 'wrapfig'}
 }
 \description{
 Manually add flextable latex dependencies to

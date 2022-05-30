@@ -52,6 +52,14 @@ htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE){
 #' cell, the default value is 8 points.
 #' @param ft.arraystretch height of each row relative to its default
 #' height, the default value is 1.5.
+#' @param ft.latex.float type of placement in the document, one of:
+#' * 'none' (the default value), table is placed after the preceding
+#' paragraph.
+#' * 'float', table can float to a place in the text where it fits best
+#' * 'wrap-r', wrap text around the table positioned to the right side of the text
+#' * 'wrap-l', wrap text around the table positioned to the left side of the text
+#' * 'wrap-i', wrap text around the table positioned inside edge–near the binding
+#' * 'wrap-o', wrap text around the table positioned outside edge–far from the binding
 #' @param ft.left,ft.top Position should be defined with options `ft.left`
 #' and `ft.top`. Theses are the top left coordinates in inches
 #' of the placeholder that will contain the table. Their
@@ -88,6 +96,7 @@ flextable_to_rmd <- function(
                              ft.keepnext = opts_current$get("ft.keepnext"),
                              ft.tabcolsep = opts_current$get("ft.tabcolsep"),
                              ft.arraystretch = opts_current$get("ft.arraystretch"),
+                             ft.latex.float = opts_current$get("ft.latex.float"),
                              ft.left = opts_current$get("ft.left"),
                              ft.top = opts_current$get("ft.top"),
                              text_after = "",
@@ -117,7 +126,8 @@ flextable_to_rmd <- function(
     # latex ----
     str <- latex_value(x,
       ft.tabcolsep = ft.tabcolsep, ft.align = ft.align,
-      ft.arraystretch = ft.arraystretch, bookdown = bookdown
+      ft.arraystretch = ft.arraystretch, bookdown = bookdown,
+      ft.latex.float = ft.latex.float
     )
   } else if (grepl("docx", opts_knit$get("rmarkdown.pandoc.to"))) {
     # docx ----
@@ -256,6 +266,8 @@ docx_value <- function(x,
 #' cell, the default value is 8 points.
 #' @param ft.arraystretch height of each row relative to its default
 #' height, the default value is 1.5.
+#' @param ft.latex.float 'none' (the default value), 'float', 'wrap-r',
+#' 'wrap-l', 'wrap-i', 'wrap-o'.
 #' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
 #' @examples
 #' latex_value(flextable(airquality[1:5,]))
@@ -264,14 +276,35 @@ latex_value <- function(x,
                         ft.align = opts_current$get("ft.align"),
                         ft.tabcolsep = opts_current$get("ft.tabcolsep"),
                         ft.arraystretch = opts_current$get("ft.arraystretch"),
+                        ft.latex.float = opts_current$get("ft.latex.float"),
                         bookdown) {
   if (is.null(ft.align)) ft.align <- "center"
   if (is.null(ft.tabcolsep)) ft.tabcolsep <- 2
   if (is.null(ft.arraystretch)) ft.arraystretch <- 1.5
+  if (is.null(ft.latex.float)) ft.latex.float <- "none"
 
   x <- flextable_global$defaults$post_process_pdf(x)
 
-  add_latex_dep()
+  add_latex_dep(
+    float = "float" %in% ft.latex.float,
+    wrapfig = grepl("^wrap", ft.latex.float)
+  )
+
+  if ("none" %in% ft.latex.float) {
+    lat_container <- latex_container_none()
+  } else if ("float" %in% ft.latex.float) {
+    lat_container <- latex_container_float()
+  } else if ("wrap-l" %in% ft.latex.float) {
+    lat_container <- latex_container_wrap(placement = "l")
+  } else if ("wrap-r" %in% ft.latex.float) {
+    lat_container <- latex_container_wrap(placement = "r")
+  } else if ("wrap-i" %in% ft.latex.float) {
+    lat_container <- latex_container_wrap(placement = "i")
+  } else if ("wrap-o" %in% ft.latex.float) {
+    lat_container <- latex_container_wrap(placement = "o")
+  } else {
+    lat_container <- latex_container_none()
+  }
 
   out <- paste(
     cline_cmd,
@@ -279,6 +312,7 @@ latex_value <- function(x,
       ft.align = ft.align,
       ft.tabcolsep = ft.tabcolsep,
       ft.arraystretch = ft.arraystretch,
+      lat_container = lat_container,
       bookdown = bookdown
     ),
     sep = "\n\n"
@@ -416,9 +450,13 @@ print.flextable <- function(x, preview = "html", ...){
 #'   ft.keepnext     \tab Word option 'keep rows together' can be activated when TRUE. \tab TRUE    \tab no  \tab yes \tab no  \tab no \cr
 #'   ft.tabcolsep    \tab space between the text and the left/right border of its containing cell   \tab 8.0      \tab no  \tab no  \tab yes \tab no \cr
 #'   ft.arraystretch \tab height of each row relative to its default height                         \tab 1.5      \tab no  \tab no  \tab yes \tab no \cr
+#'   ft.latex.float    \tab type of placement in the document, one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o' \tab 'none'      \tab no  \tab no  \tab yes \tab no \cr
 #'   ft.left         \tab left coordinates in inches                                                \tab 1.0      \tab no  \tab no  \tab no  \tab yes\cr
 #'   ft.top          \tab top coordinates in inches                                                 \tab 2.0      \tab no  \tab no  \tab no  \tab yes
 #' }
+#'
+#' See [flextable_to_rmd()] for more details about these options.
+#'
 #' @section Table caption:
 #'
 #' Captions can be defined in two ways.
