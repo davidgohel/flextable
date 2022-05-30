@@ -279,15 +279,19 @@ dim.flextable <- function(x){
 #' @param x flextable object
 #' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
 #' @param unit unit for returned values, one of "in", "cm", "mm".
-#' @section line breaks:
-#' Soft returns (a line break in a paragraph) are not supported. Function
-#' `dim_pretty` will return wrong results if `\n` are used (they will be
-#' considered as "").
+#' @param hspans specifies how cells that are horizontally are included in the calculation.
+#' It must be one of the following values "none", "divided" or "included". If
+#' "none", widths of horizontally spanned cells is set to 0 (then do not affect the
+#' widths); if "divided", widths of horizontally spanned cells is divided by
+#' the number of spanned cells; if "included", all widths (included horizontally
+#' spanned cells) will be used in the calculation.
 #' @examples
 #' ftab <- flextable(head(mtcars))
 #' dim_pretty(ftab)
 #' @family flextable dimensions
-dim_pretty <- function( x, part = "all", unit = "in" ){
+dim_pretty <- function( x, part = "all", unit = "in", hspans = "none"){
+
+  stopifnot(length(hspans) == 1, hspans %in% c("none", "divided", "included"))
 
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE )
   if( "all" %in% part ){
@@ -296,7 +300,7 @@ dim_pretty <- function( x, part = "all", unit = "in" ){
   dimensions <- list()
   for(j in part){
     if( nrow_part(x, j ) > 0 ){
-      dimensions[[j]] <- optimal_sizes(x[[j]])
+      dimensions[[j]] <- optimal_sizes(x[[j]], hspans = hspans)
     } else {
       dimensions[[j]] <- list(widths = rep(0, length(x$col_keys) ),
            heights = numeric(0) )
@@ -323,10 +327,9 @@ dim_pretty <- function( x, part = "all", unit = "in" ){
 #' should be adjusted to fit the size of the content.
 #'
 #' The function does not let you adjust a content that is too
-#' wide in a paginated document.
-#' It simply calculates the width of the columns so that each
-#' content has the minimum width necessary to display the content
-#' on one line.
+#' wide in a paginated document. It simply calculates the width
+#' of the columns so that each content has the minimum width
+#' necessary to display the content on one line.
 #'
 #' Note that this function is not related to 'Microsoft Word'
 #' *Autofit* feature.
@@ -335,17 +338,17 @@ dim_pretty <- function( x, part = "all", unit = "in" ){
 #' well with HTML and Word output that can be set
 #' with `set_table_properties(layout = "autofit")`, see
 #' [set_table_properties()].
-#'
-#' @section line breaks:
-#' Soft returns (a line break in a paragraph) are not supported. Function
-#' `autofit` will return wrong results if `\n` are used (they will be
-#' considered as "").
-#'
 #' @param x flextable object
 #' @param add_w extra width to add in inches
 #' @param add_h extra height to add in inches
 #' @param unit unit for add_h and add_w, one of "in", "cm", "mm".
 #' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
+#' @param hspans specifies how cells that are horizontally are included in the calculation.
+#' It must be one of the following values "none", "divided" or "included". If
+#' "none", widths of horizontally spanned cells is set to 0 (then do not affect the
+#' widths); if "divided", widths of horizontally spanned cells is divided by
+#' the number of spanned cells; if "included", all widths (included horizontally
+#' spanned cells) will be used in the calculation.
 #' @examples
 #' ft_1 <- flextable(head(mtcars))
 #' ft_1
@@ -357,19 +360,21 @@ dim_pretty <- function( x, part = "all", unit = "in" ){
 #' \if{html}{\figure{fig_autofit_1.png}{options: width="500"}}
 #'
 #' \if{html}{\figure{fig_autofit_2.png}{options: width="379"}}
-autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"), unit = "in"){
+autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"),
+                    unit = "in", hspans = "none"){
 
   add_w <- convin(unit = unit, x = add_w)
   add_h <- convin(unit = unit, x = add_h)
 
   stopifnot(inherits(x, "flextable") )
+  stopifnot(length(hspans) == 1, hspans %in% c("none", "divided", "included"))
 
   parts <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE )
   if( "all" %in% parts ){
     parts <- c("header", "body", "footer")
   }
 
-  dimensions_ <- dim_pretty(x, part = parts)
+  dimensions_ <- dim_pretty(x, part = parts, hspans = hspans)
   names(dimensions_$widths) <- x$col_keys
 
   nrows <- lapply(parts, function(j){
@@ -393,9 +398,26 @@ autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"), uni
 
 
 #' @importFrom gdtools m_str_extents
-optimal_sizes <- function( x ){
+optimal_sizes <- function( x, hspans = "none" ){
 
   sizes <- text_metric(x)
+
+  nr <- nrow(x$spans$rows)
+  rowspan <- data.frame(
+    col_id = rep(x$col_keys, each = nr),
+    ft_row_id = rep(seq_len(nr), length(x$col_keys)),
+    rowspan = as.vector(x$spans$rows),
+    stringsAsFactors = FALSE, check.names = FALSE
+  )
+  sizes <- merge(sizes, rowspan, by = c("col_id", "ft_row_id"))
+
+  if (hspans %in% "none") {
+    sizes[sizes$rowspan != 1, "width"] <- 0
+  } else if (hspans %in% "divided") {
+    sizes[sizes$rowspan > 1, "width"] <- sizes[sizes$rowspan > 1, "width"] / sizes[sizes$rowspan > 1, "rowspan"]
+    sizes[sizes$rowspan < 1, "width"] <- 0
+  }
+
   sizes$col_id <- factor(sizes$col_id, levels = x$col_keys)
   sizes <- sizes[order(sizes$col_id, sizes$ft_row_id ), ]
   widths <- as_wide_matrix_(data = sizes[, c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
@@ -406,11 +428,6 @@ optimal_sizes <- function( x ){
   par_dim <- dim_paragraphs(x)
   widths <- widths + par_dim$widths
   heights <- heights + par_dim$heights
-
-  widths[x$spans$rows<1] <- 0
-  widths[x$spans$columns<1] <- 0
-  heights[x$spans$rows<1] <- 0
-  heights[x$spans$columns<1] <- 0
 
   cell_dim <- dim_cells(x)
   widths <- widths + cell_dim$widths
@@ -498,31 +515,65 @@ dim_cells <- function(x){
 }
 
 
-text_metric <- function( x ){
-  txt_data <- fortify_content(x$content, default_chunk_fmt = x$styles$text)
+text_metric <- function(x) {
+  txt_data <- fortify_content(
+    x = x$content,
+    default_chunk_fmt = x$styles$text
+  )
 
   widths <- txt_data$width
   heights <- txt_data$height
-  txt_data$width <- NULL
-  txt_data$height <- NULL
+
+  setDT(txt_data)
+
+  txt_data[, c("width", "height") := list(NULL, NULL)]
+
+  # build a fake_row_id so that new lines are considered
+  txt_data[, c("fake_row_id") := list(
+    fcase(.SD$txt %in% "<br>", .001, default = 0)
+  )]
+  txt_data[, c("fake_row_id") := list(
+    .SD$ft_row_id + cumsum(.SD$fake_row_id)
+  ), by = c("ft_row_id", "col_id")]
+  txt_data[, c("fake_row_id") := list(
+    order(.SD$fake_row_id)
+  ), by = c("ft_row_id", "col_id")]
+
+  # set new lines to blank
+  txt_data$txt[txt_data$txt %in% "<br>"] <- ""
+  # set tabs to 4 'm'
+  txt_data$txt[txt_data$txt %in% "<tab>"] <- "mmmm"
 
   fontsize <- txt_data$font.size
-  fontsize[!(txt_data$vertical.align %in% "baseline")] <- fontsize[!(txt_data$vertical.align %in% "baseline")]/2
-  str_extents_ <- m_str_extents(txt_data$txt, fontname = txt_data$font.family,
-                fontsize = fontsize, bold = txt_data$bold,
-                italic = txt_data$italic) / 72
-  str_extents_[,1] <- ifelse(is.na(str_extents_[,1]) & !is.null(widths), widths, str_extents_[,1] )
-  str_extents_[,2] <- ifelse(is.na(str_extents_[,2]) & !is.null(heights), heights, str_extents_[,2] )
-  dimnames(str_extents_) <- list(NULL, c("width", "height"))
-  txt_data <- cbind( txt_data, str_extents_ )
+  not_baseline <- !(txt_data$vertical.align %in% "baseline")
+  fontsize[not_baseline] <- fontsize[not_baseline] / 2
 
-  selection_ <- c("ft_row_id", "col_id", "seq_index", "width", "height")
-  txt_data <- txt_data[, selection_]
-  setDT(txt_data)
-  txt_data <- txt_data[, c(list(width=sum(width, na.rm = TRUE), height = max(height, na.rm = TRUE) )),
-                         by= c("ft_row_id", "col_id") ]
+  extents_values <- m_str_extents(
+    txt_data$txt,
+    fontname = txt_data$font.family,
+    fontsize = fontsize,
+    bold = txt_data$bold,
+    italic = txt_data$italic
+  ) / 72
+
+  extents_values[, 1] <- ifelse(
+    is.na(extents_values[, 1]) & !is.null(widths),
+    widths, extents_values[, 1]
+  )
+  extents_values[, 2] <- ifelse(
+    is.na(extents_values[, 2]) & !is.null(heights),
+    heights, extents_values[, 2]
+  )
+  dimnames(extents_values) <- list(NULL, c("width", "height"))
+
+  txt_data <- cbind(txt_data, extents_values)
+
+  txt_data <- txt_data[, c(list(width = sum(.SD$width, na.rm = TRUE), height = max(.SD$height, na.rm = TRUE))),
+    by = c("ft_row_id", "fake_row_id", "col_id")
+  ]
+  txt_data <- txt_data[, c(list(width = max(.SD$width, na.rm = TRUE), height = sum(.SD$height, na.rm = TRUE))),
+    by = c("ft_row_id", "col_id")
+  ]
   setDF(txt_data)
   txt_data
 }
-
-

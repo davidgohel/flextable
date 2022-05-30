@@ -4,7 +4,14 @@
 \alias{autofit}
 \title{Adjusts cell widths and heights}
 \usage{
-autofit(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"), unit = "in")
+autofit(
+  x,
+  add_w = 0.1,
+  add_h = 0.1,
+  part = c("body", "header"),
+  unit = "in",
+  hspans = "none"
+)
 }
 \arguments{
 \item{x}{flextable object}
@@ -16,6 +23,13 @@ autofit(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"), unit = "in")
 \item{part}{partname of the table (one of 'all', 'body', 'header' or 'footer')}
 
 \item{unit}{unit for add_h and add_w, one of "in", "cm", "mm".}
+
+\item{hspans}{specifies how cells that are horizontally are included in the calculation.
+It must be one of the following values "none", "divided" or "included". If
+"none", widths of horizontally spanned cells is set to 0 (then do not affect the
+widths); if "divided", widths of horizontally spanned cells is divided by
+the number of spanned cells; if "included", all widths (included horizontally
+spanned cells) will be used in the calculation.}
 }
 \description{
 compute and apply optimized widths and heights
@@ -26,10 +40,9 @@ This function is to be used when the table widths and heights
 should be adjusted to fit the size of the content.
 
 The function does not let you adjust a content that is too
-wide in a paginated document.
-It simply calculates the width of the columns so that each
-content has the minimum width necessary to display the content
-on one line.
+wide in a paginated document. It simply calculates the width
+of the columns so that each content has the minimum width
+necessary to display the content on one line.
 
 Note that this function is not related to 'Microsoft Word'
 \emph{Autofit} feature.
@@ -39,13 +52,6 @@ well with HTML and Word output that can be set
 with \code{set_table_properties(layout = "autofit")}, see
 \code{\link[=set_table_properties]{set_table_properties()}}.
 }
-\section{line breaks}{
-
-Soft returns (a line break in a paragraph) are not supported. Function
-\code{autofit} will return wrong results if \verb{\\n} are used (they will be
-considered as "").
-}
-
 \section{Illustrations}{
 
 

@@ -4,7 +4,7 @@
 \alias{dim_pretty}
 \title{Calculate pretty dimensions}
 \usage{
-dim_pretty(x, part = "all", unit = "in")
+dim_pretty(x, part = "all", unit = "in", hspans = "none")
 }
 \arguments{
 \item{x}{flextable object}
@@ -12,18 +12,18 @@ dim_pretty(x, part = "all", unit = "in")
 \item{part}{partname of the table (one of 'all', 'body', 'header' or 'footer')}
 
 \item{unit}{unit for returned values, one of "in", "cm", "mm".}
+
+\item{hspans}{specifies how cells that are horizontally are included in the calculation.
+It must be one of the following values "none", "divided" or "included". If
+"none", widths of horizontally spanned cells is set to 0 (then do not affect the
+widths); if "divided", widths of horizontally spanned cells is divided by
+the number of spanned cells; if "included", all widths (included horizontally
+spanned cells) will be used in the calculation.}
 }
 \description{
 return minimum estimated widths and heights for
 each table columns and rows in inches.
 }
-\section{line breaks}{
-
-Soft returns (a line break in a paragraph) are not supported. Function
-\code{dim_pretty} will return wrong results if \verb{\\n} are used (they will be
-considered as "").
-}
-
 \examples{
 ftab <- flextable(head(mtcars))
 dim_pretty(ftab)

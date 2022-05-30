@@ -18,6 +18,10 @@ replacing the whole content.
 values into a flextable, as `as_word_field(x = "Page")` for a page number.
 * new function `separate_header()` to Separate collapsed 
 colnames into multiple rows.
+* Functions `autofit()` and `dim_pretty()` now support newlines.
+* `autofit()` and `dim_pretty()` now have an argument `hspans` 
+to help specify how horizontally spanned cells should affect 
+the results.
 
 ## Issues
 

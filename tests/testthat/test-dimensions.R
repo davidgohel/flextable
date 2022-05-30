@@ -72,6 +72,26 @@ test_that("width usage", {
   expect_error(width(ft, j = 1:2, width = rep(.7, 3)))
 })
 
+test_that("autofit with horizontal spans", {
+  dat <-
+    data.frame(
+      `Header should span 2 cols` = c("Whoooo", "Whaaaat", "Whyyyyy"),
+      dummy_title = c("Whoooo", "Whaaaat", "Whyyyyy"),
+      check.names = FALSE
+    )
+
+  ft <- flextable(dat)
+  ft <- merge_at(
+    x = ft, i = 1, j = 1:2,
+    part = "header")
 
 
+  dims_divided <- dim_pretty(ft, hspans = "divided")
+  dims_included <- dim_pretty(ft, hspans = "included")
+  expect_gt(dims_included$widths[1], dims_divided$widths[1])
+
+  dims_none <- dim_pretty(ft, hspans = "none")
+  dims_included_no_header <- dim_pretty(ft, hspans = "included", part = "body")
+  expect_equal(dims_none$widths, dims_included_no_header$widths)
+})
 
