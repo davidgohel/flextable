@@ -9,7 +9,8 @@ tabulator(
   x,
   rows,
   columns,
-  supp_data = NULL,
+  datasup_first = NULL,
+  datasup_last = NULL,
   hidden_data = NULL,
   row_compose = list(),
   ...
@@ -24,9 +25,12 @@ tabulator(
 
 \item{columns}{column names to use in columns dimensions}
 
-\item{supp_data}{additional data that will be merged with
-table and presented after the columns presenting
+\item{datasup_first}{additional data that will be merged with
+table and placed after the columns presenting
 the row dimensions.}
+
+\item{datasup_last}{additional data that will be merged with
+table and placed at the end of the table.}
 
 \item{hidden_data}{additional data that will be merged with
 table, the columns are not presented but can be used

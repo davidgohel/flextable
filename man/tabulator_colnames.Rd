@@ -59,7 +59,7 @@ cancer_dat <- data.frame(
   stage = rep(as.character(1:3), each = 21)
 )
 
-supp_data <- data.frame(
+datasup_first <- data.frame(
   time = factor(1:7, levels = 1:7),
   zzz = runif(7)
 )
@@ -67,7 +67,7 @@ supp_data <- data.frame(
 z <- tabulator(cancer_dat,
   rows = "time",
   columns = c("histology", "stage"),
-  supp_data = supp_data,
+  datasup_first = datasup_first,
   n = as_paragraph(as_chunk(count))
 )
 

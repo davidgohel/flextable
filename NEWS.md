@@ -29,6 +29,8 @@ knitr option `ft.latex.float`, supported values are 'none'
 * HTML output have now a scrool bar if width does not fit in the 
 container. This can be switch off by using the knitr 
 option `ft.htmlscroll = FALSE`.
+* `tabulator()` can display any columns before and 
+after the columns of displayed aggregations.
 
 ## Issues
 

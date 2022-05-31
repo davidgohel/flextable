@@ -77,6 +77,8 @@ extract_example(file = "man/separate_header.Rd", dir = "figures2", webshot = "we
                 base_width = 500)
 extract_example(file = "man/rotate.Rd", dir = "figures2", webshot = "webshot2",
                 base_width = 400)
+extract_example(file = "man/tabulator.Rd", dir = "figures2", webshot = "webshot2",
+                base_width = 500)
 
 fs::dir_info("figures2")
 minimage::compress_images(input = "figures2", output = "man/figures", overwrite = TRUE)
