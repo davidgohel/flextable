@@ -108,6 +108,11 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body") {
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
+
+  if(length(bold) == length(j)) {
+    bold <- rep(bold, each = length(i))
+  }
+
   x[[part]]$styles$text[i, j, "bold"] <- bold
 
   x
@@ -187,6 +192,11 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
+
+  if(length(italic) == length(j)) {
+    italic <- rep(italic, each = length(i))
+  }
+
   x[[part]]$styles$text[i, j, "italic"] <- italic
 
   x
@@ -256,6 +266,10 @@ highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", so
 
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
+
+  if(length(color) == length(j)) {
+    color <- rep(color, each = length(i))
+  }
 
   x[[part]]$styles$text[i, j, "shading.color"] <- color
 
@@ -342,6 +356,10 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
   i <- get_rows_id(x[[part]], i)
   j <- x$col_keys[get_columns_id(x[[part]], j)]
 
+  if(length(color) == length(j)) {
+    color <- rep(color, each = length(i))
+  }
+
   x[[part]]$styles$text[i, j, "color"] <- color
 
   x
@@ -405,6 +423,19 @@ font <- function(x, i = NULL, j = NULL, fontname, part = "body", cs.family = fon
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
+
+  if(length(fontname) == length(j)) {
+    fontname <- rep(fontname, each = length(i))
+  }
+  if(length(cs.family) == length(j)) {
+    cs.family <- rep(cs.family, each = length(i))
+  }
+  if(length(hansi.family) == length(j)) {
+    hansi.family <- rep(hansi.family, each = length(i))
+  }
+  if(length(eastasia.family) == length(j)) {
+    eastasia.family <- rep(eastasia.family, each = length(i))
+  }
 
   x[[part]]$styles$text[i, j, "font.family"] <- fontname
   x[[part]]$styles$text[i, j, "cs.family"] <- cs.family
@@ -529,6 +560,10 @@ align <- function(x, i = NULL, j = NULL, align = "left",
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
+
+  if(length(align) == length(j)) {
+    align <- rep(align, each = length(i))
+  }
   x[[part]]$styles$pars[i, j, "text.align"] <- align
 
   x
@@ -716,6 +751,10 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j) {
 
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
+
+  if(length(bg) == length(j)) {
+    bg <- rep(bg, each = length(i))
+  }
 
   x[[part]]$styles$cells[i, j, "background.color"] <- bg
 
