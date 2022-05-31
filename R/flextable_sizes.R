@@ -530,14 +530,15 @@ text_metric <- function(x) {
 
   # build a fake_row_id so that new lines are considered
   txt_data[, c("fake_row_id") := list(
-    fcase(.SD$txt %in% "<br>", .001, default = 0)
+    fcase(.SD$txt %in% "<br>", 1L, default = 0L)
   )]
   txt_data[, c("fake_row_id") := list(
-    .SD$ft_row_id + cumsum(.SD$fake_row_id)
+    cumsum(.SD$fake_row_id)
   ), by = c("ft_row_id", "col_id")]
   txt_data[, c("fake_row_id") := list(
-    order(.SD$fake_row_id)
+    rleid(.SD$fake_row_id)
   ), by = c("ft_row_id", "col_id")]
+
 
   # set new lines to blank
   txt_data$txt[txt_data$txt %in% "<br>"] <- ""
@@ -567,7 +568,6 @@ text_metric <- function(x) {
   dimnames(extents_values) <- list(NULL, c("width", "height"))
 
   txt_data <- cbind(txt_data, extents_values)
-
   txt_data <- txt_data[, c(list(width = sum(.SD$width, na.rm = TRUE), height = max(.SD$height, na.rm = TRUE))),
     by = c("ft_row_id", "fake_row_id", "col_id")
   ]
