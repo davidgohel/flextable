@@ -45,7 +45,7 @@ thanks to Sean Browning
 * fix horizontal and vertical alignements when rotating paragraphs for 
 pptx, docx and html outputs
 * links in pptx and docx are not transformed anymore.
-
+* fix handling of special characters in latex
 
 ## Changes
 
