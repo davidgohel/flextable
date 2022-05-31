@@ -73,7 +73,7 @@ new paragraph.
 
 Tabs are different depending on the output format:
 \itemize{
-\item HTML is using entity \emph{em space} (tag " ")
+\item HTML is using entity \emph{em space}
 \item Word - a Word 'tab' element
 \item PowerPoint - a PowerPoint 'tab' element
 \item latex - tag "\\quad "

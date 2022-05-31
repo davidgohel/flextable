@@ -46,8 +46,8 @@ paragraph.
 \item 'float', table can float to a place in the text where it fits best
 \item 'wrap-r', wrap text around the table positioned to the right side of the text
 \item 'wrap-l', wrap text around the table positioned to the left side of the text
-\item 'wrap-i', wrap text around the table positioned inside edge–near the binding
-\item 'wrap-o', wrap text around the table positioned outside edge–far from the binding
+\item 'wrap-i', wrap text around the table positioned inside edge-near the binding
+\item 'wrap-o', wrap text around the table positioned outside edge-far from the binding
 }}
 
 \item{ft.left, ft.top}{Position should be defined with options \code{ft.left}

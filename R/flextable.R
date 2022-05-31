@@ -43,7 +43,7 @@
 #'
 #' Tabs are different depending on the output format:
 #'
-#' - HTML is using entity *em space* (tag "&emsp;")
+#' - HTML is using entity *em space*
 #' - Word - a Word 'tab' element
 #' - PowerPoint - a PowerPoint 'tab' element
 #' - latex - tag "\\quad "

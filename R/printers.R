@@ -63,8 +63,8 @@ htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE, ft.htmlscr
 #' * 'float', table can float to a place in the text where it fits best
 #' * 'wrap-r', wrap text around the table positioned to the right side of the text
 #' * 'wrap-l', wrap text around the table positioned to the left side of the text
-#' * 'wrap-i', wrap text around the table positioned inside edge–near the binding
-#' * 'wrap-o', wrap text around the table positioned outside edge–far from the binding
+#' * 'wrap-i', wrap text around the table positioned inside edge-near the binding
+#' * 'wrap-o', wrap text around the table positioned outside edge-far from the binding
 #' @param ft.left,ft.top Position should be defined with options `ft.left`
 #' and `ft.top`. Theses are the top left coordinates in inches
 #' of the placeholder that will contain the table. Their

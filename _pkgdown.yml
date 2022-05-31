@@ -115,6 +115,7 @@ reference:
     - as_bracket
     - hyperlink_text
     - as_equation
+    - as_word_field
   - title: Easy formatting
     desc:  Define quickly how numbers and characters of tables are displayed
     contents:
@@ -155,6 +156,7 @@ reference:
     desc:  get flextable from objects and utilities
     contents:
     - tabulator
+    - tabulator_colnames
     - summarizor
     - starts_with("as_flextable")
     - continuous_summary
