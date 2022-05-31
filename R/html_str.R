@@ -28,7 +28,8 @@ caption_html_str <- function(x, bookdown = FALSE){
   }
   caption
 }
-html_str <- function(x, ft.align = NULL, class = "tabwid", caption = "", shadow = TRUE, topcaption = TRUE){
+html_str <- function(x, ft.align = NULL, class = "tabwid",
+                     caption = "", shadow = TRUE, topcaption = TRUE){
 
   fixed_layout <- x$properties$layout %in% "fixed"
   if(!fixed_layout){
@@ -63,7 +64,7 @@ html_str <- function(x, ft.align = NULL, class = "tabwid", caption = "", shadow 
   if(shadow){
     uid <- UUIDgenerate(n = 2L)
 
-    tabwid_css <- paste(c("<style>", readLines(system.file(package="flextable", "web_1.0.0", "tabwid.css"), encoding = "UTF-8"), "</style>"), collapse = "\n")
+    tabwid_css <- paste(c("<style>", readLines(system.file(package="flextable", "web_1.1.0", "tabwid.css"), encoding = "UTF-8"), "</style>"), collapse = "\n")
 
     html <- paste0("<template id=\"", uid[1], "\">",
                    tabwid_css,
@@ -456,14 +457,21 @@ cell_css_styles <- function(x){
 #' @title htmlDependency for flextable objects
 #' @description When using loops in an R Markdown for HTML document, the
 #' htmlDependency object for flextable must also be added at least once.
+#' @param htmlscroll add a scroll if table is too big to fit
+#' into its HTML container, default to TRUE.
 #' @examples
 #' if(require("htmltools"))
 #'   div(flextable_html_dependency())
-flextable_html_dependency <- function(){
+flextable_html_dependency <- function(htmlscroll = TRUE){
+  if (isTRUE(htmlscroll)) {
+    stylesheet <- c("tabwid.css", "scrool.css")
+  } else {
+    stylesheet <- "tabwid.css"
+  }
   htmlDependency("tabwid",
                  "1.0.0",
-                 src = system.file(package="flextable", "web_1.0.0"),
-                 stylesheet = "tabwid.css")
+                 src = system.file(package="flextable", "web_1.1.0"),
+                 stylesheet = stylesheet)
 
 }
 

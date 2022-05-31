@@ -9,19 +9,24 @@
 #' @param x a flextable object
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param ft.shadow use shadow dom, this option is existing
-#' to disable shadow dom (set to `FALSE`) for pagedown that can not support it for now.
+#' to disable shadow dom (set to `FALSE`) for pagedown that
+#' can not support it for now.
+#' @param ft.htmlscroll add a scroll if table is too big to fit
+#' into its HTML container, default to TRUE.
 #' @family flextable print function
 #' @examples
 #' htmltools_value(flextable(iris[1:5,]))
 #' @importFrom htmltools tagList
-htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE){
-
+htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE, ft.htmlscroll = TRUE) {
   x <- flextable_global$defaults$post_process_html(x)
 
-  html_o <- tagList(flextable_html_dependency(),
-                    HTML(html_str(x, ft.align = ft.align, class = "tabwid",
-                                  caption = caption_html_str(x, bookdown = FALSE),
-                                  shadow = ft.shadow))
+  html_o <- tagList(
+    flextable_html_dependency(htmlscroll = ft.htmlscroll),
+    HTML(html_str(x,
+      ft.align = ft.align, class = "tabwid",
+      caption = caption_html_str(x, bookdown = FALSE),
+      shadow = ft.shadow
+    ))
   )
   html_o
 }
@@ -180,16 +185,22 @@ flextable_to_rmd <- function(
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param ft.shadow use shadow dom, this option is existing mainly
 #' to disable shadow dom (set to `FALSE`) for pagedown that can not support it for now.
+#' @param ft.htmlscroll add a scroll if table is too big to fit
+#' into its HTML container, default to TRUE.
 #' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
 #' @param pandoc2 `TRUE` (default) or `FALSE` to get the string in a pandoc raw HTML attribute.
 #' @examples
 #' html_value(flextable(iris[1:5,]))
-html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = opts_current$get("ft.shadow"), bookdown = FALSE, pandoc2 = TRUE){
+html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = opts_current$get("ft.shadow"),
+                       ft.htmlscroll = opts_current$get("ft.htmlscroll"), bookdown = FALSE, pandoc2 = TRUE){
 
   x <- flextable_global$defaults$post_process_html(x)
 
   if(is.null(ft.shadow)){
     ft.shadow <- TRUE
+  }
+  if(is.null(ft.htmlscroll)){
+    ft.htmlscroll <- TRUE
   }
 
   caption_str <- caption_html_str(x, bookdown = bookdown)
@@ -207,7 +218,7 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
     if(pandoc2) "```",
     "", "",
     sep = "\n")
-  knit_meta_add(list(flextable_html_dependency()))
+  knit_meta_add(list(flextable_html_dependency(htmlscroll = ft.htmlscroll)))
 
   out
 }
@@ -446,6 +457,7 @@ print.flextable <- function(x, preview = "html", ...){
 #'   **chunk option** \tab **property** \tab **default value** \tab **HTML** \tab **docx** \tab **PDF** \tab **pptx** \cr
 #'   ft.align        \tab flextable alignment, supported values are 'left', 'center' and 'right'    \tab 'center' \tab yes \tab yes \tab yes \tab no \cr
 #'   ft.shadow       \tab HTML option, disable shadow dom (set to `FALSE`) for pagedown. \tab TRUE    \tab yes  \tab no \tab no  \tab no \cr
+#'   ft.htmlscroll   \tab HTML option, add a scroll if table is too big to fit into its HTML container. \tab TRUE    \tab yes  \tab no \tab no  \tab no \cr
 #'   ft.split        \tab Word option 'Allow row to break across pages' can be activated when TRUE. \tab FALSE    \tab no  \tab yes \tab no  \tab no \cr
 #'   ft.keepnext     \tab Word option 'keep rows together' can be activated when TRUE. \tab TRUE    \tab no  \tab yes \tab no  \tab no \cr
 #'   ft.tabcolsep    \tab space between the text and the left/right border of its containing cell   \tab 8.0      \tab no  \tab no  \tab yes \tab no \cr
@@ -671,7 +683,7 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
 
     val[i] <- paste(txt, collapse = "")
   }
-  tabwid_css <- paste(c("<style>", readLines(system.file(package="flextable", "web_1.0.0", "tabwid.css"), encoding = "UTF-8"), "</style>"), collapse = "\n")
+  tabwid_css <- paste(c("<style>", readLines(system.file(package="flextable", "web_1.1.0", "tabwid.css"), encoding = "UTF-8"), "</style>"), collapse = "\n")
 
   str <- c('<!DOCTYPE htm><html><head>',
   sprintf('<meta http-equiv="Content-Type" content="text/html; charset=%s"/>', encoding),

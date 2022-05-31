@@ -4,7 +4,11 @@
 \alias{flextable_html_dependency}
 \title{htmlDependency for flextable objects}
 \usage{
-flextable_html_dependency()
+flextable_html_dependency(htmlscroll = TRUE)
+}
+\arguments{
+\item{htmlscroll}{add a scroll if table is too big to fit
+into its HTML container, default to TRUE.}
 }
 \description{
 When using loops in an R Markdown for HTML document, the

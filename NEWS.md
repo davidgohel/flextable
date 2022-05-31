@@ -26,6 +26,9 @@ the results.
 knitr option `ft.latex.float`, supported values are 'none' 
 (the default value), 'float', 'wrap-r', 'wrap-l', 
 'wrap-i' and 'wrap-o'.
+* HTML output have now a scrool bar if width does not fit in the 
+container. This can be switch off by using the knitr 
+option `ft.htmlscroll = FALSE`.
 
 ## Issues
 
