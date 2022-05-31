@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
       </span>
     </div>
 
@@ -79,24 +79,36 @@
 <div class="page-header"><h1 id="flextable-r-package">flextable R package<a class="anchor" aria-label="anchor" href="#flextable-r-package"></a>
 </h1></div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<p><strong>The user documentation is available here</strong>: <a href="https://ardata-fr.github.io/flextable-book/" class="external-link uri">https://ardata-fr.github.io/flextable-book/</a></p>
+<p><img src="reference/figures/logo.png" alt="flextable logo" align="right"> The flextable package provides a framework for easily create tables for reporting and publications. Tables can be easily formatted with a set of verbs such as <code><a href="reference/bold.html">bold()</a></code>, <code><a href="reference/color.html">color()</a></code>, they can receive a header of more than one line, cells can be merged or contain an image. The package make it possible to build any table for publication from a <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/set_flextable_defaults.html">set_flextable_defaults</a></span><span class="op">(</span>
+  font.family <span class="op">=</span> <span class="st">"Arial"</span>, font.size <span class="op">=</span> <span class="fl">10</span>, 
+  border.color <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span>
 
-<p><strong>User Documentation</strong>: <a href="https://ardata-fr.github.io/flextable-book/" class="external-link uri">https://ardata-fr.github.io/flextable-book/</a></p>
-<p><a href="https://github.com/davidgohel/flextable" class="external-link"><img src="reference/figures/logo.png" alt="flextable logo" align="right"></a> The flextable package provides a framework for easily create tables for reporting and publications. Tables can be easily formatted with a set of verbs such as <code><a href="reference/bold.html">bold()</a></code>, <code><a href="reference/color.html">color()</a></code>, they can receive a header of more than one line, cells can be merged or contain an image. The package make it possible to build any table for publication from a `data.frame’.</p>
-<p><img src="reference/figures/fig_formats.png" width="170px" alt="flextable formats" align="left"> Tables can be embedded within HTML, PDF, Word and PowerPoint documents from R Markdown documents and within Microsoft Word or PowerPoint documents with package officer. Tables can also be rendered as R plots or graphic files (png, pdf and jpeg).</p>
-<p>An API is available to let R users create tables for reporting and control their formatting properties and their layout. A <code>flextable</code> object is a data.frame representation, it can be manipulated with functions that give control over:</p>
+<span class="fu"><a href="reference/flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/bold.html">bold</a></span><span class="op">(</span>part <span class="op">=</span> <span class="st">"header"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/add_footer_lines.html">add_footer_lines</a></span><span class="op">(</span><span class="st">"The 'cars' dataset"</span><span class="op">)</span></code></pre></div>
+<p>Tables can be embedded within HTML, PDF, Word and PowerPoint documents from R Markdown documents and within Microsoft Word or PowerPoint documents with package officer. Tables can also be rendered as R plots or graphic files (png, pdf and jpeg).</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/flextable.html">flextable</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/theme_vanilla.html">theme_vanilla</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/save_as_docx.html">save_as_docx</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"mytable.docx"</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/fig_formats.png" width="170px" alt="flextable formats" align="center"></p>
+<p>A <code>flextable</code> object is a data.frame representation. An API is available to let R users create tables for reporting and control their formatting properties and their layout. The package provides functions that give control over:</p>
 <ul>
 <li>header, body and footer content</li>
 <li>text, paragraphs, cells and border formatting of any element</li>
 <li>displayed values</li>
 </ul>
-<p><img src="https://www.ardata.fr/img/illustrations/flextable_functions.svg"></p>
+<p><img src="reference/figures/flextable_functions.png"></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"flextable"</span><span class="op">)</span></code></pre></div>
 <p>You can get the development version from GitHub:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"davidgohel/flextable"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
@@ -110,9 +122,9 @@
 <p>A gallery of examples is available here: <a href="https://ardata-fr.github.io/flextable-gallery/gallery/" class="external-link uri">https://ardata-fr.github.io/flextable-gallery/gallery/</a></p>
 </div>
 <div class="section level3">
-<h3 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+<h3 id="getting-help--questions">Getting help / questions<a class="anchor" aria-label="anchor" href="#getting-help--questions"></a>
 </h3>
-<p>This project is developed and maintained on my own time. If you have questions about how to use the package, visit Stackoverflow and use tags <code>flextable</code> and <code>r</code> <a href="https://stackoverflow.com/questions/tagged/flextable+r" class="external-link">Stackoverflow link</a>!</p>
+<p>If you have questions about how to use the package, visit Stackoverflow and use tags <code>flextable</code> and <code>r</code> <a href="https://stackoverflow.com/questions/tagged/flextable+r" class="external-link">Stackoverflow link</a>! You can also use <a href="https://github.com/davidgohel/flextable/discussions" class="external-link uri">https://github.com/davidgohel/flextable/discussions</a> to start a discussion.</p>
 </div>
 </div>
 <div class="section level2">
@@ -193,7 +205,7 @@
 
       <footer><link href="ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -3,7 +3,7 @@
 The function is different from colformat_double() on numeric type
 columns. The function uses the format() function of R on numeric
 type columns. So this is normally what you see on the R console
-most of the time (but scientific mode is disabled, NA are replaced, etc.)."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+most of the time (but scientific mode is disabled and NA are replaced)."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -21,7 +21,7 @@ most of the time (but scientific mode is disabled, NA are replaced, etc.)."><met
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
       </span>
     </div>
 
@@ -57,7 +57,7 @@ most of the time (but scientific mode is disabled, NA are replaced, etc.)."><met
 <p>The function is different from <code><a href="colformat_double.html">colformat_double()</a></code> on numeric type
 columns. The function uses the <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code> function of R on numeric
 type columns. So this is normally what you see on the R console
-most of the time (but scientific mode is disabled, NA are replaced, etc.).</p>
+most of the time (but scientific mode is disabled and NA are replaced).</p>
     </div>
 
     <div id="ref-usage">
@@ -85,13 +85,9 @@ most of the time (but scientific mode is disabled, NA are replaced, etc.).</p>
 <dd><p>columns selection.</p></dd>
 <dt>big.mark, decimal.mark</dt>
 <dd><p>see <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code></p></dd>
-<dt>na_str</dt>
+<dt>na_str, nan_str</dt>
 <dd><p>string to be used for NA and NaN values</p></dd>
-<dt>nan_str</dt>
-<dd><p>string to be used for NA and NaN values</p></dd>
-<dt>prefix</dt>
-<dd><p>string to be used as prefix or suffix</p></dd>
-<dt>suffix</dt>
+<dt>prefix, suffix</dt>
 <dd><p>string to be used as prefix or suffix</p></dd>
 <dt>...</dt>
 <dd><p>additional argument for function <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code>, <code>scientific</code>
@@ -112,8 +108,8 @@ want, this one will be used by <code><a href="https://rdrr.io/r/base/format.html
 To change the digit argument use <code>options(digits=4)</code> instead.</p>
 <p>This argument will not be changed because <code>colformat_num()</code>
 is supposed to format things roughly as what you see on the R console.</p>
-<p>If you are not happy with these choices, use <code><a href="set_formatter.html">set_formatter()</a></code>
-and define your own format.</p>
+<p>If these functions does not fit your needs, use <code><a href="set_formatter.html">set_formatter()</a></code>
+that lets you use any format function.</p>
     </div>
     <div id="illustrations">
     <h2>Illustrations</h2>
@@ -132,7 +128,6 @@ and define your own format.</p>
 <code><a href="colformat_image.html">colformat_image</a>()</code>,
 <code><a href="colformat_int.html">colformat_int</a>()</code>,
 <code><a href="colformat_lgl.html">colformat_lgl</a>()</code>,
-<code><a href="compose.html">compose</a>()</code>,
 <code><a href="set_formatter.html">set_formatter</a>()</code></p></div>
     </div>
 
@@ -167,7 +162,7 @@ and define your own format.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

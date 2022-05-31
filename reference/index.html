@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
       </span>
     </div>
 
@@ -51,7 +51,7 @@
           <p class="section-desc"></p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="flextable.html">flextable()</a></code> <code><a href="flextable.html">qflextable()</a></code> <code><a href="flextable.html">regulartable()</a></code> </p>
+          <p><code><a href="flextable.html">flextable()</a></code> <code><a href="flextable.html">qflextable()</a></code> </p>
         </td>
         <td><p>flextable creation</p></td>
       </tr><tr><td>
@@ -60,24 +60,40 @@
         <td><p>flextable: Functions for Tabular Reporting</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="headers-and-footers">Headers and footers <a href="#headers-and-footers" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Add or modify flextable`s headers or footers</p>
+          <p class="section-desc"></p><p>Add rows in headers, footers and body parts</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="add_header_row.html">add_header_row()</a></code> <code><a href="add_header_row.html">add_footer_row()</a></code> </p>
+          <p><code><a href="add_header_row.html">add_header_row()</a></code> </p>
         </td>
-        <td><p>Add labels and merge cells in a new header or footer row</p></td>
+        <td><p>Add header labels</p></td>
       </tr><tr><td>
-          <p><code><a href="add_header_lines.html">add_header_lines()</a></code> <code><a href="add_header_lines.html">add_footer_lines()</a></code> </p>
+          <p><code><a href="add_footer_row.html">add_footer_row()</a></code> </p>
         </td>
-        <td><p>Add a label in a header or footer new row.</p></td>
+        <td><p>Add footer labels</p></td>
       </tr><tr><td>
-          <p><code><a href="add_header.html">add_header()</a></code> <code><a href="add_header.html">add_footer()</a></code> </p>
+          <p><code><a href="add_header_lines.html">add_header_lines()</a></code> </p>
         </td>
-        <td><p>Add a rows of labels in header or footer part</p></td>
+        <td><p>Add labels as new rows in the header</p></td>
+      </tr><tr><td>
+          <p><code><a href="add_footer_lines.html">add_footer_lines()</a></code> </p>
+        </td>
+        <td><p>Add labels as new rows in the footer</p></td>
+      </tr><tr><td>
+          <p><code><a href="add_header.html">add_header()</a></code> </p>
+        </td>
+        <td><p>Add column values as new lines in header</p></td>
+      </tr><tr><td>
+          <p><code><a href="add_footer.html">add_footer()</a></code> </p>
+        </td>
+        <td><p>Add column values as new lines in footer</p></td>
+      </tr><tr><td>
+          <p><code><a href="separate_header.html">separate_header()</a></code> </p>
+        </td>
+        <td><p>Separate collapsed colnames into multiple rows</p></td>
       </tr><tr><td>
           <p><code><a href="set_header_labels.html">set_header_labels()</a></code> </p>
         </td>
-        <td><p>Set flextable's headers labels</p></td>
+        <td><p>Change headers labels</p></td>
       </tr><tr><td>
           <p><code><a href="set_header_footer_df.html">set_header_df()</a></code> <code><a href="set_header_footer_df.html">set_footer_df()</a></code> </p>
         </td>
@@ -86,6 +102,14 @@
           <p><code><a href="delete_part.html">delete_part()</a></code> </p>
         </td>
         <td><p>delete flextable part</p></td>
+      </tr><tr><td>
+          <p><code><a href="add_body.html">add_body()</a></code> </p>
+        </td>
+        <td><p>Add column values as new lines in body</p></td>
+      </tr><tr><td>
+          <p><code><a href="add_body_row.html">add_body_row()</a></code> </p>
+        </td>
+        <td><p>Add body labels</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="manage-flextable-layout">Manage flextable layout <a href="#manage-flextable-layout" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p>
@@ -121,7 +145,7 @@
       </tr><tr><td>
           <p><code><a href="width.html">width()</a></code> </p>
         </td>
-        <td><p>Set flextable columns width</p></td>
+        <td><p>Set columns width</p></td>
       </tr><tr><td>
           <p><code><a href="hrule.html">hrule()</a></code> </p>
         </td>
@@ -158,10 +182,6 @@
           <p><code><a href="as_flextable.html">as_flextable()</a></code> </p>
         </td>
         <td><p>method to convert object to flextable</p></td>
-      </tr><tr><td>
-          <p><code><a href="add_body.html">add_body()</a></code> </p>
-        </td>
-        <td><p>Add rows in body part</p></td>
       </tr><tr><td>
           <p><code><a href="nrow_part.html">nrow_part()</a></code> </p>
         </td>
@@ -221,7 +241,7 @@
       </tr><tr><td>
           <p><code><a href="highlight.html">highlight()</a></code> </p>
         </td>
-        <td><p>Text Highlight Color</p></td>
+        <td><p>Text highlight color</p></td>
       </tr><tr><td>
           <p><code><a href="padding.html">padding()</a></code> </p>
         </td>
@@ -331,8 +351,104 @@
         </td>
         <td><p>Apply zebra theme</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
-          <h2 id="content">Content <a href="#content" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Define flextable`s content</p>
+          <h2 id="mixed-content">Mixed content <a href="#mixed-content" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>How to define complex paragraphs with mixed content or to add images or chunks of text in existing cells.</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="compose.html">compose()</a></code> <code><a href="compose.html">mk_par()</a></code> </p>
+        </td>
+        <td><p>Define displayed values and mixed content</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_paragraph.html">as_paragraph()</a></code> </p>
+        </td>
+        <td><p>concatenate chunks in a flextable</p></td>
+      </tr><tr><td>
+          <p><code><a href="append_chunks.html">append_chunks()</a></code> </p>
+        </td>
+        <td><p>append chunks to flextable content</p></td>
+      </tr><tr><td>
+          <p><code><a href="prepend_chunks.html">prepend_chunks()</a></code> </p>
+        </td>
+        <td><p>prepend chunks to flextable content</p></td>
+      </tr><tr><td>
+          <p><code><a href="footnote.html">footnote()</a></code> </p>
+        </td>
+        <td><p>add footnotes to flextable</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="elements-for-mixed-content">Elements for mixed content <a href="#elements-for-mixed-content" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>The functions that can be called to create rich formated content</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="as_chunk.html">as_chunk()</a></code> </p>
+        </td>
+        <td><p>chunk of text wrapper</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_image.html">as_image()</a></code> </p>
+        </td>
+        <td><p>image chunk wrapper</p></td>
+      </tr><tr><td>
+          <p><code><a href="gg_chunk.html">gg_chunk()</a></code> </p>
+        </td>
+        <td><p>gg plots chunk wrapper</p></td>
+      </tr><tr><td>
+          <p><code><a href="plot_chunk.html">plot_chunk()</a></code> </p>
+        </td>
+        <td><p>mini plots chunk wrapper</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_b.html">as_b()</a></code> </p>
+        </td>
+        <td><p>bold chunk</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_i.html">as_i()</a></code> </p>
+        </td>
+        <td><p>italic chunk</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_sub.html">as_sub()</a></code> </p>
+        </td>
+        <td><p>subscript chunk</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_sup.html">as_sup()</a></code> </p>
+        </td>
+        <td><p>superscript chunk</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_highlight.html">as_highlight()</a></code> </p>
+        </td>
+        <td><p>highlight chunk</p></td>
+      </tr><tr><td>
+          <p><code><a href="colorize.html">colorize()</a></code> </p>
+        </td>
+        <td><p>colorize chunk</p></td>
+      </tr><tr><td>
+          <p><code><a href="minibar.html">minibar()</a></code> </p>
+        </td>
+        <td><p>mini barplots chunk wrapper</p></td>
+      </tr><tr><td>
+          <p><code><a href="linerange.html">linerange()</a></code> </p>
+        </td>
+        <td><p>mini linerange chunk wrapper</p></td>
+      </tr><tr><td>
+          <p><code><a href="lollipop.html">lollipop()</a></code> </p>
+        </td>
+        <td><p>mini lollipop chart chunk wrapper</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_bracket.html">as_bracket()</a></code> </p>
+        </td>
+        <td><p>chunk with values in brackets</p></td>
+      </tr><tr><td>
+          <p><code><a href="hyperlink_text.html">hyperlink_text()</a></code> </p>
+        </td>
+        <td><p>Chunk of text with hyperlink</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_equation.html">as_equation()</a></code> </p>
+        </td>
+        <td><p>equation chunk</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_word_field.html">as_word_field()</a></code> </p>
+        </td>
+        <td><p>'Word' computed field</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="easy-formatting">Easy formatting <a href="#easy-formatting" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Define quickly how numbers and characters of tables are displayed</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="colformat_char.html">colformat_char()</a></code> </p>
@@ -370,42 +486,22 @@
           <p><code><a href="set_formatter.html">set_formatter()</a></code> <code><a href="set_formatter.html">set_formatter_type()</a></code> </p>
         </td>
         <td><p>set column formatter functions</p></td>
-      </tr><tr><td>
-          <p><code><a href="compose.html">compose()</a></code> <code><a href="compose.html">mk_par()</a></code> </p>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="caption">Caption <a href="#caption" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="set_caption.html">set_caption()</a></code> </p>
         </td>
-        <td><p>Define flextable displayed values</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_paragraph.html">as_paragraph()</a></code> </p>
+        <td><p>Set Caption</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="miscellaneous">miscellaneous <a href="#miscellaneous" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="fmt_2stats.html">fmt_2stats()</a></code> </p>
         </td>
-        <td><p>concatenate chunks in a flextable</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_chunk.html">as_chunk()</a></code> </p>
-        </td>
-        <td><p>chunk of text wrapper</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_b.html">as_b()</a></code> </p>
-        </td>
-        <td><p>bold chunk</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_i.html">as_i()</a></code> </p>
-        </td>
-        <td><p>italic chunk</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_sub.html">as_sub()</a></code> </p>
-        </td>
-        <td><p>subscript chunk</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_sup.html">as_sup()</a></code> </p>
-        </td>
-        <td><p>superscript chunk</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_highlight.html">as_highlight()</a></code> </p>
-        </td>
-        <td><p>highlight chunk</p></td>
-      </tr><tr><td>
-          <p><code><a href="colorize.html">colorize()</a></code> </p>
-        </td>
-        <td><p>colorize chunk</p></td>
+        <td><p>format content for data generated with <code><a href="../reference/summarizor.html">summarizor()</a></code></p></td>
       </tr><tr><td>
           <p><code><a href="fp_border_default.html">fp_border_default()</a></code> </p>
         </td>
@@ -415,65 +511,13 @@
         </td>
         <td><p>Text formatting properties</p></td>
       </tr><tr><td>
-          <p><code><a href="plot_chunk.html">plot_chunk()</a></code> </p>
-        </td>
-        <td><p>mini plots chunk wrapper</p></td>
-      </tr><tr><td>
-          <p><code><a href="gg_chunk.html">gg_chunk()</a></code> </p>
-        </td>
-        <td><p>gg plots chunk wrapper</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_image.html">as_image()</a></code> </p>
-        </td>
-        <td><p>image chunk wrapper</p></td>
-      </tr><tr><td>
-          <p><code><a href="minibar.html">minibar()</a></code> </p>
-        </td>
-        <td><p>mini barplots chunk wrapper</p></td>
-      </tr><tr><td>
-          <p><code><a href="linerange.html">linerange()</a></code> </p>
-        </td>
-        <td><p>mini linerange chunk wrapper</p></td>
-      </tr><tr><td>
-          <p><code><a href="lollipop.html">lollipop()</a></code> </p>
-        </td>
-        <td><p>mini lollipop chart chunk wrapper</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_bracket.html">as_bracket()</a></code> </p>
-        </td>
-        <td><p>chunk with values in brackets</p></td>
-      </tr><tr><td>
-          <p><code><a href="hyperlink_text.html">hyperlink_text()</a></code> </p>
-        </td>
-        <td><p>chunk of text with hyperlink wrapper</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_equation.html">as_equation()</a></code> </p>
-        </td>
-        <td><p>equation chunk</p></td>
-      </tr><tr><td>
-          <p><code><a href="set_caption.html">set_caption()</a></code> </p>
-        </td>
-        <td><p>Set Caption</p></td>
-      </tr><tr><td>
-          <p><code><a href="footnote.html">footnote()</a></code> </p>
-        </td>
-        <td><p>add footnotes to flextable</p></td>
-      </tr><tr><td>
-          <p><code><a href="append_chunks.html">append_chunks()</a></code> </p>
-        </td>
-        <td><p>append chunks to flextable content</p></td>
-      </tr><tr><td>
-          <p><code><a href="void.html">void()</a></code> </p>
-        </td>
-        <td><p>Delete flextable content</p></td>
-      </tr><tr><td>
           <p><code><a href="before.html">before()</a></code> </p>
         </td>
         <td><p>is an element before a match with entries</p></td>
       </tr><tr><td>
-          <p><code><a href="fmt_2stats.html">fmt_2stats()</a></code> </p>
+          <p><code><a href="void.html">void()</a></code> </p>
         </td>
-        <td><p>format content for data generated with <code><a href="../reference/summarizor.html">summarizor()</a></code></p></td>
+        <td><p>Delete flextable content</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="output-functions">Output functions <a href="#output-functions" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p>
@@ -535,6 +579,10 @@
         </td>
         <td><p>set data.frame automatic printing as a flextable</p></td>
       </tr><tr><td>
+          <p><code><a href="use_model_printer.html">use_model_printer()</a></code> </p>
+        </td>
+        <td><p>set model automatic printing as a flextable</p></td>
+      </tr><tr><td>
           <p><code><a href="add_latex_dep.html">add_latex_dep()</a></code> </p>
         </td>
         <td><p>add latex dependencies</p></td>
@@ -558,6 +606,10 @@
           <p><code><a href="tabulator.html">tabulator()</a></code> <code><a href="tabulator.html">summary(<i>&lt;tabulator&gt;</i>)</a></code> </p>
         </td>
         <td><p>Tabulation of aggregations</p></td>
+      </tr><tr><td>
+          <p><code><a href="tabulator_colnames.html">tabulator_colnames()</a></code> </p>
+        </td>
+        <td><p>column keys of tabulator objects</p></td>
       </tr><tr><td>
           <p><code><a href="summarizor.html">summarizor()</a></code> </p>
         </td>
@@ -583,9 +635,21 @@
         </td>
         <td><p>tabular summary for htest object</p></td>
       </tr><tr><td>
+          <p><code><a href="as_flextable.kmeans.html">as_flextable(<i>&lt;kmeans&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>tabular summary for kmeans</p></td>
+      </tr><tr><td>
           <p><code><a href="as_flextable.lm.html">as_flextable(<i>&lt;lm&gt;</i>)</a></code> </p>
         </td>
         <td><p>tabular summary for lm object</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;merMod&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;lme&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;gls&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;nlme&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;brmsfit&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;glmmTMB&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;glmmadmb&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>tabular summary for mixed model</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_flextable.pam.html">as_flextable(<i>&lt;pam&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>tabular summary for pam</p></td>
       </tr><tr><td>
           <p><code><a href="as_flextable.tabulator.html">as_flextable(<i>&lt;tabulator&gt;</i>)</a></code> </p>
         </td>
@@ -611,7 +675,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

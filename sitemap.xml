@@ -25,6 +25,18 @@
     <loc>/reference/add_body.html</loc>
   </url>
   <url>
+    <loc>/reference/add_body_row.html</loc>
+  </url>
+  <url>
+    <loc>/reference/add_footer.html</loc>
+  </url>
+  <url>
+    <loc>/reference/add_footer_lines.html</loc>
+  </url>
+  <url>
+    <loc>/reference/add_footer_row.html</loc>
+  </url>
+  <url>
     <loc>/reference/add_header.html</loc>
   </url>
   <url>
@@ -70,7 +82,16 @@
     <loc>/reference/as_flextable.html</loc>
   </url>
   <url>
+    <loc>/reference/as_flextable.kmeans.html</loc>
+  </url>
+  <url>
     <loc>/reference/as_flextable.lm.html</loc>
+  </url>
+  <url>
+    <loc>/reference/as_flextable.merMod.html</loc>
+  </url>
+  <url>
+    <loc>/reference/as_flextable.pam.html</loc>
   </url>
   <url>
     <loc>/reference/as_flextable.tabulator.html</loc>
@@ -101,6 +122,9 @@
   </url>
   <url>
     <loc>/reference/as_sup.html</loc>
+  </url>
+  <url>
+    <loc>/reference/as_word_field.html</loc>
   </url>
   <url>
     <loc>/reference/autofit.html</loc>
@@ -319,10 +343,16 @@
     <loc>/reference/plot_chunk.html</loc>
   </url>
   <url>
+    <loc>/reference/prepend_chunks.html</loc>
+  </url>
+  <url>
     <loc>/reference/print.flextable.html</loc>
   </url>
   <url>
     <loc>/reference/proc_freq.html</loc>
+  </url>
+  <url>
+    <loc>/reference/regulartable.html</loc>
   </url>
   <url>
     <loc>/reference/rotate.html</loc>
@@ -338,6 +368,9 @@
   </url>
   <url>
     <loc>/reference/save_as_pptx.html</loc>
+  </url>
+  <url>
+    <loc>/reference/separate_header.html</loc>
   </url>
   <url>
     <loc>/reference/set_caption.html</loc>
@@ -370,6 +403,9 @@
     <loc>/reference/tabulator.html</loc>
   </url>
   <url>
+    <loc>/reference/tabulator_colnames.html</loc>
+  </url>
+  <url>
     <loc>/reference/theme_alafoli.html</loc>
   </url>
   <url>
@@ -395,6 +431,9 @@
   </url>
   <url>
     <loc>/reference/use_df_printer.html</loc>
+  </url>
+  <url>
+    <loc>/reference/use_model_printer.html</loc>
   </url>
   <url>
     <loc>/reference/valign.html</loc>

@@ -18,7 +18,7 @@ in a flextable."><meta property="og:image" content="/logo.png"><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
       </span>
     </div>
 
@@ -55,82 +55,67 @@ in a flextable.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">append_chunks</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, j <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, part <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">append_chunks</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, i <span class="op">=</span> <span class="cn">NULL</span>, j <span class="op">=</span> <span class="cn">NULL</span>, part <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a flextable object</p></dd>
+<dt>...</dt>
+<dd><p>chunks to be appened, see <code><a href="as_chunk.html">as_chunk()</a></code>, <code><a href="gg_chunk.html">gg_chunk()</a></code> and other
+chunk elements for paragraph.</p></dd>
 <dt>i</dt>
 <dd><p>rows selection</p></dd>
 <dt>j</dt>
 <dd><p>column selection</p></dd>
-<dt>...</dt>
-<dd><p>chunks to be appened, see <code><a href="as_chunk.html">as_chunk()</a></code>, <code><a href="gg_chunk.html">gg_chunk()</a></code> and other
-chunk elements for paragraph.</p></dd>
 <dt>part</dt>
 <dd><p>partname of the table (one of 'body', 'header', 'footer')</p></dd>
 </dl></div>
+    <div id="illustrations">
+    <h2>Illustrations</h2>
+    
+
+
+<p><img src="figures/fig_append_chunks_1.png" width="100"></p>
+    </div>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index"><p><code><a href="as_chunk.html">as_chunk()</a></code>, <code><a href="as_sup.html">as_sup()</a></code>, <code><a href="as_sub.html">as_sub()</a></code>, <code><a href="colorize.html">colorize()</a></code></p>
+<p>Other functions for mixed content paragraphs: 
+<code><a href="as_paragraph.html">as_paragraph</a>()</code>,
+<code><a href="compose.html">compose</a>()</code>,
+<code><a href="prepend_chunks.html">prepend_chunks</a>()</code></p></div>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span>
+<span class="r-in"><span class="va">img.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="st">"doc"</span><span class="op">)</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">f1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/formatc.html" class="external-link">formatC</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">          format <span class="op">=</span> <span class="st">"f"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">f2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="st">" ("</span>,</span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/formatc.html" class="external-link">formatC</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">            format <span class="op">=</span> <span class="st">"f"</span><span class="op">)</span>, <span class="st">")"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span></span>
-<span class="r-in">  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>,</span>
-<span class="r-in">  col_keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"am"</span>, <span class="st">"gear"</span>, <span class="st">"carb"</span>, <span class="st">"mycol"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu">append_chunks</span><span class="op">(</span><span class="va">ft_1</span>,</span>
+<span class="r-in">  <span class="co"># where to append</span></span>
+<span class="r-in">  i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span class="r-in">  j <span class="op">=</span> <span class="fl">1</span>,</span>
+<span class="r-in">  <span class="co"># what to append</span></span>
+<span class="r-in">  <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="st">" "</span><span class="op">)</span>,</span>
+<span class="r-in">  <span class="fu"><a href="as_image.html">as_image</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">img.file</span>, width <span class="op">=</span> <span class="fl">.20</span>, height <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="merge_v.html">merge_v</a></span><span class="op">(</span><span class="va">ft_1</span>, j <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="valign.html">valign</a></span><span class="op">(</span><span class="va">ft_1</span>, valign <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_vanilla.html">theme_vanilla</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="compose.html">mk_par</a></span><span class="op">(</span><span class="va">ft_1</span>,</span>
-<span class="r-in">  j <span class="op">=</span> <span class="st">"mycol"</span>, part <span class="op">=</span> <span class="st">"body"</span>,</span>
-<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">mpg</span>, formatter <span class="op">=</span> <span class="va">f1</span><span class="op">)</span>, <span class="st">" "</span>,</span>
-<span class="r-in">    <span class="fu"><a href="colorize.html">colorize</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">wt</span>, formatter <span class="op">=</span> <span class="va">f2</span><span class="op">)</span>, <span class="st">"gray"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">append_chunks</span><span class="op">(</span><span class="va">ft_1</span>,</span>
-<span class="r-in">    i <span class="op">=</span> <span class="fl">1</span>, j <span class="op">=</span> <span class="st">"mycol"</span>, part <span class="op">=</span> <span class="st">"header"</span>,</span>
-<span class="r-in">    <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="st">"mpg "</span><span class="op">)</span>,</span>
-<span class="r-in">    <span class="fu"><a href="colorize.html">colorize</a></span><span class="op">(</span><span class="fu"><a href="as_bracket.html">as_bracket</a></span><span class="op">(</span><span class="st">"wt"</span><span class="op">)</span>, <span class="st">"gray"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="align.html">align</a></span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="va">ft_1</span>, j <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"am"</span>, <span class="st">"gear"</span>, <span class="st">"carb"</span><span class="op">)</span>,</span>
-<span class="r-in">  align <span class="op">=</span> <span class="st">"center"</span>, part <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="align.html">align</a></span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="va">ft_1</span>, j <span class="op">=</span> <span class="st">"mycol"</span>,</span>
-<span class="r-in">  align <span class="op">=</span> <span class="st">"right"</span>, part <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="set_table_properties.html">set_table_properties</a></span><span class="op">(</span><span class="va">ft_1</span>, layout <span class="op">=</span> <span class="st">"autofit"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">ft_1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `am`, `gear`, `carb`, `mycol` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `speed`, `dist` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 6 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    mpg cyl disp  hp drat    wt  qsec vs am gear carb mycol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   speed dist</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     4    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     4   10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     7    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     7   22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     8   16</span>
 </code></pre></div>
     </div>
   </div>
@@ -141,7 +126,7 @@ chunk elements for paragraph.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

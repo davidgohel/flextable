@@ -3,7 +3,17 @@
 (minimum estimated widths and heights for each table columns and rows
 in inches returned by function dim_pretty()).
 This function is to be used when the table widths and heights
-should automatically be adjusted to fit the size of the content."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+should be adjusted to fit the size of the content.
+The function does not let you adjust a content that is too
+wide in a paginated document. It simply calculates the width
+of the columns so that each content has the minimum width
+necessary to display the content on one line.
+Note that this function is not related to 'Microsoft Word'
+Autofit feature.
+There is an alternative to fixed-width layouts that works
+well with HTML and Word output that can be set
+with set_table_properties(layout = &quot;autofit&quot;), see
+set_table_properties()."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -21,7 +31,7 @@ should automatically be adjusted to fit the size of the content."><meta property
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
       </span>
     </div>
 
@@ -57,11 +67,28 @@ should automatically be adjusted to fit the size of the content."><meta property
 (minimum estimated widths and heights for each table columns and rows
 in inches returned by function <code><a href="dim_pretty.html">dim_pretty()</a></code>).</p>
 <p>This function is to be used when the table widths and heights
-should automatically be adjusted to fit the size of the content.</p>
+should be adjusted to fit the size of the content.</p>
+<p>The function does not let you adjust a content that is too
+wide in a paginated document. It simply calculates the width
+of the columns so that each content has the minimum width
+necessary to display the content on one line.</p>
+<p>Note that this function is not related to 'Microsoft Word'
+<em>Autofit</em> feature.</p>
+<p>There is an alternative to fixed-width layouts that works
+well with HTML and Word output that can be set
+with <code>set_table_properties(layout = "autofit")</code>, see
+<code><a href="set_table_properties.html">set_table_properties()</a></code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">autofit</span><span class="op">(</span><span class="va">x</span>, add_w <span class="op">=</span> <span class="fl">0.1</span>, add_h <span class="op">=</span> <span class="fl">0.1</span>, part <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"body"</span>, <span class="st">"header"</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">autofit</span><span class="op">(</span>
+  <span class="va">x</span>,
+  add_w <span class="op">=</span> <span class="fl">0.1</span>,
+  add_h <span class="op">=</span> <span class="fl">0.1</span>,
+  part <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"body"</span>, <span class="st">"header"</span><span class="op">)</span>,
+  unit <span class="op">=</span> <span class="st">"in"</span>,
+  hspans <span class="op">=</span> <span class="st">"none"</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -76,26 +103,21 @@ should automatically be adjusted to fit the size of the content.</p>
 <dd><p>partname of the table (one of 'all', 'body', 'header' or 'footer')</p></dd>
 <dt>unit</dt>
 <dd><p>unit for add_h and add_w, one of "in", "cm", "mm".</p></dd>
+<dt>hspans</dt>
+<dd><p>specifies how cells that are horizontally are included in the calculation.
+It must be one of the following values "none", "divided" or "included". If
+"none", widths of horizontally spanned cells is set to 0 (then do not affect the
+widths); if "divided", widths of horizontally spanned cells is divided by
+the number of spanned cells; if "included", all widths (included horizontally
+spanned cells) will be used in the calculation.</p></dd>
 </dl></div>
-    <div id="note">
-    <h2>Note</h2>
-    <p>This function is not related to 'Microsoft Word' <em>Autofit</em> feature.</p>
-    </div>
-    <div id="line-breaks">
-    <h2>line breaks</h2>
-    
-
-<p>Soft returns (a line break in a paragraph) are not supported. Function
-<code>autofit</code> will return wrong results if <code>\n</code> are used (they will be
-considered as "").</p>
-    </div>
     <div id="illustrations">
     <h2>Illustrations</h2>
     
 
 
 <p><img src="figures/fig_autofit_1.png" width="500"></p>
-<p><img src="figures/fig_autofit_2.png" width="400"></p>
+<p><img src="figures/fig_autofit_2.png" width="379"></p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -150,7 +172,7 @@ considered as "").</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

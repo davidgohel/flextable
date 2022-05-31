@@ -35,7 +35,7 @@ all features of flextable."><meta property="og:image" content="/logo.png"><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
       </span>
     </div>
 
@@ -110,7 +110,8 @@ minimum <a href="https://pandoc.org/installing.html" class="external-link">pando
 <p>Some features, often specific to an output format, are available to help you
 configure some global settings relatve to the table output. knitr's chunk options
 are to be used to change the default settings:</p>
-<table class="table table"><tr><td><strong>chunk option</strong></td><td><strong>property</strong></td><td><strong>default value</strong></td><td><strong>HTML</strong></td><td><strong>docx</strong></td><td><strong>PDF</strong></td><td><strong>pptx</strong></td></tr><tr><td>ft.align</td><td>flextable alignment, supported values are 'left', 'center' and 'right'</td><td>'center'</td><td>yes</td><td>yes</td><td>yes</td><td>no</td></tr><tr><td>ft.shadow</td><td>HTML option, disable shadow dom (set to <code>FALSE</code>) for pagedown.</td><td>TRUE</td><td>yes</td><td>no</td><td>no</td><td>no</td></tr><tr><td>ft.split</td><td>Word option 'Allow row to break across pages' can be activated when TRUE.</td><td>FALSE</td><td>no</td><td>yes</td><td>no</td><td>no</td></tr><tr><td>ft.keepnext</td><td>Word option 'keep rows together' can be activated when TRUE.</td><td>TRUE</td><td>no</td><td>yes</td><td>no</td><td>no</td></tr><tr><td>ft.tabcolsep</td><td>space between the text and the left/right border of its containing cell</td><td>8.0</td><td>no</td><td>no</td><td>yes</td><td>no</td></tr><tr><td>ft.arraystretch</td><td>height of each row relative to its default height</td><td>1.5</td><td>no</td><td>no</td><td>yes</td><td>no</td></tr><tr><td>ft.left</td><td>left coordinates in inches</td><td>1.0</td><td>no</td><td>no</td><td>no</td><td>yes</td></tr><tr><td>ft.top</td><td>top coordinates in inches</td><td>2.0</td><td>no</td><td>no</td><td>no</td><td>yes</td></tr></table></div>
+<table class="table table"><tr><td><strong>chunk option</strong></td><td><strong>property</strong></td><td><strong>default value</strong></td><td><strong>HTML</strong></td><td><strong>docx</strong></td><td><strong>PDF</strong></td><td><strong>pptx</strong></td></tr><tr><td>ft.align</td><td>flextable alignment, supported values are 'left', 'center' and 'right'</td><td>'center'</td><td>yes</td><td>yes</td><td>yes</td><td>no</td></tr><tr><td>ft.shadow</td><td>HTML option, disable shadow dom (set to <code>FALSE</code>) for pagedown.</td><td>TRUE</td><td>yes</td><td>no</td><td>no</td><td>no</td></tr><tr><td>ft.htmlscroll</td><td>HTML option, add a scroll if table is too big to fit into its HTML container.</td><td>TRUE</td><td>yes</td><td>no</td><td>no</td><td>no</td></tr><tr><td>ft.split</td><td>Word option 'Allow row to break across pages' can be activated when TRUE.</td><td>FALSE</td><td>no</td><td>yes</td><td>no</td><td>no</td></tr><tr><td>ft.keepnext</td><td>Word option 'keep rows together' can be activated when TRUE.</td><td>TRUE</td><td>no</td><td>yes</td><td>no</td><td>no</td></tr><tr><td>ft.tabcolsep</td><td>space between the text and the left/right border of its containing cell</td><td>8.0</td><td>no</td><td>no</td><td>yes</td><td>no</td></tr><tr><td>ft.arraystretch</td><td>height of each row relative to its default height</td><td>1.5</td><td>no</td><td>no</td><td>yes</td><td>no</td></tr><tr><td>ft.latex.float</td><td>type of floating placement in the document, one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o'</td><td>'none'</td><td>no</td><td>no</td><td>yes</td><td>no</td></tr><tr><td>ft.left</td><td>left coordinates in inches</td><td>1.0</td><td>no</td><td>no</td><td>no</td><td>yes</td></tr><tr><td>ft.top</td><td>top coordinates in inches</td><td>2.0</td><td>no</td><td>no</td><td>no</td><td>yes</td></tr></table><p>See <code><a href="flextable_to_rmd.html">flextable_to_rmd()</a></code> for more details about these options.</p>
+    </div>
     <div id="table-caption">
     <h2>Table caption</h2>
     
@@ -119,8 +120,8 @@ are to be used to change the default settings:</p>
 <p>Captions can be defined in two ways.</p>
 <p>The first is with the <code>set_caption</code> function. If it is used,
 the other method will be ignored. The second method is by using
-knitr chunk option <code>tab.cap</code>.</p><div class="sourceCode"><pre><code><span class="fu"><a href="../reference/set_caption.html">set_caption</a></span><span class="op">(</span><span class="va">x</span>, caption <span class="op">=</span> <span class="st">"my caption"</span><span class="op">)</span></code></pre></div>
-
+knitr chunk option <code>tab.cap</code>.</p>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
 <p>If <code>set_caption</code> function is not used, caption identifier will be
 read from knitr's chunk option <code>tab.id</code>. Note that in a bookdown and
 when not using <code>officedown::rdocx_document()</code>, the usual numbering
@@ -190,7 +191,7 @@ that the columns' widths are adjusted if user does not provide the withs.</p>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="va">demo_docx</span>, to <span class="op">=</span> <span class="va">rmd_file</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span class="va">rmd_file</span> <span class="co"># R Markdown document used for demo</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmp2ycEQw/file32485134db8a.Rmd"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpH9Piyl/file34db322b52dc.Rmd"</span>
 <span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span class="r-in"><span class="co">#  knitr::opts_chunk$set(webshot = "webshot2")</span></span>
 <span class="r-in"><span class="co">#  render(input = rmd_file, output_format = "word_document", output_file = "doc.docx")</span></span>
@@ -259,7 +260,7 @@ that the columns' widths are adjusted if user does not provide the withs.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

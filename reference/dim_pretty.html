@@ -18,7 +18,7 @@ each table columns and rows in inches."><meta property="og:image" content="/logo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@ each table columns and rows in inches.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dim_pretty</span><span class="op">(</span><span class="va">x</span>, part <span class="op">=</span> <span class="st">"all"</span>, unit <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dim_pretty</span><span class="op">(</span><span class="va">x</span>, part <span class="op">=</span> <span class="st">"all"</span>, unit <span class="op">=</span> <span class="st">"in"</span>, hspans <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -66,15 +66,14 @@ each table columns and rows in inches.</p>
 <dd><p>partname of the table (one of 'all', 'body', 'header' or 'footer')</p></dd>
 <dt>unit</dt>
 <dd><p>unit for returned values, one of "in", "cm", "mm".</p></dd>
+<dt>hspans</dt>
+<dd><p>specifies how cells that are horizontally are included in the calculation.
+It must be one of the following values "none", "divided" or "included". If
+"none", widths of horizontally spanned cells is set to 0 (then do not affect the
+widths); if "divided", widths of horizontally spanned cells is divided by
+the number of spanned cells; if "included", all widths (included horizontally
+spanned cells) will be used in the calculation.</p></dd>
 </dl></div>
-    <div id="line-breaks">
-    <h2>line breaks</h2>
-    
-
-<p>Soft returns (a line break in a paragraph) are not supported. Function
-<code>dim_pretty</code> will return wrong results if <code>\n</code> are used (they will be
-considered as "").</p>
-    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other flextable dimensions: 
@@ -111,7 +110,7 @@ considered as "").</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

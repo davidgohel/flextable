@@ -5,9 +5,9 @@ R users. Functions are available to let you format text, paragraphs and cells;
 table cells can be merge vertically or horizontally, row headers can easilly
 be defined, rows heights and columns widths can be manually set or automatically
 computed.
-Default formatting properties are automatically applied to every
-flextable you produce. You can change these default values with
-function set_flextable_defaults()."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+If working with 'R Markdown' documents, you should read about knitr
+chunk options in knit_print.flextable() and about setting
+default values with set_flextable_defaults()."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -25,7 +25,7 @@ function set_flextable_defaults()."><meta property="og:image" content="/logo.png
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
       </span>
     </div>
 
@@ -63,9 +63,9 @@ R users. Functions are available to let you format text, paragraphs and cells;
 table cells can be merge vertically or horizontally, row headers can easilly
 be defined, rows heights and columns widths can be manually set or automatically
 computed.</p>
-<p>Default formatting properties are automatically applied to every
-flextable you produce. You can change these default values with
-function <code><a href="set_flextable_defaults.html">set_flextable_defaults()</a></code>.</p>
+<p>If working with 'R Markdown' documents, you should read about knitr
+chunk options in <code><a href="knit_print.flextable.html">knit_print.flextable()</a></code> and about setting
+default values with <code><a href="set_flextable_defaults.html">set_flextable_defaults()</a></code>.</p>
     </div>
 
     <div id="ref-usage">
@@ -78,9 +78,7 @@ function <code><a href="set_flextable_defaults.html">set_flextable_defaults()</a
   theme_fun <span class="op">=</span> <span class="va">theme_booktabs</span>
 <span class="op">)</span>
 
-<span class="fu">qflextable</span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-
-<span class="fu">regulartable</span><span class="op">(</span><span class="va">data</span>, col_keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>, cwidth <span class="op">=</span> <span class="fl">0.75</span>, cheight <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></code></pre></div>
+<span class="fu">qflextable</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,35 +93,59 @@ the dataset, they will be added as blank columns by default.</p></dd>
 <dt>defaults, theme_fun</dt>
 <dd><p>deprecated, use <code><a href="set_flextable_defaults.html">set_flextable_defaults()</a></code> instead.</p></dd>
 </dl></div>
-    <div id="details">
-    <h2>Details</h2>
-    <p>A <code>flextable</code> is made of 3 parts: header, body and footer.</p>
-<p>Most functions have an argument named <code>part</code> that will be used
-to specify what part of of the table should be modified.</p>
-<p>If working with R Markdown document, you should read about knitr
-chunk options in <code><a href="knit_print.flextable.html">knit_print.flextable()</a></code> and about setting
-default values with <code><a href="set_flextable_defaults.html">set_flextable_defaults()</a></code>.</p>
-    </div>
-    <div id="note">
-    <h2>Note</h2>
-    <p>Function <code>regulartable</code> is maintained for compatibility with old codes
-mades by users but be aware it produces the same exact object than <code>flextable</code>.
-This function should be deprecated then removed in the next versions.</p>
-    </div>
-    <div id="illustrations">
-    <h2>Illustrations</h2>
+    <div id="reuse-frequently-used-parameters">
+    <h2>Reuse frequently used parameters</h2>
     
 
 
-<p><img src="figures/fig_flextable_1.png" width="600"></p>
+<p>Some default formatting properties are automatically
+applied to every flextable you produce.</p>
+<p>It is highly recommended to use this function because
+its use will minimize the code. For example, instead of
+calling the <code><a href="fontsize.html">fontsize()</a></code> function over and over again for
+each new flextable, set the font size default value by
+calling (before creating the flextables)
+<code>set_flextable_defaults(font.size = 11)</code>. This is also
+a simple way to have homogeneous arrays and make the
+documents containing them easier to read.</p>
+<p>You can change these default values with function
+<code><a href="set_flextable_defaults.html">set_flextable_defaults()</a></code>. You can reset them
+with function <code><a href="set_flextable_defaults.html">init_flextable_defaults()</a></code>. You
+can access these values by calling <code><a href="get_flextable_defaults.html">get_flextable_defaults()</a></code>.</p>
+    </div>
+    <div id="new-lines-and-tabulations">
+    <h2>new lines and tabulations</h2>
+    
+
+
+<p>The 'flextable' package will translate for you
+the new lines expressed in the form <code>\n</code> and
+the tabs expressed in the form <code>\t</code>.</p>
+<p>The new lines will be transformed into "soft-return",
+that is to say a simple carriage return and not a
+new paragraph.</p>
+<p>Tabs are different depending on the output format:</p><ul><li><p>HTML is using entity <em>em space</em></p></li>
+<li><p>Word - a Word 'tab' element</p></li>
+<li><p>PowerPoint - a PowerPoint 'tab' element</p></li>
+<li><p>latex - tag "\quad "</p></li>
+</ul></div>
+    <div id="flextable-parts">
+    <h2>flextable parts</h2>
+    
+
+
+<p>A <code>flextable</code> is made of 3 parts: header, body and footer.</p>
+<p>Most functions have an argument named <code>part</code> that will be used
+to specify what part of of the table should be modified.</p>
     </div>
     <div id="qflextable">
     <h2>qflextable</h2>
     
 
 <p><code>qflextable</code> is a convenient tool to produce quickly
-a flextable for reporting where layoout is fixed and columns
-widths adjusted with <code><a href="autofit.html">autofit()</a></code>.</p>
+a flextable for reporting where layout is fixed (see
+<code><a href="set_table_properties.html">set_table_properties()</a></code>) and columns
+widths are adjusted with <code><a href="autofit.html">autofit()</a></code>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -156,7 +178,7 @@ widths adjusted with <code><a href="autofit.html">autofit()</a></code>.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
       </span>
     </div>
 
@@ -48,7 +48,43 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.7.0" id="flextable-070">flextable 0.7.0<a class="anchor" aria-label="anchor" href="#flextable-070"></a></h2>
+<h2 class="page-header" data-toc-text="0.7.1" id="flextable-071">flextable 0.7.1<a class="anchor" aria-label="anchor" href="#flextable-071"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-7-1">new features<a class="anchor" aria-label="anchor" href="#new-features-0-7-1"></a></h3>
+<ul><li>function <code><a href="../reference/as_flextable.html">as_flextable()</a></code> has now methods for lm, glm, models from package ‘lme’ and ‘lme4’, htest (t.test, chisq.test, …), gam, kmeans and pam.</li>
+<li>new function <code><a href="../reference/use_model_printer.html">use_model_printer()</a></code> to set model automatic printing as a flextable in an R Markdown document.</li>
+<li>new function <code><a href="../reference/add_body_row.html">add_body_row()</a></code> to add a row in the body part with eventually merged/spanned columns.<br></li>
+<li>new function <code><a href="../reference/tabulator_colnames.html">tabulator_colnames()</a></code> to get column names of a <code>tabulator</code> object.</li>
+<li>new function <code><a href="../reference/prepend_chunks.html">prepend_chunks()</a></code> to prepend chunks of content in flextable cells as with <code><a href="../reference/as_paragraph.html">as_paragraph()</a></code> but without replacing the whole content.</li>
+<li>addition of chunk function <code><a href="../reference/as_word_field.html">as_word_field()</a></code> to let add ‘Word’ computed values into a flextable, as <code>as_word_field(x = "Page")</code> for a page number.</li>
+<li>new function <code><a href="../reference/separate_header.html">separate_header()</a></code> to Separate collapsed colnames into multiple rows.</li>
+<li>Functions <code><a href="../reference/autofit.html">autofit()</a></code> and <code><a href="../reference/dim_pretty.html">dim_pretty()</a></code> now support newlines.</li>
+<li>
+<code><a href="../reference/autofit.html">autofit()</a></code> and <code><a href="../reference/dim_pretty.html">dim_pretty()</a></code> now have an argument <code>hspans</code> to help specify how horizontally spanned cells should affect the results.</li>
+<li>PDF output now supports various floating placement options with knitr option <code>ft.latex.float</code>, supported values are ‘none’ (the default value), ‘float’, ‘wrap-r’, ‘wrap-l’, ‘wrap-i’ and ‘wrap-o’.</li>
+<li>HTML output have now a scrool bar if width does not fit in the container. This can be switch off by using the knitr option <code>ft.htmlscroll = FALSE</code>.</li>
+<li>
+<code><a href="../reference/tabulator.html">tabulator()</a></code> can display any columns before and after the columns of displayed aggregations.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-7-1">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-1"></a></h3>
+<ul><li>fix append_chunks usage by adding <code>i</code>, <code>j</code> and <code>part</code> at the end of the function arguments, after the <code>...</code>.</li>
+<li>add forgotten <code>supp_data</code> in the result table of <code><a href="../reference/tabulator.html">tabulator()</a></code>
+</li>
+<li>merged horizontal borders are now visible in PowerPoint (<a href="https://github.com/davidgohel/flextable/issues/378" class="external-link">#378</a>)</li>
+<li>PowerPoint ‘soft returns’ are now real ‘soft returns’. (<a href="https://github.com/davidgohel/flextable/issues/379" class="external-link">#379</a>)</li>
+<li>mapping between argument <code>j</code> and <code>source</code> when color is a function (in <code><a href="../reference/bg.html">bg()</a></code>, <code><a href="../reference/highlight.html">highlight()</a></code> and <code><a href="../reference/color.html">color()</a></code>) is now based on colnames to avoid mistake while mapping. <a href="https://github.com/davidgohel/flextable/issues/395" class="external-link">#395</a></li>
+<li>Fix issue with footnotes forcing rectangular extent for selection; thanks to Sean Browning</li>
+<li>fix horizontal and vertical alignements when rotating paragraphs for pptx, docx and html outputs</li>
+<li>links in pptx and docx are not transformed anymore.</li>
+<li>fix handling of special characters in latex</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-0-7-1">Changes<a class="anchor" aria-label="anchor" href="#changes-0-7-1"></a></h3>
+<ul><li>refactor the code for pptx and docx output</li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.7.0" id="flextable-070">flextable 0.7.0<small>2022-03-06</small><a class="anchor" aria-label="anchor" href="#flextable-070"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-7-0">new features<a class="anchor" aria-label="anchor" href="#new-features-0-7-0"></a></h3>
 <ul><li>new function <code><a href="../reference/append_chunks.html">append_chunks()</a></code> to append chunks of content in flextable cells as with <code><a href="../reference/as_paragraph.html">as_paragraph()</a></code> but without replacing the whole content.</li>
@@ -61,12 +97,10 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-7-0">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-0"></a></h3>
-<ul><li>fix Rd files which when converted to HTML had <code>&lt;img&gt;</code> entries with invalid width attributes e.g. <code>width=40\%</code>.</li>
-</ul></div>
+<ul><li>fix Rd files which when converted to HTML had <code>&lt;img&gt;</code> entries with invalid width attributes e.g. <code>width=40\%</code>.</li></ul></div>
 <div class="section level3">
 <h3 id="changes-0-7-0">Changes<a class="anchor" aria-label="anchor" href="#changes-0-7-0"></a></h3>
-<ul><li>In a bookdown context and without package officedown, it is not possible to keep the cross-references as they are provided by bookdown and to provide a real Word cross-reference on table captions (the reference number only is displayed). That’s why when using bookdown without package officedown : 1. Word auto-numbering is desactivated and 2. caption prefix formatting feature.</li>
-</ul></div>
+<ul><li>In a bookdown context and without package officedown, it is not possible to keep the cross-references as they are provided by bookdown and to provide a real Word cross-reference on table captions (the reference number only is displayed). That’s why when using bookdown without package officedown : 1. Word auto-numbering is desactivated and 2. caption prefix formatting feature.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.10" id="flextable-0610">flextable 0.6.10<small>2021-11-15</small><a class="anchor" aria-label="anchor" href="#flextable-0610"></a></h2>
@@ -84,8 +118,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="enhancement-0-6-10">Enhancement<a class="anchor" aria-label="anchor" href="#enhancement-0-6-10"></a></h3>
-<ul><li>Theme functions behavior is now more detailed in the manual.</li>
-</ul></div>
+<ul><li>Theme functions behavior is now more detailed in the manual.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.9" id="flextable-069">flextable 0.6.9<small>2021-10-07</small><a class="anchor" aria-label="anchor" href="#flextable-069"></a></h2>
@@ -190,8 +223,7 @@
 <div class="section level3">
 <h3 id="changes-0-6-2">changes<a class="anchor" aria-label="anchor" href="#changes-0-6-2"></a></h3>
 <ul><li>new documentation! See at <a href="https://ardata-fr.github.io/flextable-book/" class="external-link uri">https://ardata-fr.github.io/flextable-book/</a>
-</li>
-</ul></div>
+</li></ul></div>
 <div class="section level3">
 <h3 id="new-features-0-6-2">new features<a class="anchor" aria-label="anchor" href="#new-features-0-6-2"></a></h3>
 <ul><li>
@@ -214,8 +246,7 @@
 <h2 class="page-header" data-toc-text="0.6.1" id="flextable-061">flextable 0.6.1<small>2020-12-08</small><a class="anchor" aria-label="anchor" href="#flextable-061"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-6-1">new features<a class="anchor" aria-label="anchor" href="#new-features-0-6-1"></a></h3>
-<ul><li>HTML flextable are now isolated from the document CSS (except caption which is copied before).</li>
-</ul></div>
+<ul><li>HTML flextable are now isolated from the document CSS (except caption which is copied before).</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-6-1">Issues<a class="anchor" aria-label="anchor" href="#issues-0-6-1"></a></h3>
 <ul><li>correction of latex tables which resulted in a centering of the following text.</li>
@@ -224,8 +255,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="changes-0-6-1">changes<a class="anchor" aria-label="anchor" href="#changes-0-6-1"></a></h3>
-<ul><li>drop defunct functions.</li>
-</ul></div>
+<ul><li>drop defunct functions.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.0" id="flextable-060">flextable 0.6.0<small>2020-12-01</small><a class="anchor" aria-label="anchor" href="#flextable-060"></a></h2>
@@ -260,8 +290,7 @@
 <h2 class="page-header" data-toc-text="0.5.11" id="flextable-0511">flextable 0.5.11<small>2020-09-09</small><a class="anchor" aria-label="anchor" href="#flextable-0511"></a></h2>
 <div class="section level3">
 <h3 id="changes-0-5-11">Changes<a class="anchor" aria-label="anchor" href="#changes-0-5-11"></a></h3>
-<ul><li>HTML code is now minimized as CSS styles are now used instead of inline CSS.</li>
-</ul></div>
+<ul><li>HTML code is now minimized as CSS styles are now used instead of inline CSS.</li></ul></div>
 <div class="section level3">
 <h3 id="new-features-0-5-11">new features<a class="anchor" aria-label="anchor" href="#new-features-0-5-11"></a></h3>
 <ul><li>save_as_html now accepts argument <code>encoding</code>
@@ -304,8 +333,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="internal-0-5-9">Internal<a class="anchor" aria-label="anchor" href="#internal-0-5-9"></a></h3>
-<ul><li>drop <code>officer::fp_sign</code> importation that was not used anymore so that officer can drop digest dependency.</li>
-</ul></div>
+<ul><li>drop <code>officer::fp_sign</code> importation that was not used anymore so that officer can drop digest dependency.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.8" id="flextable-058">flextable 0.5.8<small>2020-02-17</small><a class="anchor" aria-label="anchor" href="#flextable-058"></a></h2>
@@ -321,19 +349,16 @@
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-0-5-8">new features<a class="anchor" aria-label="anchor" href="#new-features-0-5-8"></a></h3>
-<ul><li>new function <code>flextable_html_dependency</code> to get flextable htmltools::htmlDependancy. This is necessary to output flextables in html R Markdown documents from loop or other nested operations.</li>
-</ul></div>
+<ul><li>new function <code>flextable_html_dependency</code> to get flextable htmltools::htmlDependancy. This is necessary to output flextables in html R Markdown documents from loop or other nested operations.</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-5-8">Issues<a class="anchor" aria-label="anchor" href="#issues-0-5-8"></a></h3>
-<ul><li>fix issue <a href="https://github.com/davidgohel/flextable/issues/188" class="external-link">#188</a>, add_rows error that came with version 0.5.7</li>
-</ul></div>
+<ul><li>fix issue <a href="https://github.com/davidgohel/flextable/issues/188" class="external-link">#188</a>, add_rows error that came with version 0.5.7</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.7" id="flextable-057">flextable 0.5.7<small>2020-02-03</small><a class="anchor" aria-label="anchor" href="#flextable-057"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-5-7">new features<a class="anchor" aria-label="anchor" href="#new-features-0-5-7"></a></h3>
-<ul><li>new suger functions <code>save_as_docx</code>, <code>save_as_pptx</code> that lets users export flextable objects to PowerPoint or Word documents.</li>
-</ul></div>
+<ul><li>new suger functions <code>save_as_docx</code>, <code>save_as_pptx</code> that lets users export flextable objects to PowerPoint or Word documents.</li></ul></div>
 <div class="section level3">
 <h3 id="changes-0-5-7">Changes<a class="anchor" aria-label="anchor" href="#changes-0-5-7"></a></h3>
 <ul><li>merge_v can use hidden columns.</li>
@@ -381,8 +406,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-5-5">Issues<a class="anchor" aria-label="anchor" href="#issues-0-5-5"></a></h3>
-<ul><li>fix issue with <code>save_as_image</code> with R for Windows</li>
-</ul></div>
+<ul><li>fix issue with <code>save_as_image</code> with R for Windows</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.3" id="flextable-053">flextable 0.5.3<a class="anchor" aria-label="anchor" href="#flextable-053"></a></h2>
@@ -404,8 +428,7 @@
 <div class="section level3">
 <h3 id="issues-0-5-2">Issues<a class="anchor" aria-label="anchor" href="#issues-0-5-2"></a></h3>
 <ul><li>fix issue with <code>set_footer_df</code>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.1" id="flextable-051">flextable 0.5.1<small>2019-02-07</small><a class="anchor" aria-label="anchor" href="#flextable-051"></a></h2>
@@ -421,7 +444,7 @@
 <li>new functions <code><a href="../reference/align.html">align_text_col()</a></code> and <code><a href="../reference/align.html">align_nottext_col()</a></code> to align columns by data type</li>
 <li>new functions <code><a href="../reference/merge_h_range.html">merge_h_range()</a></code> to merge a set of columns row by row</li>
 <li>new functions <code><a href="../reference/fix_border_issues.html">fix_border_issues()</a></code> fix issues with borders when cells are merged</li>
-<li>new functions <code><a href="../reference/add_header_row.html">add_header_row()</a></code>, <code><a href="../reference/add_header_row.html">add_footer_row()</a></code>, <code><a href="../reference/add_header_lines.html">add_header_lines()</a></code> and <code><a href="../reference/add_header_lines.html">add_footer_lines()</a></code> to add easily data in header or footer.</li>
+<li>new functions <code><a href="../reference/add_header_row.html">add_header_row()</a></code>, <code><a href="../reference/add_footer_row.html">add_footer_row()</a></code>, <code><a href="../reference/add_header_lines.html">add_header_lines()</a></code> and <code><a href="../reference/add_footer_lines.html">add_footer_lines()</a></code> to add easily data in header or footer.</li>
 <li>new generic function <code><a href="../reference/as_flextable.html">as_flextable()</a></code> to let develop new flextable functions</li>
 <li>new function <code><a href="../reference/as_grouped_data.html">as_grouped_data()</a></code> and its method <code><a href="../reference/as_flextable.html">as_flextable()</a></code> to create row titles to separate data in a flextable.</li>
 </ul></div>
@@ -447,12 +470,10 @@
 <div class="section level3">
 <h3 id="new-features-0-4-7">new features<a class="anchor" aria-label="anchor" href="#new-features-0-4-7"></a></h3>
 <ul><li>
-<code>knit_print()</code> can be used with rmarkdown when rendering to PowerPoint.</li>
-</ul></div>
+<code>knit_print()</code> can be used with rmarkdown when rendering to PowerPoint.</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-4-7">Issues<a class="anchor" aria-label="anchor" href="#issues-0-4-7"></a></h3>
-<ul><li>fix issue with <code>regulartable</code> and logical columns</li>
-</ul></div>
+<ul><li>fix issue with <code>regulartable</code> and logical columns</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.6" id="flextable-046">flextable 0.4.6<small>2018-10-31</small><a class="anchor" aria-label="anchor" href="#flextable-046"></a></h2>
@@ -469,15 +490,13 @@
 <div class="section level3">
 <h3 id="issues-0-4-6">Issues<a class="anchor" aria-label="anchor" href="#issues-0-4-6"></a></h3>
 <ul><li>fix issue (unordered and duplicated chunk of text) in function <code><a href="https://rdrr.io/pkg/xtable/man/table.attributes.html" class="external-link">display()</a></code>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.5" id="flextable-045">flextable 0.4.5<small>2018-08-27</small><a class="anchor" aria-label="anchor" href="#flextable-045"></a></h2>
 <div class="section level3">
 <h3 id="improvement-0-4-5">Improvement<a class="anchor" aria-label="anchor" href="#improvement-0-4-5"></a></h3>
-<ul><li>flextable will not be split across rows at a page break in Word documents.</li>
-</ul></div>
+<ul><li>flextable will not be split across rows at a page break in Word documents.</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-4-5">Issues<a class="anchor" aria-label="anchor" href="#issues-0-4-5"></a></h3>
 <ul><li>fix border rendering with <code><a href="../reference/vline.html">vline()</a></code>
@@ -495,8 +514,7 @@
 <div class="section level3">
 <h3 id="issues-0-4-4">Issues<a class="anchor" aria-label="anchor" href="#issues-0-4-4"></a></h3>
 <ul><li>fix border rendering with <code><a href="../reference/border_outer.html">border_outer()</a></code>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.3" id="flextable-043">flextable 0.4.3<small>2018-03-14</small><a class="anchor" aria-label="anchor" href="#flextable-043"></a></h2>
@@ -508,12 +526,10 @@
 </ul></div>
 <div class="section level3">
 <h3 id="improvement-0-4-3">Improvement<a class="anchor" aria-label="anchor" href="#improvement-0-4-3"></a></h3>
-<ul><li>manuals have been refactored</li>
-</ul></div>
+<ul><li>manuals have been refactored</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-4-3">Issues<a class="anchor" aria-label="anchor" href="#issues-0-4-3"></a></h3>
-<ul><li>fix display issue when a cell was containing NA</li>
-</ul></div>
+<ul><li>fix display issue when a cell was containing NA</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.2" id="flextable-042">flextable 0.4.2<small>2018-01-10</small><a class="anchor" aria-label="anchor" href="#flextable-042"></a></h2>
@@ -527,15 +543,13 @@
 <h2 class="page-header" data-toc-text="0.4.1" id="flextable-041">flextable 0.4.1<a class="anchor" aria-label="anchor" href="#flextable-041"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-4-1">new features<a class="anchor" aria-label="anchor" href="#new-features-0-4-1"></a></h3>
-<ul><li>flextables have now a footer part</li>
-</ul></div>
+<ul><li>flextables have now a footer part</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.0" id="flextable-040">flextable 0.4.0<small>2017-12-08</small><a class="anchor" aria-label="anchor" href="#flextable-040"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-4-0">new features<a class="anchor" aria-label="anchor" href="#new-features-0-4-0"></a></h3>
-<ul><li>new function <code>knit_print()</code> to render flextable in rmarkdown.</li>
-</ul></div>
+<ul><li>new function <code>knit_print()</code> to render flextable in rmarkdown.</li></ul></div>
 <div class="section level3">
 <h3 id="changes-0-4-0">Changes<a class="anchor" aria-label="anchor" href="#changes-0-4-0"></a></h3>
 <ul><li>function tabwid() is deprecated in favor of a knit_print implementation.</li>
@@ -547,8 +561,7 @@
 <div class="section level3">
 <h3 id="new-features-0-3">new features<a class="anchor" aria-label="anchor" href="#new-features-0-3"></a></h3>
 <ul><li>new function <code>regulartable</code>, faster and simpler than <code>flextable</code>
-</li>
-</ul></div>
+</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-3">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3"></a></h3>
 <ul><li>characters &lt;, &gt; and &amp; are now html encoded</li>
@@ -566,12 +579,10 @@
 </ul></div>
 <div class="section level3">
 <h3 id="changes-0-2">Changes<a class="anchor" aria-label="anchor" href="#changes-0-2"></a></h3>
-<ul><li>function display() now works with a mustache template</li>
-</ul></div>
+<ul><li>function display() now works with a mustache template</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-2">Issues<a class="anchor" aria-label="anchor" href="#issues-0-2"></a></h3>
-<ul><li>fix fontsize when part == “all”</li>
-</ul></div>
+<ul><li>fix fontsize when part == “all”</li></ul></div>
 </div>
   </div>
 
@@ -583,7 +594,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

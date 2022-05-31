@@ -19,7 +19,7 @@ the tabulator() function."><meta property="og:image" content="/logo.png"><!-- ma
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@ can evolve or change.</p>
 <span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_1</span>, separate_with <span class="op">=</span> <span class="st">"variable"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">ft_1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy`, `nonchilled@blah`, `dummy2`, `chilled@blah`, `dummy3`, `Overall@blah` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy1`, `nonchilled@blah`, `dummy2`, `chilled@blah`, `dummy3`, `Overall@blah` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 30 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
@@ -135,12 +135,12 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3          discrete               NA            NA            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4          discrete               NA            NA            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   blah@nonchilled blah@chilled blah@Overall dummy nonchilled@blah dummy2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   blah@nonchilled blah@chilled blah@Overall dummy1 nonchilled@blah dummy2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   chilled@blah dummy3 Overall@blah</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                 </span>
@@ -172,7 +172,7 @@ can evolve or change.</p>
 <span class="r-in"><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_2</span>, separate_with <span class="op">=</span> <span class="st">"variable"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">ft_2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy`, `@nonchilled@Est.`, `@nonchilled@N`, `dummy2`, `@chilled@Est.`, `@chilled@N`, `dummy3`, `@Overall@Est.`, `@Overall@N` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy1`, `@nonchilled@Est.`, `@nonchilled@N`, `dummy2`, `@chilled@Est.`, `@chilled@N`, `dummy3`, `@Overall@Est.`, `@Overall@N` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 30 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
@@ -200,12 +200,12 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   dummy @nonchilled@Est. @nonchilled@N dummy2 @chilled@Est. @chilled@N dummy3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dummy1 @nonchilled@Est. @nonchilled@N dummy2 @chilled@Est. @chilled@N dummy3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   @Overall@Est. @Overall@N</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                         </span>
@@ -222,7 +222,7 @@ can evolve or change.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
