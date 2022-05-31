@@ -13,10 +13,11 @@ expand_special_char <- function(x, what = "\n", with = "<br>"){
         add[length(add)] <- NA_character_
       }
       z <- as.character(t(matrix(c(z, add), ncol = 2)))
-      z <- z[!is.na(z)]
+      z <- z[!is.na(z) & !z %in% ""]
     }
     dat <- rbind.match.columns(rep(list(dat), length(z)))
     dat$txt <- z
+
     dat
   }, tmp_txt, str, tmp_x, SIMPLIFY = FALSE)
 

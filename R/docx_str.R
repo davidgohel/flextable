@@ -43,29 +43,21 @@ wml_runs <- function(value) {
     stringsAsFactors = FALSE
   )
 
+  setDT(txt_data)
+  txt_data <- merge(txt_data, data_ref_text, by = colnames(data_ref_text)[-ncol(data_ref_text)])
+  txt_data <- merge(txt_data, style_dat, by = "classname")
+
   is_soft_return <- txt_data$txt %in% "<br>"
   is_tab <- txt_data$txt %in% "<tab>"
   is_eq <- !is.na(txt_data$eq_data)
   is_word_field <- !is.na(txt_data$word_field_data)
-
-  is_hlink <- !is.na(txt_data$url)
-  unique_url_key <- urls_to_keys(urls = txt_data$url, is_hlink = is_hlink)
-
   is_raster <- sapply(txt_data$img_data, function(x) {
     inherits(x, "raster") || is.character(x)
   })
+  is_hlink <- !is.na(txt_data$url)
+  unique_url_key <- urls_to_keys(urls = txt_data$url, is_hlink = is_hlink)
 
-  setDT(txt_data)
-  txt_data <- merge(txt_data, data_ref_text, by = colnames(data_ref_text)[-ncol(data_ref_text)])
-  txt_data <- merge(txt_data, style_dat, by = "classname")
-  txt_data <- txt_data[, .SD,
-                       .SDcols = c(
-                         "part", "txt", "width", "height", "url",
-                         "eq_data", "img_data", "seq_index",
-                         "word_field_data",
-                         "ft_row_id", "col_id", "fp_text_wml"
-                       )
-  ]
+
   txt_data <- add_raster_as_filecolumn(txt_data)
 
   text_nodes_t <- paste0("<w:t xml:space=\"preserve\">", htmlEscape(txt_data$txt), "</w:t>")

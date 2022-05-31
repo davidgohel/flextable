@@ -28,70 +28,62 @@ pml_runs <- function(value) {
     stringsAsFactors = FALSE
   )
 
-  is_soft_return <- txt_data$txt %in% "<br>"
-  is_tab <- txt_data$txt %in% "<tab>"
-  is_eq <- !is.na(txt_data$eq_data)
-
-  is_hlink <- !is.na(txt_data$url)
-  unique_url_key <- urls_to_keys(urls = txt_data$url, is_hlink = is_hlink)
-
-  is_raster <- sapply(txt_data$img_data, function(x) {
-    inherits(x, "raster") || is.character(x)
-  })
 
   setDT(txt_data)
   txt_data <- merge(txt_data, data_ref_text, by = colnames(data_ref_text)[-ncol(data_ref_text)])
   txt_data <- merge(txt_data, style_dat, by = "classname")
-  txt_data <- txt_data[, .SD,
-    .SDcols = c(
-      "part", "txt", "width", "height", "url",
-      "eq_data", "img_data", "seq_index",
-      "ft_row_id", "col_id", "fp_text_pml"
-    )
-  ]
-  text_nodes_str <- paste0("<a:t>", htmlEscape(txt_data$txt), "</a:t>")
-  text_nodes_str[is_raster] <- "<a:t></a:t>"
-  text_nodes_str[is_soft_return] <- ""
-  text_nodes_str[is_tab] <- "<a:t>\t</a:t>"
+
+  is_soft_return <- txt_data$txt %in% "<br>"
+  is_tab <- txt_data$txt %in% "<tab>"
+  is_eq <- !is.na(txt_data$eq_data)
+  is_hlink <- !is.na(txt_data$url)
+  is_raster <- sapply(txt_data$img_data, function(x) {inherits(x, "raster") || is.character(x)})
+
+  unique_url_key <- urls_to_keys(urls = txt_data$url, is_hlink = is_hlink)
+
+  txt_data[, c("text_nodes_str") := list(paste0("<a:t>", htmlEscape(.SD$txt), "</a:t>"))]
+
+  txt_data[is_raster == TRUE, c("text_nodes_str") := list("<a:t></a:t>")]
+  txt_data[is_soft_return == TRUE, c("text_nodes_str") := list("")]
+  txt_data[is_tab == TRUE, c("text_nodes_str") := list("<a:t>\t</a:t>")]
 
   # manage hlinks
-  txt_data$url[is_hlink] <- as.character(unique_url_key[txt_data$url[is_hlink]])
+  txt_data[is_hlink == TRUE, c("url") := list(as.character(unique_url_key[.SD$url]))]
   link_pr <- ifelse(is_hlink, paste0("<a:hlinkClick r:id=\"", txt_data$url, "\"/>"), "")
-
-  # manage formula
-  if (requireNamespace("equatags", quietly = TRUE) && any(is_eq)) {
-    transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
-    text_nodes_str[is_eq] <-
-      paste0(
-        "<mc:AlternateContent xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\"><mc:Choice xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\" Requires=\"a14\">",
-        "<a14:m xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\"><m:oMathPara xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\"><m:oMathParaPr><m:jc m:val=\"centerGroup\"/></m:oMathParaPr>",
-        transform_mathjax(txt_data$eq_data[is_eq], to = "mml"),
-        "</m:oMathPara></a14:m>",
-        "</mc:Choice></mc:AlternateContent>"
-      )
-  }
-
-  # add url
   gmatch <- gregexpr(pattern = "</a:rPr>", txt_data$fp_text_pml, fixed = TRUE)
   end_tag <- paste0(link_pr, "</a:rPr>")
   regmatches(txt_data$fp_text_pml, gmatch) <- as.list(end_tag)
 
-  opening_tag <- rep("<a:r>", nrow(txt_data))
-  closing_tag <- rep("</a:r>", nrow(txt_data))
-  opening_tag[is_eq] <- ""
-  closing_tag[is_eq] <- ""
-  opening_tag[is_soft_return] <- "<a:br>"
-  closing_tag[is_soft_return] <- "</a:br>"
+  # manage formula
+  if (requireNamespace("equatags", quietly = TRUE) && any(is_eq)) {
+    transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
+    txt_data[is_eq == TRUE, c("text_nodes_str") := list(
+      paste0(
+        "<mc:AlternateContent xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\"><mc:Choice xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\" Requires=\"a14\">",
+        "<a14:m xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\"><m:oMathPara xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\"><m:oMathParaPr><m:jc m:val=\"centerGroup\"/></m:oMathParaPr>",
+        transform_mathjax(.SD$eq_data, to = "mml"),
+        "</m:oMathPara></a14:m>",
+        "</mc:Choice></mc:AlternateContent>"
+      )
+    )]
+  }
 
-  txt_data$par_nodes_str <- paste0(
-    opening_tag,
-    txt_data$fp_text_pml, text_nodes_str,
-    closing_tag
-  )
+  txt_data[, c("opening_tag", "closing_tag") := list("<a:r>", "</a:r>")]
+  txt_data[is_eq, c("opening_tag", "closing_tag") := list("", "")]
+  txt_data[is_soft_return, c("opening_tag", "closing_tag") := list("<a:br>", "</a:br>")]
+
+  txt_data[, c("par_nodes_str") := list(
+    paste0(.SD$opening_tag, .SD$fp_text_pml, .SD$text_nodes_str, .SD$closing_tag)
+  )]
 
   setorderv(txt_data, cols = c("part", "ft_row_id", "col_id", "seq_index"))
 
-  txt_data <- txt_data[, lapply(.SD, function(x) paste0(x, collapse = "")), by = c("part", "ft_row_id", "col_id"), .SDcols = "par_nodes_str"]
+  txt_data <- txt_data[,
+                       lapply(
+                         .SD,
+                         function(x) {paste0(x, collapse = "")}),
+                       by = c("part", "ft_row_id", "col_id"),
+                       .SDcols = "par_nodes_str"]
   setDF(txt_data)
   attr(txt_data, "url") <- unique_url_key
   txt_data
