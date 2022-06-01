@@ -79,6 +79,8 @@ ft_2 <- autofit(ft_2)
 ft_2
 }
 \seealso{
+\code{\link[=fp_text_default]{fp_text_default()}}, \code{\link[=as_chunk]{as_chunk()}}, \code{\link[=as_b]{as_b()}}, \code{\link[=as_word_field]{as_word_field()}}
+
 Other functions for mixed content paragraphs: 
 \code{\link{append_chunks}()},
 \code{\link{as_paragraph}()},

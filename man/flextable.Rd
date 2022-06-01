@@ -31,7 +31,7 @@ Create a flextable object with function \code{flextable}.
 
 \code{flextable} are designed to make tabular reporting easier for
 R users. Functions are available to let you format text, paragraphs and cells;
-table cells can be merge vertically or horizontally, row headers can easilly
+table cells can be merge vertically or horizontally, row headers can easily
 be defined, rows heights and columns widths can be manually set or automatically
 computed.
 

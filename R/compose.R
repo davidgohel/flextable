@@ -55,6 +55,9 @@
 #' ft_2
 #' @export
 #' @family functions for mixed content paragraphs
+#' @seealso [fp_text_default()], [as_chunk()], [as_b()], [as_word_field()]
+#'
+#'
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_compose_1.png}{options: width="117"}}

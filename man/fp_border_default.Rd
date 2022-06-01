@@ -23,7 +23,23 @@ defaut values defined in flextable defaults formatting properties, i.e.
 default border color (see \code{\link[=set_flextable_defaults]{set_flextable_defaults()}}).
 }
 \examples{
-fp_border_default(width = 2)
+library(flextable)
+
+set_flextable_defaults(
+  border.color = "orange")
+
+z <- flextable(head(cars))
+z <- theme_vanilla(z)
+z <- vline(
+  z, j = 1, part = "all",
+  border = officer::fp_border())
+z <- vline(
+  z, j = 2, part = "all",
+  border = fp_border_default())
+z
+
+init_flextable_defaults()
+
 }
 \seealso{
 \code{\link[=hline]{hline()}}, \code{\link[=vline]{vline()}}

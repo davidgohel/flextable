@@ -319,13 +319,47 @@ print.flextable_defaults <- function(x, ...){
 #' @title Text formatting properties
 #'
 #' @description Create a [fp_text()] object that uses
-#' defaut values defined in flextable defaults formatting properties, i.e.
-#' default font color, font size and font family (see [set_flextable_defaults()]).
-#' (see [set_flextable_defaults()]).
+#' defaut values defined in the flextable it applies to.
+#'
+#' `fp_text_default()` is a handy function that will allow
+#' you to specify certain formatting values to be applied
+#' to a piece of text, the formatting values that are not
+#' specified will simply be the existing formatting values.
+#'
+#' For example, if you set the text in the cell to red
+#' previously, using the code `fp_text_default(bold = TRUE)`,
+#' the formatting will be 'bold' but it will also be 'red'.
+#'
+#' On the other hand, the `fp_text()` function forces you
+#' to specify all the parameters, so we strongly recommend
+#' working with `fp_text_default()` which was created
+#' to replace the use of the former.
+#'
+#' See also [set_flextable_defaults()] to modify flextable
+#' defaults formatting properties.
 #' @examples
-#' fp_text_default(bold = TRUE)
+#' library(flextable)
+#'
+#' set_flextable_defaults(
+#'   font.size = 11, font.color = "#303030",
+#'   padding = 3, table.layout = "autofit")
+#' z <- flextable(head(cars))
+#'
+#' z <- compose(
+#'   x = z,
+#'   i = ~ speed < 6,
+#'   j = "speed",
+#'   value = as_paragraph(
+#'     as_chunk("slow... ", props = fp_text_default(color = "red")),
+#'     as_chunk(speed, props = fp_text_default(italic = TRUE))
+#'   )
+#' )
+#' z
+#'
+#' init_flextable_defaults()
+#'
 #' @family functions for defining formatting properties
-#' @seealso [as_chunk()]
+#' @seealso [as_chunk()], [compose()], [append_chunks()], [prepend_chunks()]
 fp_text_default <- function(color = flextable_global$defaults$font.color,
                             font.size = flextable_global$defaults$font.size,
                             bold = FALSE,
@@ -356,7 +390,23 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
 #' defaut values defined in flextable defaults formatting properties, i.e.
 #' default border color (see [set_flextable_defaults()]).
 #' @examples
-#' fp_border_default(width = 2)
+#' library(flextable)
+#'
+#' set_flextable_defaults(
+#'   border.color = "orange")
+#'
+#' z <- flextable(head(cars))
+#' z <- theme_vanilla(z)
+#' z <- vline(
+#'   z, j = 1, part = "all",
+#'   border = officer::fp_border())
+#' z <- vline(
+#'   z, j = 2, part = "all",
+#'   border = fp_border_default())
+#' z
+#'
+#' init_flextable_defaults()
+#'
 #' @family functions for defining formatting properties
 #' @seealso [hline()], [vline()]
 fp_border_default <- function(color = flextable_global$defaults$border.color,

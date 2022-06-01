@@ -54,15 +54,49 @@ a valid color (e.g. "#000000" or "black").}
 }
 \description{
 Create a \code{\link[=fp_text]{fp_text()}} object that uses
-defaut values defined in flextable defaults formatting properties, i.e.
-default font color, font size and font family (see \code{\link[=set_flextable_defaults]{set_flextable_defaults()}}).
-(see \code{\link[=set_flextable_defaults]{set_flextable_defaults()}}).
+defaut values defined in the flextable it applies to.
+
+\code{fp_text_default()} is a handy function that will allow
+you to specify certain formatting values to be applied
+to a piece of text, the formatting values that are not
+specified will simply be the existing formatting values.
+
+For example, if you set the text in the cell to red
+previously, using the code \code{fp_text_default(bold = TRUE)},
+the formatting will be 'bold' but it will also be 'red'.
+
+On the other hand, the \code{fp_text()} function forces you
+to specify all the parameters, so we strongly recommend
+working with \code{fp_text_default()} which was created
+to replace the use of the former.
+
+See also \code{\link[=set_flextable_defaults]{set_flextable_defaults()}} to modify flextable
+defaults formatting properties.
 }
 \examples{
-fp_text_default(bold = TRUE)
+library(flextable)
+
+set_flextable_defaults(
+  font.size = 11, font.color = "#303030",
+  padding = 3, table.layout = "autofit")
+z <- flextable(head(cars))
+
+z <- compose(
+  x = z,
+  i = ~ speed < 6,
+  j = "speed",
+  value = as_paragraph(
+    as_chunk("slow... ", props = fp_text_default(color = "red")),
+    as_chunk(speed, props = fp_text_default(italic = TRUE))
+  )
+)
+z
+
+init_flextable_defaults()
+
 }
 \seealso{
-\code{\link[=as_chunk]{as_chunk()}}
+\code{\link[=as_chunk]{as_chunk()}}, \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}, \code{\link[=prepend_chunks]{prepend_chunks()}}
 
 Other functions for defining formatting properties: 
 \code{\link{fp_border_default}()}
