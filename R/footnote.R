@@ -63,16 +63,18 @@
 #' \if{html}{\figure{fig_footnote_1.png}{options: width="400"}}
 #'
 #' \if{html}{\figure{fig_footnote_2.png}{options: width="400"}}
-footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "body",
-                      inline = FALSE, sep = "; ")
-{
-  if (!inherits(x, "flextable"))
+footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "body",
+                     inline = FALSE, sep = "; ") {
+  if (!inherits(x, "flextable")) {
     stop("footnote supports only flextable objects.")
+  }
   part <- match.arg(part, c("body", "header", "footer"),
-                    several.ok = FALSE)
+    several.ok = FALSE
+  )
 
-  if (nrow_part(x, part) < 1)
+  if (nrow_part(x, part) < 1) {
     return(x)
+  }
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
@@ -86,8 +88,8 @@ footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "
   sep_str <- rep(sep, length(value))
   sep_str[length(sep_str)] <- ""
 
-  cell_index <- data.frame(i=i, j=j)
-  if(length(symbols_str) == 1) {
+  cell_index <- data.frame(i = i, j = j)
+  if (length(symbols_str) == 1) {
     symbols_str <- rep(symbols_str, nrow(cell_index))
   }
   # Assert that either one footnote, or that footnote symbol length matches number
@@ -97,10 +99,11 @@ footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "
   for (n in seq_len(nrow(cell_index))) {
     i_cell <- cell_index[["i"]][n]
     j_cell <- cell_index[["j"]][n]
-    x <- append_chunks(x, i = i_cell, j = j_cell,
-                        part = part,
-                        as_sup(symbols_str[n]))
-
+    x <- append_chunks(x,
+      i = i_cell, j = j_cell,
+      part = part,
+      as_sup(symbols_str[n])
+    )
   }
 
   n_row <- nrow_part(x, "footer")
@@ -110,27 +113,25 @@ footnote <- function (x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "
     x <- add_footer_lines(x, values = "")
 
     paras <- mapply(rbind,
-           as_paragraph(as_sup(ref_symbols)),
-           value,
-           as_paragraph(sep_str),
-           SIMPLIFY = FALSE)
+      as_paragraph(as_sup(ref_symbols)),
+      value,
+      as_paragraph(sep_str),
+      SIMPLIFY = FALSE
+    )
     paras <- do.call(rbind, paras)
     paras$seq_index <- seq_len(nrow(paras))
     x[["footer"]]$content[nrow_part(x, "footer"), 1] <- list(paras)
-
   } else {
     # init new lines
     x <- add_footer_lines(x, values = ref_symbols)
-
-    for(v in seq_along(value)){
-      x <- mk_par(
-        x = x, part = "footer",
-        i = n_row + v, j = 1,
-        value = value[v])
-      x <- prepend_chunks(x, i = n_row + v, j = 1,
-                         part = "footer",
-                         as_sup(ref_symbols[v]))
-
+    for (v in seq_along(value)) {
+      # `[<-.chunkset_struct`
+      x[["footer"]]$content[n_row + v, j = 1] <- value[v]
+      x <- prepend_chunks(
+        x = x, i = n_row + v, j = 1,
+        part = "footer",
+        as_sup(ref_symbols[v])# [ as we want a list of df
+      )
     }
   }
   x
