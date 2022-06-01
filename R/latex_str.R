@@ -99,7 +99,7 @@ latex_str <- function(x, ft.align = "center",
   }
 
   # latex for multirow ----
-  augment_multirow(cell_properties_df)
+  augment_multirow_fixed(cell_properties_df)
 
   # paste everything ----
   cell_properties_df[, c("txt") := list(
@@ -199,7 +199,7 @@ latex_str <- function(x, ft.align = "center",
   latex
 }
 #' @importFrom data.table fcase
-augment_multirow <- function(properties_df) {
+augment_multirow_fixed <- function(properties_df) {
   properties_df[, c("multirow_left", "multirow_right") :=
     list(
       fcase(
@@ -209,11 +209,11 @@ augment_multirow <- function(properties_df) {
           substr(.SD$vertical.align, 1, 1),
           "]{-",
           format_double(.SD$colspan, digits = 0),
-          "}{*}{"
+          "}{*}{\\parbox{", format_double(.SD$width, digits = 2), "in}{"
         ),
         default = ""
       ),
-      fcase(.SD$colspan > 1, "}", default = "")
+      fcase(.SD$colspan > 1, "}}", default = "")
     )]
   properties_df
 }

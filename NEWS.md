@@ -48,6 +48,8 @@ thanks to Sean Browning
 pptx, docx and html outputs
 * links in pptx and docx are not transformed anymore.
 * fix handling of special characters in latex
+* vertically merged cells now wrap text into the paragraph 
+
 
 ## Changes
 
