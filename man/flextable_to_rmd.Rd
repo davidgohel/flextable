@@ -30,8 +30,16 @@ flextable_to_rmd(
 \item{ft.split}{Word option 'Allow row to break across pages' can be
 activated when TRUE.}
 
-\item{ft.keepnext}{Word option 'keep rows together' can be
-activated when TRUE. It avoids page break within tables.}
+\item{ft.keepnext}{default \code{TRUE}. Word option 'keep rows
+together' is activated when TRUE. It avoids page break
+within tables. This is handy for small tables, i.e. less than
+a page height.
+
+Be careful, if you print long tables, you should
+rather set its value to \code{FALSE} to avoid that the tables
+also generate a page break before being placed in the
+Word document. Since Word will try to keep it with the \strong{next
+paragraphs that follow the tables}.}
 
 \item{ft.tabcolsep}{space between the text and the left/right border of its containing
 cell, the default value is 8 points.}

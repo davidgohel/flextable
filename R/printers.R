@@ -51,8 +51,16 @@ htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE, ft.htmlscr
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param ft.split Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
-#' @param ft.keepnext Word option 'keep rows together' can be
-#' activated when TRUE. It avoids page break within tables.
+#' @param ft.keepnext default `TRUE`. Word option 'keep rows
+#' together' is activated when TRUE. It avoids page break
+#' within tables. This is handy for small tables, i.e. less than
+#' a page height.
+#'
+#' Be careful, if you print long tables, you should
+#' rather set its value to `FALSE` to avoid that the tables
+#' also generate a page break before being placed in the
+#' Word document. Since Word will try to keep it with the **next
+#' paragraphs that follow the tables**.
 #' @param ft.tabcolsep space between the text and the left/right border of its containing
 #' cell, the default value is 8 points.
 #' @param ft.arraystretch height of each row relative to its default
@@ -232,8 +240,16 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param ft.split Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
-#' @param ft.keepnext Word option 'keep rows together' can be
-#' activated when TRUE. It avoids page break within tables.
+#' @param ft.keepnext default `TRUE`. Word option 'keep rows
+#' together' is activated when TRUE. It avoids page break
+#' within tables. This is handy for small tables, i.e. less than
+#' a page height.
+#'
+#' Be careful, if you print long tables, you should
+#' rather set its value to `FALSE` to avoid that the tables
+#' also generate a page break before being placed in the
+#' Word document. Since Word will try to keep it with the **next
+#' paragraphs that follow the tables**.
 #' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
 #' @examples
 #' docx_value(flextable(iris[1:5,]))
@@ -459,13 +475,18 @@ print.flextable <- function(x, preview = "html", ...){
 #'   ft.shadow       \tab HTML option, disable shadow dom (set to `FALSE`) for pagedown. \tab TRUE    \tab yes  \tab no \tab no  \tab no \cr
 #'   ft.htmlscroll   \tab HTML option, add a scroll if table is too big to fit into its HTML container. \tab TRUE    \tab yes  \tab no \tab no  \tab no \cr
 #'   ft.split        \tab Word option 'Allow row to break across pages' can be activated when TRUE. \tab FALSE    \tab no  \tab yes \tab no  \tab no \cr
-#'   ft.keepnext     \tab Word option 'keep rows together' can be activated when TRUE. \tab TRUE    \tab no  \tab yes \tab no  \tab no \cr
+#'   ft.keepnext     \tab Word option 'keep rows together' can be desactivated when FALSE \tab TRUE    \tab no  \tab yes \tab no  \tab no \cr
 #'   ft.tabcolsep    \tab space between the text and the left/right border of its containing cell   \tab 8.0      \tab no  \tab no  \tab yes \tab no \cr
 #'   ft.arraystretch \tab height of each row relative to its default height                         \tab 1.5      \tab no  \tab no  \tab yes \tab no \cr
 #'   ft.latex.float  \tab type of floating placement in the document, one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o' \tab 'none'      \tab no  \tab no  \tab yes \tab no \cr
 #'   ft.left         \tab left coordinates in inches                                                \tab 1.0      \tab no  \tab no  \tab no  \tab yes\cr
 #'   ft.top          \tab top coordinates in inches                                                 \tab 2.0      \tab no  \tab no  \tab no  \tab yes
 #' }
+#'
+#' If some values are to be used all the time in the same
+#' document, it is recommended to set these values in a
+#' 'knitr r chunk' by using function
+#' `knitr::opts_chunk$set(ft.split=FALSE, ft.keepnext = FALSE, ...)`.
 #'
 #' See [flextable_to_rmd()] for more details about these options.
 #'
@@ -528,8 +549,13 @@ print.flextable <- function(x, preview = "html", ...){
 #' infeasibility. These are the padding, line_spacing and
 #' height properties.
 #'
-#' Background color and merged cells are also sources of trouble
-#' with PDF format. Authors are hoping to fix these issues in
+#' It is recommended to set theses values in a
+#' 'knitr r chunk' so that they are permanent
+#' all along the document:
+#' `knitr::opts_chunk$set(ft.tabcolsep=0, ft.latex.float = "none")`.
+#'
+#' Background color and merged cells does not work well together
+#' with PDF format. Authors are hoping to fix this issue in
 #' the future.
 #'
 #' See [add_latex_dep()] if caching flextable results in 'R Markdown'
