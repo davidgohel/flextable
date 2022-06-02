@@ -6,8 +6,16 @@
 #' @param align left, center (default) or right.
 #' @param split set to TRUE if you want to activate Word
 #' option 'Allow row to break across pages'.
-#' @param keepnext Word option 'keep rows together' can be
-#' activated when TRUE. It avoids page break within tables.
+#' @param keepnext default `TRUE`. Word option 'keep rows
+#' together' is activated when TRUE. It avoids page break
+#' within tables. This is handy for small tables, i.e. less than
+#' a page height.
+#'
+#' Be careful, if you print long tables, you should
+#' rather set its value to `FALSE` to avoid that the tables
+#' also generate a page break before being placed in the
+#' Word document. Since Word will try to keep it with the **next
+#' paragraphs that follow the tables**.
 #' @param pos where to add the flextable relative to the cursor,
 #' one of "after", "before", "on" (end of line).
 #' @param topcaption if TRUE caption is added before the table, if FALSE,
