@@ -1,3 +1,10 @@
+# flextable 0.7.2
+
+## Issues
+
+- fix selector issue with numeric values (#409)
+
+
 # flextable 0.7.1
 
 ## new features

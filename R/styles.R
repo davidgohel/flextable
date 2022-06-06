@@ -776,7 +776,7 @@ as_col_keys <- function(x, j = NULL) {
   } else if (is.character(j)) {
     j <- intersect(colnames(x$dataset), j)
   } else if (is.numeric(j)) {
-    j <- x$col_keys[intersect(seq_along(ncol(x$dataset)), j)]
+    j <- x$col_keys[intersect(seq_len(ncol(x$dataset)), j)]
   }
 
   j
