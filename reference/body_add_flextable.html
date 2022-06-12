@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
       </span>
     </div>
 
@@ -76,24 +76,46 @@
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>an rdocx object</p></dd>
+
+
 <dt>value</dt>
 <dd><p><code>flextable</code> object</p></dd>
+
+
 <dt>align</dt>
 <dd><p>left, center (default) or right.</p></dd>
+
+
 <dt>pos</dt>
 <dd><p>where to add the flextable relative to the cursor,
 one of "after", "before", "on" (end of line).</p></dd>
+
+
 <dt>split</dt>
 <dd><p>set to TRUE if you want to activate Word
 option 'Allow row to break across pages'.</p></dd>
+
+
 <dt>topcaption</dt>
 <dd><p>if TRUE caption is added before the table, if FALSE,
 caption is added after the table.</p></dd>
+
+
 <dt>keepnext</dt>
-<dd><p>Word option 'keep rows together' can be
-activated when TRUE. It avoids page break within tables.</p></dd>
+<dd><p>default <code>TRUE</code>. Word option 'keep rows
+together' is activated when TRUE. It avoids page break
+within tables. This is handy for small tables, i.e. less than
+a page height.</p>
+<p>Be careful, if you print long tables, you should
+rather set its value to <code>FALSE</code> to avoid that the tables
+also generate a page break before being placed in the
+Word document. Since Word will try to keep it with the <strong>next
+paragraphs that follow the tables</strong>.</p></dd>
+
+
 <dt>bookmark</dt>
 <dd><p>bookmark id</p></dd>
+
 </dl></div>
     <div id="body-replace-flextable-at-bkm">
     <h2>body_replace_flextable_at_bkm</h2>
@@ -128,7 +150,7 @@ a bookmark with a flextable. As a side effect, the bookmark will be lost.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

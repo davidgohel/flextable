@@ -20,7 +20,7 @@ to re-init all values with the package defaults."><meta property="og:image" cont
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
       </span>
     </div>
 
@@ -100,66 +100,107 @@ to re-init all values with the package defaults.</p>
     <dl><dt>font.family</dt>
 <dd><p>single character value. When format is Word, it specifies the font to
 be used to format characters in the Unicode range (U+0000-U+007F).</p></dd>
+
+
 <dt>font.size</dt>
 <dd><p>font size (in point) - 0 or positive integer value.</p></dd>
+
+
 <dt>font.color</dt>
 <dd><p>font color - a single character value specifying
 a valid color (e.g. "#000000" or "black").</p></dd>
+
+
 <dt>text.align</dt>
 <dd><p>text alignment - a single character value, expected value
 is one of 'left', 'right', 'center', 'justify'.</p></dd>
+
+
 <dt>padding</dt>
 <dd><p>padding (shortcut for top, bottom, left and right padding)</p></dd>
+
+
 <dt>padding.bottom, padding.top, padding.left, padding.right</dt>
 <dd><p>paragraph paddings - 0 or
 positive integer value.</p></dd>
+
+
 <dt>border.color</dt>
 <dd><p>border color - single character value
 (e.g. "#000000" or "black").</p></dd>
+
+
 <dt>background.color</dt>
 <dd><p>cell background color - a single character value specifying a
 valid color (e.g. "#000000" or "black").</p></dd>
+
+
 <dt>line_spacing</dt>
 <dd><p>space between lines of text, 1 is single line spacing, 2 is double line spacing.</p></dd>
+
+
 <dt>table.layout</dt>
 <dd><p>'autofit' or 'fixed' algorithm. Default to 'autofit'.</p></dd>
+
+
 <dt>cs.family</dt>
 <dd><p>optional and only for Word. Font to be used to format
 characters in a complex script Unicode range. For example, Arabic
 text might be displayed using the "Arial Unicode MS" font.</p></dd>
+
+
 <dt>eastasia.family</dt>
 <dd><p>optional and only for Word. Font to be used to
 format characters in an East Asian Unicode range. For example,
 Japanese text might be displayed using the "MS Mincho" font.</p></dd>
+
+
 <dt>hansi.family</dt>
 <dd><p>optional and only for Word. Font to be used to format
 characters in a Unicode range which does not fall into one of the
 other categories.</p></dd>
+
+
 <dt>decimal.mark, big.mark, na_str, nan_str</dt>
 <dd><p><a href="https://rdrr.io/r/base/formatc.html" class="external-link">formatC</a> arguments used by <code><a href="colformat_num.html">colformat_num()</a></code>,
 <code><a href="colformat_double.html">colformat_double()</a></code>, and <code><a href="colformat_int.html">colformat_int()</a></code>.</p></dd>
+
+
 <dt>digits</dt>
 <dd><p><a href="https://rdrr.io/r/base/formatc.html" class="external-link">formatC</a> argument used by <code><a href="colformat_double.html">colformat_double()</a></code>.</p></dd>
+
+
 <dt>fmt_date, fmt_datetime</dt>
 <dd><p>formats for date and datetime columns as
 documented in <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime()</a></code>. Default to '%Y-%m-%d' and '%Y-%m-%d %H:%M:%S'.</p></dd>
+
+
 <dt>extra_css</dt>
 <dd><p>css instructions to be integrated with the table.</p></dd>
+
+
 <dt>fonts_ignore</dt>
 <dd><p>if TRUE, pdf-engine pdflatex can be used instead of
 xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
 not supported by pdflatex, whereas with the xelatex and lualatex engines they are.</p></dd>
+
+
 <dt>theme_fun</dt>
 <dd><p>a single character value (the name of the theme function
 to be applied) or a theme function (input is a flextable, output is a flextable).</p></dd>
+
+
 <dt>post_process_pdf, post_process_docx, post_process_html, post_process_pptx</dt>
 <dd><p>Post-processing functions
 that will allow you to customize the display by output type (pdf, html, docx, pptx).
 They are executed just before printing the table.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a list containing previous default values.</p>
+    
+
+<p>a list containing previous default values.</p>
     </div>
     <div id="illustrations">
     <h2>Illustrations</h2>
@@ -227,7 +268,7 @@ They are executed just before printing the table.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

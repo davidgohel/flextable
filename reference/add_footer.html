@@ -23,7 +23,7 @@ NA and displayed as empty."><meta property="og:image" content="/logo.png"><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
       </span>
     </div>
 
@@ -72,8 +72,12 @@ the footer.</p>
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a flextable object</p></dd>
+
+
 <dt>top</dt>
 <dd><p>should the rows be inserted at the top or the bottom.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>named arguments (names are data colnames) of values
 to add. It is important to insert data of the same type as the
@@ -81,11 +85,14 @@ original data, otherwise it will be transformed (probably
 into strings if you add a <code>character</code> where a <code>double</code> is expected).
 This makes possible to still format cell contents with the <code>colformat_*</code>
 functions, for example <code><a href="colformat_num.html">colformat_num()</a></code>.</p></dd>
+
+
 <dt>values</dt>
 <dd><p>a list of name-value pairs of labels or values,
 names should be existing col_key values. This argument can be used
 instead of <code>...</code> for programming purpose (If <code>values</code> is
 supplied argument <code>...</code> is ignored).</p></dd>
+
 </dl></div>
     <div id="illustrations">
     <h2>Illustrations</h2>
@@ -154,7 +161,7 @@ supplied argument <code>...</code> is ignored).</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

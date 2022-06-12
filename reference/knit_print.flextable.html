@@ -35,7 +35,7 @@ all features of flextable."><meta property="og:image" content="/logo.png"><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
       </span>
     </div>
 
@@ -94,8 +94,11 @@ all features of flextable.</p>
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a <code>flextable</code> object</p></dd>
+
+
 <dt>...</dt>
 <dd><p>arguments passed to <code><a href="flextable_to_rmd.html">flextable_to_rmd()</a></code>.</p></dd>
+
 </dl></div>
     <div id="note">
     <h2>Note</h2>
@@ -125,7 +128,7 @@ document, it is recommended to set these values in a
 <p>The first is with the <code>set_caption</code> function. If it is used,
 the other method will be ignored. The second method is by using
 knitr chunk option <code>tab.cap</code>.</p>
-<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">set_caption</span>(x, <span class="dt">caption =</span> <span class="st">"my caption"</span>)</span></code></pre><p></p></div>
 <p>If <code>set_caption</code> function is not used, caption identifier will be
 read from knitr's chunk option <code>tab.id</code>. Note that in a bookdown and
 when not using <code>officedown::rdocx_document()</code>, the usual numbering
@@ -199,7 +202,7 @@ that the columns' widths are adjusted if user does not provide the withs.</p>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="va">demo_docx</span>, to <span class="op">=</span> <span class="va">rmd_file</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span class="va">rmd_file</span> <span class="co"># R Markdown document used for demo</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmp3prJX1/file33722eda6f93.Rmd"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpua3sJ7/file33dd364b1c1d.Rmd"</span>
 <span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span class="r-in"><span class="co">#  knitr::opts_chunk$set(webshot = "webshot2")</span></span>
 <span class="r-in"><span class="co">#  render(input = rmd_file, output_format = "word_document", output_file = "doc.docx")</span></span>
@@ -268,7 +271,7 @@ that the columns' widths are adjusted if user does not provide the withs.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

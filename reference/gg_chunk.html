@@ -19,7 +19,7 @@ It should be used inside a call to as_paragraph()."><meta property="og:image" co
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
       </span>
     </div>
 
@@ -64,10 +64,15 @@ It should be used inside a call to <code><a href="as_paragraph.html">as_paragrap
     <h2>Arguments</h2>
     <dl><dt>value</dt>
 <dd><p>gg objects, stored in a list column.</p></dd>
+
+
 <dt>width, height</dt>
 <dd><p>size of the resulting png file in inches</p></dd>
+
+
 <dt>unit</dt>
 <dd><p>unit for width and height, one of "in", "cm", "mm".</p></dd>
+
 </dl></div>
     <div id="note">
     <h2>Note</h2>
@@ -145,9 +150,9 @@ are removed when outputing to PowerPoint format.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 versicolor</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  virginica</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          gg</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1           Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.7425467, 0.2671758, 0.2780984, 0.7425467, 1, 0.1777, 0.232752, 0.2671758, 0.1777, 1, 0.33163, 0.2780984, 0.232752, 0.33163, 1, &lt;environment: 0x5650f7a3bf98&gt;, &lt;environment: 0x5650f7f22940&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0x5650f7a93cf8&gt;, &lt;environment: 0x5650f78ac230&gt;, &lt;environment: 0x5650f77b77d0&gt;, var1, var2, correlation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.5259107, 0.754049, 0.5464611, 0.5259107, 1, 0.5605221, 0.6639987, 0.754049, 0.5605221, 1, 0.7866681, 0.5464611, 0.6639987, 0.7866681, 1, &lt;environment: 0x5650f7f1ffd8&gt;, &lt;environment: 0x5650f863c120&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0x5650f8005c00&gt;, &lt;environment: 0x5650f7cbacd0&gt;, &lt;environment: 0x5650f7f39cc8&gt;, var1, var2, correlation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.4572278, 0.8642247, 0.2811077, 0.4572278, 1, 0.4010446, 0.537728, 0.8642247, 0.4010446, 1, 0.3221082, 0.2811077, 0.537728, 0.3221082, 1, &lt;environment: 0x5650f8b2be50&gt;, &lt;environment: 0x5650f8e1af58&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0x5650f8ba4538&gt;, &lt;environment: 0x5650f89aef20&gt;, &lt;environment: 0x5650f86a2380&gt;, var1, var2, correlation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.7425467, 0.2671758, 0.2780984, 0.7425467, 1, 0.1777, 0.232752, 0.2671758, 0.1777, 1, 0.33163, 0.2780984, 0.232752, 0.33163, 1, &lt;environment: 0x563692aad0f8&gt;, &lt;environment: 0x56369b85b110&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0x5636926a1c58&gt;, &lt;environment: 0x56369574a2d8&gt;, &lt;environment: 0x5636974b4e88&gt;, var1, var2, correlation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.5259107, 0.754049, 0.5464611, 0.5259107, 1, 0.5605221, 0.6639987, 0.754049, 0.5605221, 1, 0.7866681, 0.5464611, 0.6639987, 0.7866681, 1, &lt;environment: 0x56369cd6ee78&gt;, &lt;environment: 0x56369ce5cec8&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0x56369cd8ba40&gt;, &lt;environment: 0x56369ccf6cd8&gt;, &lt;environment: 0x56369b871148&gt;, var1, var2, correlation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 1, 0.4572278, 0.8642247, 0.2811077, 0.4572278, 1, 0.4010446, 0.537728, 0.8642247, 0.4010446, 1, 0.3221082, 0.2811077, 0.537728, 0.3221082, 1, &lt;environment: 0x56369d0c43f8&gt;, &lt;environment: 0x56369d1fc760&gt;, ~var1, ~var2, ~correlation, , plain, black, 11, 0.5, 0.5, 0, 0.9, 0, 0, 0, 0, FALSE, TRUE, 0, 1.2, 0.8, TRUE, 0, TRUE, right, 5.5, FALSE, 1.2, 0, 1, 5.5, 0, 0, 0, TRUE, panel, 0, 1, 5.5, 0, 0, 0, TRUE, 0.8, 1, 1, 5.5, 0, 0, 0, TRUE, panel, 1.2, 0.5, 0.5, TRUE, topleft, 0, 0, 0, 0, 0.8, TRUE, 2.75, 2.75, &lt;environment: 0x56369d0fbf60&gt;, &lt;environment: 0x56369cef9d78&gt;, &lt;environment: 0x56369ce7d620&gt;, var1, var2, correlation</span>
 </code></pre></div>
     </div>
   </div>
@@ -158,7 +163,7 @@ are removed when outputing to PowerPoint format.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
