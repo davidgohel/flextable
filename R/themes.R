@@ -163,12 +163,16 @@ theme_vader <- function(x, ...) {
 
   h_nrow <- nrow_part(x, "header")
   b_nrow <- nrow_part(x, "body")
+  f_nrow <- nrow_part(x, "footer")
 
   if (h_nrow > 0) {
     x <- hline_bottom(x, border = big_border, part = "header")
   }
   if (b_nrow > 0) {
     x <- hline_top(x, border = big_border, part = "body")
+  }
+  if (f_nrow > 0) {
+    x <- hline_top(x, border = big_border, part = "footer")
   }
 
   x <- align_text_col(x, align = "left", header = TRUE)
