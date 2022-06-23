@@ -167,7 +167,9 @@ html_gen <- function(x){
 
   if (requireNamespace("equatags", quietly = TRUE) && any(is_eq)) {
     transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
-    txt_data[is_eq==TRUE, c("txt") := list(transform_mathjax(.SD$eq_data, to = "svg"))]
+    txt_data[is_eq==TRUE, c("txt") := list(transform_mathjax(.SD$eq_data, to = "html"))]
+    katex_link <- "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css\" data-external=\"1\">"
+    txt_data[which(is_eq==TRUE)[1], c("txt") := list(paste0(katex_link, .SD$txt))]
   }
 
   # manage hlinks
