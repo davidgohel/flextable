@@ -236,6 +236,11 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
 #'
 #' @description get openxml raw code for Word
 #' from a flextable object.
+#'
+#' This feature is available to simplify the work of users by avoiding
+#' the need to use the 'officer' package. If it doesn't suit your needs,
+#' then use the API offered by 'officer' which allows simple and
+#' complicated things.
 #' @param x a flextable object
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param ft.split Word option 'Allow row to break across pages' can be
@@ -727,7 +732,15 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
 #' @export
 #' @importFrom officer ph_location_type
 #' @title save flextable objects in an PowerPoint file
-#' @description sugar function to save flextable objects in an PowerPoint file.
+#' @description sugar function to save flextable objects in
+#' an PowerPoint file.
+#'
+#' This feature is available to simplify the work of users by avoiding
+#' the need to use the 'officer' package. If it doesn't suit your needs,
+#' then use the API offered by 'officer' which allows simple and
+#' complicated things.
+#' @note
+#' The PowerPoint format ignores captions (see [set_caption()]).
 #' @param ... flextable objects, objects, possibly named. If named objects, names are
 #' used as slide titles.
 #' @param values a list (possibly named), each element is a flextable object. If named objects, names are

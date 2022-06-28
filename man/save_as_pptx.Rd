@@ -16,7 +16,16 @@ used as slide titles. If provided, argument \code{...} will be ignored.}
 \item{path}{PowerPoint file to be created}
 }
 \description{
-sugar function to save flextable objects in an PowerPoint file.
+sugar function to save flextable objects in
+an PowerPoint file.
+
+This feature is available to simplify the work of users by avoiding
+the need to use the 'officer' package. If it doesn't suit your needs,
+then use the API offered by 'officer' which allows simple and
+complicated things.
+}
+\note{
+The PowerPoint format ignores captions (see \code{\link[=set_caption]{set_caption()}}).
 }
 \examples{
 ft1 <- flextable( head( iris ) )

@@ -35,7 +35,11 @@ Set caption value in a flextable.
 \item The caption will be associated with a paragraph style when
 the output is Word. It can also be numbered as a auto-numbered
 Word computed value.
-\item The PowerPoint format ignores captions.
+\item The PowerPoint format ignores captions. PowerPoint documents are not
+structured and do not behave as HTML documents and paginated documents
+(word, pdf), and it's not possible to know where we should create
+a shape to contain the caption (technically it can't be in the
+PowerPoint shape containing the table).
 }
 }
 \section{R Markdown}{
