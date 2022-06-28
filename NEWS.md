@@ -3,6 +3,7 @@
 ## Issues
 
 - fix HTML horizontal scrolling
+- fix top borders correction (for docx and pptx)
 
 # flextable 0.7.2
 

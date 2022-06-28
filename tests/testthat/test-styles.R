@@ -1,6 +1,7 @@
 context("check formatting")
 
 library(xml2)
+library(officer)
 
 test_that("shortcut functions", {
   ft <- flextable(head(mtcars, n = 2))
@@ -58,3 +59,33 @@ test_that("shortcut functions", {
 
 })
 
+tab <- data.frame(x = c("Row1", "Row2"), y = c(1, 2))
+
+ft <- flextable(tab)
+ft <- border_remove(ft)
+ft <- hline(ft, i = 1:2, j = 2, part = "body")
+ft <- delete_part(ft, part = "header")
+
+test_that("borders with office docs are sanitized", {
+
+  docx_file <- tempfile(fileext = ".docx")
+  pptx_file <- tempfile(fileext = ".pptx")
+  save_as_docx(ft, path = docx_file)
+  save_as_pptx(ft, path = pptx_file)
+
+  docx <- read_docx(docx_file)
+  doc <- docx_body_xml(docx)
+
+  top_nodes <- xml_find_all(doc, "w:body/w:tbl/w:tr/w:tc/w:tcPr/w:tcBorders/w:top")
+  bot_nodes <- xml_find_all(doc, "w:body/w:tbl/w:tr/w:tc/w:tcPr/w:tcBorders/w:bottom")
+  expect_equal( xml_attr(top_nodes, "color"), c("000000", "000000", "000000", "666666") )
+  expect_equal( xml_attr(bot_nodes, "color"), c("000000", "666666", "000000", "666666") )
+
+  pptx <- read_pptx(pptx_file)
+  slide <- pptx$slide$get_slide(1)$get()
+
+  top_nodes <- xml_find_all(slide, "//a:tbl/a:tr/a:tc/a:tcPr/a:lnT")
+  bot_nodes <- xml_find_all(slide, "//a:tbl/a:tr/a:tc/a:tcPr/a:lnB")
+  expect_equal( xml_attr(top_nodes, "w"), c("0", "0", "0", "12700") )
+  expect_equal( xml_attr(bot_nodes, "w"), c("0", "12700", "0", "12700") )
+})
