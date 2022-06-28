@@ -1,3 +1,9 @@
+# flextable 0.7.3
+
+## Issues
+
+- fix HTML horizontal scrolling
+
 # flextable 0.7.2
 
 ## Issues

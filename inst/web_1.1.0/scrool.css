@@ -1,3 +1,4 @@
 .flextable-shadow-host{
   overflow: scroll;
+  white-space: nowrap;
 }
