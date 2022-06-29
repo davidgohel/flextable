@@ -35,8 +35,10 @@ and set rule "exact" for rows heights (with function \code{\link[=hrule]{hrule()
 otherwise Word and PowerPoint outputs will have small height
 not corresponding to the necessary height to display the text.
 
-Note that PDF does not yet support vertical alignments when
-text is rotated.
+flextable doesn't do the rotation by any angle. It only
+rotates by a number of right angles. This choice is made
+to ensure the same rendering between Word, PowerPoint
+(limited to angles 0, 270 and 90) HTML and PDF.
 }
 \details{
 When function \code{autofit} is used, the rotation will be
