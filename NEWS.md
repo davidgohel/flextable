@@ -4,6 +4,7 @@
 
 - fix HTML horizontal scrolling
 - fix top borders correction (for docx and pptx)
+- check that used colors do not contain NA
 
 # flextable 0.7.2
 

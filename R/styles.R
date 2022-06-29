@@ -803,6 +803,9 @@ data_colors <- function(dataset, fun) {
       stop(msg, call. = FALSE)
     }
   )
+  if(anyNA(out)) {
+    stop("colors can not contain missing values")
+  }
   return(out)
 }
 
