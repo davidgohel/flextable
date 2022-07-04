@@ -4,7 +4,8 @@
 
 - function `as_flextable.tabulator()` gained an argument `label_rows` used for 
 labels to display in the first column names, i.e. the *row* column names.
-
+- new function `shift_table()` to produce Shift Tables used used in 
+clinical trial analysis ready to be used by `tabulator()`.
 
 ## Issues
 
