@@ -5,10 +5,12 @@
 - function `as_flextable.tabulator()` gained an argument `label_rows` used for 
 labels to display in the first column names, i.e. the *row* column names.
 
+
 ## Issues
 
 - fix top borders correction (for docx and pptx)
 - check that used colors do not contain NA
+- fix HTML scrolling that is always visible to Windows users
 
 # flextable 0.7.2
 
