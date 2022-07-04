@@ -11,6 +11,7 @@
   small_border = fp_border_default(width = 0.75),
   rows_alignment = "left",
   columns_alignment = "center",
+  label_rows = x$rows,
   sep_w = 0.05,
   unit = "in",
   ...
@@ -28,6 +29,10 @@ by a call to \code{\link[=fp_border_default]{fp_border_default()}} or \code{\lin
 \item{rows_alignment, columns_alignment}{alignments to apply to
 columns corresponding to \code{rows} and \code{columns}; see arguments
 \code{rows} and \code{columns} in \code{\link[=tabulator]{tabulator()}}.}
+
+\item{label_rows}{labels to use for the first column names, i.e.
+the \emph{row} column names. It must be a named vector, the values will
+be matched based on the names.}
 
 \item{sep_w}{blank column separators'width to be used. If 0,
 blank column separators will not be used.}

@@ -221,6 +221,9 @@ tabulator <- function(x, rows, columns,
 #' @param rows_alignment,columns_alignment alignments to apply to
 #' columns corresponding to `rows` and `columns`; see arguments
 #' `rows` and `columns` in [tabulator()].
+#' @param label_rows labels to use for the first column names, i.e.
+#' the *row* column names. It must be a named vector, the values will
+#' be matched based on the names.
 #' @param sep_w blank column separators'width to be used. If 0,
 #' blank column separators will not be used.
 #' @param unit unit of argument `sep_w`, one of "in", "cm", "mm".
@@ -267,6 +270,7 @@ as_flextable.tabulator <- function(
     big_border = fp_border_default(width = 1.5),
     small_border = fp_border_default(width = .75),
     rows_alignment = "left", columns_alignment = "center",
+    label_rows = x$rows,
     sep_w = .05, unit = "in", ...) {
 
   # get necessary element
@@ -399,6 +403,14 @@ as_flextable.tabulator <- function(
     ft <- void(ft, j = blank_columns, part = "all")
     ft <- width(ft, j = blank_columns, width = sep_w, unit = unit)
   }
+
+  if (!is.null(names(label_rows))) {
+    j_labs <- names(label_rows)
+    ft <- mk_par(ft, i = 1, j = j_labs,
+           value = as_paragraph(as.character(label_rows)),
+           part = "header")
+  }
+
   ft <- autofit(ft, part = "all", add_w = .2, add_h = .0, unit = "cm")
   ft <- fix_border_issues(ft, part = "all")
   ft

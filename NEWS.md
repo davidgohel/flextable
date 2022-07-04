@@ -1,8 +1,12 @@
 # flextable 0.7.3
 
+## new features
+
+- function `as_flextable.tabulator()` gained an argument `label_rows` used for 
+labels to display in the first column names, i.e. the *row* column names.
+
 ## Issues
 
-- fix HTML horizontal scrolling
 - fix top borders correction (for docx and pptx)
 - check that used colors do not contain NA
 
