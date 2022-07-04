@@ -76,7 +76,7 @@ Manuals are available at:
 <https://davidgohel.github.io/flextable/reference/index.html>
 
 A gallery of examples is available here:
-<https://ardata-fr.github.io/flextable-gallery/gallery/>
+<https://ardata.fr/en/flextable-gallery/>
 
 ### Getting help / questions
 
