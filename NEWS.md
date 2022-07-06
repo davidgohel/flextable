@@ -12,6 +12,7 @@ clinical trial analysis ready to be used by `tabulator()`.
 - fix top borders correction (for docx and pptx)
 - check that used colors do not contain NA
 - fix HTML scrolling that is always visible to Windows users
+- fix "cs.family", "hansi.family" and "eastasia.family" for Word
 
 # flextable 0.7.2
 

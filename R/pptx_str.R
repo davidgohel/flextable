@@ -1,6 +1,9 @@
 dummy_fp_text_fun <- function(color = "black", font.size = 10,
                               bold = FALSE, italic = FALSE, underlined = FALSE,
                               font.family = "Arial",
+                              hansi.family = "Arial",
+                              eastasia.family = "Arial",
+                              cs.family = "Arial",
                               vertical.align = "baseline",
                               shading.color = "transparent", line_spacing = 2) {
 
