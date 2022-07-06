@@ -56,16 +56,16 @@
 #' \if{html}{\figure{fig_merge_v_1.png}{options: width="600"}}
 #'
 #' \if{html}{\figure{fig_merge_v_2.png}{options: width="600"}}
-merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE){
-  if( !inherits(x, "flextable") ) stop("merge_v supports only flextable objects.")
-  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
+merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE) {
+  if (!inherits(x, "flextable")) stop("merge_v supports only flextable objects.")
+  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
 
-  j <- as_col_keys(x[[part]], j)
+  j <- as_col_keys(x[[part]], j, blanks = x$blanks)
 
-  if( !is.null(target)){
-    target <- as_col_keys(x[[part]], target)
+  if (!is.null(target)) {
+    target <- as_col_keys(x[[part]], target, blanks = character())
   } else {
-    target <- j
+    target <- as_col_keys(x[[part]], j, blanks = character())
   }
 
   x[[part]] <- span_columns(x = x[[part]], columns = j, target = target, combine = combine)

@@ -17,24 +17,36 @@ check_merge <- function(x){
     stop("invalid merging instructions", call. = FALSE)
   x
 }
-span_columns <- function( x, columns = NULL, target = columns, combine = FALSE){
+span_columns <- function(x, columns = NULL, target = columns, combine = FALSE) {
 
-  stopifnot(all( columns %in% colnames(x$dataset) ) )
-  stopifnot(all( target %in% x$col_keys ) )
+  if (!all(columns %in% colnames(x$dataset))) {
+    wrong_col <- columns[!columns %in% colnames(x$dataset)]
+    wrong_col <- paste0(shQuote(wrong_col), collapse = ",")
+    stop("column(s) ", wrong_col, " can not be found in the original data.frame.",
+      call. = FALSE
+    )
+  }
+  if (!all(target %in% x$col_keys)) {
+    wrong_col <- target[!target %in% x$col_keys]
+    wrong_col <- paste0(shQuote(wrong_col), collapse = ",")
+    stop("target(s) ", wrong_col, " can not be found in the flextable col_keys.",
+      call. = FALSE
+    )
+  }
 
-  if( length(target) == 1 ){
+  if (length(target) == 1) {
     target <- rep(target, length(columns))
   }
-  if( length(columns) == 1 ){
+  if (length(columns) == 1) {
     columns <- rep(columns, length(target))
   }
 
-  if(combine){
+  if (combine) {
     temp <- rep(list(NULL), length(columns))
-    for(k in seq_along(columns)){
+    for (k in seq_along(columns)) {
       column <- columns[k]
-      if(column %in% x$col_keys){
-        values <- sapply(x$content[,columns[k]], function(x) {
+      if (column %in% x$col_keys) {
+        values <- sapply(x$content[, columns[k]], function(x) {
           paste(x$txt, collapse = "")
         })
       } else {
@@ -46,10 +58,10 @@ span_columns <- function( x, columns = NULL, target = columns, combine = FALSE){
     values <- apply(values, 1, paste0, collapse = "_")
     x$spans$columns[, match(target, x$col_keys)] <- merge_rle(values)
   } else {
-    for(k in seq_along(columns)){
+    for (k in seq_along(columns)) {
       column <- columns[k]
-      if(column %in% x$col_keys){
-        values <- sapply(x$content[,columns[k]], function(x) {
+      if (column %in% x$col_keys) {
+        values <- sapply(x$content[, columns[k]], function(x) {
           paste(x$txt, collapse = "")
         })
       } else {
@@ -109,6 +121,40 @@ span_free <- function( x  ){
   x
 }
 
+#' @param x a complex_tabpart object
+#' @noRd
+as_col_keys <- function(x, j = NULL, blanks = character()) {
+  candidates <- setdiff(colnames(x$dataset), blanks)
+
+  if (is.null(j)) {
+    j <- candidates
+  } else if (inherits(j, "formula")) {
+    tmp_dat <- as.list(candidates)
+    names(tmp_dat) <- candidates
+    tmp_dat <- as.data.frame(tmp_dat, check.names = FALSE)
+    j <- get_j_from_formula(j, tmp_dat)
+  } else if (is.logical(j)) {
+    if (length(j) != length(candidates)) {
+      stop("j (as logical) is expected to have the same length than the original 'data.frame' used in call to `flextable()`.")
+    }
+    j <- candidates[j]
+  } else if (is.character(j)) {
+    if (!all(j %in% candidates)) {
+      wrong_col <- j[!j %in% candidates]
+      wrong_col <- paste0(shQuote(wrong_col), collapse = ",")
+      warning("column(s) ", wrong_col, " can not be found in the original data.frame.",
+           call. = FALSE
+      )
+    }
+    j <- intersect(candidates, j)
+  } else if (is.numeric(j) & all(j > 0)) {
+    j <- candidates[intersect(seq_along(candidates), j)]
+  } else if (is.numeric(j) & all(j < 0)) {
+    j <- candidates[setdiff(seq_along(candidates), -j)]
+  }
+
+  j
+}
 
 get_columns_id <- function( x, j = NULL ){
   maxcol <- length(x$col_keys)
@@ -118,7 +164,10 @@ get_columns_id <- function( x, j = NULL ){
   }
 
   if( inherits(j, "formula") ){
-    j <- get_j_from_formula(j, x$dataset)
+    tmp_dat <- as.list(x$col_keys)
+    names(tmp_dat) <- x$col_keys
+    tmp_dat <- as.data.frame(tmp_dat, check.names = FALSE)
+    j <- get_j_from_formula(j, tmp_dat)
   }
 
   if( is.numeric (j) ){

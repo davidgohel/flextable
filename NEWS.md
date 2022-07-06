@@ -13,6 +13,9 @@ clinical trial analysis ready to be used by `tabulator()`.
 - check that used colors do not contain NA
 - fix HTML scrolling that is always visible to Windows users
 - fix "cs.family", "hansi.family" and "eastasia.family" for Word
+- fix anti-selectors for bg/color/highlight, a regression from version 0.7.2 
+
+
 
 # flextable 0.7.2
 

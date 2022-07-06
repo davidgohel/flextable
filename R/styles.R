@@ -258,7 +258,7 @@ highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", so
   check_formula_i_and_part(i, part)
 
   if (is.function(color)) {
-    source <- as_col_keys(x[[part]], source)
+    source <- as_col_keys(x[[part]], source, blanks = x$blanks)
     source_dataset <- x[[part]]$dataset[source]
     source_dataset <- source_dataset[get_rows_id(x[[part]], i), ]
     color <- data_colors(source_dataset, color)
@@ -347,7 +347,7 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
   check_formula_i_and_part(i, part)
 
   if (is.function(color)) {
-    source <- as_col_keys(x[[part]], source)
+    source <- as_col_keys(x[[part]], source, blanks = x$blanks)
     source_dataset <- x[[part]]$dataset[source]
     source_dataset <- source_dataset[get_rows_id(x[[part]], i), ]
     color <- data_colors(source_dataset, color)
@@ -743,7 +743,7 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j) {
   check_formula_i_and_part(i, part)
 
   if (is.function(bg)) {
-    source <- as_col_keys(x[[part]], source)
+    source <- as_col_keys(x[[part]], source, blanks = x$blanks)
     source_dataset <- x[[part]]$dataset[source]
     source_dataset <- source_dataset[get_rows_id(x[[part]], i), ]
     bg <- data_colors(source_dataset, bg)
@@ -761,26 +761,6 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j) {
   x
 }
 
-#' @param x a complex_tabpart object
-#' @noRd
-as_col_keys <- function(x, j = NULL) {
-  if (is.null(j)) {
-    j <- x$col_keys
-  } else if (inherits(j, "formula")) {
-    j <- get_j_from_formula(j, x$dataset)
-  } else if (is.logical(j)) {
-    if (length(j) != length(x$col_keys)) {
-      stop("j (as logical) is expected to have the same length than 'col_keys'.")
-    }
-    j <- x$col_keys[j]
-  } else if (is.character(j)) {
-    j <- intersect(colnames(x$dataset), j)
-  } else if (is.numeric(j)) {
-    j <- x$col_keys[intersect(seq_len(ncol(x$dataset)), j)]
-  }
-
-  j
-}
 
 data_colors <- function(dataset, fun) {
   out <- tryCatch(
@@ -791,13 +771,6 @@ data_colors <- function(dataset, fun) {
     error = function(cond) {
       msg <- paste0(
         "an error occured while using color function: ",
-        cond$message
-      )
-      stop(msg, call. = FALSE)
-    },
-    warning = function(cond) {
-      msg <- paste0(
-        "a warning occured while using color function: ",
         cond$message
       )
       stop(msg, call. = FALSE)
