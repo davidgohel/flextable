@@ -72,7 +72,8 @@ flextable <- function(data, col_keys = names(data),
 
   stopifnot(is.data.frame(data), ncol(data) > 0 )
   if( any( duplicated(col_keys) ) ){
-    stop("duplicated col_keys")
+    stop("duplicated col_keys: ",
+         paste0(unique(col_keys[duplicated(col_keys)]), collapse = ", "))
   }
   if( inherits(data, "data.table") || inherits(data, "tbl_df") || inherits(data, "tbl") )
     data <- as.data.frame(data, stringsAsFactors = FALSE)

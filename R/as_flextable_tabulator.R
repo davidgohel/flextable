@@ -614,9 +614,9 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0),
   columns <- c(columns, ".tab_columns")
   ldims <- dat[,.SD, .SDcols = columns]
   ldims <- unique(ldims)
+  setorderv(ldims, cols = columns[-length(columns)])#important - order matters
   uid_cols <- columns
 
-  last_column <- columns[length(columns)]
   last_m1_column <- length(columns) -1
   ldims <- split(ldims, rleid(ldims[[last_m1_column]]))
   ldims <- lapply(ldims, function(x, j){
