@@ -17,9 +17,10 @@ clinical trial analysis ready to be used by `tabulator()`.
 
 ## Changes
 
-* pptx output is constructed with top and bottom margins whose value is 
+- pptx output is constructed with top and bottom margins whose value is 
   top and bottom padding of the paragraph and there is no more borders copies 
   while rendering. 
+- add visual tests with doconv
 
 # flextable 0.7.2
 
