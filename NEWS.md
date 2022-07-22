@@ -13,9 +13,13 @@ clinical trial analysis ready to be used by `tabulator()`.
 - check that used colors do not contain NA
 - fix HTML scrolling that is always visible to Windows users
 - fix "cs.family", "hansi.family" and "eastasia.family" for Word
-- fix anti-selectors for bg/color/highlight, a regression from version 0.7.2 
+- fix anti-selectors for bg/color/highlight, a regression from version 0.7.2
 
+## Changes
 
+* pptx output is constructed with top and bottom margins whose value is 
+  top and bottom padding of the paragraph and there is no more borders copies 
+  while rendering. 
 
 # flextable 0.7.2
 

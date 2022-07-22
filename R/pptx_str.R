@@ -160,21 +160,6 @@ pml_cells <- function(value, cell_data){
   setDT(cell_data)
   setorderv(cell_data, cols = c("part", "ft_row_id", "col_id"))
 
-  first_partname <-
-    if( nrow_part(value, "header") )
-      "header"
-  else if( nrow_part(value, "body") )
-    "body"
-  else "footer"
-  cell_data[!(cell_data$part %in% first_partname & cell_data$ft_row_id %in% 1),
-            c("border.width.top", "border.color.top", "border.style.top" ) :=
-              list(
-                fcoalesce(shift(.SD$border.width.bottom, 1L, type="lag"), .SD$border.width.bottom),
-                fcoalesce(shift(.SD$border.color.bottom, 1L, type="lag"), .SD$border.color.bottom),
-                fcoalesce(shift(.SD$border.style.bottom, 1L, type="lag"), .SD$border.style.bottom)
-              ),
-            by = "col_id"]
-
   data_ref_cells <- cell_style_list(cell_data)
 
   ## cell style pml
@@ -220,6 +205,18 @@ pptx_str <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0){
 
   par_attributes <- fortify_style(value, "pars")
   par_attributes$col_id <- factor(par_attributes$col_id, levels = value$col_keys)
+
+  setDT(cell_attributes)
+  cell_attributes <- merge(
+    cell_attributes,
+    par_attributes[, c("part", "ft_row_id", "col_id", "padding.bottom", "padding.top")],
+    by = c("part", "ft_row_id", "col_id"))
+  cell_attributes[, c("margin.bottom", "margin.top") :=
+                    list(
+                      .SD$padding.bottom, .SD$padding.top
+                    )]
+  cell_attributes[, c("padding.bottom", "padding.top") := NULL]
+  setDF(cell_attributes)
 
   new_pos <- ooxml_rotation_alignments(
     rotation = cell_attributes$text.direction,
