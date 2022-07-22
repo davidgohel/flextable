@@ -59,13 +59,13 @@ across rows and columns.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{summary}: call \code{summary()} to get
+\item \code{summary(tabulator)}: call \code{summary()} to get
 a data.frame describing mappings between variables
 and their names in the flextable. This data.frame contains
 a column named \code{col_keys} where are stored the names that
 can be used for further selections.
-}}
 
+}}
 \note{
 This is very first version of the function; be aware it
 can evolve or change.
