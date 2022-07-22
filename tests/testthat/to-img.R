@@ -16,14 +16,6 @@ save_docx <- function(x, path) {
   path
 }
 
-save_pdf <- function(x, path) {
-  rmd <- tempfile(fileext = ".Rmd")
-  cat("```{r echo=FALSE, ft.tabcolsep = 0, ft.arraystretch = 1.2}\nx\n```\n", file = rmd)
-  render(rmd, output_format = pdf_document(latex_engine="xelatex"), quiet = TRUE)
-  pdf_out <- gsub("\\.Rmd$", ".pdf", rmd)
-  doconv::to_miniature(pdf_out, fileout = path, width = 1000)
-  path
-}
 expect_snapshot_to <- function(name, x, format = "docx") {
   skip_if_not_installed("doconv")
   skip_if_not_installed("png")

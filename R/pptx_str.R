@@ -205,6 +205,14 @@ pptx_str <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0){
 
   par_attributes <- fortify_style(value, "pars")
   par_attributes$col_id <- factor(par_attributes$col_id, levels = value$col_keys)
+  # cell_attributes and par_attributes must be ordered identically
+  new_pos <- ooxml_rotation_alignments(
+    rotation = cell_attributes$text.direction,
+    valign = cell_attributes$vertical.align,
+    align = par_attributes$text.align)
+
+  par_attributes$text.align <- new_pos$align
+  cell_attributes$vertical.align <- new_pos$valign
 
   setDT(cell_attributes)
   cell_attributes <- merge(
@@ -218,13 +226,6 @@ pptx_str <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0){
   cell_attributes[, c("padding.bottom", "padding.top") := NULL]
   setDF(cell_attributes)
 
-  new_pos <- ooxml_rotation_alignments(
-    rotation = cell_attributes$text.direction,
-    valign = cell_attributes$vertical.align,
-    align = par_attributes$text.align)
-
-  par_attributes$text.align <- new_pos$align
-  cell_attributes$vertical.align <- new_pos$valign
 
   txt_data <- pml_runs(value)
   par_data <- pml_pars(value, par_attributes)

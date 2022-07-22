@@ -52,9 +52,3 @@ test_that("docx borders", {
   local_edition(3)
   expect_snapshot_to(name = "docx-borders", ft_1, format = "docx")
 })
-
-test_that("pdf borders", {
-  local_edition(3)
-  expect_snapshot_to(name = "pdf-borders", ft_1, format = "pdf")
-})
-
