@@ -30,7 +30,7 @@ RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
 Suggests: 
     testthat (>= 2.1.0),
-    doconv,
+    doconv (>= 0.1.4),
     xtable,
     webshot,
     magick,

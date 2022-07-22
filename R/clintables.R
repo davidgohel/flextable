@@ -139,6 +139,7 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #' labdata <- merge(labdata, VISIT, by = "VISITNUM")
 #'
 #' subject_elts <- labdata[, .SD, .SDcols = "USUBJID"] |> unique()
+#' subject_elts <- unique(subject_elts)
 #' subject_elts[, c("TREAT") := list(
 #'   sample(x = c("Treatment", "Placebo"), size = .N, replace = TRUE))]
 #' subject_elts[, c("TREAT"):= list(
