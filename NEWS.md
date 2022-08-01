@@ -14,6 +14,9 @@ clinical trial analysis ready to be used by `tabulator()`.
 - fix HTML scrolling that is always visible to Windows users
 - fix "cs.family", "hansi.family" and "eastasia.family" for Word
 - fix anti-selectors for bg/color/highlight, a regression from version 0.7.2
+- when HTML and layout "autofit", output width is not set when width has been 
+defined to 0 to avoid unnecessary word breaks (#429).
+
 
 ## Changes
 

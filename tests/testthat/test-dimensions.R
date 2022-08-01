@@ -95,3 +95,20 @@ test_that("autofit with horizontal spans", {
   expect_equal(dims_none$widths, dims_included_no_header$widths)
 })
 
+test_that("HTML table width when autofit layout", {
+
+  x <- data.frame(
+    x = c("[-0.36, -0.01]", "[0, 0]",
+          "000, 000", "0000 0000"))
+
+  ft <- flextable(x)
+  ft <- set_table_properties(
+    x = ft, layout = "autofit")
+  str <- flextable:::html_str(ft, shadow = FALSE)
+  expect_false(grepl("table-layout:auto;width:", str, fixed = TRUE))
+
+  ft <- set_table_properties(
+    x = ft, layout = "autofit", width = .1)
+  str <- flextable:::html_str(ft, shadow = FALSE)
+  expect_true(grepl("table-layout:auto;width:", str, fixed = TRUE))
+})

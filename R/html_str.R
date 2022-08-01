@@ -33,7 +33,12 @@ html_str <- function(x, ft.align = NULL, class = "tabwid",
 
   fixed_layout <- x$properties$layout %in% "fixed"
   if(!fixed_layout){
-    tbl_width <- paste0("width:", formatC(x$properties$width*100), "%;")
+    if (x$properties$width > 0) {
+      # setting width will contraint columns'widths and make word breaks
+      tbl_width <- paste0("width:", formatC(x$properties$width*100), "%;")
+    } else {
+      tbl_width <- ""
+    }
     tabcss <- paste0("table-layout:auto;", tbl_width)
   } else {
     tabcss <- ""
