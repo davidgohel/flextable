@@ -6,6 +6,8 @@
 labels to display in the first column names, i.e. the *row* column names.
 - new function `shift_table()` to produce Shift Tables used used in 
 clinical trial analysis ready to be used by `tabulator()`.
+- `as_image()` don't need anymore parameters `width` and 
+`height` if package 'magick' is available.
 
 ## Issues
 

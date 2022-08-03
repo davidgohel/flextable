@@ -302,7 +302,7 @@ img_as_html <- function(img_data, width, height){
     } else  {
       stop("unknown image format")
     }
-    sprintf("<img style=\"vertical-align:middle;width:%.0fpt;height:%.0fpt;\" src=\"%s\" />", width*72, height*72, img_raster)
+    sprintf("<img style=\"vertical-align:baseline;width:%.0fpx;height:%.0fpx;\" src=\"%s\" />", width*72, height*72, img_raster)
   }, img_data, width, height, SIMPLIFY = FALSE, USE.NAMES = FALSE)
   str_raster <- as.character(unlist(str_raster))
   str_raster

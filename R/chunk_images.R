@@ -5,7 +5,14 @@
 #' objects with function [compose()].
 #' It should be used inside a call to [as_paragraph()].
 #' @param src image filename
-#' @param width,height size of the png file in inches
+#' @param width,height size of the image file. It can be ignored
+#' if parameter `guess_size=TRUE`, see parameter `guess_size`.
+#' @param guess_size If package 'magick' is installed, this option
+#' can be used (set it to `TRUE` and don't provide values for paramters
+#' `width` and `height`). When the flextable will be printed,
+#' the images will be read and width and height will be guessed. This
+#' should be avoid if possible as it can be an extensive task when
+#' several images.
 #' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @param ... unused argument
 #' @family chunk elements for paragraph
@@ -17,25 +24,25 @@
 #' are removed when outputing to PowerPoint format.
 #' @seealso [compose()], [as_paragraph()]
 #' @examples
-#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-#' library(officer)
-#'
-#' myft <- flextable( head(iris))
-#'
-#' myft <- compose( myft, i = 1:3, j = 1,
-#'  value = as_paragraph(
-#'    as_image(src = img.file, width = .20, height = .15),
-#'    " blah blah ",
-#'    as_chunk(Sepal.Length, props = fp_text(color = "red"))
-#'  ),
-#'  part = "body")
-#'
-#' ft <- autofit(myft)
-#' ft
+#' img.file <- file.path( R.home("doc"),
+#'   "html", "logo.jpg" )
+#' if (require("magick")) {
+#'   myft <- flextable( head(iris))
+#'   myft <- compose( myft, i = 1:3, j = 1,
+#'    value = as_paragraph(
+#'      as_image(src = img.file),
+#'      " ",
+#'      as_chunk(Sepal.Length,
+#'        props = fp_text_default(color = "red"))
+#'    ),
+#'    part = "body")
+#'   ft <- autofit(myft)
+#'   ft
+#' }
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_as_image_1.png}{options: width="400"}}
-as_image <- function(src, width = .5, height = .2, unit = "in", ...) {
+as_image <- function(src, width = NULL, height = NULL, unit = "in", guess_size = TRUE, ...) {
 
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
@@ -43,6 +50,20 @@ as_image <- function(src, width = .5, height = .2, unit = "in", ...) {
   if( length(src) > 1 ){
     if( length(width) == 1 ) width <- rep(width, length(src))
     if( length(height) == 1 ) height <- rep(height, length(src))
+  }
+
+  if (guess_size && (is.null(width) || is.null(height))) {
+    if (!requireNamespace("magick", quietly = TRUE)) {
+      stop("package magick is required when using `guess_size` option.")
+    }
+    sizes <- lapply(src, function(x) {
+      z <- magick::image_read(x)
+      z <- magick::image_data(z)
+      attr(z, "dim")[-1]
+    })
+    sizes <- do.call(rbind, sizes)
+    width <- sizes[,1] / 72
+    height <- sizes[,2] / 72
   }
 
   data <- chunk_dataframe(width = as.double(width),
