@@ -26,6 +26,7 @@ defined to 0 to avoid unnecessary word breaks (#429).
   top and bottom padding of the paragraph and there is no more borders copies 
   while rendering. 
 - add visual tests with doconv
+- footnote can not be used with "" symbols, use `add_footer_lines()` instead.
 
 # flextable 0.7.2
 
