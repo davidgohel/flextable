@@ -161,6 +161,7 @@ reference:
     - starts_with("as_flextable")
     - continuous_summary
     - proc_freq
+    - shift_table
 
 navbar:
   title: flextable
