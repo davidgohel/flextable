@@ -19,7 +19,7 @@ left border of selected cells of the first column."><meta property="og:image" co
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -57,7 +57,7 @@ left border of selected cells of the first column.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vline_left</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, border <span class="op">=</span> <span class="cn">NULL</span>, part <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vline_left</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, border <span class="op">=</span> <span class="cn">NULL</span>, part <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -103,15 +103,15 @@ left border of selected cells of the first column.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">std_border</span> <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/fp_border.html" class="external-link">fp_border</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"orange"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="border_remove.html">border_remove</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ft</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># add vertical border on the left side of the table</span></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">vline_left</span><span class="op">(</span><span class="va">ft</span>, border <span class="op">=</span> <span class="va">std_border</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">std_border</span> <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/fp_border.html" class="external-link">fp_border</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"orange"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="border_remove.html">border_remove</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ft</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add vertical border on the left side of the table</span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">vline_left</span><span class="op">(</span><span class="va">ft</span>, border <span class="op">=</span> <span class="va">std_border</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -133,7 +133,7 @@ left border of selected cells of the first column.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

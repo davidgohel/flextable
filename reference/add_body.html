@@ -23,7 +23,7 @@ NA and displayed as empty."><meta property="og:image" content="/logo.png"><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -65,7 +65,7 @@ the body.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_body</span><span class="op">(</span><span class="va">x</span>, top <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span>, values <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_body</span><span class="op">(</span><span class="va">x</span>, top <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span>, values <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -108,21 +108,21 @@ supplied argument <code>...</code> is ignored).</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>,</span>
-<span class="r-in">  col_keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="st">"Species"</span>, <span class="st">"Sepal.Length"</span>, <span class="st">"Petal.Length"</span>,</span>
-<span class="r-in">    <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Width"</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">add_body</span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="va">ft</span>, Sepal.Length <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
-<span class="r-in">  Sepal.Width <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">*</span> <span class="fl">2</span>, Petal.Length <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">*</span> <span class="fl">3</span>,</span>
-<span class="r-in">  Petal.Width <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">10</span>, Species <span class="op">=</span> <span class="st">"Blah"</span>, top <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_booktabs.html">theme_booktabs</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  col_keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"Species"</span>, <span class="st">"Sepal.Length"</span>, <span class="st">"Petal.Length"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"Sepal.Width"</span>, <span class="st">"Petal.Width"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">add_body</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">ft</span>, Sepal.Length <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span></span>
+<span class="r-in"><span>  Sepal.Width <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">*</span> <span class="fl">2</span>, Petal.Length <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">*</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>  Petal.Width <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">10</span>, Species <span class="op">=</span> <span class="st">"Blah"</span>, top <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_booktabs.html">theme_booktabs</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Species`, `Sepal.Length`, `Petal.Length`, `Sepal.Width`, `Petal.Width` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -144,7 +144,7 @@ supplied argument <code>...</code> is ignored).</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

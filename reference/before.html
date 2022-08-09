@@ -18,7 +18,7 @@ if elements are located before a set of entries to match or not."><meta property
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@ if elements are located before a set of entries to match or not.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">before</span><span class="op">(</span><span class="va">x</span>, <span class="va">entries</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">before</span><span class="op">(</span><span class="va">x</span>, <span class="va">entries</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -75,27 +75,27 @@ if elements are located before a set of entries to match or not.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">  check.names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">  Level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>, <span class="st">"&lt;NA&gt;"</span>, <span class="st">"Total"</span><span class="op">)</span>,</span>
-<span class="r-in">  Freq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">50</span>, <span class="fl">50</span>, <span class="fl">0</span>, <span class="fl">150</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  `% Valid` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,</span>
-<span class="r-in">                <span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,<span class="cn">NA</span>,<span class="fl">100</span><span class="op">)</span>,</span>
-<span class="r-in">  `% Valid Cum.` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">100</span><span class="op">*</span><span class="fl">2</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">100</span>, <span class="cn">NA</span>, <span class="fl">100</span><span class="op">)</span>,</span>
-<span class="r-in">  `% Total` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,</span>
-<span class="r-in">                <span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span>,</span>
-<span class="r-in">  `% Total Cum.` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,</span>
-<span class="r-in">                     <span class="fl">100</span><span class="op">*</span><span class="fl">2</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">100</span>,<span class="fl">100</span>,<span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="hline.html">hline</a></span><span class="op">(</span><span class="va">ft</span>, i <span class="op">=</span> <span class="op">~</span> <span class="fu">before</span><span class="op">(</span><span class="va">Level</span>, <span class="st">"Total"</span><span class="op">)</span>,</span>
-<span class="r-in">            border <span class="op">=</span> <span class="fu"><a href="fp_border_default.html">fp_border_default</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>  check.names <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>  Level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>, <span class="st">"&lt;NA&gt;"</span>, <span class="st">"Total"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  Freq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">50</span>, <span class="fl">50</span>, <span class="fl">0</span>, <span class="fl">150</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  `% Valid` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                <span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,<span class="cn">NA</span>,<span class="fl">100</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  `% Valid Cum.` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">100</span><span class="op">*</span><span class="fl">2</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">100</span>, <span class="cn">NA</span>, <span class="fl">100</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  `% Total` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                <span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  `% Total Cum.` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span><span class="op">/</span><span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                     <span class="fl">100</span><span class="op">*</span><span class="fl">2</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">100</span>,<span class="fl">100</span>,<span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="hline.html">hline</a></span><span class="op">(</span><span class="va">ft</span>, i <span class="op">=</span> <span class="op">~</span> <span class="fu">before</span><span class="op">(</span><span class="va">Level</span>, <span class="st">"Total"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            border <span class="op">=</span> <span class="fu"><a href="fp_border_default.html">fp_border_default</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Level`, `Freq`, `% Valid`, `% Valid Cum.`, `% Total`, `% Total Cum.` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -117,7 +117,7 @@ if elements are located before a set of entries to match or not.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

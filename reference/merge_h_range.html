@@ -18,7 +18,7 @@ columns must be consecutive."><meta property="og:image" content="/logo.png"><!--
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@ columns must be consecutive.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">merge_h_range</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, j1 <span class="op">=</span> <span class="cn">NULL</span>, j2 <span class="op">=</span> <span class="cn">NULL</span>, part <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">merge_h_range</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, j1 <span class="op">=</span> <span class="cn">NULL</span>, j2 <span class="op">=</span> <span class="cn">NULL</span>, part <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -94,11 +94,11 @@ columns must be consecutive.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="va">mtcars</span> <span class="op">)</span>, cwidth <span class="op">=</span> <span class="fl">.5</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_box.html">theme_box</a></span><span class="op">(</span> <span class="va">ft</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">merge_h_range</span><span class="op">(</span> <span class="va">ft</span>, i <span class="op">=</span>  <span class="op">~</span> <span class="va">cyl</span> <span class="op">==</span> <span class="fl">6</span>, j1 <span class="op">=</span> <span class="st">"am"</span>, j2 <span class="op">=</span> <span class="st">"carb"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="align.html">align</a></span><span class="op">(</span> <span class="va">ft</span>, i <span class="op">=</span>  <span class="op">~</span> <span class="va">cyl</span> <span class="op">==</span> <span class="fl">6</span>, align <span class="op">=</span> <span class="st">"center"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="va">mtcars</span> <span class="op">)</span>, cwidth <span class="op">=</span> <span class="fl">.5</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_box.html">theme_box</a></span><span class="op">(</span> <span class="va">ft</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">merge_h_range</span><span class="op">(</span> <span class="va">ft</span>, i <span class="op">=</span>  <span class="op">~</span> <span class="va">cyl</span> <span class="op">==</span> <span class="fl">6</span>, j1 <span class="op">=</span> <span class="st">"am"</span>, j2 <span class="op">=</span> <span class="st">"carb"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="align.html">align</a></span><span class="op">(</span> <span class="va">ft</span>, i <span class="op">=</span>  <span class="op">~</span> <span class="va">cyl</span> <span class="op">==</span> <span class="fl">6</span>, align <span class="op">=</span> <span class="st">"center"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -120,7 +120,7 @@ columns must be consecutive.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

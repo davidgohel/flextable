@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -53,7 +53,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">save_as_docx</span><span class="op">(</span><span class="va">...</span>, values <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">path</span>, pr_section <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">save_as_docx</span><span class="op">(</span><span class="va">...</span>, values <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">path</span>, pr_section <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -94,23 +94,23 @@ layout such as orientation, width and height.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="va">iris</span> <span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"><span class="fu">save_as_docx</span><span class="op">(</span><span class="va">ft1</span>, path <span class="op">=</span> <span class="va">tf</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft2</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="va">mtcars</span> <span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">sect_properties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/prop_section.html" class="external-link">prop_section</a></span><span class="op">(</span></span>
-<span class="r-in">  page_size <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/page_size.html" class="external-link">page_size</a></span><span class="op">(</span>orient <span class="op">=</span> <span class="st">"landscape"</span>,</span>
-<span class="r-in">    width <span class="op">=</span> <span class="fl">8.3</span>, height <span class="op">=</span> <span class="fl">11.7</span><span class="op">)</span>,</span>
-<span class="r-in">  type <span class="op">=</span> <span class="st">"continuous"</span>,</span>
-<span class="r-in">  page_margins <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/page_mar.html" class="external-link">page_mar</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu">save_as_docx</span><span class="op">(</span>`iris table` <span class="op">=</span> <span class="va">ft1</span>, `mtcars table` <span class="op">=</span> <span class="va">ft2</span>,</span>
-<span class="r-in">  path <span class="op">=</span> <span class="va">tf</span>, pr_section <span class="op">=</span> <span class="va">sect_properties</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="va">iris</span> <span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">save_as_docx</span><span class="op">(</span><span class="va">ft1</span>, path <span class="op">=</span> <span class="va">tf</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft2</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="va">mtcars</span> <span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sect_properties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/prop_section.html" class="external-link">prop_section</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  page_size <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/page_size.html" class="external-link">page_size</a></span><span class="op">(</span>orient <span class="op">=</span> <span class="st">"landscape"</span>,</span></span>
+<span class="r-in"><span>    width <span class="op">=</span> <span class="fl">8.3</span>, height <span class="op">=</span> <span class="fl">11.7</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  type <span class="op">=</span> <span class="st">"continuous"</span>,</span></span>
+<span class="r-in"><span>  page_margins <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/page_mar.html" class="external-link">page_mar</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">save_as_docx</span><span class="op">(</span>`iris table` <span class="op">=</span> <span class="va">ft1</span>, `mtcars table` <span class="op">=</span> <span class="va">ft2</span>,</span></span>
+<span class="r-in"><span>  path <span class="op">=</span> <span class="va">tf</span>, pr_section <span class="op">=</span> <span class="va">sect_properties</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -121,7 +121,7 @@ layout such as orientation, width and height.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

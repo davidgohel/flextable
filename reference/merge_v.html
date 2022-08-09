@@ -22,7 +22,7 @@ target columns."><meta property="og:image" content="/logo.png"><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -63,7 +63,7 @@ target columns.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">merge_v</span><span class="op">(</span><span class="va">x</span>, j <span class="op">=</span> <span class="cn">NULL</span>, target <span class="op">=</span> <span class="cn">NULL</span>, part <span class="op">=</span> <span class="st">"body"</span>, combine <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">merge_v</span><span class="op">(</span><span class="va">x</span>, j <span class="op">=</span> <span class="cn">NULL</span>, target <span class="op">=</span> <span class="cn">NULL</span>, part <span class="op">=</span> <span class="st">"body"</span>, combine <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -111,9 +111,9 @@ by one to perform cell merges.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ft_merge</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_merge</span> <span class="op">&lt;-</span> <span class="fu">merge_v</span><span class="op">(</span><span class="va">ft_merge</span>, j <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gear"</span>, <span class="st">"carb"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_merge</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ft_merge</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_merge</span> <span class="op">&lt;-</span> <span class="fu">merge_v</span><span class="op">(</span><span class="va">ft_merge</span>, j <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gear"</span>, <span class="st">"carb"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_merge</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -125,34 +125,34 @@ by one to perform cell merges.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">data_ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>srdr_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="st">"175124"</span>, <span class="st">"175124"</span>, <span class="st">"172525"</span>, <span class="st">"172525"</span>,</span>
-<span class="r-in">  <span class="st">"172545"</span>, <span class="st">"172545"</span>, <span class="st">"172609"</span>, <span class="st">"172609"</span>, <span class="st">"172609"</span></span>
-<span class="r-in"><span class="op">)</span>, substances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="st">"alcohol"</span>,</span>
-<span class="r-in">  <span class="st">"alcohol"</span>, <span class="st">"alcohol"</span>, <span class="st">"alcohol"</span>, <span class="st">"cannabis"</span>,</span>
-<span class="r-in">  <span class="st">"cannabis"</span>, <span class="st">"alcohol\n cannabis\n other drugs"</span>,</span>
-<span class="r-in">  <span class="st">"alcohol\n cannabis\n other drugs"</span>,</span>
-<span class="r-in">  <span class="st">"alcohol\n cannabis\n other drugs"</span></span>
-<span class="r-in"><span class="op">)</span>, full_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="st">"TAU"</span>, <span class="st">"MI"</span>, <span class="st">"TAU"</span>, <span class="st">"MI (parent)"</span>, <span class="st">"TAU"</span>, <span class="st">"MI"</span>,</span>
-<span class="r-in">  <span class="st">"TAU"</span>, <span class="st">"MI"</span>, <span class="st">"MI"</span></span>
-<span class="r-in"><span class="op">)</span>, article_arm_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="st">"Control"</span>, <span class="st">"WISEteens"</span>,</span>
-<span class="r-in">  <span class="st">"Treatment as usual"</span>, <span class="st">"Brief MI (b-MI)"</span>, <span class="st">"Assessed control"</span>,</span>
-<span class="r-in">  <span class="st">"Intervention"</span>, <span class="st">"Control"</span>, <span class="st">"Computer BI"</span>, <span class="st">"Therapist BI"</span></span>
-<span class="r-in"><span class="op">)</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="cn">NA</span>,</span>
-<span class="r-in">  <span class="op">-</span><span class="fl">9L</span></span>
-<span class="r-in"><span class="op">)</span>, class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tbl_df"</span>, <span class="st">"tbl"</span>, <span class="st">"data.frame"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">data_ex</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_box.html">theme_box</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu">merge_v</span><span class="op">(</span><span class="va">ft_1</span>, j <span class="op">=</span> <span class="st">"srdr_id"</span>,</span>
-<span class="r-in">  target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"srdr_id"</span>, <span class="st">"substances"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">ft_2</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">data_ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>srdr_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"175124"</span>, <span class="st">"175124"</span>, <span class="st">"172525"</span>, <span class="st">"172525"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"172545"</span>, <span class="st">"172545"</span>, <span class="st">"172609"</span>, <span class="st">"172609"</span>, <span class="st">"172609"</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, substances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"alcohol"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"alcohol"</span>, <span class="st">"alcohol"</span>, <span class="st">"alcohol"</span>, <span class="st">"cannabis"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"cannabis"</span>, <span class="st">"alcohol\n cannabis\n other drugs"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"alcohol\n cannabis\n other drugs"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"alcohol\n cannabis\n other drugs"</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, full_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"TAU"</span>, <span class="st">"MI"</span>, <span class="st">"TAU"</span>, <span class="st">"MI (parent)"</span>, <span class="st">"TAU"</span>, <span class="st">"MI"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"TAU"</span>, <span class="st">"MI"</span>, <span class="st">"MI"</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, article_arm_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"Control"</span>, <span class="st">"WISEteens"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"Treatment as usual"</span>, <span class="st">"Brief MI (b-MI)"</span>, <span class="st">"Assessed control"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"Intervention"</span>, <span class="st">"Control"</span>, <span class="st">"Computer BI"</span>, <span class="st">"Therapist BI"</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="cn">NA</span>,</span></span>
+<span class="r-in"><span>  <span class="op">-</span><span class="fl">9L</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tbl_df"</span>, <span class="st">"tbl"</span>, <span class="st">"data.frame"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">data_ex</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_box.html">theme_box</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu">merge_v</span><span class="op">(</span><span class="va">ft_1</span>, j <span class="op">=</span> <span class="st">"srdr_id"</span>,</span></span>
+<span class="r-in"><span>  target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"srdr_id"</span>, <span class="st">"substances"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `srdr_id`, `substances`, `full_name`, `article_arm_name` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -174,7 +174,7 @@ by one to perform cell merges.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

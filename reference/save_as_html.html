@@ -20,7 +20,7 @@ instead)."><meta property="og:image" content="/logo.png"><!-- mathjax --><script
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -59,13 +59,13 @@ instead).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">save_as_html</span><span class="op">(</span>
-  <span class="va">...</span>,
-  values <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">path</span>,
-  encoding <span class="op">=</span> <span class="st">"utf-8"</span>,
-  title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/deparse.html" class="external-link">deparse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">sys.call</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">save_as_html</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">path</span>,</span>
+<span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span>,</span>
+<span>  title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/deparse.html" class="external-link">deparse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">sys.call</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -109,19 +109,19 @@ used as titles. If provided, argument <code>...</code> will be ignored.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ft1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="va">iris</span> <span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">tf1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".html"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">save_as_html</span><span class="op">(</span><span class="va">ft1</span>, path <span class="op">=</span> <span class="va">tf1</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># browseURL(tf1)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft2</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="va">mtcars</span> <span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">tf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".html"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">save_as_html</span><span class="op">(</span></span>
-<span class="r-in">  `iris table` <span class="op">=</span> <span class="va">ft1</span>,</span>
-<span class="r-in">  `mtcars table` <span class="op">=</span> <span class="va">ft2</span>,</span>
-<span class="r-in">  path <span class="op">=</span> <span class="va">tf2</span>,</span>
-<span class="r-in">  title <span class="op">=</span> <span class="st">"rhoooo"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># browseURL(tf2)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ft1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="va">iris</span> <span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tf1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".html"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">save_as_html</span><span class="op">(</span><span class="va">ft1</span>, path <span class="op">=</span> <span class="va">tf1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># browseURL(tf1)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft2</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="va">mtcars</span> <span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".html"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">save_as_html</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  `iris table` <span class="op">=</span> <span class="va">ft1</span>,</span></span>
+<span class="r-in"><span>  `mtcars table` <span class="op">=</span> <span class="va">ft2</span>,</span></span>
+<span class="r-in"><span>  path <span class="op">=</span> <span class="va">tf2</span>,</span></span>
+<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"rhoooo"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># browseURL(tf2)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -132,7 +132,7 @@ used as titles. If provided, argument <code>...</code> will be ignored.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -53,7 +53,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">border_remove</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">border_remove</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -88,10 +88,10 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">iris</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">51</span><span class="op">:</span><span class="fl">55</span>, <span class="fl">101</span><span class="op">:</span><span class="fl">105</span><span class="op">)</span>,<span class="op">]</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_box.html">theme_box</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">iris</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">51</span><span class="op">:</span><span class="fl">55</span>, <span class="fl">101</span><span class="op">:</span><span class="fl">105</span><span class="op">)</span>,<span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_box.html">theme_box</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -103,10 +103,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3          4.7         3.2          1.3         0.2  setosa</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4          4.6         3.1          1.5         0.2  setosa</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5          5.0         3.6          1.4         0.2  setosa</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># remove all borders</span></span>
-<span class="r-in"><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu">border_remove</span><span class="op">(</span>x <span class="op">=</span> <span class="va">ft_1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_2</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># remove all borders</span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu">border_remove</span><span class="op">(</span>x <span class="op">=</span> <span class="va">ft_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -128,7 +128,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

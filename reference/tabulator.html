@@ -21,7 +21,7 @@ across rows and columns."><meta property="og:image" content="/logo.png"><!-- mat
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -61,19 +61,19 @@ across rows and columns.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tabulator</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">rows</span>,
-  <span class="va">columns</span>,
-  datasup_first <span class="op">=</span> <span class="cn">NULL</span>,
-  datasup_last <span class="op">=</span> <span class="cn">NULL</span>,
-  hidden_data <span class="op">=</span> <span class="cn">NULL</span>,
-  row_compose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for tabulator</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tabulator</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">rows</span>,</span>
+<span>  <span class="va">columns</span>,</span>
+<span>  datasup_first <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  datasup_last <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hidden_data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  row_compose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for tabulator</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -133,7 +133,7 @@ when the flextable is created.</p></dd>
     <div id="methods-by-generic-">
     <h2>Methods (by generic)</h2>
     
-<ul><li><p><code>summary</code>: call <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> to get
+<ul><li><p><code>summary(tabulator)</code>: call <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> to get
 a data.frame describing mappings between variables
 and their names in the flextable. This data.frame contains
 a column named <code>col_keys</code> where are stored the names that
@@ -162,29 +162,29 @@ can evolve or change.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">n_format</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.0f"</span>, <span class="va">z</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"-"</span></span>
-<span class="r-in">  <span class="va">x</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="set_flextable_defaults.html">set_flextable_defaults</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span>, border.color <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"stats"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">wool</span> <span class="op">+</span> <span class="va">tension</span>,</span>
-<span class="r-in">    data <span class="op">=</span> <span class="va">warpbreaks</span>, <span class="va">mean</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">cft_1</span> <span class="op">&lt;-</span> <span class="fu">tabulator</span><span class="op">(</span></span>
-<span class="r-in">    x <span class="op">=</span> <span class="va">dat</span>, rows <span class="op">=</span> <span class="st">"wool"</span>,</span>
-<span class="r-in">    columns <span class="op">=</span> <span class="st">"tension"</span>,</span>
-<span class="r-in">    `mean` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">breaks</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">    `(N)` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span>
-<span class="r-in">      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">breaks</span><span class="op">)</span>, formatter <span class="op">=</span> <span class="va">n_format</span> <span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">cft_1</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">ft_1</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">n_format</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.0f"</span>, <span class="va">z</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"-"</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_flextable_defaults.html">set_flextable_defaults</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span>, border.color <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"stats"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">wool</span> <span class="op">+</span> <span class="va">tension</span>,</span></span>
+<span class="r-in"><span>    data <span class="op">=</span> <span class="va">warpbreaks</span>, <span class="va">mean</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">cft_1</span> <span class="op">&lt;-</span> <span class="fu">tabulator</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    x <span class="op">=</span> <span class="va">dat</span>, rows <span class="op">=</span> <span class="st">"wool"</span>,</span></span>
+<span class="r-in"><span>    columns <span class="op">=</span> <span class="st">"tension"</span>,</span></span>
+<span class="r-in"><span>    `mean` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">breaks</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    `(N)` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">breaks</span><span class="op">)</span>, formatter <span class="op">=</span> <span class="va">n_format</span> <span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">cft_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_1</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `wool`, `dummy1`, `@L@mean`, `@L@(N)`, `dummy2`, `@M@mean`, `@M@(N)`, `dummy3`, `@H@mean`, `@H@(N)` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
@@ -196,46 +196,46 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   @L@mean @L@(N) dummy2 @M@mean @M@(N) dummy3 @H@mean @H@(N)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                           </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com" class="external-link">"data.table"</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">multi_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span class="r-in">         sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">}</span></span>
-<span class="r-in">  <span class="va">myformat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.1f"</span>, <span class="va">z</span><span class="op">)</span></span>
-<span class="r-in">    <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">""</span></span>
-<span class="r-in">    <span class="va">x</span></span>
-<span class="r-in">  <span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">grey_txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text_default.html">fp_text_default</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span><span class="va">cut</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very Good"</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in">  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span><span class="va">clarity</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"I1"</span>, <span class="st">"SI1"</span>, <span class="st">"VS2"</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">.SD</span>, <span class="va">multi_fun</span><span class="op">)</span>,</span>
-<span class="r-in">                      recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span class="r-in">             .SDcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="st">"y"</span><span class="op">)</span>,</span>
-<span class="r-in">             by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cut"</span>, <span class="st">"color"</span>, <span class="st">"clarity"</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">tab_2</span> <span class="op">&lt;-</span> <span class="fu">tabulator</span><span class="op">(</span></span>
-<span class="r-in">    x <span class="op">=</span> <span class="va">dat</span>, rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cut"</span>, <span class="st">"color"</span><span class="op">)</span>,</span>
-<span class="r-in">    columns <span class="op">=</span> <span class="st">"clarity"</span>,</span>
-<span class="r-in">    `z stats` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span>
-<span class="r-in">      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">z.mean</span>, formatter <span class="op">=</span> <span class="va">myformat</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">    `y stats` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span>
-<span class="r-in">      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">y.mean</span>, formatter <span class="op">=</span> <span class="va">myformat</span><span class="op">)</span>,</span>
-<span class="r-in">      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="st">" (\u00B1 "</span>, props <span class="op">=</span> <span class="va">grey_txt</span><span class="op">)</span>,</span>
-<span class="r-in">      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">y.sd</span>, formatter <span class="op">=</span> <span class="va">myformat</span>, props <span class="op">=</span> <span class="va">grey_txt</span><span class="op">)</span>,</span>
-<span class="r-in">      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="st">")"</span>, props <span class="op">=</span> <span class="va">grey_txt</span><span class="op">)</span></span>
-<span class="r-in">      <span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in">  <span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_2</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ft_2</span>, add_w <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">ft_2</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com" class="external-link">"data.table"</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">multi_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>         sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span>  <span class="va">myformat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.1f"</span>, <span class="va">z</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">""</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">grey_txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text_default.html">fp_text_default</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span><span class="va">cut</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very Good"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span>  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span><span class="va">clarity</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"I1"</span>, <span class="st">"SI1"</span>, <span class="st">"VS2"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">.SD</span>, <span class="va">multi_fun</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             .SDcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="st">"y"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cut"</span>, <span class="st">"color"</span>, <span class="st">"clarity"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">tab_2</span> <span class="op">&lt;-</span> <span class="fu">tabulator</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    x <span class="op">=</span> <span class="va">dat</span>, rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cut"</span>, <span class="st">"color"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    columns <span class="op">=</span> <span class="st">"clarity"</span>,</span></span>
+<span class="r-in"><span>    `z stats` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">z.mean</span>, formatter <span class="op">=</span> <span class="va">myformat</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    `y stats` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">y.mean</span>, formatter <span class="op">=</span> <span class="va">myformat</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="st">" (\u00B1 "</span>, props <span class="op">=</span> <span class="va">grey_txt</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">y.sd</span>, formatter <span class="op">=</span> <span class="va">myformat</span>, props <span class="op">=</span> <span class="va">grey_txt</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="st">")"</span>, props <span class="op">=</span> <span class="va">grey_txt</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_2</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ft_2</span>, add_w <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_2</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `cut`, `color`, `dummy1`, `@I1@z stats`, `@I1@y stats`, `dummy2`, `@SI1@z stats`, `@SI1@y stats`, `dummy3`, `@VS2@z stats`, `@VS2@y stats` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
@@ -265,34 +265,34 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                              </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com" class="external-link">"data.table"</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in"><span class="co">#' # data.table version</span></span>
-<span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/melt.data.table.html" class="external-link">melt</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>,</span>
-<span class="r-in">            id.vars <span class="op">=</span> <span class="st">"Species"</span>,</span>
-<span class="r-in">            variable.name <span class="op">=</span> <span class="st">"name"</span>,value.name <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span><span class="op">[</span>,</span>
-<span class="r-in">              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>avg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">                   sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"name"</span><span class="op">)</span></span>
-<span class="r-in">            <span class="op">]</span></span>
-<span class="r-in"><span class="co"># dplyr version</span></span>
-<span class="r-in"><span class="co"># library(dplyr)</span></span>
-<span class="r-in"><span class="co"># dat &lt;- iris %&gt;%</span></span>
-<span class="r-in"><span class="co">#   pivot_longer(cols = -c(Species)) %&gt;%</span></span>
-<span class="r-in"><span class="co">#   group_by(Species, name) %&gt;%</span></span>
-<span class="r-in"><span class="co">#   summarise(avg = mean(value, na.rm = TRUE),</span></span>
-<span class="r-in"><span class="co">#   sd = sd(value, na.rm = TRUE),</span></span>
-<span class="r-in"><span class="co">#   .groups = "drop")</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tab_3</span> <span class="op">&lt;-</span> <span class="fu">tabulator</span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="va">dat</span>, rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span>,</span>
-<span class="r-in">  columns <span class="op">=</span> <span class="st">"name"</span>,</span>
-<span class="r-in">  `mean (sd)` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span> <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">avg</span><span class="op">)</span>,</span>
-<span class="r-in">     <span class="st">" ("</span>, <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">sd</span><span class="op">)</span>,  <span class="st">")"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_3</span>, separate_with <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_3</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com" class="external-link">"data.table"</a></span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">#' # data.table version</span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/melt.data.table.html" class="external-link">melt</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            id.vars <span class="op">=</span> <span class="st">"Species"</span>,</span></span>
+<span class="r-in"><span>            variable.name <span class="op">=</span> <span class="st">"name"</span>,value.name <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span><span class="op">[</span>,</span></span>
+<span class="r-in"><span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>avg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"name"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="co"># dplyr version</span></span></span>
+<span class="r-in"><span><span class="co"># library(dplyr)</span></span></span>
+<span class="r-in"><span><span class="co"># dat &lt;- iris %&gt;%</span></span></span>
+<span class="r-in"><span><span class="co">#   pivot_longer(cols = -c(Species)) %&gt;%</span></span></span>
+<span class="r-in"><span><span class="co">#   group_by(Species, name) %&gt;%</span></span></span>
+<span class="r-in"><span><span class="co">#   summarise(avg = mean(value, na.rm = TRUE),</span></span></span>
+<span class="r-in"><span><span class="co">#   sd = sd(value, na.rm = TRUE),</span></span></span>
+<span class="r-in"><span><span class="co">#   .groups = "drop")</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tab_3</span> <span class="op">&lt;-</span> <span class="fu">tabulator</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">dat</span>, rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  columns <span class="op">=</span> <span class="st">"name"</span>,</span></span>
+<span class="r-in"><span>  `mean (sd)` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span> <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">avg</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>     <span class="st">" ("</span>, <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">sd</span><span class="op">)</span>,  <span class="st">")"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_3</span>, separate_with <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_3</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Species`, `dummy1`, `Sepal.Length@mean (sd)`, `dummy2`, `Sepal.Width@mean (sd)`, `dummy3`, `Petal.Length@mean (sd)`, `dummy4`, `Petal.Width@mean (sd)` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -322,8 +322,8 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                      </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="set_flextable_defaults.html">init_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_flextable_defaults.html">init_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -334,7 +334,7 @@ can evolve or change.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

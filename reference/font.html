@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -53,16 +53,16 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">font</span><span class="op">(</span>
-  <span class="va">x</span>,
-  i <span class="op">=</span> <span class="cn">NULL</span>,
-  j <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">fontname</span>,
-  part <span class="op">=</span> <span class="st">"body"</span>,
-  cs.family <span class="op">=</span> <span class="va">fontname</span>,
-  hansi.family <span class="op">=</span> <span class="va">fontname</span>,
-  eastasia.family <span class="op">=</span> <span class="va">fontname</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">font</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  j <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">fontname</span>,</span>
+<span>  part <span class="op">=</span> <span class="st">"body"</span>,</span>
+<span>  cs.family <span class="op">=</span> <span class="va">fontname</span>,</span>
+<span>  hansi.family <span class="op">=</span> <span class="va">fontname</span>,</span>
+<span>  eastasia.family <span class="op">=</span> <span class="va">fontname</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -139,16 +139,16 @@ of <code>fontname</code>.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"gdtools"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"gdtools"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: gdtools</span>
-<span class="r-in"><span class="va">fontname</span> <span class="op">&lt;-</span> <span class="st">"Brush Script MT"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/gdtools/man/font_family_exists.html" class="external-link">font_family_exists</a></span><span class="op">(</span><span class="va">fontname</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu">font</span><span class="op">(</span><span class="va">ft_1</span>, fontname <span class="op">=</span> <span class="va">fontname</span>, part <span class="op">=</span> <span class="st">"header"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu">font</span><span class="op">(</span><span class="va">ft_2</span>, fontname <span class="op">=</span> <span class="va">fontname</span>, j <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">ft_2</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span><span class="va">fontname</span> <span class="op">&lt;-</span> <span class="st">"Brush Script MT"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/gdtools/man/font_family_exists.html" class="external-link">font_family_exists</a></span><span class="op">(</span><span class="va">fontname</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu">font</span><span class="op">(</span><span class="va">ft_1</span>, fontname <span class="op">=</span> <span class="va">fontname</span>, part <span class="op">=</span> <span class="st">"header"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu">font</span><span class="op">(</span><span class="va">ft_2</span>, fontname <span class="op">=</span> <span class="va">fontname</span>, j <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_2</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -159,7 +159,7 @@ of <code>fontname</code>.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

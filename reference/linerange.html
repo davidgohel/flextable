@@ -19,7 +19,7 @@ It should be used inside a call to as_paragraph()"><meta property="og:image" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -57,18 +57,18 @@ It should be used inside a call to <code><a href="as_paragraph.html">as_paragrap
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">linerange</span><span class="op">(</span>
-  <span class="va">value</span>,
-  min <span class="op">=</span> <span class="cn">NULL</span>,
-  max <span class="op">=</span> <span class="cn">NULL</span>,
-  rangecol <span class="op">=</span> <span class="st">"#CCCCCC"</span>,
-  stickcol <span class="op">=</span> <span class="st">"#FF0000"</span>,
-  bg <span class="op">=</span> <span class="st">"transparent"</span>,
-  width <span class="op">=</span> <span class="fl">1</span>,
-  height <span class="op">=</span> <span class="fl">0.2</span>,
-  raster_width <span class="op">=</span> <span class="fl">30</span>,
-  unit <span class="op">=</span> <span class="st">"in"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">linerange</span><span class="op">(</span></span>
+<span>  <span class="va">value</span>,</span>
+<span>  min <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rangecol <span class="op">=</span> <span class="st">"#CCCCCC"</span>,</span>
+<span>  stickcol <span class="op">=</span> <span class="st">"#FF0000"</span>,</span>
+<span>  bg <span class="op">=</span> <span class="st">"transparent"</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>  raster_width <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  unit <span class="op">=</span> <span class="st">"in"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -141,15 +141,15 @@ are removed when outputing to PowerPoint format.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">myft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, n <span class="op">=</span> <span class="fl">10</span> <span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">myft</span> <span class="op">&lt;-</span> <span class="fu"><a href="compose.html">compose</a></span><span class="op">(</span> <span class="va">myft</span>, j <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fu">linerange</span><span class="op">(</span>value <span class="op">=</span> <span class="va">Sepal.Length</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span>,</span>
-<span class="r-in">  part <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">myft</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">myft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, n <span class="op">=</span> <span class="fl">10</span> <span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">myft</span> <span class="op">&lt;-</span> <span class="fu"><a href="compose.html">compose</a></span><span class="op">(</span> <span class="va">myft</span>, j <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  value <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">linerange</span><span class="op">(</span>value <span class="op">=</span> <span class="va">Sepal.Length</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  part <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">myft</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -171,7 +171,7 @@ are removed when outputing to PowerPoint format.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

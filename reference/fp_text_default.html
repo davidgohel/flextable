@@ -31,7 +31,7 @@ defaults formatting properties."><meta property="og:image" content="/logo.png"><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -81,19 +81,19 @@ defaults formatting properties.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fp_text_default</span><span class="op">(</span>
-  color <span class="op">=</span> <span class="va">flextable_global</span><span class="op">$</span><span class="va">defaults</span><span class="op">$</span><span class="va">font.color</span>,
-  font.size <span class="op">=</span> <span class="va">flextable_global</span><span class="op">$</span><span class="va">defaults</span><span class="op">$</span><span class="va">font.size</span>,
-  bold <span class="op">=</span> <span class="cn">FALSE</span>,
-  italic <span class="op">=</span> <span class="cn">FALSE</span>,
-  underlined <span class="op">=</span> <span class="cn">FALSE</span>,
-  font.family <span class="op">=</span> <span class="va">flextable_global</span><span class="op">$</span><span class="va">defaults</span><span class="op">$</span><span class="va">font.family</span>,
-  cs.family <span class="op">=</span> <span class="cn">NULL</span>,
-  eastasia.family <span class="op">=</span> <span class="cn">NULL</span>,
-  hansi.family <span class="op">=</span> <span class="cn">NULL</span>,
-  vertical.align <span class="op">=</span> <span class="st">"baseline"</span>,
-  shading.color <span class="op">=</span> <span class="st">"transparent"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fp_text_default</span><span class="op">(</span></span>
+<span>  color <span class="op">=</span> <span class="va">flextable_global</span><span class="op">$</span><span class="va">defaults</span><span class="op">$</span><span class="va">font.color</span>,</span>
+<span>  font.size <span class="op">=</span> <span class="va">flextable_global</span><span class="op">$</span><span class="va">defaults</span><span class="op">$</span><span class="va">font.size</span>,</span>
+<span>  bold <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  italic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  underlined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  font.family <span class="op">=</span> <span class="va">flextable_global</span><span class="op">$</span><span class="va">defaults</span><span class="op">$</span><span class="va">font.family</span>,</span>
+<span>  cs.family <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  eastasia.family <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hansi.family <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  vertical.align <span class="op">=</span> <span class="st">"baseline"</span>,</span>
+<span>  shading.color <span class="op">=</span> <span class="st">"transparent"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -162,23 +162,23 @@ a valid color (e.g. "#000000" or "black").</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="set_flextable_defaults.html">set_flextable_defaults</a></span><span class="op">(</span></span>
-<span class="r-in">  font.size <span class="op">=</span> <span class="fl">11</span>, font.color <span class="op">=</span> <span class="st">"#303030"</span>,</span>
-<span class="r-in">  padding <span class="op">=</span> <span class="fl">3</span>, table.layout <span class="op">=</span> <span class="st">"autofit"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="compose.html">compose</a></span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="va">z</span>,</span>
-<span class="r-in">  i <span class="op">=</span> <span class="op">~</span> <span class="va">speed</span> <span class="op">&lt;</span> <span class="fl">6</span>,</span>
-<span class="r-in">  j <span class="op">=</span> <span class="st">"speed"</span>,</span>
-<span class="r-in">  value <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="st">"slow... "</span>, props <span class="op">=</span> <span class="fu">fp_text_default</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">    <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">speed</span>, props <span class="op">=</span> <span class="fu">fp_text_default</span><span class="op">(</span>italic <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">z</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_flextable_defaults.html">set_flextable_defaults</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  font.size <span class="op">=</span> <span class="fl">11</span>, font.color <span class="op">=</span> <span class="st">"#303030"</span>,</span></span>
+<span class="r-in"><span>  padding <span class="op">=</span> <span class="fl">3</span>, table.layout <span class="op">=</span> <span class="st">"autofit"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="compose.html">compose</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">z</span>,</span></span>
+<span class="r-in"><span>  i <span class="op">=</span> <span class="op">~</span> <span class="va">speed</span> <span class="op">&lt;</span> <span class="fl">6</span>,</span></span>
+<span class="r-in"><span>  j <span class="op">=</span> <span class="st">"speed"</span>,</span></span>
+<span class="r-in"><span>  value <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="st">"slow... "</span>, props <span class="op">=</span> <span class="fu">fp_text_default</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">speed</span>, props <span class="op">=</span> <span class="fu">fp_text_default</span><span class="op">(</span>italic <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">z</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `speed`, `dist` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -190,9 +190,9 @@ a valid color (e.g. "#000000" or "black").</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     7    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4     7   22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5     8   16</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="set_flextable_defaults.html">init_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_flextable_defaults.html">init_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -203,7 +203,7 @@ a valid color (e.g. "#000000" or "black").</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

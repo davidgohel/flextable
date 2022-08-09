@@ -29,7 +29,7 @@ operation that has to be made by 'Microsoft Word'
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -77,7 +77,7 @@ operation that has to be made by 'Microsoft Word'
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">as_word_field</span><span class="op">(</span><span class="va">x</span>, props <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0.15</span>, unit <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as_word_field</span><span class="op">(</span><span class="va">x</span>, props <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0.15</span>, unit <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -123,51 +123,51 @@ the default text properties of the cell(s).</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># define some default values ----</span></span>
-<span class="r-in"><span class="fu"><a href="set_flextable_defaults.html">set_flextable_defaults</a></span><span class="op">(</span>font.size <span class="op">=</span> <span class="fl">22</span>, border.color <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># an example with append_chunks ----</span></span>
-<span class="r-in"><span class="va">pp_docx</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_header_lines.html">add_header_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Page "</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="append_chunks.html">append_chunks</a></span><span class="op">(</span></span>
-<span class="r-in">    x <span class="op">=</span> <span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span>, part <span class="op">=</span> <span class="st">"header"</span>, j <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">    <span class="fu">as_word_field</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Page"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="align.html">align</a></span><span class="op">(</span><span class="va">x</span>, part <span class="op">=</span> <span class="st">"header"</span>, align <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu">pp_docx</span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## or:</span></span>
-<span class="r-in"><span class="co"># set_flextable_defaults(post_process_docx = pp_docx)</span></span>
-<span class="r-in"><span class="co">## to prevent this line addition when output is not docx</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># print(ft_1, preview = "docx")</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># an example with compose ----</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_footer_lines.html">add_footer_lines</a></span><span class="op">(</span><span class="va">ft_2</span>, <span class="st">"temp text"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="compose.html">compose</a></span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="va">ft_2</span>, part <span class="op">=</span> <span class="st">"footer"</span>, i <span class="op">=</span> <span class="fl">1</span>, j <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="st">"p. "</span>,</span>
-<span class="r-in">               <span class="fu">as_word_field</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Page"</span>, width <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span>,</span>
-<span class="r-in">               <span class="st">" on "</span>, <span class="fu">as_word_field</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"NumPages"</span>, width <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ft_2</span>, part <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"header"</span>, <span class="st">"body"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_docx.html" class="external-link">read_docx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_flextable.html">body_add_flextable</a></span><span class="op">(</span><span class="va">doc</span>, <span class="va">ft_2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/body_add_break.html" class="external-link">body_add_break</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_flextable.html">body_add_flextable</a></span><span class="op">(</span><span class="va">doc</span>, <span class="va">ft_2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">outfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># reset default values ----</span></span>
-<span class="r-in"><span class="fu"><a href="set_flextable_defaults.html">init_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># define some default values ----</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_flextable_defaults.html">set_flextable_defaults</a></span><span class="op">(</span>font.size <span class="op">=</span> <span class="fl">22</span>, border.color <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># an example with append_chunks ----</span></span></span>
+<span class="r-in"><span><span class="va">pp_docx</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_header_lines.html">add_header_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Page "</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="append_chunks.html">append_chunks</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    x <span class="op">=</span> <span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span>, part <span class="op">=</span> <span class="st">"header"</span>, j <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">as_word_field</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Page"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="align.html">align</a></span><span class="op">(</span><span class="va">x</span>, part <span class="op">=</span> <span class="st">"header"</span>, align <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu">pp_docx</span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## or:</span></span></span>
+<span class="r-in"><span><span class="co"># set_flextable_defaults(post_process_docx = pp_docx)</span></span></span>
+<span class="r-in"><span><span class="co">## to prevent this line addition when output is not docx</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># print(ft_1, preview = "docx")</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># an example with compose ----</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_footer_lines.html">add_footer_lines</a></span><span class="op">(</span><span class="va">ft_2</span>, <span class="st">"temp text"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="compose.html">compose</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">ft_2</span>, part <span class="op">=</span> <span class="st">"footer"</span>, i <span class="op">=</span> <span class="fl">1</span>, j <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="st">"p. "</span>,</span></span>
+<span class="r-in"><span>               <span class="fu">as_word_field</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Page"</span>, width <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               <span class="st">" on "</span>, <span class="fu">as_word_field</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"NumPages"</span>, width <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ft_2</span>, part <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"header"</span>, <span class="st">"body"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_docx.html" class="external-link">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_flextable.html">body_add_flextable</a></span><span class="op">(</span><span class="va">doc</span>, <span class="va">ft_2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/body_add_break.html" class="external-link">body_add_break</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_flextable.html">body_add_flextable</a></span><span class="op">(</span><span class="va">doc</span>, <span class="va">ft_2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">outfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># reset default values ----</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_flextable_defaults.html">init_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -178,7 +178,7 @@ the default text properties of the cell(s).</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

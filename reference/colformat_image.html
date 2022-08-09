@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -53,17 +53,17 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">colformat_image</span><span class="op">(</span>
-  <span class="va">x</span>,
-  i <span class="op">=</span> <span class="cn">NULL</span>,
-  j <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">width</span>,
-  <span class="va">height</span>,
-  na_str <span class="op">=</span> <span class="fu"><a href="get_flextable_defaults.html">get_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">na_str</span>,
-  nan_str <span class="op">=</span> <span class="fu"><a href="get_flextable_defaults.html">get_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">nan_str</span>,
-  prefix <span class="op">=</span> <span class="st">""</span>,
-  suffix <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">colformat_image</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  j <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">width</span>,</span>
+<span>  <span class="va">height</span>,</span>
+<span>  na_str <span class="op">=</span> <span class="fu"><a href="get_flextable_defaults.html">get_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">na_str</span>,</span>
+<span>  nan_str <span class="op">=</span> <span class="fu"><a href="get_flextable_defaults.html">get_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">nan_str</span>,</span>
+<span>  prefix <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  suffix <span class="op">=</span> <span class="st">""</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -114,18 +114,18 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">img.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="st">"doc"</span><span class="op">)</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dat</span><span class="op">$</span><span class="va">Species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>, <span class="st">"Species"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">img.file</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">myft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="va">dat</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">myft</span> <span class="op">&lt;-</span> <span class="fu">colformat_image</span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">myft</span>, i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">  j <span class="op">=</span> <span class="st">"Species"</span>, width <span class="op">=</span> <span class="fl">.20</span>, height <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">myft</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">img.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="st">"doc"</span><span class="op">)</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span><span class="op">$</span><span class="va">Species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>, <span class="st">"Species"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">img.file</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">myft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="va">dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">myft</span> <span class="op">&lt;-</span> <span class="fu">colformat_image</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">myft</span>, i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  j <span class="op">=</span> <span class="st">"Species"</span>, width <span class="op">=</span> <span class="fl">.20</span>, height <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">myft</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -138,11 +138,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4          4.6         3.1          1.5         0.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5          5.0         3.6          1.4         0.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                Species</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 /opt/R/4.2.0/lib/R/doc/html/logo.jpg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 /opt/R/4.2.1/lib/R/doc/html/logo.jpg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                               setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 /opt/R/4.2.0/lib/R/doc/html/logo.jpg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 /opt/R/4.2.1/lib/R/doc/html/logo.jpg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                               setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 /opt/R/4.2.0/lib/R/doc/html/logo.jpg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 /opt/R/4.2.1/lib/R/doc/html/logo.jpg</span>
 </code></pre></div>
     </div>
   </div>
@@ -153,7 +153,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

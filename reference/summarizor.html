@@ -19,7 +19,7 @@ the tabulator() function."><meta property="og:image" content="/logo.png"><!-- ma
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -57,7 +57,7 @@ the <code><a href="tabulator.html">tabulator()</a></code> function.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">summarizor</span><span class="op">(</span><span class="va">x</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, overall_label <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">summarizor</span><span class="op">(</span><span class="va">x</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, overall_label <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,28 +95,28 @@ can evolve or change.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">summarizor</span><span class="op">(</span><span class="va">CO2</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span>,</span>
-<span class="r-in">  by <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
-<span class="r-in">  overall_label <span class="op">=</span> <span class="st">"Overall"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># version 1 ----</span></span>
-<span class="r-in"><span class="va">tab_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="tabulator.html">tabulator</a></span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="va">z</span>,</span>
-<span class="r-in">  rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"variable"</span>, <span class="st">"stat"</span><span class="op">)</span>,</span>
-<span class="r-in">  columns <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
-<span class="r-in">  blah <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span></span>
-<span class="r-in">      <span class="fu"><a href="fmt_2stats.html">fmt_2stats</a></span><span class="op">(</span></span>
-<span class="r-in">        num1 <span class="op">=</span> <span class="va">stat</span>, num2 <span class="op">=</span> <span class="va">value</span>, cts <span class="op">=</span> <span class="va">cts</span>, pcts <span class="op">=</span> <span class="va">percent</span></span>
-<span class="r-in">      <span class="op">)</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_1</span>, separate_with <span class="op">=</span> <span class="st">"variable"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">summarizor</span><span class="op">(</span><span class="va">CO2</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>  by <span class="op">=</span> <span class="st">"Treatment"</span>,</span></span>
+<span class="r-in"><span>  overall_label <span class="op">=</span> <span class="st">"Overall"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># version 1 ----</span></span></span>
+<span class="r-in"><span><span class="va">tab_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="tabulator.html">tabulator</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">z</span>,</span></span>
+<span class="r-in"><span>  rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"variable"</span>, <span class="st">"stat"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  columns <span class="op">=</span> <span class="st">"Treatment"</span>,</span></span>
+<span class="r-in"><span>  blah <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="fmt_2stats.html">fmt_2stats</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        num1 <span class="op">=</span> <span class="va">stat</span>, num2 <span class="op">=</span> <span class="va">value</span>, cts <span class="op">=</span> <span class="va">cts</span>, pcts <span class="op">=</span> <span class="va">percent</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_1</span>, separate_with <span class="op">=</span> <span class="st">"variable"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy1`, `nonchilled@blah`, `dummy2`, `chilled@blah`, `dummy3`, `Overall@blah` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -152,30 +152,30 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                                 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># version 2 ----</span></span>
-<span class="r-in"><span class="va">n_format</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">percent</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">wcts</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">z</span><span class="op">[</span><span class="va">wcts</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.0f (%.01f %%)"</span>, <span class="va">n</span><span class="op">[</span><span class="va">wcts</span><span class="op">]</span>, <span class="va">percent</span><span class="op">[</span><span class="va">wcts</span><span class="op">]</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">z</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">stat_format</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">wnum</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">z</span><span class="op">[</span><span class="va">wnum</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.01f"</span>, <span class="va">value</span><span class="op">[</span><span class="va">wnum</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">z</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tab_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="tabulator.html">tabulator</a></span><span class="op">(</span><span class="va">z</span>,</span>
-<span class="r-in">  rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"variable"</span>, <span class="st">"stat"</span><span class="op">)</span>,</span>
-<span class="r-in">  columns <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
-<span class="r-in">  `Est.` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  `N` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="fu">n_format</span><span class="op">(</span><span class="va">cts</span>, <span class="va">percent</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_2</span>, separate_with <span class="op">=</span> <span class="st">"variable"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_2</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># version 2 ----</span></span></span>
+<span class="r-in"><span><span class="va">n_format</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">percent</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">wcts</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">z</span><span class="op">[</span><span class="va">wcts</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.0f (%.01f %%)"</span>, <span class="va">n</span><span class="op">[</span><span class="va">wcts</span><span class="op">]</span>, <span class="va">percent</span><span class="op">[</span><span class="va">wcts</span><span class="op">]</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">z</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">stat_format</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">wnum</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">z</span><span class="op">[</span><span class="va">wnum</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.01f"</span>, <span class="va">value</span><span class="op">[</span><span class="va">wnum</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">z</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tab_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="tabulator.html">tabulator</a></span><span class="op">(</span><span class="va">z</span>,</span></span>
+<span class="r-in"><span>  rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"variable"</span>, <span class="st">"stat"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  columns <span class="op">=</span> <span class="st">"Treatment"</span>,</span></span>
+<span class="r-in"><span>  `Est.` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  `N` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="fu">n_format</span><span class="op">(</span><span class="va">cts</span>, <span class="va">percent</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">tab_2</span>, separate_with <span class="op">=</span> <span class="st">"variable"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy1`, `@nonchilled@Est.`, `@nonchilled@N`, `dummy2`, `@chilled@Est.`, `@chilled@N`, `dummy3`, `@Overall@Est.`, `@Overall@N` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
@@ -227,7 +227,7 @@ can evolve or change.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

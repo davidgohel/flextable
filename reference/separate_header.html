@@ -19,7 +19,7 @@ and placed in their own rows."><meta property="og:image" content="/logo.png"><!-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -57,12 +57,12 @@ and placed in their own rows.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">separate_header</span><span class="op">(</span>
-  <span class="va">x</span>,
-  opts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"span-top"</span>, <span class="st">"center-hspan"</span>, <span class="st">"bottom-vspan"</span>, <span class="st">"default-theme"</span><span class="op">)</span>,
-  split <span class="op">=</span> <span class="st">"[_\\.]"</span>,
-  fixed <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">separate_header</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  opts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"span-top"</span>, <span class="st">"center-hspan"</span>, <span class="st">"bottom-vspan"</span>, <span class="st">"default-theme"</span><span class="op">)</span>,</span>
+<span>  split <span class="op">=</span> <span class="st">"[_\\.]"</span>,</span>
+<span>  fixed <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -119,28 +119,28 @@ otherwise use regular expressions.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  Species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  Sepal.Length_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.006</span>, <span class="fl">5.936</span>, <span class="fl">6.588</span><span class="op">)</span>,</span>
-<span class="r-in">  Sepal.Length_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.35249</span>, <span class="fl">0.51617</span>, <span class="fl">0.63588</span><span class="op">)</span>,</span>
-<span class="r-in">  Sepal.Width_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.428</span>, <span class="fl">2.77</span>, <span class="fl">2.974</span><span class="op">)</span>,</span>
-<span class="r-in">  Sepal.Width_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.37906</span>, <span class="fl">0.3138</span>, <span class="fl">0.3225</span><span class="op">)</span>,</span>
-<span class="r-in">  Petal.Length_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.462</span>, <span class="fl">4.26</span>, <span class="fl">5.552</span><span class="op">)</span>,</span>
-<span class="r-in">  Petal.Length_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.17366</span>, <span class="fl">0.46991</span>, <span class="fl">0.55189</span><span class="op">)</span>,</span>
-<span class="r-in">  Petal.Width_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.246</span>, <span class="fl">1.326</span>, <span class="fl">2.026</span><span class="op">)</span>,</span>
-<span class="r-in">  Petal.Width_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.10539</span>, <span class="fl">0.19775</span>, <span class="fl">0.27465</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="colformat_double.html">colformat_double</a></span><span class="op">(</span><span class="va">ft_1</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_box.html">theme_box</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu">separate_header</span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="va">ft_1</span>,</span>
-<span class="r-in">  opts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"span-top"</span>, <span class="st">"bottom-vspan"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft_1</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  Species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  Sepal.Length_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.006</span>, <span class="fl">5.936</span>, <span class="fl">6.588</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  Sepal.Length_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.35249</span>, <span class="fl">0.51617</span>, <span class="fl">0.63588</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  Sepal.Width_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.428</span>, <span class="fl">2.77</span>, <span class="fl">2.974</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  Sepal.Width_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.37906</span>, <span class="fl">0.3138</span>, <span class="fl">0.3225</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  Petal.Length_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.462</span>, <span class="fl">4.26</span>, <span class="fl">5.552</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  Petal.Length_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.17366</span>, <span class="fl">0.46991</span>, <span class="fl">0.55189</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  Petal.Width_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.246</span>, <span class="fl">1.326</span>, <span class="fl">2.026</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  Petal.Width_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.10539</span>, <span class="fl">0.19775</span>, <span class="fl">0.27465</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="colformat_double.html">colformat_double</a></span><span class="op">(</span><span class="va">ft_1</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_box.html">theme_box</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu">separate_header</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">ft_1</span>,</span></span>
+<span class="r-in"><span>  opts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"span-top"</span>, <span class="st">"bottom-vspan"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Species`, `Sepal.Length_mean`, `Sepal.Length_sd`, `Sepal.Width_mean`, `Sepal.Width_sd`, `Petal.Length_mean`, `Petal.Length_sd`, `Petal.Width_mean`, `Petal.Width_sd` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 3 row(s) </span>
@@ -164,7 +164,7 @@ otherwise use regular expressions.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

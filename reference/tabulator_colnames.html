@@ -22,7 +22,7 @@ corresponding to the selection."><meta property="og:image" content="/logo.png"><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -63,7 +63,7 @@ corresponding to the selection.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tabulator_colnames</span><span class="op">(</span><span class="va">x</span>, <span class="va">columns</span>, type <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tabulator_colnames</span><span class="op">(</span><span class="va">x</span>, <span class="va">columns</span>, type <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,66 +100,66 @@ names, the same than the argument <code>columns</code> of function <code><a href
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">cancer_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fl">9L</span>, <span class="fl">5L</span>, <span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">2L</span>, <span class="fl">1L</span>, <span class="fl">9L</span>, <span class="fl">3L</span>, <span class="fl">1L</span>, <span class="fl">10L</span>, <span class="fl">2L</span>, <span class="fl">1L</span>, <span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">0L</span>, <span class="fl">3L</span>,</span>
-<span class="r-in">    <span class="fl">2L</span>, <span class="fl">1L</span>, <span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">0L</span>, <span class="fl">12L</span>, <span class="fl">4L</span>, <span class="fl">1L</span>, <span class="fl">7L</span>, <span class="fl">3L</span>, <span class="fl">1L</span>, <span class="fl">5L</span>, <span class="fl">5L</span>, <span class="fl">3L</span>, <span class="fl">10L</span>,</span>
-<span class="r-in">    <span class="fl">4L</span>, <span class="fl">1L</span>, <span class="fl">4L</span>, <span class="fl">2L</span>, <span class="fl">0L</span>, <span class="fl">3L</span>, <span class="fl">1L</span>, <span class="fl">0L</span>, <span class="fl">4L</span>, <span class="fl">4L</span>, <span class="fl">2L</span>, <span class="fl">42L</span>, <span class="fl">28L</span>, <span class="fl">19L</span>, <span class="fl">26L</span>,</span>
-<span class="r-in">    <span class="fl">19L</span>, <span class="fl">11L</span>, <span class="fl">12L</span>, <span class="fl">10L</span>, <span class="fl">7L</span>, <span class="fl">10L</span>, <span class="fl">5L</span>, <span class="fl">6L</span>, <span class="fl">5L</span>, <span class="fl">0L</span>, <span class="fl">3L</span>, <span class="fl">4L</span>, <span class="fl">3L</span>, <span class="fl">3L</span>,</span>
-<span class="r-in">    <span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">3L</span></span>
-<span class="r-in">  <span class="op">)</span>,</span>
-<span class="r-in">  risktime <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fl">157L</span>, <span class="fl">77L</span>, <span class="fl">21L</span>, <span class="fl">139L</span>, <span class="fl">68L</span>, <span class="fl">17L</span>, <span class="fl">126L</span>, <span class="fl">63L</span>, <span class="fl">14L</span>, <span class="fl">102L</span>, <span class="fl">55L</span>,</span>
-<span class="r-in">    <span class="fl">12L</span>, <span class="fl">88L</span>, <span class="fl">50L</span>, <span class="fl">10L</span>, <span class="fl">82L</span>, <span class="fl">45L</span>, <span class="fl">8L</span>, <span class="fl">76L</span>, <span class="fl">42L</span>, <span class="fl">6L</span>, <span class="fl">134L</span>, <span class="fl">71L</span>,</span>
-<span class="r-in">    <span class="fl">22L</span>, <span class="fl">110L</span>, <span class="fl">63L</span>, <span class="fl">18L</span>, <span class="fl">96L</span>, <span class="fl">58L</span>, <span class="fl">14L</span>, <span class="fl">86L</span>, <span class="fl">42L</span>, <span class="fl">10L</span>, <span class="fl">66L</span>,</span>
-<span class="r-in">    <span class="fl">35L</span>, <span class="fl">8L</span>, <span class="fl">59L</span>, <span class="fl">32L</span>, <span class="fl">8L</span>, <span class="fl">51L</span>, <span class="fl">28L</span>, <span class="fl">6L</span>, <span class="fl">212L</span>, <span class="fl">130L</span>, <span class="fl">101L</span>,</span>
-<span class="r-in">    <span class="fl">136L</span>, <span class="fl">72L</span>, <span class="fl">63L</span>, <span class="fl">90L</span>, <span class="fl">42L</span>, <span class="fl">43L</span>, <span class="fl">64L</span>, <span class="fl">21L</span>, <span class="fl">32L</span>, <span class="fl">47L</span>, <span class="fl">14L</span>,</span>
-<span class="r-in">    <span class="fl">21L</span>, <span class="fl">39L</span>, <span class="fl">13L</span>, <span class="fl">14L</span>, <span class="fl">29L</span>, <span class="fl">7L</span>, <span class="fl">10L</span></span>
-<span class="r-in">  <span class="op">)</span>,</span>
-<span class="r-in">  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>,</span>
-<span class="r-in">  histology <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">21</span><span class="op">)</span>,</span>
-<span class="r-in">  stage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">datasup_first</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, levels <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>,</span>
-<span class="r-in">  zzz <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="tabulator.html">tabulator</a></span><span class="op">(</span><span class="va">cancer_dat</span>,</span>
-<span class="r-in">  rows <span class="op">=</span> <span class="st">"time"</span>,</span>
-<span class="r-in">  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"histology"</span>, <span class="st">"stage"</span><span class="op">)</span>,</span>
-<span class="r-in">  datasup_first <span class="op">=</span> <span class="va">datasup_first</span>,</span>
-<span class="r-in">  n <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">j</span> <span class="op">&lt;-</span> <span class="fu">tabulator_colnames</span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="va">z</span>, type <span class="op">=</span> <span class="st">"columns"</span>,</span>
-<span class="r-in">  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="va">stage</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">1</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">src</span> <span class="op">&lt;-</span> <span class="fu">tabulator_colnames</span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="va">z</span>, type <span class="op">=</span> <span class="st">"hidden"</span>,</span>
-<span class="r-in">  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"count"</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="va">stage</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">1</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://scales.r-lib.org" class="external-link">"scales"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">colourer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://scales.r-lib.org/reference/col_numeric.html" class="external-link">col_numeric</a></span><span class="op">(</span></span>
-<span class="r-in">    palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
-<span class="r-in">    domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">45</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in">  <span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="bg.html">bg</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="va">ft_1</span>,</span>
-<span class="r-in">    bg <span class="op">=</span> <span class="va">colourer</span>, part <span class="op">=</span> <span class="st">"body"</span>,</span>
-<span class="r-in">    j <span class="op">=</span> <span class="va">j</span>, source <span class="op">=</span> <span class="va">src</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in">  <span class="va">ft_1</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cancer_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fl">9L</span>, <span class="fl">5L</span>, <span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">2L</span>, <span class="fl">1L</span>, <span class="fl">9L</span>, <span class="fl">3L</span>, <span class="fl">1L</span>, <span class="fl">10L</span>, <span class="fl">2L</span>, <span class="fl">1L</span>, <span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">0L</span>, <span class="fl">3L</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">2L</span>, <span class="fl">1L</span>, <span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">0L</span>, <span class="fl">12L</span>, <span class="fl">4L</span>, <span class="fl">1L</span>, <span class="fl">7L</span>, <span class="fl">3L</span>, <span class="fl">1L</span>, <span class="fl">5L</span>, <span class="fl">5L</span>, <span class="fl">3L</span>, <span class="fl">10L</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">4L</span>, <span class="fl">1L</span>, <span class="fl">4L</span>, <span class="fl">2L</span>, <span class="fl">0L</span>, <span class="fl">3L</span>, <span class="fl">1L</span>, <span class="fl">0L</span>, <span class="fl">4L</span>, <span class="fl">4L</span>, <span class="fl">2L</span>, <span class="fl">42L</span>, <span class="fl">28L</span>, <span class="fl">19L</span>, <span class="fl">26L</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">19L</span>, <span class="fl">11L</span>, <span class="fl">12L</span>, <span class="fl">10L</span>, <span class="fl">7L</span>, <span class="fl">10L</span>, <span class="fl">5L</span>, <span class="fl">6L</span>, <span class="fl">5L</span>, <span class="fl">0L</span>, <span class="fl">3L</span>, <span class="fl">4L</span>, <span class="fl">3L</span>, <span class="fl">3L</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">3L</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  risktime <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fl">157L</span>, <span class="fl">77L</span>, <span class="fl">21L</span>, <span class="fl">139L</span>, <span class="fl">68L</span>, <span class="fl">17L</span>, <span class="fl">126L</span>, <span class="fl">63L</span>, <span class="fl">14L</span>, <span class="fl">102L</span>, <span class="fl">55L</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">12L</span>, <span class="fl">88L</span>, <span class="fl">50L</span>, <span class="fl">10L</span>, <span class="fl">82L</span>, <span class="fl">45L</span>, <span class="fl">8L</span>, <span class="fl">76L</span>, <span class="fl">42L</span>, <span class="fl">6L</span>, <span class="fl">134L</span>, <span class="fl">71L</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">22L</span>, <span class="fl">110L</span>, <span class="fl">63L</span>, <span class="fl">18L</span>, <span class="fl">96L</span>, <span class="fl">58L</span>, <span class="fl">14L</span>, <span class="fl">86L</span>, <span class="fl">42L</span>, <span class="fl">10L</span>, <span class="fl">66L</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">35L</span>, <span class="fl">8L</span>, <span class="fl">59L</span>, <span class="fl">32L</span>, <span class="fl">8L</span>, <span class="fl">51L</span>, <span class="fl">28L</span>, <span class="fl">6L</span>, <span class="fl">212L</span>, <span class="fl">130L</span>, <span class="fl">101L</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">136L</span>, <span class="fl">72L</span>, <span class="fl">63L</span>, <span class="fl">90L</span>, <span class="fl">42L</span>, <span class="fl">43L</span>, <span class="fl">64L</span>, <span class="fl">21L</span>, <span class="fl">32L</span>, <span class="fl">47L</span>, <span class="fl">14L</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">21L</span>, <span class="fl">39L</span>, <span class="fl">13L</span>, <span class="fl">14L</span>, <span class="fl">29L</span>, <span class="fl">7L</span>, <span class="fl">10L</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  histology <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">21</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  stage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">datasup_first</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, levels <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  zzz <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="tabulator.html">tabulator</a></span><span class="op">(</span><span class="va">cancer_dat</span>,</span></span>
+<span class="r-in"><span>  rows <span class="op">=</span> <span class="st">"time"</span>,</span></span>
+<span class="r-in"><span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"histology"</span>, <span class="st">"stage"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  datasup_first <span class="op">=</span> <span class="va">datasup_first</span>,</span></span>
+<span class="r-in"><span>  n <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">j</span> <span class="op">&lt;-</span> <span class="fu">tabulator_colnames</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">z</span>, type <span class="op">=</span> <span class="st">"columns"</span>,</span></span>
+<span class="r-in"><span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="va">stage</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">src</span> <span class="op">&lt;-</span> <span class="fu">tabulator_colnames</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">z</span>, type <span class="op">=</span> <span class="st">"hidden"</span>,</span></span>
+<span class="r-in"><span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"count"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="va">stage</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://scales.r-lib.org" class="external-link">"scales"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">colourer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://scales.r-lib.org/reference/col_numeric.html" class="external-link">col_numeric</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat"</span>, <span class="st">"red"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">45</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="bg.html">bg</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">ft_1</span>,</span></span>
+<span class="r-in"><span>    bg <span class="op">=</span> <span class="va">colourer</span>, part <span class="op">=</span> <span class="st">"body"</span>,</span></span>
+<span class="r-in"><span>    j <span class="op">=</span> <span class="va">j</span>, source <span class="op">=</span> <span class="va">src</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ft_1</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `time`, `dummy1`, `zzz`, `dummy2`, `1@1@n`, `dummy3`, `1@2@n`, `dummy4`, `1@3@n`, `dummy5`, `2@1@n`, `dummy6`, `2@2@n`, `dummy7`, `2@3@n`, `dummy8`, `3@1@n`, `dummy9`, `3@2@n`, `dummy10`, `3@3@n` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
@@ -184,11 +184,11 @@ names, the same than the argument <code>columns</code> of function <code><a href
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4           42           21            8            8           14            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5           63           72           12           10           32            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   n@1@3 n@2@1 n@2@2 n@2@3 n@3@1 n@3@2 n@3@3       zzz dummy1 dummy2 1@1@n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                           0.2644589                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                           0.2765322                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                           0.5211070                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                           0.2236889                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                           0.4079248                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                           0.5435622                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                           0.5460695                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                           0.7413802                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                           0.5206874                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                           0.2230991                    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   dummy3 1@2@n dummy4 1@3@n dummy5 2@1@n dummy6 2@2@n dummy7 2@3@n dummy8 3@1@n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                              </span>
@@ -211,7 +211,7 @@ names, the same than the argument <code>columns</code> of function <code><a href
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

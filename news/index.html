@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -48,7 +48,32 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.7.2" id="flextable-072">flextable 0.7.2<a class="anchor" aria-label="anchor" href="#flextable-072"></a></h2>
+<h2 class="page-header" data-toc-text="0.7.3" id="flextable-073">flextable 0.7.3<a class="anchor" aria-label="anchor" href="#flextable-073"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-7-3">new features<a class="anchor" aria-label="anchor" href="#new-features-0-7-3"></a></h3>
+<ul><li>function <code><a href="../reference/as_flextable.tabulator.html">as_flextable.tabulator()</a></code> gained an argument <code>label_rows</code> used for labels to display in the first column names, i.e. the <em>row</em> column names.</li>
+<li>new function <code><a href="../reference/shift_table.html">shift_table()</a></code> to produce Shift Tables used used in clinical trial analysis ready to be used by <code><a href="../reference/tabulator.html">tabulator()</a></code>.</li>
+<li>
+<code><a href="../reference/as_image.html">as_image()</a></code> don’t need anymore parameters <code>width</code> and <code>height</code> if package ‘magick’ is available.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-7-3">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-3"></a></h3>
+<ul><li>fix top borders correction (for docx and pptx)</li>
+<li>check that used colors do not contain NA</li>
+<li>fix HTML scrolling that is always visible to Windows users</li>
+<li>fix “cs.family”, “hansi.family” and “eastasia.family” for Word</li>
+<li>fix anti-selectors for bg/color/highlight, a regression from version 0.7.2</li>
+<li>when HTML and layout “autofit”, output width is not set when width has been defined to 0 to avoid unnecessary word breaks (<a href="https://github.com/davidgohel/flextable/issues/429" class="external-link">#429</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-0-7-3">Changes<a class="anchor" aria-label="anchor" href="#changes-0-7-3"></a></h3>
+<ul><li>pptx output is constructed with top and bottom margins whose value is top and bottom padding of the paragraph and there is no more borders copies while rendering.</li>
+<li>add visual tests with doconv</li>
+<li>footnote can not be used with "" symbols, use <code><a href="../reference/add_footer_lines.html">add_footer_lines()</a></code> instead.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.7.2" id="flextable-072">flextable 0.7.2<small>2022-06-12</small><a class="anchor" aria-label="anchor" href="#flextable-072"></a></h2>
 <div class="section level3">
 <h3 id="issues-0-7-2">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-2"></a></h3>
 <ul><li>fix selector issue with numeric values (<a href="https://github.com/davidgohel/flextable/issues/409" class="external-link">#409</a>)</li></ul></div>
@@ -601,7 +626,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

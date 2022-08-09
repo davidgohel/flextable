@@ -25,7 +25,7 @@ the colors and only accept values from colkeys."><meta property="og:image" conte
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
       </span>
     </div>
 
@@ -69,7 +69,7 @@ the colors and only accept values from <code>colkeys</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">highlight</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, j <span class="op">=</span> <span class="cn">NULL</span>, color <span class="op">=</span> <span class="st">"yellow"</span>, part <span class="op">=</span> <span class="st">"body"</span>, source <span class="op">=</span> <span class="va">j</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">highlight</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, j <span class="op">=</span> <span class="cn">NULL</span>, color <span class="op">=</span> <span class="st">"yellow"</span>, part <span class="op">=</span> <span class="st">"body"</span>, source <span class="op">=</span> <span class="va">j</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -127,17 +127,17 @@ other columns.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">my_color_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"yellow"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">out</span><span class="op">[</span><span class="va">x</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">.75</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"pink"</span></span>
-<span class="r-in">  <span class="va">out</span><span class="op">[</span><span class="va">x</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">.50</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"wheat"</span></span>
-<span class="r-in">  <span class="va">out</span><span class="op">[</span><span class="va">x</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">.25</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"gray90"</span></span>
-<span class="r-in">  <span class="va">out</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">highlight</span><span class="op">(</span><span class="va">ft</span>, j <span class="op">=</span> <span class="st">"disp"</span>, i <span class="op">=</span> <span class="op">~</span> <span class="va">disp</span> <span class="op">&gt;</span> <span class="fl">200</span>, color <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">highlight</span><span class="op">(</span><span class="va">ft</span>, j <span class="op">=</span> <span class="op">~</span> <span class="va">drat</span> <span class="op">+</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">qsec</span>, color <span class="op">=</span> <span class="va">my_color_fun</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ft</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">my_color_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"yellow"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">out</span><span class="op">[</span><span class="va">x</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">.75</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"pink"</span></span></span>
+<span class="r-in"><span>  <span class="va">out</span><span class="op">[</span><span class="va">x</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">.50</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"wheat"</span></span></span>
+<span class="r-in"><span>  <span class="va">out</span><span class="op">[</span><span class="va">x</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">.25</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"gray90"</span></span></span>
+<span class="r-in"><span>  <span class="va">out</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">highlight</span><span class="op">(</span><span class="va">ft</span>, j <span class="op">=</span> <span class="st">"disp"</span>, i <span class="op">=</span> <span class="op">~</span> <span class="va">disp</span> <span class="op">&gt;</span> <span class="fl">200</span>, color <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">highlight</span><span class="op">(</span><span class="va">ft</span>, j <span class="op">=</span> <span class="op">~</span> <span class="va">drat</span> <span class="op">+</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">qsec</span>, color <span class="op">=</span> <span class="va">my_color_fun</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -159,7 +159,7 @@ other columns.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
