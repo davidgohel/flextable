@@ -11,12 +11,14 @@ flextable_to_rmd(
   ft.keepnext = opts_current$get("ft.keepnext"),
   ft.tabcolsep = opts_current$get("ft.tabcolsep"),
   ft.arraystretch = opts_current$get("ft.arraystretch"),
-  ft.latex.float = opts_current$get("ft.latex.float"),
+  ft.latex.float = mcoalesce_options(opts_current$get("ft.latex.float"),
+    opts_current$get("ft-latex-float")),
   ft.left = opts_current$get("ft.left"),
   ft.top = opts_current$get("ft.top"),
   text_after = "",
   webshot = opts_current$get("webshot"),
   bookdown = FALSE,
+  quarto = FALSE,
   pandoc2 = TRUE,
   print = TRUE,
   ...
@@ -42,7 +44,7 @@ Word document. Since Word will try to keep it with the \strong{next
 paragraphs that follow the tables}.}
 
 \item{ft.tabcolsep}{space between the text and the left/right border of its containing
-cell, the default value is 8 points.}
+cell, the default value is 0 points.}
 
 \item{ft.arraystretch}{height of each row relative to its default
 height, the default value is 1.5.}
@@ -70,6 +72,9 @@ For example, you can put "\\\\pagebreak" here to have tables produced with page 
 "webshot2".}
 
 \item{bookdown}{\code{TRUE} or \code{FALSE} (default) to support cross referencing with bookdown.}
+
+\item{quarto}{\code{TRUE} or \code{FALSE} (default) to indicate the source document is a 'Quarto'
+file (ending with \verb{*.qmd}).}
 
 \item{pandoc2}{\code{TRUE} (default) or \code{FALSE} to get the string in a pandoc raw HTML attribute
 (only valid when pandoc version is \verb{>= 2}.}

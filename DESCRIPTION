@@ -21,7 +21,7 @@ Description: Create pretty tables for 'HTML', 'PDF', 'Microsoft Word' and 'Micro
 License: GPL-3
 Imports:
     stats, utils, grDevices, graphics,
-    officer (>= 0.4.1),
+    officer (>= 0.4.4),
     rmarkdown, knitr, htmltools,
     xml2, data.table (>= 1.13.0), uuid (>= 0.1-4),
     gdtools (>= 0.1.6), rlang, 
@@ -43,3 +43,4 @@ Encoding: UTF-8
 URL: https://ardata-fr.github.io/flextable-book/, https://davidgohel.github.io/flextable/
 BugReports: https://github.com/davidgohel/flextable/issues
 VignetteBuilder: knitr
+Remotes: davidgohel/officer

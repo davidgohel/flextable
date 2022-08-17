@@ -162,15 +162,27 @@ qflextable <- function(data){
 #'
 #' See [knit_print.flextable] for more details.
 #'
+#' @section Using 'Quarto':
+#'
+#' 'Quarto' manage captions and cross-references instead of flextable. That's why
+#' `set_caption()` is not useful in a 'Quarto' document except for Word documents
+#' where 'Quarto' does not manage captions.
+#'
+#' knitr options are the same than those detailled in the R Markdown section (see upper),
+#' but be aware that 'Quarto' manage captions and related items can be overwritten by
+#' Quarto.
+#'
 #' @param x flextable object
 #' @param caption caption value
 #' @param autonum an autonum representation. See [officer::run_autonum()].
 #' This has only an effect when output is Word. If used, the caption is preceded
 #' by an auto-number sequence. In this case, the caption is preceded by an auto-number
 #' sequence that can be cross referenced.
-#' @param style caption paragraph style name. These names are available with
-#' function [officer::styles_info()] when output is Word; if HTML, the
-#' value is set as class value in the `caption` tag.
+#' @param word_stylename,style 'Word' style name to associate with caption paragraph. These names are available with
+#' function [officer::styles_info()] when output is Word. Argument `style`
+#' is deprecated in favor of `word_stylename`.
+#' @param html_classes css class(es) to apply to associate with caption paragraph
+#' when output is 'Word'.
 #' @param html_escape should HTML entities be escaped so that it can be safely
 #' included as text or an attribute value within an HTML document.
 #' @examples
@@ -186,11 +198,19 @@ qflextable <- function(data){
 #' @importFrom officer run_autonum
 #' @importFrom htmltools htmlEscape
 #' @seealso [flextable()]
-set_caption <- function(x, caption,
-    autonum = NULL, style = "Table Caption",
-    html_escape = TRUE){
+set_caption <- function(
+    x,
+    caption,
+    autonum = NULL,
+    word_stylename = "Table Caption",
+    style = word_stylename,
+    html_classes = NULL,
+    html_escape = TRUE
+    ){
 
-  if( !inherits(x, "flextable") ) stop("set_caption supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop("set_caption supports only flextable objects.")
+  }
 
   if( !is.character(caption) && length(caption) != 1 ){
     stop("caption should be a single character value")
@@ -204,6 +224,8 @@ set_caption <- function(x, caption,
     x$caption$autonum <- autonum
   }
   x$caption$style <- style
+  x$caption$word_stylename <- word_stylename
+  x$caption$html_classes <- paste(html_classes, collapse = " ")
 
   x
 }

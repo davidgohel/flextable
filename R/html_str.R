@@ -1,33 +1,19 @@
-caption_html_str <- function(x, bookdown = FALSE){
-  tab_props <- opts_current_table()
-  # caption "bookmark"
-  bookdown_ref_label <- ref_label(tab_props$tab.lp)
-  if(bookdown && !is.null(x$caption$autonum$bookmark)){
-    bookdown_ref_label <- paste0("(\\#", x$caption$autonum$seq_id, ":",
-                                 x$caption$autonum$bookmark, ")")
-  } else if(bookdown && !is.null(tab_props$id)){
-    bookdown_ref_label <- paste0("(\\#", tab_props$tab.lp, tab_props$id, ")")
-  }
-
-  caption_style <- tab_props$style
-  if(!is.null(x$caption$style)){
-    caption_style <- x$caption$style
-  }
-  if(is.null(caption_style)) caption_style <- ""
-
-  caption_label <- tab_props$cap
-  if(!is.null(x$caption$value)){
-    caption_label <- x$caption$value
-  }
-  caption <- ""
-  has_caption_label <- !is.null(caption_label)
-  if(has_caption_label) {
-    caption <- paste0(sprintf("<caption class=\"%s\">\n\n", caption_style),
-                      if(bookdown) bookdown_ref_label,
-                      caption_label, "\n\n</caption>")
-  }
-  caption
+#' @importFrom rmarkdown pandoc_exec
+pandoc_html_chunks <- function(x){
+  stopifnot(length(x) == 1, is.character(x))
+  mdfile <- tempfile(fileext = ".md")
+  writeLines(enc2utf8(x), mdfile, useBytes = TRUE)
+  out <- system2(rmarkdown::pandoc_exec(),
+          args = c(mdfile, "--mathjax", "--katex", "-t", "html"),
+          stdout = TRUE
+          )
+  out <- paste0(out, collapse = "")
+  out <- gsub("(<p>|</p>)", "", out)
+  # out <- paste0("`", out, "`{=html}")
+  out
 }
+
+
 html_str <- function(x, ft.align = NULL, class = "tabwid",
                      caption = "", shadow = TRUE, topcaption = TRUE){
 
@@ -88,9 +74,9 @@ to_shadow_dom <- function(uid1, uid2, ft.align = NULL, topcaption = TRUE){
     ft.align <- "center"
 
   if(topcaption){
-    move_inst <- "  dest.parentNode.insertBefore(newcapt, dest.previousSibling);"
+    move_inst <- "  dest.parentNode.insertBefore(caption, dest.previousSibling);"
   } else {
-    move_inst <- "  dest.parentNode.insertBefore(newcapt, dest.nextSibling);"
+    move_inst <- "  dest.parentNode.insertBefore(caption, dest.nextSibling);"
   }
   script_commands <- c("", "<script>",
     paste0("var dest = document.getElementById(\"", uid2, "\");"),
@@ -98,8 +84,6 @@ to_shadow_dom <- function(uid1, uid2, ft.align = NULL, topcaption = TRUE){
     "var caption = template.content.querySelector(\"caption\");",
     "if(caption) {",
     paste0("  caption.style.cssText = \"display:block;text-align:", ft.align, ";\";"),
-    "  var newcapt = document.createElement(\"p\");",
-    "  newcapt.appendChild(caption)",
     move_inst,
     "}",
     "var fantome = dest.attachShadow({mode: 'open'});",
@@ -476,7 +460,7 @@ flextable_html_dependency <- function(htmlscroll = TRUE){
     stylesheet <- "tabwid.css"
   }
   htmlDependency("tabwid",
-                 "1.0.0",
+                 "1.1.0",
                  src = system.file(package="flextable", "web_1.1.0"),
                  stylesheet = stylesheet)
 

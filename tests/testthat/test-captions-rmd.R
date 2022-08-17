@@ -46,11 +46,10 @@ testthat::test_that("HTML cross-references are OK when using bookdown", {
   crossref_chunk <- xml_find_first(xml_doc, "//a[@href='#tab:id1']")
   expect_false(inherits(crossref_chunk, "xml_missing"))
 
-  body <- xml_find_first(xml_doc, "//*[id='tab:id1']")
-  id_chunk <- xml_find_first(xml_doc, "//table/caption/p/span[@id='tab:id1']")
+  id_chunk <- xml_find_first(xml_doc, "//caption/span[@id='tab:id1']")
   expect_false(inherits(id_chunk, "xml_missing"))
 
-  caption <- xml_find_first(xml_doc, "//table/caption/p[span/@id='tab:id1']")
+  caption <- xml_find_first(xml_doc, "//caption[span/@id='tab:id1']")
   expect_true(grepl("Table 2:" , xml_text(caption)))
 })
 
@@ -89,6 +88,9 @@ testthat::test_that("DOCX bookmark is OK when not using bookdown", {
 
   rmd_file <- tempfile(fileext = ".Rmd")
   file.copy("test-captions-rmd.Rmd", rmd_file)
+  rmd_str <- readLines(rmd_file)
+  rmd_str <- gsub("label=\"id1\"", "tab.id=\"id1\"", rmd_str)
+  writeLines(rmd_str, rmd_file, useBytes = TRUE)
 
   baseout <- "caption-tests"
   file_out <- paste0(baseout, "-rmd.docx")
@@ -104,7 +106,7 @@ testthat::test_that("DOCX bookmark is OK when not using bookdown", {
     x = docx_body_xml(doc),
     xpath = "/w:document/w:body/w:tbl[2]/preceding-sibling::*[1]")
 
-  expect_true(grepl("Table SEQ tab \\* Arabic", xml_text(caption_node), fixed = TRUE))
+  expect_false(grepl("Table SEQ tab \\* Arabic", xml_text(caption_node), fixed = TRUE))
 })
 
 

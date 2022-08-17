@@ -27,7 +27,7 @@ ft
 
 ## A caption and an id
 
-```{r tab.cap=caption_md, tab.id="id1"}
+```{r tab.cap=caption_md, label="id1"}
 ft
 ```
 

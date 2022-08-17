@@ -8,7 +8,9 @@ set_caption(
   x,
   caption,
   autonum = NULL,
-  style = "Table Caption",
+  word_stylename = "Table Caption",
+  style = word_stylename,
+  html_classes = NULL,
   html_escape = TRUE
 )
 }
@@ -22,9 +24,12 @@ This has only an effect when output is Word. If used, the caption is preceded
 by an auto-number sequence. In this case, the caption is preceded by an auto-number
 sequence that can be cross referenced.}
 
-\item{style}{caption paragraph style name. These names are available with
-function \code{\link[officer:styles_info]{officer::styles_info()}} when output is Word; if HTML, the
-value is set as class value in the \code{caption} tag.}
+\item{word_stylename, style}{'Word' style name to associate with caption paragraph. These names are available with
+function \code{\link[officer:styles_info]{officer::styles_info()}} when output is Word. Argument \code{style}
+is deprecated in favor of \code{word_stylename}.}
+
+\item{html_classes}{css class(es) to apply to associate with caption paragraph
+when output is 'Word'.}
 
 \item{html_escape}{should HTML entities be escaped so that it can be safely
 included as text or an attribute value within an HTML document.}
@@ -68,6 +73,18 @@ The following options are only available when used with \code{officedown::rdocx_
 
 
 See \link{knit_print.flextable} for more details.
+}
+
+\section{Using 'Quarto'}{
+
+
+'Quarto' manage captions and cross-references instead of flextable. That's why
+\code{set_caption()} is not useful in a 'Quarto' document except for Word documents
+where 'Quarto' does not manage captions.
+
+knitr options are the same than those detailled in the R Markdown section (see upper),
+but be aware that 'Quarto' manage captions and related items can be overwritten by
+Quarto.
 }
 
 \examples{

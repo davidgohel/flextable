@@ -84,11 +84,7 @@ test_that("word_document captions", {
   x <- read_xml(xml_file)
 
 
-  xml_find_all(x, "/w:document/w:body/w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart[@w:name='table1']")
   bookmarks <- xml_find_all(x, "/w:document/w:body/w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart")
-  expect_length(bookmarks, 2)
-  expect_equal(xml_attr(bookmarks, "name"), c("table1", "mtcars"))
-  wordfields <- xml_find_all(x, "/w:document/w:body/w:tbl/preceding-sibling::w:p[1]/w:r/w:instrText")
-  expect_equal(xml_text(wordfields), c("SEQ tab \\* Arabic", "SEQ tab \\* Arabic"))
+  expect_length(bookmarks, 0)
 })
 
