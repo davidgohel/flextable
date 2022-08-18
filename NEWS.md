@@ -1,3 +1,11 @@
+# flextable 0.7.4
+
+## Issues
+
+- fix caption issue resulting from a clash with variable name 'n' (#443)
+- Quarto support
+
+
 # flextable 0.7.3
 
 ## new features
