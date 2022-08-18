@@ -5,7 +5,7 @@
 - fix caption issue resulting from a clash with variable name 'n' (#443)
 - Quarto support
 - fix as_grouped_data() with date columns (#438)
-
+- fix footnotes spread over separate lines when 'inline' (#442)
 
 # flextable 0.7.3
 
