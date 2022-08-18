@@ -61,11 +61,13 @@ as_grouped_data <- function( x, groups, columns = NULL ){
     which(as.integer( out ) > 0)
   })
 
+
+
   new_rows <- mapply(function(i, column, decay_order){
     na_cols <- setdiff(names(x), c( column, "fake_order___") )
     dat <- x[i,,drop = FALSE]
     dat$fake_order___ <- dat$fake_order___ - decay_order
-    dat[, na_cols] <- NA
+    dat[seq_len(nrow(dat)), na_cols] <- NA
     dat
   }, vout, groups, length(groups) / seq_along(groups) * .1, SIMPLIFY = FALSE)
 
@@ -73,6 +75,7 @@ as_grouped_data <- function( x, groups, columns = NULL ){
   x[,groups] <- NA
 
   new_rows <- append( new_rows, list(x) )
+
   x <- rbind.match.columns(new_rows)
   x <- x[order(x$fake_order___),,drop = FALSE]
   x$fake_order___ <- NULL
