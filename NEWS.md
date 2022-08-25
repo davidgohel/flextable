@@ -1,5 +1,8 @@
 # flextable 0.7.4
 
+## new features
+- new theme 'APA', `theme_apa` (@rempsyc #426)
+
 ## Issues
 
 - fix caption issue resulting from a clash with variable name 'n' (#443)
