@@ -568,6 +568,12 @@ text_metric <- function(x) {
   dimnames(extents_values) <- list(NULL, c("width", "height"))
 
   txt_data <- cbind(txt_data, extents_values)
+
+  # swap width/height when cell is rotated
+  td_data <- as.data.frame(x$styles$cells)[, c("ft_row_id", "col_id", "text.direction")]
+  txt_data <- merge(txt_data, td_data, by = c("ft_row_id", "col_id"))
+  txt_data[txt_data$text.direction %in% c("tbrl","btlr"), c("width", "height") := list(.SD$height, .SD$width)]
+
   txt_data <- txt_data[, c(list(width = sum(.SD$width, na.rm = TRUE), height = max(.SD$height, na.rm = TRUE))),
     by = c("ft_row_id", "fake_row_id", "col_id")
   ]
