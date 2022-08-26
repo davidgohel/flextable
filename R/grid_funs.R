@@ -466,7 +466,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
         (sum(.SD$part_width, na.rm = TRUE) / .SD$content_width) *
           (max(.SD$part_ascent, na.rm = TRUE) + max(.SD$part_descent, na.rm = TRUE)), by = keycols]
       word_data[angle != 0, c("content_width", "content_height") :=
-                  list(.SD$content_height, .SD$content_width)]
+        list(.SD$content_height, .SD$content_width)]
       # merge content_height to grid data
       content_data <- word_data[, list(
         content_height = first(.SD$content_height)
@@ -643,7 +643,7 @@ grid_data_adjust_widths <- function(grid_data) {
   dat <- grid_data[, list(
     content_min_width = max(
       .SD$cell_width,
-      max(.SD$content_width + .SD$paddingx, na.rm = TRUE),
+      calc_grid_dim_max(.SD$content_width + .SD$paddingx),
       na.rm = TRUE
     )
   ), by = c("col_index", "rowspan")]
@@ -717,8 +717,8 @@ grid_data_adjust_heights <- function(grid_data) {
     content_min_height = min(
       max(
         .SD$cell_min_height,
-        max(.SD$cell_height, na.rm = TRUE),
-        max(.SD$content_height + .SD$paddingy, na.rm = TRUE),
+        calc_grid_dim_max(.SD$cell_height),
+        calc_grid_dim_max(.SD$content_height + .SD$paddingy),
         na.rm = TRUE
       ),
       .SD$cell_max_height,
@@ -840,6 +840,15 @@ calc_grid_dim_sum <- function(x, len = NULL) {
   x <- na.omit(x)
   if (length(x) > 0 && (!is.numeric(len) || length(x) == len)) {
     sum(x)
+  } else {
+    NA_real_
+  }
+}
+
+calc_grid_dim_max <- function(x, len = NULL) {
+  x <- na.omit(x)
+  if (length(x) > 0) {
+    max(x)
   } else {
     NA_real_
   }
