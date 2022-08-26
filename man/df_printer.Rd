@@ -54,6 +54,7 @@ df_printer(head(mtcars))
 }
 \seealso{
 Other flextable print function: 
+\code{\link{as_grob}()},
 \code{\link{as_raster}()},
 \code{\link{flextable_to_rmd}()},
 \code{\link{htmltools_value}()},

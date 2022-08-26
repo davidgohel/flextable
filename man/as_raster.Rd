@@ -4,7 +4,7 @@
 \alias{as_raster}
 \title{get a flextable as a raster}
 \usage{
-as_raster(x, zoom = 2, expand = 2, webshot = "webshot")
+as_raster(x, zoom = 2, expand = 2, webshot = "webshot", ...)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -13,6 +13,8 @@ as_raster(x, zoom = 2, expand = 2, webshot = "webshot")
 
 \item{webshot}{webshot package as a scalar character, one of "webshot" or
 "webshot2".}
+
+\item{...}{additional arguments passed to other functions}
 }
 \description{
 save a flextable as an image and return the corresponding
@@ -33,6 +35,7 @@ if( require("ggplot2") && require("webshot") ){
 }
 \seealso{
 Other flextable print function: 
+\code{\link{as_grob}()},
 \code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
 \code{\link{htmltools_value}()},
