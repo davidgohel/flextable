@@ -46,9 +46,11 @@ PowerPoint output ignore 'autofit layout'.
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_set_table_properties_1.png}{options: width="100"}}
+\if{html}{\figure{fig_set_table_properties_1.png}{options: width="69"}}
 
-\if{html}{\figure{fig_set_table_properties_2.png}{options: width="400"}}
+\if{html}{\figure{fig_set_table_properties_2.png}{options: width="256"}}
+
+\if{html}{\figure{fig_set_table_properties_3.png}{options: width="500"}}
 }
 
 \examples{

@@ -6,6 +6,7 @@
 - Quarto support
 - fix as_grouped_data() with date columns (#438)
 - fix footnotes spread over separate lines when 'inline' (#442)
+- fix missing caption with rmarkdown pdf output
 
 ## new features
 

@@ -404,15 +404,27 @@ latex_value <- function(x,
     caption_str <- caption_default_latex(x, tab_props = tab_props)
   }
 
-  latex_str(
+  container_str <- latex_container_str(
+    x = x,
+    latex_container = lat_container,
+    quarto = quarto)
+
+  str <- latex_str(
     x,
     ft.align = ft.align,
     ft.tabcolsep = ft.tabcolsep,
     ft.arraystretch = ft.arraystretch,
     lat_container = lat_container,
     caption = caption_str,
-    topcaption = topcaption
+    topcaption = topcaption, quarto = quarto
   )
+  latex <- paste(
+    container_str[1],
+    str,
+    container_str[2],
+    sep = "\n\n"
+  )
+
 }
 
 pptx_value <- function(x, ft.left = opts_current$get("ft.left"),
