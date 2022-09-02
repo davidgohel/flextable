@@ -450,7 +450,11 @@ get_word_autonum <- function(x, tab_props) {
   caption_post_label <- mcoalesce_options(tab_props$cap.sep, x$caption$autonum$post_label)
   caption_tnd <- mcoalesce_options(tab_props$cap.tnd, x$caption$autonum$tnd)
   caption_tns <- mcoalesce_options(tab_props$cap.tns, x$caption$autonum$tns)
-  caption_fp_text <- mcoalesce_options(tab_props$cap.fp_text, x$caption$autonum$pr)
+
+
+  if(!is.null(tab_props$cap.fp_text)) caption_fp_text <- tab_props$cap.fp_text
+  else if(!is.null(x$caption$autonum$pr)) caption_fp_text <- x$caption$autonum$pr
+  else caption_fp_text <- fp_text_default()
 
   autonum <- NULL
   if (!is.null(caption_id)) {
