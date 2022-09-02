@@ -77,7 +77,12 @@ html_str <- function(x, ft.align = NULL, class = "tabwid",
            to_shadow_dom(uid1 = uid[1], uid2 = uid[2], ft.align = ft.align, topcaption = topcaption)
     )
   }
-  paste0(sprintf("<style>%s</style>", manual_css), html)
+  if(is.null(manual_css) || "" %in% manual_css){
+    html
+  } else {
+    paste0(sprintf("<style>%s</style>", manual_css), html)
+  }
+
 }
 
 to_shadow_dom <- function(uid1, uid2, ft.align = NULL, topcaption = TRUE){
