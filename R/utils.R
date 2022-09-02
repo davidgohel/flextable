@@ -70,6 +70,29 @@ format_double <- function(x, digits = 2){
   formatC(x, format = "f", digits = digits, decimal.mark = ".", drop0trailing = TRUE )
 }
 
+has_value <- function(x) {
+  !is.null(x) && !is.na(x) && length(x) == 1
+}
+
+coalesce_options <- function(a = NULL, b = NULL) {
+  if (is.null(a)) {
+    return(b)
+  }
+  if (is.null(b)) {
+    return(a)
+  }
+  if (length(b) == 1) {
+    b <- rep(b, length(a))
+  }
+  out <- a
+  out[!has_value(a)] <- b[!has_value(a)]
+  out
+}
+
+mcoalesce_options <- function(...) {
+  Reduce(coalesce_options, list(...))
+}
+
 
 # metric units -----
 cm_to_inches <- function(x) {

@@ -7,6 +7,7 @@
 - fix as_grouped_data() with date columns (#438)
 - fix footnotes spread over separate lines when 'inline' (#442)
 - fix missing caption with rmarkdown pdf output
+- fix first horizontal borders repeated issue with Word output
 
 ## new features
 

@@ -1,29 +1,4 @@
 # utils -----
-
-has_value <- function(x) {
-  !is.null(x) && !is.na(x) && length(x) == 1
-}
-
-coalesce_options <- function(a = NULL, b = NULL) {
-  if (is.null(a)) {
-    return(b)
-  }
-  if (is.null(b)) {
-    return(a)
-  }
-  if (length(b) == 1) {
-    b <- rep(b, length(a))
-  }
-  out <- a
-  out[!has_value(a)] <- b[!has_value(a)]
-  out
-}
-
-mcoalesce_options <- function(...) {
-  Reduce(coalesce_options, list(...))
-}
-
-
 wml_pars <- function(value, par_data) {
   data_ref_pars <- par_style_list(par_data)
 
@@ -83,21 +58,7 @@ wml_spans <- function(value) {
   span_data
 }
 
-#' @importFrom data.table shift fcoalesce
-wml_cells <- function(value, cell_data) {
-  cell_heights <- fortify_height(value)
-  cell_widths <- fortify_width(value)
-  # cell_hrule <- fortify_hrule(value)
-
-  cell_data$width <- NULL # need to get rid of originals that are empty, should probably rm them
-  cell_data$height <- NULL
-  # cell_data$hrule  <- NULL
-  cell_data <- merge(cell_data, cell_widths, by = "col_id")
-  cell_data <- merge(cell_data, cell_heights, by = c("part", "ft_row_id"))
-  # cell_data <- merge(cell_data, cell_hrule, by = c("part", "ft_row_id"))
-
-  setDT(cell_data)
-  setorderv(cell_data, cols = c("part", "ft_row_id", "col_id"))
+copy_border_bottom_to_next_border_top <- function(x, value){
 
   first_partname <-
     if (nrow_part(value, "header")) {
@@ -108,14 +69,42 @@ wml_cells <- function(value, cell_data) {
       "footer"
     }
 
-  cell_data[!(cell_data$part %in% first_partname & cell_data$ft_row_id %in% 1), c("border.width.top", "border.color.top", "border.style.top") :=
-    list(
-      fcoalesce(shift(.SD$border.width.bottom, 1L, type = "lag"), .SD$border.width.bottom),
-      fcoalesce(shift(.SD$border.color.bottom, 1L, type = "lag"), .SD$border.color.bottom),
-      fcoalesce(shift(.SD$border.style.bottom, 1L, type = "lag"), .SD$border.style.bottom)
-    ),
-  by = "col_id"
-  ]
+  if (nrow_part(value, "header")) {
+    last_partname <- "header"
+    max_n <- nrow_part(value, "header")
+  }
+  if (nrow_part(value, "body")) {
+    last_partname <- "body"
+    max_n <- nrow_part(value, "body")
+  }
+  if (nrow_part(value, "footer")) {
+    last_partname <- "footer"
+    max_n <- nrow_part(value, "footer")
+  }
+
+  x[
+    !(x$part %in% first_partname & x$ft_row_id %in% 1),
+    c("border.width.top", "border.color.top", "border.style.top")] <-
+    x[
+      !(x$part %in% last_partname & x$ft_row_id %in% max_n),
+      c("border.width.bottom", "border.color.bottom", "border.style.bottom")]
+  x
+}
+#' @importFrom data.table shift fcoalesce
+wml_cells <- function(value, cell_data) {
+  cell_heights <- fortify_height(value)
+  cell_widths <- fortify_width(value)
+
+  cell_data$width <- NULL # need to get rid of originals that are empty, should probably rm them
+  cell_data$height <- NULL
+  cell_data <- merge(cell_data, cell_widths, by = "col_id")
+  cell_data <- merge(cell_data, cell_heights, by = c("part", "ft_row_id"))
+
+  setDT(cell_data)
+  setorderv(cell_data, cols = c("part", "ft_row_id", "col_id"))
+
+  # fix for word horiz. borders, copying the bottom props to top props of the next cell
+  cell_data <- copy_border_bottom_to_next_border_top(cell_data, value = value)
 
   data_ref_cells <- cell_style_list(cell_data)
 

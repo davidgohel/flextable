@@ -21,6 +21,7 @@ runs_as_html <- function(x, chunk_data = as_table_text(x)) {
   is_soft_return <- spans_dataset$txt %in% "<br>"
   is_tab <- spans_dataset$txt %in% "<tab>"
   is_eq <- !is.na(spans_dataset$eq_data)
+  is_word_field <- !is.na(spans_dataset$word_field_data)
   is_hlink <- !is.na(spans_dataset$url)
   is_raster <- sapply(spans_dataset$img_data, function(x) {
     inherits(x, "raster") || is.character(x)
@@ -28,6 +29,7 @@ runs_as_html <- function(x, chunk_data = as_table_text(x)) {
   # manage raster
   spans_dataset[is_raster==TRUE, c("txt") := list(img_as_html(img_data = .SD$img_data, width = .SD$width, height = .SD$height))]
   # manage txt
+  spans_dataset[is_word_field==TRUE, c("txt") := list("")]
   spans_dataset[is_raster==FALSE, c("txt") := list(sprintf("<span class=\"%s\">%s</span>", .SD$classname, htmlize(.SD$txt)))]
   spans_dataset[is_soft_return==TRUE, c("txt") := list("<br>")]
   spans_dataset[is_tab==TRUE, c("txt") := list("&emsp;")]
@@ -73,7 +75,9 @@ runs_as_text <- function(x, chunk_data = as_table_text(x)) {
   is_raster <- sapply(spans_dataset$img_data, function(x) {
     inherits(x, "raster") || is.character(x)
   })
+  is_word_field <- !is.na(spans_dataset$word_field_data)
   # manage raster
+  spans_dataset[is_word_field==TRUE, c("txt") := list("")]
   spans_dataset[is_raster==TRUE, c("txt") := list("")]
   spans_dataset[is_soft_return==TRUE, c("txt") := list("\n")]
   spans_dataset[is_tab==TRUE, c("txt") := list("\t")]
@@ -142,6 +146,7 @@ runs_as_latex <- function(x, chunk_data = as_table_text(x), ls_df = NULL) {
 
   is_soft_return <- dat$txt %in% "<br>"
   is_tab <- dat$txt %in% "<tab>"
+  is_word_field <- !is.na(dat$word_field_data)
   is_eq <- !is.na(dat$eq_data)
   dat[is_eq == TRUE, c("txt") := list(paste0("$", .SD$eq_data, "$"))]
   is_hlink <- !is.na(dat$url)
@@ -154,6 +159,7 @@ runs_as_latex <- function(x, chunk_data = as_table_text(x), ls_df = NULL) {
   dat[is_tab == TRUE, c("txt") := list("\\quad ")]
 
   dat[is_raster == TRUE, c("left", "right") := list("", "")]
+  dat[is_word_field == TRUE, c("left", "right", "txt") := list("", "", "")]
   dat[, c("txt") := list(sprintf("%s%s%s", .SD$left, .SD$txt, .SD$right))]
 
   setorderv(dat, cols = order_columns)
@@ -284,11 +290,13 @@ runs_as_pml <- function(value) {
   is_eq <- !is.na(txt_data$eq_data)
   is_hlink <- !is.na(txt_data$url)
   is_raster <- sapply(txt_data$img_data, function(x) {inherits(x, "raster") || is.character(x)})
+  is_word_field <- !is.na(txt_data$word_field_data)
 
   unique_url_key <- urls_to_keys(urls = txt_data$url, is_hlink = is_hlink)
 
   txt_data[, c("text_nodes_str") := list(paste0("<a:t>", htmlEscape(.SD$txt), "</a:t>"))]
 
+  txt_data[is_word_field == TRUE, c("text_nodes_str") := list("<a:t></a:t>")]
   txt_data[is_raster == TRUE, c("text_nodes_str") := list("<a:t></a:t>")]
   txt_data[is_soft_return == TRUE, c("text_nodes_str") := list("")]
   txt_data[is_tab == TRUE, c("text_nodes_str") := list("<a:t>\t</a:t>")]
