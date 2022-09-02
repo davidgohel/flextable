@@ -4,7 +4,7 @@
 \alias{as_equation}
 \title{equation chunk}
 \usage{
-as_equation(x, width = 1, height = 0.2, unit = "in")
+as_equation(x, width = 1, height = 0.2, unit = "in", props = NULL)
 }
 \arguments{
 \item{x}{values containing the 'MathJax' equations}
@@ -12,6 +12,9 @@ as_equation(x, width = 1, height = 0.2, unit = "in")
 \item{width, height}{size of the resulting equation}
 
 \item{unit}{unit for width and height, one of "in", "cm", "mm".}
+
+\item{props}{an \code{\link[=fp_text_default]{fp_text_default()}} or \code{\link[officer:fp_text]{officer::fp_text()}} object to be used to format the text.
+If not specified, it will be the default value corresponding to the cell.}
 }
 \description{
 This function is used to insert equations into

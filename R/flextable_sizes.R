@@ -437,48 +437,6 @@ optimal_sizes <- function( x, hspans = "none" ){
        heights = apply(heights, 1, max, na.rm = TRUE) )
 }
 
-#' @importFrom officer table_layout table_width table_colwidths prop_table
-#' @export
-#' @title Global table properties
-#' @description Set table layout and table width. Default to fixed
-#' algorithm.
-#'
-#' If layout is fixed, column widths will be used to display the table;
-#' `width` is ignored.
-#'
-#' If layout is autofit, column widths will not be used;
-#' table width is used (as a percentage).
-#' @note
-#' PowerPoint output ignore 'autofit layout'.
-#' @param x flextable object
-#' @param layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
-#' @param width The parameter has a different effect depending on the
-#' output format. Users should consider it as a minimum width.
-#' In HTML, it is the minimum width of the space that the
-#' table should occupy. In Word, it is a preferred size and Word
-#' may decide not to strictly stick to it. It has no effect on
-#' PowerPoint and PDF output. Its default value is 0, as an effect, it
-#' only use necessary width to display all content. It is not used by the
-#' PDF output.
-#' @examples
-#' library(flextable)
-#' ft_1 <- qflextable(head(cars))
-#' ft_2 <- set_table_properties(ft_1, width = .5, layout = "autofit")
-#' ft_2
-#' @family flextable dimensions
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_set_table_properties_1.png}{options: width="100"}}
-#'
-#' \if{html}{\figure{fig_set_table_properties_2.png}{options: width="400"}}
-set_table_properties <- function(x, layout = "fixed", width = 0){
-
-  stopifnot(layout %in% c("fixed", "autofit"))
-  stopifnot(is.numeric(width), width <= 1)
-
-  x$properties <- list(layout = layout, width = width)
-  x
-}
 
 # utils ----
 #' @importFrom stats reshape

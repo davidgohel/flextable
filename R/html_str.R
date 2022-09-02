@@ -1,21 +1,33 @@
 #' @importFrom rmarkdown pandoc_exec
-pandoc_html_chunks <- function(x){
+html_chunkify <- function(x, engine = "none"){
   stopifnot(length(x) == 1, is.character(x))
-  mdfile <- tempfile(fileext = ".md")
-  writeLines(enc2utf8(x), mdfile, useBytes = TRUE)
-  out <- system2(rmarkdown::pandoc_exec(),
-          args = c(mdfile, "--mathjax", "--katex", "-t", "html"),
-          stdout = TRUE
-          )
-  out <- paste0(out, collapse = "")
-  out <- gsub("(<p>|</p>)", "", out)
-  # out <- paste0("`", out, "`{=html}")
-  out
+
+  engi <- match.arg(engine, c("commonmark", "pandoc", "none"), several.ok = FALSE)
+  if("pandoc" %in% engi){
+    mdfile <- tempfile(fileext = ".md")
+    writeLines(enc2utf8(x), mdfile, useBytes = TRUE)
+    out <- system2(rmarkdown::pandoc_exec(),
+            args = c(mdfile, "--mathjax", "--katex", "-t", "html"),
+            stdout = TRUE
+            )
+    out <- paste0(out, collapse = "")
+    out <- gsub("(<p>|</p>)", "", out)
+  } else if("commonmark" %in% engi){
+    if (requireNamespace("commonmark", quietly = TRUE)) {
+      out <- commonmark::markdown_html(x)
+      out <- gsub("(<p>|</p>|\\n)", "", out)
+    } else {
+      stop("package 'commonmark' must be installed to use option 'commonmark'.")
+    }
+  } else out <- x
+
+  enc2utf8(out)
 }
 
 
 html_str <- function(x, ft.align = NULL, class = "tabwid",
-                     caption = "", shadow = TRUE, topcaption = TRUE){
+                     caption = "", shadow = TRUE, topcaption = TRUE,
+                     manual_css = ""){
 
   fixed_layout <- x$properties$layout %in% "fixed"
   if(!fixed_layout){
@@ -65,7 +77,7 @@ html_str <- function(x, ft.align = NULL, class = "tabwid",
            to_shadow_dom(uid1 = uid[1], uid2 = uid[2], ft.align = ft.align, topcaption = topcaption)
     )
   }
-  html
+  paste0(sprintf("<style>%s</style>", manual_css), html)
 }
 
 to_shadow_dom <- function(uid1, uid2, ft.align = NULL, topcaption = TRUE){
@@ -83,7 +95,7 @@ to_shadow_dom <- function(uid1, uid2, ft.align = NULL, topcaption = TRUE){
     paste0("var template = document.getElementById(\"", uid1, "\");"),
     "var caption = template.content.querySelector(\"caption\");",
     "if(caption) {",
-    paste0("  caption.style.cssText = \"display:block;text-align:", ft.align, ";\";"),
+    paste0("  caption.style.cssText = caption.style.cssText+\"display:block;text-align:", ft.align, ";\";"),
     move_inst,
     "}",
     "var fantome = dest.attachShadow({mode: 'open'});",
@@ -110,7 +122,9 @@ html_gen <- function(x){
   cell_widths <- fortify_width(x)
   cell_hrule <- fortify_hrule(x)
 
-  txt_data <- as_table_text(x)
+  txt_data <- runs_as_html(x, chunk_data = as_table_text(x))
+  span_style_str <- attr(txt_data, "css")
+  setDT(txt_data)
 
   par_data <- fortify_par_style(par_data_f, cell_data_f)
 
@@ -123,47 +137,14 @@ html_gen <- function(x){
   cell_data <- merge(cell_data, cell_hrule, by = c("part", "ft_row_id"))
   span_data <- fortify_span(x)
 
-  data_ref_text <- part_style_list(txt_data, fun = officer::fp_text)
   data_ref_pars <- par_style_list(par_data)
   data_ref_cells <- cell_style_list(cell_data)
 
-  setDT(txt_data)
-  setDT(data_ref_text)
   setDT(par_data)
   setDT(data_ref_pars)
   setDT(cell_data)
   setDT(data_ref_cells)
 
-  by_columns <- intersect(colnames(data_ref_text), colnames(txt_data))
-  txt_data <- merge(txt_data, data_ref_text, by = by_columns)
-  setorderv(txt_data, c("ft_row_id", "col_id", "seq_index"))
-
-  is_soft_return <- txt_data$txt %in% "<br>"
-  is_tab <- txt_data$txt %in% "<tab>"
-  is_eq <- !is.na(txt_data$eq_data)
-  is_hlink <- !is.na(txt_data$url)
-  is_raster <- sapply(txt_data$img_data, function(x) {
-    inherits(x, "raster") || is.character(x)
-  })
-
-
-  # manage raster
-  txt_data[is_raster==TRUE, c("txt") := list(img_as_html(img_data = .SD$img_data, width = .SD$width, height = .SD$height))]
-  # manage txt
-  txt_data[is_raster==FALSE, c("txt") := list(sprintf("<span class=\"%s\">%s</span>", .SD$classname, htmlize(.SD$txt)))]
-  txt_data[is_soft_return==TRUE, c("txt") := list("<br>")]
-  txt_data[is_tab==TRUE, c("txt") := list("&emsp;")]
-
-  if (requireNamespace("equatags", quietly = TRUE) && any(is_eq)) {
-    transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
-    txt_data[is_eq==TRUE, c("txt") := list(transform_mathjax(.SD$eq_data, to = "html"))]
-    katex_link <- "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css\" data-external=\"1\">"
-    txt_data[which(is_eq==TRUE)[1], c("txt") := list(paste0(katex_link, .SD$txt))]
-  }
-
-  # manage hlinks
-  txt_data[is_hlink==TRUE, c("txt") := list(paste0("<a href=\"", .SD$url, "\">", .SD$txt, "</a>"))]
-  txt_data <- txt_data[, list(span_tag = paste0(get("txt"), collapse = "")), by = c("part", "ft_row_id", "col_id")]
 
   by_columns <- intersect(colnames(par_data), colnames(data_ref_pars))
   par_data <- merge(par_data, data_ref_pars, by = by_columns)
@@ -224,7 +205,6 @@ html_gen <- function(x){
   html <- apply(as.matrix(z), 1, paste0, collapse = "")
   html <- paste0(html, collapse = "")
 
-  span_style_str <- text_css_styles(data_ref_text)
   par_style_str <- par_css_styles(data_ref_pars)
   cell_style_str <- cell_css_styles(data_ref_cells)
   if(!fixed_layout) {
@@ -291,6 +271,8 @@ img_as_html <- function(img_data, width, height){
   str_raster <- as.character(unlist(str_raster))
   str_raster
 }
+
+
 
 # css ----
 

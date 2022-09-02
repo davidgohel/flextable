@@ -1,103 +1,79 @@
-latex_text_dataset <- function(x, ls_df){
-
-  txt_data <- as_table_text(x)
-  txt_data$col_id <- factor(txt_data$col_id, levels = x$col_keys)
-  setDT(txt_data)
-  txt_data <- merge(txt_data, ls_df, by = c("part", "ft_row_id", "col_id"))
-
-  data_ref_text <- part_style_list(as.data.frame(txt_data),
-                                   fun = function( color = "black", font.size = 10,
-                                                   bold = FALSE, italic = FALSE, underlined = FALSE,
-                                                   font.family = "Arial",
-                                                   vertical.align = "baseline",
-                                                   shading.color = "transparent", line_spacing = 2 ){})
-
-
-  by_columns <- intersect(colnames(data_ref_text), colnames(txt_data))
-  txt_data <- merge(txt_data, data_ref_text, by = by_columns)
-  setorderv(txt_data, c("ft_row_id", "col_id", "seq_index"))
-
-
-  span_style_str <- text_latex_styles(data_ref_text)
-
-  dat <- merge(txt_data, span_style_str, by =  "classname")
-  dat[, c("txt") := list(sanitize_latex_str(.SD$txt))]
-
-  is_soft_return <- dat$txt %in% "<br>"
-  is_tab <- dat$txt %in% "<tab>"
-  is_eq <- !is.na(dat$eq_data)
-  dat[is_eq==TRUE, c("txt") := list(paste0('$', .SD$eq_data, '$'))]
-  is_hlink <- !is.na(dat$url)
-  is_raster <- sapply(dat$img_data, function(x) {
-    inherits(x, "raster") || is.character(x)
-  })
-  dat[is_hlink, c("txt") := list(paste0("\\href{", sanitize_latex_str(.SD$url), "}{", .SD$txt, "}"))]
-  dat[is_raster==TRUE, c("txt") := list(img_to_latex(.SD$img_data, .SD$width, .SD$height))]
-  dat[is_soft_return==TRUE, c("txt") := list("\\linebreak ")]
-  dat[is_tab==TRUE, c("txt") := list("\\quad ")]
-  dat[is_raster==FALSE, c("txt") := list(sprintf("%s%s%s", .SD$left, .SD$txt, .SD$right))]
-
-  dat[, c("left", "right") := NULL]
-  setorderv(dat, c("ft_row_id", "col_id", "seq_index"))
-  dat <- dat[, list(txt = paste0(get("txt"), collapse = "")), by = c("part", "ft_row_id", "col_id")]
-  setDF(dat)
-  dat
-}
-
 sanitize_latex_str <- function(str) {
   z <- gsub("[\\\\]", "\\\\textbackslash", str)
   z <- gsub("([&%$#_{} ]{1})", "\\\\\\1", z)
-  z <- gsub("[~]", "\\\\textasciitilde", z)
-  z <- gsub("^", "\\\\\\textasciicircum", z, fixed = TRUE)
+  z <- gsub("[~]", "\\\\\\textasciitilde ", z)
+  z <- gsub("^", "\\\\\\textasciicircum ", z, fixed = TRUE)
+
   z
 }
 
-text_latex_styles <- function(x){
+as_table_latexstyle_lr <- function(x){
   left <- character(nrow(x))
   right <- character(nrow(x))
 
 
-  vertical.align_left <- character(nrow(x))
-  vertical.align_right <- character(nrow(x))
-  vertical.align_left[x$vertical.align %in% "subscript"] <- "\\textsubscript{"
-  vertical.align_right[x$vertical.align %in% "subscript"] <- "}"
-  vertical.align_left[x$vertical.align %in% "superscript"] <- "\\textsuperscript{"
-  vertical.align_right[x$vertical.align %in% "superscript"] <- "}"
-  left <- paste0(vertical.align_left, left)
-  right <- paste0(right, vertical.align_right)
+  valign_left <- character(nrow(x))
+  valign_right <- character(nrow(x))
+  valign_left[x$vertical.align %in% "subscript"] <- "\\textsubscript{"
+  valign_right[x$vertical.align %in% "subscript"] <- "}"
+  valign_left[x$vertical.align %in% "superscript"] <- "\\textsuperscript{"
+  valign_right[x$vertical.align %in% "superscript"] <- "}"
+  left <- paste0(valign_left, left)
+  right <- paste0(right, valign_right)
 
-  left <- paste0(left, latex_fontcolor(x$color), "{")
-  right <- paste0("}", right)
+  fontcolor_left <- paste0(latex_fontcolor(x$color), "{")
+  fontcolor_right <- rep("}", nrow(x))
+  fontcolor_left[is.na(x$color)] <- ""
+  fontcolor_right[is.na(x$color)] <- ""
+  left <- paste0(fontcolor_left, left)
+  right <- paste0(right, fontcolor_right)
 
-  hg_left <- paste0(latex_highlightcolor(x$shading.color), "{")
-  hg_right <- rep("}", length(x$shading.color))
-  hg_left[colalpha(x$shading.color) < 1] <- ""
-  hg_right[colalpha(x$shading.color) < 1] <- ""
-  left <- paste0(left, hg_left)
-  right <- paste0(hg_right, right)
+  highlight_left <- paste0(latex_highlightcolor(x$shading.color), "{")
+  highlight_right <- rep("}", length(x$shading.color))
+  highlight_left[is.na(x$shading.color) | colalpha(x$shading.color) < 1] <- ""
+  highlight_right[is.na(x$shading.color) | colalpha(x$shading.color) < 1] <- ""
+  left <- paste0(left, highlight_left)
+  right <- paste0(highlight_right, right)
 
 
-  font.size <- latex_fontsize(x$font.size, x$line_spacing)
-  left <- paste0(font.size, "{", left)
-  right <- paste0(right, "}")
+  fontsize_left <- paste0(latex_fontsize(x$font.size, x$line_spacing), "{")
+  fontsize_right <- rep("}", nrow(x))
+  fontsize_left[is.na(x$font.size) | is.na(x$line_spacing)] <- ""
+  fontsize_right[is.na(x$font.size) | is.na(x$line_spacing)] <- ""
+  left <- paste0(left, fontsize_left)
+  right <- paste0(fontsize_right, right)
+
+
   fonts_ok <- get_pdf_engine() %in% c("xelatex", "lualatex")
   if(fonts_ok && !flextable_global$defaults$fonts_ignore ){
-    left <- paste0(left, sprintf("\\global\\setmainfont{%s}{", x$font.family))
-    right <- paste0(right, "}")
+    font_family_left <- sprintf("\\global\\setmainfont{%s}{", x$font.family)
+    font_family_right <- rep("}", nrow(x))
+    font_family_left[is.na(x$font.family)] <- ""
+    font_family_right[is.na(x$font.family)] <- ""
+    left <- paste0(left, font_family_left)
+    right <- paste0(font_family_right, right)
   }
 
-  left <- paste0(left, ifelse(x$bold, "\\textbf{", "" ))
-  right <- paste0(right, ifelse(x$bold, "}", "" ))
+  bold_left <- rep("", nrow(x))
+  bold_right <- rep("", nrow(x))
+  bold_left[x$bold %in% TRUE] <- "\\textbf{"
+  bold_right[x$bold %in% TRUE] <- "}"
+  left <- paste0(left, bold_left)
+  right <- paste0(bold_right, right)
 
-  left <- paste0(left, ifelse(x$italic, "\\textit{", "" ))
-  right <- paste0(right, ifelse(x$italic, "}", "" ))
+  italic_left <- rep("", nrow(x))
+  italic_right <- rep("", nrow(x))
+  italic_left[x$italic %in% TRUE] <- "\\textit{"
+  italic_right[x$italic %in% TRUE] <- "}"
+  left <- paste0(left, italic_left)
+  right <- paste0(italic_right, right)
 
-  left <- paste0(left, ifelse(x$underlined, "\\underline{", "" ))
-  right <- paste0(right, ifelse(x$underlined, "}", "" ))
-
-
-
-
+  underlined_left <- rep("", nrow(x))
+  underlined_right <- rep("", nrow(x))
+  underlined_left[x$underlined %in% TRUE] <- "\\underline{"
+  underlined_right[x$underlined %in% TRUE] <- "}"
+  left <- paste0(left, underlined_left)
+  right <- paste0(underlined_right, right)
   data.frame(left = left, right = right, classname = x$classname, stringsAsFactors = TRUE)
 }
 

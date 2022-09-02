@@ -7,6 +7,14 @@
 - fix as_grouped_data() with date columns (#438)
 - fix footnotes spread over separate lines when 'inline' (#442)
 
+## new features
+
+- add support for paragraph settings (made with `fp_par()`) in captions with `set_caption()`.
+- captions are now made with `as_paragraph()`, their alignments and keep_with_next is computed
+- alternative text for Word tables with word_title and word_description 
+by calling `set_table_properties()`.
+
+
 # flextable 0.7.3
 
 ## new features

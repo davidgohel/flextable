@@ -409,8 +409,9 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
 #'
 #' @family functions for defining formatting properties
 #' @seealso [hline()], [vline()]
-fp_border_default <- function(color = flextable_global$defaults$border.color,
-                              style = "solid", width = 1){
+fp_border_default <- function(
+    color = flextable_global$defaults$border.color,
+    style = "solid", width = 1){
   fp_border(
     color = color,
     style = style,
@@ -418,3 +419,16 @@ fp_border_default <- function(color = flextable_global$defaults$border.color,
 
 }
 
+
+processor_options <- function(post_process = NULL,
+                              post_process_pdf = NULL,
+                              post_process_docx = NULL,
+                              post_process_html = NULL,
+                              post_process_pptx = NULL,
+                              pdf_fonts_ignore = FALSE,
+                              html_chunkify = "commonmark",
+                              pdf_chunkify = "commonmark",
+                              word_chunkify = "none") {
+
+
+}

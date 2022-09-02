@@ -122,7 +122,7 @@ default_fptext_prop <- structure(list(
 #' It should be used inside a call to [as_paragraph()].
 #' @param x text or any element that can be formatted as text
 #' with function provided in argument `formatter`.
-#' @param props an [officer::fp_text()] object to be used to format the text.
+#' @param props an [fp_text_default()] or [officer::fp_text()] object to be used to format the text.
 #' If not specified, it will be the default value corresponding to the cell.
 #' @param formatter a function that will format x as a character vector.
 #' @param ... additional arguments for `formatter` function.
@@ -461,6 +461,8 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
 #' to install necessary dependencies.
 #'
 #' @param x values containing the 'MathJax' equations
+#' @param props an [fp_text_default()] or [officer::fp_text()] object to be used to format the text.
+#' If not specified, it will be the default value corresponding to the cell.
 #' @param width,height size of the resulting equation
 #' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @family chunk elements for paragraph
@@ -485,7 +487,7 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
 #' ft
 #'
 #' }
-as_equation <- function(x, width = 1, height = .2, unit = "in"){
+as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL){
 
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
@@ -494,10 +496,37 @@ as_equation <- function(x, width = 1, height = .2, unit = "in"){
     if( length(width) == 1 ) width <- rep(width, length(x))
     if( length(height) == 1 ) height <- rep(height, length(x))
   }
+  if( is.null(props) ){
+    props <- default_fptext_prop
+  }
+
+  if( inherits(props, "fp_text") ){
+    props <- rep(list(props), length(x))
+  }
+
+  if( length(props) > 0 && is.list(props) ){
+    if( !all(sapply(props, inherits, "fp_text")) ){
+      stop("props should be a list of fp_text object")
+    }
+    if( length(props) != length(x) ){
+      stop("props should be a list of length ", length(x) )
+    }
+  }
 
   x <- chunk_dataframe(width = as.double(width),
                        height = as.double(height),
-                       eq_data = x)
+                       eq_data = x,
+                       font.size = sapply(props, function(x) x$font.size),
+                       italic = sapply(props, function(x) x$italic),
+                       bold = sapply(props, function(x) x$bold),
+                       underlined = sapply(props, function(x) x$underlined),
+                       color = sapply(props, function(x) x$color),
+                       shading.color = sapply(props, function(x) x$shading.color),
+                       font.family = sapply(props, function(x) x$font.family),
+                       hansi.family = sapply(props, function(x) x$hansi.family),
+                       eastasia.family = sapply(props, function(x) x$eastasia.family),
+                       cs.family = sapply(props, function(x) x$cs.family),
+                       vertical.align = sapply(props, function(x) x$vertical.align) )
   class(x) <- c("chunk", "data.frame")
   x
 }
@@ -668,58 +697,57 @@ to_wml_word_field <- function(x, pr_txt) {
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_as_paragraph_1.png}{options: width="400"}}
-as_paragraph <- function( ..., list_values = NULL ){
-  if( is.null(list_values)) {
+as_paragraph <- function(..., list_values = NULL) {
+  if (is.null(list_values)) {
     list_values <- list(...)
   }
 
-  if( any( is_atomic <- sapply(list_values, is.atomic) ) ){
-    list_values[is_atomic] <- lapply(list_values[is_atomic], function(x){
+  is_atomic <- sapply(list_values, is.atomic)
+  if (any(is_atomic)) {
+    list_values[is_atomic] <- lapply(list_values[is_atomic], function(x) {
       as_chunk(x, formatter = format_fun)
     })
   }
 
-  if( !all( sapply(list_values, inherits, "chunk") ) ){
+  if (!all(sapply(list_values, inherits, "chunk"))) {
     stop("argument ... should only contain objects of class 'chunk'.")
   }
 
   nrows <- sapply(list_values, nrow)
   exp_nrow <- max(nrows)
 
-  if( length(nrows) != 1 && length(id_recycl <- which( nrows == 1 )) > 0){
-
-    list_values[id_recycl] <- lapply(list_values[id_recycl], function(x, n){
-      z <- rbind.match.columns( rep(list(x), n) )
+  id_recycl <- which(nrows == 1)
+  if (length(nrows) != 1 && length(id_recycl) > 0) {
+    list_values[id_recycl] <- lapply(list_values[id_recycl], function(x, n) {
+      z <- rbind.match.columns(rep(list(x), n))
       z
     }, exp_nrow)
-
   }
 
   nrows <- sapply(list_values, nrow)
 
-  if( length( unique(nrows) ) != 1 && 1 %in% nrows ){
+  if (length(unique(nrows)) != 1 && 1 %in% nrows) {
     which_ <- which(nrows %in% 1)
-    list_values[which_] <- lapply(list_values[which_], function(x, n){
+    list_values[which_] <- lapply(list_values[which_], function(x, n) {
       rbind.match.columns(rep(list(x), n))
     }, n = max(nrows, na.rm = TRUE))
   }
   nrows <- sapply(list_values, nrow)
 
-  if( length( unique(nrows) ) != 1 ){
-    stop('paragraph elements should all have the same length')
+  if (length(unique(nrows)) != 1) {
+    stop("paragraph elements should all have the same length")
   }
 
-  data <- mapply(function(x, index){
-    x$seq_index <- rep(index, nrow(x) )
+  data <- mapply(function(x, index) {
+    x$seq_index <- rep(index, nrow(x))
     x
   }, list_values, seq_along(list_values), SIMPLIFY = FALSE, USE.NAMES = FALSE)
-  data <- rbind.match.columns(data )
+  data <- rbind.match.columns(data)
 
-  data <- split( data, rep( seq_len(nrow(list_values[[1]])), length((list_values)) ) )
+  data <- split(data, rep(seq_len(nrow(list_values[[1]])), length((list_values))))
   names(data) <- NULL
   class(data) <- c("paragraph")
   data
 }
-
 
 

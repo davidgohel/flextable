@@ -89,3 +89,28 @@ wml_image <- function(src, width, height){
   str
 }
 
+with_openxml_quotes <- function(x) {
+  if(length(x) < 1) {
+    x <- ""
+  } else if(length(x) > 1) {
+    x <- paste(x, collapse = "\n")
+  }
+
+  paste("\n\n``````{=openxml}", x, "``````\n\n", sep = "\n")
+}
+with_openxml_unquote <- function(x) {
+  if(length(x) < 1) {
+    x <- ""
+  } else if(length(x) > 1) {
+    x <- paste(x, collapse = "\n")
+  }
+
+  paste("\n\n``````{=openxml}\n", x, "\n``````\n\n", sep = "\n")
+}
+
+with_html_quotes <- function(x) {
+  paste("\n\n``````{=html}", x, "``````\n\n", sep = "\n")
+}
+with_html_unquotes <- function(...) {
+  paste("\n\n``````\n", ..., "\n``````{=html}\n\n", sep = "\n")
+}

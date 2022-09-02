@@ -19,13 +19,15 @@
 #' @importFrom htmltools tagList
 htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE, ft.htmlscroll = TRUE) {
   x <- flextable_global$defaults$post_process_html(x)
-
+  caption <- caption_default_html(x)
+  manual_css <- attr(caption, "css")
   html_o <- tagList(
     flextable_html_dependency(htmlscroll = ft.htmlscroll),
     HTML(html_str(x,
       ft.align = ft.align, class = "tabwid",
-      caption = caption_html_default(x),
-      shadow = ft.shadow
+      caption = caption,
+      shadow = ft.shadow,
+      manual_css = manual_css
     ))
   )
   html_o
@@ -112,7 +114,6 @@ flextable_to_rmd <- function(
                              ft.tabcolsep = opts_current$get("ft.tabcolsep"),
                              ft.arraystretch = opts_current$get("ft.arraystretch"),
                              ft.latex.float = mcoalesce_options(opts_current$get("ft.latex.float"), opts_current$get("ft-latex-float")),
-
                              ft.left = opts_current$get("ft.left"),
                              ft.top = opts_current$get("ft.top"),
                              text_after = "",
@@ -220,27 +221,37 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
   if(is.null(ft.htmlscroll)){
     ft.htmlscroll <- TRUE
   }
-  if (quarto) {
-    caption_str <- caption_html_quarto(x)
-  } else if (bookdown) {
-    caption_str <- caption_html_bookdown(x)
-  } else {
-    caption_str <- caption_html_default(x)
+  if(is.null(ft.align)){
+    ft.align <- "center"
   }
 
   tab_props <- opts_current_table()
   topcaption <- tab_props$topcaption
+  manual_css <- ""
+  if (bookdown) {
+    caption_str <- caption_bookdown_html(x)
+    manual_css <- attr(caption_str, "css")
+  } else if (quarto) {
+    caption_str <- caption_quarto_html(x)
+  } else {
+    caption_str <- caption_default_html(x)
+    manual_css <- attr(caption_str, "css")
+  }
 
-  out <- paste(
-    if(pandoc2) "```{=html}",
-    html_str(x, ft.align = ft.align, caption = caption_str, shadow = ft.shadow, topcaption = topcaption),
-    if(pandoc2) "```",
-    "", "",
-    sep = "\n")
+  table_str <- html_str(x,
+                        ft.align = ft.align,
+                        caption = caption_str,
+                        shadow = ft.shadow,
+                        topcaption = topcaption,
+                        manual_css = manual_css)
+  if (pandoc2) {
+    table_str <- with_html_quotes(table_str)
+  }
   knit_meta_add(list(flextable_html_dependency(htmlscroll = ft.htmlscroll)))
 
-  out
+  paste0(table_str, "\n", "\n")
 }
+
 
 #' @noRd
 #' @title flextable Office Open XML string for Word
@@ -269,7 +280,7 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
 #' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
 #' @examples
 #' docx_value(flextable(iris[1:5,]))
-#' @importFrom officer opts_current_table block_caption styles_info run_autonum to_wml
+#' @importFrom officer opts_current_table run_autonum to_wml
 docx_value <- function(x,
                        ft.align = opts_current$get("ft.align"),
                        ft.split = opts_current$get("ft.split"),
@@ -282,24 +293,44 @@ docx_value <- function(x,
   if( is.null(ft.split) ) ft.split <- FALSE
   if( is.null(ft.keepnext) ) ft.keepnext <- TRUE
 
-  if (quarto) {
-    caption <- caption_docx_quarto(x)
-  } else if (bookdown) {
-    caption <- caption_docx_bookdown(x)
-  } else {
-    caption <- caption_docx_default(x)
-  }
+  is_rdocx_document <- opts_current$get("is_rdocx_document")
+  if (is.null(is_rdocx_document)) is_rdocx_document <- FALSE
+
   tab_props <- opts_current_table()
   topcaption <- tab_props$topcaption
 
-  out <- paste(if(topcaption) caption,
-      "```{=openxml}",
-      docx_str(x, align = ft.align, split = ft.split,
-               keep_with_next = ft.keepnext),
-      "```\n\n",
-      if(!topcaption) caption,
-      "\n\n",
-      sep = "\n")
+  if (topcaption) {
+    apply_cap_kwn <- TRUE
+  } else {
+    x <- keep_wn(x, part = "all", keep_with_next = TRUE)
+    apply_cap_kwn <- FALSE
+  }
+
+
+  if (is_rdocx_document) {
+    caption <- caption_default_rdocx_md(x)
+  } else if (bookdown) {
+    caption <- caption_bookdown_docx_md(x)
+  } else if (quarto) {
+    # it is not managed by quarto yet, so no implementation
+    # is defined. To be implemented when quarto will be updated
+    caption <- ""
+  } else {
+    caption <- caption_default_docx_openxml(x, align = ft.align, keep_with_next = apply_cap_kwn, allow_autonum = FALSE)
+    if (! "" %in% caption) {
+      caption <- with_openxml_quotes(caption)
+    }
+  }
+
+  table_str <- with_openxml_quotes(
+    docx_str(
+      x = x, align = ft.align, split = ft.split,
+      keep_with_next = ft.keepnext))
+
+  out <- c(
+    if(topcaption) caption,
+    table_str,
+    if(!topcaption) caption)
 
   out
 }
@@ -320,7 +351,7 @@ docx_value <- function(x,
 #' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
 #' @examples
 #' latex_value(flextable(airquality[1:5,]))
-#' @importFrom officer opts_current_table block_caption styles_info run_autonum to_wml
+#' @importFrom officer opts_current_table run_autonum to_wml
 latex_value <- function(x,
                         ft.align = opts_current$get("ft.align"),
                         ft.tabcolsep = opts_current$get("ft.tabcolsep"),
@@ -359,11 +390,11 @@ latex_value <- function(x,
   tab_props <- opts_current_table()
   topcaption <- tab_props$topcaption
   if (quarto) {
-    caption_str <- caption_latex_quarto(x)
+    caption_str <- caption_quarto_latex(x)
   } else if (bookdown) {
-    caption_str <- caption_latex_bookdown(x)
+    caption_str <- caption_bookdown_latex(x)
   } else {
-    caption_str <- caption_latex_default(x)
+    caption_str <- caption_default_latex(x, tab_props = tab_props)
   }
 
   latex_str(
@@ -681,7 +712,9 @@ knit_print.flextable <- function(x, ...){
   is_quarto <- isTRUE(knitr::opts_knit$get("quarto.version") > numeric_version("0"))
 
   pandoc2 <- pandoc_version() >= numeric_version("2.0")
-  str <- flextable_to_rmd(x, bookdown = is_bookdown, pandoc2 = pandoc2,
+  str <- flextable_to_rmd(x,
+                          bookdown = is_bookdown,
+                          pandoc2 = pandoc2,
                           print = FALSE, quarto = is_quarto)
   knit_print(asis_output(str))
 }
@@ -732,9 +765,13 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
     }
     values[[i]] <- flextable_global$defaults$post_process_html(values[[i]])
 
+    caption <- caption_default_html(values[[i]])
+    manual_css <- attr(caption, "css")
+
     txt[2] <- html_str(values[[i]],
-                       caption = caption_html_default(values[[i]]),
-                       shadow = FALSE)
+                       caption = caption,
+                       shadow = FALSE,
+                       manual_css = manual_css)
 
     val[i] <- paste(txt, collapse = "")
   }

@@ -221,6 +221,8 @@ part_style_list <- function(x, fun = NULL, more_args = list()){
   }
   setDT(dat)
   uid <- unique(dat)
+  setDF(dat)
+
   classname <- UUIDgenerate(n = nrow(uid), use.time = TRUE)
   classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
   uid$classname <- classname
