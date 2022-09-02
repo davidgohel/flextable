@@ -299,6 +299,13 @@ docx_value <- function(x,
   tab_props <- opts_current_table()
   topcaption <- tab_props$topcaption
 
+  if (!is.null(tab_props$alt.title)) {
+    x$properties$word_title <- tab_props$alt.title
+  }
+  if (!is.null(tab_props$alt.description)) {
+    x$properties$word_description <- tab_props$alt.description
+  }
+
   if (topcaption) {
     apply_cap_kwn <- TRUE
   } else {

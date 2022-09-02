@@ -53,8 +53,10 @@ PowerPoint output ignore 'autofit layout'.
 
 \examples{
 library(flextable)
-ft_1 <- qflextable(head(cars))
+ft_1 <- flextable(head(cars))
+ft_1 <- autofit(ft_1)
 ft_2 <- set_table_properties(ft_1, width = .5, layout = "autofit")
+ft_3 <- set_table_properties(ft_1, width = 1, layout = "autofit")
 ft_2
 }
 \seealso{

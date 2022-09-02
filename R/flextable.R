@@ -280,15 +280,19 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' @param word_description alternative text for Word table (used as description of the table)
 #' @examples
 #' library(flextable)
-#' ft_1 <- qflextable(head(cars))
+#' ft_1 <- flextable(head(cars))
+#' ft_1 <- autofit(ft_1)
 #' ft_2 <- set_table_properties(ft_1, width = .5, layout = "autofit")
+#' ft_3 <- set_table_properties(ft_1, width = 1, layout = "autofit")
 #' ft_2
 #' @family flextable dimensions
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_set_table_properties_1.png}{options: width="100"}}
+#' \if{html}{\figure{fig_set_table_properties_1.png}{options: width="69"}}
 #'
-#' \if{html}{\figure{fig_set_table_properties_2.png}{options: width="400"}}
+#' \if{html}{\figure{fig_set_table_properties_2.png}{options: width="256"}}
+#'
+#' \if{html}{\figure{fig_set_table_properties_3.png}{options: width="500"}}
 set_table_properties <- function(x, layout = "fixed", width = 0,
                                  word_title = NULL,
                                  word_description = NULL) {

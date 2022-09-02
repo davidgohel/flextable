@@ -12,7 +12,7 @@
 - add support for paragraph settings (made with `fp_par()`) in captions with `set_caption()`.
 - captions are now made with `as_paragraph()`, their alignments and keep_with_next is computed
 - alternative text for Word tables with word_title and word_description 
-by calling `set_table_properties()`.
+by calling `set_table_properties()` or setting values to knitr chunk options `tab.alt.title` and `tab.alt.description`.
 
 
 # flextable 0.7.3
