@@ -76,7 +76,15 @@ a grob (gTree) object made with package \code{grid}
 It uses Grid Graphics (package \code{grid}) to Convert a flextable
 into a grob object with scaling and text wrapping capabilities.
 
-This method can be used to insert a flextable inside a \code{ggplot2} plot.
+This method can be used to insert a flextable inside a \code{ggplot2} plot,
+it can also be used with package 'patchwork' or 'cowplot' to combine
+ggplots and flextables into the same graphic.
+
+It is not recommended to use this function for
+large tables because the calculations can be long.
+
+Equations (see \code{\link[=as_equation]{as_equation()}}) and hyperlinks (see \code{\link[=hyperlink_ftext]{hyperlink_ftext()}})
+will not be displayed.
 }
 \examples{
 ft <- flextable(head(mtcars))

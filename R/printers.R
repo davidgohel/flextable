@@ -970,7 +970,7 @@ plot.flextable <- function(x, method = c("grob", "webshot"), ...) {
     plot(as_raster(x, ...))
   } else {
     grid.newpage()
-    # leave a 5pt margin around the plot
+    # leave a 10pt margin around the plot
     pushViewport(viewport(
       width = unit(1, "npc") - unit(10, "pt"),
       height = unit(1, "npc") - unit(10, "pt")
