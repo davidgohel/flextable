@@ -67,10 +67,10 @@ get_grid_data <- function(x, autowidths, wrapping) {
   grid_data[, "cell_max_height" := calc_grid_dim_sum(.SD$row_max_height, .SD$colspan),
     by = "colspan_group"
   ]
-  grid_data[, "cell_height" := min(
-    max(.SD$cell_height, .SD$cell_min_height, na.rm = TRUE),
+  grid_data[, "cell_height" := safe_stat(
+    safe_stat(.SD$cell_height, .SD$cell_min_height, FUN = max, NA_value = NA_real_),
     .SD$cell_max_height,
-    na.rm = TRUE
+    FUN = min, NA_value = NA_real_
   )]
 
   # keep only active cells
@@ -643,7 +643,7 @@ grid_data_adjust_widths <- function(grid_data) {
   dat <- grid_data[, list(
     content_min_width = max(
       .SD$cell_width,
-      calc_grid_dim_max(.SD$content_width + .SD$paddingx),
+      safe_stat(.SD$content_width + .SD$paddingx, FUN = max, NA_value = NA_real_),
       na.rm = TRUE
     )
   ), by = c("col_index", "rowspan")]
@@ -714,15 +714,15 @@ grid_data_adjust_widths <- function(grid_data) {
 grid_data_adjust_heights <- function(grid_data) {
   # collect the minimum height of each cell
   dat <- grid_data[, list(
-    content_min_height = min(
-      max(
+    content_min_height = safe_stat(
+      safe_stat(
         .SD$cell_min_height,
-        calc_grid_dim_max(.SD$cell_height),
-        calc_grid_dim_max(.SD$content_height + .SD$paddingy),
-        na.rm = TRUE
+        safe_stat(.SD$cell_height, FUN = max, NA_value = NA_real_),
+        safe_stat(.SD$content_height + .SD$paddingy, FUN = max, NA_value = NA_real_),
+        FUN = max, NA_value = NA_real_
       ),
       .SD$cell_max_height,
-      na.rm = TRUE
+      FUN = min, NA_value = NA_real_
     )
   ), by = c("row_index", "colspan")]
   # separate rows with minimum span
@@ -845,12 +845,12 @@ calc_grid_dim_sum <- function(x, len = NULL) {
   }
 }
 
-calc_grid_dim_max <- function(x, len = NULL) {
-  x <- na.omit(x)
+safe_stat <- function(..., FUN = max, NA_value = NA_real_) {
+  x <- na.omit(unlist(list(...)))
   if (length(x) > 0) {
-    max(x)
+    FUN(x)
   } else {
-    NA_real_
+    NA_value
   }
 }
 
