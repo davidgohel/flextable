@@ -6,6 +6,7 @@ Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
     person("Clementine", "Jager", role = c("ctb")),
+    person("Panagiotis", "Skintzos", role = c("aut"), email = "panagiotis.skintzos@ardata.fr"),
     person("Quentin", "Fazilleau", role = c("ctb")),
     person("Maxim", "Nazarov", role = c("ctb"), comment = "rmarkdown for docx output"),
     person(given = "Titouan", family = "Robert", role = c("ctb")),

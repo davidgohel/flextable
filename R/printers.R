@@ -994,26 +994,47 @@ save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot" ){
 
 #' @export
 #' @title plot a flextable
-#' @description save a flextable as an image and display the
-#' result in a new R graphics window.
-#' @note This function requires packages: webshot and magick.
+#' @description plots a flextable, either as a grid grob object or as a raster image
+#' and display the result in a new graphics window.
+#' @details
+#' \itemize{
+#'   \item method `grob`, uses method [as_grob()]
+#'   to convert the flextable into a grid graphics grob object.
+#'   \item method `webshot`, uses method [as_raster()]
+#'   to convert the flextable into a raster object.
+#'   In that case packages `webshot` and `magick` are required.
+#' }
+#'
 #' @param x a flextable object
-#' @param zoom,expand parameters used by `webshot` function.
-#' @param ... additional parameters sent to [as_raster()] function
+#' @param method the method to use for the plot, one of `grob` or `webshot`
+#' @param ... additional arguments passed to other functions
 #' @examples
 #' ftab <- flextable( head( mtcars ) )
 #' ftab <- autofit(ftab)
 #' \dontrun{
+#' plot(ftab)
 #' if( require("webshot") ){
-#'   plot(ftab)
+#'   plot(ftab, method = "webshot")
 #' }
 #' }
 #' @family flextable print function
-#' @importFrom grDevices as.raster
-plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
-  img <- as_raster(x = x, zoom = zoom, expand = expand)
-  par(mar = rep(0, 4))
-  plot(grDevices::as.raster(img, ...))
+#' @importFrom grid grid.newpage grid.draw viewport pushViewport popViewport
+plot.flextable <- function(x, method = c("grob", "webshot"), ...) {
+  method <- match.arg(method)
+  if (method == "webshot") {
+    par(mar = rep(0, 4))
+    plot(as_raster(x, ...))
+  } else {
+    grid.newpage()
+    # leave a 10pt margin around the plot
+    pushViewport(viewport(
+      width = unit(1, "npc") - unit(10, "pt"),
+      height = unit(1, "npc") - unit(10, "pt")
+    ))
+    grid.draw(as_grob(x, ...))
+    popViewport()
+    invisible()
+  }
 }
 
 #' @export
@@ -1026,6 +1047,7 @@ plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
 #' @param zoom,expand parameters used by `webshot` function.
 #' @param webshot webshot package as a scalar character, one of "webshot" or
 #' "webshot2".
+#' @param ... additional arguments passed to other functions
 #' @importFrom grDevices as.raster
 #' @examples
 #' ft <- qflextable( head( mtcars ) )
@@ -1036,7 +1058,7 @@ plot.flextable <- function(x, zoom = 2, expand = 2, ... ){
 #' }
 #' }
 #' @family flextable print function
-as_raster <- function(x, zoom = 2, expand = 2, webshot = "webshot"){
+as_raster <- function(x, zoom = 2, expand = 2, webshot = "webshot", ...){
   if (!requireNamespace(webshot, quietly = TRUE)) {
     stop("package ", webshot, " is required when saving a flextable as an image.")
   }
@@ -1044,6 +1066,8 @@ as_raster <- function(x, zoom = 2, expand = 2, webshot = "webshot"){
     stop("package magick is required when saving a flextable as an image.")
   }
   path <- tempfile(fileext = ".png")
+  on.exit(unlink(path))
   save_as_image(x, path, zoom = zoom, expand = expand, webshot = webshot )
-  magick::image_read(path = path)
+  img <- magick::image_read(path = path)
+  as.raster(img, ...)
 }

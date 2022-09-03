@@ -1,37 +1,30 @@
-expand_special_char <- function(x, what = "\n", with = "<br>"){
-  if(!any(grepl(what, x$txt))){
-    return(x)
-  }
-  str <- x$txt
-  str[str %in% what] <- with
-  tmp_txt <- strsplit(str, split = what)
-  tmp_x <- split(x, seq_len(nrow(x)))
-  tmp_txt <- mapply(function(z, str, dat) {
-    if(length(z) > 1) {
-      add <- rep(with, length(z))
-      if(!grepl(paste0(what, "$"), str)) {
-        add[length(add)] <- NA_character_
-      }
-      z <- as.character(t(matrix(c(z, add), ncol = 2)))
-      z <- z[!is.na(z) & !z %in% ""]
+#' @importFrom data.table is.data.table .N
+expand_special_char <- function(x, what, with = NA, ...) {
+  m <- gregexec(pattern = what, x$txt, ...)
+  if (isTRUE(any(unlist(m) > -1))) {
+    txt <- regmatches(x$txt, m, invert = NA)
+    txt <- lapply(txt, function(z) z[nzchar(z)])
+    if (is.character(with) && !is.na(with)) {
+      txt <- lapply(txt, gsub, pattern = what, replacement = with, ...)
     }
-    dat <- rbind.match.columns(rep(list(dat), length(z)))
-    dat$txt <- z
+    len <- lapply(txt, length)
 
-    dat
-  }, tmp_txt, str, tmp_x, SIMPLIFY = FALSE)
-
-  x <- rbind.match.columns(tmp_txt)
-  x$seq_index <- seq_len(nrow(x))
+    was_dt <- is.data.table(x)
+    setDT(x)
+    x <- x[rep(1:.N, len)][, "seq_index" := 1:.N]
+    x$txt <- unlist(txt)
+    if (!was_dt) setDF(x)
+  }
   x
 }
 
-fortify_content <- function(x, default_chunk_fmt, ...){
-
-  x$content$data[] <- lapply(x$content$data, expand_special_char,
-                             what = "\n", with = "<br>")
-  x$content$data[] <- lapply(x$content$data, expand_special_char,
-                             what = "\t", with = "<tab>")
+fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TRUE){
+  if (isTRUE(expand_special_chars)) {
+    x$content$data[] <- lapply(x$content$data, expand_special_char,
+                               what = "\n", with = "<br>")
+    x$content$data[] <- lapply(x$content$data, expand_special_char,
+                               what = "\t", with = "<tab>")
+  }
 
   row_id <- unlist( mapply( function(rows, data){
     rep(rows, nrow(data) )
@@ -61,16 +54,19 @@ fortify_content <- function(x, default_chunk_fmt, ...){
 
 
 #' @importFrom data.table rbindlist setDF
-as_table_text <- function(x){
+as_table_text <- function(x, expand_special_chars = TRUE){
   dat <- list()
   if( nrow_part(x, "header") > 0 ){
-    dat$header <- fortify_content(x$header$content, default_chunk_fmt = x$header$styles$text)
+    dat$header <- fortify_content(x$header$content, default_chunk_fmt = x$header$styles$text,
+                                  expand_special_chars = expand_special_chars)
   }
   if( nrow_part(x, "body") > 0 ){
-    dat$body <- fortify_content(x$body$content, default_chunk_fmt = x$body$styles$text)
+    dat$body <- fortify_content(x$body$content, default_chunk_fmt = x$body$styles$text,
+                                expand_special_chars = expand_special_chars)
   }
   if( nrow_part(x, "footer") > 0 ){
-    dat$footer <- fortify_content(x$footer$content, default_chunk_fmt = x$footer$styles$text)
+    dat$footer <- fortify_content(x$footer$content, default_chunk_fmt = x$footer$styles$text,
+                                  expand_special_chars = expand_special_chars)
   }
   dat <- rbindlist(dat, use.names = TRUE, idcol = "part")
   dat$part <- factor(dat$part, levels = c("header", "body", "footer"))

@@ -4,33 +4,41 @@
 \alias{plot.flextable}
 \title{plot a flextable}
 \usage{
-\method{plot}{flextable}(x, zoom = 2, expand = 2, ...)
+\method{plot}{flextable}(x, method = c("grob", "webshot"), ...)
 }
 \arguments{
 \item{x}{a flextable object}
 
-\item{zoom, expand}{parameters used by \code{webshot} function.}
+\item{method}{the method to use for the plot, one of \code{grob} or \code{webshot}}
 
-\item{...}{additional parameters sent to \code{\link[=as_raster]{as_raster()}} function}
+\item{...}{additional arguments passed to other functions}
 }
 \description{
-save a flextable as an image and display the
-result in a new R graphics window.
+plots a flextable, either as a grid grob object or as a raster image
+and display the result in a new graphics window.
 }
-\note{
-This function requires packages: webshot and magick.
+\details{
+\itemize{
+\item method \code{grob}, uses method \code{\link[=as_grob]{as_grob()}}
+to convert the flextable into a grid graphics grob object.
+\item method \code{webshot}, uses method \code{\link[=as_raster]{as_raster()}}
+to convert the flextable into a raster object.
+In that case packages \code{webshot} and \code{magick} are required.
+}
 }
 \examples{
 ftab <- flextable( head( mtcars ) )
 ftab <- autofit(ftab)
 \dontrun{
+plot(ftab)
 if( require("webshot") ){
-  plot(ftab)
+  plot(ftab, method = "webshot")
 }
 }
 }
 \seealso{
 Other flextable print function: 
+\code{\link{as_grob}()},
 \code{\link{as_raster}()},
 \code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
