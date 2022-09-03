@@ -109,7 +109,7 @@ with_openxml_unquote <- function(x) {
 }
 
 with_html_quotes <- function(x) {
-  paste("\n\n``````{=html}", x, "``````\n\n", sep = "\n")
+  paste("```{=html}", x, "```\n\n", sep = "\n")
 }
 with_html_unquotes <- function(...) {
   paste("\n\n``````\n", ..., "\n``````{=html}\n\n", sep = "\n")
