@@ -93,6 +93,23 @@ mcoalesce_options <- function(...) {
   Reduce(coalesce_options, list(...))
 }
 
+safe_stat <- function(..., FUN = max, NA_value = NA_real_) {
+  x <- na.omit(unlist(list(...)))
+  if (length(x) > 0) {
+    FUN(x)
+  } else {
+    NA_value
+  }
+}
+
+safe_stat_ext <- function(..., FUN = max, NA_value = NA_real_, LENGTH = NULL) {
+  x <- na.omit(unlist(list(...)))
+  if (length(x) > 0 && (!is.numeric(LENGTH) || length(LENGTH) == 0 || length(x) == LENGTH[1])) {
+    FUN(x)
+  } else {
+    NA_value
+  }
+}
 
 # metric units -----
 cm_to_inches <- function(x) {

@@ -61,17 +61,23 @@ get_grid_data <- function(x, autowidths, wrapping) {
   grid_data[, "colspan_group" := calc_grid_span_group(.SD$colspan)]
 
   # set cell width and height
-  grid_data[, "cell_width" := calc_grid_dim_sum(.SD$col_width), by = "rowspan_group"]
-  grid_data[, "cell_height" := calc_grid_dim_sum(.SD$row_height), by = "colspan_group"]
-  grid_data[, "cell_min_height" := calc_grid_dim_sum(.SD$row_min_height), by = "colspan_group"]
-  grid_data[, "cell_max_height" := calc_grid_dim_sum(.SD$row_max_height, .SD$colspan),
-    by = "colspan_group"
-  ]
+  grid_data[, "cell_width" := safe_stat(.SD$col_width,
+    FUN = sum, NA_value = NA_real_
+  ), by = "rowspan_group"]
+  grid_data[, "cell_height" := safe_stat(.SD$row_height,
+    FUN = sum, NA_value = NA_real_
+  ), by = "colspan_group"]
+  grid_data[, "cell_min_height" := safe_stat(.SD$row_min_height,
+    FUN = sum, NA_value = NA_real_
+  ), by = "colspan_group"]
+  grid_data[, "cell_max_height" := safe_stat_ext(.SD$row_max_height,
+    FUN = sum, LENGTH = max(.SD$colspan), NA_value = NA_real_
+  ), by = "colspan_group"]
   grid_data[, "cell_height" := safe_stat(
     safe_stat(.SD$cell_height, .SD$cell_min_height, FUN = max, NA_value = NA_real_),
     .SD$cell_max_height,
     FUN = min, NA_value = NA_real_
-  )]
+  ), by = c("col_index", "row_index")]
 
   # keep only active cells
   grid_data <- grid_data[grid_data$rowspan > 0 & grid_data$colspan > 0, , drop = FALSE]
@@ -834,24 +840,6 @@ calc_grid_span_group <- function(x) {
     list(lengths = x, values = seq_along(x)),
     class = "rle"
   ))
-}
-
-calc_grid_dim_sum <- function(x, len = NULL) {
-  x <- na.omit(x)
-  if (length(x) > 0 && (!is.numeric(len) || length(x) == len)) {
-    sum(x)
-  } else {
-    NA_real_
-  }
-}
-
-safe_stat <- function(..., FUN = max, NA_value = NA_real_) {
-  x <- na.omit(unlist(list(...)))
-  if (length(x) > 0) {
-    FUN(x)
-  } else {
-    NA_value
-  }
 }
 
 calc_grid_just <- function(halign, valign) {
