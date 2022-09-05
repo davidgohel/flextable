@@ -68,7 +68,7 @@ latex_str <- function(x, ft.align = "center",
   linespacing_df <- properties_df[, c("part", "ft_row_id", "col_id", "line_spacing")]
   dat <- runs_as_latex(
     x = x,
-    chunk_data = as_table_text(x),
+    chunk_data = fortify_run(x),
     ls_df = linespacing_df)
 
   # hhlines and vborders ----

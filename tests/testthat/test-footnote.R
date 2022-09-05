@@ -8,7 +8,7 @@ ft <- footnote(
   ref_symbols = "a",
   value = as_paragraph("This is footnote one")
 )
-text_data <- flextable:::as_table_text(ft)
+text_data <- flextable:::fortify_run(ft)
 setDT(text_data)
 
 
@@ -40,7 +40,7 @@ ft <- footnote(
   ref_symbols = c("a", "b", "c"),
   value = as_paragraph(paste("This is footnote", 1:3))
 )
-text_data <- flextable:::as_table_text(ft)
+text_data <- flextable:::fortify_run(ft)
 setDT(text_data)
 
 test_that("more than a symbol and more than a footnote", {

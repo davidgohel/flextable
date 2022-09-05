@@ -1,55 +1,3 @@
-dummy_fp_text_fun <- function(color = "black", font.size = 10,
-                              bold = FALSE, italic = FALSE, underlined = FALSE,
-                              font.family = "Arial",
-                              hansi.family = "Arial",
-                              eastasia.family = "Arial",
-                              cs.family = "Arial",
-                              vertical.align = "baseline",
-                              shading.color = "transparent", line_spacing = 2) {
-
-}
-
-
-pml_pars <- function(value, par_data){
-
-  data_ref_pars <- par_style_list(par_data)
-
-  ## par style pml
-  fp_par_pml <- data_ref_pars
-  classnames <- data_ref_pars$classname
-  fp_par_pml$classname <- NULL
-  cols <- intersect(names(formals(fp_par)), colnames(fp_par_pml))
-  fp_par_pml <- fp_par_pml[cols]
-  fp_par_pml <- split(fp_par_pml, classnames)
-  fp_par_pml <- lapply(fp_par_pml, function(x){
-    zz <- as.list(x)
-    zz$border.bottom <- zz$border.bottom[[1]]
-    zz$border.top <- zz$border.top[[1]]
-    zz$border.right <- zz$border.right[[1]]
-    zz$border.left <- zz$border.left[[1]]
-    zz <- do.call(fp_par, zz)
-    format(zz, type = "pml")
-  })
-  style_dat <- data.frame(
-    fp_par_pml = as.character(fp_par_pml),
-    classname = classnames,
-    stringsAsFactors = FALSE
-  )
-
-  # organise everything
-  setDT(par_data)
-  par_data <- merge(par_data, data_ref_pars, by = intersect(colnames(par_data), colnames(data_ref_pars)))
-  par_data <- merge(par_data, style_dat, by = "classname")
-  par_data <- par_data[, .SD,
-                       .SDcols = c(
-                         "part", "ft_row_id",
-                         "col_id", "fp_par_pml"
-                       )
-  ]
-  setDF(par_data)
-  par_data
-}
-
 pml_spans <- function(value){
   span_data <- fortify_span(value)
   span_data$grid_span <- ifelse(span_data$rowspan == 1, "",
@@ -63,7 +11,6 @@ pml_spans <- function(value){
 
 #' @importFrom data.table shift fcoalesce
 pml_cells <- function(value, cell_data){
-
   cell_heights <- fortify_height(value)
   cell_widths <- fortify_width(value)
   cell_hrule <- fortify_hrule(value)
@@ -78,21 +25,38 @@ pml_cells <- function(value, cell_data){
   setDT(cell_data)
   setorderv(cell_data, cols = c("part", "ft_row_id", "col_id"))
 
-  data_ref_cells <- cell_style_list(cell_data)
+  data_ref_cells <- distinct_cells_properties(cell_data)
 
   ## cell style pml
   fp_cell_pml <- data_ref_cells
   classnames <- data_ref_cells$classname
-  fp_cell_pml$classname <- NULL
-  cols <- intersect(names(formals(fp_cell)), colnames(fp_cell_pml))
-  fp_cell_pml <- fp_cell_pml[cols]
   fp_cell_pml <- split(fp_cell_pml, classnames)
   fp_cell_pml <- lapply(fp_cell_pml, function(x){
     zz <- as.list(x)
-    zz$border.bottom <- zz$border.bottom[[1]]
-    zz$border.top <- zz$border.top[[1]]
-    zz$border.right <- zz$border.right[[1]]
-    zz$border.left <- zz$border.left[[1]]
+    zz$border.bottom <- fp_border(
+      color = zz$border.color.bottom,
+      width = zz$border.width.bottom,
+      style = zz$border.style.bottom)
+    zz$border.top <- fp_border(
+      color = zz$border.color.top,
+      width = zz$border.width.top,
+      style = zz$border.style.top)
+    zz$border.right <- fp_border(
+      color = zz$border.color.right,
+      width = zz$border.width.right,
+      style = zz$border.style.right)
+    zz$border.left <- fp_border(
+      color = zz$border.color.left,
+      width = zz$border.width.left,
+      style = zz$border.style.left)
+
+    zz[c("border.width.bottom", "border.width.top", "border.width.left",
+         "border.width.right", "border.color.bottom", "border.color.top",
+         "border.color.left", "border.color.right", "border.style.bottom",
+         "border.style.top", "border.style.left", "border.style.right",
+         "width", "height", "hrule"
+    )] <- NULL
+    zz$classname <- NULL
     zz <- do.call(fp_cell, zz)
     format(zz, type = "pml")
   })
@@ -105,12 +69,7 @@ pml_cells <- function(value, cell_data){
   # organise everything
   cell_data <- merge(cell_data, data_ref_cells, by = intersect(colnames(cell_data), colnames(data_ref_cells)))
   cell_data <- merge(cell_data, style_dat, by = "classname")
-  cell_data <- cell_data[, .SD,
-                       .SDcols = c(
-                         "part", "ft_row_id",
-                         "col_id", "fp_cell_pml"
-                       )
-  ]
+  cell_data <- cell_data[, .SD, .SDcols = c("part", "ft_row_id", "col_id", "fp_cell_pml")]
   setDF(cell_data)
   cell_data
 }
@@ -118,11 +77,8 @@ pml_cells <- function(value, cell_data){
 pptx_str <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0){
 
   cell_attributes <- fortify_style(value, "cells")
-  cell_attributes$col_id <- factor(cell_attributes$col_id, levels = value$col_keys)
-  cell_attributes$part <- factor(cell_attributes$part, levels = c("header", "body", "footer"))
-
   par_attributes <- fortify_style(value, "pars")
-  par_attributes$col_id <- factor(par_attributes$col_id, levels = value$col_keys)
+
   # cell_attributes and par_attributes must be ordered identically
   new_pos <- ooxml_rotation_alignments(
     rotation = cell_attributes$text.direction,
@@ -144,9 +100,8 @@ pptx_str <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0){
   cell_attributes[, c("padding.bottom", "padding.top") := NULL]
   setDF(cell_attributes)
 
-
   txt_data <- runs_as_pml(value)
-  par_data <- pml_pars(value, par_attributes)
+  par_data <- ooxml_ppr(par_attributes, type = "pml")
   span_data <- pml_spans(value)
   cell_data <- pml_cells(value, cell_attributes)
   cell_heights <- fortify_height(value)
@@ -163,11 +118,11 @@ pptx_str <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0){
 
   tab_data[, c("pml") := list(
     paste0("<a:txBody><a:bodyPr/><a:lstStyle/>",
-           "<a:p>", .SD$fp_par_pml,
+           "<a:p>", .SD$fp_par_xml,
            .SD$par_nodes_str, "</a:p>",
            "</a:txBody>")
   )]
-  tab_data[, c("fp_par_pml", "par_nodes_str") := list(NULL, NULL)]
+  tab_data[, c("fp_par_xml", "par_nodes_str") := list(NULL, NULL)]
 
   tab_data[, c("pml") := list(
     paste0("<a:tc", .SD$grid_span, .SD$row_span,">", .SD$pml,

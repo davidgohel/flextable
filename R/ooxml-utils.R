@@ -125,6 +125,5 @@ ooxml_rotation_alignments <- function(rotation, align, valign) {
   # right_bottom
   halign_out[right_bottom] <- "right"
   valign_out[right_bottom] <- "top"
-
   list(align = halign_out, valign = valign_out)
 }

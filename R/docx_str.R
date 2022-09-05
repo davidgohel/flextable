@@ -1,41 +1,57 @@
 # utils -----
-wml_pars <- function(value, par_data) {
-  data_ref_pars <- par_style_list(par_data)
+ooxml_ppr <- function(paragraphs_properties, type = "wml") {
+  data_ref_pars <- distinct_paragraphs_properties(paragraphs_properties)
 
   ## par style wml
-  fp_par_wml <- data_ref_pars
+  fp_par_xml <- data_ref_pars
   classnames <- data_ref_pars$classname
-  fp_par_wml$classname <- NULL
-  cols <- intersect(names(formals(fp_par)), colnames(fp_par_wml))
-  fp_par_wml <- fp_par_wml[cols]
-  fp_par_wml <- split(fp_par_wml, classnames)
-  fp_par_wml <- lapply(fp_par_wml, function(x) {
+  fp_par_xml <- split(fp_par_xml, classnames)
+  fp_par_xml <- vapply(fp_par_xml, function(x) {
     zz <- as.list(x)
-    zz$border.bottom <- zz$border.bottom[[1]]
-    zz$border.top <- zz$border.top[[1]]
-    zz$border.right <- zz$border.right[[1]]
-    zz$border.left <- zz$border.left[[1]]
+    zz$border.bottom <- fp_border(
+      color = zz$border.color.bottom,
+      width = zz$border.width.bottom,
+      style = zz$border.style.bottom)
+    zz$border.top <- fp_border(
+      color = zz$border.color.top,
+      width = zz$border.width.top,
+      style = zz$border.style.top)
+    zz$border.right <- fp_border(
+      color = zz$border.color.right,
+      width = zz$border.width.right,
+      style = zz$border.style.right)
+    zz$border.left <- fp_border(
+      color = zz$border.color.left,
+      width = zz$border.width.left,
+      style = zz$border.style.left)
+
+    # delete names not in formals
+    zz[grepl(pattern = "^(border\\.color|border\\.width|border\\.style)", names(zz))] <- NULL
+    zz$classname <- NULL
+
     zz <- do.call(fp_par, zz)
-    format(zz, type = "wml")
-  })
+    format(zz, type = type)
+  }, FUN.VALUE = "", USE.NAMES = FALSE)
+
   style_dat <- data.frame(
-    fp_par_wml = as.character(fp_par_wml),
+    fp_par_xml = fp_par_xml,
     classname = classnames,
     stringsAsFactors = FALSE
   )
 
   # organise everything
-  setDT(par_data)
-  par_data <- merge(par_data, data_ref_pars, by = intersect(colnames(par_data), colnames(data_ref_pars)))
-  par_data <- merge(par_data, style_dat, by = "classname")
-  par_data <- par_data[, .SD,
+  setDT(paragraphs_properties)
+
+  paragraphs_properties <- merge(paragraphs_properties, data_ref_pars, by = intersect(colnames(paragraphs_properties), colnames(data_ref_pars)))
+  paragraphs_properties <- merge(paragraphs_properties, style_dat, by = "classname")
+  paragraphs_properties <- paragraphs_properties[, .SD,
     .SDcols = c(
       "part", "ft_row_id",
-      "col_id", "fp_par_wml"
+      "col_id", "fp_par_xml"
     )
   ]
-  setDF(par_data)
-  par_data
+  setDF(paragraphs_properties)
+  paragraphs_properties
 }
 
 wml_spans <- function(value) {
@@ -106,30 +122,47 @@ wml_cells <- function(value, cell_data) {
   # fix for word horiz. borders, copying the bottom props to top props of the next cell
   cell_data <- copy_border_bottom_to_next_border_top(cell_data, value = value)
 
-  data_ref_cells <- cell_style_list(cell_data)
+  data_ref_cells <- distinct_cells_properties(cell_data)
 
   ## cell style wml
   fp_cell_wml <- data_ref_cells
   classnames <- data_ref_cells$classname
   fp_cell_wml$classname <- NULL
 
-  cols <- intersect(names(formals(fp_cell)), colnames(fp_cell_wml))
-  fp_cell_wml <- fp_cell_wml[cols]
   fp_cell_wml <- split(fp_cell_wml, classnames)
-  fp_cell_wml <- lapply(fp_cell_wml, function(x) {
+  fp_cell_wml <- vapply(fp_cell_wml, function(x) {
     zz <- as.list(x)
-    zz$border.bottom <- zz$border.bottom[[1]]
-    zz$border.top <- zz$border.top[[1]]
-    zz$border.right <- zz$border.right[[1]]
-    zz$border.left <- zz$border.left[[1]]
+    zz$border.bottom <- fp_border(
+      color = zz$border.color.bottom,
+      width = zz$border.width.bottom,
+      style = zz$border.style.bottom)
+    zz$border.top <- fp_border(
+      color = zz$border.color.top,
+      width = zz$border.width.top,
+      style = zz$border.style.top)
+    zz$border.right <- fp_border(
+      color = zz$border.color.right,
+      width = zz$border.width.right,
+      style = zz$border.style.right)
+    zz$border.left <- fp_border(
+      color = zz$border.color.left,
+      width = zz$border.width.left,
+      style = zz$border.style.left)
+
+    zz[c("border.width.bottom", "border.width.top", "border.width.left",
+         "border.width.right", "border.color.bottom", "border.color.top",
+         "border.color.left", "border.color.right", "border.style.bottom",
+         "border.style.top", "border.style.left", "border.style.right",
+         "width", "height", "hrule"
+         )] <- NULL
+    zz$classname <- NULL
     zz <- do.call(fp_cell, zz)
     zz <- format(zz, type = "wml")
-    zz <- gsub("<w:tcPr>", "", zz, fixed = TRUE)
-    zz <- gsub("</w:tcPr>", "", zz, fixed = TRUE)
     zz
-  })
+  }, FUN.VALUE = "", USE.NAMES = FALSE)
+
   style_dat <- data.frame(
-    fp_cell_wml = as.character(fp_cell_wml),
+    fp_cell_wml = fp_cell_wml,
     classname = classnames,
     stringsAsFactors = FALSE
   )
@@ -152,45 +185,45 @@ wml_cells <- function(value, cell_data) {
 
 
 wml_rows <- function(value, split = FALSE) {
+
+  # prepare cells formatting properties and add span information
   cell_attributes <- fortify_style(value, "cells")
-  cell_attributes$col_id <- factor(cell_attributes$col_id, levels = value$col_keys)
-  cell_attributes$part <- factor(cell_attributes$part, levels = c("header", "body", "footer"))
+  span_data <- fortify_span(value)
+  setDT(cell_attributes)
+  cell_attributes <- merge(cell_attributes, span_data, by = c("part", "ft_row_id", "col_id"))
+  setDF(cell_attributes)
 
-  par_attributes <- fortify_style(value, "pars")
-  par_attributes$col_id <- factor(par_attributes$col_id, levels = value$col_keys)
+  # prepare paragraphs formatting properties
+  paragraphs_properties <- fortify_style(value, "pars")
 
+  # transform alignments for rotated text
+  # and add them back to paragraphs_properties and cell_attributes
   new_pos <- ooxml_rotation_alignments(
     rotation = cell_attributes$text.direction,
     valign = cell_attributes$vertical.align,
-    align = par_attributes$text.align
+    align = paragraphs_properties$text.align
   )
-
-  par_attributes$text.align <- new_pos$align
+  paragraphs_properties$text.align <- new_pos$align
   cell_attributes$vertical.align <- new_pos$valign
 
-  txt_data <- as_table_text(value)
-  txt_data$col_id <- factor(txt_data$col_id, levels = value$col_keys)
-  txt_data <- runs_as_wml(value, txt_data)
+  # get runs in wml format and get hyperlinks and images information
+  run_data <- runs_as_wml(value, txt_data = fortify_run(value))
+  hlinks <- attr(run_data, "hlinks")
+  imgs <- attr(run_data, "imgs")
 
-  par_data <- wml_pars(value, par_attributes)
 
-  span_data <- wml_spans(value)
   cell_data <- wml_cells(value, cell_attributes)
   cell_heights <- fortify_height(value)
   cell_hrule <- fortify_hrule(value)
 
-  hlinks <- attr(txt_data, "hlinks")
-  imgs <- attr(txt_data, "imgs")
-  setDT(txt_data)
   setDT(cell_data)
-  tab_data <- merge(cell_data, par_data, by = c("part", "ft_row_id", "col_id"))
-  tab_data <- merge(tab_data, txt_data, by = c("part", "ft_row_id", "col_id"))
+  tab_data <- merge(cell_data, ooxml_ppr(paragraphs_properties), by = c("part", "ft_row_id", "col_id"))
+  tab_data <- merge(tab_data, run_data, by = c("part", "ft_row_id", "col_id"))
   tab_data <- merge(tab_data, span_data, by = c("part", "ft_row_id", "col_id"))
-  tab_data$col_id <- factor(tab_data$col_id, levels = value$col_keys)
   setorderv(tab_data, cols = c("part", "ft_row_id", "col_id"))
 
-  tab_data[, c("wml", "fp_par_wml", "run_openxml") := list(
-    paste0("<w:p>", .SD$fp_par_wml, .SD$run_openxml, "</w:p>"),
+  tab_data[, c("wml", "fp_par_xml", "run_openxml") := list(
+    paste0("<w:p>", .SD$fp_par_xml, .SD$run_openxml, "</w:p>"),
     NULL,
     NULL
   )]
@@ -198,16 +231,15 @@ wml_rows <- function(value, split = FALSE) {
   tab_data[tab_data$colspan < 1, c("wml") := list(
     gsub("<w:r\\b[^<]*>[^<]*(?:<[^<]*)*</w:r>", "", .SD$wml)
   )]
+
   tab_data[, c("wml") := list(
     paste0(
       "<w:tc>",
-      "<w:tcPr>", .SD$gridspan, .SD$vmerge, .SD$fp_cell_wml, "</w:tcPr>",
+      .SD$fp_cell_wml,
       .SD$wml, "</w:tc>"
     )
   )]
   tab_data[tab_data$rowspan < 1, c("wml") := list("")]
-
-  tab_data[, c("fp_cell_wml", "gridspan", "vmerge", "colspan", "rowspan") := list(NULL, NULL, NULL, NULL, NULL)]
 
   cells <- dcast(
     data = tab_data, formula = part + ft_row_id ~ col_id,

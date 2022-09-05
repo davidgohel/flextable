@@ -106,7 +106,7 @@ test_that("newlines and tabulations expand correctly", {
   )
   z <- delete_part(z, part = "header")
 
-  chunks_txt <- flextable:::as_table_text(z)$txt
+  chunks_txt <- flextable:::fortify_run(z)$txt
 
   expect_equal(
     chunks_txt,

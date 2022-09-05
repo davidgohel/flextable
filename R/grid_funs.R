@@ -278,7 +278,7 @@ grid_data_add_par_info <- function(grid_data, x) {
 
 #' @importFrom grDevices is.raster
 grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
-  chunk_data <- as_table_text(x, expand_special_chars = FALSE)
+  chunk_data <- fortify_run(x, expand_special_chars = FALSE)
 
   # merge with grid_data to keep only active cells
   keycols <- c("part", "ft_row_id", "col_id")
