@@ -241,8 +241,7 @@ runs_as_wml <- function(x, txt_data = fortify_run(x)) {
     stringsAsFactors = FALSE
   )
 
-  setDT(txt_data)
-  txt_data <- merge(txt_data, unique_text_props, by = colnames(unique_text_props)[-ncol(unique_text_props)])
+  txt_data <- merge(as.data.table(txt_data), unique_text_props, by = colnames(unique_text_props)[-ncol(unique_text_props)])
   txt_data <- merge(txt_data, style_dat, by = "classname")
 
   is_soft_return <- txt_data$txt %in% "<br>"
