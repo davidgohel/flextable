@@ -224,6 +224,14 @@ set_caption <- function(x,
     caption_value <- caption_value[[1]]
   } else if (!is.null(caption) && inherits(caption, "paragraph")) {
     caption_value <- caption[[1]]
+
+    by_columns <- c("font.size", "italic", "bold", "underlined", "color", "shading.color",
+                    "font.family", "hansi.family", "eastasia.family", "cs.family",
+                    "vertical.align")
+    default_fp_t <- fp_text_default()
+    for (j in by_columns){
+      caption_value[[j]][is.na(caption_value[[j]])] <- default_fp_t[[j]]
+    }
   }
 
   x$caption <- list(value = caption_value)
