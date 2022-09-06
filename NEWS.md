@@ -9,6 +9,21 @@
 - Quarto support
 - fix as_grouped_data() with date columns (#438)
 - fix footnotes spread over separate lines when 'inline' (#442)
+- fix missing caption with rmarkdown pdf output
+- fix first horizontal borders repeated issue with Word output
+- add empty paragraphs between tables in `save_as_docx()` to avoid Word confusion
+
+## new features
+
+- flextable now supports "Grid graphics" output format. See `gen_grob()`.
+- add support for paragraph settings (made with `fp_par()`) in captions with `set_caption()`.
+- captions are now made with `as_paragraph()`
+- caption alignments and keep_with_next is now computed instead of being provided by user
+- alternative text for Word tables with word_title and word_description 
+by calling `set_table_properties()` or setting values to knitr chunk options `tab.alt.title` and `tab.alt.description`.
+- Word and HTML captions paragraphs settings can be defined by using `set_caption()`. 
+The alignment of the paragraph can be different from the alignment of the table 
+with the argument `align_with_table=FALSE`.
 
 # flextable 0.7.3
 

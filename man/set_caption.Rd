@@ -6,10 +6,12 @@
 \usage{
 set_caption(
   x,
-  caption,
+  caption = NULL,
   autonum = NULL,
   word_stylename = "Table Caption",
   style = word_stylename,
+  fp_p = NULL,
+  align_with_table = TRUE,
   html_classes = NULL,
   html_escape = TRUE
 )
@@ -17,7 +19,7 @@ set_caption(
 \arguments{
 \item{x}{flextable object}
 
-\item{caption}{caption value}
+\item{caption}{caption value.}
 
 \item{autonum}{an autonum representation. See \code{\link[officer:run_autonum]{officer::run_autonum()}}.
 This has only an effect when output is Word. If used, the caption is preceded
@@ -28,6 +30,13 @@ sequence that can be cross referenced.}
 function \code{\link[officer:styles_info]{officer::styles_info()}} when output is Word. Argument \code{style}
 is deprecated in favor of \code{word_stylename}.}
 
+\item{fp_p}{paragraph formatting properties associated with the caption, see \code{\link[=fp_par]{fp_par()}}.
+It applies when possible, i.e. in HTML and 'Word' but not with bookdown.}
+
+\item{align_with_table}{if TRUE, caption is aligned as the flextable, if FALSE,
+\code{fp_p} will not be updated and alignement is as defined with \code{fp_p}.
+It applies when possible, i.e. in HTML and 'Word' but not with bookdown.}
+
 \item{html_classes}{css class(es) to apply to associate with caption paragraph
 when output is 'Word'.}
 
@@ -35,7 +44,9 @@ when output is 'Word'.}
 included as text or an attribute value within an HTML document.}
 }
 \description{
-Set caption value in a flextable.
+Set caption value in a flextable. The function
+can also be used to define formattings that will be applied
+if possible to Word and HTML outputs.
 \itemize{
 \item The caption will be associated with a paragraph style when
 the output is Word. It can also be numbered as a auto-numbered
@@ -83,8 +94,8 @@ See \link{knit_print.flextable} for more details.
 where 'Quarto' does not manage captions.
 
 knitr options are the same than those detailled in the R Markdown section (see upper),
-but be aware that 'Quarto' manage captions and related items can be overwritten by
-Quarto.
+but be aware that 'Quarto' manage captions and it can be overwrite what has
+been defined by flextable.
 }
 
 \examples{

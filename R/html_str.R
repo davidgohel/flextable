@@ -1,21 +1,33 @@
 #' @importFrom rmarkdown pandoc_exec
-pandoc_html_chunks <- function(x){
+html_chunkify <- function(x, engine = "none"){
   stopifnot(length(x) == 1, is.character(x))
-  mdfile <- tempfile(fileext = ".md")
-  writeLines(enc2utf8(x), mdfile, useBytes = TRUE)
-  out <- system2(rmarkdown::pandoc_exec(),
-          args = c(mdfile, "--mathjax", "--katex", "-t", "html"),
-          stdout = TRUE
-          )
-  out <- paste0(out, collapse = "")
-  out <- gsub("(<p>|</p>)", "", out)
-  # out <- paste0("`", out, "`{=html}")
-  out
+
+  engi <- match.arg(engine, c("commonmark", "pandoc", "none"), several.ok = FALSE)
+  if("pandoc" %in% engi){
+    mdfile <- tempfile(fileext = ".md")
+    writeLines(enc2utf8(x), mdfile, useBytes = TRUE)
+    out <- system2(rmarkdown::pandoc_exec(),
+            args = c(mdfile, "--mathjax", "--katex", "-t", "html"),
+            stdout = TRUE
+            )
+    out <- paste0(out, collapse = "")
+    out <- gsub("(<p>|</p>)", "", out)
+  } else if("commonmark" %in% engi){
+    if (requireNamespace("commonmark", quietly = TRUE)) {
+      out <- commonmark::markdown_html(x)
+      out <- gsub("(<p>|</p>|\\n)", "", out)
+    } else {
+      stop("package 'commonmark' must be installed to use option 'commonmark'.")
+    }
+  } else out <- x
+
+  enc2utf8(out)
 }
 
 
 html_str <- function(x, ft.align = NULL, class = "tabwid",
-                     caption = "", shadow = TRUE, topcaption = TRUE){
+                     caption = "", shadow = TRUE, topcaption = TRUE,
+                     manual_css = ""){
 
   fixed_layout <- x$properties$layout %in% "fixed"
   if(!fixed_layout){
@@ -62,16 +74,18 @@ html_str <- function(x, ft.align = NULL, class = "tabwid",
                    html,
            "</template>",
            "\n<div class=\"flextable-shadow-host\" id=\"", uid[2], "\"></div>",
-           to_shadow_dom(uid1 = uid[1], uid2 = uid[2], ft.align = ft.align, topcaption = topcaption)
+           to_shadow_dom(uid1 = uid[1], uid2 = uid[2], topcaption = topcaption)
     )
   }
-  html
+  if(is.null(manual_css) || "" %in% manual_css){
+    html
+  } else {
+    paste0(sprintf("<style>%s</style>", manual_css), html)
+  }
+
 }
 
-to_shadow_dom <- function(uid1, uid2, ft.align = NULL, topcaption = TRUE){
-
-  if( is.null(ft.align) )
-    ft.align <- "center"
+to_shadow_dom <- function(uid1, uid2, topcaption = TRUE){
 
   if(topcaption){
     move_inst <- "  dest.parentNode.insertBefore(caption, dest.previousSibling);"
@@ -83,7 +97,7 @@ to_shadow_dom <- function(uid1, uid2, ft.align = NULL, topcaption = TRUE){
     paste0("var template = document.getElementById(\"", uid1, "\");"),
     "var caption = template.content.querySelector(\"caption\");",
     "if(caption) {",
-    paste0("  caption.style.cssText = \"display:block;text-align:", ft.align, ";\";"),
+    "  caption.style.cssText = caption.style.cssText+\"display:block;\";",
     move_inst,
     "}",
     "var fantome = dest.attachShadow({mode: 'open'});",
@@ -98,75 +112,35 @@ to_shadow_dom <- function(uid1, uid2, ft.align = NULL, topcaption = TRUE){
 html_gen <- function(x){
 
   cell_data_f <- fortify_style(x, "cells")
-  cell_data_f$col_id <- factor(cell_data_f$col_id, levels = x$col_keys)
-  cell_data_f$part <- factor(cell_data_f$part, levels = c("header", "body", "footer"))
-
+  setDT(cell_data_f)
   par_data_f <- fortify_style(x, "pars")
-  par_data_f$col_id <- factor(par_data_f$col_id, levels = x$col_keys)
+  setDT(par_data_f)
 
-  fixed_layout <- x$properties$layout %in% "fixed"
+  txt_data <- runs_as_html(x, chunk_data = fortify_run(x))
+  span_style_str <- attr(txt_data, "css")
+  setDT(txt_data)
 
-  cell_heights <- fortify_height(x)
-  cell_widths <- fortify_width(x)
-  cell_hrule <- fortify_hrule(x)
+  cell_data <- merge(x = cell_data_f,
+                     y = par_data_f[, c("part", "ft_row_id", "col_id", "text.align")],
+                     by = c("part", "ft_row_id", "col_id"))
+  par_data <- merge(x = par_data_f,
+                    y = cell_data_f[, c("part", "ft_row_id", "col_id", "text.direction", "vertical.align")],
+                    by = c("part", "ft_row_id", "col_id"))
 
-  txt_data <- as_table_text(x)
+  # get rid of originals that are empty
+  cell_data[, c("width", "height", "hrule") := list(NULL, NULL, NULL)]
+  cell_data <- merge(cell_data, fortify_width(x), by = "col_id")
+  cell_data <- merge(cell_data, fortify_height(x), by = c("part", "ft_row_id"))
+  cell_data <- merge(cell_data, fortify_hrule(x), by = c("part", "ft_row_id"))
 
-  par_data <- fortify_par_style(par_data_f, cell_data_f)
-
-  cell_data <- fortify_cell_style(par_data_f, cell_data_f)
-  cell_data$width  <- NULL# need to get rid of originals that are empty, should probably rm them
-  cell_data$height  <- NULL
-  cell_data$hrule  <- NULL
-  cell_data <- merge(cell_data, cell_widths, by = "col_id")
-  cell_data <- merge(cell_data, cell_heights, by = c("part", "ft_row_id"))
-  cell_data <- merge(cell_data, cell_hrule, by = c("part", "ft_row_id"))
   span_data <- fortify_span(x)
 
-  data_ref_text <- part_style_list(txt_data, fun = officer::fp_text)
-  data_ref_pars <- par_style_list(par_data)
-  data_ref_cells <- cell_style_list(cell_data)
-
-  setDT(txt_data)
-  setDT(data_ref_text)
-  setDT(par_data)
+  data_ref_pars <- distinct_paragraphs_properties(par_data)
   setDT(data_ref_pars)
-  setDT(cell_data)
+  data_ref_cells <- distinct_cells_properties(cell_data)
   setDT(data_ref_cells)
 
-  by_columns <- intersect(colnames(data_ref_text), colnames(txt_data))
-  txt_data <- merge(txt_data, data_ref_text, by = by_columns)
-  setorderv(txt_data, c("ft_row_id", "col_id", "seq_index"))
-
-  is_soft_return <- txt_data$txt %in% "<br>"
-  is_tab <- txt_data$txt %in% "<tab>"
-  is_eq <- !is.na(txt_data$eq_data)
-  is_hlink <- !is.na(txt_data$url)
-  is_raster <- sapply(txt_data$img_data, function(x) {
-    inherits(x, "raster") || is.character(x)
-  })
-
-
-  # manage raster
-  txt_data[is_raster==TRUE, c("txt") := list(img_as_html(img_data = .SD$img_data, width = .SD$width, height = .SD$height))]
-  # manage txt
-  txt_data[is_raster==FALSE, c("txt") := list(sprintf("<span class=\"%s\">%s</span>", .SD$classname, htmlize(.SD$txt)))]
-  txt_data[is_soft_return==TRUE, c("txt") := list("<br>")]
-  txt_data[is_tab==TRUE, c("txt") := list("&emsp;")]
-
-  if (requireNamespace("equatags", quietly = TRUE) && any(is_eq)) {
-    transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
-    txt_data[is_eq==TRUE, c("txt") := list(transform_mathjax(.SD$eq_data, to = "html"))]
-    katex_link <- "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css\" data-external=\"1\">"
-    txt_data[which(is_eq==TRUE)[1], c("txt") := list(paste0(katex_link, .SD$txt))]
-  }
-
-  # manage hlinks
-  txt_data[is_hlink==TRUE, c("txt") := list(paste0("<a href=\"", .SD$url, "\">", .SD$txt, "</a>"))]
-  txt_data <- txt_data[, list(span_tag = paste0(get("txt"), collapse = "")), by = c("part", "ft_row_id", "col_id")]
-
-  by_columns <- intersect(colnames(par_data), colnames(data_ref_pars))
-  par_data <- merge(par_data, data_ref_pars, by = by_columns)
+  par_data <- merge(par_data, data_ref_pars, by = setdiff(colnames(data_ref_pars), "classname"))
   par_data <- par_data[, list(p_tag = paste0("<p class=\"", get("classname"), "\">")), by = c("part", "ft_row_id", "col_id")]
 
   by_columns <- intersect(colnames(cell_data), colnames(data_ref_cells))
@@ -174,26 +148,34 @@ html_gen <- function(x){
   cell_data <- merge(cell_data, span_data, by = c("part", "ft_row_id", "col_id"))
 
   cell_data <- cell_data[, list(
-    td_tag = paste0("<td ",
-                    paste0(
-                      ifelse(get("rowspan") > 1, paste0(" colspan=\"", get("rowspan"),"\""), ""),
-                      ifelse(get("colspan") > 1, paste0(" rowspan=\"", get("colspan"),"\""), "")
-                    ),
-                    "class=\"", get("classname"), "\">")
+    td_tag = paste0(
+      "<td ",
+      paste0(
+        ifelse(get("rowspan") > 1,
+          paste0(" colspan=\"", get("rowspan"), "\""),
+          ""),
+        ifelse(get("colspan") > 1,
+          paste0(" rowspan=\"", get("colspan"), "\""),
+          "")
+      ),
+      "class=\"", get("classname"), "\">"
+    )
   ),
-  by = c("part", "ft_row_id", "col_id")]
+  by = c("part", "ft_row_id", "col_id")
+  ]
 
   dat <- merge(txt_data, par_data , by = c("part", "ft_row_id", "col_id"))
   dat$p_tag <- paste0(dat$p_tag, dat$span_tag, "</p>")
   dat <- merge(dat, cell_data , by = c("part", "ft_row_id", "col_id"))
   dat$td_tag <- paste0(dat$td_tag, dat$p_tag, "</td>")
 
-  rows_data <- fortify_rows_styles(x)
-  rows_data$tr_tag <- ifelse(rows_data$hrule %in% "exact", "<tr>", "<tr style=\"overflow-wrap:break-word;\">")
-  rows_data <- rows_data[c("part", "ft_row_id",  "tr_tag")]
+  data_hrule <- fortify_hrule(x)
+  data_hrule$tr_tag <- "<tr>"
+  data_hrule$tr_tag[!data_hrule$hrule %in% "exact"] <- "<tr style=\"overflow-wrap:break-word;\">"
+
+  rows_data <- data_hrule[c("part", "ft_row_id",  "tr_tag")]
 
   dat <- merge(dat, span_data, by = c("part", "ft_row_id", "col_id"))
-  dat$col_id <- factor(dat$col_id, levels = x$col_keys)
   dat$td_tag[dat$rowspan < 1 | dat$colspan < 1] <- ""
 
   z <- dcast(dat, part + ft_row_id ~ col_id, drop=TRUE, fill="", value.var = "td_tag", fun.aggregate = I)
@@ -224,10 +206,9 @@ html_gen <- function(x){
   html <- apply(as.matrix(z), 1, paste0, collapse = "")
   html <- paste0(html, collapse = "")
 
-  span_style_str <- text_css_styles(data_ref_text)
   par_style_str <- par_css_styles(data_ref_pars)
   cell_style_str <- cell_css_styles(data_ref_cells)
-  if(!fixed_layout) {
+  if(!x$properties$layout %in% "fixed") {
     cell_style_str <- gsub("width:[ ]*[0-9\\.]+pt;", "", cell_style_str)
   }
   list(
@@ -292,6 +273,8 @@ img_as_html <- function(img_data, width, height){
   str_raster
 }
 
+
+
 # css ----
 
 css_pt <- function(x, digits = 1){
@@ -313,44 +296,7 @@ border_css <- function(color, width, style, side){
   x
 }
 
-text_css_styles <- function(x){
 
-  shading <- ifelse(
-    colalpha(x$shading.color) > 0,
-    sprintf("background-color:%s;", colcodecss(x$shading.color) ),
-    "background-color:transparent;")
-  color <- ifelse(
-    colalpha(x$color) > 0,
-    sprintf("color:%s;", colcodecss(x$color) ),
-    "")
-
-  family <- sprintf("font-family:'%s';", x$font.family )
-
-  positioning_val <- ifelse( x$vertical.align %in% "superscript", .3,
-                             ifelse(x$vertical.align %in% "subscript", .3, NA_real_ ) )
-  positioning_what <- ifelse( x$vertical.align %in% "superscript", "bottom",
-                              ifelse(x$vertical.align %in% "subscript", "top", NA_character_ ) )
-  vertical.align <- sprintf("position: relative;%s:%s;", positioning_what,
-                            css_pt(x$font.size * positioning_val))
-  vertical.align <- ifelse(is.na(positioning_val), "", vertical.align)
-
-  font.size <- sprintf(
-    "font-size:%s;", css_pt(x$font.size * ifelse(
-      x$vertical.align %in% "superscript", .6,
-      ifelse(x$vertical.align %in% "subscript", .6, 1.0 )
-    ) )
-  )
-
-  bold <- ifelse(x$bold, "font-weight:bold;", "font-weight:normal;" )
-  italic <- ifelse(x$italic, "font-style:italic;", "font-style:normal;" )
-  underline <- ifelse(x$underlined, "text-decoration:underline;", "text-decoration:none;" )
-
-
-  style_column <- paste0(family, font.size, bold, italic, underline,
-                         color, shading, vertical.align)
-
-  paste0(".", x$classname, "{", style_column, "}", collapse = "")
-}
 
 css_align <- function(text.direction, align) {
 

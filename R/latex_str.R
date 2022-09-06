@@ -54,7 +54,7 @@ latex_str <- function(x, ft.align = "center",
                       ft.tabcolsep = 0,
                       ft.arraystretch = 1.5,
                       lat_container = latex_container_none(),
-                      caption = "", topcaption = TRUE) {
+                      caption = "", topcaption = TRUE, quarto = FALSE) {
   dims <- dim(x)
   column_sizes <- dims$widths
   column_sizes_df <- data.frame(
@@ -66,7 +66,10 @@ latex_str <- function(x, ft.align = "center",
 
   properties_df <- merge_table_properties(x)
   linespacing_df <- properties_df[, c("part", "ft_row_id", "col_id", "line_spacing")]
-  dat <- latex_text_dataset(x, linespacing_df)
+  dat <- runs_as_latex(
+    x = x,
+    chunk_data = fortify_run(x),
+    ls_df = linespacing_df)
 
   # hhlines and vborders ----
   properties_df <- augment_borders(properties_df)
@@ -145,7 +148,7 @@ latex_str <- function(x, ft.align = "center",
 
   txt_data <- merge(txt_data, hhline_data, by = c("part", "ft_row_id"), all.x = TRUE, all.y = TRUE)
   setorderv(txt_data, cols = c("part", "ft_row_id"))
-  txt_data <- augment_part_separators(txt_data)
+  txt_data <- augment_part_separators(txt_data, inherits(lat_container, "latex_container_none") && !quarto)
 
 
   txt_data[, c("txt") := list(paste(
@@ -153,9 +156,16 @@ latex_str <- function(x, ft.align = "center",
     .SD$txt, .SD$hhline,
     sep = "\n\n"
   ))]
-  txt_data$part <- factor(as.character(txt_data$part),
-    levels = c("header", "footer", "body")
-  )
+
+  if (inherits(lat_container, "latex_container_none") && !quarto) {
+    txt_data$part <- factor(as.character(txt_data$part),
+                            levels = c("header", "footer", "body")
+    )
+  } else {
+    txt_data$part <- factor(as.character(txt_data$part),
+                            levels = c("header", "body", "footer")
+    )
+  }
   setorderv(txt_data, c("part", "ft_row_id"))
 
   # finalize ----
@@ -174,26 +184,19 @@ latex_str <- function(x, ft.align = "center",
   table_end <- "\\end{longtable}"
   latex <- paste0(txt_data$txt, txt_data$part_sep, collapse = "\n\n")
 
-  container_str <- latex_container_str(
-    x = x, latex_container = lat_container)
-
   if (inherits(lat_container, "latex_container_wrap")) {
     topcaption <- FALSE
   }
 
   latex <- paste(
-    container_str[1],
     cline_cmd,
     sprintf("\\setlength{\\tabcolsep}{%spt}", format_double(ft.tabcolsep, 0)),
     sprintf("\\renewcommand*{\\arraystretch}{%s}", format_double(ft.arraystretch, 2)),
     table_start,
     if(topcaption) caption,
-    paste(txt_data$txt[txt_data$part %in% "header"], collapse = ""),
-    "\\endfirsthead",
     latex,
     if(!topcaption) caption,
     table_end,
-    container_str[2],
     sep = "\n\n"
   )
 
@@ -231,7 +234,7 @@ latex_colwidth <- function(x) {
 }
 
 
-augment_multicolumn_autofit <- function(properties_df) {
+  augment_multicolumn_autofit <- function(properties_df) {
   stopifnot(is.data.table(properties_df))
 
   properties_df[, c("multicolumn_left", "multicolumn_right") :=
@@ -270,12 +273,13 @@ augment_multicolumn_fixed <- function(properties_df) {
   properties_df
 }
 
-augment_part_separators <- function(z) {
+augment_part_separators <- function(z, no_container = TRUE) {
+
   part_separators <- merge(z[, c("part", "ft_row_id")],
     merge(z[, list(ft_row_id = max(.SD$ft_row_id)), by = "part"],
       data.frame(
         part = factor(c("header", "body", "footer"), levels = c("header", "body", "footer")),
-        part_sep = c("\\endhead", "", "\\endfoot"),
+        part_sep = if(no_container) c("\\endhead", "", "\\endfoot") else c("\\endhead", "", ""),
         stringsAsFactors = FALSE
       ),
       by = c("part")
@@ -587,16 +591,21 @@ latex_container_wrap <- function(placement = "l"){
   class(x) <- c("latex_container_wrap", "latex_container")
   x
 }
-latex_container_str <- function(x, latex_container, ...){
+latex_container_str <- function(x, latex_container, quarto = FALSE, ...){
   UseMethod("latex_container_str", latex_container)
 }
-latex_container_str.latex_container_none <- function(x, latex_container, ...) {
-  c("\\begin{table}[H]", "\\end{table}")
+latex_container_str.latex_container_none <- function(x, latex_container, quarto = FALSE, ...) {
+  if (quarto) {
+    c("\\begin{table}[H]", "\\end{table}")
+  } else {
+    c("", "")
+  }
 }
-latex_container_str.latex_container_float <- function(x, latex_container, ...) {
+
+latex_container_str.latex_container_float <- function(x, latex_container, quarto = FALSE, ...) {
   c("\\begin{table}", "\\end{table}")
 }
-latex_container_str.latex_container_wrap <- function(x, latex_container, ...) {
+latex_container_str.latex_container_wrap <- function(x, latex_container, quarto = FALSE, ...) {
 
   str <- paste0("\\begin{wraptable}{", latex_container$placement, "}")
 

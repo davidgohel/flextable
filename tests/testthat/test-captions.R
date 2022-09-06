@@ -35,7 +35,7 @@ test_that("word_document2 captions", {
 
   style_nodes <- xml_find_all(x, "/w:document/w:body/w:tbl/preceding-sibling::*[1]/w:pPr/w:pStyle[@w:val='TableCaption']")
   expect_length(style_nodes, 2)
-  txt_nodes <- xml_find_all(x, "/w:document/w:body/w:tbl/preceding-sibling::*[1]/w:r/w:t")
+  txt_nodes <- xml_find_all(x, "/w:document/w:body/w:tbl/preceding-sibling::*[1]")
   expect_equal(
     xml_text(txt_nodes), c("Table 1: a table caption", "Table 2: a table caption")
   )
@@ -49,7 +49,7 @@ test_that("html_document2 captions", {
          output_file = "caption.html", quiet = TRUE)
 
   doc <- read_html(file.path(dirname(rmd_file), "caption.html"))
-  captions_ids <- xml_find_all(doc, "//table/caption//span")
+  captions_ids <- xml_find_all(doc, "//table/caption/span[@id]")
   expect_equal(xml_attr(captions_ids, "id"), c("tab:table1", "tab:table2"))
   txt <- gsub("[\n\r]+", "", xml_text(xml_find_all(doc, "//table/caption")))
   expect_equal(txt, c("Table 1: a table caption", "Table 2: a table caption"))

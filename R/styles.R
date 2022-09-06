@@ -541,14 +541,15 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_align_1.png}{options: width="400"}}
-align <- function(x, i = NULL, j = NULL, align = "left",
+align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "justify"),
                   part = "body") {
   if (!inherits(x, "flextable")) stop("align supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  align_value <- match.arg(align)
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
-      x <- align(x = x, i = i, j = j, align = align, part = p)
+      x <- align(x = x, i = i, j = j, align = align_value, part = p)
     }
     return(x)
   }
@@ -561,10 +562,10 @@ align <- function(x, i = NULL, j = NULL, align = "left",
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
 
-  if(length(align) == length(j)) {
-    align <- rep(align, each = length(i))
+  if(length(align_value) == length(j)) {
+    align_value <- rep(align_value, each = length(i))
   }
-  x[[part]]$styles$pars[i, j, "text.align"] <- align
+  x[[part]]$styles$pars[i, j, "text.align"] <- align_value
 
   x
 }

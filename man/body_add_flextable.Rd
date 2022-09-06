@@ -12,7 +12,7 @@ body_add_flextable(
   pos = "after",
   split = FALSE,
   topcaption = TRUE,
-  keepnext = TRUE
+  keepnext = NULL
 )
 
 body_replace_flextable_at_bkm(
@@ -39,16 +39,8 @@ option 'Allow row to break across pages'.}
 \item{topcaption}{if TRUE caption is added before the table, if FALSE,
 caption is added after the table.}
 
-\item{keepnext}{default \code{TRUE}. Word option 'keep rows
-together' is activated when TRUE. It avoids page break
-within tables. This is handy for small tables, i.e. less than
-a page height.
-
-Be careful, if you print long tables, you should
-rather set its value to \code{FALSE} to avoid that the tables
-also generate a page break before being placed in the
-Word document. Since Word will try to keep it with the \strong{next
-paragraphs that follow the tables}.}
+\item{keepnext}{deprecated, keepnext is to to TRUE for captions
+on top of tables and FALSE for captions on bottom of tables}
 
 \item{bookmark}{bookmark id}
 }

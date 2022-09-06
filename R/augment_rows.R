@@ -785,7 +785,7 @@ separate_header <- function(x,
     header_spans <- split(header_spans$col_id, header_spans$ft_row_id)
     for (i in seq_along(header_spans)) {
       x <- align(
-        x = x, i = i, j = header_spans[[i]],
+        x = x, i = i, j = as.character(header_spans[[i]]),
         align = "center", part = "header"
       )
     }

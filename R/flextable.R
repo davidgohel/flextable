@@ -98,8 +98,11 @@ flextable <- function(data, col_keys = names(data),
   footer_data <- header_data[FALSE, , drop = FALSE]
   footer <- complex_tabpart( data = footer_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
 
-  out <- list( header = header, body = body, footer = footer, col_keys = col_keys,
-               caption = list(value = NULL, style_id = NULL),
+  out <- list( header = header,
+               body = body,
+               footer = footer,
+               col_keys = col_keys,
+               caption = list(value = NULL),
                blanks = blanks )
   class(out) <- c("flextable")
 
@@ -124,7 +127,9 @@ qflextable <- function(data){
 
 #' @export
 #' @title Set Caption
-#' @description Set caption value in a flextable.
+#' @description Set caption value in a flextable. The function
+#' can also be used to define formattings that will be applied
+#' if possible to Word and HTML outputs.
 #'
 #' * The caption will be associated with a paragraph style when
 #' the output is Word. It can also be numbered as a auto-numbered
@@ -169,11 +174,11 @@ qflextable <- function(data){
 #' where 'Quarto' does not manage captions.
 #'
 #' knitr options are the same than those detailled in the R Markdown section (see upper),
-#' but be aware that 'Quarto' manage captions and related items can be overwritten by
-#' Quarto.
+#' but be aware that 'Quarto' manage captions and it can be overwrite what has
+#' been defined by flextable.
 #'
 #' @param x flextable object
-#' @param caption caption value
+#' @param caption caption value.
 #' @param autonum an autonum representation. See [officer::run_autonum()].
 #' This has only an effect when output is Word. If used, the caption is preceded
 #' by an auto-number sequence. In this case, the caption is preceded by an auto-number
@@ -181,6 +186,11 @@ qflextable <- function(data){
 #' @param word_stylename,style 'Word' style name to associate with caption paragraph. These names are available with
 #' function [officer::styles_info()] when output is Word. Argument `style`
 #' is deprecated in favor of `word_stylename`.
+#' @param fp_p paragraph formatting properties associated with the caption, see [fp_par()].
+#' It applies when possible, i.e. in HTML and 'Word' but not with bookdown.
+#' @param align_with_table if TRUE, caption is aligned as the flextable, if FALSE,
+#' `fp_p` will not be updated and alignement is as defined with `fp_p`.
+#' It applies when possible, i.e. in HTML and 'Word' but not with bookdown.
 #' @param html_classes css class(es) to apply to associate with caption paragraph
 #' when output is 'Word'.
 #' @param html_escape should HTML entities be escaped so that it can be safely
@@ -198,34 +208,49 @@ qflextable <- function(data){
 #' @importFrom officer run_autonum
 #' @importFrom htmltools htmlEscape
 #' @seealso [flextable()]
-set_caption <- function(
-    x,
-    caption,
-    autonum = NULL,
-    word_stylename = "Table Caption",
-    style = word_stylename,
-    html_classes = NULL,
-    html_escape = TRUE
-    ){
+set_caption <- function(x,
+                        caption = NULL,
+                        autonum = NULL,
+                        word_stylename = "Table Caption",
+                        style = word_stylename,
+                        fp_p = NULL,
+                        align_with_table = TRUE,
+                        html_classes = NULL,
+                        html_escape = TRUE) {
 
-  if( !inherits(x, "flextable") ) {
+  if (!inherits(x, "flextable")) {
     stop("set_caption supports only flextable objects.")
   }
 
-  if( !is.character(caption) && length(caption) != 1 ){
-    stop("caption should be a single character value")
-  }
-  if(html_escape){
-    caption <- htmlEscape(caption)
-  }
-  x$caption <- list(value = caption)
+  caption_value <- NULL
+  if (!is.null(caption) && !inherits(caption, "paragraph")) {
+    caption_value <- as_paragraph(as_chunk(caption, props = fp_text_default()))
+    caption_value <- caption_value[[1]]
+  } else if (!is.null(caption) && inherits(caption, "paragraph")) {
+    caption_value <- caption[[1]]
 
-  if(!is.null(autonum) && inherits(autonum, "run_autonum")){
+    by_columns <- c("font.size", "italic", "bold", "underlined", "color", "shading.color",
+                    "font.family", "hansi.family", "eastasia.family", "cs.family",
+                    "vertical.align")
+    default_fp_t <- fp_text_default()
+    for (j in by_columns){
+      caption_value[[j]][is.na(caption_value[[j]])] <- default_fp_t[[j]]
+    }
+  }
+  if (!is.null(caption)) {
+    caption_value <- expand_special_char(caption_value, what = "\n", with = "<br>")
+    caption_value <- expand_special_char(caption_value, what = "\t", with = "<tab>")
+  }
+
+  x$caption <- list(value = caption_value, align_with_table = align_with_table)
+
+  if (!is.null(autonum) && inherits(autonum, "run_autonum")) {
     x$caption$autonum <- autonum
   }
+  x$caption$fp_p <- fp_p
   x$caption$style <- style
   x$caption$word_stylename <- word_stylename
-  x$caption$html_classes <- paste(html_classes, collapse = " ")
+  x$caption$html_classes <- if(!is.null(html_classes)) paste(html_classes, collapse = " ") else NULL
 
   x
 }
@@ -242,4 +267,89 @@ set_caption <- function(
 #' @export
 regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
   flextable(data = data, col_keys = col_keys, cwidth = cwidth, cheight = cheight)
+}
+
+#' @importFrom officer table_layout table_width table_colwidths prop_table
+#' @export
+#' @title Global table properties
+#' @description Set table layout and table width. Default to fixed
+#' algorithm.
+#'
+#' If layout is fixed, column widths will be used to display the table;
+#' `width` is ignored.
+#'
+#' If layout is autofit, column widths will not be used;
+#' table width is used (as a percentage).
+#' @note
+#' PowerPoint output ignore 'autofit layout'.
+#' @param x flextable object
+#' @param layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
+#' @param width The parameter has a different effect depending on the
+#' output format. Users should consider it as a minimum width.
+#' In HTML, it is the minimum width of the space that the
+#' table should occupy. In Word, it is a preferred size and Word
+#' may decide not to strictly stick to it. It has no effect on
+#' PowerPoint and PDF output. Its default value is 0, as an effect, it
+#' only use necessary width to display all content. It is not used by the
+#' PDF output.
+#' @param word_title alternative text for Word table (used as title of the table)
+#' @param word_description alternative text for Word table (used as description of the table)
+#' @examples
+#' library(flextable)
+#' ft_1 <- flextable(head(cars))
+#' ft_1 <- autofit(ft_1)
+#' ft_2 <- set_table_properties(ft_1, width = .5, layout = "autofit")
+#' ft_3 <- set_table_properties(ft_1, width = 1, layout = "autofit")
+#' ft_2
+#' @family flextable dimensions
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_set_table_properties_1.png}{options: width="69"}}
+#'
+#' \if{html}{\figure{fig_set_table_properties_2.png}{options: width="256"}}
+#'
+#' \if{html}{\figure{fig_set_table_properties_3.png}{options: width="500"}}
+set_table_properties <- function(x, layout = "fixed", width = 0,
+                                 word_title = NULL,
+                                 word_description = NULL) {
+  stopifnot(`wrong layout value` = layout %in% c("fixed", "autofit"),
+            `width is not numeric` = is.numeric(width),
+            `width is > 1` = width <= 1)
+
+  if (!is.null(word_title)) {
+    stopifnot(
+      is.character(word_title),
+      length(word_title) == 1)
+    stopifnot(
+      is.character(word_description),
+      length(word_description) == 1)
+  }
+
+  x$properties <- list(
+    layout = layout,
+    width = width,
+    word_title = word_title,
+    word_description = word_description
+  )
+  x
+}
+
+
+#' @export
+knit_print.run_reference <- function(x, ...){
+  is_quarto <- isTRUE(knitr::opts_knit$get("quarto.version") > numeric_version("0"))
+  message(opts_knit$get("rmarkdown.pandoc.to"))
+  if(grepl( "docx", opts_knit$get("rmarkdown.pandoc.to")))
+    knit_print( asis_output(
+      paste("`", to_wml(x), "`{=openxml}", sep = "")
+    ) )
+  else if(is_quarto) {
+    knit_print( asis_output(
+      paste("@", x$id, sep = "")
+    ) )
+  } else {
+    knit_print( asis_output(
+      paste("\\@ref(tab:", x$id, ")", sep = "")
+    ) )
+  }
 }

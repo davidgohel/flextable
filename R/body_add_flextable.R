@@ -6,21 +6,13 @@
 #' @param align left, center (default) or right.
 #' @param split set to TRUE if you want to activate Word
 #' option 'Allow row to break across pages'.
-#' @param keepnext default `TRUE`. Word option 'keep rows
-#' together' is activated when TRUE. It avoids page break
-#' within tables. This is handy for small tables, i.e. less than
-#' a page height.
-#'
-#' Be careful, if you print long tables, you should
-#' rather set its value to `FALSE` to avoid that the tables
-#' also generate a page break before being placed in the
-#' Word document. Since Word will try to keep it with the **next
-#' paragraphs that follow the tables**.
+#' @param keepnext deprecated, keepnext is to to TRUE for captions
+#' on top of tables and FALSE for captions on bottom of tables
 #' @param pos where to add the flextable relative to the cursor,
 #' one of "after", "before", "on" (end of line).
 #' @param topcaption if TRUE caption is added before the table, if FALSE,
 #' caption is added after the table.
-#' @importFrom officer body_add_xml wml_link_images docx_reference_img block_caption
+#' @importFrom officer body_add_xml wml_link_images docx_reference_img
 #' @examples
 #' library(officer)
 #'
@@ -35,36 +27,51 @@
 #' fileout <- tempfile(fileext = ".docx")
 #' # fileout <- "test.docx" # uncomment to write in your working directory
 #' print(doc, target = fileout)
-body_add_flextable <- function( x, value, align = "center", pos = "after", split = FALSE,
-                                topcaption = TRUE,
-                                keepnext = TRUE) {
-
-  stopifnot(inherits(x, "rdocx"))
-  stopifnot(inherits(value, "flextable"))
+body_add_flextable <- function(x, value,
+                               align = "center",
+                               pos = "after",
+                               split = FALSE,
+                               topcaption = TRUE,
+                               keepnext = NULL) {
+  stopifnot(
+    inherits(x, "rdocx"),
+    inherits(value, "flextable")
+  )
 
   value <- flextable_global$defaults$post_process_docx(value)
 
-  if(topcaption && !is.null(value$caption$value)){
-    bc <- block_caption(label = value$caption$value,
-                        style = value$caption$style,
-                        autonum = value$caption$autonum)
-    x <- body_add_xml(x = x, str = to_wml(bc, base_document = x, add_ns = TRUE), pos = pos)
+  caption_str <- NULL
+  if (!is.null(value$caption$value)) {
+    if (topcaption) {
+      apply_cap_kwn <- TRUE
+    } else {
+      value <- keep_wn(value, part = "all", keep_with_next = TRUE)
+      apply_cap_kwn <- FALSE
+    }
+    caption_str <- caption_default_docx_openxml(
+      x = value,
+      align = align,
+      keep_with_next = apply_cap_kwn,
+      tab_props = list(),
+      allow_autonum = TRUE)
+    if("" %in% caption_str) caption_str <- NULL
   }
-  out <- docx_str(value, doc = x, align = align, split = split,
-                  keep_with_next = keepnext)
+
+  if (topcaption && !is.null(caption_str)) {
+    x <- body_add_xml(x = x, str = caption_str, pos = pos)
+  }
+  out <- docx_str(value,
+    doc = x, align = align, split = split,
+    keep_with_next = topcaption
+  )
 
   x <- body_add_xml(x = x, str = out, pos = pos)
 
-  if(!topcaption && !is.null(value$caption$value)){
-    bc <- block_caption(label = value$caption$value,
-                        style = value$caption$style,
-                        autonum = value$caption$autonum)
-    x <- body_add_xml(x = x, str = to_wml(bc, base_document = x, add_ns = TRUE), pos = pos)
+  if (!topcaption && !is.null(caption_str)) {
+    x <- body_add_xml(x = x, str = caption_str, pos = pos)
   }
 
   x
-
-
 }
 
 #' @export
