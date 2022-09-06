@@ -11,8 +11,10 @@
 
 ## new features
 
+- flextable now supports "Grid graphics" output format.
 - add support for paragraph settings (made with `fp_par()`) in captions with `set_caption()`.
-- captions are now made with `as_paragraph()`, their alignments and keep_with_next is computed
+- captions are now made with `as_paragraph()`
+- caption alignments and keep_with_next is now computed instead of being provided by user
 - alternative text for Word tables with word_title and word_description 
 by calling `set_table_properties()` or setting values to knitr chunk options `tab.alt.title` and `tab.alt.description`.
 

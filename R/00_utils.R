@@ -112,5 +112,5 @@ with_html_quotes <- function(x) {
   paste("```{=html}", x, "```\n\n", sep = "\n")
 }
 with_html_unquotes <- function(...) {
-  paste("\n\n``````\n", ..., "\n``````{=html}\n\n", sep = "\n")
+  paste("\n\n```\n", ..., "\n```{=html}\n\n", sep = "\n")
 }

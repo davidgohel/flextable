@@ -325,3 +325,23 @@ set_table_properties <- function(x, layout = "fixed", width = 0,
   )
   x
 }
+
+
+#' @export
+knit_print.run_reference <- function(x, ...){
+  is_quarto <- isTRUE(knitr::opts_knit$get("quarto.version") > numeric_version("0"))
+  message(opts_knit$get("rmarkdown.pandoc.to"))
+  if(grepl( "docx", opts_knit$get("rmarkdown.pandoc.to")))
+    knit_print( asis_output(
+      paste("`", to_wml(x), "`{=openxml}", sep = "")
+    ) )
+  else if(is_quarto) {
+    knit_print( asis_output(
+      paste("@", x$id, sep = "")
+    ) )
+  } else {
+    knit_print( asis_output(
+      paste("\\@ref(tab:", x$id, ")", sep = "")
+    ) )
+  }
+}

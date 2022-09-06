@@ -319,25 +319,29 @@ docx_value <- function(x,
   } else if (bookdown) {
     caption <- caption_bookdown_docx_md(x)
   } else if (quarto) {
-    # it is not managed by quarto yet, so no implementation
-    # is defined. To be implemented when quarto will be updated
-    caption <- ""
+    caption <- caption_default_docx_openxml(x, align = ft.align, keep_with_next = apply_cap_kwn, allow_autonum = TRUE)
   } else {
     caption <- caption_default_docx_openxml(x, align = ft.align, keep_with_next = apply_cap_kwn, allow_autonum = FALSE)
-    if (! "" %in% caption) {
-      caption <- with_openxml_quotes(caption)
-    }
   }
 
-  table_str <- with_openxml_quotes(
+  table_str <-
     docx_str(
       x = x, align = ft.align, split = ft.split,
-      keep_with_next = ft.keepnext))
+      keep_with_next = ft.keepnext)
+  if (bookdown) {
+    out <- c(
+      if(topcaption) caption,
+      with_openxml_quotes(table_str),
+      if(!topcaption) caption)
+  } else {
+    out <- with_openxml_quotes(
+      c(
+        if(topcaption) caption,
+        table_str,
+        if(!topcaption) caption)
+    )
+  }
 
-  out <- c(
-    if(topcaption) caption,
-    table_str,
-    if(!topcaption) caption)
 
   out
 }

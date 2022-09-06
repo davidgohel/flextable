@@ -68,13 +68,14 @@ caption_default_docx_openxml <- function(x, align = "center",
     return("")
   }
 
-  # tab_props$cap.style <- mcoalesce_options(x$caption$word_stylename, tab_props$cap.style, "Table Caption")
+  cap_style <- mcoalesce_options(x$caption$word_stylename, tab_props$cap.style, "Table Caption")
+  cap_style_id <- gsub("[^a-zA-Z0-9]", "", cap_style)
 
   p_pr <- ""
   if (!is.null(x$caption$fp_p)) {
     fp_p <- x$caption$fp_p
     fp_p <- update(fp_p,
-      style_id = "caption",
+      style_id = cap_style_id,
       text.align = align,
       keep_with_next = keep_with_next
     )
@@ -82,7 +83,7 @@ caption_default_docx_openxml <- function(x, align = "center",
   } else {
     p_pr <- paste0(
       "<w:pPr>",
-      sprintf("<w:pStyle w:val=\"%s\"/>", "caption"),
+      sprintf("<w:pStyle w:val=\"%s\"/>", cap_style_id),
       sprintf("<w:jc w:val=\"%s\"/>", align),
       if (keep_with_next) "<w:keepNext/>",
       "</w:pPr>"
@@ -98,7 +99,6 @@ caption_default_docx_openxml <- function(x, align = "center",
       autonum <- to_wml(run_autonum)
     }
   }
-
 
   caption_str <- paste0(
     c(
@@ -441,11 +441,12 @@ caption_as_latex_str <- function(caption_label) {
 
 get_word_autonum <- function(x, tab_props) {
   caption_id <- mcoalesce_options(x$caption$autonum$bookmark, tab_props$id)
-  caption_lp <- mcoalesce_options(
-    x$caption$autonum$seq_id,
-    if (!is.null(tab_props$tab.lp)) gsub(":$", "", tab_props$tab.lp) else NULL,
-    "tab"
-  )
+
+  if (!is.null(tab_props$tab.lp)) {
+    tab_props$tab.lp <- gsub(":$", "", tab_props$tab.lp)
+  }
+  caption_lp <- mcoalesce_options(x$caption$autonum$seq_id, tab_props$tab.lp, "tab")
+
   caption_pre_label <- mcoalesce_options(tab_props$cap.pre, x$caption$autonum$pre_label)
   caption_post_label <- mcoalesce_options(tab_props$cap.sep, x$caption$autonum$post_label)
   caption_tnd <- mcoalesce_options(tab_props$cap.tnd, x$caption$autonum$tnd)
