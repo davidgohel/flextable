@@ -921,7 +921,7 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL){
   for( i in seq_along(values) ){
     if(show_names){
       z <- body_add_par(z, titles[i], style = "heading 2" )
-    }
+    } else z <- body_add_par(z, "")
     z <- body_add_flextable(z, values[[i]] )
   }
   z <- body_set_default_section(z, pr_section)
@@ -1002,7 +1002,7 @@ save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot" ){
 #' and display the result in a new graphics window.
 #' @details
 #' \itemize{
-#'   \item method `grob`, uses method [as_grob()]
+#'   \item method `grob`, uses method [gen_grob()]
 #'   to convert the flextable into a grid graphics grob object.
 #'   \item method `webshot`, uses method [as_raster()]
 #'   to convert the flextable into a raster object.
@@ -1035,7 +1035,7 @@ plot.flextable <- function(x, method = c("grob", "webshot"), ...) {
       width = unit(1, "npc") - unit(10, "pt"),
       height = unit(1, "npc") - unit(10, "pt")
     ))
-    grid.draw(as_grob(x, ...))
+    grid.draw(gen_grob(x, ...))
     popViewport()
     invisible()
   }
