@@ -229,10 +229,10 @@ if(require("rmarkdown", quietly = TRUE)){
 }
 \seealso{
 Other flextable print function: 
-\code{\link{as_grob}()},
 \code{\link{as_raster}()},
 \code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
+\code{\link{gen_grob}()},
 \code{\link{htmltools_value}()},
 \code{\link{plot.flextable}()},
 \code{\link{print.flextable}()},

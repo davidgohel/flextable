@@ -19,6 +19,6 @@ according to the grob generation parameters.
 }
 \examples{
 ftab <- flextable(head(iris))
-gr <- as_grob(ftab)
+gr <- gen_grob(ftab)
 dim(gr)
 }

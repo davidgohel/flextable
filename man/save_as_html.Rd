@@ -48,10 +48,10 @@ save_as_html(
 }
 \seealso{
 Other flextable print function: 
-\code{\link{as_grob}()},
 \code{\link{as_raster}()},
 \code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
+\code{\link{gen_grob}()},
 \code{\link{htmltools_value}()},
 \code{\link{knit_print.flextable}()},
 \code{\link{plot.flextable}()},

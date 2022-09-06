@@ -19,7 +19,7 @@ and display the result in a new graphics window.
 }
 \details{
 \itemize{
-\item method \code{grob}, uses method \code{\link[=as_grob]{as_grob()}}
+\item method \code{grob}, uses method \code{\link[=gen_grob]{gen_grob()}}
 to convert the flextable into a grid graphics grob object.
 \item method \code{webshot}, uses method \code{\link[=as_raster]{as_raster()}}
 to convert the flextable into a raster object.
@@ -38,10 +38,10 @@ if( require("webshot") ){
 }
 \seealso{
 Other flextable print function: 
-\code{\link{as_grob}()},
 \code{\link{as_raster}()},
 \code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
+\code{\link{gen_grob}()},
 \code{\link{htmltools_value}()},
 \code{\link{knit_print.flextable}()},
 \code{\link{print.flextable}()},

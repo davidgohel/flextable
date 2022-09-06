@@ -11,7 +11,7 @@
 
 ## new features
 
-- flextable now supports "Grid graphics" output format.
+- flextable now supports "Grid graphics" output format. See `gen_grob()`.
 - add support for paragraph settings (made with `fp_par()`) in captions with `set_caption()`.
 - captions are now made with `as_paragraph()`
 - caption alignments and keep_with_next is now computed instead of being provided by user

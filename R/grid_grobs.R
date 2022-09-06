@@ -74,11 +74,11 @@
 #' @examples
 #' ft <- flextable(head(mtcars))
 #' ft <- autofit(ft)
-#' gr <- as_grob(ft)
+#' gr <- gen_grob(ft)
 #' if (interactive()) plot(gr)
 #' @family flextable print function
 #' @importFrom grid gTree
-as_grob <- function(x,
+gen_grob <- function(x,
                     ...,
                     fit = c("auto", "width", "fixed"),
                     scaling = c("min", "full", "fixed"),
@@ -381,7 +381,7 @@ plot.flextableGrob <- function(x, ...) {
 #' Values are expressed in inches.
 #' @examples
 #' ftab <- flextable(head(iris))
-#' gr <- as_grob(ftab)
+#' gr <- gen_grob(ftab)
 #' dim(gr)
 #' @export
 dim.flextableGrob <- function(x) {
