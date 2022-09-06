@@ -104,7 +104,7 @@ caption_default_docx_openxml <- function(x, align = "center",
 
   caption_str <- paste0(
     c(
-      "<w:p>",
+      wp_ns_yes,
       p_pr,
       autonum,
       caption_chunks_str,
