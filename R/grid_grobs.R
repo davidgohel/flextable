@@ -373,6 +373,21 @@ plot.flextableGrob <- function(x, ...) {
   invisible(x)
 }
 
+#' @title Get optimal width and height of a flextable grob
+#' @description returns the optimal width and height for the grob,
+#' according to the grob generation parameters.
+#' @param x a flextableGrob object
+#' @return a named list with two elements, `width` and `height`.
+#' Values are expressed in inches.
+#' @examples
+#' ftab <- flextable(head(iris))
+#' gr <- as_grob(ftab)
+#' dim(gr)
+#' @export
+dim.flextableGrob <- function(x) {
+  list(width = sum(x$ftpar$widths, na.rm = TRUE), height = sum(x$ftpar$heights, na.rm = TRUE))
+}
+
 # contents grob -----------------------------------------------------------
 
 #' @importFrom data.table is.data.table .GRP
