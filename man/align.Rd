@@ -6,7 +6,13 @@
 \alias{align_nottext_col}
 \title{Set text alignment}
 \usage{
-align(x, i = NULL, j = NULL, align = "left", part = "body")
+align(
+  x,
+  i = NULL,
+  j = NULL,
+  align = c("left", "center", "right", "justify"),
+  part = "body"
+)
 
 align_text_col(x, align = "left", header = TRUE, footer = TRUE)
 
