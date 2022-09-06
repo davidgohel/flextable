@@ -459,8 +459,8 @@ get_word_autonum <- function(x, tab_props) {
   caption_tns <- mcoalesce_options(tab_props$cap.tns, x$caption$autonum$tns)
 
 
-  if(!is.null(tab_props$cap.fp_text)) caption_fp_text <- tab_props$cap.fp_text
-  else if(!is.null(x$caption$autonum$pr)) caption_fp_text <- x$caption$autonum$pr
+  if(!is.null(x$caption$autonum$pr)) caption_fp_text <- x$caption$autonum$pr
+  else if(!is.null(tab_props$cap.fp_text)) caption_fp_text <- tab_props$cap.fp_text
   else caption_fp_text <- fp_text_default()
 
   autonum <- NULL
