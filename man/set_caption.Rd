@@ -11,6 +11,7 @@ set_caption(
   word_stylename = "Table Caption",
   style = word_stylename,
   fp_p = NULL,
+  align_with_table = TRUE,
   html_classes = NULL,
   html_escape = TRUE
 )
@@ -30,7 +31,11 @@ function \code{\link[officer:styles_info]{officer::styles_info()}} when output i
 is deprecated in favor of \code{word_stylename}.}
 
 \item{fp_p}{paragraph formatting properties associated with the caption, see \code{\link[=fp_par]{fp_par()}}.
-It applies when possible, i.e. in HTML and with \code{\link[rmarkdown:word_document]{rmarkdown::word_document()}}.}
+It applies when possible, i.e. in HTML and 'Word' but not with bookdown.}
+
+\item{align_with_table}{if TRUE, caption is aligned as the flextable, if FALSE,
+\code{fp_p} will not be updated and alignement is as defined with \code{fp_p}.
+It applies when possible, i.e. in HTML and 'Word' but not with bookdown.}
 
 \item{html_classes}{css class(es) to apply to associate with caption paragraph
 when output is 'Word'.}

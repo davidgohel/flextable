@@ -74,12 +74,14 @@ caption_default_docx_openxml <- function(x, align = "center",
   p_pr <- ""
   if (!is.null(x$caption$fp_p)) {
     fp_p <- x$caption$fp_p
+    if (x$caption$align_with_table) {
+      fp_p <- update(fp_p, text.align = align)
+    }
     fp_p <- update(fp_p,
-      style_id = cap_style_id,
-      text.align = align,
+      word_style_id = cap_style_id,
       keep_with_next = keep_with_next
     )
-    p_pr <- format(x$caption$fp_p, type = "wml")
+    p_pr <- format(fp_p, type = "wml")
   } else {
     p_pr <- paste0(
       "<w:pPr>",
@@ -102,7 +104,7 @@ caption_default_docx_openxml <- function(x, align = "center",
 
   caption_str <- paste0(
     c(
-      wp_ns_yes,
+      "<w:p>",
       p_pr,
       autonum,
       caption_chunks_str,
@@ -217,7 +219,7 @@ caption_bookdown_html <- function(x) {
 
 
 
-caption_default_html <- function(x) {
+caption_default_html <- function(x, align = "center") {
   tab_props <- opts_current_table()
 
   reference_label <- ""
@@ -230,7 +232,11 @@ caption_default_html <- function(x) {
 
   inline_css <- ""
   if (!is.null(x$caption$fp_p)) {
-    inline_css <- sprintf(" style=\"%s\"", format(x$caption$fp_p, type = "html"))
+    fp_p <- x$caption$fp_p
+    if (x$caption$align_with_table) {
+      fp_p <- update(fp_p, text.align = align)
+    }
+    inline_css <- sprintf(" style=\"%s\"", format(fp_p, type = "html"))
   }
 
   caption_class <- tab_props$style

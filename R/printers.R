@@ -19,7 +19,7 @@
 #' @importFrom htmltools tagList
 htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE, ft.htmlscroll = TRUE) {
   x <- flextable_global$defaults$post_process_html(x)
-  caption <- caption_default_html(x)
+  caption <- caption_default_html(x, align = ft.align)
   manual_css <- attr(caption, "css")
   html_o <- tagList(
     flextable_html_dependency(htmlscroll = ft.htmlscroll),
@@ -234,7 +234,7 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
   } else if (quarto) {
     caption_str <- caption_quarto_html(x)
   } else {
-    caption_str <- caption_default_html(x)
+    caption_str <- caption_default_html(x, align = ft.align)
     manual_css <- attr(caption_str, "css")
   }
 
@@ -484,7 +484,7 @@ print.flextable <- function(x, preview = "html", ...){
     cat("original dataset sample:", "\n")
     print(x$body$dataset[seq_len( min(c(5, nrow(x$body$dataset) ) ) ), ])
   } else  if( preview == "html" ){
-    print( browsable( htmltools_value(x) ) )
+    print( browsable( htmltools_value(x, ft.shadow = FALSE) ) )
   } else if( preview == "pptx" ){
     doc <- read_pptx()
     doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
@@ -788,7 +788,7 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
     }
     values[[i]] <- flextable_global$defaults$post_process_html(values[[i]])
 
-    caption <- caption_default_html(values[[i]])
+    caption <- caption_default_html(values[[i]], align = "center")
     manual_css <- attr(caption, "css")
 
     txt[2] <- html_str(values[[i]],

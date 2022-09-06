@@ -187,7 +187,10 @@ qflextable <- function(data){
 #' function [officer::styles_info()] when output is Word. Argument `style`
 #' is deprecated in favor of `word_stylename`.
 #' @param fp_p paragraph formatting properties associated with the caption, see [fp_par()].
-#' It applies when possible, i.e. in HTML and with [rmarkdown::word_document()].
+#' It applies when possible, i.e. in HTML and 'Word' but not with bookdown.
+#' @param align_with_table if TRUE, caption is aligned as the flextable, if FALSE,
+#' `fp_p` will not be updated and alignement is as defined with `fp_p`.
+#' It applies when possible, i.e. in HTML and 'Word' but not with bookdown.
 #' @param html_classes css class(es) to apply to associate with caption paragraph
 #' when output is 'Word'.
 #' @param html_escape should HTML entities be escaped so that it can be safely
@@ -211,6 +214,7 @@ set_caption <- function(x,
                         word_stylename = "Table Caption",
                         style = word_stylename,
                         fp_p = NULL,
+                        align_with_table = TRUE,
                         html_classes = NULL,
                         html_escape = TRUE) {
 
@@ -234,7 +238,7 @@ set_caption <- function(x,
     }
   }
 
-  x$caption <- list(value = caption_value)
+  x$caption <- list(value = caption_value, align_with_table = align_with_table)
 
   if (!is.null(autonum) && inherits(autonum, "run_autonum")) {
     x$caption$autonum <- autonum
@@ -242,7 +246,7 @@ set_caption <- function(x,
   x$caption$fp_p <- fp_p
   x$caption$style <- style
   x$caption$word_stylename <- word_stylename
-  x$caption$html_classes <- paste(html_classes, collapse = " ")
+  x$caption$html_classes <- if(!is.null(html_classes)) paste(html_classes, collapse = " ") else NULL
 
   x
 }
