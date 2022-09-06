@@ -237,6 +237,10 @@ set_caption <- function(x,
       caption_value[[j]][is.na(caption_value[[j]])] <- default_fp_t[[j]]
     }
   }
+  if (!is.null(caption)) {
+    caption_value <- expand_special_char(caption_value, what = "\n", with = "<br>")
+    caption_value <- expand_special_char(caption_value, what = "\t", with = "<tab>")
+  }
 
   x$caption <- list(value = caption_value, align_with_table = align_with_table)
 
