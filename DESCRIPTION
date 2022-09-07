@@ -5,15 +5,16 @@ Version: 0.7.4.017
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
-    person("Clementine", "Jager", role = c("ctb")),
-    person("Panagiotis", "Skintzos", role = c("aut"), email = "panagiotis.skintzos@ardata.fr"),
-    person("Quentin", "Fazilleau", role = c("ctb")),
-    person("Maxim", "Nazarov", role = c("ctb"), comment = "rmarkdown for docx output"),
-    person(given = "Titouan", family = "Robert", role = c("ctb")),
-    person(given = "Michael", family = "Barrowman", role = c("ctb"), comment = "inline footnotes"),
-    person(given = "Atsushi", family = "Yasumoto", role = c("ctb"), comment = "support for bookdown cross reference"),
-    person(given = "Paul", family = "Julian", role = c("ctb"), comment = "support for gam objects"),
-    person(given = "Sean", family = "Browning", role = c("ctb"), comment = "work on footnote positioning system")
+    person("Clementine", "Jager", role = "ctb"),
+    person("Panagiotis", "Skintzos", role = "aut", email = "panagiotis.skintzos@ardata.fr"),
+    person("Quentin", "Fazilleau", role = "ctb"),
+    person("Maxim", "Nazarov", role = "ctb", comment = "rmarkdown for docx output"),
+    person("Titouan", "Robert", role = "ctb"),
+    person("Michael", "Barrowman", role = "ctb", comment = "inline footnotes"),
+    person("Atsushi", "Yasumoto", role = "ctb", comment = "support for bookdown cross reference"),
+    person("Paul", "Julian", role = "ctb", comment = "support for gam objects"),
+    person("Sean", "Browning", role = "ctb", comment = "work on footnote positioning system"),
+    person("Rémi", "Thériault", role = "ctb", comment = c(ORCID = "0000-0003-4315-6788", ctb = "theme_apa"))
     )
 Description: Create pretty tables for 'HTML', 'PDF', 'Microsoft Word' and 'Microsoft PowerPoint' 
   documents from 'R Markdown'. Functions are provided to let users create tables, modify and format 

@@ -372,3 +372,35 @@ theme_booktabs <- function(x, bold_header = FALSE, ...) {
   x <- align_nottext_col(x, align = "right", header = TRUE)
   fix_border_issues(x)
 }
+
+#' @export
+#' @title Apply APA theme
+#' @description Apply theme APA (the stylistic style of the American
+#'              Psychological Association) to a flextable
+#' @param x a flextable object
+#' @param ... unused
+#' @family functions related to themes
+#' @inheritSection theme_vanilla behavior
+#' @examples
+#' ft <- flextable(head(mtcars*22.22))
+#' ft <- theme_apa(ft)
+#' ft
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{fig_theme_apa_1.png}{options: width="400"}}
+theme_apa <- function(x, ...) {
+  if (!inherits(x, "flextable")) {
+    stop("theme_apa supports only flextable objects.")
+  }
+  apa.border <- list("width" = 1, color = "black", style = "solid")
+  x <- font(x, part = "all", fontname = "Times New Roman")
+  x <- line_spacing(x, space = 2, part = "all")
+  x <- hline_top(x, part = "head", border = apa.border)
+  x <- hline_bottom(x, part = "head", border = apa.border)
+  x <- hline_top(x, part = "body", border = apa.border)
+  x <- hline_bottom(x, part = "body", border = apa.border)
+  x <- align(x, align = "center", part = "all")
+  x <- valign(x, valign = "center", part = "all")
+  x <- colformat_double(x, digits = 2)
+  fix_border_issues(x)
+}

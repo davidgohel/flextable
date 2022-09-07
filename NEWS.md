@@ -21,6 +21,7 @@ by calling `set_table_properties()` or setting values to knitr chunk options `ta
 - Word and HTML captions paragraphs settings can be defined by using `set_caption()`. 
 The alignment of the paragraph can be different from the alignment of the table 
 with the argument `align_with_table=FALSE`.
+- new theme 'APA', `theme_apa` (@rempsyc #426)
 
 # flextable 0.7.3
 
