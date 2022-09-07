@@ -171,3 +171,9 @@ navbar:
     href: reference/index.html
   - text: User Documentation
     href: https://ardata-fr.github.io/flextable-book/
+
+authors:
+  David Gohel:
+    href: https://www.ardata.fr
+  Rémi Thériault:
+    href: https://remi-theriault.com
