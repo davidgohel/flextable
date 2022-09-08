@@ -387,7 +387,7 @@ theme_booktabs <- function(x, bold_header = FALSE, ...) {
 #' ft
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{fig_theme_apa_1.png}{options: width="400"}}
+#' \if{html}{\figure{fig_theme_apa_1.png}{options: width="500"}}
 theme_apa <- function(x, ...) {
   if (!inherits(x, "flextable")) {
     stop("theme_apa supports only flextable objects.")

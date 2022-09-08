@@ -18,7 +18,7 @@ Psychological Association) to a flextable
 \section{Illustrations}{
 
 
-\if{html}{\figure{fig_theme_apa_1.png}{options: width="400"}}
+\if{html}{\figure{fig_theme_apa_1.png}{options: width="500"}}
 }
 
 \section{behavior}{
