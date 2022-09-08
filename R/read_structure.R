@@ -50,14 +50,16 @@ fortify_style <- function(x, style_part = "pars") {
 #' @title fortify width
 #' @description create a data.frame with width information.
 fortify_width <- function(x) {
-  dat <- NULL
+  dat <- list()
   for (part in c("header", "body", "footer")) {
     nr <- nrow_part(x, part)
     if (nr > 0) {
-      dat <- data.frame(col_id = x$col_keys, width = x[[part]]$colwidths, stringsAsFactors = FALSE)
-      break
+      dat[[part]] <- data.frame(col_id = x$col_keys, width = x[[part]]$colwidths, stringsAsFactors = FALSE)
     }
   }
+  dat <- data.table::rbindlist(dat)
+  dat <- dat[, list(width = safe_stat(.SD$width, FUN = max )), by = "col_id"]
+  setDF(dat)
   dat$col_id <- factor(dat$col_id, levels = x$col_keys)
   setorderv(dat, cols = c("col_id"))
 

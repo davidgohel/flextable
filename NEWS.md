@@ -9,6 +9,7 @@
 - fix missing caption with rmarkdown pdf output
 - fix first horizontal borders repeated issue with Word output
 - add empty paragraphs between tables in `save_as_docx()` to avoid Word confusion
+- fix `fortify_width()` calculation
 
 ## new features
 
