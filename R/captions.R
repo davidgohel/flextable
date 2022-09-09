@@ -1,6 +1,6 @@
 # Word ----
 #' @importFrom officer run_bookmark ftext
-caption_bookdown_docx_md <- function(x) {
+caption_bookdown_docx_md <- function(x, tab_props = opts_current_table()) {
   # for bookdown::word_document2.
   # 'bookdown' wants a table reference as (#tab:bookmark) to enable cross-references
   # in a non raw block. It is then only possible to format chunk of text but
@@ -14,7 +14,6 @@ caption_bookdown_docx_md <- function(x) {
   # Table captions formattings should be defined in the reference_docx file
   # and ft.align should be defined with the same value than the alignement
   # of the 'Table caption' paragraph properties
-  tab_props <- opts_current_table()
 
   tab_props$id <- mcoalesce_options(x$caption$autonum$bookmark, tab_props$id, opts_current$get("label"))
   tab_props$cap.style <- mcoalesce_options(x$caption$style, tab_props$cap.style)
@@ -78,7 +77,7 @@ caption_default_docx_openxml <- function(x, align = "center",
       fp_p <- update(fp_p, text.align = align)
     }
     fp_p <- update(fp_p,
-      word_style_id = cap_style_id,
+      word_style = cap_style,
       keep_with_next = keep_with_next
     )
     p_pr <- format(fp_p, type = "wml")
@@ -115,8 +114,7 @@ caption_default_docx_openxml <- function(x, align = "center",
   caption_str
 }
 
-caption_default_rdocx_md <- function(x) {
-  tab_props <- opts_current_table()
+caption_default_rdocx_md <- function(x, tab_props = opts_current_table()) {
 
   tab_props$id <- mcoalesce_options(x$caption$autonum$bookmark, tab_props$id, opts_current$get("label"))
   tab_props$cap.style <- mcoalesce_options(x$caption$style, tab_props$cap.style)
@@ -157,7 +155,7 @@ caption_default_rdocx_md <- function(x) {
 
 
 
-caption_bookdown_html <- function(x) {
+caption_bookdown_html <- function(x, tab_props = opts_current_table()) {
   # for bookdown::html_document2.
   # 'bookdown' wants a table reference as (#tab:bookmark) to enable cross-references
   # in a non raw block. It is then only possible to format chunk of text but
@@ -171,7 +169,6 @@ caption_bookdown_html <- function(x) {
   # Table captions formattings should be defined in the reference_docx file
   # and ft.align should be defined with the same value than the alignement
   # of the 'Table caption' paragraph properties
-  tab_props <- opts_current_table()
 
   reference_label <- ""
 
@@ -219,8 +216,8 @@ caption_bookdown_html <- function(x) {
 
 
 
-caption_default_html <- function(x, align = "center") {
-  tab_props <- opts_current_table()
+caption_default_html <- function(x, align = "center",
+                                 tab_props = opts_current_table()) {
 
   reference_label <- ""
 
@@ -275,8 +272,7 @@ caption_default_html <- function(x, align = "center") {
   caption_str
 }
 
-caption_quarto_html <- function(x) {
-  tab_props <- opts_current_table()
+caption_quarto_html <- function(x, align = "center", tab_props = opts_current_table()) {
 
   caption_class <- tab_props$style
   if (!is.null(x$caption$html_classes)) {
@@ -291,7 +287,11 @@ caption_quarto_html <- function(x) {
 
   inline_css <- ""
   if (!is.null(x$caption$fp_p)) {
-    inline_css <- sprintf(" style=\"%s\"", format(x$caption$fp_p, type = "html"))
+    fp_p <- x$caption$fp_p
+    if (x$caption$align_with_table) {
+      fp_p <- update(fp_p, text.align = align)
+    }
+    inline_css <- sprintf(" style=\"%s\"", format(fp_p, type = "html"))
   }
 
   caption_str <- ""
@@ -305,8 +305,7 @@ caption_quarto_html <- function(x) {
 
 
 
-caption_quarto_latex <- function(x) {
-  tab_props <- opts_current_table()
+caption_quarto_latex <- function(x, tab_props = opts_current_table()) {
   caption_label <- tab_props$cap
   has_caption_label <- !is.null(caption_label)
   caption_str <- ""
@@ -330,8 +329,7 @@ caption_default_latex <- function(x, tab_props = opts_current_table()) {
   caption
 }
 
-caption_bookdown_latex <- function(x) {
-  tab_props <- opts_current_table()
+caption_bookdown_latex <- function(x, tab_props = opts_current_table()) {
 
   if (!has_caption(x, knitr_caption = tab_props$cap)) {
     return("")

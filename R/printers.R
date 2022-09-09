@@ -229,12 +229,12 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
   topcaption <- tab_props$topcaption
   manual_css <- ""
   if (bookdown) {
-    caption_str <- caption_bookdown_html(x)
+    caption_str <- caption_bookdown_html(x, tab_props = tab_props)
     manual_css <- attr(caption_str, "css")
   } else if (quarto) {
-    caption_str <- caption_quarto_html(x)
+    caption_str <- caption_quarto_html(x, align = ft.align, tab_props = tab_props)
   } else {
-    caption_str <- caption_default_html(x, align = ft.align)
+    caption_str <- caption_default_html(x, align = ft.align, tab_props = tab_props)
     manual_css <- attr(caption_str, "css")
   }
 
@@ -315,11 +315,14 @@ docx_value <- function(x,
 
 
   if (is_rdocx_document) {
-    caption <- caption_default_rdocx_md(x)
+    caption <- caption_default_rdocx_md(x, tab_props = tab_props)
   } else if (bookdown) {
-    caption <- caption_bookdown_docx_md(x)
+    caption <- caption_bookdown_docx_md(x, tab_props = tab_props)
   } else if (quarto) {
-    caption <- caption_default_docx_openxml(x, align = ft.align, keep_with_next = apply_cap_kwn, allow_autonum = TRUE)
+    caption <- caption_default_docx_openxml(x, align = ft.align,
+                                            tab_props = tab_props,
+                                            keep_with_next = apply_cap_kwn,
+                                            allow_autonum = TRUE)
   } else {
     caption <- caption_default_docx_openxml(x, align = ft.align, keep_with_next = apply_cap_kwn, allow_autonum = FALSE)
   }
@@ -401,9 +404,9 @@ latex_value <- function(x,
   tab_props <- opts_current_table()
   topcaption <- tab_props$topcaption
   if (quarto) {
-    caption_str <- caption_quarto_latex(x)
+    caption_str <- caption_quarto_latex(x, tab_props = tab_props)
   } else if (bookdown) {
-    caption_str <- caption_bookdown_latex(x)
+    caption_str <- caption_bookdown_latex(x, tab_props = tab_props)
   } else {
     caption_str <- caption_default_latex(x, tab_props = tab_props)
   }
