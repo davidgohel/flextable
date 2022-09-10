@@ -35,6 +35,13 @@ clinical trial analysis ready to be used by `tabulator()`.
 - `as_image()` don't need anymore parameters `width` and 
 `height` if package 'magick' is available.
 
+## Changes
+
+- `plot.flextable` now default to *grid Graphics*. It produce a plot object 
+that can be used with packages 'ggplot2', 'patchwork' and 'cowplot'. The raster 
+version made with 'webshot' and 'magick' pachages is still available, use `plot(..., method = "webshot")`. 
+
+
 ## Issues
 
 - fix top borders correction (for docx and pptx)

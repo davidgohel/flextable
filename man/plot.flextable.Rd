@@ -11,7 +11,8 @@
 
 \item{method}{the method to use for the plot, one of \code{grob} or \code{webshot}}
 
-\item{...}{additional arguments passed to other functions}
+\item{...}{additional arguments passed to \code{\link[=gen_grob]{gen_grob()}} if method is 'grob'
+and passed to \code{\link[=as_raster]{as_raster()}} if method is 'webshot'.}
 }
 \description{
 plots a flextable, either as a grid grob object or as a raster image

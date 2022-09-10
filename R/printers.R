@@ -473,12 +473,13 @@ pptx_value <- function(x, ft.left = opts_current$get("ft.left"),
 #' @param x flextable object
 #' @param preview preview type, one of c("html", "pptx", "docx", "pdf, "log").
 #' When `"log"` is used, a description of the flextable is printed.
+#' @param align left, center (default) or right. Only for docx/html/pdf.
 #' @param ... arguments for 'pdf_document' call when preview is "pdf".
 #' @family flextable print function
 #' @importFrom utils browseURL
 #' @importFrom rmarkdown render pdf_document
 #' @importFrom officer read_pptx add_slide read_docx
-print.flextable <- function(x, preview = "html", ...){
+print.flextable <- function(x, preview = "html", align = "center", ...){
   if (!interactive() || "log" %in% preview ){
     cat("a flextable object.\n")
     cat( "col_keys:", paste0("`", x$col_keys, "`", collapse = ", " ), "\n" )
@@ -487,7 +488,7 @@ print.flextable <- function(x, preview = "html", ...){
     cat("original dataset sample:", "\n")
     print(x$body$dataset[seq_len( min(c(5, nrow(x$body$dataset) ) ) ), ])
   } else  if( preview == "html" ){
-    print( browsable( htmltools_value(x, ft.shadow = FALSE) ) )
+    print( browsable( htmltools_value(x, ft.shadow = FALSE, ft.align = align) ) )
   } else if( preview == "pptx" ){
     doc <- read_pptx()
     doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
@@ -496,12 +497,12 @@ print.flextable <- function(x, preview = "html", ...){
     browseURL(file_out)
   } else if( preview == "docx" ){
     doc <- read_docx()
-    doc <- body_add_flextable(doc, value = x, align = "center")
+    doc <- body_add_flextable(doc, value = x, align = align)
     file_out <- print(doc, target = tempfile(fileext = ".docx"))
     browseURL(file_out)
   } else if( preview == "pdf" ){
     rmd <- tempfile(fileext = ".Rmd")
-    cat("```{r echo=FALSE}\nx\n```\n", file = rmd)
+    cat(sprintf("```{r echo=FALSE, ft.align=\"%s\"}\nx\n```\n", align), file = rmd)
     render(rmd, output_format = pdf_document(...), quiet = TRUE)
     file_out <- gsub("\\.Rmd$", ".pdf", rmd)
     browseURL(file_out)
@@ -875,6 +876,7 @@ save_as_pptx <- function(..., values = NULL, path){
 #' @param path Word file to be created
 #' @param pr_section a [prop_section] object that can be used to define page
 #' layout such as orientation, width and height.
+#' @param align left, center (default) or right.
 #' @examples
 #'
 #' tf <- tempfile(fileext = ".docx")
@@ -896,7 +898,7 @@ save_as_pptx <- function(..., values = NULL, path){
 #' @family flextable print function
 #' @importFrom officer body_add_par prop_section body_set_default_section
 #'   page_size page_mar
-save_as_docx <- function(..., values = NULL, path, pr_section = NULL){
+save_as_docx <- function(..., values = NULL, path, pr_section = NULL, align = "center"){
 
   if( is.null(values) ){
     values <- list(...)
@@ -925,7 +927,7 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL){
     if(show_names){
       z <- body_add_par(z, titles[i], style = "heading 2" )
     } else z <- body_add_par(z, "")
-    z <- body_add_flextable(z, values[[i]] )
+    z <- body_add_flextable(z, values[[i]], align = align)
   }
   z <- body_set_default_section(z, pr_section)
   print(z, target = path )
@@ -1014,7 +1016,8 @@ save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot" ){
 #'
 #' @param x a flextable object
 #' @param method the method to use for the plot, one of `grob` or `webshot`
-#' @param ... additional arguments passed to other functions
+#' @param ... additional arguments passed to [gen_grob()] if method is 'grob'
+#' and passed to [as_raster()] if method is 'webshot'.
 #' @examples
 #' ftab <- flextable( head( mtcars ) )
 #' ftab <- autofit(ftab)
@@ -1033,7 +1036,7 @@ plot.flextable <- function(x, method = c("grob", "webshot"), ...) {
     plot(as_raster(x, ...))
   } else {
     grid.newpage()
-    # leave a 10pt margin around the plot
+    # leave a 5pt margin around the plot
     pushViewport(viewport(
       width = unit(1, "npc") - unit(10, "pt"),
       height = unit(1, "npc") - unit(10, "pt")

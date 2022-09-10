@@ -4,13 +4,15 @@
 \alias{print.flextable}
 \title{flextable printing}
 \usage{
-\method{print}{flextable}(x, preview = "html", ...)
+\method{print}{flextable}(x, preview = "html", align = "center", ...)
 }
 \arguments{
 \item{x}{flextable object}
 
 \item{preview}{preview type, one of c("html", "pptx", "docx", "pdf, "log").
 When \code{"log"} is used, a description of the flextable is printed.}
+
+\item{align}{left, center (default) or right. Only for docx/html/pdf.}
 
 \item{...}{arguments for 'pdf_document' call when preview is "pdf".}
 }

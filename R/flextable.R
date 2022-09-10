@@ -140,6 +140,32 @@ qflextable <- function(data){
 #' a shape to contain the caption (technically it can't be in the
 #' PowerPoint shape containing the table).
 #'
+#' When working with 'R Markdown' or 'Quarto', the caption settings
+#' defined with `set_caption()` will be prioritized over knitr chunk options.
+#'
+#' @details
+#' The values defined by `set_caption()` will be preferred when possible, i.e. the
+#' caption ID, the associated paragraph style, etc. Why specify "where possible"?
+#' Because the principles differ from tool to tool. Here is what we have noticed
+#' and tried to respect (if you think we are wrong, let us know):
+#'
+#' - Word and HTML documents made with 'rmarkdown', i.e. with `rmarkdown::word_document()`
+#' and `rmarkdown::html_document()` are not supposed to have numbered and cross-referenced captions.
+#' - PDF documents made with 'rmarkdown' `rmarkdown::pdf_document()` automatically add numbers
+#' before the caption.
+#' - Word and HTML documents made with 'bookdown' are supposed to have numbered and
+#' cross-referenced captions. This is achieved by 'bookdown' but for technical reasons,
+#' the caption must not be defined in an HTML or XML block. So with flextable we lose
+#' the ability to format the caption content; surprisingly this is not the case with PDF.
+#' - HTML and PDF documents created with Quarto will manage captions and cross-references
+#' differently; Quarto will replace captions with `tbl-cap` and `label` values.
+#' - Word documents made with Quarto are another specific case, Quarto does not
+#' inject captions from the `tbl-cap` and `label` values. This is a temporary
+#' situation that should evolve later. flextable' will evolve according to the
+#' evolution of Quarto.
+#'
+#' Using officer enable all options specified with `set_caption()`.
+#'
 #' @section R Markdown:
 #'
 #' flextable captions can be defined from R Markdown documents by using
@@ -171,11 +197,12 @@ qflextable <- function(data){
 #'
 #' 'Quarto' manage captions and cross-references instead of flextable. That's why
 #' `set_caption()` is not useful in a 'Quarto' document except for Word documents
-#' where 'Quarto' does not manage captions.
+#' where 'Quarto' does not manage captions yet (when output is raw xml which is the
+#' case for flextable).
 #'
-#' knitr options are the same than those detailled in the R Markdown section (see upper),
+#' knitr options are almost the same than those detailled in the R Markdown section (see upper),
 #' but be aware that 'Quarto' manage captions and it can be overwrite what has
-#' been defined by flextable.
+#' been defined by flextable. See Quarto documentation for more information.
 #'
 #' @param x flextable object
 #' @param caption caption value.

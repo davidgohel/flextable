@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.7.4.019
+Version: 0.7.4.020
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -16,14 +16,14 @@ Authors@R: c(
     person("Sean", "Browning", role = "ctb", comment = "work on footnote positioning system"),
     person("Rémi", "Thériault", role = "ctb", comment = c(ORCID = "0000-0003-4315-6788", ctb = "theme_apa"))
     )
-Description: Create pretty tables for 'HTML', 'PDF', 'Microsoft Word' and 'Microsoft PowerPoint' 
-  documents from 'R Markdown'. Functions are provided to let users create tables, modify and format 
-  their content. It also extends package 'officer' that does not contain any feature for customized 
-  tabular reporting.
+Description: Create pretty tables for 'HTML', 'PDF', 'Microsoft Word', 'Microsoft PowerPoint'
+  documents from 'R Markdown' and as 'Grid Graphics' objects. Functions are provided to let users 
+  create tables, modify and format their content. It also extends package 'officer' that does 
+  not contain any feature for customized tabular reporting.
 License: GPL-3
 Imports:
     stats, utils, grDevices, graphics,
-    officer (>= 0.4.4.010),
+    officer (>= 0.4.4),
     rmarkdown, knitr, htmltools,
     xml2, data.table (>= 1.13.0), uuid (>= 0.1-4),
     gdtools (>= 0.1.6), rlang, 

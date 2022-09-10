@@ -10,11 +10,23 @@
 #' it can also be used with package 'patchwork' or 'cowplot' to combine
 #' ggplots and flextables into the same graphic.
 #'
+#' User can vary the size of the elements according to the size of the graphic window. The text
+#' behavior is controllable, user can decide to make the paragraphs (texts and images)
+#' distribute themselves correctly in the available space of the cell. It is possible
+#' to define resizing options, for example by using only the width, or by distributing
+#' the content so that it occupies the whole graphic space. It is also possible to
+#' freeze or not the size of the columns.
+#'
 #' It is not recommended to use this function for
 #' large tables because the calculations can be long.
 #'
-#' Equations (see [as_equation()]) and hyperlinks (see [hyperlink_ftext()])
+#' Limitations: equations (see [as_equation()]) and hyperlinks (see [hyperlink_ftext()])
 #' will not be displayed.
+#'
+#' @section size:
+#'
+#' The size of the flextable can be known by using the method
+#' \link[=dim.flextableGrob]{dim} on the grob.
 #'
 #' @param x A flextable object
 #'
@@ -76,6 +88,16 @@
 #' ft <- autofit(ft)
 #' gr <- gen_grob(ft)
 #' if (interactive()) plot(gr)
+#'
+#' # get the size
+#' dims <- dim(gr)
+#' dims
+#' # svglite::svglite(filename = "hello-grid-graphics.svg",
+#' #   width = dims$width + .1,
+#' #   height = dims$height + .1)
+#' # gr <- gen_grob(ft, scaling = "fixed", fit = "fixed", just = "center")
+#' # plot(gr)
+#' # dev.off()
 #' @family flextable print function
 #' @importFrom grid gTree
 gen_grob <- function(x,
