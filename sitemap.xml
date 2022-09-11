@@ -208,6 +208,9 @@
     <loc>/reference/dim.flextable.html</loc>
   </url>
   <url>
+    <loc>/reference/dim.flextableGrob.html</loc>
+  </url>
+  <url>
     <loc>/reference/dim_pretty.html</loc>
   </url>
   <url>
@@ -256,6 +259,9 @@
     <loc>/reference/fp_text_default.html</loc>
   </url>
   <url>
+    <loc>/reference/gen_grob.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_flextable_defaults.html</loc>
   </url>
   <url>
@@ -298,6 +304,9 @@
     <loc>/reference/knit_print.flextable.html</loc>
   </url>
   <url>
+    <loc>/reference/labelizor.html</loc>
+  </url>
+  <url>
     <loc>/reference/line_spacing.html</loc>
   </url>
   <url>
@@ -338,6 +347,9 @@
   </url>
   <url>
     <loc>/reference/plot.flextable.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot.flextableGrob.html</loc>
   </url>
   <url>
     <loc>/reference/plot_chunk.html</loc>
@@ -410,6 +422,9 @@
   </url>
   <url>
     <loc>/reference/theme_alafoli.html</loc>
+  </url>
+  <url>
+    <loc>/reference/theme_apa.html</loc>
   </url>
   <url>
     <loc>/reference/theme_booktabs.html</loc>

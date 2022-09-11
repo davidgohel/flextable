@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
       </span>
     </div>
 
@@ -60,7 +60,7 @@
 <span>  pos <span class="op">=</span> <span class="st">"after"</span>,</span>
 <span>  split <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  topcaption <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  keepnext <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  keepnext <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">body_replace_flextable_at_bkm</span><span class="op">(</span></span>
@@ -102,15 +102,8 @@ caption is added after the table.</p></dd>
 
 
 <dt>keepnext</dt>
-<dd><p>default <code>TRUE</code>. Word option 'keep rows
-together' is activated when TRUE. It avoids page break
-within tables. This is handy for small tables, i.e. less than
-a page height.</p>
-<p>Be careful, if you print long tables, you should
-rather set its value to <code>FALSE</code> to avoid that the tables
-also generate a page break before being placed in the
-Word document. Since Word will try to keep it with the <strong>next
-paragraphs that follow the tables</strong>.</p></dd>
+<dd><p>deprecated, keepnext is to to TRUE for captions
+on top of tables and FALSE for captions on bottom of tables</p></dd>
 
 
 <dt>bookmark</dt>
@@ -150,7 +143,7 @@ a bookmark with a flextable. As a side effect, the bookmark will be lost.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

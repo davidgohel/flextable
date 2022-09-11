@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
       </span>
     </div>
 
@@ -48,7 +48,35 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.7.3" id="flextable-073">flextable 0.7.3<a class="anchor" aria-label="anchor" href="#flextable-073"></a></h2>
+<h2 class="page-header" data-toc-text="0.8.0" id="flextable-080">flextable 0.8.0<a class="anchor" aria-label="anchor" href="#flextable-080"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-8-0">new features<a class="anchor" aria-label="anchor" href="#new-features-0-8-0"></a></h3>
+<ul><li>flextable now supports “Grid graphics” output format. See <code><a href="../reference/gen_grob.html">gen_grob()</a></code>.</li>
+<li>
+<code><a href="../reference/labelizor.html">labelizor()</a></code> is a new function to help change text by labels.</li>
+<li>add support for paragraph settings (made with <code><a href="https://davidgohel.github.io/officer/reference/fp_par.html" class="external-link">fp_par()</a></code>) in captions with <code><a href="../reference/set_caption.html">set_caption()</a></code>.</li>
+<li>captions are now made with <code><a href="../reference/as_paragraph.html">as_paragraph()</a></code>
+</li>
+<li>caption alignments and keep_with_next is now computed instead of being provided by user</li>
+<li>alternative text for Word tables with word_title and word_description by calling <code><a href="../reference/set_table_properties.html">set_table_properties()</a></code> or setting values to knitr chunk options <code>tab.alt.title</code> and <code>tab.alt.description</code>.</li>
+<li>Word and HTML captions paragraphs settings can be defined by using <code><a href="../reference/set_caption.html">set_caption()</a></code>. The alignment of the paragraph can be different from the alignment of the table with the argument <code>align_with_table=FALSE</code>.</li>
+<li>new theme ‘APA’, <code>theme_apa</code> (<a href="https://github.com/rempsyc" class="external-link">@rempsyc</a> <a href="https://github.com/davidgohel/flextable/issues/426" class="external-link">#426</a>)</li>
+<li>method <code><a href="../reference/as_flextable.tabulator.html">as_flextable.tabulator()</a></code> gains an argument <code>spread_first_col</code> to enable spreading of the first column of the table as a line separator.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-8-0">Issues<a class="anchor" aria-label="anchor" href="#issues-0-8-0"></a></h3>
+<ul><li>fix caption issue resulting from a clash with variable name ‘n’ (<a href="https://github.com/davidgohel/flextable/issues/443" class="external-link">#443</a>)</li>
+<li>Quarto support</li>
+<li>fix as_grouped_data() with date columns (<a href="https://github.com/davidgohel/flextable/issues/438" class="external-link">#438</a>)</li>
+<li>fix footnotes spread over separate lines when ‘inline’ (<a href="https://github.com/davidgohel/flextable/issues/442" class="external-link">#442</a>)</li>
+<li>fix missing caption with rmarkdown pdf output</li>
+<li>fix first horizontal borders repeated issue with Word output</li>
+<li>add empty paragraphs between tables in <code><a href="../reference/save_as_docx.html">save_as_docx()</a></code> to avoid Word confusion</li>
+<li>fix <code>fortify_width()</code> calculation</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.7.3" id="flextable-073">flextable 0.7.3<small>2022-08-09</small><a class="anchor" aria-label="anchor" href="#flextable-073"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-7-3">new features<a class="anchor" aria-label="anchor" href="#new-features-0-7-3"></a></h3>
 <ul><li>function <code><a href="../reference/as_flextable.tabulator.html">as_flextable.tabulator()</a></code> gained an argument <code>label_rows</code> used for labels to display in the first column names, i.e. the <em>row</em> column names.</li>
@@ -56,6 +84,10 @@
 <li>
 <code><a href="../reference/as_image.html">as_image()</a></code> don’t need anymore parameters <code>width</code> and <code>height</code> if package ‘magick’ is available.</li>
 </ul></div>
+<div class="section level3">
+<h3 id="changes-0-7-3">Changes<a class="anchor" aria-label="anchor" href="#changes-0-7-3"></a></h3>
+<ul><li>
+<code>plot.flextable</code> now default to <em>grid Graphics</em>. It produce a plot object that can be used with packages ‘ggplot2’, ‘patchwork’ and ‘cowplot’. The raster version made with ‘webshot’ and ‘magick’ pachages is still available, use <code>plot(..., method = "webshot")</code>.</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-7-3">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-3"></a></h3>
 <ul><li>fix top borders correction (for docx and pptx)</li>
@@ -66,7 +98,7 @@
 <li>when HTML and layout “autofit”, output width is not set when width has been defined to 0 to avoid unnecessary word breaks (<a href="https://github.com/davidgohel/flextable/issues/429" class="external-link">#429</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="changes-0-7-3">Changes<a class="anchor" aria-label="anchor" href="#changes-0-7-3"></a></h3>
+<h3 id="changes-0-7-3-1">Changes<a class="anchor" aria-label="anchor" href="#changes-0-7-3-1"></a></h3>
 <ul><li>pptx output is constructed with top and bottom margins whose value is top and bottom padding of the paragraph and there is no more borders copies while rendering.</li>
 <li>add visual tests with doconv</li>
 <li>footnote can not be used with "" symbols, use <code><a href="../reference/add_footer_lines.html">add_footer_lines()</a></code> instead.</li>
@@ -626,7 +658,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

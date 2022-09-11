@@ -19,7 +19,7 @@ the tabulator() function."><meta property="og:image" content="/logo.png"><!-- ma
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@ can evolve or change.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="fmt_2stats.html">fmt_2stats()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="fmt_2stats.html">fmt_2stats()</a></code>, <code><a href="labelizor.html">labelizor()</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -109,7 +109,9 @@ can evolve or change.</p>
 <span class="r-in"><span>  blah <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>      <span class="fu"><a href="fmt_2stats.html">fmt_2stats</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>        num1 <span class="op">=</span> <span class="va">stat</span>, num2 <span class="op">=</span> <span class="va">value</span>, cts <span class="op">=</span> <span class="va">cts</span>, pcts <span class="op">=</span> <span class="va">percent</span></span></span>
+<span class="r-in"><span>        stat <span class="op">=</span> <span class="va">stat</span>,</span></span>
+<span class="r-in"><span>        num1 <span class="op">=</span> <span class="va">value1</span>, num2 <span class="op">=</span> <span class="va">value2</span>,</span></span>
+<span class="r-in"><span>        cts <span class="op">=</span> <span class="va">cts</span>, pcts <span class="op">=</span> <span class="va">percent</span></span></span>
 <span class="r-in"><span>      <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
@@ -120,7 +122,7 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy1`, `nonchilled@blah`, `dummy2`, `chilled@blah`, `dummy3`, `Overall@blah` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 30 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 24 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   variable stat cts@nonchilled cts@chilled cts@Overall percent@nonchilled</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    Plant  Qn1              5           0           5              0.125</span>
@@ -134,43 +136,61 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3       0.0000000      0.08536585             discrete          discrete</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4       0.1666667      0.08536585             discrete          discrete</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5       0.1666667      0.08536585             discrete          discrete</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   data_type@Overall value@nonchilled value@chilled value@Overall</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   blah@nonchilled blah@chilled blah@Overall dummy1 nonchilled@blah dummy2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   chilled@blah dummy3 Overall@blah</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   data_type@Overall value1@nonchilled value1@chilled value1@Overall</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          discrete                NA             NA             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          discrete                NA             NA             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          discrete                NA             NA             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          discrete                NA             NA             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          discrete                NA             NA             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   value2@nonchilled value2@chilled value2@Overall blah@nonchilled blah@chilled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA             NA             NA                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                NA             NA             NA                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                NA             NA             NA                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                NA             NA             NA                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                NA             NA             NA                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   blah@Overall dummy1 nonchilled@blah dummy2 chilled@blah dummy3 Overall@blah</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                            </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># version 2 ----</span></span></span>
+<span class="r-in"><span><span class="co"># version 2 with your own functions ----</span></span></span>
 <span class="r-in"><span><span class="va">n_format</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">percent</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">wcts</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">z</span><span class="op">[</span><span class="va">wcts</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.0f (%.01f %%)"</span>, <span class="va">n</span><span class="op">[</span><span class="va">wcts</span><span class="op">]</span>, <span class="va">percent</span><span class="op">[</span><span class="va">wcts</span><span class="op">]</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">z</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span><span class="va">stat_format</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">wnum</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">z</span><span class="op">[</span><span class="va">wnum</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.01f"</span>, <span class="va">value</span><span class="op">[</span><span class="va">wnum</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">z</span></span></span>
+<span class="r-in"><span><span class="va">stat_format</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">num1</span>, <span class="va">num2</span>, <span class="va">stat</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">num1_mask</span> <span class="op">&lt;-</span> <span class="st">"%.01f"</span></span></span>
+<span class="r-in"><span>  <span class="va">num2_mask</span> <span class="op">&lt;-</span> <span class="st">"(%.01f)"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">z_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">num1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">is_mean_sd</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">num1</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">num2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">stat</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="st">"mean_sd"</span></span></span>
+<span class="r-in"><span>  <span class="va">is_range</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">num1</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">num2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">stat</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="st">"range"</span></span></span>
+<span class="r-in"><span>  <span class="va">is_num_1</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">num1</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">num2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">z_num</span><span class="op">[</span><span class="va">is_num_1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="va">num1_mask</span>, <span class="va">num1</span><span class="op">[</span><span class="va">is_num_1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">z_num</span><span class="op">[</span><span class="va">is_mean_sd</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="va">num1_mask</span>, <span class="va">num1</span><span class="op">[</span><span class="va">is_mean_sd</span><span class="op">]</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="st">" "</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="va">num2_mask</span>, <span class="va">num2</span><span class="op">[</span><span class="va">is_mean_sd</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">z_num</span><span class="op">[</span><span class="va">is_range</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="va">num1_mask</span>, <span class="va">num1</span><span class="op">[</span><span class="va">is_range</span><span class="op">]</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="st">" - "</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="va">num1_mask</span>, <span class="va">num2</span><span class="op">[</span><span class="va">is_range</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">z_num</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">tab_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="tabulator.html">tabulator</a></span><span class="op">(</span><span class="va">z</span>,</span></span>
 <span class="r-in"><span>  rows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"variable"</span>, <span class="st">"stat"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  columns <span class="op">=</span> <span class="st">"Treatment"</span>,</span></span>
-<span class="r-in"><span>  `Est.` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  `Est.` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="fu">stat_format</span><span class="op">(</span><span class="va">value1</span>, <span class="va">value2</span>, <span class="va">stat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  `N` <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span><span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="fu">n_format</span><span class="op">(</span><span class="va">cts</span>, <span class="va">percent</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -179,7 +199,7 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `stat`, `dummy1`, `@nonchilled@Est.`, `@nonchilled@N`, `dummy2`, `@chilled@Est.`, `@chilled@N`, `dummy3`, `@Overall@Est.`, `@Overall@N` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 30 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 24 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   variable stat cts@nonchilled cts@chilled cts@Overall percent@nonchilled</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    Plant  Qn1              5           0           5              0.125</span>
@@ -193,30 +213,30 @@ can evolve or change.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3       0.0000000      0.08536585             discrete          discrete</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4       0.1666667      0.08536585             discrete          discrete</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5       0.1666667      0.08536585             discrete          discrete</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   data_type@Overall value@nonchilled value@chilled value@Overall</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          discrete               NA            NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Est.@nonchilled Est.@chilled Est.@Overall N@nonchilled N@chilled N@Overall</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   dummy1 @nonchilled@Est. @nonchilled@N dummy2 @chilled@Est. @chilled@N dummy3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   @Overall@Est. @Overall@N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   data_type@Overall value1@nonchilled value1@chilled value1@Overall</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          discrete                NA             NA             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          discrete                NA             NA             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          discrete                NA             NA             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          discrete                NA             NA             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          discrete                NA             NA             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   value2@nonchilled value2@chilled value2@Overall Est.@nonchilled Est.@chilled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA             NA             NA                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                NA             NA             NA                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                NA             NA             NA                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                NA             NA             NA                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                NA             NA             NA                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Est.@Overall N@nonchilled N@chilled N@Overall dummy1 @nonchilled@Est.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   @nonchilled@N dummy2 @chilled@Est. @chilled@N dummy3 @Overall@Est. @Overall@N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                              </span>
 </code></pre></div>
     </div>
   </div>
@@ -227,7 +247,7 @@ can evolve or change.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

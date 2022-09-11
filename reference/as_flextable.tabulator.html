@@ -18,7 +18,7 @@ with method as_flextable()."><meta property="og:image" content="/logo.png"><!-- 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
       </span>
     </div>
 
@@ -64,6 +64,7 @@ with method <code><a href="as_flextable.html">as_flextable()</a></code>.</p>
 <span>  rows_alignment <span class="op">=</span> <span class="st">"left"</span>,</span>
 <span>  columns_alignment <span class="op">=</span> <span class="st">"center"</span>,</span>
 <span>  label_rows <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">rows</span>,</span>
+<span>  spread_first_col <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  sep_w <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  unit <span class="op">=</span> <span class="st">"in"</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -96,6 +97,12 @@ columns corresponding to <code>rows</code> and <code>columns</code>; see argumen
 <dd><p>labels to use for the first column names, i.e.
 the <em>row</em> column names. It must be a named vector, the values will
 be matched based on the names.</p></dd>
+
+
+<dt>spread_first_col</dt>
+<dd><p>if TRUE, first row is spread as a new line separator
+instead of being a column. This helps to reduce the width and allows for
+clear divisions.</p></dd>
 
 
 <dt>sep_w</dt>
@@ -181,7 +188,7 @@ blank column separators will not be used.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

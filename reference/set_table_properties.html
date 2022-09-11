@@ -22,7 +22,7 @@ table width is used (as a percentage)."><meta property="og:image" content="/logo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
       </span>
     </div>
 
@@ -49,7 +49,7 @@ table width is used (as a percentage)."><meta property="og:image" content="/logo
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Global table properties</h1>
-    <small class="dont-index">Source: <a href="https://github.com/davidgohel/flextable/blob/HEAD/R/flextable_sizes.R" class="external-link"><code>R/flextable_sizes.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/davidgohel/flextable/blob/HEAD/R/flextable.R" class="external-link"><code>R/flextable.R</code></a></small>
     <div class="hidden name"><code>set_table_properties.Rd</code></div>
     </div>
 
@@ -63,7 +63,13 @@ table width is used (as a percentage).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_table_properties</span><span class="op">(</span><span class="va">x</span>, layout <span class="op">=</span> <span class="st">"fixed"</span>, width <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_table_properties</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  layout <span class="op">=</span> <span class="st">"fixed"</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  word_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  word_description <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -86,6 +92,14 @@ PowerPoint and PDF output. Its default value is 0, as an effect, it
 only use necessary width to display all content. It is not used by the
 PDF output.</p></dd>
 
+
+<dt>word_title</dt>
+<dd><p>alternative text for Word table (used as title of the table)</p></dd>
+
+
+<dt>word_description</dt>
+<dd><p>alternative text for Word table (used as description of the table)</p></dd>
+
 </dl></div>
     <div id="note">
     <h2>Note</h2>
@@ -96,8 +110,9 @@ PDF output.</p></dd>
     
 
 
-<p><img src="figures/fig_set_table_properties_1.png" width="100"></p>
-<p><img src="figures/fig_set_table_properties_2.png" width="400"></p>
+<p><img src="figures/fig_set_table_properties_1.png" width="69"></p>
+<p><img src="figures/fig_set_table_properties_2.png" width="256"></p>
+<p><img src="figures/fig_set_table_properties_3.png" width="500"></p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -117,8 +132,10 @@ PDF output.</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">qflextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu">set_table_properties</span><span class="op">(</span><span class="va">ft_1</span>, width <span class="op">=</span> <span class="fl">.5</span>, layout <span class="op">=</span> <span class="st">"autofit"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_3</span> <span class="op">&lt;-</span> <span class="fu">set_table_properties</span><span class="op">(</span><span class="va">ft_1</span>, width <span class="op">=</span> <span class="fl">1</span>, layout <span class="op">=</span> <span class="st">"autofit"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `speed`, `dist` </span>
@@ -141,7 +158,7 @@ PDF output.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

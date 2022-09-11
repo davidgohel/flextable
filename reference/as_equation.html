@@ -24,7 +24,7 @@ to install necessary dependencies."><meta property="og:image" content="/logo.png
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
       </span>
     </div>
 
@@ -67,7 +67,7 @@ to install necessary dependencies.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as_equation</span><span class="op">(</span><span class="va">x</span>, width <span class="op">=</span> <span class="fl">1</span>, height <span class="op">=</span> <span class="fl">0.2</span>, unit <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as_equation</span><span class="op">(</span><span class="va">x</span>, width <span class="op">=</span> <span class="fl">1</span>, height <span class="op">=</span> <span class="fl">0.2</span>, unit <span class="op">=</span> <span class="st">"in"</span>, props <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -82,6 +82,11 @@ to install necessary dependencies.</p>
 
 <dt>unit</dt>
 <dd><p>unit for width and height, one of "in", "cm", "mm".</p></dd>
+
+
+<dt>props</dt>
+<dd><p>an <code><a href="fp_text_default.html">fp_text_default()</a></code> or <code><a href="https://davidgohel.github.io/officer/reference/fp_text.html" class="external-link">officer::fp_text()</a></code> object to be used to format the text.
+If not specified, it will be the default value corresponding to the cell.</p></dd>
 
 </dl></div>
     <div id="see-also">
@@ -138,7 +143,7 @@ to install necessary dependencies.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.7.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
