@@ -224,6 +224,9 @@ tabulator <- function(x, rows, columns,
 #' @param label_rows labels to use for the first column names, i.e.
 #' the *row* column names. It must be a named vector, the values will
 #' be matched based on the names.
+#' @param spread_first_col if TRUE, first row is spread as a new line separator
+#' instead of being a column. This helps to reduce the width and allows for
+#' clear divisions.
 #' @param sep_w blank column separators'width to be used. If 0,
 #' blank column separators will not be used.
 #' @param unit unit of argument `sep_w`, one of "in", "cm", "mm".
@@ -270,7 +273,7 @@ as_flextable.tabulator <- function(
     big_border = fp_border_default(width = 1.5),
     small_border = fp_border_default(width = .75),
     rows_alignment = "left", columns_alignment = "center",
-    label_rows = x$rows,
+    label_rows = x$rows, spread_first_col = FALSE,
     sep_w = .05, unit = "in", ...) {
 
   # get necessary element
@@ -278,6 +281,10 @@ as_flextable.tabulator <- function(
 
   rows <- x$rows
   columns <- x$columns
+
+  if(spread_first_col){
+    dat <- as_grouped_data(dat, groups = rows[1])
+  }
 
   visible_columns <- x$visible_columns
   hidden_columns <- x$hidden_columns
@@ -307,6 +314,13 @@ as_flextable.tabulator <- function(
     rle <- rleidv(dat[separate_with])
     border_h_major <- which(rle != c(-1, rle[-length(rle)]))-1
     border_h_major <- setdiff(border_h_major, 0)
+  }
+  if(length(separate_with)>0 && spread_first_col){
+    border_h_major <- setdiff(border_h_major, which(!is.na(dat[[rows[1]]])) )
+  }
+
+  if(spread_first_col){
+    visible_columns <- visible_columns[-1,]
   }
 
   # for later iteration, a list of visible columns
@@ -347,11 +361,22 @@ as_flextable.tabulator <- function(
     }
     ft$body$dataset[as.character(replication_info$.user_columns)] <- rep(list(NULL), nrow(replication_info))
   }
+
+  row_spanner <- character(length = 0L)
+  if(spread_first_col){
+    row_spanner <- rows[1]
+    rows <- rows[-1]
+    row_spanner_labels <- dat[[row_spanner]][!is.na(dat[[row_spanner]])]
+    ft <- mk_par(ft, i = !is.na(dat[[row_spanner]]),
+                 value = as_paragraph(row_spanner_labels))
+    ft <- merge_h(ft, i = !is.na(dat[[row_spanner]]))
+  }
+
   ft <- merge_v(ft, j = rows, part = "body")
   ft <- valign(ft, valign = "top", j = rows)
 
   for(j in names(x$row_exprs)){
-    ft <- mk_par(ft, j = j, value = !!x$row_exprs[[j]])
+    ft <- mk_par(ft, i = !is.na(dat[[j]]), j = j, value = !!x$row_exprs[[j]])
   }
 
   for(column in rev(columns)){
@@ -406,9 +431,19 @@ as_flextable.tabulator <- function(
 
   if (!is.null(names(label_rows))) {
     j_labs <- names(label_rows)
+    if(spread_first_col) {
+      j_labs <- j_labs[!names(label_rows) %in% row_spanner]
+      label_rows <- label_rows[!names(label_rows) %in% row_spanner]
+    }
     ft <- mk_par(ft, i = 1, j = j_labs,
-           value = as_paragraph(as.character(label_rows)),
-           part = "header")
+                 value = as_paragraph(as.character(label_rows)),
+                 part = "header")
+  }
+
+  if(spread_first_col){
+    row_spanner <- dat[[row_spanner]]
+    ft <- align(x = ft, i = !is.na(row_spanner), align = columns_alignment)
+
   }
 
   ft <- autofit(ft, part = "all", add_w = .2, add_h = .0, unit = "cm")

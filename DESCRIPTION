@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.7.4.021
+Version: 0.7.4.022
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -45,4 +45,3 @@ Encoding: UTF-8
 URL: https://ardata-fr.github.io/flextable-book/, https://davidgohel.github.io/flextable/
 BugReports: https://github.com/davidgohel/flextable/issues
 VignetteBuilder: knitr
-Remotes: davidgohel/officer

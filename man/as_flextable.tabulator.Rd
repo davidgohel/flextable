@@ -12,6 +12,7 @@
   rows_alignment = "left",
   columns_alignment = "center",
   label_rows = x$rows,
+  spread_first_col = FALSE,
   sep_w = 0.05,
   unit = "in",
   ...
@@ -33,6 +34,10 @@ columns corresponding to \code{rows} and \code{columns}; see arguments
 \item{label_rows}{labels to use for the first column names, i.e.
 the \emph{row} column names. It must be a named vector, the values will
 be matched based on the names.}
+
+\item{spread_first_col}{if TRUE, first row is spread as a new line separator
+instead of being a column. This helps to reduce the width and allows for
+clear divisions.}
 
 \item{sep_w}{blank column separators'width to be used. If 0,
 blank column separators will not be used.}
