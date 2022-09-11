@@ -441,9 +441,7 @@ as_flextable.tabulator <- function(
   }
 
   if(spread_first_col){
-    row_spanner <- dat[[row_spanner]]
-    ft <- align(x = ft, i = !is.na(row_spanner), align = columns_alignment)
-
+    ft <- align(x = ft, i = !is.na(dat[[row_spanner]]), align = columns_alignment)
   }
 
   ft <- autofit(ft, part = "all", add_w = .2, add_h = .0, unit = "cm")

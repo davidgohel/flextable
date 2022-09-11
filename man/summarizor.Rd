@@ -102,5 +102,5 @@ ft_2 <- as_flextable(tab_2, separate_with = "variable")
 ft_2
 }
 \seealso{
-\code{\link[=fmt_2stats]{fmt_2stats()}}
+\code{\link[=fmt_2stats]{fmt_2stats()}}, \code{\link[=labelizor]{labelizor()}}
 }

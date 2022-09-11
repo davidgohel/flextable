@@ -55,7 +55,7 @@
 #' ft_2
 #' @export
 #' @family functions for mixed content paragraphs
-#' @seealso [fp_text_default()], [as_chunk()], [as_b()], [as_word_field()]
+#' @seealso [fp_text_default()], [as_chunk()], [as_b()], [as_word_field()], [labelizor()]
 #'
 #'
 #' @section Illustrations:
@@ -108,12 +108,18 @@ mk_par <- compose
 #' @export
 #' @title change displayed labels
 #' @description The function replace text values
-#' in a flextable with labels.
+#' in a flextable with labels. The labels are defined
+#' with character named vector.
+#'
+#' The function is not written to be fast but to be handy. It does
+#' not replace the values in the underlying dataset but replace the defined
+#' content in the flextable (as defined with [compose()]).
 #' @param x a flextable object
 #' @param j columns selection
 #' @param labels a named vector whose names will be used to identify
 #' values to replace and values will be used as labels.
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @seealso [mk_par()], [append_chunks()], [prepend_chunks()]
 #' @examples
 #' z <- summarizor(
 #'   x = CO2[-c(1, 4)],
@@ -138,23 +144,22 @@ mk_par <- compose
 #' ft_1 <- as_flextable(tab_1, separate_with = "variable")
 #'
 #'
-#' ft_1 <- labelize(
+#' ft_1 <- labelizor(
 #'   x = ft_1, j = c("stat", "variable"),
-#'   labels = c(n = "N", mean_sd = "Mean (SD)", median = "Median",
-#'              range = "Range", missing = "Missing",
-#'              stat = "Hello")
+#'   labels = c(mean_sd = "Mean (SD)", median_iqr = "Median (IQR)",
+#'              range = "Range", missing = "Missing")
 #' )
 #'
 #' ft_1
-labelize <- function(x, j, labels, part = "all") {
+labelizor <- function(x, j, labels, part = "all") {
 
-  if (!inherits(x, "flextable")) stop("labelize supports only flextable objects.")
+  if (!inherits(x, "flextable")) stop("labelizor supports only flextable objects.")
 
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
-      x <- labelize(x = x, j = j, labels = labels, part = p)
+      x <- labelizor(x = x, j = j, labels = labels, part = p)
     }
     return(x)
   }
@@ -163,15 +168,17 @@ labelize <- function(x, j, labels, part = "all") {
     stop("`labels` must be a named character vector")
   }
 
-  j <- get_columns_id(x[[part]], j)
+  j <- as_col_keys(x[[part]], j)
 
   levs <- names(labels)
-  labs <- labels
+  labs <- as.character(labels)
   for(current_col in j){
-    for (i in seq_along(levs)) {
-      isel <- x[[part]]$dataset[[current_col]] %in% levs[i]
-      x <- mk_par(x, i = isel, j = current_col, value = as_paragraph(labs[i]), part = part)
-    }
+    curr_content_column <- x[[part]]$content$content$data[,current_col]
+    curr_content_column <- lapply(curr_content_column, function(x){
+      x$txt[x$txt %in% levs] <- labs[match(x$txt, levs, nomatch = 0)]
+      x
+    })
+    x[[part]]$content$content$data[,current_col] <- curr_content_column
   }
   x
 }
