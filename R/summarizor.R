@@ -48,7 +48,7 @@
 #'
 #'   z_num <- character(length = length(num1))
 #'
-#'   is_mean_sd <- !is.na(num1) & !is.na(num2) & stat %in% "avg_dev"
+#'   is_mean_sd <- !is.na(num1) & !is.na(num2) & stat %in% "mean_sd"
 #'   is_range <- !is.na(num1) & !is.na(num2) & stat %in% "range"
 #'   is_num_1 <- !is.na(num1) & is.na(num2)
 #'
@@ -125,7 +125,7 @@ summarizor <- function(
   }
   dat <- rbindlist(dat$data)
 
-  first_levels <- c("n", "avg_dev", "median", "range")
+  first_levels <- c("n", "mean_sd", "median", "range")
   last_levels <- c("missing")
   levs <- c(first_levels, setdiff(unique(dat$stat), c(first_levels, last_levels)), last_levels)
   labs <- levs
@@ -149,13 +149,12 @@ dataset_describe <- function(dataset){
     } else if(is.numeric(x)){
 
       z <- data.frame(
-        stat = c("n", "avg_dev", "median", "range", "missing"),
-        value1 = c(NA_real_, mean(x, na.rm = TRUE), as.double(quantile(x, probs = .5, na.rm = TRUE)), min(x, na.rm = TRUE), NA_real_),
-        value2 = c(NA_real_, sd(x, na.rm = TRUE), NA_real_, max(x, na.rm = TRUE), NA_real_),
+        stat = c("mean_sd", "median", "range", "missing"),
+        value1 = c(mean(x, na.rm = TRUE), as.double(quantile(x, probs = .5, na.rm = TRUE)), min(x, na.rm = TRUE), NA_real_),
+        value2 = c(sd(x, na.rm = TRUE), NA_real_, max(x, na.rm = TRUE), NA_real_),
         cts = NA_real_, percent = NA_real_)
 
       z$cts[z$stat %in% "missing"] <- sum(is.na(x))
-      z$cts[z$stat %in% "n"] <- length(x)
       z$percent[z$stat %in% "missing"] <- sum(is.na(x)) / length(x)
       z$data_type <- "continuous"
       z
@@ -196,7 +195,7 @@ fmt_2stats <- function(stat, num1, num2, cts, pcts,
   z_num <- character(length = length(num1))
   z_cts <- character(length = length(num1))
 
-  is_mean_sd <- !is.na(num1) & !is.na(num2) & stat %in% "avg_dev"
+  is_mean_sd <- !is.na(num1) & !is.na(num2) & stat %in% "mean_sd"
   is_range <- !is.na(num1) & !is.na(num2) & stat %in% "range"
   is_num_1 <- !is.na(num1) & is.na(num2)
   is_cts_2 <- !is.na(cts) & !is.na(pcts)

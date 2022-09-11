@@ -140,7 +140,7 @@ mk_par <- compose
 #'
 #' ft_1 <- labelize(
 #'   x = ft_1, j = c("stat", "variable"),
-#'   labels = c(n = "N", avg_dev = "Mean (SD)", median = "Median",
+#'   labels = c(n = "N", mean_sd = "Mean (SD)", median = "Median",
 #'              range = "Range", missing = "Missing",
 #'              stat = "Hello")
 #' )

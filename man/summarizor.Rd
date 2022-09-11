@@ -72,7 +72,7 @@ stat_format <- function(num1, num2, stat) {
 
   z_num <- character(length = length(num1))
 
-  is_mean_sd <- !is.na(num1) & !is.na(num2) & stat \%in\% "avg_dev"
+  is_mean_sd <- !is.na(num1) & !is.na(num2) & stat \%in\% "mean_sd"
   is_range <- !is.na(num1) & !is.na(num2) & stat \%in\% "range"
   is_num_1 <- !is.na(num1) & is.na(num2)
 

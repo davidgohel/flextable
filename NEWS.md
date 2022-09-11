@@ -1,15 +1,4 @@
-# flextable 0.7.4
-
-## Issues
-
-- fix caption issue resulting from a clash with variable name 'n' (#443)
-- Quarto support
-- fix as_grouped_data() with date columns (#438)
-- fix footnotes spread over separate lines when 'inline' (#442)
-- fix missing caption with rmarkdown pdf output
-- fix first horizontal borders repeated issue with Word output
-- add empty paragraphs between tables in `save_as_docx()` to avoid Word confusion
-- fix `fortify_width()` calculation
+# flextable 0.8.0
 
 ## new features
 
@@ -25,6 +14,19 @@ with the argument `align_with_table=FALSE`.
 - new theme 'APA', `theme_apa` (@rempsyc #426)
 - method `as_flextable.tabulator()` gains an argument `spread_first_col` to enable 
 spreading of the first column of the table as a line separator.
+
+
+## Issues
+
+- fix caption issue resulting from a clash with variable name 'n' (#443)
+- Quarto support
+- fix as_grouped_data() with date columns (#438)
+- fix footnotes spread over separate lines when 'inline' (#442)
+- fix missing caption with rmarkdown pdf output
+- fix first horizontal borders repeated issue with Word output
+- add empty paragraphs between tables in `save_as_docx()` to avoid Word confusion
+- fix `fortify_width()` calculation
+
 
 
 # flextable 0.7.3
