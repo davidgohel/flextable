@@ -151,7 +151,7 @@ mk_par <- compose
 #' )
 #'
 #' ft_1
-labelizor <- function(x, j, labels, part = "all") {
+labelizor <- function(x, j = NULL, labels, part = "all") {
 
   if (!inherits(x, "flextable")) stop("labelizor supports only flextable objects.")
 
@@ -166,6 +166,9 @@ labelizor <- function(x, j, labels, part = "all") {
 
   if (is.null(names(labels)) || !is.character(labels)) {
     stop("`labels` must be a named character vector")
+  }
+  if(is.null(j)) {
+    j <- x$colkeys
   }
 
   j <- as_col_keys(x[[part]], j)
