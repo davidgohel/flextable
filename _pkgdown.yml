@@ -121,6 +121,7 @@ reference:
     contents:
     - starts_with("colformat_")
     - starts_with("set_formatter")
+    - labelizor
   - title: Caption
     contents:
     - set_caption
@@ -143,6 +144,9 @@ reference:
     - save_as_docx
     - save_as_pptx
     - htmltools_value
+    - gen_grob
+    - dim.flextableGrob
+    - plot.flextableGrob
     - as_raster
     - flextable_to_rmd
     - df_printer

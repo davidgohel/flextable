@@ -4,7 +4,7 @@
 \alias{labelizor}
 \title{change displayed labels}
 \usage{
-labelizor(x, j, labels, part = "all")
+labelizor(x, j = NULL, labels, part = "all")
 }
 \arguments{
 \item{x}{a flextable object}
