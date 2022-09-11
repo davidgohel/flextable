@@ -104,3 +104,74 @@ compose <- function(x, i = NULL, j = NULL, value , part = "body", use_dot = FALS
 #' @export
 mk_par <- compose
 
+
+#' @export
+#' @title change displayed labels
+#' @description The function replace text values
+#' in a flextable with labels.
+#' @param x a flextable object
+#' @param j columns selection
+#' @param labels a named vector whose names will be used to identify
+#' values to replace and values will be used as labels.
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @examples
+#' z <- summarizor(
+#'   x = CO2[-c(1, 4)],
+#'   by = "Treatment",
+#'   overall_label = "Overall")
+#'
+#' tab_1 <- tabulator(
+#'   x = z,
+#'   rows = c("variable", "stat"),
+#'   columns = "Treatment",
+#'   blah = as_paragraph(
+#'     as_chunk(
+#'       fmt_2stats(
+#'         stat = stat,
+#'         num1 = value1, num2 = value2,
+#'         cts = cts, pcts = percent
+#'       )
+#'     )
+#'   )
+#' )
+#'
+#' ft_1 <- as_flextable(tab_1, separate_with = "variable")
+#'
+#'
+#' ft_1 <- labelize(
+#'   x = ft_1, j = c("stat", "variable"),
+#'   labels = c(n = "N", avg_dev = "Mean (SD)", median = "Median",
+#'              range = "Range", missing = "Missing",
+#'              stat = "Hello")
+#' )
+#'
+#' ft_1
+labelize <- function(x, j, labels, part = "all") {
+
+  if (!inherits(x, "flextable")) stop("labelize supports only flextable objects.")
+
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+
+  if (part == "all") {
+    for (p in c("header", "body", "footer")) {
+      x <- labelize(x = x, j = j, labels = labels, part = p)
+    }
+    return(x)
+  }
+
+  if (is.null(names(labels)) || !is.character(labels)) {
+    stop("`labels` must be a named character vector")
+  }
+
+  j <- get_columns_id(x[[part]], j)
+
+  levs <- names(labels)
+  labs <- labels
+  for(current_col in j){
+    for (i in seq_along(levs)) {
+      isel <- x[[part]]$dataset[[current_col]] %in% levs[i]
+      x <- mk_par(x, i = isel, j = current_col, value = as_paragraph(labs[i]), part = part)
+    }
+  }
+  x
+}

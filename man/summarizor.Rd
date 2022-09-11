@@ -48,7 +48,9 @@ tab_1 <- tabulator(
   blah = as_paragraph(
     as_chunk(
       fmt_2stats(
-        num1 = stat, num2 = value, cts = cts, pcts = percent
+        stat = stat,
+        num1 = value1, num2 = value2,
+        cts = cts, pcts = percent
       )
     )
   )
@@ -57,24 +59,42 @@ tab_1 <- tabulator(
 ft_1 <- as_flextable(tab_1, separate_with = "variable")
 ft_1
 
-# version 2 ----
+# version 2 with your own functions ----
 n_format <- function(n, percent) {
   z <- character(length = length(n))
   wcts <- !is.na(n)
   z[wcts] <- sprintf("\%.0f (\%.01f \%\%)", n[wcts], percent[wcts] * 100)
   z
 }
-stat_format <- function(value) {
-  z <- character(length = length(value))
-  wnum <- !is.na(value)
-  z[wnum] <- sprintf("\%.01f", value[wnum])
-  z
+stat_format <- function(num1, num2, stat) {
+  num1_mask <- "\%.01f"
+  num2_mask <- "(\%.01f)"
+
+  z_num <- character(length = length(num1))
+
+  is_mean_sd <- !is.na(num1) & !is.na(num2) & stat \%in\% "avg_dev"
+  is_range <- !is.na(num1) & !is.na(num2) & stat \%in\% "range"
+  is_num_1 <- !is.na(num1) & is.na(num2)
+
+  z_num[is_num_1] <- sprintf(num1_mask, num1[is_num_1])
+
+  z_num[is_mean_sd] <- paste0(
+    sprintf(num1_mask, num1[is_mean_sd]),
+    " ",
+    sprintf(num2_mask, num2[is_mean_sd])
+  )
+  z_num[is_range] <- paste0(
+    sprintf(num1_mask, num1[is_range]),
+    " - ",
+    sprintf(num1_mask, num2[is_range])
+  )
+  z_num
 }
 
 tab_2 <- tabulator(z,
   rows = c("variable", "stat"),
   columns = "Treatment",
-  `Est.` = as_paragraph(as_chunk(value)),
+  `Est.` = as_paragraph(as_chunk(stat_format(value1, value2, stat))),
   `N` = as_paragraph(as_chunk(n_format(cts, percent)))
 )
 

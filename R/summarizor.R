@@ -24,7 +24,9 @@
 #'   blah = as_paragraph(
 #'     as_chunk(
 #'       fmt_2stats(
-#'         num1 = stat, num2 = value, cts = cts, pcts = percent
+#'         stat = stat,
+#'         num1 = value1, num2 = value2,
+#'         cts = cts, pcts = percent
 #'       )
 #'     )
 #'   )
@@ -33,24 +35,42 @@
 #' ft_1 <- as_flextable(tab_1, separate_with = "variable")
 #' ft_1
 #'
-#' # version 2 ----
+#' # version 2 with your own functions ----
 #' n_format <- function(n, percent) {
 #'   z <- character(length = length(n))
 #'   wcts <- !is.na(n)
 #'   z[wcts] <- sprintf("%.0f (%.01f %%)", n[wcts], percent[wcts] * 100)
 #'   z
 #' }
-#' stat_format <- function(value) {
-#'   z <- character(length = length(value))
-#'   wnum <- !is.na(value)
-#'   z[wnum] <- sprintf("%.01f", value[wnum])
-#'   z
+#' stat_format <- function(num1, num2, stat) {
+#'   num1_mask <- "%.01f"
+#'   num2_mask <- "(%.01f)"
+#'
+#'   z_num <- character(length = length(num1))
+#'
+#'   is_mean_sd <- !is.na(num1) & !is.na(num2) & stat %in% "avg_dev"
+#'   is_range <- !is.na(num1) & !is.na(num2) & stat %in% "range"
+#'   is_num_1 <- !is.na(num1) & is.na(num2)
+#'
+#'   z_num[is_num_1] <- sprintf(num1_mask, num1[is_num_1])
+#'
+#'   z_num[is_mean_sd] <- paste0(
+#'     sprintf(num1_mask, num1[is_mean_sd]),
+#'     " ",
+#'     sprintf(num2_mask, num2[is_mean_sd])
+#'   )
+#'   z_num[is_range] <- paste0(
+#'     sprintf(num1_mask, num1[is_range]),
+#'     " - ",
+#'     sprintf(num1_mask, num2[is_range])
+#'   )
+#'   z_num
 #' }
 #'
 #' tab_2 <- tabulator(z,
 #'   rows = c("variable", "stat"),
 #'   columns = "Treatment",
-#'   `Est.` = as_paragraph(as_chunk(value)),
+#'   `Est.` = as_paragraph(as_chunk(stat_format(value1, value2, stat))),
 #'   `N` = as_paragraph(as_chunk(n_format(cts, percent)))
 #' )
 #'
@@ -66,7 +86,10 @@
 #' \if{html}{\figure{fig_summarizor_2.png}{options: width="500"}}
 #'
 #' @export
-summarizor <- function(x, by = character(), overall_label = NULL){
+summarizor <- function(
+    x, by = character(),
+    overall_label = NULL
+    ){
 
   stopifnot(`by can not be empty` = length(by)>0)
 
@@ -102,11 +125,11 @@ summarizor <- function(x, by = character(), overall_label = NULL){
   }
   dat <- rbindlist(dat$data)
 
-  first_levels <- c("Min.", "1st Qu.", "Mean", "Median", "3rd Qu.",
-                    "Max.")
-  last_levels <- c("Missing")
+  first_levels <- c("n", "avg_dev", "median", "range")
+  last_levels <- c("missing")
   levs <- c(first_levels, setdiff(unique(dat$stat), c(first_levels, last_levels)), last_levels)
-  dat$stat <- factor(dat$stat, levels = levs)
+  labs <- levs
+  dat$stat <- factor(dat$stat, levels = levs, labels = labs)
   setDF(dat)
   dat
 }
@@ -117,26 +140,23 @@ dataset_describe <- function(dataset){
 
     if(is.factor(x) || is.character(x)){
       z <- table(x, useNA = "always")
-      names(z)[is.na(names(z))] <- "Missing"
+      names(z)[is.na(names(z))] <- "missing"
       z <- as.data.frame(z)
       colnames(z) <- c("stat", "cts")
       z$percent <- z$cts / sum(z$cts)
       z$data_type <- "discrete"
       z
     } else if(is.numeric(x)){
-      z <- c(
-        "Min." = min(x, na.rm = TRUE),
-        "Max." = max(x, na.rm = TRUE),
-        "1st Qu." = as.double(quantile(x, probs = .25, na.rm = TRUE)),
-        "3rd Qu." = as.double(quantile(x, probs = .75, na.rm = TRUE)),
-        "Median" = as.double(quantile(x, probs = .5, na.rm = TRUE)),
-        "Mean" = mean(x, na.rm = TRUE),
-        "Missing" = NA_real_
-      )
-      z <- data.frame(stat = names(z), value = as.double(z),
-                      cts = NA_real_, percent = NA_real_)
-      z$cts[z$stat %in% "Missing"] <- sum(is.na(x))
-      z$percent[z$stat %in% "Missing"] <- sum(is.na(x)) / length(x)
+
+      z <- data.frame(
+        stat = c("n", "avg_dev", "median", "range", "missing"),
+        value1 = c(NA_real_, mean(x, na.rm = TRUE), as.double(quantile(x, probs = .5, na.rm = TRUE)), min(x, na.rm = TRUE), NA_real_),
+        value2 = c(NA_real_, sd(x, na.rm = TRUE), NA_real_, max(x, na.rm = TRUE), NA_real_),
+        cts = NA_real_, percent = NA_real_)
+
+      z$cts[z$stat %in% "missing"] <- sum(is.na(x))
+      z$cts[z$stat %in% "n"] <- length(x)
+      z$percent[z$stat %in% "missing"] <- sum(is.na(x)) / length(x)
       z$data_type <- "continuous"
       z
     }
@@ -154,6 +174,7 @@ dataset_describe <- function(dataset){
 #' case we will display the mean and the standard deviation, or a
 #' qualitative variable, in which case we will display the count and the
 #' percentage corresponding to each modality.
+#' @param stat a character column containing the name of statictics
 #' @param num1 a numeric statistic to display such as a mean or a median
 #' @param num2 a numeric statistic to display such as a standard
 #' deviation or a median absolute deviation.
@@ -168,34 +189,40 @@ dataset_describe <- function(dataset){
 #' @param pcts_mask format associated with `pcts`, a format string
 #' used by [sprintf()].
 #' @seealso [summarizor()], [tabulator()], [mk_par()]
-fmt_2stats <- function(num1, num2, cts, pcts,
+fmt_2stats <- function(stat, num1, num2, cts, pcts,
                        num1_mask = "%.01f", num2_mask = "(%.01f)",
-                       cts_mask = "%.0f", pcts_mask = "(%.02f %%)"){
+                       cts_mask = "%.0f", pcts_mask = "(%.02f%%)"){
+
   z_num <- character(length = length(num1))
   z_cts <- character(length = length(num1))
 
-  wcts <- !is.na(cts)
-  wpcts <- !is.na(pcts)
-  z_1 <- z_2 <- z_cts
-  z_1[wcts] <- sprintf(cts_mask, cts[wcts])
-  z_2[wpcts] <- sprintf(pcts_mask, pcts[wpcts])
-  z_cts <- paste0(
-    z_1,
-    ifelse(wcts & wpcts, " ", ""),
-    z_2
+  is_mean_sd <- !is.na(num1) & !is.na(num2) & stat %in% "avg_dev"
+  is_range <- !is.na(num1) & !is.na(num2) & stat %in% "range"
+  is_num_1 <- !is.na(num1) & is.na(num2)
+  is_cts_2 <- !is.na(cts) & !is.na(pcts)
+  is_cts_1 <- !is.na(cts) & is.na(pcts)
+
+  z_num[is_num_1] <- sprintf(num1_mask, num1[is_num_1])
+
+  z_num[is_mean_sd] <- paste0(
+    sprintf(num1_mask, num1[is_mean_sd]),
+    " ",
+    sprintf(num2_mask, num2[is_mean_sd])
+  )
+  z_num[is_range] <- paste0(
+    sprintf(num1_mask, num1[is_range]),
+    " - ",
+    sprintf(num1_mask, num2[is_range])
   )
 
-  wnum1 <- !is.na(num1)
-  wnum2 <- !is.na(num2)
-  z_1 <- z_2 <- z_num
-  z_1[wnum1] <- sprintf(num1_mask, num1[wnum1])
-  z_2[wnum2] <- sprintf(num2_mask, num2[wnum2])
-  z_num <- paste0(
-    z_1,
-    ifelse(wnum1 & wnum2, " ", ""),
-    z_2
+  z_cts[is_cts_2] <- paste0(
+    sprintf(cts_mask, cts[is_cts_2]),
+    " ",
+    sprintf(pcts_mask, pcts[is_cts_2]*100)
   )
+  z_cts[is_cts_1] <- sprintf(cts_mask, cts[is_cts_1])
 
   paste0(z_num, z_cts)
+
 }
 

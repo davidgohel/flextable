@@ -5,6 +5,7 @@
 \title{format content for data generated with \code{\link[=summarizor]{summarizor()}}}
 \usage{
 fmt_2stats(
+  stat,
   num1,
   num2,
   cts,
@@ -12,10 +13,12 @@ fmt_2stats(
   num1_mask = "\%.01f",
   num2_mask = "(\%.01f)",
   cts_mask = "\%.0f",
-  pcts_mask = "(\%.02f \%\%)"
+  pcts_mask = "(\%.02f\%\%)"
 )
 }
 \arguments{
+\item{stat}{a character column containing the name of statictics}
+
 \item{num1}{a numeric statistic to display such as a mean or a median}
 
 \item{num2}{a numeric statistic to display such as a standard
