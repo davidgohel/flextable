@@ -117,3 +117,27 @@ test_that("newlines and tabulations expand correctly", {
       "thatsit", "<br>")
   )
 })
+
+test_that("word superscript and subscript", {
+  ft <- flextable( data.frame(a = ""), col_keys = c("dummy") )
+  ft <- delete_part(ft, part = "header")
+
+
+  ft <- compose(ft, i = 1, j = "dummy", part = "body",
+              value = as_paragraph(
+                as_sub("Sepal.Length")
+              ) )
+  runs <- flextable:::fortify_run(ft)
+  expect_equal(runs$vertical.align[1], "subscript")
+  openxml <- flextable:::runs_as_wml(ft, txt_data = runs)$run_openxml
+  expect_match(openxml, "<w:vertAlign w:val=\"subscript\"/>", fixed = TRUE)
+
+  ft <- compose(ft, i = 1, j = "dummy", part = "body",
+              value = as_paragraph(
+                as_sup("Sepal.Length")
+              ) )
+  runs <- flextable:::fortify_run(ft)
+  expect_equal(runs$vertical.align[1], "superscript")
+  openxml <- flextable:::runs_as_wml(ft, txt_data = runs)$run_openxml
+  expect_match(openxml, "<w:vertAlign w:val=\"superscript\"/>", fixed = TRUE)
+})

@@ -1,3 +1,9 @@
+# flextable 0.8.1
+
+## Issues
+
+- fix warning with subscript and superscript #456
+
 # flextable 0.8.0
 
 ## new features

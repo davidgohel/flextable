@@ -24,7 +24,7 @@ text_css_styles <- function(x) {
         positioning_val[has_vertical_align])
     )
   font.size <- sprintf("font-size:%s;", css_pt(x$font.size))
-  font.size[has_vertical_align] <- sprintf("font-size:%s;", css_pt(x$font.size * .6))
+  font.size[has_vertical_align] <- sprintf("font-size:%s;", css_pt(x$font.size[has_vertical_align] * .6))
 
   bold <- rep("font-weight:normal;", nrow(x))
   bold[x$bold] <- "font-weight:bold;"
