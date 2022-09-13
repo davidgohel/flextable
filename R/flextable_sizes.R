@@ -134,6 +134,7 @@ height <- function(x, i = NULL, height, part = "body", unit = "in"){
 #' @description control rules of each height for a part
 #' of the flextable, this is only for Word and PowerPoint outputs, it
 #' will not have any effect when output is HTML or PDF.
+#' For PDF see the ft.arraystretch chunk option.
 #' @param x flextable object
 #' @param i rows selection
 #' @param rule specify the meaning of the height. Possible values
