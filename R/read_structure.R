@@ -1,5 +1,11 @@
 #' @importFrom data.table is.data.table .N
 expand_special_char <- function(x, what, with = NA, ...) {
+  if (packageVersion("base") < numeric_version("4.1")) {
+    return(
+      old_expand_special_char(x = x, what = what, with = with)
+    )
+  }
+
   m <- gregexec(pattern = what, x$txt, ...)
   if (isTRUE(any(unlist(m) > -1))) {
     txt <- regmatches(x$txt, m, invert = NA)
@@ -17,7 +23,33 @@ expand_special_char <- function(x, what, with = NA, ...) {
   }
   x
 }
+old_expand_special_char <- function(x, what = "\n", with = "<br>"){
+  if(!any(grepl(what, x$txt))){
+    return(x)
+  }
+  str <- x$txt
+  str[str %in% what] <- with
+  tmp_txt <- strsplit(str, split = what)
+  tmp_x <- split(x, seq_len(nrow(x)))
+  tmp_txt <- mapply(function(z, str, dat) {
+    if(length(z) > 1) {
+      add <- rep(with, length(z))
+      if(!grepl(paste0(what, "$"), str)) {
+        add[length(add)] <- NA_character_
+      }
+      z <- as.character(t(matrix(c(z, add), ncol = 2)))
+      z <- z[!is.na(z) & !z %in% ""]
+    }
+    dat <- rbind.match.columns(rep(list(dat), length(z)))
+    dat$txt <- z
 
+    dat
+  }, tmp_txt, str, tmp_x, SIMPLIFY = FALSE)
+
+  x <- rbind.match.columns(tmp_txt)
+  x$seq_index <- seq_len(nrow(x))
+  x
+}
 
 #' @importFrom data.table rbindlist setDF
 #' @noRd
