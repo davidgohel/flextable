@@ -229,7 +229,7 @@ html_value <- function(x, ft.align = opts_current$get("ft.align"), ft.shadow = o
   topcaption <- tab_props$topcaption
   manual_css <- ""
   if (bookdown) {
-    caption_str <- caption_bookdown_html(x, tab_props = tab_props)
+    caption_str <- caption_bookdown_html(x, align = ft.align, tab_props = tab_props)
     manual_css <- attr(caption_str, "css")
   } else if (quarto) {
     caption_str <- caption_quarto_html(x, align = ft.align, tab_props = tab_props)
