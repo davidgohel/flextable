@@ -1,21 +1,44 @@
+context("check captions")
+
 library(rmarkdown)
 library(xml2)
 library(officer)
 
-testthat::test_that("HTML cross-references are not OK when not using bookdown", {
+rmd_file_0 <- "test-captions-rmd.Rmd"
+if (!file.exists(rmd_file_0)) {#just for dev purpose
+  rmd_file_0 <- "tests/testthat/test-captions-rmd.Rmd"
+}
+rmd_file <- tempfile(fileext = ".Rmd")
+file.copy(rmd_file_0, rmd_file, overwrite = TRUE)
+
+html_file <- gsub("\\.Rmd$", ".html", rmd_file)
+docx_file <- gsub("\\.Rmd$", ".docx", rmd_file)
+pdf_file <- gsub("\\.Rmd$", ".pdf", rmd_file)
+
+source("zzzzz.R")
+
+testthat::test_that("with html_document", {
+  skip_if_not(rmarkdown::pandoc_available())
   skip_if_not(pandoc_version() >= numeric_version("2"))
-
-  rmd_file <- tempfile(fileext = ".Rmd")
-  file.copy("test-captions-rmd.Rmd", rmd_file)
-
-  baseout <- "caption-tests"
-  file_out <- paste0(baseout, "-rmd.html")
-
+  unlink(html_file, force = TRUE)
   render(rmd_file,
          output_format = rmarkdown::html_document(),
-         output_file = file_out,
+         output_file = html_file,
+         envir = new.env(),
          quiet = TRUE)
-  xml_doc <- read_html(file.path(dirname(rmd_file), file_out))
+
+  xml_doc <- get_html_xml(html_file)
+
+  # id is there, caption is the one of set_caption, no numbering
+  caption_id2 <- xml_find_first(xml_doc, "//table/caption[@id='id2']")
+  expect_true(grepl("text-align:center;", xml_attr(caption_id2, "style")))
+  expect_equal(xml_text(caption_id2), "azerty querty")
+
+  # first_chunk has an defined class
+  first_chunk_class <- xml_attr(xml_child(caption_id2, 1), "class")
+  expect_true(grepl("^cl\\-", first_chunk_class))
+  expect_true(any(grepl(first_chunk_class, xml_text(xml_find_all(xml_doc, "//style")))))
+
   crossref_chunk <- xml_find_first(xml_doc, "//a[@href='#tab:id1']")
   expect_true(inherits(crossref_chunk, "xml_missing"))
 
@@ -27,22 +50,28 @@ testthat::test_that("HTML cross-references are not OK when not using bookdown", 
   expect_true(all(!grepl("Table [0-9]+:" , xml_text(captions))))
 })
 
-testthat::test_that("HTML cross-references are OK when using bookdown", {
+testthat::test_that("with html_document2", {
   skip_if_not(pandoc_version() >= numeric_version("2"))
-
   testthat::skip_if_not_installed("bookdown")
 
-  rmd_file <- tempfile(fileext = ".Rmd")
-  file.copy("test-captions-rmd.Rmd", rmd_file)
-
-  baseout <- "caption-tests"
-  file_out <- paste0(baseout, "-bookdown-rmd.html")
-
+  unlink(html_file, force = TRUE)
   render(rmd_file,
          output_format = bookdown::html_document2(keep_md = FALSE),
-         output_file = file_out,
+         output_file = html_file,
+         envir = new.env(),
          quiet = TRUE)
-  xml_doc <- read_html(file.path(dirname(rmd_file), file_out))
+
+  xml_doc <- get_html_xml(html_file)
+
+  # id is there, caption is the one of set_caption, numbering
+  caption_id2 <- xml_find_first(xml_doc, "//table/caption/span[@id='tab:id2']")
+  expect_true(grepl("text-align:center;", xml_attr(xml_parent(caption_id2), "style")))
+  expect_true(grepl("Table [0-9]+\\: azerty querty", xml_text(xml_parent(caption_id2))))
+
+  # first_chunk has an defined class
+  first_chunk_class <- xml_attr(xml_siblings(caption_id2), "class")
+  expect_true(all(grepl("^cl\\-", first_chunk_class)))
+
   crossref_chunk <- xml_find_first(xml_doc, "//a[@href='#tab:id1']")
   expect_false(inherits(crossref_chunk, "xml_missing"))
 
@@ -53,86 +82,132 @@ testthat::test_that("HTML cross-references are OK when using bookdown", {
   expect_true(grepl("Table 2:" , xml_text(caption)))
 })
 
-
-testthat::test_that("DOCX cross-references are OK when using bookdown", {
+testthat::test_that("with word_document", {
   skip_if_not(pandoc_version() >= numeric_version("2"))
 
-  testthat::skip_if_not_installed("bookdown")
-
-  rmd_file <- tempfile(fileext = ".Rmd")
-  file.copy("test-captions-rmd.Rmd", rmd_file)
-
-  baseout <- "caption-tests"
-  file_out <- paste0(baseout, "-bookdown-rmd.docx")
-
+  unlink(docx_file, force = TRUE)
   render(rmd_file,
-         output_format = bookdown::word_document2(keep_md = FALSE),
-         output_file = file_out,
+         output_format = rmarkdown::word_document(keep_md = FALSE),
+         output_file = docx_file,
+         envir = new.env(),
          quiet = TRUE)
 
-  doc <- read_docx(file.path(dirname(rmd_file), file_out))
+  doc <- get_docx_xml(docx_file)
 
-  caption_node <- xml_find_first(docx_body_xml(doc),
+  caption_node <- xml_find_first(doc,
+                                 xpath = "/w:document/w:body/w:tbl[4]/preceding-sibling::*[1]")
+  expect_false(grepl("Table [1-5]+", xml_text(caption_node), fixed = TRUE))
+
+  style_nodes <- xml_find_all(doc, "//w:pStyle[@w:val='TableCaption']")
+  expect_length(style_nodes, 4)
+  expect_true(all(xml_attr(style_nodes, "val") %in% "TableCaption"))
+  txt_nodes <- xml_parent(xml_parent(style_nodes))
+  expect_true(
+    all(!grepl("^Table [1-5]+\\:", xml_text(txt_nodes)))
+  )
+
+  bookmarks <- xml_find_all(doc, "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart")
+  expect_length(bookmarks, 0)
+})
+
+testthat::test_that("with word_document2", {
+  skip_if_not(pandoc_version() >= numeric_version("2"))
+  testthat::skip_if_not_installed("bookdown")
+
+  unlink(docx_file, force = TRUE)
+  render(rmd_file,
+         output_format = bookdown::word_document2(keep_md = FALSE),
+         output_file = docx_file,
+         envir = new.env(),
+         quiet = TRUE)
+
+  doc <- get_docx_xml(docx_file)
+
+  caption_node <- xml_find_first(doc,
                                  xpath = "/w:document/w:body/w:tbl[2]/preceding-sibling::*[1]")
   expect_true(grepl("Table 2", xml_text(caption_node), fixed = TRUE))
 
-  crossref_node <- xml_find_first(docx_body_xml(doc), "/w:document/w:body/w:p[2]")
+  crossref_node <- xml_find_first(doc, "/w:document/w:body/w:p[2]")
   expect_equal("Cross-reference is there: 2", xml_text(crossref_node))
+
+  style_nodes <- xml_find_all(doc, "//w:pStyle[@w:val='TableCaption']")
+  expect_length(style_nodes, 4)
+  expect_true(all(xml_attr(style_nodes, "val") %in% "TableCaption"))
+  txt_nodes <- xml_parent(xml_parent(style_nodes))
+  expect_true(
+    all(
+      grepl("^Table [1-4]+\\:", xml_text(txt_nodes))
+    )
+  )
+
+  bookmarks <- xml_find_all(doc, "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart")
+  expect_length(bookmarks, 0)
 })
 
 
-testthat::test_that("DOCX bookmark is OK when not using bookdown", {
+
+testthat::test_that("word with officer", {
   skip_if_not(pandoc_version() >= numeric_version("2"))
 
-  testthat::skip_if_not_installed("bookdown")
+  unlink(docx_file, force = TRUE)
+  ft <- flextable(head(cars))
+  ft <- theme_vanilla(ft)
+  ft <- autofit(ft)
+  ft <- set_caption(
+    x = ft,
+    caption = as_paragraph(
+      as_chunk("azerty ", props = fp_text_default(color = "cyan")),
+      as_chunk("querty", props = fp_text_default(color = "orange"))
+    ),
+    autonum = run_autonum(seq_id = "tab", bkm = "id2"),
+    fp_p = fp_par(
+      padding = 10,
+      border = fp_border_default(color = "red", width = 1))
+  )
+  doc <- get_docx_xml(ft)
 
-  rmd_file <- tempfile(fileext = ".Rmd")
-  file.copy("test-captions-rmd.Rmd", rmd_file)
-  rmd_str <- readLines(rmd_file)
-  rmd_str <- gsub("label=\"id1\"", "tab.id=\"id1\"", rmd_str)
-  writeLines(rmd_str, rmd_file, useBytes = TRUE)
+  caption_node <- xml_find_first(doc,
+                                 xpath = "/w:document/w:body/w:tbl/preceding-sibling::*[1]")
+  expect_false(grepl("Table [1-5]+", xml_text(caption_node), fixed = TRUE))
 
-  baseout <- "caption-tests"
-  file_out <- paste0(baseout, "-rmd.docx")
-
-  render(rmd_file,
-         output_format = word_document(keep_md = FALSE),
-         output_file = file_out,
-         quiet = TRUE)
-
-  doc <- read_docx(file.path(dirname(rmd_file), file_out))
-
-  caption_node <- xml_find_first(
-    x = docx_body_xml(doc),
-    xpath = "/w:document/w:body/w:tbl[2]/preceding-sibling::*[1]")
-
-  expect_false(grepl("Table SEQ tab \\* Arabic", xml_text(caption_node), fixed = TRUE))
+  style_nodes <- xml_find_all(doc, "//w:pStyle[@w:val='TableCaption']")
+  expect_length(style_nodes, 1)
+  expect_true(all(xml_attr(style_nodes, "val") %in% "TableCaption"))
+  bookmarks <- xml_find_all(doc, "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart")
+  expect_length(bookmarks, 1)
+  expect_equal(xml_attr(bookmarks, "name"), "id2")
 })
 
 
-test_that("PDF cross-references are OK when using bookdown", {
+test_that("with pdf_document2", {
   skip_if_not(pandoc_version() >= numeric_version("2"))
   skip_if_not_installed("bookdown")
   skip_if_not_installed("pdftools")
 
   require("pdftools")
+  tryCatch({
+    render(rmd_file,
+           output_format = bookdown::pdf_document2(keep_md = FALSE),
+           output_file = pdf_file,
+           envir = new.env(),
+           quiet = TRUE)
+  },
+  warning = function(e){
 
-  rmd_file <- tempfile(fileext = ".Rmd")
-  file.copy("test-captions-rmd.Rmd", rmd_file)
+  },
+  error = function(e) {
+    stop(e)
+  }
+  )
 
-  baseout <- "caption-tests"
-  file_out <- paste0(baseout, "-bookdown-rmd.pdf")
-
-  render(rmd_file,
-         output_format = bookdown::pdf_document2(keep_md = FALSE),
-         output_file = file_out,
-         quiet = TRUE)
-
-  doc <- pdf_text(file.path(dirname(rmd_file), file_out))
-  txtfile <- tempfile()
-  cat(paste0(doc, collapse = "\n"), file = txtfile)
-  doc <- readLines(txtfile)
+  doc <- get_pdf_text(pdf_file, extract_fun = pdftools::pdf_text)
 
   expect_true(any(grepl("Cross-reference is there: 2", doc, fixed = TRUE)))
+})
+
+test_that("Adds label for cross referencing with bookdown", {
+  expect_identical(flextable:::ref_label(), "")
+  knitr::opts_current$set(label = 'foo')
+  expect_identical(flextable:::ref_label(), "(\\#tab:foo)")
 })
 

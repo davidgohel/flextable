@@ -7,12 +7,15 @@ knitr::opts_chunk$set(echo = FALSE)
 library(flextable)
 library(magrittr)
 library(officer)
-caption_md <- "This is $E = m c^2$ figure with an inline latex equation ($y=mx+b$) and some markdown (*italics*, ~subscript~, **bold**)"
-knitr::opts_chunk$set(tab.lp = "tab:")
-ft <- flextable(head(mtcars)) %>% 
+caption_md <- "This is a caption"
+
+knitr::opts_chunk$set(ft.shadow = FALSE,
+  tab.lp = "tab:", 
+  tab.cap.style = "Table Caption")
+
+ft <- flextable(head(cars)) %>% 
   theme_vanilla() %>% 
   autofit()
-
 ```
 
 
@@ -35,5 +38,35 @@ ft
 
 ```{r tab.id="tab3"}
 ft
+```
+
+## Using set caption
+
+```{r table2}
+#| tab.topcaption: true
+set_caption(
+  x = ft, 
+  caption = as_paragraph(
+      as_chunk("azerty ", props = fp_text_default(color = "cyan")),
+      as_chunk("querty", props = fp_text_default(color = "orange"))
+  ),
+  autonum = run_autonum(seq_id = "tab", bkm = "id2"),
+  fp_p = fp_par(
+    padding = 10, 
+    border = fp_border_default(color = "red", width = 1))
+)
+```
+
+## Using set caption and chunk options
+
+```{r label="id3"}
+#| tab.topcaption: false
+set_caption(
+  x = ft, 
+  caption = as_paragraph(
+      as_chunk("azerty ", props = fp_text_default(color = "cyan")),
+      as_chunk("querty", props = fp_text_default(color = "orange"))
+  )
+)
 ```
 
