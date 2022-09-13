@@ -241,7 +241,7 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
 #'
 #' \if{html}{\figure{fig_highlight_1.png}{options: width="500"}}
 highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", source = j) {
-  if (!inherits(x, "flextable")) stop("italic supports only flextable objects.")
+  if (!inherits(x, "flextable")) stop("highlight supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
