@@ -184,20 +184,17 @@ testthat::test_that("word with officer", {
 test_that("with pdf_document2", {
   skip_if_not(rmarkdown::pandoc_available())
   skip_if_not(pandoc_version() > numeric_version("2.7.3"))
-  skip_if_not(tinytex::is_tinytex())
   skip_if_not_installed("bookdown")
   skip_if_not_installed("pdftools")
 
   require("pdftools")
-  render(rmd_file,
-         output_format = bookdown::pdf_document2(keep_md = FALSE),
-         output_file = pdf_file,
-         envir = new.env(),
-         quiet = TRUE)
-
-  doc <- get_pdf_text(pdf_file, extract_fun = pdftools::pdf_text)
-
-  expect_true(any(grepl("Cross-reference is there: 2", doc, fixed = TRUE)))
+  sucess <- render_rmd(file = pdf_file, rmd_format = bookdown::pdf_document2(keep_md = FALSE))
+  if (sucess) {
+    doc <- get_pdf_text(pdf_file, extract_fun = pdftools::pdf_text)
+    expect_true(any(grepl("Cross-reference is there: 2", doc, fixed = TRUE)))
+  } else {
+    testthat::expect_false(sucess)# only necessary to avoid a note
+  }
 })
 
 test_that("Adds label for cross referencing with bookdown", {

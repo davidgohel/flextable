@@ -42,3 +42,24 @@ get_pdf_text <- function(x, extract_fun) {
   cat(paste0(doc, collapse = "\n"), file = txtfile)
   readLines(txtfile)
 }
+
+render_rmd <- function(file, rmd_format) {
+  unlink(file, force = TRUE)
+  sucess <- FALSE
+  tryCatch(
+    {
+      render(rmd_file,
+             output_format = rmd_format,
+             output_file = pdf_file,
+             envir = new.env(),
+             quiet = TRUE
+      )
+      sucess <- TRUE
+    },
+    warning = function(e) {
+    },
+    error = function(e) {
+    }
+  )
+  sucess
+}
