@@ -51,6 +51,7 @@ testthat::test_that("with html_document", {
 })
 
 testthat::test_that("with html_document2", {
+  skip_if_not(rmarkdown::pandoc_available())
   skip_if_not(pandoc_version() >= numeric_version("2"))
   testthat::skip_if_not_installed("bookdown")
 
@@ -83,6 +84,7 @@ testthat::test_that("with html_document2", {
 })
 
 testthat::test_that("with word_document", {
+  skip_if_not(rmarkdown::pandoc_available())
   skip_if_not(pandoc_version() >= numeric_version("2"))
 
   unlink(docx_file, force = TRUE)
@@ -111,7 +113,8 @@ testthat::test_that("with word_document", {
 })
 
 testthat::test_that("with word_document2", {
-  skip_if_not(pandoc_version() >= numeric_version("2"))
+  skip_if_not(rmarkdown::pandoc_available(version = ))
+  skip_if_not(pandoc_version() > numeric_version("2.7.3"))
   testthat::skip_if_not_installed("bookdown")
 
   unlink(docx_file, force = TRUE)
@@ -147,7 +150,6 @@ testthat::test_that("with word_document2", {
 
 
 testthat::test_that("word with officer", {
-  skip_if_not(pandoc_version() >= numeric_version("2"))
 
   unlink(docx_file, force = TRUE)
   ft <- flextable(head(cars))
@@ -180,25 +182,18 @@ testthat::test_that("word with officer", {
 
 
 test_that("with pdf_document2", {
-  skip_if_not(pandoc_version() >= numeric_version("2"))
+  skip_if_not(rmarkdown::pandoc_available())
+  skip_if_not(pandoc_version() > numeric_version("2.7.3"))
+  skip_if_not(tinytex::is_tinytex())
   skip_if_not_installed("bookdown")
   skip_if_not_installed("pdftools")
 
   require("pdftools")
-  tryCatch({
-    render(rmd_file,
-           output_format = bookdown::pdf_document2(keep_md = FALSE),
-           output_file = pdf_file,
-           envir = new.env(),
-           quiet = TRUE)
-  },
-  warning = function(e){
-
-  },
-  error = function(e) {
-    stop(e)
-  }
-  )
+  render(rmd_file,
+         output_format = bookdown::pdf_document2(keep_md = FALSE),
+         output_file = pdf_file,
+         envir = new.env(),
+         quiet = TRUE)
 
   doc <- get_pdf_text(pdf_file, extract_fun = pdftools::pdf_text)
 

@@ -19,10 +19,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: 'release', pandoc: '2.7.3'}
-          - {os: macOS-latest, r: 'release', pandoc : '2.11.4'}
-          - {os: macOS-latest, r: 'release', pandoc : '2.14.2'}
-          - {os: ubuntu-20.04, r: 'release', pandoc : '2.11.4', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          - {os: windows-latest, r: 'release', pandoc: '2.19'}
+          - {os: macOS-latest, r: 'release', pandoc : '2.19'}
+          - {os: ubuntu-20.04, r: 'release', pandoc : '2.19', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          - {os: ubuntu-latest, r: 'devel', pandoc : '2.19'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -31,62 +31,43 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
+          use-public-rspm: true
 
-      - uses: r-lib/actions/setup-pandoc@master
+      - uses: r-lib/actions/setup-pandoc@v2
         with:
           pandoc-version: ${{ matrix.config.pandoc }}
 
-      - uses: r-lib/actions/setup-tinytex@v1
-
-      - name: install freetype2 and imagemagick deps
-        if: matrix.config.os == 'macOS-latest'
-        run: |
-           brew install freetype2 imagemagick ghostscript fontconfig cairo
-
-      - name: Query dependencies
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-        shell: Rscript {0}
-
-      - name: Cache R packages
-        if: runner.os != 'Windows'
-        uses: actions/cache@v1
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
-
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
+      - uses: r-lib/actions/setup-tinytex@v2
         env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-        run: |
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-          sudo -s eval "$sysreqs"
+          # install full prebuilt version
+          TINYTEX_INSTALLER: TinyTeX
 
-      - name: Install dependencies
+      - name: Add some R options for later steps
         run: |
-          install.packages("stringi", type="source")
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
+          cat("\noptions(tinytex.verbose = TRUE)\n", file = "~/.Rprofile", append = TRUE)
+          cat(readLines("~/.Rprofile"), sep = "\n")
         shell: Rscript {0}
 
-      - name: Check
-        env:
-          _R_CHECK_CRAN_INCOMING_REMOTE_: false
-          _R_CHECK_FORCE_SUGGESTS_: false
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
-        shell: Rscript {0}
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@master
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
+          extra-packages: any::rcmdcheck
+          needs: check
+
+      - name: Pandoc and Tinytex info
+        run: |
+          rmarkdown::find_pandoc()
+          tinytex::tlmgr("--version")
+          tinytex::tl_pkgs()
+        shell: Rscript {0}
+
+      - uses: r-lib/actions/check-r-package@v2
+
+      - name: Test coverage
+        if: success() && runner.os == 'Linux' && matrix.config.r == 'release' && matrix.config.pandoc == '2.19'
+        run: |
+          pak::pkg_install('covr')
+          covr::codecov()
+        shell: Rscript {0}

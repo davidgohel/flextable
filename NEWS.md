@@ -3,6 +3,7 @@
 ## Issues
 
 - fix warning with subscript and superscript #456
+- prevent usage of gregexec if R < 4.1
 
 # flextable 0.8.0
 
