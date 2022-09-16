@@ -1,0 +1,60 @@
+---
+title: "rmarkdown examples"
+---
+
+```{r setup, include=FALSE}
+set.seed(2)
+
+knitr::opts_chunk$set(echo = FALSE, ft.shadow = FALSE, ft.latex.float = 'float')
+library(officer)
+library(flextable)
+
+set_flextable_defaults(
+  font.family = "Arial", 
+  fonts_ignore = TRUE,
+  font.size = 10, 
+  font.color = "#222222", border.color = "#222222")
+
+str1 <- "Lorem ipsum dolor sit amet, ac id condimentum cras urna velit, "
+str2 <- "fringilla nec nostra in. "
+str3 <- "Iaculis sit sed in quam cubilia orci dui eget maximus ullamcorper."
+
+fpt1 <- fp_text_default(color = "orange")
+fpt2 <- fp_text_default(color = "#068282", italic = TRUE)
+
+fpp1 <- fp_par(
+  padding.left = 15, 
+  padding.right = 25, 
+  padding.top = 5, 
+  padding.bottom = 10, 
+  text.align = "left")
+
+ft <- qflextable(airquality[sample.int(150, size = 5), ]) |>
+  set_caption(
+    fp_p = fpp1,
+    align_with_table = FALSE,
+    autonum = run_autonum(seq_id = "tab", bkm = "tbl-flextable", bkm_all = TRUE, prop = str1),
+    caption = as_paragraph(
+      as_chunk(str1, props = fpt1), str2, as_chunk(str3, props = fpt2)
+    )
+  )
+```
+
+# some examples
+
+## example 1
+
+```{r}
+#| tab.topcaption: false
+ft
+```
+
+## example 2
+
+```{r}
+#| tab.id: tbl-coco
+#| tab.cap: Caption zzzz
+#| tab.topcaption: true
+flextable(cars[1:4, ])
+```
+
