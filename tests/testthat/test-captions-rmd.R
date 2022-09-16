@@ -3,10 +3,11 @@ context("check captions")
 library(rmarkdown)
 library(xml2)
 library(officer)
+init_flextable_defaults()
 
-rmd_file_0 <- "test-captions-rmd.Rmd"
+rmd_file_0 <- "rmd/captions.Rmd"
 if (!file.exists(rmd_file_0)) {#just for dev purpose
-  rmd_file_0 <- "tests/testthat/test-captions-rmd.Rmd"
+  rmd_file_0 <- "tests/testthat/rmd/captions.Rmd"
 }
 rmd_file <- tempfile(fileext = ".Rmd")
 file.copy(rmd_file_0, rmd_file, overwrite = TRUE)
@@ -203,3 +204,4 @@ test_that("Adds label for cross referencing with bookdown", {
   expect_identical(flextable:::ref_label(), "(\\#tab:foo)")
 })
 
+init_flextable_defaults()
