@@ -22,6 +22,8 @@ are "atleast" (height should be at least the value specified), "exact"
 control rules of each height for a part
 of the flextable, this is only for Word and PowerPoint outputs, it
 will not have any effect when output is HTML or PDF.
+
+For PDF see the \code{ft.arraystretch} chunk option.
 }
 \section{Illustrations}{
 
