@@ -640,7 +640,7 @@ as_flextable.kmeans <- function(x, digits = 4, ...) {
 #' @description produce a flextable describing a
 #' pam object. The function is only using package 'broom'
 #' that provides the data presented in the resulting flextable.
-#' @param x a [pam()] object
+#' @param x a [cluster::pam()] object
 #' @param digits number of digits for the numeric columns
 #' @param ... unused argument
 #' @examples

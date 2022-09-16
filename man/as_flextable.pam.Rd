@@ -7,7 +7,7 @@
 \method{as_flextable}{pam}(x, digits = 4, ...)
 }
 \arguments{
-\item{x}{a \code{\link[=pam]{pam()}} object}
+\item{x}{a \code{\link[cluster:pam]{cluster::pam()}} object}
 
 \item{digits}{number of digits for the numeric columns}
 

@@ -61,10 +61,6 @@ html_to_miniature <- function(x, path) {
 }
 
 expect_snapshot_to <- function(name, x, format = "docx") {
-  require("doconv")
-  require("magick")
-  stopifnot(locatexec::exec_available("word"))
-
   name <- paste0(name, ".png")
   announce_snapshot_file(name = name)
   if ("docx" %in% format) {
@@ -82,9 +78,6 @@ expect_snapshot_to <- function(name, x, format = "docx") {
 }
 
 expect_snapshot_rmd <- function(name, x, format = "docx") {
-  require("doconv")
-  require("magick")
-
   name <- paste0(name, ".png")
   announce_snapshot_file(name = name)
   if ("docx" %in% format) {

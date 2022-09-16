@@ -32,15 +32,13 @@ RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 Suggests: 
     testthat (>= 2.1.0),
-    doconv (>= 0.1.4),
+    magick, equatags, commonmark, 
+    ggplot2, scales,
+    webshot, doconv (>= 0.1.4), locatexec,
     xtable,
-    webshot,
-    magick,
-    ggplot2, scales, 
-    broom, broom.mixed, mgcv,
-    cluster, lme4, nlme, 
-    bookdown, equatags,
-    commonmark, pdftools
+    broom, broom.mixed, 
+    mgcv, cluster, lme4, nlme,
+    bookdown, pdftools
 Encoding: UTF-8
 URL: https://ardata-fr.github.io/flextable-book/, https://davidgohel.github.io/flextable/
 BugReports: https://github.com/davidgohel/flextable/issues
