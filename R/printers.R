@@ -331,7 +331,7 @@ docx_value <- function(x,
     docx_str(
       x = x, align = ft.align, split = ft.split,
       keep_with_next = ft.keepnext)
-  if (bookdown) {
+  if (bookdown || is_rdocx_document) {
     out <- c(
       if(topcaption) caption,
       with_openxml_quotes(table_str),
