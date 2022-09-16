@@ -1,39 +1,45 @@
 #' @importFrom rmarkdown pandoc_exec
-html_chunkify <- function(x, engine = "none"){
+html_chunkify <- function(x, engine = "none") {
   stopifnot(length(x) == 1, is.character(x))
 
   engi <- match.arg(engine, c("commonmark", "pandoc", "none"), several.ok = FALSE)
-  if("pandoc" %in% engi){
+  if ("pandoc" %in% engi) {
     mdfile <- tempfile(fileext = ".md")
     writeLines(enc2utf8(x), mdfile, useBytes = TRUE)
     out <- system2(rmarkdown::pandoc_exec(),
-            args = c(mdfile, "--mathjax", "--katex", "-t", "html"),
-            stdout = TRUE
-            )
+      args = c(mdfile, "--mathjax", "--katex", "-t", "html"),
+      stdout = TRUE
+    )
     out <- paste0(out, collapse = "")
     out <- gsub("(<p>|</p>)", "", out)
-  } else if("commonmark" %in% engi){
+  } else if ("commonmark" %in% engi) {
     if (requireNamespace("commonmark", quietly = TRUE)) {
       out <- commonmark::markdown_html(x)
       out <- gsub("(<p>|</p>|\\n)", "", out)
     } else {
       stop("package 'commonmark' must be installed to use option 'commonmark'.")
     }
-  } else out <- x
+  } else {
+    out <- x
+  }
 
   enc2utf8(out)
 }
 
 
-html_str <- function(x, ft.align = NULL, class = "tabwid",
-                     caption = "", shadow = TRUE, topcaption = TRUE,
-                     manual_css = ""){
+html_str <- function(x,
+                     ft.align = NULL,
+                     class = "tabwid",
+                     caption = "",
+                     shadow = TRUE,
+                     topcaption = TRUE,
+                     manual_css = "") {
 
   fixed_layout <- x$properties$layout %in% "fixed"
-  if(!fixed_layout){
+  if (!fixed_layout) {
     if (x$properties$width > 0) {
       # setting width will contraint columns'widths and make word breaks
-      tbl_width <- paste0("width:", formatC(x$properties$width*100), "%;")
+      tbl_width <- paste0("width:", formatC(x$properties$width * 100), "%;")
     } else {
       tbl_width <- ""
     }
@@ -48,62 +54,77 @@ html_str <- function(x, ft.align = NULL, class = "tabwid",
   classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
   tabcss <- paste0(".", classname, "{", tabcss, "}")
 
-  if(topcaption) str <- paste0(caption, codes$html)
-  else str <- paste0(codes$html, caption)
-  codes <- sprintf("<style>%s%s%s</style><table class='%s'>%s</table>",
-          tabcss, codes$css, flextable_global$defaults$extra_css, classname, str)
+  if (is.null(manual_css) || "" %in% manual_css) {
+    manual_css_str <- ""
+  } else {
+    manual_css_str <- manual_css
+  }
 
-  if( is.null(ft.align) ) ft.align <- "center"
+  html <- paste0(
+    "<style>",
+    tabcss,
+    codes$css,
+    flextable_global$defaults$extra_css,
+    manual_css_str,
+    "</style>",
+    sprintf("<table class='%s'>", classname),
+    caption,
+    codes$html,
+    "</table>"
+  )
 
-  if( "left" %in% ft.align )
+  if (is.null(ft.align)) ft.align <- "center"
+  if ("left" %in% ft.align) {
     tab_class <- paste0(class, " tabwid_left")
-  else if( "right" %in% ft.align )
+  } else if ("right" %in% ft.align) {
     tab_class <- paste0(class, " tabwid_right")
-  else tab_class <- class
+  } else {
+    tab_class <- class
+  }
 
-  html <- paste0("<div class=\"", tab_class, "\">",
-         as.character(codes),
-         "</div>")
-  if(shadow){
+  if (topcaption) {
+    tab_class <- paste0(tab_class, " tabwid-caption-top")
+  } else {
+    tab_class <- paste0(tab_class, " tabwid-caption-bottom")
+  }
+
+  html <- paste0("<div class=\"", tab_class, "\">", html, "</div>")
+
+  if (shadow) {
     uid <- UUIDgenerate(n = 2L)
 
-    tabwid_css <- paste(c("<style>", readLines(system.file(package="flextable", "web_1.1.0", "tabwid.css"), encoding = "UTF-8"), "</style>"), collapse = "\n")
+    tabwid_css <- paste(
+      c(
+        "<style>",
+        readLines(system.file(package = "flextable", "web_1.1.0", "tabwid.css"), encoding = "UTF-8"),
+        "</style>"
+      ),
+      collapse = "\n"
+    )
 
-    html <- paste0("<template id=\"", uid[1], "\">",
-                   tabwid_css,
-                   html,
-           "</template>",
-           "\n<div class=\"flextable-shadow-host\" id=\"", uid[2], "\"></div>",
-           to_shadow_dom(uid1 = uid[1], uid2 = uid[2], topcaption = topcaption)
+    html <- paste0(
+      "<template id=\"", uid[1], "\">",
+      tabwid_css,
+      html,
+      "</template>",
+      "\n<div class=\"flextable-shadow-host\" id=\"", uid[2], "\"></div>",
+      to_shadow_dom(uid1 = uid[1], uid2 = uid[2])
     )
   }
-  if(is.null(manual_css) || "" %in% manual_css){
-    html
-  } else {
-    paste0(sprintf("<style>%s</style>", manual_css), html)
-  }
-
+  html
 }
 
-to_shadow_dom <- function(uid1, uid2, topcaption = TRUE){
-
-  if(topcaption){
-    move_inst <- "  dest.parentNode.insertBefore(caption, dest.previousSibling);"
-  } else {
-    move_inst <- "  dest.parentNode.insertBefore(caption, dest.nextSibling);"
-  }
-  script_commands <- c("", "<script>",
+to_shadow_dom <- function(uid1, uid2) {
+  script_commands <- c(
+    "", "<script>",
     paste0("var dest = document.getElementById(\"", uid2, "\");"),
     paste0("var template = document.getElementById(\"", uid1, "\");"),
     "var caption = template.content.querySelector(\"caption\");",
-    "if(caption) {",
-    "  caption.style.cssText = caption.style.cssText+\"display:block;\";",
-    move_inst,
-    "}",
     "var fantome = dest.attachShadow({mode: 'open'});",
     "var templateContent = template.content;",
     "fantome.appendChild(templateContent);",
-    "</script>", "")
+    "</script>", ""
+  )
   paste(script_commands, collapse = "\n")
 }
 
@@ -207,10 +228,7 @@ html_gen <- function(x){
   html <- paste0(html, collapse = "")
 
   par_style_str <- par_css_styles(data_ref_pars)
-  cell_style_str <- cell_css_styles(data_ref_cells)
-  if(!x$properties$layout %in% "fixed") {
-    cell_style_str <- gsub("width:[ ]*[0-9\\.]+pt;", "", cell_style_str)
-  }
+  cell_style_str <- cell_css_styles(data_ref_cells, add_widths = x$properties$layout %in% "fixed")
   list(
     html = html,
     css = paste0(span_style_str, par_style_str, cell_style_str)
@@ -352,14 +370,19 @@ par_css_styles <- function(x){
   paste0(".", x$classname, "{", style_column, "}", collapse = "")
 }
 
-cell_css_styles <- function(x){
+cell_css_styles <- function(x, add_widths = TRUE){
 
   background.color <- ifelse( colalpha(x$background.color) > 0,
                               sprintf("background-color:%s;", colcodecss(x$background.color) ),
                               "background-color:transparent;")
+  width <- rep("", nrow(x))
+  if (add_widths) {
+    width[!is.na(x$width)] <- sprintf("width:%s;", css_pt(x$width[!is.na(x$width)] * 72) )
+  }
 
-  width <- ifelse( is.na(x$width), "", sprintf("width:%s;", css_pt(x$width * 72) ) )
-  height <- ifelse( !is.na(x$height) & x$hrule %in% c("exact", "atleast"), sprintf("height:%s;", css_pt(x$height * 72 ) ), "" )
+  height <- rep("", nrow(x))
+  hsel <- !is.na(x$height) & x$hrule %in% c("exact", "atleast")
+  height[hsel] <- sprintf("width:%s;", css_pt(x$height[hsel] * 72) )
 
   vertical.align <- rep("vertical-align: middle;", nrow(x))
   vertical.align[x$vertical.align %in% "top"] <- "vertical-align: top;"

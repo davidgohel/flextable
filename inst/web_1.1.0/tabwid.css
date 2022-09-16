@@ -8,6 +8,12 @@
   display: table;
   border-color: transparent;
 }
+.tabwid-caption-top table{
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
 .tabwid_left table{
   margin-left:0;
 }
