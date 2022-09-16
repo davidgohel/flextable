@@ -307,31 +307,33 @@ docx_value <- function(x,
   }
 
   if (topcaption) {
-    apply_cap_kwn <- TRUE
+    keep_with_next <- TRUE
   } else {
     x <- keep_wn(x, part = "all", keep_with_next = TRUE)
-    apply_cap_kwn <- FALSE
+    keep_with_next <- FALSE
   }
 
-
-  if (is_rdocx_document) {
-    caption <- caption_default_rdocx_md(x, tab_props = tab_props)
-  } else if (bookdown) {
+  word_autonum <- FALSE
+  if (is_rdocx_document || quarto) {
+    word_autonum <- TRUE
+  }
+  if (bookdown) {
     caption <- caption_bookdown_docx_md(x, tab_props = tab_props)
-  } else if (quarto) {
-    caption <- caption_default_docx_openxml(x, align = ft.align,
-                                            tab_props = tab_props,
-                                            keep_with_next = apply_cap_kwn,
-                                            allow_autonum = TRUE)
   } else {
-    caption <- caption_default_docx_openxml(x, align = ft.align, keep_with_next = apply_cap_kwn, allow_autonum = FALSE)
+    caption <- caption_default_docx_openxml(
+      x,
+      align = ft.align,
+      keep_with_next = keep_with_next,
+      tab_props = tab_props,
+      allow_autonum = word_autonum)
   }
 
   table_str <-
     docx_str(
       x = x, align = ft.align, split = ft.split,
       keep_with_next = ft.keepnext)
-  if (bookdown || is_rdocx_document) {
+
+  if (bookdown) {
     out <- c(
       if(topcaption) caption,
       with_openxml_quotes(table_str),

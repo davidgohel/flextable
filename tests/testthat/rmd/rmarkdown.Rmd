@@ -33,7 +33,7 @@ ft <- qflextable(airquality[sample.int(150, size = 5), ]) |>
   set_caption(
     fp_p = fpp1,
     align_with_table = FALSE,
-    autonum = run_autonum(seq_id = "tab", bkm = "tbl-flextable", bkm_all = TRUE, prop = str1),
+    autonum = run_autonum(seq_id = "tab", bkm = "tbl-flextable", bkm_all = TRUE, prop = fpt1),
     caption = as_paragraph(
       as_chunk(str1, props = fpt1), str2, as_chunk(str3, props = fpt2)
     )

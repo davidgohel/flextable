@@ -52,6 +52,8 @@ test_that("rmarkdown caption", {
 test_that("bookdown caption", {
   local_edition(3)
 
+  skip_if_not_installed("bookdown")
+
   rmd_file <- tempfile(fileext = ".Rmd")
   file.copy("rmd/bookdown.Rmd", rmd_file)
   render(rmd_file, output_format = bookdown::pdf_document2(latex_engine = "xelatex"),
@@ -67,6 +69,19 @@ test_that("bookdown caption", {
   file.copy("rmd/bookdown.Rmd", rmd_file)
   render(rmd_file, output_format = "bookdown::html_document2", envir = new.env(), quiet = TRUE)
   expect_snapshot_rmd(name = "bookdown_html_document2", get_output_file(rmd_file), format = "html")
+})
+
+test_that("rdocx caption", {
+  local_edition(3)
+
+  skip_if_not_installed("bookdown")
+  skip_if_not_installed("officedown")
+
+  rmd_file <- tempfile(fileext = ".Rmd")
+  file.copy("rmd/bookdown.Rmd", rmd_file)
+  render(rmd_file, output_format = bookdown::markdown_document2(base_format = "officedown::rdocx_document"),
+         envir = new.env(), quiet = TRUE)
+  expect_snapshot_rmd(name = "officedown_word_document2", get_output_file(rmd_file), format = "docx")
 })
 
 

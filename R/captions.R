@@ -114,43 +114,6 @@ caption_default_docx_openxml <- function(x, align = "center",
   caption_str
 }
 
-caption_default_rdocx_md <- function(x, tab_props = opts_current_table()) {
-
-  tab_props$id <- mcoalesce_options(x$caption$autonum$bookmark, tab_props$id, opts_current$get("label"))
-  tab_props$cap.style <- mcoalesce_options(x$caption$style, tab_props$cap.style)
-
-  if (!has_caption(x, knitr_caption = tab_props$cap)) {
-    return("")
-  }
-
-  style_start <- ""
-  style_end <- ""
-
-  has_caption_style <- !is.null(tab_props$cap.style)
-  if (has_caption_style) {
-    style_start <- sprintf("::: {custom-style=\"%s\"}\n", tab_props$cap.style)
-    style_end <- "\n:::\n"
-  }
-
-  run_autonum <- get_word_autonum(x, tab_props)
-  autonum <- ""
-  if (!is.null(run_autonum)) {
-    autonum <- paste("`", to_wml(run_autonum), "`{=openxml}", sep = "")
-  }
-
-  caption_chunks_str <- caption_chunks_text(x = x, knitr_caption = tab_props$cap)
-
-  caption <- paste(
-    style_start,
-    paste0("<caption>", autonum, caption_chunks_str, "</caption>"),
-    style_end,
-    "",
-    sep = "\n"
-  )
-
-  caption
-}
-
 # HTML ----
 
 
