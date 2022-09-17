@@ -60,7 +60,7 @@ body_add_flextable <- function(x, value,
   if (topcaption && !is.null(caption_str)) {
     x <- body_add_xml(x = x, str = caption_str, pos = pos)
   }
-  out <- docx_str(value,
+  out <- gen_raw_wml(value,
     doc = x, align = align, split = split,
     keep_with_next = topcaption
   )
@@ -100,7 +100,7 @@ body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", 
 #' @param value a flextable object
 headers_flextable_at_bkm <- function( x, bookmark, value ){
   stopifnot(inherits(x, "rdocx"), inherits(value, "flextable"))
-  str <- docx_str(value, doc = x, align = "center", keep_with_next = FALSE)
+  str <- gen_raw_wml(value, doc = x, align = "center", keep_with_next = FALSE)
   xml_elt <- as_xml_document(str)
   for(header in x$headers){
     if( header$has_bookmark(bookmark) ){
@@ -126,7 +126,7 @@ headers_flextable_at_bkm <- function( x, bookmark, value ){
 #' @param value a flextable object
 footers_flextable_at_bkm <- function( x, bookmark, value ){
   stopifnot(inherits(x, "rdocx"), inherits(value, "flextable"))
-  str <- docx_str(value, doc = x, align = "center", keep_with_next = FALSE)
+  str <- gen_raw_wml(value, doc = x, align = "center", keep_with_next = FALSE)
   xml_elt <- as_xml_document(str)
   for(footer in x$footers){
     if( footer$has_bookmark(bookmark) ){

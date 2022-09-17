@@ -74,7 +74,7 @@ pml_cells <- function(value, cell_data){
   cell_data
 }
 
-pptx_str <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0){
+gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0){
 
   cell_attributes <- fortify_style(value, "cells")
   par_attributes <- fortify_style(value, "pars")

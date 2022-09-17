@@ -100,14 +100,14 @@ demo_loop <- system.file(package = "flextable", "examples/rmd", "loop_with_flext
 rmd_file <- tempfile(fileext = ".Rmd")
 file.copy(demo_loop, to = rmd_file, overwrite = TRUE)
 rmd_file # R Markdown document used for demo
-if(require("rmarkdown", quietly = TRUE)){
-#  render(input = rmd_file, output_format = "word_document",
-#    output_file = "loop_with_flextable.docx")
-#  render(input = rmd_file, output_format = "html_document",
-#    output_file = "loop_with_flextable.html")
-#  render(input = rmd_file,
-#    output_format = rmarkdown::pdf_document(latex_engine = "xelatex"),
-#    output_file = "loop_with_flextable.pdf")
+if (require("rmarkdown", quietly = TRUE)) {
+  #  render(input = rmd_file, output_format = "word_document",
+  #    output_file = "loop_with_flextable.docx")
+  #  render(input = rmd_file, output_format = "html_document",
+  #    output_file = "loop_with_flextable.html")
+  #  render(input = rmd_file,
+  #    output_format = rmarkdown::pdf_document(latex_engine = "xelatex"),
+  #    output_file = "loop_with_flextable.pdf")
 }
 
 }

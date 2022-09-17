@@ -28,19 +28,23 @@ sugar function to save flextable objects in an Word file.
 tf <- tempfile(fileext = ".docx")
 
 library(officer)
-ft1 <- flextable( head( iris ) )
+ft1 <- flextable(head(iris))
 save_as_docx(ft1, path = tf)
 
 
-ft2 <- flextable( head( mtcars ) )
+ft2 <- flextable(head(mtcars))
 sect_properties <- prop_section(
-  page_size = page_size(orient = "landscape",
-    width = 8.3, height = 11.7),
+  page_size = page_size(
+    orient = "landscape",
+    width = 8.3, height = 11.7
+  ),
   type = "continuous",
   page_margins = page_mar()
 )
-save_as_docx(`iris table` = ft1, `mtcars table` = ft2,
-  path = tf, pr_section = sect_properties)
+save_as_docx(
+  `iris table` = ft1, `mtcars table` = ft2,
+  path = tf, pr_section = sect_properties
+)
 }
 \seealso{
 Other flextable print function: 

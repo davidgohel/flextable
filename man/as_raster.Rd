@@ -25,9 +25,9 @@ on a ggplot object.
 This function requires packages: webshot and magick.
 }
 \examples{
-ft <- qflextable( head( mtcars ) )
+ft <- qflextable(head(mtcars))
 \dontrun{
-if( require("ggplot2") && require("webshot") ){
+if (require("ggplot2") && require("webshot")) {
   print(qplot(speed, dist, data = cars, geom = "point"))
   grid::grid.raster(as_raster(ft))
 }

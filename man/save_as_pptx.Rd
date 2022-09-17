@@ -28,11 +28,11 @@ complicated things.
 The PowerPoint format ignores captions (see \code{\link[=set_caption]{set_caption()}}).
 }
 \examples{
-ft1 <- flextable( head( iris ) )
+ft1 <- flextable(head(iris))
 tf <- tempfile(fileext = ".pptx")
 save_as_pptx(ft1, path = tf)
 
-ft2 <- flextable( head( mtcars ) )
+ft2 <- flextable(head(mtcars))
 tf <- tempfile(fileext = ".pptx")
 save_as_pptx(`iris table` = ft1, `mtcars table` = ft2, path = tf)
 }

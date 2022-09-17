@@ -4,7 +4,7 @@
 #' @description change urls encoded as url1, url2, ... in OOXML files
 #' with the name of the element that is the real URL to be set
 #'
-#' When pptx_str() or docx_str() are called, during the `wml_runs()`
+#' When gen_raw_pml() or gen_raw_wml() are called, during the `wml_runs()`
 #' step, url are identified. They are stored as names of a character
 #' vector of url id, for example `c('https://google.fr'='url1', ...)`.
 process_url <- function(relation_object, urls_set, ooxml_str, pattern) {

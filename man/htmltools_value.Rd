@@ -28,7 +28,7 @@ This can be used in a shiny application. For an output within
 "R Markdown" document, use \link{knit_print.flextable}.
 }
 \examples{
-htmltools_value(flextable(iris[1:5,]))
+htmltools_value(flextable(iris[1:5, ]))
 }
 \seealso{
 Other flextable print function: 

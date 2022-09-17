@@ -50,11 +50,11 @@ add_latex_dep <- function(float = FALSE, wrapfig = FALSE){
 }
 
 
-latex_str <- function(x, ft.align = "center",
-                      ft.tabcolsep = 0,
-                      ft.arraystretch = 1.5,
-                      lat_container = latex_container_none(),
-                      caption = "", topcaption = TRUE, quarto = FALSE) {
+gen_raw_latex <- function(x, align = "center",
+                          tabcolsep = 0,
+                          arraystretch = 1.5,
+                          lat_container = latex_container_none(),
+                          caption = "", topcaption = TRUE, quarto = FALSE) {
   dims <- dim(x)
   column_sizes <- dims$widths
   column_sizes_df <- data.frame(
@@ -69,7 +69,8 @@ latex_str <- function(x, ft.align = "center",
   dat <- runs_as_latex(
     x = x,
     chunk_data = fortify_run(x),
-    ls_df = linespacing_df)
+    ls_df = linespacing_df
+  )
 
   # hhlines and vborders ----
   properties_df <- augment_borders(properties_df)
@@ -159,11 +160,11 @@ latex_str <- function(x, ft.align = "center",
 
   if (inherits(lat_container, "latex_container_none") && !quarto) {
     txt_data$part <- factor(as.character(txt_data$part),
-                            levels = c("header", "footer", "body")
+      levels = c("header", "footer", "body")
     )
   } else {
     txt_data$part <- factor(as.character(txt_data$part),
-                            levels = c("header", "body", "footer")
+      levels = c("header", "body", "footer")
     )
   }
   setorderv(txt_data, c("part", "ft_row_id"))
@@ -190,18 +191,19 @@ latex_str <- function(x, ft.align = "center",
 
   latex <- paste(
     cline_cmd,
-    sprintf("\\setlength{\\tabcolsep}{%spt}", format_double(ft.tabcolsep, 0)),
-    sprintf("\\renewcommand*{\\arraystretch}{%s}", format_double(ft.arraystretch, 2)),
+    sprintf("\\setlength{\\tabcolsep}{%spt}", format_double(tabcolsep, 0)),
+    sprintf("\\renewcommand*{\\arraystretch}{%s}", format_double(arraystretch, 2)),
     table_start,
-    if(topcaption) caption,
+    if (topcaption) caption,
     latex,
-    if(!topcaption) caption,
+    if (!topcaption) caption,
     table_end,
     sep = "\n\n"
   )
 
   latex
 }
+
 #' @importFrom data.table fcase
 augment_multirow_fixed <- function(properties_df) {
   properties_df[, c("multirow_left", "multirow_right") :=

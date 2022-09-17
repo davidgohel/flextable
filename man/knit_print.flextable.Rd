@@ -169,15 +169,15 @@ demo_docx <- system.file(package = "flextable", "examples/rmd", "demo.Rmd")
 rmd_file <- tempfile(fileext = ".Rmd")
 file.copy(demo_docx, to = rmd_file, overwrite = TRUE)
 rmd_file # R Markdown document used for demo
-if(require("rmarkdown", quietly = TRUE)){
-#  knitr::opts_chunk$set(webshot = "webshot2")
-#  render(input = rmd_file, output_format = "word_document", output_file = "doc.docx")
-#  render(input = rmd_file, output_format = "pdf_document", output_file = "doc.pdf")
-#  render(input = rmd_file, output_format = "html_document", output_file = "doc.html")
-#  render(input = rmd_file, output_format = "powerpoint_presentation", output_file = "pres.pptx")
-#  render(input = rmd_file, output_format = "slidy_presentation", output_file = "slidy.html")
-#  render(input = rmd_file, output_format = "beamer_presentation", output_file = "beamer.pdf")
-#  render(input = rmd_file, output_format = "pagedown::html_paged", output_file = "paged.html")
+if (require("rmarkdown", quietly = TRUE)) {
+  #  knitr::opts_chunk$set(webshot = "webshot2")
+  #  render(input = rmd_file, output_format = "word_document", output_file = "doc.docx")
+  #  render(input = rmd_file, output_format = "pdf_document", output_file = "doc.pdf")
+  #  render(input = rmd_file, output_format = "html_document", output_file = "doc.html")
+  #  render(input = rmd_file, output_format = "powerpoint_presentation", output_file = "pres.pptx")
+  #  render(input = rmd_file, output_format = "slidy_presentation", output_file = "slidy.html")
+  #  render(input = rmd_file, output_format = "beamer_presentation", output_file = "beamer.pdf")
+  #  render(input = rmd_file, output_format = "pagedown::html_paged", output_file = "paged.html")
 }
 
 
@@ -224,7 +224,6 @@ if(require("rmarkdown", quietly = TRUE)){
 #   }
 # }
 # browseURL(dirname(rmd_file))
-
 
 }
 \seealso{

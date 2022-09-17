@@ -418,17 +418,3 @@ fp_border_default <- function(
     width = width)
 
 }
-
-
-processor_options <- function(post_process = NULL,
-                              post_process_pdf = NULL,
-                              post_process_docx = NULL,
-                              post_process_html = NULL,
-                              post_process_pptx = NULL,
-                              pdf_fonts_ignore = FALSE,
-                              html_chunkify = "commonmark",
-                              pdf_chunkify = "commonmark",
-                              word_chunkify = "none") {
-
-
-}

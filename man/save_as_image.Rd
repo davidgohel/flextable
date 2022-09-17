@@ -41,11 +41,11 @@ The screenshot process is rather slow because it is managed by
 an external program (see webshot or webshot2 documentation).
 }
 \examples{
-ft <- flextable( head( mtcars ) )
+ft <- flextable(head(mtcars))
 ft <- autofit(ft)
 tf <- tempfile(fileext = ".png")
 \dontrun{
-if( require("webshot") ){
+if (require("webshot")) {
   save_as_image(x = ft, path = "myimage.png")
 }
 }

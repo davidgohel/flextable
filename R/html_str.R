@@ -1,40 +1,10 @@
-#' @importFrom rmarkdown pandoc_exec
-html_chunkify <- function(x, engine = "none") {
-  stopifnot(length(x) == 1, is.character(x))
-
-  engi <- match.arg(engine, c("commonmark", "pandoc", "none"), several.ok = FALSE)
-  if ("pandoc" %in% engi) {
-    mdfile <- tempfile(fileext = ".md")
-    writeLines(enc2utf8(x), mdfile, useBytes = TRUE)
-    out <- system2(rmarkdown::pandoc_exec(),
-      args = c(mdfile, "--mathjax", "--katex", "-t", "html"),
-      stdout = TRUE
-    )
-    out <- paste0(out, collapse = "")
-    out <- gsub("(<p>|</p>)", "", out)
-  } else if ("commonmark" %in% engi) {
-    if (requireNamespace("commonmark", quietly = TRUE)) {
-      out <- commonmark::markdown_html(x)
-      out <- gsub("(<p>|</p>|\\n)", "", out)
-    } else {
-      stop("package 'commonmark' must be installed to use option 'commonmark'.")
-    }
-  } else {
-    out <- x
-  }
-
-  enc2utf8(out)
-}
-
-
-html_str <- function(x,
-                     ft.align = NULL,
-                     class = "tabwid",
-                     caption = "",
-                     shadow = TRUE,
-                     topcaption = TRUE,
-                     manual_css = "") {
-
+gen_raw_html <- function(x,
+                         align = NULL,
+                         class = "tabwid",
+                         caption = "",
+                         shadow = TRUE,
+                         topcaption = TRUE,
+                         manual_css = "") {
   fixed_layout <- x$properties$layout %in% "fixed"
   if (!fixed_layout) {
     if (x$properties$width > 0) {
@@ -48,7 +18,7 @@ html_str <- function(x,
     tabcss <- ""
   }
 
-  codes <- html_gen(x)
+  codes <- html_content_strs(x)
 
   classname <- UUIDgenerate(n = 1, use.time = TRUE)
   classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
@@ -73,10 +43,10 @@ html_str <- function(x,
     "</table>"
   )
 
-  if (is.null(ft.align)) ft.align <- "center"
-  if ("left" %in% ft.align) {
+  if (is.null(align)) align <- "center"
+  if ("left" %in% align) {
     tab_class <- paste0(class, " tabwid_left")
-  } else if ("right" %in% ft.align) {
+  } else if ("right" %in% align) {
     tab_class <- paste0(class, " tabwid_right")
   } else {
     tab_class <- class
@@ -130,7 +100,7 @@ to_shadow_dom <- function(uid1, uid2) {
 
 # to html/css  ----
 #' @importFrom data.table setnames setorderv := setcolorder setDT setDF dcast
-html_gen <- function(x){
+html_content_strs <- function(x){
 
   cell_data_f <- fortify_style(x, "cells")
   setDT(cell_data_f)

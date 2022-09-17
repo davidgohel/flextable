@@ -28,11 +28,11 @@ In that case packages \code{webshot} and \code{magick} are required.
 }
 }
 \examples{
-ftab <- flextable( head( mtcars ) )
+ftab <- flextable(head(mtcars))
 ftab <- autofit(ftab)
 \dontrun{
 plot(ftab)
-if( require("webshot") ){
+if (require("webshot")) {
   plot(ftab, method = "webshot")
 }
 }

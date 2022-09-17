@@ -281,7 +281,12 @@ wml_rows <- function(value, split = FALSE) {
 
 
 # docx_str -----
-docx_str <- function(x, align = "center", split = FALSE, keep_with_next = TRUE, doc = NULL, ...) {
+gen_raw_wml <- function(x,
+                        align = "center",
+                        split = FALSE,
+                        keep_with_next = TRUE,
+                        doc = NULL,
+                        ...) {
   align <- match.arg(align, c("center", "left", "right"), several.ok = FALSE)
   align <- c("center" = "center", "left" = "start", "right" = "end")[align]
   align <- as.character(align)

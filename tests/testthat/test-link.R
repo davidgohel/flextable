@@ -42,7 +42,7 @@ test_that("URL are preserved in pptx", {
 })
 
 test_that("URL are preserved in html", {
-  str_ <- flextable:::html_str(ft)
+  str_ <- flextable:::gen_raw_html(ft)
   str_ <- gsub("<style>(.*)</style>", "", str_)
   str_ <- gsub("<script>(.*)</script>", "", str_)
   str_ <- gsub("<template id=\"[0-9a-z\\-]+\">", "", str_)

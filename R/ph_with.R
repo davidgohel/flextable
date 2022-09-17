@@ -29,7 +29,7 @@ ph_with.flextable <- function(x, value, location, ...) {
 
   value <- flextable_global$defaults$post_process_pptx(value)
 
-  graphic_frame <- pptx_str(value)
+  graphic_frame <- gen_raw_pml(value)
   hlinks <- attr(graphic_frame, "hlinks")
   if (length(hlinks) > 0) {
     slide <- x$slide$get_slide(x$cursor)

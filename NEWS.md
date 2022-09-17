@@ -434,7 +434,7 @@ for Word and HTML.
 
 * deprecation of `display()`.
 * defunct of `ph_with_flextable_at()`
-* function `docx_value()` has new arguments `ft.align`, `ft.split` and `tab.cap.style`
+* function `knit_to_wml()` has new arguments `align`, `split` and `tab.cap.style`
 * function `htmltools_value()` has a new argument `ft.align`
 
 ## new features
@@ -498,7 +498,7 @@ let not print the group names.
 
 ## new features
 
-* new function `docx_value` to let display flextables from non top level
+* new function `knit_to_wml` to let display flextables from non top level
  calls inside R Markdown document.
 * ph_with method for flextable object. This enable `ph_location*` usage
   and make placement into slides easier.
