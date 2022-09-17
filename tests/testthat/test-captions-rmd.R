@@ -183,6 +183,7 @@ testthat::test_that("word with officer", {
 
 
 test_that("with pdf_document2", {
+  skip_on_cran()
   skip_if_not(rmarkdown::pandoc_available())
   skip_if_not(pandoc_version() > numeric_version("2.7.3"))
   skip_if_not_installed("bookdown")

@@ -52,9 +52,7 @@ gen_raw_html <- function(x,
     tab_class <- class
   }
 
-  if (topcaption) {
-    tab_class <- paste0(tab_class, " tabwid-caption-top")
-  } else {
+  if (!topcaption) {
     tab_class <- paste0(tab_class, " tabwid-caption-bottom")
   }
 
