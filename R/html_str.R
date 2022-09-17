@@ -347,12 +347,12 @@ cell_css_styles <- function(x, add_widths = TRUE){
                               "background-color:transparent;")
   width <- rep("", nrow(x))
   if (add_widths) {
-    width[!is.na(x$width)] <- sprintf("width:%s;", css_pt(x$width[!is.na(x$width)] * 72) )
+    width[!is.na(x$width)] <- sprintf("width:%sin;", css_no_unit(x$width[!is.na(x$width)], digits = 3))
   }
 
   height <- rep("", nrow(x))
   hsel <- !is.na(x$height) & x$hrule %in% c("exact", "atleast")
-  height[hsel] <- sprintf("width:%s;", css_pt(x$height[hsel] * 72) )
+  height[hsel] <- sprintf("height:%sin;", css_no_unit(x$height[hsel], digits = 3))
 
   vertical.align <- rep("vertical-align: middle;", nrow(x))
   vertical.align[x$vertical.align %in% "top"] <- "vertical-align: top;"
