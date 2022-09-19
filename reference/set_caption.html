@@ -31,7 +31,7 @@ defined with set_caption() will be prioritized over knitr chunk options."><meta 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.1</span>
       </span>
     </div>
 
@@ -163,7 +163,7 @@ evolution of Quarto.</p></li>
 
 <p>flextable captions can be defined from R Markdown documents by using
 <code>knitr::opts_chunk$set()</code>. The following options are available
-with <code>officedown::rdocx_document</code> and/or bookdown:</p><table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>Word stylename to use for table captions.</td><td>tab.cap.style</td><td>NULL</td></tr><tr><td>caption id/bookmark</td><td>tab.id</td><td>NULL</td></tr><tr><td>caption</td><td>tab.cap</td><td>NULL</td></tr><tr><td>display table caption on top of the table or not</td><td>tab.topcaption</td><td>TRUE</td></tr><tr><td>caption table sequence identifier.</td><td>tab.lp</td><td>"tab:"</td></tr></table><p>The following options are only available when used with <code>officedown::rdocx_document</code>:</p><table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>prefix for numbering chunk (default to   "Table ").</td><td>tab.cap.pre</td><td>Table</td></tr><tr><td>suffix for numbering chunk (default to   ": ").</td><td>tab.cap.sep</td><td>" :"</td></tr><tr><td>title number depth</td><td>tab.cap.tnd</td><td>0</td></tr><tr><td>separator to use between title number and table number.</td><td>tab.cap.tns</td><td>"-"</td></tr><tr><td>caption prefix formatting properties</td><td>tab.cap.fp_text</td><td>fp_text_lite(bold = TRUE)</td></tr></table><p>See <a href="knit_print.flextable.html">knit_print.flextable</a> for more details.</p>
+with <code><a href="https://davidgohel.github.io/officedown/reference/rdocx_document.html" class="external-link">officedown::rdocx_document</a></code> and/or bookdown:</p><table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>Word stylename to use for table captions.</td><td>tab.cap.style</td><td>NULL</td></tr><tr><td>caption id/bookmark</td><td>tab.id</td><td>NULL</td></tr><tr><td>caption</td><td>tab.cap</td><td>NULL</td></tr><tr><td>display table caption on top of the table or not</td><td>tab.topcaption</td><td>TRUE</td></tr><tr><td>caption table sequence identifier.</td><td>tab.lp</td><td>"tab:"</td></tr></table><p>The following options are only available when used with <code><a href="https://davidgohel.github.io/officedown/reference/rdocx_document.html" class="external-link">officedown::rdocx_document</a></code>:</p><table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>prefix for numbering chunk (default to   "Table ").</td><td>tab.cap.pre</td><td>Table</td></tr><tr><td>suffix for numbering chunk (default to   ": ").</td><td>tab.cap.sep</td><td>" :"</td></tr><tr><td>title number depth</td><td>tab.cap.tnd</td><td>0</td></tr><tr><td>separator to use between title number and table number.</td><td>tab.cap.tns</td><td>"-"</td></tr><tr><td>caption prefix formatting properties</td><td>tab.cap.fp_text</td><td>fp_text_lite(bold = TRUE)</td></tr></table><p>See <a href="knit_print.flextable.html">knit_print.flextable</a> for more details.</p>
     </div>
     <div id="using-quarto-">
     <h2>Using 'Quarto'</h2>
@@ -226,7 +226,7 @@ been defined by flextable. See Quarto documentation for more information.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

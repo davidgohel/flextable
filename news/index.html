@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.1</span>
       </span>
     </div>
 
@@ -48,7 +48,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.8.0" id="flextable-080">flextable 0.8.0<a class="anchor" aria-label="anchor" href="#flextable-080"></a></h2>
+<h2 class="page-header" data-toc-text="0.8.1" id="flextable-081">flextable 0.8.1<a class="anchor" aria-label="anchor" href="#flextable-081"></a></h2>
+<div class="section level3">
+<h3 id="issues-0-8-1">Issues<a class="anchor" aria-label="anchor" href="#issues-0-8-1"></a></h3>
+<ul><li>fix warning with subscript and superscript <a href="https://github.com/davidgohel/flextable/issues/456" class="external-link">#456</a></li>
+<li>prevent usage of gregexec if R &lt; 4.1</li>
+<li>fix for rdocx captions</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.8.0" id="flextable-080">flextable 0.8.0<small>2022-09-11</small><a class="anchor" aria-label="anchor" href="#flextable-080"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-8-0">new features<a class="anchor" aria-label="anchor" href="#new-features-0-8-0"></a></h3>
 <ul><li>flextable now supports “Grid graphics” output format. See <code><a href="../reference/gen_grob.html">gen_grob()</a></code>.</li>
@@ -406,7 +415,7 @@
 <ul><li>deprecation of <code><a href="https://rdrr.io/pkg/xtable/man/table.attributes.html" class="external-link">display()</a></code>.</li>
 <li>defunct of <code>ph_with_flextable_at()</code>
 </li>
-<li>function <code>docx_value()</code> has new arguments <code>ft.align</code>, <code>ft.split</code> and <code>tab.cap.style</code>
+<li>function <code>knit_to_wml()</code> has new arguments <code>align</code>, <code>split</code> and <code>tab.cap.style</code>
 </li>
 <li>function <code><a href="../reference/htmltools_value.html">htmltools_value()</a></code> has a new argument <code>ft.align</code>
 </li>
@@ -462,7 +471,7 @@
 <h2 class="page-header" data-toc-text="0.5.5" id="flextable-055">flextable 0.5.5<small>2019-06-25</small><a class="anchor" aria-label="anchor" href="#flextable-055"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-5-5">new features<a class="anchor" aria-label="anchor" href="#new-features-0-5-5"></a></h3>
-<ul><li>new function <code>docx_value</code> to let display flextables from non top level calls inside R Markdown document.</li>
+<ul><li>new function <code>knit_to_wml</code> to let display flextables from non top level calls inside R Markdown document.</li>
 <li>ph_with method for flextable object. This enable <code>ph_location*</code> usage and make placement into slides easier.</li>
 <li>new function <code>fit_to_width</code> to fit a flextable to a maximum width</li>
 <li>
@@ -658,7 +667,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
