@@ -557,7 +557,7 @@ summary.tabulator <- function(object, ...){
 #'   )
 #'   ft_1
 #' }
-tabulator_colnames <- function(x, columns, type = NULL, ...){
+tabulator_colnames <- function(x, columns, ..., type = NULL){
   dat <- summary(x)
 
   if (!is.null(type)) {

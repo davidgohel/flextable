@@ -4,12 +4,16 @@
 \alias{tabulator_colnames}
 \title{column keys of tabulator objects}
 \usage{
-tabulator_colnames(x, columns, type = NULL, ...)
+tabulator_colnames(x, columns, ..., type = NULL)
 }
 \arguments{
 \item{x}{a \code{\link[=tabulator]{tabulator()}} object}
 
 \item{columns}{column names to look for}
+
+\item{...}{any filter conditions that use variables
+names, the same than the argument \code{columns} of function \code{\link[=tabulator]{tabulator()}}
+(\code{tabulator(columns = c("col1", "col2"))}).}
 
 \item{type}{the type of column to look for, it can be:
 \itemize{
@@ -21,10 +25,6 @@ the original dataset columns.
 \item 'rows_supp': visible columns used as 'rows_supp' content
 \item NULL: any type of column
 }}
-
-\item{...}{any filter conditions that use variables
-names, the same than the argument \code{columns} of function \code{\link[=tabulator]{tabulator()}}
-(\code{tabulator(columns = c("col1", "col2"))}).}
 }
 \description{
 The function provides a way to get column keys
