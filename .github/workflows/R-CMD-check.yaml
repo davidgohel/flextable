@@ -22,6 +22,7 @@ jobs:
           - {os: windows-latest, r: 'release', pandoc: '2.19'}
           - {os: macOS-latest, r: 'release', pandoc : '2.19'}
           - {os: ubuntu-20.04, r: 'release', pandoc : '2.19', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          - {os: ubuntu-20.04, r: 'release', pandoc : '2.9.2.1', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
           - {os: ubuntu-latest, r: 'devel', pandoc : '2.19'}
 
     env:

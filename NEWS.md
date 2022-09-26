@@ -1,3 +1,10 @@
+# flextable 0.8.2
+
+## Issues
+
+* prevent docx captions test when pandoc version 
+is "2.9.2.1" (on CRAN Flavor r-devel-linux-x86_64-fedora-gcc).
+
 # flextable 0.8.1
 
 ## Issues
