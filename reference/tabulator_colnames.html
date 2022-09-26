@@ -22,7 +22,7 @@ corresponding to the selection."><meta property="og:image" content="/logo.png"><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
       </span>
     </div>
 
@@ -63,7 +63,7 @@ corresponding to the selection.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tabulator_colnames</span><span class="op">(</span><span class="va">x</span>, <span class="va">columns</span>, type <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tabulator_colnames</span><span class="op">(</span><span class="va">x</span>, <span class="va">columns</span>, <span class="va">...</span>, type <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -76,6 +76,12 @@ corresponding to the selection.</p>
 <dd><p>column names to look for</p></dd>
 
 
+<dt>...</dt>
+<dd><p>any filter conditions that use variables
+names, the same than the argument <code>columns</code> of function <code><a href="tabulator.html">tabulator()</a></code>
+(<code>tabulator(columns = c("col1", "col2"))</code>).</p></dd>
+
+
 <dt>type</dt>
 <dd><p>the type of column to look for, it can be:</p><ul><li><p>'columns': visible columns, corresponding to names provided
 in the '...' arguments of your call to 'tabulator()'.</p></li>
@@ -85,12 +91,6 @@ the original dataset columns.</p></li>
 <li><p>'rows_supp': visible columns used as 'rows_supp' content</p></li>
 <li><p>NULL: any type of column</p></li>
 </ul></dd>
-
-
-<dt>...</dt>
-<dd><p>any filter conditions that use variables
-names, the same than the argument <code>columns</code> of function <code><a href="tabulator.html">tabulator()</a></code>
-(<code>tabulator(columns = c("col1", "col2"))</code>).</p></dd>
 
 </dl></div>
     <div id="see-also">
@@ -211,7 +211,7 @@ names, the same than the argument <code>columns</code> of function <code><a href
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
