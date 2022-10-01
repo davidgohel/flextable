@@ -1,3 +1,9 @@
+# flextable 0.8.3
+
+## Issues
+
+* fix issue with keepnext and body_add_flextable
+
 # flextable 0.8.2
 
 ## Issues

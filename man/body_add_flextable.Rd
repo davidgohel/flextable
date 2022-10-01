@@ -12,7 +12,7 @@ body_add_flextable(
   pos = "after",
   split = FALSE,
   topcaption = TRUE,
-  keepnext = NULL
+  keepnext = FALSE
 )
 
 body_replace_flextable_at_bkm(
@@ -39,8 +39,9 @@ option 'Allow row to break across pages'.}
 \item{topcaption}{if TRUE caption is added before the table, if FALSE,
 caption is added after the table.}
 
-\item{keepnext}{deprecated, keepnext is to to TRUE for captions
-on top of tables and FALSE for captions on bottom of tables}
+\item{keepnext}{default to FALSE, 'keep with next' binds the table
+to the first line of the next block (a paragraph or a table). It
+ensures no page break happens between the two blocks.}
 
 \item{bookmark}{bookmark id}
 }

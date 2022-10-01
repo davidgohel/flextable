@@ -6,8 +6,9 @@
 #' @param align left, center (default) or right.
 #' @param split set to TRUE if you want to activate Word
 #' option 'Allow row to break across pages'.
-#' @param keepnext deprecated, keepnext is to to TRUE for captions
-#' on top of tables and FALSE for captions on bottom of tables
+#' @param keepnext default to FALSE, 'keep with next' binds the table
+#' to the first line of the next block (a paragraph or a table). It
+#' ensures no page break happens between the two blocks.
 #' @param pos where to add the flextable relative to the cursor,
 #' one of "after", "before", "on" (end of line).
 #' @param topcaption if TRUE caption is added before the table, if FALSE,
@@ -32,7 +33,7 @@ body_add_flextable <- function(x, value,
                                pos = "after",
                                split = FALSE,
                                topcaption = TRUE,
-                               keepnext = NULL) {
+                               keepnext = FALSE) {
   stopifnot(
     inherits(x, "rdocx"),
     inherits(value, "flextable")
@@ -62,7 +63,7 @@ body_add_flextable <- function(x, value,
   }
   out <- gen_raw_wml(value,
     doc = x, align = align, split = split,
-    keep_with_next = topcaption
+    keep_with_next = keepnext
   )
 
   x <- body_add_xml(x = x, str = out, pos = pos)
