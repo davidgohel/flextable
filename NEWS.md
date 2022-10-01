@@ -1,14 +1,19 @@
 # flextable 0.8.3
 
+## new features
+
+- new argument `expand_single` in `as_grouped_data()`. If FALSE, groups with only one
+row will not be expanded with a title row.
+
 ## Issues
 
-* fix issue with keepnext and body_add_flextable
+- fix issue with keepnext and body_add_flextable
 
 # flextable 0.8.2
 
 ## Issues
 
-* prevent docx captions test when pandoc version 
+- prevent docx captions test when pandoc version 
 is "2.9.2.1" (on CRAN Flavor r-devel-linux-x86_64-fedora-gcc).
 
 # flextable 0.8.1

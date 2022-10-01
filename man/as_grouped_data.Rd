@@ -4,7 +4,7 @@
 \alias{as_grouped_data}
 \title{grouped data transformation}
 \usage{
-as_grouped_data(x, groups, columns = NULL)
+as_grouped_data(x, groups, columns = NULL, expand_single = TRUE)
 }
 \arguments{
 \item{x}{dataset}
@@ -12,6 +12,11 @@ as_grouped_data(x, groups, columns = NULL)
 \item{groups}{columns names to be used as row separators.}
 
 \item{columns}{columns names to keep}
+
+\item{expand_single}{if FALSE, groups with only one
+row will not be expanded with a title row. If TRUE (the
+default), single row groups and multi-row groups are all
+restructured.}
 }
 \description{
 Repeated consecutive values of group columns will

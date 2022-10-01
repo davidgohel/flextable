@@ -366,10 +366,24 @@ as_flextable.tabulator <- function(
   if(spread_first_col){
     row_spanner <- rows[1]
     rows <- rows[-1]
-    row_spanner_labels <- dat[[row_spanner]][!is.na(dat[[row_spanner]])]
-    ft <- mk_par(ft, i = !is.na(dat[[row_spanner]]),
-                 value = as_paragraph(row_spanner_labels))
-    ft <- merge_h(ft, i = !is.na(dat[[row_spanner]]))
+
+    # treatment of groups
+    rleid_ <- do.call(rleid, dat[row_spanner])
+    table_rleid <- table(rleid_[is.na(dat[[row_spanner]])])
+    table_uid <- as.integer(names(table_rleid[table_rleid > 1]))-1# considered as title row for non single group
+
+    # write title rows for non single groups
+    sel <- rleid_ %in% table_uid
+    row_spanner_labels <- dat[[row_spanner]][sel]
+    ft <- mk_par(ft, i = sel, value = as_paragraph(row_spanner_labels))
+    ft <- merge_h(ft, i = sel)
+
+    # write title rows for single groups
+    sna <- !is.na(dat[[row_spanner]])
+    sna <- c(sna[-length(sna)] == sna[-1], FALSE) & sna
+    row_spanner_labels <- dat[[row_spanner]][sna]
+    ft <- mk_par(ft, i = sna, j = rows[1], value = as_paragraph(row_spanner_labels))
+
   }
 
   ft <- merge_v(ft, j = rows, part = "body")

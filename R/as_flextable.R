@@ -22,6 +22,10 @@ as_flextable <- function( x, ... ){
 #' @param x dataset
 #' @param groups columns names to be used as row separators.
 #' @param columns columns names to keep
+#' @param expand_single if FALSE, groups with only one
+#' row will not be expanded with a title row. If TRUE (the
+#' default), single row groups and multi-row groups are all
+#' restructured.
 #' @examples
 #' # as_grouped_data -----
 #' library(data.table)
@@ -36,7 +40,7 @@ as_flextable <- function( x, ... ){
 #' data_co2
 #' @seealso [as_flextable.grouped_data()]
 #' @export
-as_grouped_data <- function( x, groups, columns = NULL ){
+as_grouped_data <- function( x, groups, columns = NULL, expand_single = TRUE){
 
   if( inherits(x, "data.table") || inherits(x, "tbl_df") || inherits(x, "tbl") || is.matrix(x) )
     x <- as.data.frame(x, stringsAsFactors = FALSE)
@@ -49,7 +53,21 @@ as_grouped_data <- function( x, groups, columns = NULL ){
   x <- x[, c(groups, columns), drop = FALSE]
 
   x$fake_order___ <- seq_len(nrow(x))
-  values <- lapply(x[groups], function(x) rle(x = format(x) ) )
+
+  if (expand_single) {
+    # split data so that single groups stay as is
+    rleid <- do.call(rleid, x[groups])
+    table_rleid <- table(rleid)
+    table_uid <- as.integer(names(table_rleid[table_rleid %in% 1]))# considered as single group
+    x_as_is <- x[rleid %in% table_uid,]
+    x_not_as_is <- x[!rleid %in% table_uid,]
+  } else {
+    x_as_is <- x[]
+    x_not_as_is <- x[0,]
+  }
+
+
+  values <- lapply(x_not_as_is[groups], function(x) rle(x = format(x) ) )
 
   vout <- lapply(values, function(x){
     out <- lapply(x$lengths, function(l){
@@ -61,20 +79,18 @@ as_grouped_data <- function( x, groups, columns = NULL ){
     which(as.integer( out ) > 0)
   })
 
-
-
   new_rows <- mapply(function(i, column, decay_order){
     na_cols <- setdiff(names(x), c( column, "fake_order___") )
-    dat <- x[i,,drop = FALSE]
+    dat <- x_not_as_is[i,,drop = FALSE]
     dat$fake_order___ <- dat$fake_order___ - decay_order
     dat[seq_len(nrow(dat)), na_cols] <- NA
     dat
   }, vout, groups, length(groups) / seq_along(groups) * .1, SIMPLIFY = FALSE)
 
   # should this be made col by col?
-  x[,groups] <- NA
+  x_not_as_is[,groups] <- NA
 
-  new_rows <- append( new_rows, list(x) )
+  new_rows <- append(new_rows, list(x_not_as_is, x_as_is) )
 
   x <- rbind.match.columns(new_rows)
   x <- x[order(x$fake_order___),,drop = FALSE]
