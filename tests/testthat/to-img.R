@@ -60,6 +60,16 @@ html_to_miniature <- function(x, path) {
   path
 }
 
+expect_snapshot_rdocx <- function(name, x) {
+  name <- paste0(name, ".png")
+  announce_snapshot_file(name = name)
+  docx_path <- tempfile(fileext = ".docx")
+  path = tempfile(fileext = ".png")
+  print(x, target = docx_path)
+  doconv::to_miniature(docx_path, fileout = path, width = 1000)
+  expect_snapshot_file(path, name, compare = compare_image)
+}
+
 expect_snapshot_to <- function(name, x, format = "docx") {
   name <- paste0(name, ".png")
   announce_snapshot_file(name = name)
