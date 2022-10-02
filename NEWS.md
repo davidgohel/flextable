@@ -7,7 +7,8 @@ row will not be expanded with a title row.
 
 ## Issues
 
-- fix issue with keepnext and body_add_flextable
+- fix issue with keepnext and `body_add_flextable()`
+- fix issue of misordered chunks with `prepend_chunks()`
 
 # flextable 0.8.2
 

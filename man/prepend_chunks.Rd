@@ -27,7 +27,8 @@ x <- flextable(head(iris))
 x <- prepend_chunks(
   x,
   i = 1, j = 1,
-  colorize(as_b("coucou "), color = "red")
+  colorize(as_b("Hello "), color = "red"),
+  colorize(as_i("World"), color = "magenta")
 )
 x
 }

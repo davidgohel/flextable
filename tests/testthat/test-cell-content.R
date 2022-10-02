@@ -86,3 +86,26 @@ test_that("colformat_* functions", {
   expect_equivalent(object = flextable:::fortify_run(ft)$txt, expected)
 })
 
+
+
+test_that("append and prepend chunks structure", {
+  ftab <- flextable(head(cars, n = 3))
+  ftab <- append_chunks(ftab, j = 1,
+                        as_chunk(" Samurai"),
+                        colorize(as_i(" Shodown"), color = "magenta")
+                        )
+
+  expect_equal(flextable:::fortify_run(ftab)$txt,
+               expected = c("speed", "dist", "4", " Samurai", " Shodown", "2", "4", " Samurai",
+                            " Shodown", "10", "7", " Samurai", " Shodown", "4"))
+
+  ftab <- flextable(head(cars, n = 3))
+  ftab <- prepend_chunks(ftab, j = 1,
+                        as_chunk("Samurai"),
+                        colorize(as_i(" Shodown "), color = "magenta")
+                        )
+
+  expect_equal(flextable:::fortify_run(ftab)$txt,
+               expected = c("speed", "dist", "Samurai", " Shodown ", "4", "2", "Samurai",
+                            " Shodown ", "4", "10", "Samurai", " Shodown ", "7", "4"))
+})

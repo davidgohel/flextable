@@ -83,7 +83,8 @@ append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
 #' x <- prepend_chunks(
 #'   x,
 #'   i = 1, j = 1,
-#'   colorize(as_b("coucou "), color = "red")
+#'   colorize(as_b("Hello "), color = "red"),
+#'   colorize(as_i("World"), color = "magenta")
 #' )
 #' x
 prepend_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
@@ -103,8 +104,8 @@ prepend_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
 
   tmp_data <- x[[part]]$dataset[i, , drop = FALSE]
 
-  for(col_expr in col_exprs){
-
+  for(expr_index in rev(seq_along(col_exprs))){
+    col_expr <- col_exprs[[expr_index]]
     value <- eval_tidy(col_expr, data = tmp_data)
 
     if(is.data.frame(value) && nrow(value) == 1L && nrow(value) < nrow(tmp_data)){
@@ -115,15 +116,14 @@ prepend_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
     if(is.data.frame(value))
       value <- split(value, i)
 
-    new <- mapply(function(x, y) {
-      y$seq_index <- min(x$seq_index, na.rm = TRUE) - 1
+    new <- mapply(function(x, y, seq_index) {
+      y$seq_index <- seq_index
       z <- rbind.match.columns(list(y, x))
-      z$seq_index <- seq_len(nrow(z))
+      z <- z[order(z$seq_index),]
+      z$seq_index <- rleid(z$seq_index)
       z
-    }, x = x[[part]]$content[i, j], y = value, SIMPLIFY = FALSE)
-
+    }, x = x[[part]]$content[i, j], y = value, SIMPLIFY = FALSE, MoreArgs = list(seq_index=-expr_index))
     x[[part]]$content[i, j] <- new
   }
-
   x
 }
