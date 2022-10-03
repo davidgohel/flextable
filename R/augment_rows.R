@@ -505,7 +505,11 @@ add_header_lines <- function(x, values = character(0), top = TRUE) {
     stop("add_header_lines supports only flextable objects.")
   }
 
-  for (value in values) {
+  values_map <- values
+
+  if (top) values_map <- rev(values_map)
+
+  for (value in values_map) {
     x <- add_header_row(x, values = value, colwidths = length(x$col_keys), top = top)
   }
   x
