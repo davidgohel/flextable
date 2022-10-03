@@ -11,7 +11,7 @@ expand_special_char <- function(x, what, with = NA, ...) {
 
     was_dt <- is.data.table(x)
     setDT(x)
-    x <- x[rep(1:.N, len)][, "seq_index" := 1:.N]
+    x <- x[rep(seq_len(.N), len)][, "seq_index" := seq_len(.N)]
     x$txt <- unlist(txt)
     if (!was_dt) setDF(x)
   }
