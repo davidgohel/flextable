@@ -2,9 +2,22 @@
 % Please edit documentation in R/summarizor.R
 \name{fmt_2stats}
 \alias{fmt_2stats}
+\alias{fmt_summarizor}
 \title{format content for data generated with \code{\link[=summarizor]{summarizor()}}}
 \usage{
 fmt_2stats(
+  stat,
+  num1,
+  num2,
+  cts,
+  pcts,
+  num1_mask = "\%.01f",
+  num2_mask = "(\%.01f)",
+  cts_mask = "\%.0f",
+  pcts_mask = "(\%.02f\%\%)"
+)
+
+fmt_summarizor(
   stat,
   num1,
   num2,
@@ -50,4 +63,9 @@ percentage corresponding to each modality.
 }
 \seealso{
 \code{\link[=summarizor]{summarizor()}}, \code{\link[=tabulator]{tabulator()}}, \code{\link[=mk_par]{mk_par()}}
+
+Other other text formatter functions: 
+\code{\link{fmt_header_n}()},
+\code{\link{fmt_n_percent}()}
 }
+\concept{other text formatter functions}

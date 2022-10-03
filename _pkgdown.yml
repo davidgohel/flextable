@@ -127,7 +127,7 @@ reference:
     - set_caption
   - title: miscellaneous
     contents:
-    - fmt_2stats
+    - starts_with("fmt_")
     - fp_border_default
     - fp_text_default
     - before

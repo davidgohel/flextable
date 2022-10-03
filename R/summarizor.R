@@ -189,6 +189,7 @@ dataset_describe <- function(dataset){
 #' @param pcts_mask format associated with `pcts`, a format string
 #' used by [sprintf()].
 #' @seealso [summarizor()], [tabulator()], [mk_par()]
+#' @family other text formatter functions
 fmt_2stats <- function(stat, num1, num2, cts, pcts,
                        num1_mask = "%.01f", num2_mask = "(%.01f)",
                        cts_mask = "%.0f", pcts_mask = "(%.02f%%)"){
@@ -231,4 +232,38 @@ fmt_2stats <- function(stat, num1, num2, cts, pcts,
   paste0(z_num, z_cts)
 
 }
+#' @export
+#' @rdname fmt_2stats
+fmt_summarizor <- fmt_2stats
 
+
+#' @export
+#' @title format content for count data
+#' @description The function formats counts and
+#' percentages as `n (xx.x%)`. If percentages are
+#' missing, they are not printed.
+#' @param n count values
+#' @param pct percent values
+#' @param digit number of digits for the percentages
+#' @seealso [tabulator()], [mk_par()]
+#' @family other text formatter functions
+fmt_n_percent <- function(n, pct, digit = 1){
+  z1 <- character(length(n))
+  z2 <- character(length(n))
+  z1[!is.na(n)] <- sprintf("%.0f", n[!is.na(n)])
+  z2[!is.na(pct)] <- sprintf(paste0("(%.", digit, "f%%)"), pct[!is.na(pct)])
+  paste0(z1, z2)
+}
+
+#' @export
+#' @title format count data for headers
+#' @description The function formats counts as `\n(N=XX)`. This helper
+#' function is used to add counts in columns titles.
+#' @param n count values
+#' @seealso [tabulator()], [mk_par()]
+#' @family other text formatter functions
+fmt_header_n <- function(n){
+  z1 <- character(length(n))
+  z1[!is.na(n)] <- sprintf("\n(N=%.0f)", n[!is.na(n)])
+  z1
+}
