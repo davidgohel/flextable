@@ -251,7 +251,7 @@ fmt_n_percent <- function(n, pct, digit = 1){
   z1 <- character(length(n))
   z2 <- character(length(n))
   z1[!is.na(n)] <- sprintf("%.0f", n[!is.na(n)])
-  z2[!is.na(pct)] <- sprintf(paste0("(%.", digit, "f%%)"), pct[!is.na(pct)])
+  z2[!is.na(pct)] <- sprintf(paste0(" (%.", digit, "f%%)"), pct[!is.na(pct)])
   paste0(z1, z2)
 }
 
