@@ -20,14 +20,7 @@ if (!file.exists(to_image_script)) {#just for dev purpose
 }
 source(to_image_script)
 
-
 init_flextable_defaults()
-
-get_output_file <- function(rmd){
-  basen <- tools::file_path_sans_ext(basename(rmd))
-  list.files(path = dirname(rmd), pattern = paste0(basen, ".(html|pdf|docx|pptx)$"),
-             full.names = TRUE)
-}
 
 test_that("rmarkdown caption", {
   local_edition(3)

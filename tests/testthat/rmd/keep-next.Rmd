@@ -1,0 +1,50 @@
+---
+title: 'Example keep with next'
+---
+
+```{r include=FALSE}
+library(knitr)
+library(officedown)
+library(flextable)
+
+opts_chunk$set(
+  echo = FALSE,
+  ft.keepnext = FALSE
+)
+table_caption <- 'airquality dataset'
+```
+
+
+```{r table1, tab.cap = table_caption}
+qflextable(mtcars)
+```
+
+
+```{r table2, tab.cap = table_caption}
+qflextable(mtcars)
+```
+
+blop
+
+blop
+
+blop
+
+blop
+
+blop
+
+blop
+
+blop
+
+```{r include=FALSE}
+opts_chunk$set(ft.keepnext = TRUE)
+```
+
+
+```{r table3, tab.cap = table_caption}
+qflextable(head(mtcars))
+```
+
+

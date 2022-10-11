@@ -12,6 +12,11 @@ to `fmt_summarizor()` to help working with `tabulator()`.
 - fix issue with keepnext and `body_add_flextable()`
 - fix issue of misordered chunks with `prepend_chunks()`
 
+## Changes
+
+- `ft.keepnext` now default to FALSE as lot of users had issues
+with this option.
+
 # flextable 0.8.2
 
 ## Issues

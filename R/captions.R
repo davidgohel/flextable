@@ -76,10 +76,10 @@ caption_default_docx_openxml <- function(x, align = "center",
     if (x$caption$align_with_table) {
       fp_p <- update(fp_p, text.align = align)
     }
-    fp_p <- update(fp_p,
-      word_style = cap_style,
-      keep_with_next = keep_with_next
-    )
+    if (keep_with_next) {
+      fp_p <- update(fp_p, word_style = cap_style, keep_with_next = TRUE)
+    }
+
     p_pr <- format(fp_p, type = "wml")
   } else {
     p_pr <- paste0(

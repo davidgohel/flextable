@@ -53,7 +53,7 @@ htmltools_value <- function(x, ft.align = "center", ft.shadow = TRUE, ft.htmlscr
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param ft.split Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
-#' @param ft.keepnext default `TRUE`. Word option 'keep rows
+#' @param ft.keepnext default `FALSE`. Word option 'keep rows
 #' together' is activated when TRUE. It avoids page break
 #' within tables. This is handy for small tables, i.e. less than
 #' a page height.
@@ -272,31 +272,8 @@ knit_to_html <- function(x,
 
 #' @noRd
 #' @title flextable Office Open XML string for Word
-#'
 #' @description get openxml raw code for Word
 #' from a flextable object.
-#'
-#' This feature is available to simplify the work of users by avoiding
-#' the need to use the 'officer' package. If it doesn't suit your needs,
-#' then use the API offered by 'officer' which allows simple and
-#' complicated things.
-#' @param x a flextable object
-#' @param align flextable alignment, supported values are 'left', 'center' and 'right'.
-#' @param split Word option 'Allow row to break across pages' can be
-#' activated when TRUE.
-#' @param keep_with_next default `TRUE`. Word option 'keep rows
-#' together' is activated when TRUE. It avoids page break
-#' within tables. This is handy for small tables, i.e. less than
-#' a page height.
-#'
-#' Be careful, if you print long tables, you should
-#' rather set its value to `FALSE` to avoid that the tables
-#' also generate a page break before being placed in the
-#' Word document. Since Word will try to keep it with the **next
-#' paragraphs that follow the tables**.
-#' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
-#' @examples
-#' knit_to_wml(flextable(iris[1:5, ]))
 #' @importFrom officer opts_current_table run_autonum to_wml
 knit_to_wml <- function(x,
                         align = opts_current$get("ft.align"),
@@ -308,7 +285,7 @@ knit_to_wml <- function(x,
 
   if (is.null(align)) align <- "center"
   if (is.null(split)) split <- FALSE
-  if (is.null(keep_with_next)) keep_with_next <- TRUE
+  if (is.null(keep_with_next)) keep_with_next <- FALSE
 
   is_rdocx_document <- opts_current$get("is_rdocx_document")
   if (is.null(is_rdocx_document)) is_rdocx_document <- FALSE
@@ -324,10 +301,9 @@ knit_to_wml <- function(x,
   }
 
   if (topcaption) {
-    keep_with_next <- TRUE
+    apply_cap_kwn <- TRUE
   } else {
-    x <- keep_wn(x, part = "all", keep_with_next = TRUE)
-    keep_with_next <- FALSE
+    apply_cap_kwn <- FALSE
   }
 
   word_autonum <- FALSE
@@ -340,7 +316,7 @@ knit_to_wml <- function(x,
     caption <- caption_default_docx_openxml(
       x,
       align = align,
-      keep_with_next = keep_with_next,
+      keep_with_next = apply_cap_kwn,
       tab_props = tab_props,
       allow_autonum = word_autonum
     )
@@ -585,7 +561,7 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #'   ft.shadow       \tab HTML option, disable shadow dom (set to `FALSE`) for pagedown. \tab TRUE    \tab yes  \tab no \tab no  \tab no \cr
 #'   ft.htmlscroll   \tab HTML option, add a scroll if table is too big to fit into its HTML container. \tab TRUE    \tab yes  \tab no \tab no  \tab no \cr
 #'   ft.split        \tab Word option 'Allow row to break across pages' can be activated when TRUE. \tab FALSE    \tab no  \tab yes \tab no  \tab no \cr
-#'   ft.keepnext     \tab Word option 'keep rows together' can be desactivated when FALSE \tab TRUE    \tab no  \tab yes \tab no  \tab no \cr
+#'   ft.keepnext     \tab Word option 'keep rows together' can be desactivated when FALSE \tab FALSE    \tab no  \tab yes \tab no  \tab no \cr
 #'   ft.tabcolsep    \tab space between the text and the left/right border of its containing cell   \tab 0      \tab no  \tab no  \tab yes \tab no \cr
 #'   ft.arraystretch \tab height of each row relative to its default height                         \tab 1.5      \tab no  \tab no  \tab yes \tab no \cr
 #'   ft.latex.float  \tab type of floating placement in the document, one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o' \tab 'none'      \tab no  \tab no  \tab yes \tab no \cr

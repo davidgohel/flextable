@@ -32,7 +32,7 @@ flextable_to_rmd(
 \item{ft.split}{Word option 'Allow row to break across pages' can be
 activated when TRUE.}
 
-\item{ft.keepnext}{default \code{TRUE}. Word option 'keep rows
+\item{ft.keepnext}{default \code{FALSE}. Word option 'keep rows
 together' is activated when TRUE. It avoids page break
 within tables. This is handy for small tables, i.e. less than
 a page height.
