@@ -615,6 +615,9 @@ print.tabulator <- function(x, ...){
     paste0(shQuote(columns_keys, type = "cmd"), collapse = ", "),
     ")\n", sep = "")
 
+  print(as.data.table(x$data))
+  invisible()
+
 }
 
 
