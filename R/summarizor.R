@@ -167,7 +167,7 @@ dataset_describe <- function(dataset){
 }
 
 #' @export
-#' @title format content for data generated with [summarizor()]
+#' @title format content for data generated with summarizor()
 #' @description This function was written to allow easy demonstrations
 #' of flextable's ability to produce table summaries (with [summarizor()]).
 #' It assumes that we have either a quantitative variable, in which
@@ -189,7 +189,37 @@ dataset_describe <- function(dataset){
 #' @param pcts_mask format associated with `pcts`, a format string
 #' used by [sprintf()].
 #' @seealso [summarizor()], [tabulator()], [mk_par()]
-#' @family other text formatter functions
+#' @family text formatter functions
+#' @examples
+#' library(flextable)
+#' z <- summarizor(iris, by = "Species")
+#'
+#' tab_1 <- tabulator(
+#'   x = z,
+#'   rows = c("variable", "stat"),
+#'   columns = "Species",
+#'   blah = as_paragraph(
+#'     as_chunk(
+#'       fmt_summarizor(
+#'         stat = stat,
+#'         num1 = value1, num2 = value2,
+#'         cts = cts, pcts = percent
+#'       )
+#'     )
+#'   )
+#' )
+#'
+#' ft_1 <- as_flextable(x = tab_1, separate_with = "variable")
+#' ft_1 <- labelizor(
+#'   x = ft_1, j = "stat",
+#'   labels = c(mean_sd = "Moyenne (ecart-type)",
+#'              median_iqr = "Mediane (IQR)",
+#'              range = "Etendue",
+#'              missing = "Valeurs manquantes"
+#'              )
+#' )
+#' ft_1 <- autofit(ft_1)
+#' ft_1
 fmt_2stats <- function(stat, num1, num2, cts, pcts,
                        num1_mask = "%.01f", num2_mask = "(%.01f)",
                        cts_mask = "%.0f", pcts_mask = "(%.02f%%)"){
@@ -246,24 +276,86 @@ fmt_summarizor <- fmt_2stats
 #' @param pct percent values
 #' @param digit number of digits for the percentages
 #' @seealso [tabulator()], [mk_par()]
-#' @family other text formatter functions
+#' @family text formatter functions
+#' @examples
+#' library(flextable)
+#'
+#' df <- structure(
+#'   list(
+#'     cut = structure(
+#'       .Data = 1:5, levels = c(
+#'         "Fair", "Good", "Very Good", "Premium", "Ideal"),
+#'       class = c("ordered", "factor")),
+#'     n = c(1610L, 4906L, 12082L, 13791L, 21551L),
+#'     pct = c(0.0299, 0.0909, 0.2239, 0.2557, 0.3995)
+#'   ),
+#'   row.names = c(NA, -5L),
+#'   class = "data.frame")
+#'
+#' ft_1 <- flextable(df, col_keys = c("cut", "txt"))
+#' ft_1 <- mk_par(
+#'   x = ft_1, j = "txt",
+#'   value = as_paragraph(fmt_n_percent(n, pct)))
+#' ft_1 <- align(ft_1, j = "txt", part = "all", align = "right")
+#' ft_1 <- autofit(ft_1)
+#' ft_1
 fmt_n_percent <- function(n, pct, digit = 1){
   z1 <- character(length(n))
   z2 <- character(length(n))
   z1[!is.na(n)] <- sprintf("%.0f", n[!is.na(n)])
-  z2[!is.na(pct)] <- sprintf(paste0(" (%.", digit, "f%%)"), pct[!is.na(pct)])
+  z2[!is.na(pct)] <- sprintf(paste0(" (%0", 3L + as.integer(digit), ".", digit, "f%%)"), 100 * pct[!is.na(pct)])
   paste0(z1, z2)
 }
 
+"%05.2f"
 #' @export
 #' @title format count data for headers
 #' @description The function formats counts as `\n(N=XX)`. This helper
 #' function is used to add counts in columns titles.
 #' @param n count values
 #' @seealso [tabulator()], [mk_par()]
-#' @family other text formatter functions
+#' @family text formatter functions
+#' @examples
+#' library(flextable)
+#'
+#' df <- data.frame(zz = 1)
+#'
+#' ft_1 <- flextable(df)
+#' ft_1 <- append_chunks(
+#'   x = ft_1, j = 1, part = "header",
+#'   value = as_chunk(fmt_header_n(200)))
+#' ft_1 <- autofit(ft_1)
+#' ft_1
 fmt_header_n <- function(n){
   z1 <- character(length(n))
   z1[!is.na(n)] <- sprintf("\n(N=%.0f)", n[!is.na(n)])
   z1
 }
+
+#' @export
+#' @title format content for mean and sd
+#' @description The function formats means and
+#' standard deviations as `mean (sd)`.
+#' @param avg,dev mean and sd values
+#' @param digit1,digit2 number of digits to show when printing 'mean' and 'sd'.
+#' @seealso [tabulator()], [mk_par()]
+#' @family text formatter functions
+#' @examples
+#' library(flextable)
+#'
+#' df <- data.frame(avg = 1:3*3, sd = 1:3)
+#'
+#' ft_1 <- flextable(df, col_keys = "avg")
+#' ft_1 <- mk_par(
+#'   x = ft_1, j = 1, part = "body",
+#'   value = as_paragraph(fmt_avg_dev(avg = avg, dev = sd)))
+#' ft_1 <- autofit(ft_1)
+#' ft_1
+fmt_avg_dev <- function(avg, dev, digit1 = 1, digit2 = 1){
+  z1 <- character(length(avg))
+  z2 <- character(length(avg))
+  z1[!is.na(avg)] <- sprintf(paste0("%.", digit1, "f"), avg[!is.na(avg)])
+  z2[!is.na(dev)] <- sprintf(paste0(" (%.", digit2, "f)"), dev[!is.na(dev)])
+  paste0(z1, z2)
+}
+

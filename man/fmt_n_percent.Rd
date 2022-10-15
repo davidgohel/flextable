@@ -18,11 +18,35 @@ The function formats counts and
 percentages as \verb{n (xx.x\%)}. If percentages are
 missing, they are not printed.
 }
+\examples{
+library(flextable)
+
+df <- structure(
+  list(
+    cut = structure(
+      .Data = 1:5, levels = c(
+        "Fair", "Good", "Very Good", "Premium", "Ideal"),
+      class = c("ordered", "factor")),
+    n = c(1610L, 4906L, 12082L, 13791L, 21551L),
+    pct = c(0.0299, 0.0909, 0.2239, 0.2557, 0.3995)
+  ),
+  row.names = c(NA, -5L),
+  class = "data.frame")
+
+ft_1 <- flextable(df, col_keys = c("cut", "txt"))
+ft_1 <- mk_par(
+  x = ft_1, j = "txt",
+  value = as_paragraph(fmt_n_percent(n, pct)))
+ft_1 <- align(ft_1, j = "txt", part = "all", align = "right")
+ft_1 <- autofit(ft_1)
+ft_1
+}
 \seealso{
 \code{\link[=tabulator]{tabulator()}}, \code{\link[=mk_par]{mk_par()}}
 
-Other other text formatter functions: 
+Other text formatter functions: 
 \code{\link{fmt_2stats}()},
+\code{\link{fmt_avg_dev}()},
 \code{\link{fmt_header_n}()}
 }
-\concept{other text formatter functions}
+\concept{text formatter functions}

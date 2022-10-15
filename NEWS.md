@@ -4,7 +4,7 @@
 
 - new argument `expand_single` in `as_grouped_data()`. If FALSE, groups with only one
 row will not be expanded with a title row.
-- new functions `fmt_header_n()`, `fmt_n_percent()` and renaming of `fmt_2stats()` 
+- new functions `fmt_avg_dev()`, `fmt_header_n()`, `fmt_n_percent()` and renaming of `fmt_2stats()` 
 to `fmt_summarizor()` to help working with `tabulator()`.
 
 ## Issues

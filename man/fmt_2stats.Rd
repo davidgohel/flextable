@@ -3,7 +3,7 @@
 \name{fmt_2stats}
 \alias{fmt_2stats}
 \alias{fmt_summarizor}
-\title{format content for data generated with \code{\link[=summarizor]{summarizor()}}}
+\title{format content for data generated with summarizor()}
 \usage{
 fmt_2stats(
   stat,
@@ -61,11 +61,43 @@ case we will display the mean and the standard deviation, or a
 qualitative variable, in which case we will display the count and the
 percentage corresponding to each modality.
 }
+\examples{
+library(flextable)
+z <- summarizor(iris, by = "Species")
+
+tab_1 <- tabulator(
+  x = z,
+  rows = c("variable", "stat"),
+  columns = "Species",
+  blah = as_paragraph(
+    as_chunk(
+      fmt_summarizor(
+        stat = stat,
+        num1 = value1, num2 = value2,
+        cts = cts, pcts = percent
+      )
+    )
+  )
+)
+
+ft_1 <- as_flextable(x = tab_1, separate_with = "variable")
+ft_1 <- labelizor(
+  x = ft_1, j = "stat",
+  labels = c(mean_sd = "Moyenne (ecart-type)",
+             median_iqr = "Mediane (IQR)",
+             range = "Etendue",
+             missing = "Valeurs manquantes"
+             )
+)
+ft_1 <- autofit(ft_1)
+ft_1
+}
 \seealso{
 \code{\link[=summarizor]{summarizor()}}, \code{\link[=tabulator]{tabulator()}}, \code{\link[=mk_par]{mk_par()}}
 
-Other other text formatter functions: 
+Other text formatter functions: 
+\code{\link{fmt_avg_dev}()},
 \code{\link{fmt_header_n}()},
 \code{\link{fmt_n_percent}()}
 }
-\concept{other text formatter functions}
+\concept{text formatter functions}

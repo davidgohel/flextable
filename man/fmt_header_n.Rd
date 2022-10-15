@@ -13,11 +13,24 @@ fmt_header_n(n)
 The function formats counts as \verb{\\n(N=XX)}. This helper
 function is used to add counts in columns titles.
 }
+\examples{
+library(flextable)
+
+df <- data.frame(zz = 1)
+
+ft_1 <- flextable(df)
+ft_1 <- append_chunks(
+  x = ft_1, j = 1, part = "header",
+  value = as_chunk(fmt_header_n(200)))
+ft_1 <- autofit(ft_1)
+ft_1
+}
 \seealso{
 \code{\link[=tabulator]{tabulator()}}, \code{\link[=mk_par]{mk_par()}}
 
-Other other text formatter functions: 
+Other text formatter functions: 
 \code{\link{fmt_2stats}()},
+\code{\link{fmt_avg_dev}()},
 \code{\link{fmt_n_percent}()}
 }
-\concept{other text formatter functions}
+\concept{text formatter functions}
