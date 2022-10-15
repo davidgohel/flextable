@@ -57,7 +57,9 @@
 #'
 #' \if{html}{\figure{fig_merge_v_2.png}{options: width="600"}}
 merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE) {
-  if (!inherits(x, "flextable")) stop("merge_v supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "merge_v()"))
+  }
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
 
   j <- as_col_keys(x[[part]], j, blanks = x$blanks)
@@ -94,7 +96,9 @@ merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE) 
 #' @export
 merge_h <- function(x, i = NULL, part = "body" ){
 
-  if( !inherits(x, "flextable") ) stop("merge_h supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "merge_h()"))
+  }
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   i <- get_rows_id( x[[part]], i )
@@ -130,7 +134,9 @@ merge_h <- function(x, i = NULL, part = "body" ){
 #' \if{html}{\figure{fig_merge_none_1.png}{options: width="500"}}
 merge_none <- function(x, part = "all" ){
 
-  if( !inherits(x, "flextable") ) stop("merge_none supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "merge_none()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
@@ -164,7 +170,9 @@ merge_none <- function(x, part = "all" ){
 #' ft_merge
 #' @export
 merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
-  if( !inherits(x, "flextable") ) stop("merge_at supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "merge_at()"))
+  }
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   j <- get_columns_id(x[[part]], j = j )
@@ -199,7 +207,9 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
 #'
 #' \if{html}{\figure{fig_merge_h_range_1.png}{options: width="500"}}
 merge_h_range <- function(x, i = NULL, j1 = NULL, j2 = NULL, part = "body" ){
-  if( !inherits(x, "flextable") ) stop("merge_h_range supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "merge_h_range()"))
+  }
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 
   j1 <- get_columns_id(x[[part]], j = j1 )

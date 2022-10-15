@@ -45,7 +45,10 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
                    border.left = NULL, border.right = NULL,
                    part = "body" ){
 
-  if( !inherits(x, "flextable") ) stop("border supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "border()"))
+  }
+
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( !is.null(border) ){
@@ -117,7 +120,9 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 #'
 #' \if{html}{\figure{fig_border_remove_2.png}{options: width="400"}}
 border_remove <- function(x){
-  if( !inherits(x, "flextable") ) stop("border_remove supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "border_remove()"))
+  }
   x <- border(x = x, border = fp_border(width = 0), part = "all")
   x
 }
@@ -145,8 +150,11 @@ border_remove <- function(x){
 #'
 #' \if{html}{\figure{fig_border_outer_1.png}{options: width="400"}}
 border_outer <- function(x, border = NULL, part = "all"){
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "border_outer()"))
+  }
+
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
-  if( !inherits(x, "flextable") ) stop("border_outer supports only flextable objects.")
 
   if(is.null(border))
     border <- fp_border(color = flextable_global$defaults$border.color)
@@ -188,7 +196,9 @@ border_outer <- function(x, border = NULL, part = "all"){
 #'
 #' \if{html}{\figure{fig_border_inner_h_1.png}{options: width="400"}}
 border_inner_h <- function(x, border = NULL, part = "body"){
-  if( !inherits(x, "flextable") ) stop("border_inner_h supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "border_inner_h()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if(is.null(border))
@@ -229,7 +239,9 @@ border_inner_h <- function(x, border = NULL, part = "body"){
 #'
 #' \if{html}{\figure{fig_border_inner_v_1.png}{options: width="400"}}
 border_inner_v <- function(x, border = NULL, part = "all"){
-  if( !inherits(x, "flextable") ) stop("border_inner_v supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "border_inner_v()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if(is.null(border))
@@ -270,7 +282,9 @@ border_inner_v <- function(x, border = NULL, part = "all"){
 #'
 #' \if{html}{\figure{fig_border_inner_1.png}{options: width="400"}}
 border_inner <- function(x, border = NULL, part = "all"){
-  if( !inherits(x, "flextable") ) stop("border_inner_v supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "border_inner()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if(is.null(border))
@@ -320,7 +334,9 @@ border_inner <- function(x, border = NULL, part = "all"){
 #'
 #' \if{html}{\figure{fig_hline_1.png}{options: width="400"}}
 hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
-  if( !inherits(x, "flextable") ) stop("hline supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "hline()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if(is.null(border))
@@ -373,7 +389,9 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
 #'
 #' \if{html}{\figure{fig_hline_top_1.png}{options: width="400"}}
 hline_top <- function(x, j = NULL, border = NULL, part = "body"){
-  if( !inherits(x, "flextable") ) stop("hline_top supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "hline_top()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if(is.null(border))
@@ -424,7 +442,9 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body"){
 #'
 #' \if{html}{\figure{fig_hline_bottom_1.png}{options: width="400"}}
 hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
-  if( !inherits(x, "flextable") ) stop("hline_bottom supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "hline_bottom()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if(is.null(border))
@@ -466,7 +486,9 @@ hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
 #'
 #' \if{html}{\figure{fig_vline_1.png}{options: width="400"}}
 vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
-  if( !inherits(x, "flextable") ) stop("vline supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "vline()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if(is.null(border))
@@ -515,7 +537,9 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
 #'
 #' \if{html}{\figure{fig_vline_left_1.png}{options: width="400"}}
 vline_left <- function(x, i = NULL, border = NULL, part = "all"){
-  if( !inherits(x, "flextable") ) stop("vline_left supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "vline_left()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if(is.null(border))
@@ -556,7 +580,9 @@ vline_left <- function(x, i = NULL, border = NULL, part = "all"){
 #'
 #' \if{html}{\figure{fig_vline_right_1.png}{options: width="400"}}
 vline_right <- function(x, i = NULL, border = NULL, part = "all"){
-  if( !inherits(x, "flextable") ) stop("vline_right supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "vline_right()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if(is.null(border))
@@ -673,7 +699,9 @@ surround <- function(x, i = NULL, j = NULL, border = NULL,
                      border.top = NULL, border.bottom = NULL,
                      border.left = NULL, border.right = NULL,
                      part = "body"){
-  if( !inherits(x, "flextable") ) stop("vline supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "surround()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( !is.null(border) ){

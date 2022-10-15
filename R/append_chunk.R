@@ -30,8 +30,9 @@
 #' ft_1 <- set_table_properties(ft_1, layout = "autofit")
 #' ft_1
 append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
-  if (!inherits(x, "flextable"))
-    stop("append_chunks supports only flextable objects.")
+  if (!inherits(x, "flextable")){
+    stop(sprintf("Function `%s` supports only flextable objects.", "append_chunks()"))
+  }
   part <- match.arg(part, c("body", "header", "footer"),
                     several.ok = FALSE)
 
@@ -88,8 +89,9 @@ append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
 #' )
 #' x
 prepend_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
-  if (!inherits(x, "flextable"))
-    stop("append_chunks supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "prepend_chunks()"))
+  }
   part <- match.arg(part, c("body", "header", "footer"),
                     several.ok = FALSE)
 

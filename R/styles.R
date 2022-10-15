@@ -31,7 +31,10 @@
 #' \if{html}{\figure{fig_style_1.png}{options: width="500"}}
 style <- function(x, i = NULL, j = NULL,
                   pr_t = NULL, pr_p = NULL, pr_c = NULL, part = "body") {
-  if (!inherits(x, "flextable")) stop("style supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "style()"))
+  }
+
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
@@ -91,7 +94,10 @@ style <- function(x, i = NULL, j = NULL,
 #'
 #' \if{html}{\figure{fig_bold_1.png}{options: width="400"}}
 bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body") {
-  if (!inherits(x, "flextable")) stop("bold supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "bold()"))
+  }
+
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
@@ -137,7 +143,9 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body") {
 #'
 #' \if{html}{\figure{fig_fontsize_1.png}{options: width="400"}}
 fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body") {
-  if (!inherits(x, "flextable")) stop("fontsize supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "fontsize()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
@@ -175,7 +183,10 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body") {
 #'
 #' \if{html}{\figure{fig_italic_1.png}{options: width="400"}}
 italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
-  if (!inherits(x, "flextable")) stop("italic supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "italic()"))
+  }
+
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
@@ -241,7 +252,10 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
 #'
 #' \if{html}{\figure{fig_highlight_1.png}{options: width="500"}}
 highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", source = j) {
-  if (!inherits(x, "flextable")) stop("highlight supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "highlight()"))
+  }
+
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
@@ -330,7 +344,10 @@ highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", so
 #'
 #' \if{html}{\figure{fig_color_2.png}{options: width="400"}}
 color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
-  if (!inherits(x, "flextable")) stop("color supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "color()"))
+  }
+
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
@@ -406,7 +423,10 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
 #'
 #' \if{html}{\figure{fig_font_2.png}{options: width="500"}}
 font <- function(x, i = NULL, j = NULL, fontname, part = "body", cs.family = fontname, hansi.family = fontname, eastasia.family = fontname) {
-  if (!inherits(x, "flextable")) stop("font supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "font()"))
+  }
+
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
@@ -476,7 +496,10 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
                     padding.top = NULL, padding.bottom = NULL,
                     padding.left = NULL, padding.right = NULL,
                     part = "body") {
-  if (!inherits(x, "flextable")) stop("padding supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "padding()"))
+  }
+
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (!is.null(padding)) {
@@ -543,7 +566,9 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 #' \if{html}{\figure{fig_align_1.png}{options: width="400"}}
 align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "justify"),
                   part = "body") {
-  if (!inherits(x, "flextable")) stop("align supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "align()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
   align_value <- match.arg(align)
 
@@ -614,7 +639,9 @@ keep_wn <- function(x, i = NULL, j = NULL, keep_with_next = TRUE,
 line_spacing <- function(x, i = NULL, j = NULL, space = 1, part = "body", unit = "in") {
   space <- convin(unit = unit, x = space)
 
-  if (!inherits(x, "flextable")) stop("align supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "line_spacing()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
@@ -727,7 +754,9 @@ align_nottext_col <- function(x, align = "right", header = TRUE, footer = TRUE) 
 #'
 #' \if{html}{\figure{fig_bg_2.png}{options: width="300"}}
 bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j) {
-  if (!inherits(x, "flextable")) stop("bg supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "bg()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
@@ -808,7 +837,9 @@ data_colors <- function(dataset, fun) {
 #'
 #' \if{html}{\figure{fig_valign_2.png}{options: width="400"}}
 valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body") {
-  if (!inherits(x, "flextable")) stop("valign supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "valign()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
@@ -908,7 +939,9 @@ valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body") {
 #'
 #' \if{html}{\figure{fig_rotate_1.png}{options: width="400"}}
 rotate <- function(x, i = NULL, j = NULL, rotation, align = NULL, part = "body") {
-  if (!inherits(x, "flextable")) stop("rotate supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "rotate()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
@@ -974,7 +1007,9 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = NULL, part = "body")
 #' @export
 #' @importFrom officer shortcuts
 empty_blanks <- function(x, width = .05, unit = "in", part = "all") {
-  if (!inherits(x, "flextable")) stop("empty_blanks supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "empty_blanks()"))
+  }
   if (length(x$blanks) < 1) {
     return(x)
   }

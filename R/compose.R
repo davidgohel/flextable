@@ -65,7 +65,9 @@
 #' \if{html}{\figure{fig_compose_2.png}{options: width="400"}}
 compose <- function(x, i = NULL, j = NULL, value , part = "body", use_dot = FALSE){
 
-  if( !inherits(x, "flextable") ) stop("compose supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "compose()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){
@@ -153,7 +155,9 @@ mk_par <- compose
 #' ft_1
 labelizor <- function(x, j = NULL, labels, part = "all") {
 
-  if (!inherits(x, "flextable")) stop("labelizor supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "labelizor()"))
+  }
 
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 

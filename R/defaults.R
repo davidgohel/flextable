@@ -266,7 +266,7 @@ get_flextable_defaults <- function(){
 #' @export
 print.flextable_defaults <- function(x, ...){
 
-  message("## style properties\n")
+  cat("## style properties\n")
   styles <- c("font.family", "hansi.family", "eastasia.family", "cs.family",
               "font.size", "font.color", "text.align", "padding.bottom",
     "padding.top", "padding.left", "padding.right", "line_spacing", "border.color",
@@ -274,39 +274,39 @@ print.flextable_defaults <- function(x, ...){
   df <- data.frame(property = styles, value = unlist(x[styles]), stringsAsFactors = FALSE)
   row.names(df) <- NULL
   print(df)
-  message("")
+  cat("\n")
 
-  message("## cell content settings\n")
+  cat("## cell content settings\n")
   contents <- c("decimal.mark", "big.mark",
               "digits", "na_str", "nan_str", "fmt_date", "fmt_datetime")
   df <- data.frame(property = contents, value = unlist(x[contents]), stringsAsFactors = FALSE)
   row.names(df) <- NULL
   print(df)
-  message("")
+  cat("\n")
 
-  message("## table.layout is:", x$table.layout, "\n")
-  if(is.character(x$theme_fun)) message("## default theme is:", x$theme_fun, "\n")
+  cat("## table.layout is:", x$table.layout, "\n")
+  if(is.character(x$theme_fun)) cat("## default theme is:", x$theme_fun, "\n")
 
-  message("## HTML specific:")
-  message("extra_css:", x$extra_css)
-  message("post_process_html:")
+  cat("## HTML specific:\n")
+  cat("extra_css:", x$extra_css, "\n")
+  cat("post_process_html:\n")
   print(x$post_process_html)
-  message("")
+  cat("\n")
 
-  message("## latex specific:")
-  message("post_process_pdf:")
+  cat("## latex specific:\n")
+  cat("post_process_pdf:\n")
   print(x$post_process_pdf)
-  message("")
+  cat("\n")
 
-  message("## Word specific:")
-  message("post_process_docx:")
+  cat("## Word specific:\n")
+  cat("post_process_docx:\n")
   print(x$post_process_docx)
-  message("")
+  cat("\n")
 
-  message("## PowerPoint specific:")
-  message("post_process_pptx:")
+  cat("## PowerPoint specific:\n")
+  cat("post_process_pptx:\n")
   print(x$post_process_pptx)
-  message("")
+  cat("\n")
 
   invisible(NULL)
 }

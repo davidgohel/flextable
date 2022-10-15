@@ -983,9 +983,11 @@ save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot") {
   if (!inherits(x, "flextable")) {
     stop("x must be a flextable")
   }
-
   if (!requireNamespace(webshot, quietly = TRUE)) {
-    stop("package ", webshot, " is required when saving a flextable as an image.")
+    stop(sprintf(
+      "'%s' package should be installed to create an image from a flextable.",
+      webshot)
+    )
   } else {
     webshot_fun <- getFromNamespace("webshot", webshot)
   }
@@ -1081,11 +1083,18 @@ plot.flextable <- function(x, method = c("grob", "webshot"), ...) {
 #' }
 #' @family flextable print function
 as_raster <- function(x, zoom = 2, expand = 2, webshot = "webshot", ...) {
+
   if (!requireNamespace(webshot, quietly = TRUE)) {
-    stop("package ", webshot, " is required when saving a flextable as an image.")
+    stop(sprintf(
+      "'%s' package should be installed to create an image from a flextable.",
+      webshot)
+    )
   }
   if (!requireNamespace("magick", quietly = TRUE)) {
-    stop("package magick is required when saving a flextable as an image.")
+    stop(sprintf(
+      "'%s' package should be installed to create an image from a flextable.",
+      "magick")
+    )
   }
   path <- tempfile(fileext = ".png")
   on.exit(unlink(path))

@@ -72,8 +72,9 @@ flextable <- function(data, col_keys = names(data),
 
   stopifnot(is.data.frame(data), ncol(data) > 0 )
   if( any( duplicated(col_keys) ) ){
-    stop("duplicated col_keys: ",
+    stop(sprintf("duplicated col_keys: %s",
          paste0(unique(col_keys[duplicated(col_keys)]), collapse = ", "))
+    )
   }
   if( inherits(data, "data.table") || inherits(data, "tbl_df") || inherits(data, "tbl") )
     data <- as.data.frame(data, stringsAsFactors = FALSE)
@@ -245,8 +246,8 @@ set_caption <- function(x,
                         html_classes = NULL,
                         html_escape = TRUE) {
 
-  if (!inherits(x, "flextable")) {
-    stop("set_caption supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "set_caption()"))
   }
 
   caption_value <- NULL

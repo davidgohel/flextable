@@ -174,9 +174,10 @@ tabulator <- function(x, rows, columns,
   setDF(cts)
   cts <- cts[cts$cts> 1,]
   if(nrow(cts)>0){
-    all_dims <- paste0(c(columns, rows), collapse = ", ")
-    stop("the number of rows is not unique for some combinations ",
-         "of rows and columns: ", all_dims)
+    all_dims <- paste0("`", c(columns, rows), "`", collapse = ", ")
+    stop(sprintf(
+      "number of rows is not unique for some combinations of rows and columns: %s.",
+      all_dims))
   }
 
   .formula <- paste(paste0("`", rows, "`", collapse = "+"),
@@ -624,9 +625,11 @@ check_filter_expr <- function(filter_expr, x){
   missing_varnames <- setdiff(filter_varnames, colnames(x))
 
   if(length(missing_varnames) > 0){
-    stop(quo_text(filter_expr), " is using unknown variable(s): ",
-         paste0("`", missing_varnames, "`", collapse = ","),
-         call. = FALSE)
+    stop(
+      sprintf("`%s` is using unknown variable(s): %s",
+              quo_text(filter_expr),
+              paste0("`", missing_varnames, "`", collapse = ",")),
+      call. = FALSE)
   }
 }
 

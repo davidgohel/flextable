@@ -65,9 +65,10 @@
 #' \if{html}{\figure{fig_footnote_2.png}{options: width="400"}}
 footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "body",
                      inline = FALSE, sep = "; ") {
-  if (!inherits(x, "flextable")) {
-    stop("footnote supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "footnote()"))
   }
+
   part <- match.arg(part, c("body", "header", "footer"),
     several.ok = FALSE
   )
@@ -87,9 +88,11 @@ footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "b
   }
 
   if(any(ref_symbols %in% "")) {
-    message("Usage of empty symbol '' with footnote should not happen, ",
+    long_msg <- c("Usage of empty symbol '' with footnote should not happen, ",
          "use `add_footer_lines()` instead, it does not require any symbol. ",
          "This usage will be forbidden in the next release. Please, wait for 10 seconds!")
+    long_msg <- paste0(long_msg, collapse = "\n")
+    message(long_msg)
     Sys.sleep(10)
   }
 

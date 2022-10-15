@@ -162,10 +162,10 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
 
   if( length(props) > 0 && is.list(props) ){
     if( !all(sapply(props, inherits, "fp_text")) ){
-      stop("props should be a list of fp_text object")
+      stop("`props` should be a list of `fp_text` object(s).")
     }
     if( length(props) != length(text) ){
-      stop("props should be a list of length ", length(text) )
+      stop(sprintf("`props` should be a list of same length than `x`: %.0f.", length(text)))
     }
   }
   data <- chunk_dataframe(txt = text,
@@ -506,10 +506,12 @@ as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL){
 
   if( length(props) > 0 && is.list(props) ){
     if( !all(sapply(props, inherits, "fp_text")) ){
-      stop("props should be a list of fp_text object")
+      stop("`props` should be a list of `fp_text` object(s).")
     }
     if( length(props) != length(x) ){
-      stop("props should be a list of length ", length(x) )
+      stop(sprintf(
+        "`props` should be a list of same length than `x`: %.0f.",
+        length(x)))
     }
   }
 
@@ -618,10 +620,12 @@ as_word_field <- function(x, props = NULL, width = .1, height = .15, unit = "in"
 
   if( length(props) > 0 && is.list(props) ){
     if( !all(sapply(props, inherits, "fp_text")) ){
-      stop("props should be a list of fp_text object")
+      stop("`props` should be a list of `fp_text` object(s).")
     }
     if( length(props) != length(x) ){
-      stop("props should be a list of length ", length(x) )
+      stop(sprintf(
+        "`props` should be a list of same length than `x`: %.0f.",
+        length(x)))
     }
   }
 

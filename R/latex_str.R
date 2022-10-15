@@ -25,7 +25,7 @@ add_latex_dep <- function(float = FALSE, wrapfig = FALSE){
   fonts_ignore <- flextable_global$defaults$fonts_ignore
   fontspec_compat <- get_pdf_engine() %in% c("xelatex", "lualatex")
   if (!is_quarto && !fonts_ignore && !fontspec_compat) {
-    warning("Warning: fonts used in `flextable` are ignored because ",
+    warning("fonts used in `flextable` are ignored because ",
             "the `pdflatex` engine is used and not `xelatex` or ",
             "`lualatex`. You can avoid this warning by using the ",
             "`set_flextable_defaults(fonts_ignore=TRUE)` command or ",

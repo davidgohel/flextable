@@ -121,7 +121,7 @@ height <- function(x, i = NULL, height, part = "body", unit = "in"){
 
   i <- get_rows_id(x[[part]], i )
   if( !(length(i) == length(height) || length(height) == 1)){
-    stop("height should be of length 1 or ", length(i))
+    stop(sprintf("height should be of length 1 or %.0f.", length(i)))
   }
 
   x[[part]]$rowheights[i] <- height
@@ -177,7 +177,7 @@ hrule <- function(x, i = NULL, rule = "auto", part = "body"){
 
   i <- get_rows_id(x[[part]], i )
   if( !(length(i) == length(height) || length(height) == 1)){
-    stop("height should be of length 1 or ", length(i))
+    stop(sprintf("height should be of length 1 or %.0f.", length(i)))
   }
 
   x[[part]]$hrule[i] <- rule

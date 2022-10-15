@@ -19,7 +19,9 @@
 #' ft <- fix_border_issues(ft)
 #' print(ft)
 fix_border_issues <- function(x, part = "all"){
-  if( !inherits(x, "flextable") ) stop("fix_border_issues supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "fix_border_issues()"))
+  }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
 
   if( part == "all" ){

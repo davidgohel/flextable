@@ -243,10 +243,10 @@ img_as_html <- function(img_data, width, height){
       } else if( grepl("\\.webp", ignore.case = TRUE, x = img_raster) ){
         mime <- "image/webp"
       } else {
-        stop("this format is not implemented")
+        stop(sprintf("'flextable' does not support format of the file '%s'.", img_raster))
       }
       if(!file.exists(img_raster)){
-        stop("file ", shQuote(img_raster), " can not be found.")
+        stop(sprintf("file '%s' can not be found.",img_raster))
       }
       img_raster <- base64enc::dataURI(file = img_raster, mime = mime )
 

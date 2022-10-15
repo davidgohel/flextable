@@ -987,7 +987,7 @@ calc_grid_image <- function(img_data, width = NULL, height = NULL) {
     class(image) <- c("flextableRasterChunk", class(image))
   } else if (is.character(img_data)) {
     if (!file.exists(img_data)) {
-      warning("error reading image: file '", shQuote(img_data), "' cannot be found.")
+      warning(sprintf("file '%s' can not be found.", img_data))
     } else if (requireNamespace("magick", quietly = TRUE)) {
       tryCatch(
         {
@@ -1003,7 +1003,7 @@ calc_grid_image <- function(img_data, width = NULL, height = NULL) {
         }
       )
     } else {
-      warning("package 'magick' is required to read image files")
+      warning(sprintf("package 'magick' is required to read image files"))
     }
   }
   image

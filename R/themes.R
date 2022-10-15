@@ -40,7 +40,7 @@
 #' \if{html}{\figure{fig_theme_vanilla_1.png}{options: width="400"}}
 theme_vanilla <- function(x) {
   if (!inherits(x, "flextable")) {
-    stop("theme_vanilla supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "theme_vanilla()"))
   }
 
   std_b <- fp_border(width = 2, color = flextable_global$defaults$border.color)
@@ -74,7 +74,7 @@ theme_vanilla <- function(x) {
 #' \if{html}{\figure{fig_theme_box_1.png}{options: width="400"}}
 theme_box <- function(x) {
   if (!inherits(x, "flextable")) {
-    stop("theme_box supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "theme_box()"))
   }
 
   x <- border_remove(x)
@@ -111,7 +111,7 @@ theme_box <- function(x) {
 #' \if{html}{\figure{fig_theme_alafoli_1.png}{options: width="400"}}
 theme_alafoli <- function(x) {
   if (!inherits(x, "flextable")) {
-    stop("theme_alafoli supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "theme_alafoli()"))
   }
 
   fp_bdr <- fp_border(
@@ -149,7 +149,7 @@ theme_alafoli <- function(x) {
 #' \if{html}{\figure{fig_theme_vader_1.png}{options: width="400"}}
 theme_vader <- function(x, ...) {
   if (!inherits(x, "flextable")) {
-    stop("theme_vader supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "theme_vader()"))
   }
 
   x <- border_remove(x)
@@ -197,7 +197,7 @@ theme_vader <- function(x, ...) {
 theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
                         even_header = "transparent", even_body = "transparent") {
   if (!inherits(x, "flextable")) {
-    stop("theme_zebra supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "theme_zebra()"))
   }
 
   h_nrow <- nrow_part(x, "header")
@@ -251,7 +251,7 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
 #' \if{html}{\figure{fig_theme_tron_legacy_1.png}{options: width="400"}}
 theme_tron_legacy <- function(x) {
   if (!inherits(x, "flextable")) {
-    stop("theme_tron_legacy supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "theme_tron_legacy()"))
   }
 
   h_nrow <- nrow_part(x, "header")
@@ -296,7 +296,7 @@ theme_tron_legacy <- function(x) {
 #' \if{html}{\figure{fig_theme_tron_1.png}{options: width="400"}}
 theme_tron <- function(x) {
   if (!inherits(x, "flextable")) {
-    stop("theme_tron supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "theme_tron()"))
   }
 
   h_nrow <- nrow_part(x, "header")
@@ -343,7 +343,7 @@ theme_tron <- function(x) {
 #' \if{html}{\figure{fig_theme_booktabs_1.png}{options: width="400"}}
 theme_booktabs <- function(x, bold_header = FALSE, ...) {
   if (!inherits(x, "flextable")) {
-    stop("theme_booktabs supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "theme_booktabs()"))
   }
 
   big_border <- fp_border(width = 2, color = flextable_global$defaults$border.color)
@@ -390,7 +390,7 @@ theme_booktabs <- function(x, bold_header = FALSE, ...) {
 #' \if{html}{\figure{fig_theme_apa_1.png}{options: width="500"}}
 theme_apa <- function(x, ...) {
   if (!inherits(x, "flextable")) {
-    stop("theme_apa supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "theme_apa()"))
   }
   apa.border <- list("width" = 1, color = "black", style = "solid")
   x <- font(x, part = "all", fontname = "Times New Roman")

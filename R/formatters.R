@@ -19,9 +19,9 @@
 #' @family cells formatters
 set_formatter <- function(x, ..., values = NULL, part = "body"){
 
-
-  if(!inherits(x, "flextable"))
-    stop("argument `x` of function `set_formatter` should be a flextable object")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "set_formatter()"))
+  }
 
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
 

@@ -32,7 +32,9 @@
 #'
 #' \if{html}{\figure{fig_set_header_labels_1.png}{options: width="400"}}
 set_header_labels <- function(x, ..., values = NULL) {
-  if (!inherits(x, "flextable")) stop("set_header_labels supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "set_header_labels()"))
+  }
 
   if (is.null(values)) {
     values <- list(...)
@@ -64,7 +66,9 @@ set_header_labels <- function(x, ..., values = NULL) {
 #'
 #' \if{html}{\figure{fig_delete_part_1.png}{options: width="300"}}
 delete_part <- function(x, part = "header") {
-  if (!inherits(x, "flextable")) stop("delete_part supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "delete_part()"))
+  }
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
   nrow_ <- nrow(x[[part]]$dataset)
   x[[part]] <- complex_tabpart(
@@ -140,7 +144,7 @@ as_new_data <- function(x, ..., values = NULL) {
 #' @seealso [flextable()]
 add_body <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
-    stop("add_body supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "add_body()"))
   }
 
   new_data <- as_new_data(x = x, ..., values = values)
@@ -194,7 +198,7 @@ add_body <- function(x, top = TRUE, ..., values = NULL) {
 #' \if{html}{\figure{fig_add_header_1.png}{options: width="300"}}
 add_header <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
-    stop("add_header supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "add_header()"))
   }
 
   header_data <- as_new_data(x = x, ..., values = values)
@@ -241,7 +245,7 @@ add_header <- function(x, top = TRUE, ..., values = NULL) {
 #' \if{html}{\figure{fig_add_footer_1.png}{options: width="300"}}
 add_footer <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
-    stop("add_footer supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "add_footer()"))
   }
 
   footer_data <- as_new_data(x = x, ..., values = values)
@@ -291,7 +295,7 @@ add_footer <- function(x, top = TRUE, ..., values = NULL) {
 #' @seealso [flextable()], [add_header_row()]
 add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0)) {
   if (!inherits(x, "flextable")) {
-    stop("add_body_row supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "add_body_row()"))
   }
 
   if (!is.list(values)) stop("values must be a list.")
@@ -301,7 +305,9 @@ add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0))
   }
 
   if (sum(colwidths) != length(x$col_keys)) {
-    stop("colwidths' sum must be equal to the number of col_keys (", length(x$col_keys), ")")
+    stop(sprintf(
+      "sum of colwidths elements must be equal to the number of col_keys: %.0f.",
+      length(x$col_keys)))
   }
 
   if (any(sapply(values, length) > 1)) {
@@ -368,7 +374,7 @@ add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0))
 #' \if{html}{\figure{fig_add_header_row_1.png}{options: width="300"}}
 add_header_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)) {
   if (!inherits(x, "flextable")) {
-    stop("add_header_row supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "add_header_row()"))
   }
 
   if (length(colwidths) < 1) {
@@ -376,7 +382,9 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
   }
 
   if (sum(colwidths) != length(x$col_keys)) {
-    stop("colwidths'sum must be equal to the number of col_keys (", length(x$col_keys), ")")
+    stop(sprintf(
+      "sum of colwidths elements must be equal to the number of col_keys: %.0f.",
+      length(x$col_keys)))
   }
   if (is.list(values)) {
     values <- as.character(unlist(values))
@@ -437,11 +445,12 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
 #' \if{html}{\figure{fig_add_footer_row_1.png}{options: width="300"}}
 add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)) {
   if (!inherits(x, "flextable")) {
-    stop("add_footer_row supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "add_footer_row()"))
   }
 
   if (sum(colwidths) != length(x$col_keys)) {
-    stop("colwidths' sum must be equal to the number of col_keys (", length(x$col_keys), ")")
+    stop(sprintf("`colwidths` argument specify room for %.0f columns but %.0f are expected.",
+                 sum(colwidths), length(x$col_keys)))
   }
   if (is.atomic(values)) {
     values <- as.list(values)
@@ -502,7 +511,7 @@ add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = int
 #' ft_1
 add_header_lines <- function(x, values = character(0), top = TRUE) {
   if (!inherits(x, "flextable")) {
-    stop("add_header_lines supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "add_header_lines()"))
   }
 
   values_map <- values
@@ -537,7 +546,7 @@ add_header_lines <- function(x, values = character(0), top = TRUE) {
 #' ft_1
 add_footer_lines <- function(x, values = character(0), top = FALSE) {
   if (!inherits(x, "flextable")) {
-    stop("add_footer_lines supports only flextable objects.")
+    stop(sprintf("Function `%s` supports only flextable objects.", "add_footer_lines()"))
   }
 
   for (value in values) {
@@ -635,7 +644,10 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part) {
 #'
 #' \if{html}{\figure{fig_set_header_footer_df_2.png}{options: width="400"}}
 set_header_df <- function(x, mapping = NULL, key = "col_keys") {
-  if (!inherits(x, "flextable")) stop("set_header_labels supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "set_header_df()"))
+  }
+
   set_part_df(x, mapping = mapping, key = key, part = "header")
 }
 
@@ -658,7 +670,10 @@ set_header_df <- function(x, mapping = NULL, key = "col_keys") {
 #' ft_2 <- fix_border_issues(ft_2)
 #' ft_2
 set_footer_df <- function(x, mapping = NULL, key = "col_keys") {
-  if (!inherits(x, "flextable")) stop("set_header_labels supports only flextable objects.")
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "set_footer_df()"))
+  }
+
   set_part_df(x, mapping = mapping, key = key, part = "footer")
 }
 
@@ -723,11 +738,7 @@ separate_header <- function(x,
                             split = "[_\\.]",
                             fixed = FALSE) {
   if (nrow_part(x, "header") > 1) {
-    stop(
-      "the flextable object already have additional row(s),",
-      " run `separate_header()` before any header row",
-      " augmentation"
-    )
+    stop("the flextable object already have additional row(s),\nrun `separate_header()` before any header row augmentation")
   }
 
   ref_list <- tstrsplit(x$col_keys, split = split, fill = "", fixed = fixed)

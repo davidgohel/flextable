@@ -189,8 +189,10 @@ as_flextable.glm <- function(x, ...){
 
 
   if(!requireNamespace("broom", quietly = TRUE)){
-    stop("broom package should be install to create ",
-      "a flextable from a glm object.")
+    stop(sprintf(
+      "'%s' package should be installed to create a flextable from an object of type '%s'.",
+      "broom", "glm")
+    )
   }
 
   data_t <- broom::tidy(x)
@@ -251,7 +253,10 @@ as_flextable.glm <- function(x, ...){
 as_flextable.lm <- function(x, ...){
 
   if( !requireNamespace("broom", quietly = TRUE) ){
-    stop("broom package should be install to create a flextable from a glm object.")
+    stop(sprintf(
+      "'%s' package should be installed to create a flextable from an object of type '%s'.",
+      "broom", "lm")
+    )
   }
 
   data_t <- broom::tidy(x)
@@ -442,7 +447,10 @@ continuous_summary <- function(dat, columns = NULL,
 as_flextable.merMod <- function(x, ...){
 
   if( !requireNamespace("broom.mixed", quietly = TRUE) ){
-    stop("broom.mixed package should be install to create a flextable from a mixed model.")
+    stop(sprintf(
+      "'%s' package should be installed to create a flextable from an object of type '%s'.",
+      "broom.mixed", "mixed model")
+    )
   }
 
   data_t <- broom::tidy(x)
@@ -545,7 +553,10 @@ as_flextable.glmmadmb <- as_flextable.merMod
 #' @importFrom rlang sym
 as_flextable.kmeans <- function(x, digits = 4, ...) {
   if (!requireNamespace("broom", quietly = TRUE)) {
-    stop("broom package should be install to create a flextable from a kmeans model.")
+    stop(sprintf(
+      "'%s' package should be installed to create a flextable from an object of type '%s'.",
+      "broom", "kmeans")
+    )
   }
 
   ## kmeans body ----
@@ -662,7 +673,12 @@ as_flextable.kmeans <- function(x, digits = 4, ...) {
 #' }
 as_flextable.pam <- function(x, digits = 4, ...){
   if( !requireNamespace("broom", quietly = TRUE) ){
-    stop("broom package should be install to create a flextable from a kmeans model.")
+    if (!requireNamespace("broom", quietly = TRUE)) {
+      stop(sprintf(
+        "'%s' package should be installed to create a flextable from an object of type '%s'.",
+        "broom", "pam")
+      )
+    }
   }
 
   clus_stat_names <- c(

@@ -133,11 +133,11 @@ img_to_latex <- function(img_data, width, height){
       dev.off()
     } else if(is.character(img_raster)){
       if(!file.exists(img_raster)){
-        stop("file ", shQuote(img_raster), " could not be read")
+        stop(sprintf("File '%s' could not be found.", img_raster))
       }
       file.copy(from = img_raster, to = new_file, overwrite = TRUE)
     } else  {
-      stop("unknown image format")
+      stop("`image_data` can only be a raster or a filename.")
     }
     sprintf("\\includegraphics[width=%sin, height=%sin]{%s}", width, height, new_file)
   }, img_data, new_files, width, height, SIMPLIFY = FALSE, USE.NAMES = FALSE)

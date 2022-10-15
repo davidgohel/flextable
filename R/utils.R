@@ -1,4 +1,3 @@
-
 #' @importFrom data.table rbindlist setDF
 rbind.match.columns <- function(list_df) {
   df <- rbindlist(list_df, use.names = TRUE, fill = TRUE)
@@ -8,26 +7,24 @@ rbind.match.columns <- function(list_df) {
 }
 
 
-check_formula_i_and_part <- function(i, part){
-  if( inherits(i, "formula") && "header" %in% part ){
-    stop("formula in argument i cannot adress part '", part, "'.", call. = FALSE)
-  } else if( inherits(i, "formula") && "footer" %in% part ){
-    stop("formula in argument i cannot adress part '", part, "'.", call. = FALSE)
+check_formula_i_and_part <- function(i, part) {
+  if (inherits(i, "formula") && part %in% c("header", "footer")) {
+    stop("formulas are not supported in the 'header' and 'footer' parts.")
   }
   TRUE
 }
 
-absolute_path <- function(x){
-
-  if (length(x) != 1L)
+absolute_path <- function(x) {
+  if (length(x) != 1L) {
     stop("'x' must be a single character string")
+  }
   epath <- path.expand(x)
 
-  if( file.exists(epath)){
+  if (file.exists(epath)) {
     epath <- normalizePath(epath, "/", mustWork = TRUE)
   } else {
-    if( !dir.exists(dirname(epath)) ){
-      stop("directory of ", x, " does not exist.", call. = FALSE)
+    if (!dir.exists(dirname(epath))) {
+      stop(sprintf("directory of '%s' does not exist.", x), call. = FALSE)
     }
     cat("", file = epath)
     epath <- normalizePath(epath, "/", mustWork = TRUE)
@@ -38,8 +35,10 @@ absolute_path <- function(x){
 
 #' @importFrom knitr opts_current
 ref_label <- function(base = "tab:") {
-  label <- opts_current$get('label')
-  if (is.null(label)) return('')
+  label <- opts_current$get("label")
+  if (is.null(label)) {
+    return("")
+  }
   paste0("(\\#", base, label, ")")
 }
 
@@ -66,8 +65,8 @@ as_bookmark <- function(id, str) {
   paste0(bm_start_str, str, bm_start_end)
 }
 
-format_double <- function(x, digits = 2){
-  formatC(x, format = "f", digits = digits, decimal.mark = ".", drop0trailing = TRUE )
+format_double <- function(x, digits = 2) {
+  formatC(x, format = "f", digits = digits, decimal.mark = ".", drop0trailing = TRUE)
 }
 
 has_value <- function(x) {

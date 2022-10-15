@@ -21,9 +21,14 @@ colcode0 <- function(x) {
 check_choice <- function( value, choices){
   varname <- as.character(substitute(value))
   if( is.character( value ) && length(value) == 1 ){
-    if( !value %in% choices )
-      stop(varname, " must be one of ", paste( shQuote(choices), collapse = ", "), call. = FALSE )
-  } else stop(varname, " must be a character scalar.", call. = FALSE)
+    if( !value %in% choices ) {
+      stop(
+        sprintf(
+          "%s is expected to be one of: %s",
+          varname, paste( shQuote(choices))),
+        call. = FALSE)
+    }
+  } else stop(sprintf("`%s` must be a character scalar.", varname), call. = FALSE)
   TRUE
 }
 

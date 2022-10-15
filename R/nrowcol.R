@@ -9,7 +9,9 @@
 #' ft <- qflextable(head(cars))
 #' nrow_part(ft, part = "body")
 nrow_part <- function(x, part = "body"){
-  if( !inherits(x, "flextable") ) stop("nrow_part supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "nrow_part()"))
+  }
   if( is.null(x[[part]]) )
     0
   else if( is.null(x[[part]]$dataset) )
@@ -27,6 +29,8 @@ nrow_part <- function(x, part = "body"){
 #' ft <- qflextable(head(cars))
 #' ncol_keys(ft)
 ncol_keys <- function(x){
-  if( !inherits(x, "flextable") ) stop("ncol_keys supports only flextable objects.")
+  if( !inherits(x, "flextable") ) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "ncol_keys()"))
+  }
   length(x$col_keys)
 }
