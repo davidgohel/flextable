@@ -382,7 +382,7 @@ as_flextable.tabulator <- function(
     sna <- !is.na(dat[[row_spanner]])
     sna <- c(sna[-length(sna)] == sna[-1], FALSE) & sna
     row_spanner_labels <- dat[[row_spanner]][sna]
-    ft <- mk_par(ft, i = sna, j = rows[1], value = as_paragraph(row_spanner_labels))
+    ft <- mk_par(ft, i = sna, j = 1, value = as_paragraph(row_spanner_labels))
 
   }
 
@@ -390,7 +390,11 @@ as_flextable.tabulator <- function(
   ft <- valign(ft, valign = "top", j = rows)
 
   for(j in names(x$row_exprs)){
-    ft <- mk_par(ft, i = !is.na(dat[[j]]), j = j, value = !!x$row_exprs[[j]])
+    if(!j %in% row_spanner) {
+      ft <- mk_par(ft, i = !is.na(dat[[j]]), j = j, value = !!x$row_exprs[[j]])
+    } else {
+      ft <- mk_par(ft, i = !is.na(dat[[j]]), j = 1, value = !!x$row_exprs[[j]])
+    }
   }
 
   for(column in rev(columns)){

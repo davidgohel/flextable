@@ -47,54 +47,47 @@ as_grouped_data <- function( x, groups, columns = NULL, expand_single = TRUE){
 
   stopifnot(is.data.frame(x), ncol(x) > 0 )
 
-  if( is.null(columns))
+  if(is.null(columns))
     columns <- setdiff(names(x), groups)
 
-  x <- x[, c(groups, columns), drop = FALSE]
+  z <- x[, c(groups, columns), drop = FALSE]
+  setDT(z)
 
-  x$fake_order___ <- seq_len(nrow(x))
+  z[, c("rleid"):= list(do.call(rleid, as.list(.SD))), .SDcols = groups]
+  z <- merge(
+    z,
+    z[, list(rlen = .N), by = "rleid"],
+    by = "rleid")
 
-  if (expand_single) {
-    # split data so that single groups stay as is
-    rleid <- do.call(rleid, x[groups])
-    table_rleid <- table(rleid)
-    table_uid <- as.integer(names(table_rleid[table_rleid %in% 1]))# considered as single group
-    x_as_is <- x[rleid %in% table_uid,]
-    x_not_as_is <- x[!rleid %in% table_uid,]
-  } else {
-    x_as_is <- x[]
-    x_not_as_is <- x[0,]
+  subsets <- list()
+  for (grp_i in seq_along(groups)) {
+    grp_comb <- groups[seq_len(grp_i)]
+    if (!expand_single) {
+      subdat <- unique(z[z$rlen>1, .SD, .SDcols = c(grp_comb, "rleid")], by = "rleid")
+    } else {
+      subdat <- unique(z[, .SD, .SDcols = c(grp_comb, "rleid")], by = "rleid")
+    }
+    subdat[, c("rleid") := list(.SD$rleid - 1 + grp_i*.1 )]
+    void_cols <- setdiff(colnames(subdat), c(groups[grp_i], "rleid"))
+    if (length(void_cols)) {
+      subdat[, c(void_cols) := lapply(.SD, function(w) {w[] <- NA;w} ), .SDcols = void_cols]
+    }
+    subsets[[length(subsets) + 1]] <- subdat
   }
 
+  if (!expand_single) {
+    z[z$rlen>1, c(groups) := lapply(.SD, function(w) {w[] <- NA;w} ), .SDcols = groups]
+  } else {
+    z[, c(groups) := lapply(.SD, function(w) {w[] <- NA;w} ), .SDcols = groups]
+  }
+  z$rlen <- NULL
 
-  values <- lapply(x_not_as_is[groups], function(x) rle(x = format(x) ) )
+  subsets[[length(subsets) + 1]] <- z
 
-  vout <- lapply(values, function(x){
-    out <- lapply(x$lengths, function(l){
-      out <- rep(0L, l)
-      out[1] <- l
-      out
-    } )
-    out <- unlist(x = out)
-    which(as.integer( out ) > 0)
-  })
-
-  new_rows <- mapply(function(i, column, decay_order){
-    na_cols <- setdiff(names(x), c( column, "fake_order___") )
-    dat <- x_not_as_is[i,,drop = FALSE]
-    dat$fake_order___ <- dat$fake_order___ - decay_order
-    dat[seq_len(nrow(dat)), na_cols] <- NA
-    dat
-  }, vout, groups, length(groups) / seq_along(groups) * .1, SIMPLIFY = FALSE)
-
-  # should this be made col by col?
-  x_not_as_is[,groups] <- NA
-
-  new_rows <- append(new_rows, list(x_not_as_is, x_as_is) )
-
-  x <- rbind.match.columns(new_rows)
-  x <- x[order(x$fake_order___),,drop = FALSE]
-  x$fake_order___ <- NULL
+  x <- rbindlist(subsets, use.names = TRUE, fill = TRUE)
+  setorderv(x, cols = "rleid")
+  x$rleid <- NULL
+  setDF(x)
   class(x) <- c("grouped_data", class(x))
   attr(x, "groups") <- groups
   attr(x, "columns") <- columns
@@ -144,11 +137,12 @@ as_flextable.grouped_data <- function(x, col_keys = NULL, hide_grouplabel = FALS
   z <- flextable(x, col_keys = col_keys )
 
   j2 <- length(col_keys)
-  for( group in groups){
-    i <- !is.na(x[[group]])
-    gnames <- x[[group]][i]
+  for( grp_name in groups){
+    i <- !is.na(x[[grp_name]])
+    gnames <- x[[grp_name]][i]
     if(!hide_grouplabel){
-      z <- compose(z, i = i, j = 1, value = as_paragraph(as_chunk(group), ": ", as_chunk(gnames)))
+      z <- compose(z, i = i, j = 1,
+                   value = as_paragraph(as_chunk(grp_name), ": ", as_chunk(gnames)))
     } else {
       z <- compose(z, i = i, j = 1, value = as_paragraph(as_chunk(gnames)))
     }
