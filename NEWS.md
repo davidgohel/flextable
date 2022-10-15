@@ -11,6 +11,7 @@ to `fmt_summarizor()` to help working with `tabulator()`.
 
 - fix issue with keepnext and `body_add_flextable()`
 - fix issue of misordered chunks with `prepend_chunks()`
+- argument 'unit' is dropped in `line_spacing()` as it is expected to be a ratio
 
 ## Changes
 

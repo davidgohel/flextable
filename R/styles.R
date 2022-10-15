@@ -626,7 +626,6 @@ keep_wn <- function(x, i = NULL, j = NULL, keep_with_next = TRUE,
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param space space between lines of text, 1 is single line spacing, 2 is double line spacing.
-#' @param unit unit for space, one of "in", "cm", "mm".
 #' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(head(mtcars)[, 3:6])
@@ -636,12 +635,9 @@ keep_wn <- function(x, i = NULL, j = NULL, keep_with_next = TRUE,
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_line_spacing_1.png}{options: width="400"}}
-line_spacing <- function(x, i = NULL, j = NULL, space = 1, part = "body", unit = "in") {
-  space <- convin(unit = unit, x = space)
+line_spacing <- function(x, i = NULL, j = NULL, space = 1, part = "body") {
 
-  if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "line_spacing()"))
-  }
+  if (!inherits(x, "flextable")) stop("align supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
