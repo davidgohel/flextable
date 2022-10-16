@@ -41,6 +41,7 @@ Other chunk elements for paragraph:
 \code{\link{as_sup}()},
 \code{\link{as_word_field}()},
 \code{\link{gg_chunk}()},
+\code{\link{grid_chunk}()},
 \code{\link{hyperlink_text}()},
 \code{\link{linerange}()},
 \code{\link{lollipop}()},

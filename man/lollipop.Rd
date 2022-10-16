@@ -51,8 +51,12 @@ when interpolating value.}
 }
 \description{
 This function is used to insert lollipop charts into
-flextable with function \code{\link[=compose]{compose()}}.
-It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}
+flextable with functions:
+\itemize{
+\item \code{\link[=compose]{compose()}} and \code{\link[=as_paragraph]{as_paragraph()}},
+\item \code{\link[=append_chunks]{append_chunks()}},
+\item \code{\link[=prepend_chunks]{prepend_chunks()}}.
+}
 }
 \note{
 This chunk option requires package officedown in a R Markdown
@@ -95,6 +99,7 @@ Other chunk elements for paragraph:
 \code{\link{as_word_field}()},
 \code{\link{colorize}()},
 \code{\link{gg_chunk}()},
+\code{\link{grid_chunk}()},
 \code{\link{hyperlink_text}()},
 \code{\link{linerange}()},
 \code{\link{minibar}()},

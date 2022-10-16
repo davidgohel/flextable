@@ -62,6 +62,7 @@ Other chunk elements for paragraph:
 \code{\link{as_word_field}()},
 \code{\link{colorize}()},
 \code{\link{gg_chunk}()},
+\code{\link{grid_chunk}()},
 \code{\link{linerange}()},
 \code{\link{lollipop}()},
 \code{\link{minibar}()},

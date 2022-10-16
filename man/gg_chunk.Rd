@@ -2,21 +2,28 @@
 % Please edit documentation in R/chunk_images.R
 \name{gg_chunk}
 \alias{gg_chunk}
-\title{gg plots chunk wrapper}
+\title{ggplots chunk wrapper}
 \usage{
-gg_chunk(value, width = 1, height = 0.2, unit = "in")
+gg_chunk(value, width = 1, height = 0.2, unit = "in", res = 300)
 }
 \arguments{
-\item{value}{gg objects, stored in a list column.}
+\item{value}{gg objects, stored in a list column; or a list
+of 'ggplot' objects.}
 
-\item{width, height}{size of the resulting png file in inches}
+\item{width, height}{size of the resulting png file.}
 
 \item{unit}{unit for width and height, one of "in", "cm", "mm".}
+
+\item{res}{resolution of the png image in ppi}
 }
 \description{
 This function is used to insert mini gg plots into
-flextable with function \code{\link[=compose]{compose()}}.
-It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
+flextable with functions:
+\itemize{
+\item \code{\link[=compose]{compose()}} and \code{\link[=as_paragraph]{as_paragraph()}},
+\item \code{\link[=append_chunks]{append_chunks()}},
+\item \code{\link[=prepend_chunks]{prepend_chunks()}}.
+}
 }
 \note{
 This chunk option requires package officedown in a R Markdown
@@ -71,6 +78,7 @@ Other chunk elements for paragraph:
 \code{\link{as_sup}()},
 \code{\link{as_word_field}()},
 \code{\link{colorize}()},
+\code{\link{grid_chunk}()},
 \code{\link{hyperlink_text}()},
 \code{\link{linerange}()},
 \code{\link{lollipop}()},

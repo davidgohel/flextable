@@ -2,8 +2,10 @@
 #' @export
 #' @title image chunk wrapper
 #' @description The function lets add images within flextable
-#' objects with function [compose()].
-#' It should be used inside a call to [as_paragraph()].
+#' objects with functions:
+#' - [compose()] and [as_paragraph()],
+#' - [append_chunks()],
+#' - [prepend_chunks()]
 #' @param src image filename
 #' @param width,height size of the image file. It can be ignored
 #' if parameter `guess_size=TRUE`, see parameter `guess_size`.
@@ -78,8 +80,10 @@ as_image <- function(src, width = NULL, height = NULL, unit = "in", guess_size =
 #' @export
 #' @title mini barplots chunk wrapper
 #' @description This function is used to insert bars into
-#' flextable with function [compose()].
-#' It should be used inside a call to [as_paragraph()]
+#' flextable with functions:
+#' - [compose()] and [as_paragraph()],
+#' - [append_chunks()],
+#' - [prepend_chunks()].
 #' @param value values containing the bar size
 #' @param max max bar size
 #' @param barcol bar color
@@ -152,8 +156,10 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' @export
 #' @title mini linerange chunk wrapper
 #' @description This function is used to insert lineranges into
-#' flextable with function [compose()].
-#' It should be used inside a call to [as_paragraph()]
+#' flextable with functions:
+#' - [compose()] and [as_paragraph()],
+#' - [append_chunks()],
+#' - [prepend_chunks()].
 #' @param value values containing the bar size
 #' @param min min bar size. Default min of value
 #' @param max max bar size. Default max of value
@@ -242,8 +248,10 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @export
 #' @title mini lollipop chart chunk wrapper
 #' @description This function is used to insert lollipop charts into
-#' flextable with function [compose()].
-#' It should be used inside a call to [as_paragraph()]
+#' flextable with functions:
+#' - [compose()] and [as_paragraph()],
+#' - [append_chunks()],
+#' - [prepend_chunks()].
 #' @param value values containing the bar size
 #' @param min min bar size. Default min of value
 #' @param max max bar size. Default max of value
@@ -367,8 +375,10 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @export
 #' @title mini plots chunk wrapper
 #' @description This function is used to insert mini plots into
-#' flextable with function [compose()].
-#' It should be used inside a call to [as_paragraph()].
+#' flextable with functions:
+#' - [compose()] and [as_paragraph()],
+#' - [append_chunks()],
+#' - [prepend_chunks()].
 #'
 #' Available plots are 'box', 'line', 'points', 'density'.
 #' @param value a numeric vector, stored in a list column.
@@ -476,14 +486,18 @@ plot_chunk <- function(value, width = 1, height = .2,
 
 
 #' @export
-#' @title gg plots chunk wrapper
+#' @title ggplots chunk wrapper
 #' @description This function is used to insert mini gg plots into
-#' flextable with function [compose()].
-#' It should be used inside a call to [as_paragraph()].
+#' flextable with functions:
+#' - [compose()] and [as_paragraph()],
+#' - [append_chunks()],
+#' - [prepend_chunks()].
 #'
-#' @param value gg objects, stored in a list column.
-#' @param width,height size of the resulting png file in inches
+#' @param value gg objects, stored in a list column; or a list
+#' of 'ggplot' objects.
+#' @param width,height size of the resulting png file.
 #' @param unit unit for width and height, one of "in", "cm", "mm".
+#' @param res resolution of the png image in ppi
 #' @note
 #' This chunk option requires package officedown in a R Markdown
 #' context with Word output format.
@@ -520,7 +534,7 @@ plot_chunk <- function(value, width = 1, height = .2,
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_gg_chunk_1.png}{options: width="200"}}
-gg_chunk <- function(value, width = 1, height = .2, unit = "in") {
+gg_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
 
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
@@ -531,7 +545,7 @@ gg_chunk <- function(value, width = 1, height = .2, unit = "in") {
   files <- mapply(function(x, width, height){
     file <- tempfile(fileext = ".png")
     png(filename = file, width = width, height = height,
-        units = "in", bg = "transparent", res = 300)
+        units = "in", bg = "transparent", res = res)
       print(x)
     dev.off()
     file
@@ -545,3 +559,73 @@ gg_chunk <- function(value, width = 1, height = .2, unit = "in") {
   class(z) <- c("img_chunk", class(z))
   z
 }
+
+#' @export
+#' @title 'Grid Graphics' chunk wrapper
+#' @description This function is used to insert grid objects into
+#' flextable with functions:
+#' - [compose()] and [as_paragraph()],
+#' - [append_chunks()],
+#' - [prepend_chunks()].
+#'
+#' @param value grid objects, stored in a list column; or a list
+#' of grid objects.
+#' @param width,height size of the resulting png file
+#' @param unit unit for width and height, one of "in", "cm", "mm".
+#' @param res resolution of the png image in ppi
+#' @note
+#' This chunk option requires package officedown in a R Markdown
+#' context with Word output format.
+#'
+#' PowerPoint cannot mix images and text in a paragraph, images
+#' are removed when outputing to PowerPoint format.
+#' @family chunk elements for paragraph
+#' @examples
+#' library(flextable)
+#' ft_1 <- flextable(head(cars))
+#' if(require("grid")){
+#'   ft_1 <- prepend_chunks(
+#'     x = ft_1, i = 2, j = 2,
+#'     grid_chunk(
+#'       list(
+#'         grid.circle(gp = gpar(fill="#ec11c2",
+#'           col = "transparent"))),
+#'       width = .15, height = .15)
+#'   )
+#' }
+#' ft_1
+grid_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
+
+  if (!requireNamespace("grid", quietly = TRUE)) {
+    stop(sprintf(
+      "'%s' package should be installed to create a flextable from an object of type '%s'.",
+      "grid", "grid")
+    )
+  }
+
+  width <- convin(unit = unit, x = width)
+  height <- convin(unit = unit, x = height)
+
+  width <- as.double(rep(width, length(value)))
+  height <- as.double(rep(height, length(value)))
+
+  files <- mapply(function(x, width, height){
+    file <- tempfile(fileext = ".png")
+    png(filename = file, width = width, height = height,
+        units = "in", bg = "transparent", res = res)
+    grid::grid.draw(x)
+    dev.off()
+    file
+  }, x = value,
+  width = width, height = height,
+  SIMPLIFY = FALSE)
+
+  files <- as.character(unlist(files))
+
+  z <- chunk_dataframe(width = width, height = height, img_data = files )
+  class(z) <- c("img_chunk", class(z))
+  z
+}
+
+
+
