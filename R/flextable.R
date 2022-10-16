@@ -320,6 +320,35 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' PowerPoint and PDF output. Its default value is 0, as an effect, it
 #' only use necessary width to display all content. It is not used by the
 #' PDF output.
+#' @param align alignment in document (only Word, HTML and PDF),
+#' supported values are 'left', 'center' and 'right'.
+#' @param opts_html html options as a list. Supported elements are:
+#' - 'htmlscroll' `TRUE` or `FALSE`, enable horizontal scrolling.
+#' - 'shadow' `TRUE` or `FALSE`, use shadow dom, this option is existing
+#' to disable shadow dom (set to `FALSE`) for pagedown and Quarto that can
+#' not support it for now.
+#' @param opts_word Word options as a list. Supported elements are:
+#' - 'split':  Word option 'Allow row to break across pages' can be
+#' activated when TRUE.
+#' - 'keep_with_next': Word option 'keep rows together' is
+#' activated when TRUE. It avoids page break within tables. This
+#' is handy for small tables, i.e. less than a page height.
+#' @param opts_pdf PDF options as a list. Supported elements are:
+#' - 'tabcolsep': space between the text and the left/right border of its containing
+#' cell.
+#' - 'arraystretch': height of each row relative to its default
+#' height, the default value is 1.5.
+#' - 'float': type of floating placement in the PDF document, one of:
+#'     * 'none' (the default value), table is placed after the preceding
+#' paragraph.
+#'     * 'float', table can float to a place in the text where it fits best
+#'     * 'wrap-r', wrap text around the table positioned to the right side of the text
+#'     * 'wrap-l', wrap text around the table positioned to the left side of the text
+#'     * 'wrap-i', wrap text around the table positioned inside edge-near the binding
+#'     * 'wrap-o', wrap text around the table positioned outside edge-far from the binding
+#' - 'fonts_ignore': if TRUE, pdf-engine 'pdflatex' can be used instead of
+#' 'xelatex' or 'lualatex.' If pdflatex is used, fonts will be ignored because they are
+#' not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
 #' @param word_title alternative text for Word table (used as title of the table)
 #' @param word_description alternative text for Word table (used as description of the table)
 #' @examples
@@ -338,8 +367,11 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #'
 #' \if{html}{\figure{fig_set_table_properties_3.png}{options: width="500"}}
 set_table_properties <- function(x, layout = "fixed", width = 0,
-                                 word_title = NULL,
-                                 word_description = NULL) {
+                                 align = "center",
+                                 opts_html = list(),
+                                 opts_word = list(),
+                                 opts_pdf = list(),
+                                 word_title = NULL, word_description = NULL) {
   stopifnot(`wrong layout value` = layout %in% c("fixed", "autofit"),
             `width is not numeric` = is.numeric(width),
             `width is > 1` = width <= 1)
@@ -356,10 +388,34 @@ set_table_properties <- function(x, layout = "fixed", width = 0,
   x$properties <- list(
     layout = layout,
     width = width,
+    align = align,
+    opts_html = do.call(opts_ft_html, opts_html),
+    opts_word = do.call(opts_ft_word, opts_word),
+    opts_pdf = do.call(opts_ft_pdf, opts_pdf),
     word_title = word_title,
     word_description = word_description
   )
   x
+}
+
+opts_ft_html <- function(htmlscroll = FALSE, shadow = FALSE) {
+  z <- list(htmlscroll = htmlscroll, shadow = shadow)
+  class(z) <- "opts_ft_html"
+  z
+}
+opts_ft_word <- function(split = FALSE, keep_with_next = FALSE) {
+  z <- list(split = split, keep_with_next = keep_with_next)
+  class(z) <- "opts_ft_word"
+  z
+}
+opts_ft_pdf <- function(tabcolsep = 0, arraystretch = 1.5,
+                        float = 'none', fonts_ignore = FALSE) {
+  z <- list(tabcolsep = tabcolsep,
+            arraystretch = arraystretch,
+            float = float,
+            fonts_ignore = fonts_ignore)
+  class(z) <- "opts_ft_pdf"
+  z
 }
 
 

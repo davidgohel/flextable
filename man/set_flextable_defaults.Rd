@@ -30,6 +30,13 @@ set_flextable_defaults(
   fmt_date = NULL,
   fmt_datetime = NULL,
   extra_css = NULL,
+  htmlscroll = NULL,
+  shadow = NULL,
+  split = NULL,
+  keep_with_next = NULL,
+  tabcolsep = NULL,
+  arraystretch = NULL,
+  float = NULL,
   fonts_ignore = NULL,
   theme_fun = NULL,
   post_process_pdf = NULL,
@@ -88,6 +95,36 @@ other categories.}
 documented in \code{\link[=strptime]{strptime()}}. Default to '\%Y-\%m-\%d' and '\%Y-\%m-\%d \%H:\%M:\%S'.}
 
 \item{extra_css}{css instructions to be integrated with the table.}
+
+\item{htmlscroll}{\code{TRUE} or \code{FALSE}, enable horizontal scrolling.}
+
+\item{shadow}{\code{TRUE} or \code{FALSE}, use shadow dom (for HTML only), this option is existing
+to disable shadow dom (set to \code{FALSE}) for pagedown and Quarto that can
+not support it for now.}
+
+\item{split}{Word option 'Allow row to break across pages' can be
+activated when TRUE.}
+
+\item{keep_with_next}{Word option 'keep rows together' is
+activated when TRUE. It avoids page break within tables. This
+is handy for small tables, i.e. less than a page height.}
+
+\item{tabcolsep}{space between the text and the left/right border of its containing
+cell.}
+
+\item{arraystretch}{height of each row relative to its default
+height, the default value is 1.5.}
+
+\item{float}{type of floating placement in the PDF document, one of:
+\itemize{
+\item 'none' (the default value), table is placed after the preceding
+paragraph.
+\item 'float', table can float to a place in the text where it fits best
+\item 'wrap-r', wrap text around the table positioned to the right side of the text
+\item 'wrap-l', wrap text around the table positioned to the left side of the text
+\item 'wrap-i', wrap text around the table positioned inside edge-near the binding
+\item 'wrap-o', wrap text around the table positioned outside edge-far from the binding
+}}
 
 \item{fonts_ignore}{if TRUE, pdf-engine pdflatex can be used instead of
 xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are

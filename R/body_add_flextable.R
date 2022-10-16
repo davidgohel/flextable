@@ -20,7 +20,7 @@
 #' # autonum for caption
 #' autonum <- run_autonum(seq_id = "tab", bkm = "mtcars")
 #'
-#' ftab <- flextable( head( mtcars ) )
+#' ftab <- flextable(head(mtcars))
 #' ftab <- set_caption(ftab, caption = "mtcars data", autonum = autonum)
 #' ftab <- autofit(ftab)
 #' doc <- read_docx()
@@ -29,15 +29,25 @@
 #' # fileout <- "test.docx" # uncomment to write in your working directory
 #' print(doc, target = fileout)
 body_add_flextable <- function(x, value,
-                               align = "center",
+                               align = NULL,
                                pos = "after",
-                               split = FALSE,
+                               split = NULL,
                                topcaption = TRUE,
-                               keepnext = FALSE) {
+                               keepnext = NULL) {
   stopifnot(
     inherits(x, "rdocx"),
     inherits(value, "flextable")
   )
+
+  if (!is.null(align)) {
+    value$properties$align <- align
+  }
+  if (!is.null(split)) {
+    value$properties$opts_word$split <- split
+  }
+  if (!is.null(keepnext)) {
+    value$properties$opts_word$keep_with_next <- keepnext
+  }
 
   value <- flextable_global$defaults$post_process_docx(value)
 
@@ -51,20 +61,18 @@ body_add_flextable <- function(x, value,
     }
     caption_str <- caption_default_docx_openxml(
       x = value,
-      align = align,
+      align = value$properties$align,
       keep_with_next = apply_cap_kwn,
       tab_props = list(),
-      allow_autonum = TRUE)
-    if("" %in% caption_str) caption_str <- NULL
+      allow_autonum = TRUE
+    )
+    if ("" %in% caption_str) caption_str <- NULL
   }
 
   if (topcaption && !is.null(caption_str)) {
     x <- body_add_xml(x = x, str = caption_str, pos = pos)
   }
-  out <- gen_raw_wml(value,
-    doc = x, align = align, split = split,
-    keep_with_next = keepnext
-  )
+  out <- gen_raw_wml(value, doc = x)
 
   x <- body_add_xml(x = x, str = out, pos = pos)
 
@@ -82,7 +90,7 @@ body_add_flextable <- function(x, value,
 #' Use this function if you want to replace a paragraph containing
 #' a bookmark with a flextable. As a side effect, the bookmark will be lost.
 #' @importFrom officer cursor_bookmark
-body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", split = FALSE){
+body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", split = FALSE) {
   x <- cursor_bookmark(x, bookmark)
   x <- body_add_flextable(x = x, value = value, pos = "on", align = align, split = split)
   x
@@ -99,17 +107,16 @@ body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", 
 #' @param x an rdocx object
 #' @param bookmark bookmark id
 #' @param value a flextable object
-headers_flextable_at_bkm <- function( x, bookmark, value ){
+headers_flextable_at_bkm <- function(x, bookmark, value) {
   stopifnot(inherits(x, "rdocx"), inherits(value, "flextable"))
-  str <- gen_raw_wml(value, doc = x, align = "center", keep_with_next = FALSE)
+  str <- gen_raw_wml(value, doc = x)
   xml_elt <- as_xml_document(str)
-  for(header in x$headers){
-    if( header$has_bookmark(bookmark) ){
+  for (header in x$headers) {
+    if (header$has_bookmark(bookmark)) {
       header$cursor_bookmark(bookmark)
       cursor_elt <- header$get_at_cursor()
       xml_replace(cursor_elt, xml_elt)
     }
-
   }
 
   x
@@ -125,19 +132,17 @@ headers_flextable_at_bkm <- function( x, bookmark, value ){
 #' @param x an rdocx object
 #' @param bookmark bookmark id
 #' @param value a flextable object
-footers_flextable_at_bkm <- function( x, bookmark, value ){
+footers_flextable_at_bkm <- function(x, bookmark, value) {
   stopifnot(inherits(x, "rdocx"), inherits(value, "flextable"))
-  str <- gen_raw_wml(value, doc = x, align = "center", keep_with_next = FALSE)
+  str <- gen_raw_wml(value, doc = x)
   xml_elt <- as_xml_document(str)
-  for(footer in x$footers){
-    if( footer$has_bookmark(bookmark) ){
+  for (footer in x$footers) {
+    if (footer$has_bookmark(bookmark)) {
       footer$cursor_bookmark(bookmark)
       cursor_elt <- footer$get_at_cursor()
       xml_replace(cursor_elt, xml_elt)
     }
-
   }
 
   x
 }
-

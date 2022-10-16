@@ -6,6 +6,15 @@
 row will not be expanded with a title row.
 - new functions `fmt_avg_dev()`, `fmt_header_n()`, `fmt_n_percent()` and renaming of `fmt_2stats()` 
 to `fmt_summarizor()` to help working with `tabulator()`.
+- function `set_table_properties()` is now the recommanded way to set
+arguments related to format options and alignment in a document. It is
+supposed to replace "knitr" chunk options `ft.align`, `ft.split`,
+`ft.keepnext`, `ft.tabcolsep`, `ft.arraystretch`, `ft.latex.float`,
+`ft.htmlscroll`, `ft.shadow`, `fonts_ignore` although they are all still
+supported. This allows less interaction with the 'R Markdown' or 'Quarto'
+eco-system by leaving the means to define it globally with
+`set_flextable_defaults()` or with `set_table_properties()`.
+
 
 ## Issues
 

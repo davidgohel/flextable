@@ -50,10 +50,7 @@ add_latex_dep <- function(float = FALSE, wrapfig = FALSE){
 }
 
 
-gen_raw_latex <- function(x, align = "center",
-                          tabcolsep = 0,
-                          arraystretch = 1.5,
-                          lat_container = latex_container_none(),
+gen_raw_latex <- function(x, lat_container = latex_container_none(),
                           caption = "", topcaption = TRUE, quarto = FALSE) {
   dims <- dim(x)
   column_sizes <- dims$widths
@@ -176,7 +173,7 @@ gen_raw_latex <- function(x, align = "center",
     column_sizes_latex <- rep("c", length(dims$widths))
   }
 
-  align_tag <- latex_table_align()
+  align_tag <- latex_table_align(x)
 
   table_start <- sprintf(
     "\\begin{longtable}[%s]{%s}",
@@ -191,8 +188,8 @@ gen_raw_latex <- function(x, align = "center",
 
   latex <- paste(
     cline_cmd,
-    sprintf("\\setlength{\\tabcolsep}{%spt}", format_double(tabcolsep, 0)),
-    sprintf("\\renewcommand*{\\arraystretch}{%s}", format_double(arraystretch, 2)),
+    sprintf("\\setlength{\\tabcolsep}{%spt}", format_double(x$properties$opts_pdf$tabcolsep, 0)),
+    sprintf("\\renewcommand*{\\arraystretch}{%s}", format_double(x$properties$opts_pdf$arraystretch, 2)),
     table_start,
     if (topcaption) caption,
     latex,
@@ -561,8 +558,8 @@ get_pdf_engine <- function() {
 }
 
 
-latex_table_align <- function() {
-  ft.align <- opts_current$get("ft.align")
+latex_table_align <- function(x) {
+  ft.align <- x$properties$align
   if ("left" %in% ft.align) {
     align_tag <- "l"
   } else if ("right" %in% ft.align) {

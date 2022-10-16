@@ -87,9 +87,9 @@ test_that("NA managment", {
   str_ <- gsub("<style>(.*)</style>", "", str_)
   str_ <- gsub("<script>(.*)</script>", "", str_)
   str_ <- gsub("<template id=\"[0-9a-z\\-]+\">", "", str_)
-  str_ <- gsub("</div></template(.*)", "", str_)
+  str_ <- gsub("</template(.*)", "", str_)
   doc <- read_xml(str_)
-  text_ <- xml_text(xml_find_all(doc, "/table/tbody/tr/td/p"))
+  text_ <- xml_text(xml_find_all(doc, "//table/tbody/tr/td/p"))
   expect_equal(text_, c("a", "") )
 })
 

@@ -4,7 +4,7 @@
 \alias{htmltools_value}
 \title{flextable as an HTML object}
 \usage{
-htmltools_value(x, ft.align = "center", ft.shadow = TRUE, ft.htmlscroll = TRUE)
+htmltools_value(x, ft.align = NULL, ft.shadow = NULL, ft.htmlscroll = NULL)
 }
 \arguments{
 \item{x}{a flextable object}

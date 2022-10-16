@@ -1,10 +1,14 @@
 gen_raw_html <- function(x,
-                         align = NULL,
                          class = "tabwid",
                          caption = "",
-                         shadow = TRUE,
                          topcaption = TRUE,
                          manual_css = "") {
+
+  align <- x$properties$align
+  shadow <- x$properties$opts_html$shadow
+  htmlscroll <- x$properties$opts_html$htmlscroll
+
+
   fixed_layout <- x$properties$layout %in% "fixed"
   if (!fixed_layout) {
     if (x$properties$width > 0) {
@@ -64,7 +68,8 @@ gen_raw_html <- function(x,
     tabwid_css <- paste(
       c(
         "<style>",
-        readLines(system.file(package = "flextable", "web_1.1.0", "tabwid.css"), encoding = "UTF-8"),
+        readLines(system.file(package = "flextable", "web_1.1.1", "tabwid.css"), encoding = "UTF-8"),
+        if (htmlscroll) readLines(system.file(package = "flextable", "web_1.1.1", "scrool.css"), encoding = "UTF-8"),
         "</style>"
       ),
       collapse = "\n"
@@ -397,8 +402,8 @@ flextable_html_dependency <- function(htmlscroll = TRUE){
     stylesheet <- "tabwid.css"
   }
   htmlDependency("tabwid",
-                 "1.1.0",
-                 src = system.file(package="flextable", "web_1.1.0"),
+                 "1.1.1",
+                 src = system.file(package="flextable", "web_1.1.1"),
                  stylesheet = stylesheet)
 
 }

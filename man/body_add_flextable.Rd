@@ -8,11 +8,11 @@
 body_add_flextable(
   x,
   value,
-  align = "center",
+  align = NULL,
   pos = "after",
-  split = FALSE,
+  split = NULL,
   topcaption = TRUE,
-  keepnext = FALSE
+  keepnext = NULL
 )
 
 body_replace_flextable_at_bkm(
@@ -60,7 +60,7 @@ library(officer)
 # autonum for caption
 autonum <- run_autonum(seq_id = "tab", bkm = "mtcars")
 
-ftab <- flextable( head( mtcars ) )
+ftab <- flextable(head(mtcars))
 ftab <- set_caption(ftab, caption = "mtcars data", autonum = autonum)
 ftab <- autofit(ftab)
 doc <- read_docx()

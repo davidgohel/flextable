@@ -8,6 +8,10 @@ set_table_properties(
   x,
   layout = "fixed",
   width = 0,
+  align = "center",
+  opts_html = list(),
+  opts_word = list(),
+  opts_pdf = list(),
   word_title = NULL,
   word_description = NULL
 )
@@ -25,6 +29,47 @@ may decide not to strictly stick to it. It has no effect on
 PowerPoint and PDF output. Its default value is 0, as an effect, it
 only use necessary width to display all content. It is not used by the
 PDF output.}
+
+\item{align}{alignment in document (only Word, HTML and PDF),
+supported values are 'left', 'center' and 'right'.}
+
+\item{opts_html}{html options as a list. Supported elements are:
+\itemize{
+\item 'htmlscroll' \code{TRUE} or \code{FALSE}, enable horizontal scrolling.
+\item 'shadow' \code{TRUE} or \code{FALSE}, use shadow dom, this option is existing
+to disable shadow dom (set to \code{FALSE}) for pagedown and Quarto that can
+not support it for now.
+}}
+
+\item{opts_word}{Word options as a list. Supported elements are:
+\itemize{
+\item 'split':  Word option 'Allow row to break across pages' can be
+activated when TRUE.
+\item 'keep_with_next': Word option 'keep rows together' is
+activated when TRUE. It avoids page break within tables. This
+is handy for small tables, i.e. less than a page height.
+}}
+
+\item{opts_pdf}{PDF options as a list. Supported elements are:
+\itemize{
+\item 'tabcolsep': space between the text and the left/right border of its containing
+cell.
+\item 'arraystretch': height of each row relative to its default
+height, the default value is 1.5.
+\item 'float': type of floating placement in the PDF document, one of:
+\itemize{
+\item 'none' (the default value), table is placed after the preceding
+paragraph.
+\item 'float', table can float to a place in the text where it fits best
+\item 'wrap-r', wrap text around the table positioned to the right side of the text
+\item 'wrap-l', wrap text around the table positioned to the left side of the text
+\item 'wrap-i', wrap text around the table positioned inside edge-near the binding
+\item 'wrap-o', wrap text around the table positioned outside edge-far from the binding
+}
+\item 'fonts_ignore': if TRUE, pdf-engine 'pdflatex' can be used instead of
+'xelatex' or 'lualatex.' If pdflatex is used, fonts will be ignored because they are
+not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
+}}
 
 \item{word_title}{alternative text for Word table (used as title of the table)}
 

@@ -281,12 +281,10 @@ wml_rows <- function(value, split = FALSE) {
 
 
 # docx_str -----
-gen_raw_wml <- function(x,
-                        align = "center",
-                        split = FALSE,
-                        keep_with_next = TRUE,
-                        doc = NULL,
-                        ...) {
+gen_raw_wml <- function(x, doc = NULL, ...) {
+
+  align <- x$properties$align
+
   align <- match.arg(align, c("center", "left", "right"), several.ok = FALSE)
   align <- c("center" = "center", "left" = "start", "right" = "end")[align]
   align <- as.character(align)
@@ -294,7 +292,8 @@ gen_raw_wml <- function(x,
   dims <- dim(x)
   widths <- dims$widths
 
-  x <- keep_wn(x, part = "all", keep_with_next = keep_with_next)
+  x <- keep_wn(x, part = "all",
+               keep_with_next = x$properties$opts_word$keep_with_next)
 
   out <- paste0(
     "<w:tbl xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ",
@@ -334,7 +333,7 @@ gen_raw_wml <- function(x,
 
   out <- paste0(out, properties_str)
 
-  tab_str <- wml_rows(x, split = split)
+  tab_str <- wml_rows(x, split = x$properties$opts_word$split)
   out <- paste0(out, tab_str, "</w:tbl>")
 
   imgs <- unique(attr(tab_str, "imgs"))
