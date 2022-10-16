@@ -30,7 +30,7 @@ set_flextable_defaults(
   fmt_date = NULL,
   fmt_datetime = NULL,
   extra_css = NULL,
-  htmlscroll = NULL,
+  hscroll = NULL,
   shadow = NULL,
   split = NULL,
   keep_with_next = NULL,
@@ -96,7 +96,7 @@ documented in \code{\link[=strptime]{strptime()}}. Default to '\%Y-\%m-\%d' and 
 
 \item{extra_css}{css instructions to be integrated with the table.}
 
-\item{htmlscroll}{\code{TRUE} or \code{FALSE}, enable horizontal scrolling.}
+\item{hscroll}{\code{TRUE} or \code{FALSE}, enable horizontal scrolling.}
 
 \item{shadow}{\code{TRUE} or \code{FALSE}, use shadow dom (for HTML only), this option is existing
 to disable shadow dom (set to \code{FALSE}) for pagedown and Quarto that can

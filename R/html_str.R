@@ -6,7 +6,7 @@ gen_raw_html <- function(x,
 
   align <- x$properties$align
   shadow <- x$properties$opts_html$shadow
-  htmlscroll <- x$properties$opts_html$htmlscroll
+  htmlscroll <- x$properties$opts_html$hscroll
 
 
   fixed_layout <- x$properties$layout %in% "fixed"

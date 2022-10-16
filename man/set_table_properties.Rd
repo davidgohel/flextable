@@ -35,7 +35,7 @@ supported values are 'left', 'center' and 'right'.}
 
 \item{opts_html}{html options as a list. Supported elements are:
 \itemize{
-\item 'htmlscroll' \code{TRUE} or \code{FALSE}, enable horizontal scrolling.
+\item 'hscroll' \code{TRUE} or \code{FALSE}, enable horizontal scrolling.
 \item 'shadow' \code{TRUE} or \code{FALSE}, use shadow dom, this option is existing
 to disable shadow dom (set to \code{FALSE}) for pagedown and Quarto that can
 not support it for now.

@@ -24,7 +24,7 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL, ft.htmlscroll 
     x$properties$align <- ft.align
   }
   if (!is.null(ft.htmlscroll)) {
-    x$properties$opts_html$htmlscroll <- ft.htmlscroll
+    x$properties$opts_html$hscroll <- ft.htmlscroll
   }
   if (!is.null(ft.shadow)) {
     x$properties$opts_html$shadow <- ft.shadow
@@ -33,7 +33,7 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL, ft.htmlscroll 
   caption <- caption_default_html(x, align = x$properties$align)
   manual_css <- attr(caption, "css")
   html_o <- tagList(
-    flextable_html_dependency(htmlscroll = x$properties$opts_html$htmlscroll),
+    flextable_html_dependency(htmlscroll = x$properties$opts_html$hscroll),
     HTML(gen_raw_html(x,
       class = "tabwid",
       caption = caption,
@@ -144,7 +144,7 @@ flextable_to_rmd <- function(x,
   }
   # html chunk options
   if (!is.null(ft.htmlscroll)) {
-    x$properties$opts_html$htmlscroll <- ft.htmlscroll
+    x$properties$opts_html$hscroll <- ft.htmlscroll
   }
   if (!is.null(ft.shadow)) {
     x$properties$opts_html$shadow <- ft.shadow
@@ -171,7 +171,7 @@ flextable_to_rmd <- function(x,
   if (is.null(opts_knit$get("rmarkdown.pandoc.to"))) {
     # with markdown package ----
     x$properties$opts_html$shadow <- FALSE
-    x$properties$opts_html$htmlscroll <- FALSE
+    x$properties$opts_html$hscroll <- FALSE
     str <- knit_to_html(x,
       bookdown = FALSE,
       quarto = FALSE,
@@ -291,7 +291,7 @@ knit_to_html <- function(x,
 
   knit_meta_add(
     list(
-      flextable_html_dependency(htmlscroll = x$properties$opts_html$htmlscroll)
+      flextable_html_dependency(htmlscroll = x$properties$opts_html$hscroll)
     )
   )
 

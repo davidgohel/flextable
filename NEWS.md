@@ -12,8 +12,8 @@ supposed to replace "knitr" chunk options `ft.align`, `ft.split`,
 `ft.keepnext`, `ft.tabcolsep`, `ft.arraystretch`, `ft.latex.float`,
 `ft.htmlscroll`, `ft.shadow`, `fonts_ignore` although they are all still
 supported. This allows less interaction with the 'R Markdown' or 'Quarto'
-eco-system by leaving the means to define it globally with
-`set_flextable_defaults()` or with `set_table_properties()`.
+eco-system and let to define it globally with
+`set_flextable_defaults()`.
 
 
 ## Issues

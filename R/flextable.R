@@ -323,7 +323,7 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' @param align alignment in document (only Word, HTML and PDF),
 #' supported values are 'left', 'center' and 'right'.
 #' @param opts_html html options as a list. Supported elements are:
-#' - 'htmlscroll' `TRUE` or `FALSE`, enable horizontal scrolling.
+#' - 'hscroll' `TRUE` or `FALSE`, enable horizontal scrolling.
 #' - 'shadow' `TRUE` or `FALSE`, use shadow dom, this option is existing
 #' to disable shadow dom (set to `FALSE`) for pagedown and Quarto that can
 #' not support it for now.
@@ -398,18 +398,50 @@ set_table_properties <- function(x, layout = "fixed", width = 0,
   x
 }
 
-opts_ft_html <- function(htmlscroll = FALSE, shadow = FALSE) {
-  z <- list(htmlscroll = htmlscroll, shadow = shadow)
+opts_ft_html <- function(hscroll = get_flextable_defaults()$hscroll, shadow = get_flextable_defaults()$shadow) {
+
+  if( !is.logical(hscroll) || length(hscroll) != 1 ){
+    stop("hscroll is expected to be a single logical", call. = FALSE)
+  }
+  if( !is.logical(shadow) || length(shadow) != 1 ){
+    stop("shadow is expected to be a single logical", call. = FALSE)
+  }
+
+  z <- list(hscroll = hscroll, shadow = shadow)
   class(z) <- "opts_ft_html"
   z
 }
-opts_ft_word <- function(split = FALSE, keep_with_next = FALSE) {
+opts_ft_word <- function(split = get_flextable_defaults()$split, keep_with_next = get_flextable_defaults()$keep_with_next) {
+
+  if( !is.logical(split) || length(split) != 1 ){
+    stop("split is expected to be a single logical", call. = FALSE)
+  }
+  if( !is.logical(keep_with_next) || length(keep_with_next) != 1 ){
+    stop("keep_with_next is expected to be a single logical", call. = FALSE)
+  }
+
   z <- list(split = split, keep_with_next = keep_with_next)
   class(z) <- "opts_ft_word"
   z
 }
-opts_ft_pdf <- function(tabcolsep = 0, arraystretch = 1.5,
-                        float = 'none', fonts_ignore = FALSE) {
+opts_ft_pdf <- function(tabcolsep = get_flextable_defaults()$tabcolsep,
+                        arraystretch = get_flextable_defaults()$arraystretch,
+                        float = get_flextable_defaults()$float,
+                        fonts_ignore = get_flextable_defaults()$fonts_ignore) {
+
+  if( !is.logical(fonts_ignore) || length(fonts_ignore) != 1 ){
+    stop("fonts_ignore is expected to be a single logical", call. = FALSE)
+  }
+  if( !is.numeric(tabcolsep) || length(tabcolsep) != 1 || !all(sign(tabcolsep) > -1) ){
+    stop("tabcolsep is expected to be a single positive number.", call. = FALSE)
+  }
+  if( !is.numeric(arraystretch) || length(arraystretch) != 1 || !all(sign(arraystretch) > -1) ){
+    stop("arraystretch is expected to be a single positive number.", call. = FALSE)
+  }
+  if( !is.character(float) || length(float) != 1 || !all(float %in% c('none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o')) ){
+    stop("float is expected to be a single valid character, one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o'", call. = FALSE)
+  }
+
   z <- list(tabcolsep = tabcolsep,
             arraystretch = arraystretch,
             float = float,

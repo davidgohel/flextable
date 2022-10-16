@@ -24,7 +24,7 @@ default_flextable_settings <- list(
   nan_str  = "",
   fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
 
-  htmlscroll = FALSE, shadow = FALSE,
+  hscroll = FALSE, shadow = FALSE,
   split = TRUE, keep_with_next = FALSE,
   tabcolsep = 0, arraystretch = 1.5, float = "none",
 
@@ -81,7 +81,7 @@ flextable_global$defaults <- default_flextable_settings
 #' xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
 #' not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
 #' @param extra_css css instructions to be integrated with the table.
-#' @param htmlscroll `TRUE` or `FALSE`, enable horizontal scrolling.
+#' @param hscroll `TRUE` or `FALSE`, enable horizontal scrolling.
 #' @param shadow `TRUE` or `FALSE`, use shadow dom (for HTML only), this option is existing
 #' to disable shadow dom (set to `FALSE`) for pagedown and Quarto that can
 #' not support it for now.
@@ -141,7 +141,7 @@ set_flextable_defaults <- function(
   na_str = NULL, nan_str = NULL,
   fmt_date = NULL, fmt_datetime = NULL,
   extra_css = NULL,
-  htmlscroll = NULL, shadow = NULL,
+  hscroll = NULL, shadow = NULL,
   split = NULL, keep_with_next = NULL,
   tabcolsep = NULL, arraystretch = NULL, float = NULL,
   fonts_ignore = NULL,
@@ -229,8 +229,8 @@ set_flextable_defaults <- function(
   if( !is.null(fonts_ignore) ){
     x$fonts_ignore <- fonts_ignore
   }
-  if( !is.null(htmlscroll) ){
-    x$htmlscroll <- htmlscroll
+  if( !is.null(hscroll) ){
+    x$hscroll <- hscroll
   }
   if( !is.null(shadow) ){
     x$shadow <- shadow
