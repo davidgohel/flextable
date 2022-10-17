@@ -17,7 +17,7 @@
 .tabwid_right table{
   margin-right:0;
 }
-.tabwid td {
+.tabwid td, .tabwid th {
     padding: 0;
 }
 .tabwid a {

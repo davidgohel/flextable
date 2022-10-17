@@ -31,6 +31,15 @@ gen_raw_html <- function(x,
   } else {
     manual_css_str <- manual_css
   }
+
+  if(!is.null(x$properties$opts_html$scroll) &&
+     !is.null(x$properties$opts_html$scroll$height)) {
+    x$properties$opts_html$extra_css <- paste0(
+      ".tabwid th {position: sticky;top: 0;}.tabwid table{border-collapse: separate;}",
+      x$properties$opts_html$extra_css
+    )
+  }
+
   html <- paste0(
     "<style>",
     tabcss,
@@ -157,7 +166,7 @@ html_content_strs <- function(x){
 
   cell_data <- cell_data[, list(
     td_tag = paste0(
-      "<td ",
+      ifelse(get("part") %in% "header", "<th ", "<td "),
       paste0(
         ifelse(get("rowspan") > 1,
           paste0(" colspan=\"", get("rowspan"), "\""),
@@ -175,7 +184,8 @@ html_content_strs <- function(x){
   dat <- merge(txt_data, par_data , by = c("part", "ft_row_id", "col_id"))
   dat$p_tag <- paste0(dat$p_tag, dat$span_tag, "</p>")
   dat <- merge(dat, cell_data , by = c("part", "ft_row_id", "col_id"))
-  dat$td_tag <- paste0(dat$td_tag, dat$p_tag, "</td>")
+  dat$td_tag <- paste0(dat$td_tag, dat$p_tag,
+                       ifelse(dat$part %in% "header", "</th>", "</td>"))
 
   data_hrule <- fortify_hrule(x)
   data_hrule$tr_tag <- "<tr>"
