@@ -4,8 +4,6 @@
 #' @description Get a `flextable` object from
 #' a `xtable` object.
 #'
-#' `xtable_to_flextable` will be deprecated in favor of `as_flextable.xtable`.
-#'
 #' @param x `xtable` object
 #' @param text.properties default text formatting properties
 #' @param format.args List of arguments for the formatC function.
@@ -253,9 +251,6 @@ as_flextable.xtable <- function(
   ft
 }
 
-#' @export
-#' @rdname as_flextable.xtable
-xtable_to_flextable <- as_flextable.xtable
 
 get_xtable_widths <- function(align, default_width = .3){
   rex <- "^(p\\{)([0-9\\.]+)(cm|in|px)(\\}$)"

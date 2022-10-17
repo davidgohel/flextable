@@ -44,7 +44,6 @@ reference:
     - dim_pretty
     - flextable_dim
     - as_grouped_data
-    - xtable_to_flextable
     - as_flextable
     - nrow_part
     - ncol_keys

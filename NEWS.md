@@ -26,6 +26,7 @@ eco-system and let to define it globally with `set_flextable_defaults()`.
 
 - `ft.keepnext` now default to FALSE as lot of users had issues
 with this option.
+- function `xtable_to_flextable()` is removed (use `as_flextable()`)
 
 # flextable 0.8.2
 
