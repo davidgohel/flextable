@@ -9,7 +9,8 @@ add_header_lines(x, values = character(0), top = TRUE)
 \arguments{
 \item{x}{a \code{flextable} object}
 
-\item{values}{a character vector, each element will
+\item{values}{a character vector or a call to \code{\link[=as_paragraph]{as_paragraph()}}
+to get formated content, each element will
 be added as a new row.}
 
 \item{top}{should the row be inserted at the top
@@ -29,11 +30,30 @@ be used to adding titles on the top rows of the flextable.
 }
 
 \examples{
+# ex 1----
 ft_1 <- flextable(head(iris))
 ft_1 <- add_header_lines(ft_1, values = "blah blah")
 ft_1 <- add_header_lines(ft_1, values = c("blah 1", "blah 2"))
 ft_1 <- autofit(ft_1)
 ft_1
+
+# ex 2----
+ft01 <- fp_text_default(color = "red")
+ft02 <- fp_text_default(color = "orange")
+ref <- c("(1)", "(2)")
+pars <- as_paragraph(
+  as_chunk(ref, props = ft02), " ",
+  as_chunk(rep("My tailor is rich", length(ref)), props = ft01)
+)
+
+ft_2 <- flextable(head(mtcars))
+ft_2 <- add_header_lines(ft_2, values = pars, top = FALSE)
+ft_2 <- add_header_lines(ft_2, values = ref, top = TRUE)
+ft_2 <- add_footer_lines(ft_2, values = "blah", top = TRUE)
+ft_2 <- add_footer_lines(ft_2, values = pars, top = TRUE)
+ft_2 <- add_footer_lines(ft_2, values = ref, top = FALSE)
+ft_2 <- autofit(ft_2)
+ft_2
 }
 \seealso{
 Other functions to add rows in header or footer: 

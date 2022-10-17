@@ -9,7 +9,8 @@ add_footer_lines(x, values = character(0), top = FALSE)
 \arguments{
 \item{x}{a \code{flextable} object}
 
-\item{values}{a character vector, each element will
+\item{values}{a character vector or a call to \code{\link[=as_paragraph]{as_paragraph()}}
+to get formated content, each element will
 be added as a new row.}
 
 \item{top}{should the row be inserted at the top
