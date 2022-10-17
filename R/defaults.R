@@ -24,12 +24,13 @@ default_flextable_settings <- list(
   nan_str  = "",
   fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
 
-  hscroll = FALSE, shadow = FALSE,
+  shadow = FALSE, extra_css = "",
+  scroll = NULL,
   split = TRUE, keep_with_next = FALSE,
   tabcolsep = 0, arraystretch = 1.5, float = "none",
 
   fonts_ignore = FALSE,
-  extra_css = "",
+
   theme_fun = "theme_booktabs",
   post_process_pdf = function(x) x,
   post_process_docx = function(x) x,
@@ -81,10 +82,18 @@ flextable_global$defaults <- default_flextable_settings
 #' xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
 #' not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
 #' @param extra_css css instructions to be integrated with the table.
-#' @param hscroll `TRUE` or `FALSE`, enable horizontal scrolling.
 #' @param shadow `TRUE` or `FALSE`, use shadow dom (for HTML only), this option is existing
 #' to disable shadow dom (set to `FALSE`) for pagedown and Quarto that can
 #' not support it for now.
+#' @param scroll NULL or a list if you want to add a scroll-box.
+#' - Use an empty list to add an horizontal scroll.  The with
+#' is fixed, corresponding to the container's width.
+#' - If the list has a value named `height` it will be used as
+#' height and the scroll will happen also vertically. The height
+#' will be in pixel if numeric, if a string it should be a valid css
+#' measure.
+#' - If the list has a value named `add_css` it will be used as extra
+#' css to add, .i.e: `border:1px solid red;`.
 #' @param split Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
 #' @param keep_with_next Word option 'keep rows together' is
@@ -141,7 +150,8 @@ set_flextable_defaults <- function(
   na_str = NULL, nan_str = NULL,
   fmt_date = NULL, fmt_datetime = NULL,
   extra_css = NULL,
-  hscroll = NULL, shadow = NULL,
+  shadow = NULL,
+  scroll = NULL,
   split = NULL, keep_with_next = NULL,
   tabcolsep = NULL, arraystretch = NULL, float = NULL,
   fonts_ignore = NULL,
@@ -229,9 +239,6 @@ set_flextable_defaults <- function(
   if( !is.null(fonts_ignore) ){
     x$fonts_ignore <- fonts_ignore
   }
-  if( !is.null(hscroll) ){
-    x$hscroll <- hscroll
-  }
   if( !is.null(shadow) ){
     x$shadow <- shadow
   }
@@ -251,6 +258,9 @@ set_flextable_defaults <- function(
     x$float <- float
   }
 
+  if( !is.null(scroll) ){
+    x$scroll <- scroll
+  }
   if( !is.null(extra_css) ){
     x$extra_css <- extra_css
   }
@@ -282,8 +292,6 @@ set_flextable_defaults <- function(
   }
 
   flextable_defaults <- flextable_global$defaults
-
-
 
   flextable_new_defaults <- modifyList(flextable_defaults, x)
   flextable_global$defaults <- flextable_new_defaults
@@ -341,7 +349,9 @@ print.flextable_defaults <- function(x, ...){
   if(is.character(x$theme_fun)) cat("## default theme is:", x$theme_fun, "\n")
 
   cat("## HTML specific:\n")
+  cat("shadow:", x$shadow, "\n")
   cat("extra_css:", x$extra_css, "\n")
+  cat("scrool:", if (is.null(x$scrool)) "no" else "yes", "\n")
   cat("post_process_html:\n")
   print(x$post_process_html)
   cat("\n")

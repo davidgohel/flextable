@@ -11,20 +11,15 @@
 #' @param ft.shadow use shadow dom, this option is existing
 #' to disable shadow dom (set to `FALSE`) for pagedown that
 #' can not support it for now.
-#' @param ft.htmlscroll add a scroll if table is too big to fit
-#' into its HTML container, default to TRUE.
 #' @family flextable print function
 #' @examples
 #' htmltools_value(flextable(iris[1:5, ]))
 #' @importFrom htmltools tagList
-htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL, ft.htmlscroll = NULL) {
+htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL) {
   x <- flextable_global$defaults$post_process_html(x)
 
   if (!is.null(ft.align)) {
     x$properties$align <- ft.align
-  }
-  if (!is.null(ft.htmlscroll)) {
-    x$properties$opts_html$hscroll <- ft.htmlscroll
   }
   if (!is.null(ft.shadow)) {
     x$properties$opts_html$shadow <- ft.shadow
@@ -33,7 +28,7 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL, ft.htmlscroll 
   caption <- caption_default_html(x, align = x$properties$align)
   manual_css <- attr(caption, "css")
   html_o <- tagList(
-    flextable_html_dependency(htmlscroll = x$properties$opts_html$hscroll),
+    flextable_html_dependency(),
     HTML(gen_raw_html(x,
       class = "tabwid",
       caption = caption,
@@ -93,7 +88,6 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL, ft.htmlscroll 
 #' For example, you can put "\\\\pagebreak" here to have tables produced with page breaks.
 #' @param webshot webshot package as a scalar character, one of "webshot" or
 #' "webshot2".
-#' @param ft.htmlscroll `TRUE` or `FALSE` (default) to enable horizontal scrolling.
 #' @param ft.shadow `TRUE` (default) or `FALSE` to use shadow dom (for HTML only), this option is existing
 #' to disable shadow dom (set to `FALSE`) for pagedown and Quarto that can
 #' not support it for now.
@@ -131,7 +125,6 @@ flextable_to_rmd <- function(x,
                              ft.top = opts_current$get("ft.top"),
                              text_after = "",
                              webshot = opts_current$get("webshot"),
-                             ft.htmlscroll = opts_current$get("ft.htmlscroll"),
                              ft.shadow = opts_current$get("ft.shadow"),
                              bookdown = FALSE, quarto = FALSE,
                              pandoc2 = TRUE, print = TRUE,
@@ -141,10 +134,6 @@ flextable_to_rmd <- function(x,
 
   if (!is.null(ft.align)) {
     x$properties$align <- ft.align
-  }
-  # html chunk options
-  if (!is.null(ft.htmlscroll)) {
-    x$properties$opts_html$hscroll <- ft.htmlscroll
   }
   if (!is.null(ft.shadow)) {
     x$properties$opts_html$shadow <- ft.shadow
@@ -171,7 +160,6 @@ flextable_to_rmd <- function(x,
   if (is.null(opts_knit$get("rmarkdown.pandoc.to"))) {
     # with markdown package ----
     x$properties$opts_html$shadow <- FALSE
-    x$properties$opts_html$hscroll <- FALSE
     str <- knit_to_html(x,
       bookdown = FALSE,
       quarto = FALSE,
@@ -257,9 +245,6 @@ flextable_to_rmd <- function(x,
 #' @examples
 #' knit_to_html(flextable(iris[1:5, ]))
 knit_to_html <- function(x,
-                         # align = opts_current$get("ft.align"),
-                         # shadow = opts_current$get("ft.shadow"),
-                         # htmlscroll = opts_current$get("ft.htmlscroll"),
                          bookdown = FALSE,
                          quarto = FALSE,
                          pandoc2 = TRUE) {
@@ -291,7 +276,7 @@ knit_to_html <- function(x,
 
   knit_meta_add(
     list(
-      flextable_html_dependency(htmlscroll = x$properties$opts_html$hscroll)
+      flextable_html_dependency()
     )
   )
 
@@ -569,7 +554,6 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #'   **chunk option** \tab **property** \tab **default value** \tab **HTML** \tab **docx** \tab **PDF** \tab **pptx** \cr
 #'   ft.align        \tab flextable alignment, supported values are 'left', 'center' and 'right'    \tab 'center' \tab yes \tab yes \tab yes \tab no \cr
 #'   ft.shadow       \tab HTML option, disable shadow dom (set to `FALSE`) for pagedown. \tab TRUE    \tab yes  \tab no \tab no  \tab no \cr
-#'   ft.htmlscroll   \tab HTML option, add an horizontal scroll if table is too big to fit into its HTML container. \tab TRUE    \tab yes  \tab no \tab no  \tab no \cr
 #'   ft.split        \tab Word option 'Allow row to break across pages' can be activated when TRUE. \tab FALSE    \tab no  \tab yes \tab no  \tab no \cr
 #'   ft.keepnext     \tab Word option 'keep rows together' can be desactivated when FALSE \tab FALSE    \tab no  \tab yes \tab no  \tab no \cr
 #'   ft.tabcolsep    \tab space between the text and the left/right border of its containing cell   \tab 0      \tab no  \tab no  \tab yes \tab no \cr

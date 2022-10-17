@@ -4,7 +4,7 @@
 \alias{htmltools_value}
 \title{flextable as an HTML object}
 \usage{
-htmltools_value(x, ft.align = NULL, ft.shadow = NULL, ft.htmlscroll = NULL)
+htmltools_value(x, ft.align = NULL, ft.shadow = NULL)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -14,9 +14,6 @@ htmltools_value(x, ft.align = NULL, ft.shadow = NULL, ft.htmlscroll = NULL)
 \item{ft.shadow}{use shadow dom, this option is existing
 to disable shadow dom (set to \code{FALSE}) for pagedown that
 can not support it for now.}
-
-\item{ft.htmlscroll}{add a scroll if table is too big to fit
-into its HTML container, default to TRUE.}
 }
 \value{
 an object marked as \link{HTML} ready to be used within

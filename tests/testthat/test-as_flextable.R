@@ -1,4 +1,4 @@
-context("check borders rendering")
+context("check as_flextable")
 
 skip_on_cran()
 skip_on_os("linux")
@@ -9,7 +9,11 @@ skip_if_not_installed("magick")
 skip_if_not_installed("webshot")
 skip_if_not(locatexec::exec_available("word"))
 skip_if_not(pandoc_version() >= numeric_version("2"))
-
+suppressPackageStartupMessages({
+  library(doconv)
+  library(magick)
+  library(webshot)
+})
 source("to-img.R")
 init_flextable_defaults()
 

@@ -323,10 +323,20 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' @param align alignment in document (only Word, HTML and PDF),
 #' supported values are 'left', 'center' and 'right'.
 #' @param opts_html html options as a list. Supported elements are:
-#' - 'hscroll' `TRUE` or `FALSE`, enable horizontal scrolling.
 #' - 'shadow' `TRUE` or `FALSE`, use shadow dom, this option is existing
 #' to disable shadow dom (set to `FALSE`) for pagedown and Quarto that can
 #' not support it for now.
+#' - 'extra_css': extra css instructions to be integrated with the HTML
+#' code of the table.
+#' - 'scroll': NULL or a list if you want to add a scroll-box.
+#'     - Use an empty list to add an horizontal scroll.  The with
+#'     is fixed, corresponding to the container's width.
+#'     - If the list has a value named `height` it will be used as
+#'     height and the scroll will happen also vertically. The height
+#'     will be in pixel if numeric, if a string it should be a valid css
+#'     measure.
+#'     - If the list has a value named `add_css` it will be used as extra
+#'     css to add, .i.e: `border:1px solid red;`.
 #' @param opts_word Word options as a list. Supported elements are:
 #' - 'split':  Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
@@ -398,26 +408,31 @@ set_table_properties <- function(x, layout = "fixed", width = 0,
   x
 }
 
-opts_ft_html <- function(hscroll = get_flextable_defaults()$hscroll, shadow = get_flextable_defaults()$shadow) {
+opts_ft_html <- function(shadow = get_flextable_defaults()$shadow,
+                         extra_css = get_flextable_defaults()$extra_css,
+                         scroll = get_flextable_defaults()$scroll) {
 
-  if( !is.logical(hscroll) || length(hscroll) != 1 ){
-    stop("hscroll is expected to be a single logical", call. = FALSE)
-  }
   if( !is.logical(shadow) || length(shadow) != 1 ){
-    stop("shadow is expected to be a single logical", call. = FALSE)
+    stop(sprintf("'%s' is expected to be a single %s.", "shadow", "logical"), call. = FALSE)
+  }
+  if(!is.character(extra_css) || length(extra_css) != 1 || any(is.na(extra_css))){
+    stop(sprintf("'%s' is expected to be a single %s.", "extra_css", "character"), call. = FALSE)
+  }
+  if(!is.null(scroll) && !is.list(scroll)){
+    stop(sprintf("'%s' is expected to be %s.", "scroll", "NULL or a list"), call. = FALSE)
   }
 
-  z <- list(hscroll = hscroll, shadow = shadow)
+  z <- list(shadow = shadow, extra_css = extra_css, scroll = scroll)
   class(z) <- "opts_ft_html"
   z
 }
 opts_ft_word <- function(split = get_flextable_defaults()$split, keep_with_next = get_flextable_defaults()$keep_with_next) {
 
   if( !is.logical(split) || length(split) != 1 ){
-    stop("split is expected to be a single logical", call. = FALSE)
+    stop(sprintf("'%s' is expected to be a single %s.", "split", "logical"), call. = FALSE)
   }
   if( !is.logical(keep_with_next) || length(keep_with_next) != 1 ){
-    stop("keep_with_next is expected to be a single logical", call. = FALSE)
+    stop(sprintf("'%s' is expected to be a single %s.", "keep_with_next", "logical"), call. = FALSE)
   }
 
   z <- list(split = split, keep_with_next = keep_with_next)
@@ -430,16 +445,16 @@ opts_ft_pdf <- function(tabcolsep = get_flextable_defaults()$tabcolsep,
                         fonts_ignore = get_flextable_defaults()$fonts_ignore) {
 
   if( !is.logical(fonts_ignore) || length(fonts_ignore) != 1 ){
-    stop("fonts_ignore is expected to be a single logical", call. = FALSE)
+    stop(sprintf("'%s' is expected to be a single %s.", "fonts_ignore", "logical"), call. = FALSE)
   }
-  if( !is.numeric(tabcolsep) || length(tabcolsep) != 1 || !all(sign(tabcolsep) > -1) ){
-    stop("tabcolsep is expected to be a single positive number.", call. = FALSE)
+  if( !is.numeric(tabcolsep) || length(tabcolsep) != 1 || any(sign(tabcolsep) < 0) ){
+    stop(sprintf("'%s' is expected to be a single %s.", "tabcolsep", "positive number"), call. = FALSE)
   }
-  if( !is.numeric(arraystretch) || length(arraystretch) != 1 || !all(sign(arraystretch) > -1) ){
-    stop("arraystretch is expected to be a single positive number.", call. = FALSE)
+  if( !is.numeric(arraystretch) || length(arraystretch) != 1 || any(sign(arraystretch) < 0) ){
+    stop(sprintf("'%s' is expected to be a single %s.", "arraystretch", "positive number"), call. = FALSE)
   }
   if( !is.character(float) || length(float) != 1 || !all(float %in% c('none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o')) ){
-    stop("float is expected to be a single valid character, one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o'", call. = FALSE)
+    stop(sprintf("'%s' is expected to be a single %s.", "float", "character (one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o')"), call. = FALSE)
   }
 
   z <- list(tabcolsep = tabcolsep,
