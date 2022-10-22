@@ -24,7 +24,7 @@ default_flextable_settings <- list(
   nan_str  = "",
   fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
 
-  shadow = FALSE, extra_css = "",
+  shadow = TRUE, extra_css = "",
   scroll = NULL,
   split = TRUE, keep_with_next = FALSE,
   tabcolsep = 0, arraystretch = 1.5, float = "none",
