@@ -19,7 +19,10 @@ set_caption(
 \arguments{
 \item{x}{flextable object}
 
-\item{caption}{caption value.}
+\item{caption}{caption value. The caption can be either a string either
+a call to \code{\link[=as_paragraph]{as_paragraph()}}. In the latter case, users are free to format
+the caption with colors, italic fonts, also mixed with images or
+equations. Note that Quarto does not allow the use of this feature.}
 
 \item{autonum}{an autonum representation. See \code{\link[officer:run_autonum]{officer::run_autonum()}}.
 This has only an effect when output is Word. If used, the caption is preceded

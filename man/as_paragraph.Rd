@@ -14,7 +14,14 @@ specified argument \code{...} is unused.}
 }
 \description{
 The function is concatenating text and images within paragraphs of
-a flextable object, this function is to be used with function \code{\link[=compose]{compose()}}.
+a flextable object, this function is to be used with functions such as \code{\link[=compose]{compose()}},
+\code{\link[=add_header_lines]{add_header_lines()}}, \code{\link[=add_footer_lines]{add_footer_lines()}}.
+
+This allows the concatenation of formatted pieces of text (chunks) that
+represent the content of a paragraph.
+
+The cells of a flextable contain each a single paragraph. This paragraph
+is made of chunks that can be text, images or plots, equations and links.
 }
 \section{Illustrations}{
 

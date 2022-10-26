@@ -206,7 +206,10 @@ qflextable <- function(data){
 #' been defined by flextable. See Quarto documentation for more information.
 #'
 #' @param x flextable object
-#' @param caption caption value.
+#' @param caption caption value. The caption can be either a string either
+#' a call to [as_paragraph()]. In the latter case, users are free to format
+#' the caption with colors, italic fonts, also mixed with images or
+#' equations. Note that Quarto does not allow the use of this feature.
 #' @param autonum an autonum representation. See [officer::run_autonum()].
 #' This has only an effect when output is Word. If used, the caption is preceded
 #' by an auto-number sequence. In this case, the caption is preceded by an auto-number
@@ -251,10 +254,11 @@ set_caption <- function(x,
   }
 
   caption_value <- NULL
+  simple_caption <- TRUE
   if (!is.null(caption) && !inherits(caption, "paragraph")) {
-    caption_value <- as_paragraph(as_chunk(caption, props = fp_text_default()))
-    caption_value <- caption_value[[1]]
+    caption_value <- caption
   } else if (!is.null(caption) && inherits(caption, "paragraph")) {
+    simple_caption <- FALSE
     caption_value <- caption[[1]]
 
     by_columns <- c("font.size", "italic", "bold", "underlined", "color", "shading.color",
@@ -265,12 +269,14 @@ set_caption <- function(x,
       caption_value[[j]][is.na(caption_value[[j]])] <- default_fp_t[[j]]
     }
   }
-  if (!is.null(caption)) {
+  if (!is.null(caption) && !simple_caption) {
     caption_value <- expand_special_char(caption_value, what = "\n", with = "<br>")
     caption_value <- expand_special_char(caption_value, what = "\t", with = "<tab>")
   }
 
-  x$caption <- list(value = caption_value, align_with_table = align_with_table)
+  x$caption <- list(value = caption_value,
+                    simple_caption = simple_caption,
+                    align_with_table = align_with_table)
 
   if (!is.null(autonum) && inherits(autonum, "run_autonum")) {
     x$caption$autonum <- autonum

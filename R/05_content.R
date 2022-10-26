@@ -677,7 +677,15 @@ to_wml_word_field <- function(x, pr_txt) {
 #' @export
 #' @title concatenate chunks in a flextable
 #' @description The function is concatenating text and images within paragraphs of
-#' a flextable object, this function is to be used with function [compose()].
+#' a flextable object, this function is to be used with functions such as [compose()],
+#' [add_header_lines()], [add_footer_lines()].
+#'
+#' This allows the concatenation of formatted pieces of text (chunks) that
+#' represent the content of a paragraph.
+#'
+#' The cells of a flextable contain each a single paragraph. This paragraph
+#' is made of chunks that can be text, images or plots, equations and links.
+#'
 #' @param ... chunk elements that are defining paragraph
 #' @param list_values a list of chunk elements that are defining paragraph. If
 #' specified argument `...` is unused.

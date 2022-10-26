@@ -333,25 +333,29 @@ has_caption <- function(x, knitr_caption = NULL) {
 
 caption_chunks_wml <- function(x, knitr_caption = NULL) {
   caption_chunks_str <- knitr_caption
-  if (!is.null(x$caption$value)) {
+  if (!is.null(x$caption$value) && !x$caption$simple_caption) {
     spans <- runs_as_wml(x, txt_data = x$caption$value)
     caption_chunks_str <- paste(spans$run_openxml, collapse = "")
+  } else if (!is.null(x$caption$value) && x$caption$simple_caption) {
+    caption_chunks_str <- paste0(
+      "<w:r><w:t xml:space=\"preserve\">",
+      htmlEscape(x$caption$value),
+      "</w:t></w:r>")
   } else if (!is.null(caption_chunks_str)) {
-    spans <- runs_as_wml(
-      x = x,
-      txt_data = as_paragraph(
-        as_chunk(caption_chunks_str, props = fp_text_default())
-      )[[1]]
-    )
-    caption_chunks_str <- paste(spans$run_openxml, collapse = "")
+    caption_chunks_str <- paste0(
+      "<w:r><w:t xml:space=\"preserve\">",
+      htmlEscape(caption_chunks_str),
+      "</w:t></w:r>")
   }
   caption_chunks_str
 }
 caption_chunks_text <- function(x, knitr_caption = NULL) {
   caption_chunks_str <- knitr_caption
-  if (!is.null(x$caption$value)) {
+  if (!is.null(x$caption$value) && !x$caption$simple_caption) {
     spans <- runs_as_text(x, chunk_data = x$caption$value)
     caption_chunks_str <- paste(spans$span_txt, collapse = "")
+  } else if (!is.null(x$caption$value) && x$caption$simple_caption) {
+    caption_chunks_str <- x$caption$value
   }
   caption_chunks_str
 }
@@ -359,20 +363,23 @@ caption_chunks_text <- function(x, knitr_caption = NULL) {
 caption_chunks_html <- function(x, knitr_caption = NULL) {
   caption_chunks_str <- knitr_caption
   css <- ""
-  if (!is.null(x$caption$value)) {
+  if (!is.null(x$caption$value) && !x$caption$simple_caption) {
     caption_df <- x$caption$value
     caption_spans <- runs_as_html(x, chunk_data = caption_df)
     css <- attr(caption_spans, "css")
     caption_chunks_str <- paste0(caption_spans$span_tag, collapse = "")
+  } else if (!is.null(x$caption$value) && x$caption$simple_caption) {
+    css <- ""
+    caption_chunks_str <- paste0(
+      "<span>",
+      htmlize(x$caption$value),
+      "</span>")
   } else if (!is.null(caption_chunks_str)) {
-    caption_spans <- runs_as_html(
-      x = x,
-      chunk_data = as_paragraph(
-        as_chunk(caption_chunks_str, props = fp_text_default())
-      )[[1]]
-    )
-    css <- attr(caption_spans, "css")
-    caption_chunks_str <- paste0(caption_spans$span_tag, collapse = "")
+    css <- ""
+    caption_chunks_str <- paste0(
+      "<span>",
+      htmlize(caption_chunks_str),
+      "</span>")
   }
   list(html = caption_chunks_str, css = css)
 }
@@ -380,9 +387,11 @@ caption_chunks_html <- function(x, knitr_caption = NULL) {
 caption_chunks_latex <- function(x, knitr_caption = NULL) {
   caption_chunks_str <- knitr_caption
 
-  if (!is.null(x$caption$value)) {
+  if (!is.null(x$caption$value) && !x$caption$simple_caption) {
     caption_str <- runs_as_latex(x = x, chunk_data = x$caption$value)
     caption_chunks_str <- paste(caption_str$txt, collapse = "")
+  } else if (!is.null(x$caption$value) && x$caption$simple_caption) {
+    caption_chunks_str <- sanitize_latex_str(x$caption$value)
   } else if (!is.null(caption_chunks_str)) {
     caption_str <- runs_as_latex(
       x = x,

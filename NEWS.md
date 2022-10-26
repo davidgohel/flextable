@@ -17,6 +17,7 @@ eco-system and let to define it globally with `set_flextable_defaults()`.
 - new function `grid_chunk()` to let users add grid graphics
 - functions `add_header_lines()` and `add_footer_lines()` 
 now supports formatted paragraph made with `as_paragraph()`.
+- captions: support for simple text in addition to `as_paragraph()`
 
 ## Issues
 
