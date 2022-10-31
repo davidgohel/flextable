@@ -11,15 +11,19 @@
 #' These set borders for the whole table : [border_outer()],
 #' [border_inner_h()] and [border_inner_v()].
 #'
-#' All the following functions also support the
-#' row and column selector `i` and `j`:
+#' To add horizontal or vertical lines in the table at specific location,
+#' use:
 #'
-#' * [hline()]: set bottom borders (inner horizontal)
-#' * [vline()]: set right borders (inner vertical)
-#' * [hline_top()]: set the top border (outer horizontal)
-#' * [hline_bottom()]: set the bottom border (outer horizontal)
-#' * [vline_left()]: set the left border (outer vertical)
-#' * [vline_right()]: set the right border (outer vertical)
+#' - [hline()]: set bottom borders (inner horizontal)
+#' - [vline()]: set right borders (inner vertical)
+#'
+#' To add following horizontal or vertical lines at
+#' beginning or end of the table, use:
+#'
+#' - [hline_top()]: set the top border (outer horizontal)
+#' - [hline_bottom()]: set the bottom border (outer horizontal)
+#' - [vline_left()]: set the left border (outer vertical)
+#' - [vline_right()]: set the right border (outer vertical)
 #'
 #' If you want to highlight specific cells with some borders, use
 #' [surround()].

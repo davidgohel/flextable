@@ -45,11 +45,16 @@ If you need to add borders, use instead other functions:
 These set borders for the whole table : \code{\link[=border_outer]{border_outer()}},
 \code{\link[=border_inner_h]{border_inner_h()}} and \code{\link[=border_inner_v]{border_inner_v()}}.
 
-All the following functions also support the
-row and column selector \code{i} and \code{j}:
+To add horizontal or vertical lines in the table at specific location,
+use:
 \itemize{
 \item \code{\link[=hline]{hline()}}: set bottom borders (inner horizontal)
 \item \code{\link[=vline]{vline()}}: set right borders (inner vertical)
+}
+
+To add following horizontal or vertical lines at
+beginning or end of the table, use:
+\itemize{
 \item \code{\link[=hline_top]{hline_top()}}: set the top border (outer horizontal)
 \item \code{\link[=hline_bottom]{hline_bottom()}}: set the bottom border (outer horizontal)
 \item \code{\link[=vline_left]{vline_left()}}: set the left border (outer vertical)
