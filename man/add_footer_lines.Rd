@@ -36,23 +36,15 @@ ft_1 <- add_footer_lines(ft_1,
 ft_1
 }
 \seealso{
-Other functions that add lines in the table: 
+Other functions to add rows in a flextable: 
 \code{\link{add_body_row}()},
 \code{\link{add_body}()},
 \code{\link{add_footer_row}()},
 \code{\link{add_footer}()},
-\code{\link{add_header_row}()},
-\code{\link{add_header}()}
-
-Other functions to add rows in header or footer: 
-\code{\link{add_footer_row}()},
-\code{\link{add_footer}()},
-\code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
 \code{\link{add_header}()},
 \code{\link{separate_header}()},
 \code{\link{set_header_footer_df}},
 \code{\link{set_header_labels}()}
 }
-\concept{functions that add lines in the table}
-\concept{functions to add rows in header or footer}
+\concept{functions to add rows in a flextable}

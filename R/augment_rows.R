@@ -27,7 +27,7 @@
 #' )
 #' ft
 #' @export
-#' @family functions to add rows in header or footer
+#' @family functions to add rows in a flextable
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_set_header_labels_1.png}{options: width="400"}}
@@ -140,7 +140,7 @@ as_new_data <- function(x, ..., values = NULL) {
 #'
 #' ft <- theme_booktabs(ft)
 #' ft
-#' @family functions that add lines in the table
+#' @family functions to add rows in a flextable
 #' @seealso [flextable()]
 add_body <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
@@ -192,8 +192,7 @@ add_body <- function(x, top = TRUE, ..., values = NULL) {
 #' ft_1 <- theme_booktabs(ft_1, bold_header = TRUE)
 #' ft_1 <- align(ft_1, align = "center", part = "all")
 #' ft_1
-#' @family functions that add lines in the table
-#' @family functions to add rows in header or footer
+#' @family functions to add rows in a flextable
 #' @section Illustrations:
 #' \if{html}{\figure{fig_add_header_1.png}{options: width="300"}}
 add_header <- function(x, top = TRUE, ..., values = NULL) {
@@ -239,8 +238,7 @@ add_header <- function(x, top = TRUE, ..., values = NULL) {
 #' )
 #' ft <- align(ft, part = "footer", align = "right", j = 1:4)
 #' ft
-#' @family functions that add lines in the table
-#' @family functions to add rows in header or footer
+#' @family functions to add rows in a flextable
 #' @section Illustrations:
 #' \if{html}{\figure{fig_add_footer_1.png}{options: width="300"}}
 add_footer <- function(x, top = TRUE, ..., values = NULL) {
@@ -273,10 +271,15 @@ add_footer <- function(x, top = TRUE, ..., values = NULL) {
 #' number of labels is equal to the number of columns displayed.
 #'
 #' The function can add only one single row by call.
+#'
+#' Labels can also be formatted with [as_paragraph()].
+#'
 #' @param x a flextable object
 #' @param top should the row be inserted at the top or the bottom.
-#' @param values values to add. It can be a `list` or a `character()` vector.
-#' If it is a list, it must be a named list using the names of the columns of the
+#' @param values values to add. It can be a `list`, a `character()` vector
+#' or a call to [as_paragraph()].
+#'
+#' If it is a list, it can be a named list with the names of the columns of the
 #' original data.frame or the `colkeys`; this is the recommended method because
 #' it allows to keep the original data types and therefore allows to perform
 #' conditional formatting. If a character, columns of the original data.frame
@@ -288,17 +291,47 @@ add_footer <- function(x, top = TRUE, ..., values = NULL) {
 #' @param colwidths the number of columns to merge in the row for each label
 #'
 #' @examples
-#' ft <- flextable(head(iris))
-#' ft <- add_body_row(ft, values = list(1000), colwidths = 5)
-#' ft
-#' @family functions that add lines in the table
-#' @seealso [flextable()], [add_header_row()]
+#' library(flextable)
+#'
+#' ft01 <- fp_text_default(color = "red")
+#' ft02 <- fp_text_default(color = "orange")
+#'
+#' pars <- as_paragraph(
+#'   as_chunk(c("(1)", "(2)"), props = ft02), " ",
+#'   as_chunk(
+#'     c(
+#'       "My tailor is rich",
+#'       "My baker is rich"
+#'     ),
+#'     props = ft01
+#'   )
+#' )
+#'
+#' ft_1 <- flextable(head(mtcars))
+#' ft_1 <- add_body_row(ft_1,
+#'   values = pars,
+#'   colwidths = c(5, 6), top = FALSE
+#' )
+#' ft_1 <- add_body_row(ft_1,
+#'   values = pars,
+#'   colwidths = c(3, 8), top = TRUE
+#' )
+#' ft_1 <- theme_box(ft_1)
+#' ft_1
+#'
+#' ft_2 <- flextable(head(airquality))
+#' ft_2 <- add_body_row(ft_2,
+#'   values = c("blah", "bleeeh"),
+#'   colwidths = c(4, 2), top = TRUE
+#' )
+#' ft_2 <- theme_box(ft_2)
+#' ft_2
+#' @family functions to add rows in a flextable
+#' @seealso [flextable()], [set_caption()]
 add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0)) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "add_body_row()"))
   }
-
-  if (!is.list(values)) stop("values must be a list.")
 
   if (length(colwidths) < 1) {
     colwidths <- rep(1L, length(x$col_keys))
@@ -309,15 +342,25 @@ add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0))
       "sum of colwidths elements must be equal to the number of col_keys: %.0f.",
       length(x$col_keys)))
   }
-
-  if (any(sapply(values, length) > 1)) {
-    stop("argument 'values' is expected to be made of elements of length 1")
+  if (is.atomic(values)) {
+    values <- as.list(values)
   }
 
-  values_ <- inverse.rle(structure(list(lengths = colwidths, values = values), class = "rle"))
+  row_span <- unlist(lapply(colwidths, function(x) {
+    z <- integer(x)
+    z[1] <- x
+    z
+  }))
+  col_j <- which(row_span>0)
 
-  names(values_) <- x$col_keys
-  body_data <- as.data.frame(values_, check.names = FALSE, stringsAsFactors = FALSE)
+  body_data <- x$body$dataset[nrow(x$body$dataset) + 1, ]
+
+  if (inherits(values, "paragraph")) {
+  } else if (!is.null(attr(values, "names"))) {
+    body_data[, names(values)] <- values
+  } else {
+    body_data[, which(row_span>0)] <- values
+  }
 
   if (nrow_part(x, "body") < 1) {
     x$body <- complex_tabpart(
@@ -328,13 +371,14 @@ add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0))
     x$body <- add_rows(x$body, body_data, first = top)
   }
 
-  row_span <- unlist(lapply(colwidths, function(x) {
-    z <- integer(x)
-    z[1] <- x
-    z
-  }))
-  i <- ifelse(top, 1, nrow(x$body$dataset))
+  i <- ifelse(top, 1, nrow_part(x, "body"))
   x$body$spans$rows[i, ] <- row_span
+
+  if (inherits(values, "paragraph")) {
+    for(j in seq_along(col_j)) {
+      x <- mk_par(x, i = i, j = col_j[j], value = values[j], part = "body")
+    }
+  }
 
   x
 }
@@ -352,26 +396,41 @@ add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0))
 #'
 #' The function can add only one single row by call.
 #'
+#' Labels can also be formatted with [as_paragraph()].
+#'
 #' @param x a flextable object
 #' @param top should the row be inserted at the
 #' top or the bottom. Default to TRUE.
 #' @param values values to add, a character vector (as header rows
-#' contains only character values/columns) or a list.
+#' contains only character values/columns), a list
+#' or a call to [as_paragraph()].
 #' @param colwidths the number of columns used for each label
 #' @examples
-#' ft_1 <- flextable(head(iris))
-#' ft_1 <- add_header_row(ft_1,
-#'   values = "blah blah", colwidths = 5
+#' library(flextable)
+#'
+#' ft01 <- fp_text_default(color = "red")
+#' ft02 <- fp_text_default(color = "orange")
+#'
+#' pars <- as_paragraph(
+#'   as_chunk(c("(1)", "(2)"), props = ft02), " ",
+#'   as_chunk(c("My tailor is rich",
+#'     "My baker is rich"), props = ft01)
 #' )
-#' ft_1 <- add_header_row(ft_1,
-#'   values = c("blah", "blah"),
-#'   colwidths = c(3, 2)
-#' )
+#'
+#' ft_1 <- flextable(head(mtcars))
+#' ft_1 <- add_header_row(ft_1, values = pars,
+#'   colwidths = c(5, 6), top = FALSE)
+#' ft_1 <- add_header_row(ft_1, values = pars,
+#'   colwidths = c(3, 8), top = TRUE)
 #' ft_1
-#' @family functions that add lines in the table
-#' @family functions to add rows in header or footer
-#' @section Illustrations:
-#' \if{html}{\figure{fig_add_header_row_1.png}{options: width="300"}}
+#'
+#' ft_2 <- flextable(head(airquality))
+#' ft_2 <- add_header_row(ft_2, values = c("Measure", "Time"),
+#'   colwidths = c(4, 2), top = TRUE)
+#' ft_2 <- theme_box(ft_2)
+#' ft_2
+#' @family functions to add rows in a flextable
+#' @seealso [flextable()], [set_caption()]
 add_header_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "add_header_row()"))
@@ -386,24 +445,19 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
       "sum of colwidths elements must be equal to the number of col_keys: %.0f.",
       length(x$col_keys)))
   }
-  if (is.list(values)) {
-    values <- as.character(unlist(values))
-  } else if (!is.atomic(values)) {
-    stop("'values' must be an atomic vector or a list.")
+
+  if (inherits(values, "paragraph")) {
+    str_values <- vapply(values, function(x) paste0(x$txt, collapse = ""), FUN.VALUE = "")
+  } else {
+    str_values <- values
   }
-
-  values_ <- inverse.rle(structure(list(lengths = colwidths, values = values), class = "rle"))
-  values_ <- as.list(values_)
-
-  names(values_) <- x$col_keys
-  header_data <- as.data.frame(values_, check.names = FALSE, stringsAsFactors = FALSE)
+  header_data <- data_from_char(values = str_values, colwidths = colwidths, col_keys = x$col_keys)
 
   if (nrow_part(x, "header") < 1) {
     x$header <- complex_tabpart(data = header_data, col_keys = x$col_keys, cwidth = dim(x)$widths, cheight = .25)
   } else {
     x$header <- add_rows(x$header, header_data, first = top)
   }
-
 
   row_span <- unlist(lapply(colwidths, function(x) {
     z <- integer(x)
@@ -413,8 +467,21 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
   i <- ifelse(top, 1, nrow(x$header$dataset))
   x$header$spans$rows[i, ] <- row_span
 
+  if (inherits(values, "paragraph")) {
+
+    if(top) i <- 1
+    else i <- nrow_part(x, "header")
+
+    col_j <- which(row_span>0)
+
+    for(j in seq_along(col_j)) {
+      x <- mk_par(x, i = i, j = col_j[j], value = values[j], part = "header")
+    }
+  }
+
   x
 }
+
 
 #' @export
 #' @title Add footer labels
@@ -428,21 +495,46 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
 #' number of labels is equal to the number of columns displayed.
 #'
 #' The function can add only one single row by call.
+#'
+#' Labels can be formatted with [as_paragraph()].
 #' @inheritParams add_body_row
-#' @family functions that add lines in the table
-#' @family functions to add rows in header or footer
+#' @family functions to add rows in a flextable
+#' @seealso [flextable()], [set_caption()]
 #' @examples
-#' ft_1 <- flextable(head(iris))
+#' library(flextable)
+#'
+#' ft01 <- fp_text_default(color = "red")
+#' ft02 <- fp_text_default(color = "orange")
+#'
+#' pars <- as_paragraph(
+#'   as_chunk(c("(1)", "(2)"), props = ft02), " ",
+#'   as_chunk(
+#'     c(
+#'       "My tailor is rich",
+#'       "My baker is rich"
+#'     ),
+#'     props = ft01
+#'   )
+#' )
+#'
+#' ft_1 <- flextable(head(mtcars))
 #' ft_1 <- add_footer_row(ft_1,
-#'   values = "blah blah", colwidths = 5
+#'   values = pars,
+#'   colwidths = c(5, 6), top = FALSE
 #' )
 #' ft_1 <- add_footer_row(ft_1,
-#'   values = c("blah", "blah"),
-#'   colwidths = c(3, 2)
+#'   values = pars,
+#'   colwidths = c(3, 8), top = TRUE
 #' )
 #' ft_1
-#' @section Illustrations:
-#' \if{html}{\figure{fig_add_footer_row_1.png}{options: width="300"}}
+#'
+#' ft_2 <- flextable(head(airquality))
+#' ft_2 <- add_footer_row(ft_2,
+#'   values = c("Measure", "Time"),
+#'   colwidths = c(4, 2), top = TRUE
+#' )
+#' ft_2 <- theme_box(ft_2)
+#' ft_2
 add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "add_footer_row()"))
@@ -456,14 +548,12 @@ add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = int
     values <- as.list(values)
   }
 
-  if (!is.list(values)) stop("values must be a list.")
-
-  values_ <- inverse.rle(structure(list(lengths = colwidths, values = values), class = "rle"))
-  values_ <- as.list(values_)
-
-  names(values_) <- x$col_keys
-
-  footer_data <- as.data.frame(values_, check.names = FALSE, stringsAsFactors = FALSE)
+  if (inherits(values, "paragraph")) {
+    str_values <- vapply(values, function(x) paste0(x$txt, collapse = ""), FUN.VALUE = "")
+  } else {
+    str_values <- values
+  }
+  footer_data <- data_from_char(values = str_values, colwidths = colwidths, col_keys = x$col_keys)
 
   if (nrow_part(x, "footer") < 1) {
     x$footer <- complex_tabpart(data = footer_data, col_keys = x$col_keys, cwidth = dim(x)$widths, cheight = .25)
@@ -476,10 +566,32 @@ add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = int
     z[1] <- x
     z
   }))
-  i <- ifelse(top, 1, nrow(x$footer$dataset))
+  i <- ifelse(top, 1, nrow_part(x, "footer"))
   x$footer$spans$rows[i, ] <- row_span
+  col_j <- which(row_span>0)
+
+  if (inherits(values, "paragraph")) {
+    for(j in seq_along(col_j)) {
+      x <- mk_par(x, i = i, j = col_j[j], value = values[j], part = "footer")
+    }
+  }
 
   x
+}
+
+data_from_char <- function(values, colwidths, col_keys) {
+
+  if (is.list(values)) {
+    values <- as.character(unlist(values))
+  } else if (!is.atomic(values)) {
+    stop("'values' must be an atomic vector or a list.")
+  }
+
+  values_ <- inverse.rle(structure(list(lengths = colwidths, values = values), class = "rle"))
+  values_ <- as.list(values_)
+
+  names(values_) <- col_keys
+  as.data.frame(values_, check.names = FALSE, stringsAsFactors = FALSE)
 }
 
 # add labels as spanned rows ----
@@ -501,7 +613,6 @@ add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = int
 #' @param top should the row be inserted at the top
 #' or the bottom. Default to TRUE.
 #' @family functions that add rows in the table
-#' @family functions to add rows in header or footer
 #' @section Illustrations:
 #' \if{html}{\figure{fig_add_header_lines_1.png}{options: width="300"}}
 #' @examples
@@ -563,8 +674,7 @@ add_header_lines <- function(x, values = character(0), top = TRUE) {
 #' This is a sugar function to be used when you need to
 #' add labels in the footer, a footnote for example.
 #' @inheritParams add_header_lines
-#' @family functions that add lines in the table
-#' @family functions to add rows in header or footer
+#' @family functions to add rows in a flextable
 #' @section Illustrations:
 #' \if{html}{\figure{fig_add_footer_lines_1.png}{options: width="300"}}
 #' @examples
@@ -682,7 +792,7 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part) {
 #' ft_1 <- theme_vanilla(ft_1)
 #' ft_1 <- fix_border_issues(ft_1)
 #' ft_1
-#' @family functions to add rows in header or footer
+#' @family functions to add rows in a flextable
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_set_header_footer_df_1.png}{options: width="400"}}
@@ -748,7 +858,7 @@ set_footer_df <- function(x, mapping = NULL, key = "col_keys") {
 #' to use for splitting.
 #' @param fixed logical. If TRUE match `split` exactly,
 #' otherwise use regular expressions.
-#' @family functions to add rows in header or footer
+#' @family functions to add rows in a flextable
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_separate_header_1.png}{options: width="500"}}

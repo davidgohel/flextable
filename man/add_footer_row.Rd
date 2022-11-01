@@ -11,8 +11,10 @@ add_footer_row(x, top = TRUE, values = character(0), colwidths = integer(0))
 
 \item{top}{should the row be inserted at the top or the bottom.}
 
-\item{values}{values to add. It can be a \code{list} or a \code{character()} vector.
-If it is a list, it must be a named list using the names of the columns of the
+\item{values}{values to add. It can be a \code{list}, a \code{character()} vector
+or a call to \code{\link[=as_paragraph]{as_paragraph()}}.
+
+If it is a list, it can be a named list with the names of the columns of the
 original data.frame or the \code{colkeys}; this is the recommended method because
 it allows to keep the original data types and therefore allows to perform
 conditional formatting. If a character, columns of the original data.frame
@@ -33,41 +35,57 @@ In this case, you have to make sure that the
 number of labels is equal to the number of columns displayed.
 
 The function can add only one single row by call.
-}
-\section{Illustrations}{
 
-\if{html}{\figure{fig_add_footer_row_1.png}{options: width="300"}}
+Labels can be formatted with \code{\link[=as_paragraph]{as_paragraph()}}.
 }
-
 \examples{
-ft_1 <- flextable(head(iris))
+library(flextable)
+
+ft01 <- fp_text_default(color = "red")
+ft02 <- fp_text_default(color = "orange")
+
+pars <- as_paragraph(
+  as_chunk(c("(1)", "(2)"), props = ft02), " ",
+  as_chunk(
+    c(
+      "My tailor is rich",
+      "My baker is rich"
+    ),
+    props = ft01
+  )
+)
+
+ft_1 <- flextable(head(mtcars))
 ft_1 <- add_footer_row(ft_1,
-  values = "blah blah", colwidths = 5
+  values = pars,
+  colwidths = c(5, 6), top = FALSE
 )
 ft_1 <- add_footer_row(ft_1,
-  values = c("blah", "blah"),
-  colwidths = c(3, 2)
+  values = pars,
+  colwidths = c(3, 8), top = TRUE
 )
 ft_1
+
+ft_2 <- flextable(head(airquality))
+ft_2 <- add_footer_row(ft_2,
+  values = c("Measure", "Time"),
+  colwidths = c(4, 2), top = TRUE
+)
+ft_2 <- theme_box(ft_2)
+ft_2
 }
 \seealso{
-Other functions that add lines in the table: 
+\code{\link[=flextable]{flextable()}}, \code{\link[=set_caption]{set_caption()}}
+
+Other functions to add rows in a flextable: 
 \code{\link{add_body_row}()},
 \code{\link{add_body}()},
 \code{\link{add_footer_lines}()},
 \code{\link{add_footer}()},
-\code{\link{add_header_row}()},
-\code{\link{add_header}()}
-
-Other functions to add rows in header or footer: 
-\code{\link{add_footer_lines}()},
-\code{\link{add_footer}()},
-\code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
 \code{\link{add_header}()},
 \code{\link{separate_header}()},
 \code{\link{set_header_footer_df}},
 \code{\link{set_header_labels}()}
 }
-\concept{functions that add lines in the table}
-\concept{functions to add rows in header or footer}
+\concept{functions to add rows in a flextable}

@@ -70,14 +70,15 @@ ft_2 <- fix_border_issues(ft_2)
 ft_2
 }
 \seealso{
-Other functions to add rows in header or footer: 
+Other functions to add rows in a flextable: 
+\code{\link{add_body_row}()},
+\code{\link{add_body}()},
 \code{\link{add_footer_lines}()},
 \code{\link{add_footer_row}()},
 \code{\link{add_footer}()},
-\code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
 \code{\link{add_header}()},
 \code{\link{separate_header}()},
 \code{\link{set_header_labels}()}
 }
-\concept{functions to add rows in header or footer}
+\concept{functions to add rows in a flextable}
