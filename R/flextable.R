@@ -341,6 +341,8 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #'     height and the scroll will happen also vertically. The height
 #'     will be in pixel if numeric, if a string it should be a valid css
 #'     measure.
+#'     - If the list has a value named `freeze_first_column` set to `TRUE`,
+#'     the first column is set as a *sticky* column.
 #'     - If the list has a value named `add_css` it will be used as extra
 #'     css to add, .i.e: `border:1px solid red;`.
 #' @param opts_word Word options as a list. Supported elements are:
@@ -372,8 +374,31 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' ft_1 <- flextable(head(cars))
 #' ft_1 <- autofit(ft_1)
 #' ft_2 <- set_table_properties(ft_1, width = .5, layout = "autofit")
-#' ft_3 <- set_table_properties(ft_1, width = 1, layout = "autofit")
 #' ft_2
+#' ft_3 <- set_table_properties(ft_1, width = 1, layout = "autofit")
+#'
+#' # add scroll for HTML ----
+#' set.seed(2)
+#' dat <- lapply(1:14, function(x) rnorm(n = 20))
+#' dat <- setNames(dat, paste0("colname", 1:14))
+#' dat <- as.data.frame(dat)
+#'
+#' ft_4 <- flextable(dat)
+#' ft_4 <- colformat_double(ft_4)
+#' ft_4 <- bg(ft_4, j = 1, bg = "#DDDDDD", part = "all")
+#' ft_4 <- bg(ft_4, i = 1, bg = "#DDDDDD", part = "header")
+#' ft_4 <- autofit(ft_4)
+#' ft_4 <- set_table_properties(
+#'   x = ft_4,
+#'   opts_html = list(
+#'     scroll = list(
+#'       shadow = FALSE,
+#'       height = "500px",
+#'       freeze_first_column = TRUE
+#'     )
+#'   )
+#' )
+#' ft_4
 #' @family flextable dimensions
 #' @section Illustrations:
 #'

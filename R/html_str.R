@@ -32,12 +32,31 @@ gen_raw_html <- function(x,
     manual_css_str <- manual_css
   }
 
-  if(!is.null(x$properties$opts_html$scroll) &&
-     !is.null(x$properties$opts_html$scroll$height)) {
-    x$properties$opts_html$extra_css <- paste0(
-      ".tabwid th {position: sticky;top: 0;}.tabwid table{border-collapse: separate;}",
-      x$properties$opts_html$extra_css
-    )
+  if (!is.null(x$properties$opts_html$scroll)) {
+
+    freeze_first_column <- x$properties$opts_html$scroll$freeze_first_column
+    if (isTRUE(freeze_first_column)) {
+      freeze_first_css_th <- paste0(
+        ".", classname, " thead > tr > th:first-child {position:sticky;left:0;z-index:5;}")
+      freeze_first_css_td <- paste0(
+        ".", classname, " tbody > tr > td:first-child {position:sticky;left:0;z-index:3;}")
+      freeze_first_css <- paste0(
+        c(freeze_first_css_th, freeze_first_css_td),
+        collapse = "")
+
+      x$properties$opts_html$extra_css <- paste0(
+        freeze_first_css,
+        x$properties$opts_html$extra_css
+      )
+    }
+
+    if (!is.null(x$properties$opts_html$scroll$height)) {
+      x$properties$opts_html$extra_css <- paste0(
+        ".", classname, " th {position: sticky;top: 0;z-index: 4;}.", classname, " {border-collapse: separate !important;}",
+        x$properties$opts_html$extra_css
+      )
+    }
+
   }
 
   html <- paste0(
@@ -103,7 +122,6 @@ to_shadow_dom <- function(uid1, uid2) {
     "", "<script>",
     paste0("var dest = document.getElementById(\"", uid2, "\");"),
     paste0("var template = document.getElementById(\"", uid1, "\");"),
-    "var caption = template.content.querySelector(\"caption\");",
     "var fantome = dest.attachShadow({mode: 'open'});",
     "var templateContent = template.content;",
     "fantome.appendChild(templateContent);",
@@ -112,7 +130,7 @@ to_shadow_dom <- function(uid1, uid2) {
   paste(script_commands, collapse = "\n")
 }
 
-scrollbox <- function(height = NULL, add_css = "") {
+scrollbox <- function(height = NULL, add_css = "", ...) {
   str <- "overflow-x:auto;width:100%;"
   if (!is.null(height)) {
     if (is.numeric(height)) {

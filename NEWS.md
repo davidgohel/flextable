@@ -11,9 +11,12 @@ arguments related to format options and alignment in a document. It is
 supposed to replace "knitr" chunk options `ft.align`, `ft.split`,
 `ft.keepnext`, `ft.tabcolsep`, `ft.arraystretch`, `ft.latex.float`,
 `ft.shadow`, `fonts_ignore` although they are all still
-supported with one exception `ft.htmlscroll`. 
+supported.
 This allows less interaction with the 'R Markdown' or 'Quarto'
 eco-system and let to define it globally with `set_flextable_defaults()`.
+- HTML scrolling can be activated by calling `set_table_properties()` and 
+providing a *scroll* value for argument `opts_html`: 
+`opts_html = list(scroll = list(height = "500px",freeze_first_column = TRUE))`.
 - new function `grid_chunk()` to let users add grid graphics
 - functions `add_header_lines()` and `add_footer_lines()` 
 now supports formatted paragraph made with `as_paragraph()`.

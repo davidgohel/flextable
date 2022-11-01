@@ -88,6 +88,7 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL) {
 #' For example, you can put "\\\\pagebreak" here to have tables produced with page breaks.
 #' @param webshot webshot package as a scalar character, one of "webshot" or
 #' "webshot2".
+#' @param ft.htmlscroll `TRUE` or `FALSE` (default) to enable horizontal scrolling.
 #' @param ft.shadow `TRUE` (default) or `FALSE` to use shadow dom (for HTML only), this option is existing
 #' to disable shadow dom (set to `FALSE`) for pagedown and Quarto that can
 #' not support it for now.
@@ -125,6 +126,7 @@ flextable_to_rmd <- function(x,
                              ft.top = opts_current$get("ft.top"),
                              text_after = "",
                              webshot = opts_current$get("webshot"),
+                             ft.htmlscroll = opts_current$get("ft.htmlscroll"),
                              ft.shadow = opts_current$get("ft.shadow"),
                              bookdown = FALSE, quarto = FALSE,
                              pandoc2 = TRUE, print = TRUE,
@@ -134,6 +136,9 @@ flextable_to_rmd <- function(x,
 
   if (!is.null(ft.align)) {
     x$properties$align <- ft.align
+  }
+  if (isTRUE(ft.htmlscroll)) {
+    x$properties$opts_html$scroll <- list()
   }
   if (!is.null(ft.shadow)) {
     x$properties$opts_html$shadow <- ft.shadow
@@ -799,7 +804,6 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
   tabwid_css <- paste(
     c("<style>",
       readLines(system.file(package = "flextable", "web_1.1.1", "tabwid.css"), encoding = "UTF-8"),
-      readLines(system.file(package = "flextable", "web_1.1.1", "scrool.css"), encoding = "UTF-8"),
       "</style>"),
     collapse = "\n")
 

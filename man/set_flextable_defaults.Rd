@@ -101,16 +101,7 @@ to disable shadow dom (set to \code{FALSE}) for pagedown and Quarto that can
 not support it for now.}
 
 \item{scroll}{NULL or a list if you want to add a scroll-box.
-\itemize{
-\item Use an empty list to add an horizontal scroll.  The with
-is fixed, corresponding to the container's width.
-\item If the list has a value named \code{height} it will be used as
-height and the scroll will happen also vertically. The height
-will be in pixel if numeric, if a string it should be a valid css
-measure.
-\item If the list has a value named \code{add_css} it will be used as extra
-css to add, .i.e: \verb{border:1px solid red;}.
-}}
+See \strong{scroll} element of argument \code{opts_html} in function \code{\link[=set_table_properties]{set_table_properties()}}.}
 
 \item{split}{Word option 'Allow row to break across pages' can be
 activated when TRUE.}

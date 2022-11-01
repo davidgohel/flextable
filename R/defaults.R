@@ -86,14 +86,7 @@ flextable_global$defaults <- default_flextable_settings
 #' to disable shadow dom (set to `FALSE`) for pagedown and Quarto that can
 #' not support it for now.
 #' @param scroll NULL or a list if you want to add a scroll-box.
-#' - Use an empty list to add an horizontal scroll.  The with
-#' is fixed, corresponding to the container's width.
-#' - If the list has a value named `height` it will be used as
-#' height and the scroll will happen also vertically. The height
-#' will be in pixel if numeric, if a string it should be a valid css
-#' measure.
-#' - If the list has a value named `add_css` it will be used as extra
-#' css to add, .i.e: `border:1px solid red;`.
+#' See **scroll** element of argument `opts_html` in function [set_table_properties()].
 #' @param split Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
 #' @param keep_with_next Word option 'keep rows together' is
