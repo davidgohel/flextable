@@ -122,6 +122,8 @@ summarizor <- function(
   levs <- c(first_levels, setdiff(unique(dat$stat), c(first_levels, last_levels)), last_levels)
   labs <- levs
   dat$stat <- factor(dat$stat, levels = levs, labels = labs)
+
+  dat$variable <- factor(dat$variable, levels = cols)
   setDF(dat)
   attr(dat, "use_labels") <- list(
     stat = c(stat = "", mean_sd = "Mean (SD)", median_iqr = "Median (IQR)",
