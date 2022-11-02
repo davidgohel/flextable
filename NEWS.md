@@ -23,6 +23,8 @@ providing a *scroll* value for argument `opts_html`:
 `add_header_lines()` and `add_footer_lines()` 
 now supports formatted paragraph made with `as_paragraph()`.
 - captions: support for simple text in addition to `as_paragraph()`
+- `summarizor()` can now be transformed directly as a flextable 
+with method `as_flextable()`.
 
 ## Issues
 

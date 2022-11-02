@@ -14,25 +14,7 @@
 #'   by = "Treatment",
 #'   overall_label = "Overall"
 #' )
-#'
-#'
-#' # version 1 ----
-#' tab_1 <- tabulator(
-#'   x = z,
-#'   rows = c("variable", "stat"),
-#'   columns = "Treatment",
-#'   blah = as_paragraph(
-#'     as_chunk(
-#'       fmt_summarizor(
-#'         stat = stat,
-#'         num1 = value1, num2 = value2,
-#'         cts = cts, pcts = percent
-#'       )
-#'     )
-#'   )
-#' )
-#'
-#' ft_1 <- as_flextable(tab_1, separate_with = "variable")
+#' ft_1 <- as_flextable(z)
 #' ft_1
 #'
 #' # version 2 with your own functions ----
@@ -146,9 +128,49 @@ summarizor <- function(
              range = "Range", missing = "Missing"),
     variable = c(variable = "")
   )
+  class(dat) <- c("summarizor", class(dat))
   attr(dat, "n_by") <- datn
-
+  attr(dat, "by") <- by
   dat
+}
+
+#' @export
+#' @title summarizor to flextable
+#' @description `summarizor` object can be transformed as a flextable
+#' with method [as_flextable()].
+#' @param x result from [summarizor()]
+#' @param ... arguments for [as_flextable.tabulator()]
+#' @family as_flextable methods
+#' @examples
+#' z <- summarizor(CO2[-c(1, 4)],
+#'   by = "Treatment",
+#'   overall_label = "Overall"
+#' )
+#' ft_1 <- as_flextable(z, spread_first_col = TRUE)
+#' ft_1 <- prepend_chunks(ft_1,
+#'   i = ~ is.na(variable), j = 1,
+#'   as_chunk("\t"))
+#' ft_1 <- autofit(ft_1)
+#' ft_1
+as_flextable.summarizor <- function(x, ...) {
+
+  tab <- tabulator(
+    x = x,
+    rows = c("variable", "stat"),
+    columns = attr(x, "by"),
+    blah = as_paragraph(
+      as_chunk(
+        fmt_summarizor(
+          stat = !!sym("stat"),
+          num1 = !!sym("value1"), num2 = !!sym("value2"),
+          cts = !!sym("cts"), pcts = !!sym("percent")
+        )
+      )
+    )
+  )
+  ft <- as_flextable(tab, ...)
+
+  ft
 }
 
 #' @importFrom stats sd IQR median

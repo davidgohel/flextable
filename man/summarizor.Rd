@@ -35,25 +35,7 @@ z <- summarizor(CO2[-c(1, 4)],
   by = "Treatment",
   overall_label = "Overall"
 )
-
-
-# version 1 ----
-tab_1 <- tabulator(
-  x = z,
-  rows = c("variable", "stat"),
-  columns = "Treatment",
-  blah = as_paragraph(
-    as_chunk(
-      fmt_summarizor(
-        stat = stat,
-        num1 = value1, num2 = value2,
-        cts = cts, pcts = percent
-      )
-    )
-  )
-)
-
-ft_1 <- as_flextable(tab_1, separate_with = "variable")
+ft_1 <- as_flextable(z)
 ft_1
 
 # version 2 with your own functions ----
