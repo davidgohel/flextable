@@ -803,7 +803,7 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
   }
   tabwid_css <- paste(
     c("<style>",
-      readLines(system.file(package = "flextable", "web_1.1.1", "tabwid.css"), encoding = "UTF-8"),
+      readLines(system.file(package = "flextable", "web_1.1.2", "tabwid.css"), encoding = "UTF-8"),
       "</style>"),
     collapse = "\n")
 

@@ -99,7 +99,7 @@ gen_raw_html <- function(x,
     tabwid_css <- paste(
       c(
         "<style>",
-        readLines(system.file(package = "flextable", "web_1.1.1", "tabwid.css"), encoding = "UTF-8"),
+        readLines(system.file(package = "flextable", "web_1.1.2", "tabwid.css"), encoding = "UTF-8"),
         "</style>"
       ),
       collapse = "\n"
@@ -437,8 +437,8 @@ cell_css_styles <- function(x, add_widths = TRUE){
 #'   div(flextable_html_dependency())
 flextable_html_dependency <- function(){
   htmlDependency("tabwid",
-                 "1.1.1",
-                 src = system.file(package="flextable", "web_1.1.1"),
+                 "1.1.2",
+                 src = system.file(package="flextable", "web_1.1.2"),
                  stylesheet = "tabwid.css")
 
 }
