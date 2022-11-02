@@ -391,8 +391,8 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' ft_4 <- set_table_properties(
 #'   x = ft_4,
 #'   opts_html = list(
+#'     shadow = FALSE,
 #'     scroll = list(
-#'       shadow = FALSE,
 #'       height = "500px",
 #'       freeze_first_column = TRUE
 #'     )

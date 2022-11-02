@@ -134,8 +134,8 @@ ft_4 <- autofit(ft_4)
 ft_4 <- set_table_properties(
   x = ft_4,
   opts_html = list(
+    shadow = FALSE,
     scroll = list(
-      shadow = FALSE,
       height = "500px",
       freeze_first_column = TRUE
     )

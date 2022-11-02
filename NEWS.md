@@ -5,7 +5,8 @@
 - new argument `expand_single` in `as_grouped_data()`. If FALSE, groups with only one
 row will not be expanded with a title row.
 - new functions `fmt_avg_dev()`, `fmt_header_n()`, `fmt_n_percent()` and renaming of `fmt_2stats()` 
-to `fmt_summarizor()` to help working with `tabulator()`.
+to `fmt_summarizor()` to help working with `tabulator()`. `tabulator()` has also new
+internal values that allow N=xxx notes and automatic labels.
 - function `set_table_properties()` is now the recommanded way to set
 arguments related to format options and alignment in a document. It is
 supposed to replace "knitr" chunk options `ft.align`, `ft.split`,

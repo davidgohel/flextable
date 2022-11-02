@@ -146,6 +146,8 @@ tabulator <- function(x, rows, columns,
   stopifnot(`rows can not be empty` = length(rows)>0,
             `columns can not be empty` = length(columns)>0
   )
+  use_labels <- attr(x, "use_labels")
+  n_by <- attr(x, "n_by")
 
   x <- as.data.frame(x)
 
@@ -202,7 +204,10 @@ tabulator <- function(x, rows, columns,
     visible_columns = visible_columns,
     hidden_columns = hidden_columns,
     col_exprs = col_exprs,
-    row_exprs = row_compose)
+    row_exprs = row_compose,
+    use_labels = use_labels,
+    n_by = n_by
+  )
 
   class(z) <- "tabulator"
 
@@ -462,6 +467,34 @@ as_flextable.tabulator <- function(
   if(spread_first_col){
     ft <- align(x = ft, i = !is.na(dat[[row_spanner]]), align = columns_alignment)
   }
+
+  if (!is.null(x$use_labels)) {
+    for(labj in names(x$use_labels)) {
+      if (labj %in% ft$col_keys) {
+        ft <- labelizor(
+          x = ft, j = labj,
+          labels = x$use_labels[[labj]],
+          part = "all"
+        )
+      }
+    }
+  }
+  if (!is.null(x$n_by) && length(x$columns) == 1L) {
+    sum_x <- visible_columns
+    grp_labels <- sum_x[sum_x$.tab_columns %in% names(x$col_exprs)[1] & sum_x$type %in% "columns", x$columns]
+    col_keys <- sum_x[sum_x$.tab_columns %in% names(x$col_exprs)[1] & sum_x$type %in% "columns", "col_keys"]
+    names(col_keys) <- grp_labels
+    cts <- x$n_by$n
+    names(cts) <- x$n_by[[x$columns]]
+    for (lvl in names(cts)) {
+      ft <- append_chunks(
+        x = ft,
+        j = col_keys[lvl], i = 1, part = "header",
+        as_chunk(cts[lvl], formatter = fmt_header_n)
+      )
+    }
+  }
+
 
   ft <- autofit(ft, part = "all", add_w = .2, add_h = .0, unit = "cm")
   ft <- fix_border_issues(ft, part = "all")
