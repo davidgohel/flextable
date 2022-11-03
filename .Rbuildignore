@@ -12,4 +12,5 @@
 ^cran-comments\.md$
 ^ISSUE_TEMPLATE\.md$
 ^\.github$
+^tests/testthat/_snaps$
 
