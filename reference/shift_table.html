@@ -25,7 +25,7 @@ or intervals."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -176,29 +176,29 @@ table creation.</p></li>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"Placebo"</span><span class="op">)</span>, size <span class="op">=</span> <span class="va">.N</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          USUBJID     TREAT</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1: 01-ABC-0001   Placebo</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 01-ABC-0002 Treatment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 01-ABC-0002   Placebo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   3: 01-ABC-0003   Placebo</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 01-ABC-0004   Placebo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 01-ABC-0004 Treatment</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   5: 01-ABC-0005   Placebo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 196: 01-ABC-0196 Treatment</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 197: 01-ABC-0197 Treatment</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 198: 01-ABC-0198 Treatment</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 199: 01-ABC-0199 Treatment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 199: 01-ABC-0199   Placebo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 200: 01-ABC-0200 Treatment</span>
 <span class="r-in"><span><span class="va">subject_elts</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TREAT"</span><span class="op">)</span><span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">.SD</span><span class="op">$</span><span class="va">TREAT</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"Placebo"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          USUBJID     TREAT</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1: 01-ABC-0001   Placebo</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 01-ABC-0002 Treatment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 01-ABC-0002   Placebo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   3: 01-ABC-0003   Placebo</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 01-ABC-0004   Placebo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 01-ABC-0004 Treatment</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   5: 01-ABC-0005   Placebo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 196: 01-ABC-0196 Treatment</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 197: 01-ABC-0197 Treatment</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 198: 01-ABC-0198 Treatment</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 199: 01-ABC-0199 Treatment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 199: 01-ABC-0199   Placebo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 200: 01-ABC-0200 Treatment</span>
 <span class="r-in"><span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDF.html" class="external-link">setDF</a></span><span class="op">(</span><span class="va">subject_elts</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">labdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">labdata</span>, <span class="va">subject_elts</span>,</span></span>
@@ -210,13 +210,13 @@ table creation.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1: 01-ABC-0001        1 Albumin SCREENING 1      Y   Placebo  NORMAL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2: 01-ABC-0001        1  Sodium SCREENING 1      Y   Placebo  NORMAL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    3: 01-ABC-0001        2 Albumin      WEEK 2   &lt;NA&gt;   Placebo  NORMAL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 01-ABC-0001        2  Sodium      WEEK 2   &lt;NA&gt;   Placebo  NORMAL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 01-ABC-0001        2  Sodium      WEEK 2   &lt;NA&gt;   Placebo    HIGH</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    5: 01-ABC-0001        3 Albumin     MONTH 3   &lt;NA&gt;   Placebo  NORMAL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                                                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1196: 01-ABC-0200        1  Sodium SCREENING 1      Y Treatment  NORMAL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1197: 01-ABC-0200        2 Albumin      WEEK 2   &lt;NA&gt; Treatment  NORMAL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1198: 01-ABC-0200        2  Sodium      WEEK 2   &lt;NA&gt; Treatment     LOW</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1199: 01-ABC-0200        3 Albumin     MONTH 3   &lt;NA&gt; Treatment    HIGH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1198: 01-ABC-0200        2  Sodium      WEEK 2   &lt;NA&gt; Treatment  NORMAL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1199: 01-ABC-0200        3 Albumin     MONTH 3   &lt;NA&gt; Treatment  NORMAL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1200: 01-ABC-0200        3  Sodium     MONTH 3   &lt;NA&gt; Treatment  NORMAL</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDF.html" class="external-link">setDF</a></span><span class="op">(</span><span class="va">labdata</span><span class="op">)</span></span></span>
@@ -281,29 +281,29 @@ table creation.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 40 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     LBTEST  VISIT BASELINE N@Treatment@Low N@Treatment@Normal N@Treatment@High</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Albumin WEEK 2      Low               1                  1                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Albumin WEEK 2      Low               1                  1                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Albumin WEEK 2   Normal               4                 74                7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Albumin WEEK 2   Normal               4                 74                7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Albumin WEEK 2     High               0                  6                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Albumin WEEK 2      Low               0                  3                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Albumin WEEK 2      Low               0                  3                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Albumin WEEK 2   Normal               5                 75                5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Albumin WEEK 2   Normal               5                 75                5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Albumin WEEK 2     High               0                  5                1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    N@Treatment@Missing N@Placebo@Low N@Placebo@Normal N@Placebo@High</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                   0             0                2              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                   0             0                2              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                   0             3               88              7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                   0             3               88              7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                   0             0                7              0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                   0             0                0              2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                   0             0                0              2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                   0             4               87              8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                   0             4               87              8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                   0             0                4              1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    N@Placebo@Missing PCT@Treatment@Low PCT@Treatment@Normal PCT@Treatment@High</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                 0        0.01075269           0.01075269         0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                 0        0.01075269           0.01075269         0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                 0        0.04301075           0.79569892         0.07526882</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                 0        0.04301075           0.79569892         0.07526882</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                 0        0.00000000           0.06451613         0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                 0        0.00000000           0.03191489         0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                 0        0.00000000           0.03191489         0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                 0        0.05319149           0.79787234         0.05319149</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                 0        0.05319149           0.79787234         0.05319149</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                 0        0.00000000           0.05319149         0.01063830</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    PCT@Treatment@Missing PCT@Placebo@Low PCT@Placebo@Normal PCT@Placebo@High</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                     0      0.00000000         0.01869159       0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                     0      0.00000000         0.01869159       0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                     0      0.02803738         0.82242991       0.06542056</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                     0      0.02803738         0.82242991       0.06542056</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                     0      0.00000000         0.06542056       0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                     0      0.00000000         0.00000000      0.018867925</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                     0      0.00000000         0.00000000      0.018867925</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                     0      0.03773585         0.82075472      0.075471698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                     0      0.03773585         0.82075472      0.075471698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                     0      0.00000000         0.03773585      0.009433962</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    PCT@Placebo@Missing n@Treatment@Low n@Treatment@Normal n@Treatment@High</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11                   0                                                    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12                   0                                                    </span>
@@ -329,11 +329,11 @@ table creation.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14                                                                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15                                                                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    %@Placebo@Missing     TREAT N_VISIT dummy1 @Treatment@Low@n @Treatment@Low@%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                   Treatment      93                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                     Placebo     107                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                   Treatment      93                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                     Placebo     107                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                   Treatment      93                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                   Treatment      94                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                     Placebo     106                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                   Treatment      94                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                     Placebo     106                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                   Treatment      94                                         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    dummy2 @Treatment@Normal@n @Treatment@Normal@% dummy3 @Treatment@High@n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11                                                                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12                                                                        </span>
@@ -374,7 +374,7 @@ table creation.</p></li>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -5,7 +5,8 @@ Labels are associated with a number of columns
 to merge that default to one if not specified.
 In this case, you have to make sure that the
 number of labels is equal to the number of columns displayed.
-The function can add only one single row by call."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+The function can add only one single row by call.
+Labels can be formatted with as_paragraph()."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -23,7 +24,7 @@ The function can add only one single row by call."><meta property="og:image" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -62,6 +63,7 @@ to merge that default to one if not specified.
 In this case, you have to make sure that the
 number of labels is equal to the number of columns displayed.</p>
 <p>The function can add only one single row by call.</p>
+<p>Labels can be formatted with <code><a href="as_paragraph.html">as_paragraph()</a></code>.</p>
     </div>
 
     <div id="ref-usage">
@@ -79,8 +81,9 @@ number of labels is equal to the number of columns displayed.</p>
 
 
 <dt>values</dt>
-<dd><p>values to add. It can be a <code>list</code> or a <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code> vector.
-If it is a list, it must be a named list using the names of the columns of the
+<dd><p>values to add. It can be a <code>list</code>, a <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code> vector
+or a call to <code><a href="as_paragraph.html">as_paragraph()</a></code>.</p>
+<p>If it is a list, it can be a named list with the names of the columns of the
 original data.frame or the <code>colkeys</code>; this is the recommended method because
 it allows to keep the original data types and therefore allows to perform
 conditional formatting. If a character, columns of the original data.frame
@@ -94,25 +97,14 @@ efficient conditional formatting.</p></dd>
 <dd><p>the number of columns to merge in the row for each label</p></dd>
 
 </dl></div>
-    <div id="illustrations">
-    <h2>Illustrations</h2>
-    
-
-<p><img src="figures/fig_add_footer_row_1.png" width="300"></p>
-    </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>Other functions that add lines in the table: 
+    <div class="dont-index"><p><code><a href="flextable.html">flextable()</a></code>, <code><a href="set_caption.html">set_caption()</a></code></p>
+<p>Other functions to add rows in a flextable: 
 <code><a href="add_body_row.html">add_body_row</a>()</code>,
 <code><a href="add_body.html">add_body</a>()</code>,
 <code><a href="add_footer_lines.html">add_footer_lines</a>()</code>,
 <code><a href="add_footer.html">add_footer</a>()</code>,
-<code><a href="add_header_row.html">add_header_row</a>()</code>,
-<code><a href="add_header.html">add_header</a>()</code></p>
-<p>Other functions to add rows in header or footer: 
-<code><a href="add_footer_lines.html">add_footer_lines</a>()</code>,
-<code><a href="add_footer.html">add_footer</a>()</code>,
-<code><a href="add_header_lines.html">add_header_lines</a>()</code>,
 <code><a href="add_header_row.html">add_header_row</a>()</code>,
 <code><a href="add_header.html">add_header</a>()</code>,
 <code><a href="separate_header.html">separate_header</a>()</code>,
@@ -122,26 +114,62 @@ efficient conditional formatting.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft01</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text_default.html">fp_text_default</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft02</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text_default.html">fp_text_default</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"(1)"</span>, <span class="st">"(2)"</span><span class="op">)</span>, props <span class="op">=</span> <span class="va">ft02</span><span class="op">)</span>, <span class="st">" "</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="st">"My tailor is rich"</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"My baker is rich"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    props <span class="op">=</span> <span class="va">ft01</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu">add_footer_row</span><span class="op">(</span><span class="va">ft_1</span>,</span></span>
-<span class="r-in"><span>  values <span class="op">=</span> <span class="st">"blah blah"</span>, colwidths <span class="op">=</span> <span class="fl">5</span></span></span>
+<span class="r-in"><span>  values <span class="op">=</span> <span class="va">pars</span>,</span></span>
+<span class="r-in"><span>  colwidths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span>, top <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu">add_footer_row</span><span class="op">(</span><span class="va">ft_1</span>,</span></span>
-<span class="r-in"><span>  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blah"</span>, <span class="st">"blah"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  colwidths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  values <span class="op">=</span> <span class="va">pars</span>,</span></span>
+<span class="r-in"><span>  colwidths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">8</span><span class="op">)</span>, top <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`, `Species` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 6 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          5.1         3.5          1.4         0.2  setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          4.9         3.0          1.4         0.2  setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          4.7         3.2          1.3         0.2  setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4.6         3.1          1.5         0.2  setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5.0         3.6          1.4         0.2  setosa</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu">add_footer_row</span><span class="op">(</span><span class="va">ft_2</span>,</span></span>
+<span class="r-in"><span>  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Measure"</span>, <span class="st">"Time"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  colwidths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, top <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme_box.html">theme_box</a></span><span class="op">(</span><span class="va">ft_2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_2</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Ozone`, `Solar.R`, `Wind`, `Temp`, `Month`, `Day` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 6 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Ozone Solar.R Wind Temp Month Day</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    41     190  7.4   67     5   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    36     118  8.0   72     5   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    12     149 12.6   74     5   3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    18     313 11.5   62     5   4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    NA      NA 14.3   56     5   5</span>
 </code></pre></div>
     </div>
   </div>
@@ -152,7 +180,7 @@ efficient conditional formatting.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

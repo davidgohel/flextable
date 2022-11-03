@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -174,10 +174,6 @@
           <p><code><a href="as_grouped_data.html">as_grouped_data()</a></code> </p>
         </td>
         <td><p>grouped data transformation</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_flextable.xtable.html">as_flextable(<i>&lt;xtable&gt;</i>)</a></code> <code><a href="as_flextable.xtable.html">xtable_to_flextable()</a></code> </p>
-        </td>
-        <td><p>get a flextable from a xtable object</p></td>
       </tr><tr><td>
           <p><code><a href="as_flextable.html">as_flextable()</a></code> </p>
         </td>
@@ -393,11 +389,15 @@
       </tr><tr><td>
           <p><code><a href="gg_chunk.html">gg_chunk()</a></code> </p>
         </td>
-        <td><p>gg plots chunk wrapper</p></td>
+        <td><p>ggplots chunk wrapper</p></td>
       </tr><tr><td>
           <p><code><a href="plot_chunk.html">plot_chunk()</a></code> </p>
         </td>
         <td><p>mini plots chunk wrapper</p></td>
+      </tr><tr><td>
+          <p><code><a href="grid_chunk.html">grid_chunk()</a></code> </p>
+        </td>
+        <td><p>'Grid Graphics' chunk wrapper</p></td>
       </tr><tr><td>
           <p><code><a href="as_b.html">as_b()</a></code> </p>
         </td>
@@ -507,9 +507,21 @@
           <p class="section-desc"></p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="fmt_2stats.html">fmt_2stats()</a></code> </p>
+          <p><code><a href="fmt_2stats.html">fmt_2stats()</a></code> <code><a href="fmt_2stats.html">fmt_summarizor()</a></code> </p>
         </td>
-        <td><p>format content for data generated with <code><a href="../reference/summarizor.html">summarizor()</a></code></p></td>
+        <td><p>format content for data generated with summarizor()</p></td>
+      </tr><tr><td>
+          <p><code><a href="fmt_avg_dev.html">fmt_avg_dev()</a></code> </p>
+        </td>
+        <td><p>format content for mean and sd</p></td>
+      </tr><tr><td>
+          <p><code><a href="fmt_header_n.html">fmt_header_n()</a></code> </p>
+        </td>
+        <td><p>format count data for headers</p></td>
+      </tr><tr><td>
+          <p><code><a href="fmt_n_percent.html">fmt_n_percent()</a></code> </p>
+        </td>
+        <td><p>format content for count data</p></td>
       </tr><tr><td>
           <p><code><a href="fp_border_default.html">fp_border_default()</a></code> </p>
         </td>
@@ -671,11 +683,15 @@
         </td>
         <td><p>tabular summary for pam</p></td>
       </tr><tr><td>
+          <p><code><a href="as_flextable.summarizor.html">as_flextable(<i>&lt;summarizor&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>summarizor to flextable</p></td>
+      </tr><tr><td>
           <p><code><a href="as_flextable.tabulator.html">as_flextable(<i>&lt;tabulator&gt;</i>)</a></code> </p>
         </td>
         <td><p>tabulator to flextable</p></td>
       </tr><tr><td>
-          <p><code><a href="as_flextable.xtable.html">as_flextable(<i>&lt;xtable&gt;</i>)</a></code> <code><a href="as_flextable.xtable.html">xtable_to_flextable()</a></code> </p>
+          <p><code><a href="as_flextable.xtable.html">as_flextable(<i>&lt;xtable&gt;</i>)</a></code> </p>
         </td>
         <td><p>get a flextable from a xtable object</p></td>
       </tr><tr><td>
@@ -699,7 +715,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

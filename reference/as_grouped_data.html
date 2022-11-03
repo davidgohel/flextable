@@ -19,7 +19,7 @@ be added as a row title."><meta property="og:image" content="/logo.png"><!-- mat
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -57,7 +57,7 @@ be added as a row title.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as_grouped_data</span><span class="op">(</span><span class="va">x</span>, <span class="va">groups</span>, columns <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as_grouped_data</span><span class="op">(</span><span class="va">x</span>, <span class="va">groups</span>, columns <span class="op">=</span> <span class="cn">NULL</span>, expand_single <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -72,6 +72,13 @@ be added as a row title.</p>
 
 <dt>columns</dt>
 <dd><p>columns names to keep</p></dd>
+
+
+<dt>expand_single</dt>
+<dd><p>if FALSE, groups with only one
+row will not be expanded with a title row. If TRUE (the
+default), single row groups and multi-row groups are all
+restructured.</p></dd>
 
 </dl></div>
     <div id="see-also">
@@ -109,14 +116,14 @@ be added as a row title.</p>
 <span class="r-in"><span><span class="va">data_co2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Treatment conc   Quebec Mississippi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  nonchilled   NA       NA          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        &lt;NA&gt;   95 15.26667    11.30000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        &lt;NA&gt;  175 30.03333    20.20000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        &lt;NA&gt;  250 37.40000    27.53333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        &lt;NA&gt;  350 40.36667    29.90000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        &lt;NA&gt;  500 39.60000    30.60000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        &lt;NA&gt;  675 41.50000    30.53333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        &lt;NA&gt; 1000 43.16667    31.60000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     chilled   NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        &lt;NA&gt;   95 15.26667    11.30000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        &lt;NA&gt;  175 30.03333    20.20000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        &lt;NA&gt;  250 37.40000    27.53333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        &lt;NA&gt;  350 40.36667    29.90000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        &lt;NA&gt;  500 39.60000    30.60000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        &lt;NA&gt;  675 41.50000    30.53333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        &lt;NA&gt; 1000 43.16667    31.60000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     chilled   NA       NA          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10       &lt;NA&gt;   95 12.86667     9.60000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11       &lt;NA&gt;  175 24.13333    14.76667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12       &lt;NA&gt;  250 34.46667    16.10000</span>
@@ -134,7 +141,7 @@ be added as a row title.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

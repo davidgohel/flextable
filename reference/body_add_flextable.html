@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -56,9 +56,9 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">body_add_flextable</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  <span class="va">value</span>,</span>
-<span>  align <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span>  align <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  pos <span class="op">=</span> <span class="st">"after"</span>,</span>
-<span>  split <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  split <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  topcaption <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  keepnext <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
@@ -102,8 +102,9 @@ caption is added after the table.</p></dd>
 
 
 <dt>keepnext</dt>
-<dd><p>deprecated, keepnext is to to TRUE for captions
-on top of tables and FALSE for captions on bottom of tables</p></dd>
+<dd><p>default to FALSE, 'keep with next' binds the table
+to the first line of the next block (a paragraph or a table). It
+ensures no page break happens between the two blocks.</p></dd>
 
 
 <dt>bookmark</dt>
@@ -125,7 +126,7 @@ a bookmark with a flextable. As a side effect, the bookmark will be lost.</p>
 <span class="r-in"><span><span class="co"># autonum for caption</span></span></span>
 <span class="r-in"><span><span class="va">autonum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/run_autonum.html" class="external-link">run_autonum</a></span><span class="op">(</span>seq_id <span class="op">=</span> <span class="st">"tab"</span>, bkm <span class="op">=</span> <span class="st">"mtcars"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">ftab</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="va">mtcars</span> <span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ftab</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ftab</span> <span class="op">&lt;-</span> <span class="fu"><a href="set_caption.html">set_caption</a></span><span class="op">(</span><span class="va">ftab</span>, caption <span class="op">=</span> <span class="st">"mtcars data"</span>, autonum <span class="op">=</span> <span class="va">autonum</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ftab</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ftab</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_docx.html" class="external-link">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
@@ -143,7 +144,7 @@ a bookmark with a flextable. As a side effect, the bookmark will be lost.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

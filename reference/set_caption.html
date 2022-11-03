@@ -13,7 +13,11 @@ PowerPoint shape containing the table).
 
 
 When working with 'R Markdown' or 'Quarto', the caption settings
-defined with set_caption() will be prioritized over knitr chunk options."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+defined with set_caption() will be prioritized over knitr chunk options.
+Caption value can be a single string or the result to a call to
+as_paragraph(). With the latter, the caption is made of
+formatted chunks whereas with the former, caption will not be
+associated with any formatting."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -31,7 +35,7 @@ defined with set_caption() will be prioritized over knitr chunk options."><meta 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -75,6 +79,10 @@ a shape to contain the caption (technically it can't be in the
 PowerPoint shape containing the table).</p></li>
 </ul><p>When working with 'R Markdown' or 'Quarto', the caption settings
 defined with <code>set_caption()</code> will be prioritized over knitr chunk options.</p>
+<p>Caption value can be a single string or the result to a call to
+<code><a href="as_paragraph.html">as_paragraph()</a></code>. With the latter, the caption is made of
+formatted chunks whereas with the former, caption will not be
+associated with any formatting.</p>
     </div>
 
     <div id="ref-usage">
@@ -98,20 +106,29 @@ defined with <code>set_caption()</code> will be prioritized over knitr chunk opt
 
 
 <dt>caption</dt>
-<dd><p>caption value.</p></dd>
+<dd><p>caption value. The caption can be either a string either
+a call to <code><a href="as_paragraph.html">as_paragraph()</a></code>. In the latter case, users are free to format
+the caption with colors, italic fonts, also mixed with images or
+equations. Note that Quarto does not allow the use of this feature.</p>
+<p>Caption as a string does not support 'Markdown' syntax. If you want to
+add a bold text in the caption, use <code>as_paragraph('a ', as_b('bold'), ' text')</code>
+when providing caption.</p></dd>
 
 
 <dt>autonum</dt>
 <dd><p>an autonum representation. See <code><a href="https://davidgohel.github.io/officer/reference/run_autonum.html" class="external-link">officer::run_autonum()</a></code>.
-This has only an effect when output is Word. If used, the caption is preceded
-by an auto-number sequence. In this case, the caption is preceded by an auto-number
-sequence that can be cross referenced.</p></dd>
+This has an effect only when the output is "Word" (in which case the object
+is used to define the Word auto-numbering), "html" and "pdf" (in which case only
+the bookmark identifier will be used). If used, the caption is preceded
+by an auto-number sequence.</p></dd>
 
 
 <dt>word_stylename, style</dt>
 <dd><p>'Word' style name to associate with caption paragraph. These names are available with
 function <code><a href="https://davidgohel.github.io/officer/reference/styles_info.html" class="external-link">officer::styles_info()</a></code> when output is Word. Argument <code>style</code>
-is deprecated in favor of <code>word_stylename</code>.</p></dd>
+is deprecated in favor of <code>word_stylename</code>. If the caption is defined with
+<code><a href="as_paragraph.html">as_paragraph()</a></code>, some of the formattings of the paragraph style will be
+replaced by the formattings associated with the chunks (such as the font).</p></dd>
 
 
 <dt>fp_p</dt>
@@ -154,7 +171,7 @@ differently; Quarto will replace captions with <code>tbl-cap</code> and <code>la
 inject captions from the <code>tbl-cap</code> and <code>label</code> values. This is a temporary
 situation that should evolve later. flextable' will evolve according to the
 evolution of Quarto.</p></li>
-</ul><p>Using officer enable all options specified with <code>set_caption()</code>.</p>
+</ul><p>Using <code><a href="body_add_flextable.html">body_add_flextable()</a></code> enable all options specified with <code>set_caption()</code>.</p>
     </div>
     <div id="r-markdown">
     <h2>R Markdown</h2>
@@ -162,8 +179,16 @@ evolution of Quarto.</p></li>
 
 
 <p>flextable captions can be defined from R Markdown documents by using
-<code>knitr::opts_chunk$set()</code>. The following options are available
-with <code><a href="https://davidgohel.github.io/officedown/reference/rdocx_document.html" class="external-link">officedown::rdocx_document</a></code> and/or bookdown:</p><table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>Word stylename to use for table captions.</td><td>tab.cap.style</td><td>NULL</td></tr><tr><td>caption id/bookmark</td><td>tab.id</td><td>NULL</td></tr><tr><td>caption</td><td>tab.cap</td><td>NULL</td></tr><tr><td>display table caption on top of the table or not</td><td>tab.topcaption</td><td>TRUE</td></tr><tr><td>caption table sequence identifier.</td><td>tab.lp</td><td>"tab:"</td></tr></table><p>The following options are only available when used with <code><a href="https://davidgohel.github.io/officedown/reference/rdocx_document.html" class="external-link">officedown::rdocx_document</a></code>:</p><table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>prefix for numbering chunk (default to   "Table ").</td><td>tab.cap.pre</td><td>Table</td></tr><tr><td>suffix for numbering chunk (default to   ": ").</td><td>tab.cap.sep</td><td>" :"</td></tr><tr><td>title number depth</td><td>tab.cap.tnd</td><td>0</td></tr><tr><td>separator to use between title number and table number.</td><td>tab.cap.tns</td><td>"-"</td></tr><tr><td>caption prefix formatting properties</td><td>tab.cap.fp_text</td><td>fp_text_lite(bold = TRUE)</td></tr></table><p>See <a href="knit_print.flextable.html">knit_print.flextable</a> for more details.</p>
+<code>knitr::opts_chunk$set()</code>. User don't always have to call <code>set_caption()</code>
+to set a caption, he can use knitr chunk options instead. A typical call
+would be:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">```</span><span class="at">{r}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">#| tab.id: bookmark_id</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">#| tab.cap: caption text</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">flextable(head(cars))</span></span></code></pre><p></p></div>
+<p><code>tab.id</code> is the caption id or bookmark, <code>tab.cap</code> is the caption
+text. There are many options that can replace <code>set_caption()</code>
+features. The following knitr chunk options are available:</p><table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>Word stylename to use for table captions.</td><td>tab.cap.style</td><td>NULL</td></tr><tr><td>caption id/bookmark</td><td>tab.id</td><td>NULL</td></tr><tr><td>caption</td><td>tab.cap</td><td>NULL</td></tr><tr><td>display table caption on top of the table or not</td><td>tab.topcaption</td><td>TRUE</td></tr><tr><td>caption table sequence identifier.</td><td>tab.lp</td><td>"tab:"</td></tr><tr><td>prefix for numbering chunk (default to   "Table ").</td><td>tab.cap.pre</td><td>Table</td></tr><tr><td>suffix for numbering chunk (default to   ": ").</td><td>tab.cap.sep</td><td>" :"</td></tr><tr><td>title number depth</td><td>tab.cap.tnd</td><td>0</td></tr><tr><td>separator to use between title number and table number.</td><td>tab.cap.tns</td><td>"-"</td></tr><tr><td>caption prefix formatting properties</td><td>tab.cap.fp_text</td><td>fp_text_lite(bold = TRUE)</td></tr></table><p>See <a href="knit_print.flextable.html">knit_print.flextable</a> for more details.</p>
     </div>
     <div id="using-quarto-">
     <h2>Using 'Quarto'</h2>
@@ -171,7 +196,7 @@ with <code><a href="https://davidgohel.github.io/officedown/reference/rdocx_docu
 
 
 <p>'Quarto' manage captions and cross-references instead of flextable. That's why
-<code>set_caption()</code> is not useful in a 'Quarto' document except for Word documents
+<code>set_caption()</code> is not that useful in a 'Quarto' document except for Word documents
 where 'Quarto' does not manage captions yet (when output is raw xml which is the
 case for flextable).</p>
 <p>knitr options are almost the same than those detailled in the R Markdown section (see upper),
@@ -226,7 +251,7 @@ been defined by flextable. See Quarto documentation for more information.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

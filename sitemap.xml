@@ -94,6 +94,9 @@
     <loc>/reference/as_flextable.pam.html</loc>
   </url>
   <url>
+    <loc>/reference/as_flextable.summarizor.html</loc>
+  </url>
+  <url>
     <loc>/reference/as_flextable.tabulator.html</loc>
   </url>
   <url>
@@ -241,6 +244,15 @@
     <loc>/reference/fmt_2stats.html</loc>
   </url>
   <url>
+    <loc>/reference/fmt_avg_dev.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fmt_header_n.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fmt_n_percent.html</loc>
+  </url>
+  <url>
     <loc>/reference/font.html</loc>
   </url>
   <url>
@@ -266,6 +278,9 @@
   </url>
   <url>
     <loc>/reference/gg_chunk.html</loc>
+  </url>
+  <url>
+    <loc>/reference/grid_chunk.html</loc>
   </url>
   <url>
     <loc>/reference/headers_flextable_at_bkm.html</loc>

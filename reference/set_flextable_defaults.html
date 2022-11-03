@@ -20,7 +20,7 @@ to re-init all values with the package defaults."><meta property="og:image" cont
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -84,6 +84,13 @@ to re-init all values with the package defaults.</p>
 <span>  fmt_date <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fmt_datetime <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  extra_css <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  shadow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scroll <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  split <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  keep_with_next <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabcolsep <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  arraystretch <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  float <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fonts_ignore <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  theme_fun <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  post_process_pdf <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -179,6 +186,49 @@ documented in <code><a href="https://rdrr.io/r/base/strptime.html" class="extern
 <dd><p>css instructions to be integrated with the table.</p></dd>
 
 
+<dt>shadow</dt>
+<dd><p><code>TRUE</code> or <code>FALSE</code>, use shadow dom (for HTML only), this option is existing
+to disable shadow dom (set to <code>FALSE</code>) for pagedown and Quarto that can
+not support it for now.</p></dd>
+
+
+<dt>scroll</dt>
+<dd><p>NULL or a list if you want to add a scroll-box.
+See <strong>scroll</strong> element of argument <code>opts_html</code> in function <code><a href="set_table_properties.html">set_table_properties()</a></code>.</p></dd>
+
+
+<dt>split</dt>
+<dd><p>Word option 'Allow row to break across pages' can be
+activated when TRUE.</p></dd>
+
+
+<dt>keep_with_next</dt>
+<dd><p>Word option 'keep rows together' is
+activated when TRUE. It avoids page break within tables. This
+is handy for small tables, i.e. less than a page height.</p></dd>
+
+
+<dt>tabcolsep</dt>
+<dd><p>space between the text and the left/right border of its containing
+cell.</p></dd>
+
+
+<dt>arraystretch</dt>
+<dd><p>height of each row relative to its default
+height, the default value is 1.5.</p></dd>
+
+
+<dt>float</dt>
+<dd><p>type of floating placement in the PDF document, one of:</p><ul><li><p>'none' (the default value), table is placed after the preceding
+paragraph.</p></li>
+<li><p>'float', table can float to a place in the text where it fits best</p></li>
+<li><p>'wrap-r', wrap text around the table positioned to the right side of the text</p></li>
+<li><p>'wrap-l', wrap text around the table positioned to the left side of the text</p></li>
+<li><p>'wrap-i', wrap text around the table positioned inside edge-near the binding</p></li>
+<li><p>'wrap-o', wrap text around the table positioned outside edge-far from the binding</p></li>
+</ul></dd>
+
+
 <dt>fonts_ignore</dt>
 <dd><p>if TRUE, pdf-engine pdflatex can be used instead of
 xelatex or lualatex. If pdflatex is used, fonts will be ignored because they are
@@ -269,7 +319,7 @@ They are executed just before printing the table.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

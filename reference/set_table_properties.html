@@ -22,7 +22,7 @@ table width is used (as a percentage)."><meta property="og:image" content="/logo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -67,6 +67,10 @@ table width is used (as a percentage).</p>
 <span>  <span class="va">x</span>,</span>
 <span>  layout <span class="op">=</span> <span class="st">"fixed"</span>,</span>
 <span>  width <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  align <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span>  opts_html <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  opts_word <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  opts_pdf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  word_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  word_description <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -91,6 +95,59 @@ may decide not to strictly stick to it. It has no effect on
 PowerPoint and PDF output. Its default value is 0, as an effect, it
 only use necessary width to display all content. It is not used by the
 PDF output.</p></dd>
+
+
+<dt>align</dt>
+<dd><p>alignment in document (only Word, HTML and PDF),
+supported values are 'left', 'center' and 'right'.</p></dd>
+
+
+<dt>opts_html</dt>
+<dd><p>html options as a list. Supported elements are:</p><ul><li><p>'shadow' <code>TRUE</code> or <code>FALSE</code>, use shadow dom, this option is existing
+to disable shadow dom (set to <code>FALSE</code>) for pagedown and Quarto that can
+not support it for now.</p></li>
+<li><p>'extra_css': extra css instructions to be integrated with the HTML
+code of the table.</p></li>
+<li><p>'scroll': NULL or a list if you want to add a scroll-box.</p><ul><li><p>Use an empty list to add an horizontal scroll.  The with
+is fixed, corresponding to the container's width.</p></li>
+<li><p>If the list has a value named <code>height</code> it will be used as
+height and the scroll will happen also vertically. The height
+will be in pixel if numeric, if a string it should be a valid css
+measure.</p></li>
+<li><p>If the list has a value named <code>freeze_first_column</code> set to <code>TRUE</code>,
+the first column is set as a <em>sticky</em> column.</p></li>
+<li><p>If the list has a value named <code>add_css</code> it will be used as extra
+css to add, .i.e: <code>border:1px solid red;</code>.</p></li>
+</ul></li>
+</ul></dd>
+
+
+<dt>opts_word</dt>
+<dd><p>Word options as a list. Supported elements are:</p><ul><li><p>'split':  Word option 'Allow row to break across pages' can be
+activated when TRUE.</p></li>
+<li><p>'keep_with_next': Word option 'keep rows together' is
+activated when TRUE. It avoids page break within tables. This
+is handy for small tables, i.e. less than a page height.</p></li>
+</ul></dd>
+
+
+<dt>opts_pdf</dt>
+<dd><p>PDF options as a list. Supported elements are:</p><ul><li><p>'tabcolsep': space between the text and the left/right border of its containing
+cell.</p></li>
+<li><p>'arraystretch': height of each row relative to its default
+height, the default value is 1.5.</p></li>
+<li><p>'float': type of floating placement in the PDF document, one of:</p><ul><li><p>'none' (the default value), table is placed after the preceding
+paragraph.</p></li>
+<li><p>'float', table can float to a place in the text where it fits best</p></li>
+<li><p>'wrap-r', wrap text around the table positioned to the right side of the text</p></li>
+<li><p>'wrap-l', wrap text around the table positioned to the left side of the text</p></li>
+<li><p>'wrap-i', wrap text around the table positioned inside edge-near the binding</p></li>
+<li><p>'wrap-o', wrap text around the table positioned outside edge-far from the binding</p></li>
+</ul></li>
+<li><p>'fonts_ignore': if TRUE, pdf-engine 'pdflatex' can be used instead of
+'xelatex' or 'lualatex.' If pdflatex is used, fonts will be ignored because they are
+not supported by pdflatex, whereas with the xelatex and lualatex engines they are.</p></li>
+</ul></dd>
 
 
 <dt>word_title</dt>
@@ -135,7 +192,6 @@ PDF output.</p></dd>
 <span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_2</span> <span class="op">&lt;-</span> <span class="fu">set_table_properties</span><span class="op">(</span><span class="va">ft_1</span>, width <span class="op">=</span> <span class="fl">.5</span>, layout <span class="op">=</span> <span class="st">"autofit"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ft_3</span> <span class="op">&lt;-</span> <span class="fu">set_table_properties</span><span class="op">(</span><span class="va">ft_1</span>, width <span class="op">=</span> <span class="fl">1</span>, layout <span class="op">=</span> <span class="st">"autofit"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `speed`, `dist` </span>
@@ -148,6 +204,53 @@ PDF output.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     7    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4     7   22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5     8   16</span>
+<span class="r-in"><span><span class="va">ft_3</span> <span class="op">&lt;-</span> <span class="fu">set_table_properties</span><span class="op">(</span><span class="va">ft_1</span>, width <span class="op">=</span> <span class="fl">1</span>, layout <span class="op">=</span> <span class="st">"autofit"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add scroll for HTML ----</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">14</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"colname"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">14</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ft_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="colformat_double.html">colformat_double</a></span><span class="op">(</span><span class="va">ft_4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="bg.html">bg</a></span><span class="op">(</span><span class="va">ft_4</span>, j <span class="op">=</span> <span class="fl">1</span>, bg <span class="op">=</span> <span class="st">"#DDDDDD"</span>, part <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="bg.html">bg</a></span><span class="op">(</span><span class="va">ft_4</span>, i <span class="op">=</span> <span class="fl">1</span>, bg <span class="op">=</span> <span class="st">"#DDDDDD"</span>, part <span class="op">=</span> <span class="st">"header"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ft_4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_4</span> <span class="op">&lt;-</span> <span class="fu">set_table_properties</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">ft_4</span>,</span></span>
+<span class="r-in"><span>  opts_html <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    shadow <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>    scroll <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      height <span class="op">=</span> <span class="st">"500px"</span>,</span></span>
+<span class="r-in"><span>      freeze_first_column <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ft_4</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `colname1`, `colname2`, `colname3`, `colname4`, `colname5`, `colname6`, `colname7`, `colname8`, `colname9`, `colname10`, `colname11`, `colname12`, `colname13`, `colname14` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 20 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      colname1     colname2   colname3   colname4   colname5   colname6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.89691455  2.090819205 -0.3835862 -1.7882422  0.9959846  1.0744594</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.18484918 -1.199925820 -1.9591032  2.0312425 -1.6957649  0.2605978</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.58784533  1.589638200 -0.8417051 -0.7031443 -0.5333721 -0.3142720</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -1.13037567  1.954651642  1.9035475  0.1581648 -1.3722695 -0.7496301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.08025176  0.004937777  0.6224939  0.5062348 -2.2079198 -0.8621983</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     colname7    colname8   colname9  colname10  colname11   colname12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.2411998 -0.58310385  0.3984673 -1.0304037  0.2979836  0.39814621</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.1388584  0.40972398 -0.6380710 -1.2619293 -1.0195522  0.71551914</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.7106316 -0.80698164 -0.2677129  0.3921846  2.8708974 -0.79319514</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.4306410  0.08555044  0.3598796 -1.1314383  0.2187100  1.92385165</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -1.0442296  0.74624317 -1.3128661  0.5441445 -0.9665543  0.07043999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     colname13   colname14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.08178004  1.34301314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2.88841825 -0.09835844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.17282535 -0.32199548</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.54964322 -1.91473450</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.77910451 -0.64704139</span>
 </code></pre></div>
     </div>
   </div>
@@ -158,7 +261,7 @@ PDF output.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
