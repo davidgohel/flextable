@@ -27,6 +27,7 @@ jobs:
 
       - name: Install specific Packages
         run: |
+          install.packages("remotes")
           remotes::install_cran("pkgdown")
           remotes::install_github("ardata-fr/pkgardata")
         shell: Rscript {0}
