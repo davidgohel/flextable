@@ -22,16 +22,23 @@ set_caption(
 \item{caption}{caption value. The caption can be either a string either
 a call to \code{\link[=as_paragraph]{as_paragraph()}}. In the latter case, users are free to format
 the caption with colors, italic fonts, also mixed with images or
-equations. Note that Quarto does not allow the use of this feature.}
+equations. Note that Quarto does not allow the use of this feature.
+
+Caption as a string does not support 'Markdown' syntax. If you want to
+add a bold text in the caption, use \code{as_paragraph('a ', as_b('bold'), ' text')}
+when providing caption.}
 
 \item{autonum}{an autonum representation. See \code{\link[officer:run_autonum]{officer::run_autonum()}}.
-This has only an effect when output is Word. If used, the caption is preceded
-by an auto-number sequence. In this case, the caption is preceded by an auto-number
-sequence that can be cross referenced.}
+This has an effect only when the output is "Word" (in which case the object
+is used to define the Word auto-numbering), "html" and "pdf" (in which case only
+the bookmark identifier will be used). If used, the caption is preceded
+by an auto-number sequence.}
 
 \item{word_stylename, style}{'Word' style name to associate with caption paragraph. These names are available with
 function \code{\link[officer:styles_info]{officer::styles_info()}} when output is Word. Argument \code{style}
-is deprecated in favor of \code{word_stylename}.}
+is deprecated in favor of \code{word_stylename}. If the caption is defined with
+\code{as_paragraph()}, some of the formattings of the paragraph style will be
+replaced by the formattings associated with the chunks (such as the font).}
 
 \item{fp_p}{paragraph formatting properties associated with the caption, see \code{\link[=fp_par]{fp_par()}}.
 It applies when possible, i.e. in HTML and 'Word' but not with bookdown.}
@@ -63,6 +70,11 @@ PowerPoint shape containing the table).
 
 When working with 'R Markdown' or 'Quarto', the caption settings
 defined with \code{set_caption()} will be prioritized over knitr chunk options.
+
+Caption value can be a single string or the result to a call to
+\code{\link[=as_paragraph]{as_paragraph()}}. With the latter, the caption is made of
+formatted chunks whereas with the former, caption will not be
+associated with any formatting.
 }
 \details{
 The values defined by \code{set_caption()} will be preferred when possible, i.e. the
@@ -86,25 +98,32 @@ situation that should evolve later. flextable' will evolve according to the
 evolution of Quarto.
 }
 
-Using officer enable all options specified with \code{set_caption()}.
+Using \code{\link[=body_add_flextable]{body_add_flextable()}} enable all options specified with \code{set_caption()}.
 }
 \section{R Markdown}{
 
 
 flextable captions can be defined from R Markdown documents by using
-\code{knitr::opts_chunk$set()}. The following options are available
-with \code{officedown::rdocx_document} and/or bookdown:\tabular{lcc}{
+\code{knitr::opts_chunk$set()}. User don't always have to call \code{set_caption()}
+to set a caption, he can use knitr chunk options instead. A typical call
+would be:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{```\{r\}
+#| tab.id: bookmark_id
+#| tab.cap: caption text
+flextable(head(cars))
+```
+}\if{html}{\out{</div>}}
+
+\code{tab.id} is the caption id or bookmark, \code{tab.cap} is the caption
+text. There are many options that can replace \code{set_caption()}
+features. The following knitr chunk options are available:\tabular{lcc}{
    \strong{label} \tab \strong{name} \tab \strong{value} \cr
    Word stylename to use for table captions. \tab tab.cap.style \tab NULL \cr
    caption id/bookmark \tab tab.id \tab NULL \cr
    caption \tab tab.cap \tab NULL \cr
    display table caption on top of the table or not \tab tab.topcaption \tab TRUE \cr
    caption table sequence identifier. \tab tab.lp \tab "tab:" \cr
-}
-
-
-The following options are only available when used with \code{officedown::rdocx_document}:\tabular{lcc}{
-   \strong{label} \tab \strong{name} \tab \strong{value} \cr
    prefix for numbering chunk (default to   "Table "). \tab tab.cap.pre \tab Table \cr
    suffix for numbering chunk (default to   ": "). \tab tab.cap.sep \tab " :" \cr
    title number depth \tab tab.cap.tnd \tab 0 \cr
@@ -120,7 +139,7 @@ See \link{knit_print.flextable} for more details.
 
 
 'Quarto' manage captions and cross-references instead of flextable. That's why
-\code{set_caption()} is not useful in a 'Quarto' document except for Word documents
+\code{set_caption()} is not that useful in a 'Quarto' document except for Word documents
 where 'Quarto' does not manage captions yet (when output is raw xml which is the
 case for flextable).
 
