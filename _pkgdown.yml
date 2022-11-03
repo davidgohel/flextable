@@ -102,6 +102,7 @@ reference:
     - as_image
     - gg_chunk
     - plot_chunk
+    - grid_chunk
     - as_b
     - as_i
     - as_sub
