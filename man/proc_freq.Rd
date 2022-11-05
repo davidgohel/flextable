@@ -48,9 +48,7 @@ and make a flextable with the result.
 \examples{
 
 proc_freq(mtcars, "vs", "gear")
-proc_freq(mtcars, "gear", "vs")
 proc_freq(mtcars, "gear", "vs", weight = "wt")
-proc_freq(mtcars, "gear", "vs", "My title")
 }
 \author{
 Titouan Robert
