@@ -190,6 +190,31 @@ would be:</p>
 text. There are many options that can replace <code>set_caption()</code>
 features. The following knitr chunk options are available:</p><table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>Word stylename to use for table captions.</td><td>tab.cap.style</td><td>NULL</td></tr><tr><td>caption id/bookmark</td><td>tab.id</td><td>NULL</td></tr><tr><td>caption</td><td>tab.cap</td><td>NULL</td></tr><tr><td>display table caption on top of the table or not</td><td>tab.topcaption</td><td>TRUE</td></tr><tr><td>caption table sequence identifier.</td><td>tab.lp</td><td>"tab:"</td></tr><tr><td>prefix for numbering chunk (default to   "Table ").</td><td>tab.cap.pre</td><td>Table</td></tr><tr><td>suffix for numbering chunk (default to   ": ").</td><td>tab.cap.sep</td><td>" :"</td></tr><tr><td>title number depth</td><td>tab.cap.tnd</td><td>0</td></tr><tr><td>separator to use between title number and table number.</td><td>tab.cap.tns</td><td>"-"</td></tr><tr><td>caption prefix formatting properties</td><td>tab.cap.fp_text</td><td>fp_text_lite(bold = TRUE)</td></tr></table><p>See <a href="knit_print.flextable.html">knit_print.flextable</a> for more details.</p>
     </div>
+    <div id="formatting-the-caption">
+    <h2>Formatting the caption</h2>
+    
+
+
+<p>You can build your caption with <code><a href="as_paragraph.html">as_paragraph()</a></code>.
+This is recommended if your captions need complex content. The caption is build
+with a paragraph made of chunks (for example, a red bold text + Arial italic
+text).</p>
+<p>The user will then have the ability to format text and to add images
+and equations. If no format is specified (using <code>"a string"</code>
+or <code>as_chunk("a string")</code>), <code><a href="fp_text_default.html">fp_text_default()</a></code> is used to define
+font settings (font family, bold, italic, color, etc...).
+The default values can be changed with set_flextable_defaults().
+It is recommended to explicitly use  <code><a href="as_chunk.html">as_chunk()</a></code>.</p>
+<p>The counterpart is that the style properties of the caption will
+not take precedence over those of the formatted elements. You will
+have to specify the font to use:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ftab <span class="ot">&lt;-</span> <span class="fu">flextable</span>(<span class="fu">head</span>(cars)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_caption</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_paragraph</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as_chunk</span>(<span class="st">"caption"</span>, <span class="at">props =</span> <span class="fu">fp_text_default</span>(<span class="at">font.family =</span> <span class="st">"Cambria"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">word_stylename =</span> <span class="st">"Table Caption"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ftab, <span class="at">preview =</span> <span class="st">"docx"</span>)</span></code></pre><p></p></div>
+    </div>
     <div id="using-quarto-">
     <h2>Using 'Quarto'</h2>
     
