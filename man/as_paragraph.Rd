@@ -7,7 +7,8 @@
 as_paragraph(..., list_values = NULL)
 }
 \arguments{
-\item{...}{chunk elements that are defining paragraph}
+\item{...}{chunk elements that are defining paragraph. If a character is used,
+it is transformed to a chunk object with function \code{\link[=as_chunk]{as_chunk()}}.}
 
 \item{list_values}{a list of chunk elements that are defining paragraph. If
 specified argument \code{...} is unused.}

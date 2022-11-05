@@ -686,7 +686,8 @@ to_wml_word_field <- function(x, pr_txt) {
 #' The cells of a flextable contain each a single paragraph. This paragraph
 #' is made of chunks that can be text, images or plots, equations and links.
 #'
-#' @param ... chunk elements that are defining paragraph
+#' @param ... chunk elements that are defining paragraph. If a character is used,
+#' it is transformed to a chunk object with function [as_chunk()].
 #' @param list_values a list of chunk elements that are defining paragraph. If
 #' specified argument `...` is unused.
 #' @family functions for mixed content paragraphs

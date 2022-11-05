@@ -135,6 +135,34 @@ features. The following knitr chunk options are available:\tabular{lcc}{
 See \link{knit_print.flextable} for more details.
 }
 
+\section{Formatting the caption}{
+
+
+You can build your caption with \code{as_paragraph()}.
+This is recommended if your captions need complex content. The caption is build
+with a paragraph made of chunks (for example, a red bold text + Arial italic
+text).
+
+The user will then have the ability to format text and to add images
+and equations. If no format is specified (using \code{"a string"}
+or \code{as_chunk("a string")}), \code{\link[=fp_text_default]{fp_text_default()}} is used to define
+font settings (font family, bold, italic, color, etc...).
+The default values can be changed with set_flextable_defaults().
+It is recommended to explicitly use  \code{as_chunk()}.
+
+The counterpart is that the style properties of the caption will
+not take precedence over those of the formatted elements. You will
+have to specify the font to use:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ftab <- flextable(head(cars)) \%>\%
+  set_caption(
+    as_paragraph(
+      as_chunk("caption", props = fp_text_default(font.family = "Cambria"))
+    ), word_stylename = "Table Caption")
+print(ftab, preview = "docx")
+}\if{html}{\out{</div>}}
+}
+
 \section{Using 'Quarto'}{
 
 
