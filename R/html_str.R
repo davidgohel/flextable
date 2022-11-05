@@ -7,6 +7,10 @@ gen_raw_html <- function(x,
   align <- x$properties$align
   shadow <- x$properties$opts_html$shadow
 
+  # for ubiquity and other packages that dump old flextable
+  if(is.null(shadow)) shadow <- TRUE
+  if(is.null(align)) align <- "center"
+
   fixed_layout <- x$properties$layout %in% "fixed"
   if (!fixed_layout) {
     if (x$properties$width > 0) {
