@@ -1,3 +1,10 @@
+# flextable 0.8.4
+
+## new features
+
+- new argument `expand_single` in `as_flextable.tabulator()`. If FALSE, groups with only one
+row will not be expanded with a title row.
+
 # flextable 0.8.3
 
 ## new features

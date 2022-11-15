@@ -13,6 +13,7 @@
   columns_alignment = "center",
   label_rows = x$rows,
   spread_first_col = FALSE,
+  expand_single = FALSE,
   sep_w = 0.05,
   unit = "in",
   ...
@@ -38,6 +39,11 @@ be matched based on the names.}
 \item{spread_first_col}{if TRUE, first row is spread as a new line separator
 instead of being a column. This helps to reduce the width and allows for
 clear divisions.}
+
+\item{expand_single}{if FALSE (the default), groups with only one
+row will not be expanded with a title row. If TRUE,
+single row groups and multi-row groups are all
+restructured.}
 
 \item{sep_w}{blank column separators'width to be used. If 0,
 blank column separators will not be used.}
