@@ -1,16 +1,13 @@
 context("check borders rendering")
 
+
 skip_on_cran()
-skip_on_os("linux")
-skip_on_os("solaris")
-
 skip_if_not_installed("doconv")
-skip_if_not_installed("magick")
-skip_if_not_installed("webshot")
-skip_if_not(locatexec::exec_available("word"))
+library(doconv)
+skip_if_not(doconv::msoffice_available())
 skip_if_not(pandoc_version() >= numeric_version("2"))
+skip_if_not_installed("webshot2")
 
-source("to-img.R")
 init_flextable_defaults()
 
 library(data.table)
@@ -55,16 +52,21 @@ ft_1 <- width(ft_1, j = 3, width = 1)
 
 test_that("pptx borders", {
   local_edition(3)
-  expect_snapshot_to(name = "pptx-borders", ft_1, format = "pptx")
+  expect_snapshot_doc(x = save_as_pptx(ft_1, path = tempfile(fileext = ".pptx")),
+                      name = "pptx-borders", engine = "testthat")
 })
 
 test_that("docx borders", {
   local_edition(3)
-  expect_snapshot_to(name = "docx-borders", ft_1, format = "docx")
+  expect_snapshot_doc(x = save_as_docx(ft_1, path = tempfile(fileext = ".docx")),
+                      name = "docx-borders", engine = "testthat")
 })
 
 test_that("html borders", {
   local_edition(3)
-  expect_snapshot_to(name = "html-borders", ft_1, format = "html")
+  path <- save_as_html(ft_1, path = tempfile(fileext = ".html"))
+  expect_snapshot_html(name = "html-borders", path, engine = "testthat")
 })
+
+
 init_flextable_defaults()

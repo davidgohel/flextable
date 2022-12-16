@@ -7,7 +7,6 @@
 ^CONDUCT\.md$
 ^todo\.md$
 ^inst/mediasrc$
-^inst/fig_ref$
 ^inst/medias$
 ^cran-comments\.md$
 ^ISSUE_TEMPLATE\.md$

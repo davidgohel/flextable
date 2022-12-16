@@ -1,20 +1,12 @@
 context("check as_flextable")
 
 skip_on_cran()
-skip_on_os("linux")
-skip_on_os("solaris")
-
 skip_if_not_installed("doconv")
-skip_if_not_installed("magick")
-skip_if_not_installed("webshot")
-skip_if_not(locatexec::exec_available("word"))
+library(doconv)
+skip_if_not(doconv::msoffice_available())
 skip_if_not(pandoc_version() >= numeric_version("2"))
-suppressPackageStartupMessages({
-  library(doconv)
-  library(magick)
-  library(webshot)
-})
-source("to-img.R")
+skip_if_not_installed("webshot2")
+
 init_flextable_defaults()
 
 data_co2 <-
@@ -38,17 +30,20 @@ ft_1 <- autofit(ft_1)
 
 test_that("pptx grouped-data", {
   local_edition(3)
-  expect_snapshot_to(name = "pptx-grouped-data", ft_1, format = "pptx")
+  path <- save_as_pptx(ft_1, path = tempfile(fileext = ".pptx"))
+  expect_snapshot_doc(name = "pptx-grouped-data", x = path, engine = "testthat")
 })
 
 test_that("docx grouped-data", {
   local_edition(3)
-  expect_snapshot_to(name = "docx-grouped-data", ft_1, format = "docx")
+  path <- save_as_docx(ft_1, path = tempfile(fileext = ".docx"))
+  expect_snapshot_doc(x = path, name = "docx-grouped-data", engine = "testthat")
 })
 
 test_that("html grouped-data", {
   local_edition(3)
-  expect_snapshot_to(name = "html-grouped-data", ft_1, format = "html")
+  path <- save_as_html(ft_1, path = tempfile(fileext = ".html"))
+  expect_snapshot_html(name = "html-grouped-data", path, engine = "testthat")
 })
 
 gdata <- as_grouped_data(x = data_co2, groups = c("Treatment"),
@@ -60,17 +55,20 @@ ft_2 <- autofit(ft_2)
 
 test_that("pptx grouped-data-no-single", {
   local_edition(3)
-  expect_snapshot_to(name = "pptx-grouped-data-no-single", ft_2, format = "pptx")
+  path <- save_as_docx(ft_2, path = tempfile(fileext = ".pptx"))
+  expect_snapshot_doc(x = path, name = "pptx-grouped-data-no-single", engine = "testthat")
 })
 
 test_that("docx grouped-data-no-single", {
   local_edition(3)
-  expect_snapshot_to(name = "docx-grouped-data-no-single", ft_2, format = "docx")
+  path <- save_as_docx(ft_2, path = tempfile(fileext = ".docx"))
+  expect_snapshot_doc(x = path, name = "docx-grouped-data-no-single", engine = "testthat")
 })
 
 test_that("html grouped-data-no-single", {
   local_edition(3)
-  expect_snapshot_to(name = "html-grouped-data-no-single", ft_2, format = "html")
+  path <- save_as_html(ft_2, path = tempfile(fileext = ".html"))
+  expect_snapshot_html(name = "html-grouped-data-no-single", path, engine = "testthat")
 })
 
 init_flextable_defaults()
