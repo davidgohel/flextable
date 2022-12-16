@@ -984,8 +984,9 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL, align = "c
 #' @family flextable print function
 save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot") {
   if (!inherits(x, "flextable")) {
-    stop("x must be a flextable")
+    stop(sprintf("Function `%s` supports only flextable objects.", as.character(sys.call()[[1]])))
   }
+
   if (!requireNamespace(webshot, quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create an image from a flextable.",

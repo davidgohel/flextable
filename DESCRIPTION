@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.8.4.001
+Version: 0.8.4.002
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -28,13 +28,13 @@ Imports:
     xml2, data.table (>= 1.13.0), uuid (>= 0.1-4),
     gdtools (>= 0.1.6), rlang, 
     base64enc, grid
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Suggests: 
     testthat (>= 2.1.0),
     magick, equatags, commonmark, 
     ggplot2, scales,
-    webshot, doconv (>= 0.1.4), locatexec,
+    webshot2, doconv (>= 0.3.0),
     xtable,
     broom, broom.mixed, 
     mgcv, cluster, lme4, nlme,
