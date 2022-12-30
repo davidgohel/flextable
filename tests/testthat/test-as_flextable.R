@@ -55,7 +55,7 @@ ft_2 <- autofit(ft_2)
 
 test_that("pptx grouped-data-no-single", {
   local_edition(3)
-  path <- save_as_docx(ft_2, path = tempfile(fileext = ".pptx"))
+  path <- save_as_pptx(ft_2, path = tempfile(fileext = ".pptx"))
   expect_snapshot_doc(x = path, name = "pptx-grouped-data-no-single", engine = "testthat")
 })
 
