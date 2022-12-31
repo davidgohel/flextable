@@ -30,16 +30,5 @@ ph_with.flextable <- function(x, value, location, ...) {
   value <- flextable_global$defaults$post_process_pptx(value)
 
   graphic_frame <- gen_raw_pml(value)
-  hlinks <- attr(graphic_frame, "hlinks")
-  if (length(hlinks) > 0) {
-    slide <- x$slide$get_slide(x$cursor)
-    rel <- slide$relationship()
-    graphic_frame <- process_url(
-      relation_object = rel,
-      urls_set = hlinks,
-      ooxml_str = graphic_frame,
-      pattern = "a:hlinkClick"
-    )
-  }
   ph_with(x = x, value = as_xml_document(graphic_frame), location = location, ...)
 }

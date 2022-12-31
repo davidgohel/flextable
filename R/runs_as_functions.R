@@ -88,7 +88,7 @@ runs_as_html <- function(x, chunk_data = fortify_run(x)) {
     spans_dataset[which(is_eq == TRUE)[1], c("txt") := list(paste0(katex_link, .SD$txt))]
   }
 
-  # manage hlinks
+  # hlinks
   spans_dataset[is_hlink == TRUE, c("txt") := list(paste0("<a href=\"", .SD$url, "\">", .SD$txt, "</a>"))]
 
   setorderv(spans_dataset, cols = order_columns)
@@ -252,7 +252,6 @@ runs_as_wml <- function(x, txt_data = fortify_run(x)) {
     inherits(x, "raster") || is.character(x)
   })
   is_hlink <- !is.na(txt_data$url)
-  unique_url_key <- urls_to_keys(urls = txt_data$url, is_hlink = is_hlink)
 
   txt_data <- add_raster_as_filecolumn(txt_data)
 
@@ -271,8 +270,7 @@ runs_as_wml <- function(x, txt_data = fortify_run(x)) {
   run_openxml[is_word_field] <- to_wml_word_field(txt_data$word_field_data[is_word_field], pr_txt = txt_data$rpr[is_word_field])
 
   # manage hlinks
-  url_vals <- as.character(unique_url_key[txt_data$url[is_hlink]])
-  run_openxml[is_hlink] <- paste0("<w:hyperlink r:id=\"", url_vals, "\">", run_openxml[is_hlink], "</w:hyperlink>")
+  run_openxml[is_hlink] <- paste0("<w:hyperlink r:id=\"", officer_url_encode(txt_data$url[is_hlink]), "\">", run_openxml[is_hlink], "</w:hyperlink>")
 
   # manage formula
   if (requireNamespace("equatags", quietly = TRUE) && any(is_eq)) {
@@ -282,15 +280,14 @@ runs_as_wml <- function(x, txt_data = fortify_run(x)) {
 
   txt_data$run_openxml <- run_openxml
 
-  unique_img <- unique(na.omit(txt_data$file[is_raster]))
+  # unique_img <- unique(na.omit(txt_data$file[is_raster]))
 
   setorderv(txt_data, cols = order_columns)
   txt_data <- txt_data[, lapply(.SD, function(x) paste0(x, collapse = "")), by = by_columns, .SDcols = "run_openxml"]
   setorderv(txt_data, cols = by_columns)
 
   setDF(txt_data)
-  attr(txt_data, "hlinks") <- unique_url_key
-  attr(txt_data, "imgs") <- unique_img
+  # attr(txt_data, "imgs") <- unique_img
   txt_data
 }
 
@@ -327,8 +324,6 @@ runs_as_pml <- function(value) {
   })
   is_word_field <- !is.na(txt_data$word_field_data)
 
-  unique_url_key <- urls_to_keys(urls = txt_data$url, is_hlink = is_hlink)
-
   txt_data[, c("text_nodes_str") := list(paste0("<a:t>", htmlEscape(.SD$txt), "</a:t>"))]
 
   txt_data[is_word_field == TRUE, c("text_nodes_str") := list("<a:t></a:t>")]
@@ -337,8 +332,7 @@ runs_as_pml <- function(value) {
   txt_data[is_tab == TRUE, c("text_nodes_str") := list("<a:t>\t</a:t>")]
 
   # manage hlinks
-  txt_data[is_hlink == TRUE, c("url") := list(as.character(unique_url_key[.SD$url]))]
-  link_pr <- ifelse(is_hlink, paste0("<a:hlinkClick r:id=\"", txt_data$url, "\"/>"), "")
+  link_pr <- ifelse(is_hlink, paste0("<a:hlinkClick r:id=\"", officer_url_encode(txt_data$url), "\"/>"), "")
   gmatch <- gregexpr(pattern = "</a:rPr>", txt_data$rpr, fixed = TRUE)
   end_tag <- paste0(link_pr, "</a:rPr>")
   regmatches(txt_data$rpr, gmatch) <- as.list(end_tag)
@@ -378,6 +372,5 @@ runs_as_pml <- function(value) {
     .SDcols = "par_nodes_str"
   ]
   setDF(txt_data)
-  attr(txt_data, "url") <- unique_url_key
   txt_data
 }

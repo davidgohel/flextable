@@ -106,8 +106,6 @@ gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0)
   cell_data <- pml_cells(value, cell_attributes)
   cell_heights <- fortify_height(value)
 
-  hlinks <- attr(txt_data, "url")
-
   setDT(cell_data)
 
   tab_data <- merge(cell_data, par_data, by = c("part", "ft_row_id", "col_id"))
@@ -172,7 +170,6 @@ gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0)
     "</a:graphic>",
     "</p:graphicFrame>"
   )
-  attr(graphic_frame, "hlinks") <- hlinks
   graphic_frame
 }
 

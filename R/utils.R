@@ -189,3 +189,18 @@ if (!"gregexec" %in% getNamespaceExports("base")) {
     }
   }
 }
+.url_special_chars <- list(
+  `&` = '&amp;',
+  `<` = '&lt;',
+  `>` = '&gt;',
+  `'` = '&#39;',
+  `"` = '&quot;',
+  ` ` = "&nbsp;"
+)
+officer_url_encode <- function(x) {
+  for (chr in names(.url_special_chars)) {
+    x <- gsub(chr, .url_special_chars[[chr]], x, fixed = TRUE, useBytes = TRUE)
+  }
+  Encoding(x) <- "UTF-8"
+  x
+}

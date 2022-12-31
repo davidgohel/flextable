@@ -208,9 +208,6 @@ wml_rows <- function(value, split = FALSE) {
 
   # get runs in wml format and get hyperlinks and images information
   run_data <- runs_as_wml(value, txt_data = fortify_run(value))
-  hlinks <- attr(run_data, "hlinks")
-  imgs <- attr(run_data, "imgs")
-
 
   cell_data <- wml_cells(value, cell_attributes)
   cell_heights <- fortify_height(value)
@@ -271,12 +268,7 @@ wml_rows <- function(value, split = FALSE) {
     "</w:trPr>", wml, "</w:tr>"
   )
 
-  rows <- paste0(rows, collapse = "")
-
-  attr(rows, "imgs") <- imgs
-  attr(rows, "hlinks") <- hlinks
-
-  rows
+  paste0(rows, collapse = "")
 }
 
 
@@ -335,29 +327,6 @@ gen_raw_wml <- function(x, doc = NULL, ...) {
 
   tab_str <- wml_rows(x, split = x$properties$opts_word$split)
   out <- paste0(out, tab_str, "</w:tbl>")
-
-  imgs <- unique(attr(tab_str, "imgs"))
-  hlinks <- attr(tab_str, "hlinks")
-
-  if (length(imgs) > 0) {
-    if (!is.null(doc)) {
-      stopifnot(inherits(doc, "rdocx"))
-      doc <- docx_reference_img(doc, imgs)
-      out <- wml_link_images(doc, out)
-    }
-  }
-  if (length(hlinks) > 0) {
-    if (!is.null(doc)) {
-      stopifnot(inherits(doc, "rdocx"))
-      rel <- doc$doc_obj$relationship()
-      out <- process_url(
-        relation_object = rel,
-        urls_set = hlinks,
-        ooxml_str = out,
-        pattern = "w:hyperlink"
-      )
-    }
-  }
 
   out
 }
