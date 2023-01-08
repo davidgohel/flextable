@@ -1,0 +1,109 @@
+---
+title: 'borders examples'
+---
+
+```{r include=FALSE}
+library(knitr)
+library(officedown)
+library(flextable)
+
+opts_chunk$set(
+  echo = FALSE,
+  ft.keepnext = FALSE, 
+  ft.tabcolsep = 3
+)
+```
+
+## Blah 
+
+```{r}
+dat <- tibble::tribble(
+    ~S,   ~T,   ~U,   ~V,   ~W,   ~X,   ~Y,   ~Z,
+  "AA", "AA", "AA", "AA", "AA", "AA", "AA", "AA",
+  "BB", "AA", "AA", "AA", "AA", "AA", "AA", "AA",
+  "CC", "CC", "AA", "AA", "AA", "AA", "AA", "AA",
+  "DD", "DD", "DD", "AA", "AA", "AA", "AA", "AA",
+  "EE", "EE", "EE", "EE", "AA", "AA", "AA", "AA",
+  "FF", "FF", "FF", "FF", "FF", "AA", "AA", "AA",
+  "GG", "GG", "GG", "GG", "GG", "GG", "AA", "AA",
+  "HH", "HH", "HH", "HH", "HH", "HH", "HH", "AA"
+  )
+ft <- flextable(dat)
+ft <- theme_vader(ft)
+ft <- border_outer(ft, border = fp_border_default(width = 2.5, color = "red"))
+ft <- border_inner_v(ft, border = fp_border_default(width = 1, color = "cyan"))
+ft <- border_inner_h(ft, border = fp_border_default(width = 1, color = "yellow"))
+ft <- merge_h(ft)
+ft <- fix_border_issues(ft)
+ft
+```
+
+
+## Blah
+
+```{r}
+ft <- flextable(head(iris, n = 2))
+ft <- border_inner_v(ft, part = "all")
+ft <- hline(ft,
+    i = 1, j = 2:4, part = "body",
+    border = officer::fp_border("red")
+  )
+ft <- hline(ft, 
+    i = 1, j = 1:1, part = "body",
+    border = officer::fp_border("yellow")
+  )
+ft <- autofit(ft)
+ft
+```
+
+\pagebreak
+
+## Blah
+
+```{r}
+dat <- data.frame(
+  s = c("a", "a", "a", "a", "b", "b", "b", "b"),
+  t = c("AA", "AA", "AA", "BB", "BB", "BB", "CC", "CC"),
+  u = c("DD", "DD", "DD", "DD", "DD", "DD", "DD", "DD"),
+  v = c("DD", "EE", "EE", "DD", "EE", "EE", "EE", "DD"),
+  w = c("DD", "EE", "EE", "DD", "EE", "EE", "EE", "DD"),
+  x = c("DD", "DD", "DD", "DD", "DD", "DD", "DD", "DD")
+)
+ft <- flextable(dat)
+ft <- border_outer(ft, border = fp_border_default(width = 2.5, color = "red"))
+ft <- border_inner_v(ft, border = fp_border_default(width = .25, color = "cyan"))
+ft <- border_inner_h(ft, border = fp_border_default(width = .75, color = "yellow"))
+ft <- merge_v(ft, j = 1:2)
+ft <- merge_h(ft)
+ft <- fix_border_issues(ft)
+ft
+```
+
+## Blah
+
+```{r}
+ft <- flextable(dat)
+ft <- theme_vader(ft)
+ft
+```
+
+\pagebreak
+
+## Blah
+
+```{r}
+ft <- border_outer(ft, border = fp_border_default(width = 2.5, color = "red"))
+ft <- border_inner_v(ft, border = fp_border_default(width = .25, color = "cyan"))
+ft <- border_inner_h(ft, border = fp_border_default(width = .75, color = "yellow"))
+ft <- merge_v(ft, j = 1:2)
+ft <- merge_h(ft)
+ft <- fix_border_issues(ft)
+ft
+```
+
+## kable
+
+```{r}
+kable(head(iris))
+```
+

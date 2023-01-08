@@ -5,6 +5,10 @@
 - new argument `expand_single` in `as_flextable.tabulator()`. If FALSE, groups with only one
 row will not be expanded with a title row.
 
+## Issues
+
+- fix mis-calculated columns widths in latex
+
 # flextable 0.8.3
 
 ## new features

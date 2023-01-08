@@ -70,18 +70,23 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   )
 
   # hhlines and vborders ----
-  properties_df <- augment_borders(properties_df)
+  latex_borders_data_str <- latex_gridlines(properties_df)
+  properties_df <- merge(properties_df, latex_borders_data_str$vlines, by = c("part", "col_id", "ft_row_id"))
+  properties_df[, setdiff(grep("^border\\.", colnames(properties_df), value = TRUE), "border.width.left") := NULL]
+  setorderv(properties_df, c("part", "col_id", "ft_row_id"))
 
   # cell background color -----
   properties_df[, c("background_color") := list(
     latex_cell_bgcolor(.SD$background.color)
   )]
+  properties_df[, c("background.color") := NULL]
 
   # text direction ----
   properties_df[, c("text_direction_left", "text_direction_right") := list(
     latex_text_direction(.SD$text.direction, left = TRUE),
     latex_text_direction(.SD$text.direction, left = FALSE)
   )]
+  properties_df[, c("text.direction") := NULL]
 
   # merge prop and text and sizes----
   cell_properties_df <- merge(properties_df, dat, by = c("part", "ft_row_id", "col_id"))
@@ -94,7 +99,7 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   cell_properties_df[, c("column_size") := NULL]
   cell_properties_df <- merge(cell_properties_df, column_sizes_df, by = c("part", "ft_row_id", "col_id"))
 
-  # latex for multicolumn ----
+  # latex for multicolumn + add vert lines ----
   if ("fixed" %in% x$properties$layout) {
     augment_multicolumn_fixed(cell_properties_df)
   } else {
@@ -139,19 +144,14 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   txt_data[, c("txt") := list(paste0(.SD$txt, " \\\\"))]
   setorderv(txt_data, c("part", "ft_row_id"))
 
-  hhline_data <- extract_hhline_bottom(cell_properties_df)
-
-  hhline_top_data <- augment_top_borders(cell_properties_df)
-  txt_data <- merge(txt_data, hhline_top_data, by = c("part", "ft_row_id"), all.x = TRUE, all.y = TRUE)
-
-  txt_data <- merge(txt_data, hhline_data, by = c("part", "ft_row_id"), all.x = TRUE, all.y = TRUE)
+  # add horiz lines ----
+  txt_data <- merge(txt_data, latex_borders_data_str$hlines, by = c("part", "ft_row_id"), all.x = TRUE, all.y = TRUE)
   setorderv(txt_data, cols = c("part", "ft_row_id"))
   txt_data <- augment_part_separators(txt_data, inherits(lat_container, "latex_container_none") && !quarto)
 
-
   txt_data[, c("txt") := list(paste(
-    .SD$hhline_top,
-    .SD$txt, .SD$hhline,
+    .SD$hlines_t_strings,
+    .SD$txt, .SD$hlines_b_strings,
     sep = "\n\n"
   ))]
 
@@ -187,9 +187,6 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   }
 
   latex <- paste(
-    cline_cmd,
-    sprintf("\\setlength{\\tabcolsep}{%spt}", format_double(x$properties$opts_pdf$tabcolsep, 0)),
-    sprintf("\\renewcommand*{\\arraystretch}{%s}", format_double(x$properties$opts_pdf$arraystretch, 2)),
     table_start,
     if (topcaption) caption,
     latex,
@@ -222,18 +219,35 @@ augment_multirow_fixed <- function(properties_df) {
 }
 
 latex_colwidth <- function(x) {
+  grid_dat <- x[, .SD, .SDcols = c("part", "ft_row_id", "col_id", "rowspan", "border.width.left", "column_size")]
+  grid_dat[, c('hspan_id') := list(calc_grid_span_group(.SD$rowspan)), by = c("part", "ft_row_id")]
+
+  # bdr sum of width
+  bdr_dat <- grid_dat[, list(col_id = first(.SD$col_id), border_widths = sum(.SD$border.width.left[-1])), by = c("part", "ft_row_id", "hspan_id")]
+  bdr_dat$hspan_id <- NULL
+  bdr_dat <- bdr_dat[bdr_dat$border_widths > 0,]
+
+  grid_dat <- merge(grid_dat, bdr_dat, by = c("part", "ft_row_id", "col_id"), all.x = TRUE)
+
   colwidths <- paste0(
-    "\\dimexpr ", format_double(x$column_size, 2), "in+",
-    format_double((x$rowspan - 1) * 2, digits = 0),
-    "\\tabcolsep+",
-    format_double(x$rowspan - 1, digits = 0),
-    "\\arrayrulewidth"
+    "\\dimexpr ", format_double(grid_dat$column_size, 2), "in+",
+    format_double((grid_dat$rowspan - 1) * 2, digits = 0),
+    "\\tabcolsep"
   )
-  colwidths
+
+  # if necessary, add bdr width
+  bdr_width_instr <- character(length(colwidths))
+  bdr_width_instr[!is.na(grid_dat$border_widths)] <-
+    paste0(
+      "+",
+      format_double(grid_dat$border_widths[!is.na(grid_dat$border_widths)], digits = 2),
+      "pt")
+
+  paste0(colwidths, bdr_width_instr)
 }
 
 
-  augment_multicolumn_autofit <- function(properties_df) {
+augment_multicolumn_autofit <- function(properties_df) {
   stopifnot(is.data.table(properties_df))
 
   properties_df[, c("multicolumn_left", "multicolumn_right") :=
@@ -292,163 +306,6 @@ augment_part_separators <- function(z, no_container = TRUE) {
   z
 }
 
-augment_top_borders <- function(properties_df) {
-  hhline_top_data <- properties_df[
-    properties_df$ft_row_id %in% 1 &
-      as.integer(properties_df$part) == min(as.integer(properties_df$part)),
-    list(
-      hhline_top = paste0("\\hhline{", paste0(.SD$hhlines_top, collapse = ""), "}")
-    ),
-    by = c("part", "ft_row_id")
-  ]
-  dims <- unique(properties_df[, c("part", "ft_row_id")])
-  hhline_top_data <- merge(dims, hhline_top_data, by = c("part", "ft_row_id"), all.x = TRUE, all.y = TRUE)
-  hhline_top_data$hhline_top[is.na(hhline_top_data$hhline_top)] <- ""
-  hhline_top_data
-}
-
-#' @importFrom data.table copy
-#' @noRd
-#' @title make border top and bottom restructured
-#' as hline. If two borders overlap, the largest is
-#' choosen.
-as_border_latex <- function(x){
-  properties_df <- copy(x)
-  col_id_levels <- levels(properties_df$col_id)
-
-  top <- dcast(properties_df, part + ft_row_id ~ col_id, value.var = "border.width.top")
-  bottom <- dcast(properties_df, part + ft_row_id ~ col_id, value.var = "border.width.bottom")
-  top_mat <- as.matrix(top[, 3:ncol(top)])
-  bot_mat <- as.matrix(bottom[, 3:ncol(top)])
-
-  new_row_n <- nrow(top) + 1
-
-  if(new_row_n > 2){ # at least 3 rows
-
-    hlinemat <- matrix(0.0, nrow = new_row_n, ncol = ncol(top_mat))
-
-    hlinemat[1,] <- top_mat[1, , drop = FALSE]
-    hlinemat[nrow(hlinemat),] <- bot_mat[nrow(bot_mat),, drop = FALSE]
-    hlinemat[setdiff(seq_len(new_row_n), c(1, new_row_n)),] <- pmax(bot_mat[-nrow(bot_mat),, drop = FALSE], top_mat[-1,, drop = FALSE])
-
-    # now lets replace values
-    bottom[, 3:ncol(top)] <- as.data.table(hlinemat[-1,])
-    top[1, 3:ncol(top)] <- as.data.table(hlinemat[1,, drop = FALSE])
-    top[2:nrow(top), 3:ncol(top)] <- 0.0
-
-    top <- melt(top,
-                id.vars = c("part", "ft_row_id"),
-                variable.name = "col_id",
-                value.name = "border.width.top",
-                variable.factor = FALSE)
-    top$col_id <- factor(top$col_id, levels = col_id_levels)
-    bottom <- melt(bottom,
-                   id.vars = c("part", "ft_row_id"),
-                   variable.name = "col_id",
-                   value.name = "border.width.bottom",
-                   variable.factor = FALSE)
-    bottom$col_id <- factor(bottom$col_id, levels = col_id_levels)
-
-    properties_df$border.width.bottom <- NULL
-    properties_df$border.width.top <- NULL
-
-    properties_df <- merge(
-      x = properties_df,
-      y = top,
-      by = c("part", "ft_row_id", "col_id"))
-    properties_df <- merge(
-      x = properties_df,
-      y = bottom,
-      by = c("part", "ft_row_id", "col_id"))
-  }
-
-  properties_df
-}
-
-
-augment_borders <- function(properties_df) {
-  stopifnot(is.data.table(properties_df))
-  # hhlines and vborders ----
-
-  properties_df <- as_border_latex(properties_df)
-  properties_df[, c("vborder_left", "vborder_right", "hhlines_bottom", "hhlines_top") :=
-    list(
-      latex_vborder(w = .SD$border.width.left, cols = .SD$border.color.left),
-      fcase(
-        (as.integer(.SD$col_id) + .SD$rowspan) == (nlevels(.SD$col_id) + 1L),
-        latex_vborder(w = .SD$border.width.right, cols = .SD$border.color.right),
-        default = ""
-      ),
-      latex_hhline(w = .SD$border.width.bottom, cols = .SD$border.color.bottom),
-      fcase(
-        .SD$ft_row_id %in% 1 & as.integer(.SD$part) == min(as.integer(.SD$part)),
-        latex_hhline(w = .SD$border.width.top, cols = .SD$border.color.top),
-        default = "")
-    )]
-  void_merged_colspan <- function(hhline, colspan) {
-    ifelse(c(colspan[-1], 1) < 1, "~", hhline)
-  }
-  properties_df[, c("hhlines_bottom") :=
-    list(
-      void_merged_colspan(.SD$hhlines_bottom, .SD$colspan)
-    ), by = c("part", "col_id")]
-  setorderv(properties_df, c("part", "col_id", "ft_row_id"))
-  properties_df
-}
-
-
-
-# borders ----
-
-latex_vborder <- function(w, cols, digits = 0) {
-  size <- format_double(w, digits = 1)
-  cols <- colcode0(cols)
-  z <- sprintf("!{\\color[HTML]{%s}\\vrule width %spt}", cols, size)
-  z
-}
-
-latex_hhline <- function(w, cols, digits = 0) {
-  size <- format_double(w, digits = 1)
-  is_transparent <- colalpha(cols) < 1
-  cols <- colcode0(cols)
-  z <- sprintf(
-    ">{\\arrayrulecolor[HTML]{%s}\\global\\arrayrulewidth=%spt}-",
-    cols, size
-  )
-  z[w < .001 | is_transparent] <- "~"
-  z
-}
-
-extract_hhline_bottom <- function(cell_data) {
-  was_dt <- is.data.table(cell_data)
-  if (!was_dt) setDT(cell_data)
-  setorderv(cell_data, c("part", "ft_row_id", "col_id"))
-
-  hhline_inst <- function(x) {
-    if (all(x %in% "~")) {
-      return("")
-    }
-    paste0("\\hhline{", paste0(x, collapse = ""), "}")
-  }
-
-  hhline <- cell_data[,
-    list(
-      hhline = hhline_inst(.SD$hhlines_bottom)
-    ),
-    by = c("part", "ft_row_id")
-  ]
-
-  setDF(hhline)
-  if (!was_dt) setDF(cell_data)
-
-  hhline
-}
-
-cline_cmd <- paste0(
-  "\\providecommand{\\docline}[3]{",
-  "\\noalign{\\global\\setlength{\\arrayrulewidth}{#1}}",
-  "\\arrayrulecolor[HTML]{#2}\\cline{#3}}"
-)
 
 # col/row spans -----
 fill_NA <- function(x) {
@@ -470,29 +327,13 @@ reverse_colspan <- function(df) {
   df[df$colspan < 1, c("col_uid") := list(NA_character_)]
   df[, c("col_uid") := list(fill_NA(.SD$col_uid)), by = c("part", "col_id")]
 
-  df[, c(
-    "ft_row_id", "hhlines_bottom", "hhlines_top", "vborder_left", "vborder_right",
-    "border.width.bottom", "border.color.bottom", "border.style.bottom",
-    "border.width.left", "border.color.left", "border.style.left",
-    "border.width.right", "border.color.right", "border.style.right"
-  ) :=
+  df[, c("ft_row_id",
+         "vborder_left", "vborder_right") :=
     list(
       rev(.SD$ft_row_id),
-      rev(.SD$hhlines_bottom),
-      rev(.SD$hhlines_top),
       rev(.SD$vborder_left),
-      rev(.SD$vborder_right),
-      rev(.SD$border.width.bottom),
-      rev(.SD$border.color.bottom),
-      rev(.SD$border.style.bottom),
-      rev(.SD$border.width.left),
-      rev(.SD$border.color.left),
-      rev(.SD$border.style.left),
-      rev(.SD$border.width.right),
-      rev(.SD$border.color.right),
-      rev(.SD$border.style.right)
+      rev(.SD$vborder_right)
     ), by = c("col_uid")]
-  # df[, c("ft_row_id") := list(rev(.SD$ft_row_id)), by = c("col_uid")]
   df[, c("col_uid") := NULL]
   setorderv(df, cols = c("part", "ft_row_id", "col_id"))
   df
@@ -528,7 +369,6 @@ merge_table_properties <- function(x) {
   cell_data[, c("width", "height", "hrule") := NULL]
   cell_data <- merge(cell_data, fortify_width(x), by = "col_id")
   cell_data <- merge(cell_data, fortify_height(x), by = c("part", "ft_row_id"))
-  # cell_data <- merge(cell_data, fortify_hrule(x), by = c("part", "ft_row_id"))
   cell_data <- merge(cell_data, fortify_span(x), by = c("part", "ft_row_id", "col_id"))
 
   oldnames <- grep("^border\\.", colnames(cell_data), value = TRUE)

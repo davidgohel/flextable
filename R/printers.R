@@ -431,6 +431,18 @@ knit_to_latex <- function(x, bookdown, quarto = FALSE) {
     container_str[2],
     sep = "\n\n"
   )
+  paste(
+    "\\global\\setlength{\\Oldarrayrulewidth}{\\arrayrulewidth}",
+    "\\global\\setlength{\\Oldtabcolsep}{\\tabcolsep}",
+    sprintf("\\setlength{\\tabcolsep}{%spt}", format_double(x$properties$opts_pdf$tabcolsep, 0)),
+    sprintf("\\renewcommand*{\\arraystretch}{%s}", format_double(x$properties$opts_pdf$arraystretch, 2)),
+    latex,
+    sprintf("\\arrayrulecolor[HTML]{%s}", colcode0(x$properties$opts_pdf$default_line_color)),
+    "\\global\\setlength{\\arrayrulewidth}{\\Oldarrayrulewidth}",
+    "\\global\\setlength{\\tabcolsep}{\\Oldtabcolsep}",
+    "\\renewcommand*{\\arraystretch}{1}",
+    sep = "\n\n"
+  )
 }
 
 knit_to_pml <- function(x, left = opts_current$get("ft.left"),
@@ -741,7 +753,24 @@ knit_print.flextable <- function(x, ...) {
     pandoc2 = pandoc2,
     print = FALSE, quarto = is_quarto
   )
-  knit_print(asis_output(str))
+  if (knitr::is_latex_output()) {
+    knit_print(
+      knitr::raw_block(
+        x = str, type = "latex",
+        meta = list(
+          latex_dependency(
+            name = "hhline",
+            extra_lines= c("\\newlength\\Oldarrayrulewidth",
+                           "\\newlength\\Oldtabcolsep")
+          )
+        )
+      )
+    )
+  } else {
+    knit_print(asis_output(str))
+  }
+
+
 }
 
 #' @export

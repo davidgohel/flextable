@@ -112,7 +112,7 @@ fortify_hrule <- function(x) {
 
 #' @noRd
 #' @title fortify rows and columns spans
-#' @description create a data.frame with hrule information.
+#' @description create a data.frame with span information.
 fortify_span <- function(x, parts = c("header", "body", "footer")) {
   rows <- list()
   for (part in parts) {
