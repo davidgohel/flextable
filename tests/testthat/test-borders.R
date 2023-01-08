@@ -1,5 +1,6 @@
 context("check borders rendering")
 
+skip_on_cran()
 init_flextable_defaults()
 
 library(data.table)
@@ -105,6 +106,9 @@ test_that("office complex borders", {
   library(rmarkdown)
   skip_if_not(pandoc_available())
   skip_if_not(pandoc_version() > numeric_version("2.7.3"))
+  skip_if_not_installed("doconv")
+  skip_if_not(doconv::msoffice_available())
+  library(doconv)
   render(rmd_file,
          output_format = rmarkdown::word_document(),
          output_file = docx_file,
