@@ -151,7 +151,8 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
 
   txt_data[, c("txt") := list(paste(
     .SD$hlines_t_strings,
-    .SD$txt, .SD$hlines_b_strings,
+    .SD$txt,
+    .SD$hlines_b_strings,
     sep = "\n\n"
   ))]
 
@@ -187,6 +188,7 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   }
 
   latex <- paste(
+    cline_cmd,
     table_start,
     if (topcaption) caption,
     latex,

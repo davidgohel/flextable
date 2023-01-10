@@ -8,6 +8,7 @@ row will not be expanded with a title row.
 ## Issues
 
 - fix mis-calculated columns widths in latex
+- fix horizontal lines in latex tables
 
 # flextable 0.8.3
 

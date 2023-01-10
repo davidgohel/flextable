@@ -32,7 +32,7 @@ ft <- flextable(dat)
 ft <- theme_vader(ft)
 ft <- border_outer(ft, border = fp_border_default(width = 2.5, color = "red"))
 ft <- border_inner_v(ft, border = fp_border_default(width = 1, color = "cyan"))
-ft <- border_inner_h(ft, border = fp_border_default(width = 1, color = "yellow"))
+ft <- border_inner_h(ft, border = fp_border_default(width = 1, color = "orange"))
 ft <- merge_h(ft)
 ft <- fix_border_issues(ft)
 ft
@@ -50,7 +50,7 @@ ft <- hline(ft,
   )
 ft <- hline(ft, 
     i = 1, j = 1:1, part = "body",
-    border = officer::fp_border("yellow")
+    border = officer::fp_border("orange")
   )
 ft <- autofit(ft)
 ft
@@ -71,8 +71,8 @@ dat <- data.frame(
 )
 ft <- flextable(dat)
 ft <- border_outer(ft, border = fp_border_default(width = 2.5, color = "red"))
-ft <- border_inner_v(ft, border = fp_border_default(width = .25, color = "cyan"))
-ft <- border_inner_h(ft, border = fp_border_default(width = .75, color = "yellow"))
+ft <- border_inner_v(ft, border = fp_border_default(width = 1, color = "cyan"))
+ft <- border_inner_h(ft, border = fp_border_default(width = 1, color = "orange"))
 ft <- merge_v(ft, j = 1:2)
 ft <- merge_h(ft)
 ft <- fix_border_issues(ft)
@@ -93,13 +93,43 @@ ft
 
 ```{r}
 ft <- border_outer(ft, border = fp_border_default(width = 2.5, color = "red"))
-ft <- border_inner_v(ft, border = fp_border_default(width = .25, color = "cyan"))
-ft <- border_inner_h(ft, border = fp_border_default(width = .75, color = "yellow"))
+ft <- border_inner_v(ft, border = fp_border_default(width = 1, color = "cyan"))
+ft <- border_inner_h(ft, border = fp_border_default(width = 1, color = "orange"))
 ft <- merge_v(ft, j = 1:2)
 ft <- merge_h(ft)
 ft <- fix_border_issues(ft)
 ft
 ```
+
+
+## Blah
+
+```{r}
+dt <- data.frame(
+  stringsAsFactors = FALSE,
+  V1 = c("OOOOOOOO", "OOOOOOOO", "OOOOOOOO"),
+  V2 = c("XXX", "XXX", "YYY"),
+  V3 = c("ZZZ", "ZZZ", "ZZZ"),
+  V4 = c("XXXX XXXX XXXX XXXX",
+         "XXXX XXXX XXXX XXXX",
+         "XXXX XXXX XXXX XXXX")
+)
+
+dt |>
+  flextable() |>
+  set_table_properties(
+    layout = "autofit", width = .8,
+    opts_pdf = list(tabcolsep = 3)
+  ) |>
+  merge_v(j = ~ V1 + V2) |>
+  valign(valign = "top", part = "all") |>
+  border_inner_h(part = "all") |>
+  border_inner_v(part = "all") |>
+  border_outer(part = "all", border = fp_border_default(color = "red")) |>
+  autofit() |>
+  fix_border_issues(part = "all")
+```
+
 
 ## kable
 
