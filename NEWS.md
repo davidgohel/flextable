@@ -2,8 +2,10 @@
 
 ## new features
 
-- new argument `expand_single` in `as_flextable.tabulator()`. If FALSE, groups with only one
-row will not be expanded with a title row.
+- new argument `expand_single` in `as_flextable.tabulator()`. If `FALSE`,
+groups with only one row will not be expanded with a title row.
+- argument `labels` of `labelizor()` now support functions in 
+addition to named vectors.
 
 ## Issues
 

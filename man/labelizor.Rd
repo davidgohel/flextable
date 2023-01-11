@@ -31,28 +31,16 @@ z <- summarizor(
   by = "Treatment",
   overall_label = "Overall")
 
-tab_1 <- tabulator(
-  x = z,
-  rows = c("variable", "stat"),
-  columns = "Treatment",
-  blah = as_paragraph(
-    as_chunk(
-      fmt_2stats(
-        stat = stat,
-        num1 = value1, num2 = value2,
-        cts = cts, pcts = percent
-      )
-    )
-  )
-)
-
-ft_1 <- as_flextable(tab_1, separate_with = "variable")
-
+ft_1 <- as_flextable(z, separate_with = "variable")
 
 ft_1 <- labelizor(
-  x = ft_1, j = c("stat", "variable"),
-  labels = c(mean_sd = "Mean (SD)", median_iqr = "Median (IQR)",
-             range = "Range", missing = "Missing")
+  x = ft_1, j = c("stat"),
+  labels = c(Missing = "Kouign amann")
+)
+
+ft_1 <- labelizor(
+  x = ft_1, j = c("variable"),
+  labels = toupper
 )
 
 ft_1

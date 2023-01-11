@@ -128,34 +128,21 @@ mk_par <- compose
 #'   by = "Treatment",
 #'   overall_label = "Overall")
 #'
-#' tab_1 <- tabulator(
-#'   x = z,
-#'   rows = c("variable", "stat"),
-#'   columns = "Treatment",
-#'   blah = as_paragraph(
-#'     as_chunk(
-#'       fmt_2stats(
-#'         stat = stat,
-#'         num1 = value1, num2 = value2,
-#'         cts = cts, pcts = percent
-#'       )
-#'     )
-#'   )
-#' )
-#'
-#' ft_1 <- as_flextable(tab_1, separate_with = "variable")
-#'
+#' ft_1 <- as_flextable(z, separate_with = "variable")
 #'
 #' ft_1 <- labelizor(
-#'   x = ft_1, j = c("stat", "variable"),
-#'   labels = c(mean_sd = "Mean (SD)", median_iqr = "Median (IQR)",
-#'              range = "Range", missing = "Missing")
+#'   x = ft_1, j = c("stat"),
+#'   labels = c(Missing = "Kouign amann")
+#' )
+#'
+#' ft_1 <- labelizor(
+#'   x = ft_1, j = c("variable"),
+#'   labels = toupper
 #' )
 #'
 #' ft_1
 labelizor <- function(x, j = NULL, labels, part = "all") {
-
-  if( !inherits(x, "flextable") ) {
+  if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "labelizor()"))
   }
 
@@ -167,25 +154,36 @@ labelizor <- function(x, j = NULL, labels, part = "all") {
     }
     return(x)
   }
-
-  if (is.null(names(labels)) || !is.character(labels)) {
-    stop("`labels` must be a named character vector")
+  if (!is.function(labels) && (is.null(names(labels)) || !is.character(labels))) {
+    stop("`labels` must be a named character vector or a function.")
   }
-  if(is.null(j)) {
+  if (is.null(j)) {
     j <- x$colkeys
   }
 
   j <- as_col_keys(x[[part]], j)
 
-  levs <- names(labels)
-  labs <- as.character(labels)
-  for(current_col in j){
-    curr_content_column <- x[[part]]$content$content$data[,current_col]
-    curr_content_column <- lapply(curr_content_column, function(x){
-      x$txt[x$txt %in% levs] <- labs[match(x$txt, levs, nomatch = 0)]
-      x
-    })
-    x[[part]]$content$content$data[,current_col] <- curr_content_column
+  if (!is.function(labels)) {
+    levs <- names(labels)
+    labs <- as.character(labels)
+    for (current_col in j) {
+      curr_content_column <- x[[part]]$content$content$data[, current_col]
+      curr_content_column <- lapply(curr_content_column, function(x) {
+        x$txt[x$txt %in% levs] <- labs[match(x$txt, levs, nomatch = 0)]
+        x
+      })
+      x[[part]]$content$content$data[, current_col] <- curr_content_column
+    }
+  } else {
+    for (current_col in j) {
+      curr_content_column <- x[[part]]$content$content$data[, current_col]
+      curr_content_column <- lapply(curr_content_column, function(z) {
+        z$txt <- labels(z$txt)
+        z
+      })
+      x[[part]]$content$content$data[, current_col] <- curr_content_column
+    }
   }
+
   x
 }
