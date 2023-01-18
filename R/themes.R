@@ -168,7 +168,8 @@ theme_vader <- function(x, ...) {
   if (h_nrow > 0) {
     x <- hline_bottom(x, border = big_border, part = "header")
   }
-  if (b_nrow > 0) {
+
+  if (b_nrow > 0 || h_nrow < 1) {
     x <- hline_top(x, border = big_border, part = "body")
   }
   if (f_nrow > 0) {
@@ -360,7 +361,10 @@ theme_booktabs <- function(x, bold_header = FALSE, ...) {
     x <- hline(x, border = std_border, part = "header")
     x <- hline_bottom(x, border = big_border, part = "header")
     x <- bold(x, bold = bold_header, part = "header")
+  } else {
+    x <- hline_top(x, border = big_border, part = "body")
   }
+
   if (f_nrow > 0) {
     x <- hline_bottom(x, border = big_border, part = "footer")
   }
