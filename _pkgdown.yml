@@ -15,6 +15,10 @@ reference:
     - flextable
     - qflextable
     - flextable-package
+  - title: Global options
+    - set_flextable_defaults
+    - get_flextable_defaults
+    - init_flextable_defaults
   - title: Headers and footers
     desc:  Add rows in headers, footers and body parts
     contents:
@@ -50,9 +54,6 @@ reference:
   - title: Format flextable
     desc:  Modify flextable`s formatting properties.
     contents:
-    - set_flextable_defaults
-    - get_flextable_defaults
-    - init_flextable_defaults
     - style
     - align
     - bg
@@ -152,8 +153,6 @@ reference:
     - df_printer
     - use_df_printer
     - use_model_printer
-    - add_latex_dep
-    - flextable_html_dependency
     - footers_flextable_at_bkm
     - headers_flextable_at_bkm
   - title: as_flextable

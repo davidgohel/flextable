@@ -12,6 +12,7 @@
 #' @return NULL
 #' @examples
 #' add_latex_dep()
+#' @keywords internal
 add_latex_dep <- function(float = FALSE, wrapfig = FALSE){
 
   pandoc_to <- opts_knit$get("rmarkdown.pandoc.to")

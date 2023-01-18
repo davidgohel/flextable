@@ -439,6 +439,7 @@ cell_css_styles <- function(x, add_widths = TRUE){
 #' @examples
 #' if(require("htmltools"))
 #'   div(flextable_html_dependency())
+#' @keywords internal
 flextable_html_dependency <- function(){
   htmlDependency("tabwid",
                  "1.1.2",

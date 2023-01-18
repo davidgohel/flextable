@@ -14,3 +14,4 @@ htmlDependency object for flextable must also be added at least once.
 if(require("htmltools"))
   div(flextable_html_dependency())
 }
+\keyword{internal}

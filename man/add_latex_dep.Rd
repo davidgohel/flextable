@@ -23,3 +23,4 @@ to knitr metadata.
 \examples{
 add_latex_dep()
 }
+\keyword{internal}
