@@ -444,6 +444,7 @@ continuous_summary <- function(dat, columns = NULL,
 #'   ft <- as_flextable(m1)
 #'   ft
 #' }
+#' @family as_flextable methods
 as_flextable.merMod <- function(x, ...){
 
   if( !requireNamespace("broom.mixed", quietly = TRUE) ){
@@ -551,6 +552,7 @@ as_flextable.glmmadmb <- as_flextable.merMod
 #'   ft
 #' }
 #' @importFrom rlang sym
+#' @family as_flextable methods
 as_flextable.kmeans <- function(x, digits = 4, ...) {
   if (!requireNamespace("broom", quietly = TRUE)) {
     stop(sprintf(
@@ -671,6 +673,7 @@ as_flextable.kmeans <- function(x, digits = 4, ...) {
 #'   ft <- as_flextable(cl)
 #'   ft
 #' }
+#' @family as_flextable methods
 as_flextable.pam <- function(x, digits = 4, ...){
   if( !requireNamespace("broom", quietly = TRUE) ){
     if (!requireNamespace("broom", quietly = TRUE)) {
@@ -784,6 +787,7 @@ as_flextable.pam <- function(x, digits = 4, ...){
 #' @param ... unused arguments
 #' @examples
 #' as_flextable(mtcars)
+#' @family as_flextable methods
 as_flextable.data.frame <- function(x,
                                     max_row = 10,
                                     split_colnames = FALSE,
