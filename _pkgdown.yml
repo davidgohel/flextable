@@ -48,7 +48,6 @@ reference:
     - dim_pretty
     - flextable_dim
     - as_grouped_data
-    - as_flextable
     - nrow_part
     - ncol_keys
   - title: Format flextable
@@ -158,6 +157,7 @@ reference:
   - title: as_flextable
     desc:  get flextable from objects and utilities
     contents:
+    - as_flextable
     - tabulator
     - tabulator_colnames
     - summarizor

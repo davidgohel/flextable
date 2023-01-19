@@ -39,6 +39,19 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL) {
 }
 
 #' @export
+as.character.flextable <- function(x, ...) {
+  x <- flextable_global$defaults$post_process_html(x)
+  x$properties$opts_html$shadow <- FALSE
+  caption <- caption_default_html(x, align = x$properties$align)
+  manual_css <- attr(caption, "css")
+  gen_raw_html(x,
+               class = "tabwid",
+               caption = caption,
+               manual_css = manual_css
+  )
+}
+
+#' @export
 #' @title flextable raw code
 #'
 #' @description Print openxml, latex or html code of a

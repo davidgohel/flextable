@@ -361,7 +361,9 @@ theme_booktabs <- function(x, bold_header = FALSE, ...) {
     x <- hline(x, border = std_border, part = "header")
     x <- hline_bottom(x, border = big_border, part = "header")
     x <- bold(x, bold = bold_header, part = "header")
-  } else {
+  } else if (b_nrow > 0) {
+    x <- hline_top(x, border = big_border, part = "body")
+  } else if (f_nrow > 0) {
     x <- hline_top(x, border = big_border, part = "body")
   }
 

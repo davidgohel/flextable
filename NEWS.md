@@ -6,6 +6,9 @@
 groups with only one row will not be expanded with a title row.
 - argument `labels` of `labelizor()` now support functions in 
 addition to named vectors.
+- `as.character()` now returns the HTML string of the table
+- new method `as_flextable` for data.frame using `df_printer()` function
+implementation.
 
 ## Issues
 
