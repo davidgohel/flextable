@@ -14,6 +14,7 @@ implementation.
 
 - fix mis-calculated columns widths in latex
 - fix horizontal lines in latex tables
+- adapt latex table container to quarto changes
 
 # flextable 0.8.3
 

@@ -437,11 +437,7 @@ latex_container_str <- function(x, latex_container, quarto = FALSE, ...){
   UseMethod("latex_container_str", latex_container)
 }
 latex_container_str.latex_container_none <- function(x, latex_container, quarto = FALSE, ...) {
-  if (quarto) {
-    c("\\begin{table}[H]", "\\end{table}")
-  } else {
-    c("", "")
-  }
+  c("", "")
 }
 
 latex_container_str.latex_container_float <- function(x, latex_container, quarto = FALSE, ...) {
