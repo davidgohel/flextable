@@ -437,17 +437,14 @@ get_word_autonum <- function(x, tab_props) {
   else if(!is.null(tab_props$cap.fp_text)) caption_fp_text <- tab_props$cap.fp_text
   else caption_fp_text <- fp_text_default()
 
-  autonum <- NULL
-  if (!is.null(caption_id)) {
-    autonum <- run_autonum(
-      seq_id = caption_lp,
-      pre_label = caption_pre_label,
-      post_label = caption_post_label,
-      bkm = caption_id, bkm_all = FALSE,
-      tnd = caption_tnd,
-      tns = caption_tns,
-      prop = caption_fp_text
-    )
-  }
+  autonum <- run_autonum(
+    seq_id = caption_lp,
+    pre_label = caption_pre_label,
+    post_label = caption_post_label,
+    bkm = caption_id, bkm_all = FALSE,
+    tnd = caption_tnd,
+    tns = caption_tns,
+    prop = caption_fp_text
+  )
   autonum
 }
