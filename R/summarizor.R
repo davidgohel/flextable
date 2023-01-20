@@ -2,6 +2,9 @@
 #' @description It performs a univariate statistical analysis of a dataset
 #' by group and formats the results so that they can be used with
 #' the [tabulator()] function.
+#' \if{html}{\out{
+#' <img src="https://www.ardata.fr/img/flextable-imgs/flextable-018-square.png" alt="summarizor illustration" style="width:100\%;">
+#' }}
 #' @note
 #' This is very first version of the function; be aware it
 #' can evolve or change.
@@ -70,11 +73,6 @@
 #'
 #' ft_2 <- as_flextable(tab_2, separate_with = "variable")
 #' ft_2
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_summarizor_1.png}{options: width="328"}}
-#'
-#' \if{html}{\figure{fig_summarizor_2.png}{options: width="500"}}
 #' @export
 summarizor <- function(
     x, by = character(),

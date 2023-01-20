@@ -32,16 +32,15 @@ the header.
 
 If some columns are not provided, they will be replaced by
 \code{NA} and displayed as empty.
+
+\if{html}{\out{
+<img src="https://www.ardata.fr/img/flextable-imgs/flextable-016.png" alt="add_header illustration" style="width:100\%;">
+}}
 }
 \note{
 when repeating values, they can be merged together with
 function \code{\link[=merge_h]{merge_h()}} and \code{\link[=merge_v]{merge_v()}}.
 }
-\section{Illustrations}{
-
-\if{html}{\figure{fig_add_header_1.png}{options: width="300"}}
-}
-
 \examples{
 library(flextable)
 

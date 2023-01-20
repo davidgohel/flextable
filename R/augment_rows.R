@@ -166,6 +166,11 @@ add_body <- function(x, top = TRUE, ..., values = NULL) {
 #'
 #' If some columns are not provided, they will be replaced by
 #' `NA` and displayed as empty.
+#'
+#' \if{html}{\out{
+#' <img src="https://www.ardata.fr/img/flextable-imgs/flextable-016.png" alt="add_header illustration" style="width:100\%;">
+#' }}
+#'
 #' @note
 #' when repeating values, they can be merged together with
 #' function [merge_h()] and [merge_v()].
@@ -193,8 +198,6 @@ add_body <- function(x, top = TRUE, ..., values = NULL) {
 #' ft_1 <- align(ft_1, align = "center", part = "all")
 #' ft_1
 #' @family functions to add rows in a flextable
-#' @section Illustrations:
-#' \if{html}{\figure{fig_add_header_1.png}{options: width="300"}}
 add_header <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "add_header()"))
@@ -218,6 +221,9 @@ add_header <- function(x, top = TRUE, ..., values = NULL) {
 #'
 #' If some columns are not provided, they will be replaced by
 #' `NA` and displayed as empty.
+#' \if{html}{\out{
+#' <img src="https://www.ardata.fr/img/flextable-imgs/flextable-016.png" alt="add_footer illustration" style="width:100\%;">
+#' }}
 #' @inheritParams add_body
 #' @examples
 #' new_row <- as.list(colMeans(iris[, -5]))
@@ -239,8 +245,6 @@ add_header <- function(x, top = TRUE, ..., values = NULL) {
 #' ft <- align(ft, part = "footer", align = "right", j = 1:4)
 #' ft
 #' @family functions to add rows in a flextable
-#' @section Illustrations:
-#' \if{html}{\figure{fig_add_footer_1.png}{options: width="300"}}
 add_footer <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "add_footer()"))
@@ -838,6 +842,9 @@ set_footer_df <- function(x, mapping = NULL, key = "col_keys") {
 #' @description If your variable names contain
 #' multiple delimited labels, they will be separated
 #' and placed in their own rows.
+#' \if{html}{\out{
+#' <img src="https://www.ardata.fr/img/flextable-imgs/flextable-016.png" alt="add_header illustration" style="width:100\%;">
+#' }}
 #' @param x a flextable object
 #' @param opts optional treatments to apply
 #' to the resulting header part as a character
@@ -859,9 +866,6 @@ set_footer_df <- function(x, mapping = NULL, key = "col_keys") {
 #' @param fixed logical. If TRUE match `split` exactly,
 #' otherwise use regular expressions.
 #' @family functions to add rows in a flextable
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_separate_header_1.png}{options: width="500"}}
 #' @examples
 #' library(flextable)
 #'

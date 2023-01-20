@@ -6,6 +6,9 @@
 #' - [compose()] and [as_paragraph()],
 #' - [append_chunks()],
 #' - [prepend_chunks()]
+#' \if{html}{\out{
+#' <img src="https://www.ardata.fr/img/flextable-imgs/flextable-006.png" alt="as_image illustration" style="width:100\%;">
+#' }}
 #' @param src image filename
 #' @param width,height size of the image file. It can be ignored
 #' if parameter `guess_size=TRUE`, see parameter `guess_size`.
@@ -41,9 +44,6 @@
 #'   ft <- autofit(myft)
 #'   ft
 #' }
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_as_image_1.png}{options: width="400"}}
 as_image <- function(src, width = NULL, height = NULL, unit = "in", guess_size = TRUE, ...) {
 
   width <- convin(unit = unit, x = width)

@@ -50,7 +50,6 @@ ft
 
 Other as_flextable methods: 
 \code{\link{as_flextable.data.frame}()},
-\code{\link{as_flextable.gam}()},
 \code{\link{as_flextable.glm}()},
 \code{\link{as_flextable.htest}()},
 \code{\link{as_flextable.kmeans}()},

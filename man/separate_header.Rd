@@ -41,13 +41,10 @@ otherwise use regular expressions.}
 If your variable names contain
 multiple delimited labels, they will be separated
 and placed in their own rows.
+\if{html}{\out{
+<img src="https://www.ardata.fr/img/flextable-imgs/flextable-016.png" alt="add_header illustration" style="width:100\%;">
+}}
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_separate_header_1.png}{options: width="500"}}
-}
-
 \examples{
 library(flextable)
 

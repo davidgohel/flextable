@@ -56,6 +56,9 @@ which is then transformed as a flextable. The function
 allows to define any display with the syntax of flextable in
 a table whose layout is showing dimensions of the aggregation
 across rows and columns.
+\if{html}{\out{
+<img src="https://www.ardata.fr/img/flextable-imgs/ft-0-7-2-001-square.png" alt="tabulator illustration" style="width:100\%;">
+}}
 }
 \section{Methods (by generic)}{
 \itemize{
@@ -70,18 +73,6 @@ can be used for further selections.
 This is very first version of the function; be aware it
 can evolve or change.
 }
-\section{Illustrations}{
-
-
-ft_1 appears as:
-
-\if{html}{\figure{fig_tabulator_1.png}{options: width="300"}}
-
-ft_2 appears as:
-
-\if{html}{\figure{fig_tabulator_2.png}{options: width="500"}}
-}
-
 \examples{
 n_format <- function(z){
   x <- sprintf("\%.0f", z)

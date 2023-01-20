@@ -6,7 +6,6 @@ flextable R package
 [![R build
 status](https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/flextable/actions)
 [![version](https://www.r-pkg.org/badges/version/flextable)](https://CRAN.R-project.org/package=flextable)
-![cranlogs](https://cranlogs.r-pkg.org/badges/flextable)
 ![Active](https://www.repostatus.org/badges/latest/active.svg)
 
 **The user documentation is available here**:
@@ -47,11 +46,11 @@ to let R users create tables for reporting and control their formatting
 properties and their layout. The package provides functions that give
 control over:
 
--   header, body and footer content
--   text, paragraphs, cells and border formatting of any element
--   displayed values
+- header, body and footer content
+- text, paragraphs, cells and border formatting of any element
+- displayed values
 
-![](man/figures/flextable_functions.png)
+![](https://ardata-fr.github.io/flextable-book/static/img/flextable_functions.svg)
 
 ## Installation
 
@@ -109,10 +108,10 @@ documentation.
 If you want to submit a Pull Request to integrate functions of yours,
 please provide:
 
--   the new function(s) with code and roxygen tags (with examples)
--   a new section in the appropriate vignette that describes how to use
-    the new function
--   corresponding tests in directory `tests/testthat`.
+- the new function(s) with code and roxygen tags (with examples)
+- a new section in the appropriate vignette that describes how to use
+  the new function
+- corresponding tests in directory `tests/testthat`.
 
 By using rhub (run `rhub::check_for_cran()`), you will see if everything
 is ok. When submitted, the PR will be evaluated automatically on travis

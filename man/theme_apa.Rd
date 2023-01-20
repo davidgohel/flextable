@@ -15,12 +15,6 @@ theme_apa(x, ...)
 Apply theme APA (the stylistic style of the American
 Psychological Association) to a flextable
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_theme_apa_1.png}{options: width="500"}}
-}
-
 \section{behavior}{
 
 Theme functions are not like 'ggplot2' themes. They are applied to the existing

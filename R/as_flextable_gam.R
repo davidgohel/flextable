@@ -2,6 +2,9 @@
 #' @title tabular summary for gam object
 #' @description produce a flextable describing a
 #' generalized additive model produced by function `mgcv::gam`.
+#' \if{html}{\out{
+#' <img src="https://www.ardata.fr/img/flextable-imgs/flextable-002.png" alt="as_flextable.gam illustration" style="width:100\%;">
+#' }}
 #' @param x gam model
 #' @param ... unused argument
 #' @examples
@@ -17,10 +20,6 @@
 #'   ft <- as_flextable(b)
 #'   ft
 #' }
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_as_flextable.gam_1.png}{options: width="400"}}
-#' @family as_flextable methods
 as_flextable.gam <- function(x, ...) {
   data_t <- tidy_gam(x)
   data_g <- glance_gam(x)

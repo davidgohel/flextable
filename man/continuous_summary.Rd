@@ -28,12 +28,6 @@ level/value will be rendered.}
 \description{
 create a data.frame summary for continuous variables
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_continuous_summary_1.png}{options: width="500"}}
-}
-
 \examples{
 ft_1 <- continuous_summary(iris, names(iris)[1:4], by = "Species",
   hide_grouplabel = FALSE)

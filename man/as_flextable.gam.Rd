@@ -14,13 +14,10 @@
 \description{
 produce a flextable describing a
 generalized additive model produced by function \code{mgcv::gam}.
+\if{html}{\out{
+<img src="https://www.ardata.fr/img/flextable-imgs/flextable-002.png" alt="as_flextable.gam illustration" style="width:100\%;">
+}}
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_as_flextable.gam_1.png}{options: width="400"}}
-}
-
 \examples{
 if (require("mgcv")) {
   set.seed(2)
@@ -35,19 +32,3 @@ if (require("mgcv")) {
   ft
 }
 }
-\seealso{
-Other as_flextable methods: 
-\code{\link{as_flextable.data.frame}()},
-\code{\link{as_flextable.glm}()},
-\code{\link{as_flextable.grouped_data}()},
-\code{\link{as_flextable.htest}()},
-\code{\link{as_flextable.kmeans}()},
-\code{\link{as_flextable.lm}()},
-\code{\link{as_flextable.merMod}()},
-\code{\link{as_flextable.pam}()},
-\code{\link{as_flextable.summarizor}()},
-\code{\link{as_flextable.tabulator}()},
-\code{\link{as_flextable.xtable}()},
-\code{\link{as_flextable}()}
-}
-\concept{as_flextable methods}

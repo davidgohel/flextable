@@ -30,6 +30,9 @@ objects with functions:
 \item \code{\link[=compose]{compose()}} and \code{\link[=as_paragraph]{as_paragraph()}},
 \item \code{\link[=append_chunks]{append_chunks()}},
 \item \code{\link[=prepend_chunks]{prepend_chunks()}}
+\if{html}{\out{
+<img src="https://www.ardata.fr/img/flextable-imgs/flextable-006.png" alt="as_image illustration" style="width:100\%;">
+}}
 }
 }
 \note{
@@ -39,12 +42,6 @@ context with Word output format.
 PowerPoint cannot mix images and text in a paragraph, images
 are removed when outputing to PowerPoint format.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_as_image_1.png}{options: width="400"}}
-}
-
 \examples{
 img.file <- file.path( R.home("doc"),
   "html", "logo.jpg" )

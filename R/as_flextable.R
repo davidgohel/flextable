@@ -302,9 +302,6 @@ as_flextable.lm <- function(x, ...){
 #'   ft_1 <- as_flextable(chisq.test(M))
 #'   ft_1
 #' }
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_as_flextable.htest_1.png}{options: width="500"}}
 #' @family as_flextable methods
 as_flextable.htest <- function (x, ...) {
   ret <- x[c("estimate", "statistic", "p.value", "parameter")]
@@ -369,9 +366,6 @@ as_flextable.htest <- function (x, ...) {
 #' ft_1 <- continuous_summary(iris, names(iris)[1:4], by = "Species",
 #'   hide_grouplabel = FALSE)
 #' ft_1
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_continuous_summary_1.png}{options: width="500"}}
 continuous_summary <- function(dat, columns = NULL,
                                by = character(0),
                                hide_grouplabel = TRUE,
