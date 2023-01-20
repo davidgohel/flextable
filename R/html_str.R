@@ -70,7 +70,7 @@ gen_raw_html <- function(x,
     x$properties$opts_html$extra_css,
     manual_css_str,
     "</style>",
-    sprintf("<table class='%s'>", classname),
+    sprintf("<table data-quarto-disable-processing='true' class='%s'>", classname),
     caption,
     codes$html,
     "</table>"
