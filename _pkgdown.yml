@@ -16,6 +16,7 @@ reference:
     - qflextable
     - flextable-package
   - title: Global options
+    contents:
     - set_flextable_defaults
     - get_flextable_defaults
     - init_flextable_defaults
@@ -117,7 +118,7 @@ reference:
     - as_equation
     - as_word_field
   - title: Easy formatting
-    desc:  Define quickly how numbers and characters of tables are displayed
+    desc: Define quickly how numbers and characters of tables are displayed
     contents:
     - starts_with("colformat_")
     - starts_with("set_formatter")
