@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">flextable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.4</span>
       </span>
     </div>
 
@@ -48,7 +48,25 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.8.3" id="flextable-083">flextable 0.8.3<a class="anchor" aria-label="anchor" href="#flextable-083"></a></h2>
+<h2 class="page-header" data-toc-text="0.8.4" id="flextable-084">flextable 0.8.4<a class="anchor" aria-label="anchor" href="#flextable-084"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-8-4">new features<a class="anchor" aria-label="anchor" href="#new-features-0-8-4"></a></h3>
+<ul><li>new argument <code>expand_single</code> in <code><a href="../reference/as_flextable.tabulator.html">as_flextable.tabulator()</a></code>. If <code>FALSE</code>, groups with only one row will not be expanded with a title row.</li>
+<li>argument <code>labels</code> of <code><a href="../reference/labelizor.html">labelizor()</a></code> now support functions in addition to named vectors.</li>
+<li>
+<code><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character()</a></code> now returns the HTML string of the table</li>
+<li>new method <code>as_flextable</code> for data.frame using <code><a href="../reference/df_printer.html">df_printer()</a></code> function implementation.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-8-4">Issues<a class="anchor" aria-label="anchor" href="#issues-0-8-4"></a></h3>
+<ul><li>fix mis-calculated columns widths in latex</li>
+<li>fix horizontal lines in latex tables</li>
+<li>adapt latex table container to quarto changes</li>
+<li>Word caption: autonumber works without bookmark</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.8.3" id="flextable-083">flextable 0.8.3<small>2022-11-06</small><a class="anchor" aria-label="anchor" href="#flextable-083"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-8-3">new features<a class="anchor" aria-label="anchor" href="#new-features-0-8-3"></a></h3>
 <ul><li>new argument <code>expand_single</code> in <code><a href="../reference/as_grouped_data.html">as_grouped_data()</a></code>. If FALSE, groups with only one row will not be expanded with a title row.</li>
@@ -732,7 +750,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.8.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.8.4 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
