@@ -1,3 +1,9 @@
+# flextable 0.8.5
+
+## issues
+
+- fix caption issue with Word and `body_add_flextable()`.
+
 # flextable 0.8.4
 
 ## new features

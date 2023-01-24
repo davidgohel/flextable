@@ -8,7 +8,9 @@ skip_if_not(pandoc_version() >= numeric_version("2"))
 
 init_flextable_defaults()
 
-ft_1 <- qflextable(head(cars, n = 20))
+iris_sum <- summarizor(iris, by = "Species")
+ft_1 <- as_flextable(iris_sum)
+ft_1 <- set_caption(ft_1, "a caption")
 
 test_that("docx-keep-with-next", {
   local_edition(3)
