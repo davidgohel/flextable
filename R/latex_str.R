@@ -41,7 +41,17 @@ add_latex_dep <- function(float = FALSE, wrapfig = FALSE){
   usepackage_latex("multirow")
   usepackage_latex("multicol")
   usepackage_latex("colortbl")
-  usepackage_latex("hhline")
+  usepackage_latex(
+    name = "hhline",
+    extra_lines= c("\\newlength\\Oldarrayrulewidth",
+                   "\\newlength\\Oldtabcolsep")
+  )
+
+  latex_dependency(
+    name = "hhline",
+    extra_lines= c("\\newlength\\Oldarrayrulewidth",
+                   "\\newlength\\Oldtabcolsep")
+  )
   usepackage_latex("longtable")
   if(float) usepackage_latex("float")
   if(wrapfig) usepackage_latex("wrapfig")
@@ -359,8 +369,8 @@ calc_column_size <- function(df, levels) {
 # tools ----
 #' @importFrom knitr knit_meta_add
 #' @importFrom rmarkdown latex_dependency
-usepackage_latex <- function(name, options = NULL) {
-  knit_meta_add(list(latex_dependency(name, options)))
+usepackage_latex <- function(name, ...) {
+  knit_meta_add(list(latex_dependency(name, ...)))
 }
 
 merge_table_properties <- function(x) {

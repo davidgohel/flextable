@@ -58,3 +58,9 @@ ft
 flextable(cars[1:4, ])
 ```
 
+## with flextable_to_rmd
+
+```{r echo = FALSE, results = 'asis'}
+flextable_to_rmd(as_flextable(cars))
+```
+

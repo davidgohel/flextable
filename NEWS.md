@@ -2,6 +2,7 @@
 
 ## issues
 
+- fix issue with flextable_to_rmd and pdf introduced in `0.8.4`.
 - fix caption issue with Word and `body_add_flextable()`.
 
 # flextable 0.8.4

@@ -385,6 +385,7 @@ knit_to_wml <- function(x, bookdown = FALSE, quarto = FALSE) {
 #' @examples
 #' knit_to_latex(flextable(airquality[1:5, ]))
 #' @importFrom officer opts_current_table run_autonum to_wml
+#' @importFrom knitr raw_block
 knit_to_latex <- function(x, bookdown, quarto = FALSE) {
 
   align <- x$properties$align
@@ -444,7 +445,7 @@ knit_to_latex <- function(x, bookdown, quarto = FALSE) {
     container_str[2],
     sep = "\n\n"
   )
-  paste(
+  z <- paste(
     "\\global\\setlength{\\Oldarrayrulewidth}{\\arrayrulewidth}",
     "\\global\\setlength{\\Oldtabcolsep}{\\tabcolsep}",
     sprintf("\\setlength{\\tabcolsep}{%spt}", format_double(x$properties$opts_pdf$tabcolsep, 0)),
@@ -456,6 +457,7 @@ knit_to_latex <- function(x, bookdown, quarto = FALSE) {
     "\\renewcommand*{\\arraystretch}{1}",
     sep = "\n\n"
   )
+  raw_block(z, type = "latex")
 }
 
 knit_to_pml <- function(x, left = opts_current$get("ft.left"),
@@ -766,24 +768,7 @@ knit_print.flextable <- function(x, ...) {
     pandoc2 = pandoc2,
     print = FALSE, quarto = is_quarto
   )
-  if (knitr::is_latex_output()) {
-    knit_print(
-      knitr::raw_block(
-        x = str, type = "latex",
-        meta = list(
-          latex_dependency(
-            name = "hhline",
-            extra_lines= c("\\newlength\\Oldarrayrulewidth",
-                           "\\newlength\\Oldtabcolsep")
-          )
-        )
-      )
-    )
-  } else {
-    knit_print(asis_output(str))
-  }
-
-
+  knit_print(asis_output(str))
 }
 
 #' @export
