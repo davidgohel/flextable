@@ -448,13 +448,6 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' )
 #' ft_4
 #' @family flextable dimensions
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_set_table_properties_1.png}{options: width="69"}}
-#'
-#' \if{html}{\figure{fig_set_table_properties_2.png}{options: width="256"}}
-#'
-#' \if{html}{\figure{fig_set_table_properties_3.png}{options: width="500"}}
 set_table_properties <- function(x, layout = "fixed", width = 0,
                                  align = "center",
                                  opts_html = list(),

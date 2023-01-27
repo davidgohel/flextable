@@ -14,12 +14,6 @@ theme_vader(x, ...)
 \description{
 Apply Sith Lord Darth Vader theme to a flextable
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_theme_vader_1.png}{options: width="400"}}
-}
-
 \section{behavior}{
 
 Theme functions are not like 'ggplot2' themes. They are applied to the existing

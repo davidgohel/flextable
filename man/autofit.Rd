@@ -52,14 +52,6 @@ well with HTML and Word output that can be set
 with \code{set_table_properties(layout = "autofit")}, see
 \code{\link[=set_table_properties]{set_table_properties()}}.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_autofit_1.png}{options: width="500"}}
-
-\if{html}{\figure{fig_autofit_2.png}{options: width="379"}}
-}
-
 \examples{
 ft_1 <- flextable(head(mtcars))
 ft_1

@@ -30,14 +30,6 @@ Two options are available, either a column-by-column algorithm or an
 algorithm where the combinations of these columns are used once for all
 target columns.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_merge_v_1.png}{options: width="600"}}
-
-\if{html}{\figure{fig_merge_v_2.png}{options: width="600"}}
-}
-
 \examples{
 ft_merge <- flextable(mtcars)
 ft_merge <- merge_v(ft_merge, j = c("gear", "carb"))

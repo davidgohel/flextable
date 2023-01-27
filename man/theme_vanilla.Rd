@@ -42,12 +42,6 @@ in this case, don't forget to take care that the theme doesn't
 override any formatting done before the print statement.
 }
 
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_theme_vanilla_1.png}{options: width="400"}}
-}
-
 \examples{
 ft <- flextable(head(airquality))
 ft <- theme_vanilla(ft)

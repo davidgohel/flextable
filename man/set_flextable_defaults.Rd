@@ -147,14 +147,6 @@ are automatically applied to every flextable you produce.
 Use \code{set_flextable_defaults()} to override them. Use \code{init_flextable_defaults()}
 to re-init all values with the package defaults.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_set_flextable_defaults_1.png}{options: width="400"}}
-
-\if{html}{\figure{fig_set_flextable_defaults_2.png}{options: width="400"}}
-}
-
 \examples{
 ft_1 <- qflextable(head(airquality))
 ft_1

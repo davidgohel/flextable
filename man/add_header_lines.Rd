@@ -24,11 +24,6 @@ This is a sugar function to be used when you need to
 add labels in the header, most of the time it will
 be used to adding titles on the top rows of the flextable.
 }
-\section{Illustrations}{
-
-\if{html}{\figure{fig_add_header_lines_1.png}{options: width="300"}}
-}
-
 \examples{
 # ex 1----
 ft_1 <- flextable(head(iris))

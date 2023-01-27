@@ -21,14 +21,6 @@ fit_to_width(x, max_width, inc = 1L, max_iter = 20, unit = "in")
 decrease font size for each cell incrementally until
 it fits a given max_width.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_fit_to_width_1.png}{options: width="400"}}
-
-\if{html}{\figure{fig_fit_to_width_2.png}{options: width="150"}}
-}
-
 \examples{
 ft_1 <- qflextable(head(mtcars))
 ft_1 <- width(ft_1, width = 1)

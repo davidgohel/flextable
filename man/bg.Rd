@@ -37,14 +37,6 @@ the colors and only accept values from \code{colkeys}.
 \note{
 Word does not allow you to apply transparency to table cells or paragraph shading.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_bg_1.png}{options: width="400"}}
-
-\if{html}{\figure{fig_bg_2.png}{options: width="300"}}
-}
-
 \examples{
 ft_1 <- flextable(head(mtcars))
 ft_1 <- bg(ft_1, bg = "wheat", part = "header")

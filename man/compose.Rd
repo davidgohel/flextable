@@ -40,14 +40,6 @@ or the beginning of paragraphs and keep existing
 content as it is, functions \code{\link[=append_chunks]{append_chunks()}} and
 \code{\link[=prepend_chunks]{prepend_chunks()}} should be prefered.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_compose_1.png}{options: width="117"}}
-
-\if{html}{\figure{fig_compose_2.png}{options: width="400"}}
-}
-
 \examples{
 ft_1 <- flextable(head(cars, n = 5), col_keys = c("speed", "dist", "comment"))
 ft_1 <- mk_par(

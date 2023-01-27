@@ -56,13 +56,6 @@
 #' @export
 #' @family functions for mixed content paragraphs
 #' @seealso [fp_text_default()], [as_chunk()], [as_b()], [as_word_field()], [labelizor()]
-#'
-#'
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_compose_1.png}{options: width="117"}}
-#'
-#' \if{html}{\figure{fig_compose_2.png}{options: width="400"}}
 compose <- function(x, i = NULL, j = NULL, value , part = "body", use_dot = FALSE){
 
   if( !inherits(x, "flextable") ) {

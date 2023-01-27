@@ -12,12 +12,6 @@ theme_box(x)
 \description{
 Apply theme box to a flextable
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_theme_box_1.png}{options: width="400"}}
-}
-
 \section{behavior}{
 
 Theme functions are not like 'ggplot2' themes. They are applied to the existing

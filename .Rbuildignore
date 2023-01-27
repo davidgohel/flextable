@@ -6,7 +6,6 @@
 ^revdep$
 ^CONDUCT\.md$
 ^todo\.md$
-^inst/mediasrc$
 ^inst/medias$
 ^cran-comments\.md$
 ^ISSUE_TEMPLATE\.md$

@@ -118,11 +118,6 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 #' ft_2
 #' @export
 #' @family borders management
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_border_remove_1.png}{options: width="400"}}
-#'
-#' \if{html}{\figure{fig_border_remove_2.png}{options: width="400"}}
 border_remove <- function(x){
   if( !inherits(x, "flextable") ) {
     stop(sprintf("Function `%s` supports only flextable objects.", "border_remove()"))
@@ -150,9 +145,6 @@ border_remove <- function(x){
 #' ft <- border_outer(ft, part="all", border = big_border )
 #' ft
 #' @family borders management
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_border_outer_1.png}{options: width="400"}}
 border_outer <- function(x, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) {
     stop(sprintf("Function `%s` supports only flextable objects.", "border_outer()"))
@@ -196,9 +188,6 @@ border_outer <- function(x, border = NULL, part = "all"){
 #' ft <- border_inner_h(ft, border = std_border )
 #' ft
 #' @family borders management
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_border_inner_h_1.png}{options: width="400"}}
 border_inner_h <- function(x, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) {
     stop(sprintf("Function `%s` supports only flextable objects.", "border_inner_h()"))
@@ -239,9 +228,6 @@ border_inner_h <- function(x, border = NULL, part = "body"){
 #' ft <- border_inner_v(ft, border = std_border )
 #' ft
 #' @family borders management
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_border_inner_v_1.png}{options: width="400"}}
 border_inner_v <- function(x, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) {
     stop(sprintf("Function `%s` supports only flextable objects.", "border_inner_v()"))
@@ -282,9 +268,6 @@ border_inner_v <- function(x, border = NULL, part = "all"){
 #' ft <- border_inner(ft, border = std_border )
 #' ft
 #' @family borders management
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_border_inner_1.png}{options: width="400"}}
 border_inner <- function(x, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) {
     stop(sprintf("Function `%s` supports only flextable objects.", "border_inner()"))
@@ -334,9 +317,6 @@ border_inner <- function(x, border = NULL, part = "all"){
 #' ft <- hline(ft, part="all", border = std_border )
 #' ft
 #' @family borders management
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_hline_1.png}{options: width="400"}}
 hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) {
     stop(sprintf("Function `%s` supports only flextable objects.", "hline()"))
@@ -389,9 +369,6 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
 #' ft <- hline_top(ft, part="all", border = big_border )
 #' ft
 #' @family borders management
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_hline_top_1.png}{options: width="400"}}
 hline_top <- function(x, j = NULL, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) {
     stop(sprintf("Function `%s` supports only flextable objects.", "hline_top()"))
@@ -442,9 +419,6 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body"){
 #' ft <- hline_bottom(ft, part="body", border = big_border )
 #' ft
 #' @family borders management
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_hline_bottom_1.png}{options: width="400"}}
 hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
   if( !inherits(x, "flextable") ) {
     stop(sprintf("Function `%s` supports only flextable objects.", "hline_bottom()"))
@@ -486,9 +460,6 @@ hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
 #' ft <- vline(ft, border = std_border )
 #' ft
 #' @family borders management
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_vline_1.png}{options: width="400"}}
 vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) {
     stop(sprintf("Function `%s` supports only flextable objects.", "vline()"))
@@ -537,9 +508,6 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
 #' ft <- vline_left(ft, border = std_border )
 #' ft
 #' @family borders management
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_vline_left_1.png}{options: width="400"}}
 vline_left <- function(x, i = NULL, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) {
     stop(sprintf("Function `%s` supports only flextable objects.", "vline_left()"))
@@ -580,9 +548,6 @@ vline_left <- function(x, i = NULL, border = NULL, part = "all"){
 #' ft <- vline_right(ft, border = std_border )
 #' ft
 #' @family borders management
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_vline_right_1.png}{options: width="400"}}
 vline_right <- function(x, i = NULL, border = NULL, part = "all"){
   if( !inherits(x, "flextable") ) {
     stop(sprintf("Function `%s` supports only flextable objects.", "vline_right()"))

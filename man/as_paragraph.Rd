@@ -24,12 +24,6 @@ represent the content of a paragraph.
 The cells of a flextable contain each a single paragraph. This paragraph
 is made of chunks that can be text, images or plots, equations and links.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_as_paragraph_1.png}{options: width="400"}}
-}
-
 \examples{
 library(flextable)
 ft <- flextable(airquality[sample.int(150, size = 10), ])

@@ -121,9 +121,6 @@ as_grouped_data <- function( x, groups, columns = NULL, expand_single = TRUE){
 #' ft <- autofit(ft)
 #' ft <- width(ft, width = c(1, 1, 1))
 #' ft
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_as_flextable.grouped_data_1.png}{options: width="400"}}
 #' @family as_flextable methods
 #' @seealso [as_grouped_data()]
 as_flextable.grouped_data <- function(x, col_keys = NULL, hide_grouplabel = FALSE, ... ){
@@ -181,9 +178,6 @@ pvalue_format <- function(x){
 #'   ft <- as_flextable(probit.model)
 #'   ft
 #' }
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_as_flextable.glm_1.png}{options: width="500"}}
 #' @family as_flextable methods
 as_flextable.glm <- function(x, ...){
 
@@ -246,9 +240,6 @@ as_flextable.glm <- function(x, ...){
 #'   ft <- as_flextable(lmod)
 #'   ft
 #' }
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_as_flextable.lm_1.png}{options: width="500"}}
 #' @family as_flextable methods
 as_flextable.lm <- function(x, ...){
 

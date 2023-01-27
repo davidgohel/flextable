@@ -28,9 +28,6 @@
 #' ft
 #' @export
 #' @family functions to add rows in a flextable
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_set_header_labels_1.png}{options: width="400"}}
 set_header_labels <- function(x, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "set_header_labels()"))
@@ -62,9 +59,6 @@ set_header_labels <- function(x, ..., values = NULL) {
 #' ft <- flextable(head(iris))
 #' ft <- delete_part(x = ft, part = "header")
 #' ft
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_delete_part_1.png}{options: width="300"}}
 delete_part <- function(x, part = "header") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "delete_part()"))
@@ -617,8 +611,6 @@ data_from_char <- function(values, colwidths, col_keys) {
 #' @param top should the row be inserted at the top
 #' or the bottom. Default to TRUE.
 #' @family functions that add rows in the table
-#' @section Illustrations:
-#' \if{html}{\figure{fig_add_header_lines_1.png}{options: width="300"}}
 #' @examples
 #' # ex 1----
 #' ft_1 <- flextable(head(iris))
@@ -679,8 +671,6 @@ add_header_lines <- function(x, values = character(0), top = TRUE) {
 #' add labels in the footer, a footnote for example.
 #' @inheritParams add_header_lines
 #' @family functions to add rows in a flextable
-#' @section Illustrations:
-#' \if{html}{\figure{fig_add_footer_lines_1.png}{options: width="300"}}
 #' @examples
 #' ft_1 <- flextable(head(iris))
 #' ft_1 <- add_footer_lines(ft_1,
@@ -797,11 +787,6 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part) {
 #' ft_1 <- fix_border_issues(ft_1)
 #' ft_1
 #' @family functions to add rows in a flextable
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_set_header_footer_df_1.png}{options: width="400"}}
-#'
-#' \if{html}{\figure{fig_set_header_footer_df_2.png}{options: width="400"}}
 set_header_df <- function(x, mapping = NULL, key = "col_keys") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "set_header_df()"))

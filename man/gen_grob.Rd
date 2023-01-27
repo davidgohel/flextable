@@ -104,7 +104,7 @@ The size of the flextable can be known by using the method
 ft <- flextable(head(mtcars))
 ft <- autofit(ft)
 gr <- gen_grob(ft)
-if (interactive()) plot(gr)
+plot(gr)
 
 # get the size
 dims <- dim(gr)

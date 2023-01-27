@@ -37,12 +37,6 @@ is one of 'left', 'right', 'center', 'justify'.}
 \description{
 change text alignment of selected rows and columns of a flextable.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_align_1.png}{options: width="400"}}
-}
-
 \examples{
 ft <- flextable(head(mtcars)[, 3:6])
 ft <- align(ft, align = "right", part = "all")

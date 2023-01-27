@@ -124,9 +124,6 @@ colformat_char <- function(
 #'   big.mark=",", digits = 2, na_str = "N/A")
 #' autofit(ft)
 #' @importFrom rlang new_function quo get_expr pairlist2
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_colformat_double_1.png}{options: width="400"}}
 colformat_double <- function(
   x, i = NULL, j = NULL,
   big.mark = get_flextable_defaults()$big.mark,
@@ -194,9 +191,6 @@ colformat_double <- function(
 #'   na_str = "N/A")
 #' ft <- autofit(ft)
 #' ft
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_colformat_num_1.png}{options: width="400"}}
 colformat_num <- function(
   x, i = NULL, j = NULL,
   big.mark = get_flextable_defaults()$big.mark,
@@ -374,9 +368,6 @@ colformat_lgl <- function(
 #'   j = "Species", width = .20, height = .15)
 #' ft <- autofit(myft)
 #' ft
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_colformat_image_1.png}{options: width="400"}}
 colformat_image <- function(
   x, i = NULL, j = NULL,
   width, height,

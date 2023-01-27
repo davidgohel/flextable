@@ -55,13 +55,6 @@
 #'   detach("package:xtable", unload = TRUE)
 #' }
 #' @export
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_as_flextable.xtable_1.png}{options: width="300"}}
-#'
-#' \if{html}{\figure{fig_as_flextable.xtable_2.png}{options: width="300"}}
-#'
-#' \if{html}{\figure{fig_as_flextable.xtable_3.png}{options: width="500"}}
 #' @family as_flextable methods
 as_flextable.xtable <- function(
   x, text.properties = fp_text_default(),

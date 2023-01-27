@@ -22,12 +22,6 @@ chunk elements for paragraph.}
 append chunks (for example chunk \code{\link[=as_chunk]{as_chunk()}})
 in a flextable.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_append_chunks_1.png}{options: width="100"}}
-}
-
 \examples{
 library(flextable)
 img.file <- file.path(R.home("doc"), "html", "logo.jpg")

@@ -65,12 +65,6 @@ context with Word output format.
 PowerPoint cannot mix images and text in a paragraph, images
 are removed when outputing to PowerPoint format.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_lollipop_1.png}{options: width="400"}}
-}
-
 \examples{
 iris$Sepal.Ratio <- (iris$Sepal.Length - mean(iris$Sepal.Length))/mean(iris$Sepal.Length)
 ft <- flextable( tail(iris, n = 10 ))

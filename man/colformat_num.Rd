@@ -64,12 +64,6 @@ If these functions does not fit your needs, use \code{\link[=set_formatter]{set_
 that lets you use any format function.
 }
 
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_colformat_num_1.png}{options: width="400"}}
-}
-
 \examples{
 dat <- mtcars
 dat[2,1] <- NA

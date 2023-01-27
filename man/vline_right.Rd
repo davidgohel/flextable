@@ -20,12 +20,6 @@ The function is applying vertical borders to the
 right side of one or all parts of a flextable. The line is the
 right border of selected cells of the last column.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_vline_right_1.png}{options: width="400"}}
-}
-
 \examples{
 library(officer)
 std_border = fp_border(color="orange")

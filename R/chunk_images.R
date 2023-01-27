@@ -110,9 +110,6 @@ as_image <- function(src, width = NULL, height = NULL, unit = "in", guess_size =
 #' ft
 #' @importFrom grDevices as.raster col2rgb rgb
 #' @seealso [compose()], [as_paragraph()]
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_minibar_1.png}{options: width="400"}}
 minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", width = 1, height = .2, unit = "in") {
 
   width <- convin(unit = unit, x = width)
@@ -287,9 +284,6 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @importFrom grDevices as.raster col2rgb rgb
 #' @importFrom stats approx
 #' @seealso [compose()], [as_paragraph()]
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_lollipop_1.png}{options: width="400"}}
 lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
                      bg = "transparent", width = 1,
                      height = .2, unit = "in", raster_width = 30, positivecol = "#00CC00",
@@ -417,9 +411,6 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @importFrom grDevices dev.off png
 #' @importFrom graphics boxplot
 #' @importFrom stats density
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_plot_chunk_1.png}{options: width="400"}}
 plot_chunk <- function(value, width = 1, height = .2,
                        type = "box", free_scale = FALSE, unit = "in", ...) {
 
@@ -531,9 +522,6 @@ plot_chunk <- function(value, width = 1, height = .2,
 #'                ))
 #'   ft
 #' }
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_gg_chunk_1.png}{options: width="200"}}
 gg_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
 
   width <- convin(unit = unit, x = width)

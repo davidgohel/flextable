@@ -34,12 +34,6 @@ has to be used to define what are the columns to be used for the color
 definition and the argument \code{j} has to be used to define where to apply
 the colors and only accept values from \code{colkeys}.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_highlight_1.png}{options: width="500"}}
-}
-
 \examples{
 my_color_fun <- function(x) {
   out <- rep("yellow", length(x))

@@ -8,10 +8,6 @@ status](https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg)
 [![version](https://www.r-pkg.org/badges/version/flextable)](https://CRAN.R-project.org/package=flextable)
 ![Active](https://www.repostatus.org/badges/latest/active.svg)
 
-**The user documentation is available here**:
-<https://ardata-fr.github.io/flextable-book/>
-
-<img src="man/figures/logo.png" alt="flextable logo" align="right" />
 The flextable package provides a framework for easily create tables for
 reporting and publications. Tables can be easily formatted with a set of
 verbs such as `bold()`, `color()`, they can receive a header of more
@@ -33,13 +29,13 @@ from R Markdown documents and within Microsoft Word or PowerPoint
 documents with package officer. Tables can also be rendered as R plots
 or graphic files (png, pdf and jpeg).
 
+<img src="man/figures/fig_formats.png" width="170px" alt="flextable formats" align="center" />
+
 ``` r
 flextable(mtcars) %>% 
   theme_vanilla() %>% 
   save_as_docx(path = "mytable.docx")
 ```
-
-<img src="man/figures/fig_formats.png" width="170px" alt="flextable formats" align="center" />
 
 A `flextable` object is a data.frame representation. An API is available
 to let R users create tables for reporting and control their formatting
@@ -49,8 +45,6 @@ control over:
 - header, body and footer content
 - text, paragraphs, cells and border formatting of any element
 - displayed values
-
-![](https://ardata-fr.github.io/flextable-book/static/img/flextable_functions.svg)
 
 ## Installation
 
@@ -66,22 +60,15 @@ devtools::install_github("davidgohel/flextable")
 
 ## Resources
 
-### Documentation
-
-The help pages are in a bookdown located at:
-<https://ardata-fr.github.io/flextable-book/>
-
-Manuals are available at:
-<https://davidgohel.github.io/flextable/reference/index.html>
-
-A gallery of examples is available here:
-<https://ardata.fr/en/flextable-gallery/>
+- User guide: <https://ardata-fr.github.io/flextable-book/>
+- Manuals: <https://davidgohel.github.io/flextable/reference/index.html>
+- Gallery of examples: <https://ardata.fr/en/flextable-gallery/>
 
 ### Getting help / questions
 
 If you have questions about how to use the package, visit Stackoverflow
 and use tags `flextable` and `r` [Stackoverflow
-link](https://stackoverflow.com/questions/tagged/flextable+r)! You can
+link](https://stackoverflow.com/questions/tagged/flextable+r). You can
 also use <https://github.com/davidgohel/flextable/discussions> to start
 a discussion.
 
@@ -96,9 +83,8 @@ Conduct](https://github.com/davidgohel/flextable/blob/master/CONDUCT.md).
 
 When you file a [bug
 report](https://github.com/davidgohel/flextable/issues), please spend
-some time making it easy for me to follow and reproduce. The more time
-you spend on making the bug report coherent, the more time I can
-dedicate to investigate the bug as opposed to the bug report.
+some time making it easy for us to reproduce. If you take the time to
+make the bug report consistent, it will be easier to fix.
 
 ### Contributing to the package development
 
@@ -112,7 +98,3 @@ please provide:
 - a new section in the appropriate vignette that describes how to use
   the new function
 - corresponding tests in directory `tests/testthat`.
-
-By using rhub (run `rhub::check_for_cran()`), you will see if everything
-is ok. When submitted, the PR will be evaluated automatically on travis
-and appveyor and you will be able to see if something broke.

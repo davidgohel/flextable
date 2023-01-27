@@ -21,14 +21,6 @@ one of "center" or "top" or "bottom".}
 \description{
 change vertical alignment of selected rows and columns of a flextable.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_valign_1.png}{options: width="400"}}
-
-\if{html}{\figure{fig_valign_2.png}{options: width="400"}}
-}
-
 \examples{
 ft_1 <- flextable(iris[c(1:3, 51:53, 101:103), ])
 ft_1 <- theme_box(ft_1)

@@ -15,11 +15,6 @@
 #' ft_2 <- fit_to_width(ft_1, max_width = 4)
 #' ft_2
 #' @family flextable dimensions
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_fit_to_width_1.png}{options: width="400"}}
-#'
-#' \if{html}{\figure{fig_fit_to_width_2.png}{options: width="150"}}
 fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in" ){
   max_width <- convin(unit = unit, x = max_width)
 
@@ -65,9 +60,6 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in" ){
 #' ft <- width(ft, width = 1.5)
 #' ft
 #' @family flextable dimensions
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_width_1.png}{options: width="400"}}
 width <- function(x, j = NULL, width, unit = "in"){
 
   width <- convin(unit = unit, x = width)
@@ -103,11 +95,6 @@ width <- function(x, j = NULL, width, unit = "in"){
 #' ft_1 <- hrule(ft_1, rule = "exact")
 #' ft_1
 #' @family flextable dimensions
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_height_1.png}{options: width="400"}}
-#'
-#' \if{html}{\figure{fig_height_2.png}{options: width="400"}}
 height <- function(x, i = NULL, height, part = "body", unit = "in"){
   height <- convin(unit = unit, x = height)
 
@@ -154,11 +141,6 @@ height <- function(x, i = NULL, height, part = "body", unit = "in"){
 #' ft_2 <- hrule(ft_1, rule = "auto", part = "header")
 #' ft_2
 #' @family flextable dimensions
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_hrule_1.png}{options: width="400"}}
-#'
-#' \if{html}{\figure{fig_hrule_2.png}{options: width="400"}}
 hrule <- function(x, i = NULL, rule = "auto", part = "body"){
   part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE )
 
@@ -357,11 +339,6 @@ dim_pretty <- function( x, part = "all", unit = "in", hspans = "none"){
 #' ft_2 <- autofit(ft_1)
 #' ft_2
 #' @family flextable dimensions
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_autofit_1.png}{options: width="500"}}
-#'
-#' \if{html}{\figure{fig_autofit_2.png}{options: width="379"}}
 autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"),
                     unit = "in", hspans = "none"){
 

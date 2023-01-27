@@ -1,8 +1,18 @@
+url: https://davidgohel.github.io/flextable/
+
 title: flextable
 
+development:
+  mode: auto
+
 template:
-  package: pkgardata
+  bootstrap: 5
+  theme: breeze-light
   bootswatch: simplex
+  bslib:
+    pkgdown-nav-height: 100px
+    base_font:
+      google: "Open Sans"
 
 home:
   links:
@@ -167,6 +177,7 @@ reference:
     - proc_freq
     - shift_table
 
+
 navbar:
   title: flextable
   type: default
@@ -175,6 +186,13 @@ navbar:
     href: reference/index.html
   - text: User Documentation
     href: https://ardata-fr.github.io/flextable-book/
+
+footer:
+  structure:
+    left: legal
+  components:
+    legal: proudly brought to you by <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a>
+
 
 authors:
   David Gohel:

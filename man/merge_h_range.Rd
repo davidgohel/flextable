@@ -19,12 +19,6 @@ merge_h_range(x, i = NULL, j1 = NULL, j2 = NULL, part = "body")
 Merge flextable columns into a single one for each selected rows. All
 columns must be consecutive.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_merge_h_range_1.png}{options: width="500"}}
-}
-
 \examples{
 ft <- flextable( head( mtcars ), cwidth = .5 )
 ft <- theme_box( ft )

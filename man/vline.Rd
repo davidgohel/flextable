@@ -22,12 +22,6 @@ The function is applying vertical borders to inner
 content of one or all parts of a flextable. The lines are the
 right borders of selected cells.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_vline_1.png}{options: width="400"}}
-}
-
 \examples{
 library(officer)
 std_border = fp_border(color="orange")

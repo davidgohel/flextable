@@ -34,14 +34,6 @@ has to be used to define what are the columns to be used for the color
 definition and the argument \code{j} has to be used to define where to apply
 the colors and only accept values from \code{colkeys}.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_color_1.png}{options: width="600"}}
-
-\if{html}{\figure{fig_color_2.png}{options: width="400"}}
-}
-
 \examples{
 ft <- flextable(head(mtcars))
 ft <- color(ft, color = "orange", part = "header")

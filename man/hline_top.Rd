@@ -20,12 +20,6 @@ The function is applying an horizontal border to the
 top of one or all parts of a flextable. The line is the
 top border of selected parts.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_hline_top_1.png}{options: width="400"}}
-}
-
 \examples{
 library(officer)
 big_border = fp_border(color="orange", width = 3)

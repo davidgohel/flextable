@@ -19,12 +19,6 @@ value specifying label to use. If provided, argument \code{...} will be ignored.
 This function set labels for specified
 columns in the bottom row header of a flextable.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_set_header_labels_1.png}{options: width="400"}}
-}
-
 \examples{
 ft <- flextable(head(iris))
 ft <- set_header_labels(ft,

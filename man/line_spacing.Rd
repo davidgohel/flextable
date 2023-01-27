@@ -20,12 +20,6 @@ line_spacing(x, i = NULL, j = NULL, space = 1, part = "body")
 \description{
 change text alignment of selected rows and columns of a flextable.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_line_spacing_1.png}{options: width="400"}}
-}
-
 \examples{
 ft <- flextable(head(mtcars)[, 3:6])
 ft <- line_spacing(ft, space = 1.6, part = "all")

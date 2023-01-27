@@ -25,14 +25,6 @@ will not have any effect when output is HTML or PDF.
 
 For PDF see the \code{ft.arraystretch} chunk option.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_hrule_1.png}{options: width="400"}}
-
-\if{html}{\figure{fig_hrule_2.png}{options: width="400"}}
-}
-
 \examples{
 
 ft_1 <- flextable(head(iris))

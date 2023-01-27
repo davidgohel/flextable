@@ -27,14 +27,6 @@ other columns will be displayed as header or footer rows. The leftmost column
 is used as the top header/footer row and the rightmost column
 is used as the bottom header/footer row.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_set_header_footer_df_1.png}{options: width="400"}}
-
-\if{html}{\figure{fig_set_header_footer_df_2.png}{options: width="400"}}
-}
-
 \examples{
 typology <- data.frame(
   col_keys = c(

@@ -20,12 +20,6 @@ italic(x, i = NULL, j = NULL, italic = TRUE, part = "body")
 \description{
 change font decoration of selected rows and columns of a flextable.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_italic_1.png}{options: width="400"}}
-}
-
 \examples{
 ft <- flextable(head(mtcars))
 ft <- italic(ft, italic = TRUE, part = "header")

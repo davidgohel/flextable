@@ -29,14 +29,6 @@ This function has no effect when the rule for line height is set to
 "auto" (see \code{\link[=hrule]{hrule()}}), which is the default case, except with PowerPoint
 which does not support this automatic line height adjustment feature.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_height_1.png}{options: width="400"}}
-
-\if{html}{\figure{fig_height_2.png}{options: width="400"}}
-}
-
 \section{height_all}{
 
 \code{height_all} is a convenient function for

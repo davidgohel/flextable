@@ -15,12 +15,6 @@
 produce a flextable describing a
 linear model produced by function \code{lm}.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_as_flextable.lm_1.png}{options: width="500"}}
-}
-
 \examples{
 if(require("broom")){
   lmod <- lm(rating ~ complaints + privileges +

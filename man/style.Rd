@@ -35,12 +35,6 @@ It allows to specify a set of formatting properties for a selection instead
 of using multiple functions (.i.e \code{bold}, \code{italic}, \code{bg}) that
 should all be applied to the same selection of rows and columns.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_style_1.png}{options: width="500"}}
-}
-
 \examples{
 library(officer)
 def_cell <- fp_cell(border = fp_border(color = "wheat"))

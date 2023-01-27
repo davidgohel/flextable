@@ -38,12 +38,6 @@ padding(
 \description{
 change paddings of selected rows and columns of a flextable.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_padding_1.png}{options: width="400"}}
-}
-
 \examples{
 ft_1 <- flextable(head(iris))
 ft_1 <- theme_vader(ft_1)

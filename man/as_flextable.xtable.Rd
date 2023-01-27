@@ -41,16 +41,6 @@ implemented.}
 Get a \code{flextable} object from
 a \code{xtable} object.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_as_flextable.xtable_1.png}{options: width="300"}}
-
-\if{html}{\figure{fig_as_flextable.xtable_2.png}{options: width="300"}}
-
-\if{html}{\figure{fig_as_flextable.xtable_3.png}{options: width="500"}}
-}
-
 \examples{
 library(officer)
 if( require("xtable") ){

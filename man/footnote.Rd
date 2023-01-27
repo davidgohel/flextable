@@ -42,14 +42,6 @@ and \code{j}. If you use i = c(1,3) and j = c(2,5), then you will
 add the symbols (or the repeated symbol) to cells \verb{[1,2]}
 and \verb{[3,5]}.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_footnote_1.png}{options: width="400"}}
-
-\if{html}{\figure{fig_footnote_2.png}{options: width="400"}}
-}
-
 \examples{
 ft_1 <- flextable(head(iris))
 ft_1 <- footnote( ft_1, i = 1, j = 1:3,

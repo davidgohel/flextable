@@ -23,11 +23,6 @@ where all columns are merged.
 This is a sugar function to be used when you need to
 add labels in the footer, a footnote for example.
 }
-\section{Illustrations}{
-
-\if{html}{\figure{fig_add_footer_lines_1.png}{options: width="300"}}
-}
-
 \examples{
 ft_1 <- flextable(head(iris))
 ft_1 <- add_footer_lines(ft_1,

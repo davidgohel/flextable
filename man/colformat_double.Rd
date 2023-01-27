@@ -33,12 +33,6 @@ colformat_double(
 \description{
 Format numeric cells in a flextable.
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_colformat_double_1.png}{options: width="400"}}
-}
-
 \examples{
 dat <- mtcars
 ft <- flextable(head(dat))

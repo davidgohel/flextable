@@ -20,12 +20,6 @@ theme_zebra(
 \description{
 Apply theme zebra to a flextable
 }
-\section{Illustrations}{
-
-
-\if{html}{\figure{fig_theme_zebra_1.png}{options: width="400"}}
-}
-
 \section{behavior}{
 
 Theme functions are not like 'ggplot2' themes. They are applied to the existing

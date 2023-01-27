@@ -10,9 +10,6 @@
 #' @param part partname of the table (one of 'body', 'header', 'footer')
 #' @seealso [as_chunk()], [as_sup()], [as_sub()], [colorize()]
 #' @family functions for mixed content paragraphs
-#' @section Illustrations:
-#'
-#' \if{html}{\figure{fig_append_chunks_1.png}{options: width="100"}}
 #' @examples
 #' library(flextable)
 #' img.file <- file.path(R.home("doc"), "html", "logo.jpg")
