@@ -89,18 +89,16 @@
 #' gr <- gen_grob(ft)
 #'
 #' used_family <- get_flextable_defaults()$font.family
-#' if (gdtools::font_family_exists(used_family)) {
-#'   plot(gr)
+#' if (gdtools::font_family_exists(used_family) &&
+#'     require("ragg")) {
+#'   png_f <- tempfile(fileext = ".png")
 #'   # get the size
 #'   dims <- dim(gr)
 #'   dims
-#'   # svglite::svglite(filename = "hello-grid-graphics.svg",
-#'   #   width = dims$width + .1,
-#'   #   height = dims$height + .1)
-#'   # gr <- gen_grob(ft, scaling = "fixed",
-#'   #   fit = "fixed", just = "center")
-#'   # plot(gr)
-#'   # dev.off()
+#'   ragg::agg_png(filename = png_f, width = dims$width + .1,
+#'     height = dims$height + .1, units = "in", res = 150)
+#'   plot(gr)
+#'   dev.off()
 #' }
 #'
 #' @family flextable print function
