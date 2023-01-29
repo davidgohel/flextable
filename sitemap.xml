@@ -1,492 +1,492 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://davidgohel.github.io/flextable/404.html</loc>
   </url>
   <url>
-    <loc>/CONDUCT.html</loc>
+    <loc>https://davidgohel.github.io/flextable/CONDUCT.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://davidgohel.github.io/flextable/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/overview.html</loc>
+    <loc>https://davidgohel.github.io/flextable/articles/overview.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://davidgohel.github.io/flextable/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://davidgohel.github.io/flextable/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://davidgohel.github.io/flextable/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/add_body.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/add_body.html</loc>
   </url>
   <url>
-    <loc>/reference/add_body_row.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/add_body_row.html</loc>
   </url>
   <url>
-    <loc>/reference/add_footer.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/add_footer.html</loc>
   </url>
   <url>
-    <loc>/reference/add_footer_lines.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/add_footer_lines.html</loc>
   </url>
   <url>
-    <loc>/reference/add_footer_row.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/add_footer_row.html</loc>
   </url>
   <url>
-    <loc>/reference/add_header.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/add_header.html</loc>
   </url>
   <url>
-    <loc>/reference/add_header_lines.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/add_header_lines.html</loc>
   </url>
   <url>
-    <loc>/reference/add_header_row.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/add_header_row.html</loc>
   </url>
   <url>
-    <loc>/reference/add_latex_dep.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/add_latex_dep.html</loc>
   </url>
   <url>
-    <loc>/reference/align.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/align.html</loc>
   </url>
   <url>
-    <loc>/reference/append_chunks.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/append_chunks.html</loc>
   </url>
   <url>
-    <loc>/reference/as_b.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_b.html</loc>
   </url>
   <url>
-    <loc>/reference/as_bracket.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_bracket.html</loc>
   </url>
   <url>
-    <loc>/reference/as_chunk.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_chunk.html</loc>
   </url>
   <url>
-    <loc>/reference/as_equation.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_equation.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.data.frame.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.data.frame.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.gam.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.gam.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.glm.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.glm.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.grouped_data.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.grouped_data.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.htest.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.htest.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.kmeans.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.kmeans.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.lm.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.lm.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.merMod.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.merMod.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.pam.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.pam.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.summarizor.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.summarizor.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.tabulator.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.tabulator.html</loc>
   </url>
   <url>
-    <loc>/reference/as_flextable.xtable.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.xtable.html</loc>
   </url>
   <url>
-    <loc>/reference/as_grouped_data.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_grouped_data.html</loc>
   </url>
   <url>
-    <loc>/reference/as_highlight.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_highlight.html</loc>
   </url>
   <url>
-    <loc>/reference/as_i.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_i.html</loc>
   </url>
   <url>
-    <loc>/reference/as_image.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_image.html</loc>
   </url>
   <url>
-    <loc>/reference/as_paragraph.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_paragraph.html</loc>
   </url>
   <url>
-    <loc>/reference/as_raster.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_raster.html</loc>
   </url>
   <url>
-    <loc>/reference/as_sub.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_sub.html</loc>
   </url>
   <url>
-    <loc>/reference/as_sup.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_sup.html</loc>
   </url>
   <url>
-    <loc>/reference/as_word_field.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/as_word_field.html</loc>
   </url>
   <url>
-    <loc>/reference/autofit.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/autofit.html</loc>
   </url>
   <url>
-    <loc>/reference/before.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/before.html</loc>
   </url>
   <url>
-    <loc>/reference/bg.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/bg.html</loc>
   </url>
   <url>
-    <loc>/reference/body_add_flextable.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/body_add_flextable.html</loc>
   </url>
   <url>
-    <loc>/reference/bold.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/bold.html</loc>
   </url>
   <url>
-    <loc>/reference/border.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/border.html</loc>
   </url>
   <url>
-    <loc>/reference/border_inner.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/border_inner.html</loc>
   </url>
   <url>
-    <loc>/reference/border_inner_h.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/border_inner_h.html</loc>
   </url>
   <url>
-    <loc>/reference/border_inner_v.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/border_inner_v.html</loc>
   </url>
   <url>
-    <loc>/reference/border_outer.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/border_outer.html</loc>
   </url>
   <url>
-    <loc>/reference/border_remove.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/border_remove.html</loc>
   </url>
   <url>
-    <loc>/reference/chunk_dataframe.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/chunk_dataframe.html</loc>
   </url>
   <url>
-    <loc>/reference/colformat_char.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/colformat_char.html</loc>
   </url>
   <url>
-    <loc>/reference/colformat_date.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/colformat_date.html</loc>
   </url>
   <url>
-    <loc>/reference/colformat_datetime.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/colformat_datetime.html</loc>
   </url>
   <url>
-    <loc>/reference/colformat_double.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/colformat_double.html</loc>
   </url>
   <url>
-    <loc>/reference/colformat_image.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/colformat_image.html</loc>
   </url>
   <url>
-    <loc>/reference/colformat_int.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/colformat_int.html</loc>
   </url>
   <url>
-    <loc>/reference/colformat_lgl.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/colformat_lgl.html</loc>
   </url>
   <url>
-    <loc>/reference/colformat_num.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/colformat_num.html</loc>
   </url>
   <url>
-    <loc>/reference/color.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/color.html</loc>
   </url>
   <url>
-    <loc>/reference/colorize.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/colorize.html</loc>
   </url>
   <url>
-    <loc>/reference/compose.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/compose.html</loc>
   </url>
   <url>
-    <loc>/reference/continuous_summary.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/continuous_summary.html</loc>
   </url>
   <url>
-    <loc>/reference/delete_part.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/delete_part.html</loc>
   </url>
   <url>
-    <loc>/reference/df_printer.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/df_printer.html</loc>
   </url>
   <url>
-    <loc>/reference/dim.flextable.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/dim.flextable.html</loc>
   </url>
   <url>
-    <loc>/reference/dim.flextableGrob.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/dim.flextableGrob.html</loc>
   </url>
   <url>
-    <loc>/reference/dim_pretty.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/dim_pretty.html</loc>
   </url>
   <url>
-    <loc>/reference/empty_blanks.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/empty_blanks.html</loc>
   </url>
   <url>
-    <loc>/reference/fit_to_width.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/fit_to_width.html</loc>
   </url>
   <url>
-    <loc>/reference/fix_border_issues.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/fix_border_issues.html</loc>
   </url>
   <url>
-    <loc>/reference/flextable-package.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/flextable-package.html</loc>
   </url>
   <url>
-    <loc>/reference/flextable.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/flextable.html</loc>
   </url>
   <url>
-    <loc>/reference/flextable_dim.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/flextable_dim.html</loc>
   </url>
   <url>
-    <loc>/reference/flextable_html_dependency.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/flextable_html_dependency.html</loc>
   </url>
   <url>
-    <loc>/reference/flextable_to_rmd.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/flextable_to_rmd.html</loc>
   </url>
   <url>
-    <loc>/reference/fmt_2stats.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/fmt_2stats.html</loc>
   </url>
   <url>
-    <loc>/reference/fmt_avg_dev.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/fmt_avg_dev.html</loc>
   </url>
   <url>
-    <loc>/reference/fmt_header_n.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/fmt_header_n.html</loc>
   </url>
   <url>
-    <loc>/reference/fmt_n_percent.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/fmt_n_percent.html</loc>
   </url>
   <url>
-    <loc>/reference/font.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/font.html</loc>
   </url>
   <url>
-    <loc>/reference/fontsize.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/fontsize.html</loc>
   </url>
   <url>
-    <loc>/reference/footers_flextable_at_bkm.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/footers_flextable_at_bkm.html</loc>
   </url>
   <url>
-    <loc>/reference/footnote.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/footnote.html</loc>
   </url>
   <url>
-    <loc>/reference/fp_border_default.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/fp_border_default.html</loc>
   </url>
   <url>
-    <loc>/reference/fp_text_default.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/fp_text_default.html</loc>
   </url>
   <url>
-    <loc>/reference/gen_grob.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/gen_grob.html</loc>
   </url>
   <url>
-    <loc>/reference/get_flextable_defaults.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/get_flextable_defaults.html</loc>
   </url>
   <url>
-    <loc>/reference/gg_chunk.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/gg_chunk.html</loc>
   </url>
   <url>
-    <loc>/reference/grid_chunk.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/grid_chunk.html</loc>
   </url>
   <url>
-    <loc>/reference/headers_flextable_at_bkm.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/headers_flextable_at_bkm.html</loc>
   </url>
   <url>
-    <loc>/reference/height.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/height.html</loc>
   </url>
   <url>
-    <loc>/reference/highlight.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/highlight.html</loc>
   </url>
   <url>
-    <loc>/reference/hline.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/hline.html</loc>
   </url>
   <url>
-    <loc>/reference/hline_bottom.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/hline_bottom.html</loc>
   </url>
   <url>
-    <loc>/reference/hline_top.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/hline_top.html</loc>
   </url>
   <url>
-    <loc>/reference/hrule.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/hrule.html</loc>
   </url>
   <url>
-    <loc>/reference/htmltools_value.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/htmltools_value.html</loc>
   </url>
   <url>
-    <loc>/reference/hyperlink_text.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/hyperlink_text.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/italic.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/italic.html</loc>
   </url>
   <url>
-    <loc>/reference/knit_print.flextable.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/knit_print.flextable.html</loc>
   </url>
   <url>
-    <loc>/reference/labelizor.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/labelizor.html</loc>
   </url>
   <url>
-    <loc>/reference/line_spacing.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/line_spacing.html</loc>
   </url>
   <url>
-    <loc>/reference/linerange.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/linerange.html</loc>
   </url>
   <url>
-    <loc>/reference/lollipop.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/lollipop.html</loc>
   </url>
   <url>
-    <loc>/reference/merge_at.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/merge_at.html</loc>
   </url>
   <url>
-    <loc>/reference/merge_h.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/merge_h.html</loc>
   </url>
   <url>
-    <loc>/reference/merge_h_range.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/merge_h_range.html</loc>
   </url>
   <url>
-    <loc>/reference/merge_none.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/merge_none.html</loc>
   </url>
   <url>
-    <loc>/reference/merge_v.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/merge_v.html</loc>
   </url>
   <url>
-    <loc>/reference/minibar.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/minibar.html</loc>
   </url>
   <url>
-    <loc>/reference/ncol_keys.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/ncol_keys.html</loc>
   </url>
   <url>
-    <loc>/reference/nrow_part.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/nrow_part.html</loc>
   </url>
   <url>
-    <loc>/reference/padding.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/padding.html</loc>
   </url>
   <url>
-    <loc>/reference/ph_with.flextable.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/ph_with.flextable.html</loc>
   </url>
   <url>
-    <loc>/reference/plot.flextable.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/plot.flextable.html</loc>
   </url>
   <url>
-    <loc>/reference/plot.flextableGrob.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/plot.flextableGrob.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_chunk.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/plot_chunk.html</loc>
   </url>
   <url>
-    <loc>/reference/prepend_chunks.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/prepend_chunks.html</loc>
   </url>
   <url>
-    <loc>/reference/print.flextable.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/print.flextable.html</loc>
   </url>
   <url>
-    <loc>/reference/proc_freq.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/proc_freq.html</loc>
   </url>
   <url>
-    <loc>/reference/regulartable.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/regulartable.html</loc>
   </url>
   <url>
-    <loc>/reference/rotate.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/rotate.html</loc>
   </url>
   <url>
-    <loc>/reference/save_as_docx.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/save_as_docx.html</loc>
   </url>
   <url>
-    <loc>/reference/save_as_html.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/save_as_html.html</loc>
   </url>
   <url>
-    <loc>/reference/save_as_image.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/save_as_image.html</loc>
   </url>
   <url>
-    <loc>/reference/save_as_pptx.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/save_as_pptx.html</loc>
   </url>
   <url>
-    <loc>/reference/separate_header.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/separate_header.html</loc>
   </url>
   <url>
-    <loc>/reference/set_caption.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/set_caption.html</loc>
   </url>
   <url>
-    <loc>/reference/set_flextable_defaults.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/set_flextable_defaults.html</loc>
   </url>
   <url>
-    <loc>/reference/set_formatter.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/set_formatter.html</loc>
   </url>
   <url>
-    <loc>/reference/set_header_footer_df.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/set_header_footer_df.html</loc>
   </url>
   <url>
-    <loc>/reference/set_header_labels.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/set_header_labels.html</loc>
   </url>
   <url>
-    <loc>/reference/set_table_properties.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/set_table_properties.html</loc>
   </url>
   <url>
-    <loc>/reference/shift_table.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/shift_table.html</loc>
   </url>
   <url>
-    <loc>/reference/style.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/style.html</loc>
   </url>
   <url>
-    <loc>/reference/summarizor.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/summarizor.html</loc>
   </url>
   <url>
-    <loc>/reference/surround.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/surround.html</loc>
   </url>
   <url>
-    <loc>/reference/tabulator.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/tabulator.html</loc>
   </url>
   <url>
-    <loc>/reference/tabulator_colnames.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/tabulator_colnames.html</loc>
   </url>
   <url>
-    <loc>/reference/theme_alafoli.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/theme_alafoli.html</loc>
   </url>
   <url>
-    <loc>/reference/theme_apa.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/theme_apa.html</loc>
   </url>
   <url>
-    <loc>/reference/theme_booktabs.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/theme_booktabs.html</loc>
   </url>
   <url>
-    <loc>/reference/theme_box.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/theme_box.html</loc>
   </url>
   <url>
-    <loc>/reference/theme_tron.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/theme_tron.html</loc>
   </url>
   <url>
-    <loc>/reference/theme_tron_legacy.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/theme_tron_legacy.html</loc>
   </url>
   <url>
-    <loc>/reference/theme_vader.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/theme_vader.html</loc>
   </url>
   <url>
-    <loc>/reference/theme_vanilla.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/theme_vanilla.html</loc>
   </url>
   <url>
-    <loc>/reference/theme_zebra.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/theme_zebra.html</loc>
   </url>
   <url>
-    <loc>/reference/use_df_printer.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/use_df_printer.html</loc>
   </url>
   <url>
-    <loc>/reference/use_model_printer.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/use_model_printer.html</loc>
   </url>
   <url>
-    <loc>/reference/valign.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/valign.html</loc>
   </url>
   <url>
-    <loc>/reference/vline.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/vline.html</loc>
   </url>
   <url>
-    <loc>/reference/vline_left.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/vline_left.html</loc>
   </url>
   <url>
-    <loc>/reference/vline_right.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/vline_right.html</loc>
   </url>
   <url>
-    <loc>/reference/void.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/void.html</loc>
   </url>
   <url>
-    <loc>/reference/width.html</loc>
+    <loc>https://davidgohel.github.io/flextable/reference/width.html</loc>
   </url>
 </urlset>
