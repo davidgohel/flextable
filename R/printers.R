@@ -508,15 +508,15 @@ knit_to_pml <- function(x, left = opts_current$get("ft.left"),
 #' @importFrom rmarkdown render pdf_document
 #' @importFrom officer read_pptx add_slide read_docx
 print.flextable <- function(x, preview = "html", align = "center", ...) {
-  if ((!interactive() && !is_in_pkgdown()) || "log" %in% preview) {
+  if (is_in_pkgdown()) {
+    return(htmltools_value(x, ft.shadow = TRUE, ft.align = align))
+  } else if (!interactive() || "log" %in% preview) {
     cat("a flextable object.\n")
     cat("col_keys:", paste0("`", x$col_keys, "`", collapse = ", "), "\n")
     cat("header has", nrow(x$header$dataset), "row(s)", "\n")
     cat("body has", nrow(x$body$dataset), "row(s)", "\n")
     cat("original dataset sample:", "\n")
     print(x$body$dataset[seq_len(min(c(5, nrow(x$body$dataset)))), ])
-  } else if (is_in_pkgdown()) {
-    return(htmltools_value(x, ft.shadow = TRUE, ft.align = align))
   } else if (preview == "html") {
     print(browsable(htmltools_value(x, ft.shadow = FALSE, ft.align = align)))
   } else if (preview == "pptx") {
