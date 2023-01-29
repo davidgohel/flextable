@@ -542,7 +542,7 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 }
 
 is_in_pkgdown <- function() {
-  nchar(getOption("pkgdown.internet", "")) > 0 &&
+  identical(Sys.getenv("IN_PKGDOWN"), "true") &&
   requireNamespace("pkgdown", quietly = TRUE)
 }
 
