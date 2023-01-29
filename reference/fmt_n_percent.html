@@ -6,7 +6,7 @@ percentages as n (xx.x%). If percentages are
 missing, they are not printed."><meta property="og:image" content="https://davidgohel.github.io/flextable/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--></head><body>
+<![endif]--><!-- dependencies from examples --><link href="libs/tabwid-1.1.2/tabwid.css" rel="stylesheet"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
@@ -106,18 +106,52 @@ missing, they are not printed.</p>
 <span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="align.html">align</a></span><span class="op">(</span><span class="va">ft_1</span>, j <span class="op">=</span> <span class="st">"txt"</span>, part <span class="op">=</span> <span class="st">"all"</span>, align <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_1</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `cut`, `txt` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 5 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         cut     n    pct txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      Fair  1610 0.0299    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      Good  4906 0.0909    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Very Good 12082 0.2239    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   Premium 13791 0.2557    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     Ideal 21551 0.3995    </span>
-</code></pre></div>
+<template id="19fbaf2b-faee-4f4d-a801-a84d6c66d401"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td, .tabwid th {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+</style><div class="tabwid"><style>.cl-a66792dc{}.cl-a65d18d4{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a6617154{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a6617168{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a6618c7a{width:1.088in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6618c8e{width:1.424in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6618c98{width:1.088in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6618c99{width:1.424in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6618ca2{width:1.088in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6618cac{width:1.424in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6618cad{width:1.088in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6618cb6{width:1.424in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="table cl-a66792dc"><thead><tr style="overflow-wrap:break-word;"><th class="cl-a6618c7a"><p class="cl-a6617154"><span class="cl-a65d18d4">cut</span></p></th><th class="cl-a6618c8e"><p class="cl-a6617168"><span class="cl-a65d18d4"></span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-a6618c98"><p class="cl-a6617154"><span class="cl-a65d18d4">Fair</span></p></td><td class="cl-a6618c99"><p class="cl-a6617168"><span class="cl-a65d18d4">1610 (03.0%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a6618c98"><p class="cl-a6617154"><span class="cl-a65d18d4">Good</span></p></td><td class="cl-a6618c99"><p class="cl-a6617168"><span class="cl-a65d18d4">4906 (09.1%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a6618ca2"><p class="cl-a6617154"><span class="cl-a65d18d4">Very Good</span></p></td><td class="cl-a6618cac"><p class="cl-a6617168"><span class="cl-a65d18d4">12082 (22.4%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a6618c98"><p class="cl-a6617154"><span class="cl-a65d18d4">Premium</span></p></td><td class="cl-a6618c99"><p class="cl-a6617168"><span class="cl-a65d18d4">13791 (25.6%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a6618cad"><p class="cl-a6617154"><span class="cl-a65d18d4">Ideal</span></p></td><td class="cl-a6618cb6"><p class="cl-a6617168"><span class="cl-a65d18d4">21551 (40.0%)</span></p></td></tr></tbody></table></div></template><div class="flextable-shadow-host" id="3bea86b8-c887-4ea2-901c-6391fd6d2952"></div>
+<script>
+var dest = document.getElementById("3bea86b8-c887-4ea2-901c-6391fd6d2952");
+var template = document.getElementById("19fbaf2b-faee-4f4d-a801-a84d6c66d401");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script></code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

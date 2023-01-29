@@ -87,30 +87,104 @@ defined for cell 3. This function modify the border values to avoid that effect.
 <span class="r-in"><span>  <span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="hline.html">hline</a></span><span class="op">(</span><span class="va">ft</span>, i <span class="op">=</span> <span class="fl">5</span>, part <span class="op">=</span> <span class="st">"body"</span>,</span></span>
 <span class="r-in"><span>        border <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/fp_border.html" class="external-link">fp_border</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, width <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `a`, `b` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 5 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   a  b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1  6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2  7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 3  8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 4  9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 5 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;template id="d34dd8f9-1b5c-4ea8-adbb-689c41391ca3"&gt;&lt;style&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid table{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   border-spacing:0px !important;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   border-collapse:collapse;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   line-height:1;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   margin-left:auto;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   margin-right:auto;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   border-width: 0;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   border-color: transparent;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   caption-side: top;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid-caption-bottom table{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   caption-side: bottom;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid_left table{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   margin-left:0;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid_right table{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   margin-right:0;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid td, .tabwid th {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     padding: 0;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid a {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   text-decoration: none;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid thead {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     background-color: transparent;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid tfoot {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     background-color: transparent;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid table tr {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> background-color: transparent;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .katex-display {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     margin: 0 0 !important;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/style&gt;&lt;div class="tabwid"&gt;&lt;style&gt;.cl-a366b3e2{}.cl-a35b00ba{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a35b00ce{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a3606b7c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a3608cba{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a3608cce{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a3608ccf{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 5pt solid rgba(255, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table data-quarto-disable-processing='true' class='cl-a366b3e2'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-a3608cba"&gt;&lt;p class="cl-a3606b7c"&gt;&lt;span class="cl-a35b00ba"&gt;a&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-a3608cba"&gt;&lt;p class="cl-a3606b7c"&gt;&lt;span class="cl-a35b00ba"&gt;b&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-a3608cce"&gt;&lt;p class="cl-a3606b7c"&gt;&lt;span class="cl-a35b00ce"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-a3608cce"&gt;&lt;p class="cl-a3606b7c"&gt;&lt;span class="cl-a35b00ce"&gt;6&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-a3608cba"&gt;&lt;p class="cl-a3606b7c"&gt;&lt;span class="cl-a35b00ce"&gt;2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-a3608cba"&gt;&lt;p class="cl-a3606b7c"&gt;&lt;span class="cl-a35b00ce"&gt;7&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-a3608cba"&gt;&lt;p class="cl-a3606b7c"&gt;&lt;span class="cl-a35b00ce"&gt;3&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-a3608cba"&gt;&lt;p class="cl-a3606b7c"&gt;&lt;span class="cl-a35b00ce"&gt;8&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td  rowspan="2"class="cl-a3608cba"&gt;&lt;p class="cl-a3606b7c"&gt;&lt;span class="cl-a35b00ce"&gt;4&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-a3608cba"&gt;&lt;p class="cl-a3606b7c"&gt;&lt;span class="cl-a35b00ce"&gt;9&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-a3608ccf"&gt;&lt;p class="cl-a3606b7c"&gt;&lt;span class="cl-a35b00ce"&gt;10&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/template&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="flextable-shadow-host" id="55d7af92-aa37-4f8a-a27c-0dbbdb933302"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var dest = document.getElementById("55d7af92-aa37-4f8a-a27c-0dbbdb933302");</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var template = document.getElementById("d34dd8f9-1b5c-4ea8-adbb-689c41391ca3");</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var fantome = dest.attachShadow({mode: 'open'});</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var templateContent = template.content;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> fantome.appendChild(templateContent);</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">fix_border_issues</span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `a`, `b` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 5 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   a  b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1  6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2  7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 3  8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 4  9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 5 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;template id="191c9e2e-2278-47c4-aa7a-0043ef2bf4e7"&gt;&lt;style&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid table{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   border-spacing:0px !important;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   border-collapse:collapse;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   line-height:1;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   margin-left:auto;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   margin-right:auto;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   border-width: 0;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   border-color: transparent;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   caption-side: top;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid-caption-bottom table{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   caption-side: bottom;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid_left table{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   margin-left:0;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid_right table{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   margin-right:0;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid td, .tabwid th {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     padding: 0;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid a {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   text-decoration: none;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid thead {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     background-color: transparent;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid tfoot {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     background-color: transparent;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .tabwid table tr {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> background-color: transparent;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .katex-display {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     margin: 0 0 !important;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/style&gt;&lt;div class="tabwid"&gt;&lt;style&gt;.cl-a37d8338{}.cl-a3720d32{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a3720d3c{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a376d600{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a376fb3a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a376fb44{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a376fb4e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 5pt solid rgba(255, 0, 0, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table data-quarto-disable-processing='true' class='cl-a37d8338'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-a376fb3a"&gt;&lt;p class="cl-a376d600"&gt;&lt;span class="cl-a3720d32"&gt;a&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-a376fb3a"&gt;&lt;p class="cl-a376d600"&gt;&lt;span class="cl-a3720d32"&gt;b&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-a376fb44"&gt;&lt;p class="cl-a376d600"&gt;&lt;span class="cl-a3720d3c"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-a376fb44"&gt;&lt;p class="cl-a376d600"&gt;&lt;span class="cl-a3720d3c"&gt;6&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-a376fb3a"&gt;&lt;p class="cl-a376d600"&gt;&lt;span class="cl-a3720d3c"&gt;2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-a376fb3a"&gt;&lt;p class="cl-a376d600"&gt;&lt;span class="cl-a3720d3c"&gt;7&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-a376fb3a"&gt;&lt;p class="cl-a376d600"&gt;&lt;span class="cl-a3720d3c"&gt;3&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-a376fb3a"&gt;&lt;p class="cl-a376d600"&gt;&lt;span class="cl-a3720d3c"&gt;8&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td  rowspan="2"class="cl-a376fb4e"&gt;&lt;p class="cl-a376d600"&gt;&lt;span class="cl-a3720d3c"&gt;4&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-a376fb3a"&gt;&lt;p class="cl-a376d600"&gt;&lt;span class="cl-a3720d3c"&gt;9&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-a376fb4e"&gt;&lt;p class="cl-a376d600"&gt;&lt;span class="cl-a3720d3c"&gt;10&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/template&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="flextable-shadow-host" id="f9abb314-aab8-4cdd-866f-bbe6039f340b"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var dest = document.getElementById("f9abb314-aab8-4cdd-866f-bbe6039f340b");</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var template = document.getElementById("191c9e2e-2278-47c4-aa7a-0043ef2bf4e7");</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var fantome = dest.attachShadow({mode: 'open'});</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var templateContent = template.content;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> fantome.appendChild(templateContent);</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

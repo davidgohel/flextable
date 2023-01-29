@@ -4,7 +4,7 @@ Psychological Association) to a flextable"><title>Apply APA theme — theme_apa 
 Psychological Association) to a flextable"><meta property="og:image" content="https://davidgohel.github.io/flextable/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--></head><body>
+<![endif]--><!-- dependencies from examples --><link href="libs/tabwid-1.1.2/tabwid.css" rel="stylesheet"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
@@ -109,24 +109,52 @@ override any formatting done before the print statement.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">*</span><span class="fl">22.22</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">theme_apa</span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 6 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                       mpg    cyl    disp      hp    drat      wt     qsec    vs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4         466.620 133.32 3555.20 2444.20 86.6580 58.2164 365.7412  0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag     466.620 133.32 3555.20 2444.20 86.6580 63.8825 378.1844  0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Datsun 710        506.616  88.88 2399.76 2066.46 85.5470 51.5504 413.5142 22.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet 4 Drive    475.508 133.32 5732.76 2444.20 68.4376 71.4373 431.9568 22.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet Sportabout 415.514 177.76 7999.20 3888.50 69.9930 76.4368 378.1844  0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      am  gear  carb</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4         22.22 88.88 88.88</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag     22.22 88.88 88.88</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Datsun 710        22.22 88.88 22.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet 4 Drive     0.00 66.66 22.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet Sportabout  0.00 66.66 44.44</span>
-</code></pre></div>
+<template id="56643431-074c-4a01-9e7d-add8b58105c6"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td, .tabwid th {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+</style><div class="tabwid"><style>.cl-c66525f4{}.cl-c6593334{font-family:'Times New Roman';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c65e2af6{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-c65e4b8a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c65e4b9e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c65e4b9f{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="table cl-c66525f4"><thead><tr style="overflow-wrap:break-word;"><th class="cl-c65e4b8a"><p class="cl-c65e2af6"><span class="cl-c6593334">mpg</span></p></th><th class="cl-c65e4b8a"><p class="cl-c65e2af6"><span class="cl-c6593334">cyl</span></p></th><th class="cl-c65e4b8a"><p class="cl-c65e2af6"><span class="cl-c6593334">disp</span></p></th><th class="cl-c65e4b8a"><p class="cl-c65e2af6"><span class="cl-c6593334">hp</span></p></th><th class="cl-c65e4b8a"><p class="cl-c65e2af6"><span class="cl-c6593334">drat</span></p></th><th class="cl-c65e4b8a"><p class="cl-c65e2af6"><span class="cl-c6593334">wt</span></p></th><th class="cl-c65e4b8a"><p class="cl-c65e2af6"><span class="cl-c6593334">qsec</span></p></th><th class="cl-c65e4b8a"><p class="cl-c65e2af6"><span class="cl-c6593334">vs</span></p></th><th class="cl-c65e4b8a"><p class="cl-c65e2af6"><span class="cl-c6593334">am</span></p></th><th class="cl-c65e4b8a"><p class="cl-c65e2af6"><span class="cl-c6593334">gear</span></p></th><th class="cl-c65e4b8a"><p class="cl-c65e2af6"><span class="cl-c6593334">carb</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">466.62</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">133.32</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">3,555.20</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">2,444.20</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">86.66</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">58.22</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">365.74</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">0.00</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">22.22</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">88.88</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">88.88</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">466.62</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">133.32</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">3,555.20</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">2,444.20</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">86.66</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">63.88</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">378.18</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">0.00</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">22.22</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">88.88</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">88.88</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">506.62</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">88.88</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">2,399.76</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">2,066.46</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">85.55</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">51.55</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">413.51</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">22.22</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">22.22</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">88.88</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">22.22</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">475.51</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">133.32</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">5,732.76</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">2,444.20</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">68.44</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">71.44</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">431.96</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">22.22</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">0.00</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">66.66</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">22.22</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">415.51</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">177.76</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">7,999.20</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">3,888.50</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">69.99</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">76.44</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">378.18</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">0.00</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">0.00</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">66.66</span></p></td><td class="cl-c65e4b9e"><p class="cl-c65e2af6"><span class="cl-c6593334">44.44</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c65e4b9f"><p class="cl-c65e2af6"><span class="cl-c6593334">402.18</span></p></td><td class="cl-c65e4b9f"><p class="cl-c65e2af6"><span class="cl-c6593334">133.32</span></p></td><td class="cl-c65e4b9f"><p class="cl-c65e2af6"><span class="cl-c6593334">4,999.50</span></p></td><td class="cl-c65e4b9f"><p class="cl-c65e2af6"><span class="cl-c6593334">2,333.10</span></p></td><td class="cl-c65e4b9f"><p class="cl-c65e2af6"><span class="cl-c6593334">61.33</span></p></td><td class="cl-c65e4b9f"><p class="cl-c65e2af6"><span class="cl-c6593334">76.88</span></p></td><td class="cl-c65e4b9f"><p class="cl-c65e2af6"><span class="cl-c6593334">449.29</span></p></td><td class="cl-c65e4b9f"><p class="cl-c65e2af6"><span class="cl-c6593334">22.22</span></p></td><td class="cl-c65e4b9f"><p class="cl-c65e2af6"><span class="cl-c6593334">0.00</span></p></td><td class="cl-c65e4b9f"><p class="cl-c65e2af6"><span class="cl-c6593334">66.66</span></p></td><td class="cl-c65e4b9f"><p class="cl-c65e2af6"><span class="cl-c6593334">22.22</span></p></td></tr></tbody></table></div></template><div class="flextable-shadow-host" id="266f28f8-3a6f-4904-bb49-d8d4a6d4d52b"></div>
+<script>
+var dest = document.getElementById("266f28f8-3a6f-4904-bb49-d8d4a6d4d52b");
+var template = document.getElementById("56643431-074c-4a01-9e7d-add8b58105c6");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script></code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

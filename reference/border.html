@@ -44,7 +44,7 @@ If you want to highlight specific cells with some borders, use
 surround()."><meta property="og:image" content="https://davidgohel.github.io/flextable/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--></head><body>
+<![endif]--><!-- dependencies from examples --><link href="libs/tabwid-1.1.2/tabwid.css" rel="stylesheet"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
@@ -170,18 +170,52 @@ beginning or end of the table, use:</p><ul><li><p><code><a href="hline_top.html"
 <span class="r-in"><span><span class="va">ftab</span> <span class="op">&lt;-</span> <span class="fu"><a href="flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ftab</span> <span class="op">&lt;-</span> <span class="fu">border</span><span class="op">(</span><span class="va">ftab</span>, border.top <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/fp_border.html" class="external-link">fp_border</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ftab</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`, `vs`, `am`, `gear`, `carb` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 6 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span>
-</code></pre></div>
+<template id="142a3ce8-36ad-4f35-92ae-e660292d2c7f"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td, .tabwid th {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+</style><div class="tabwid"><style>.cl-980ece4e{}.cl-98035f3c{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-98083a48{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-98086216{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9808622a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(255, 165, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98086234{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(255, 165, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="table cl-980ece4e"><thead><tr style="overflow-wrap:break-word;"><th class="cl-98086216"><p class="cl-98083a48"><span class="cl-98035f3c">mpg</span></p></th><th class="cl-98086216"><p class="cl-98083a48"><span class="cl-98035f3c">cyl</span></p></th><th class="cl-98086216"><p class="cl-98083a48"><span class="cl-98035f3c">disp</span></p></th><th class="cl-98086216"><p class="cl-98083a48"><span class="cl-98035f3c">hp</span></p></th><th class="cl-98086216"><p class="cl-98083a48"><span class="cl-98035f3c">drat</span></p></th><th class="cl-98086216"><p class="cl-98083a48"><span class="cl-98035f3c">wt</span></p></th><th class="cl-98086216"><p class="cl-98083a48"><span class="cl-98035f3c">qsec</span></p></th><th class="cl-98086216"><p class="cl-98083a48"><span class="cl-98035f3c">vs</span></p></th><th class="cl-98086216"><p class="cl-98083a48"><span class="cl-98035f3c">am</span></p></th><th class="cl-98086216"><p class="cl-98083a48"><span class="cl-98035f3c">gear</span></p></th><th class="cl-98086216"><p class="cl-98083a48"><span class="cl-98035f3c">carb</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">21.0</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">6</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">160</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">110</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">3.90</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">2.620</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">16.46</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">0</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">1</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">4</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">21.0</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">6</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">160</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">110</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">3.90</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">2.875</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">17.02</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">0</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">1</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">4</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">22.8</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">4</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">108</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">93</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">3.85</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">2.320</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">18.61</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">1</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">1</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">4</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">21.4</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">6</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">258</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">110</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">3.08</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">3.215</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">19.44</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">1</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">0</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">3</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">18.7</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">8</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">360</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">175</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">3.15</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">3.440</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">17.02</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">0</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">0</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">3</span></p></td><td class="cl-9808622a"><p class="cl-98083a48"><span class="cl-98035f3c">2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-98086234"><p class="cl-98083a48"><span class="cl-98035f3c">18.1</span></p></td><td class="cl-98086234"><p class="cl-98083a48"><span class="cl-98035f3c">6</span></p></td><td class="cl-98086234"><p class="cl-98083a48"><span class="cl-98035f3c">225</span></p></td><td class="cl-98086234"><p class="cl-98083a48"><span class="cl-98035f3c">105</span></p></td><td class="cl-98086234"><p class="cl-98083a48"><span class="cl-98035f3c">2.76</span></p></td><td class="cl-98086234"><p class="cl-98083a48"><span class="cl-98035f3c">3.460</span></p></td><td class="cl-98086234"><p class="cl-98083a48"><span class="cl-98035f3c">20.22</span></p></td><td class="cl-98086234"><p class="cl-98083a48"><span class="cl-98035f3c">1</span></p></td><td class="cl-98086234"><p class="cl-98083a48"><span class="cl-98035f3c">0</span></p></td><td class="cl-98086234"><p class="cl-98083a48"><span class="cl-98035f3c">3</span></p></td><td class="cl-98086234"><p class="cl-98083a48"><span class="cl-98035f3c">1</span></p></td></tr></tbody></table></div></template><div class="flextable-shadow-host" id="4e6141d7-7798-4346-a101-b00ea97d20f1"></div>
+<script>
+var dest = document.getElementById("4e6141d7-7798-4346-a101-b00ea97d20f1");
+var template = document.getElementById("142a3ce8-36ad-4f35-92ae-e660292d2c7f");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script></code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
