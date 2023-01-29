@@ -104,17 +104,22 @@ The size of the flextable can be known by using the method
 ft <- flextable(head(mtcars))
 ft <- autofit(ft)
 gr <- gen_grob(ft)
-plot(gr)
 
-# get the size
-dims <- dim(gr)
-dims
-# svglite::svglite(filename = "hello-grid-graphics.svg",
-#   width = dims$width + .1,
-#   height = dims$height + .1)
-# gr <- gen_grob(ft, scaling = "fixed", fit = "fixed", just = "center")
-# plot(gr)
-# dev.off()
+used_family <- get_flextable_defaults()$font.family
+if (gdtools::font_family_exists(used_family)) {
+  plot(gr)
+  # get the size
+  dims <- dim(gr)
+  dims
+  # svglite::svglite(filename = "hello-grid-graphics.svg",
+  #   width = dims$width + .1,
+  #   height = dims$height + .1)
+  # gr <- gen_grob(ft, scaling = "fixed",
+  #   fit = "fixed", just = "center")
+  # plot(gr)
+  # dev.off()
+}
+
 }
 \seealso{
 Other flextable print function: 
