@@ -1,5 +1,11 @@
 # flextable 0.8.5
 
+## changes
+
+- use pkgdown features instead of images shots 
+in the manual examples. The website now shows
+flextable results.
+
 ## issues
 
 - fix issue with flextable_to_rmd and pdf introduced in `0.8.4`.
