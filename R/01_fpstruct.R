@@ -365,38 +365,3 @@ replace_missing_fptext_by_default <- function(x, default){
 }
 
 
-#' @import data.table
-add_raster_as_filecolumn <- function(x){
-
-  whichs_ <- which( !sapply(x$img_data, is.null) & !is.na(x$img_data) )
-  files <- mapply(function(x, width, height){
-    if(inherits(x, "raster")){
-      file <- tempfile(fileext = ".png")
-      png(filename = file, units = "in", res = 300, bg = "transparent", width = width, height = height)
-      op <- par(mar=rep(0, 4))
-      plot(x, interpolate = FALSE, asp=NA)
-      par(op)
-      dev.off()
-    } else if(is.character(x)){
-      file <- x
-    } else {
-      stop("unknown image format")
-    }
-
-
-    data.frame( file = file,
-                img_str = wml_image(file, width, height),
-                stringsAsFactors = FALSE)
-  }, x$img_data[whichs_], x$width[whichs_], x$height[whichs_], SIMPLIFY = FALSE, USE.NAMES = FALSE)
-  files <- rbindlist(files)
-  setDF(files)
-
-  x$file <- rep(NA_character_, nrow(x))
-  x$img_str <- rep(NA_character_, nrow(x))
-
-  x[whichs_, c("file", "img_str")] <- files
-
-  x
-
-}
-

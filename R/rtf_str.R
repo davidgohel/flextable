@@ -196,7 +196,7 @@ rtf_add.flextable <- function(x, value, ...) {
 
 #' @importFrom officer to_rtf
 #' @export
-to_rtf <- officer::to_rtf
+officer::to_rtf
 
 .onLoad = function(libname, pkgname) {
   registerS3method("to_rtf", "flextable", to_rtf.flextable)
