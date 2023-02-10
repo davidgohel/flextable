@@ -207,6 +207,92 @@ runs_as_latex <- function(x, chunk_data = fortify_run(x), ls_df = NULL) {
   setDF(dat)
   dat
 }
+#' @importFrom officer str_encode_to_rtf
+runs_as_rtf <- function(x, chunk_data = fortify_run(x)) {
+  txt_data <- chunk_data
+
+  # data can be (1.) from a df computed by fortify_run
+  # or (2.) a single paragraph from x$caption$value and there will be only seq_index
+  order_columns <-
+    intersect(
+      x = colnames(txt_data),
+      y = c("part", "ft_row_id", "col_id", "seq_index")
+    )
+
+  # prepare the by col for aggregation
+  by_columns <- intersect(colnames(txt_data), c("part", "ft_row_id", "col_id"))
+  if (length(by_columns) < 1) by_columns <- NULL
+
+  setDT(txt_data)
+
+  if ("col_id" %in% colnames(txt_data)) {
+    txt_data$col_id <- factor(txt_data$col_id, levels = x$col_keys)
+  }
+
+  unique_text_props <- distinct_text_properties(as.data.frame(txt_data))
+
+  txt_data <- merge(
+    x = txt_data,
+    y = unique_text_props,
+    by = intersect(colnames(unique_text_props), colnames(txt_data))
+  )
+  span_rtfstyle <- vapply(
+    split(unique_text_props[setdiff(colnames(unique_text_props), "classname")], unique_text_props$classname),
+    function(x) {
+      z <- do.call(officer::fp_text_lite, x)
+      format(z, type = "rtf")
+    },
+    FUN.VALUE = "", USE.NAMES = FALSE
+  )
+  span_rtfstyle <- data.frame(
+    rpr_rtf = span_rtfstyle,
+    classname = unique_text_props$classname,
+    stringsAsFactors = FALSE
+  )
+
+  dat <- merge(txt_data, span_rtfstyle, by = "classname")
+  setkeyv(dat, cols = NULL)
+
+  is_soft_return <- dat$txt %in% "<br>"
+  is_tab <- dat$txt %in% "<tab>"
+  is_word_field <- !is.na(dat$word_field_data)
+  is_eq <- !is.na(dat$eq_data)
+
+  is_hlink <- !is.na(dat$url)
+  is_raster <- sapply(dat$img_data, function(x) {
+    inherits(x, "raster") || is.character(x)
+  })
+
+
+  image_fun <- function(img_data, width, height) {
+    mapply(function(src, w, h) {
+      to_rtf(officer::external_img(src = src, width = w, height = h))
+    }, img_data, width, height, SIMPLIFY = TRUE)
+  }
+  dat[is_raster == TRUE, c("txt") := list(image_fun(img_data = .SD$img_data, width = .SD$width, height = .SD$height))]
+  dat[is_soft_return == TRUE, c("txt") := list("\\line")]
+  dat[is_tab == TRUE, c("txt") := list("\\tab")]
+  dat[is_eq == TRUE, c("txt") := list("")]
+  dat[is_word_field == TRUE, c("txt") := list(sprintf("{\\field{\\*\\fldinst %s}}", .SD$word_field_data))]
+
+  dat[, c("shadingl", "shadingr") := list("", "")]
+  dat[!dat$shading.color %in% "transparent", c("shadingl", "shadingr") := list(
+    paste0("%ftshading:", .SD$shading.color, "%"), "\\highlight0"
+  )]
+  dat[!is_raster & !is_soft_return &!is_tab &
+        !is_eq & !is_word_field, c("txt") := list(str_encode_to_rtf(.SD$txt))]
+  dat[, c("txt") := list(sprintf("{%s%s%s%s}", .SD$shadingl, .SD$rpr_rtf, .SD$txt, .SD$shadingr))]
+  dat[is_hlink, c("txt") := list(sprintf(
+    "{\\field{\\*\\fldinst HYPERLINK \"%s\"}{\\fldrslt %s}}",
+    .SD$url, .SD$txt))]
+
+  setorderv(dat, cols = order_columns)
+  dat <- dat[, list(txt = paste0(get("txt"), collapse = "")), by = by_columns]
+  setorderv(dat, cols = by_columns)
+
+  setDF(dat)
+  dat
+}
 
 
 #' @importFrom htmltools urlEncodePath

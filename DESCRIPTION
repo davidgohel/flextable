@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.8.5
+Version: 0.8.6.001
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -17,14 +17,21 @@ Authors@R: c(
     person("Sean", "Browning", role = "ctb", comment = "work on footnote positioning system"),
     person("Rémi", "Thériault", role = "ctb", comment = c(ORCID = "0000-0003-4315-6788", ctb = "theme_apa"))
     )
-Description: Create pretty tables for 'HTML', 'PDF', 'Microsoft Word', 'Microsoft PowerPoint'
-  documents from 'R Markdown' and as 'Grid Graphics' objects. Functions are provided to let users 
-  create tables, modify and format their content. It also extends package 'officer' that does 
-  not contain any feature for customized tabular reporting.
+Description: Use a grammar for creating and customizing pretty tables. 
+ The following formats are supported: "HTML", "PDF", "RTF", 
+ "Microsoft Word", "Microsoft PowerPoint" and R "Grid Graphics". 
+ "R Markdown", "quarto" and the package "officer" can be used to produce 
+ the result files. The syntax is the same for the user regardless of 
+ the type of output to be produced. A set of functions allows the 
+ creation, definition of cell arrangement, addition of headers or 
+ footers, formatting and definition of cell content with text and 
+ or images. The package also offers a set of high-level functions 
+ that allow tabular reporting of statistical models and the 
+ creation of complex cross tabulations.
 License: GPL-3
 Imports:
     stats, utils, grDevices, graphics,
-    officer (>= 0.5.2),
+    officer (>= 0.6.0),
     rmarkdown, knitr, htmltools,
     xml2, data.table (>= 1.13.0), uuid (>= 0.1-4),
     gdtools (>= 0.3.0), rlang, 
@@ -45,3 +52,4 @@ Encoding: UTF-8
 URL: https://ardata-fr.github.io/flextable-book/, https://davidgohel.github.io/flextable/
 BugReports: https://github.com/davidgohel/flextable/issues
 VignetteBuilder: knitr
+Remotes: davidgohel/officer

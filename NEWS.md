@@ -1,3 +1,9 @@
+# flextable 0.8.6
+
+## new features
+
+- add RTF support with `officer::rtf_add()`.
+
 # flextable 0.8.5
 
 ## changes
