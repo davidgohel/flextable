@@ -45,9 +45,9 @@ as.character.flextable <- function(x, ...) {
   caption <- caption_default_html(x, align = x$properties$align)
   manual_css <- attr(caption, "css")
   gen_raw_html(x,
-               class = "tabwid",
-               caption = caption,
-               manual_css = manual_css
+    class = "tabwid",
+    caption = caption,
+    manual_css = manual_css
   )
 }
 
@@ -128,6 +128,7 @@ as.character.flextable <- function(x, ...) {
 #'   #    output_file = "loop_with_flextable.pdf")
 #' }
 #'
+#' @importFrom knitr is_html_output is_latex_output include_graphics
 flextable_to_rmd <- function(x,
                              ft.align = opts_current$get("ft.align"),
                              ft.split = opts_current$get("ft.split"),
@@ -173,59 +174,30 @@ flextable_to_rmd <- function(x,
   if (!is.null(ft.latex.float)) {
     x$properties$opts_pdf$float <- ft.latex.float
   }
+  webshot_package <- webshot
+  if (is.null(webshot_package)) {
+    webshot_package <- "webshot"
+  }
 
-
-  if (is.null(opts_knit$get("rmarkdown.pandoc.to"))) {
-    # with markdown package ----
-    x$properties$opts_html$shadow <- FALSE
-    str <- knit_to_html(x,
-      bookdown = FALSE,
-      quarto = FALSE,
-      pandoc2 = pandoc2
-    )
-  } else if (is_xaringan) {
-    # xaringan ----
+  if (is_xaringan) { # xaringan
     x$properties$opts_html$shadow <- TRUE
-
-    str <- knit_to_html(x,
-      bookdown = FALSE,
-      quarto = FALSE,
-      pandoc2 = FALSE
-    )
-  } else if (grepl("(html|slidy)", opts_knit$get("rmarkdown.pandoc.to"))) {
-    #  html ----
-    str <- knit_to_html(x,
-      bookdown = bookdown,
-      pandoc2 = pandoc2,
-      quarto = quarto
-    )
-  } else if (grepl("latex", opts_knit$get("rmarkdown.pandoc.to"))) {
-    # latex ----
-    str <- knit_to_latex(x,
-      bookdown = bookdown,
-      quarto = quarto
-    )
-  } else if (grepl("docx", opts_knit$get("rmarkdown.pandoc.to"))) {
-    # docx ----
-    if (pandoc2) {
-      str <- knit_to_wml(x = x,
-        bookdown = bookdown,
-        quarto = quarto
-      )
-    } else {
-      stop("pandoc version >= 2.0 required for flextable rendering in docx")
+    str <- knit_to_html(x, bookdown = FALSE, quarto = FALSE, pandoc2 = FALSE)
+  } else if (is_html_output()) { # html
+    str <- knit_to_html(x, bookdown = bookdown, pandoc2 = pandoc2, quarto = quarto)
+  } else if (is_latex_output()) { # latex
+    str <- knit_to_latex(x, bookdown = bookdown, quarto = quarto)
+  } else if (grepl("docx", opts_knit$get("rmarkdown.pandoc.to"))) { # docx
+    if (pandoc_version() < numeric_version("2")) {
+      stop("pandoc version >= 2 required for printing flextable in docx")
     }
-  } else if (grepl("pptx", opts_knit$get("rmarkdown.pandoc.to"))) {
-    # pptx ----
+    str <- knit_to_wml(x = x, bookdown = bookdown, quarto = quarto)
+  } else if (grepl("pptx", opts_knit$get("rmarkdown.pandoc.to"))) { # pptx
     if (pandoc_version() < numeric_version("2.4")) {
       stop("pandoc version >= 2.4 required for printing flextable in pptx")
     }
     str <- knit_to_pml(x, left = ft.left, top = ft.top, bookdown = bookdown)
   } else {
     # default ----
-    if (is.null(webshot_package <- webshot)) {
-      webshot_package <- "webshot"
-    }
     if (requireNamespace(webshot_package, quietly = TRUE)) {
       # copied from https://github.com/ropensci/magick/blob/1e92b8331cd2cad6418b5e738939ac5918947a2f/R/base.R#L126
       plot_counter <- getFromNamespace("plot_counter", "knitr")
@@ -238,7 +210,7 @@ flextable_to_rmd <- function(x,
         dir.create(dirname(tmp), showWarnings = FALSE, recursive = TRUE)
         save_as_image(x, path = tmp, zoom = 3, expand = 0, webshot = webshot_package)
       })
-      str <- sprintf("\\includegraphics[width=%.02fin,height=%.02fin,keepaspectratio]{%s}\n", width, height, tmp)
+      str <- knitr::include_graphics(tmp)
     }
   }
 
@@ -460,6 +432,7 @@ knit_to_latex <- function(x, bookdown, quarto = FALSE) {
   raw_block(z, type = "latex")
 }
 
+#' @importFrom knitr raw_block
 knit_to_pml <- function(x, left = opts_current$get("ft.left"),
                         top = opts_current$get("ft.top"),
                         bookdown = bookdown) {
@@ -474,8 +447,7 @@ knit_to_pml <- function(x, left = opts_current$get("ft.left"),
   uid <- as.integer(runif(n = 1) * 10^9)
 
   str <- gen_raw_pml(x, uid = uid, offx = left, offy = top, cx = 10, cy = 6)
-
-  paste("```{=openxml}", str, "```", sep = "\n")
+  knitr::raw_block(str, type = "openxml")
 }
 
 #' @importFrom htmltools HTML browsable
@@ -543,7 +515,7 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 
 is_in_pkgdown <- function() {
   identical(Sys.getenv("IN_PKGDOWN"), "true") &&
-  requireNamespace("pkgdown", quietly = TRUE)
+    requireNamespace("pkgdown", quietly = TRUE)
 }
 
 #' @title Render flextable in rmarkdown
@@ -836,10 +808,13 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
     val[i] <- paste(txt, collapse = "")
   }
   tabwid_css <- paste(
-    c("<style>",
+    c(
+      "<style>",
       readLines(system.file(package = "flextable", "web_1.1.2", "tabwid.css"), encoding = "UTF-8"),
-      "</style>"),
-    collapse = "\n")
+      "</style>"
+    ),
+    collapse = "\n"
+  )
 
   str <- c(
     "<!DOCTYPE htm><html><head>",
@@ -1024,8 +999,8 @@ save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot") {
   if (!requireNamespace(webshot, quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create an image from a flextable.",
-      webshot)
-    )
+      webshot
+    ))
   } else {
     webshot_fun <- getFromNamespace("webshot", webshot)
   }
@@ -1121,18 +1096,17 @@ plot.flextable <- function(x, method = c("grob", "webshot"), ...) {
 #' }
 #' @family flextable print function
 as_raster <- function(x, zoom = 2, expand = 2, webshot = "webshot", ...) {
-
   if (!requireNamespace(webshot, quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create an image from a flextable.",
-      webshot)
-    )
+      webshot
+    ))
   }
   if (!requireNamespace("magick", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create an image from a flextable.",
-      "magick")
-    )
+      "magick"
+    ))
   }
   path <- tempfile(fileext = ".png")
   on.exit(unlink(path))

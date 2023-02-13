@@ -10,6 +10,10 @@
 as replacement. 
 - Use `officer_url_encode()` to encode URL in office files.
 
+## issues
+
+- support revealjs (and probably all RMD formats that generate HTML)
+
 # flextable 0.8.5
 
 ## changes

@@ -57,6 +57,11 @@ df_printer <- function(dat, ...) {
   )
   args$x <- dat
 
+  if (is.null(knitr::pandoc_to())) {
+    message("this function is to be used in a knitr context.")
+    return(invisible(FALSE))
+  }
+
   knitr::knit_print(
     do.call(as_flextable, args)
   )
