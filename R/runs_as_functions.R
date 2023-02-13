@@ -259,7 +259,7 @@ runs_as_rtf <- function(x, chunk_data = fortify_run(x)) {
 }
 
 
-#' @importFrom htmltools urlEncodePath
+#' @importFrom officer officer_url_encode
 runs_as_wml <- function(x, txt_data = fortify_run(x)) {
   # data can be (1.) from a df computed by fortify_run
   # or (2.) a single paragraph from x$caption$value and there will be only seq_index

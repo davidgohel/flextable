@@ -263,10 +263,9 @@ htmlize <- function(x){
   x
 }
 
-#' @importFrom base64enc dataURI
+#' @importFrom officer image_to_base64
 img_as_html <- function(img_data, width, height){
-  str_raster <- mapply(function(img_raster, width, height ){
-
+  img_data <- str_raster <- mapply(function(img_raster, width, height ){
     if(inherits(img_raster, "raster")){
       outfile <- tempfile(fileext = ".png")
       png(filename = outfile, units = "in", res = 300, bg = "transparent", width = width, height = height)
@@ -276,41 +275,12 @@ img_as_html <- function(img_data, width, height){
       dev.off()
       img_raster <- outfile
     }
-
-    if(is.character(img_raster)){
-
-      if( grepl("\\.png", ignore.case = TRUE, x = img_raster) ){
-        mime <- "image/png"
-      } else if( grepl("\\.gif", ignore.case = TRUE, x = img_raster) ){
-        mime <- "image/gif"
-      } else if( grepl("\\.jpg", ignore.case = TRUE, x = img_raster) ){
-        mime <- "image/jpeg"
-      } else if( grepl("\\.jpeg", ignore.case = TRUE, x = img_raster) ){
-        mime <- "image/jpeg"
-      } else if( grepl("\\.svg", ignore.case = TRUE, x = img_raster) ){
-        mime <- "image/svg+xml"
-      } else if( grepl("\\.tiff", ignore.case = TRUE, x = img_raster) ){
-        mime <- "image/tiff"
-      } else if( grepl("\\.webp", ignore.case = TRUE, x = img_raster) ){
-        mime <- "image/webp"
-      } else {
-        stop(sprintf("'flextable' does not support format of the file '%s'.", img_raster))
-      }
-      if(!file.exists(img_raster)){
-        stop(sprintf("file '%s' can not be found.",img_raster))
-      }
-      img_raster <- base64enc::dataURI(file = img_raster, mime = mime )
-
-    } else  {
-      stop("unknown image format")
-    }
-    sprintf("<img style=\"vertical-align:baseline;width:%.0fpx;height:%.0fpx;\" src=\"%s\" />", width*72, height*72, img_raster)
-  }, img_data, width, height, SIMPLIFY = FALSE, USE.NAMES = FALSE)
-  str_raster <- as.character(unlist(str_raster))
-  str_raster
+    img_raster
+  }, img_data, width, height,
+  SIMPLIFY = TRUE, USE.NAMES = FALSE)
+  base64_strings <- image_to_base64(img_data)
+  sprintf("<img style=\"vertical-align:baseline;width:%.0fpx;height:%.0fpx;\" src=\"%s\" />", width*72, height*72, base64_strings)
 }
-
-
 
 # css ----
 

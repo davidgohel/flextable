@@ -4,6 +4,12 @@
 
 - add RTF support with `officer::rtf_add()`.
 
+## internals
+
+- drop 'base64enc' dependency and use 'officer' functions
+as replacement. 
+- Use `officer_url_encode()` to encode URL in office files.
+
 # flextable 0.8.5
 
 ## changes
