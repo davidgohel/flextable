@@ -126,7 +126,7 @@ img_to_latex <- function(img_data, width, height){
 
   str_raster <- mapply(function(img_raster, new_file, width, height ){
     if(inherits(img_raster, "raster")){
-      png(filename = new_file, units = "in", res = 300, bg = "transparent", width = width, height = height)
+      agg_png(filename = new_file, units = "in", res = 300, background = "transparent", width = width, height = height)
       op <- par(mar=rep(0, 4))
       plot(img_raster, interpolate = FALSE, asp=NA)
       par(op)

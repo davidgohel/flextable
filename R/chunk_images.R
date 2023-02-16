@@ -408,7 +408,7 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' ft <- set_table_properties(ft, layout = "autofit", width = .6)
 #' ft <- set_header_labels(ft, box = "boxplot", density= "density")
 #' theme_vanilla(ft)
-#' @importFrom grDevices dev.off png
+#' @importFrom grDevices dev.off
 #' @importFrom graphics boxplot
 #' @importFrom stats density
 plot_chunk <- function(value, width = 1, height = .2,
@@ -435,8 +435,11 @@ plot_chunk <- function(value, width = 1, height = .2,
 
   files <- mapply(function(x, width, height, type){
     file <- tempfile(fileext = ".png")
-    png(filename = file, width = width, height = height,
-        units = "in", bg = "transparent", res = 300)
+    agg_png(
+      filename = file,
+      width = width, height = height,
+      res = 200, units = "in",
+      background = "transparent")
     par(mar = rep(0,4))
     parcall <- params
 
@@ -532,8 +535,8 @@ gg_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
 
   files <- mapply(function(x, width, height){
     file <- tempfile(fileext = ".png")
-    png(filename = file, width = width, height = height,
-        units = "in", bg = "transparent", res = res)
+    agg_png(filename = file, width = width, height = height,
+        units = "in", background = "transparent", res = res)
       print(x)
     dev.off()
     file
@@ -599,8 +602,8 @@ grid_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
 
   files <- mapply(function(x, width, height){
     file <- tempfile(fileext = ".png")
-    png(filename = file, width = width, height = height,
-        units = "in", bg = "transparent", res = res)
+    agg_png(filename = file, width = width, height = height,
+        units = "in", background = "transparent", res = res)
     grid::grid.draw(x)
     dev.off()
     file

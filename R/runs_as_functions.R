@@ -429,7 +429,7 @@ add_raster_as_filecolumn <- function(x, is_raster) {
   files <- mapply(function(x, width, height) {
     if (inherits(x, "raster")) {
       file <- tempfile(fileext = ".png")
-      png(filename = file, units = "in", res = 300, bg = "transparent", width = width, height = height)
+      agg_png(filename = file, units = "in", res = 300, background = "transparent", width = width, height = height)
       op <- par(mar = rep(0, 4))
       plot(x, interpolate = FALSE, asp = NA)
       par(op)

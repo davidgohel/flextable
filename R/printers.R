@@ -890,7 +890,7 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
   gr <- gen_grob(x, fit = "fixed", just = "center")
   dims <- dim(gr)
 
-  ragg::agg_png(
+  agg_png(
     filename = path,
     width = dims$width + expand/72,
     height = dims$height + expand/72,

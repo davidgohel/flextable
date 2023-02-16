@@ -268,7 +268,7 @@ img_as_html <- function(img_data, width, height){
   img_data <- str_raster <- mapply(function(img_raster, width, height ){
     if(inherits(img_raster, "raster")){
       outfile <- tempfile(fileext = ".png")
-      png(filename = outfile, units = "in", res = 300, bg = "transparent", width = width, height = height)
+      agg_png(filename = outfile, units = "in", res = 300, background = "transparent", width = width, height = height)
       op <- par(mar=rep(0, 4))
       plot(img_raster, interpolate = FALSE, asp=NA)
       par(op)
