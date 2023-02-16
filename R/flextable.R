@@ -543,7 +543,7 @@ opts_ft_pdf <- function(tabcolsep = get_flextable_defaults()$tabcolsep,
 
 #' @export
 knit_print.run_reference <- function(x, ...){
-  is_quarto <- isTRUE(knitr::opts_knit$get("quarto.version") > numeric_version("0"))
+  is_quarto <- is_in_quarto()
   title <- ""
   if (is_quarto) {
     title <- opts_current_table()$cap.pre

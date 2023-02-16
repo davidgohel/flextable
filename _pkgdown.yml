@@ -159,6 +159,8 @@ reference:
     - dim.flextableGrob
     - plot.flextableGrob
     - as_raster
+    - to_html.flextable
+    - rtf_add.flextable
     - flextable_to_rmd
     - df_printer
     - use_df_printer

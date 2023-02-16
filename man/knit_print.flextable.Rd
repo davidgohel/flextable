@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{a \code{flextable} object}
 
-\item{...}{arguments passed to \code{\link[=flextable_to_rmd]{flextable_to_rmd()}}.}
+\item{...}{unused.}
 }
 \description{
 Function used to render flextable in knitr/rmarkdown documents.
@@ -55,26 +55,66 @@ PDF               \tab >= 1.12
 Some features, often specific to an output format, are available to help you
 configure some global settings relatve to the table output. knitr's chunk options
 are to be used to change the default settings:
-
-\tabular{lcccccc}{
-\strong{chunk option} \tab \strong{property} \tab \strong{default value} \tab \strong{HTML} \tab \strong{docx} \tab \strong{PDF} \tab \strong{pptx} \cr
-ft.align        \tab flextable alignment, supported values are 'left', 'center' and 'right'    \tab 'center' \tab yes \tab yes \tab yes \tab no \cr
-ft.shadow       \tab HTML option, disable shadow dom (set to \code{FALSE}) for pagedown. \tab TRUE    \tab yes  \tab no \tab no  \tab no \cr
-ft.split        \tab Word option 'Allow row to break across pages' can be activated when TRUE. \tab FALSE    \tab no  \tab yes \tab no  \tab no \cr
-ft.keepnext     \tab Word option 'keep rows together' can be desactivated when FALSE \tab FALSE    \tab no  \tab yes \tab no  \tab no \cr
-ft.tabcolsep    \tab space between the text and the left/right border of its containing cell   \tab 0      \tab no  \tab no  \tab yes \tab no \cr
-ft.arraystretch \tab height of each row relative to its default height                         \tab 1.5      \tab no  \tab no  \tab yes \tab no \cr
-ft.latex.float  \tab type of floating placement in the document, one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o' \tab 'none'      \tab no  \tab no  \tab yes \tab no \cr
-ft.left         \tab left coordinates in inches                                                \tab 1.0      \tab no  \tab no  \tab no  \tab yes\cr
-ft.top          \tab top coordinates in inches                                                 \tab 2.0      \tab no  \tab no  \tab no  \tab yes
+\itemize{
+\item HTML, PDF and Word:
+\itemize{
+\item \code{ft.align}: flextable alignment, supported values are 'left', 'center'
+and 'right'. Its default value is 'center'.
+}
+\item HTML only:
+\itemize{
+\item \code{ft.shadow}: HTML option to disable 'shadow dom' (set to \code{FALSE}) for pagedown
+that does not yet support 'shadow dom'. 'shadow dom' makes possible
+to avoid CSS conflicts between flextable output and existing css that
+would overwrite some table settings. Its value is set to \code{TRUE} by
+default.
+\item \code{ft.htmlscroll}, can be \code{TRUE} or \code{FALSE} (default) to enable
+horizontal scrolling. Use \code{\link[=set_table_properties]{set_table_properties()}} for more
+options about scrolling.
+}
+\item Word only:
+\itemize{
+\item \code{ft.split} Word option 'Allow row to break across pages' can be
+activated when TRUE (default value).
+\item \code{ft.keepnext} default \code{FALSE}. Word option 'keep rows
+together' is activated when TRUE. It avoids page break
+within tables. This is handy for small tables, i.e. less than
+a page height. Be careful, if you print long tables, you should
+rather set its value to \code{FALSE} to avoid that the tables
+also generate a page break before being placed in the
+Word document. Since Word will try to keep it with the \strong{next
+paragraphs that follow the tables}.
+}
+\item PDF only:
+\itemize{
+\item \code{ft.tabcolsep} space between the text and the left/right border of its containing
+cell, the default value is 0 points.
+\item \code{ft.arraystretch} height of each row relative to its default
+height, the default value is 1.5.
+\item \code{ft.latex.float} type of floating placement in the document, one of:
+\itemize{
+\item 'none' (the default value), table is placed after the preceding
+paragraph.
+\item 'float', table can float to a place in the text where it fits best
+\item 'wrap-r', wrap text around the table positioned to the right side of the text
+\item 'wrap-l', wrap text around the table positioned to the left side of the text
+\item 'wrap-i', wrap text around the table positioned inside edge-near the binding
+\item 'wrap-o', wrap text around the table positioned outside edge-far from the binding
+}
+}
+\item PowerPoint only:
+\itemize{
+\item \code{ft.left}, \code{ft.top} Position should be defined with these options.
+Theses are the top left coordinates in inches of the placeholder
+that will contain the table. Their default values are 1 and 2
+inches.
+}
 }
 
 If some values are to be used all the time in the same
 document, it is recommended to set these values in a
 'knitr r chunk' by using function
 \code{knitr::opts_chunk$set(ft.split=FALSE, ft.keepnext = FALSE, ...)}.
-
-See \code{\link[=flextable_to_rmd]{flextable_to_rmd()}} for more details about these options.
 }
 
 \section{Table caption}{
@@ -82,7 +122,7 @@ See \code{\link[=flextable_to_rmd]{flextable_to_rmd()}} for more details about t
 
 Captions can be defined in two ways.
 
-The first is with the \code{set_caption} function. If it is used,
+The first is with the \code{\link[=set_caption]{set_caption()}} function. If it is used,
 the other method will be ignored. The second method is by using
 knitr chunk option \code{tab.cap}.
 
@@ -123,8 +163,8 @@ example. The table below expose these options:\tabular{lcc}{
 
 HTML output is using shadow dom to encapsule the table
 into an isolated part of the page so that no clash happens
-with styles. Some output may not support this feature. To our
-knowledge, only the pagedown output is concerned.
+with styles. Some output may not support this feature.
+'pagedown' and 'Quarto' outputs are concerned.
 Use knitr chunk option \code{ft.shadow=FALSE} to disable shadow dom.
 
 If \code{ft.shadow=TRUE} some global CSS rules may change the
@@ -143,10 +183,6 @@ It is recommended to set theses values in a
 all along the document:
 \code{knitr::opts_chunk$set(ft.tabcolsep=0, ft.latex.float = "none")}.
 
-Background color and merged cells does not work well together
-with PDF format. Authors are hoping to fix this issue in
-the future.
-
 See \code{\link[=add_latex_dep]{add_latex_dep()}} if caching flextable results in 'R Markdown'
 documents.
 }
@@ -162,68 +198,23 @@ Images cannot be integrated into tables with the PowerPoint format.
 }
 
 \examples{
-
-# simple examples -----
-demo_docx <- system.file(package = "flextable", "examples/rmd", "demo.Rmd")
-rmd_file <- tempfile(fileext = ".Rmd")
-file.copy(demo_docx, to = rmd_file, overwrite = TRUE)
-rmd_file # R Markdown document used for demo
-if (require("rmarkdown", quietly = TRUE)) {
-  #  knitr::opts_chunk$set(webshot = "webshot2")
-  #  render(input = rmd_file, output_format = "word_document", output_file = "doc.docx")
-  #  render(input = rmd_file, output_format = "pdf_document", output_file = "doc.pdf")
-  #  render(input = rmd_file, output_format = "html_document", output_file = "doc.html")
-  #  render(input = rmd_file, output_format = "powerpoint_presentation", output_file = "pres.pptx")
-  #  render(input = rmd_file, output_format = "slidy_presentation", output_file = "slidy.html")
-  #  render(input = rmd_file, output_format = "beamer_presentation", output_file = "beamer.pdf")
-  #  render(input = rmd_file, output_format = "pagedown::html_paged", output_file = "paged.html")
+\dontrun{
+library(rmarkdown)
+if (pandoc_available() &&
+  pandoc_version() > numeric_version("2")) {
+  demo_loop <- system.file(
+    package = "flextable",
+    "examples/rmd",
+    "demo.Rmd"
+  )
+  rmd_file <- tempfile(fileext = ".Rmd")
+  file.copy(demo_loop, to = rmd_file, overwrite = TRUE)
+  render(
+    input = rmd_file, output_format = "html_document",
+    output_file = "demo.html"
+  )
 }
-
-
-## bookdown examples wth captions and cross ref -----
-# captions_example <- system.file(
-#   package = "flextable",
-#   "examples/rmd", "captions_example.Rmd")
-#
-# dir_tmp <- tempfile(pattern = "dir")
-# dir.create(dir_tmp, showWarnings = FALSE, recursive = TRUE)
-# file.copy(captions_example, dir_tmp)
-# rmd_file <- file.path(dir_tmp, basename(captions_example))
-#
-# file.copy(captions_example, to = rmd_file, overwrite = TRUE)
-#
-# if(require("rmarkdown", quietly = TRUE)){
-#   render(input = rmd_file,
-#          output_format = word_document(),
-#          output_file = "doc.docx")
-#   render(input = rmd_file,
-#          output_format = pdf_document(latex_engine = "xelatex"),
-#          output_file = "doc.pdf")
-#   render(input = rmd_file,
-#          output_format = html_document(),
-#          output_file = "doc.html")
-#
-#   # bookdown ----
-#   if(require("bookdown", quietly = TRUE)){
-#     render(input = rmd_file, output_format = word_document2(),
-#            output_file = "book.docx")
-#     render(input = rmd_file,
-#            output_format = pdf_document2(latex_engine = "xelatex"),
-#            output_file = "book.pdf")
-#     render(input = rmd_file,
-#            output_format = html_document2(),
-#            output_file = "book.html")
-#
-#     # officedown ----
-#     if(require("officedown", quietly = TRUE)){
-#       render(input = rmd_file,
-#              output_format = markdown_document2(base_format=rdocx_document),
-#              output_file = "officedown.docx")
-#     }
-#   }
-# }
-# browseURL(dirname(rmd_file))
-
+}
 }
 \seealso{
 Other flextable print function: 
@@ -237,6 +228,7 @@ Other flextable print function:
 \code{\link{save_as_docx}()},
 \code{\link{save_as_html}()},
 \code{\link{save_as_image}()},
-\code{\link{save_as_pptx}()}
+\code{\link{save_as_pptx}()},
+\code{\link{to_html.flextable}()}
 }
 \concept{flextable print function}

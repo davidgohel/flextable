@@ -3,12 +3,15 @@
 ## new features
 
 - add RTF support with `officer::rtf_add()`.
+- add `to_html.flextable()` to make easy embedding of 
+flextable results in HTML (with 'ggiraph' for example).
 
 ## internals
 
 - drop 'base64enc' dependency and use 'officer' functions
 as replacement. 
 - Use `officer_url_encode()` to encode URL in office files.
+- refactor `knit_print.flextable()` and related functions. 
 
 ## issues
 

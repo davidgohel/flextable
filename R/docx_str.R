@@ -273,7 +273,7 @@ wml_rows <- function(value, split = FALSE) {
 
 
 # docx_str -----
-gen_raw_wml <- function(x, doc = NULL, ...) {
+gen_raw_wml <- function(x, ...) {
 
   align <- x$properties$align
 
@@ -321,7 +321,7 @@ gen_raw_wml <- function(x, doc = NULL, ...) {
     )
   }
 
-  properties_str <- to_wml(pt, add_ns = FALSE, base_document = doc)
+  properties_str <- to_wml(pt, add_ns = FALSE)
 
   out <- paste0(out, properties_str)
 

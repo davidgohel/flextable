@@ -48,6 +48,7 @@ Other flextable print function:
 \code{\link{print.flextable}()},
 \code{\link{save_as_docx}()},
 \code{\link{save_as_html}()},
-\code{\link{save_as_image}()}
+\code{\link{save_as_image}()},
+\code{\link{to_html.flextable}()}
 }
 \concept{flextable print function}

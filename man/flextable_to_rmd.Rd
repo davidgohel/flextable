@@ -4,92 +4,12 @@
 \alias{flextable_to_rmd}
 \title{flextable raw code}
 \usage{
-flextable_to_rmd(
-  x,
-  ft.align = opts_current$get("ft.align"),
-  ft.split = opts_current$get("ft.split"),
-  ft.keepnext = opts_current$get("ft.keepnext"),
-  ft.tabcolsep = opts_current$get("ft.tabcolsep"),
-  ft.arraystretch = opts_current$get("ft.arraystretch"),
-  ft.latex.float = mcoalesce_options(opts_current$get("ft.latex.float"),
-    opts_current$get("ft-latex-float")),
-  ft.left = opts_current$get("ft.left"),
-  ft.top = opts_current$get("ft.top"),
-  text_after = "",
-  webshot = opts_current$get("webshot"),
-  ft.htmlscroll = opts_current$get("ft.htmlscroll"),
-  ft.shadow = opts_current$get("ft.shadow"),
-  bookdown = FALSE,
-  quarto = FALSE,
-  pandoc2 = TRUE,
-  print = TRUE,
-  ...
-)
+flextable_to_rmd(x, ...)
 }
 \arguments{
 \item{x}{a flextable object}
 
-\item{ft.align}{flextable alignment, supported values are 'left', 'center' and 'right'.}
-
-\item{ft.split}{Word option 'Allow row to break across pages' can be
-activated when TRUE.}
-
-\item{ft.keepnext}{default \code{FALSE}. Word option 'keep rows
-together' is activated when TRUE. It avoids page break
-within tables. This is handy for small tables, i.e. less than
-a page height.
-
-Be careful, if you print long tables, you should
-rather set its value to \code{FALSE} to avoid that the tables
-also generate a page break before being placed in the
-Word document. Since Word will try to keep it with the \strong{next
-paragraphs that follow the tables}.}
-
-\item{ft.tabcolsep}{space between the text and the left/right border of its containing
-cell, the default value is 0 points.}
-
-\item{ft.arraystretch}{height of each row relative to its default
-height, the default value is 1.5.}
-
-\item{ft.latex.float}{type of floating placement in the document, one of:
-\itemize{
-\item 'none' (the default value), table is placed after the preceding
-paragraph.
-\item 'float', table can float to a place in the text where it fits best
-\item 'wrap-r', wrap text around the table positioned to the right side of the text
-\item 'wrap-l', wrap text around the table positioned to the left side of the text
-\item 'wrap-i', wrap text around the table positioned inside edge-near the binding
-\item 'wrap-o', wrap text around the table positioned outside edge-far from the binding
-}}
-
-\item{ft.left, ft.top}{Position should be defined with options \code{ft.left}
-and \code{ft.top}. Theses are the top left coordinates in inches
-of the placeholder that will contain the table. Their
-default values are 1 and 2 inches.}
-
-\item{text_after}{The string you put here will be added after printing the content of the flextable.
-For example, you can put "\\\\pagebreak" here to have tables produced with page breaks.}
-
-\item{webshot}{webshot package as a scalar character, one of "webshot" or
-"webshot2".}
-
-\item{ft.htmlscroll}{\code{TRUE} or \code{FALSE} (default) to enable horizontal scrolling.}
-
-\item{ft.shadow}{\code{TRUE} (default) or \code{FALSE} to use shadow dom (for HTML only), this option is existing
-to disable shadow dom (set to \code{FALSE}) for pagedown and Quarto that can
-not support it for now.}
-
-\item{bookdown}{\code{TRUE} or \code{FALSE} (default) to support cross referencing with bookdown.}
-
-\item{quarto}{\code{TRUE} or \code{FALSE} (default) to indicate the source document is a 'Quarto'
-file (ending with \verb{*.qmd}).}
-
-\item{pandoc2}{\code{TRUE} (default) or \code{FALSE} to get the string in a pandoc raw HTML attribute
-(only valid when pandoc version is \verb{>= 2}.}
-
-\item{print}{print output if TRUE}
-
-\item{...}{unused arguments}
+\item{...}{unused argument}
 }
 \description{
 Print openxml, latex or html code of a
@@ -99,25 +19,26 @@ to generate flextable in a loop from a R Markdown document.
 Inside R Markdown document, chunk option \code{results} must be
 set to 'asis'.
 
-All arguments whose name starts with \code{ft.} can be set in the chunk options.
-
 See \link{knit_print.flextable} for more details.
 }
 \examples{
-demo_loop <- system.file(package = "flextable", "examples/rmd", "loop_with_flextable.Rmd")
-rmd_file <- tempfile(fileext = ".Rmd")
-file.copy(demo_loop, to = rmd_file, overwrite = TRUE)
-rmd_file # R Markdown document used for demo
-if (require("rmarkdown", quietly = TRUE)) {
-  #  render(input = rmd_file, output_format = "word_document",
-  #    output_file = "loop_with_flextable.docx")
-  #  render(input = rmd_file, output_format = "html_document",
-  #    output_file = "loop_with_flextable.html")
-  #  render(input = rmd_file,
-  #    output_format = rmarkdown::pdf_document(latex_engine = "xelatex"),
-  #    output_file = "loop_with_flextable.pdf")
+\dontrun{
+library(rmarkdown)
+if (pandoc_available() &&
+  pandoc_version() > numeric_version("2")) {
+  demo_loop <- system.file(
+    package = "flextable",
+    "examples/rmd",
+    "loop_with_flextable.Rmd"
+  )
+  rmd_file <- tempfile(fileext = ".Rmd")
+  file.copy(demo_loop, to = rmd_file, overwrite = TRUE)
+  render(
+    input = rmd_file, output_format = "html_document",
+    output_file = "loop_with_flextable.html"
+  )
 }
-
+}
 }
 \seealso{
 Other flextable print function: 
@@ -131,6 +52,7 @@ Other flextable print function:
 \code{\link{save_as_docx}()},
 \code{\link{save_as_html}()},
 \code{\link{save_as_image}()},
-\code{\link{save_as_pptx}()}
+\code{\link{save_as_pptx}()},
+\code{\link{to_html.flextable}()}
 }
 \concept{flextable print function}
