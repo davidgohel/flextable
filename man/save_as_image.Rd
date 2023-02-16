@@ -4,51 +4,27 @@
 \alias{save_as_image}
 \title{save a flextable as an image}
 \usage{
-save_as_image(x, path, zoom = 3, expand = 10, webshot = "webshot")
+save_as_image(x, path, expand = 10, res = 200, ...)
 }
 \arguments{
 \item{x}{a flextable object}
 
-\item{path}{image file to be created. It should end with .png, .pdf, or .jpeg.}
+\item{path}{image file to be created. It should end with '.png'.}
 
-\item{zoom, expand}{parameters used by \code{webshot} function.}
+\item{expand}{space in pixels to add around the table.}
 
-\item{webshot}{webshot package as a scalar character, one of "webshot" or
-"webshot2".}
+\item{res}{The resolution of the device}
+
+\item{...}{unused arguments}
 }
 \description{
-save a flextable as a png, pdf or jpeg image.
-
-Image generated with package 'webshot' or package 'webshot2'.
-\strong{Package 'webshot2' should be prefered} as 'webshot' can have
-issues with some properties (i.e. bold are not rendered for some users).
-
-The image is coming from a screenshot of the 'HTML' output.
-\code{save_as_image()} is a tool to make life easier for users.
-Nevertheless, the features have some limitations that can't
-be solved with flextable because they are not related to
-flextable:
-\itemize{
-\item \code{png} does support transparency,
-\item \code{jpeg} does not support transparency,
-\item webshot2 does not allow transparent background,
-\item webshot does allow transparent background.
-}
-}
-\note{
-This function requires package webshot or webshot2.
-The screenshot process is rather slow because it is managed by
-an external program (see webshot or webshot2 documentation).
+save a flextable as a png image.
 }
 \examples{
 ft <- flextable(head(mtcars))
 ft <- autofit(ft)
 tf <- tempfile(fileext = ".png")
-\dontrun{
-if (require("webshot")) {
-  save_as_image(x = ft, path = "myimage.png")
-}
-}
+save_as_image(x = ft, path = tf)
 }
 \seealso{
 Other flextable print function: 

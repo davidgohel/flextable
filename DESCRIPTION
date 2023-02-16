@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.8.6.005
+Version: 0.8.6.006
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -31,7 +31,7 @@ Description: Use a grammar for creating and customizing pretty tables.
 License: GPL-3
 Imports:
     stats, utils, grDevices, graphics, grid,
-    rmarkdown, knitr, htmltools, rlang,
+    rmarkdown, knitr, htmltools, rlang, ragg,
     officer (>= 0.6.0), gdtools (>= 0.3.0), 
     xml2, data.table (>= 1.13.0), uuid (>= 0.1-4)
 RoxygenNote: 7.2.3
@@ -40,12 +40,12 @@ Suggests:
     testthat (>= 2.1.0),
     magick, equatags, commonmark, 
     ggplot2, scales,
-    webshot2, doconv (>= 0.3.0),
+    doconv (>= 0.3.0),
     xtable,
     broom, broom.mixed, 
     mgcv, cluster, lme4, nlme,
     bookdown, pdftools, officedown,
-    pkgdown (>= 2.0.0), ragg
+    pkgdown (>= 2.0.0), webshot2
 Encoding: UTF-8
 URL: https://ardata-fr.github.io/flextable-book/, https://davidgohel.github.io/flextable/
 BugReports: https://github.com/davidgohel/flextable/issues

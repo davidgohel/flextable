@@ -148,17 +148,9 @@ to_html.flextable <- function(x, type = c("table", "img"), ...) {
     x$properties$opts_html$shadow <- FALSE
     gen_raw_html(x, class = "tabwid", caption = "", manual_css = "")
   } else {
-    webshot <- opts_current$get("webshot")
-    if (is.null(webshot)) {
-      webshot <- "webshot"
-    }
-    webshot <- find_webshot_package(webshot)
-    if (is.na(webshot)) {
-      stop(sprintf("package '%s' is required to snapshot flextable HTML output.", webshot))
-    }
     tmp <- tempfile(fileext = ".png")
     dir.create(dirname(tmp), showWarnings = FALSE, recursive = TRUE)
-    save_as_image(x, path = tmp, zoom = 3, expand = 0, webshot = webshot)
+    save_as_image(x, path = tmp, expand = 0, res = 200)
     base64_string <- image_to_base64(tmp)
     width <- flextable_dim(x)$width
     height <- flextable_dim(x)$height
@@ -659,13 +651,12 @@ knit_print.flextable <- function(x, ...) {
     str <- knit_to_pml(x)
     str <- asis_output(str)
   } else {
-    webshot_package <- find_webshot_package()
     plot_counter <- getFromNamespace("plot_counter", "knitr")
     in_base_dir <- getFromNamespace("in_base_dir", "knitr")
     tmp <- fig_path("png", number = plot_counter())
     in_base_dir({
       dir.create(dirname(tmp), showWarnings = FALSE, recursive = TRUE)
-      save_as_image(x, path = tmp, zoom = 3, expand = 0, webshot = webshot_package)
+      save_as_image(x, path = tmp, expand = 0)
     })
     str <- include_graphics(tmp)
   }
@@ -878,71 +869,40 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL, align = "c
 
 #' @export
 #' @title save a flextable as an image
-#' @description save a flextable as a png, pdf or jpeg image.
-#'
-#' Image generated with package 'webshot' or package 'webshot2'.
-#' **Package 'webshot2' should be prefered** as 'webshot' can have
-#' issues with some properties (i.e. bold are not rendered for some users).
-#'
-#' The image is coming from a screenshot of the 'HTML' output.
-#' `save_as_image()` is a tool to make life easier for users.
-#' Nevertheless, the features have some limitations that can't
-#' be solved with flextable because they are not related to
-#' flextable:
-#'
-#' * `png` does support transparency,
-#' * `jpeg` does not support transparency,
-#' * webshot2 does not allow transparent background,
-#' * webshot does allow transparent background.
-#'
-#' @note This function requires package webshot or webshot2.
-#' The screenshot process is rather slow because it is managed by
-#' an external program (see webshot or webshot2 documentation).
+#' @description save a flextable as a png image.
 #' @param x a flextable object
-#' @param path image file to be created. It should end with .png, .pdf, or .jpeg.
-#' @param zoom,expand parameters used by `webshot` function.
-#' @param webshot webshot package as a scalar character, one of "webshot" or
-#' "webshot2".
+#' @param path image file to be created. It should end with '.png'.
+#' @param expand space in pixels to add around the table.
+#' @param res The resolution of the device
+#' @param ... unused arguments
 #' @examples
 #' ft <- flextable(head(mtcars))
 #' ft <- autofit(ft)
 #' tf <- tempfile(fileext = ".png")
-#' \dontrun{
-#' if (require("webshot")) {
-#'   save_as_image(x = ft, path = "myimage.png")
-#' }
-#' }
+#' save_as_image(x = ft, path = tf)
 #' @family flextable print function
-save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot") {
+#' @importFrom ragg agg_png
+save_as_image <- function(x, path, expand = 10, res = 200, ...) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", as.character(sys.call()[[1]])))
   }
 
-  if (!requireNamespace(webshot, quietly = TRUE)) {
-    stop(sprintf(
-      "'%s' package should be installed to create an image from a flextable.",
-      webshot
-    ))
-  } else {
-    webshot_fun <- getFromNamespace("webshot", webshot)
-  }
+  gr <- gen_grob(x, fit = "fixed", just = "center")
+  dims <- dim(gr)
 
-  curr_wd <- getwd()
-  path <- absolute_path(path)
+  ragg::agg_png(
+    filename = path,
+    width = dims$width + expand/72,
+    height = dims$height + expand/72,
+    res = res, units = "in",
+    background = "transparent")
 
-  tf <- tempfile(fileext = ".html")
-  save_as_html(x = x, path = tf)
-  setwd(dirname(tf))
   tryCatch(
     {
-      webshot_fun(
-        url = basename(tf),
-        file = path, selector = "body > div > table",
-        zoom = zoom, expand = expand
-      )
+      plot(gr)
     },
     finally = {
-      setwd(curr_wd)
+      dev.off()
     }
   )
 
@@ -952,48 +912,28 @@ save_as_image <- function(x, path, zoom = 3, expand = 10, webshot = "webshot") {
 
 #' @export
 #' @title plot a flextable
-#' @description plots a flextable, either as a grid grob object or as a raster image
+#' @description plots a flextable as a grid grob object
 #' and display the result in a new graphics window.
-#' @details
-#' \itemize{
-#'   \item method `grob`, uses method [gen_grob()]
-#'   to convert the flextable into a grid graphics grob object.
-#'   \item method `webshot`, uses method [as_raster()]
-#'   to convert the flextable into a raster object.
-#'   In that case packages `webshot` and `magick` are required.
-#' }
-#'
+#' 'ragg' or 'svglite' or 'ggiraph' graphical device drivers
+#' should be used to ensure a correct rendering.
 #' @param x a flextable object
-#' @param method the method to use for the plot, one of `grob` or `webshot`
-#' @param ... additional arguments passed to [gen_grob()] if method is 'grob'
-#' and passed to [as_raster()] if method is 'webshot'.
+#' @param ... additional arguments passed to [gen_grob()].
 #' @examples
 #' ftab <- flextable(head(mtcars))
 #' ftab <- autofit(ftab)
-#' \dontrun{
 #' plot(ftab)
-#' if (require("webshot")) {
-#'   plot(ftab, method = "webshot")
-#' }
-#' }
 #' @family flextable print function
 #' @importFrom grid grid.newpage grid.draw viewport pushViewport popViewport
-plot.flextable <- function(x, method = c("grob", "webshot"), ...) {
-  method <- match.arg(method)
-  if (method == "webshot") {
-    par(mar = rep(0, 4))
-    plot(as_raster(x, ...))
-  } else {
-    grid.newpage()
-    # leave a 5pt margin around the plot
-    pushViewport(viewport(
-      width = unit(1, "npc") - unit(10, "pt"),
-      height = unit(1, "npc") - unit(10, "pt")
-    ))
-    grid.draw(gen_grob(x, ...))
-    popViewport()
-    invisible()
-  }
+plot.flextable <- function(x, ...) {
+  grid.newpage()
+  # leave a 5pt margin around the plot
+  pushViewport(viewport(
+    width = unit(1, "npc") - unit(10, "pt"),
+    height = unit(1, "npc") - unit(10, "pt")
+  ))
+  grid.draw(gen_grob(x, ...))
+  popViewport()
+  invisible()
 }
 
 #' @export
@@ -1001,29 +941,20 @@ plot.flextable <- function(x, method = c("grob", "webshot"), ...) {
 #' @description save a flextable as an image and return the corresponding
 #' raster. This function has been implemented to let flextable be printed
 #' on a ggplot object.
-#' @note This function requires packages: webshot and magick.
+#' @note This function requires package 'magick'.
 #' @param x a flextable object
-#' @param zoom,expand parameters used by `webshot` function.
-#' @param webshot webshot package as a scalar character, one of "webshot" or
-#' "webshot2".
 #' @param ... additional arguments passed to other functions
 #' @importFrom grDevices as.raster
 #' @examples
 #' ft <- qflextable(head(mtcars))
 #' \dontrun{
-#' if (require("ggplot2") && require("webshot")) {
+#' if (require("ggplot2") && require("magick")) {
 #'   print(qplot(speed, dist, data = cars, geom = "point"))
 #'   grid::grid.raster(as_raster(ft))
 #' }
 #' }
 #' @family flextable print function
-as_raster <- function(x, zoom = 2, expand = 2, webshot = "webshot", ...) {
-  if (!requireNamespace(webshot, quietly = TRUE)) {
-    stop(sprintf(
-      "'%s' package should be installed to create an image from a flextable.",
-      webshot
-    ))
-  }
+as_raster <- function(x, ...) {
   if (!requireNamespace("magick", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create an image from a flextable.",
@@ -1032,7 +963,7 @@ as_raster <- function(x, zoom = 2, expand = 2, webshot = "webshot", ...) {
   }
   path <- tempfile(fileext = ".png")
   on.exit(unlink(path))
-  save_as_image(x, path, zoom = zoom, expand = expand, webshot = webshot)
+  save_as_image(x, path, expand = 0)
   img <- magick::image_read(path = path)
   as.raster(img, ...)
 }
@@ -1052,14 +983,6 @@ is_in_quarto <- function() {
 is_in_pkgdown <- function() {
   identical(Sys.getenv("IN_PKGDOWN"), "true") &&
     requireNamespace("pkgdown", quietly = TRUE)
-}
-find_webshot_package <- function(pkgname) {
-  if (requireNamespace(pkgname, quietly = TRUE)) {
-    webshot_package <- pkgname
-  } else {
-    webshot_package <- NA_character_
-  }
-  webshot_package
 }
 
 knitr_update_properties <- function(x) {

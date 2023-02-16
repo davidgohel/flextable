@@ -12,6 +12,8 @@ flextable results in HTML (with 'ggiraph' for example).
 as replacement. 
 - Use `officer_url_encode()` to encode URL in office files.
 - refactor `knit_print.flextable()` and related functions. 
+- drop webshot dependency to produce images, now using package
+'ragg'.
 
 ## issues
 

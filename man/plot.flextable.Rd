@@ -4,38 +4,23 @@
 \alias{plot.flextable}
 \title{plot a flextable}
 \usage{
-\method{plot}{flextable}(x, method = c("grob", "webshot"), ...)
+\method{plot}{flextable}(x, ...)
 }
 \arguments{
 \item{x}{a flextable object}
 
-\item{method}{the method to use for the plot, one of \code{grob} or \code{webshot}}
-
-\item{...}{additional arguments passed to \code{\link[=gen_grob]{gen_grob()}} if method is 'grob'
-and passed to \code{\link[=as_raster]{as_raster()}} if method is 'webshot'.}
+\item{...}{additional arguments passed to \code{\link[=gen_grob]{gen_grob()}}.}
 }
 \description{
-plots a flextable, either as a grid grob object or as a raster image
+plots a flextable as a grid grob object
 and display the result in a new graphics window.
-}
-\details{
-\itemize{
-\item method \code{grob}, uses method \code{\link[=gen_grob]{gen_grob()}}
-to convert the flextable into a grid graphics grob object.
-\item method \code{webshot}, uses method \code{\link[=as_raster]{as_raster()}}
-to convert the flextable into a raster object.
-In that case packages \code{webshot} and \code{magick} are required.
-}
+'ragg' or 'svglite' or 'ggiraph' graphical device drivers
+should be used to ensure a correct rendering.
 }
 \examples{
 ftab <- flextable(head(mtcars))
 ftab <- autofit(ftab)
-\dontrun{
 plot(ftab)
-if (require("webshot")) {
-  plot(ftab, method = "webshot")
-}
-}
 }
 \seealso{
 Other flextable print function: 
