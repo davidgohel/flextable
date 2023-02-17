@@ -21,10 +21,16 @@ save_as_image(x, path, expand = 10, res = 200, ...)
 save a flextable as a png image.
 }
 \examples{
+library(gdtools)
+register_liberationsans()
+set_flextable_defaults(font.family = "Liberation Sans")
+
 ft <- flextable(head(mtcars))
 ft <- autofit(ft)
 tf <- tempfile(fileext = ".png")
 save_as_image(x = ft, path = tf)
+
+init_flextable_defaults()
 }
 \seealso{
 Other flextable print function: 

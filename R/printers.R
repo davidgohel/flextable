@@ -876,10 +876,16 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL, align = "c
 #' @param res The resolution of the device
 #' @param ... unused arguments
 #' @examples
+#' library(gdtools)
+#' register_liberationsans()
+#' set_flextable_defaults(font.family = "Liberation Sans")
+#'
 #' ft <- flextable(head(mtcars))
 #' ft <- autofit(ft)
 #' tf <- tempfile(fileext = ".png")
 #' save_as_image(x = ft, path = tf)
+#'
+#' init_flextable_defaults()
 #' @family flextable print function
 #' @importFrom ragg agg_png
 save_as_image <- function(x, path, expand = 10, res = 200, ...) {
@@ -919,9 +925,17 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
 #' @param x a flextable object
 #' @param ... additional arguments passed to [gen_grob()].
 #' @examples
-#' ftab <- flextable(head(mtcars))
-#' ftab <- autofit(ftab)
+#' library(gdtools)
+#' library(ragg)
+#' register_liberationsans()
+#' set_flextable_defaults(font.family = "Liberation Sans")
+#' ftab <- as_flextable(cars)
+#'
+#' tf <- tempfile(fileext = ".png")
+#' agg_png(filename = tf, width = 1.7, height = 3.26, unit = "in",
+#'   background = "transparent", res = 150)
 #' plot(ftab)
+#' dev.off()
 #' @family flextable print function
 #' @importFrom grid grid.newpage grid.draw viewport pushViewport popViewport
 plot.flextable <- function(x, ...) {
