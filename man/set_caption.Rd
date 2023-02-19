@@ -10,7 +10,7 @@ set_caption(
   autonum = NULL,
   word_stylename = "Table Caption",
   style = word_stylename,
-  fp_p = NULL,
+  fp_p = fp_par(padding = 3),
   align_with_table = TRUE,
   html_classes = NULL,
   html_escape = TRUE

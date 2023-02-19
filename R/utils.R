@@ -33,16 +33,6 @@ absolute_path <- function(x) {
   epath
 }
 
-#' @importFrom knitr opts_current
-ref_label <- function(base = "tab:") {
-  label <- opts_current$get("label")
-  if (is.null(label)) {
-    return("")
-  }
-  paste0("(\\#", base, label, ")")
-}
-
-
 #' @importFrom stats median median sd mad
 #' @importFrom stats quantile
 Q1 <- function(z) as.double(quantile(z, probs = .25, na.rm = TRUE, names = FALSE))

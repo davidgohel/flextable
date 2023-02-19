@@ -201,10 +201,4 @@ test_that("with pdf_document2", {
   }
 })
 
-test_that("Adds label for cross referencing with bookdown", {
-  expect_identical(flextable:::ref_label(), "")
-  knitr::opts_current$set(label = 'foo')
-  expect_identical(flextable:::ref_label(), "(\\#tab:foo)")
-})
-
 init_flextable_defaults()

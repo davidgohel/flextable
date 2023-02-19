@@ -291,7 +291,7 @@ set_caption <- function(x,
                         autonum = NULL,
                         word_stylename = "Table Caption",
                         style = word_stylename,
-                        fp_p = NULL,
+                        fp_p = fp_par(padding = 3),
                         align_with_table = TRUE,
                         html_classes = NULL,
                         html_escape = TRUE) {
@@ -335,6 +335,42 @@ set_caption <- function(x,
 
   x
 }
+update_caption <- function(x, caption = NULL,
+                           autonum = NULL,
+                           word_stylename = NULL,
+                           fp_p = NULL,
+                           align_with_table = NULL,
+                           html_classes = NULL) {
+  if (!is.null(caption)) {
+    if (inherits(caption, "paragraph")) {
+      x$caption$simple_caption <- FALSE
+    } else {
+      x$caption$simple_caption <- TRUE
+    }
+    x$caption$value <- caption
+  }
+
+  if (!is.null(autonum)) {
+    x$caption$autonum <- autonum
+  }
+
+  if (!is.null(fp_p)) {
+    x$caption$fp_p <- fp_p
+  }
+
+  if (!is.null(word_stylename)) {
+    x$caption$word_stylename <- word_stylename
+  }
+  if (!is.null(html_classes)) {
+    x$caption$html_classes <- html_classes
+  }
+  if (!is.null(align_with_table)) {
+    x$caption$align_with_table <- align_with_table
+  }
+
+  x
+}
+
 
 #' @keywords internal
 #' @title flextable old functions

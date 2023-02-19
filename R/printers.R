@@ -26,7 +26,7 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL) {
     x$properties$opts_html$shadow <- ft.shadow
   }
 
-  caption <- caption_default_html(x, align = x$properties$align)
+  caption <- caption_default_html(x)
   manual_css <- attr(caption, "css")
   html_o <- tagList(
     flextable_html_dependency(),
@@ -92,10 +92,10 @@ flextable_to_rmd <- function(x, ...) {
     x <- flextable_global$defaults$post_process_html(x)
     x$properties$opts_html$shadow <- FALSE
     if (!is_bookdown) {
-      caption <- caption_default_html(x, align = x$properties$align)
+      caption <- caption_default_html(x)
       manual_css <- attr(caption, "css")
     } else {
-      caption <- caption_bookdown_html(x, align = x$properties$align)
+      caption <- caption_bookdown_html(x)
       manual_css <- ""
     }
     str <- gen_raw_html(x,
@@ -171,18 +171,17 @@ to_html.flextable <- function(x, type = c("table", "img"), ...) {
 knit_to_html <- function(x, bookdown = FALSE, quarto = FALSE) {
   x <- flextable_global$defaults$post_process_html(x)
 
-  align <- x$properties$align
-
   tab_props <- opts_current_table()
   topcaption <- tab_props$topcaption
+
   manual_css <- ""
   if (bookdown) {
-    caption_str <- caption_bookdown_html(x, align = align, tab_props = tab_props)
+    caption_str <- caption_bookdown_html(x)
     manual_css <- attr(caption_str, "css")
   } else if (quarto) {
-    caption_str <- caption_quarto_html(x, align = align, tab_props = tab_props)
+    caption_str <- caption_quarto_html(x)
   } else {
-    caption_str <- caption_default_html(x, align = align, tab_props = tab_props)
+    caption_str <- caption_default_html(x)
     manual_css <- attr(caption_str, "css")
   }
 
@@ -227,13 +226,11 @@ knit_to_wml <- function(x, bookdown = FALSE, quarto = FALSE) {
     word_autonum <- TRUE
   }
   if (bookdown) {
-    caption <- caption_bookdown_docx_md(x, tab_props = tab_props)
+    caption <- caption_bookdown_docx_md(x)
   } else {
     caption <- caption_default_docx_openxml(
       x,
-      align = x$properties$align,
       keep_with_next = apply_cap_kwn,
-      tab_props = tab_props,
       allow_autonum = word_autonum
     )
   }
@@ -304,11 +301,11 @@ knit_to_latex <- function(x, bookdown, quarto = FALSE) {
   tab_props <- opts_current_table()
   topcaption <- tab_props$topcaption
   if (quarto) {
-    caption_str <- caption_quarto_latex(x, tab_props = tab_props)
+    caption_str <- caption_quarto_latex(x)
   } else if (bookdown) {
-    caption_str <- caption_bookdown_latex(x, tab_props = tab_props)
+    caption_str <- caption_bookdown_latex(x)
   } else {
-    caption_str <- caption_default_latex(x, tab_props = tab_props)
+    caption_str <- caption_default_latex(x)
   }
 
   container_str <- latex_container_str(
@@ -627,7 +624,7 @@ knit_print.flextable <- function(x, ...) {
   is_bookdown <- is_in_bookdown()
   is_quarto <- is_in_quarto()
 
-  x <- knitr_update_properties(x)
+  x <- knitr_update_properties(x, bookdown = is_bookdown, quarto = is_quarto)
 
   if (is_html_output()) { # html
     str <- knit_to_html(x, bookdown = is_bookdown, quarto = is_quarto)
@@ -709,7 +706,7 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
     }
     values[[i]] <- flextable_global$defaults$post_process_html(values[[i]])
 
-    caption <- caption_default_html(values[[i]], align = values[[i]]$properties$align)
+    caption <- caption_default_html(values[[i]])
     manual_css <- attr(caption, "css")
 
     values[[i]]$properties$opts_html$shadow <- FALSE
@@ -999,8 +996,10 @@ is_in_pkgdown <- function() {
     requireNamespace("pkgdown", quietly = TRUE)
 }
 
-knitr_update_properties <- function(x) {
+#' @importFrom knitr opts_current
+knitr_update_properties <- function(x, bookdown = FALSE, quarto = FALSE) {
 
+  # global properties
   ft.align <- opts_current$get("ft.align")
   ft.split <- opts_current$get("ft.split")
   ft.keepnext <- opts_current$get("ft.keepnext")
@@ -1042,5 +1041,30 @@ knitr_update_properties <- function(x) {
   if (is_xaringan) { # xaringan
     x$properties$opts_html$shadow <- TRUE
   }
+
+  # captions properties
+  knitr_tab_opts = opts_current_table()
+  if (is.null(knitr_tab_opts$cap.style)) {
+    knitr_tab_opts$cap.style <- "Table Caption"
+  }
+  x <- update_caption(
+    x = x,
+    caption = knitr_tab_opts$cap,
+    word_stylename = knitr_tab_opts$cap.style)
+  if (has_caption(x) &&
+      !has_autonum(x) &&
+      !is.null(knitr_tab_opts$id)) {
+    autonum <- run_autonum(
+      seq_id = gsub(":$", "", knitr_tab_opts$tab.lp),
+      pre_label = knitr_tab_opts$cap.pre,
+      post_label = knitr_tab_opts$cap.sep,
+      bkm = knitr_tab_opts$id, bkm_all = FALSE,
+      tnd = knitr_tab_opts$cap.tnd,
+      tns = knitr_tab_opts$cap.tns,
+      prop = knitr_tab_opts$cap.fp_text
+    )
+    x <- update_caption(x = x, autonum = autonum)
+  }
+
   x
 }

@@ -14,6 +14,11 @@ as replacement.
 - refactor `knit_print.flextable()` and related functions. 
 - drop webshot dependency to produce images, now using package
 'ragg'.
+- refactor captions: knitr context now updates the caption 
+instead of managing caption value and defined knitr 
+options.
+
+
 
 ## issues
 

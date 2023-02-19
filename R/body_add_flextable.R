@@ -52,7 +52,7 @@ body_add_flextable <- function(x, value,
   value <- flextable_global$defaults$post_process_docx(value)
 
   caption_str <- NULL
-  if (!is.null(value$caption$value)) {
+  if (has_caption(value)) {
     if (topcaption) {
       apply_cap_kwn <- TRUE
     } else {
@@ -61,9 +61,7 @@ body_add_flextable <- function(x, value,
     }
     caption_str <- caption_default_docx_openxml(
       x = value,
-      align = value$properties$align,
       keep_with_next = apply_cap_kwn,
-      tab_props = list(),
       allow_autonum = TRUE
     )
     if ("" %in% caption_str) caption_str <- NULL
