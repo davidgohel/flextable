@@ -9,9 +9,7 @@
 #' a call to `shiny::renderUI` for example.
 #' @param x a flextable object
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
-#' @param ft.shadow use shadow dom, this option is existing
-#' to disable shadow dom (set to `FALSE`) for pagedown that
-#' can not support it for now.
+#' @param ft.shadow deprecated.
 #' @family flextable print function
 #' @examples
 #' htmltools_value(flextable(iris[1:5, ]))
@@ -21,9 +19,6 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL) {
 
   if (!is.null(ft.align)) {
     x$properties$align <- ft.align
-  }
-  if (!is.null(ft.shadow)) {
-    x$properties$opts_html$shadow <- ft.shadow
   }
 
   caption <- caption_default_html(x)
@@ -90,7 +85,6 @@ flextable_to_rmd <- function(x, ...) {
 
   if ("html" %in% type_output) {
     x <- flextable_global$defaults$post_process_html(x)
-    x$properties$opts_html$shadow <- FALSE
     if (!is_bookdown) {
       caption <- caption_default_html(x)
       manual_css <- attr(caption, "css")
@@ -145,7 +139,6 @@ to_html.flextable <- function(x, type = c("table", "img"), ...) {
 
   if ("table" %in% type_output) {
     x <- flextable_global$defaults$post_process_html(x)
-    x$properties$opts_html$shadow <- FALSE
     gen_raw_html(x, class = "tabwid", caption = "", manual_css = "")
   } else {
     tmp <- tempfile(fileext = ".png")
@@ -392,7 +385,7 @@ knit_to_pml <- function(x) {
 #' @importFrom officer read_pptx add_slide read_docx
 print.flextable <- function(x, preview = "html", align = "center", ...) {
   if (is_in_pkgdown()) {
-    return(htmltools_value(x, ft.shadow = TRUE, ft.align = align))
+    return(htmltools_value(x, ft.align = align))
   } else if (!interactive() || "log" %in% preview) {
     cat("a flextable object.\n")
     cat("col_keys:", paste0("`", x$col_keys, "`", collapse = ", "), "\n")
@@ -401,7 +394,7 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
     cat("original dataset sample:", "\n")
     print(x$body$dataset[seq_len(min(c(5, nrow(x$body$dataset)))), ])
   } else if (preview == "html") {
-    print(browsable(htmltools_value(x, ft.shadow = FALSE, ft.align = align)))
+    print(browsable(htmltools_value(x, ft.align = align)))
   } else if (preview == "pptx") {
     doc <- read_pptx()
     doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
@@ -473,11 +466,6 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #'   - `ft.align`: flextable alignment, supported values are 'left', 'center'
 #'   and 'right'. Its default value is 'center'.
 #' - HTML only:
-#'   - `ft.shadow`: HTML option to disable 'shadow dom' (set to `FALSE`) for pagedown
-#'   that does not yet support 'shadow dom'. 'shadow dom' makes possible
-#'   to avoid CSS conflicts between flextable output and existing css that
-#'   would overwrite some table settings. Its value is set to `TRUE` by
-#'   default.
 #'   - `ft.htmlscroll`, can be `TRUE` or `FALSE` (default) to enable
 #'   horizontal scrolling. Use [set_table_properties()] for more
 #'   options about scrolling.
@@ -562,12 +550,7 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #'
 #' HTML output is using shadow dom to encapsule the table
 #' into an isolated part of the page so that no clash happens
-#' with styles. Some output may not support this feature.
-#' 'pagedown' and 'Quarto' outputs are concerned.
-#' Use knitr chunk option `ft.shadow=FALSE` to disable shadow dom.
-#'
-#' If `ft.shadow=TRUE` some global CSS rules may change the
-#' desired output of flextables.
+#' with styles.
 #'
 #' @section PDF output:
 #'
@@ -626,7 +609,10 @@ knit_print.flextable <- function(x, ...) {
 
   x <- knitr_update_properties(x, bookdown = is_bookdown, quarto = is_quarto)
 
-  if (is_html_output()) { # html
+  if (!is.null(getOption("xaringan.page_number.offset"))) { #xaringan
+    str <- knit_to_html(x, bookdown = FALSE, quarto = FALSE)
+    str <- asis_output(str, meta = list(flextable_html_dependency()))
+  } else if (is_html_output()) { # html
     str <- knit_to_html(x, bookdown = is_bookdown, quarto = is_quarto)
     str <- raw_html(str, meta = list(flextable_html_dependency()))
   } else if (is_latex_output()) { # latex
@@ -709,7 +695,6 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
     caption <- caption_default_html(values[[i]])
     manual_css <- attr(caption, "css")
 
-    values[[i]]$properties$opts_html$shadow <- FALSE
     txt[2] <- gen_raw_html(values[[i]],
       caption = caption,
       manual_css = manual_css
@@ -720,7 +705,7 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
   tabwid_css <- paste(
     c(
       "<style>",
-      readLines(system.file(package = "flextable", "web_1.1.2", "tabwid.css"), encoding = "UTF-8"),
+      readLines(system.file(package = "flextable", "web_1.1.3", "tabwid.css"), encoding = "UTF-8"),
       "</style>"
     ),
     collapse = "\n"
@@ -1009,17 +994,12 @@ knitr_update_properties <- function(x, bookdown = FALSE, quarto = FALSE) {
   ft.left <- opts_current$get("ft.left")
   ft.top <- opts_current$get("ft.top")
   ft.htmlscroll <- opts_current$get("ft.htmlscroll")
-  ft.shadow <- opts_current$get("ft.shadow")
-  is_xaringan <- !is.null(getOption("xaringan.page_number.offset"))
 
   if (!is.null(ft.align)) {
     x$properties$align <- ft.align
   }
   if (isTRUE(ft.htmlscroll)) {
     x$properties$opts_html$scroll <- list()
-  }
-  if (!is.null(ft.shadow)) {
-    x$properties$opts_html$shadow <- ft.shadow
   }
   # word chunk options
   if (!is.null(ft.split)) {
@@ -1037,9 +1017,6 @@ knitr_update_properties <- function(x, bookdown = FALSE, quarto = FALSE) {
   }
   if (!is.null(ft.latex.float)) {
     x$properties$opts_pdf$float <- ft.latex.float
-  }
-  if (is_xaringan) { # xaringan
-    x$properties$opts_html$shadow <- TRUE
   }
 
   # captions properties

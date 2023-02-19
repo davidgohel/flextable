@@ -412,9 +412,6 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' @param align alignment in document (only Word, HTML and PDF),
 #' supported values are 'left', 'center' and 'right'.
 #' @param opts_html html options as a list. Supported elements are:
-#' - 'shadow' `TRUE` or `FALSE`, use shadow dom, this option is existing
-#' to disable shadow dom (set to `FALSE`) for pagedown and Quarto that can
-#' not support it for now.
 #' - 'extra_css': extra css instructions to be integrated with the HTML
 #' code of the table.
 #' - 'scroll': NULL or a list if you want to add a scroll-box.
@@ -475,7 +472,6 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' ft_4 <- set_table_properties(
 #'   x = ft_4,
 #'   opts_html = list(
-#'     shadow = FALSE,
 #'     scroll = list(
 #'       height = "500px",
 #'       freeze_first_column = TRUE
@@ -516,13 +512,9 @@ set_table_properties <- function(x, layout = "fixed", width = 0,
   x
 }
 
-opts_ft_html <- function(shadow = get_flextable_defaults()$shadow,
-                         extra_css = get_flextable_defaults()$extra_css,
+opts_ft_html <- function(extra_css = get_flextable_defaults()$extra_css,
                          scroll = get_flextable_defaults()$scroll) {
 
-  if( !is.logical(shadow) || length(shadow) != 1 ){
-    stop(sprintf("'%s' is expected to be a single %s.", "shadow", "logical"), call. = FALSE)
-  }
   if(!is.character(extra_css) || length(extra_css) != 1 || any(is.na(extra_css))){
     stop(sprintf("'%s' is expected to be a single %s.", "extra_css", "character"), call. = FALSE)
   }
@@ -530,7 +522,7 @@ opts_ft_html <- function(shadow = get_flextable_defaults()$shadow,
     stop(sprintf("'%s' is expected to be %s.", "scroll", "NULL or a list"), call. = FALSE)
   }
 
-  z <- list(shadow = shadow, extra_css = extra_css, scroll = scroll)
+  z <- list(extra_css = extra_css, scroll = scroll)
   class(z) <- "opts_ft_html"
   z
 }

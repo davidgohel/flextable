@@ -11,9 +11,7 @@ htmltools_value(x, ft.align = NULL, ft.shadow = NULL)
 
 \item{ft.align}{flextable alignment, supported values are 'left', 'center' and 'right'.}
 
-\item{ft.shadow}{use shadow dom, this option is existing
-to disable shadow dom (set to \code{FALSE}) for pagedown that
-can not support it for now.}
+\item{ft.shadow}{deprecated.}
 }
 \value{
 an object marked as \link{HTML} ready to be used within

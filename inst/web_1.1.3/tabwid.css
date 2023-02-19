@@ -1,3 +1,7 @@
+.tabwid {
+  font-size: initial;
+}
+
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;

@@ -30,7 +30,6 @@ set_flextable_defaults(
   fmt_date = NULL,
   fmt_datetime = NULL,
   extra_css = NULL,
-  shadow = NULL,
   scroll = NULL,
   split = NULL,
   keep_with_next = NULL,
@@ -42,7 +41,8 @@ set_flextable_defaults(
   post_process_pdf = NULL,
   post_process_docx = NULL,
   post_process_html = NULL,
-  post_process_pptx = NULL
+  post_process_pptx = NULL,
+  ...
 )
 
 init_flextable_defaults()
@@ -96,10 +96,6 @@ documented in \code{\link[=strptime]{strptime()}}. Default to '\%Y-\%m-\%d' and 
 
 \item{extra_css}{css instructions to be integrated with the table.}
 
-\item{shadow}{\code{TRUE} or \code{FALSE}, use shadow dom (for HTML only), this option is existing
-to disable shadow dom (set to \code{FALSE}) for pagedown and Quarto that can
-not support it for now.}
-
 \item{scroll}{NULL or a list if you want to add a scroll-box.
 See \strong{scroll} element of argument \code{opts_html} in function \code{\link[=set_table_properties]{set_table_properties()}}.}
 
@@ -137,6 +133,8 @@ to be applied) or a theme function (input is a flextable, output is a flextable)
 \item{post_process_pdf, post_process_docx, post_process_html, post_process_pptx}{Post-processing functions
 that will allow you to customize the display by output type (pdf, html, docx, pptx).
 They are executed just before printing the table.}
+
+\item{...}{unused or deprecated arguments}
 }
 \value{
 a list containing previous default values.

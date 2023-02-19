@@ -5,10 +5,7 @@ gen_raw_html <- function(x,
                          manual_css = "") {
 
   align <- x$properties$align
-  shadow <- x$properties$opts_html$shadow
-
   # for ubiquity and other packages that dump old flextable
-  if(is.null(shadow)) shadow <- TRUE
   if(is.null(align)) align <- "center"
 
   fixed_layout <- x$properties$layout %in% "fixed"
@@ -96,43 +93,9 @@ gen_raw_html <- function(x,
   }
 
   html <- paste0("<div class=\"", tab_class, "\"", style_div, ">", html, "</div>")
-
-  if (shadow) {
-    uid <- UUIDgenerate(n = 2L)
-
-    tabwid_css <- paste(
-      c(
-        "<style>",
-        readLines(system.file(package = "flextable", "web_1.1.2", "tabwid.css"), encoding = "UTF-8"),
-        "</style>"
-      ),
-      collapse = "\n"
-    )
-
-    html <- paste0(
-      "<template id=\"", uid[1], "\">",
-      tabwid_css,
-      html,
-      "</template>",
-      "\n<div class=\"flextable-shadow-host\" id=\"", uid[2], "\"></div>",
-      to_shadow_dom(uid1 = uid[1], uid2 = uid[2])
-    )
-  }
   html
 }
 
-to_shadow_dom <- function(uid1, uid2) {
-  script_commands <- c(
-    "", "<script>",
-    paste0("var dest = document.getElementById(\"", uid2, "\");"),
-    paste0("var template = document.getElementById(\"", uid1, "\");"),
-    "var fantome = dest.attachShadow({mode: 'open'});",
-    "var templateContent = template.content;",
-    "fantome.appendChild(templateContent);",
-    "</script>", ""
-  )
-  paste(script_commands, collapse = "\n")
-}
 
 scrollbox <- function(height = NULL, add_css = "", ...) {
   str <- "overflow-x:auto;width:100%;"
@@ -412,9 +375,11 @@ cell_css_styles <- function(x, add_widths = TRUE){
 #' @keywords internal
 flextable_html_dependency <- function(){
   htmlDependency("tabwid",
-                 "1.1.2",
-                 src = system.file(package="flextable", "web_1.1.2"),
-                 stylesheet = "tabwid.css")
+                 "1.1.3",
+                 src = system.file(package="flextable", "web_1.1.3"),
+                 stylesheet = "tabwid.css",
+                 script = "tabwid.js"
+                 )
 
 }
 

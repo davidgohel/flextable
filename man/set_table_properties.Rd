@@ -35,9 +35,6 @@ supported values are 'left', 'center' and 'right'.}
 
 \item{opts_html}{html options as a list. Supported elements are:
 \itemize{
-\item 'shadow' \code{TRUE} or \code{FALSE}, use shadow dom, this option is existing
-to disable shadow dom (set to \code{FALSE}) for pagedown and Quarto that can
-not support it for now.
 \item 'extra_css': extra css instructions to be integrated with the HTML
 code of the table.
 \item 'scroll': NULL or a list if you want to add a scroll-box.
@@ -125,7 +122,6 @@ ft_4 <- autofit(ft_4)
 ft_4 <- set_table_properties(
   x = ft_4,
   opts_html = list(
-    shadow = FALSE,
     scroll = list(
       height = "500px",
       freeze_first_column = TRUE

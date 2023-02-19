@@ -63,11 +63,6 @@ and 'right'. Its default value is 'center'.
 }
 \item HTML only:
 \itemize{
-\item \code{ft.shadow}: HTML option to disable 'shadow dom' (set to \code{FALSE}) for pagedown
-that does not yet support 'shadow dom'. 'shadow dom' makes possible
-to avoid CSS conflicts between flextable output and existing css that
-would overwrite some table settings. Its value is set to \code{TRUE} by
-default.
 \item \code{ft.htmlscroll}, can be \code{TRUE} or \code{FALSE} (default) to enable
 horizontal scrolling. Use \code{\link[=set_table_properties]{set_table_properties()}} for more
 options about scrolling.
@@ -163,12 +158,7 @@ example. The table below expose these options:\tabular{lcc}{
 
 HTML output is using shadow dom to encapsule the table
 into an isolated part of the page so that no clash happens
-with styles. Some output may not support this feature.
-'pagedown' and 'Quarto' outputs are concerned.
-Use knitr chunk option \code{ft.shadow=FALSE} to disable shadow dom.
-
-If \code{ft.shadow=TRUE} some global CSS rules may change the
-desired output of flextables.
+with styles.
 }
 
 \section{PDF output}{

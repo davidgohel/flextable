@@ -103,16 +103,12 @@ test_that("HTML table width when autofit layout", {
 
   ft <- flextable(x)
   ft <- set_table_properties(
-    x = ft, layout = "autofit",
-    opts_html = list(shadow = FALSE)
-    )
+    x = ft, layout = "autofit")
   str <- flextable:::gen_raw_html(ft)
   expect_false(grepl("table-layout:auto;width:", str, fixed = TRUE))
 
   ft <- set_table_properties(
-    x = ft, layout = "autofit", width = .1,
-    opts_html = list(shadow = FALSE)
-  )
+    x = ft, layout = "autofit", width = .1)
   str <- flextable:::gen_raw_html(x = ft)
   expect_true(grepl("table-layout:auto;width:", str, fixed = TRUE))
 })

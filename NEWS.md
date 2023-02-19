@@ -17,8 +17,8 @@ as replacement.
 - refactor captions: knitr context now updates the caption 
 instead of managing caption value and defined knitr 
 options.
-
-
+- use shadow in all HTML output generated via knitr 
+(i.e. 'Quarto' and 'R Markdown').
 
 ## issues
 
