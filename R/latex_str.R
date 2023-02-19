@@ -299,7 +299,8 @@ augment_multicolumn_fixed <- function(properties_df) {
         ">{", .SD$background_color,
         c("center" = "\\centering", left = "\\raggedright", right = "\\raggedleft")[.SD$text.align],
         "}",
-        "p{", latex_colwidth(.SD), "}",
+        c(center = "m", "top" = "p", "bottom" = "b")[.SD$vertical.align],
+        "{", latex_colwidth(.SD), "}",
         .SD$vborder_right,
         "}{"
       ),

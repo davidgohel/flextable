@@ -23,6 +23,7 @@ options.
 ## issues
 
 - support revealjs (and probably all RMD formats that generate HTML)
+- fix cell's vertical alignments in latex
 
 # flextable 0.8.5
 
