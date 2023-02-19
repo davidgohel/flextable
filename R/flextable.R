@@ -513,7 +513,8 @@ set_table_properties <- function(x, layout = "fixed", width = 0,
 }
 
 opts_ft_html <- function(extra_css = get_flextable_defaults()$extra_css,
-                         scroll = get_flextable_defaults()$scroll) {
+                         scroll = get_flextable_defaults()$scroll,
+                         ...) {
 
   if(!is.character(extra_css) || length(extra_css) != 1 || any(is.na(extra_css))){
     stop(sprintf("'%s' is expected to be a single %s.", "extra_css", "character"), call. = FALSE)
