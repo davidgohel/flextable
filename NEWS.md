@@ -24,6 +24,8 @@ options.
 
 - support revealjs (and probably all RMD formats that generate HTML)
 - fix cell's vertical alignments in latex
+- fix detection of non transparent background table in latex so that
+the correct lines instructions (hhlines or clines) are being used.
 
 # flextable 0.8.5
 

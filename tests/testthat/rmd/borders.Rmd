@@ -129,6 +129,14 @@ dt |>
   autofit() |>
   fix_border_issues(part = "all")
 ```
+## blouh
+
+```{r echo=FALSE}
+ft <- as_flextable(cars)
+ft <- theme_zebra(ft)
+ft <- hline(ft, j = 2, part = "body")
+ft
+```
 
 
 ## kable

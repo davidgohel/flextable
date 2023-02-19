@@ -206,7 +206,7 @@ has_border <- function(x, side = c("left", "right", "top", "bottom")) {
   x[[size_name]] > 0 & colalpha(x[[col_name]]) > 0
 }
 has_background <- function(x) {
-  all(colalpha(x$background.color) > 0)
+  any(colalpha(x$background.color) > 0)
 }
 vline_token <- function(w, cols, digits = 2) {
   size <- format_double(w, digits = digits)
