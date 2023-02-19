@@ -80,7 +80,7 @@ flextable_to_rmd <- function(x, ...) {
   } else if (grepl("pptx", opts_knit$get("rmarkdown.pandoc.to"))) { # pptx
     type_output <- "pptx"
   } else {
-    stop("unsupported format")
+    type_output <- "html"
   }
 
   if ("html" %in% type_output) {
