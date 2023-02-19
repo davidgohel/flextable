@@ -539,7 +539,7 @@ align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "j
     stop(sprintf("Function `%s` supports only flextable objects.", "align()"))
   }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
-  align_value <- match.arg(align)
+  align_value <- match.arg(align, several.ok = TRUE)
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
