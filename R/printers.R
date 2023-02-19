@@ -71,7 +71,7 @@ flextable_to_rmd <- function(x, ...) {
   is_quarto <- is_in_quarto()
   x <- knitr_update_properties(x)
 
-  if (is_html_output()) { # html
+  if (is_html_output() || is.null(pandoc_to())) { # html
     type_output <- "html"
   } else if (is_latex_output()) { # latex
     type_output <- "pdf"
@@ -580,7 +580,7 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #' @importFrom utils getFromNamespace
 #' @importFrom htmltools HTML div
 #' @importFrom knitr knit_print asis_output opts_knit opts_current
-#' fig_path is_html_output is_latex_output include_graphics
+#' fig_path is_html_output is_latex_output include_graphics pandoc_to
 #' @importFrom rmarkdown pandoc_version
 #' @importFrom stats runif
 #' @importFrom graphics plot par
