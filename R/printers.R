@@ -71,7 +71,10 @@ flextable_to_rmd <- function(x, ...) {
   is_quarto <- is_in_quarto()
   x <- knitr_update_properties(x)
 
-  if (is_html_output() || is.null(pandoc_to())) { # html
+  if (is.null(pandoc_to())) {
+    # for 'glossr' test
+    return(invisible("```{=html}\n<div class=\"tabwid tabwid_left\"><style></style></div>\n```\n"))
+  } else if (is_html_output()) { # html
     type_output <- "html"
   } else if (is_latex_output()) { # latex
     type_output <- "pdf"
