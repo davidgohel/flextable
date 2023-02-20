@@ -18,9 +18,9 @@ Authors@R: c(
     person("Rémi", "Thériault", role = "ctb", comment = c(ORCID = "0000-0003-4315-6788", ctb = "theme_apa"))
     )
 Description: Use a grammar for creating and customizing pretty tables. 
- The following formats are supported: "HTML", "PDF", "RTF", 
- "Microsoft Word", "Microsoft PowerPoint" and R "Grid Graphics". 
- "R Markdown", "quarto" and the package "officer" can be used to produce 
+ The following formats are supported: 'HTML', 'PDF', 'RTF', 
+ 'Microsoft Word', 'Microsoft PowerPoint' and R 'Grid Graphics'. 
+ 'R Markdown', 'Quarto' and the package 'officer' can be used to produce 
  the result files. The syntax is the same for the user regardless of 
  the type of output to be produced. A set of functions allows the 
  creation, definition of cell arrangement, addition of headers or 
