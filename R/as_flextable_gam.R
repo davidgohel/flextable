@@ -7,6 +7,7 @@
 #' }}
 #' @param x gam model
 #' @param ... unused argument
+#' @family as_flextable methods
 #' @examples
 #' if (require("mgcv")) {
 #'   set.seed(2)
