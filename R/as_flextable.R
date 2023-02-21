@@ -970,7 +970,7 @@ use_model_printer <- function() {
   invisible()
 }
 
-utils::globalVariables(c("p.value", "value", "Type"))
+utils::globalVariables(c("p.value", "value", "Type", ".row_title"))
 
 
 

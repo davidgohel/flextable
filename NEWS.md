@@ -3,6 +3,8 @@
 ## new features
 
 - add RTF support with `officer::rtf_add()`.
+- new convert `tables::tabular()` to flextable with new 
+function `as_flextable.tabular()`.
 - add `to_html.flextable()` to make easy embedding of 
 flextable results in HTML (with 'ggiraph' for example).
 
