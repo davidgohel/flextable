@@ -142,7 +142,8 @@ to_html.flextable <- function(x, type = c("table", "img"), ...) {
 
   if ("table" %in% type_output) {
     x <- flextable_global$defaults$post_process_html(x)
-    gen_raw_html(x, class = "tabwid", caption = "", manual_css = "")
+    manual_css <- readLines(system.file(package = "flextable", "web_1.1.3", "tabwid.css"), encoding = "UTF-8")
+    gen_raw_html(x, class = "tabwid", caption = "", manual_css = paste0(manual_css, collapse = "\n"))
   } else {
     tmp <- tempfile(fileext = ".png")
     dir.create(dirname(tmp), showWarnings = FALSE, recursive = TRUE)
@@ -612,7 +613,10 @@ knit_print.flextable <- function(x, ...) {
 
   x <- knitr_update_properties(x, bookdown = is_bookdown, quarto = is_quarto)
 
-  if (!is.null(getOption("xaringan.page_number.offset"))) { #xaringan
+  if (is.null(pandoc_to())) {
+    str <- to_html(x, type = "table")
+    str <- asis_output(str)
+  } else if (!is.null(getOption("xaringan.page_number.offset"))) { #xaringan
     str <- knit_to_html(x, bookdown = FALSE, quarto = FALSE)
     str <- asis_output(str, meta = list(flextable_html_dependency()))
   } else if (is_html_output()) { # html
