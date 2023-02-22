@@ -10,7 +10,7 @@ flextable with the functions compose(), append_chunks()
 or prepend_chunks()."><meta property="og:image" content="https://davidgohel.github.io/flextable/logo.png"><meta name="robots" content="noindex"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- dependencies from examples --><link href="libs/tabwid-1.1.2/tabwid.css" rel="stylesheet"></head><body>
+<![endif]--><!-- dependencies from examples --><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet"><script src="libs/tabwid-1.1.3/tabwid.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
@@ -18,7 +18,7 @@ or prepend_chunks()."><meta property="og:image" content="https://davidgohel.gith
     
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.8.5.003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.8.6.015</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,52 +116,7 @@ or <code><a href="prepend_chunks.html">prepend_chunks()</a></code>.</p>
 <span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="compose.html">compose</a></span><span class="op">(</span><span class="va">ft</span>, j <span class="op">=</span> <span class="st">"Petal"</span>,</span></span>
 <span class="r-in"><span>  value <span class="op">=</span> <span class="fu"><a href="as_paragraph.html">as_paragraph</a></span><span class="op">(</span> <span class="fu">as_bracket</span><span class="op">(</span><span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span> <span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft</span></span></span>
-<template id="cb4351f4-26d7-4e2b-8eab-7a5ebce6317f"><style>
-.tabwid table{
-  border-spacing:0px !important;
-  border-collapse:collapse;
-  line-height:1;
-  margin-left:auto;
-  margin-right:auto;
-  border-width: 0;
-  border-color: transparent;
-  caption-side: top;
-}
-.tabwid-caption-bottom table{
-  caption-side: bottom;
-}
-.tabwid_left table{
-  margin-left:0;
-}
-.tabwid_right table{
-  margin-right:0;
-}
-.tabwid td, .tabwid th {
-    padding: 0;
-}
-.tabwid a {
-  text-decoration: none;
-}
-.tabwid thead {
-    background-color: transparent;
-}
-.tabwid tfoot {
-    background-color: transparent;
-}
-.tabwid table tr {
-background-color: transparent;
-}
-.katex-display {
-    margin: 0 0 !important;
-}
-</style><div class="tabwid"><style>.cl-cff2c410{}.cl-cfe7396a{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cfec3ef6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cfec5dc8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cfec5ddc{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cfec5ddd{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="table cl-cff2c410"><thead><tr style="overflow-wrap:break-word;"><th class="cl-cfec5dc8"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">Species</span></p></th><th class="cl-cfec5dc8"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">Sepal</span></p></th><th class="cl-cfec5dc8"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">Petal</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">setosa</span></p></td><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(5.1, 3.5)</span></p></td><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(1.4, 0.2)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">setosa</span></p></td><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(4.9, 3)</span></p></td><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(1.4, 0.2)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">setosa</span></p></td><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(4.7, 3.2)</span></p></td><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(1.3, 0.2)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">setosa</span></p></td><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(4.6, 3.1)</span></p></td><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(1.5, 0.2)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">setosa</span></p></td><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(5, 3.6)</span></p></td><td class="cl-cfec5ddc"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(1.4, 0.2)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cfec5ddd"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">setosa</span></p></td><td class="cl-cfec5ddd"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(5.4, 3.9)</span></p></td><td class="cl-cfec5ddd"><p class="cl-cfec3ef6"><span class="cl-cfe7396a">(1.7, 0.4)</span></p></td></tr></tbody></table></div></template><div class="flextable-shadow-host" id="34424d1a-0947-4e1b-ae88-09ea45eda16e"></div>
-<script>
-var dest = document.getElementById("34424d1a-0947-4e1b-ae88-09ea45eda16e");
-var template = document.getElementById("cb4351f4-26d7-4e2b-8eab-7a5ebce6317f");
-var fantome = dest.attachShadow({mode: 'open'});
-var templateContent = template.content;
-fantome.appendChild(templateContent);
-</script></code></pre></div>
+<div class="tabwid"><style>.cl-d0b4c60c{}.cl-d0ad85a4{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-d0b10d32{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-d0b11fd4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d0b11fde{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d0b11fe8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="table cl-d0b4c60c"><thead><tr style="overflow-wrap:break-word;"><th class="cl-d0b11fd4"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">Species</span></p></th><th class="cl-d0b11fd4"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">Sepal</span></p></th><th class="cl-d0b11fd4"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">Petal</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">setosa</span></p></td><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(5.1, 3.5)</span></p></td><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(1.4, 0.2)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">setosa</span></p></td><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(4.9, 3)</span></p></td><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(1.4, 0.2)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">setosa</span></p></td><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(4.7, 3.2)</span></p></td><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(1.3, 0.2)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">setosa</span></p></td><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(4.6, 3.1)</span></p></td><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(1.5, 0.2)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">setosa</span></p></td><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(5, 3.6)</span></p></td><td class="cl-d0b11fde"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(1.4, 0.2)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-d0b11fe8"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">setosa</span></p></td><td class="cl-d0b11fe8"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(5.4, 3.9)</span></p></td><td class="cl-d0b11fe8"><p class="cl-d0b10d32"><span class="cl-d0ad85a4">(1.7, 0.4)</span></p></td></tr></tbody></table></div></code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
