@@ -22,15 +22,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
-          needs: check
-
-      - name: Install specific Packages
-        run: |
-          install.packages("remotes")
-          remotes::install_cran("pkgdown")
-          remotes::install_github("ardata-fr/pkgardata")
-        shell: Rscript {0}
+          extra-packages: any::pkgdown
 
       - name: Install package
         run: R CMD INSTALL .

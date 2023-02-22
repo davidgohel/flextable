@@ -155,6 +155,13 @@ to_html.flextable <- function(x, type = c("table", "img"), ...) {
   }
 }
 
+#' @export
+to_wml.flextable <- function(x, ...) {
+  x <- flextable_global$defaults$post_process_docx(x)
+  x <- knitr_update_properties(x)
+  gen_raw_wml(x)
+}
+
 
 #' @noRd
 #' @title flextable HTML string
