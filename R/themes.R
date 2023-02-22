@@ -40,8 +40,8 @@ theme_vanilla <- function(x) {
     stop(sprintf("Function `%s` supports only flextable objects.", "theme_vanilla()"))
   }
 
-  std_b <- fp_border(width = 2, color = flextable_global$defaults$border.color)
-  thin_b <- fp_border(width = 0.5, color = flextable_global$defaults$border.color)
+  std_b <- fp_border(width = flextable_global$defaults$border.width*2, color = flextable_global$defaults$border.color)
+  thin_b <- fp_border(width = flextable_global$defaults$border.width, color = flextable_global$defaults$border.color)
 
   x <- border_remove(x)
 
@@ -74,7 +74,7 @@ theme_box <- function(x) {
   x <- border_remove(x)
 
   fp_bdr <- fp_border(
-    width = 1,
+    width = flextable_global$defaults$border.width,
     color = flextable_global$defaults$border.color
   )
 
@@ -106,7 +106,7 @@ theme_alafoli <- function(x) {
   }
 
   fp_bdr <- fp_border(
-    width = 1,
+    width = flextable_global$defaults$border.width,
     color = flextable_global$defaults$border.color
   )
 
@@ -147,7 +147,7 @@ theme_vader <- function(x, ...) {
   x <- bold(x = x, bold = TRUE, part = "header")
   x <- italic(x = x, italic = FALSE, part = "all")
 
-  big_border <- fp_border(color = "#ff0000", width = 3)
+  big_border <- fp_border(color = "#ff0000", width = flextable_global$defaults$border.width*2)
 
   h_nrow <- nrow_part(x, "header")
   b_nrow <- nrow_part(x, "body")
@@ -219,7 +219,7 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
   x <- align_text_col(x, align = "left", header = TRUE)
   x <- align_nottext_col(x, align = "right", header = TRUE)
 
-  fix_border_issues(x)
+  x
 }
 
 #' @export
@@ -242,7 +242,7 @@ theme_tron_legacy <- function(x) {
   b_nrow <- nrow_part(x, "body")
 
   x <- border(
-    x = x, border = fp_border(width = 1, color = "#6FC3DF"),
+    x = x, border = fp_border(width = flextable_global$defaults$border.width, color = "#6FC3DF"),
     part = "all"
   )
   x <- align(x = x, align = "right", part = "all")
@@ -284,7 +284,7 @@ theme_tron <- function(x) {
   b_nrow <- nrow_part(x, "body")
 
   x <- border(
-    x = x, border = fp_border(width = 1, color = "#a4cee5"),
+    x = x, border = fp_border(width = flextable_global$defaults$border.width, color = "#a4cee5"),
     part = "all"
   )
   x <- align(x = x, align = "right", part = "all")
@@ -323,8 +323,9 @@ theme_booktabs <- function(x, bold_header = FALSE, ...) {
     stop(sprintf("Function `%s` supports only flextable objects.", "theme_booktabs()"))
   }
 
-  big_border <- fp_border(width = 2, color = flextable_global$defaults$border.color)
-  std_border <- update(big_border, width = 1)
+  big_border <- fp_border(width = flextable_global$defaults$border.width*2,
+                          color = flextable_global$defaults$border.color)
+  std_border <- update(big_border, width = flextable_global$defaults$border.width)
 
   h_nrow <- nrow_part(x, "header")
   f_nrow <- nrow_part(x, "footer")
@@ -371,7 +372,7 @@ theme_apa <- function(x, ...) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "theme_apa()"))
   }
-  apa.border <- list("width" = 1, color = "black", style = "solid")
+  apa.border <- list("width" = flextable_global$defaults$border.width, color = "black", style = "solid")
   x <- font(x, part = "all", fontname = "Times New Roman")
   x <- line_spacing(x, space = 2, part = "all")
   x <- hline_top(x, part = "head", border = apa.border)

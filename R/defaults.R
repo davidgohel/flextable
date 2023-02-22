@@ -15,6 +15,8 @@ default_flextable_settings <- list(
   padding.left = 5, padding.right = 5,
   line_spacing = 1,
   border.color = "#666666",
+  border.width = .75,
+
   background.color = "transparent",
   table.layout = "fixed",
   decimal.mark = ".",
@@ -70,6 +72,7 @@ flextable_global$defaults <- default_flextable_settings
 #' @param line_spacing space between lines of text, 1 is single line spacing, 2 is double line spacing.
 #' @param border.color border color - single character value
 #' (e.g. "#000000" or "black").
+#' @param border.width border width in points.
 #' @param background.color cell background color - a single character value specifying a
 #' valid color (e.g. "#000000" or "black").
 #' @param table.layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
@@ -128,7 +131,9 @@ set_flextable_defaults <- function(
   padding = NULL,
   padding.bottom = NULL, padding.top = NULL,
   padding.left = NULL, padding.right = NULL,
-  border.color = NULL, background.color = NULL,
+  border.color = NULL,
+  border.width = NULL,
+  background.color = NULL,
   line_spacing = NULL,
   table.layout = NULL,
   cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
@@ -200,6 +205,9 @@ set_flextable_defaults <- function(
 
   if( !is.null(border.color) ){
     x$border.color <- border.color
+  }
+  if( !is.null(border.width) ){
+    x$border.width <- border.width
   }
   if( !is.null(background.color) ){
     x$background.color <- background.color
@@ -313,7 +321,8 @@ print.flextable_defaults <- function(x, ...){
   cat("## style properties\n")
   styles <- c("font.family", "hansi.family", "eastasia.family", "cs.family",
               "font.size", "font.color", "text.align", "padding.bottom",
-    "padding.top", "padding.left", "padding.right", "line_spacing", "border.color",
+    "padding.top", "padding.left", "padding.right", "line_spacing",
+    "border.color", "border.width",
     "background.color")
   df <- data.frame(property = styles, value = unlist(x[styles]), stringsAsFactors = FALSE)
   row.names(df) <- NULL
@@ -456,7 +465,8 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
 #' @seealso [hline()], [vline()]
 fp_border_default <- function(
     color = flextable_global$defaults$border.color,
-    style = "solid", width = 1){
+    style = "solid",
+    width = flextable_global$defaults$border.width){
   fp_border(
     color = color,
     style = style,

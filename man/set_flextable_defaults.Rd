@@ -16,6 +16,7 @@ set_flextable_defaults(
   padding.left = NULL,
   padding.right = NULL,
   border.color = NULL,
+  border.width = NULL,
   background.color = NULL,
   line_spacing = NULL,
   table.layout = NULL,
@@ -66,6 +67,8 @@ positive integer value.}
 
 \item{border.color}{border color - single character value
 (e.g. "#000000" or "black").}
+
+\item{border.width}{border width in points.}
 
 \item{background.color}{cell background color - a single character value specifying a
 valid color (e.g. "#000000" or "black").}

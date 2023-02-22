@@ -7,7 +7,7 @@
 fp_border_default(
   color = flextable_global$defaults$border.color,
   style = "solid",
-  width = 1
+  width = flextable_global$defaults$border.width
 )
 }
 \arguments{

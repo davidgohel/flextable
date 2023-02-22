@@ -7,6 +7,11 @@
 function `as_flextable.tabular()`.
 - add `to_html.flextable()` to make easy embedding of 
 flextable results in HTML (with 'ggiraph' for example).
+- add global setting `border.width` (see `?set_flextable_defaults()`) 
+and set its default value to .75, this setting is 
+used in theme functions. The old default value was hard coded 
+to 1 and can be defined during the whole R session with
+`set_flextable_defaults(border.width = 1)`.
 
 ## internals
 
