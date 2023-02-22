@@ -110,10 +110,10 @@ headers_flextable_at_bkm <- function(x, bookmark, value) {
   str <- gen_raw_wml(value, doc = x)
   xml_elt <- as_xml_document(str)
   for (header in x$headers) {
-    if (header$has_bookmark(bookmark)) {
-      header$cursor_bookmark(bookmark)
-      cursor_elt <- header$get_at_cursor()
-      xml_replace(cursor_elt, xml_elt)
+    node <- xml_find_first(header$get(), '//w:bookmarkStart[@w:name="hd_summary_tbl"]')
+    if (!inherits(node, "xml_missing")) {
+      node <- xml_parent(node)
+      xml_replace(node, xml_elt)
     }
   }
 
@@ -135,10 +135,10 @@ footers_flextable_at_bkm <- function(x, bookmark, value) {
   str <- gen_raw_wml(value, doc = x)
   xml_elt <- as_xml_document(str)
   for (footer in x$footers) {
-    if (footer$has_bookmark(bookmark)) {
-      footer$cursor_bookmark(bookmark)
-      cursor_elt <- footer$get_at_cursor()
-      xml_replace(cursor_elt, xml_elt)
+    node <- xml_find_first(footer$get(), '//w:bookmarkStart[@w:name="hd_summary_tbl"]')
+    if (!inherits(node, "xml_missing")) {
+      node <- xml_parent(node)
+      xml_replace(node, xml_elt)
     }
   }
 

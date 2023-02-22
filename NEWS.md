@@ -33,6 +33,7 @@ options.
 - fix cell's vertical alignments in latex
 - fix detection of non transparent background table in latex so that
 the correct lines instructions (hhlines or clines) are being used.
+- fix `headers_flextable_at_bkm()` and `footers_flextable_at_bkm()`
 
 # flextable 0.8.5
 
