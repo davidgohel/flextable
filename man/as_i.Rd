@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{as_i}
 \alias{as_i}
-\title{italic chunk}
+\title{Italic chunk}
 \usage{
 as_i(x)
 }

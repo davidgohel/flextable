@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{hline_bottom}
 \alias{hline_bottom}
-\title{set bottom horizontal border}
+\title{Set bottom horizontal border}
 \usage{
 hline_bottom(x, j = NULL, border = NULL, part = "body")
 }

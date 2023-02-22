@@ -1,4 +1,4 @@
-#' @title data summary preparation
+#' @title Data summary preparation
 #' @description It performs a univariate statistical analysis of a dataset
 #' by group and formats the results so that they can be used with
 #' the [tabulator()] function.
@@ -135,8 +135,8 @@ summarizor <- function(
 }
 
 #' @export
-#' @title summarizor to flextable
-#' @description `summarizor` object can be transformed as a flextable
+#' @title Transform a 'summarizor' object into a flextable
+#' @description `summarizor` object should be transformed into a flextable
 #' with method [as_flextable()].
 #' @param x result from [summarizor()]
 #' @param ... arguments for [as_flextable.tabulator()]
@@ -206,7 +206,7 @@ dataset_describe <- function(dataset){
 }
 
 #' @export
-#' @title format content for data generated with summarizor()
+#' @title Format content for data generated with summarizor()
 #' @description This function was written to allow easy demonstrations
 #' of flextable's ability to produce table summaries (with [summarizor()]).
 #' It assumes that we have either a quantitative variable, in which
@@ -307,7 +307,7 @@ fmt_summarizor <- fmt_2stats
 
 
 #' @export
-#' @title format content for count data
+#' @title Format content for count data
 #' @description The function formats counts and
 #' percentages as `n (xx.x%)`. If percentages are
 #' missing, they are not printed.
@@ -348,7 +348,7 @@ fmt_n_percent <- function(n, pct, digit = 1){
 
 "%05.2f"
 #' @export
-#' @title format count data for headers
+#' @title Format count data for headers
 #' @description The function formats counts as `\n(N=XX)`. This helper
 #' function is used to add counts in columns titles.
 #' @param n count values
@@ -372,7 +372,7 @@ fmt_header_n <- function(n){
 }
 
 #' @export
-#' @title format content for mean and sd
+#' @title Format content for mean and sd
 #' @description The function formats means and
 #' standard deviations as `mean (sd)`.
 #' @param avg,dev mean and sd values

@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable.R
 \name{as_flextable.glm}
 \alias{as_flextable.glm}
-\title{tabular summary for glm object}
+\title{Transform a 'glm' object into a flextable}
 \usage{
 \method{as_flextable}{glm}(x, ...)
 }

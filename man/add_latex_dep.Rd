@@ -2,7 +2,7 @@
 % Please edit documentation in R/latex_str.R
 \name{add_latex_dep}
 \alias{add_latex_dep}
-\title{add latex dependencies}
+\title{Add latex dependencies}
 \usage{
 add_latex_dep(float = FALSE, wrapfig = FALSE)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_datetime}
 \alias{colformat_datetime}
-\title{format datetime cells}
+\title{Format datetime cells}
 \usage{
 colformat_datetime(
   x,

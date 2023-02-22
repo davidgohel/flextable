@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{rotate}
 \alias{rotate}
-\title{rotate cell text}
+\title{Rotate cell text}
 \usage{
 rotate(x, i = NULL, j = NULL, rotation, align = NULL, part = "body")
 }

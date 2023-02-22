@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{border_remove}
 \alias{border_remove}
-\title{remove borders}
+\title{Remove borders}
 \usage{
 border_remove(x)
 }

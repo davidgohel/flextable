@@ -2,7 +2,7 @@
 % Please edit documentation in R/footnote.R
 \name{footnote}
 \alias{footnote}
-\title{add footnotes to flextable}
+\title{Add footnotes to flextable}
 \usage{
 footnote(
   x,

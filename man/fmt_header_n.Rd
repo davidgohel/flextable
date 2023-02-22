@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{fmt_header_n}
 \alias{fmt_header_n}
-\title{format count data for headers}
+\title{Format count data for headers}
 \usage{
 fmt_header_n(n)
 }

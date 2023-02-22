@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{vline}
 \alias{vline}
-\title{set vertical borders}
+\title{Set vertical borders}
 \usage{
 vline(x, i = NULL, j = NULL, border = NULL, part = "all")
 }

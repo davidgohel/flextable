@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{hline_top}
 \alias{hline_top}
-\title{set top horizontal border}
+\title{Set top horizontal border}
 \usage{
 hline_top(x, j = NULL, border = NULL, part = "body")
 }

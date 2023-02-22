@@ -2,7 +2,7 @@
 % Please edit documentation in R/body_add_flextable.R
 \name{headers_flextable_at_bkm}
 \alias{headers_flextable_at_bkm}
-\title{add flextable at a bookmark location in document's header}
+\title{Add flextable at a bookmark location in document's header}
 \usage{
 headers_flextable_at_bkm(x, bookmark, value)
 }
@@ -20,3 +20,4 @@ within a paragraph; i.e., a bookmark along two or more paragraphs is invalid,
 a bookmark set on a whole paragraph is also invalid, but bookmarking few words
 inside a paragraph is valid.
 }
+\keyword{internal}

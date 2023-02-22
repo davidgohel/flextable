@@ -1,5 +1,5 @@
 #' @export
-#' @title create a chunk representation suitable for flextable
+#' @title Create a chunk representation suitable for flextable
 #' @description This function is to be used by external packages
 #' that want to provide an object that can be inserted as a chunk
 #' object in paragraphs of a flextable object.
@@ -111,7 +111,7 @@ default_fptext_prop <- structure(list(
 
 
 #' @export
-#' @title chunk of text wrapper
+#' @title Chunk of text wrapper
 #' @description The function lets add formated text in flextable
 #' cells.
 #'
@@ -183,7 +183,7 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
 
 
 #' @export
-#' @title subscript chunk
+#' @title Subscript chunk
 #' @description The function is producing a chunk with
 #' subscript vertical alignment.
 #'
@@ -211,7 +211,7 @@ as_sub <- function(x){
   x
 }
 #' @export
-#' @title superscript chunk
+#' @title Superscript chunk
 #' @description The function is producing a chunk with
 #' superscript vertical alignment.
 #'
@@ -246,7 +246,7 @@ as_sup <- function(x){
 
 
 #' @export
-#' @title bold chunk
+#' @title Bold chunk
 #' @description The function is producing a chunk with
 #' bold font.
 #'
@@ -275,7 +275,7 @@ as_b <- function(x){
 }
 
 #' @export
-#' @title italic chunk
+#' @title Italic chunk
 #' @description The function is producing a chunk with
 #' italic font.
 #'
@@ -302,7 +302,7 @@ as_i <- function(x){
 }
 
 #' @export
-#' @title colorize chunk
+#' @title Colorize chunk
 #' @description The function is producing a chunk with
 #' a font in color.
 #'
@@ -332,7 +332,7 @@ colorize <- function(x, color){
 }
 
 #' @export
-#' @title highlight chunk
+#' @title Highlight chunk
 #' @description The function is producing a chunk with
 #' an highlight chunk.
 #'
@@ -361,7 +361,7 @@ as_highlight <- function(x, color){
 }
 
 #' @export
-#' @title chunk with values in brackets
+#' @title Chunk with values in brackets
 #' @description The function is producing a chunk by
 #' pasting values and add the result in brackets.
 #'
@@ -430,7 +430,7 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
 }
 
 #' @export
-#' @title equation chunk
+#' @title Equation chunk
 #' @description This function is used to insert equations into
 #' flextable.
 #'
@@ -657,7 +657,7 @@ to_wml_word_field <- function(x, pr_txt) {
 
 
 #' @export
-#' @title concatenate chunks in a flextable
+#' @title Concatenate chunks in a flextable
 #' @description The function is concatenating text and images within paragraphs of
 #' a flextable object, this function is to be used with functions such as [compose()],
 #' [add_header_lines()], [add_footer_lines()].

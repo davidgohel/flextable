@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{empty_blanks}
 \alias{empty_blanks}
-\title{make blank columns as transparent}
+\title{Make blank columns as transparent}
 \usage{
 empty_blanks(x, width = 0.05, unit = "in", part = "all")
 }

@@ -2,7 +2,8 @@
 % Please edit documentation in R/as_flextable.R
 \name{as_flextable.data.frame}
 \alias{as_flextable.data.frame}
-\title{Printing data.frame summary as a flextable}
+\title{Transform and summarise a 'data.frame' into a flextable
+Simple summary of a data.frame as a flextable}
 \usage{
 \method{as_flextable}{data.frame}(
   x,

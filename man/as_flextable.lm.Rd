@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable.R
 \name{as_flextable.lm}
 \alias{as_flextable.lm}
-\title{tabular summary for lm object}
+\title{Transform a 'lm' object into a flextable}
 \usage{
 \method{as_flextable}{lm}(x, ...)
 }

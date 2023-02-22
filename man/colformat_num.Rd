@@ -2,7 +2,7 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_num}
 \alias{colformat_num}
-\title{format numeric cells}
+\title{Format numeric cells}
 \usage{
 colformat_num(
   x,

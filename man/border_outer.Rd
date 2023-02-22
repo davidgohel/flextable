@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{border_outer}
 \alias{border_outer}
-\title{set outer borders}
+\title{Set outer borders}
 \usage{
 border_outer(x, border = NULL, part = "all")
 }

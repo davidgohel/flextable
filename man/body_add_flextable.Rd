@@ -3,7 +3,7 @@
 \name{body_add_flextable}
 \alias{body_add_flextable}
 \alias{body_replace_flextable_at_bkm}
-\title{add flextable into a Word document}
+\title{Add flextable into a Word document}
 \usage{
 body_add_flextable(
   x,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/compose.R
 \name{labelizor}
 \alias{labelizor}
-\title{change displayed labels}
+\title{Change displayed labels}
 \usage{
 labelizor(x, j = NULL, labels, part = "all")
 }

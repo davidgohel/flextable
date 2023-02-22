@@ -2,7 +2,7 @@
 % Please edit documentation in R/proc_freq.R
 \name{proc_freq}
 \alias{proc_freq}
-\title{frequency table as flextable}
+\title{Frequency table as flextable}
 \usage{
 proc_freq(
   x,

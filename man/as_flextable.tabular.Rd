@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable.tabular.R
 \name{as_flextable.tabular}
 \alias{as_flextable.tabular}
-\title{convert tabular to flextable}
+\title{Transform a 'tables::tabular' object into a flextable}
 \usage{
 \method{as_flextable}{tabular}(
   x,
@@ -68,14 +68,18 @@ if (require("tables")) {
       (mean + sd) ~ Status
   )
   as_flextable(tab)
+}
 
+if (require("tables")) {
   tab <- tabular(
     (Species + 1) ~ (n = 1) + Format(digits = 2) *
       (Sepal.Length + Sepal.Width) * (mean + sd),
     data = iris
   )
   as_flextable(tab)
+}
 
+if (require("tables")) {
   x <- tabular((Factor(gear, "Gears") + 1)
   * ((n = 1) + Percent()
       + (RowPct = Percent("row"))
@@ -90,7 +94,9 @@ if (require("tables")) {
       colorize(as_b(.row_title), color = "red"))
   )
   ft
+}
 
+if (require("tables")) {
   tab <- tabular(
     (mean + mean) * (Sepal.Length + Sepal.Width) ~ 1,
     data = iris

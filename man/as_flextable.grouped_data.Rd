@@ -2,12 +2,12 @@
 % Please edit documentation in R/as_flextable.R
 \name{as_flextable.grouped_data}
 \alias{as_flextable.grouped_data}
-\title{tabular summary for grouped_data object}
+\title{Transform a 'grouped_data' object into a flextable}
 \usage{
 \method{as_flextable}{grouped_data}(x, col_keys = NULL, hide_grouplabel = FALSE, ...)
 }
 \arguments{
-\item{x}{object to be transformed as flextable}
+\item{x}{'grouped_data' object to be transformed into a "flextable"}
 
 \item{col_keys}{columns names/keys to display. If some column names are not in
 the dataset, they will be added as blank columns by default.}
@@ -18,7 +18,7 @@ level/value will be rendered.}
 \item{...}{unused argument}
 }
 \description{
-produce a flextable from a table
+Produce a flextable from a table
 produced by function \code{\link[=as_grouped_data]{as_grouped_data()}}.
 }
 \examples{

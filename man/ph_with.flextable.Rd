@@ -2,7 +2,7 @@
 % Please edit documentation in R/ph_with.R
 \name{ph_with.flextable}
 \alias{ph_with.flextable}
-\title{add a flextable into a PowerPoint slide}
+\title{Add a flextable into a PowerPoint slide}
 \usage{
 \method{ph_with}{flextable}(x, value, location, ...)
 }

@@ -178,7 +178,7 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
 }
 
 
-#' @title rowwise merge of a range of columns
+#' @title Rowwise merge of a range of columns
 #'
 #' @description Merge flextable columns into a single one for each selected rows. All
 #' columns must be consecutive.

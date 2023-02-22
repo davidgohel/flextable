@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{hline}
 \alias{hline}
-\title{set horizontal borders}
+\title{Set horizontal borders}
 \usage{
 hline(x, i = NULL, j = NULL, border = NULL, part = "body")
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/append_chunk.R
 \name{append_chunks}
 \alias{append_chunks}
-\title{append chunks to flextable content}
+\title{Append chunks to flextable content}
 \usage{
 append_chunks(x, ..., i = NULL, j = NULL, part = "body")
 }

@@ -209,8 +209,8 @@ tabulator <- function(x, rows, columns,
 
 
 #' @export
-#' @title tabulator to flextable
-#' @description `tabulator` object can be transformed as a flextable
+#' @title Transform a 'tabulator' object into a flextable
+#' @description [tabulator()] object can be transformed as a flextable
 #' with method [as_flextable()].
 #' @param x result from [tabulator()]
 #' @param separate_with columns used to sepatate the groups
@@ -523,7 +523,7 @@ summary.tabulator <- function(object, ...){
 
 #' @export
 #' @importFrom rlang quo_text
-#' @title column keys of tabulator objects
+#' @title Column keys of tabulator objects
 #' @description The function provides a way to get column keys
 #' associated with the flextable corresponding to a [tabulator()]
 #' object. It helps in customizing or programing with `tabulator`.

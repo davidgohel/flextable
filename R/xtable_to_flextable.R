@@ -1,5 +1,5 @@
 #' @importFrom officer fp_text fp_par fp_border
-#' @title get a flextable from a xtable object
+#' @title Transform a 'xtable' object into a flextable
 #'
 #' @description Get a `flextable` object from
 #' a `xtable` object.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment_rows.R
 \name{delete_part}
 \alias{delete_part}
-\title{delete flextable part}
+\title{Delete flextable part}
 \usage{
 delete_part(x, part = "header")
 }

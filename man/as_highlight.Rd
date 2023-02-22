@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{as_highlight}
 \alias{as_highlight}
-\title{highlight chunk}
+\title{Highlight chunk}
 \usage{
 as_highlight(x, color)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/chunk_images.R
 \name{gg_chunk}
 \alias{gg_chunk}
-\title{ggplots chunk wrapper}
+\title{'ggplots' chunk wrapper}
 \usage{
 gg_chunk(value, width = 1, height = 0.2, unit = "in", res = 300)
 }

@@ -101,7 +101,7 @@ mk_par <- compose
 
 
 #' @export
-#' @title change displayed labels
+#' @title Change displayed labels
 #' @description The function replace text values
 #' in a flextable with labels. The labels are defined
 #' with character named vector.

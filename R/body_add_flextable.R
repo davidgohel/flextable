@@ -1,5 +1,5 @@
 #' @export
-#' @title add flextable into a Word document
+#' @title Add flextable into a Word document
 #' @description add a flextable into a Word document.
 #' @param x an rdocx object
 #' @param value `flextable` object
@@ -95,7 +95,7 @@ body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", 
 }
 
 #' @export
-#' @title add flextable at a bookmark location in document's header
+#' @title Add flextable at a bookmark location in document's header
 #' @description replace in the header of a document  a paragraph containing a bookmark by a flextable.
 #' A bookmark will be considered as valid if enclosing words
 #' within a paragraph; i.e., a bookmark along two or more paragraphs is invalid,
@@ -105,6 +105,7 @@ body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", 
 #' @param x an rdocx object
 #' @param bookmark bookmark id
 #' @param value a flextable object
+#' @keywords internal
 headers_flextable_at_bkm <- function(x, bookmark, value) {
   stopifnot(inherits(x, "rdocx"), inherits(value, "flextable"))
   str <- gen_raw_wml(value, doc = x)
@@ -121,7 +122,7 @@ headers_flextable_at_bkm <- function(x, bookmark, value) {
 }
 
 #' @export
-#' @title add flextable at a bookmark location in document's footer
+#' @title Add flextable at a bookmark location in document's footer
 #' @description replace in the footer of a document  a paragraph containing a bookmark by a flextable.
 #' A bookmark will be considered as valid if enclosing words
 #' within a paragraph; i.e., a bookmark along two or more paragraphs is invalid,
@@ -130,6 +131,7 @@ headers_flextable_at_bkm <- function(x, bookmark, value) {
 #' @param x an rdocx object
 #' @param bookmark bookmark id
 #' @param value a flextable object
+#' @keywords internal
 footers_flextable_at_bkm <- function(x, bookmark, value) {
   stopifnot(inherits(x, "rdocx"), inherits(value, "flextable"))
   str <- gen_raw_wml(value, doc = x)

@@ -1,5 +1,5 @@
 #' @export
-#' @title append chunks to flextable content
+#' @title Append chunks to flextable content
 #' @description append chunks (for example chunk [as_chunk()])
 #' in a flextable.
 #' @param x a flextable object
@@ -66,7 +66,7 @@ append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
   x
 }
 #' @export
-#' @title prepend chunks to flextable content
+#' @title Prepend chunks to flextable content
 #' @description prepend chunks (for example chunk [as_chunk()])
 #' in a flextable.
 #' @param x a flextable object

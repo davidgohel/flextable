@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{plot.flextable}
 \alias{plot.flextable}
-\title{plot a flextable}
+\title{Plot a flextable}
 \usage{
 \method{plot}{flextable}(x, ...)
 }

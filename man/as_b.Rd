@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{as_b}
 \alias{as_b}
-\title{bold chunk}
+\title{Bold chunk}
 \usage{
 as_b(x)
 }

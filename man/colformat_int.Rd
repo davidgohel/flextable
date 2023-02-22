@@ -2,7 +2,7 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_int}
 \alias{colformat_int}
-\title{format integer cells}
+\title{Format integer cells}
 \usage{
 colformat_int(
   x,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/merge_flextable.R
 \name{merge_h_range}
 \alias{merge_h_range}
-\title{rowwise merge of a range of columns}
+\title{Rowwise merge of a range of columns}
 \usage{
 merge_h_range(x, i = NULL, j1 = NULL, j2 = NULL, part = "body")
 }

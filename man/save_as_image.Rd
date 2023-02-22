@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{save_as_image}
 \alias{save_as_image}
-\title{save a flextable as an image}
+\title{Save a flextable in an 'png' file}
 \usage{
 save_as_image(x, path, expand = 10, res = 200, ...)
 }
@@ -18,7 +18,7 @@ save_as_image(x, path, expand = 10, res = 200, ...)
 \item{...}{unused arguments}
 }
 \description{
-save a flextable as a png image.
+Save a flextable as a png image.
 }
 \examples{
 library(gdtools)

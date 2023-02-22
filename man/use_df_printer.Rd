@@ -2,7 +2,7 @@
 % Please edit documentation in R/df_printer.R
 \name{use_df_printer}
 \alias{use_df_printer}
-\title{set data.frame automatic printing as a flextable}
+\title{Set data.frame automatic printing as a flextable}
 \usage{
 use_df_printer()
 }

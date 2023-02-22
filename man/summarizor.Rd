@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{summarizor}
 \alias{summarizor}
-\title{data summary preparation}
+\title{Data summary preparation}
 \usage{
 summarizor(x, by = character(), overall_label = NULL)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{vline_right}
 \alias{vline_right}
-\title{set flextable right vertical borders}
+\title{Set flextable right vertical borders}
 \usage{
 vline_right(x, i = NULL, border = NULL, part = "all")
 }

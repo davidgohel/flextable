@@ -1,5 +1,5 @@
 #' @export
-#' @title fit a flextable to a maximum width
+#' @title Fit a flextable to a maximum width
 #' @description decrease font size for each cell incrementally until
 #' it fits a given max_width.
 #' @param x flextable object
@@ -204,7 +204,7 @@ height_all <- function(x, height, part = "all", unit = "in"){
 }
 
 #' @export
-#' @title width and height of a flextable object
+#' @title Get width and height of a flextable object
 #' @description Returns the width, height and
 #' aspect ratio of a flextable in a named list.
 #' The aspect ratio is the ratio corresponding to `height/width`.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{border}
 \alias{border}
-\title{cell borders update}
+\title{Cell borders update}
 \usage{
 border(
   x,

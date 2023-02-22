@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable.R
 \name{as_flextable.kmeans}
 \alias{as_flextable.kmeans}
-\title{tabular summary for kmeans}
+\title{Transform a 'kmeans' object into a flextable}
 \usage{
 \method{as_flextable}{kmeans}(x, digits = 4, ...)
 }

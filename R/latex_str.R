@@ -1,5 +1,5 @@
 #' @export
-#' @title add latex dependencies
+#' @title Add latex dependencies
 #' @description Manually add flextable latex dependencies to
 #' the knitr session via [knit_meta_add()].
 #'

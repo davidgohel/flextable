@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable.R
 \name{as_flextable}
 \alias{as_flextable}
-\title{method to convert object to flextable}
+\title{Method to transform objects into flextables}
 \usage{
 as_flextable(x, ...)
 }

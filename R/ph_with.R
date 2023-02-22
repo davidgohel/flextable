@@ -1,6 +1,6 @@
 #' @importFrom officer ph_with
 #' @export
-#' @title add a flextable into a PowerPoint slide
+#' @title Add a flextable into a PowerPoint slide
 #' @description Add a flextable in a PowerPoint document object produced
 #' by [officer::read_pptx()].
 #' @param x a pptx device

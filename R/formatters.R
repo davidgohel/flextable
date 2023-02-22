@@ -1,4 +1,4 @@
-#' @title set column formatter functions
+#' @title Set column formatter functions
 #' @description Define formatter functions associated to each column key.
 #' Functions have a single argument (the vector) and are returning the formatted
 #' values as a character vector.
@@ -77,7 +77,7 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
 }
 
 #' @export
-#' @title format character cells
+#' @title Format character cells
 #' @description Format character cells in a flextable.
 #' @param x a flextable object
 #' @param i rows selection
@@ -112,7 +112,7 @@ colformat_char <- function(
 }
 
 #' @export
-#' @title format numeric cells
+#' @title Format numeric cells
 #' @description Format numeric cells in a flextable.
 #' @inheritParams colformat_char
 #' @param big.mark,digits,decimal.mark see [formatC()]
@@ -149,7 +149,7 @@ colformat_double <- function(
   docall_display(col_keys, fun_, x, i = i)
 }
 #' @export
-#' @title format numeric cells
+#' @title Format numeric cells
 #' @description Format numeric cells in a flextable.
 #'
 #' The function is different from [colformat_double()] on numeric type
@@ -217,7 +217,7 @@ colformat_num <- function(
   docall_display(col_keys, fun_, x, i = i)
 }
 
-#' @title format date cells
+#' @title Format date cells
 #' @description Format date cells in a flextable.
 #' @inheritParams colformat_char
 #' @param fmt_date see [strptime()]
@@ -250,7 +250,7 @@ colformat_date <- function(
   docall_display(col_keys, fun_, x, i = i)
 }
 
-#' @title format datetime cells
+#' @title Format datetime cells
 #' @description Format datetime cells in a flextable.
 #' @inheritParams colformat_char
 #' @param fmt_datetime see [strptime()]
@@ -283,7 +283,7 @@ colformat_datetime <- function(
   docall_display(col_keys, fun_, x, i = i)
 }
 
-#' @title format integer cells
+#' @title Format integer cells
 #' @description Format integer cells in a flextable.
 #' @inheritParams colformat_char
 #' @param big.mark see [format()]
@@ -314,7 +314,7 @@ colformat_int <- function(
   docall_display(col_keys, fun_, x, i = i)
 }
 
-#' @title format logical cells
+#' @title Format logical cells
 #' @description Format logical cells in a flextable.
 #' @inheritParams colformat_char
 #' @param false,true string to be used for logical
@@ -349,7 +349,7 @@ colformat_lgl <- function(
   docall_display(col_keys, fun_, x, i = i)
 }
 
-#' @title format cells as images
+#' @title Format cells as images
 #' @description Format image paths as images in a flextable.
 #' @inheritParams colformat_char
 #' @param width,height size of the png file in inches

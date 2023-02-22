@@ -2,7 +2,7 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_double}
 \alias{colformat_double}
-\title{format numeric cells}
+\title{Format numeric cells}
 \usage{
 colformat_double(
   x,

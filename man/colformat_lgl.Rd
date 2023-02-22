@@ -2,7 +2,7 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_lgl}
 \alias{colformat_lgl}
-\title{format logical cells}
+\title{Format logical cells}
 \usage{
 colformat_lgl(
   x,

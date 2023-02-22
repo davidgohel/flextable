@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable_sizes.R
 \name{fit_to_width}
 \alias{fit_to_width}
-\title{fit a flextable to a maximum width}
+\title{Fit a flextable to a maximum width}
 \usage{
 fit_to_width(x, max_width, inc = 1L, max_iter = 20, unit = "in")
 }

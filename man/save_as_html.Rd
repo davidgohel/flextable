@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{save_as_html}
 \alias{save_as_html}
-\title{Save a Flextable in an HTML File}
+\title{Save flextable objects in an 'HTML' file}
 \usage{
 save_as_html(
   ...,
@@ -26,8 +26,8 @@ used as titles. If provided, argument \code{...} will be ignored.}
 \item{title}{page title}
 }
 \description{
-save a flextable in an HTML file. This function
-is useful to save the flextable in HTML file without using
+save a flextable in an 'HTML' file. This function
+is useful to save the flextable in 'HTML' file without using
 R Markdown (it is highly recommanded to use R Markdown
 instead).
 }

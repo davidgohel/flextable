@@ -1,7 +1,7 @@
 # borders format ----
 
 #' @export
-#' @title cell borders update
+#' @title Cell borders update
 #' @description change borders of selected rows and columns of a flextable.
 #' This function is not to be used by end user (it requires careful
 #' settings to avoid overlapping borders) but only for programming purposes.
@@ -104,7 +104,7 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 }
 
 
-#' @title remove borders
+#' @title Remove borders
 #' @description The function is deleting all borders of the flextable object.
 #' @param x a flextable object
 #' @examples
@@ -126,7 +126,7 @@ border_remove <- function(x){
   x
 }
 
-#' @title set outer borders
+#' @title Set outer borders
 #' @description The function is applying a border to outer cells of one
 #' or all parts of a flextable.
 #' @param x a flextable object
@@ -172,7 +172,7 @@ border_outer <- function(x, border = NULL, part = "all"){
 }
 
 #' @export
-#' @title set inner borders
+#' @title Set inner borders
 #' @description The function is applying a border to inner content of one
 #' or all parts of a flextable.
 #' @inheritParams border_outer
@@ -212,7 +212,7 @@ border_inner_h <- function(x, border = NULL, part = "body"){
 }
 
 #' @export
-#' @title set vertical inner borders
+#' @title Set vertical inner borders
 #' @description The function is applying a vertical border to inner content of one
 #' or all parts of a flextable.
 #' @inheritParams border_outer
@@ -252,7 +252,7 @@ border_inner_v <- function(x, border = NULL, part = "all"){
 }
 
 #' @export
-#' @title set vertical & horizontal inner borders
+#' @title Set vertical & horizontal inner borders
 #' @description The function is applying a vertical and horizontal borders to inner content of one
 #' or all parts of a flextable.
 #' @inheritParams border_outer
@@ -299,7 +299,7 @@ border_inner <- function(x, border = NULL, part = "all"){
 }
 
 #' @export
-#' @title set horizontal borders
+#' @title Set horizontal borders
 #' @description The function is applying an horizontal border to inner
 #' content of one or all parts of a flextable. The lines are the
 #' bottom borders of selected cells.
@@ -352,7 +352,7 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body"){
 }
 
 #' @export
-#' @title set top horizontal border
+#' @title Set top horizontal border
 #' @description The function is applying an horizontal border to the
 #' top of one or all parts of a flextable. The line is the
 #' top border of selected parts.
@@ -402,7 +402,7 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body"){
 }
 
 #' @export
-#' @title set bottom horizontal border
+#' @title Set bottom horizontal border
 #' @description The function is applying an horizontal border to the
 #' bottom of one or all parts of a flextable. The line is the
 #' bottom border of selected parts.
@@ -444,7 +444,7 @@ hline_bottom <- function(x, j = NULL, border = NULL, part = "body"){
 }
 
 #' @export
-#' @title set vertical borders
+#' @title Set vertical borders
 #' @description The function is applying vertical borders to inner
 #' content of one or all parts of a flextable. The lines are the
 #' right borders of selected cells.
@@ -491,7 +491,7 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all"){
 }
 
 #' @export
-#' @title set flextable left vertical borders
+#' @title Set flextable left vertical borders
 #' @description The function is applying vertical borders to the
 #' left side of one or all parts of a flextable. The line is the
 #' left border of selected cells of the first column.
@@ -532,7 +532,7 @@ vline_left <- function(x, i = NULL, border = NULL, part = "all"){
 }
 
 #' @export
-#' @title set flextable right vertical borders
+#' @title Set flextable right vertical borders
 #' @description The function is applying vertical borders to the
 #' right side of one or all parts of a flextable. The line is the
 #' right border of selected cells of the last column.
@@ -574,7 +574,7 @@ vline_right <- function(x, i = NULL, border = NULL, part = "all"){
 
 
 #' @export
-#' @title is an element before a match with entries
+#' @title Is an element before a match with entries
 #' @description return a logical vector of the same length as x, indicating
 #' if elements are located before a set of entries to match or not.
 #' @param x an atomic vector of values to be tested

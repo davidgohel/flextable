@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{as_sup}
 \alias{as_sup}
-\title{superscript chunk}
+\title{Superscript chunk}
 \usage{
 as_sup(x)
 }

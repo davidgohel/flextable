@@ -1,4 +1,4 @@
-#' @title method to convert object to flextable
+#' @title Method to transform objects into flextables
 #' @description This is a convenient function
 #' to let users create flextable bindings
 #' from any objects. Users should consult documentation
@@ -13,7 +13,7 @@ as_flextable <- function( x, ... ){
 }
 
 
-#' @title grouped data transformation
+#' @title Add row separators to grouped data
 #'
 #' @description Repeated consecutive values of group columns will
 #' be used to define the title of the groups and will
@@ -95,10 +95,10 @@ as_grouped_data <- function( x, groups, columns = NULL, expand_single = TRUE){
 }
 
 #' @export
-#' @title tabular summary for grouped_data object
-#' @description produce a flextable from a table
+#' @title Transform a 'grouped_data' object into a flextable
+#' @description Produce a flextable from a table
 #' produced by function [as_grouped_data()].
-#' @param x object to be transformed as flextable
+#' @param x 'grouped_data' object to be transformed into a "flextable"
 #' @param col_keys columns names/keys to display. If some column names are not in
 #' the dataset, they will be added as blank columns by default.
 #' @param hide_grouplabel if TRUE, group label will not be rendered, only
@@ -164,7 +164,7 @@ pvalue_format <- function(x){
 #' @export
 #' @importFrom stats naprint quantile
 #' @importFrom utils tail
-#' @title tabular summary for glm object
+#' @title Transform a 'glm' object into a flextable
 #' @description produce a flextable describing a
 #' generalized linear model produced by function `glm`.
 #' @param x glm model
@@ -228,7 +228,7 @@ as_flextable.glm <- function(x, ...){
 
 
 #' @export
-#' @title tabular summary for lm object
+#' @title Transform a 'lm' object into a flextable
 #' @description produce a flextable describing a
 #' linear model produced by function `lm`.
 #' @param x lm model
@@ -280,7 +280,7 @@ as_flextable.lm <- function(x, ...){
 
 
 #' @export
-#' @title tabular summary for htest object
+#' @title Transform a 'htest' object into a flextable
 #' @description produce a flextable describing an
 #' object oof class `htest`.
 #' @param x htest object
@@ -344,7 +344,7 @@ as_flextable.htest <- function (x, ...) {
 
 
 #' @export
-#' @title continuous columns summary
+#' @title Continuous columns summary
 #' @description create a data.frame summary for continuous variables
 #' @param dat a data.frame
 #' @param columns continuous variables to be summarized. If NULL all
@@ -417,7 +417,7 @@ continuous_summary <- function(dat, columns = NULL,
 
 
 #' @export
-#' @title tabular summary for mixed model
+#' @title Transform a mixed model into a flextable
 #' @description produce a flextable describing a
 #' mixed model. The function is only using package 'broom.mixed'
 #' that provides the data presented in the resulting flextable.
@@ -523,7 +523,7 @@ as_flextable.glmmTMB <- as_flextable.merMod
 as_flextable.glmmadmb <- as_flextable.merMod
 
 #' @export
-#' @title tabular summary for kmeans
+#' @title Transform a 'kmeans' object into a flextable
 #' @description produce a flextable describing a
 #' kmeans object. The function is only using package 'broom'
 #' that provides the data presented in the resulting flextable.
@@ -644,7 +644,7 @@ as_flextable.kmeans <- function(x, digits = 4, ...) {
 }
 
 #' @export
-#' @title tabular summary for pam
+#' @title Transform a 'pam' object into a flextable
 #' @description produce a flextable describing a
 #' pam object. The function is only using package 'broom'
 #' that provides the data presented in the resulting flextable.
@@ -750,7 +750,8 @@ as_flextable.pam <- function(x, digits = 4, ...){
 }
 
 #' @export
-#' @title Printing data.frame summary as a flextable
+#' @title Transform and summarise a 'data.frame' into a flextable
+#' Simple summary of a data.frame as a flextable
 #' @description It displays the first rows and shows the column types.
 #' If there is only one row, a simplified vertical table is produced.
 #' @param x a data.frame

@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable_gam.R
 \name{as_flextable.gam}
 \alias{as_flextable.gam}
-\title{tabular summary for gam object}
+\title{Transform a 'gam' model into a flextable}
 \usage{
 \method{as_flextable}{gam}(x, ...)
 }

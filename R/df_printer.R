@@ -68,7 +68,7 @@ df_printer <- function(dat, ...) {
 }
 
 #' @export
-#' @title set data.frame automatic printing as a flextable
+#' @title Set data.frame automatic printing as a flextable
 #' @description Define [df_printer()] as data.frame
 #' print method in an R Markdown document.
 #'

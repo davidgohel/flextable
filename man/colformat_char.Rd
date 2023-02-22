@@ -2,7 +2,7 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_char}
 \alias{colformat_char}
-\title{format character cells}
+\title{Format character cells}
 \usage{
 colformat_char(
   x,

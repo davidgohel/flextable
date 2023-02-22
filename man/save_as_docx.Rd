@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{save_as_docx}
 \alias{save_as_docx}
-\title{save flextable objects in an Word file}
+\title{Save flextable objects in a 'Word' file}
 \usage{
 save_as_docx(..., values = NULL, path, pr_section = NULL, align = "center")
 }

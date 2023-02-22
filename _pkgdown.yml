@@ -21,48 +21,47 @@ home:
 
 reference:
   - title: Create flextable
+    desc: >
+     These functions create 'flextable' objects that can be modified later.
     contents:
     - flextable
     - qflextable
+    - as_flextable
     - flextable-package
   - title: Global options
+    desc: >
+     Reduce homogenization efforts and the number of functions to be called by
+     defining formatting properties such as font, border color, number of
+     decimal places displayed that should be applied by default.
     contents:
     - set_flextable_defaults
     - get_flextable_defaults
     - init_flextable_defaults
-  - title: Headers and footers
-    desc:  Add rows in headers, footers and body parts
+  - title: Output functions
     contents:
-    - add_header_row
-    - add_footer_row
-    - add_header_lines
-    - add_footer_lines
-    - add_header
-    - add_footer
-    - separate_header
-    - set_header_labels
-    - set_header_df
-    - set_footer_df
-    - delete_part
-    - add_body
-    - add_body_row
-  - title: Manage flextable layout
-    contents:
-    - starts_with("merge_")
-    - starts_with("height")
-    - set_table_properties
-    - width
-    - hrule
-    - autofit
-    - fit_to_width
-    - dim.flextable
-    - dim_pretty
-    - flextable_dim
-    - as_grouped_data
-    - nrow_part
-    - ncol_keys
-  - title: Format flextable
-    desc:  Modify flextable`s formatting properties.
+    - print.flextable
+    - knit_print.flextable
+    - body_add_flextable
+    - ph_with.flextable
+    - plot.flextable
+    - save_as_image
+    - save_as_html
+    - save_as_docx
+    - save_as_pptx
+    - htmltools_value
+    - gen_grob
+    - plot.flextableGrob
+    - as_raster
+    - to_html.flextable
+    - rtf_add.flextable
+    - flextable_to_rmd
+    - df_printer
+    - use_df_printer
+    - use_model_printer
+  - title: Change visual properties
+    desc: >
+     Modify the visual properties of the components of a 'flextable' such
+     as font color, font size, word highlighting or cell background color.
     contents:
     - style
     - align
@@ -78,9 +77,12 @@ reference:
     - valign
     - rotate
     - empty_blanks
-  - title: borders
-    desc: Borders management
+  - title: Management of borders
+    desc: >
+     The border system is based on vertical and horizontal lines which can be
+     easily specified. Some additional tools are provided for specific needs.
     contents:
+    - fp_border_default
     - starts_with("hline")
     - starts_with("vline")
     - border_inner
@@ -91,11 +93,54 @@ reference:
     - border_remove
     - surround
   - title: Flextable themes
-    desc:  Apply theme functions.
+    desc:  Apply theme functions
     contents:
     - starts_with("theme_")
-
-  - title: Mixed content
+  - title: Add headers and footers
+    desc: >
+     Add header titles, comments in footers and new rows in body
+     with the following functions.
+    contents:
+    - add_header_row
+    - add_footer_row
+    - add_header_lines
+    - add_footer_lines
+    - add_header
+    - add_footer
+    - separate_header
+    - set_header_labels
+    - set_header_df
+    - set_footer_df
+    - delete_part
+    - add_body
+    - add_body_row
+  - title: Cell merging
+    contents:
+    - starts_with("merge_")
+  - title: flextable dimensions
+    contents:
+    - starts_with("height")
+    - set_table_properties
+    - width
+    - hrule
+    - autofit
+    - fit_to_width
+    - dim.flextable
+    - dim_pretty
+    - flextable_dim
+    - dim.flextableGrob
+    - nrow_part
+    - ncol_keys
+  - title: Define how to display the content
+    desc: >
+     Simple tools for formatting the content of cells such as managing the
+     number of decimals, adding suffixes or prefixes and defining the
+     thousands separator.
+    contents:
+    - starts_with("colformat_")
+    - starts_with("set_formatter")
+    - labelizor
+  - title: Mixed and complex content
     desc: >
       How to define complex paragraphs with mixed content or to
       add images or chunks of text in existing cells.
@@ -105,9 +150,12 @@ reference:
     - append_chunks
     - prepend_chunks
     - footnote
+    - fp_text_default
   - title: Elements for mixed content
     desc: >
-      The functions that can be called to create rich formated content
+      Functions that can be called to create rich, formatted content. They are to be used
+      within calls to `mk_par()`, `append_chunks()`, `prepend_chunks()` and
+      possibly `set_caption()` functions.
     contents:
     - as_chunk
     - as_image
@@ -127,55 +175,27 @@ reference:
     - hyperlink_text
     - as_equation
     - as_word_field
-  - title: Easy formatting
-    desc: Define quickly how numbers and characters of tables are displayed
-    contents:
-    - starts_with("colformat_")
-    - starts_with("set_formatter")
-    - labelizor
   - title: Caption
     contents:
     - set_caption
   - title: miscellaneous
     contents:
     - starts_with("fmt_")
-    - fp_border_default
-    - fp_text_default
     - before
     - void
-  - title: Output functions
+  - title: Transform objects into flextables with 'as_flextable'
+    desc: >
+     The `as_flextable()` function is used to transform specific objects
+     into flextable objects. For example, you can transform a crosstab produced
+     with the 'tables' package into a flextable which can then be formatted,
+     annotated or augmented with footnotes.
     contents:
-    - print.flextable
-    - knit_print.flextable
-    - body_add_flextable
-    - ph_with.flextable
-    - plot.flextable
-    - save_as_image
-    - save_as_html
-    - save_as_docx
-    - save_as_pptx
-    - htmltools_value
-    - gen_grob
-    - dim.flextableGrob
-    - plot.flextableGrob
-    - as_raster
-    - to_html.flextable
-    - rtf_add.flextable
-    - flextable_to_rmd
-    - df_printer
-    - use_df_printer
-    - use_model_printer
-    - footers_flextable_at_bkm
-    - headers_flextable_at_bkm
-  - title: as_flextable
-    desc:  get flextable from objects and utilities
-    contents:
-    - as_flextable
     - tabulator
     - tabulator_colnames
     - summarizor
     - starts_with("as_flextable")
     - continuous_summary
+    - as_grouped_data
     - proc_freq
     - shift_table
 

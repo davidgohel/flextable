@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable_tabulator.R
 \name{tabulator_colnames}
 \alias{tabulator_colnames}
-\title{column keys of tabulator objects}
+\title{Column keys of tabulator objects}
 \usage{
 tabulator_colnames(x, columns, ..., type = NULL)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/chunk_images.R
 \name{linerange}
 \alias{linerange}
-\title{mini linerange chunk wrapper}
+\title{Mini linerange chunk wrapper}
 \usage{
 linerange(
   value,

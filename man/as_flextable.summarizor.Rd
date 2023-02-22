@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{as_flextable.summarizor}
 \alias{as_flextable.summarizor}
-\title{summarizor to flextable}
+\title{Transform a 'summarizor' object into a flextable}
 \usage{
 \method{as_flextable}{summarizor}(x, ...)
 }
@@ -12,7 +12,7 @@
 \item{...}{arguments for \code{\link[=as_flextable.tabulator]{as_flextable.tabulator()}}}
 }
 \description{
-\code{summarizor} object can be transformed as a flextable
+\code{summarizor} object should be transformed into a flextable
 with method \code{\link[=as_flextable]{as_flextable()}}.
 }
 \examples{

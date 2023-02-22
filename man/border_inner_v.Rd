@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{border_inner_v}
 \alias{border_inner_v}
-\title{set vertical inner borders}
+\title{Set vertical inner borders}
 \usage{
 border_inner_v(x, border = NULL, part = "all")
 }

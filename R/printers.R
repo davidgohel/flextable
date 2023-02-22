@@ -1,6 +1,6 @@
 # main ----
 #' @export
-#' @title flextable as an HTML object
+#' @title flextable as an 'HTML' object
 #'
 #' @description get a [div()] from a flextable object.
 #' This can be used in a shiny application. For an output within
@@ -661,9 +661,9 @@ knit_print.flextable <- function(x, ...) {
 }
 
 #' @export
-#' @title Save a Flextable in an HTML File
-#' @description save a flextable in an HTML file. This function
-#' is useful to save the flextable in HTML file without using
+#' @title Save flextable objects in an 'HTML' file
+#' @description save a flextable in an 'HTML' file. This function
+#' is useful to save the flextable in 'HTML' file without using
 #' R Markdown (it is highly recommanded to use R Markdown
 #' instead).
 #' @param ... flextable objects, objects, possibly named. If named objects, names are
@@ -742,7 +742,7 @@ save_as_html <- function(..., values = NULL, path, encoding = "utf-8", title = d
 
 #' @export
 #' @importFrom officer ph_location_type
-#' @title save flextable objects in an PowerPoint file
+#' @title Save flextable objects in a 'PowerPoint' file
 #' @description sugar function to save flextable objects in
 #' an PowerPoint file.
 #'
@@ -789,7 +789,7 @@ save_as_pptx <- function(..., values = NULL, path) {
 
 
 #' @export
-#' @title save flextable objects in an Word file
+#' @title Save flextable objects in a 'Word' file
 #' @description sugar function to save flextable objects in an Word file.
 #' @param ... flextable objects, objects, possibly named. If named objects, names are
 #' used as titles.
@@ -864,8 +864,8 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL, align = "c
 
 
 #' @export
-#' @title save a flextable as an image
-#' @description save a flextable as a png image.
+#' @title Save a flextable in an 'png' file
+#' @description Save a flextable as a png image.
 #' @param x a flextable object
 #' @param path image file to be created. It should end with '.png'.
 #' @param expand space in pixels to add around the table.
@@ -913,7 +913,7 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
 
 
 #' @export
-#' @title plot a flextable
+#' @title Plot a flextable
 #' @description plots a flextable as a grid grob object
 #' and display the result in a new graphics window.
 #' 'ragg' or 'svglite' or 'ggiraph' graphical device drivers
@@ -947,7 +947,7 @@ plot.flextable <- function(x, ...) {
 }
 
 #' @export
-#' @title get a flextable as a raster
+#' @title Transform a flextable into a raster
 #' @description save a flextable as an image and return the corresponding
 #' raster. This function has been implemented to let flextable be printed
 #' on a ggplot object.

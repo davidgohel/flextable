@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{colorize}
 \alias{colorize}
-\title{colorize chunk}
+\title{Colorize chunk}
 \usage{
 colorize(x, color)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{fmt_n_percent}
 \alias{fmt_n_percent}
-\title{format content for count data}
+\title{Format content for count data}
 \usage{
 fmt_n_percent(n, pct, digit = 1)
 }

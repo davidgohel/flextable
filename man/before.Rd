@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{before}
 \alias{before}
-\title{is an element before a match with entries}
+\title{Is an element before a match with entries}
 \usage{
 before(x, entries)
 }

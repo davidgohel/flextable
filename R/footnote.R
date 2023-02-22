@@ -1,5 +1,5 @@
 #' @export
-#' @title add footnotes to flextable
+#' @title Add footnotes to flextable
 #' @description The function let add footnotes to a flextable object
 #' by adding some symbols in the flextable and associated notes in
 #' the footer of the flextable.

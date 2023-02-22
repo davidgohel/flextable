@@ -2,7 +2,7 @@
 % Please edit documentation in R/xtable_to_flextable.R
 \name{as_flextable.xtable}
 \alias{as_flextable.xtable}
-\title{get a flextable from a xtable object}
+\title{Transform a 'xtable' object into a flextable}
 \usage{
 \method{as_flextable}{xtable}(
   x,

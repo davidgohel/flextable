@@ -3,7 +3,7 @@
 \name{fmt_2stats}
 \alias{fmt_2stats}
 \alias{fmt_summarizor}
-\title{format content for data generated with summarizor()}
+\title{Format content for data generated with summarizor()}
 \usage{
 fmt_2stats(
   stat,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{as_sub}
 \alias{as_sub}
-\title{subscript chunk}
+\title{Subscript chunk}
 \usage{
 as_sub(x)
 }

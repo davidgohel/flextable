@@ -3,7 +3,7 @@
 \name{set_formatter}
 \alias{set_formatter}
 \alias{set_formatter_type}
-\title{set column formatter functions}
+\title{Set column formatter functions}
 \usage{
 set_formatter(x, ..., values = NULL, part = "body")
 

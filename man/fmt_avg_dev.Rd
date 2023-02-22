@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{fmt_avg_dev}
 \alias{fmt_avg_dev}
-\title{format content for mean and sd}
+\title{Format content for mean and sd}
 \usage{
 fmt_avg_dev(avg, dev, digit1 = 1, digit2 = 1)
 }

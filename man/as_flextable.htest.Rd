@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable.R
 \name{as_flextable.htest}
 \alias{as_flextable.htest}
-\title{tabular summary for htest object}
+\title{Transform a 'htest' object into a flextable}
 \usage{
 \method{as_flextable}{htest}(x, ...)
 }

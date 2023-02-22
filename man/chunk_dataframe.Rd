@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{chunk_dataframe}
 \alias{chunk_dataframe}
-\title{create a chunk representation suitable for flextable}
+\title{Create a chunk representation suitable for flextable}
 \usage{
 chunk_dataframe(...)
 }

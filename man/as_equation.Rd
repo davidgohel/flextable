@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{as_equation}
 \alias{as_equation}
-\title{equation chunk}
+\title{Equation chunk}
 \usage{
 as_equation(x, width = 1, height = 0.2, unit = "in", props = NULL)
 }

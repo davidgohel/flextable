@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{as_paragraph}
 \alias{as_paragraph}
-\title{concatenate chunks in a flextable}
+\title{Concatenate chunks in a flextable}
 \usage{
 as_paragraph(..., list_values = NULL)
 }

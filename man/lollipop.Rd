@@ -2,7 +2,7 @@
 % Please edit documentation in R/chunk_images.R
 \name{lollipop}
 \alias{lollipop}
-\title{mini lollipop chart chunk wrapper}
+\title{Mini lollipop chart chunk wrapper}
 \usage{
 lollipop(
   value,

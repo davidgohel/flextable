@@ -48,7 +48,7 @@ set_header_labels <- function(x, ..., values = NULL) {
 
 
 #' @export
-#' @title delete flextable part
+#' @title Delete flextable part
 #'
 #' @description indicate to not print a part of
 #' the flextable, i.e. an header, footer or the body.

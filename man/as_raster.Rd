@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{as_raster}
 \alias{as_raster}
-\title{get a flextable as a raster}
+\title{Transform a flextable into a raster}
 \usage{
 as_raster(x, ...)
 }

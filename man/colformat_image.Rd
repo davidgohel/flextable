@@ -2,7 +2,7 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_image}
 \alias{colformat_image}
-\title{format cells as images}
+\title{Format cells as images}
 \usage{
 colformat_image(
   x,

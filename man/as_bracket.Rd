@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{as_bracket}
 \alias{as_bracket}
-\title{chunk with values in brackets}
+\title{Chunk with values in brackets}
 \usage{
 as_bracket(..., sep = ", ", p = "(", s = ")")
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{save_as_pptx}
 \alias{save_as_pptx}
-\title{save flextable objects in an PowerPoint file}
+\title{Save flextable objects in a 'PowerPoint' file}
 \usage{
 save_as_pptx(..., values = NULL, path)
 }

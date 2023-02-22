@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable.R
 \name{as_flextable.pam}
 \alias{as_flextable.pam}
-\title{tabular summary for pam}
+\title{Transform a 'pam' object into a flextable}
 \usage{
 \method{as_flextable}{pam}(x, digits = 4, ...)
 }

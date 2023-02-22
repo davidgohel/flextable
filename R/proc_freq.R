@@ -2,7 +2,7 @@ format_pct <- function(x){
   ifelse(is.na(x), "", paste0(css_no_unit(x*100, digits = 2), "%") )
 }
 
-#' @title frequency table as flextable
+#' @title Frequency table as flextable
 #'
 #' @description This function compute a two way contingency table
 #' and make a flextable with the result.
