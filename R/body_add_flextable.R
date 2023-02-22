@@ -101,7 +101,7 @@ body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", 
 #' within a paragraph; i.e., a bookmark along two or more paragraphs is invalid,
 #' a bookmark set on a whole paragraph is also invalid, but bookmarking few words
 #' inside a paragraph is valid.
-#' @importFrom xml2 xml_replace as_xml_document
+#' @importFrom xml2 xml_replace as_xml_document xml_find_first xml_parent
 #' @param x an rdocx object
 #' @param bookmark bookmark id
 #' @param value a flextable object
