@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-  var els = document.getElementsByClassName("tabwid");
+  var els = document.querySelectorAll(".tabwid");
   var tabwid_link = document.querySelector('link[href*="tabwid.css"]')
   if (tabwid_link === null) {
-    tabwid_styles = document.evaluate("//style[contains(., 'tabwid')]", document, null, XPathResult.ANY_TYPE, null );
+    const tabwid_styles = document.evaluate("//style[contains(., 'tabwid')]", document, null, XPathResult.ANY_TYPE, null );
     tabwid_link = tabwid_styles.iterateNext();
   }
 
