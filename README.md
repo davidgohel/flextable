@@ -72,29 +72,9 @@ link](https://stackoverflow.com/questions/tagged/flextable+r). You can
 also use <https://github.com/davidgohel/flextable/discussions> to start
 a discussion.
 
-## Contributing to the package
-
-### Code of Conduct
-
-Anyone getting involved in this package agrees to our [Code of
-Conduct](https://github.com/davidgohel/flextable/blob/master/CONDUCT.md).
-
 ### Bug reports
 
 When you file a [bug
 report](https://github.com/davidgohel/flextable/issues), please spend
 some time making it easy for us to reproduce. If you take the time to
 make the bug report consistent, it will be easier to fix.
-
-### Contributing to the package development
-
-A great way to start is to contribute an example or improve the
-documentation.
-
-If you want to submit a Pull Request to integrate functions of yours,
-please provide:
-
-- the new function(s) with code and roxygen tags (with examples)
-- a new section in the appropriate vignette that describes how to use
-  the new function
-- corresponding tests in directory `tests/testthat`.

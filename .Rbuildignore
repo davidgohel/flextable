@@ -4,7 +4,6 @@
 ^README\.Rmd$
 ^_pkgdown\.yml$
 ^revdep$
-^CONDUCT\.md$
 ^todo\.md$
 ^inst/medias$
 ^cran-comments\.md$
