@@ -4,9 +4,6 @@
     <loc>https://davidgohel.github.io/flextable/404.html</loc>
   </url>
   <url>
-    <loc>https://davidgohel.github.io/flextable/CONDUCT.html</loc>
-  </url>
-  <url>
     <loc>https://davidgohel.github.io/flextable/articles/index.html</loc>
   </url>
   <url>
@@ -98,6 +95,9 @@
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/as_flextable.summarizor.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.tabular.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/as_flextable.tabulator.html</loc>
@@ -382,10 +382,16 @@
     <loc>https://davidgohel.github.io/flextable/reference/proc_freq.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/flextable/reference/reexports.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/flextable/reference/regulartable.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/rotate.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/reference/rtf_add.flextable.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/save_as_docx.html</loc>
@@ -464,6 +470,9 @@
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/theme_zebra.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/reference/to_html.flextable.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/use_df_printer.html</loc>

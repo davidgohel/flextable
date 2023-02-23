@@ -5,10 +5,17 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Create pretty tables for HTML, PDF, Microsoft Word, Microsoft PowerPoint
-  documents from R Markdown and as Grid Graphics objects. Functions are provided to let users 
-  create tables, modify and format their content. It also extends package officer that does 
-  not contain any feature for customized tabular reporting.">
+<meta name="description" content="Use a grammar for creating and customizing pretty tables. 
+ The following formats are supported: HTML, PDF, RTF, 
+ Microsoft Word, Microsoft PowerPoint and R Grid Graphics. 
+ R Markdown, Quarto and the package officer can be used to produce 
+ the result files. The syntax is the same for the user regardless of 
+ the type of output to be produced. A set of functions allows the 
+ creation, definition of cell arrangement, addition of headers or 
+ footers, formatting and definition of cell content with text and 
+ or images. The package also offers a set of high-level functions 
+ that allow tabular reporting of statistical models and the 
+ creation of complex cross tabulations.">
 <title>Functions for Tabular Reporting • flextable</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -22,10 +29,17 @@
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Functions for Tabular Reporting">
-<meta property="og:description" content="Create pretty tables for HTML, PDF, Microsoft Word, Microsoft PowerPoint
-  documents from R Markdown and as Grid Graphics objects. Functions are provided to let users 
-  create tables, modify and format their content. It also extends package officer that does 
-  not contain any feature for customized tabular reporting.">
+<meta property="og:description" content="Use a grammar for creating and customizing pretty tables. 
+ The following formats are supported: HTML, PDF, RTF, 
+ Microsoft Word, Microsoft PowerPoint and R Grid Graphics. 
+ R Markdown, Quarto and the package officer can be used to produce 
+ the result files. The syntax is the same for the user regardless of 
+ the type of output to be produced. A set of functions allows the 
+ creation, definition of cell arrangement, addition of headers or 
+ footers, formatting and definition of cell content with text and 
+ or images. The package also offers a set of high-level functions 
+ that allow tabular reporting of statistical models and the 
+ creation of complex cross tabulations.">
 <meta property="og:image" content="https://davidgohel.github.io/flextable/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -40,7 +54,7 @@
     
     <a class="navbar-brand me-2" href="index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -127,30 +141,10 @@
 </h3>
 <p>If you have questions about how to use the package, visit Stackoverflow and use tags <code>flextable</code> and <code>r</code> <a href="https://stackoverflow.com/questions/tagged/flextable+r" class="external-link">Stackoverflow link</a>. You can also use <a href="https://github.com/davidgohel/flextable/discussions" class="external-link uri">https://github.com/davidgohel/flextable/discussions</a> to start a discussion.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="contributing-to-the-package">Contributing to the package<a class="anchor" aria-label="anchor" href="#contributing-to-the-package"></a>
-</h2>
-<div class="section level3">
-<h3 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
-</h3>
-<p>Anyone getting involved in this package agrees to our <a href="https://github.com/davidgohel/flextable/blob/master/CONDUCT.md" class="external-link">Code of Conduct</a>.</p>
-</div>
 <div class="section level3">
 <h3 id="bug-reports">Bug reports<a class="anchor" aria-label="anchor" href="#bug-reports"></a>
 </h3>
 <p>When you file a <a href="https://github.com/davidgohel/flextable/issues" class="external-link">bug report</a>, please spend some time making it easy for us to reproduce. If you take the time to make the bug report consistent, it will be easier to fix.</p>
-</div>
-<div class="section level3">
-<h3 id="contributing-to-the-package-development">Contributing to the package development<a class="anchor" aria-label="anchor" href="#contributing-to-the-package-development"></a>
-</h3>
-<p>A great way to start is to contribute an example or improve the documentation.</p>
-<p>If you want to submit a Pull Request to integrate functions of yours, please provide:</p>
-<ul>
-<li>the new function(s) with code and roxygen tags (with examples)</li>
-<li>a new section in the appropriate vignette that describes how to use the new function</li>
-<li>corresponding tests in directory <code>tests/testthat</code>.</li>
-</ul>
 </div>
 </div>
 </div>
