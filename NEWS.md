@@ -1,5 +1,13 @@
 # flextable 0.8.6
 
+In short: 
+
+- RTF support, 
+- revealjs support,
+- preserve all aspects within Quarto html format
+- use grid graphics for saving as png (no need for "webshot" or "webshot2" packages)
+- support for `tables::tabular()`: "Computes a table of summary statistics, cross-classified by various variables"
+
 ## new features
 
 - add RTF support with `officer::rtf_add()`.
