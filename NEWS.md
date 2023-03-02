@@ -1,3 +1,9 @@
+# flextable 0.8.7
+
+## new features
+
+- add RTF support for captions.
+
 # flextable 0.8.6
 
 In short: 

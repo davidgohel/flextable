@@ -17,6 +17,9 @@ save_as_image(x, path, expand = 10, res = 200, ...)
 
 \item{...}{unused arguments}
 }
+\value{
+a string containing the full name of the generated file
+}
 \description{
 Save a flextable as a png image.
 }
@@ -45,6 +48,7 @@ Other flextable print function:
 \code{\link{save_as_docx}()},
 \code{\link{save_as_html}()},
 \code{\link{save_as_pptx}()},
+\code{\link{save_as_rtf}()},
 \code{\link{to_html.flextable}()}
 }
 \concept{flextable print function}

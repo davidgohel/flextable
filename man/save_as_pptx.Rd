@@ -15,6 +15,9 @@ used as slide titles. If provided, argument \code{...} will be ignored.}
 
 \item{path}{PowerPoint file to be created}
 }
+\value{
+a string containing the full name of the generated file
+}
 \description{
 sugar function to save flextable objects in
 an PowerPoint file.
@@ -49,6 +52,7 @@ Other flextable print function:
 \code{\link{save_as_docx}()},
 \code{\link{save_as_html}()},
 \code{\link{save_as_image}()},
+\code{\link{save_as_rtf}()},
 \code{\link{to_html.flextable}()}
 }
 \concept{flextable print function}

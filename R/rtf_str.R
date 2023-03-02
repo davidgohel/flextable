@@ -165,8 +165,16 @@ rtf_rows <- function(value) {
 }
 
 #' @export
-to_rtf.flextable <- function(x, ...) {
+to_rtf.flextable <- function(x, topcaption = TRUE, ...) {
   tab_str <- rtf_rows(x)
+  if (has_caption(x)) {
+    if (topcaption) {
+      tab_str <- paste0(caption_default_rtf(x), "\n\n", tab_str)
+    } else {
+      tab_str <- paste0(tab_str, "\n\n", caption_default_rtf(x))
+    }
+
+  }
   tab_str
 }
 
@@ -194,10 +202,8 @@ rtf_add.flextable <- function(x, value, ...) {
   x
 }
 
-#' @importFrom officer to_rtf
-#' @export
-officer::to_rtf
 
+#' @importFrom officer to_rtf to_html
 .onLoad = function(libname, pkgname) {
-  registerS3method("to_rtf", "flextable", to_rtf.flextable)
+  # registerS3method("to_rtf", "flextable", to_rtf.flextable)
 }

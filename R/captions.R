@@ -88,6 +88,35 @@ caption_default_docx_openxml <- function(x, keep_with_next = FALSE,
   )
   caption_str
 }
+caption_default_rtf <- function(x, keep_with_next = FALSE) {
+  if (!has_caption(x)) {
+    return("")
+  }
+
+  p_pr <- ""
+  x <- process_caption_fp_par(x, keep_with_next = keep_with_next)
+  if (!is.null(x$caption$fp_p)) {
+    p_pr <- format(x$caption$fp_p, type = "rtf")
+  }
+
+  caption_chunks_str <- caption_chunks_rtf(x)
+
+  autonum <- ""
+  if (has_autonum(x)) {
+    autonum <- to_rtf(x$caption$autonum)
+  }
+
+  caption_str <- paste0(
+    c("{\\pard",
+      p_pr,
+      autonum,
+      caption_chunks_str,
+      "\\par}"
+    ),
+    collapse = ""
+  )
+  caption_str
+}
 
 # HTML ----
 
@@ -305,6 +334,15 @@ caption_chunks_wml <- function(x) {
       "<w:r><w:t xml:space=\"preserve\">",
       htmlEscape(x$caption$value),
       "</w:t></w:r>")
+  }
+  caption_chunks_str
+}
+caption_chunks_rtf <- function(x) {
+  if (!x$caption$simple_caption) {
+    spans <- runs_as_rtf(x, chunk_data = x$caption$value)
+    caption_chunks_str <- paste(spans$txt, collapse = "")
+  } else {
+    caption_chunks_str <- x$caption$value
   }
   caption_chunks_str
 }

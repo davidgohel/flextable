@@ -24,6 +24,8 @@ Generate HTML code of corresponding
 flextable as an HTML table or an HTML image.
 }
 \examples{
+library(officer)
+library(flextable)
 x <- to_html(as_flextable(cars))
 }
 \seealso{
@@ -39,6 +41,7 @@ Other flextable print function:
 \code{\link{save_as_docx}()},
 \code{\link{save_as_html}()},
 \code{\link{save_as_image}()},
-\code{\link{save_as_pptx}()}
+\code{\link{save_as_pptx}()},
+\code{\link{save_as_rtf}()}
 }
 \concept{flextable print function}

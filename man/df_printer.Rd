@@ -65,6 +65,7 @@ Other flextable print function:
 \code{\link{save_as_html}()},
 \code{\link{save_as_image}()},
 \code{\link{save_as_pptx}()},
+\code{\link{save_as_rtf}()},
 \code{\link{to_html.flextable}()}
 }
 \concept{flextable print function}

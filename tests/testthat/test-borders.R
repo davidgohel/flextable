@@ -65,6 +65,16 @@ test_that("docx borders", {
                       name = "docx-borders", engine = "testthat")
 })
 
+test_that("rtf borders", {
+  skip_if_not(pandoc_version() >= numeric_version("2"))
+  skip_if_not_installed("doconv")
+  library(doconv)
+  skip_if_not(doconv::msoffice_available())
+  local_edition(3)
+  expect_snapshot_doc(x = save_as_rtf(ft_1, path = tempfile(fileext = ".rtf")),
+                      name = "rtf-borders", engine = "testthat")
+})
+
 test_that("html borders", {
   local_edition(3)
   skip_if_not(pandoc_version() >= numeric_version("2"))
