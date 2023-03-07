@@ -47,6 +47,8 @@ reference:
     - save_as_image
     - save_as_html
     - save_as_docx
+    - save_as_rtf
+    - save_as_pdf
     - save_as_pptx
     - htmltools_value
     - gen_grob
