@@ -4,6 +4,10 @@
 
 - add RTF support for captions.
 
+## issues
+
+- fix `as_flextable.tabular(spread_first_col=TRUE)`
+
 # flextable 0.8.6
 
 In short: 

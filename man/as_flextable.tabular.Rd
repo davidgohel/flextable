@@ -88,10 +88,12 @@ if (require("tables")) {
     * Format(digits = 1), data = mtcars)
 
   ft <- as_flextable(
-    x, spread_first_col = TRUE,
+    x,
+    spread_first_col = TRUE,
     row_title = as_paragraph(
       colorize("Gears: ", color = "#666666"),
-      colorize(as_b(.row_title), color = "red"))
+      colorize(as_b(.row_title), color = "red")
+    )
   )
   ft
 }

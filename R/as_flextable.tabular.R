@@ -70,10 +70,12 @@
 #'     * Format(digits = 1), data = mtcars)
 #'
 #'   ft <- as_flextable(
-#'     x, spread_first_col = TRUE,
+#'     x,
+#'     spread_first_col = TRUE,
 #'     row_title = as_paragraph(
 #'       colorize("Gears: ", color = "#666666"),
-#'       colorize(as_b(.row_title), color = "red"))
+#'       colorize(as_b(.row_title), color = "red")
+#'     )
 #'   )
 #'   ft
 #' }
@@ -103,14 +105,15 @@ as_flextable.tabular <- function(x,
 
   group_colname <- character()
 
-  is_title <- rep(FALSE, nrow(body_data))
-  if(spread_first_col){
+  if (spread_first_col) {
     group_colname <- row_colkeys[1]
     body_data <- expand_tabular_data(body_data)
-    is_title <- !is.na(body_data$COL1)
+    vmerge_ins <- expand_vmerge_ins(vmerge_ins)
+  } else {
+    body_data$.is_row_title <- rep(FALSE, nrow(body_data))
   }
 
-  colkeys <- setdiff(colnames(body_data), group_colname)
+  colkeys <- setdiff(colnames(body_data), c(group_colname, ".is_row_title"))
   row_colkeys <- setdiff(row_colkeys, group_colname)
   .ncol <- .ncol - length(group_colname)
 
@@ -118,9 +121,6 @@ as_flextable.tabular <- function(x,
   text_align$header <- text_align$header[, setdiff(colnames(text_align$header), group_colname), drop = FALSE]
   text_align$body <- text_align$body[, setdiff(colnames(text_align$body), group_colname), drop = FALSE]
 
-  tabular_colnames <- setdiff(colnames(body_data), c(row_colkeys, group_colname))
-
-  body_data$.is_row_title <- is_title
   if (length(group_colname)) {
     body_data$.row_title <- body_data[[group_colname]]
   }
@@ -149,8 +149,10 @@ as_flextable.tabular <- function(x,
 
   for (j in colkeys) {
     ft <- align(ft, j = j, align = text_align$header[, j], part = "header")
-    ft <- align(ft, j = j, i = ~ .is_row_title %in% FALSE,
-                align = text_align$body[, j], part = "body")
+    ft <- align(ft,
+      j = j, i = ~ .is_row_title %in% FALSE,
+      align = text_align$body[, j], part = "body"
+    )
   }
 
   ft <- valign(ft, valign = "top", part = "body")
@@ -162,26 +164,28 @@ as_flextable.tabular <- function(x,
   # preserve data types and can do conditionnal
   # formatting
   strmat <- format(x)
-  colnames(strmat) <- tabular_colnames
-  for (j in tabular_colnames) {
-    current_col_str <- ft[["body"]]$content$content$data[!is_title, j]
+  strmat_colnames <- setdiff(colnames(body_data), c(row_colkeys, group_colname, ".is_row_title", ".row_title"))
+  colnames(strmat) <- strmat_colnames
+  for (j in strmat_colnames) {
+    current_col_str <- ft[["body"]]$content$content$data[!body_data$.is_row_title, j]
 
-    ft[["body"]]$content$content$data[!is_title, j] <-
-      mapply(
-        function(obj, txt) {
-          obj$txt <- txt
-          obj
-        },
-        current_col_str, trimws(strmat[, j]),
-        SIMPLIFY = FALSE
-      )
+    ft[["body"]]$content$content$data[!body_data$.is_row_title, j] <- mapply(
+      function(obj, txt) {
+        obj$txt <- txt
+        obj
+      },
+      obj = current_col_str, txt = trimws(strmat[, j]),
+      SIMPLIFY = FALSE
+    )
   }
 
-  if (any(is_title)) {
-    ft <- merge_h_range(ft, i = ~ .is_row_title %in% TRUE,
-                        j1 = 1L, j2 = length(colkeys))
-    ft <- mk_par(ft, i = is_title, j = 1, value = {{row_title}})
-    ft <- style(ft, i = is_title, j = 1, pr_p = fp_p, part = "body")
+  if (any(body_data$.is_row_title)) {
+    ft <- merge_h_range(ft,
+      i = ~ .is_row_title %in% TRUE,
+      j1 = 1L, j2 = length(colkeys)
+    )
+    ft <- mk_par(ft, i = body_data$.is_row_title, j = 1, value = {{ row_title }})
+    ft <- style(ft, i = body_data$.is_row_title, j = 1, pr_p = fp_p, part = "body")
   }
 
   ft <- fix_border_issues(ft)
@@ -192,20 +196,30 @@ as_flextable.tabular <- function(x,
 }
 
 # utils -----
-expand_tabular_data <- function(body_data, group_colname = "COL1") {
+expand_vmerge_ins <- function(x, group_colname = "COL1") {
+  x$.rowid <- seq_len(nrow(x))
+  subvm <- x[!duplicated(x[[group_colname]]), ]
+  subvm[, ] <- subvm[, ] - .2
+  x <- rbind(x, subvm)
+  x <- x[order(x$.rowid), ]
+  x$.rowid <- NULL
+  x[] <- lapply(x, rleid)
+  x
+}
 
+expand_tabular_data <- function(body_data, group_colname = "COL1") {
   body_data$.fakeid <- seq_len(nrow(body_data))
 
-  newdat <- body_data[!is.na(body_data[[group_colname]]),]
+  newdat <- body_data[!is.na(body_data[[group_colname]]), ]
   newdat$.fakeid <- newdat$.fakeid - .1
 
   newdat <- newdat[, c(".fakeid", group_colname)]
-
+  newdat$.is_row_title <- TRUE
   body_data[[group_colname]] <- NULL
-
+  body_data$.is_row_title <- FALSE
   body_data <- rbindlist(list(newdat, body_data), use.names = TRUE, fill = TRUE)
 
-  body_data <- body_data[order(body_data$.fakeid),]
+  body_data <- body_data[order(body_data$.fakeid), ]
   body_data$.fakeid <- NULL
 
   setDF(body_data)
