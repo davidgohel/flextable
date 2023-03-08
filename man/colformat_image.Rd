@@ -33,16 +33,18 @@ colformat_image(
 Format image paths as images in a flextable.
 }
 \examples{
-img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+img.file <- file.path(R.home("doc"), "html", "logo.jpg")
 
 dat <- head(iris)
 dat$Species <- as.character(dat$Species)
 dat[c(1, 3, 5), "Species"] <- img.file
 
-myft <- flextable( dat)
+myft <- flextable(dat)
 myft <- colformat_image(
-  myft, i = c(1, 3, 5),
-  j = "Species", width = .20, height = .15)
+  myft,
+  i = c(1, 3, 5),
+  j = "Species", width = .20, height = .15
+)
 ft <- autofit(myft)
 ft
 }

@@ -5,6 +5,8 @@
 - add RTF support for captions.
 - enable new labels with `set_header_labels()` from a simple
 un-named vector.
+- function `set_formatter()` now accepts single function to 
+be applied to all columns.
 
 ## issues
 

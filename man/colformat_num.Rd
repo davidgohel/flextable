@@ -66,11 +66,13 @@ that lets you use any format function.
 
 \examples{
 dat <- mtcars
-dat[2,1] <- NA
+dat[2, 1] <- NA
 ft <- flextable(head(dat))
-ft <- colformat_num(x = ft,
-  big.mark=" ", decimal.mark = ",",
-  na_str = "N/A")
+ft <- colformat_num(
+  x = ft,
+  big.mark = " ", decimal.mark = ",",
+  na_str = "N/A"
+)
 ft <- autofit(ft)
 ft
 }

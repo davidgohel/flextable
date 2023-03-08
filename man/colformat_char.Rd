@@ -32,7 +32,8 @@ Format character cells in a flextable.
 dat <- iris
 z <- flextable(head(dat))
 ft <- colformat_char(
-  x = z, j = "Species", suffix = "!")
+  x = z, j = "Species", suffix = "!"
+)
 z <- autofit(z)
 z
 }

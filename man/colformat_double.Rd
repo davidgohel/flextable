@@ -36,8 +36,10 @@ Format numeric cells in a flextable.
 \examples{
 dat <- mtcars
 ft <- flextable(head(dat))
-ft <- colformat_double(x = ft,
-  big.mark=",", digits = 2, na_str = "N/A")
+ft <- colformat_double(
+  x = ft,
+  big.mark = ",", digits = 2, na_str = "N/A"
+)
 autofit(ft)
 }
 \seealso{

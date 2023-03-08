@@ -23,10 +23,15 @@ set_formatter_type(
 
 \item{...}{Name-value pairs of functions, names should be existing col_key values}
 
-\item{values}{a list of name-value pairs of functions, names should be existing col_key values.
-If values is supplied argument \code{...} is ignored.}
+\item{values}{format functions, If values is supplied argument \code{...} is ignored.
+\itemize{
+\item It can be a list of name-value pairs of functions, names
+should be existing col_key values.
+\item If \code{values} is a single function, it will be applied to each column.
+}}
 
-\item{part}{partname of the table (one of 'body' or 'header' or 'footer')}
+\item{part}{part of the table (one of 'body' or 'header' or 'footer')
+where to apply the formatter functions.}
 
 \item{fmt_double, fmt_integer}{arguments used by \code{sprintf} to
 format double and integer columns.}
@@ -39,9 +44,10 @@ format date and date time columns.}
 \item{na_str}{string for NA values}
 }
 \description{
-Define formatter functions associated to each column key.
-Functions have a single argument (the vector) and are returning the formatted
-values as a character vector.
+Apply formatter functions to column keys.
+
+Functions should have a single argument (the vector) and should
+return the formatted values as a character vector.
 }
 \section{set_formatter_type}{
 
@@ -53,12 +59,13 @@ for example \code{\link[=colformat_double]{colformat_double()}}.
 }
 
 \examples{
-ft <- flextable( head( iris ) )
-ft <- set_formatter( x = ft,
-        Sepal.Length = function(x) sprintf("\%.02f", x),
-        Sepal.Width = function(x) sprintf("\%.04f", x)
-      )
-ft <- theme_vanilla( ft )
+ft <- flextable(head(iris))
+ft <- set_formatter(
+  x = ft,
+  Sepal.Length = function(x) sprintf("\%.02f", x),
+  Sepal.Width = function(x) sprintf("\%.04f", x)
+)
+ft <- theme_vanilla(ft)
 ft
 }
 \seealso{

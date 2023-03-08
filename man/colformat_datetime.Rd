@@ -32,8 +32,10 @@ colformat_datetime(
 Format datetime cells in a flextable.
 }
 \examples{
-dat <- data.frame(z = Sys.time() + (1:3)*24,
-  w = Sys.Date() - (1:3)*24)
+dat <- data.frame(
+  z = Sys.time() + (1:3) * 24,
+  w = Sys.Date() - (1:3) * 24
+)
 ft <- flextable(dat)
 ft <- colformat_datetime(x = ft)
 ft <- autofit(ft)
