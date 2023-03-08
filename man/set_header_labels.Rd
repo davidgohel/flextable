@@ -13,7 +13,9 @@ set_header_labels(x, ..., values = NULL)
 value specifying label to use.}
 
 \item{values}{a named list (names are data colnames), each element is a single character
-value specifying label to use. If provided, argument \code{...} will be ignored.}
+value specifying label to use. If provided, argument \code{...} will be ignored.
+It can also be a unamed character vector, in that case, it must have the same
+length than the number of columns of the flextable.}
 }
 \description{
 This function set labels for specified

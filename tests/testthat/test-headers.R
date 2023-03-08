@@ -29,6 +29,12 @@ test_that("set_header_labels", {
                c("Species", "", "Sepal length", "Sepal width", "", "Petal length", "Petal width") )
 
   unlink(main_folder, recursive = TRUE, force = TRUE)
+
+  ft <- flextable(mtcars)
+  ft <- set_header_labels(ft, values = letters[1:ncol(mtcars)])
+  ft <- delete_part(ft, part = "body")
+  expect_equal(flextable:::fortify_run(ft)$txt,
+               letters[1:ncol(mtcars)])
 })
 
 test_that("add_header", {

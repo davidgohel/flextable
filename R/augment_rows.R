@@ -8,6 +8,8 @@
 #' value specifying label to use.
 #' @param values a named list (names are data colnames), each element is a single character
 #' value specifying label to use. If provided, argument `...` will be ignored.
+#' It can also be a unamed character vector, in that case, it must have the same
+#' length than the number of columns of the flextable.
 #' @examples
 #' ft <- flextable(head(iris))
 #' ft <- set_header_labels(ft,
@@ -39,9 +41,16 @@ set_header_labels <- function(x, ..., values = NULL) {
       stop("there is no header row to be replaced")
     }
   }
-
-  values <- values[names(values) %in% names(x$header$dataset)]
-  x$header$content[nrow_part(x, "header"), names(values)] <- as_paragraph(as_chunk(unlist(values)))
+  names_ <- names(values)
+  if (is.null(names_)) {
+    if (length(values) != ncol_keys(x)) {
+      stop("if unamed, the labels must have the same length than col_keys.")
+    }
+    x$header$content[nrow_part(x, "header"), ] <- as_paragraph(as_chunk(values))
+  } else {
+    values <- values[names_ %in% names(x$header$dataset)]
+    x$header$content[nrow_part(x, "header"), names_] <- as_paragraph(as_chunk(unlist(values)))
+  }
 
   x
 }

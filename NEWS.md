@@ -3,6 +3,8 @@
 ## new features
 
 - add RTF support for captions.
+- enable new labels with `set_header_labels()` from a simple
+un-named vector.
 
 ## issues
 
