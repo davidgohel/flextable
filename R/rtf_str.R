@@ -1,4 +1,4 @@
-#' @importFrom data.table shift fcoalesce
+#' @importFrom data.table shift
 rtf_cells <- function(value, cell_data, layout = "fixed") {
   cell_heights <- fortify_height(value)
   cell_widths <- fortify_width(value)

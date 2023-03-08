@@ -1,4 +1,3 @@
-#' @importFrom data.table copy
 #' @noRd
 #' @title make border top and bottom restructured
 #' as hline. If two borders overlap, the largest is

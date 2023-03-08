@@ -13,7 +13,7 @@
 #' one of "after", "before", "on" (end of line).
 #' @param topcaption if TRUE caption is added before the table, if FALSE,
 #' caption is added after the table.
-#' @importFrom officer body_add_xml wml_link_images docx_reference_img
+#' @importFrom officer body_add_xml
 #' @examples
 #' library(officer)
 #'

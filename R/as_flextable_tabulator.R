@@ -445,7 +445,9 @@ as_flextable.tabulator <- function(
 
   if(sep_w > 0){
     ft <- border(ft, j = blank_columns,
-                 border.top = shortcuts$b_null(), border.bottom = shortcuts$b_null(), part = "all")
+                 border.top = fp_border_default(width = 0),
+                 border.bottom = fp_border_default(width = 0),
+                 part = "all")
     ft <- bg(ft, j = blank_columns, bg = "transparent", part = "all")
     ft <- void(ft, j = blank_columns, part = "all")
     ft <- width(ft, j = blank_columns, width = sep_w, unit = unit)
@@ -672,7 +674,6 @@ add_fake_columns <- function(x, fake_columns){
   x
 }
 
-#' @importFrom data.table copy
 merge_additional_dataset <- function(a, b, rows){
   if(!is.null(b)){
     by <- intersect(rows, colnames(b))

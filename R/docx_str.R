@@ -106,7 +106,7 @@ copy_border_bottom_to_next_border_top <- function(x, value){
       c("border.width.bottom", "border.color.bottom", "border.style.bottom")]
   x
 }
-#' @importFrom data.table shift fcoalesce
+#' @importFrom data.table shift
 wml_cells <- function(value, cell_data) {
   cell_heights <- fortify_height(value)
   cell_widths <- fortify_width(value)

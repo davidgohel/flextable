@@ -109,7 +109,7 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body") {
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
 
-  if(length(bold) == length(j)) {
+  if (length(bold) == length(j)) {
     bold <- rep(bold, each = length(i))
   }
 
@@ -192,7 +192,7 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
 
-  if(length(italic) == length(j)) {
+  if (length(italic) == length(j)) {
     italic <- rep(italic, each = length(i))
   }
 
@@ -266,7 +266,7 @@ highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", so
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
 
-  if(length(color) == length(j)) {
+  if (length(color) == length(j)) {
     color <- rep(color, each = length(i))
   }
 
@@ -353,7 +353,7 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
   i <- get_rows_id(x[[part]], i)
   j <- x$col_keys[get_columns_id(x[[part]], j)]
 
-  if(length(color) == length(j)) {
+  if (length(color) == length(j)) {
     color <- rep(color, each = length(i))
   }
 
@@ -419,16 +419,16 @@ font <- function(x, i = NULL, j = NULL, fontname, part = "body", cs.family = fon
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
 
-  if(length(fontname) == length(j)) {
+  if (length(fontname) == length(j)) {
     fontname <- rep(fontname, each = length(i))
   }
-  if(length(cs.family) == length(j)) {
+  if (length(cs.family) == length(j)) {
     cs.family <- rep(cs.family, each = length(i))
   }
-  if(length(hansi.family) == length(j)) {
+  if (length(hansi.family) == length(j)) {
     hansi.family <- rep(hansi.family, each = length(i))
   }
-  if(length(eastasia.family) == length(j)) {
+  if (length(eastasia.family) == length(j)) {
     eastasia.family <- rep(eastasia.family, each = length(i))
   }
 
@@ -556,7 +556,7 @@ align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "j
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
 
-  if(length(align_value) == length(j)) {
+  if (length(align_value) == length(j)) {
     align_value <- rep(align_value, each = length(i))
   }
   x[[part]]$styles$pars[i, j, "text.align"] <- align_value
@@ -602,7 +602,6 @@ keep_wn <- function(x, i = NULL, j = NULL, keep_with_next = TRUE,
 #' ft <- set_table_properties(ft, layout = "autofit")
 #' ft
 line_spacing <- function(x, i = NULL, j = NULL, space = 1, part = "body") {
-
   if (!inherits(x, "flextable")) stop("align supports only flextable objects.")
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
@@ -739,7 +738,7 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j) {
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
 
-  if(length(bg) == length(j)) {
+  if (length(bg) == length(j)) {
     bg <- rep(bg, each = length(i))
   }
 
@@ -763,7 +762,7 @@ data_colors <- function(dataset, fun) {
       stop(msg, call. = FALSE)
     }
   )
-  if(anyNA(out)) {
+  if (anyNA(out)) {
     stop("colors can not contain missing values")
   }
   return(out)
@@ -909,7 +908,7 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = NULL, part = "body")
   j <- get_columns_id(x[[part]], j)
 
   x[[part]]$styles$cells[i, j, "text.direction"] <- rotation
-  if(!is.null(align)) {
+  if (!is.null(align)) {
     x[[part]]$styles$cells[i, j, "vertical.align"] <- align
   }
 
@@ -954,7 +953,6 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = NULL, part = "body")
 #' ftab <- width(ftab, j = c(2, 5), width = .1)
 #' ftab
 #' @export
-#' @importFrom officer shortcuts
 empty_blanks <- function(x, width = .05, unit = "in", part = "all") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "empty_blanks()"))
@@ -965,7 +963,9 @@ empty_blanks <- function(x, width = .05, unit = "in", part = "all") {
 
   x <- border(x,
     j = x$blanks,
-    border.top = shortcuts$b_null(), border.bottom = shortcuts$b_null(), part = part
+    border.top = fp_border_default(width = 0),
+    border.bottom = fp_border_default(width = 0),
+    part = part
   )
   x <- bg(x, j = x$blanks, bg = "transparent", part = part)
   x <- void(x, j = x$blanks, part = part)

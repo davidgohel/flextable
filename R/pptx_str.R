@@ -9,7 +9,7 @@ pml_spans <- function(value){
   span_data
 }
 
-#' @importFrom data.table shift fcoalesce
+#' @importFrom data.table shift
 pml_cells <- function(value, cell_data){
   cell_heights <- fortify_height(value)
   cell_widths <- fortify_width(value)
