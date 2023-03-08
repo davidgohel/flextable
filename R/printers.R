@@ -910,7 +910,6 @@ save_as_rtf <- function(..., values = NULL, path, pr_section = NULL) {
 
   titles <- names(values)
   show_names <- !is.null(titles)
-
   if (is.null(pr_section)) {
     pr_section <- prop_section(
       page_size = page_size(orient = "portrait", width = 8.3, height = 11.7),
@@ -930,13 +929,6 @@ save_as_rtf <- function(..., values = NULL, path, pr_section = NULL) {
       z <- rtf_add(z,
                    value = fpar(
                      titles[i],
-                     fp_p = fp_par(text.align = "left", padding.top = 6, padding.bottom = 6),
-                     fp_t = fp_text_lite(bold = TRUE, font.size = 18, font.family = "Arial")
-                   ))
-    } else {
-      z <- rtf_add(z,
-                   value = fpar(
-                     "",
                      fp_p = fp_par(text.align = "left", padding.top = 6, padding.bottom = 6),
                      fp_t = fp_text_lite(bold = TRUE, font.size = 18, font.family = "Arial")
                    ))
