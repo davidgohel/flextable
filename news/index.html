@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +45,23 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.8.6" id="flextable-086">flextable 0.8.6<a class="anchor" aria-label="anchor" href="#flextable-086"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.0" id="flextable-090">flextable 0.9.0<a class="anchor" aria-label="anchor" href="#flextable-090"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-9-0">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-0"></a></h3>
+<ul><li>add RTF support for captions.</li>
+<li>enable new labels with <code><a href="../reference/set_header_labels.html">set_header_labels()</a></code> from a simple un-named vector.</li>
+<li>function <code><a href="../reference/set_formatter.html">set_formatter()</a></code> now accepts single function to be applied to all columns.</li>
+<li>HTML output now can capture google fonts if installed with <code><a href="https://davidgohel.github.io/gdtools/reference/register_gfont.html" class="external-link">gdtools::register_gfont()</a></code>.</li>
+<li>refactor <code><a href="../reference/save_as_html.html">save_as_html()</a></code>: use rmarkdown and add google fonts if possible (See <code><a href="https://davidgohel.github.io/gdtools/reference/register_gfont.html" class="external-link">gdtools::register_gfont()</a></code>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-9-0">issues<a class="anchor" aria-label="anchor" href="#issues-0-9-0"></a></h3>
+<ul><li>fix <code>as_flextable.tabular(spread_first_col=TRUE)</code>
+</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.8.6" id="flextable-086">flextable 0.8.6<a class="anchor" aria-label="anchor" href="#flextable-086"></a></h2><p class="text-muted">CRAN release: 2023-02-23</p>
 <p>In short:</p>
 <ul><li>RTF support,</li>
 <li>revealjs support,</li>
