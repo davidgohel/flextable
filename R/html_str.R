@@ -383,3 +383,72 @@ flextable_html_dependency <- function(){
 
 }
 
+#' @importFrom htmltools attachDependencies tags
+flextable_html_dependencies <- function(x) {
+  list_deps <- list(flextable_html_dependency())
+  list_deps <- append(list_deps, lapply(avail_gfonts(x), gdtools::gfontHtmlDependency))
+  attachDependencies(
+    x = tags$style(""),
+    list_deps
+  )
+}
+
+#' @importFrom gdtools installed_gfonts
+avail_gfonts <- function(x){
+  z <- character()
+  if( nrow_part(x, part = "body") > 0 )
+    z <- append(z, unique(as.vector(x$body$styles$text$font.family$data)))
+  if( nrow_part(x, part = "footer") > 0 )
+    z <- append(z, unique(as.vector(x$footer$styles$text$font.family$data)))
+  if( nrow_part(x, part = "header") > 0 )
+    z <- append(z, unique(as.vector(x$header$styles$text$font.family$data)))
+  families <- unique(as.character(z))
+  intersect(families, installed_gfonts())
+}
+
+#' @importFrom rmarkdown html_document render pandoc_available
+render_htmltag <- function(x, path, title, lang = "en") {
+  sucess <- FALSE
+  rmd_file <- tmp_rmd(title = paste0(title, collapse = "\n"), lang = lang)
+  html_file <- gsub("\\.Rmd$", ".html", rmd_file)
+  tryCatch(
+    {
+      render(rmd_file,
+             output_format = html_document(self_contained = TRUE, theme = NULL,
+                                           mathjax = NULL),
+             # output_file = basename(path),
+             envir = new.env(),
+             quiet = TRUE,
+             params = list(x = x)
+      )
+      sucess <- file.copy(html_file, path, overwrite = TRUE)
+    },
+    warning = function(e) {
+    },
+    error = function(e) {
+    }
+  )
+  sucess
+}
+
+tmp_rmd <- function(title, lang = "en") {
+  stopifnot(pandoc_available())
+  file <- tempfile(fileext = ".Rmd")
+  writeLines(
+    c("---",
+      sprintf("title: %s", title),
+      sprintf("lang: %s", lang),
+      "params:",
+      "  x: ''",
+      "---",
+      "```{r include=FALSE}",
+      "library(knitr)",
+      "opts_chunk$set(echo = FALSE)",
+      "```",
+      "",
+      "```{r}",
+      "params$x",
+      "```"),
+    file, useBytes = TRUE)
+  file
+}

@@ -8,7 +8,7 @@ save_as_html(
   ...,
   values = NULL,
   path,
-  encoding = "utf-8",
+  lang = "en",
   title = deparse(sys.call())
 )
 }
@@ -21,7 +21,7 @@ used as titles. If provided, argument \code{...} will be ignored.}
 
 \item{path}{HTML file to be created}
 
-\item{encoding}{encoding to be used in the HTML file}
+\item{lang}{language of the document using IETF language tags}
 
 \item{title}{page title}
 }

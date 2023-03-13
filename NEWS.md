@@ -7,6 +7,10 @@
 un-named vector.
 - function `set_formatter()` now accepts single function to 
 be applied to all columns.
+- HTML output now can capture google fonts if installed with 
+`gdtools::register_gfont()`.
+- refactor `save_as_html()`: use rmarkdown and add google fonts
+if possible (See `gdtools::register_gfont()`).
 
 ## issues
 

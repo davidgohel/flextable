@@ -364,12 +364,23 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
 
 #' @export
 #' @title Set font
-#' @description change font of selected rows and columns of a flextable.
+#' @description Change font of selected rows and columns of a flextable.
+#'
+#' Fonts impact the readability and aesthetics of the table. Font families
+#' refer to a set of typefaces that share common design features, such as 'Arial'
+#' and 'Open Sans'.
+#'
+#' 'Google Fonts' is a popular library of free web fonts that can be
+#' easily integrated in flextable with function [gdtools::register_gfont()].
+#' When output is HTML, the font will be automatically added in the HTML
+#' document.
+#'
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param fontname single character value. With Word and PowerPoint output, the value specifies the font to
+#' @param fontname single character value, the font family name.
+#' With Word and PowerPoint output, the value specifies the font to
 #' be used to format characters in the Unicode range (U+0000-U+007F).
 #' @param cs.family Optional font to be used to format
 #' characters in a complex script Unicode range. For example, Arabic
@@ -388,7 +399,7 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
 #' of `fontname`.
 #' @family sugar functions for table style
 #' @examples
-#' require("gdtools")
+#' library(gdtools)
 #' fontname <- "Brush Script MT"
 #'
 #' if (font_family_exists(fontname)) {
