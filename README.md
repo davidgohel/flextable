@@ -25,9 +25,9 @@ flextable(head(cars)) %>%
 ```
 
 Tables can be embedded within HTML, PDF, Word and PowerPoint documents
-from R Markdown documents and within Microsoft Word or PowerPoint
+from R Markdown documents and within RTF or Microsoft Word or PowerPoint
 documents with package officer. Tables can also be rendered as R plots
-or graphic files (png, pdf and jpeg).
+or graphic files (png).
 
 <img src="man/figures/fig_formats.png" width="170px" alt="flextable formats" align="center" />
 
@@ -45,6 +45,10 @@ control over:
 - header, body and footer content
 - text, paragraphs, cells and border formatting of any element
 - displayed values
+
+The package also offers a set of high-level functions that allow tabular
+reporting of statistical models and the creation of complex cross
+tabulations.
 
 ## Installation
 
