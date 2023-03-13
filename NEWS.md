@@ -1,4 +1,4 @@
-# flextable 0.8.7
+# flextable 0.9.0
 
 ## new features
 
