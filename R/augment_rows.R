@@ -48,7 +48,8 @@ set_header_labels <- function(x, ..., values = NULL) {
     }
     x$header$content[nrow_part(x, "header"), ] <- as_paragraph(as_chunk(values))
   } else {
-    values <- values[names_ %in% names(x$header$dataset)]
+    names_ <- names_[names_ %in% x$col_keys]
+    values <- values[names_]
     x$header$content[nrow_part(x, "header"), names_] <- as_paragraph(as_chunk(unlist(values)))
   }
 
