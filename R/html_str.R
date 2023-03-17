@@ -386,7 +386,8 @@ flextable_html_dependency <- function(){
 #' @importFrom htmltools attachDependencies tags
 flextable_html_dependencies <- function(x) {
   list_deps <- list(flextable_html_dependency())
-  list_deps <- append(list_deps, lapply(avail_gfonts(x), gdtools::gfontHtmlDependency))
+  if (gdtools::has_internet())
+    list_deps <- append(list_deps, lapply(avail_gfonts(x), gdtools::gfontHtmlDependency))
   attachDependencies(
     x = tags$style(""),
     list_deps

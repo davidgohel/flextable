@@ -1,3 +1,10 @@
+# flextable 0.9.1
+
+## Issues
+
+- check machine is connected to internet before calling 
+`gfonts::avail_gfonts()`.
+
 # flextable 0.9.0
 
 ## new features
