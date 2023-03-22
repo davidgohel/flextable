@@ -40,7 +40,7 @@ if(require("grid")){
     x = ft_1, i = 2, j = 2,
     grid_chunk(
       list(
-        grid.circle(gp = gpar(fill="#ec11c2",
+        circleGrob(gp = gpar(fill="#ec11c2",
           col = "transparent"))),
       width = .15, height = .15)
   )

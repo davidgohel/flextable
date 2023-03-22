@@ -579,7 +579,7 @@ gg_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
 #'     x = ft_1, i = 2, j = 2,
 #'     grid_chunk(
 #'       list(
-#'         grid.circle(gp = gpar(fill="#ec11c2",
+#'         circleGrob(gp = gpar(fill="#ec11c2",
 #'           col = "transparent"))),
 #'       width = .15, height = .15)
 #'   )
@@ -599,7 +599,6 @@ grid_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
 
   width <- as.double(rep(width, length(value)))
   height <- as.double(rep(height, length(value)))
-
   files <- mapply(function(x, width, height){
     file <- tempfile(fileext = ".png")
     agg_png(filename = file, width = width, height = height,
