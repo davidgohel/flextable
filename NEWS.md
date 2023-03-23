@@ -1,5 +1,9 @@
 # flextable 0.9.1
 
+## internals
+
+- refactor proc_freq and support 1d frequency table
+
 ## Issues
 
 - check machine is connected to internet before calling 

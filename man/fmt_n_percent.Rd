@@ -47,6 +47,8 @@ ft_1
 Other text formatter functions: 
 \code{\link{fmt_2stats}()},
 \code{\link{fmt_avg_dev}()},
-\code{\link{fmt_header_n}()}
+\code{\link{fmt_header_n}()},
+\code{\link{fmt_int}()},
+\code{\link{fmt_pct}()}
 }
 \concept{text formatter functions}

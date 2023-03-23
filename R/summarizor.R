@@ -346,7 +346,6 @@ fmt_n_percent <- function(n, pct, digit = 1){
   paste0(z1, z2)
 }
 
-"%05.2f"
 #' @export
 #' @title Format count data for headers
 #' @description The function formats counts as `\n(N=XX)`. This helper
@@ -370,6 +369,55 @@ fmt_header_n <- function(n){
   z1[!is.na(n)] <- sprintf("\n(N=%.0f)", n[!is.na(n)])
   z1
 }
+
+#' @export
+#' @title Format numerical data as integer
+#' @description The function formats numeric vectors as integer.
+#' @param x numeric values
+#' @seealso [tabulator()], [mk_par()]
+#' @family text formatter functions
+#' @examples
+#' library(flextable)
+#'
+#' df <- data.frame(zz = 1.23)
+#'
+#' ft_1 <- flextable(df)
+#' ft_1 <- mk_par(
+#'   x = ft_1, j = 1, part = "body",
+#'   value = as_paragraph(as_chunk(zz, formatter = fmt_int)))
+#' ft_1 <- autofit(ft_1)
+#' ft_1
+fmt_int <- function(x){
+  z1 <- character(length(x))
+  z1[!is.na(x)] <- sprintf("%.0f", x[!is.na(x)])
+  z1
+}
+
+#' @export
+#' @title Format numerical data as percentages
+#' @description The function formats numeric vectors as percentages.
+#' @param x numeric values
+#' @param digits number of digits to display
+#' @seealso [tabulator()], [mk_par()]
+#' @family text formatter functions
+#' @examples
+#' library(flextable)
+#'
+#' df <- data.frame(zz = .45)
+#'
+#' ft_1 <- flextable(df)
+#' ft_1 <- mk_par(
+#'   x = ft_1, j = 1, part = "body",
+#'   value = as_paragraph(as_chunk(zz, formatter = fmt_pct)))
+#' ft_1 <- autofit(ft_1)
+#' ft_1
+fmt_pct <- function(x, digits = 1) {
+  fmt <- paste0("%.", digits, "f%%")
+  str <- sprintf(fmt, x * 100)
+  str[is.na(x)] <- ""
+  str
+}
+
 
 #' @export
 #' @title Format content for mean and sd
