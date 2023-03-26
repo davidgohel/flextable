@@ -15,7 +15,7 @@
 #' @family flextable print function
 #' @examples
 #' htmltools_value(flextable(iris[1:5, ]))
-#' @importFrom htmltools tagList
+#' @importFrom htmltools tagList attachDependencies tags
 htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL,
                             extra_dependencies = NULL) {
   x <- flextable_global$defaults$post_process_html(x)
@@ -27,12 +27,17 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL,
   caption <- caption_default_html(x)
   manual_css <- attr(caption, "css")
 
+  list_deps <- html_dependencies_list(x)
+
   html_o <- tagList(
     if (length(extra_dependencies) > 0) attachDependencies(
       x = tags$style(""),
       extra_dependencies
     ),
-    flextable_html_dependencies(x),
+    attachDependencies(
+      x = tags$style(""),
+      list_deps
+    ),
     HTML(gen_raw_html(x,
       class = "tabwid",
       caption = caption,
@@ -631,10 +636,10 @@ knit_print.flextable <- function(x, ...) {
     str <- asis_output(str)
   } else if (!is.null(getOption("xaringan.page_number.offset"))) { #xaringan
     str <- knit_to_html(x, bookdown = FALSE, quarto = FALSE)
-    str <- asis_output(str, meta = flextable_html_dependencies(x))
+    str <- asis_output(str, meta = html_dependencies_list(x))
   } else if (is_html_output()) { # html
     str <- knit_to_html(x, bookdown = is_bookdown, quarto = is_quarto)
-    str <- raw_html(str, meta = flextable_html_dependencies(x))
+    str <- raw_html(str, meta = html_dependencies_list(x))
   } else if (is_latex_output()) { # latex
     str <- knit_to_latex(x, bookdown = is_bookdown, quarto = is_quarto)
     str <- raw_latex(

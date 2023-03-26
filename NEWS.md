@@ -7,6 +7,8 @@
 ## issues
 
 - colname `type` is now possible when using `tabulator()`.
+- value for html dependancies parameter is a list of html-dep as expected.
+This solves issue for blogdown and pkgdown introduced in the previous version.
 
 # flextable 0.9.0
 
