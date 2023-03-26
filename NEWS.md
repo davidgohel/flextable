@@ -4,6 +4,10 @@
 
 - refactor proc_freq and support 1d frequency table
 
+## issues
+
+- colname `type` is now possible when using `tabulator()`.
+
 # flextable 0.9.0
 
 ## new features

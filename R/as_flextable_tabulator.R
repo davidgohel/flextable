@@ -300,7 +300,7 @@ as_flextable.tabulator <- function(
   }
 
   visible_columns_keys <- visible_columns[
-    visible_columns$type %in% "columns" &
+    visible_columns$.type. %in% "columns" &
       !visible_columns[[".tab_columns"]] %in% "dummy",
     "col_keys"]
   blank_columns <- visible_columns[
@@ -329,8 +329,8 @@ as_flextable.tabulator <- function(
 
   # for later iteration, a list of visible columns
   # to use when filling the table
-  visible_columns_mapping <- visible_columns[visible_columns$type %in% "columns" & !visible_columns[[".tab_columns"]] %in% "dummy",]
-  visible_columns_mapping$type <- NULL
+  visible_columns_mapping <- visible_columns[visible_columns$.type. %in% "columns" & !visible_columns[[".tab_columns"]] %in% "dummy",]
+  visible_columns_mapping$.type. <- NULL
   visible_columns_mapping <- split(visible_columns_mapping, visible_columns_mapping[columns], drop = TRUE)
 
   # for later iteration, a list of hidden columns that can
@@ -415,7 +415,7 @@ as_flextable.tabulator <- function(
   }
 
   rows_supp <- visible_columns$col_keys[
-    visible_columns$type %in% c("rows_supp", "rows_supp_last") &
+    visible_columns$.type. %in% c("rows_supp", "rows_supp_last") &
       !visible_columns$.tab_columns %in% "dummy"
       ]
   ft <- merge_v(
@@ -481,8 +481,8 @@ as_flextable.tabulator <- function(
   }
   if (!is.null(x$n_by) && length(x$columns) == 1L) {
     sum_x <- visible_columns
-    grp_labels <- sum_x[sum_x$.tab_columns %in% names(x$col_exprs)[1] & sum_x$type %in% "columns", x$columns]
-    col_keys <- sum_x[sum_x$.tab_columns %in% names(x$col_exprs)[1] & sum_x$type %in% "columns", "col_keys"]
+    grp_labels <- sum_x[sum_x$.tab_columns %in% names(x$col_exprs)[1] & sum_x$.type. %in% "columns", x$columns]
+    col_keys <- sum_x[sum_x$.tab_columns %in% names(x$col_exprs)[1] & sum_x$.type. %in% "columns", "col_keys"]
     names(col_keys) <- grp_labels
     cts <- x$n_by$n
     names(cts) <- x$n_by[[x$columns]]
@@ -515,7 +515,7 @@ summary.tabulator <- function(object, ...){
 
   hidden_columns <- object$hidden_columns
   names(hidden_columns)[names(hidden_columns) %in% ".user_columns"] <- "column"
-  hidden_columns$type <- "hidden"
+  hidden_columns$.type. <- "hidden"
 
   visible_columns <- object$visible_columns
   names(visible_columns)[names(visible_columns) %in% ".tab_columns"] <- "column"
@@ -613,7 +613,7 @@ tabulator_colnames <- function(x, columns, ..., type = NULL){
   dat <- summary(x)
 
   if (!is.null(type)) {
-    dat <- dat[dat$type %in% type,]
+    dat <- dat[dat$.type. %in% type,]
   }
 
   exprs <- enquos(...)
@@ -642,7 +642,7 @@ print.tabulator <- function(x, ...){
       paste0("`", names(x$col_exprs), "`", collapse = ", "),
       "\n")
   visible_columns <- x$visible_columns
-  columns_keys <- visible_columns[visible_columns$type %in% "columns" & !visible_columns[[".tab_columns"]] %in% "dummy", "col_keys"]
+  columns_keys <- visible_columns[visible_columns$.type. %in% "columns" & !visible_columns[[".tab_columns"]] %in% "dummy", "col_keys"]
 
   cat("\ncol_keys: c(",
     paste0(shQuote(columns_keys, type = "cmd"), collapse = ", "),
@@ -745,7 +745,7 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0),
     rdims_supp <- rbind(rdims_supp, x1)
     colnames(rdims_supp) <- names(ldims)
     rdims_supp <- as.data.frame(rdims_supp, row.names = FALSE)
-    rdims_supp$type <- "rows_supp"
+    rdims_supp$.type. <- "rows_supp"
   }
 
   rdims_supp_last <- NULL
@@ -757,12 +757,12 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0),
     rdims_supp_last <- rbind(x1, rdims_supp_last)
     colnames(rdims_supp_last) <- names(ldims)
     rdims_supp_last <- as.data.frame(rdims_supp_last, row.names = FALSE)
-    rdims_supp_last$type <- "rows_supp_last"
+    rdims_supp_last$.type. <- "rows_supp_last"
   }
 
 
-  ldims$type <- "columns"
-  rdims$type <- "rows"
+  ldims$.type. <- "columns"
+  rdims$.type. <- "rows"
   last_column <- columns[length(columns)]
   dims <- rbind(rdims, rdims_supp, ldims, rdims_supp_last)
 
@@ -773,9 +773,9 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0),
   }
   dims$col_keys[is_dummy] <- paste0("dummy", seq_len(sum(is_dummy)))
 
-  dims$col_keys[dims$type %in% "rows" & !is_dummy] <- dims[[last_column]][dims$type %in% "rows" & !is_dummy]
-  dims$col_keys[dims$type %in% "rows_supp" & !is_dummy] <- dims[[last_column]][dims$type %in% "rows_supp" & !is_dummy]
-  dims$col_keys[dims$type %in% "rows_supp_last" & !is_dummy] <- dims[[last_column]][dims$type %in% "rows_supp_last" & !is_dummy]
+  dims$col_keys[dims$.type. %in% "rows" & !is_dummy] <- dims[[last_column]][dims$.type. %in% "rows" & !is_dummy]
+  dims$col_keys[dims$.type. %in% "rows_supp" & !is_dummy] <- dims[[last_column]][dims$.type. %in% "rows_supp" & !is_dummy]
+  dims$col_keys[dims$.type. %in% "rows_supp_last" & !is_dummy] <- dims[[last_column]][dims$.type. %in% "rows_supp_last" & !is_dummy]
   setDF(dims)
   dims
 }
