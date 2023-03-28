@@ -16,7 +16,7 @@ instead)."><meta property="og:image" content="https://davidgohel.github.io/flext
     
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.8.6.017</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.1.008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,7 @@ instead).</p>
 <span>  <span class="va">...</span>,</span>
 <span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">path</span>,</span>
-<span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span>,</span>
+<span>  lang <span class="op">=</span> <span class="st">"en"</span>,</span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/deparse.html" class="external-link">deparse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">sys.call</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -85,14 +85,20 @@ used as titles. If provided, argument <code>...</code> will be ignored.</p></dd>
 <dd><p>HTML file to be created</p></dd>
 
 
-<dt>encoding</dt>
-<dd><p>encoding to be used in the HTML file</p></dd>
+<dt>lang</dt>
+<dd><p>language of the document using IETF language tags</p></dd>
 
 
 <dt>title</dt>
 <dd><p>page title</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>a string containing the full name of the generated file</p>
+    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other flextable print function: 
@@ -107,6 +113,7 @@ used as titles. If provided, argument <code>...</code> will be ignored.</p></dd>
 <code><a href="save_as_docx.html">save_as_docx</a>()</code>,
 <code><a href="save_as_image.html">save_as_image</a>()</code>,
 <code><a href="save_as_pptx.html">save_as_pptx</a>()</code>,
+<code><a href="save_as_rtf.html">save_as_rtf</a>()</code>,
 <code><a href="to_html.flextable.html">to_html.flextable</a>()</code></p></div>
     </div>
 

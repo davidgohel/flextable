@@ -94,6 +94,9 @@
     <loc>https://davidgohel.github.io/flextable/dev/reference/as_flextable.summarizor.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/flextable/dev/reference/as_flextable.table.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/flextable/dev/reference/as_flextable.tabular.html</loc>
   </url>
   <url>
@@ -247,10 +250,19 @@
     <loc>https://davidgohel.github.io/flextable/dev/reference/fmt_avg_dev.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/flextable/dev/reference/fmt_dbl.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/flextable/dev/reference/fmt_header_n.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/flextable/dev/reference/fmt_int.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/flextable/dev/reference/fmt_n_percent.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/dev/reference/fmt_pct.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/dev/reference/font.html</loc>
@@ -379,9 +391,6 @@
     <loc>https://davidgohel.github.io/flextable/dev/reference/proc_freq.html</loc>
   </url>
   <url>
-    <loc>https://davidgohel.github.io/flextable/dev/reference/reexports.html</loc>
-  </url>
-  <url>
     <loc>https://davidgohel.github.io/flextable/dev/reference/regulartable.html</loc>
   </url>
   <url>
@@ -401,6 +410,9 @@
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/dev/reference/save_as_pptx.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/dev/reference/save_as_rtf.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/dev/reference/separate_header.html</loc>
