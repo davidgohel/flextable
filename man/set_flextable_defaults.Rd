@@ -26,6 +26,7 @@ set_flextable_defaults(
   decimal.mark = NULL,
   big.mark = NULL,
   digits = NULL,
+  pct_digits = NULL,
   na_str = NULL,
   nan_str = NULL,
   fmt_date = NULL,
@@ -39,6 +40,7 @@ set_flextable_defaults(
   float = NULL,
   fonts_ignore = NULL,
   theme_fun = NULL,
+  post_process_all = NULL,
   post_process_pdf = NULL,
   post_process_docx = NULL,
   post_process_html = NULL,
@@ -94,6 +96,8 @@ other categories.}
 
 \item{digits}{\link{formatC} argument used by \code{\link[=colformat_double]{colformat_double()}}.}
 
+\item{pct_digits}{number of digits for percentages.}
+
 \item{fmt_date, fmt_datetime}{formats for date and datetime columns as
 documented in \code{\link[=strptime]{strptime()}}. Default to '\%Y-\%m-\%d' and '\%Y-\%m-\%d \%H:\%M:\%S'.}
 
@@ -132,6 +136,11 @@ not supported by pdflatex, whereas with the xelatex and lualatex engines they ar
 
 \item{theme_fun}{a single character value (the name of the theme function
 to be applied) or a theme function (input is a flextable, output is a flextable).}
+
+\item{post_process_all}{Post-processing function
+that will allow you to customize the the table. It will be executed before
+call to post_process_pdf(), post_process_docx(),
+post_process_html(), post_process_pptx().}
 
 \item{post_process_pdf, post_process_docx, post_process_html, post_process_pptx}{Post-processing functions
 that will allow you to customize the display by output type (pdf, html, docx, pptx).

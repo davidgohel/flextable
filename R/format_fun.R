@@ -138,6 +138,27 @@ format_fun.double <-
     out[is.nan(x)] <- nan_str
     out
   }
+format_fun.pct <-
+  function(x,
+           na_str = flextable_global$defaults$na_str,
+           nan_str = flextable_global$defaults$nan_str,
+           big.mark = flextable_global$defaults$big.mark,
+           decimal.mark = flextable_global$defaults$decimal.mark,
+           pct_digits = flextable_global$defaults$pct_digits, ...) {
+    if(is.null(x)) return("")
+    wisna <- is.na(x)
+    wisnan <- is.nan(x)
+    out <- paste0(
+      formatC(x*100,
+        format = "f", big.mark = big.mark, digits = pct_digits,
+        decimal.mark = decimal.mark
+      ),
+      "%"
+    )
+    out[wisna] <- na_str
+    out[wisnan] <- nan_str
+    out
+  }
 
 format_fun.integer <-
   function(x,

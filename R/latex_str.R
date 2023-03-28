@@ -331,6 +331,7 @@ augment_part_separators <- function(z, no_container = TRUE) {
 
 
 # col/row spans -----
+#' @importFrom stats na.omit
 fill_NA <- function(x) {
   which.na <- c(which(!is.na(x)), length(x) + 1)
   values <- na.omit(x)

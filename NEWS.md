@@ -1,5 +1,13 @@
 # flextable 0.9.1
 
+## new features
+
+- add RTF support for captions.
+- `set_flextable_defaults()` gains parameter `pct_digits` 
+(number of digits for percentages) that will be used in relevant 
+functions (only `proc_freq()` for now).
+- new method `as_flextable.table()`
+
 ## internals
 
 - refactor proc_freq and support 1d frequency table

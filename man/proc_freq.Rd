@@ -2,7 +2,7 @@
 % Please edit documentation in R/proc_freq.R
 \name{proc_freq}
 \alias{proc_freq}
-\title{Frequency table as flextable}
+\title{Frequency table}
 \usage{
 proc_freq(
   x,
@@ -16,7 +16,7 @@ proc_freq(
 )
 }
 \arguments{
-\item{x}{\code{data.frame} object}
+\item{x}{a \code{data.frame} object containing variable(s) to use for counts.}
 
 \item{row}{\code{characer} column names for row}
 
@@ -33,8 +33,12 @@ proc_freq(
 \item{...}{unused arguments}
 }
 \description{
-This function compute a two way contingency table
-and make a flextable with the result.
+This function compute a one or two way
+contingency table and create a flextable from the result.
+
+The function is largely inspired by "PROC FREQ" from "SAS"
+and was written with the intent to make it
+as compact as possible.
 }
 \examples{
 proc_freq(mtcars, "vs", "gear")

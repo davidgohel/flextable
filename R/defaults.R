@@ -22,6 +22,7 @@ default_flextable_settings <- list(
   decimal.mark = ".",
   big.mark = ",",
   digits = 1,
+  pct_digits = 1,
   na_str  = "",
   nan_str  = "",
   fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
@@ -34,6 +35,7 @@ default_flextable_settings <- list(
   fonts_ignore = FALSE,
 
   theme_fun = "theme_booktabs",
+  post_process_all = function(x) x,
   post_process_pdf = function(x) x,
   post_process_docx = function(x) x,
   post_process_html = function(x) x,
@@ -77,6 +79,7 @@ flextable_global$defaults <- default_flextable_settings
 #' valid color (e.g. "#000000" or "black").
 #' @param table.layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
 #' @param digits [formatC] argument used by [colformat_double()].
+#' @param pct_digits number of digits for percentages.
 #' @param decimal.mark,big.mark,na_str,nan_str [formatC] arguments used by [colformat_num()],
 #' [colformat_double()], and [colformat_int()].
 #' @param fmt_date,fmt_datetime formats for date and datetime columns as
@@ -106,6 +109,10 @@ flextable_global$defaults <- default_flextable_settings
 #' * 'wrap-o', wrap text around the table positioned outside edge-far from the binding
 #' @param theme_fun a single character value (the name of the theme function
 #' to be applied) or a theme function (input is a flextable, output is a flextable).
+#' @param post_process_all Post-processing function
+#' that will allow you to customize the the table. It will be executed before
+#' call to post_process_pdf(), post_process_docx(),
+#' post_process_html(), post_process_pptx().
 #' @param post_process_pdf,post_process_docx,post_process_html,post_process_pptx Post-processing functions
 #' that will allow you to customize the display by output type (pdf, html, docx, pptx).
 #' They are executed just before printing the table.
@@ -137,7 +144,7 @@ set_flextable_defaults <- function(
   line_spacing = NULL,
   table.layout = NULL,
   cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
-  decimal.mark = NULL, big.mark = NULL, digits = NULL,
+  decimal.mark = NULL, big.mark = NULL, digits = NULL, pct_digits = NULL,
   na_str = NULL, nan_str = NULL,
   fmt_date = NULL, fmt_datetime = NULL,
   extra_css = NULL,
@@ -146,6 +153,7 @@ set_flextable_defaults <- function(
   tabcolsep = NULL, arraystretch = NULL, float = NULL,
   fonts_ignore = NULL,
   theme_fun = NULL,
+  post_process_all = NULL,
   post_process_pdf = NULL,
   post_process_docx = NULL,
   post_process_html = NULL,
@@ -224,6 +232,9 @@ set_flextable_defaults <- function(
   if( !is.null(digits) ){
     x$digits <- digits
   }
+  if( !is.null(pct_digits) ){
+    x$pct_digits <- pct_digits
+  }
   if( !is.null(na_str) ){
     x$na_str <- na_str
   }
@@ -269,6 +280,9 @@ set_flextable_defaults <- function(
     x$theme_fun <- theme_fun
   }
 
+  if( !is.null(post_process_all) && is.function(post_process_all) ){
+    x$post_process_all <- post_process_all
+  }
   if( !is.null(post_process_pdf) && is.function(post_process_pdf) ){
     x$post_process_pdf <- post_process_pdf
   }
@@ -331,7 +345,8 @@ print.flextable_defaults <- function(x, ...){
 
   cat("## cell content settings\n")
   contents <- c("decimal.mark", "big.mark",
-              "digits", "na_str", "nan_str", "fmt_date", "fmt_datetime")
+              "digits", "pct_digits",
+              "na_str", "nan_str", "fmt_date", "fmt_datetime")
   df <- data.frame(property = contents, value = unlist(x[contents]), stringsAsFactors = FALSE)
   row.names(df) <- NULL
   print(df)
@@ -339,28 +354,6 @@ print.flextable_defaults <- function(x, ...){
 
   cat("## table.layout is:", x$table.layout, "\n")
   if(is.character(x$theme_fun)) cat("## default theme is:", x$theme_fun, "\n")
-
-  cat("## HTML specific:\n")
-  cat("extra_css:", x$extra_css, "\n")
-  cat("scrool:", if (is.null(x$scrool)) "no" else "yes", "\n")
-  cat("post_process_html:\n")
-  print(x$post_process_html)
-  cat("\n")
-
-  cat("## latex specific:\n")
-  cat("post_process_pdf:\n")
-  print(x$post_process_pdf)
-  cat("\n")
-
-  cat("## Word specific:\n")
-  cat("post_process_docx:\n")
-  print(x$post_process_docx)
-  cat("\n")
-
-  cat("## PowerPoint specific:\n")
-  cat("post_process_pptx:\n")
-  print(x$post_process_pptx)
-  cat("\n")
 
   invisible(NULL)
 }

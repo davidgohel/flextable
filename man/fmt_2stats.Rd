@@ -97,6 +97,7 @@ ft_1
 
 Other text formatter functions: 
 \code{\link{fmt_avg_dev}()},
+\code{\link{fmt_dbl}()},
 \code{\link{fmt_header_n}()},
 \code{\link{fmt_int}()},
 \code{\link{fmt_n_percent}()},

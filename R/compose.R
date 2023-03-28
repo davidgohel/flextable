@@ -151,7 +151,7 @@ labelizor <- function(x, j = NULL, labels, part = "all") {
     stop("`labels` must be a named character vector or a function.")
   }
   if (is.null(j)) {
-    j <- x$colkeys
+    j <- x$col_keys
   }
 
   j <- as_col_keys(x[[part]], j)
