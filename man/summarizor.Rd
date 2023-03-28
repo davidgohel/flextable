@@ -16,7 +16,7 @@ summarizor(x, by = character(), overall_label = NULL)
 \description{
 It performs a univariate statistical analysis of a dataset
 by group and formats the results so that they can be used with
-the \code{\link[=tabulator]{tabulator()}} function.
+the \code{\link[=tabulator]{tabulator()}} function or directly with \link[=as_flextable.summarizor]{as_flextable}.
 \if{html}{\out{
 <img src="https://www.ardata.fr/img/flextable-imgs/flextable-018-square.png" alt="summarizor illustration" style="width:100\%;">
 }}

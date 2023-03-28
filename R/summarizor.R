@@ -1,7 +1,7 @@
 #' @title Data summary preparation
 #' @description It performs a univariate statistical analysis of a dataset
 #' by group and formats the results so that they can be used with
-#' the [tabulator()] function.
+#' the [tabulator()] function or directly with [as_flextable][as_flextable.summarizor].
 #' \if{html}{\out{
 #' <img src="https://www.ardata.fr/img/flextable-imgs/flextable-018-square.png" alt="summarizor illustration" style="width:100\%;">
 #' }}

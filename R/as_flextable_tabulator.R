@@ -3,7 +3,8 @@
 #' @export
 #' @title Tabulation of aggregations
 #' @description It tabulates a data.frame representing an aggregation
-#' which is then transformed as a flextable. The function
+#' which is then transformed as a flextable with
+#' [as_flextable][as_flextable.tabulator]. The function
 #' allows to define any display with the syntax of flextable in
 #' a table whose layout is showing dimensions of the aggregation
 #' across rows and columns.
