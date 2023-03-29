@@ -34,6 +34,7 @@ Other sugar functions for table style:
 \code{\link{fontsize}()},
 \code{\link{font}()},
 \code{\link{highlight}()},
+\code{\link{keep_with_next}()},
 \code{\link{line_spacing}()},
 \code{\link{padding}()},
 \code{\link{rotate}()},

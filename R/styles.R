@@ -575,13 +575,33 @@ align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "j
   x
 }
 
-keep_wn <- function(x, i = NULL, j = NULL, keep_with_next = TRUE,
-                    part = "body") {
+#' @export
+#' @title Set Word 'Keep with next' instructions
+#' @description The 'Keep with next' functionality in 'Word', applied
+#' to the rows of a table, ensures that the rows with that attribute
+#' stays together and does not break across multiple pages.
+#' @param x a flextable object
+#' @param i rows selection
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @param value TRUE or FALSE. When applied to a group, all rows
+#' except the last one should be flagged with attribute 'Keep with next'.
+#' @family sugar functions for table style
+#' @examples
+#' library(flextable)
+#' dat <- iris[c(1:25, 51:75, 101:125),]
+#' ft <- qflextable(dat)
+#' ft <- keep_with_next(
+#'   x = ft,
+#'   i = c(1:24, 26:49, 51:74),
+#'   value = TRUE)
+#'
+#' save_as_docx(ft, path = tempfile(fileext = ".docx"))
+keep_with_next <- function(x, i = NULL, value = TRUE, part = "body") {
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
-      x <- keep_wn(x = x, i = i, j = j, keep_with_next = keep_with_next, part = p)
+      x <- keep_with_next(x = x, i = i, value = value, part = p)
     }
     return(x)
   }
@@ -592,8 +612,7 @@ keep_wn <- function(x, i = NULL, j = NULL, keep_with_next = TRUE,
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
-  j <- get_columns_id(x[[part]], j)
-  x[[part]]$styles$pars[i, j, "keep_with_next"] <- keep_with_next
+  x[[part]]$styles$pars[i, , "keep_with_next"] <- value
 
   x
 }

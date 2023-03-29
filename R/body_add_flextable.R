@@ -56,7 +56,7 @@ body_add_flextable <- function(x, value,
     if (topcaption) {
       apply_cap_kwn <- TRUE
     } else {
-      value <- keep_wn(value, part = "all", keep_with_next = TRUE)
+      value <- keep_with_next(value, part = "all", value = TRUE)
       apply_cap_kwn <- FALSE
     }
     caption_str <- caption_default_docx_openxml(
