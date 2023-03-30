@@ -147,11 +147,12 @@ caption_bookdown_html <- function(x) {
     reference_label <- paste0("(\\#", x$caption$autonum$seq_id, ":", x$caption$autonum$bookmark, ")")
   }
 
-  inline_css <- ""
   if (!is.null(x$caption$fp_p)) {
     inline_css <- sprintf(
-      " style=\"%s\"",
+      " style=\"display:table-caption;%s\"",
       format(x$caption$fp_p, type = "html"))
+  } else {
+    inline_css <- " style=\"display:table-caption;\""
   }
 
   if (is.null(x$caption$html_classes)) {
@@ -219,11 +220,12 @@ caption_default_html <- function(x) {
     reference_label <- sprintf(" id=\"%s\"", x$caption$autonum$bookmark)
   }
 
-  inline_css <- ""
   if (!is.null(x$caption$fp_p)) {
     inline_css <- sprintf(
-      " style=\"%s\"",
+      " style=\"display:table-caption;%s\"",
       format(x$caption$fp_p, type = "html"))
+  } else {
+    inline_css <- " style=\"display:table-caption;\""
   }
 
   if (is.null(x$caption$html_classes)) {

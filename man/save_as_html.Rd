@@ -4,13 +4,7 @@
 \alias{save_as_html}
 \title{Save flextable objects in an 'HTML' file}
 \usage{
-save_as_html(
-  ...,
-  values = NULL,
-  path,
-  lang = "en",
-  title = deparse(sys.call())
-)
+save_as_html(..., values = NULL, path, lang = "en", title = "&#32;")
 }
 \arguments{
 \item{...}{flextable objects, objects, possibly named. If named objects, names are

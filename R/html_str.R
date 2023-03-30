@@ -432,7 +432,7 @@ tmp_rmd <- function(title, lang = "en") {
   file <- tempfile(fileext = ".Rmd")
   writeLines(
     c("---",
-      sprintf("title: %s", title),
+      sprintf("title: \"%s\"", title),
       sprintf("lang: %s", lang),
       "params:",
       "  x: ''",

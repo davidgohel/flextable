@@ -704,7 +704,7 @@ knit_print.flextable <- function(x, ...) {
 #' @importFrom htmltools save_html
 save_as_html <- function(..., values = NULL, path,
                          lang = "en",
-                         title = deparse(sys.call())) {
+                         title = "&#32;") {
   if (is.null(values)) {
     values <- list(...)
   }
