@@ -71,14 +71,7 @@ options about scrolling.
 \itemize{
 \item \code{ft.split} Word option 'Allow row to break across pages' can be
 activated when TRUE (default value).
-\item \code{ft.keepnext} default \code{FALSE}. Word option 'keep rows
-together' is activated when TRUE. It avoids page break
-within tables. This is handy for small tables, i.e. less than
-a page height. Be careful, if you print long tables, you should
-rather set its value to \code{FALSE} to avoid that the tables
-also generate a page break before being placed in the
-Word document. Since Word will try to keep it with the \strong{next
-paragraphs that follow the tables}.
+\item \code{ft.keepnext} defunct in favor of \code{\link[=paginate]{paginate()}}
 }
 \item PDF only:
 \itemize{
@@ -109,7 +102,7 @@ inches.
 If some values are to be used all the time in the same
 document, it is recommended to set these values in a
 'knitr r chunk' by using function
-\code{knitr::opts_chunk$set(ft.split=FALSE, ft.keepnext = FALSE, ...)}.
+\code{knitr::opts_chunk$set(ft.split=FALSE, ...)}.
 }
 
 \section{Table caption}{
@@ -207,6 +200,8 @@ if (pandoc_available() &&
 }
 }
 \seealso{
+\code{\link[=paginate]{paginate()}}
+
 Other flextable print function: 
 \code{\link{as_raster}()},
 \code{\link{df_printer}()},

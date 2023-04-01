@@ -50,6 +50,8 @@ save_as_docx(
 )
 }
 \seealso{
+\code{\link[=paginate]{paginate()}}
+
 Other flextable print function: 
 \code{\link{as_raster}()},
 \code{\link{df_printer}()},

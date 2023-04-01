@@ -580,12 +580,16 @@ align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "j
 #' @description The 'Keep with next' functionality in 'Word', applied
 #' to the rows of a table, ensures that the rows with that attribute
 #' stays together and does not break across multiple pages.
+#'
+#' This function allows much better control of breaks between
+#' pages than the global `keep_with_next` parameter.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param value TRUE or FALSE. When applied to a group, all rows
 #' except the last one should be flagged with attribute 'Keep with next'.
 #' @family sugar functions for table style
+#' @seealso [paginate()]
 #' @examples
 #' library(flextable)
 #' dat <- iris[c(1:25, 51:75, 101:125),]

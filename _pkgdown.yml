@@ -122,6 +122,8 @@ reference:
     contents:
     - starts_with("height")
     - set_table_properties
+    - paginate
+    - keep_with_next
     - width
     - hrule
     - autofit

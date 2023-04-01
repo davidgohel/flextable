@@ -39,9 +39,7 @@ option 'Allow row to break across pages'.}
 \item{topcaption}{if TRUE caption is added before the table, if FALSE,
 caption is added after the table.}
 
-\item{keepnext}{default to FALSE, 'keep with next' binds the table
-to the first line of the next block (a paragraph or a table). It
-ensures no page break happens between the two blocks.}
+\item{keepnext}{Defunct in favor of \code{\link[=paginate]{paginate()}}.}
 
 \item{bookmark}{bookmark id}
 }

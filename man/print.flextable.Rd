@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{flextable object}
 
-\item{preview}{preview type, one of c("html", "pptx", "docx", "pdf, "log").
+\item{preview}{preview type, one of c("html", "pptx", "docx", "rtf", "pdf, "log").
 When \code{"log"} is used, a description of the flextable is printed.}
 
 \item{align}{left, center (default) or right. Only for docx/html/pdf.}

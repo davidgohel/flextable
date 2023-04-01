@@ -117,13 +117,14 @@ rtf_rows <- function(value) {
   tab_data <- merge(tab_data, span_data, by = c("part", "ft_row_id", "col_id"))
   setorderv(tab_data, cols = c("part", "ft_row_id", "col_id"))
 
+  tab_data[tab_data$colspan < 1, c("txt") := list("")]
+  tab_data[tab_data$rowspan < 1, c("txt") := list("")]
+
   tab_data[, c("txt", "fp_par_xml") := list(
     paste0(.SD$fp_par_xml, .SD$txt),
     NULL
   )]
 
-  tab_data[tab_data$colspan < 1, c("txt") := list("")]
-  tab_data[tab_data$rowspan < 1, c("txt") := list("")]
   cells <- tab_data[, list(
     fp_cell_rtf = paste0(.SD$fp_cell_rtf, collapse = ""),
     content_rtf = paste0(.SD$txt, "\\cell", collapse = "")

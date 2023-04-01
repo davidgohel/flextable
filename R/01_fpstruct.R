@@ -123,7 +123,7 @@ par_struct <- function( nrow, keys,
                         border.width.bottom = 0, border.width.top = 0, border.width.left = 0, border.width.right = 0,
                         border.color.bottom = "transparent", border.color.top = "transparent", border.color.left = "transparent", border.color.right = "transparent",
                         border.style.bottom = "solid", border.style.top = "solid", border.style.left = "solid", border.style.right = "solid",
-                        keep_with_next = TRUE,
+                        keep_with_next = FALSE,
                         shading.color = "transparent", ... ){
 
   x <- list(

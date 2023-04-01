@@ -9,7 +9,6 @@ library(flextable)
 
 opts_chunk$set(
   echo = FALSE,
-  ft.keepnext = FALSE, 
   ft.tabcolsep = 3
 )
 ```

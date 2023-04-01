@@ -7,10 +7,7 @@ library(knitr)
 library(officedown)
 library(flextable)
 
-opts_chunk$set(
-  echo = FALSE,
-  ft.keepnext = FALSE
-)
+opts_chunk$set(echo = FALSE)
 table_caption <- 'airquality dataset'
 ```
 
@@ -38,13 +35,9 @@ blop
 
 blop
 
-```{r include=FALSE}
-opts_chunk$set(ft.keepnext = TRUE)
-```
-
-
 ```{r table3, tab.cap = table_caption}
-qflextable(head(mtcars))
+qflextable(head(mtcars)) |> 
+  keep_with_next(part = "all", value = TRUE)
 ```
 
 

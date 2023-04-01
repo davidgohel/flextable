@@ -6,9 +6,7 @@
 #' @param align left, center (default) or right.
 #' @param split set to TRUE if you want to activate Word
 #' option 'Allow row to break across pages'.
-#' @param keepnext default to FALSE, 'keep with next' binds the table
-#' to the first line of the next block (a paragraph or a table). It
-#' ensures no page break happens between the two blocks.
+#' @param keepnext Defunct in favor of [paginate()].
 #' @param pos where to add the flextable relative to the cursor,
 #' one of "after", "before", "on" (end of line).
 #' @param topcaption if TRUE caption is added before the table, if FALSE,
@@ -44,9 +42,6 @@ body_add_flextable <- function(x, value,
   }
   if (!is.null(split)) {
     value$properties$opts_word$split <- split
-  }
-  if (!is.null(keepnext)) {
-    value$properties$opts_word$keep_with_next <- keepnext
   }
 
   value <- flextable_global$defaults$post_process_docx(value)

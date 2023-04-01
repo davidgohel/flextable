@@ -24,8 +24,10 @@ test_that("docx-keep-with-next", {
 
   docx <- read_docx()
   docx <- body_add_par(docx, value = "a text")
-  docx <- body_add_flextable(docx, ft_1, keepnext = TRUE)
-  docx <- body_add_flextable(docx, ft_1, keepnext = TRUE)
+  ft_1 <- keep_with_next(ft_1, value = TRUE, part = "all")
+  docx <- body_add_flextable(docx, ft_1)
+  ft_1 <- keep_with_next(ft_1, value = TRUE, part = "all")
+  docx <- body_add_flextable(docx, ft_1)
 
   expect_snapshot_doc(name = "docx-keep-with-next-true", x = docx, engine = "testthat")
 })

@@ -20,6 +20,9 @@ except the last one should be flagged with attribute 'Keep with next'.}
 The 'Keep with next' functionality in 'Word', applied
 to the rows of a table, ensures that the rows with that attribute
 stays together and does not break across multiple pages.
+
+This function allows much better control of breaks between
+pages than the global \code{keep_with_next} parameter.
 }
 \examples{
 library(flextable)
@@ -33,6 +36,8 @@ ft <- keep_with_next(
 save_as_docx(ft, path = tempfile(fileext = ".docx"))
 }
 \seealso{
+\code{\link[=paginate]{paginate()}}
+
 Other sugar functions for table style: 
 \code{\link{align}()},
 \code{\link{bg}()},

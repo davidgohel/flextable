@@ -33,79 +33,66 @@
 #' when the flextable is created.
 #' @return an object of class `tabulator`.
 #' @examples
-#' n_format <- function(z){
-#'   x <- sprintf("%.0f", z)
-#'   x[is.na(z)] <- "-"
-#'   x
-#' }
-#'
 #' set_flextable_defaults(digits = 2, border.color = "gray")
 #'
-#' if(require("stats")){
+#' library(data.table)
+#' # example 1 ----
+#' if (require("stats")) {
 #'   dat <- aggregate(breaks ~ wool + tension,
-#'     data = warpbreaks, mean)
+#'     data = warpbreaks, mean
+#'   )
 #'
 #'   cft_1 <- tabulator(
 #'     x = dat, rows = "wool",
 #'     columns = "tension",
 #'     `mean` = as_paragraph(as_chunk(breaks)),
-#'     `(N)` = as_paragraph(
-#'       as_chunk(length(breaks), formatter = n_format ))
+#'     `(N)` = as_paragraph(as_chunk(length(breaks), formatter = fmt_int))
 #'   )
 #'
 #'   ft_1 <- as_flextable(cft_1)
 #'   ft_1
 #' }
 #'
-#' if(require("data.table") && require("ggplot2")){
-#'
+#' # example 2 ----
+#' if (require("ggplot2")) {
 #'   multi_fun <- function(x) {
-#'     list(mean = mean(x),
-#'          sd = sd(x))
+#'     list(mean = mean(x), sd = sd(x))
 #'   }
-#'   myformat <- function(z){
-#'     x <- sprintf("%.1f", z)
-#'     x[is.na(z)] <- ""
-#'     x
-#'   }
-#'
-#'   grey_txt <- fp_text_default(color = "gray")
 #'
 #'   dat <- as.data.table(ggplot2::diamonds)
 #'   dat <- dat[cut %in% c("Fair", "Good", "Very Good")]
-#'   dat <- dat[clarity %in% c("I1", "SI1", "VS2")]
 #'
 #'   dat <- dat[, unlist(lapply(.SD, multi_fun),
-#'                       recursive = FALSE),
-#'              .SDcols = c("z", "y"),
-#'              by = c("cut", "color", "clarity")]
+#'     recursive = FALSE
+#'   ),
+#'   .SDcols = c("z", "y"),
+#'   by = c("cut", "color")
+#'   ]
 #'
 #'   tab_2 <- tabulator(
-#'     x = dat, rows = c("cut", "color"),
-#'     columns = "clarity",
-#'     `z stats` = as_paragraph(
-#'       as_chunk(z.mean, formatter = myformat)),
-#'     `y stats` = as_paragraph(
-#'       as_chunk(y.mean, formatter = myformat),
-#'       as_chunk(" (\u00B1 ", props = grey_txt),
-#'       as_chunk(y.sd, formatter = myformat, props = grey_txt),
-#'       as_chunk(")", props = grey_txt)
-#'       )
+#'     x = dat, rows = "color",
+#'     columns = "cut",
+#'     `z stats` = as_paragraph(as_chunk(fmt_avg_dev(z.mean, z.sd, digit2 = 2))),
+#'     `y stats` = as_paragraph(as_chunk(fmt_avg_dev(y.mean, y.sd, digit2 = 2)))
 #'   )
 #'   ft_2 <- as_flextable(tab_2)
 #'   ft_2 <- autofit(x = ft_2, add_w = .05)
 #'   ft_2
 #' }
 #'
-#' if(require("data.table")){
-#' #' # data.table version
+#' # example 3 ----
+#' # data.table version
 #' dat <- melt(as.data.table(iris),
-#'             id.vars = "Species",
-#'             variable.name = "name",value.name = "value")[,
-#'               list(avg = mean(value, na.rm = TRUE),
-#'                    sd = sd(value, na.rm = TRUE)),
-#'               by = c("Species", "name")
-#'             ]
+#'   id.vars = "Species",
+#'   variable.name = "name", value.name = "value"
+#' )
+#' dat <- dat[,
+#'   list(
+#'     avg = mean(value, na.rm = TRUE),
+#'     sd = sd(value, na.rm = TRUE)
+#'   ),
+#'   by = c("Species", "name")
+#' ]
 #' # dplyr version
 #' # library(dplyr)
 #' # dat <- iris %>%
@@ -118,12 +105,13 @@
 #' tab_3 <- tabulator(
 #'   x = dat, rows = c("Species"),
 #'   columns = "name",
-#'   `mean (sd)` = as_paragraph( as_chunk(avg),
-#'      " (", as_chunk(sd),  ")")
+#'   `mean (sd)` = as_paragraph(
+#'     as_chunk(avg),
+#'     " (", as_chunk(sd), ")"
 #'   )
-#' ft_3 <- as_flextable(tab_3, separate_with = character(0))
+#' )
+#' ft_3 <- as_flextable(tab_3)
 #' ft_3
-#' }
 #'
 #' init_flextable_defaults()
 #' @importFrom rlang enquos enquo call_args
@@ -242,32 +230,43 @@ tabulator <- function(x, rows, columns,
 #'
 #' set_flextable_defaults(digits = 2, border.color = "gray")
 #'
-#' if(require("stats")){
+#' if (require("stats")) {
 #'   dat <- aggregate(breaks ~ wool + tension,
-#'     data = warpbreaks, mean)
+#'     data = warpbreaks, mean
+#'   )
 #'
-#'   cft_1 <- tabulator(x = dat,
-#'                      rows = "wool",
+#'   cft_1 <- tabulator(
+#'     x = dat,
+#'     rows = "wool",
 #'     columns = "tension",
 #'     `mean` = as_paragraph(as_chunk(breaks)),
 #'     `(N)` = as_paragraph(
-#'       as_chunk(length(breaks) ))
+#'       as_chunk(length(breaks))
+#'     )
 #'   )
 #'
 #'   ft_1 <- as_flextable(cft_1, sep_w = .1)
 #'   ft_1
 #'
-#'   set_flextable_defaults(padding = 1, font.size = 9, border.color = "orange")
+#'   set_flextable_defaults(
+#'     padding = 1, font.size = 9,
+#'     border.color = "orange")
+#'
 #'   ft_2 <- as_flextable(cft_1, sep_w = 0)
 #'   ft_2
 #'
-#'   set_flextable_defaults(padding = 6, font.size = 11,
-#'                          border.color = "white", font.color = "white",
-#'                          background.color = "#333333")
+#'   set_flextable_defaults(
+#'     padding = 6, font.size = 11,
+#'     border.color = "white",
+#'     font.color = "white",
+#'     background.color = "#333333"
+#'   )
+#'
 #'   ft_3 <- as_flextable(
 #'     x = cft_1, sep_w = 0,
 #'     rows_alignment = "center",
-#'     columns_alignment = "right")
+#'     columns_alignment = "right"
+#'   )
 #'   ft_3
 #' }
 #'

@@ -1,12 +1,20 @@
 # flextable 0.9.1
 
+## breaking change
+
+- parameter `keepnext` and `ft.keepnext` are defunct, they are replaced
+by function `paginate()` that enable nice pagination of tables across pages 
+or `keep_with_next()` to get total control over rows pagination.
+
 ## new features
 
 - add RTF support for captions.
 - `set_flextable_defaults()` gains parameter `pct_digits` 
 (number of digits for percentages) that will be used in relevant 
 functions (only `proc_freq()` for now).
-- new method `as_flextable.table()`
+- new method `as_flextable.table()`.
+- new functions `fmt_dbl()`, `fmt_int()` and `fmt_pct()`.
+- Support for Word and RTF pagination with function `paginate()`
 
 ## internals
 

@@ -61,32 +61,43 @@ library(flextable)
 
 set_flextable_defaults(digits = 2, border.color = "gray")
 
-if(require("stats")){
+if (require("stats")) {
   dat <- aggregate(breaks ~ wool + tension,
-    data = warpbreaks, mean)
+    data = warpbreaks, mean
+  )
 
-  cft_1 <- tabulator(x = dat,
-                     rows = "wool",
+  cft_1 <- tabulator(
+    x = dat,
+    rows = "wool",
     columns = "tension",
     `mean` = as_paragraph(as_chunk(breaks)),
     `(N)` = as_paragraph(
-      as_chunk(length(breaks) ))
+      as_chunk(length(breaks))
+    )
   )
 
   ft_1 <- as_flextable(cft_1, sep_w = .1)
   ft_1
 
-  set_flextable_defaults(padding = 1, font.size = 9, border.color = "orange")
+  set_flextable_defaults(
+    padding = 1, font.size = 9,
+    border.color = "orange")
+
   ft_2 <- as_flextable(cft_1, sep_w = 0)
   ft_2
 
-  set_flextable_defaults(padding = 6, font.size = 11,
-                         border.color = "white", font.color = "white",
-                         background.color = "#333333")
+  set_flextable_defaults(
+    padding = 6, font.size = 11,
+    border.color = "white",
+    font.color = "white",
+    background.color = "#333333"
+  )
+
   ft_3 <- as_flextable(
     x = cft_1, sep_w = 0,
     rows_alignment = "center",
-    columns_alignment = "right")
+    columns_alignment = "right"
+  )
   ft_3
 }
 
