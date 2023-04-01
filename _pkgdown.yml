@@ -42,6 +42,7 @@ reference:
     - print.flextable
     - knit_print.flextable
     - body_add_flextable
+    - paginate
     - ph_with.flextable
     - plot.flextable
     - save_as_image
@@ -122,7 +123,6 @@ reference:
     contents:
     - starts_with("height")
     - set_table_properties
-    - paginate
     - keep_with_next
     - width
     - hrule

@@ -109,9 +109,9 @@ See \strong{scroll} element of argument \code{opts_html} in function \code{\link
 \item{split}{Word option 'Allow row to break across pages' can be
 activated when TRUE.}
 
-\item{keep_with_next}{Word option 'keep rows together' is
-activated when TRUE. It avoids page break within tables. This
-is handy for small tables, i.e. less than a page height.}
+\item{keep_with_next}{default initialization value used by the \code{\link[=paginate]{paginate()}}
+function corresponding to the Word option "keep rows together" that will
+be defined in the array.}
 
 \item{tabcolsep}{space between the text and the left/right border of its containing
 cell.}

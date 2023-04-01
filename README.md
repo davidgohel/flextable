@@ -12,7 +12,9 @@ The flextable package provides a framework for easily create tables for
 reporting and publications. Tables can be easily formatted with a set of
 verbs such as `bold()`, `color()`, they can receive a header of more
 than one line, cells can be merged or contain an image. The package make
-it possible to build any table for publication from a `data.frame`.
+it possible to build any table for publication from a `data.frame` and
+provides sugar function `as_flextable()` to convert several R objects to
+a flextable, such as an object return from `table()` or a model.
 
 ``` r
 set_flextable_defaults(
@@ -22,6 +24,10 @@ set_flextable_defaults(
 flextable(head(cars)) %>% 
   bold(part = "header") %>% 
   add_footer_lines("The 'cars' dataset")
+
+ggplot2::diamonds |> 
+  with(table(cut, color)) |> 
+  as_flextable()
 ```
 
 Tables can be embedded within HTML, PDF, Word and PowerPoint documents

@@ -92,9 +92,9 @@ flextable_global$defaults <- default_flextable_settings
 #' See **scroll** element of argument `opts_html` in function [set_table_properties()].
 #' @param split Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
-#' @param keep_with_next Word option 'keep rows together' is
-#' activated when TRUE. It avoids page break within tables. This
-#' is handy for small tables, i.e. less than a page height.
+#' @param keep_with_next default initialization value used by the [paginate()]
+#' function corresponding to the Word option "keep rows together" that will
+#' be defined in the array.
 #' @param tabcolsep space between the text and the left/right border of its containing
 #' cell.
 #' @param arraystretch height of each row relative to its default

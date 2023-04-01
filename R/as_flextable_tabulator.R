@@ -247,14 +247,18 @@ tabulator <- function(x, rows, columns,
 #'
 #'   ft_1 <- as_flextable(cft_1, sep_w = .1)
 #'   ft_1
+#' }
 #'
+#' if (require("stats")) {
 #'   set_flextable_defaults(
 #'     padding = 1, font.size = 9,
 #'     border.color = "orange")
 #'
 #'   ft_2 <- as_flextable(cft_1, sep_w = 0)
 #'   ft_2
+#' }
 #'
+#' if (require("stats")) {
 #'   set_flextable_defaults(
 #'     padding = 6, font.size = 11,
 #'     border.color = "white",
