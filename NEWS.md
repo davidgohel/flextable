@@ -26,6 +26,7 @@ functions (only `proc_freq()` for now).
 - value for html dependancies parameter is a list of html-dep as expected.
 This solves issue for blogdown and pkgdown introduced in the previous version.
 - fix `save_as_html()` ugly default title.
+- fix alignment issues when rows are horizontally merged in PDF
 
 # flextable 0.9.0
 

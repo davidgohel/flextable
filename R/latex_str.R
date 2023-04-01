@@ -231,7 +231,8 @@ augment_multirow_fixed <- function(properties_df) {
           substr(.SD$vertical.align, 1, 1),
           "]{-",
           format_double(.SD$colspan, digits = 0),
-          "}{*}{\\parbox{", format_double(.SD$width, digits = 2), "in}{"
+          "}{*}{\\parbox{", format_double(.SD$width, digits = 2), "in}{",
+          c("center" = "\\centering ", left = "\\raggedright ", right = "\\raggedleft ")[.SD$text.align]
         ),
         default = ""
       ),
