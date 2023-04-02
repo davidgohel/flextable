@@ -97,6 +97,9 @@
     <loc>https://davidgohel.github.io/flextable/reference/as_flextable.summarizor.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/flextable/reference/as_flextable.table.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/flextable/reference/as_flextable.tabular.html</loc>
   </url>
   <url>
@@ -250,10 +253,19 @@
     <loc>https://davidgohel.github.io/flextable/reference/fmt_avg_dev.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/flextable/reference/fmt_dbl.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/flextable/reference/fmt_header_n.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/flextable/reference/fmt_int.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/flextable/reference/fmt_n_percent.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/reference/fmt_pct.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/font.html</loc>
@@ -319,6 +331,9 @@
     <loc>https://davidgohel.github.io/flextable/reference/italic.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/flextable/reference/keep_with_next.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/flextable/reference/knit_print.flextable.html</loc>
   </url>
   <url>
@@ -359,6 +374,9 @@
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/padding.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/reference/paginate.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/ph_with.flextable.html</loc>

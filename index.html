@@ -54,7 +54,7 @@
     
     <a class="navbar-brand me-2" href="index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,7 +95,7 @@
 </div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <p><a href="https://github.com/davidgohel/flextable/actions" class="external-link"><img src="https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://CRAN.R-project.org/package=flextable" class="external-link"><img src="https://www.r-pkg.org/badges/version/flextable" alt="version"></a> <img src="https://www.repostatus.org/badges/latest/active.svg" alt="Active"></p>
-<p>The flextable package provides a framework for easily create tables for reporting and publications. Tables can be easily formatted with a set of verbs such as <code><a href="reference/bold.html">bold()</a></code>, <code><a href="reference/color.html">color()</a></code>, they can receive a header of more than one line, cells can be merged or contain an image. The package make it possible to build any table for publication from a <code>data.frame</code>.</p>
+<p>The flextable package provides a framework for easily create tables for reporting and publications. Tables can be easily formatted with a set of verbs such as <code><a href="reference/bold.html">bold()</a></code>, <code><a href="reference/color.html">color()</a></code>, they can receive a header of more than one line, cells can be merged or contain an image. The package make it possible to build any table for publication from a <code>data.frame</code> and provides sugar function <code><a href="reference/as_flextable.html">as_flextable()</a></code> to convert several R objects to a flextable, such as an object return from <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code> or a model.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/set_flextable_defaults.html">set_flextable_defaults</a></span><span class="op">(</span></span>
 <span>  font.family <span class="op">=</span> <span class="st">"Arial"</span>, font.size <span class="op">=</span> <span class="fl">10</span>, </span>
@@ -103,7 +103,11 @@
 <span></span>
 <span><span class="fu"><a href="reference/flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu"><a href="reference/bold.html">bold</a></span><span class="op">(</span>part <span class="op">=</span> <span class="st">"header"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu"><a href="reference/add_footer_lines.html">add_footer_lines</a></span><span class="op">(</span><span class="st">"The 'cars' dataset"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/add_footer_lines.html">add_footer_lines</a></span><span class="op">(</span><span class="st">"The 'cars' dataset"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">color</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Tables can be embedded within HTML, PDF, Word and PowerPoint documents from R Markdown documents and within RTF or Microsoft Word or PowerPoint documents with package officer. Tables can also be rendered as R plots or graphic files (png).</p>
 <p><img src="reference/figures/fig_formats.png" width="170px" alt="flextable formats" align="center"></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">

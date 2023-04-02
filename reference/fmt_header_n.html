@@ -12,7 +12,7 @@ function is used to add counts in columns titles."><meta property="og:image" con
     
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,10 @@ function is used to add counts in columns titles.</p>
 <p>Other text formatter functions: 
 <code><a href="fmt_2stats.html">fmt_2stats</a>()</code>,
 <code><a href="fmt_avg_dev.html">fmt_avg_dev</a>()</code>,
-<code><a href="fmt_n_percent.html">fmt_n_percent</a>()</code></p></div>
+<code><a href="fmt_dbl.html">fmt_dbl</a>()</code>,
+<code><a href="fmt_int.html">fmt_int</a>()</code>,
+<code><a href="fmt_n_percent.html">fmt_n_percent</a>()</code>,
+<code><a href="fmt_pct.html">fmt_pct</a>()</code></p></div>
     </div>
 
     <div class="section level2">
@@ -84,7 +87,7 @@ function is used to add counts in columns titles.</p>
 <span class="r-in"><span>  value <span class="op">=</span> <span class="fu"><a href="as_chunk.html">as_chunk</a></span><span class="op">(</span><span class="fu">fmt_header_n</span><span class="op">(</span><span class="fl">200</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ft_1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft_1</span></span></span>
-<style></style><div class="tabwid"><style>.cl-ca744ace{}.cl-ca6a87d2{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ca6ed0c6{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ca6eecc8{width:0.938in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ca6eecdc{width:0.938in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="table cl-ca744ace"><thead><tr style="overflow-wrap:break-word;"><th class="cl-ca6eecc8"><p class="cl-ca6ed0c6"><span class="cl-ca6a87d2">zz</span><br><span class="cl-ca6a87d2">(N=200)</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-ca6eecdc"><p class="cl-ca6ed0c6"><span class="cl-ca6a87d2">1</span></p></td></tr></tbody></table></div></code></pre></div>
+<style></style><div class="tabwid"><style>.cl-9266f338{}.cl-925f239c{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-9262ff62{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-9263304a{width:0.938in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-9263304b{width:0.938in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="table cl-9266f338"><thead><tr style="overflow-wrap:break-word;"><th class="cl-9263304a"><p class="cl-9262ff62"><span class="cl-925f239c">zz</span><br><span class="cl-925f239c">(N=200)</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-9263304b"><p class="cl-9262ff62"><span class="cl-925f239c">1</span></p></td></tr></tbody></table></div></code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

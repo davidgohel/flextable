@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +45,35 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.0" id="flextable-090">flextable 0.9.0<a class="anchor" aria-label="anchor" href="#flextable-090"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.1" id="flextable-091">flextable 0.9.1<a class="anchor" aria-label="anchor" href="#flextable-091"></a></h2>
+<div class="section level3">
+<h3 id="breaking-change-0-9-1">breaking change<a class="anchor" aria-label="anchor" href="#breaking-change-0-9-1"></a></h3>
+<ul><li>parameter <code>keepnext</code> and <code>ft.keepnext</code> are defunct, they are replaced by function <code><a href="../reference/paginate.html">paginate()</a></code> that enable nice pagination of tables across pages or <code><a href="../reference/keep_with_next.html">keep_with_next()</a></code> to get total control over rows pagination.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-0-9-1">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-1"></a></h3>
+<ul><li>add RTF support for captions.</li>
+<li>
+<code><a href="../reference/set_flextable_defaults.html">set_flextable_defaults()</a></code> gains parameter <code>pct_digits</code> (number of digits for percentages) that will be used in relevant functions (only <code><a href="../reference/proc_freq.html">proc_freq()</a></code> for now).</li>
+<li>new method <code><a href="../reference/as_flextable.table.html">as_flextable.table()</a></code>.</li>
+<li>new functions <code><a href="../reference/fmt_dbl.html">fmt_dbl()</a></code>, <code><a href="../reference/fmt_int.html">fmt_int()</a></code> and <code><a href="../reference/fmt_pct.html">fmt_pct()</a></code>.</li>
+<li>Support for Word and RTF pagination with function <code><a href="../reference/paginate.html">paginate()</a></code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="internals-0-9-1">internals<a class="anchor" aria-label="anchor" href="#internals-0-9-1"></a></h3>
+<ul><li>refactor proc_freq and support 1d frequency table</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-9-1">issues<a class="anchor" aria-label="anchor" href="#issues-0-9-1"></a></h3>
+<ul><li>colname <code>type</code> is now possible when using <code><a href="../reference/tabulator.html">tabulator()</a></code>.</li>
+<li>value for html dependancies parameter is a list of html-dep as expected. This solves issue for blogdown and pkgdown introduced in the previous version.</li>
+<li>fix <code><a href="../reference/save_as_html.html">save_as_html()</a></code> ugly default title.</li>
+<li>fix alignment issues when rows are horizontally merged in PDF</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.0" id="flextable-090">flextable 0.9.0<a class="anchor" aria-label="anchor" href="#flextable-090"></a></h2><p class="text-muted">CRAN release: 2023-03-13</p>
 <div class="section level3">
 <h3 id="new-features-0-9-0">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-0"></a></h3>
 <ul><li>add RTF support for captions.</li>
