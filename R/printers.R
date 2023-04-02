@@ -18,6 +18,7 @@
 #' @importFrom htmltools tagList attachDependencies tags
 htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL,
                             extra_dependencies = NULL) {
+  x <- flextable_global$defaults$post_process_all(x)
   x <- flextable_global$defaults$post_process_html(x)
 
   if (!is.null(ft.align)) {
@@ -100,6 +101,7 @@ flextable_to_rmd <- function(x, ...) {
   }
 
   if ("html" %in% type_output) {
+    x <- flextable_global$defaults$post_process_all(x)
     x <- flextable_global$defaults$post_process_html(x)
     if (!is_bookdown) {
       caption <- caption_default_html(x)
@@ -152,6 +154,7 @@ to_html.flextable <- function(x, type = c("table", "img"), ...) {
   is_quarto <- is_in_quarto()
 
   if ("table" %in% type_output) {
+    x <- flextable_global$defaults$post_process_all(x)
     x <- flextable_global$defaults$post_process_html(x)
     manual_css <- readLines(system.file(package = "flextable", "web_1.1.3", "tabwid.css"), encoding = "UTF-8")
     gen_raw_html(x, class = "tabwid", caption = "", manual_css = paste0(manual_css, collapse = "\n"))
@@ -168,6 +171,7 @@ to_html.flextable <- function(x, type = c("table", "img"), ...) {
 
 #' @export
 to_wml.flextable <- function(x, ...) {
+  x <- flextable_global$defaults$post_process_all(x)
   x <- flextable_global$defaults$post_process_docx(x)
   x <- knitr_update_properties(x)
   gen_raw_wml(x)
@@ -184,6 +188,7 @@ to_wml.flextable <- function(x, ...) {
 #' knit_to_html(flextable(iris[1:5, ]))
 #' @importFrom knitr raw_html
 knit_to_html <- function(x, bookdown = FALSE, quarto = FALSE) {
+  x <- flextable_global$defaults$post_process_all(x)
   x <- flextable_global$defaults$post_process_html(x)
 
   tab_props <- opts_current_table()
@@ -216,6 +221,7 @@ knit_to_html <- function(x, bookdown = FALSE, quarto = FALSE) {
 #' from a flextable object.
 #' @importFrom officer opts_current_table run_autonum to_wml
 knit_to_wml <- function(x, bookdown = FALSE, quarto = FALSE) {
+  x <- flextable_global$defaults$post_process_all(x)
   x <- flextable_global$defaults$post_process_docx(x)
 
   is_rdocx_document <- opts_current$get("is_rdocx_document")
@@ -295,6 +301,7 @@ knit_to_latex <- function(x, bookdown, quarto = FALSE) {
   ft.arraystretch <- x$properties$opts_pdf$arraystretch
   ft.latex.float <- x$properties$opts_pdf$float
 
+  x <- flextable_global$defaults$post_process_all(x)
   x <- flextable_global$defaults$post_process_pdf(x)
 
   if ("none" %in% ft.latex.float) {
@@ -368,6 +375,7 @@ knit_to_pml <- function(x) {
   if (is.null(top)) {
     top <- 2
   }
+  x <- flextable_global$defaults$post_process_all(x)
   x <- flextable_global$defaults$post_process_pptx(x)
 
   uid <- as.integer(runif(n = 1) * 10^9)
@@ -707,6 +715,7 @@ save_as_html <- function(..., values = NULL, path,
     values <- list(...)
   }
   values <- Filter(function(x) inherits(x, "flextable"), values)
+  values <- lapply(values, flextable_global$defaults$post_process_all)
   values <- lapply(values, flextable_global$defaults$post_process_html)
   values <- lapply(values, htmltools_value)
   titles <- names(values)

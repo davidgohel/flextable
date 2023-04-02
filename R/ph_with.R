@@ -27,6 +27,7 @@
 ph_with.flextable <- function(x, value, location, ...) {
   stopifnot(inherits(x, "rpptx"))
 
+  value <- flextable_global$defaults$post_process_all(value)
   value <- flextable_global$defaults$post_process_pptx(value)
 
   graphic_frame <- gen_raw_pml(value)

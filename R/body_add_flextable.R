@@ -44,6 +44,7 @@ body_add_flextable <- function(x, value,
     value$properties$opts_word$split <- split
   }
 
+  value <- flextable_global$defaults$post_process_all(value)
   value <- flextable_global$defaults$post_process_docx(value)
 
   caption_str <- NULL
