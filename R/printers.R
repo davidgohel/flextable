@@ -650,7 +650,7 @@ knit_print.flextable <- function(x, ...) {
     str <- knit_to_latex(x, bookdown = is_bookdown, quarto = is_quarto)
     str <- raw_latex(
       x = str,
-      meta = list_latex_dep(float = TRUE, wrapfig = TRUE)
+      meta = unname(list_latex_dep(float = TRUE, wrapfig = TRUE))
     )
   } else if (grepl("docx", opts_knit$get("rmarkdown.pandoc.to"))) { # docx
     if (pandoc_version() < numeric_version("2")) {
