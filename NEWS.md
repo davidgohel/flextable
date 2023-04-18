@@ -1,3 +1,12 @@
+# flextable 0.9.2
+
+## Issues
+
+- rmarkdown expect list of dependencies to be unnamed.
+This property is used in HTML or LaTeX deps resolution to know 
+when to be recursive 
+- `dim_pretty()` returns correct numbers when not 'inches'
+
 # flextable 0.9.1
 
 ## breaking change

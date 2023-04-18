@@ -296,7 +296,7 @@ dim_pretty <- function( x, part = "all", unit = "in", hspans = "none"){
   heights <- lapply( dimensions, function(x) x$heights )
   heights <- as.numeric(do.call(c, heights))
 
-  list(widths = convin(unit = unit, x = widths), heights = convin(unit = unit, x = heights))
+  list(widths = convmeters(unit = unit, x = widths), heights = convmeters(unit = unit, x = heights))
 }
 
 

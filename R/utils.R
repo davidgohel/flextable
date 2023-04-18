@@ -113,6 +113,15 @@ convin <- function(unit, x) {
   }
   x
 }
+convmeters <- function(unit, x) {
+  unit <- match.arg(unit, choices = c("in", "cm", "mm"), several.ok = FALSE)
+  if (identical("cm", unit)) {
+    x <- x * 2.54
+  } else if (identical("mm", unit)) {
+    x <- x * 254
+  }
+  x
+}
 
 # check for gregexec -----
 if (!"gregexec" %in% getNamespaceExports("base")) {
