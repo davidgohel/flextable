@@ -16,7 +16,7 @@
 #' @importFrom knitr knit_meta_add
 add_latex_dep <- function(float = FALSE, wrapfig = FALSE){
 
-  knit_meta_add(list_latex_dep(float = float, wrapfig = wrapfig))
+  knit_meta_add(unname(list_latex_dep(float = float, wrapfig = wrapfig)))
 
   invisible(NULL)
 }
