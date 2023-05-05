@@ -7,6 +7,8 @@ This property is used in HTML or LaTeX deps resolution to know
 when to be recursive 
 - `dim_pretty()` returns correct numbers when not 'inches'
 - `as_flextable.table()` now propagates `...` as expected
+- when table was on two pages, there were duplicated caption entries,
+this is fixed thanks to Christophe Dervieux and Nick Bart.
 
 # flextable 0.9.1
 
