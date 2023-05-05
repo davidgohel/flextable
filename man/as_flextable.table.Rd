@@ -14,6 +14,8 @@
 \description{
 produce a flextable describing a
 count table produced by function \code{table()}.
+
+This function uses the \code{\link[=proc_freq]{proc_freq()}} function.
 }
 \examples{
 tab <- with(warpbreaks, table(wool, tension))

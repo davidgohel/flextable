@@ -276,6 +276,8 @@ as_flextable.data.frame <- function(x,
 #' @title Transform a 'table' object into a flextable
 #' @description produce a flextable describing a
 #' count table produced by function `table()`.
+#'
+#' This function uses the [proc_freq()] function.
 #' @param x table object
 #' @param ... arguments used by [proc_freq()].
 #' @examples
@@ -289,9 +291,9 @@ as_flextable.table <- function(x, ...) {
   if (length(by) > 2) {
     stop("table must have maximum two dimensions.")
   } else if (length(by) > 1) {
-    proc_freq(x, row = by[1], col = by[2])
+    proc_freq(x, row = by[1], col = by[2], ...)
   } else {
-    proc_freq(x, row = by[1])
+    proc_freq(x, row = by[1], ...)
   }
 
 }

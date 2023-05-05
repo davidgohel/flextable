@@ -6,6 +6,7 @@
 This property is used in HTML or LaTeX deps resolution to know 
 when to be recursive 
 - `dim_pretty()` returns correct numbers when not 'inches'
+- `as_flextable.table()` now propagates `...` as expected
 
 # flextable 0.9.1
 
