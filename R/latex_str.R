@@ -331,7 +331,7 @@ augment_part_separators <- function(z, no_container = TRUE) {
   if ("header" %in% z$part) {
     z_header <- z[z$part %in% "header",]
     z_header$ft_row_id <- z_header$ft_row_id + max(z_header$ft_row_id)
-    z_header$part_sep <- "\\endhead"
+    z_header$part_sep[nrow(z_header)] <- "\\endhead"
     z <- rbind(z[z$part %in% "header",], z_header, z[!z$part %in% "header",])
   }
 
