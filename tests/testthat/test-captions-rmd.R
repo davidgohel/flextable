@@ -147,7 +147,7 @@ testthat::test_that("with word_document2", {
   )
 
   bookmarks <- xml_find_all(doc, "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart")
-  expect_length(bookmarks, 0)
+  expect_length(bookmarks, 3)
 })
 
 
