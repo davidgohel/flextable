@@ -201,6 +201,12 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
     align_tag, paste(column_sizes_latex, collapse = "")
   )
   table_end <- "\\end{longtable}"
+
+  if (x$properties$opts_pdf$caption_repeat && topcaption) {
+    second_caption <- gsub("\\caption", "\\caption[]", caption)
+    txt_data$part_sep <- gsub("\\endfirsthead", paste("\\endfirsthead", second_caption), txt_data$part_sep, fixed = TRUE)
+  }
+
   latex <- paste0(txt_data$txt, txt_data$part_sep, collapse = "\n\n")
 
   if (inherits(lat_container, "latex_container_wrap")) {

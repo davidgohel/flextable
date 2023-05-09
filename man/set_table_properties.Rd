@@ -80,7 +80,10 @@ paragraph.
 \item 'fonts_ignore': if TRUE, pdf-engine 'pdflatex' can be used instead of
 'xelatex' or 'lualatex.' If pdflatex is used, fonts will be ignored because they are
 not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
-\item 'default_line_color': default line color, restored globally after the flextable is produced.
+\item 'caption_repeat': a boolean that indicates if the caption should be
+repeated along pages. Its default value is \code{TRUE}.
+\item 'default_line_color': default line color, restored globally after
+the flextable is produced.
 }}
 
 \item{word_title}{alternative text for Word table (used as title of the table)}

@@ -447,7 +447,10 @@ regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = 
 #' - 'fonts_ignore': if TRUE, pdf-engine 'pdflatex' can be used instead of
 #' 'xelatex' or 'lualatex.' If pdflatex is used, fonts will be ignored because they are
 #' not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
-#' - 'default_line_color': default line color, restored globally after the flextable is produced.
+#' - 'caption_repeat': a boolean that indicates if the caption should be
+#' repeated along pages. Its default value is `TRUE`.
+#' - 'default_line_color': default line color, restored globally after
+#' the flextable is produced.
 #' @param word_title alternative text for Word table (used as title of the table)
 #' @param word_description alternative text for Word table (used as description of the table)
 #' @examples
@@ -544,6 +547,7 @@ opts_ft_pdf <- function(tabcolsep = get_flextable_defaults()$tabcolsep,
                         arraystretch = get_flextable_defaults()$arraystretch,
                         float = get_flextable_defaults()$float,
                         fonts_ignore = get_flextable_defaults()$fonts_ignore,
+                        caption_repeat = TRUE,
                         default_line_color = "black"
                         ) {
 
@@ -559,11 +563,15 @@ opts_ft_pdf <- function(tabcolsep = get_flextable_defaults()$tabcolsep,
   if( !is.character(float) || length(float) != 1 || !all(float %in% c('none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o')) ){
     stop(sprintf("'%s' is expected to be a single %s.", "float", "character (one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o')"), call. = FALSE)
   }
+  if( !is.logical(caption_repeat) || length(caption_repeat) != 1) {
+    stop(sprintf("'%s' is expected to be a single %s.", "logical"), call. = FALSE)
+  }
 
   z <- list(tabcolsep = tabcolsep,
             arraystretch = arraystretch,
             float = float,
             default_line_color = default_line_color,
+            caption_repeat = caption_repeat,
             fonts_ignore = fonts_ignore)
   class(z) <- "opts_ft_pdf"
   z
