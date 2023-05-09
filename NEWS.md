@@ -10,6 +10,11 @@ when to be recursive
 - when table was on two pages, there were duplicated caption entries,
 this is fixed thanks to Christophe Dervieux and Nick Bart.
 
+## Changes
+
+- bookdown has now bookmarks associated with captions and flextable
+benefits from this feature.
+
 # flextable 0.9.1
 
 ## breaking change
