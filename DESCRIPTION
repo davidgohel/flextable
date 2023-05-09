@@ -45,7 +45,7 @@ Suggests:
     xtable, tables,
     broom, broom.mixed, 
     mgcv, cluster, lme4, nlme,
-    bookdown, pdftools, officedown,
+    bookdown (>= 0.34), pdftools, officedown,
     pkgdown (>= 2.0.0), webshot2
 Encoding: UTF-8
 URL: https://ardata-fr.github.io/flextable-book/, https://davidgohel.github.io/flextable/
