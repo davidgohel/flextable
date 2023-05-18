@@ -694,18 +694,22 @@ knit_print.flextable <- function(x, ...) {
 #' @examples
 #' ft1 <- flextable(head(iris))
 #' tf1 <- tempfile(fileext = ".html")
-#' save_as_html(ft1, path = tf1)
-#' # browseURL(tf1)
+#' if (rmarkdown::pandoc_available()) {
+#'   save_as_html(ft1, path = tf1)
+#'   # browseURL(tf1)
+#' }
 #'
 #' ft2 <- flextable(head(mtcars))
 #' tf2 <- tempfile(fileext = ".html")
-#' save_as_html(
-#'   `iris table` = ft1,
-#'   `mtcars table` = ft2,
-#'   path = tf2,
-#'   title = "rhoooo"
-#' )
-#' # browseURL(tf2)
+#' if (rmarkdown::pandoc_available()) {
+#'   save_as_html(
+#'     `iris table` = ft1,
+#'     `mtcars table` = ft2,
+#'     path = tf2,
+#'     title = "rhoooo"
+#'   )
+#'   # browseURL(tf2)
+#' }
 #' @family flextable print function
 #' @importFrom htmltools save_html
 save_as_html <- function(..., values = NULL, path,
