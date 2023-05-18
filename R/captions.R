@@ -176,35 +176,6 @@ caption_bookdown_html <- function(x) {
   caption_str
 }
 
-
-caption_quarto_html <- function(x) {
-  if (!has_caption(x)) {
-    return("")
-  }
-
-  x <- process_caption_fp_par(x, keep_with_next = FALSE)
-  if (is.null(x$caption$html_classes)) {
-    caption_class <- ""
-  } else {
-    caption_class <- sprintf(" class=\"%s\"", x$caption$html_classes)
-  }
-
-  inline_css <- ""
-  if (!is.null(x$caption$fp_p)) {
-    inline_css <- sprintf(" style=\"%s\"", format(x$caption$fp_p, type = "html"))
-  }
-
-  reference_label <- ""
-  if (!is.null(x$caption$autonum$bookmark)) {
-    reference_label <- paste0("(\\#", x$caption$autonum$seq_id, ":", x$caption$autonum$bookmark, ")")
-  }
-
-  caption_str <- paste0(sprintf("<caption%s%s>%s", inline_css, caption_class, reference_label), "</caption>")
-  caption_str
-}
-
-
-
 caption_default_html <- function(x) {
 
   if (!has_caption(x)) {
@@ -250,15 +221,6 @@ caption_default_html <- function(x) {
 }
 
 # PDF ----
-
-caption_quarto_latex <- function(x) {
-  if (!has_caption(x)) {
-    return("")
-  }
-  x <- process_caption_fp_par(x, keep_with_next = FALSE)
-  "\\caption{} \\\\ \n"
-}
-
 caption_default_latex <- function(x) {
 
   if (!has_caption(x)) {

@@ -216,9 +216,9 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   latex <- paste(
     cline_cmd,
     table_start,
-    if (topcaption) caption,
+    if (topcaption && !quarto) caption,
     latex,
-    if (!topcaption) caption,
+    if (!topcaption && !quarto) caption,
     table_end,
     sep = "\n\n"
   )

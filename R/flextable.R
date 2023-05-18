@@ -209,41 +209,62 @@ qflextable <- function(data){
 #'
 #' @section Formatting the caption:
 #'
-#' You can build your caption with `as_paragraph()`.
-#' This is recommended if your captions need complex content. The caption is build
-#' with a paragraph made of chunks (for example, a red bold text + Arial italic
-#' text).
+#' To create captions in R Markdown using the 'flextable' package and 'officer'
+#' package, you can utilize the `as_paragraph()` function. This approach is
+#' recommended when your captions require complex content, such as a combination of
+#' different text styles or the inclusion of images and equations.
 #'
-#' The user will then have the ability to format text and to add images
-#' and equations. If no format is specified (using `"a string"`
-#' or `as_chunk("a string")`), [fp_text_default()] is used to define
-#' font settings (font family, bold, italic, color, etc...).
-#' The default values can be changed with set_flextable_defaults().
-#' It is recommended to explicitly use  `as_chunk()`.
+#' The caption is constructed as a paragraph consisting of multiple chunks. Each
+#' chunk represents a specific portion of the caption with its desired formatting,
+#' such as red bold text or Arial italic text.
 #'
-#' The counterpart is that the style properties of the caption will
-#' not take precedence over those of the formatted elements. You will
-#' have to specify the font to use:
+#' By default, if no specific formatting is specified (using either "a string" or
+#' `as_chunk("a string")`), the `fp_text_default()` function sets the font settings
+#' for the caption, including the font family, boldness, italics, color, etc. The
+#' default values can be modified using the `set_flextable_defaults()` function.
+#' However, it is recommended to explicitly use `as_chunk()` to define the desired
+#' formatting.
+#'
+#' It's important to note that the style properties of the caption will not
+#' override the formatting of the individual elements within it. Therefore, you
+#' need to explicitly specify the font to be used for the caption.
+#'
+#' Here's an example of how to set a caption for a flextable in R Markdown using
+#' the 'officer' package:
+#'
 #'
 #' ```
+#' library(flextable)
+#' library(officer)
+#'
 #' ftab <- flextable(head(cars)) %>%
 #'   set_caption(
 #'     as_paragraph(
 #'       as_chunk("caption", props = fp_text_default(font.family = "Cambria"))
-#'     ), word_stylename = "Table Caption")
+#'     ), word_stylename = "Table Caption"
+#'   )
+#'
 #' print(ftab, preview = "docx")
 #' ```
 #'
+#' In this example, the `set_caption()` function sets the caption for the
+#' flextable. The caption is created using `as_paragraph()` with a single chunk
+#' created using `as_chunk("caption", props = fp_text_default(font.family =
+#' "Cambria"))`. The `word_stylename` parameter is used to specify the table
+#' caption style in the resulting Word document. Finally, the `print()` function
+#' generates the flextable with the caption, and `preview = "docx"` displays a
+#' preview of the resulting Word document.
+#'
 #' @section Using 'Quarto':
 #'
-#' 'Quarto' manage captions and cross-references instead of flextable. That's why
-#' `set_caption()` is not that useful in a 'Quarto' document except for Word documents
-#' where 'Quarto' does not manage captions yet (when output is raw xml which is the
-#' case for flextable).
-#'
-#' knitr options are almost the same than those detailled in the R Markdown section (see upper),
-#' but be aware that 'Quarto' manage captions and it can be overwrite what has
-#' been defined by flextable. See Quarto documentation for more information.
+#' In 'Quarto', captions and cross-references are handled differently
+#' compared to 'R Markdown', where flextable takes care of the job.
+#' In Quarto, the responsibility for managing captions lies with the Quarto
+#' framework itself. Consequently, the `set_caption()` function in 'flextable'
+#' is not as useful in a 'Quarto' document. The formatting and numbering of
+#' captions are determined by Quarto rather than flextable. Please refer to
+#' the Quarto documentation for more information on how to work with captions
+#' in Quarto.
 #'
 #' @param x flextable object
 #' @param caption caption value. The caption can be either a string either

@@ -199,7 +199,7 @@ knit_to_html <- function(x, bookdown = FALSE, quarto = FALSE) {
     caption_str <- caption_bookdown_html(x)
     manual_css <- attr(caption_str, "css")
   } else if (quarto) {
-    caption_str <- caption_quarto_html(x)
+    caption_str <- ""
   } else {
     caption_str <- caption_default_html(x)
     manual_css <- attr(caption_str, "css")
@@ -248,6 +248,8 @@ knit_to_wml <- function(x, bookdown = FALSE, quarto = FALSE) {
   }
   if (bookdown) {
     caption <- caption_bookdown_docx_md(x)
+  } else if (quarto) {
+    caption <- ""
   } else {
     caption <- caption_default_docx_openxml(
       x,
@@ -323,7 +325,7 @@ knit_to_latex <- function(x, bookdown, quarto = FALSE) {
   tab_props <- opts_current_table()
   topcaption <- tab_props$topcaption
   if (quarto) {
-    caption_str <- caption_quarto_latex(x)
+    caption_str <- ""
   } else if (bookdown) {
     caption_str <- caption_bookdown_latex(x)
   } else {

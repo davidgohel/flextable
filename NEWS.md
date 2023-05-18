@@ -14,8 +14,12 @@ the caption along pages can be desactivated with command
 
 ## Changes
 
-- bookdown has now bookmarks associated with captions and flextable
-benefits from this feature.
+- bookdown has now bookmarks associated with captions and flextable benefits
+from this feature.
+- In 'Quarto' captions are ignored, which make Quarto captions valid with HTML
+and PDF outputs; the responsibility for managing captions lies with the
+Quarto framework itself. It does not work with Quarto for Word and should be
+possible with Quarto `1.4`.
 
 # flextable 0.9.1
 
