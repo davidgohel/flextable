@@ -77,25 +77,34 @@ formatted chunks whereas with the former, caption will not be
 associated with any formatting.
 }
 \details{
-The values defined by \code{set_caption()} will be preferred when possible, i.e. the
-caption ID, the associated paragraph style, etc. Why specify "where possible"?
-Because the principles differ from tool to tool. Here is what we have noticed
-and tried to respect (if you think we are wrong, let us know):
+The behavior of captions in the 'flextable' package varies depending on the formats
+and technologies used.
+
+The values set by the \code{set_caption()} function will be prioritized whenever
+possible, including the caption ID and associated paragraph style.
+However, it's important to note that the behavior may differ across different tools.
+Here's what we have observed and attempted to respect, but please inform us
+if you believe our observations are incorrect:
 \itemize{
-\item Word and HTML documents made with 'rmarkdown', i.e. with \code{rmarkdown::word_document()}
-and \code{rmarkdown::html_document()} are not supposed to have numbered and cross-referenced captions.
-\item PDF documents made with 'rmarkdown' \code{rmarkdown::pdf_document()} automatically add numbers
-before the caption.
-\item Word and HTML documents made with 'bookdown' are supposed to have numbered and
-cross-referenced captions. This is achieved by 'bookdown' but for technical reasons,
-the caption must not be defined in an HTML or XML block. So with flextable we lose
-the ability to format the caption content; surprisingly this is not the case with PDF.
-\item HTML and PDF documents created with Quarto will manage captions and cross-references
-differently; Quarto will replace captions with \code{tbl-cap} and \code{label} values.
-\item Word documents made with Quarto are another specific case, Quarto does not
-inject captions from the \code{tbl-cap} and \code{label} values. This is a temporary
-situation that should evolve later. flextable' will evolve according to the
-evolution of Quarto.
+\item In Word and HTML documents created with 'rmarkdown' \code{rmarkdown::word_document()}
+and \code{rmarkdown::html_document()}, numbered and cross-referenced captions are not
+typically expected.
+\item In PDF documents created with 'rmarkdown' \code{rmarkdown::pdf_document()}, numbers
+are automatically added before the caption.
+\item In Word and HTML documents created with 'bookdown', numbered and cross-referenced
+captions are expected. 'bookdown' handles this functionality, but due to
+technical reasons, the caption should not be defined within an HTML or XML block.
+Therefore, when using 'flextable', the ability to format the caption content is
+lost (this limitation does not apply to PDF documents).
+\item HTML and PDF documents created with Quarto handle captions and
+cross-references differently. Quarto replaces captions with 'tbl-cap' and 'label'
+values.
+\item Word documents created with Quarto present another specific case.
+Currently, Quarto does not inject captions using the 'tbl-cap' and label values.
+However, this is a temporary situation that is expected to change in the future.
+The 'flextable' package will adapt accordingly as Quarto evolves.
+\item When using the \code{body_add_flextable()} function, all the options
+specified with \code{set_caption()} will be enabled.
 }
 
 Using \code{\link[=body_add_flextable]{body_add_flextable()}} enable all options specified with \code{set_caption()}.
