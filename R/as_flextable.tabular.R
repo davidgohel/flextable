@@ -10,13 +10,15 @@
 #' specifies the content and eventually formattings
 #' of the content.
 #'
-#' Two hidden columns can be used after the creation of
-#' the flextable (use only when `spread_first_col=TRUE`):
+#' Two hidden columns can be used for conditional formatting
+#' after the creation of the flextable (use only when
+#' `spread_first_col=TRUE`):
 #'
-#' - `.row_title` that contains the title label
-#' - `.is_row_title` that contains TRUE if a row is
-#' considered as a row title.
-#'
+#' - The column `.row_title` that contains the title label
+#' - The column `.type` that can contain the following values:
+#'   - "one_row": Indicates that there is only one row for this group. In this case, the row is not expanded with a title above.
+#'   - "list_title": Indicates a row that serves as a title for the data that are displayed after it.
+#'   - "list_data": Indicates rows that follow a title and contain data to be displayed.
 #'
 #' @param x object produced by [tables::tabular()].
 #' @param spread_first_col if TRUE, first row is spread as a new line separator
@@ -27,6 +29,8 @@
 #' @param row_title a call to [as_paragraph()] - it
 #' will be applied to the row titles if any
 #' when `spread_first_col=TRUE`.
+#' @param add_tab adds a tab in front of "list_data"
+#' label lines (located in column `.type`).
 #' @param ... unused argument
 #' @family as_flextable methods
 #' @examples
@@ -91,6 +95,7 @@ as_flextable.tabular <- function(x,
                                  spread_first_col = FALSE,
                                  fp_p = fp_par(text.align = "center", padding.top = 4),
                                  row_title = as_paragraph(as_chunk(.row_title)),
+                                 add_tab = FALSE,
                                  ...) {
   stopifnot(requireNamespace("tables", quietly = TRUE))
 
@@ -101,21 +106,35 @@ as_flextable.tabular <- function(x,
   hmerge_ins <- hmerge_instructions(x)
   .ncol <- ncol(tables::rowLabels(x))
 
-  row_colkeys <- paste0("COL", seq_len(.ncol))
-
+  row_columns <- colnames(vmerge_ins)
+  data_columns <- setdiff(colnames(body_data), row_columns)
   group_colname <- character()
 
   if (spread_first_col) {
-    group_colname <- row_colkeys[1]
-    body_data <- expand_tabular_data(body_data)
-    vmerge_ins <- expand_vmerge_ins(vmerge_ins)
+    group_colname <- row_columns[1]
+    row_columns <- setdiff(row_columns, group_colname)
+    .ncol <- .ncol - length(group_colname)
+
+    .is_list_title <- is_list_title(body_data[[group_colname]])
+    .is_one_row <- is_one_row(body_data[[group_colname]])
+
+    body_data <- expand_dataset(
+      body_data = body_data,
+      is_title = .is_list_title, is_single = .is_one_row,
+      group_colname = group_colname
+    )
+
+    text_align$body <- expand_dataset(
+      body_data = as.data.frame(text_align$body),
+      is_title = .is_list_title, is_single = .is_one_row,
+      group_colname = group_colname
+    )
   } else {
-    body_data$.is_row_title <- rep(FALSE, nrow(body_data))
+    body_data$.type <- "list_data"
+    body_data$.row_title <- FALSE
   }
 
-  colkeys <- setdiff(colnames(body_data), c(group_colname, ".is_row_title"))
-  row_colkeys <- setdiff(row_colkeys, group_colname)
-  .ncol <- .ncol - length(group_colname)
+  columns_keys <- setdiff(c(row_columns, data_columns), group_colname)
 
   vmerge_ins <- vmerge_ins[, setdiff(colnames(vmerge_ins), group_colname), drop = FALSE]
   text_align$header <- text_align$header[, setdiff(colnames(text_align$header), group_colname), drop = FALSE]
@@ -123,13 +142,14 @@ as_flextable.tabular <- function(x,
 
   if (length(group_colname)) {
     body_data$.row_title <- body_data[[group_colname]]
+    body_data$.row_title[body_data$.type %in% "one_row"] <-
+      body_data[[row_columns]][body_data$.type %in% "one_row"]
   }
-
-  ft <- flextable(body_data, col_keys = colkeys)
+  ft <- flextable(body_data, col_keys = columns_keys)
 
   ft <- set_header_df(ft, mapping = header_data)
 
-  ft <- merge_v(ft, part = "header", j = row_colkeys)
+  ft <- merge_v(ft, part = "header", j = row_columns)
 
   for (i in seq_along(hmerge_ins)) {
     hgroups <- split(seq_len(nrow(hmerge_ins)), hmerge_ins[[i]])
@@ -137,20 +157,21 @@ as_flextable.tabular <- function(x,
       ft <- merge_at(ft, part = "header", j = hgroup + .ncol, i = i)
     }
   }
-
-  for (j in names(vmerge_ins)) {
-    vgroups <- split(seq_len(nrow(vmerge_ins)), vmerge_ins[[j]])
-    for (vgroup in vgroups) {
-      ft <- merge_at(ft, part = "body", j = j, i = vgroup)
+  if (spread_first_col) {
+    for (j in setdiff(names(vmerge_ins), ".type")) {
+      vgroups <- split(seq_len(nrow(vmerge_ins)), vmerge_ins[[j]])
+      for (vgroup in vgroups) {
+        ft <- merge_at(ft, part = "body", j = j, i = vgroup)
+      }
     }
   }
 
   ft <- do.call(get_flextable_defaults()$theme_fun, list(ft))
 
-  for (j in colkeys) {
+  for (j in columns_keys) {
     ft <- align(ft, j = j, align = text_align$header[, j], part = "header")
     ft <- align(ft,
-      j = j, i = ~ .is_row_title %in% FALSE,
+      j = j, i = ~ .type %in% c("one_row", "list_data"),
       align = text_align$body[, j], part = "body"
     )
   }
@@ -164,12 +185,12 @@ as_flextable.tabular <- function(x,
   # preserve data types and can do conditionnal
   # formatting
   strmat <- format(x)
-  strmat_colnames <- setdiff(colnames(body_data), c(row_colkeys, group_colname, ".is_row_title", ".row_title"))
-  colnames(strmat) <- strmat_colnames
-  for (j in strmat_colnames) {
-    current_col_str <- ft[["body"]]$content$content$data[!body_data$.is_row_title, j]
+  colnames(strmat) <- data_columns
+  for (j in data_columns) {
+    rindex <- body_data$.type %in% c("one_row", "list_data")
+    current_col_str <- ft[["body"]]$content$content$data[rindex, j]
 
-    ft[["body"]]$content$content$data[!body_data$.is_row_title, j] <- mapply(
+    ft[["body"]]$content$content$data[rindex, j] <- mapply(
       function(obj, txt) {
         obj$txt <- txt
         obj
@@ -178,52 +199,62 @@ as_flextable.tabular <- function(x,
       SIMPLIFY = FALSE
     )
   }
-
-  if (any(body_data$.is_row_title)) {
+  if (any(body_data$.type %in% "list_title")) {
     ft <- merge_h_range(ft,
-      i = ~ .is_row_title %in% TRUE,
-      j1 = 1L, j2 = length(colkeys)
+      i = ~ .type %in% c("list_title"),
+      j1 = 1L, j2 = length(columns_keys)
     )
-    ft <- mk_par(ft, i = body_data$.is_row_title, j = 1, value = {{ row_title }})
-    ft <- style(ft, i = body_data$.is_row_title, j = 1, pr_p = fp_p, part = "body")
+    ft <- mk_par(ft, i = body_data$.type %in% c("list_title", "one_row"), j = 1, value = {{ row_title }})
+    ft <- style(ft, i = body_data$.type %in% c("list_title", "one_row"), j = 1, pr_p = fp_p, part = "body")
+    if (add_tab) {
+      ft <- prepend_chunks(ft, i = ~ .type %in% "list_data", j = 1, as_chunk("\t"))
+    }
   }
+
 
   ft <- fix_border_issues(ft)
   best_widths_ <- dim_pretty(ft)$widths
-  best_widths_[setdiff(seq_along(colkeys), seq_len(.ncol))] <- max(best_widths_[setdiff(seq_along(colkeys), seq_len(.ncol))])
+  best_widths_[setdiff(seq_along(columns_keys), seq_len(.ncol))] <- max(best_widths_[setdiff(seq_along(columns_keys), seq_len(.ncol))])
   ft <- width(ft, width = best_widths_)
+
+  ft$tabular_info <- list(
+    row_columns = row_columns,
+    data_columns = data_columns
+  )
+
   ft
 }
 
 # utils -----
-expand_vmerge_ins <- function(x, group_colname = "COL1") {
-  x$.rowid <- seq_len(nrow(x))
-  subvm <- x[!duplicated(x[[group_colname]]), ]
-  subvm[, ] <- subvm[, ] - .2
-  x <- rbind(x, subvm)
-  x <- x[order(x$.rowid), ]
-  x$.rowid <- NULL
-  x[] <- lapply(x, rleid)
-  x
-}
 
-expand_tabular_data <- function(body_data, group_colname = "COL1") {
+expand_dataset <- function(
+    body_data,
+    is_title, is_single,
+    group_colname = "COL1") {
   body_data$.fakeid <- seq_len(nrow(body_data))
 
-  newdat <- body_data[!is.na(body_data[[group_colname]]), ]
-  newdat$.fakeid <- newdat$.fakeid - .1
+  title_dat <- body_data[is_title, ]
+  title_dat$.fakeid <- title_dat$.fakeid - .1
+  title_dat <- title_dat[, c(".fakeid", group_colname)]
+  title_dat$.type <- rep("list_title", nrow(title_dat))
 
-  newdat <- newdat[, c(".fakeid", group_colname)]
-  newdat$.is_row_title <- TRUE
-  body_data[[group_colname]] <- NULL
-  body_data$.is_row_title <- FALSE
-  body_data <- rbindlist(list(newdat, body_data), use.names = TRUE, fill = TRUE)
+  singlerow_dat <- body_data[is_single, ]
+  singlerow_dat$.fakeid <- singlerow_dat$.fakeid - .1
+  .col_dest <- head(setdiff(colnames(singlerow_dat), group_colname), 1)
+  singlerow_dat[[.col_dest]] <- singlerow_dat[[group_colname]]
+  singlerow_dat[[group_colname]] <- rep(NA_character_, nrow(singlerow_dat))
+  singlerow_dat$.type <- rep("one_row", nrow(singlerow_dat))
 
-  body_data <- body_data[order(body_data$.fakeid), ]
-  body_data$.fakeid <- NULL
+  body_data <- body_data[!is_single, ]
+  body_data[[group_colname]] <- rep(NA_character_, nrow(body_data))
+  body_data$.type <- rep("list_data", nrow(body_data))
 
-  setDF(body_data)
-  body_data
+  dat <- rbindlist(list(title_dat, singlerow_dat, body_data), use.names = TRUE, fill = TRUE)
+  dat <- dat[order(dat$.fakeid), ]
+  dat$.fakeid <- NULL
+
+  setDF(dat)
+  dat
 }
 
 vmerge_instructions <- function(x) {
@@ -298,3 +329,14 @@ fortify_tabular_justify <- function(x, justification = "c", ...) {
     body = justify[setdiff(seq_len(nrow(justify)), seq_len(nrow(clabels))), , drop = FALSE]
   )
 }
+
+is_list_title <- function(x) {
+  lag_str <- c(tail(x, -1), "")
+  !is.na(x) & is.na(lag_str)
+}
+
+is_one_row <- function(x) {
+  lag_str <- c(tail(x, -1), "")
+  !is.na(x) & !is.na(lag_str)
+}
+

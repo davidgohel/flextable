@@ -9,6 +9,7 @@
   spread_first_col = FALSE,
   fp_p = fp_par(text.align = "center", padding.top = 4),
   row_title = as_paragraph(as_chunk(.row_title)),
+  add_tab = FALSE,
   ...
 )
 }
@@ -26,6 +27,9 @@ see \code{\link[=fp_par]{fp_par()}}.}
 will be applied to the row titles if any
 when \code{spread_first_col=TRUE}.}
 
+\item{add_tab}{adds a tab in front of "list_data"
+label lines (located in column \code{.type}).}
+
 \item{...}{unused argument}
 }
 \description{
@@ -39,12 +43,17 @@ properties of the paragraph) and \code{row_title} that
 specifies the content and eventually formattings
 of the content.
 
-Two hidden columns can be used after the creation of
-the flextable (use only when \code{spread_first_col=TRUE}):
+Two hidden columns can be used for conditional formatting
+after the creation of the flextable (use only when
+\code{spread_first_col=TRUE}):
 \itemize{
-\item \code{.row_title} that contains the title label
-\item \code{.is_row_title} that contains TRUE if a row is
-considered as a row title.
+\item The column \code{.row_title} that contains the title label
+\item The column \code{.type} that can contain the following values:
+\itemize{
+\item "one_row": Indicates that there is only one row for this group. In this case, the row is not expanded with a title above.
+\item "list_title": Indicates a row that serves as a title for the data that are displayed after it.
+\item "list_data": Indicates rows that follow a title and contain data to be displayed.
+}
 }
 }
 \examples{

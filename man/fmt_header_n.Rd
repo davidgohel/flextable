@@ -4,10 +4,13 @@
 \alias{fmt_header_n}
 \title{Format count data for headers}
 \usage{
-fmt_header_n(n)
+fmt_header_n(n, newline = TRUE)
 }
 \arguments{
 \item{n}{count values}
+
+\item{newline}{indicates to prefix the text with a new line
+(sof return).}
 }
 \description{
 The function formats counts as \verb{\\n(N=XX)}. This helper

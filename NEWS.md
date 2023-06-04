@@ -20,6 +20,8 @@ from this feature.
 and PDF outputs; the responsibility for managing captions lies with the
 Quarto framework itself. It does not work with Quarto for Word and should be
 possible with Quarto `1.4`.
+- `as_flextable.tabular()` now generate tabulated content only if the sub group
+contains more than a single row. When possible, row titles are tabulated.
 
 # flextable 0.9.1
 

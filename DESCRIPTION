@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.9.2.009
+Version: 0.9.2.010
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -42,7 +42,7 @@ Suggests:
     magick, equatags, commonmark, 
     ggplot2, scales,
     doconv (>= 0.3.0),
-    xtable, tables,
+    xtable, tables (>= 0.9.17),
     broom, broom.mixed, 
     mgcv, cluster, lme4, nlme,
     bookdown (>= 0.34), pdftools, officedown,

@@ -351,6 +351,8 @@ fmt_n_percent <- function(n, pct, digit = 1){
 #' @description The function formats counts as `\n(N=XX)`. This helper
 #' function is used to add counts in columns titles.
 #' @param n count values
+#' @param newline indicates to prefix the text with a new line
+#' (sof return).
 #' @seealso [tabulator()], [mk_par()]
 #' @family text formatter functions
 #' @examples
@@ -364,9 +366,15 @@ fmt_n_percent <- function(n, pct, digit = 1){
 #'   value = as_chunk(fmt_header_n(200)))
 #' ft_1 <- autofit(ft_1)
 #' ft_1
-fmt_header_n <- function(n){
+fmt_header_n <- function(n, newline = TRUE){
   z1 <- character(length(n))
-  z1[!is.na(n)] <- sprintf("\n(N=%s)", fmt_int(n[!is.na(n)]))
+
+  mask <- "\n(N=%s)"
+  if (!newline) {
+    mask <- "(N=%s)"
+  }
+
+  z1[!is.na(n)] <- sprintf(mask, fmt_int(n[!is.na(n)]))
   z1
 }
 
