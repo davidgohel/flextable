@@ -259,20 +259,20 @@ expand_dataset <- function(
 
 vmerge_instructions <- function(x) {
   label_data <- tables::rowLabels(x)
-  label_data <- apply(label_data, 2, function(z) {
+  label_data <- apply(label_data[], 2, function(z) {
     notna <- !is.na(z)
     rleid(cumsum(notna))
-  }, simplify = FALSE)
+  })
   label_data <- as.data.frame(label_data)
   colnames(label_data) <- sprintf("COL%.0f", seq_len(ncol(label_data)))
   label_data
 }
 hmerge_instructions <- function(x) {
   label_data <- tables::colLabels(x)
-  label_data <- apply(label_data, 1, function(z) {
+  label_data <- apply(label_data[], 1, function(z) {
     notna <- !is.na(z)
     rleid(cumsum(notna))
-  }, simplify = FALSE)
+  })
   label_data <- as.data.frame(label_data)
   label_data
 }
@@ -285,7 +285,7 @@ fortify_tabular_body <- function(x, ...) {
   celldata <- matrix(x[], nrow = dims[1], ncol = dims[2])
   celldata <- apply(celldata, 2, function(dat) {
     unlist(dat)
-  }, simplify = FALSE)
+  })
   celldata <- as.data.frame(celldata)
   names(celldata) <- sprintf("COL%.0f", seq_len(ncol(celldata)) + ncol(row_labels))
   cbind(row_labels, celldata)

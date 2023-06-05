@@ -11,6 +11,7 @@ when to be recursive
 this is fixed thanks to Christophe Dervieux and Nick Bart. Repeating 
 the caption along pages can be desactivated with command 
 `set_table_properties(opts_pdf = list(caption_repeat = FALSE))`.
+- `as_flextable()` now works on tabular objects and `R < 4.1`.
 
 ## Changes
 
