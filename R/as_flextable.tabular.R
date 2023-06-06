@@ -20,6 +20,7 @@
 #'   - "list_title": Indicates a row that serves as a title for the data that are displayed after it.
 #'   - "list_data": Indicates rows that follow a title and contain data to be displayed.
 #'
+#' The result is paginated (see [paginate()]).
 #' @param x object produced by [tables::tabular()].
 #' @param spread_first_col if TRUE, first row is spread as a new line separator
 #' instead of being a column. This helps to reduce the width and allows for
@@ -217,6 +218,11 @@ as_flextable.tabular <- function(x,
   best_widths_[setdiff(seq_along(columns_keys), seq_len(.ncol))] <- max(best_widths_[setdiff(seq_along(columns_keys), seq_len(.ncol))])
   ft <- width(ft, width = best_widths_)
 
+  if (spread_first_col) {
+    ft <- paginate(ft, group = group_colname, group_def = "nonempty")
+  } else {
+    ft <- paginate(ft, group = row_columns[1], group_def = "nonempty")
+  }
   ft$tabular_info <- list(
     row_columns = row_columns,
     data_columns = data_columns

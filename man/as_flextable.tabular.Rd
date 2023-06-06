@@ -55,6 +55,8 @@ after the creation of the flextable (use only when
 \item "list_data": Indicates rows that follow a title and contain data to be displayed.
 }
 }
+
+The result is paginated (see \code{\link[=paginate]{paginate()}}).
 }
 \examples{
 if (require("tables")) {
