@@ -24,6 +24,11 @@ possible with Quarto `1.4`.
 - `as_flextable.tabular()` now generate tabulated content only if the sub group
 contains more than a single row. When possible, row titles are tabulated.
 
+## Deprecated functions
+
+- The functions `footers_flextable_at_bkm` and `headers_flextable_at_bkm` are deprecated.
+Instead, we recommend using the `prop_section()` and `block_list()` functions from the `officer` package as alternative solutions. These functions provide more reliable and flexible options for managing footers and headers. 
+
 # flextable 0.9.1
 
 ## breaking change
