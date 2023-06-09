@@ -50,7 +50,7 @@ append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
 
     if(is.data.frame(value) && nrow(value) == 1L && nrow(value) < nrow(tmp_data)){
       value <- rep(list(value), nrow(tmp_data))
-      value <- rbind.match.columns(value)
+      value <- rbind_match_columns(value)
     }
 
     if(is.data.frame(value))
@@ -58,7 +58,7 @@ append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
 
     new <- mapply(function(x, y) {
       y$seq_index <- max(x$seq_index, na.rm = TRUE) + 1
-      rbind.match.columns(list(x, y))
+      rbind_match_columns(list(x, y))
     }, x = x[[part]]$content[i, j], y = value, SIMPLIFY = FALSE)
     x[[part]]$content[i, j] <- new
   }
@@ -109,7 +109,7 @@ prepend_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
 
     if(is.data.frame(value) && nrow(value) == 1L && nrow(value) < nrow(tmp_data)){
       value <- rep(list(value), nrow(tmp_data))
-      value <- rbind.match.columns(value)
+      value <- rbind_match_columns(value)
     }
 
     if(is.data.frame(value))
@@ -117,7 +117,7 @@ prepend_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
 
     new <- mapply(function(x, y, seq_index) {
       y$seq_index <- seq_index
-      z <- rbind.match.columns(list(y, x))
+      z <- rbind_match_columns(list(y, x))
       z <- z[order(z$seq_index),]
       z$seq_index <- rleid(z$seq_index)
       z

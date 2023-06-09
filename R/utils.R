@@ -1,5 +1,5 @@
 #' @importFrom data.table rbindlist setDF
-rbind.match.columns <- function(list_df) {
+rbind_match_columns <- function(list_df) {
   df <- rbindlist(list_df, use.names = TRUE, fill = TRUE)
   setDF(df)
   row.names(df) <- NULL

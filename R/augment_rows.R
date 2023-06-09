@@ -102,6 +102,43 @@ as_new_data <- function(x, ..., values = NULL) {
   data.frame(as.list(args_), check.names = FALSE, stringsAsFactors = FALSE)
 }
 
+add_rows_to_tabpart <- function( x, rows, first = FALSE ){
+
+  data <- x$dataset
+  spans <- x$spans
+  ncol <- length(x$col_keys)
+  nrow <- nrow(rows)
+
+  x$styles$cells <- add_rows(x$styles$cells, nrows = nrow, first = first)
+  x$styles$pars <- add_rows(x$styles$pars, nrows = nrow, first = first)
+  x$styles$text <- add_rows(x$styles$text, nrows = nrow, first = first)
+  x$content <- add_rows(x$content, nrows = nrow, first = first, rows)
+
+  span_new <- matrix( 1, ncol = ncol, nrow = nrow )
+  rowheights <- x$rowheights
+  hrule <- x$hrule
+
+  if( !first ){
+    data <- rbind(data, rows )
+    spans$rows <- rbind( spans$rows, span_new )
+    spans$columns <- rbind( spans$columns, span_new )
+    rowheights <- c(rowheights, rep(rev(rowheights)[1], nrow(rows)))
+    hrule <- c(hrule, rep(rev(hrule)[1], nrow(rows)))
+  } else {
+    data <- rbind(rows, data )
+    spans$rows <- rbind( span_new, spans$rows )
+    spans$columns <- rbind( span_new, spans$columns )
+    rowheights <- c(rep(rowheights[1], nrow(rows)), rowheights)
+    hrule <- c(rep(hrule[1], nrow(rows)), hrule)
+
+  }
+  x$rowheights <- rowheights
+  x$dataset <- data
+  x$spans <- spans
+  x$hrule <- hrule
+  x
+}
+
 # add header/footer content ----
 
 #' @export
@@ -152,7 +189,7 @@ add_body <- function(x, top = TRUE, ..., values = NULL) {
   }
 
   new_data <- as_new_data(x = x, ..., values = values)
-  x$body <- add_rows(x$body, new_data, first = top)
+  x$body <- add_rows_to_tabpart(x$body, new_data, first = top)
   x
 }
 
@@ -208,7 +245,7 @@ add_header <- function(x, top = TRUE, ..., values = NULL) {
   }
 
   header_data <- as_new_data(x = x, ..., values = values)
-  x$header <- add_rows(x$header, header_data, first = top)
+  x$header <- add_rows_to_tabpart(x$header, header_data, first = top)
 
   x
 }
@@ -259,7 +296,7 @@ add_footer <- function(x, top = TRUE, ..., values = NULL) {
   if (nrow_part(x, "footer") < 1) {
     x$footer <- complex_tabpart(data = footer_data, col_keys = x$col_keys, cwidth = .75, cheight = .25)
   } else {
-    x$footer <- add_rows(x$footer, footer_data, first = top)
+    x$footer <- add_rows_to_tabpart(x$footer, footer_data, first = top)
   }
 
   x
@@ -376,7 +413,7 @@ add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0))
       cwidth = dim(x)$widths, cheight = .25
     )
   } else {
-    x$body <- add_rows(x$body, body_data, first = top)
+    x$body <- add_rows_to_tabpart(x$body, body_data, first = top)
   }
 
   i <- ifelse(top, 1, nrow_part(x, "body"))
@@ -464,7 +501,7 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
   if (nrow_part(x, "header") < 1) {
     x$header <- complex_tabpart(data = header_data, col_keys = x$col_keys, cwidth = dim(x)$widths, cheight = .25)
   } else {
-    x$header <- add_rows(x$header, header_data, first = top)
+    x$header <- add_rows_to_tabpart(x$header, header_data, first = top)
   }
 
   row_span <- unlist(lapply(colwidths, function(x) {
@@ -566,7 +603,7 @@ add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = int
   if (nrow_part(x, "footer") < 1) {
     x$footer <- complex_tabpart(data = footer_data, col_keys = x$col_keys, cwidth = dim(x)$widths, cheight = .25)
   } else {
-    x$footer <- add_rows(x$footer, footer_data, first = top)
+    x$footer <- add_rows_to_tabpart(x$footer, footer_data, first = top)
   }
 
   row_span <- unlist(lapply(colwidths, function(x) {

@@ -711,7 +711,7 @@ as_paragraph <- function(..., list_values = NULL) {
   id_recycl <- which(nrows == 1)
   if (length(nrows) != 1 && length(id_recycl) > 0) {
     list_values[id_recycl] <- lapply(list_values[id_recycl], function(x, n) {
-      z <- rbind.match.columns(rep(list(x), n))
+      z <- rbind_match_columns(rep(list(x), n))
       z
     }, exp_nrow)
   }
@@ -721,7 +721,7 @@ as_paragraph <- function(..., list_values = NULL) {
   if (length(unique(nrows)) != 1 && 1 %in% nrows) {
     which_ <- which(nrows %in% 1)
     list_values[which_] <- lapply(list_values[which_], function(x, n) {
-      rbind.match.columns(rep(list(x), n))
+      rbind_match_columns(rep(list(x), n))
     }, n = max(nrows, na.rm = TRUE))
   }
   nrows <- sapply(list_values, nrow)
@@ -734,7 +734,7 @@ as_paragraph <- function(..., list_values = NULL) {
     x$seq_index <- rep(index, nrow(x))
     x
   }, list_values, seq_along(list_values), SIMPLIFY = FALSE, USE.NAMES = FALSE)
-  data <- rbind.match.columns(data)
+  data <- rbind_match_columns(data)
 
   data <- split(data, rep(seq_len(nrow(list_values[[1]])), length((list_values))))
   names(data) <- NULL

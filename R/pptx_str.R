@@ -76,8 +76,8 @@ pml_cells <- function(value, cell_data){
 
 gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0){
 
-  cell_attributes <- fortify_style(value, "cells")
-  par_attributes <- fortify_style(value, "pars")
+  cell_attributes <- fortify_cells_properties(value)
+  par_attributes <- fortify_paragraphs_properties(value)
 
   # cell_attributes and par_attributes must be ordered identically
   new_pos <- ooxml_rotation_alignments(

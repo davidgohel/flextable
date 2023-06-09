@@ -427,7 +427,7 @@ as_wide_matrix_ <- function(data, idvar, timevar = "col_key"){
 
 
 dim_paragraphs <- function(x){
-  par_dim <- as.data.frame(x$styles$pars)
+  par_dim <- par_struct_to_df(x$styles$pars)
   par_dim$width <- as.vector(x$styles$pars[,,"padding.right"] + x$styles$pars[,,"padding.left"]) * (4/3) / 72
   par_dim$height <- as.vector(x$styles$pars[,,"padding.top"] + x$styles$pars[,,"padding.bottom"]) * (4/3) / 72
   selection_ <- c("ft_row_id", "col_id", "width", "height")
@@ -439,7 +439,7 @@ dim_paragraphs <- function(x){
 }
 
 dim_cells <- function(x){
-  cell_dim <- as.data.frame(x$styles$cells)
+  cell_dim <- cell_struct_to_df(x$styles$cells)
   cell_dim$width <- as.vector(x$styles$cells[,,"margin.right"] + x$styles$cells[,,"margin.left"]) * (4/3) / 72
   cell_dim$height <- as.vector(x$styles$cells[,,"margin.top"] + x$styles$cells[,,"margin.bottom"]) * (4/3) / 72
   selection_ <- c("ft_row_id", "col_id", "width", "height")
@@ -507,7 +507,7 @@ text_metric <- function(x) {
   txt_data <- cbind(txt_data, extents_values)
 
   # swap width/height when cell is rotated
-  td_data <- as.data.frame(x$styles$cells)[, c("ft_row_id", "col_id", "text.direction")]
+  td_data <- cell_struct_to_df(x$styles$cells)[, c("ft_row_id", "col_id", "text.direction")]
   txt_data <- merge(txt_data, td_data, by = c("ft_row_id", "col_id"))
   txt_data[txt_data$text.direction %in% c("tbrl","btlr"), c("width", "height") := list(.SD$height, .SD$width)]
 

@@ -394,8 +394,8 @@ calc_column_size <- function(df, levels) {
 
 # tools ----
 merge_table_properties <- function(x) {
-  cell_data <- fortify_style(x, "cells")
-  par_data <- fortify_style(x, "pars")
+  cell_data <- fortify_cells_properties(x)
+  par_data <- fortify_paragraphs_properties(x)
   setDT(cell_data)
   setDT(par_data)
 

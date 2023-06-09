@@ -102,12 +102,12 @@ add_rows.text_struct <- function(x, nrows, first, ...){
   x
 }
 
-as.data.frame.text_struct <- function(object, ...){
-  data <- lapply( object, function(x){
+text_struct_to_df <- function(object, ...) {
+  data <- lapply(object, function(x) {
     as.vector(x$data)
   })
-  data$ft_row_id <- rep( seq_len(nrow(object$color$data)), ncol(object$color$data) )
-  data$col_id <- rep( object$color$keys, each = nrow(object$color$data) )
+  data$ft_row_id <- rep(seq_len(nrow(object$color$data)), ncol(object$color$data))
+  data$col_id <- rep(object$color$keys, each = nrow(object$color$data))
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   data$col_id <- factor(data$col_id, levels = object$color$keys)
   data
@@ -192,7 +192,7 @@ add_rows.par_struct <- function(x, nrows, first, ...){
   x[[property]][i, j]
 }
 
-as.data.frame.par_struct <- function(object, ...){
+par_struct_to_df <- function(object, ...){
   data <- lapply( object, function(x){
     as.vector(x$data)
   })
@@ -280,7 +280,7 @@ print.cell_struct <- function(x, ...){
   cat("a cell_struct with ", dims[1], " rows and ", dims[2], " columns", sep = "")
 }
 
-as.data.frame.cell_struct <- function(object, ...){
+cell_struct_to_df <- function(object, ...){
   data <- lapply( object, function(x){
     as.vector(x$data)
   })

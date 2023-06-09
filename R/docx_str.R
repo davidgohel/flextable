@@ -187,14 +187,14 @@ wml_cells <- function(value, cell_data) {
 wml_rows <- function(value, split = FALSE) {
 
   # prepare cells formatting properties and add span information
-  cell_attributes <- fortify_style(value, "cells")
+  cell_attributes <- fortify_cells_properties(value)
   span_data <- fortify_span(value)
   setDT(cell_attributes)
   cell_attributes <- merge(cell_attributes, span_data, by = c("part", "ft_row_id", "col_id"))
   setDF(cell_attributes)
 
   # prepare paragraphs formatting properties
-  paragraphs_properties <- fortify_style(value, "pars")
+  paragraphs_properties <- fortify_paragraphs_properties(value)
 
   # transform alignments for rotated text
   # and add them back to paragraphs_properties and cell_attributes

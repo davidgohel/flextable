@@ -20,19 +20,42 @@ expand_special_char <- function(x, what, with = NA, ...) {
 
 #' @importFrom data.table rbindlist setDF
 #' @noRd
-#' @title fortify style
+#' @title fortify pars style
 #' @description create a data.frame with formatting information.
-#' It can be used with cells/pars/text
-fortify_style <- function(x, style_part = "pars") {
+fortify_paragraphs_properties <- function(x) {
   dat <- list()
   if (nrow_part(x, "header") > 0) {
-    dat$header <- as.data.frame(x$header$styles[[style_part]])
+    dat$header <- par_struct_to_df(x$header$styles[["pars"]])
   }
   if (nrow_part(x, "body") > 0) {
-    dat$body <- as.data.frame(x$body$styles[[style_part]])
+    dat$body <- par_struct_to_df(x$body$styles[["pars"]])
   }
   if (nrow_part(x, "footer") > 0) {
-    dat$footer <- as.data.frame(x$footer$styles[[style_part]])
+    dat$footer <- par_struct_to_df(x$footer$styles[["pars"]])
+  }
+  dat <- rbindlist(dat, use.names = TRUE, idcol = "part")
+
+  dat$part <- factor(dat$part, levels = c("header", "body", "footer"))
+  dat$col_id <- factor(dat$col_id, levels = x$col_keys)
+  setorderv(dat, cols = c("part", "ft_row_id", "col_id"))
+
+  setDF(dat)
+
+  dat
+}
+
+#' @noRd
+#' @title fortify cells style
+fortify_cells_properties <- function(x) {
+  dat <- list()
+  if (nrow_part(x, "header") > 0) {
+    dat$header <- cell_struct_to_df(x$header$styles[["cells"]])
+  }
+  if (nrow_part(x, "body") > 0) {
+    dat$body <- cell_struct_to_df(x$body$styles[["cells"]])
+  }
+  if (nrow_part(x, "footer") > 0) {
+    dat$footer <- cell_struct_to_df(x$footer$styles[["cells"]])
   }
   dat <- rbindlist(dat, use.names = TRUE, idcol = "part")
 
@@ -240,7 +263,7 @@ fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TR
   out$col_id <- col_id
   setDF(out)
 
-  default_props <- as.data.frame(default_chunk_fmt, stringsAsFactors = FALSE)
+  default_props <- text_struct_to_df(default_chunk_fmt, stringsAsFactors = FALSE)
   out <- replace_missing_fptext_by_default(out, default_props)
 
   out$col_id <- factor( out$col_id, levels = default_chunk_fmt$color$keys )

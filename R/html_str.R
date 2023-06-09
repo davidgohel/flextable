@@ -113,9 +113,9 @@ scrollbox <- function(height = NULL, add_css = "", ...) {
 #' @importFrom data.table setnames setorderv := setcolorder setDT setDF dcast
 html_content_strs <- function(x){
 
-  cell_data_f <- fortify_style(x, "cells")
+  cell_data_f <- fortify_cells_properties(x)
   setDT(cell_data_f)
-  par_data_f <- fortify_style(x, "pars")
+  par_data_f <- fortify_paragraphs_properties(x)
   setDT(par_data_f)
 
   txt_data <- runs_as_html(x, chunk_data = fortify_run(x))

@@ -109,7 +109,7 @@ get_grid_data <- function(x, autowidths, wrapping) {
 }
 
 grid_data_add_cell_info <- function(grid_data, x) {
-  cell_data <- fortify_style(x, "cells")
+  cell_data <- fortify_cells_properties(x)
 
   # merge with grid_data to keep only active cells
   keycols <- c("part", "ft_row_id", "col_id")
@@ -194,7 +194,7 @@ grid_data_add_cell_info <- function(grid_data, x) {
 
 #' @importFrom grid unit
 grid_data_add_par_info <- function(grid_data, x) {
-  par_data <- fortify_style(x, "pars")
+  par_data <- fortify_paragraphs_properties(x)
 
   # merge with grid_data to keep only active cells
   keycols <- c("part", "ft_row_id", "col_id")
