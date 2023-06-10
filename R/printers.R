@@ -160,12 +160,32 @@ to_html.flextable <- function(x, type = c("table", "img"), ...) {
     gen_raw_html(x, class = "tabwid", caption = "", manual_css = paste0(manual_css, collapse = "\n"))
   } else {
     tmp <- tempfile(fileext = ".png")
-    dir.create(dirname(tmp), showWarnings = FALSE, recursive = TRUE)
-    save_as_image(x, path = tmp, expand = 0, res = 200)
+
+    gr <- gen_grob(x, fit = "fixed", just = "center")
+    dims <- dim(gr)
+    expand <- 10
+    width <- dims$width + expand/72
+    height <- dims$height + expand/72
+
+    agg_png(
+      filename = tmp,
+      width = dims$width + expand/72,
+      height = dims$height + expand/72,
+      res = 200, units = "in",
+      background = "transparent")
+
+    tryCatch(
+      {
+        plot(gr)
+      },
+      finally = {
+        dev.off()
+      }
+    )
+
     base64_string <- image_to_base64(tmp)
-    width <- flextable_dim(x)$width
-    height <- flextable_dim(x)$height
-    sprintf("<img style=\"width:%.0fpx;height:%.0fpx;\" src=\"%s\" />", width * 72, height * 72, base64_string)
+
+    sprintf("<img style=\"width:%.3fin;height:%.3fin;\" src=\"%s\" />", width, height, base64_string)
   }
 }
 
