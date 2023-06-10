@@ -455,7 +455,7 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 
 
 
-#' @title Render flextable in rmarkdown
+#' @title Render flextable with 'knitr'
 #' @description Function used to render flextable in knitr/rmarkdown documents.
 #'
 #' You should not call this method directly. This function is used by the knitr
@@ -1035,6 +1035,9 @@ plot.flextable <- function(x, ...) {
 #' @description save a flextable as an image and return the corresponding
 #' raster. This function has been implemented to let flextable be printed
 #' on a ggplot object.
+#'
+#' The function is no longer very useful since [gen_grob()] exists and
+#' will be deprecated in a future version.
 #' @note This function requires package 'magick'.
 #' @param x a flextable object
 #' @param ... additional arguments passed to other functions
@@ -1048,6 +1051,7 @@ plot.flextable <- function(x, ...) {
 #' }
 #' }
 #' @family flextable print function
+#' @keywords internal
 as_raster <- function(x, ...) {
   if (!requireNamespace("magick", quietly = TRUE)) {
     stop(sprintf(

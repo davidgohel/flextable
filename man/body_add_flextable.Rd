@@ -2,7 +2,6 @@
 % Please edit documentation in R/body_add_flextable.R
 \name{body_add_flextable}
 \alias{body_add_flextable}
-\alias{body_replace_flextable_at_bkm}
 \title{Add flextable into a Word document}
 \usage{
 body_add_flextable(
@@ -13,14 +12,6 @@ body_add_flextable(
   split = NULL,
   topcaption = TRUE,
   keepnext = NULL
-)
-
-body_replace_flextable_at_bkm(
-  x,
-  bookmark,
-  value,
-  align = "center",
-  split = FALSE
 )
 }
 \arguments{
@@ -40,18 +31,10 @@ option 'Allow row to break across pages'.}
 caption is added after the table.}
 
 \item{keepnext}{Defunct in favor of \code{\link[=paginate]{paginate()}}.}
-
-\item{bookmark}{bookmark id}
 }
 \description{
 add a flextable into a Word document.
 }
-\section{body_replace_flextable_at_bkm}{
-
-Use this function if you want to replace a paragraph containing
-a bookmark with a flextable. As a side effect, the bookmark will be lost.
-}
-
 \examples{
 library(officer)
 

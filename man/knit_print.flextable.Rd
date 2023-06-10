@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{knit_print.flextable}
 \alias{knit_print.flextable}
-\title{Render flextable in rmarkdown}
+\title{Render flextable with 'knitr'}
 \usage{
 \method{knit_print}{flextable}(x, ...)
 }

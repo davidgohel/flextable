@@ -42,7 +42,6 @@ reference:
     - print.flextable
     - knit_print.flextable
     - body_add_flextable
-    - paginate
     - ph_with.flextable
     - plot.flextable
     - save_as_image
@@ -53,13 +52,13 @@ reference:
     - htmltools_value
     - gen_grob
     - plot.flextableGrob
-    - as_raster
     - to_html.flextable
     - rtf_add.flextable
     - flextable_to_rmd
     - df_printer
     - use_df_printer
     - use_model_printer
+    - body_replace_flextable_at_bkm
   - title: Change visual properties
     desc: >
      Modify the visual properties of the components of a 'flextable' such
@@ -123,6 +122,7 @@ reference:
     contents:
     - starts_with("height")
     - set_table_properties
+    - paginate
     - keep_with_next
     - width
     - hrule

@@ -15,6 +15,9 @@ as_raster(x, ...)
 save a flextable as an image and return the corresponding
 raster. This function has been implemented to let flextable be printed
 on a ggplot object.
+
+The function is no longer very useful since \code{\link[=gen_grob]{gen_grob()}} exists and
+will be deprecated in a future version.
 }
 \note{
 This function requires package 'magick'.
@@ -45,3 +48,4 @@ Other flextable print function:
 \code{\link{to_html.flextable}()}
 }
 \concept{flextable print function}
+\keyword{internal}

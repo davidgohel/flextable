@@ -78,11 +78,16 @@ body_add_flextable <- function(x, value,
 }
 
 #' @export
-#' @rdname body_add_flextable
-#' @param bookmark bookmark id
-#' @section body_replace_flextable_at_bkm:
+#' @title Add flextable at boorkmark location in a Word document
+#' @description
 #' Use this function if you want to replace a paragraph containing
 #' a bookmark with a flextable. As a side effect, the bookmark will be lost.
+#' @param x an rdocx object
+#' @param value `flextable` object
+#' @param bookmark bookmark id
+#' @param align left, center (default) or right.
+#' @param split set to TRUE if you want to activate Word
+#' option 'Allow row to break across pages'.
 #' @importFrom officer cursor_bookmark
 #' @importFrom xml2 xml_replace as_xml_document xml_find_first xml_parent
 body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", split = FALSE) {
