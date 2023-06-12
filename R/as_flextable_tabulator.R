@@ -33,6 +33,7 @@
 #' when the flextable is created.
 #' @return an object of class `tabulator`.
 #' @examples
+#' \dontrun{
 #' set_flextable_defaults(digits = 2, border.color = "gray")
 #'
 #' library(data.table)
@@ -114,6 +115,7 @@
 #' ft_3
 #'
 #' init_flextable_defaults()
+#' }
 #' @importFrom rlang enquos enquo call_args
 #' @importFrom data.table rleidv as.data.table
 #' @seealso [as_flextable.tabulator()], [summarizor()],
@@ -226,6 +228,7 @@ tabulator <- function(x, rows, columns,
 #' @family as_flextable methods
 #' @seealso [summarizor()], [as_grouped_data()]
 #' @examples
+#' \dontrun{
 #' library(flextable)
 #'
 #' set_flextable_defaults(digits = 2, border.color = "gray")
@@ -275,6 +278,7 @@ tabulator <- function(x, rows, columns,
 #' }
 #'
 #' init_flextable_defaults()
+#' }
 as_flextable.tabulator <- function(
     x, separate_with = character(0),
     big_border = fp_border_default(width = 1.5),

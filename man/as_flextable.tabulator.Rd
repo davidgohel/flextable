@@ -57,6 +57,7 @@ blank column separators will not be used.}
 with method \code{\link[=as_flextable]{as_flextable()}}.
 }
 \examples{
+\dontrun{
 library(flextable)
 
 set_flextable_defaults(digits = 2, border.color = "gray")
@@ -106,6 +107,7 @@ if (require("stats")) {
 }
 
 init_flextable_defaults()
+}
 }
 \seealso{
 \code{\link[=summarizor]{summarizor()}}, \code{\link[=as_grouped_data]{as_grouped_data()}}

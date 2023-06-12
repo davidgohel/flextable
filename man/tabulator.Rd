@@ -75,6 +75,7 @@ This is very first version of the function; be aware it
 can evolve or change.
 }
 \examples{
+\dontrun{
 set_flextable_defaults(digits = 2, border.color = "gray")
 
 library(data.table)
@@ -156,6 +157,7 @@ ft_3 <- as_flextable(tab_3)
 ft_3
 
 init_flextable_defaults()
+}
 }
 \seealso{
 \code{\link[=as_flextable.tabulator]{as_flextable.tabulator()}}, \code{\link[=summarizor]{summarizor()}},
