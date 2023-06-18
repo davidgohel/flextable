@@ -117,6 +117,7 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #' in arguments `grade_levels` and `grade_labels`. It should be applied after the shift
 #' table creation.
 #' @examples
+#' \dontrun{
 #' library(data.table)
 #' library(flextable)
 #'
@@ -207,6 +208,7 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #'                  BASELINE = "Reference Range Indicator"))
 #'
 #' ft_1
+#' }
 shift_table <- function(
     x,
     cn_visit = "VISIT", cn_visit_num = "VISITNUM", cn_grade = "LBNRIND",

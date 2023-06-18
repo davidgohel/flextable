@@ -26,6 +26,7 @@ This is very first version of the function; be aware it
 can evolve or change.
 }
 \examples{
+\dontrun{
 z <- summarizor(CO2[-c(1, 4)],
   by = "Treatment",
   overall_label = "Overall"
@@ -86,6 +87,7 @@ tab_2 <- tabulator(z,
 
 ft_2 <- as_flextable(tab_2, separate_with = "variable")
 ft_2
+}
 }
 \seealso{
 \code{\link[=fmt_summarizor]{fmt_summarizor()}}, \code{\link[=labelizor]{labelizor()}}

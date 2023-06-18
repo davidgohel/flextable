@@ -291,9 +291,9 @@ as_flextable.table <- function(x, ...) {
   if (length(by) > 2) {
     stop("table must have maximum two dimensions.")
   } else if (length(by) > 1) {
-    proc_freq(x, row = by[1], col = by[2], ...)
+    proc_freq(x, row = by[1], col = by[2], weight = "Freq", ...)
   } else {
-    proc_freq(x, row = by[1], ...)
+    proc_freq(x, row = by[1], weight = "Freq", ...)
   }
 
 }

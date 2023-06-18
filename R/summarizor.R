@@ -13,6 +13,7 @@
 #' @param overall_label label to use as overall label
 #' @seealso [fmt_summarizor()], [labelizor()]
 #' @examples
+#' \dontrun{
 #' z <- summarizor(CO2[-c(1, 4)],
 #'   by = "Treatment",
 #'   overall_label = "Overall"
@@ -73,6 +74,7 @@
 #'
 #' ft_2 <- as_flextable(tab_2, separate_with = "variable")
 #' ft_2
+#' }
 #' @export
 summarizor <- function(
     x, by = character(),
@@ -142,6 +144,7 @@ summarizor <- function(
 #' @param ... arguments for [as_flextable.tabulator()]
 #' @family as_flextable methods
 #' @examples
+#' \dontrun{
 #' z <- summarizor(CO2[-c(1, 4)],
 #'   by = "Treatment",
 #'   overall_label = "Overall"
@@ -152,6 +155,7 @@ summarizor <- function(
 #'   as_chunk("\t"))
 #' ft_1 <- autofit(ft_1)
 #' ft_1
+#' }
 as_flextable.summarizor <- function(x, ...) {
 
   tab <- tabulator(
