@@ -215,7 +215,8 @@ as_flextable.tabular <- function(x,
 
   ft <- fix_border_issues(ft)
   best_widths_ <- dim_pretty(ft)$widths
-  best_widths_[setdiff(seq_along(columns_keys), seq_len(.ncol))] <- max(best_widths_[setdiff(seq_along(columns_keys), seq_len(.ncol))])
+
+  best_widths_[setdiff(seq_along(columns_keys), seq_len(.ncol))] <- max(best_widths_[setdiff(seq_along(columns_keys), seq_len(.ncol))]) * 1.1
   ft <- width(ft, width = best_widths_)
 
   if (spread_first_col) {
