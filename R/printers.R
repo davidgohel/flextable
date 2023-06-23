@@ -665,7 +665,7 @@ knit_print.flextable <- function(x, ...) {
   } else if (!is.null(getOption("xaringan.page_number.offset"))) { #xaringan
     str <- knit_to_html(x, bookdown = FALSE, quarto = FALSE)
     str <- asis_output(str, meta = html_dependencies_list(x))
-  } else if (is_html_output()) { # html
+  } else if (is_html_output(excludes="gfm")) { # html
     str <- knit_to_html(x, bookdown = is_bookdown, quarto = is_quarto)
     str <- raw_html(str, meta = html_dependencies_list(x))
   } else if (is_latex_output()) { # latex

@@ -1,3 +1,9 @@
+# flextable 0.9.3
+
+## Issues
+
+- Make sure 'gfm' format is rendered as an image.
+
 # flextable 0.9.2
 
 ## Issues
