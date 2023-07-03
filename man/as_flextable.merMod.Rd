@@ -33,6 +33,9 @@
 produce a flextable describing a
 mixed model. The function is only using package 'broom.mixed'
 that provides the data presented in the resulting flextable.
+
+You can remove significance stars by setting options
+\code{options(show.signif.stars = FALSE)}.
 }
 \examples{
 if(require("broom.mixed") && require("nlme")){

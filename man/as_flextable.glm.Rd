@@ -14,6 +14,9 @@
 \description{
 produce a flextable describing a
 generalized linear model produced by function \code{glm}.
+
+You can remove significance stars by setting options
+\code{options(show.signif.stars = FALSE)}.
 }
 \examples{
 if(require("broom")){

@@ -167,6 +167,9 @@ pvalue_format <- function(x){
 #' @title Transform a 'glm' object into a flextable
 #' @description produce a flextable describing a
 #' generalized linear model produced by function `glm`.
+#'
+#' You can remove significance stars by setting options
+#' `options(show.signif.stars = FALSE)`.
 #' @param x glm model
 #' @param ... unused argument
 #' @examples
@@ -179,50 +182,67 @@ pvalue_format <- function(x){
 #'   ft
 #' }
 #' @family as_flextable methods
-as_flextable.glm <- function(x, ...){
-
-
-  if(!requireNamespace("broom", quietly = TRUE)){
+as_flextable.glm <- function(x, ...) {
+  if (!requireNamespace("broom", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "glm")
-    )
+      "broom", "glm"
+    ))
   }
 
   data_t <- broom::tidy(x)
   sum_obj <- summary(x)
+  show_signif <- !is.null(getOption("show.signif.stars")) && getOption("show.signif.stars")
 
-  ft <- flextable(data_t, col_keys = c("term", "estimate",
-    "std.error", "statistic", "p.value", "signif"))
-  ft <- colformat_double(ft, j = c("estimate", "std.error",
-    "statistic"), digits = 3)
+  ft <- flextable(data_t, col_keys = c(
+    "term", "estimate",
+    "std.error", "statistic", "p.value", if (show_signif) "signif"
+  ))
+  ft <- colformat_double(ft, j = c(
+    "estimate", "std.error",
+    "statistic"
+  ), digits = 3)
   ft <- colformat_double(ft, j = c("p.value"), digits = 4) # nolint
-  ft <- mk_par(ft, j = "signif",
-    value = as_paragraph(pvalue_format(p.value)))
+  if (show_signif) {
+    ft <- mk_par(ft,
+      j = "signif",
+      value = as_paragraph(pvalue_format(p.value))
+    )
+  }
 
-  ft <- set_header_labels(ft, term = "", estimate = "Estimate",
-                          std.error = "Standard Error", statistic = "z value",
-                          p.value = "Pr(>|z|)")
+  ft <- set_header_labels(ft,
+    term = "", estimate = "Estimate",
+    std.error = "Standard Error", statistic = "z value",
+    p.value = "Pr(>|z|)"
+  )
 
   digits <- max(3L, getOption("digits") - 3L)
 
   ft <- add_footer_lines(ft, values = c(
-    "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
-    " ",
+    if (show_signif) "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
+    if (show_signif) " ",
     paste("(Dispersion parameter for ", x$family$family, " family taken to be ", format(sum_obj$dispersion), ")", sep = ""),
     sprintf("Null deviance: %s on %s degrees of freedom", formatC(sum_obj$null.deviance), formatC(sum_obj$df.null)),
     sprintf("Residual deviance: %s on %s degrees of freedom", formatC(sum_obj$deviance), formatC(sum_obj$df.residual)),
     {
-      if (nzchar(mess <- naprint(sum_obj$na.action)))
+      mess <- naprint(sum_obj$na.action)
+      if (nzchar(mess)) {
         paste("  (", mess, ")\n", sep = "")
-      else character(0)
+      } else {
+        character(0)
+      }
     }
   ))
-  ft <- align(ft, i = 1, align = "right", part = "footer")
-  ft <- italic(ft, i = 1, italic = TRUE, part = "footer")
+  if (show_signif) {
+    ft <- align(ft, i = 1, align = "right", part = "footer")
+    ft <- italic(ft, i = 1, italic = TRUE, part = "footer")
+  }
   ft <- hrule(ft, rule = "auto")
   ft <- autofit(ft, part = c("header", "body"))
-  ft <- width(ft, j = "signif", width = .4)
+  if (show_signif) {
+    ft <- width(ft, j = "signif", width = .4)
+  }
+
   ft
 }
 
@@ -231,6 +251,9 @@ as_flextable.glm <- function(x, ...){
 #' @title Transform a 'lm' object into a flextable
 #' @description produce a flextable describing a
 #' linear model produced by function `lm`.
+#'
+#' You can remove significance stars by setting options
+#' `options(show.signif.stars = FALSE)`.
 #' @param x lm model
 #' @param ... unused argument
 #' @examples
@@ -241,40 +264,55 @@ as_flextable.glm <- function(x, ...){
 #'   ft
 #' }
 #' @family as_flextable methods
-as_flextable.lm <- function(x, ...){
-
-  if( !requireNamespace("broom", quietly = TRUE) ){
+as_flextable.lm <- function(x, ...) {
+  if (!requireNamespace("broom", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "lm")
-    )
+      "broom", "lm"
+    ))
   }
 
   data_t <- broom::tidy(x)
   data_g <- broom::glance(x)
 
-  ft <- flextable(data_t, col_keys = c("term", "estimate", "std.error", "statistic", "p.value", "signif"))
+  show_signif <- !is.null(getOption("show.signif.stars")) && getOption("show.signif.stars")
+  col_keys <- c(
+    "term", "estimate", "std.error", "statistic", "p.value",
+    if (show_signif) "signif"
+  )
+
+  ft <- flextable(data_t, col_keys = col_keys)
   ft <- colformat_double(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
   ft <- colformat_double(ft, j = c("p.value"), digits = 4)
-  ft <- compose(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)) )
 
-  ft <- set_header_labels(ft, term = "", estimate = "Estimate",
-                          std.error = "Standard Error", statistic = "t value",
-                          p.value = "Pr(>|t|)", signif = "" )
+  if (show_signif) {
+    ft <- mk_par(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)))
+  }
+
+  ft <- set_header_labels(ft,
+    term = "", estimate = "Estimate",
+    std.error = "Standard Error", statistic = "t value",
+    p.value = "Pr(>|t|)", signif = ""
+  )
   dimpretty <- dim_pretty(ft, part = "all")
 
   ft <- add_footer_lines(ft, values = c(
-    "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
-    "",
+    if (show_signif) "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
+    if (show_signif) "",
     sprintf("Residual standard error: %s on %.0f degrees of freedom", formatC(data_g$sigma), data_g$df.residual),
     sprintf("Multiple R-squared: %s, Adjusted R-squared: %s", formatC(data_g$r.squared), formatC(data_g$adj.r.squared)),
     sprintf("F-statistic: %s on %.0f and %.0f DF, p-value: %.4f", formatC(data_g$statistic), data_g$df.residual, data_g$df, data_g$p.value)
   ))
-  ft <- align(ft, i = 1, align = "right", part = "footer")
-  ft <- italic(ft, i = 1, italic = TRUE, part = "footer")
+
+  if (show_signif) {
+    ft <- align(ft, i = 1, align = "right", part = "footer")
+    ft <- italic(ft, i = 1, italic = TRUE, part = "footer")
+  }
   ft <- hrule(ft, rule = "auto")
   ft <- autofit(ft, part = c("header", "body"))
-  ft <- width(ft, j = "signif", width = .4)
+  if (show_signif) {
+    ft <- width(ft, j = "signif", width = .4)
+  }
   ft
 }
 
@@ -421,6 +459,9 @@ continuous_summary <- function(dat, columns = NULL,
 #' @description produce a flextable describing a
 #' mixed model. The function is only using package 'broom.mixed'
 #' that provides the data presented in the resulting flextable.
+#'
+#' You can remove significance stars by setting options
+#' `options(show.signif.stars = FALSE)`.
 #' @param x a mixed model
 #' @param ... unused argument
 #' @examples
@@ -430,13 +471,12 @@ continuous_summary <- function(dat, columns = NULL,
 #'   ft
 #' }
 #' @family as_flextable methods
-as_flextable.merMod <- function(x, ...){
-
-  if( !requireNamespace("broom.mixed", quietly = TRUE) ){
+as_flextable.merMod <- function(x, ...) {
+  if (!requireNamespace("broom.mixed", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom.mixed", "mixed model")
-    )
+      "broom.mixed", "mixed model"
+    ))
   }
 
   data_t <- broom::tidy(x)
@@ -444,56 +484,73 @@ as_flextable.merMod <- function(x, ...){
   data_t$effect[data_t$effect %in% c("ran_pars", "ran_vals", "ran_coefs")] <- "Random effects"
 
   data_g <- broom::glance(x)
-  has_pvalue <- if("p.value" %in% colnames(data_t)) TRUE else FALSE
 
-  col_keys <- c("effect", "group", "term", "estimate",
-                "std.error", "df", "statistic", if(has_pvalue) c("p.value", "signif"))
+  has_pvalue <- if ("p.value" %in% colnames(data_t)) TRUE else FALSE
+  show_signif <- !is.null(getOption("show.signif.stars")) && getOption("show.signif.stars")
+
+  col_keys <- c(
+    "effect", "group", "term", "estimate",
+    "std.error", "df", "statistic",
+    if (has_pvalue) c("p.value"),
+    if (has_pvalue && show_signif) "signif"
+  )
   data_t <- as_grouped_data(x = data_t, groups = "effect", )
 
-  ft <- as_flextable(data_t, col_keys = col_keys,
-                     hide_grouplabel = TRUE)
+  ft <- as_flextable(data_t,
+    col_keys = col_keys,
+    hide_grouplabel = TRUE
+  )
   ft <- colformat_double(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
   ft <- colformat_double(ft, j = c("df"), digits = 0)
-  if(has_pvalue){
+  if (has_pvalue) {
     ft <- colformat_double(ft, j = "p.value", digits = 4)
   }
-  ft <- set_header_labels(ft, term = "", estimate = "Estimate",
-                          std.error = "Standard Error",
-                          p.value = "p-value")
+  ft <- set_header_labels(ft,
+    term = "", estimate = "Estimate",
+    std.error = "Standard Error",
+    p.value = "p-value"
+  )
   ft <- autofit(ft, part = c("header", "body"))
 
-  if(has_pvalue){
-    ft <- compose(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)))
+  if (has_pvalue && show_signif) {
+    ft <- mk_par(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)))
     ft <- width(ft, j = "signif", width = .4)
   }
   ft <- align(ft, i = ~ !is.na(effect), align = "center")
 
-  ft <- add_footer_lines(ft, values = c(
-    "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
-    ""
-  ))
+  if (has_pvalue && show_signif) {
+    ft <- add_footer_lines(ft, values = c(
+      "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
+      ""
+    ))
+  }
 
   mod_stats <- c("sigma", "logLik", "AIC", "BIC")
   mod_gl <- data.frame(
     stat = mod_stats,
     value = as.double(unlist(data_g[mod_stats])),
-    labels = c("square root of the estimated residual variance",
-               "data's log-likelihood under the model",
-               "Akaike Information Criterion",
-               "Bayesian Information Criterion"
+    labels = c(
+      "square root of the estimated residual variance",
+      "data's log-likelihood under the model",
+      "Akaike Information Criterion",
+      "Bayesian Information Criterion"
     )
   )
   mod_qual <- paste0(
-    c("square root of the estimated residual variance",
+    c(
+      "square root of the estimated residual variance",
       "data's log-likelihood under the model",
       "Akaike Information Criterion",
-      "Bayesian Information Criterion"),
+      "Bayesian Information Criterion"
+    ),
     ": ",
     format_fun(unlist(data_g[mod_stats]))
   )
   ft <- add_footer_lines(ft, values = mod_qual)
   ft <- align(ft, align = "left", part = "footer")
-  ft <- align(ft, i = 1, align = "right", part = "footer")
+  if (has_pvalue && show_signif) {
+    ft <- align(ft, i = 1, align = "right", part = "footer")
+  }
   ft <- hrule(ft, rule = "auto")
   ft
 }
