@@ -18,8 +18,7 @@
 fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in" ){
   max_width <- convin(unit = unit, x = max_width)
 
-  go <- TRUE
-  while(go){
+  for(i in seq_length(max_iter)){
     fdim <- flextable_dim(x)
 
     if( fdim$widths > max_width){
@@ -31,7 +30,7 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in" ){
         x$header$styles$text$font.size$data[] <- x$header$styles$text$font.size$data - inc
 
       x <- autofit(x, add_w = 0.0, add_h = 0.0)
-    } else go <- FALSE
+    } else return(x)
   }
   x
 }
