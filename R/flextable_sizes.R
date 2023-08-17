@@ -18,7 +18,7 @@
 fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in" ){
   max_width <- convin(unit = unit, x = max_width)
 
-  for(i in seq_length(max_iter)){
+  for(i in seq_len(max_iter)){
     fdim <- flextable_dim(x)
 
     if( fdim$widths > max_width){
