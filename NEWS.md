@@ -6,6 +6,7 @@
 - As adviced by Ben Bolker, functions `as_flextable.lm()`, 
 `as_flextable.glm()` and `as_flextable.merMod()` now respect 
 the global value of `getOption("show.signif.stars")`.
+- drop superfluous semicolons when include.row_percent = FALSE
 
 # flextable 0.9.2
 

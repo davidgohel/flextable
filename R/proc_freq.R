@@ -8,7 +8,7 @@ fmt_freq_table <- function(pctcol, pctrow, include.row_percent = TRUE, include.c
   if (include.row_percent) {
     out_rows[!is.na(pctrow)] <- fmt_pct(pctrow[!is.na(pctrow)])
   }
-  if (include.column_percent && include.column_percent) {
+  if (include.column_percent && include.row_percent) {
     out_sep[!is.na(pctcol) | !is.na(pctrow)] <- " ; "
   }
 
