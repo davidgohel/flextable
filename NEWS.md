@@ -12,6 +12,11 @@ rendered in PDF (thanks to Philippe Grosjean).
 - argument `max_iter` of function `fit_to_width` is not 
 ignored anymore.
 
+## Internals
+
+- rename technical column `part` to `.part` so that
+column named `part` can be used.
+
 # flextable 0.9.2
 
 ## Issues

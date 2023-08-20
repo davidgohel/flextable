@@ -19,11 +19,11 @@ pml_cells <- function(value, cell_data){
   cell_data$height  <- NULL
   cell_data$hrule  <- NULL
   cell_data <- merge(cell_data, cell_widths, by = "col_id")
-  cell_data <- merge(cell_data, cell_heights, by = c("part", "ft_row_id"))
-  cell_data <- merge(cell_data, cell_hrule, by = c("part", "ft_row_id"))
+  cell_data <- merge(cell_data, cell_heights, by = c(".part", "ft_row_id"))
+  cell_data <- merge(cell_data, cell_hrule, by = c(".part", "ft_row_id"))
 
   setDT(cell_data)
-  setorderv(cell_data, cols = c("part", "ft_row_id", "col_id"))
+  setorderv(cell_data, cols = c(".part", "ft_row_id", "col_id"))
 
   data_ref_cells <- distinct_cells_properties(cell_data)
 
@@ -69,7 +69,7 @@ pml_cells <- function(value, cell_data){
   # organise everything
   cell_data <- merge(cell_data, data_ref_cells, by = intersect(colnames(cell_data), colnames(data_ref_cells)))
   cell_data <- merge(cell_data, style_dat, by = "classname")
-  cell_data <- cell_data[, .SD, .SDcols = c("part", "ft_row_id", "col_id", "fp_cell_pml")]
+  cell_data <- cell_data[, .SD, .SDcols = c(".part", "ft_row_id", "col_id", "fp_cell_pml")]
   setDF(cell_data)
   cell_data
 }
@@ -91,8 +91,8 @@ gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0)
   setDT(cell_attributes)
   cell_attributes <- merge(
     cell_attributes,
-    par_attributes[, c("part", "ft_row_id", "col_id", "padding.bottom", "padding.top")],
-    by = c("part", "ft_row_id", "col_id"))
+    par_attributes[, c(".part", "ft_row_id", "col_id", "padding.bottom", "padding.top")],
+    by = c(".part", "ft_row_id", "col_id"))
   cell_attributes[, c("margin.bottom", "margin.top") :=
                     list(
                       .SD$padding.bottom, .SD$padding.top
@@ -108,11 +108,11 @@ gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0)
 
   setDT(cell_data)
 
-  tab_data <- merge(cell_data, par_data, by = c("part", "ft_row_id", "col_id"))
-  tab_data <- merge(tab_data, txt_data, by = c("part", "ft_row_id", "col_id"))
-  tab_data <- merge(tab_data, span_data, by = c("part", "ft_row_id", "col_id"))
+  tab_data <- merge(cell_data, par_data, by = c(".part", "ft_row_id", "col_id"))
+  tab_data <- merge(tab_data, txt_data, by = c(".part", "ft_row_id", "col_id"))
+  tab_data <- merge(tab_data, span_data, by = c(".part", "ft_row_id", "col_id"))
   tab_data$col_id <- factor(tab_data$col_id, levels = value$col_keys)
-  setorderv(tab_data, cols = c("part", "ft_row_id", "col_id"))
+  setorderv(tab_data, cols = c(".part", "ft_row_id", "col_id"))
 
   tab_data[, c("pml") := list(
     paste0("<a:txBody><a:bodyPr/><a:lstStyle/>",
@@ -128,11 +128,11 @@ gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0)
   )]
   tab_data[, c("fp_cell_pml", "grid_span", "row_span") := list(NULL, NULL, NULL)]
 
-  cells <- dcast(tab_data, part + ft_row_id ~ col_id, drop=TRUE, fill="", value.var = "pml", fun.aggregate = I)
-  cells <- merge(cells, cell_heights, by = c("part", "ft_row_id"))
+  cells <- dcast(tab_data, .part + ft_row_id ~ col_id, drop=TRUE, fill="", value.var = "pml", fun.aggregate = I)
+  cells <- merge(cells, cell_heights, by = c(".part", "ft_row_id"))
 
   rowheights <- cells$height
-  cells[, c("ft_row_id", "height", "part") := list(NULL, NULL, NULL)]
+  cells[, c("ft_row_id", "height", ".part") := list(NULL, NULL, NULL)]
   rows <- apply(as.matrix(cells), 1, paste0, collapse = "")
   rows <- paste0( "<a:tr h=\"", round(rowheights * 914400, 0 ), "\">", rows, "</a:tr>")
   rows <- paste0(rows, collapse = "")

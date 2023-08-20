@@ -15,14 +15,14 @@ get_grid_data <- function(x, autowidths, wrapping) {
         check.names = FALSE
       )
     }
-  }), use.names = TRUE, idcol = "part")
+  }), use.names = TRUE, idcol = ".part")
 
-  grid_data$part <- factor(grid_data$part, levels = intersect(parts, grid_data$part))
+  grid_data$.part <- factor(grid_data$.part, levels = intersect(parts, grid_data$.part))
   grid_data$col_id <- factor(grid_data$col_id, levels = x$col_keys)
-  keycols <- c("part", "ft_row_id", "col_id")
+  keycols <- c(".part", "ft_row_id", "col_id")
   setorderv(grid_data, cols = keycols)
   grid_data[, c("row_index", "col_index") := list(
-    rleid(.SD$part, .SD$ft_row_id), as.integer(.SD$col_id)
+    rleid(.SD$.part, .SD$ft_row_id), as.integer(.SD$col_id)
   )]
   setorderv(grid_data, cols = c("row_index", "col_index"))
 
@@ -34,11 +34,11 @@ get_grid_data <- function(x, autowidths, wrapping) {
   # add row heights
   row_heights <- fortify_height(x)
   colnames(row_heights)[colnames(row_heights) == "height"] <- "row_height"
-  grid_data <- merge(grid_data, row_heights, by = c("part", "ft_row_id"))
+  grid_data <- merge(grid_data, row_heights, by = c(".part", "ft_row_id"))
 
   # add hrule
   row_hrules <- fortify_hrule(x)
-  grid_data <- merge(grid_data, row_hrules, by = c("part", "ft_row_id"))
+  grid_data <- merge(grid_data, row_hrules, by = c(".part", "ft_row_id"))
 
   # calculate minimum and maximum cell height according to hrule
   grid_data[, "row_min_height" := fcase(
@@ -112,7 +112,7 @@ grid_data_add_cell_info <- function(grid_data, x) {
   cell_data <- fortify_cells_properties(x)
 
   # merge with grid_data to keep only active cells
-  keycols <- c("part", "ft_row_id", "col_id")
+  keycols <- c(".part", "ft_row_id", "col_id")
   cell_data <- merge(grid_data[, keycols, with = FALSE], cell_data, by = keycols)
 
   # generate argument list for creating the cell background rect
@@ -197,7 +197,7 @@ grid_data_add_par_info <- function(grid_data, x) {
   par_data <- fortify_paragraphs_properties(x)
 
   # merge with grid_data to keep only active cells
-  keycols <- c("part", "ft_row_id", "col_id")
+  keycols <- c(".part", "ft_row_id", "col_id")
   par_data <- merge(grid_data[, c(
     keycols, "vertical.align", "angle"
   ), with = FALSE], par_data, by = keycols)
@@ -287,7 +287,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
   chunk_data <- fortify_run(x, expand_special_chars = FALSE)
 
   # merge with grid_data to keep only active cells
-  keycols <- c("part", "ft_row_id", "col_id")
+  keycols <- c(".part", "ft_row_id", "col_id")
   chunk_data <- merge(
     grid_data[, c(keycols, "line_spacing", "angle"), with = FALSE],
     chunk_data,
@@ -351,9 +351,9 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
     SIMPLIFY = FALSE
   )]
 
-  # create chunk part data (parts split by newline)
+  # create chunk .part data (parts split by newline)
   part_data <- chunk_data[, c(
-    "part", "ft_row_id", "col_id", "line_spacing", "angle",
+    ".part", "ft_row_id", "col_id", "line_spacing", "angle",
     "font.family", "font.size", "italic", "bold",
     "txt", "is_text", "is_superscript", "is_subscript", "width", "height",
     "seq_index", "chunk_index"

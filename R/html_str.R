@@ -123,17 +123,17 @@ html_content_strs <- function(x){
   setDT(txt_data)
 
   cell_data <- merge(x = cell_data_f,
-                     y = par_data_f[, c("part", "ft_row_id", "col_id", "text.align")],
-                     by = c("part", "ft_row_id", "col_id"))
+                     y = par_data_f[, c(".part", "ft_row_id", "col_id", "text.align")],
+                     by = c(".part", "ft_row_id", "col_id"))
   par_data <- merge(x = par_data_f,
-                    y = cell_data_f[, c("part", "ft_row_id", "col_id", "text.direction", "vertical.align")],
-                    by = c("part", "ft_row_id", "col_id"))
+                    y = cell_data_f[, c(".part", "ft_row_id", "col_id", "text.direction", "vertical.align")],
+                    by = c(".part", "ft_row_id", "col_id"))
 
   # get rid of originals that are empty
   cell_data[, c("width", "height", "hrule") := list(NULL, NULL, NULL)]
   cell_data <- merge(cell_data, fortify_width(x), by = "col_id")
-  cell_data <- merge(cell_data, fortify_height(x), by = c("part", "ft_row_id"))
-  cell_data <- merge(cell_data, fortify_hrule(x), by = c("part", "ft_row_id"))
+  cell_data <- merge(cell_data, fortify_height(x), by = c(".part", "ft_row_id"))
+  cell_data <- merge(cell_data, fortify_hrule(x), by = c(".part", "ft_row_id"))
 
   span_data <- fortify_span(x)
 
@@ -143,15 +143,15 @@ html_content_strs <- function(x){
   setDT(data_ref_cells)
 
   par_data <- merge(par_data, data_ref_pars, by = setdiff(colnames(data_ref_pars), "classname"))
-  par_data <- par_data[, list(p_tag = paste0("<p class=\"", get("classname"), "\">")), by = c("part", "ft_row_id", "col_id")]
+  par_data <- par_data[, list(p_tag = paste0("<p class=\"", get("classname"), "\">")), by = c(".part", "ft_row_id", "col_id")]
 
   by_columns <- intersect(colnames(cell_data), colnames(data_ref_cells))
   cell_data <- merge(cell_data, data_ref_cells, by = by_columns)
-  cell_data <- merge(cell_data, span_data, by = c("part", "ft_row_id", "col_id"))
+  cell_data <- merge(cell_data, span_data, by = c(".part", "ft_row_id", "col_id"))
 
   cell_data <- cell_data[, list(
     td_tag = paste0(
-      ifelse(get("part") %in% "header", "<th ", "<td "),
+      ifelse(get(".part") %in% "header", "<th ", "<td "),
       paste0(
         ifelse(get("rowspan") > 1,
           paste0(" colspan=\"", get("rowspan"), "\""),
@@ -163,30 +163,30 @@ html_content_strs <- function(x){
       "class=\"", get("classname"), "\">"
     )
   ),
-  by = c("part", "ft_row_id", "col_id")
+  by = c(".part", "ft_row_id", "col_id")
   ]
 
-  dat <- merge(txt_data, par_data , by = c("part", "ft_row_id", "col_id"))
+  dat <- merge(txt_data, par_data , by = c(".part", "ft_row_id", "col_id"))
   dat$p_tag <- paste0(dat$p_tag, dat$span_tag, "</p>")
-  dat <- merge(dat, cell_data , by = c("part", "ft_row_id", "col_id"))
+  dat <- merge(dat, cell_data , by = c(".part", "ft_row_id", "col_id"))
   dat$td_tag <- paste0(dat$td_tag, dat$p_tag,
-                       ifelse(dat$part %in% "header", "</th>", "</td>"))
+                       ifelse(dat$.part %in% "header", "</th>", "</td>"))
 
   data_hrule <- fortify_hrule(x)
   data_hrule$tr_tag <- "<tr>"
   data_hrule$tr_tag[!data_hrule$hrule %in% "exact"] <- "<tr style=\"overflow-wrap:break-word;\">"
 
-  rows_data <- data_hrule[c("part", "ft_row_id",  "tr_tag")]
+  rows_data <- data_hrule[c(".part", "ft_row_id",  "tr_tag")]
 
-  dat <- merge(dat, span_data, by = c("part", "ft_row_id", "col_id"))
+  dat <- merge(dat, span_data, by = c(".part", "ft_row_id", "col_id"))
   dat$td_tag[dat$rowspan < 1 | dat$colspan < 1] <- ""
 
-  z <- dcast(dat, part + ft_row_id ~ col_id, drop=TRUE, fill="", value.var = "td_tag", fun.aggregate = I)
-  z <- merge(z, rows_data, by = c("part", "ft_row_id"))
-  setorderv(z, c("part", "ft_row_id"))
+  z <- dcast(dat, .part + ft_row_id ~ col_id, drop=TRUE, fill="", value.var = "td_tag", fun.aggregate = I)
+  z <- merge(z, rows_data, by = c(".part", "ft_row_id"))
+  setorderv(z, c(".part", "ft_row_id"))
   z$tr_end <- "</tr>"
 
-  parts <- z$part
+  parts <- z$.part
   header_start <- head(which(parts %in% "header"), n = 1)
   header_end <- tail(which(parts %in% "header"), n = 1)
   body_start <- head(which(parts %in% "body"), n = 1)
@@ -204,7 +204,7 @@ html_content_strs <- function(x){
   z$tpart_end[footer_end] <- "</tfoot>"
   setcolorder(z, neworder = c("tpart_start", "tr_tag"))
 
-  z[, c("part", "ft_row_id") := NULL]
+  z[, c(".part", "ft_row_id") := NULL]
 
   html <- apply(as.matrix(z), 1, paste0, collapse = "")
   html <- paste0(html, collapse = "")

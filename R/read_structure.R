@@ -33,11 +33,11 @@ fortify_paragraphs_properties <- function(x) {
   if (nrow_part(x, "footer") > 0) {
     dat$footer <- par_struct_to_df(x$footer$styles[["pars"]])
   }
-  dat <- rbindlist(dat, use.names = TRUE, idcol = "part")
+  dat <- rbindlist(dat, use.names = TRUE, idcol = ".part")
 
-  dat$part <- factor(dat$part, levels = c("header", "body", "footer"))
+  dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
   dat$col_id <- factor(dat$col_id, levels = x$col_keys)
-  setorderv(dat, cols = c("part", "ft_row_id", "col_id"))
+  setorderv(dat, cols = c(".part", "ft_row_id", "col_id"))
 
   setDF(dat)
 
@@ -57,11 +57,11 @@ fortify_cells_properties <- function(x) {
   if (nrow_part(x, "footer") > 0) {
     dat$footer <- cell_struct_to_df(x$footer$styles[["cells"]])
   }
-  dat <- rbindlist(dat, use.names = TRUE, idcol = "part")
+  dat <- rbindlist(dat, use.names = TRUE, idcol = ".part")
 
-  dat$part <- factor(dat$part, levels = c("header", "body", "footer"))
+  dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
   dat$col_id <- factor(dat$col_id, levels = x$col_keys)
-  setorderv(dat, cols = c("part", "ft_row_id", "col_id"))
+  setorderv(dat, cols = c(".part", "ft_row_id", "col_id"))
 
   setDF(dat)
 
@@ -103,9 +103,9 @@ fortify_height <- function(x) {
     }
   }
 
-  dat <- rbindlist(rows, use.names = TRUE, idcol = "part")
-  dat$part <- factor(dat$part, levels = c("header", "body", "footer"))
-  setorderv(dat, cols = c("part", "ft_row_id"))
+  dat <- rbindlist(rows, use.names = TRUE, idcol = ".part")
+  dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
+  setorderv(dat, cols = c(".part", "ft_row_id"))
 
   setDF(dat)
   dat
@@ -126,9 +126,9 @@ fortify_hrule <- function(x) {
     }
   }
 
-  dat <- rbindlist(rows, use.names = TRUE, idcol = "part")
-  dat$part <- factor(dat$part, levels = c("header", "body", "footer"))
-  setorderv(dat, cols = c("part", "ft_row_id"))
+  dat <- rbindlist(rows, use.names = TRUE, idcol = ".part")
+  dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
+  setorderv(dat, cols = c(".part", "ft_row_id"))
   setDF(dat)
   dat
 }
@@ -150,10 +150,10 @@ fortify_span <- function(x, parts = c("header", "body", "footer")) {
       )
     }
   }
-  dat <- rbindlist(rows, use.names = TRUE, idcol = "part")
-  dat$part <- factor(dat$part, levels = c("header", "body", "footer"))
+  dat <- rbindlist(rows, use.names = TRUE, idcol = ".part")
+  dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
   dat$col_id <- factor(dat$col_id, levels = x$col_keys)
-  setorderv(dat, cols = c("part", "ft_row_id", "col_id"))
+  setorderv(dat, cols = c(".part", "ft_row_id", "col_id"))
 
   setDF(dat)
 
@@ -288,11 +288,11 @@ fortify_run <- function(x, expand_special_chars = TRUE){
     dat$footer <- fortify_content(x$footer$content, default_chunk_fmt = x$footer$styles$text,
                                   expand_special_chars = expand_special_chars)
   }
-  dat <- rbindlist(dat, use.names = TRUE, idcol = "part")
+  dat <- rbindlist(dat, use.names = TRUE, idcol = ".part")
 
-  dat$part <- factor(dat$part, levels = c("header", "body", "footer"))
+  dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
   dat$col_id <- factor(dat$col_id, levels = x$col_keys)
-  setorderv(dat, cols = c("part", "ft_row_id", "col_id"))
+  setorderv(dat, cols = c(".part", "ft_row_id", "col_id"))
 
   setDF(dat)
   dat

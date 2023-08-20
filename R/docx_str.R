@@ -46,7 +46,7 @@ ooxml_ppr <- function(paragraphs_properties, type = "wml") {
   paragraphs_properties <- merge(paragraphs_properties, style_dat, by = "classname")
   paragraphs_properties <- paragraphs_properties[, .SD,
     .SDcols = c(
-      "part", "ft_row_id",
+      ".part", "ft_row_id",
       "col_id", "fp_par_xml"
     )
   ]
@@ -99,10 +99,10 @@ copy_border_bottom_to_next_border_top <- function(x, value){
   }
 
   x[
-    !(x$part %in% first_partname & x$ft_row_id %in% 1),
+    !(x$.part %in% first_partname & x$ft_row_id %in% 1),
     c("border.width.top", "border.color.top", "border.style.top")] <-
     x[
-      !(x$part %in% last_partname & x$ft_row_id %in% max_n),
+      !(x$.part %in% last_partname & x$ft_row_id %in% max_n),
       c("border.width.bottom", "border.color.bottom", "border.style.bottom")]
   x
 }
@@ -114,10 +114,10 @@ wml_cells <- function(value, cell_data) {
   cell_data$width <- NULL # need to get rid of originals that are empty, should probably rm them
   cell_data$height <- NULL
   cell_data <- merge(cell_data, cell_widths, by = "col_id")
-  cell_data <- merge(cell_data, cell_heights, by = c("part", "ft_row_id"))
+  cell_data <- merge(cell_data, cell_heights, by = c(".part", "ft_row_id"))
 
   setDT(cell_data)
-  setorderv(cell_data, cols = c("part", "ft_row_id", "col_id"))
+  setorderv(cell_data, cols = c(".part", "ft_row_id", "col_id"))
 
   # fix for word horiz. borders, copying the bottom props to top props of the next cell
   cell_data <- copy_border_bottom_to_next_border_top(cell_data, value = value)
@@ -174,7 +174,7 @@ wml_cells <- function(value, cell_data) {
   cell_data <- merge(cell_data, style_dat, by = "classname")
   cell_data <- cell_data[, .SD,
     .SDcols = c(
-      "part", "ft_row_id",
+      ".part", "ft_row_id",
       "col_id", "fp_cell_wml"
     )
   ]
@@ -190,7 +190,7 @@ wml_rows <- function(value, split = FALSE) {
   cell_attributes <- fortify_cells_properties(value)
   span_data <- fortify_span(value)
   setDT(cell_attributes)
-  cell_attributes <- merge(cell_attributes, span_data, by = c("part", "ft_row_id", "col_id"))
+  cell_attributes <- merge(cell_attributes, span_data, by = c(".part", "ft_row_id", "col_id"))
   setDF(cell_attributes)
 
   # prepare paragraphs formatting properties
@@ -214,10 +214,10 @@ wml_rows <- function(value, split = FALSE) {
   cell_hrule <- fortify_hrule(value)
 
   setDT(cell_data)
-  tab_data <- merge(cell_data, ooxml_ppr(paragraphs_properties), by = c("part", "ft_row_id", "col_id"))
-  tab_data <- merge(tab_data, run_data, by = c("part", "ft_row_id", "col_id"))
-  tab_data <- merge(tab_data, span_data, by = c("part", "ft_row_id", "col_id"))
-  setorderv(tab_data, cols = c("part", "ft_row_id", "col_id"))
+  tab_data <- merge(cell_data, ooxml_ppr(paragraphs_properties), by = c(".part", "ft_row_id", "col_id"))
+  tab_data <- merge(tab_data, run_data, by = c(".part", "ft_row_id", "col_id"))
+  tab_data <- merge(tab_data, span_data, by = c(".part", "ft_row_id", "col_id"))
+  setorderv(tab_data, cols = c(".part", "ft_row_id", "col_id"))
 
   tab_data[, c("wml", "fp_par_xml", "run_openxml") := list(
     paste0("<w:p>", .SD$fp_par_xml, .SD$run_openxml, "</w:p>"),
@@ -239,7 +239,7 @@ wml_rows <- function(value, split = FALSE) {
   tab_data[tab_data$rowspan < 1, c("wml") := list("")]
 
   cells <- dcast(
-    data = tab_data, formula = part + ft_row_id ~ col_id,
+    data = tab_data, formula = .part + ft_row_id ~ col_id,
     drop = TRUE, fill = "", value.var = "wml",
     fun.aggregate = I
   )
@@ -253,7 +253,7 @@ wml_rows <- function(value, split = FALSE) {
   hrule[hrule %in% "atleast"] <- "atLeast"
 
   header_str <- rep("", nrow(cell_hrule))
-  header_str[cell_hrule$part %in% "header"] <- "<w:tblHeader/>"
+  header_str[cell_hrule$.part %in% "header"] <- "<w:tblHeader/>"
 
   rows <- paste0(
     "<w:tr><w:trPr>",

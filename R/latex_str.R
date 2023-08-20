@@ -82,7 +82,7 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
 
 
   properties_df <- merge_table_properties(x)
-  linespacing_df <- properties_df[, c("part", "ft_row_id", "col_id", "line_spacing")]
+  linespacing_df <- properties_df[, c(".part", "ft_row_id", "col_id", "line_spacing")]
   dat <- runs_as_latex(
     x = x,
     chunk_data = fortify_run(x),
@@ -91,9 +91,9 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
 
   # hhlines and vborders ----
   latex_borders_data_str <- latex_gridlines(properties_df)
-  properties_df <- merge(properties_df, latex_borders_data_str$vlines, by = c("part", "col_id", "ft_row_id"))
+  properties_df <- merge(properties_df, latex_borders_data_str$vlines, by = c(".part", "col_id", "ft_row_id"))
   properties_df[, setdiff(grep("^border\\.", colnames(properties_df), value = TRUE), "border.width.left") := NULL]
-  setorderv(properties_df, c("part", "col_id", "ft_row_id"))
+  setorderv(properties_df, c(".part", "col_id", "ft_row_id"))
 
   # cell background color -----
   properties_df[, c("background_color") := list(
@@ -109,7 +109,7 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   properties_df[, c("text.direction") := NULL]
 
   # merge prop and text and sizes----
-  cell_properties_df <- merge(properties_df, dat, by = c("part", "ft_row_id", "col_id"))
+  cell_properties_df <- merge(properties_df, dat, by = c(".part", "ft_row_id", "col_id"))
   cell_properties_df <- merge(cell_properties_df, column_sizes_df, by = c("col_id"))
 
   # update colspan -----
@@ -117,7 +117,7 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   # add col sizes -----
   column_sizes_df <- calc_column_size(cell_properties_df, x$col_keys)
   cell_properties_df[, c("column_size") := NULL]
-  cell_properties_df <- merge(cell_properties_df, column_sizes_df, by = c("part", "ft_row_id", "col_id"))
+  cell_properties_df <- merge(cell_properties_df, column_sizes_df, by = c(".part", "ft_row_id", "col_id"))
 
   # latex for multicolumn + add vert lines ----
   if ("fixed" %in% x$properties$layout) {
@@ -155,18 +155,18 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
       NA_character_
     )
   ]
-  setorderv(cell_properties_df, c("part", "ft_row_id", "col_id"))
+  setorderv(cell_properties_df, c(".part", "ft_row_id", "col_id"))
   txt_data <- cell_properties_df[, list(txt = paste0(.SD$txt[!is.na(.SD$txt)], collapse = " & ")),
-    by = c("part", "ft_row_id")
+    by = c(".part", "ft_row_id")
   ]
 
   # txt_data is now merged by row ----
   txt_data[, c("txt") := list(paste0(.SD$txt, " \\\\"))]
-  setorderv(txt_data, c("part", "ft_row_id"))
+  setorderv(txt_data, c(".part", "ft_row_id"))
 
   # add horiz lines ----
-  txt_data <- merge(txt_data, latex_borders_data_str$hlines, by = c("part", "ft_row_id"), all.x = TRUE, all.y = TRUE)
-  setorderv(txt_data, cols = c("part", "ft_row_id"))
+  txt_data <- merge(txt_data, latex_borders_data_str$hlines, by = c(".part", "ft_row_id"), all.x = TRUE, all.y = TRUE)
+  setorderv(txt_data, cols = c(".part", "ft_row_id"))
   txt_data <- augment_part_separators(txt_data, inherits(lat_container, "latex_container_none") && !quarto)
 
   txt_data[, c("txt") := list(paste(
@@ -177,15 +177,15 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   ))]
 
   if (inherits(lat_container, "latex_container_none") && !quarto) {
-    txt_data$part <- factor(as.character(txt_data$part),
+    txt_data$.part <- factor(as.character(txt_data$.part),
       levels = c("header", "footer", "body")
     )
   } else {
-    txt_data$part <- factor(as.character(txt_data$part),
+    txt_data$.part <- factor(as.character(txt_data$.part),
       levels = c("header", "body", "footer")
     )
   }
-  setorderv(txt_data, c("part", "ft_row_id"))
+  setorderv(txt_data, c(".part", "ft_row_id"))
 
   # finalize ----
   if ("fixed" %in% x$properties$layout) {
@@ -248,15 +248,15 @@ augment_multirow_fixed <- function(properties_df) {
 }
 
 latex_colwidth <- function(x) {
-  grid_dat <- x[, .SD, .SDcols = c("part", "ft_row_id", "col_id", "rowspan", "border.width.left", "column_size")]
-  grid_dat[, c('hspan_id') := list(calc_grid_span_group(.SD$rowspan)), by = c("part", "ft_row_id")]
+  grid_dat <- x[, .SD, .SDcols = c(".part", "ft_row_id", "col_id", "rowspan", "border.width.left", "column_size")]
+  grid_dat[, c('hspan_id') := list(calc_grid_span_group(.SD$rowspan)), by = c(".part", "ft_row_id")]
 
   # bdr sum of width
-  bdr_dat <- grid_dat[, list(col_id = first(.SD$col_id), border_widths = sum(.SD$border.width.left[-1])), by = c("part", "ft_row_id", "hspan_id")]
+  bdr_dat <- grid_dat[, list(col_id = first(.SD$col_id), border_widths = sum(.SD$border.width.left[-1])), by = c(".part", "ft_row_id", "hspan_id")]
   bdr_dat$hspan_id <- NULL
   bdr_dat <- bdr_dat[bdr_dat$border_widths > 0,]
 
-  grid_dat <- merge(grid_dat, bdr_dat, by = c("part", "ft_row_id", "col_id"), all.x = TRUE)
+  grid_dat <- merge(grid_dat, bdr_dat, by = c(".part", "ft_row_id", "col_id"), all.x = TRUE)
 
   colwidths <- paste0(
     "\\dimexpr ", format_double(grid_dat$column_size, 2), "in+",
@@ -318,27 +318,27 @@ augment_multicolumn_fixed <- function(properties_df) {
 
 augment_part_separators <- function(z, no_container = TRUE) {
 
-  part_separators <- merge(z[, c("part", "ft_row_id")],
-    merge(z[, list(ft_row_id = max(.SD$ft_row_id)), by = "part"],
+  part_separators <- merge(z[, c(".part", "ft_row_id")],
+    merge(z[, list(ft_row_id = max(.SD$ft_row_id)), by = ".part"],
       data.frame(
-        part = factor(c("header", "body", "footer"), levels = c("header", "body", "footer")),
+        .part = factor(c("header", "body", "footer"), levels = c("header", "body", "footer")),
         part_sep = if(no_container) c("\\endfirsthead", "", "\\endfoot") else c("\\endfirsthead", "", ""),
         stringsAsFactors = FALSE
       ),
-      by = c("part")
+      by = c(".part")
     ),
-    by = c("part", "ft_row_id"), all.x = TRUE, all.y = FALSE
+    by = c(".part", "ft_row_id"), all.x = TRUE, all.y = FALSE
   )
   part_separators$part_sep[is.na(part_separators$part_sep)] <- ""
-  setorderv(part_separators, c("part", "ft_row_id"))
+  setorderv(part_separators, c(".part", "ft_row_id"))
 
-  z <- merge(z, part_separators, by = c("part", "ft_row_id"))
+  z <- merge(z, part_separators, by = c(".part", "ft_row_id"))
 
-  if ("header" %in% z$part) {
-    z_header <- z[z$part %in% "header",]
+  if ("header" %in% z$.part) {
+    z_header <- z[z$.part %in% "header",]
     z_header$ft_row_id <- z_header$ft_row_id + max(z_header$ft_row_id)
     z_header$part_sep[nrow(z_header)] <- "\\endhead"
-    z <- rbind(z[z$part %in% "header",], z_header, z[!z$part %in% "header",])
+    z <- rbind(z[z$.part %in% "header",], z_header, z[!z$.part %in% "header",])
   }
 
   z
@@ -361,10 +361,10 @@ fill_NA <- function(x) {
 
 
 reverse_colspan <- function(df) {
-  setorderv(df, cols = c("part", "col_id", "ft_row_id"))
-  df[, c("col_uid") := list(UUIDgenerate(n = nrow(.SD))), by = c("part", "ft_row_id")]
+  setorderv(df, cols = c(".part", "col_id", "ft_row_id"))
+  df[, c("col_uid") := list(UUIDgenerate(n = nrow(.SD))), by = c(".part", "ft_row_id")]
   df[df$colspan < 1, c("col_uid") := list(NA_character_)]
-  df[, c("col_uid") := list(fill_NA(.SD$col_uid)), by = c("part", "col_id")]
+  df[, c("col_uid") := list(fill_NA(.SD$col_uid)), by = c(".part", "col_id")]
 
   df[, c("ft_row_id",
          "vborder_left", "vborder_right") :=
@@ -374,20 +374,20 @@ reverse_colspan <- function(df) {
       rev(.SD$vborder_right)
     ), by = c("col_uid")]
   df[, c("col_uid") := NULL]
-  setorderv(df, cols = c("part", "ft_row_id", "col_id"))
+  setorderv(df, cols = c(".part", "ft_row_id", "col_id"))
   df
 }
 
 calc_column_size <- function(df, levels) {
-  z <- df[, c("col_id", "part", "ft_row_id", "rowspan", "column_size")]
+  z <- df[, c("col_id", ".part", "ft_row_id", "rowspan", "column_size")]
   z$col_id <- factor(z$col_id, levels = levels)
-  setorderv(z, cols = c("part", "ft_row_id", "col_id"))
-  z[, c("col_uid") := list(UUIDgenerate(n = nrow(.SD))), by = c("part", "ft_row_id")]
+  setorderv(z, cols = c(".part", "ft_row_id", "col_id"))
+  z[, c("col_uid") := list(UUIDgenerate(n = nrow(.SD))), by = c(".part", "ft_row_id")]
   z[z$rowspan < 1, c("col_uid") := list(NA_character_)]
-  z[, c("col_uid") := list(fill_NA(.SD$col_uid)), by = c("part", "ft_row_id")]
-  z[, c("column_size") := list(sum(.SD$column_size, na.rm = TRUE)), by = c("part", "ft_row_id", "col_uid")]
+  z[, c("col_uid") := list(fill_NA(.SD$col_uid)), by = c(".part", "ft_row_id")]
+  z[, c("column_size") := list(sum(.SD$column_size, na.rm = TRUE)), by = c(".part", "ft_row_id", "col_uid")]
   z[, c("col_uid", "rowspan") := NULL]
-  setorderv(z, cols = c("part", "ft_row_id", "col_id"))
+  setorderv(z, cols = c(".part", "ft_row_id", "col_id"))
   setDT(z)
   z
 }
@@ -401,15 +401,15 @@ merge_table_properties <- function(x) {
 
   cell_data[, c("width", "height", "hrule") := NULL]
   cell_data <- merge(cell_data, fortify_width(x), by = "col_id")
-  cell_data <- merge(cell_data, fortify_height(x), by = c("part", "ft_row_id"))
-  cell_data <- merge(cell_data, fortify_span(x), by = c("part", "ft_row_id", "col_id"))
+  cell_data <- merge(cell_data, fortify_height(x), by = c(".part", "ft_row_id"))
+  cell_data <- merge(cell_data, fortify_span(x), by = c(".part", "ft_row_id", "col_id"))
 
   oldnames <- grep("^border\\.", colnames(cell_data), value = TRUE)
   newnames <- paste0("paragraph.", oldnames)
   setnames(par_data, old = oldnames, new = newnames)
-  cell_data <- merge(cell_data, par_data, by = c("part", "ft_row_id", "col_id"))
+  cell_data <- merge(cell_data, par_data, by = c(".part", "ft_row_id", "col_id"))
   cell_data$col_id <- factor(cell_data$col_id, levels = x$col_keys)
-  setorderv(cell_data, c("part", "ft_row_id", "col_id"))
+  setorderv(cell_data, c(".part", "ft_row_id", "col_id"))
   cell_data
 }
 
