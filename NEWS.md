@@ -7,6 +7,8 @@
 `as_flextable.glm()` and `as_flextable.merMod()` now respect 
 the global value of `getOption("show.signif.stars")`.
 - drop superfluous semicolons when include.row_percent = FALSE
+- Super and subscripts are now correctly 
+rendered in PDF (thanks to Philippe Grosjean).
 
 # flextable 0.9.2
 

@@ -11,16 +11,6 @@ as_table_latexstyle_lr <- function(x){
   left <- character(nrow(x))
   right <- character(nrow(x))
 
-
-  valign_left <- character(nrow(x))
-  valign_right <- character(nrow(x))
-  valign_left[x$vertical.align %in% "subscript"] <- "\\textsubscript{"
-  valign_right[x$vertical.align %in% "subscript"] <- "}"
-  valign_left[x$vertical.align %in% "superscript"] <- "\\textsuperscript{"
-  valign_right[x$vertical.align %in% "superscript"] <- "}"
-  left <- paste0(valign_left, left)
-  right <- paste0(right, valign_right)
-
   fontcolor_left <- paste0(latex_fontcolor(x$color), "{")
   fontcolor_right <- rep("}", nrow(x))
   fontcolor_left[is.na(x$color)] <- ""
@@ -42,7 +32,6 @@ as_table_latexstyle_lr <- function(x){
   fontsize_right[is.na(x$font.size) | is.na(x$line_spacing)] <- ""
   left <- paste0(left, fontsize_left)
   right <- paste0(fontsize_right, right)
-
 
   fonts_ok <- get_pdf_engine() %in% c("xelatex", "lualatex")
   if(fonts_ok && !flextable_global$defaults$fonts_ignore ){
@@ -74,6 +63,16 @@ as_table_latexstyle_lr <- function(x){
   underlined_right[x$underlined %in% TRUE] <- "}"
   left <- paste0(left, underlined_left)
   right <- paste0(underlined_right, right)
+
+  valign_left <- character(nrow(x))
+  valign_right <- character(nrow(x))
+  valign_left[x$vertical.align %in% "subscript"] <- "\\textsubscript{"
+  valign_right[x$vertical.align %in% "subscript"] <- "}"
+  valign_left[x$vertical.align %in% "superscript"] <- "\\textsuperscript{"
+  valign_right[x$vertical.align %in% "superscript"] <- "}"
+  left <- paste0(left, valign_left)
+  right <- paste0(valign_right, right)
+
   data.frame(left = left, right = right, classname = x$classname, stringsAsFactors = TRUE)
 }
 
