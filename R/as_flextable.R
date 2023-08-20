@@ -367,13 +367,20 @@ as_flextable.htest <- function (x, ...) {
   dat <- as.data.frame(ret, stringsAsFactors = FALSE)
   z <- flextable(dat)
   z <- colformat_double(z)
+
+  show_signif <- !is.null(getOption("show.signif.stars")) && getOption("show.signif.stars")
+
   if("p.value" %in% colnames(dat)){
     z <- colformat_double(z, j = "p.value", digits = 4)
-    z <- append_chunks(x = z, j = "p.value", part = "body",
-                        dumb = as_chunk(p.value, formatter = pvalue_format))
-    z <- add_footer_lines(z, values = c(
-      "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05")
-    )
+
+    if (show_signif) {
+      z <- append_chunks(x = z, j = "p.value", part = "body",
+                         dumb = as_chunk(p.value, formatter = pvalue_format))
+      z <- add_footer_lines(z, values = c(
+        "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05")
+      )
+    }
+
   }
   z <- autofit(z)
   z
