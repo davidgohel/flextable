@@ -15,22 +15,45 @@
 #' ft_2 <- fit_to_width(ft_1, max_width = 4)
 #' ft_2
 #' @family flextable dimensions
-fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in" ){
+fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in") {
   max_width <- convin(unit = unit, x = max_width)
 
-  for(i in seq_len(max_iter)){
+  for (i in seq_len(max_iter)) {
     fdim <- flextable_dim(x)
-
-    if( fdim$widths > max_width){
-      if( nrow_part(x, part = "body") > 0 )
-        x$body$styles$text$font.size$data[] <- x$body$styles$text$font.size$data - inc
-      if( nrow_part(x, part = "footer") > 0 )
-        x$footer$styles$text$font.size$data[] <- x$footer$styles$text$font.size$data - inc
-      if( nrow_part(x, part = "header") > 0 )
-        x$header$styles$text$font.size$data[] <- x$header$styles$text$font.size$data - inc
-
+    do_stop <- FALSE
+    if (fdim$widths > max_width) {
+      if (nrow_part(x, part = "body") > 0) {
+        new_font_sizes <- x$body$styles$text$font.size$data - inc
+        if (all(new_font_sizes > 0)) {
+          x$body$styles$text$font.size$data[] <- new_font_sizes
+        } else {
+          do_stop <- TRUE
+        }
+      }
+      if (nrow_part(x, part = "footer") > 0) {
+        new_font_sizes <- x$footer$styles$text$font.size$data - inc
+        if (all(new_font_sizes > 0)) {
+          x$footer$styles$text$font.size$data[] <- new_font_sizes
+        } else {
+          do_stop <- TRUE
+        }
+      }
+      if (nrow_part(x, part = "header") > 0) {
+        new_font_sizes <- x$header$styles$text$font.size$data - inc
+        if (all(new_font_sizes > 0)) {
+          x$header$styles$text$font.size$data[] <- new_font_sizes
+        } else {
+          do_stop <- TRUE
+        }
+      }
+      if (do_stop) {
+        warning("The function has to be stopped because it results in negative font sizes.")
+        return(x)
+      }
       x <- autofit(x, add_w = 0.0, add_h = 0.0)
-    } else return(x)
+    } else {
+      return(x)
+    }
   }
   x
 }

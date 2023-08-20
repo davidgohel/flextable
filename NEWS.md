@@ -9,6 +9,8 @@ the global value of `getOption("show.signif.stars")`.
 - drop superfluous semicolons when include.row_percent = FALSE
 - Super and subscripts are now correctly 
 rendered in PDF (thanks to Philippe Grosjean).
+- argument `max_iter` of function `fit_to_width` is not 
+ignored anymore.
 
 # flextable 0.9.2
 
