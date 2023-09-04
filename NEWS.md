@@ -1,5 +1,12 @@
 # flextable 0.9.3
 
+## new features
+
+- The `summarizor()` function has been enhanced to offer three new options: 
+  - an empty `by` argument meaning 'no grouping,' 
+  - the ability for users to select numeric statistics to display ("mean_sd," "median_iqr," "range"), 
+  - and the option to specify whether or not to show all NA counts.
+
 ## Issues
 
 - Make sure 'gfm' format is rendered as an image.

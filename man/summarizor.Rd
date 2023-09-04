@@ -4,7 +4,13 @@
 \alias{summarizor}
 \title{Data summary preparation}
 \usage{
-summarizor(x, by = character(), overall_label = NULL)
+summarizor(
+  x,
+  by = character(),
+  overall_label = NULL,
+  num_stats = c("mean_sd", "median_iqr", "range"),
+  hide_null_na = TRUE
+)
 }
 \arguments{
 \item{x}{dataset}
@@ -12,6 +18,11 @@ summarizor(x, by = character(), overall_label = NULL)
 \item{by}{columns names to be used as grouping columns}
 
 \item{overall_label}{label to use as overall label}
+
+\item{num_stats}{available statistics for numerical columns
+to show, available options are "mean_sd", "median_iqr" and "range".}
+
+\item{hide_null_na}{if TRUE (default), NA counts will not be shown when 0.}
 }
 \description{
 It performs a univariate statistical analysis of a dataset

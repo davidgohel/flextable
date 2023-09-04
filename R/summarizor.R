@@ -11,6 +11,9 @@
 #' @param x dataset
 #' @param by columns names to be used as grouping columns
 #' @param overall_label label to use as overall label
+#' @param num_stats available statistics for numerical columns
+#' to show, available options are "mean_sd", "median_iqr" and "range".
+#' @param hide_null_na if TRUE (default), NA counts will not be shown when 0.
 #' @seealso [fmt_summarizor()], [labelizor()]
 #' @examples
 #' \dontrun{
@@ -78,14 +81,21 @@
 #' @export
 summarizor <- function(
     x, by = character(),
-    overall_label = NULL
+    overall_label = NULL,
+    num_stats = c("mean_sd", "median_iqr", "range"),
+    hide_null_na = TRUE
     ){
 
-  stopifnot(`by can not be empty` = length(by)>0)
+  if (length(by) < 1) {
+    by <- ".overall"
+    x[[by]] <- by
+    last_by <- character()
+  } else {
+    last_by <- by[length(by)]
+  }
 
   x <- as.data.frame(x)
 
-  last_by <- by[length(by)]
   if(length(last_by) > 0 && !is.null(overall_label) ){
     xoverall <- x
     z <- xoverall[[last_by]]
@@ -107,6 +117,14 @@ summarizor <- function(
   setDF(datn)
   dat <- dtx[, list(data=list(.SD)), by = by, .SDcols = cols]
   dat$data <- lapply(dat$data, dataset_describe)
+
+  dat$data = lapply(dat$data, function(dat, drop_stats) {
+    dat <- dat[!dat$stat %in% drop_stats,]
+    if (hide_null_na) {
+      dat <- dat[!(dat$stat %in% "missing" & dat$cts < 1),]
+    }
+    dat
+  }, drop_stats = setdiff(c("mean_sd", "median_iqr", "range"), num_stats))
 
   for(i in seq_len(nrow(dat))){
     w <- as.data.frame(dat$data[[i]])
@@ -173,6 +191,7 @@ as_flextable.summarizor <- function(x, ...) {
     )
   )
   ft <- as_flextable(tab, ...)
+  ft <- labelizor(ft, labels = c(".overall" = "Statistic"), part = "header")
 
   ft
 }
