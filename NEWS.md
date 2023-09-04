@@ -3,13 +3,15 @@
 ## Issues
 
 - Make sure 'gfm' format is rendered as an image.
-- As adviced by Ben Bolker, functions `as_flextable.lm()`, 
+- As adviced by Ben Bolker, functions `as_flextable.lm()`,
 `as_flextable.glm()`, `as_flextable.merMod()` and `as_flextable.htest()`
 now respect the global value of `getOption("show.signif.stars")`.
+- new argument `add.random` in `as_flextable.merMod()` to let add or not
+random effects in the final table.
 - drop superfluous semicolons when include.row_percent = FALSE
-- Super and subscripts are now correctly 
+- Super and subscripts are now correctly
 rendered in PDF (thanks to Philippe Grosjean).
-- argument `max_iter` of function `fit_to_width` is not 
+- argument `max_iter` of function `fit_to_width` is not
 ignored anymore.
 
 ## Internals

@@ -470,6 +470,8 @@ continuous_summary <- function(dat, columns = NULL,
 #' You can remove significance stars by setting options
 #' `options(show.signif.stars = FALSE)`.
 #' @param x a mixed model
+#' @param add.random TRUE or FALSE, if TRUE random effects are
+#' added to the table.
 #' @param ... unused argument
 #' @examples
 #' if(require("broom.mixed") && require("nlme")){
@@ -478,7 +480,7 @@ continuous_summary <- function(dat, columns = NULL,
 #'   ft
 #' }
 #' @family as_flextable methods
-as_flextable.merMod <- function(x, ...) {
+as_flextable.merMod <- function(x, add.random = TRUE, ...) {
   if (!requireNamespace("broom.mixed", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
@@ -501,12 +503,18 @@ as_flextable.merMod <- function(x, ...) {
     if (has_pvalue) c("p.value"),
     if (has_pvalue && show_signif) "signif"
   )
-  data_t <- as_grouped_data(x = data_t, groups = "effect", )
 
-  ft <- as_flextable(data_t,
-    col_keys = col_keys,
-    hide_grouplabel = TRUE
-  )
+  if (add.random) {
+    data_t <- as_grouped_data(x = data_t, groups = "effect", )
+    ft <- as_flextable(data_t,
+                       col_keys = col_keys,
+                       hide_grouplabel = TRUE
+    )
+  } else {
+    data_t <- data_t[data_t$effect %in% "Fixed effects",]
+    ft <- flextable(data_t, col_keys = setdiff(col_keys, c("effect", "group")))
+  }
+
   ft <- colformat_double(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
   ft <- colformat_double(ft, j = c("df"), digits = 0)
   if (has_pvalue) {
