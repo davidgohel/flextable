@@ -10,7 +10,7 @@
 ## Issues
 
 - Make sure 'gfm' format is rendered as an image.
-- As adviced by Ben Bolker, functions `as_flextable.lm()`,
+- As adviced by Ben Bolker, functions `as_flextable.lm()`, `as_flextable.gam()`,
 `as_flextable.glm()`, `as_flextable.merMod()` and `as_flextable.htest()`
 now respect the global value of `getOption("show.signif.stars")`.
 - new argument `add.random` in `as_flextable.merMod()` to let add or not
