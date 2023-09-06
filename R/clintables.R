@@ -117,7 +117,10 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #' in arguments `grade_levels` and `grade_labels`. It should be applied after the shift
 #' table creation.
 #' @examples
-#' \dontrun{
+#' \dontshow{
+#' OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
+#' Sys.setenv("OMP_THREAD_LIMIT" = 2)
+#' }
 #' library(data.table)
 #' library(flextable)
 #'
@@ -208,6 +211,8 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #'                  BASELINE = "Reference Range Indicator"))
 #'
 #' ft_1
+#' \dontshow{
+#' Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
 #' }
 shift_table <- function(
     x,

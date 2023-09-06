@@ -26,7 +26,10 @@ not replace the values in the underlying dataset but replace the defined
 content in the flextable (as defined with \code{\link[=compose]{compose()}}).
 }
 \examples{
-\dontrun{
+\dontshow{
+OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
+Sys.setenv("OMP_THREAD_LIMIT" = 2)
+}
 z <- summarizor(
   x = CO2[-c(1, 4)],
   by = "Treatment",
@@ -45,6 +48,8 @@ ft_1 <- labelizor(
 )
 
 ft_1
+\dontshow{
+Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
 }
 }
 \seealso{

@@ -16,7 +16,10 @@
 with method \code{\link[=as_flextable]{as_flextable()}}.
 }
 \examples{
-\dontrun{
+\dontshow{
+OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
+Sys.setenv("OMP_THREAD_LIMIT" = 2)
+}
 z <- summarizor(CO2[-c(1, 4)],
   by = "Treatment",
   overall_label = "Overall"
@@ -27,6 +30,8 @@ ft_1 <- prepend_chunks(ft_1,
   as_chunk("\t"))
 ft_1 <- autofit(ft_1)
 ft_1
+\dontshow{
+Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
 }
 }
 \seealso{

@@ -116,7 +116,10 @@ mk_par <- compose
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @seealso [mk_par()], [append_chunks()], [prepend_chunks()]
 #' @examples
-#' \dontrun{
+#' \dontshow{
+#' OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
+#' Sys.setenv("OMP_THREAD_LIMIT" = 2)
+#' }
 #' z <- summarizor(
 #'   x = CO2[-c(1, 4)],
 #'   by = "Treatment",
@@ -135,6 +138,8 @@ mk_par <- compose
 #' )
 #'
 #' ft_1
+#' \dontshow{
+#' Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
 #' }
 labelizor <- function(x, j = NULL, labels, part = "all") {
   if (!inherits(x, "flextable")) {

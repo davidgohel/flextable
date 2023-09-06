@@ -71,7 +71,10 @@ range (e.g. low, normal, or high) at baseline and at selected time points
 or intervals.
 }
 \examples{
-\dontrun{
+\dontshow{
+OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
+Sys.setenv("OMP_THREAD_LIMIT" = 2)
+}
 library(data.table)
 library(flextable)
 
@@ -162,6 +165,8 @@ ft_1 <- as_flextable(
                  BASELINE = "Reference Range Indicator"))
 
 ft_1
+\dontshow{
+Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
 }
 }
 \concept{tools for clinical reporting}

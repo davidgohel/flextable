@@ -16,67 +16,25 @@
 #' @param hide_null_na if TRUE (default), NA counts will not be shown when 0.
 #' @seealso [fmt_summarizor()], [labelizor()]
 #' @examples
-#' \dontrun{
+#' \dontshow{
+#' OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
+#' Sys.setenv("OMP_THREAD_LIMIT" = 2)
+#' }
 #' z <- summarizor(CO2[-c(1, 4)],
-#'   by = "Treatment",
-#'   overall_label = "Overall"
+#'                 by = "Treatment",
+#'                 overall_label = "Overall"
 #' )
 #' ft_1 <- as_flextable(z)
 #' ft_1
 #'
-#' # version 2 with your own functions ----
-#' n_format <- function(n, percent) {
-#'   z <- character(length = length(n))
-#'   wcts <- !is.na(n)
-#'   z[wcts] <- sprintf("%.0f (%.01f %%)",
-#'     n[wcts], percent[wcts] * 100)
-#'   z
-#' }
-#'
-#' stat_format <- function(stat, num1, num2,
-#'                         num1_mask = "%.01f",
-#'                         num2_mask = "(%.01f)") {
-#'   z_num <- character(length = length(num1))
-#'
-#'   is_mean_sd <- !is.na(num1) & !is.na(num2) & stat %in% "mean_sd"
-#'   is_median_iqr <- !is.na(num1) & !is.na(num2) &
-#'     stat %in% "median_iqr"
-#'   is_range <- !is.na(num1) & !is.na(num2) & stat %in% "range"
-#'   is_num_1 <- !is.na(num1) & is.na(num2)
-#'
-#'   z_num[is_num_1] <- sprintf(num1_mask, num1[is_num_1])
-#'
-#'   z_num[is_mean_sd] <- paste0(
-#'     sprintf(num1_mask, num1[is_mean_sd]),
-#'     " ",
-#'     sprintf(num2_mask, num2[is_mean_sd])
-#'   )
-#'   z_num[is_median_iqr] <- paste0(
-#'     sprintf(num1_mask, num1[is_median_iqr]),
-#'     " ",
-#'     sprintf(num2_mask, num2[is_median_iqr])
-#'   )
-#'   z_num[is_range] <- paste0(
-#'     "[",
-#'     sprintf(num1_mask, num1[is_range]),
-#'     " - ",
-#'     sprintf(num1_mask, num2[is_range]),
-#'     "]"
-#'   )
-#'
-#'   z_num
-#' }
-#'
-#' tab_2 <- tabulator(z,
-#'   rows = c("variable", "stat"),
-#'   columns = "Treatment",
-#'   `Est.` = as_paragraph(
-#'     as_chunk(stat_format(stat, value1, value2))),
-#'   `N` = as_paragraph(as_chunk(n_format(cts, percent)))
-#' )
-#'
-#' ft_2 <- as_flextable(tab_2, separate_with = "variable")
+#' ft_2 <- as_flextable(z, sep_w = 0, spread_first_col=TRUE)
 #' ft_2
+#'
+#' z <- summarizor(CO2[-c(1, 4)])
+#' ft_3 <- as_flextable(z, sep_w = 0, spread_first_col=TRUE)
+#' ft_3
+#' \dontshow{
+#' Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
 #' }
 #' @export
 summarizor <- function(
@@ -162,7 +120,10 @@ summarizor <- function(
 #' @param ... arguments for [as_flextable.tabulator()]
 #' @family as_flextable methods
 #' @examples
-#' \dontrun{
+#' \dontshow{
+#' OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
+#' Sys.setenv("OMP_THREAD_LIMIT" = 2)
+#' }
 #' z <- summarizor(CO2[-c(1, 4)],
 #'   by = "Treatment",
 #'   overall_label = "Overall"
@@ -173,6 +134,8 @@ summarizor <- function(
 #'   as_chunk("\t"))
 #' ft_1 <- autofit(ft_1)
 #' ft_1
+#' \dontshow{
+#' Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
 #' }
 as_flextable.summarizor <- function(x, ...) {
 
