@@ -8,7 +8,7 @@ test_that("data.frame", {
   ft <- as_flextable(dummy_df)
   expect_equal(flextable:::fortify_run(ft)$txt,
                c("A", "B", "character", "numeric", "a", "0.0", "a", "0.2",
-                 "b", "0.4", "b", "0.6", "c", "0.8", "c", "1.0"))
+                 "b", "0.4", "b", "0.6", "c", "0.8", "c", "1.0", "n: 6", "n: 6"))
   ft <- as_flextable(dummy_df[1,])
   expect_equal(flextable:::fortify_run(ft)$txt,
                c("A", "<br>", "character", "a", "B", "<br>", "numeric", "0"))
