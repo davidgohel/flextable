@@ -138,9 +138,8 @@ multirow_df_printer <- function(dat,
   ft <- colformat_double(ft)
   ft <- colformat_int(ft)
 
-  if (nro > max_row) {
-    ft <- add_footer_lines(ft, values = sprintf("n: %.0f", nro))
-  }
+  ft <- add_footer_lines(ft, values = sprintf("n: %.0f", nro))
+
   ft <- set_table_properties(ft, layout = z$table.layout)
   if ("fixed" %in% z$table.layout && do_autofit) {
     ft <- autofit(ft)

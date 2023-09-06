@@ -7,6 +7,11 @@
   - the ability for users to select numeric statistics to display ("mean_sd," "median_iqr," "range"), 
   - and the option to specify whether or not to show all NA counts.
 
+## Changes
+
+- `as_flextable.data.frame()` always shows the number of rows even if less than 10 
+(because I need it!).
+
 ## Issues
 
 - Make sure 'gfm' format is rendered as an image.
