@@ -38,8 +38,7 @@ can evolve or change.
 }
 \examples{
 \dontshow{
-OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
-Sys.setenv("OMP_THREAD_LIMIT" = 2)
+data.table::setDTthreads(1)
 }
 z <- summarizor(CO2[-c(1, 4)],
                 by = "Treatment",
@@ -54,9 +53,6 @@ ft_2
 z <- summarizor(CO2[-c(1, 4)])
 ft_3 <- as_flextable(z, sep_w = 0, spread_first_col=TRUE)
 ft_3
-\dontshow{
-Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
-}
 }
 \seealso{
 \code{\link[=fmt_summarizor]{fmt_summarizor()}}, \code{\link[=labelizor]{labelizor()}}

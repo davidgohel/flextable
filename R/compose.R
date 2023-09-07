@@ -117,8 +117,7 @@ mk_par <- compose
 #' @seealso [mk_par()], [append_chunks()], [prepend_chunks()]
 #' @examples
 #' \dontshow{
-#' OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
-#' Sys.setenv("OMP_THREAD_LIMIT" = 2)
+#' data.table::setDTthreads(1)
 #' }
 #' z <- summarizor(
 #'   x = CO2[-c(1, 4)],
@@ -138,9 +137,6 @@ mk_par <- compose
 #' )
 #'
 #' ft_1
-#' \dontshow{
-#' Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
-#' }
 labelizor <- function(x, j = NULL, labels, part = "all") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "labelizor()"))

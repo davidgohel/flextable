@@ -27,8 +27,7 @@ content in the flextable (as defined with \code{\link[=compose]{compose()}}).
 }
 \examples{
 \dontshow{
-OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
-Sys.setenv("OMP_THREAD_LIMIT" = 2)
+data.table::setDTthreads(1)
 }
 z <- summarizor(
   x = CO2[-c(1, 4)],
@@ -48,9 +47,6 @@ ft_1 <- labelizor(
 )
 
 ft_1
-\dontshow{
-Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
-}
 }
 \seealso{
 \code{\link[=mk_par]{mk_par()}}, \code{\link[=append_chunks]{append_chunks()}}, \code{\link[=prepend_chunks]{prepend_chunks()}}

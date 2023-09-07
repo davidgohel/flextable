@@ -118,8 +118,7 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #' table creation.
 #' @examples
 #' \dontshow{
-#' OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
-#' Sys.setenv("OMP_THREAD_LIMIT" = 2)
+#' data.table::setDTthreads(1)
 #' }
 #' library(data.table)
 #' library(flextable)
@@ -211,9 +210,6 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #'                  BASELINE = "Reference Range Indicator"))
 #'
 #' ft_1
-#' \dontshow{
-#' Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
-#' }
 shift_table <- function(
     x,
     cn_visit = "VISIT", cn_visit_num = "VISITNUM", cn_grade = "LBNRIND",

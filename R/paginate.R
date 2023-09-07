@@ -49,8 +49,7 @@
 #'
 #' @examples
 #' \dontshow{
-#' OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
-#' Sys.setenv("OMP_THREAD_LIMIT" = 2)
+#' data.table::setDTthreads(1)
 #' }
 #' library(data.table)
 #' library(flextable)
@@ -82,9 +81,6 @@
 #'
 #' save_as_docx(ft_1, path = tempfile(fileext = ".docx"))
 #' save_as_rtf(ft_1, path = tempfile(fileext = ".rtf"))
-#' \dontshow{
-#' Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
-#' }
 paginate <- function(
     x,
     init = NULL,

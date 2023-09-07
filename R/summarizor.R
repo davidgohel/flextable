@@ -17,8 +17,7 @@
 #' @seealso [fmt_summarizor()], [labelizor()]
 #' @examples
 #' \dontshow{
-#' OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
-#' Sys.setenv("OMP_THREAD_LIMIT" = 2)
+#' data.table::setDTthreads(1)
 #' }
 #' z <- summarizor(CO2[-c(1, 4)],
 #'                 by = "Treatment",
@@ -33,9 +32,6 @@
 #' z <- summarizor(CO2[-c(1, 4)])
 #' ft_3 <- as_flextable(z, sep_w = 0, spread_first_col=TRUE)
 #' ft_3
-#' \dontshow{
-#' Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
-#' }
 #' @export
 summarizor <- function(
     x, by = character(),
@@ -121,8 +117,7 @@ summarizor <- function(
 #' @family as_flextable methods
 #' @examples
 #' \dontshow{
-#' OLD_OMP_THREAD_LIMIT <- Sys.getenv("OMP_THREAD_LIMIT")
-#' Sys.setenv("OMP_THREAD_LIMIT" = 2)
+#' data.table::setDTthreads(1)
 #' }
 #' z <- summarizor(CO2[-c(1, 4)],
 #'   by = "Treatment",
@@ -134,9 +129,6 @@ summarizor <- function(
 #'   as_chunk("\t"))
 #' ft_1 <- autofit(ft_1)
 #' ft_1
-#' \dontshow{
-#' Sys.setenv("OMP_THREAD_LIMIT" = OLD_OMP_THREAD_LIMIT)
-#' }
 as_flextable.summarizor <- function(x, ...) {
 
   tab <- tabulator(
