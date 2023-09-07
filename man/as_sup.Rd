@@ -23,13 +23,15 @@ labels made of different formattings. It should be used inside a
 call to \code{\link[=as_paragraph]{as_paragraph()}}.
 }
 \examples{
-ft <- flextable( head(iris), col_keys = c("dummy") )
+ft <- flextable(head(iris), col_keys = c("dummy"))
 
-ft <- compose(ft, i = 1, j = "dummy", part = "header",
-    value = as_paragraph(
-      " anything ",
-      as_sup("Sepal.Width")
-    ) )
+ft <- compose(ft,
+  i = 1, j = "dummy", part = "header",
+  value = as_paragraph(
+    " anything ",
+    as_sup("Sepal.Width")
+  )
+)
 
 ft <- autofit(ft)
 ft

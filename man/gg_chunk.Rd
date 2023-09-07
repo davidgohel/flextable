@@ -35,27 +35,35 @@ are removed when outputing to PowerPoint format.
 \examples{
 library(data.table)
 library(flextable)
-if(require("ggplot2")){
-  my_cor_plot <- function(x){
+if (require("ggplot2")) {
+  my_cor_plot <- function(x) {
     cols <- colnames(x)[sapply(x, is.numeric)]
     x <- x[, .SD, .SDcols = cols]
     cormat <- as.data.table(cor(x))
     cormat$var1 <- colnames(cormat)
-    cormat <- melt(cormat, id.vars = "var1", measure.vars = cormat$var1,
-                   variable.name = "var2", value.name = "correlation")
-    ggplot(data = cormat, aes(x=var1, y=var2, fill=correlation)) +
-      geom_tile() + coord_equal() +
-      scale_fill_gradient2(low = "blue",
-                           mid = "white", high = "red", limits = c(-1, 1),
-                           guide = FALSE) + theme_void()
+    cormat <- melt(cormat,
+      id.vars = "var1", measure.vars = cormat$var1,
+      variable.name = "var2", value.name = "correlation"
+    )
+    ggplot(data = cormat, aes(x = var1, y = var2, fill = correlation)) +
+      geom_tile() +
+      coord_equal() +
+      scale_fill_gradient2(
+        low = "blue",
+        mid = "white", high = "red", limits = c(-1, 1),
+        guide = FALSE
+      ) +
+      theme_void()
   }
   z <- as.data.table(iris)
-  z <- z[ , list(gg = list(my_cor_plot(.SD))), by = "Species"]
+  z <- z[, list(gg = list(my_cor_plot(.SD))), by = "Species"]
   ft <- flextable(z)
-  ft <- mk_par(ft, j = "gg",
-               value = as_paragraph(
-                 gg_chunk(value = gg, width = 1, height = 1)
-               ))
+  ft <- mk_par(ft,
+    j = "gg",
+    value = as_paragraph(
+      gg_chunk(value = gg, width = 1, height = 1)
+    )
+  )
   ft
 }
 }

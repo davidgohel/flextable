@@ -24,13 +24,13 @@ right borders of selected cells.
 }
 \examples{
 library(officer)
-std_border = fp_border(color="orange")
+std_border <- fp_border(color = "orange")
 
 ft <- flextable(head(iris))
 ft <- border_remove(x = ft)
 
 # add vertical borders
-ft <- vline(ft, border = std_border )
+ft <- vline(ft, border = std_border)
 ft
 }
 \seealso{

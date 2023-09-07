@@ -22,13 +22,13 @@ bottom border of selected parts.
 }
 \examples{
 library(officer)
-big_border = fp_border(color="orange", width = 3)
+big_border <- fp_border(color = "orange", width = 3)
 
 ft <- flextable(head(iris))
 ft <- border_remove(x = ft)
 
 # add/replace horizontal border on bottom
-ft <- hline_bottom(ft, part="body", border = big_border )
+ft <- hline_bottom(ft, part = "body", border = big_border)
 ft
 }
 \seealso{

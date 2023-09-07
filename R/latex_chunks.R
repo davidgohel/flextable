@@ -7,7 +7,7 @@ sanitize_latex_str <- function(str) {
   z
 }
 
-as_table_latexstyle_lr <- function(x){
+as_table_latexstyle_lr <- function(x) {
   left <- character(nrow(x))
   right <- character(nrow(x))
 
@@ -34,7 +34,7 @@ as_table_latexstyle_lr <- function(x){
   right <- paste0(fontsize_right, right)
 
   fonts_ok <- get_pdf_engine() %in% c("xelatex", "lualatex")
-  if(fonts_ok && !flextable_global$defaults$fonts_ignore ){
+  if (fonts_ok && !flextable_global$defaults$fonts_ignore) {
     font_family_left <- sprintf("\\global\\setmainfont{%s}{", x$font.family)
     font_family_right <- rep("}", nrow(x))
     font_family_left[is.na(x$font.family)] <- ""
@@ -76,30 +76,30 @@ as_table_latexstyle_lr <- function(x){
   data.frame(left = left, right = right, classname = x$classname, stringsAsFactors = TRUE)
 }
 
-latex_fontsize <- function(x, line_spacing = 1, digits = 0){
+latex_fontsize <- function(x, line_spacing = 1, digits = 0) {
   size <- format_double(x, digits = 0)
-  baselineskip <- format_double(x*line_spacing, digits = 0)
+  baselineskip <- format_double(x * line_spacing, digits = 0)
   z <- sprintf("\\fontsize{%s}{%s}\\selectfont", size, baselineskip)
   z[is.na(x)] <- ""
   z
 }
 
-latex_fontcolor <- function(x){
+latex_fontcolor <- function(x) {
   col <- colcode0(x)
   z <- sprintf("\\textcolor[HTML]{%s}", col)
   z
 }
 
-latex_cell_bgcolor <- function(x){
+latex_cell_bgcolor <- function(x) {
   is_transparent <- colalpha(x) < 1
   z <- sprintf("\\cellcolor[HTML]{%s}", colcode0(x))
   z[is_transparent] <- ""
   z
 }
 
-latex_text_direction <- function(x, left = TRUE){
+latex_text_direction <- function(x, left = TRUE) {
   textdir <- rep("", length(x))
-  if(left){
+  if (left) {
     textdir[x %in% "tbrl"] <- "\\rotatebox[origin=c]{270}{"
     textdir[x %in% "btlr"] <- "\\rotatebox[origin=c]{90}{"
   } else {
@@ -109,33 +109,32 @@ latex_text_direction <- function(x, left = TRUE){
 }
 
 
-latex_highlightcolor <- function(x){
+latex_highlightcolor <- function(x) {
   col <- colcode0(x)
   z <- sprintf("\\colorbox[HTML]{%s}", col)
   z
 }
 
 #' @importFrom knitr fig_path
-img_to_latex <- function(img_data, width, height){
-
+img_to_latex <- function(img_data, width, height) {
   new_files <- fig_path(suffix = ".png", number = seq_along(img_data))
-  for(d in unique(dirname(new_files))) {
+  for (d in unique(dirname(new_files))) {
     dir.create(d, showWarnings = FALSE, recursive = TRUE)
   }
 
-  str_raster <- mapply(function(img_raster, new_file, width, height ){
-    if(inherits(img_raster, "raster")){
+  str_raster <- mapply(function(img_raster, new_file, width, height) {
+    if (inherits(img_raster, "raster")) {
       agg_png(filename = new_file, units = "in", res = 300, background = "transparent", width = width, height = height)
-      op <- par(mar=rep(0, 4))
-      plot(img_raster, interpolate = FALSE, asp=NA)
+      op <- par(mar = rep(0, 4))
+      plot(img_raster, interpolate = FALSE, asp = NA)
       par(op)
       dev.off()
-    } else if(is.character(img_raster)){
-      if(!file.exists(img_raster)){
+    } else if (is.character(img_raster)) {
+      if (!file.exists(img_raster)) {
         stop(sprintf("File '%s' could not be found.", img_raster))
       }
       file.copy(from = img_raster, to = new_file, overwrite = TRUE)
-    } else  {
+    } else {
       stop("`image_data` can only be a raster or a filename.")
     }
     sprintf("\\includegraphics[width=%sin, height=%sin]{%s}", width, height, new_file)

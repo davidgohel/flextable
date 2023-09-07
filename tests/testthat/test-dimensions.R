@@ -4,68 +4,80 @@ library(utils)
 library(xml2)
 
 test_that("dimensions are valid", {
-  dummy_df <- data.frame( my_col = rep(letters[1:3], each = 2), stringsAsFactors = FALSE )
+  dummy_df <- data.frame(my_col = rep(letters[1:3], each = 2), stringsAsFactors = FALSE)
   ft <- flextable(dummy_df)
   dims <- dim(ft)
-  expect_length(dims$widths, 1 )
-  expect_length(dims$heights, 7 )
+  expect_length(dims$widths, 1)
+  expect_length(dims$heights, 7)
 
   ft <- add_header(ft, my_col = "second row header")
   dims <- dim(ft)
-  expect_length(dims$widths, 1 )
-  expect_length(dims$heights, 8 )
+  expect_length(dims$widths, 1)
+  expect_length(dims$heights, 8)
 
   ft <- height_all(ft, height = .15, part = "all")
   dims <- dim(ft)
-  expect_true(all( is.finite(dims$widths)))
-  expect_true(all( is.finite(dims$heights)))
+  expect_true(all(is.finite(dims$widths)))
+  expect_true(all(is.finite(dims$heights)))
 
   typology <- data.frame(
-    col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species" ),
+    col_keys = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species"),
     what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
     measure = c("Length", "Width", "Length", "Width", "Species"),
-    stringsAsFactors = FALSE )
-  ft <- flextable( head( iris ) )
-  ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+    stringsAsFactors = FALSE
+  )
+  ft <- flextable(head(iris))
+  ft <- set_header_df(ft, mapping = typology, key = "col_keys")
   dims <- dim(ft)
-  expect_length(dims$widths, 5 )
-  expect_length(dims$heights, 8 )
+  expect_length(dims$widths, 5)
+  expect_length(dims$heights, 8)
 })
 
 test_that("autofit and dim_pretty usage", {
   typology <- data.frame(
-    col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species" ),
+    col_keys = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species"),
     what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
     measure = c("Length", "Width", "Length", "Width", "Species"),
-    stringsAsFactors = FALSE )
-  ft <- flextable( head( iris ) )
-  ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
-  ft <- autofit( ft, add_w = 0.0, add_h = 0.0 )
+    stringsAsFactors = FALSE
+  )
+  ft <- flextable(head(iris))
+  ft <- set_header_df(ft, mapping = typology, key = "col_keys")
+  ft <- autofit(ft, add_w = 0.0, add_h = 0.0)
   dims <- dim(ft)
-  expect_true(all( is.finite(dims$widths)))
-  expect_true(all( is.finite(dims$heights)))
+  expect_true(all(is.finite(dims$widths)))
+  expect_true(all(is.finite(dims$heights)))
 
   dims <- dim_pretty(ft)
-  expect_true(all( is.finite(dims$widths)))
-  expect_true(all( is.finite(dims$heights)))
+  expect_true(all(is.finite(dims$widths)))
+  expect_true(all(is.finite(dims$heights)))
 })
 
 
 test_that("height usage", {
-  dummy_df <- data.frame( my_col1 = rep(letters[1:3], each = 2),
-                          my_col2 = rep(letters[4:6], each = 2),
-                          stringsAsFactors = FALSE )
+  dummy_df <- data.frame(
+    my_col1 = rep(letters[1:3], each = 2),
+    my_col2 = rep(letters[4:6], each = 2),
+    stringsAsFactors = FALSE
+  )
   ft <- flextable(dummy_df)
   dims <- dim_pretty(ft)
-  expect_silent({ft <- height_all(ft, height = .25, part = "all") })
-  expect_error({ft <- height(ft, height = dims$heights[-1], part = "all") })
-  expect_error({ft <- height(ft, height = 1:3, part = "body") })
+  expect_silent({
+    ft <- height_all(ft, height = .25, part = "all")
+  })
+  expect_error({
+    ft <- height(ft, height = dims$heights[-1], part = "all")
+  })
+  expect_error({
+    ft <- height(ft, height = 1:3, part = "body")
+  })
 })
 
 test_that("width usage", {
-  dummy_df <- data.frame( my_col1 = rep(letters[1:3], each = 2),
-                          my_col2 = rep(letters[4:6], each = 2),
-                          stringsAsFactors = FALSE )
+  dummy_df <- data.frame(
+    my_col1 = rep(letters[1:3], each = 2),
+    my_col2 = rep(letters[4:6], each = 2),
+    stringsAsFactors = FALSE
+  )
   ft <- flextable(dummy_df)
   expect_silent(width(ft, j = "my_col1", width = 1))
   expect_silent(width(ft, j = 1:2, width = .7))
@@ -83,7 +95,8 @@ test_that("autofit with horizontal spans", {
   ft <- flextable(dat)
   ft <- merge_at(
     x = ft, i = 1, j = 1:2,
-    part = "header")
+    part = "header"
+  )
 
 
   dims_divided <- dim_pretty(ft, hspans = "divided")
@@ -96,19 +109,23 @@ test_that("autofit with horizontal spans", {
 })
 
 test_that("HTML table width when autofit layout", {
-
   x <- data.frame(
-    x = c("[-0.36, -0.01]", "[0, 0]",
-          "000, 000", "0000 0000"))
+    x = c(
+      "[-0.36, -0.01]", "[0, 0]",
+      "000, 000", "0000 0000"
+    )
+  )
 
   ft <- flextable(x)
   ft <- set_table_properties(
-    x = ft, layout = "autofit")
+    x = ft, layout = "autofit"
+  )
   str <- flextable:::gen_raw_html(ft)
   expect_false(grepl("table-layout:auto;width:", str, fixed = TRUE))
 
   ft <- set_table_properties(
-    x = ft, layout = "autofit", width = .1)
+    x = ft, layout = "autofit", width = .1
+  )
   str <- flextable:::gen_raw_html(x = ft)
   expect_true(grepl("table-layout:auto;width:", str, fixed = TRUE))
 })

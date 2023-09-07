@@ -1,6 +1,6 @@
-def_fonts <- if( Sys.info()["sysname"] == "Windows" ){
+def_fonts <- if (Sys.info()["sysname"] == "Windows") {
   "Arial"
-} else if( Sys.info()["sysname"] == "Darwin" ){
+} else if (Sys.info()["sysname"] == "Darwin") {
   "Helvetica"
 } else {
   "DejaVu Sans"
@@ -16,24 +16,20 @@ default_flextable_settings <- list(
   line_spacing = 1,
   border.color = "#666666",
   border.width = .75,
-
   background.color = "transparent",
   table.layout = "fixed",
   decimal.mark = ".",
   big.mark = ",",
   digits = 1,
   pct_digits = 1,
-  na_str  = "",
-  nan_str  = "",
+  na_str = "",
+  nan_str = "",
   fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
-
   extra_css = "",
   scroll = NULL,
   split = TRUE, keep_with_next = FALSE,
   tabcolsep = 0, arraystretch = 1.5, float = "none",
-
   fonts_ignore = FALSE,
-
   theme_fun = "theme_booktabs",
   post_process_all = function(x) x,
   post_process_pdf = function(x) x,
@@ -124,7 +120,8 @@ flextable_global$defaults <- default_flextable_settings
 #'
 #' old <- set_flextable_defaults(
 #'   font.color = "#AA8855",
-#'   border.color = "#8855AA")
+#'   border.color = "#8855AA"
+#' )
 #' ft_2 <- qflextable(head(airquality))
 #' ft_2
 #'
@@ -132,167 +129,165 @@ flextable_global$defaults <- default_flextable_settings
 #' @family functions related to themes
 #' @importFrom utils modifyList
 set_flextable_defaults <- function(
-  font.family = NULL,
-  font.size = NULL, font.color = NULL,
-  text.align = NULL,
-  padding = NULL,
-  padding.bottom = NULL, padding.top = NULL,
-  padding.left = NULL, padding.right = NULL,
-  border.color = NULL,
-  border.width = NULL,
-  background.color = NULL,
-  line_spacing = NULL,
-  table.layout = NULL,
-  cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
-  decimal.mark = NULL, big.mark = NULL, digits = NULL, pct_digits = NULL,
-  na_str = NULL, nan_str = NULL,
-  fmt_date = NULL, fmt_datetime = NULL,
-  extra_css = NULL,
-  scroll = NULL,
-  split = NULL, keep_with_next = NULL,
-  tabcolsep = NULL, arraystretch = NULL, float = NULL,
-  fonts_ignore = NULL,
-  theme_fun = NULL,
-  post_process_all = NULL,
-  post_process_pdf = NULL,
-  post_process_docx = NULL,
-  post_process_html = NULL,
-  post_process_pptx = NULL,
-  ...
-  ){
-
+    font.family = NULL,
+    font.size = NULL, font.color = NULL,
+    text.align = NULL,
+    padding = NULL,
+    padding.bottom = NULL, padding.top = NULL,
+    padding.left = NULL, padding.right = NULL,
+    border.color = NULL,
+    border.width = NULL,
+    background.color = NULL,
+    line_spacing = NULL,
+    table.layout = NULL,
+    cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
+    decimal.mark = NULL, big.mark = NULL, digits = NULL, pct_digits = NULL,
+    na_str = NULL, nan_str = NULL,
+    fmt_date = NULL, fmt_datetime = NULL,
+    extra_css = NULL,
+    scroll = NULL,
+    split = NULL, keep_with_next = NULL,
+    tabcolsep = NULL, arraystretch = NULL, float = NULL,
+    fonts_ignore = NULL,
+    theme_fun = NULL,
+    post_process_all = NULL,
+    post_process_pdf = NULL,
+    post_process_docx = NULL,
+    post_process_html = NULL,
+    post_process_pptx = NULL,
+    ...) {
   x <- list()
 
-  if( !is.null(padding) ){
-    if( is.null( padding.top) ) padding.top <- padding
-    if( is.null( padding.bottom) ) padding.bottom <- padding
-    if( is.null( padding.left) ) padding.left <- padding
-    if( is.null( padding.right) ) padding.right <- padding
+  if (!is.null(padding)) {
+    if (is.null(padding.top)) padding.top <- padding
+    if (is.null(padding.bottom)) padding.bottom <- padding
+    if (is.null(padding.left)) padding.left <- padding
+    if (is.null(padding.right)) padding.right <- padding
   }
 
-  if( !is.null(font.family) ){
+  if (!is.null(font.family)) {
     x$font.family <- font.family
   }
-  if( !is.null(cs.family) ){
+  if (!is.null(cs.family)) {
     x$cs.family <- cs.family
   }
-  if( !is.null(eastasia.family) ){
+  if (!is.null(eastasia.family)) {
     x$eastasia.family <- eastasia.family
   }
-  if( !is.null(hansi.family) ){
+  if (!is.null(hansi.family)) {
     x$hansi.family <- hansi.family
   }
 
-  if( !is.null(font.size) && is.numeric(font.size) && !(font.size<0) ){
+  if (!is.null(font.size) && is.numeric(font.size) && !(font.size < 0)) {
     x$font.size <- font.size
   }
 
-  if( !is.null(font.color) ){
+  if (!is.null(font.color)) {
     x$font.color <- font.color
   }
 
-  if( !is.null(text.align) && text.align %in% c("left", "right", "center", "justify") ){
+  if (!is.null(text.align) && text.align %in% c("left", "right", "center", "justify")) {
     x$text.align <- text.align
   }
 
-  if( !is.null(padding.bottom) && is.numeric(padding.bottom) && !(padding.bottom<0) ){
+  if (!is.null(padding.bottom) && is.numeric(padding.bottom) && !(padding.bottom < 0)) {
     x$padding.bottom <- padding.bottom
   }
-  if( !is.null(padding.top) && is.numeric(padding.top) && !(padding.top<0) ){
+  if (!is.null(padding.top) && is.numeric(padding.top) && !(padding.top < 0)) {
     x$padding.top <- padding.top
   }
-  if( !is.null(padding.left) && is.numeric(padding.left) && !(padding.left<0) ){
+  if (!is.null(padding.left) && is.numeric(padding.left) && !(padding.left < 0)) {
     x$padding.left <- padding.left
   }
-  if( !is.null(padding.right) && is.numeric(padding.right) && !(padding.right<0) ){
+  if (!is.null(padding.right) && is.numeric(padding.right) && !(padding.right < 0)) {
     x$padding.right <- padding.right
   }
-  if( !is.null(line_spacing) && is.numeric(line_spacing) && !(line_spacing<0) ){
+  if (!is.null(line_spacing) && is.numeric(line_spacing) && !(line_spacing < 0)) {
     x$line_spacing <- line_spacing
   }
 
-  if( !is.null(border.color) ){
+  if (!is.null(border.color)) {
     x$border.color <- border.color
   }
-  if( !is.null(border.width) ){
+  if (!is.null(border.width)) {
     x$border.width <- border.width
   }
-  if( !is.null(background.color) ){
+  if (!is.null(background.color)) {
     x$background.color <- background.color
   }
-  if( !is.null(table.layout) ){
+  if (!is.null(table.layout)) {
     x$table.layout <- table.layout
   }
-  if( !is.null(big.mark) ){
+  if (!is.null(big.mark)) {
     x$big.mark <- big.mark
   }
-  if( !is.null(decimal.mark) ){
+  if (!is.null(decimal.mark)) {
     x$decimal.mark <- decimal.mark
   }
-  if( !is.null(digits) ){
+  if (!is.null(digits)) {
     x$digits <- digits
   }
-  if( !is.null(pct_digits) ){
+  if (!is.null(pct_digits)) {
     x$pct_digits <- pct_digits
   }
-  if( !is.null(na_str) ){
+  if (!is.null(na_str)) {
     x$na_str <- na_str
   }
-  if( !is.null(nan_str) ){
+  if (!is.null(nan_str)) {
     x$nan_str <- nan_str
   }
-  if( !is.null(fonts_ignore) ){
+  if (!is.null(fonts_ignore)) {
     x$fonts_ignore <- fonts_ignore
   }
-  if( !is.null(split) ){
+  if (!is.null(split)) {
     x$split <- split
   }
-  if( !is.null(keep_with_next) ){
+  if (!is.null(keep_with_next)) {
     x$keep_with_next <- keep_with_next
   }
-  if( !is.null(tabcolsep) ){
+  if (!is.null(tabcolsep)) {
     x$tabcolsep <- tabcolsep
   }
-  if( !is.null(arraystretch) ){
+  if (!is.null(arraystretch)) {
     x$arraystretch <- arraystretch
   }
-  if( !is.null(float) ){
+  if (!is.null(float)) {
     x$float <- float
   }
 
-  if( !is.null(scroll) ){
+  if (!is.null(scroll)) {
     x$scroll <- scroll
   }
-  if( !is.null(extra_css) ){
+  if (!is.null(extra_css)) {
     x$extra_css <- extra_css
   }
-  if( !is.null(fmt_date) ){
+  if (!is.null(fmt_date)) {
     x$fmt_date <- fmt_date
   }
-  if( !is.null(fmt_datetime) ){
+  if (!is.null(fmt_datetime)) {
     x$fmt_datetime <- fmt_datetime
   }
 
-  if( !is.null(theme_fun) && is.character(theme_fun) && length(theme_fun) == 1 ){
+  if (!is.null(theme_fun) && is.character(theme_fun) && length(theme_fun) == 1) {
     x$theme_fun <- theme_fun
   }
-  if( !is.null(theme_fun) && is.function(theme_fun) ){
+  if (!is.null(theme_fun) && is.function(theme_fun)) {
     x$theme_fun <- theme_fun
   }
 
-  if( !is.null(post_process_all) && is.function(post_process_all) ){
+  if (!is.null(post_process_all) && is.function(post_process_all)) {
     x$post_process_all <- post_process_all
   }
-  if( !is.null(post_process_pdf) && is.function(post_process_pdf) ){
+  if (!is.null(post_process_pdf) && is.function(post_process_pdf)) {
     x$post_process_pdf <- post_process_pdf
   }
-  if( !is.null(post_process_docx) && is.function(post_process_docx) ){
+  if (!is.null(post_process_docx) && is.function(post_process_docx)) {
     x$post_process_docx <- post_process_docx
   }
-  if( !is.null(post_process_html) && is.function(post_process_html) ){
+  if (!is.null(post_process_html) && is.function(post_process_html)) {
     x$post_process_html <- post_process_html
   }
-  if( !is.null(post_process_pptx) && is.function(post_process_pptx) ){
+  if (!is.null(post_process_pptx) && is.function(post_process_pptx)) {
     x$post_process_pptx <- post_process_pptx
   }
 
@@ -305,7 +300,7 @@ set_flextable_defaults <- function(
 
 #' @export
 #' @rdname set_flextable_defaults
-init_flextable_defaults <- function(){
+init_flextable_defaults <- function() {
   x <- default_flextable_settings
   flextable_global$defaults <- x
   class(x) <- "flextable_defaults"
@@ -323,37 +318,40 @@ init_flextable_defaults <- function(){
 #' @examples
 #' get_flextable_defaults()
 #' @family functions related to themes
-get_flextable_defaults <- function(){
+get_flextable_defaults <- function() {
   x <- flextable_global$defaults
   class(x) <- "flextable_defaults"
   x
 }
 
 #' @export
-print.flextable_defaults <- function(x, ...){
-
+print.flextable_defaults <- function(x, ...) {
   cat("## style properties\n")
-  styles <- c("font.family", "hansi.family", "eastasia.family", "cs.family",
-              "font.size", "font.color", "text.align", "padding.bottom",
+  styles <- c(
+    "font.family", "hansi.family", "eastasia.family", "cs.family",
+    "font.size", "font.color", "text.align", "padding.bottom",
     "padding.top", "padding.left", "padding.right", "line_spacing",
     "border.color", "border.width",
-    "background.color")
+    "background.color"
+  )
   df <- data.frame(property = styles, value = unlist(x[styles]), stringsAsFactors = FALSE)
   row.names(df) <- NULL
   print(df)
   cat("\n")
 
   cat("## cell content settings\n")
-  contents <- c("decimal.mark", "big.mark",
-              "digits", "pct_digits",
-              "na_str", "nan_str", "fmt_date", "fmt_datetime")
+  contents <- c(
+    "decimal.mark", "big.mark",
+    "digits", "pct_digits",
+    "na_str", "nan_str", "fmt_date", "fmt_datetime"
+  )
   df <- data.frame(property = contents, value = unlist(x[contents]), stringsAsFactors = FALSE)
   row.names(df) <- NULL
   print(df)
   cat("\n")
 
   cat("## table.layout is:", x$table.layout, "\n")
-  if(is.character(x$theme_fun)) cat("## default theme is:", x$theme_fun, "\n")
+  if (is.character(x$theme_fun)) cat("## default theme is:", x$theme_fun, "\n")
 
   invisible(NULL)
 }
@@ -389,7 +387,8 @@ print.flextable_defaults <- function(x, ...){
 #'
 #' set_flextable_defaults(
 #'   font.size = 11, font.color = "#303030",
-#'   padding = 3, table.layout = "autofit")
+#'   padding = 3, table.layout = "autofit"
+#' )
 #' z <- flextable(head(cars))
 #'
 #' z <- compose(
@@ -415,7 +414,7 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
                             font.family = flextable_global$defaults$font.family,
                             cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
                             vertical.align = "baseline",
-                            shading.color = "transparent"){
+                            shading.color = "transparent") {
   fp_text(
     color = color,
     font.size = font.size,
@@ -427,7 +426,6 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
     vertical.align = vertical.align,
     shading.color = shading.color
   )
-
 }
 #' @export
 #' @inheritParams officer::fp_border
@@ -440,16 +438,21 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
 #' library(flextable)
 #'
 #' set_flextable_defaults(
-#'   border.color = "orange")
+#'   border.color = "orange"
+#' )
 #'
 #' z <- flextable(head(cars))
 #' z <- theme_vanilla(z)
 #' z <- vline(
-#'   z, j = 1, part = "all",
-#'   border = officer::fp_border())
+#'   z,
+#'   j = 1, part = "all",
+#'   border = officer::fp_border()
+#' )
 #' z <- vline(
-#'   z, j = 2, part = "all",
-#'   border = fp_border_default())
+#'   z,
+#'   j = 2, part = "all",
+#'   border = fp_border_default()
+#' )
 #' z
 #'
 #' init_flextable_defaults()
@@ -459,10 +462,10 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
 fp_border_default <- function(
     color = flextable_global$defaults$border.color,
     style = "solid",
-    width = flextable_global$defaults$border.width){
+    width = flextable_global$defaults$border.width) {
   fp_border(
     color = color,
     style = style,
-    width = width)
-
+    width = width
+  )
 }

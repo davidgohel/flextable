@@ -18,12 +18,13 @@ standard deviations as \code{mean (sd)}.
 \examples{
 library(flextable)
 
-df <- data.frame(avg = 1:3*3, sd = 1:3)
+df <- data.frame(avg = 1:3 * 3, sd = 1:3)
 
 ft_1 <- flextable(df, col_keys = "avg")
 ft_1 <- mk_par(
   x = ft_1, j = 1, part = "body",
-  value = as_paragraph(fmt_avg_dev(avg = avg, dev = sd)))
+  value = as_paragraph(fmt_avg_dev(avg = avg, dev = sd))
+)
 ft_1 <- autofit(ft_1)
 ft_1
 }

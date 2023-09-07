@@ -107,7 +107,8 @@ caption_default_rtf <- function(x, keep_with_next = FALSE) {
   }
 
   caption_str <- paste0(
-    c("{\\pard",
+    c(
+      "{\\pard",
       p_pr,
       autonum,
       caption_chunks_str,
@@ -150,7 +151,8 @@ caption_bookdown_html <- function(x) {
   if (!is.null(x$caption$fp_p)) {
     inline_css <- sprintf(
       " style=\"display:table-caption;%s\"",
-      format(x$caption$fp_p, type = "html"))
+      format(x$caption$fp_p, type = "html")
+    )
   } else {
     inline_css <- " style=\"display:table-caption;\""
   }
@@ -177,7 +179,6 @@ caption_bookdown_html <- function(x) {
 }
 
 caption_default_html <- function(x) {
-
   if (!has_caption(x)) {
     caption_str <- ""
     attr(caption_str, "css") <- ""
@@ -194,7 +195,8 @@ caption_default_html <- function(x) {
   if (!is.null(x$caption$fp_p)) {
     inline_css <- sprintf(
       " style=\"display:table-caption;%s\"",
-      format(x$caption$fp_p, type = "html"))
+      format(x$caption$fp_p, type = "html")
+    )
   } else {
     inline_css <- " style=\"display:table-caption;\""
   }
@@ -222,7 +224,6 @@ caption_default_html <- function(x) {
 
 # PDF ----
 caption_default_latex <- function(x) {
-
   if (!has_caption(x)) {
     return("")
   }
@@ -236,7 +237,6 @@ caption_default_latex <- function(x) {
 }
 
 caption_bookdown_latex <- function(x) {
-
   if (!has_caption(x)) {
     return("")
   }
@@ -297,7 +297,8 @@ caption_chunks_wml <- function(x) {
     caption_chunks_str <- paste0(
       "<w:r><w:t xml:space=\"preserve\">",
       htmlEscape(x$caption$value),
-      "</w:t></w:r>")
+      "</w:t></w:r>"
+    )
   }
   caption_chunks_str
 }
@@ -322,7 +323,8 @@ caption_chunks_html <- function(x) {
     caption_chunks_str <- paste0(
       "<span>",
       htmlize(x$caption$value),
-      "</span>")
+      "</span>"
+    )
   }
   list(html = caption_chunks_str, css = css)
 }

@@ -83,11 +83,12 @@ tab_1 <- tabulator(
 ft_1 <- as_flextable(x = tab_1, separate_with = "variable")
 ft_1 <- labelizor(
   x = ft_1, j = "stat",
-  labels = c(mean_sd = "Moyenne (ecart-type)",
-             median_iqr = "Mediane (IQR)",
-             range = "Etendue",
-             missing = "Valeurs manquantes"
-             )
+  labels = c(
+    mean_sd = "Moyenne (ecart-type)",
+    median_iqr = "Mediane (IQR)",
+    range = "Etendue",
+    missing = "Valeurs manquantes"
+  )
 )
 ft_1 <- autofit(ft_1)
 ft_1

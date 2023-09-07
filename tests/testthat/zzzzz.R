@@ -1,5 +1,5 @@
 get_docx_xml <- function(x) {
-  if(inherits(x, "flextable")){
+  if (inherits(x, "flextable")) {
     docx_file <- tempfile(fileext = ".docx")
     doc <- read_docx()
     doc <- body_add_flextable(doc, value = x)
@@ -11,7 +11,7 @@ get_docx_xml <- function(x) {
 }
 
 get_pptx_xml <- function(x) {
-  if(inherits(x, "flextable")){
+  if (inherits(x, "flextable")) {
     pptx_file <- tempfile(fileext = ".pptx")
     doc <- read_pptx()
     doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
@@ -26,7 +26,7 @@ get_pptx_xml <- function(x) {
 }
 
 get_html_xml <- function(x) {
-  if(inherits(x, "flextable")){
+  if (inherits(x, "flextable")) {
     html_file <- tempfile(fileext = ".html")
     save_as_html(tab, path = html_file)
     x <- html_file
@@ -49,10 +49,10 @@ render_rmd <- function(file, rmd_format) {
   tryCatch(
     {
       render(rmd_file,
-             output_format = rmd_format,
-             output_file = pdf_file,
-             envir = new.env(),
-             quiet = TRUE
+        output_format = rmd_format,
+        output_file = pdf_file,
+        envir = new.env(),
+        quiet = TRUE
       )
       sucess <- TRUE
     },

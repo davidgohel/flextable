@@ -54,13 +54,15 @@ PowerPoint cannot mix images and text in a paragraph, images
 are removed when outputing to PowerPoint format.
 }
 \examples{
-myft <- flextable( head(iris, n = 10 ))
+myft <- flextable(head(iris, n = 10))
 
-myft <- compose( myft, j = 1,
+myft <- compose(myft,
+  j = 1,
   value = as_paragraph(
     linerange(value = Sepal.Length)
   ),
-  part = "body")
+  part = "body"
+)
 
 autofit(myft)
 }

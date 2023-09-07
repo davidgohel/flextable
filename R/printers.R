@@ -31,10 +31,12 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL,
   list_deps <- html_dependencies_list(x)
 
   html_o <- tagList(
-    if (length(extra_dependencies) > 0) attachDependencies(
-      x = tags$style(""),
-      extra_dependencies
-    ),
+    if (length(extra_dependencies) > 0) {
+      attachDependencies(
+        x = tags$style(""),
+        extra_dependencies
+      )
+    },
     attachDependencies(
       x = tags$style(""),
       list_deps
@@ -164,15 +166,16 @@ to_html.flextable <- function(x, type = c("table", "img"), ...) {
     gr <- gen_grob(x, fit = "fixed", just = "center")
     dims <- dim(gr)
     expand <- 10
-    width <- dims$width + expand/72
-    height <- dims$height + expand/72
+    width <- dims$width + expand / 72
+    height <- dims$height + expand / 72
 
     agg_png(
       filename = tmp,
-      width = dims$width + expand/72,
-      height = dims$height + expand/72,
+      width = dims$width + expand / 72,
+      height = dims$height + expand / 72,
       res = 200, units = "in",
-      background = "transparent")
+      background = "transparent"
+    )
 
     tryCatch(
       {
@@ -662,10 +665,10 @@ knit_print.flextable <- function(x, ...) {
   if (is.null(pandoc_to())) {
     str <- to_html(x, type = "table")
     str <- asis_output(str)
-  } else if (!is.null(getOption("xaringan.page_number.offset"))) { #xaringan
+  } else if (!is.null(getOption("xaringan.page_number.offset"))) { # xaringan
     str <- knit_to_html(x, bookdown = FALSE, quarto = FALSE)
     str <- asis_output(str, meta = html_dependencies_list(x))
-  } else if (is_html_output(excludes="gfm")) { # html
+  } else if (is_html_output(excludes = "gfm")) { # html
     str <- knit_to_html(x, bookdown = is_bookdown, quarto = is_quarto)
     str <- raw_html(str, meta = html_dependencies_list(x))
   } else if (is_latex_output()) { # latex
@@ -748,14 +751,16 @@ save_as_html <- function(..., values = NULL, path,
   show_names <- !is.null(titles)
   if (show_names) {
     old_values <- values
-    values <- rep(list(NULL), length(old_values)*2)
-    values[seq_along(old_values)*2] <- old_values
-    values[seq_along(old_values)*2 - 1] <- lapply(titles, htmltools::h2)
+    values <- rep(list(NULL), length(old_values) * 2)
+    values[seq_along(old_values) * 2] <- old_values
+    values[seq_along(old_values) * 2 - 1] <- lapply(titles, htmltools::h2)
   }
   values <- do.call(htmltools::tagList, values)
 
-  is_succes <- render_htmltag(x = values, path = absolute_path(path), title = title,
-                              lang = lang)
+  is_succes <- render_htmltag(
+    x = values, path = absolute_path(path), title = title,
+    lang = lang
+  )
   if (!is_succes) stop("could not write the file ", shQuote(path))
   invisible(path)
 }
@@ -918,7 +923,8 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL, align = "c
 #'   page_margins = page_mar(),
 #'   header_default = block_list(
 #'     fpar(ftext("text for default page header")),
-#'       qflextable(data.frame(a = 1L)))
+#'     qflextable(data.frame(a = 1L))
+#'   )
 #' )
 #' tf <- tempfile(fileext = ".rtf")
 #' save_as_rtf(
@@ -952,11 +958,12 @@ save_as_rtf <- function(..., values = NULL, path, pr_section = NULL) {
   for (i in seq_along(values)) {
     if (show_names) {
       z <- rtf_add(z,
-                   value = fpar(
-                     titles[i],
-                     fp_p = fp_par(text.align = "left", padding.top = 6, padding.bottom = 6),
-                     fp_t = fp_text_lite(bold = TRUE, font.size = 18, font.family = "Arial")
-                   ))
+        value = fpar(
+          titles[i],
+          fp_p = fp_par(text.align = "left", padding.top = 6, padding.bottom = 6),
+          fp_t = fp_text_lite(bold = TRUE, font.size = 18, font.family = "Arial")
+        )
+      )
     }
     z <- rtf_add(z, values[[i]])
   }
@@ -998,10 +1005,11 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
 
   agg_png(
     filename = path,
-    width = dims$width + expand/72,
-    height = dims$height + expand/72,
+    width = dims$width + expand / 72,
+    height = dims$height + expand / 72,
     res = res, units = "in",
-    background = "transparent")
+    background = "transparent"
+  )
 
   tryCatch(
     {
@@ -1032,8 +1040,10 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
 #' ftab <- as_flextable(cars)
 #'
 #' tf <- tempfile(fileext = ".png")
-#' agg_png(filename = tf, width = 1.7, height = 3.26, unit = "in",
-#'   background = "transparent", res = 150)
+#' agg_png(
+#'   filename = tf, width = 1.7, height = 3.26, unit = "in",
+#'   background = "transparent", res = 150
+#' )
 #' plot(ftab)
 #' dev.off()
 #' @family flextable print function
@@ -1105,7 +1115,6 @@ is_in_pkgdown <- function() {
 
 #' @importFrom knitr opts_current
 knitr_update_properties <- function(x, bookdown = FALSE, quarto = FALSE) {
-
   # global properties
   ft.align <- opts_current$get("ft.align")
   ft.split <- opts_current$get("ft.split")
@@ -1138,17 +1147,18 @@ knitr_update_properties <- function(x, bookdown = FALSE, quarto = FALSE) {
   }
 
   # captions properties
-  knitr_tab_opts = opts_current_table()
+  knitr_tab_opts <- opts_current_table()
   if (is.null(knitr_tab_opts$cap.style)) {
     knitr_tab_opts$cap.style <- "Table Caption"
   }
   x <- update_caption(
     x = x,
     caption = knitr_tab_opts$cap,
-    word_stylename = knitr_tab_opts$cap.style)
+    word_stylename = knitr_tab_opts$cap.style
+  )
   if (has_caption(x) &&
-      !has_autonum(x) &&
-      !is.null(knitr_tab_opts$id)) {
+    !has_autonum(x) &&
+    !is.null(knitr_tab_opts$id)) {
     autonum <- run_autonum(
       seq_id = gsub(":$", "", knitr_tab_opts$tab.lp),
       pre_label = knitr_tab_opts$cap.pre,
@@ -1163,4 +1173,3 @@ knitr_update_properties <- function(x, bookdown = FALSE, quarto = FALSE) {
 
   x
 }
-

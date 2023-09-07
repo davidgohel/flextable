@@ -57,7 +57,7 @@ fortified_freq <- function(dat, row = character(), column = character(), weight 
       x[is.na(x)] <- "Missing"
     }
     x
-  }) ,.SDcols = by]
+  }), .SDcols = by]
 
   freq_data <- groupingsets(
     x = dataset,

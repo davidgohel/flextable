@@ -86,11 +86,15 @@ VISITNUM <- seq_along(VISITS)
 LBBLFL <- rep(NA_character_, length(VISITNUM))
 LBBLFL[1] <- "Y"
 
-VISIT <- data.frame(VISIT = VISITS, VISITNUM = VISITNUM,
-  LBBLFL = LBBLFL, stringsAsFactors = FALSE)
-labdata <- expand.grid(USUBJID = USUBJID,  LBTEST = LBTEST,
-                    VISITNUM = VISITNUM,
-                    stringsAsFactors = FALSE)
+VISIT <- data.frame(
+  VISIT = VISITS, VISITNUM = VISITNUM,
+  LBBLFL = LBBLFL, stringsAsFactors = FALSE
+)
+labdata <- expand.grid(
+  USUBJID = USUBJID, LBTEST = LBTEST,
+  VISITNUM = VISITNUM,
+  stringsAsFactors = FALSE
+)
 setDT(labdata)
 
 labdata <- merge(labdata, VISIT, by = "VISITNUM")
@@ -98,15 +102,21 @@ labdata <- merge(labdata, VISIT, by = "VISITNUM")
 subject_elts <- unique(labdata[, .SD, .SDcols = "USUBJID"])
 subject_elts <- unique(subject_elts)
 subject_elts[, c("TREAT") := list(
-  sample(x = c("Treatment", "Placebo"), size = .N, replace = TRUE))]
-subject_elts[, c("TREAT"):= list(
-  factor(.SD$TREAT, levels = c("Treatment", "Placebo")))]
+  sample(x = c("Treatment", "Placebo"), size = .N, replace = TRUE)
+)]
+subject_elts[, c("TREAT") := list(
+  factor(.SD$TREAT, levels = c("Treatment", "Placebo"))
+)]
 setDF(subject_elts)
 labdata <- merge(labdata, subject_elts,
-  by = "USUBJID", all.x = TRUE, all.y = FALSE)
-labdata[, c("LBNRIND"):= list(
-  sample(x = c("LOW", "NORMAL", "HIGH"), size = .N,
-         replace = TRUE, prob = c(.03, .9, .07)))]
+  by = "USUBJID", all.x = TRUE, all.y = FALSE
+)
+labdata[, c("LBNRIND") := list(
+  sample(
+    x = c("LOW", "NORMAL", "HIGH"), size = .N,
+    replace = TRUE, prob = c(.03, .9, .07)
+  )
+)]
 
 setDF(labdata)
 
@@ -123,7 +133,8 @@ SHIFT_TABLE <- shift_table(
   cn_treatment = "TREAT",
   cn_is_baseline = "LBBLFL",
   baseline_identifier = "Y",
-  grade_levels = c("LOW", "NORMAL", "HIGH"))
+  grade_levels = c("LOW", "NORMAL", "HIGH")
+)
 
 # get attrs for post treatment ----
 SHIFT_TABLE_VISIT <- attr(SHIFT_TABLE, "VISIT_N")
@@ -131,17 +142,19 @@ visit_as_factor <- attr(SHIFT_TABLE, "FUN_VISIT")
 range_as_factor <- attr(SHIFT_TABLE, "FUN_GRADE")
 
 # post treatments ----
-SHIFT_TABLE$VISIT = visit_as_factor(SHIFT_TABLE$VISIT)
-SHIFT_TABLE$BASELINE = range_as_factor(SHIFT_TABLE$BASELINE)
-SHIFT_TABLE$LBNRIND = range_as_factor(SHIFT_TABLE$LBNRIND)
+SHIFT_TABLE$VISIT <- visit_as_factor(SHIFT_TABLE$VISIT)
+SHIFT_TABLE$BASELINE <- range_as_factor(SHIFT_TABLE$BASELINE)
+SHIFT_TABLE$LBNRIND <- range_as_factor(SHIFT_TABLE$LBNRIND)
 
-SHIFT_TABLE_VISIT$VISIT = visit_as_factor(SHIFT_TABLE_VISIT$VISIT)
+SHIFT_TABLE_VISIT$VISIT <- visit_as_factor(SHIFT_TABLE_VISIT$VISIT)
 
 # tabulator ----
 
 my_format <- function(z) {
-  formatC(z * 100, digits = 1, format = "f",
-          flag = "0", width = 4)
+  formatC(z * 100,
+    digits = 1, format = "f",
+    flag = "0", width = 4
+  )
 }
 
 tab <- tabulator(
@@ -160,8 +173,11 @@ tab <- tabulator(
 
 ft_1 <- as_flextable(
   x = tab, separate_with = "VISIT",
-  label_rows = c(LBTEST = "Lab Test", VISIT = "Visit",
-                 BASELINE = "Reference Range Indicator"))
+  label_rows = c(
+    LBTEST = "Lab Test", VISIT = "Visit",
+    BASELINE = "Reference Range Indicator"
+  )
+)
 
 ft_1
 }

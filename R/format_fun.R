@@ -1,4 +1,4 @@
-format_fun <- function( x, ... ){
+format_fun <- function(x, ...) {
   UseMethod("format_fun")
 }
 
@@ -12,48 +12,58 @@ format_fun.default <-
            fmt_date = flextable_global$defaults$fmt_date,
            fmt_datetime = flextable_global$defaults$fmt_datetime,
            prefix = "", suffix = "", ...) {
-    if(inherits(x, "Date")){
-      out <- format_fun.Date(x, fmt_date = fmt_date, na_str = na_str,
-                             nan_str = nan_str,
-                             prefix = prefix, suffix = suffix)
-    } else if(inherits(x, "POSIXt")){
-      out <- format_fun.POSIXt(x, fmt_datetime = fmt_datetime,
-                               na_str = na_str,
-                               nan_str = nan_str,
-                               prefix = prefix, suffix = suffix)
-    } else if(is.double(x)){
+    if (inherits(x, "Date")) {
+      out <- format_fun.Date(x,
+        fmt_date = fmt_date, na_str = na_str,
+        nan_str = nan_str,
+        prefix = prefix, suffix = suffix
+      )
+    } else if (inherits(x, "POSIXt")) {
+      out <- format_fun.POSIXt(x,
+        fmt_datetime = fmt_datetime,
+        na_str = na_str,
+        nan_str = nan_str,
+        prefix = prefix, suffix = suffix
+      )
+    } else if (is.double(x)) {
       out <- format_fun_defaultnum(x,
-                                   na_str = na_str,
-                                   nan_str = nan_str,
-                                   big.mark = big.mark,
-                               decimal.mark = decimal.mark,
-                               digits = digits,
-                               prefix = prefix, suffix = suffix,
-                               ...)
-    } else if(is.integer(x)){
+        na_str = na_str,
+        nan_str = nan_str,
+        big.mark = big.mark,
+        decimal.mark = decimal.mark,
+        digits = digits,
+        prefix = prefix, suffix = suffix,
+        ...
+      )
+    } else if (is.integer(x)) {
       out <- format_fun.integer(x,
-                                na_str = na_str,
-                                nan_str = nan_str,
-                                big.mark = big.mark,
-                                digits = digits, prefix = prefix, suffix = suffix)
-    } else if(is.character(x)){
+        na_str = na_str,
+        nan_str = nan_str,
+        big.mark = big.mark,
+        digits = digits, prefix = prefix, suffix = suffix
+      )
+    } else if (is.character(x)) {
       out <- format_fun.character(x,
-                                  na_str = na_str,
-                                  nan_str = nan_str,
-                                  prefix = prefix, suffix = suffix)
-    } else if(is.factor(x)){
+        na_str = na_str,
+        nan_str = nan_str,
+        prefix = prefix, suffix = suffix
+      )
+    } else if (is.factor(x)) {
       out <- format_fun.factor(x,
-                               na_str = na_str,
-                               nan_str = nan_str,
-                               prefix = prefix, suffix = suffix)
-    } else if(is.list(x)){
+        na_str = na_str,
+        nan_str = nan_str,
+        prefix = prefix, suffix = suffix
+      )
+    } else if (is.list(x)) {
       what <- sapply(x, function(x) head(class(x), n = 1))
       out <- sprintf("[[%s]]", what)
     } else {
-      out <- format(x, trim = TRUE, big.mark = big.mark,
-                    decimal.mark = decimal.mark, justify = "none",
-                    scientific = FALSE,
-                    digits = digits, ...)
+      out <- format(x,
+        trim = TRUE, big.mark = big.mark,
+        decimal.mark = decimal.mark, justify = "none",
+        scientific = FALSE,
+        digits = digits, ...
+      )
       out[is.na(x)] <- na_str
       out[is.nan(x)] <- nan_str
     }
@@ -106,7 +116,8 @@ format_fun_defaultnum <-
            digits = flextable_global$defaults$digits, ...) {
     out <- paste0(
       prefix,
-      format(x, trim = TRUE, scientific = FALSE,
+      format(x,
+        trim = TRUE, scientific = FALSE,
         big.mark = big.mark,
         decimal.mark = decimal.mark,
         ...
@@ -145,11 +156,13 @@ format_fun.pct <-
            big.mark = flextable_global$defaults$big.mark,
            decimal.mark = flextable_global$defaults$decimal.mark,
            pct_digits = flextable_global$defaults$pct_digits, ...) {
-    if(is.null(x)) return("")
+    if (is.null(x)) {
+      return("")
+    }
     wisna <- is.na(x)
     wisnan <- is.nan(x)
     out <- paste0(
-      formatC(x*100,
+      formatC(x * 100,
         format = "f", big.mark = big.mark, digits = pct_digits,
         decimal.mark = decimal.mark
       ),

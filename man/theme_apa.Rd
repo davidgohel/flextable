@@ -40,7 +40,7 @@ override any formatting done before the print statement.
 }
 
 \examples{
-ft <- flextable(head(mtcars*22.22))
+ft <- flextable(head(mtcars * 22.22))
 ft <- theme_apa(ft)
 ft
 }

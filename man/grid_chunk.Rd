@@ -35,14 +35,18 @@ are removed when outputing to PowerPoint format.
 \examples{
 library(flextable)
 ft_1 <- flextable(head(cars))
-if(require("grid")){
+if (require("grid")) {
   ft_1 <- prepend_chunks(
     x = ft_1, i = 2, j = 2,
     grid_chunk(
       list(
-        circleGrob(gp = gpar(fill="#ec11c2",
-          col = "transparent"))),
-      width = .15, height = .15)
+        circleGrob(gp = gpar(
+          fill = "#ec11c2",
+          col = "transparent"
+        ))
+      ),
+      width = .15, height = .15
+    )
   )
 }
 ft_1

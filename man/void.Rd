@@ -18,6 +18,6 @@ Set content display as a blank \code{" "}.
 }
 \examples{
 ftab <- flextable(head(mtcars))
-ftab <- void(ftab, ~ vs + am + gear + carb )
+ftab <- void(ftab, ~ vs + am + gear + carb)
 ftab
 }

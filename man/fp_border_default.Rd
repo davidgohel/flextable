@@ -26,16 +26,21 @@ default border color (see \code{\link[=set_flextable_defaults]{set_flextable_def
 library(flextable)
 
 set_flextable_defaults(
-  border.color = "orange")
+  border.color = "orange"
+)
 
 z <- flextable(head(cars))
 z <- theme_vanilla(z)
 z <- vline(
-  z, j = 1, part = "all",
-  border = officer::fp_border())
+  z,
+  j = 1, part = "all",
+  border = officer::fp_border()
+)
 z <- vline(
-  z, j = 2, part = "all",
-  border = fp_border_default())
+  z,
+  j = 2, part = "all",
+  border = fp_border_default()
+)
 z
 
 init_flextable_defaults()

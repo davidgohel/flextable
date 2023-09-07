@@ -24,7 +24,8 @@ df <- data.frame(zz = 1)
 ft_1 <- flextable(df)
 ft_1 <- append_chunks(
   x = ft_1, j = 1, part = "header",
-  value = as_chunk(fmt_header_n(200)))
+  value = as_chunk(fmt_header_n(200))
+)
 ft_1 <- autofit(ft_1)
 ft_1
 }

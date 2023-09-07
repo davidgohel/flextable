@@ -84,7 +84,8 @@ if (require("stats")) {
 if (require("stats")) {
   set_flextable_defaults(
     padding = 1, font.size = 9,
-    border.color = "orange")
+    border.color = "orange"
+  )
 
   ft_2 <- as_flextable(cft_1, sep_w = 0)
   ft_2

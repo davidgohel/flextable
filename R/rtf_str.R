@@ -27,25 +27,30 @@ rtf_cells <- function(value, cell_data, layout = "fixed") {
     zz$border.bottom <- fp_border(
       color = zz$border.color.bottom,
       width = zz$border.width.bottom,
-      style = zz$border.style.bottom)
+      style = zz$border.style.bottom
+    )
     zz$border.top <- fp_border(
       color = zz$border.color.top,
       width = zz$border.width.top,
-      style = zz$border.style.top)
+      style = zz$border.style.top
+    )
     zz$border.right <- fp_border(
       color = zz$border.color.right,
       width = zz$border.width.right,
-      style = zz$border.style.right)
+      style = zz$border.style.right
+    )
     zz$border.left <- fp_border(
       color = zz$border.color.left,
       width = zz$border.width.left,
-      style = zz$border.style.left)
+      style = zz$border.style.left
+    )
 
-    zz[c("border.width.bottom", "border.width.top", "border.width.left",
-         "border.width.right", "border.color.bottom", "border.color.top",
-         "border.color.left", "border.color.right", "border.style.bottom",
-         "border.style.top", "border.style.left", "border.style.right",
-         "width", "height", "hrule"
+    zz[c(
+      "border.width.bottom", "border.width.top", "border.width.left",
+      "border.width.right", "border.color.bottom", "border.color.top",
+      "border.color.left", "border.color.right", "border.style.bottom",
+      "border.style.top", "border.style.left", "border.style.right",
+      "width", "height", "hrule"
     )] <- NULL
     zz$classname <- NULL
     zz <- do.call(fp_cell, zz)
@@ -61,18 +66,22 @@ rtf_cells <- function(value, cell_data, layout = "fixed") {
 
   # organise everything
   cell_data <- merge(cell_data, data_ref_cells,
-                     by = intersect(colnames(cell_data), colnames(data_ref_cells))
+    by = intersect(colnames(cell_data), colnames(data_ref_cells))
   )
   cell_data <- merge(cell_data, style_dat, by = "classname")
   setorderv(cell_data, cols = c(".part", "ft_row_id", "col_id"))
   if (layout %in% "fixed") {
     cell_data[, c("fp_cell_rtf") := list(
-      sprintf("%s\\cellx%.0f", .SD$fp_cell_rtf, cumsum(.SD$width)*1440)),
-      by = c(".part", "ft_row_id")]
+      sprintf("%s\\cellx%.0f", .SD$fp_cell_rtf, cumsum(.SD$width) * 1440)
+    ),
+    by = c(".part", "ft_row_id")
+    ]
   } else {
     cell_data[, c("fp_cell_rtf") := list(
-      sprintf("%s\\cellx", .SD$fp_cell_rtf)),
-      by = c(".part", "ft_row_id")]
+      sprintf("%s\\cellx", .SD$fp_cell_rtf)
+    ),
+    by = c(".part", "ft_row_id")
+    ]
   }
   cell_data <- cell_data[, .SD, .SDcols = c(".part", "ft_row_id", "col_id", "fp_cell_rtf")]
   setDF(cell_data)
@@ -82,7 +91,6 @@ rtf_cells <- function(value, cell_data, layout = "fixed") {
 
 
 rtf_rows <- function(value) {
-
   # prepare cells formatting properties and add span information
   cell_attributes <- fortify_cells_properties(value)
   span_data <- fortify_span(value)
@@ -107,7 +115,8 @@ rtf_rows <- function(value) {
   run_data <- runs_as_rtf(value, chunk_data = fortify_run(value))
   cell_data <- rtf_cells(
     value, cell_attributes,
-    layout = value$properties$layout)
+    layout = value$properties$layout
+  )
   cell_heights <- fortify_height(value)
   cell_hrule <- fortify_hrule(value)
 
@@ -145,9 +154,11 @@ rtf_rows <- function(value) {
   header_str <- rep("", nrow(cell_hrule))
   header_str[cell_hrule$.part %in% "header"] <- "\\trhdr"
 
-  if(value$properties$layout %in% "fixed") {
+  if (value$properties$layout %in% "fixed") {
     autofit <- "\\trautofit0"
-  } else autofit <- "\\trautofit1"
+  } else {
+    autofit <- "\\trautofit1"
+  }
 
   header_str <- rep("", nrow(cell_hrule))
   header_str[cell_hrule$.part %in% "header"] <- "\\trhdr"
@@ -160,7 +171,8 @@ rtf_rows <- function(value) {
     split_str,
     heights,
     header_str, cells$fp_cell_rtf, cells$content_rtf,
-    "\\row\\pard\n")
+    "\\row\\pard\n"
+  )
 
   paste0(paste0(rows, collapse = ""), "\\vertalt")
 }
@@ -174,7 +186,6 @@ to_rtf.flextable <- function(x, topcaption = TRUE, ...) {
     } else {
       tab_str <- paste0(tab_str, "\n\n", caption_default_rtf(x))
     }
-
   }
   tab_str
 }
@@ -205,6 +216,6 @@ rtf_add.flextable <- function(x, value, ...) {
 
 
 #' @importFrom officer to_rtf to_html
-.onLoad = function(libname, pkgname) {
+.onLoad <- function(libname, pkgname) {
   # registerS3method("to_rtf", "flextable", to_rtf.flextable)
 }

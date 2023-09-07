@@ -34,7 +34,7 @@ test_that("docx-keep-with-next", {
 
 
 rmd_file_0 <- "rmd/captions.Rmd"
-if (!file.exists(rmd_file_0)) {#just for dev purpose
+if (!file.exists(rmd_file_0)) { # just for dev purpose
   rmd_file_0 <- "tests/testthat/rmd/captions.Rmd"
 }
 rmd_file <- tempfile(fileext = ".Rmd")

@@ -80,7 +80,7 @@ fortify_width <- function(x) {
     }
   }
   dat <- data.table::rbindlist(dat)
-  dat <- dat[, list(width = safe_stat(.SD$width, FUN = max )), by = "col_id"]
+  dat <- dat[, list(width = safe_stat(.SD$width, FUN = max)), by = "col_id"]
   setDF(dat)
   dat$col_id <- factor(dat$col_id, levels = x$col_keys)
   setorderv(dat, cols = c("col_id"))
@@ -165,11 +165,12 @@ fortify_span <- function(x, parts = c("header", "body", "footer")) {
 #' @importFrom data.table setDT
 #' @importFrom uuid UUIDgenerate
 #' @noRd
-distinct_text_properties <- function(x, add_columns = character(length = 0L)){
-
-  columns <- c("color", "font.size", "bold", "italic", "underlined", "font.family",
-               "hansi.family", "eastasia.family", "cs.family", "vertical.align",
-               "shading.color", add_columns)
+distinct_text_properties <- function(x, add_columns = character(length = 0L)) {
+  columns <- c(
+    "color", "font.size", "bold", "italic", "underlined", "font.family",
+    "hansi.family", "eastasia.family", "cs.family", "vertical.align",
+    "shading.color", add_columns
+  )
   dat <- as.data.table(x[columns])
   uid <- unique(dat)
   setDF(dat)
@@ -182,8 +183,7 @@ distinct_text_properties <- function(x, add_columns = character(length = 0L)){
 
   uid
 }
-distinct_paragraphs_properties <- function(x){
-
+distinct_paragraphs_properties <- function(x) {
   # fp_columns <- intersect(names(formals(officer::fp_par)), colnames(x))
   columns <- c(
     "text.align", "line_spacing", "padding.bottom", "padding.top",
@@ -210,18 +210,18 @@ distinct_paragraphs_properties <- function(x){
   uid
 }
 
-distinct_cells_properties <- function(x){
+distinct_cells_properties <- function(x) {
   # fp_columns <- intersect(names(formals(officer::fp_cell)), colnames(x))
   columns <- c(
     "vertical.align", "margin.bottom", "margin.top", "margin.left",
     "margin.right", "background.color", "text.direction",
-    "text.align", "width", "height", "hrule",# workaround for some formats
+    "text.align", "width", "height", "hrule", # workaround for some formats
     "border.width.bottom", "border.width.top", "border.width.left",
     "border.width.right", "border.color.bottom", "border.color.top",
     "border.color.left", "border.color.right", "border.style.bottom",
     "border.style.top", "border.style.left", "border.style.right",
     "rowspan", "colspan"
-    )
+  )
   columns <- intersect(columns, colnames(x))
 
   dat <- as.data.frame(x)[columns]
@@ -238,27 +238,33 @@ distinct_cells_properties <- function(x){
 }
 
 # -----
-fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TRUE){
+fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TRUE) {
   if (isTRUE(expand_special_chars)) {
     x$content$data[] <- lapply(x$content$data, expand_special_char,
-                               what = "\n", with = "<br>")
+      what = "\n", with = "<br>"
+    )
     x$content$data[] <- lapply(x$content$data, expand_special_char,
-                               what = "\t", with = "<tab>")
+      what = "\t", with = "<tab>"
+    )
   }
 
-  row_id <- unlist( mapply( function(rows, data){
-    rep(rows, nrow(data) )
-  },
-  rows = rep( seq_len(nrow(x$content$data)), ncol(x$content$data) ),
-  x$content$data, SIMPLIFY = FALSE, USE.NAMES = FALSE ) )
+  row_id <- unlist(mapply(
+    function(rows, data) {
+      rep(rows, nrow(data))
+    },
+    rows = rep(seq_len(nrow(x$content$data)), ncol(x$content$data)),
+    x$content$data, SIMPLIFY = FALSE, USE.NAMES = FALSE
+  ))
 
-  col_id <- unlist( mapply( function(columns, data){
-    rep(columns, nrow(data) )
-  },
-  columns = rep( x$content$keys, each = nrow(x$content$data) ),
-  x$content$data, SIMPLIFY = FALSE, USE.NAMES = FALSE ) )
+  col_id <- unlist(mapply(
+    function(columns, data) {
+      rep(columns, nrow(data))
+    },
+    columns = rep(x$content$keys, each = nrow(x$content$data)),
+    x$content$data, SIMPLIFY = FALSE, USE.NAMES = FALSE
+  ))
 
-  out <- rbindlist( apply(x$content$data, 2, rbindlist), use.names=TRUE, fill=TRUE)
+  out <- rbindlist(apply(x$content$data, 2, rbindlist), use.names = TRUE, fill = TRUE)
   out$ft_row_id <- row_id
   out$col_id <- col_id
   setDF(out)
@@ -266,27 +272,32 @@ fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TR
   default_props <- text_struct_to_df(default_chunk_fmt, stringsAsFactors = FALSE)
   out <- replace_missing_fptext_by_default(out, default_props)
 
-  out$col_id <- factor( out$col_id, levels = default_chunk_fmt$color$keys )
-  out <- out[order(out$col_id, out$ft_row_id, out$seq_index) ,]
+  out$col_id <- factor(out$col_id, levels = default_chunk_fmt$color$keys)
+  out <- out[order(out$col_id, out$ft_row_id, out$seq_index), ]
   out
-
 }
 
 
 #' @importFrom data.table rbindlist setDF
-fortify_run <- function(x, expand_special_chars = TRUE){
+fortify_run <- function(x, expand_special_chars = TRUE) {
   dat <- list()
-  if( nrow_part(x, "header") > 0 ){
-    dat$header <- fortify_content(x$header$content, default_chunk_fmt = x$header$styles$text,
-                                  expand_special_chars = expand_special_chars)
+  if (nrow_part(x, "header") > 0) {
+    dat$header <- fortify_content(x$header$content,
+      default_chunk_fmt = x$header$styles$text,
+      expand_special_chars = expand_special_chars
+    )
   }
-  if( nrow_part(x, "body") > 0 ){
-    dat$body <- fortify_content(x$body$content, default_chunk_fmt = x$body$styles$text,
-                                expand_special_chars = expand_special_chars)
+  if (nrow_part(x, "body") > 0) {
+    dat$body <- fortify_content(x$body$content,
+      default_chunk_fmt = x$body$styles$text,
+      expand_special_chars = expand_special_chars
+    )
   }
-  if( nrow_part(x, "footer") > 0 ){
-    dat$footer <- fortify_content(x$footer$content, default_chunk_fmt = x$footer$styles$text,
-                                  expand_special_chars = expand_special_chars)
+  if (nrow_part(x, "footer") > 0) {
+    dat$footer <- fortify_content(x$footer$content,
+      default_chunk_fmt = x$footer$styles$text,
+      expand_special_chars = expand_special_chars
+    )
   }
   dat <- rbindlist(dat, use.names = TRUE, idcol = ".part")
 
@@ -297,4 +308,3 @@ fortify_run <- function(x, expand_special_chars = TRUE){
   setDF(dat)
   dat
 }
-

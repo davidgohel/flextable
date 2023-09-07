@@ -31,7 +31,8 @@ setDT(CO2)
 CO2$conc <- as.integer(CO2$conc)
 
 data_co2 <- dcast(CO2, Treatment + conc ~ Type,
-  value.var = "uptake", fun.aggregate = mean)
+  value.var = "uptake", fun.aggregate = mean
+)
 data_co2
 data_co2 <- as_grouped_data(x = data_co2, groups = c("Treatment"))
 data_co2

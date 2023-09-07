@@ -82,9 +82,11 @@ dat <- as.data.table(ggplot2::diamonds)
 dat <- dat[clarity \%in\% c("I1", "SI1", "VS2")]
 
 dat <- dat[, unlist(lapply(.SD, multi_fun),
-                    recursive = FALSE),
-           .SDcols = c("z", "y"),
-           by = c("cut", "color", "clarity")]
+  recursive = FALSE
+),
+.SDcols = c("z", "y"),
+by = c("cut", "color", "clarity")
+]
 
 tab <- tabulator(
   x = dat, rows = c("cut", "color"),

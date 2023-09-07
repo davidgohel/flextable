@@ -16,10 +16,12 @@ produce a flextable describing an
 object oof class \code{htest}.
 }
 \examples{
-if(require("stats")){
+if (require("stats")) {
   M <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
-  dimnames(M) <- list(gender = c("F", "M"),
-  party = c("Democrat","Independent", "Republican"))
+  dimnames(M) <- list(
+    gender = c("F", "M"),
+    party = c("Democrat", "Independent", "Republican")
+  )
   ft_1 <- as_flextable(chisq.test(M))
   ft_1
 }

@@ -16,16 +16,17 @@ Delete all merging informations from a flextable.
 }
 \examples{
 typology <- data.frame(
-  col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species" ),
+  col_keys = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species"),
   what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
   measure = c("Length", "Width", "Length", "Width", "Species"),
-  stringsAsFactors = FALSE )
+  stringsAsFactors = FALSE
+)
 
-ft <- flextable( head( iris ) )
-ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+ft <- flextable(head(iris))
+ft <- set_header_df(ft, mapping = typology, key = "col_keys")
 ft <- merge_v(ft, j = c("Species"))
 
-ft <- theme_tron_legacy( merge_none( ft ) )
+ft <- theme_tron_legacy(merge_none(ft))
 ft
 }
 \seealso{

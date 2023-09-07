@@ -32,7 +32,8 @@ data.table::setDTthreads(1)
 z <- summarizor(
   x = CO2[-c(1, 4)],
   by = "Treatment",
-  overall_label = "Overall")
+  overall_label = "Overall"
+)
 
 ft_1 <- as_flextable(z, separate_with = "variable")
 

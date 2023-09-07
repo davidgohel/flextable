@@ -41,7 +41,7 @@ You can remove significance stars by setting options
 \code{options(show.signif.stars = FALSE)}.
 }
 \examples{
-if(require("broom.mixed") && require("nlme")){
+if (require("broom.mixed") && require("nlme")) {
   m1 <- lme(distance ~ age, data = Orthodont)
   ft <- as_flextable(m1)
   ft

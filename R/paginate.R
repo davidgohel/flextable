@@ -64,9 +64,11 @@
 #' dat <- dat[clarity %in% c("I1", "SI1", "VS2")]
 #'
 #' dat <- dat[, unlist(lapply(.SD, multi_fun),
-#'                     recursive = FALSE),
-#'            .SDcols = c("z", "y"),
-#'            by = c("cut", "color", "clarity")]
+#'   recursive = FALSE
+#' ),
+#' .SDcols = c("z", "y"),
+#' by = c("cut", "color", "clarity")
+#' ]
 #'
 #' tab <- tabulator(
 #'   x = dat, rows = c("cut", "color"),
@@ -86,9 +88,7 @@ paginate <- function(
     init = NULL,
     hdr_ftr = TRUE,
     group = character(),
-    group_def = c("rle", "nonempty")
-    ) {
-
+    group_def = c("rle", "nonempty")) {
   if (is.null(init)) {
     init <- get_flextable_defaults()$keep_with_next
   }
@@ -127,15 +127,16 @@ paginate_hdr_ftr <- function(x) {
 }
 
 paginate_nonempty <- function(x, group) {
-
-  if (nrow_part(x, "body") < 1) return(x)
+  if (nrow_part(x, "body") < 1) {
+    return(x)
+  }
 
   if (!group %in% colnames(x$body$dataset)) {
     stop("could not find ", shQuote(group))
   }
   grp_val <- x$body$dataset[[group]]
-  index_false <- c( which(!is.na(grp_val) & !grp_val %in% ""), length(grp_val)+1)
-  index_false <- index_false-1
+  index_false <- c(which(!is.na(grp_val) & !grp_val %in% ""), length(grp_val) + 1)
+  index_false <- index_false - 1
   index_false <- index_false[index_false > 0]
   x <- keep_with_next(x, value = TRUE, part = "body")
   x <- keep_with_next(x, i = index_false, value = FALSE, part = "body")
@@ -143,8 +144,9 @@ paginate_nonempty <- function(x, group) {
 }
 
 paginate_rleid <- function(x, group) {
-
-  if (nrow_part(x, "body") < 1) return(x)
+  if (nrow_part(x, "body") < 1) {
+    return(x)
+  }
 
   if (!group %in% colnames(x$body$dataset)) {
     stop("could not find ", shQuote(group))
@@ -155,4 +157,3 @@ paginate_rleid <- function(x, group) {
   x <- keep_with_next(x, i = index_false, value = FALSE, part = "body")
   x
 }
-

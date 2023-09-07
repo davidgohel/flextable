@@ -67,44 +67,46 @@
 #' [compose()], [footnote()], [set_caption()]
 flextable <- function(data, col_keys = names(data),
                       cwidth = .75, cheight = .25,
-                      defaults = list(), theme_fun = theme_booktabs ){
-
-
-  stopifnot(is.data.frame(data), ncol(data) > 0 )
-  if( any( duplicated(col_keys) ) ){
-    stop(sprintf("duplicated col_keys: %s",
-         paste0(unique(col_keys[duplicated(col_keys)]), collapse = ", "))
-    )
+                      defaults = list(), theme_fun = theme_booktabs) {
+  stopifnot(is.data.frame(data), ncol(data) > 0)
+  if (any(duplicated(col_keys))) {
+    stop(sprintf(
+      "duplicated col_keys: %s",
+      paste0(unique(col_keys[duplicated(col_keys)]), collapse = ", ")
+    ))
   }
-  if( inherits(data, "data.table") || inherits(data, "tbl_df") || inherits(data, "tbl") )
+  if (inherits(data, "data.table") || inherits(data, "tbl_df") || inherits(data, "tbl")) {
     data <- as.data.frame(data, stringsAsFactors = FALSE)
+  }
 
-  blanks <- setdiff( col_keys, names(data))
-  if( length( blanks ) > 0 ){
-    blanks_col <- lapply(blanks, function(x, n) character(n), nrow(data) )
-    blanks_col <- setNames(blanks_col, blanks )
+  blanks <- setdiff(col_keys, names(data))
+  if (length(blanks) > 0) {
+    blanks_col <- lapply(blanks, function(x, n) character(n), nrow(data))
+    blanks_col <- setNames(blanks_col, blanks)
     data[blanks] <- blanks_col
   }
 
-  body <- complex_tabpart( data = data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
+  body <- complex_tabpart(data = data, col_keys = col_keys, cwidth = cwidth, cheight = cheight)
 
   # header
   header_data <- setNames(as.list(col_keys), col_keys)
-  header_data[blanks] <- as.list( rep("", length(blanks)) )
+  header_data[blanks] <- as.list(rep("", length(blanks)))
   header_data <- as.data.frame(header_data, stringsAsFactors = FALSE, check.names = FALSE)
 
-  header <- complex_tabpart( data = header_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
+  header <- complex_tabpart(data = header_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight)
 
   # footer
   footer_data <- header_data[FALSE, , drop = FALSE]
-  footer <- complex_tabpart( data = footer_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight )
+  footer <- complex_tabpart(data = footer_data, col_keys = col_keys, cwidth = cwidth, cheight = cheight)
 
-  out <- list( header = header,
-               body = body,
-               footer = footer,
-               col_keys = col_keys,
-               caption = list(value = NULL),
-               blanks = blanks )
+  out <- list(
+    header = header,
+    body = body,
+    footer = footer,
+    col_keys = col_keys,
+    caption = list(value = NULL),
+    blanks = blanks
+  )
   class(out) <- c("flextable")
 
   out <- do.call(flextable_global$defaults$theme_fun, list(out))
@@ -120,7 +122,7 @@ flextable <- function(data, col_keys = names(data),
 #' a flextable for reporting where layout is fixed (see
 #' [set_table_properties()]) and columns
 #' widths are adjusted with [autofit()].
-qflextable <- function(data){
+qflextable <- function(data) {
   ft <- flextable(data)
   ft <- set_table_properties(ft, layout = "fixed")
   autofit(ft)
@@ -304,13 +306,13 @@ qflextable <- function(data){
 #' @param html_escape should HTML entities be escaped so that it can be safely
 #' included as text or an attribute value within an HTML document.
 #' @examples
-#' ftab <- flextable( head( iris ) )
+#' ftab <- flextable(head(iris))
 #' ftab <- set_caption(ftab, "my caption")
 #' ftab
 #'
 #' library(officer)
 #' autonum <- run_autonum(seq_id = "tab", bkm = "mtcars")
-#' ftab <- flextable( head( mtcars ) )
+#' ftab <- flextable(head(mtcars))
 #' ftab <- set_caption(ftab, caption = "mtcars data", autonum = autonum)
 #' ftab
 #' @importFrom officer run_autonum
@@ -325,8 +327,7 @@ set_caption <- function(x,
                         align_with_table = TRUE,
                         html_classes = NULL,
                         html_escape = TRUE) {
-
-  if( !inherits(x, "flextable") ) {
+  if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "set_caption()"))
   }
 
@@ -338,11 +339,13 @@ set_caption <- function(x,
     simple_caption <- FALSE
     caption_value <- caption[[1]]
 
-    by_columns <- c("font.size", "italic", "bold", "underlined", "color", "shading.color",
-                    "font.family", "hansi.family", "eastasia.family", "cs.family",
-                    "vertical.align")
+    by_columns <- c(
+      "font.size", "italic", "bold", "underlined", "color", "shading.color",
+      "font.family", "hansi.family", "eastasia.family", "cs.family",
+      "vertical.align"
+    )
     default_fp_t <- fp_text_default()
-    for (j in by_columns){
+    for (j in by_columns) {
       caption_value[[j]][is.na(caption_value[[j]])] <- default_fp_t[[j]]
     }
   }
@@ -351,9 +354,11 @@ set_caption <- function(x,
     caption_value <- expand_special_char(caption_value, what = "\t", with = "<tab>")
   }
 
-  x$caption <- list(value = caption_value,
-                    simple_caption = simple_caption,
-                    align_with_table = align_with_table)
+  x$caption <- list(
+    value = caption_value,
+    simple_caption = simple_caption,
+    align_with_table = align_with_table
+  )
 
   if (!is.null(autonum) && inherits(autonum, "run_autonum")) {
     x$caption$autonum <- autonum
@@ -361,7 +366,7 @@ set_caption <- function(x,
   x$caption$fp_p <- fp_p
   x$caption$style <- style
   x$caption$word_stylename <- word_stylename
-  x$caption$html_classes <- if(!is.null(html_classes)) paste(html_classes, collapse = " ") else NULL
+  x$caption$html_classes <- if (!is.null(html_classes)) paste(html_classes, collapse = " ") else NULL
 
   x
 }
@@ -412,7 +417,7 @@ update_caption <- function(x, caption = NULL,
 #' the dataset, they will be added as blank columns by default.
 #' @param cwidth,cheight initial width and height to use for cell sizes in inches.
 #' @export
-regulartable <- function( data, col_keys = names(data), cwidth = .75, cheight = .25 ){
+regulartable <- function(data, col_keys = names(data), cwidth = .75, cheight = .25) {
   flextable(data = data, col_keys = col_keys, cwidth = cwidth, cheight = cheight)
 }
 
@@ -519,17 +524,21 @@ set_table_properties <- function(x, layout = "fixed", width = 0,
                                  opts_word = list(),
                                  opts_pdf = list(),
                                  word_title = NULL, word_description = NULL) {
-  stopifnot(`wrong layout value` = layout %in% c("fixed", "autofit"),
-            `width is not numeric` = is.numeric(width),
-            `width is > 1` = width <= 1)
+  stopifnot(
+    `wrong layout value` = layout %in% c("fixed", "autofit"),
+    `width is not numeric` = is.numeric(width),
+    `width is > 1` = width <= 1
+  )
 
   if (!is.null(word_title)) {
     stopifnot(
       is.character(word_title),
-      length(word_title) == 1)
+      length(word_title) == 1
+    )
     stopifnot(
       is.character(word_description),
-      length(word_description) == 1)
+      length(word_description) == 1
+    )
   }
 
   x$properties <- list(
@@ -548,11 +557,10 @@ set_table_properties <- function(x, layout = "fixed", width = 0,
 opts_ft_html <- function(extra_css = get_flextable_defaults()$extra_css,
                          scroll = get_flextable_defaults()$scroll,
                          ...) {
-
-  if(!is.character(extra_css) || length(extra_css) != 1 || any(is.na(extra_css))){
+  if (!is.character(extra_css) || length(extra_css) != 1 || any(is.na(extra_css))) {
     stop(sprintf("'%s' is expected to be a single %s.", "extra_css", "character"), call. = FALSE)
   }
-  if(!is.null(scroll) && !is.list(scroll)){
+  if (!is.null(scroll) && !is.list(scroll)) {
     stop(sprintf("'%s' is expected to be %s.", "scroll", "NULL or a list"), call. = FALSE)
   }
 
@@ -561,11 +569,10 @@ opts_ft_html <- function(extra_css = get_flextable_defaults()$extra_css,
   z
 }
 opts_ft_word <- function(split = get_flextable_defaults()$split, keep_with_next = get_flextable_defaults()$keep_with_next) {
-
-  if( !is.logical(split) || length(split) != 1 ){
+  if (!is.logical(split) || length(split) != 1) {
     stop(sprintf("'%s' is expected to be a single %s.", "split", "logical"), call. = FALSE)
   }
-  if( !is.logical(keep_with_next) || length(keep_with_next) != 1 ){
+  if (!is.logical(keep_with_next) || length(keep_with_next) != 1) {
     stop(sprintf("'%s' is expected to be a single %s.", "keep_with_next", "logical"), call. = FALSE)
   }
 
@@ -578,54 +585,54 @@ opts_ft_pdf <- function(tabcolsep = get_flextable_defaults()$tabcolsep,
                         float = get_flextable_defaults()$float,
                         fonts_ignore = get_flextable_defaults()$fonts_ignore,
                         caption_repeat = TRUE,
-                        default_line_color = "black"
-                        ) {
-
-  if( !is.logical(fonts_ignore) || length(fonts_ignore) != 1 ){
+                        default_line_color = "black") {
+  if (!is.logical(fonts_ignore) || length(fonts_ignore) != 1) {
     stop(sprintf("'%s' is expected to be a single %s.", "fonts_ignore", "logical"), call. = FALSE)
   }
-  if( !is.numeric(tabcolsep) || length(tabcolsep) != 1 || any(sign(tabcolsep) < 0) ){
+  if (!is.numeric(tabcolsep) || length(tabcolsep) != 1 || any(sign(tabcolsep) < 0)) {
     stop(sprintf("'%s' is expected to be a single %s.", "tabcolsep", "positive number"), call. = FALSE)
   }
-  if( !is.numeric(arraystretch) || length(arraystretch) != 1 || any(sign(arraystretch) < 0) ){
+  if (!is.numeric(arraystretch) || length(arraystretch) != 1 || any(sign(arraystretch) < 0)) {
     stop(sprintf("'%s' is expected to be a single %s.", "arraystretch", "positive number"), call. = FALSE)
   }
-  if( !is.character(float) || length(float) != 1 || !all(float %in% c('none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o')) ){
+  if (!is.character(float) || length(float) != 1 || !all(float %in% c("none", "float", "wrap-r", "wrap-l", "wrap-i", "wrap-o"))) {
     stop(sprintf("'%s' is expected to be a single %s.", "float", "character (one of 'none', 'float', 'wrap-r', 'wrap-l', 'wrap-i', 'wrap-o')"), call. = FALSE)
   }
-  if( !is.logical(caption_repeat) || length(caption_repeat) != 1) {
+  if (!is.logical(caption_repeat) || length(caption_repeat) != 1) {
     stop(sprintf("'%s' is expected to be a single %s.", "logical"), call. = FALSE)
   }
 
-  z <- list(tabcolsep = tabcolsep,
-            arraystretch = arraystretch,
-            float = float,
-            default_line_color = default_line_color,
-            caption_repeat = caption_repeat,
-            fonts_ignore = fonts_ignore)
+  z <- list(
+    tabcolsep = tabcolsep,
+    arraystretch = arraystretch,
+    float = float,
+    default_line_color = default_line_color,
+    caption_repeat = caption_repeat,
+    fonts_ignore = fonts_ignore
+  )
   class(z) <- "opts_ft_pdf"
   z
 }
 
 
 #' @export
-knit_print.run_reference <- function(x, ...){
+knit_print.run_reference <- function(x, ...) {
   is_quarto <- is_in_quarto()
   title <- ""
   if (is_quarto) {
     title <- opts_current_table()$cap.pre
   }
-  if(grepl( "docx", opts_knit$get("rmarkdown.pandoc.to"))) {
-    knit_print( asis_output(
+  if (grepl("docx", opts_knit$get("rmarkdown.pandoc.to"))) {
+    knit_print(asis_output(
       paste(title, "`", to_wml(x), "`{=openxml}", sep = "")
-    ) )
-  } else if(is_quarto) {
-    knit_print( asis_output(
+    ))
+  } else if (is_quarto) {
+    knit_print(asis_output(
       paste("@", x$id, sep = "")
-    ) )
+    ))
   } else {
-    knit_print( asis_output(
+    knit_print(asis_output(
       paste("\\@ref(tab:", x$id, ")", sep = "")
-    ) )
+    ))
   }
 }

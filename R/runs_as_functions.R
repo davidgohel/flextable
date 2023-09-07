@@ -41,7 +41,6 @@ text_css_styles <- function(x) {
   paste0(".", x$classname, "{", style_column, "}", collapse = "")
 }
 runs_as_html <- function(x, chunk_data = fortify_run(x)) {
-
   # data can be (1.) from a df computed by fortify_run
   # or (2.) a single paragraph from x$caption$value and there will be only seq_index
   order_columns <-
@@ -414,12 +413,16 @@ runs_types <- function(dat) {
       inherits(x, "raster") || is.character(x)
     })
   )
-  x$is_text <- Reduce(function(a, b) a & b,
-                      list(!x$is_soft_return,
-                           !x$is_tab,
-                           !x$is_equation,
-                           !x$is_word_field,
-                           !x$is_raster))
+  x$is_text <- Reduce(
+    function(a, b) a & b,
+    list(
+      !x$is_soft_return,
+      !x$is_tab,
+      !x$is_equation,
+      !x$is_word_field,
+      !x$is_raster
+    )
+  )
   x
 }
 

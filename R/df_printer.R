@@ -43,17 +43,18 @@
 #' @examples
 #' df_printer(head(mtcars))
 df_printer <- function(dat, ...) {
-  args <- Filter(function(z) !is.null(z),
-         list(
-          max_row = knitr::opts_current$get("ft_max_row"),
-          split_colnames = knitr::opts_current$get("ft_split_colnames"),
-          short_strings = knitr::opts_current$get("ft_short_strings"),
-          short_size = knitr::opts_current$get("ft_short_size"),
-          short_suffix = knitr::opts_current$get("ft_short_suffix"),
-          do_autofit = knitr::opts_current$get("ft_do_autofit"),
-          show_coltype = knitr::opts_current$get("ft_show_coltype"),
-          color_coltype = knitr::opts_current$get("ft_color_coltype")
-        )
+  args <- Filter(
+    function(z) !is.null(z),
+    list(
+      max_row = knitr::opts_current$get("ft_max_row"),
+      split_colnames = knitr::opts_current$get("ft_split_colnames"),
+      short_strings = knitr::opts_current$get("ft_short_strings"),
+      short_size = knitr::opts_current$get("ft_short_size"),
+      short_suffix = knitr::opts_current$get("ft_short_suffix"),
+      do_autofit = knitr::opts_current$get("ft_do_autofit"),
+      show_coltype = knitr::opts_current$get("ft_show_coltype"),
+      color_coltype = knitr::opts_current$get("ft_color_coltype")
+    )
   )
   args$x <- dat
 
@@ -294,7 +295,4 @@ as_flextable.table <- function(x, ...) {
   } else {
     proc_freq(x, row = by[1], weight = "Freq", ...)
   }
-
 }
-
-

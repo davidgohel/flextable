@@ -24,13 +24,18 @@ flextable with the functions \code{\link[=compose]{compose()}}, \code{\link[=app
 or \code{\link[=prepend_chunks]{prepend_chunks()}}.
 }
 \examples{
-ft <- flextable( head(iris),
-  col_keys = c("Species", "Sepal", "Petal") )
-ft <- set_header_labels(ft, Sepal="Sepal", Petal="Petal")
-ft <- compose(ft, j = "Sepal",
-  value = as_paragraph( as_bracket(Sepal.Length, Sepal.Width) ) )
-ft <- compose(ft, j = "Petal",
-  value = as_paragraph( as_bracket(Petal.Length, Petal.Width) ) )
+ft <- flextable(head(iris),
+  col_keys = c("Species", "Sepal", "Petal")
+)
+ft <- set_header_labels(ft, Sepal = "Sepal", Petal = "Petal")
+ft <- compose(ft,
+  j = "Sepal",
+  value = as_paragraph(as_bracket(Sepal.Length, Sepal.Width))
+)
+ft <- compose(ft,
+  j = "Petal",
+  value = as_paragraph(as_bracket(Petal.Length, Petal.Width))
+)
 ft
 }
 \seealso{

@@ -25,8 +25,10 @@ set_flextable_defaults(font.family = "Liberation Sans")
 ftab <- as_flextable(cars)
 
 tf <- tempfile(fileext = ".png")
-agg_png(filename = tf, width = 1.7, height = 3.26, unit = "in",
-  background = "transparent", res = 150)
+agg_png(
+  filename = tf, width = 1.7, height = 3.26, unit = "in",
+  background = "transparent", res = 150
+)
 plot(ftab)
 dev.off()
 }

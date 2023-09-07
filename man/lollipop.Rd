@@ -66,13 +66,15 @@ PowerPoint cannot mix images and text in a paragraph, images
 are removed when outputing to PowerPoint format.
 }
 \examples{
-iris$Sepal.Ratio <- (iris$Sepal.Length - mean(iris$Sepal.Length))/mean(iris$Sepal.Length)
-ft <- flextable( tail(iris, n = 10 ))
+iris$Sepal.Ratio <- (iris$Sepal.Length - mean(iris$Sepal.Length)) / mean(iris$Sepal.Length)
+ft <- flextable(tail(iris, n = 10))
 
-ft <- compose( ft, j = "Sepal.Ratio",   value = as_paragraph(
-  lollipop(value = Sepal.Ratio, min=-.25, max=.25)
-),
-part = "body")
+ft <- compose(ft,
+  j = "Sepal.Ratio", value = as_paragraph(
+    lollipop(value = Sepal.Ratio, min = -.25, max = .25)
+  ),
+  part = "body"
+)
 
 ft <- autofit(ft)
 ft

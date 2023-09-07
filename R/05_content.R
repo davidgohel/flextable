@@ -57,7 +57,7 @@
 #' @keywords internal
 #' @return a data.frame with an additional class "chunk" that makes it
 #' suitable for beeing used in [as_paragraph()]
-chunk_dataframe <- function(...){
+chunk_dataframe <- function(...) {
   x <- list(...)
 
   img_data <- x$img_data
@@ -85,29 +85,34 @@ chunk_dataframe <- function(...){
     url = def_chr,
     eq_data = def_chr,
     word_field_data = def_chr,
-    stringsAsFactors = FALSE)
+    stringsAsFactors = FALSE
+  )
   data0$img_data <- def_lst
 
   data0[names(x)] <- x
-  if( !is.null(img_data))
+  if (!is.null(img_data)) {
     data0$img_data <- img_data
+  }
   class(data0) <- c("chunk", "data.frame")
   data0
 }
 
-default_fptext_prop <- structure(list(
-  font.size = NA_real_,
-  bold = as.logical(NA_integer_),
-  italic = as.logical(NA_integer_),
-  underlined = as.logical(NA_integer_),
-  color = NA_character_,
-  shading.color = NA_character_,
-  font.family = NA_character_,
-  hansi.family = NA_character_,
-  eastasia.family = NA_character_,
-  cs.family = NA_character_,
-  vertical.align = NA_character_),
-  class = "fp_text")
+default_fptext_prop <- structure(
+  list(
+    font.size = NA_real_,
+    bold = as.logical(NA_integer_),
+    italic = as.logical(NA_integer_),
+    underlined = as.logical(NA_integer_),
+    color = NA_character_,
+    shading.color = NA_character_,
+    font.family = NA_character_,
+    hansi.family = NA_character_,
+    eastasia.family = NA_character_,
+    cs.family = NA_character_,
+    vertical.align = NA_character_
+  ),
+  class = "fp_text"
+)
 
 
 #' @export
@@ -130,53 +135,56 @@ default_fptext_prop <- structure(list(
 #' @examples
 #' library(officer)
 #'
-#' ft <- flextable( head(iris))
+#' ft <- flextable(head(iris))
 #'
-#' ft <- compose( ft, j = "Sepal.Length",
-#'  value = as_paragraph(
-#'    "Sepal.Length value is ",
-#'    as_chunk(Sepal.Length, props = fp_text(color = "red"))
-#'  ),
-#'  part = "body")
+#' ft <- compose(ft,
+#'   j = "Sepal.Length",
+#'   value = as_paragraph(
+#'     "Sepal.Length value is ",
+#'     as_chunk(Sepal.Length, props = fp_text(color = "red"))
+#'   ),
+#'   part = "body"
+#' )
 #' ft <- color(ft, color = "gray40", part = "all")
 #' ft <- autofit(ft)
 #' ft
 as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
-
-  if(is.function(x)){
+  if (is.function(x)) {
     stop("argument `x` in function `as_chunk` cannot be a function", call. = FALSE)
   }
 
   text <- formatter(x, ...)
 
-  if( is.null(props) ){
+  if (is.null(props)) {
     props <- default_fptext_prop
   }
 
-  if( inherits(props, "fp_text") ){
+  if (inherits(props, "fp_text")) {
     props <- rep(list(props), length(text))
   }
 
-  if( length(props) > 0 && is.list(props) ){
-    if( !all(sapply(props, inherits, "fp_text")) ){
+  if (length(props) > 0 && is.list(props)) {
+    if (!all(sapply(props, inherits, "fp_text"))) {
       stop("`props` should be a list of `fp_text` object(s).")
     }
-    if( length(props) != length(text) ){
+    if (length(props) != length(text)) {
       stop(sprintf("`props` should be a list of same length than `x`: %.0f.", length(text)))
     }
   }
-  data <- chunk_dataframe(txt = text,
-                  font.size = sapply(props, function(x) x$font.size),
-                  italic = sapply(props, function(x) x$italic),
-                  bold = sapply(props, function(x) x$bold),
-                  underlined = sapply(props, function(x) x$underlined),
-                  color = sapply(props, function(x) x$color),
-                  shading.color = sapply(props, function(x) x$shading.color),
-                  font.family = sapply(props, function(x) x$font.family),
-                  hansi.family = sapply(props, function(x) x$hansi.family),
-                  eastasia.family = sapply(props, function(x) x$eastasia.family),
-                  cs.family = sapply(props, function(x) x$cs.family),
-                  vertical.align = sapply(props, function(x) x$vertical.align) )
+  data <- chunk_dataframe(
+    txt = text,
+    font.size = sapply(props, function(x) x$font.size),
+    italic = sapply(props, function(x) x$italic),
+    bold = sapply(props, function(x) x$bold),
+    underlined = sapply(props, function(x) x$underlined),
+    color = sapply(props, function(x) x$color),
+    shading.color = sapply(props, function(x) x$shading.color),
+    font.family = sapply(props, function(x) x$font.family),
+    hansi.family = sapply(props, function(x) x$hansi.family),
+    eastasia.family = sapply(props, function(x) x$eastasia.family),
+    cs.family = sapply(props, function(x) x$cs.family),
+    vertical.align = sapply(props, function(x) x$vertical.align)
+  )
 
   data
 }
@@ -193,21 +201,23 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
 #' @param x value, if a chunk, the chunk will be updated
 #' @family chunk elements for paragraph
 #' @examples
-#' ft <- flextable( head(iris), col_keys = c("dummy") )
+#' ft <- flextable(head(iris), col_keys = c("dummy"))
 #'
-#' ft <- compose(ft, i = 1, j = "dummy", part = "header",
-#'     value = as_paragraph(
-#'       as_sub("Sepal.Length"),
-#'       " anything "
-#'     ) )
+#' ft <- compose(ft,
+#'   i = 1, j = "dummy", part = "header",
+#'   value = as_paragraph(
+#'     as_sub("Sepal.Length"),
+#'     " anything "
+#'   )
+#' )
 #'
 #' ft <- autofit(ft)
 #' ft
-as_sub <- function(x){
-  if( !inherits(x, "chunk") ){
+as_sub <- function(x) {
+  if (!inherits(x, "chunk")) {
     x <- as_chunk(x, formatter = format_fun)
   }
-  x$vertical.align = "subscript"
+  x$vertical.align <- "subscript"
   x
 }
 #' @export
@@ -226,21 +236,23 @@ as_sub <- function(x){
 #' call to [as_paragraph()].
 #' @family chunk elements for paragraph
 #' @examples
-#' ft <- flextable( head(iris), col_keys = c("dummy") )
+#' ft <- flextable(head(iris), col_keys = c("dummy"))
 #'
-#' ft <- compose(ft, i = 1, j = "dummy", part = "header",
-#'     value = as_paragraph(
-#'       " anything ",
-#'       as_sup("Sepal.Width")
-#'     ) )
+#' ft <- compose(ft,
+#'   i = 1, j = "dummy", part = "header",
+#'   value = as_paragraph(
+#'     " anything ",
+#'     as_sup("Sepal.Width")
+#'   )
+#' )
 #'
 #' ft <- autofit(ft)
 #' ft
-as_sup <- function(x){
-  if( !inherits(x, "chunk") ){
+as_sup <- function(x) {
+  if (!inherits(x, "chunk")) {
     x <- as_chunk(x, formatter = format_fun)
   }
-  x$vertical.align = "superscript"
+  x$vertical.align <- "superscript"
   x
 }
 
@@ -257,20 +269,23 @@ as_sup <- function(x){
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
-#' ft <- flextable( head(iris),
-#'   col_keys = c("Sepal.Length", "dummy") )
+#' ft <- flextable(head(iris),
+#'   col_keys = c("Sepal.Length", "dummy")
+#' )
 #'
-#' ft <- compose(ft, j = "dummy",
-#'     value = as_paragraph(
-#'       as_b(Sepal.Length)
-#'     ) )
+#' ft <- compose(ft,
+#'   j = "dummy",
+#'   value = as_paragraph(
+#'     as_b(Sepal.Length)
+#'   )
+#' )
 #'
 #' ft
-as_b <- function(x){
-  if( !inherits(x, "chunk") ){
+as_b <- function(x) {
+  if (!inherits(x, "chunk")) {
     x <- as_chunk(x, formatter = format_fun)
   }
-  x$bold = TRUE
+  x$bold <- TRUE
   x
 }
 
@@ -286,18 +301,21 @@ as_b <- function(x){
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
-#' ft <- flextable( head(iris),
-#'   col_keys = c("Sepal.Length", "dummy") )
+#' ft <- flextable(head(iris),
+#'   col_keys = c("Sepal.Length", "dummy")
+#' )
 #'
-#' ft <- compose(ft, j = "dummy",
-#'   value = as_paragraph(as_i(Sepal.Length)) )
+#' ft <- compose(ft,
+#'   j = "dummy",
+#'   value = as_paragraph(as_i(Sepal.Length))
+#' )
 #'
 #' ft
-as_i <- function(x){
-  if( !inherits(x, "chunk") ){
+as_i <- function(x) {
+  if (!inherits(x, "chunk")) {
     x <- as_chunk(x, formatter = format_fun)
   }
-  x$italic = TRUE
+  x$italic <- TRUE
   x
 }
 
@@ -314,16 +332,18 @@ as_i <- function(x){
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
-#' ft <- flextable( head(iris),
-#'   col_keys = c("Sepal.Length", "dummy") )
+#' ft <- flextable(head(iris),
+#'   col_keys = c("Sepal.Length", "dummy")
+#' )
 #'
-#' ft <- compose(ft, j = "dummy",
-#'   value = as_paragraph(colorize(Sepal.Length, color = "red")) )
+#' ft <- compose(ft,
+#'   j = "dummy",
+#'   value = as_paragraph(colorize(Sepal.Length, color = "red"))
+#' )
 #'
 #' ft
-colorize <- function(x, color){
-
-  if( !inherits(x, "chunk") ){
+colorize <- function(x, color) {
+  if (!inherits(x, "chunk")) {
     x <- as_chunk(x, formatter = format_fun)
   }
 
@@ -344,16 +364,18 @@ colorize <- function(x, color){
 #' @inheritParams as_sub
 #' @family chunk elements for paragraph
 #' @examples
-#' ft <- flextable( head(iris),
-#'   col_keys = c("Sepal.Length", "dummy") )
+#' ft <- flextable(head(iris),
+#'   col_keys = c("Sepal.Length", "dummy")
+#' )
 #'
-#' ft <- compose(ft, j = "dummy",
-#'   value = as_paragraph(as_highlight(Sepal.Length, color = "yellow")) )
+#' ft <- compose(ft,
+#'   j = "dummy",
+#'   value = as_paragraph(as_highlight(Sepal.Length, color = "yellow"))
+#' )
 #'
 #' ft
-as_highlight <- function(x, color){
-
-  if( !inherits(x, "chunk") ){
+as_highlight <- function(x, color) {
+  if (!inherits(x, "chunk")) {
     x <- as_chunk(x, formatter = format_fun)
   }
   x$shading.color <- color
@@ -375,15 +397,20 @@ as_highlight <- function(x, color){
 #' @param s suffix, default to ')'
 #' @family chunk elements for paragraph
 #' @examples
-#' ft <- flextable( head(iris),
-#'   col_keys = c("Species", "Sepal", "Petal") )
-#' ft <- set_header_labels(ft, Sepal="Sepal", Petal="Petal")
-#' ft <- compose(ft, j = "Sepal",
-#'   value = as_paragraph( as_bracket(Sepal.Length, Sepal.Width) ) )
-#' ft <- compose(ft, j = "Petal",
-#'   value = as_paragraph( as_bracket(Petal.Length, Petal.Width) ) )
+#' ft <- flextable(head(iris),
+#'   col_keys = c("Species", "Sepal", "Petal")
+#' )
+#' ft <- set_header_labels(ft, Sepal = "Sepal", Petal = "Petal")
+#' ft <- compose(ft,
+#'   j = "Sepal",
+#'   value = as_paragraph(as_bracket(Sepal.Length, Sepal.Width))
+#' )
+#' ft <- compose(ft,
+#'   j = "Petal",
+#'   value = as_paragraph(as_bracket(Petal.Length, Petal.Width))
+#' )
 #' ft
-as_bracket <- function(..., sep = ", ", p = "(", s = ")"){
+as_bracket <- function(..., sep = ", ", p = "(", s = ")") {
   x <- list(...)
   x <- lapply(x, formatC)
   x$sep <- sep
@@ -413,18 +440,22 @@ as_bracket <- function(..., sep = ", ", p = "(", s = ")"){
 #' dat <- data.frame(
 #'   col = "Google it",
 #'   href = "https://www.google.fr/search?source=hp&q=flextable+R+package",
-#'   stringsAsFactors = FALSE)
+#'   stringsAsFactors = FALSE
+#' )
 #'
 #' ftab <- flextable(dat)
-#' ftab <- compose( x = ftab, j = "col",
+#' ftab <- compose(
+#'   x = ftab, j = "col",
 #'   value = as_paragraph(
 #'     "This is a link: ",
-#'     hyperlink_text(x = col, url = href ) ) )
+#'     hyperlink_text(x = col, url = href)
+#'   )
+#' )
 #' ftab
 #' @family chunk elements for paragraph
-hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
+hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...) {
   zz <- data.frame(x = x, url = url, stringsAsFactors = FALSE)
-  x <- as_chunk( x = zz$x, props = props, formatter = formatter, ...)
+  x <- as_chunk(x = zz$x, props = props, formatter = formatter, ...)
   x$url <- zz$url
   x
 }
@@ -450,67 +481,69 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...){
 #' @family chunk elements for paragraph
 #' @examples
 #' library(flextable)
-#' if(require("equatags") && mathjax_available()){
+#' if (require("equatags") && mathjax_available()) {
+#'   eqs <- c(
+#'     "(ax^2 + bx + c = 0)",
+#'     "a \\ne 0",
+#'     "x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}"
+#'   )
+#'   df <- data.frame(formula = eqs)
+#'   df
 #'
-#' eqs <- c(
-#'   "(ax^2 + bx + c = 0)",
-#'   "a \\ne 0",
-#'   "x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}")
-#' df <- data.frame(formula = eqs)
-#' df
 #'
-#'
-#' ft <- flextable(df)
-#' ft <- compose(
-#'   x = ft, j = "formula",
-#'   value = as_paragraph(as_equation(formula, width = 2, height = .5)))
-#' ft <- align(ft, align = "center", part = "all")
-#' ft <- width(ft, width = 2)
-#' ft
-#'
+#'   ft <- flextable(df)
+#'   ft <- compose(
+#'     x = ft, j = "formula",
+#'     value = as_paragraph(as_equation(formula, width = 2, height = .5))
+#'   )
+#'   ft <- align(ft, align = "center", part = "all")
+#'   ft <- width(ft, width = 2)
+#'   ft
 #' }
-as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL){
-
+as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL) {
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
 
-  if( length(x) > 1 ){
-    if( length(width) == 1 ) width <- rep(width, length(x))
-    if( length(height) == 1 ) height <- rep(height, length(x))
+  if (length(x) > 1) {
+    if (length(width) == 1) width <- rep(width, length(x))
+    if (length(height) == 1) height <- rep(height, length(x))
   }
-  if( is.null(props) ){
+  if (is.null(props)) {
     props <- default_fptext_prop
   }
 
-  if( inherits(props, "fp_text") ){
+  if (inherits(props, "fp_text")) {
     props <- rep(list(props), length(x))
   }
 
-  if( length(props) > 0 && is.list(props) ){
-    if( !all(sapply(props, inherits, "fp_text")) ){
+  if (length(props) > 0 && is.list(props)) {
+    if (!all(sapply(props, inherits, "fp_text"))) {
       stop("`props` should be a list of `fp_text` object(s).")
     }
-    if( length(props) != length(x) ){
+    if (length(props) != length(x)) {
       stop(sprintf(
         "`props` should be a list of same length than `x`: %.0f.",
-        length(x)))
+        length(x)
+      ))
     }
   }
 
-  x <- chunk_dataframe(width = as.double(width),
-                       height = as.double(height),
-                       eq_data = x,
-                       font.size = sapply(props, function(x) x$font.size),
-                       italic = sapply(props, function(x) x$italic),
-                       bold = sapply(props, function(x) x$bold),
-                       underlined = sapply(props, function(x) x$underlined),
-                       color = sapply(props, function(x) x$color),
-                       shading.color = sapply(props, function(x) x$shading.color),
-                       font.family = sapply(props, function(x) x$font.family),
-                       hansi.family = sapply(props, function(x) x$hansi.family),
-                       eastasia.family = sapply(props, function(x) x$eastasia.family),
-                       cs.family = sapply(props, function(x) x$cs.family),
-                       vertical.align = sapply(props, function(x) x$vertical.align) )
+  x <- chunk_dataframe(
+    width = as.double(width),
+    height = as.double(height),
+    eq_data = x,
+    font.size = sapply(props, function(x) x$font.size),
+    italic = sapply(props, function(x) x$italic),
+    bold = sapply(props, function(x) x$bold),
+    underlined = sapply(props, function(x) x$underlined),
+    color = sapply(props, function(x) x$color),
+    shading.color = sapply(props, function(x) x$shading.color),
+    font.family = sapply(props, function(x) x$font.family),
+    hansi.family = sapply(props, function(x) x$hansi.family),
+    eastasia.family = sapply(props, function(x) x$eastasia.family),
+    cs.family = sapply(props, function(x) x$cs.family),
+    vertical.align = sapply(props, function(x) x$vertical.align)
+  )
   class(x) <- c("chunk", "data.frame")
   x
 }
@@ -548,7 +581,7 @@ as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL){
 #' set_flextable_defaults(font.size = 22, border.color = "gray")
 #'
 #' # an example with append_chunks ----
-#' pp_docx = function(x) {
+#' pp_docx <- function(x) {
 #'   x <- add_header_lines(x, "Page ")
 #'   x <- append_chunks(
 #'     x = x, i = 1, part = "header", j = 1,
@@ -573,9 +606,11 @@ as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL){
 #' ft_2 <- add_footer_lines(ft_2, "temp text")
 #' ft_2 <- compose(
 #'   x = ft_2, part = "footer", i = 1, j = 1,
-#'   as_paragraph("p. ",
-#'                as_word_field(x = "Page", width = .05),
-#'                " on ", as_word_field(x = "NumPages", width = .05))
+#'   as_paragraph(
+#'     "p. ",
+#'     as_word_field(x = "Page", width = .05),
+#'     " on ", as_word_field(x = "NumPages", width = .05)
+#'   )
 #' )
 #' ft_2 <- autofit(ft_2, part = c("header", "body"))
 #'
@@ -587,50 +622,50 @@ as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL){
 #'
 #' # reset default values ----
 #' init_flextable_defaults()
-as_word_field <- function(x, props = NULL, width = .1, height = .15, unit = "in"){
-
+as_word_field <- function(x, props = NULL, width = .1, height = .15, unit = "in") {
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
 
-  if( is.null(props) ){
+  if (is.null(props)) {
     props <- default_fptext_prop
   }
 
-  if( inherits(props, "fp_text") ){
+  if (inherits(props, "fp_text")) {
     props <- rep(list(props), length(x))
   }
 
-  if( length(props) > 0 && is.list(props) ){
-    if( !all(sapply(props, inherits, "fp_text")) ){
+  if (length(props) > 0 && is.list(props)) {
+    if (!all(sapply(props, inherits, "fp_text"))) {
       stop("`props` should be a list of `fp_text` object(s).")
     }
-    if( length(props) != length(x) ){
+    if (length(props) != length(x)) {
       stop(sprintf(
         "`props` should be a list of same length than `x`: %.0f.",
-        length(x)))
+        length(x)
+      ))
     }
   }
 
-  x <- chunk_dataframe(width = as.double(width),
-                       height = as.double(height),
-                       word_field_data = x,
-                       font.size = sapply(props, function(x) x$font.size),
-                       italic = sapply(props, function(x) x$italic),
-                       bold = sapply(props, function(x) x$bold),
-                       underlined = sapply(props, function(x) x$underlined),
-                       color = sapply(props, function(x) x$color),
-                       shading.color = sapply(props, function(x) x$shading.color),
-                       font.family = sapply(props, function(x) x$font.family),
-                       hansi.family = sapply(props, function(x) x$hansi.family),
-                       eastasia.family = sapply(props, function(x) x$eastasia.family),
-                       cs.family = sapply(props, function(x) x$cs.family),
-                       vertical.align = sapply(props, function(x) x$vertical.align)
-                       )
+  x <- chunk_dataframe(
+    width = as.double(width),
+    height = as.double(height),
+    word_field_data = x,
+    font.size = sapply(props, function(x) x$font.size),
+    italic = sapply(props, function(x) x$italic),
+    bold = sapply(props, function(x) x$bold),
+    underlined = sapply(props, function(x) x$underlined),
+    color = sapply(props, function(x) x$color),
+    shading.color = sapply(props, function(x) x$shading.color),
+    font.family = sapply(props, function(x) x$font.family),
+    hansi.family = sapply(props, function(x) x$hansi.family),
+    eastasia.family = sapply(props, function(x) x$eastasia.family),
+    cs.family = sapply(props, function(x) x$cs.family),
+    vertical.align = sapply(props, function(x) x$vertical.align)
+  )
   class(x) <- c("chunk", "data.frame")
   x
 }
 to_wml_word_field <- function(x, pr_txt) {
-
   xml_elt_1 <- paste0(
     "<w:r>",
     pr_txt,
@@ -741,5 +776,3 @@ as_paragraph <- function(..., list_values = NULL) {
   class(data) <- c("paragraph")
   data
 }
-
-

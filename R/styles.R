@@ -592,12 +592,13 @@ align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "j
 #' @seealso [paginate()]
 #' @examples
 #' library(flextable)
-#' dat <- iris[c(1:25, 51:75, 101:125),]
+#' dat <- iris[c(1:25, 51:75, 101:125), ]
 #' ft <- qflextable(dat)
 #' ft <- keep_with_next(
 #'   x = ft,
 #'   i = c(1:24, 26:49, 51:74),
-#'   value = TRUE)
+#'   value = TRUE
+#' )
 #'
 #' save_as_docx(ft, path = tempfile(fileext = ".docx"))
 keep_with_next <- function(x, i = NULL, value = TRUE, part = "body") {

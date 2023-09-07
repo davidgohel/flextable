@@ -41,17 +41,17 @@ can evolve or change.
 data.table::setDTthreads(1)
 }
 z <- summarizor(CO2[-c(1, 4)],
-                by = "Treatment",
-                overall_label = "Overall"
+  by = "Treatment",
+  overall_label = "Overall"
 )
 ft_1 <- as_flextable(z)
 ft_1
 
-ft_2 <- as_flextable(z, sep_w = 0, spread_first_col=TRUE)
+ft_2 <- as_flextable(z, sep_w = 0, spread_first_col = TRUE)
 ft_2
 
 z <- summarizor(CO2[-c(1, 4)])
-ft_3 <- as_flextable(z, sep_w = 0, spread_first_col=TRUE)
+ft_3 <- as_flextable(z, sep_w = 0, spread_first_col = TRUE)
 ft_3
 }
 \seealso{

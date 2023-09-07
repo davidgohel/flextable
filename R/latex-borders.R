@@ -13,8 +13,8 @@ fortify_latex_borders <- function(x) {
     "background.color"
   )]
   col_id_levels <- levels(properties_df$col_id)
-  properties_df[, c('vspan_id') := list(rleid(cumsum(.SD$colspan))), by = c(".part", "col_id")]
-  properties_df[, c('draw_hline') := list({
+  properties_df[, c("vspan_id") := list(rleid(cumsum(.SD$colspan))), by = c(".part", "col_id")]
+  properties_df[, c("draw_hline") := list({
     z <- logical(nrow(.SD))
     z[length(z)] <- TRUE
     z
@@ -28,7 +28,7 @@ fortify_latex_borders <- function(x) {
 
   # don't want the merged columns widths inside
   draw_hline_mat <- as.matrix(draw_hline[, 3:ncol(top)])
-  bot_mat <- bot_mat*(draw_hline_mat > 0)
+  bot_mat <- bot_mat * (draw_hline_mat > 0)
 
   new_row_n <- nrow(top) + 1
 
@@ -100,17 +100,17 @@ latex_gridlines <- function(properties_df) {
       "", ""
     )]
   x[has_border(x, "left"), c("vborder_left") :=
-      list(
-        vline_token(w = .SD$border.width.left, cols = .SD$border.color.left)
-      )]
+    list(
+      vline_token(w = .SD$border.width.left, cols = .SD$border.color.left)
+    )]
   x[has_border(x, "right"), c("vborder_right") :=
-      list(
-        fcase(
-          (as.integer(.SD$col_id) + .SD$rowspan) == (nlevels(.SD$col_id) + 1L),
-          vline_token(w = .SD$border.width.right, cols = .SD$border.color.right),
-          default = ""
-        )
-      )]
+    list(
+      fcase(
+        (as.integer(.SD$col_id) + .SD$rowspan) == (nlevels(.SD$col_id) + 1L),
+        vline_token(w = .SD$border.width.right, cols = .SD$border.color.right),
+        default = ""
+      )
+    )]
   vlines <- x[, .SD, .SDcols = c(".part", "col_id", "ft_row_id", "vborder_left", "vborder_right")]
   setDF(vlines)
 
@@ -141,8 +141,9 @@ latex_gridlines <- function(properties_df) {
     hlines <- x[, list(
       hlines_b_strings = cline_intruction(.SD$hborder_bottom),
       hlines_t_strings = cline_intruction(.SD$hborder_top)
-      ),
-      by = c(".part", "ft_row_id")]
+    ),
+    by = c(".part", "ft_row_id")
+    ]
     setDF(hlines)
   } else {
     # set hborder_bottom_pre_vline to '|' for the first column where there are bottom and left borders
@@ -161,10 +162,10 @@ latex_gridlines <- function(properties_df) {
     ]
     # if cells are vertically merged, dont draw bottom borders nor their vertical columns/joins
     x[, c("hborder_bottom", "hborder_bottom_post_vline") :=
-        list(
-          data.table::fifelse(c(.SD$colspan[-1], 1) < 1, fun_hborder(w = .SD$border.width.bottom, cols = .SD$background.color), .SD$hborder_bottom),
-          data.table::fifelse(c(.SD$colspan[-1], 1) < 1, "", .SD$hborder_bottom_post_vline)
-        ), by = c(".part", "col_id")]
+      list(
+        data.table::fifelse(c(.SD$colspan[-1], 1) < 1, fun_hborder(w = .SD$border.width.bottom, cols = .SD$background.color), .SD$hborder_bottom),
+        data.table::fifelse(c(.SD$colspan[-1], 1) < 1, "", .SD$hborder_bottom_post_vline)
+      ), by = c(".part", "col_id")]
 
     # reinit color and line size before drawing new h borders
     x_rulecolor_start <- x[x$col_id %in% head(levels(x$col_id), 1), ]
@@ -176,8 +177,8 @@ latex_gridlines <- function(properties_df) {
 
     hlines <- x[, list(
       hlines_b_strings = hhline_instruction(.SD$hborder_bottom,
-                                            pre_str = .SD$hborder_bottom_pre_vline,
-                                            post_str = .SD$hborder_bottom_post_vline
+        pre_str = .SD$hborder_bottom_pre_vline,
+        post_str = .SD$hborder_bottom_post_vline
       ),
       hlines_t_strings = hhline_instruction(.SD$hborder_top)
     ), by = c(".part", "ft_row_id")]
@@ -218,7 +219,7 @@ cline_token <- function(w, cols, digits = 2) {
   size <- format_double(w, digits = digits)
   colchar <- colcode0(cols)
   z <- sprintf("ascline{%spt}{%s}", w, colchar)
-  z[w < .001|colalpha(cols)<1] <- "ascline{0pt}{FFFFFF}"
+  z[w < .001 | colalpha(cols) < 1] <- "ascline{0pt}{FFFFFF}"
   z
 }
 hline_token <- function(w, cols, digits = 2) {
@@ -237,10 +238,12 @@ cline_intruction <- function(token) {
   lengths <- rle_$lengths
   values <- rle_$values
   end_at <- cumsum(lengths)
-  start_at <- end_at - (lengths-1)
+  start_at <- end_at - (lengths - 1)
 
   keep <- !values %in% c("ascline{0pt}{FFFFFF}", "~")
-  if (sum(keep) < 1) return("")
+  if (sum(keep) < 1) {
+    return("")
+  }
 
   values <- values[keep]
   start_at <- start_at[keep]
@@ -257,6 +260,3 @@ hhline_instruction <- function(x, pre_str = character(length(x)), post_str = cha
 
   paste0("\\hhline{", paste0(z, collapse = ""), "}")
 }
-
-
-

@@ -19,11 +19,11 @@ You can remove significance stars by setting options
 \code{options(show.signif.stars = FALSE)}.
 }
 \examples{
-if(require("broom")){
+if (require("broom")) {
   dat <- attitude
   dat$high.rating <- (dat$rating > 70)
   probit.model <- glm(high.rating ~ learning + critical +
-     advance, data=dat, family = binomial(link = "probit"))
+    advance, data = dat, family = binomial(link = "probit"))
   ft <- as_flextable(probit.model)
   ft
 }

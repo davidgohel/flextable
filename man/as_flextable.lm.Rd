@@ -19,9 +19,9 @@ You can remove significance stars by setting options
 \code{options(show.signif.stars = FALSE)}.
 }
 \examples{
-if(require("broom")){
+if (require("broom")) {
   lmod <- lm(rating ~ complaints + privileges +
-    learning + raises + critical, data=attitude)
+    learning + raises + critical, data = attitude)
   ft <- as_flextable(lmod)
   ft
 }

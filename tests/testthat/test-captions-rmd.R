@@ -6,7 +6,7 @@ library(officer)
 init_flextable_defaults()
 
 rmd_file_0 <- "rmd/captions.Rmd"
-if (!file.exists(rmd_file_0)) {#just for dev purpose
+if (!file.exists(rmd_file_0)) { # just for dev purpose
   rmd_file_0 <- "tests/testthat/rmd/captions.Rmd"
 }
 rmd_file <- tempfile(fileext = ".Rmd")
@@ -23,10 +23,11 @@ testthat::test_that("with html_document", {
   skip_if_not(pandoc_version() >= numeric_version("2"))
   unlink(html_file, force = TRUE)
   render(rmd_file,
-         output_format = rmarkdown::html_document(),
-         output_file = html_file,
-         envir = new.env(),
-         quiet = TRUE)
+    output_format = rmarkdown::html_document(),
+    output_file = html_file,
+    envir = new.env(),
+    quiet = TRUE
+  )
 
   xml_doc <- get_html_xml(html_file)
 
@@ -48,7 +49,7 @@ testthat::test_that("with html_document", {
   expect_true(inherits(id_chunk, "xml_missing"))
 
   captions <- xml_find_all(xml_doc, "//table/caption/p")
-  expect_true(all(!grepl("Table [0-9]+:" , xml_text(captions))))
+  expect_true(all(!grepl("Table [0-9]+:", xml_text(captions))))
 })
 
 testthat::test_that("with html_document2", {
@@ -58,10 +59,11 @@ testthat::test_that("with html_document2", {
 
   unlink(html_file, force = TRUE)
   render(rmd_file,
-         output_format = bookdown::html_document2(keep_md = FALSE),
-         output_file = html_file,
-         envir = new.env(),
-         quiet = TRUE)
+    output_format = bookdown::html_document2(keep_md = FALSE),
+    output_file = html_file,
+    envir = new.env(),
+    quiet = TRUE
+  )
 
   xml_doc <- get_html_xml(html_file)
 
@@ -81,7 +83,7 @@ testthat::test_that("with html_document2", {
   expect_false(inherits(id_chunk, "xml_missing"))
 
   caption <- xml_find_first(xml_doc, "//caption[span/@id='tab:id1']")
-  expect_true(grepl("Table 2:" , xml_text(caption)))
+  expect_true(grepl("Table 2:", xml_text(caption)))
 })
 
 testthat::test_that("with word_document", {
@@ -91,15 +93,17 @@ testthat::test_that("with word_document", {
 
   unlink(docx_file, force = TRUE)
   render(rmd_file,
-         output_format = rmarkdown::word_document(keep_md = FALSE),
-         output_file = docx_file,
-         envir = new.env(),
-         quiet = TRUE)
+    output_format = rmarkdown::word_document(keep_md = FALSE),
+    output_file = docx_file,
+    envir = new.env(),
+    quiet = TRUE
+  )
 
   doc <- get_docx_xml(docx_file)
 
   caption_node <- xml_find_first(doc,
-                                 xpath = "/w:document/w:body/w:tbl[4]/preceding-sibling::*[1]")
+    xpath = "/w:document/w:body/w:tbl[4]/preceding-sibling::*[1]"
+  )
   expect_false(grepl("Table [1-5]+", xml_text(caption_node), fixed = TRUE))
 
   style_nodes <- xml_find_all(doc, "//w:pStyle[@w:val='TableCaption']")
@@ -122,15 +126,17 @@ testthat::test_that("with word_document2", {
 
   unlink(docx_file, force = TRUE)
   render(rmd_file,
-         output_format = bookdown::word_document2(keep_md = FALSE),
-         output_file = docx_file,
-         envir = new.env(),
-         quiet = TRUE)
+    output_format = bookdown::word_document2(keep_md = FALSE),
+    output_file = docx_file,
+    envir = new.env(),
+    quiet = TRUE
+  )
 
   doc <- get_docx_xml(docx_file)
 
   caption_node <- xml_find_first(doc,
-                                 xpath = "/w:document/w:body/w:tbl[2]/preceding-sibling::*[1]")
+    xpath = "/w:document/w:body/w:tbl[2]/preceding-sibling::*[1]"
+  )
   expect_true(grepl("Table 2", xml_text(caption_node), fixed = TRUE))
 
   crossref_node <- xml_find_first(doc, "/w:document/w:body/w:p[2]")
@@ -153,7 +159,6 @@ testthat::test_that("with word_document2", {
 
 
 testthat::test_that("word with officer", {
-
   unlink(docx_file, force = TRUE)
   ft <- flextable(head(cars))
   ft <- theme_vanilla(ft)
@@ -167,12 +172,14 @@ testthat::test_that("word with officer", {
     autonum = run_autonum(seq_id = "tab", bkm = "id2"),
     fp_p = fp_par(
       padding = 10,
-      border = fp_border_default(color = "red", width = 1))
+      border = fp_border_default(color = "red", width = 1)
+    )
   )
   doc <- get_docx_xml(ft)
 
   caption_node <- xml_find_first(doc,
-                                 xpath = "/w:document/w:body/w:tbl/preceding-sibling::*[1]")
+    xpath = "/w:document/w:body/w:tbl/preceding-sibling::*[1]"
+  )
   expect_false(grepl("Table [1-5]+", xml_text(caption_node), fixed = TRUE))
 
   style_nodes <- xml_find_all(doc, "//w:pStyle[@w:val='TableCaption']")
@@ -197,7 +204,7 @@ test_that("with pdf_document2", {
     doc <- get_pdf_text(pdf_file, extract_fun = pdftools::pdf_text)
     expect_true(any(grepl("Cross-reference is there: 2", doc, fixed = TRUE)))
   } else {
-    testthat::expect_false(sucess)# only necessary to avoid a note
+    testthat::expect_false(sucess) # only necessary to avoid a note
   }
 })
 

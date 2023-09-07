@@ -14,17 +14,15 @@
 #' add_latex_dep()
 #' @keywords internal
 #' @importFrom knitr knit_meta_add
-add_latex_dep <- function(float = FALSE, wrapfig = FALSE){
-
+add_latex_dep <- function(float = FALSE, wrapfig = FALSE) {
   knit_meta_add(unname(list_latex_dep(float = float, wrapfig = wrapfig)))
 
   invisible(NULL)
 }
 
 #' @importFrom rmarkdown latex_dependency
-list_latex_dep <- function(float = FALSE, wrapfig = FALSE){
-
-  if(!is_latex_output()){
+list_latex_dep <- function(float = FALSE, wrapfig = FALSE) {
+  if (!is_latex_output()) {
     return(list())
   }
 
@@ -34,12 +32,12 @@ list_latex_dep <- function(float = FALSE, wrapfig = FALSE){
   fontspec_compat <- get_pdf_engine() %in% c("xelatex", "lualatex")
   if (!is_quarto && !fonts_ignore && !fontspec_compat) {
     warning("fonts used in `flextable` are ignored because ",
-            "the `pdflatex` engine is used and not `xelatex` or ",
-            "`lualatex`. You can avoid this warning by using the ",
-            "`set_flextable_defaults(fonts_ignore=TRUE)` command or ",
-            "use a compatible engine by defining `latex_engine: xelatex` ",
-            "in the YAML header of the R Markdown document.",
-            call. = FALSE
+      "the `pdflatex` engine is used and not `xelatex` or ",
+      "`lualatex`. You can avoid this warning by using the ",
+      "`set_flextable_defaults(fonts_ignore=TRUE)` command or ",
+      "use a compatible engine by defining `latex_engine: xelatex` ",
+      "in the YAML header of the R Markdown document.",
+      call. = FALSE
     )
   }
 
@@ -53,17 +51,19 @@ list_latex_dep <- function(float = FALSE, wrapfig = FALSE){
   x$colortbl <- latex_dependency("colortbl")
   x$hhline <- latex_dependency(
     name = "hhline",
-    extra_lines= c("\\newlength\\Oldarrayrulewidth",
-                   "\\newlength\\Oldtabcolsep")
+    extra_lines = c(
+      "\\newlength\\Oldarrayrulewidth",
+      "\\newlength\\Oldtabcolsep"
+    )
   )
   x$longtable <- latex_dependency("longtable")
   x$array <- latex_dependency("array")
   x$hyperref <- latex_dependency("hyperref")
 
-  if(float) {
+  if (float) {
     x$float <- latex_dependency("float")
   }
-  if(wrapfig) {
+  if (wrapfig) {
     x$wrapfig <- latex_dependency("wrapfig")
   }
   x
@@ -249,12 +249,12 @@ augment_multirow_fixed <- function(properties_df) {
 
 latex_colwidth <- function(x) {
   grid_dat <- x[, .SD, .SDcols = c(".part", "ft_row_id", "col_id", "rowspan", "border.width.left", "column_size")]
-  grid_dat[, c('hspan_id') := list(calc_grid_span_group(.SD$rowspan)), by = c(".part", "ft_row_id")]
+  grid_dat[, c("hspan_id") := list(calc_grid_span_group(.SD$rowspan)), by = c(".part", "ft_row_id")]
 
   # bdr sum of width
   bdr_dat <- grid_dat[, list(col_id = first(.SD$col_id), border_widths = sum(.SD$border.width.left[-1])), by = c(".part", "ft_row_id", "hspan_id")]
   bdr_dat$hspan_id <- NULL
-  bdr_dat <- bdr_dat[bdr_dat$border_widths > 0,]
+  bdr_dat <- bdr_dat[bdr_dat$border_widths > 0, ]
 
   grid_dat <- merge(grid_dat, bdr_dat, by = c(".part", "ft_row_id", "col_id"), all.x = TRUE)
 
@@ -270,7 +270,8 @@ latex_colwidth <- function(x) {
     paste0(
       "+",
       format_double(grid_dat$border_widths[!is.na(grid_dat$border_widths)], digits = 2),
-      "pt")
+      "pt"
+    )
 
   paste0(colwidths, bdr_width_instr)
 }
@@ -317,12 +318,11 @@ augment_multicolumn_fixed <- function(properties_df) {
 }
 
 augment_part_separators <- function(z, no_container = TRUE) {
-
   part_separators <- merge(z[, c(".part", "ft_row_id")],
     merge(z[, list(ft_row_id = max(.SD$ft_row_id)), by = ".part"],
       data.frame(
         .part = factor(c("header", "body", "footer"), levels = c("header", "body", "footer")),
-        part_sep = if(no_container) c("\\endfirsthead", "", "\\endfoot") else c("\\endfirsthead", "", ""),
+        part_sep = if (no_container) c("\\endfirsthead", "", "\\endfoot") else c("\\endfirsthead", "", ""),
         stringsAsFactors = FALSE
       ),
       by = c(".part")
@@ -335,10 +335,10 @@ augment_part_separators <- function(z, no_container = TRUE) {
   z <- merge(z, part_separators, by = c(".part", "ft_row_id"))
 
   if ("header" %in% z$.part) {
-    z_header <- z[z$.part %in% "header",]
+    z_header <- z[z$.part %in% "header", ]
     z_header$ft_row_id <- z_header$ft_row_id + max(z_header$ft_row_id)
     z_header$part_sep[nrow(z_header)] <- "\\endhead"
-    z <- rbind(z[z$.part %in% "header",], z_header, z[!z$.part %in% "header",])
+    z <- rbind(z[z$.part %in% "header", ], z_header, z[!z$.part %in% "header", ])
   }
 
   z
@@ -366,8 +366,10 @@ reverse_colspan <- function(df) {
   df[df$colspan < 1, c("col_uid") := list(NA_character_)]
   df[, c("col_uid") := list(fill_NA(.SD$col_uid)), by = c(".part", "col_id")]
 
-  df[, c("ft_row_id",
-         "vborder_left", "vborder_right") :=
+  df[, c(
+    "ft_row_id",
+    "vborder_left", "vborder_right"
+  ) :=
     list(
       rev(.SD$ft_row_id),
       rev(.SD$vborder_left),
@@ -415,7 +417,6 @@ merge_table_properties <- function(x) {
 
 #' @importFrom utils compareVersion packageVersion
 get_pdf_engine <- function() {
-
   if (compareVersion(as.character(packageVersion("rmarkdown")), "1.10.14") < 0) {
     stop("package rmarkdown >= 1.10.14 is required to use this function")
   }
@@ -444,17 +445,17 @@ latex_table_align <- function(x) {
 }
 
 # latex_container -----
-latex_container_none <- function(){
+latex_container_none <- function() {
   x <- list()
   class(x) <- c("latex_container_none", "latex_container")
   x
 }
-latex_container_float <- function(){
+latex_container_float <- function() {
   x <- list()
   class(x) <- c("latex_container_float", "latex_container")
   x
 }
-latex_container_wrap <- function(placement = "l"){
+latex_container_wrap <- function(placement = "l") {
   stopifnot(
     length(placement) == 1,
     placement %in% c("l", "r", "i", "o")
@@ -463,7 +464,7 @@ latex_container_wrap <- function(placement = "l"){
   class(x) <- c("latex_container_wrap", "latex_container")
   x
 }
-latex_container_str <- function(x, latex_container, quarto = FALSE, ...){
+latex_container_str <- function(x, latex_container, quarto = FALSE, ...) {
   UseMethod("latex_container_str", latex_container)
 }
 latex_container_str.latex_container_none <- function(x, latex_container, quarto = FALSE, ...) {
@@ -474,7 +475,6 @@ latex_container_str.latex_container_float <- function(x, latex_container, quarto
   c("\\begin{table}", "\\end{table}")
 }
 latex_container_str.latex_container_wrap <- function(x, latex_container, quarto = FALSE, ...) {
-
   str <- paste0("\\begin{wraptable}{", latex_container$placement, "}")
 
   if (x$properties$layout %in% "fixed") {

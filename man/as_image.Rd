@@ -43,18 +43,23 @@ PowerPoint cannot mix images and text in a paragraph, images
 are removed when outputing to PowerPoint format.
 }
 \examples{
-img.file <- file.path( R.home("doc"),
-  "html", "logo.jpg" )
+img.file <- file.path(
+  R.home("doc"),
+  "html", "logo.jpg"
+)
 if (require("magick")) {
-  myft <- flextable( head(iris))
-  myft <- compose( myft, i = 1:3, j = 1,
-   value = as_paragraph(
-     as_image(src = img.file),
-     " ",
-     as_chunk(Sepal.Length,
-       props = fp_text_default(color = "red"))
-   ),
-   part = "body")
+  myft <- flextable(head(iris))
+  myft <- compose(myft,
+    i = 1:3, j = 1,
+    value = as_paragraph(
+      as_image(src = img.file),
+      " ",
+      as_chunk(Sepal.Length,
+        props = fp_text_default(color = "red")
+      )
+    ),
+    part = "body"
+  )
   ft <- autofit(myft)
   ft
 }

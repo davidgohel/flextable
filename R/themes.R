@@ -40,7 +40,7 @@ theme_vanilla <- function(x) {
     stop(sprintf("Function `%s` supports only flextable objects.", "theme_vanilla()"))
   }
 
-  std_b <- fp_border(width = flextable_global$defaults$border.width*2, color = flextable_global$defaults$border.color)
+  std_b <- fp_border(width = flextable_global$defaults$border.width * 2, color = flextable_global$defaults$border.color)
   thin_b <- fp_border(width = flextable_global$defaults$border.width, color = flextable_global$defaults$border.color)
 
   x <- border_remove(x)
@@ -147,7 +147,7 @@ theme_vader <- function(x, ...) {
   x <- bold(x = x, bold = TRUE, part = "header")
   x <- italic(x = x, italic = FALSE, part = "all")
 
-  big_border <- fp_border(color = "#ff0000", width = flextable_global$defaults$border.width*2)
+  big_border <- fp_border(color = "#ff0000", width = flextable_global$defaults$border.width * 2)
 
   h_nrow <- nrow_part(x, "header")
   b_nrow <- nrow_part(x, "body")
@@ -323,8 +323,10 @@ theme_booktabs <- function(x, bold_header = FALSE, ...) {
     stop(sprintf("Function `%s` supports only flextable objects.", "theme_booktabs()"))
   }
 
-  big_border <- fp_border(width = flextable_global$defaults$border.width*2,
-                          color = flextable_global$defaults$border.color)
+  big_border <- fp_border(
+    width = flextable_global$defaults$border.width * 2,
+    color = flextable_global$defaults$border.color
+  )
   std_border <- update(big_border, width = flextable_global$defaults$border.width)
 
   h_nrow <- nrow_part(x, "header")
@@ -365,7 +367,7 @@ theme_booktabs <- function(x, bold_header = FALSE, ...) {
 #' @family functions related to themes
 #' @inheritSection theme_vanilla behavior
 #' @examples
-#' ft <- flextable(head(mtcars*22.22))
+#' ft <- flextable(head(mtcars * 22.22))
 #' ft <- theme_apa(ft)
 #' ft
 theme_apa <- function(x, ...) {

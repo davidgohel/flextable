@@ -58,4 +58,3 @@ test_that("more than a symbol and more than a footnote", {
   note_3 <- text_data[ft_row_id %in% 3 & .part %in% "footer" & col_id %in% "Sepal.Length"]
   expect_equal(note_3$txt, c("c", "This is footnote 3"))
 })
-

@@ -7,4 +7,3 @@ test_that("white spaces are protected", {
   str <- flextable:::gen_raw_latex(ft)
   expect_true(grepl("{\\ }", str, fixed = TRUE))
 })
-

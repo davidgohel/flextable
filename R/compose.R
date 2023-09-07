@@ -39,39 +39,42 @@
 #'
 #' # using `use_dot = TRUE` ----
 #' set.seed(8)
-#' dat <- iris[sample.int(n = 150, size = 10),]
-#' dat <- dat[order(dat$Species),]
+#' dat <- iris[sample.int(n = 150, size = 10), ]
+#' dat <- dat[order(dat$Species), ]
 #'
 #'
 #' ft_2 <- flextable(dat)
-#' ft_2 <- mk_par(ft_2, j = ~ . -Species,
+#' ft_2 <- mk_par(ft_2,
+#'   j = ~ . - Species,
 #'   value = as_paragraph(
-#'     minibar(., barcol = "white",
-#'             height = .1)
+#'     minibar(.,
+#'       barcol = "white",
+#'       height = .1
+#'     )
 #'   ), use_dot = TRUE
-#'   )
+#' )
 #' ft_2 <- theme_vader(ft_2)
 #' ft_2 <- autofit(ft_2)
 #' ft_2
 #' @export
 #' @family functions for mixed content paragraphs
 #' @seealso [fp_text_default()], [as_chunk()], [as_b()], [as_word_field()], [labelizor()]
-compose <- function(x, i = NULL, j = NULL, value , part = "body", use_dot = FALSE){
-
-  if( !inherits(x, "flextable") ) {
+compose <- function(x, i = NULL, j = NULL, value, part = "body", use_dot = FALSE) {
+  if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "compose()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
-  if( part == "all" ){
-    for( p in c("header", "body", "footer") ){
+  if (part == "all") {
+    for (p in c("header", "body", "footer")) {
       x <- compose(x = x, i = i, j = j, value = value, part = p)
     }
     return(x)
   }
 
-  if( nrow_part(x, part) < 1 )
+  if (nrow_part(x, part) < 1) {
     return(x)
+  }
 
   defused_value <- enquo(value)
   # call_label <- quo_name(defused_value)
@@ -80,12 +83,12 @@ compose <- function(x, i = NULL, j = NULL, value , part = "body", use_dot = FALS
   # }
 
   check_formula_i_and_part(i, part)
-  i <- get_rows_id(x[[part]], i )
-  j <- get_columns_id(x[[part]], j )
+  i <- get_rows_id(x[[part]], i)
+  j <- get_columns_id(x[[part]], j)
   tmp_data <- x[[part]]$dataset[i, , drop = FALSE]
-  if( use_dot ){
-    for(jcol in j){
-      tmp_data$. <- tmp_data[,jcol]
+  if (use_dot) {
+    for (jcol in j) {
+      tmp_data$. <- tmp_data[, jcol]
       x[[part]]$content[i, jcol] <- eval_tidy(defused_value, data = tmp_data)
     }
   } else {
@@ -122,7 +125,8 @@ mk_par <- compose
 #' z <- summarizor(
 #'   x = CO2[-c(1, 4)],
 #'   by = "Treatment",
-#'   overall_label = "Overall")
+#'   overall_label = "Overall"
+#' )
 #'
 #' ft_1 <- as_flextable(z, separate_with = "variable")
 #'

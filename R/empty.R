@@ -5,27 +5,27 @@
 #' @param part partname of the table
 #' @examples
 #' ftab <- flextable(head(mtcars))
-#' ftab <- void(ftab, ~ vs + am + gear + carb )
+#' ftab <- void(ftab, ~ vs + am + gear + carb)
 #' ftab
 #' @export
-void <- function(x, j = NULL, part = "body" ){
-
-  if( !inherits(x, "flextable") ) {
+void <- function(x, j = NULL, part = "body") {
+  if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "void()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
-  if( part == "all" ){
-    for( p in c("header", "body", "footer") ){
+  if (part == "all") {
+    for (p in c("header", "body", "footer")) {
       x <- void(x = x, j = j, part = p)
     }
     return(x)
   }
 
-  if( nrow_part(x, part) < 1 )
+  if (nrow_part(x, part) < 1) {
     return(x)
+  }
 
-  j <- get_columns_id(x[[part]], j )
-  x[[part]]$content[,x$col_keys[j]] <- as_paragraph(as_chunk(x = "", fp_text_default()))
+  j <- get_columns_id(x[[part]], j)
+  x[[part]]$content[, x$col_keys[j]] <- as_paragraph(as_chunk(x = "", fp_text_default()))
   x
 }

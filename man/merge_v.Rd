@@ -59,9 +59,11 @@ data_ex <- structure(list(srdr_id = c(
 
 ft_1 <- flextable(data_ex)
 ft_1 <- theme_box(ft_1)
-ft_2 <- merge_v(ft_1, j = "srdr_id",
-  target = c("srdr_id", "substances"))
-  ft_2
+ft_2 <- merge_v(ft_1,
+  j = "srdr_id",
+  target = c("srdr_id", "substances")
+)
+ft_2
 }
 \seealso{
 Other flextable merging function: 

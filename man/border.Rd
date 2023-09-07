@@ -70,7 +70,7 @@ pdf and pptx outputs do not support \code{border()} usage.
 \examples{
 library(officer)
 ftab <- flextable(head(mtcars))
-ftab <- border(ftab, border.top = fp_border(color = "orange") )
+ftab <- border(ftab, border.top = fp_border(color = "orange"))
 ftab
 }
 \keyword{internal}

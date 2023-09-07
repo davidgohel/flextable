@@ -28,10 +28,11 @@ setDT(CO2)
 CO2$conc <- as.integer(CO2$conc)
 
 data_co2 <- dcast(CO2, Treatment + conc ~ Type,
-                  value.var = "uptake", fun.aggregate = mean)
+  value.var = "uptake", fun.aggregate = mean
+)
 data_co2 <- as_grouped_data(x = data_co2, groups = c("Treatment"))
 
-ft <- as_flextable( data_co2 )
+ft <- as_flextable(data_co2)
 ft <- add_footer_lines(ft, "dataset CO2 has been used for this flextable")
 ft <- add_header_lines(ft, "mean of carbon dioxide uptake in grass plants")
 ft <- set_header_labels(ft, conc = "Concentration")

@@ -20,10 +20,10 @@ Merge flextable columns into a single one for each selected rows. All
 columns must be consecutive.
 }
 \examples{
-ft <- flextable( head( mtcars ), cwidth = .5 )
-ft <- theme_box( ft )
-ft <- merge_h_range( ft, i =  ~ cyl == 6, j1 = "am", j2 = "carb")
-ft <- flextable::align( ft, i =  ~ cyl == 6, align = "center")
+ft <- flextable(head(mtcars), cwidth = .5)
+ft <- theme_box(ft)
+ft <- merge_h_range(ft, i = ~ cyl == 6, j1 = "am", j2 = "carb")
+ft <- flextable::align(ft, i = ~ cyl == 6, align = "center")
 ft
 }
 \seealso{

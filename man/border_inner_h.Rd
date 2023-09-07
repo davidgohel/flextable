@@ -19,14 +19,14 @@ or all parts of a flextable.
 }
 \examples{
 library(officer)
-std_border = fp_border(color="orange", width = 1)
+std_border <- fp_border(color = "orange", width = 1)
 
-dat <- iris[c(1:5, 51:55, 101:105),]
+dat <- iris[c(1:5, 51:55, 101:105), ]
 ft <- flextable(dat)
 ft <- border_remove(x = ft)
 
 # add inner horizontal borders
-ft <- border_inner_h(ft, border = std_border )
+ft <- border_inner_h(ft, border = std_border)
 ft
 }
 \seealso{

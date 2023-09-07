@@ -29,7 +29,9 @@ level/value will be rendered.}
 create a data.frame summary for continuous variables
 }
 \examples{
-ft_1 <- continuous_summary(iris, names(iris)[1:4], by = "Species",
-  hide_grouplabel = FALSE)
+ft_1 <- continuous_summary(iris, names(iris)[1:4],
+  by = "Species",
+  hide_grouplabel = FALSE
+)
 ft_1
 }

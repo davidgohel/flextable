@@ -50,20 +50,25 @@ library(data.table)
 library(flextable)
 
 z <- as.data.table(iris)
-z <- z[ , list(
-  Sepal.Length = mean(Sepal.Length, na.rm  = TRUE),
+z <- z[, list(
+  Sepal.Length = mean(Sepal.Length, na.rm = TRUE),
   z = list(.SD$Sepal.Length)
-  ), by = "Species"]
+), by = "Species"]
 
 ft <- flextable(z,
-  col_keys = c("Species", "Sepal.Length", "box", "density"))
+  col_keys = c("Species", "Sepal.Length", "box", "density")
+)
 ft <- mk_par(ft, j = "box", value = as_paragraph(
-  plot_chunk(value = z, type = "box",
-             border = "red", col = "transparent")))
+  plot_chunk(
+    value = z, type = "box",
+    border = "red", col = "transparent"
+  )
+))
 ft <- mk_par(ft, j = "density", value = as_paragraph(
- plot_chunk(value = z, type = "dens", col = "red")))
+  plot_chunk(value = z, type = "dens", col = "red")
+))
 ft <- set_table_properties(ft, layout = "autofit", width = .6)
-ft <- set_header_labels(ft, box = "boxplot", density= "density")
+ft <- set_header_labels(ft, box = "boxplot", density = "density")
 theme_vanilla(ft)
 }
 \seealso{

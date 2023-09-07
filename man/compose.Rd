@@ -55,17 +55,20 @@ ft_1
 
 # using `use_dot = TRUE` ----
 set.seed(8)
-dat <- iris[sample.int(n = 150, size = 10),]
-dat <- dat[order(dat$Species),]
+dat <- iris[sample.int(n = 150, size = 10), ]
+dat <- dat[order(dat$Species), ]
 
 
 ft_2 <- flextable(dat)
-ft_2 <- mk_par(ft_2, j = ~ . -Species,
+ft_2 <- mk_par(ft_2,
+  j = ~ . - Species,
   value = as_paragraph(
-    minibar(., barcol = "white",
-            height = .1)
+    minibar(.,
+      barcol = "white",
+      height = .1
+    )
   ), use_dot = TRUE
-  )
+)
 ft_2 <- theme_vader(ft_2)
 ft_2 <- autofit(ft_2)
 ft_2

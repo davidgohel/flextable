@@ -24,18 +24,26 @@ dat <- data.frame(
   check.names = FALSE,
   Level = c("setosa", "versicolor", "virginica", "<NA>", "Total"),
   Freq = as.integer(c(50, 50, 50, 0, 150)),
-  `\% Valid` = c(100/3,
-                100/3,100/3,NA,100),
-  `\% Valid Cum.` = c(100/3, 100*2/3, 100, NA, 100),
-  `\% Total` = c(100/3,
-                100/3,100/3,0,100),
-  `\% Total Cum.` = c(100/3,
-                     100*2/3,100,100,100)
+  `\% Valid` = c(
+    100 / 3,
+    100 / 3, 100 / 3, NA, 100
+  ),
+  `\% Valid Cum.` = c(100 / 3, 100 * 2 / 3, 100, NA, 100),
+  `\% Total` = c(
+    100 / 3,
+    100 / 3, 100 / 3, 0, 100
+  ),
+  `\% Total Cum.` = c(
+    100 / 3,
+    100 * 2 / 3, 100, 100, 100
+  )
 )
 
 ft <- flextable(dat)
-ft <- hline(ft, i = ~ before(Level, "Total"),
-            border = fp_border_default(width = 2))
+ft <- hline(ft,
+  i = ~ before(Level, "Total"),
+  border = fp_border_default(width = 2)
+)
 ft
 }
 \seealso{

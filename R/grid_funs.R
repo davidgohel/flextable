@@ -1,4 +1,3 @@
-
 # grid_data ---------------------------------------------------------------
 
 #' @importFrom data.table data.table rbindlist rleid .SD .N first fcase fifelse
@@ -403,7 +402,6 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
 
   # handle wrapping
   if (wrapping) {
-
     # create chunk word data (parts split by whitespace)
     word_data <- part_data
     word_data[, "wrapping" := fifelse(

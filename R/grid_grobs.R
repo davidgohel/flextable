@@ -1,4 +1,3 @@
-
 # flextable grob ----------------------------------------------------------
 
 #' @export
@@ -90,13 +89,15 @@
 #'
 #' used_family <- get_flextable_defaults()$font.family
 #' if (gdtools::font_family_exists(used_family) &&
-#'     require("ragg")) {
+#'   require("ragg")) {
 #'   png_f <- tempfile(fileext = ".png")
 #'   # get the size
 #'   dims <- dim(gr)
 #'   dims
-#'   ragg::agg_png(filename = png_f, width = dims$width + .1,
-#'     height = dims$height + .1, units = "in", res = 150)
+#'   ragg::agg_png(
+#'     filename = png_f, width = dims$width + .1,
+#'     height = dims$height + .1, units = "in", res = 150
+#'   )
 #'   plot(gr)
 #'   dev.off()
 #' }
@@ -104,12 +105,12 @@
 #' @family flextable print function
 #' @importFrom grid gTree
 gen_grob <- function(x,
-                    ...,
-                    fit = c("auto", "width", "fixed"),
-                    scaling = c("min", "full", "fixed"),
-                    wrapping = TRUE,
-                    autowidths = TRUE,
-                    just = NULL) {
+                     ...,
+                     fit = c("auto", "width", "fixed"),
+                     scaling = c("min", "full", "fixed"),
+                     wrapping = TRUE,
+                     autowidths = TRUE,
+                     just = NULL) {
   dots <- list(...)
   debug <- isTRUE(dots$debug)
   if (identical(fit, TRUE)) fit <- "auto"

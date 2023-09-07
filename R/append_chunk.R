@@ -26,15 +26,17 @@
 #' )
 #' ft_1 <- set_table_properties(ft_1, layout = "autofit")
 #' ft_1
-append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
-  if (!inherits(x, "flextable")){
+append_chunks <- function(x, ..., i = NULL, j = NULL, part = "body") {
+  if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "append_chunks()"))
   }
   part <- match.arg(part, c("body", "header", "footer"),
-                    several.ok = FALSE)
+    several.ok = FALSE
+  )
 
-  if (nrow_part(x, part) < 1)
+  if (nrow_part(x, part) < 1) {
     return(x)
+  }
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
@@ -44,17 +46,17 @@ append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
 
   tmp_data <- x[[part]]$dataset[i, , drop = FALSE]
 
-  for(col_expr in col_exprs){
-
+  for (col_expr in col_exprs) {
     value <- eval_tidy(col_expr, data = tmp_data)
 
-    if(is.data.frame(value) && nrow(value) == 1L && nrow(value) < nrow(tmp_data)){
+    if (is.data.frame(value) && nrow(value) == 1L && nrow(value) < nrow(tmp_data)) {
       value <- rep(list(value), nrow(tmp_data))
       value <- rbind_match_columns(value)
     }
 
-    if(is.data.frame(value))
+    if (is.data.frame(value)) {
       value <- split(value, i)
+    }
 
     new <- mapply(function(x, y) {
       y$seq_index <- max(x$seq_index, na.rm = TRUE) + 1
@@ -85,15 +87,17 @@ append_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
 #'   colorize(as_i("World"), color = "magenta")
 #' )
 #' x
-prepend_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
+prepend_chunks <- function(x, ..., i = NULL, j = NULL, part = "body") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "prepend_chunks()"))
   }
   part <- match.arg(part, c("body", "header", "footer"),
-                    several.ok = FALSE)
+    several.ok = FALSE
+  )
 
-  if (nrow_part(x, part) < 1)
+  if (nrow_part(x, part) < 1) {
     return(x)
+  }
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
@@ -103,25 +107,26 @@ prepend_chunks <- function (x, ..., i = NULL, j = NULL, part = "body"){
 
   tmp_data <- x[[part]]$dataset[i, , drop = FALSE]
 
-  for(expr_index in rev(seq_along(col_exprs))){
+  for (expr_index in rev(seq_along(col_exprs))) {
     col_expr <- col_exprs[[expr_index]]
     value <- eval_tidy(col_expr, data = tmp_data)
 
-    if(is.data.frame(value) && nrow(value) == 1L && nrow(value) < nrow(tmp_data)){
+    if (is.data.frame(value) && nrow(value) == 1L && nrow(value) < nrow(tmp_data)) {
       value <- rep(list(value), nrow(tmp_data))
       value <- rbind_match_columns(value)
     }
 
-    if(is.data.frame(value))
+    if (is.data.frame(value)) {
       value <- split(value, i)
+    }
 
     new <- mapply(function(x, y, seq_index) {
       y$seq_index <- seq_index
       z <- rbind_match_columns(list(y, x))
-      z <- z[order(z$seq_index),]
+      z <- z[order(z$seq_index), ]
       z$seq_index <- rleid(z$seq_index)
       z
-    }, x = x[[part]]$content[i, j], y = value, SIMPLIFY = FALSE, MoreArgs = list(seq_index=-expr_index))
+    }, x = x[[part]]$content[i, j], y = value, SIMPLIFY = FALSE, MoreArgs = list(seq_index = -expr_index))
     x[[part]]$content[i, j] <- new
   }
   x

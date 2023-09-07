@@ -19,7 +19,7 @@ pam object. The function is only using package 'broom'
 that provides the data presented in the resulting flextable.
 }
 \examples{
-if(require("cluster")){
+if (require("cluster")) {
   dat <- as.data.frame(scale(mtcars[1:7]))
   cl <- pam(dat, 3)
   ft <- as_flextable(cl)

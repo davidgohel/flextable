@@ -11,7 +11,8 @@ When using loops in an R Markdown for HTML document, the
 htmlDependency object for flextable must also be added at least once.
 }
 \examples{
-if(require("htmltools"))
+if (require("htmltools")) {
   div(flextable_html_dependency())
+}
 }
 \keyword{internal}

@@ -26,7 +26,8 @@ z <- summarizor(CO2[-c(1, 4)],
 ft_1 <- as_flextable(z, spread_first_col = TRUE)
 ft_1 <- prepend_chunks(ft_1,
   i = ~ is.na(variable), j = 1,
-  as_chunk("\t"))
+  as_chunk("\t")
+)
 ft_1 <- autofit(ft_1)
 ft_1
 }

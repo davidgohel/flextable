@@ -21,21 +21,23 @@ full_shift_structure <- function(x, cn_is_baseline, baseline_identifier,
   DAT_UBS <- expand.grid(
     X = RANGE_LEVELS_BASELINE,
     Y = RANGE_LEVELS_SHIFT,
-    stringsAsFactors = FALSE)
+    stringsAsFactors = FALSE
+  )
   names(DAT_UBS) <- c(cn_baseline, cn_grade)
   DAT_UBS$DUMMY_JOIN <- 1L
 
-  PIVOT_DATA <- merge(x = DAT_UCAT, y = DAT_UBS, by = "DUMMY_JOIN",
-                      allow.cartesian = TRUE,
-                      all.x = TRUE, all.y = TRUE)
+  PIVOT_DATA <- merge(
+    x = DAT_UCAT, y = DAT_UBS, by = "DUMMY_JOIN",
+    allow.cartesian = TRUE,
+    all.x = TRUE, all.y = TRUE
+  )
   PIVOT_DATA$DUMMY_JOIN <- NULL
   setorderv(PIVOT_DATA, cols = c_if(cn_treatment, cn_lab_cat, cn_visit, cn_baseline, cn_grade))
   setDF(PIVOT_DATA)
   PIVOT_DATA
 }
 
-pivot_baseline <- function(x, cn_is_baseline, baseline_identifier, cn_visit, cn_usubjid, cn_grade, cn_lab_cat, cn_treatment, cn_baseline){
-
+pivot_baseline <- function(x, cn_is_baseline, baseline_identifier, cn_visit, cn_usubjid, cn_grade, cn_lab_cat, cn_treatment, cn_baseline) {
   BASELINE <- as.data.table(x)
   BASELINE <- BASELINE[BASELINE[[cn_is_baseline]] %in% baseline_identifier, ]
   BASELINE <- BASELINE[, .SD, .SDcols = c_if(cn_usubjid, cn_grade, cn_lab_cat, cn_treatment)]
@@ -50,7 +52,7 @@ pivot_baseline <- function(x, cn_is_baseline, baseline_identifier, cn_visit, cn_
 }
 
 #' @importFrom rlang new_function pairlist2
-facfun_visit <- function(x, cn_visit = "VISIT", cn_visit_num = "VISITNUM"){
+facfun_visit <- function(x, cn_visit = "VISIT", cn_visit_num = "VISITNUM") {
   LEV_VISIT <- as.data.table(x)
   LEV_VISIT <- LEV_VISIT[, .SD, .SDcols = c(cn_visit, cn_visit_num)]
   LEV_VISIT <- unique(LEV_VISIT)
@@ -66,7 +68,7 @@ facfun_visit <- function(x, cn_visit = "VISIT", cn_visit_num = "VISITNUM"){
   visit_as_factor
 }
 
-facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_labels = grade_levels){
+facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_labels = grade_levels) {
   new_function(
     # categories "MISSING" and "SUM" are added
     pairlist2(
@@ -132,11 +134,15 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #' LBBLFL <- rep(NA_character_, length(VISITNUM))
 #' LBBLFL[1] <- "Y"
 #'
-#' VISIT <- data.frame(VISIT = VISITS, VISITNUM = VISITNUM,
-#'   LBBLFL = LBBLFL, stringsAsFactors = FALSE)
-#' labdata <- expand.grid(USUBJID = USUBJID,  LBTEST = LBTEST,
-#'                     VISITNUM = VISITNUM,
-#'                     stringsAsFactors = FALSE)
+#' VISIT <- data.frame(
+#'   VISIT = VISITS, VISITNUM = VISITNUM,
+#'   LBBLFL = LBBLFL, stringsAsFactors = FALSE
+#' )
+#' labdata <- expand.grid(
+#'   USUBJID = USUBJID, LBTEST = LBTEST,
+#'   VISITNUM = VISITNUM,
+#'   stringsAsFactors = FALSE
+#' )
 #' setDT(labdata)
 #'
 #' labdata <- merge(labdata, VISIT, by = "VISITNUM")
@@ -144,15 +150,21 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #' subject_elts <- unique(labdata[, .SD, .SDcols = "USUBJID"])
 #' subject_elts <- unique(subject_elts)
 #' subject_elts[, c("TREAT") := list(
-#'   sample(x = c("Treatment", "Placebo"), size = .N, replace = TRUE))]
-#' subject_elts[, c("TREAT"):= list(
-#'   factor(.SD$TREAT, levels = c("Treatment", "Placebo")))]
+#'   sample(x = c("Treatment", "Placebo"), size = .N, replace = TRUE)
+#' )]
+#' subject_elts[, c("TREAT") := list(
+#'   factor(.SD$TREAT, levels = c("Treatment", "Placebo"))
+#' )]
 #' setDF(subject_elts)
 #' labdata <- merge(labdata, subject_elts,
-#'   by = "USUBJID", all.x = TRUE, all.y = FALSE)
-#' labdata[, c("LBNRIND"):= list(
-#'   sample(x = c("LOW", "NORMAL", "HIGH"), size = .N,
-#'          replace = TRUE, prob = c(.03, .9, .07)))]
+#'   by = "USUBJID", all.x = TRUE, all.y = FALSE
+#' )
+#' labdata[, c("LBNRIND") := list(
+#'   sample(
+#'     x = c("LOW", "NORMAL", "HIGH"), size = .N,
+#'     replace = TRUE, prob = c(.03, .9, .07)
+#'   )
+#' )]
 #'
 #' setDF(labdata)
 #'
@@ -169,7 +181,8 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #'   cn_treatment = "TREAT",
 #'   cn_is_baseline = "LBBLFL",
 #'   baseline_identifier = "Y",
-#'   grade_levels = c("LOW", "NORMAL", "HIGH"))
+#'   grade_levels = c("LOW", "NORMAL", "HIGH")
+#' )
 #'
 #' # get attrs for post treatment ----
 #' SHIFT_TABLE_VISIT <- attr(SHIFT_TABLE, "VISIT_N")
@@ -177,17 +190,19 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #' range_as_factor <- attr(SHIFT_TABLE, "FUN_GRADE")
 #'
 #' # post treatments ----
-#' SHIFT_TABLE$VISIT = visit_as_factor(SHIFT_TABLE$VISIT)
-#' SHIFT_TABLE$BASELINE = range_as_factor(SHIFT_TABLE$BASELINE)
-#' SHIFT_TABLE$LBNRIND = range_as_factor(SHIFT_TABLE$LBNRIND)
+#' SHIFT_TABLE$VISIT <- visit_as_factor(SHIFT_TABLE$VISIT)
+#' SHIFT_TABLE$BASELINE <- range_as_factor(SHIFT_TABLE$BASELINE)
+#' SHIFT_TABLE$LBNRIND <- range_as_factor(SHIFT_TABLE$LBNRIND)
 #'
-#' SHIFT_TABLE_VISIT$VISIT = visit_as_factor(SHIFT_TABLE_VISIT$VISIT)
+#' SHIFT_TABLE_VISIT$VISIT <- visit_as_factor(SHIFT_TABLE_VISIT$VISIT)
 #'
 #' # tabulator ----
 #'
 #' my_format <- function(z) {
-#'   formatC(z * 100, digits = 1, format = "f",
-#'           flag = "0", width = 4)
+#'   formatC(z * 100,
+#'     digits = 1, format = "f",
+#'     flag = "0", width = 4
+#'   )
 #' }
 #'
 #' tab <- tabulator(
@@ -206,8 +221,11 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #'
 #' ft_1 <- as_flextable(
 #'   x = tab, separate_with = "VISIT",
-#'   label_rows = c(LBTEST = "Lab Test", VISIT = "Visit",
-#'                  BASELINE = "Reference Range Indicator"))
+#'   label_rows = c(
+#'     LBTEST = "Lab Test", VISIT = "Visit",
+#'     BASELINE = "Reference Range Indicator"
+#'   )
+#' )
 #'
 #' ft_1
 shift_table <- function(
@@ -216,9 +234,7 @@ shift_table <- function(
     cn_usubjid = "USUBJID", cn_lab_cat = NA_character_, cn_is_baseline = "LBBLFL",
     baseline_identifier = "Y", cn_treatment = NA_character_,
     grade_levels = c("LOW", "NORMAL", "HIGH"),
-    grade_labels = c("Low", "Normal", "High")
-    ) {
-
+    grade_labels = c("Low", "Normal", "High")) {
   cn_baseline <- "BASELINE"
 
   PIVOT_DATA <- full_shift_structure(
@@ -236,7 +252,8 @@ shift_table <- function(
     cn_usubjid = cn_usubjid,
     cn_grade = cn_grade,
     cn_treatment = cn_treatment, cn_lab_cat = cn_lab_cat,
-    cn_baseline = cn_baseline)
+    cn_baseline = cn_baseline
+  )
 
   SHIFT_TABLE_VISIT <- as.data.table(DATAMART)
   by <- c_if(cn_lab_cat, cn_treatment, cn_visit)
@@ -260,20 +277,21 @@ shift_table <- function(
   SHIFT_TABLE_SUM[[cn_baseline]] <- "SUM"
 
   replct <- list("MISSING", "MISSING", N = 0L, PCT = 0.0)
-  names(replct) <- c(cn_baseline, cn_grade, 'N', 'PCT')
+  names(replct) <- c(cn_baseline, cn_grade, "N", "PCT")
 
   SHIFT_TABLE <- rbind(SHIFT_TABLE_DETAIL, SHIFT_TABLE_SUM)
   setDF(SHIFT_TABLE_DETAIL)
   setDF(SHIFT_TABLE_SUM)
-  for(j in names(replct)) {
+  for (j in names(replct)) {
     set(SHIFT_TABLE, i = which(is.na(SHIFT_TABLE[[j]])), j = j, value = replct[[j]])
   }
 
   setDT(PIVOT_DATA)
   by <- c_if(cn_treatment, cn_lab_cat, cn_visit, cn_baseline, cn_grade)
   SHIFT_TABLE <- merge(PIVOT_DATA, SHIFT_TABLE,
-                       by = by, all.x = TRUE, all.y = TRUE)
-  for(j in names(replct)) {
+    by = by, all.x = TRUE, all.y = TRUE
+  )
+  for (j in names(replct)) {
     set(SHIFT_TABLE, i = which(is.na(SHIFT_TABLE[[j]])), j = j, value = replct[[j]])
   }
 
@@ -284,4 +302,3 @@ shift_table <- function(
   attr(SHIFT_TABLE, "FUN_GRADE") <- facfun_grade(x, grade_levels = grade_levels, grade_labels = grade_labels)
   SHIFT_TABLE
 }
-

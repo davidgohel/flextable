@@ -78,7 +78,8 @@ library(flextable)
 
 set_flextable_defaults(
   font.size = 11, font.color = "#303030",
-  padding = 3, table.layout = "autofit")
+  padding = 3, table.layout = "autofit"
+)
 z <- flextable(head(cars))
 
 z <- compose(

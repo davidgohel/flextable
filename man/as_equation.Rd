@@ -30,24 +30,24 @@ to install necessary dependencies.
 }
 \examples{
 library(flextable)
-if(require("equatags") && mathjax_available()){
+if (require("equatags") && mathjax_available()) {
+  eqs <- c(
+    "(ax^2 + bx + c = 0)",
+    "a \\\\ne 0",
+    "x = {-b \\\\pm \\\\sqrt{b^2-4ac} \\\\over 2a}"
+  )
+  df <- data.frame(formula = eqs)
+  df
 
-eqs <- c(
-  "(ax^2 + bx + c = 0)",
-  "a \\\\ne 0",
-  "x = {-b \\\\pm \\\\sqrt{b^2-4ac} \\\\over 2a}")
-df <- data.frame(formula = eqs)
-df
 
-
-ft <- flextable(df)
-ft <- compose(
-  x = ft, j = "formula",
-  value = as_paragraph(as_equation(formula, width = 2, height = .5)))
-ft <- align(ft, align = "center", part = "all")
-ft <- width(ft, width = 2)
-ft
-
+  ft <- flextable(df)
+  ft <- compose(
+    x = ft, j = "formula",
+    value = as_paragraph(as_equation(formula, width = 2, height = .5))
+  )
+  ft <- align(ft, align = "center", part = "all")
+  ft <- width(ft, width = 2)
+  ft
 }
 }
 \seealso{

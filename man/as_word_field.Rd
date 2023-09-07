@@ -42,7 +42,7 @@ library(flextable)
 set_flextable_defaults(font.size = 22, border.color = "gray")
 
 # an example with append_chunks ----
-pp_docx = function(x) {
+pp_docx <- function(x) {
   x <- add_header_lines(x, "Page ")
   x <- append_chunks(
     x = x, i = 1, part = "header", j = 1,
@@ -67,9 +67,11 @@ ft_2 <- flextable(head(cars))
 ft_2 <- add_footer_lines(ft_2, "temp text")
 ft_2 <- compose(
   x = ft_2, part = "footer", i = 1, j = 1,
-  as_paragraph("p. ",
-               as_word_field(x = "Page", width = .05),
-               " on ", as_word_field(x = "NumPages", width = .05))
+  as_paragraph(
+    "p. ",
+    as_word_field(x = "Page", width = .05),
+    " on ", as_word_field(x = "NumPages", width = .05)
+  )
 )
 ft_2 <- autofit(ft_2, part = c("header", "body"))
 

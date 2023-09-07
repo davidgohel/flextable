@@ -163,7 +163,8 @@ ft_1
 
 old <- set_flextable_defaults(
   font.color = "#AA8855",
-  border.color = "#8855AA")
+  border.color = "#8855AA"
+)
 ft_2 <- qflextable(head(airquality))
 ft_2
 

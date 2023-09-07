@@ -19,8 +19,10 @@ identical values. Text of formatted values are used to compare
 values.
 }
 \examples{
-dummy_df <- data.frame( col1 = letters,
-col2 = letters, stringsAsFactors = FALSE )
+dummy_df <- data.frame(
+  col1 = letters,
+  col2 = letters, stringsAsFactors = FALSE
+)
 ft_merge <- flextable(dummy_df)
 ft_merge <- merge_h(x = ft_merge)
 ft_merge

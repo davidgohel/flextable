@@ -35,12 +35,14 @@ as_flextable.gam <- function(x, ...) {
   has_pvalue <- if ("p.value" %in% colnames(data_t)) TRUE else FALSE
   show_signif <- !is.null(getOption("show.signif.stars")) && getOption("show.signif.stars")
 
-  ft <- flextable(data_t$parametric, col_keys = c(names(data_t$parametric),
-                                                  if (show_signif) "signif"))
+  ft <- flextable(data_t$parametric, col_keys = c(
+    names(data_t$parametric),
+    if (show_signif) "signif"
+  ))
   ft <- border_remove(ft)
   ft <- set_header_labels(ft, values = param.head)
 
-  if(nrow(data_t$smooth)>0){
+  if (nrow(data_t$smooth) > 0) {
     ft <- add_body(ft, Component = NA_character_, top = FALSE)
     new_dat <- data_t$smooth
     names(new_dat) <- names(data_t$parametric)
@@ -56,7 +58,7 @@ as_flextable.gam <- function(x, ...) {
     ft <- mk_par(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)))
   }
 
-  if(nrow(data_t$smooth)>0){
+  if (nrow(data_t$smooth) > 0) {
     ft <- mk_par(ft, i = nrow(data_t$parametric) + 1, value = as_paragraph(c(smooth.head, if (show_signif) "")))
     ft <- hline(ft, i = nrow(data_t$parametric) + c(0, 1), border = std_border)
     ft <- bold(ft, i = nrow(data_t$parametric) + 1)
@@ -102,7 +104,7 @@ tidy_gam <- function(model) {
   colnames(ptab) <- c("Component", "Term", "Estimate", "Std.Error", "t.value", "p.value")
 
   stab <- data.frame(summary(model)$s.table)
-  if(nrow(stab)>0){
+  if (nrow(stab) > 0) {
     stab$term <- rownames(stab)
     stab$Component <- "B. smooth terms"
     stab <- stab[, c(6, 5, 1:4)]
@@ -119,23 +121,23 @@ tidy_gam <- function(model) {
 #' @importFrom stats AIC BIC logLik df.residual nobs
 glance_gam <- function(model) {
   df <- sum(model$edf)
-  if(length(df) < 1) df <- NA_real_
+  if (length(df) < 1) df <- NA_real_
   df.res <- df.residual(model)
-  if(length(df.res) < 1) df.res <- NA_real_
+  if (length(df.res) < 1) df.res <- NA_real_
   logLik <- as.numeric(logLik(model))
-  if(length(logLik) < 1) logLik <- NA_real_
+  if (length(logLik) < 1) logLik <- NA_real_
   aic <- AIC(model)
-  if(length(aic) < 1) aic <- NA_real_
+  if (length(aic) < 1) aic <- NA_real_
   bic <- BIC(model)
-  if(length(bic) < 1) bic <- NA_real_
+  if (length(bic) < 1) bic <- NA_real_
   dev <- summary(model)$dev.expl
-  if(length(dev) < 1) dev <- NA_real_
+  if (length(dev) < 1) dev <- NA_real_
   adj.r.squared <- summary(model)$r.sq
-  if(length(adj.r.squared) < 1) adj.r.squared <- NA_real_
+  if (length(adj.r.squared) < 1) adj.r.squared <- NA_real_
   scale.est <- summary(model)$scale
-  if(length(scale.est) < 1) scale.est <- NA_real_
+  if (length(scale.est) < 1) scale.est <- NA_real_
   sp.criterion <- as.numeric(summary(model)$sp.criterion)
-  if(length(sp.criterion) < 1) sp.criterion <- NA_real_
+  if (length(sp.criterion) < 1) sp.criterion <- NA_real_
 
   data.frame(
     df = df,

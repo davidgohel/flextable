@@ -30,14 +30,16 @@ It should be used inside a call to \code{\link[=as_paragraph]{as_paragraph()}}.
 \examples{
 library(officer)
 
-ft <- flextable( head(iris))
+ft <- flextable(head(iris))
 
-ft <- compose( ft, j = "Sepal.Length",
- value = as_paragraph(
-   "Sepal.Length value is ",
-   as_chunk(Sepal.Length, props = fp_text(color = "red"))
- ),
- part = "body")
+ft <- compose(ft,
+  j = "Sepal.Length",
+  value = as_paragraph(
+    "Sepal.Length value is ",
+    as_chunk(Sepal.Length, props = fp_text(color = "red"))
+  ),
+  part = "body"
+)
 ft <- color(ft, color = "gray40", part = "all")
 ft <- autofit(ft)
 ft

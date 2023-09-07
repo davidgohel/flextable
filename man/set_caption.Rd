@@ -205,13 +205,13 @@ in Quarto.
 }
 
 \examples{
-ftab <- flextable( head( iris ) )
+ftab <- flextable(head(iris))
 ftab <- set_caption(ftab, "my caption")
 ftab
 
 library(officer)
 autonum <- run_autonum(seq_id = "tab", bkm = "mtcars")
-ftab <- flextable( head( mtcars ) )
+ftab <- flextable(head(mtcars))
 ftab <- set_caption(ftab, caption = "mtcars data", autonum = autonum)
 ftab
 }

@@ -19,22 +19,27 @@ check_merge <- function(x) {
   x
 }
 span_columns <- function(x, columns = NULL, target = columns, combine = FALSE) {
-
   if (!all(columns %in% colnames(x$dataset))) {
     wrong_col <- columns[!columns %in% colnames(x$dataset)]
     stop(
-      sprintf("`%s` is using unknown variable(s): %s",
-              "columns",
-              paste0("`", wrong_col, "`", collapse = ",")),
-      call. = FALSE)
+      sprintf(
+        "`%s` is using unknown variable(s): %s",
+        "columns",
+        paste0("`", wrong_col, "`", collapse = ",")
+      ),
+      call. = FALSE
+    )
   }
   if (!all(target %in% x$col_keys)) {
     wrong_col <- target[!target %in% x$col_keys]
     stop(
-      sprintf("`%s` is using unknown variable(s): %s",
-              "target",
-              paste0("`", wrong_col, "`", collapse = ",")),
-      call. = FALSE)
+      sprintf(
+        "`%s` is using unknown variable(s): %s",
+        "target",
+        paste0("`", wrong_col, "`", collapse = ",")
+      ),
+      call. = FALSE
+    )
   }
 
   if (length(target) == 1) {
@@ -77,39 +82,42 @@ span_columns <- function(x, columns = NULL, target = columns, combine = FALSE) {
   check_merge(x)
 }
 
-span_cells_at <- function( x, columns = NULL, rows = NULL ){
-
-  if( is.null(columns) )
+span_cells_at <- function(x, columns = NULL, rows = NULL) {
+  if (is.null(columns)) {
     columns <- x$col_keys
-  if( is.null(rows) )
-    rows <- get_rows_id( x, i = rows )
+  }
+  if (is.null(rows)) {
+    rows <- get_rows_id(x, i = rows)
+  }
 
-  stopifnot(all( columns %in% x$col_keys ) )
+  stopifnot(all(columns %in% x$col_keys))
 
   row_id <- match(rows, seq_len(nrow(x$dataset)))
   col_id <- match(columns, x$col_keys)
 
-  test_valid_r <- (length(row_id) > 1 && all( diff(row_id) == 1 )) || length(row_id) == 1
-  test_valid_c <- (length(col_id) > 1 && all( diff(col_id) == 1 )) || length(col_id) == 1
+  test_valid_r <- (length(row_id) > 1 && all(diff(row_id) == 1)) || length(row_id) == 1
+  test_valid_c <- (length(col_id) > 1 && all(diff(col_id) == 1)) || length(col_id) == 1
 
-  if( !test_valid_r )
+  if (!test_valid_r) {
     stop("selected rows should all be consecutive")
-  if( !test_valid_c )
+  }
+  if (!test_valid_c) {
     stop("selected columns should all be consecutive")
+  }
 
-  x$spans$columns[ row_id, col_id] <- 0
-  x$spans$rows[ row_id, col_id] <- 0
-  x$spans$columns[ row_id[1], col_id] <- length(row_id)
-  x$spans$rows[ row_id, col_id[1]] <- length(col_id)
+  x$spans$columns[row_id, col_id] <- 0
+  x$spans$rows[row_id, col_id] <- 0
+  x$spans$columns[row_id[1], col_id] <- length(row_id)
+  x$spans$rows[row_id, col_id[1]] <- length(col_id)
 
   check_merge(x)
 }
 
-span_rows <- function( x, rows = NULL ){
-  row_id <- get_rows_id( x, i = rows )
+span_rows <- function(x, rows = NULL) {
+  row_id <- get_rows_id(x, i = rows)
 
-  for( rowi in row_id){
-    values <- sapply(x$content[rowi,], function(x) {
+  for (rowi in row_id) {
+    values <- sapply(x$content[rowi, ], function(x) {
       paste(x$txt, collapse = "")
     })
     x$spans$rows[rowi, ] <- merge_rle(values)
@@ -118,7 +126,7 @@ span_rows <- function( x, rows = NULL ){
   check_merge(x)
 }
 
-span_free <- function( x  ){
+span_free <- function(x) {
   x$spans$rows[] <- 1
   x$spans$columns[] <- 1
   x
@@ -241,8 +249,11 @@ get_rows_id <- function(x, i = NULL) {
   } else if (is.logical(i)) {
     if (length(i) != maxrow) {
       stop(
-        sprintf("invalid row selection. `length(i)` [%.0f] != `nrow(dataset)` [%.0f].",
-                length(i), maxrow))
+        sprintf(
+          "invalid row selection. `length(i)` [%.0f] != `nrow(dataset)` [%.0f].",
+          length(i), maxrow
+        )
+      )
     } else {
       i <- which(i)
     }
@@ -289,7 +300,8 @@ get_j_from_formula <- function(f, data) {
       sprintf(
         "`%s` is using unknown variable(s): %s",
         format(f),
-        invalid_names),
+        invalid_names
+      ),
       call. = FALSE
     )
   }

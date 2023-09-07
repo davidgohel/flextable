@@ -20,7 +20,8 @@ df <- data.frame(zz = .45)
 ft_1 <- flextable(df)
 ft_1 <- mk_par(
   x = ft_1, j = 1, part = "body",
-  value = as_paragraph(as_chunk(zz, formatter = fmt_dbl)))
+  value = as_paragraph(as_chunk(zz, formatter = fmt_dbl))
+)
 ft_1 <- autofit(ft_1)
 ft_1
 }

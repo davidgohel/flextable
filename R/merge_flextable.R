@@ -46,13 +46,15 @@
 #'
 #' ft_1 <- flextable(data_ex)
 #' ft_1 <- theme_box(ft_1)
-#' ft_2 <- merge_v(ft_1, j = "srdr_id",
-#'   target = c("srdr_id", "substances"))
-#'   ft_2
+#' ft_2 <- merge_v(ft_1,
+#'   j = "srdr_id",
+#'   target = c("srdr_id", "substances")
+#' )
+#' ft_2
 #' @family flextable merging function
 #' @export
 merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE) {
-  if( !inherits(x, "flextable") ) {
+  if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "merge_v()"))
   }
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
@@ -83,20 +85,21 @@ merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE) 
 #' @param part partname of the table where merge has to be done.
 #' @family flextable merging function
 #' @examples
-#' dummy_df <- data.frame( col1 = letters,
-#' col2 = letters, stringsAsFactors = FALSE )
+#' dummy_df <- data.frame(
+#'   col1 = letters,
+#'   col2 = letters, stringsAsFactors = FALSE
+#' )
 #' ft_merge <- flextable(dummy_df)
 #' ft_merge <- merge_h(x = ft_merge)
 #' ft_merge
 #' @export
-merge_h <- function(x, i = NULL, part = "body" ){
-
-  if( !inherits(x, "flextable") ) {
+merge_h <- function(x, i = NULL, part = "body") {
+  if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "merge_h()"))
   }
-  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
+  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
 
-  i <- get_rows_id( x[[part]], i )
+  i <- get_rows_id(x[[part]], i)
   x[[part]] <- span_rows(x = x[[part]], rows = i)
 
   x
@@ -113,28 +116,28 @@ merge_h <- function(x, i = NULL, part = "body" ){
 #' @export
 #' @examples
 #' typology <- data.frame(
-#'   col_keys = c( "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species" ),
+#'   col_keys = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species"),
 #'   what = c("Sepal", "Sepal", "Petal", "Petal", "Species"),
 #'   measure = c("Length", "Width", "Length", "Width", "Species"),
-#'   stringsAsFactors = FALSE )
+#'   stringsAsFactors = FALSE
+#' )
 #'
-#' ft <- flextable( head( iris ) )
-#' ft <- set_header_df(ft, mapping = typology, key = "col_keys" )
+#' ft <- flextable(head(iris))
+#' ft <- set_header_df(ft, mapping = typology, key = "col_keys")
 #' ft <- merge_v(ft, j = c("Species"))
 #'
-#' ft <- theme_tron_legacy( merge_none( ft ) )
+#' ft <- theme_tron_legacy(merge_none(ft))
 #' ft
-merge_none <- function(x, part = "all" ){
-
-  if( !inherits(x, "flextable") ) {
+merge_none <- function(x, part = "all") {
+  if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "merge_none()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE )
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
 
-  if( part == "all" ){
+  if (part == "all") {
     args <- list()
-    for( p in c("header", "footer", "body") ){
-      x <- merge_none(x = x, part = p )
+    for (p in c("header", "footer", "body")) {
+      x <- merge_none(x = x, part = p)
     }
   }
 
@@ -157,20 +160,20 @@ merge_none <- function(x, part = "all" ){
 #' @param part partname of the table where merge has to be done.
 #' @family flextable merging function
 #' @examples
-#' ft_merge <- flextable( head( mtcars ), cwidth = .5 )
-#' ft_merge <- merge_at( ft_merge, i = 1:2, j = 1:2 )
+#' ft_merge <- flextable(head(mtcars), cwidth = .5)
+#' ft_merge <- merge_at(ft_merge, i = 1:2, j = 1:2)
 #' ft_merge
 #' @export
-merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
-  if( !inherits(x, "flextable") ) {
+merge_at <- function(x, i = NULL, j = NULL, part = "body") {
+  if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "merge_at()"))
   }
-  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
+  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
 
-  j <- get_columns_id(x[[part]], j = j )
+  j <- get_columns_id(x[[part]], j = j)
   j <- x$col_keys[j]
 
-  i <- get_rows_id( x[[part]], i )
+  i <- get_rows_id(x[[part]], i)
 
   x[[part]] <- span_cells_at(x = x[[part]], columns = j, rows = i)
 
@@ -189,32 +192,28 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body" ){
 #' @param part partname of the table where merge has to be done.
 #' @family flextable merging function
 #' @examples
-#' ft <- flextable( head( mtcars ), cwidth = .5 )
-#' ft <- theme_box( ft )
-#' ft <- merge_h_range( ft, i =  ~ cyl == 6, j1 = "am", j2 = "carb")
-#' ft <- flextable::align( ft, i =  ~ cyl == 6, align = "center")
+#' ft <- flextable(head(mtcars), cwidth = .5)
+#' ft <- theme_box(ft)
+#' ft <- merge_h_range(ft, i = ~ cyl == 6, j1 = "am", j2 = "carb")
+#' ft <- flextable::align(ft, i = ~ cyl == 6, align = "center")
 #' ft
 #' @export
-merge_h_range <- function(x, i = NULL, j1 = NULL, j2 = NULL, part = "body" ){
-  if( !inherits(x, "flextable") ) {
+merge_h_range <- function(x, i = NULL, j1 = NULL, j2 = NULL, part = "body") {
+  if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "merge_h_range()"))
   }
-  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
+  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
 
-  j1 <- get_columns_id(x[[part]], j = j1 )
-  j2 <- get_columns_id(x[[part]], j = j2 )
+  j1 <- get_columns_id(x[[part]], j = j1)
+  j2 <- get_columns_id(x[[part]], j = j2)
 
   seq_cols <- j1:j2
 
-  i <- get_rows_id( x[[part]], i )
-  x[[part]]$spans$rows[ i, seq_cols] <- 0
-  x[[part]]$spans$rows[ i, j1] <- length(seq_cols)
+  i <- get_rows_id(x[[part]], i)
+  x[[part]]$spans$rows[i, seq_cols] <- 0
+  x[[part]]$spans$rows[i, j1] <- length(seq_cols)
   check_merge(x[[part]])
 
 
   x
 }
-
-
-
-

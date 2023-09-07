@@ -19,14 +19,14 @@ or all parts of a flextable.
 }
 \examples{
 library(officer)
-big_border = fp_border(color="red", width = 2)
+big_border <- fp_border(color = "red", width = 2)
 
-dat <- iris[c(1:5, 51:55, 101:105),]
+dat <- iris[c(1:5, 51:55, 101:105), ]
 ft <- flextable(dat)
 ft <- border_remove(x = ft)
 
 # add outer borders
-ft <- border_outer(ft, part="all", border = big_border )
+ft <- border_outer(ft, part = "all", border = big_border)
 ft
 }
 \seealso{

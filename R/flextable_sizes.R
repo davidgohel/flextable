@@ -82,14 +82,13 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in") {
 #' ft <- width(ft, width = 1.5)
 #' ft
 #' @family flextable dimensions
-width <- function(x, j = NULL, width, unit = "in"){
-
+width <- function(x, j = NULL, width, unit = "in") {
   width <- convin(unit = unit, x = width)
-  j <- get_columns_id(x[["body"]], j )
+  j <- get_columns_id(x[["body"]], j)
 
-  stopifnot(length(j)==length(width) || length(width) == 1)
+  stopifnot(length(j) == length(width) || length(width) == 1)
 
-  if( length(width) == 1 ) width <- rep(width, length(j))
+  if (length(width) == 1) width <- rep(width, length(j))
 
   x$header$colwidths[j] <- width
   x$footer$colwidths[j] <- width
@@ -117,19 +116,21 @@ width <- function(x, j = NULL, width, unit = "in"){
 #' ft_1 <- hrule(ft_1, rule = "exact")
 #' ft_1
 #' @family flextable dimensions
-height <- function(x, i = NULL, height, part = "body", unit = "in"){
+height <- function(x, i = NULL, height, part = "body", unit = "in") {
   height <- convin(unit = unit, x = height)
 
-  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE )
+  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
 
-  if( inherits(i, "formula") && any( c("header", "footer") %in% part ) ){
+  if (inherits(i, "formula") && any(c("header", "footer") %in% part)) {
     stop("formula in argument i cannot adress part 'header' or 'footer'.")
   }
 
-  if( nrow_part(x, part ) < 1 ) return(x)
+  if (nrow_part(x, part) < 1) {
+    return(x)
+  }
 
-  i <- get_rows_id(x[[part]], i )
-  if( !(length(i) == length(height) || length(height) == 1)){
+  i <- get_rows_id(x[[part]], i)
+  if (!(length(i) == length(height) || length(height) == 1)) {
     stop(sprintf("height should be of length 1 or %.0f.", length(i)))
   }
 
@@ -163,24 +164,26 @@ height <- function(x, i = NULL, height, part = "body", unit = "in"){
 #' ft_2 <- hrule(ft_1, rule = "auto", part = "header")
 #' ft_2
 #' @family flextable dimensions
-hrule <- function(x, i = NULL, rule = "auto", part = "body"){
-  part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE )
+hrule <- function(x, i = NULL, rule = "auto", part = "body") {
+  part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE)
 
-  if( "all" %in% part ){
-    for(i in c("body", "header", "footer") ){
+  if ("all" %in% part) {
+    for (i in c("body", "header", "footer")) {
       x <- hrule(x, rule = rule, part = i)
     }
     return(x)
   }
 
-  if( inherits(i, "formula") && any( c("header", "footer") %in% part ) ){
+  if (inherits(i, "formula") && any(c("header", "footer") %in% part)) {
     stop("formula in argument i cannot adress part 'header' or 'footer'.")
   }
 
-  if( nrow_part(x, part ) < 1 ) return(x)
+  if (nrow_part(x, part) < 1) {
+    return(x)
+  }
 
-  i <- get_rows_id(x[[part]], i )
-  if( !(length(i) == length(height) || length(height) == 1)){
+  i <- get_rows_id(x[[part]], i)
+  if (!(length(i) == length(height) || length(height) == 1)) {
     stop(sprintf("height should be of length 1 or %.0f.", length(i)))
   }
 
@@ -202,22 +205,21 @@ hrule <- function(x, i = NULL, rule = "auto", part = "body"){
 #' ft_2 <- height_all(ft_2, height = 1)
 #' ft_2 <- hrule(ft_2, rule = "exact")
 #' ft_2
-height_all <- function(x, height, part = "all", unit = "in"){
+height_all <- function(x, height, part = "all", unit = "in") {
   height <- convin(unit = unit, x = height)
 
-  part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE )
-  if( length(height) != 1 || !is.numeric(height) || height < 0.0 ){
+  part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE)
+  if (length(height) != 1 || !is.numeric(height) || height < 0.0) {
     stop("height should be a single positive numeric value", call. = FALSE)
   }
 
-  if( "all" %in% part ){
-    for(i in c("body", "header", "footer") ){
-
+  if ("all" %in% part) {
+    for (i in c("body", "header", "footer")) {
       x <- height_all(x, height = height, part = i)
     }
   }
 
-  if( nrow_part(x, part) > 0 ){
+  if (nrow_part(x, part) > 0) {
     i <- seq_len(nrow(x[[part]]$dataset))
     x[[part]]$rowheights[i] <- height
   }
@@ -240,8 +242,8 @@ height_all <- function(x, height, part = "all", unit = "in"){
 #' ftab <- autofit(ftab)
 #' flextable_dim(ftab)
 #' @family flextable dimensions
-flextable_dim <- function(x, unit = "in"){
-  dims <- lapply( dim(x), function(x) convin(unit = unit, x = sum(x)))
+flextable_dim <- function(x, unit = "in") {
+  dims <- lapply(dim(x), function(x) convin(unit = unit, x = sum(x)))
   dims$aspect_ratio <- dims$height / dims$width
   dims
 }
@@ -256,26 +258,26 @@ flextable_dim <- function(x, unit = "in"){
 #' ftab <- flextable(head(iris))
 #' dim(ftab)
 #' @export
-dim.flextable <- function(x){
+dim.flextable <- function(x) {
   max_widths <- list()
   max_heights <- list()
-  for(j in c("header", "body", "footer")){
-    if( nrow_part(x, j ) > 0 ){
+  for (j in c("header", "body", "footer")) {
+    if (nrow_part(x, j) > 0) {
       max_widths[[j]] <- x[[j]]$colwidths
       max_heights[[j]] <- x[[j]]$rowheights
     }
   }
 
   mat_widths <- do.call("rbind", max_widths)
-  if( is.null( mat_widths ) ){
+  if (is.null(mat_widths)) {
     out_widths <- numeric(0)
   } else {
-    out_widths <- apply( mat_widths, 2, max )
+    out_widths <- apply(mat_widths, 2, max)
     names(out_widths) <- x$col_keys
   }
 
   out_heights <- as.double(unlist(max_heights))
-  list(widths = out_widths, heights = out_heights )
+  list(widths = out_widths, heights = out_heights)
 }
 
 #' @export
@@ -295,27 +297,28 @@ dim.flextable <- function(x){
 #' ftab <- flextable(head(mtcars))
 #' dim_pretty(ftab)
 #' @family flextable dimensions
-dim_pretty <- function( x, part = "all", unit = "in", hspans = "none"){
-
+dim_pretty <- function(x, part = "all", unit = "in", hspans = "none") {
   stopifnot(length(hspans) == 1, hspans %in% c("none", "divided", "included"))
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE )
-  if( "all" %in% part ){
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE)
+  if ("all" %in% part) {
     part <- c("header", "body", "footer")
   }
   dimensions <- list()
-  for(j in part){
-    if( nrow_part(x, j ) > 0 ){
+  for (j in part) {
+    if (nrow_part(x, j) > 0) {
       dimensions[[j]] <- optimal_sizes(x[[j]], hspans = hspans)
     } else {
-      dimensions[[j]] <- list(widths = rep(0, length(x$col_keys) ),
-           heights = numeric(0) )
+      dimensions[[j]] <- list(
+        widths = rep(0, length(x$col_keys)),
+        heights = numeric(0)
+      )
     }
   }
-  widths <- lapply( dimensions, function(x) x$widths )
-  widths <- as.numeric(apply( do.call(rbind, widths), 2, max, na.rm = TRUE ))
+  widths <- lapply(dimensions, function(x) x$widths)
+  widths <- as.numeric(apply(do.call(rbind, widths), 2, max, na.rm = TRUE))
 
-  heights <- lapply( dimensions, function(x) x$heights )
+  heights <- lapply(dimensions, function(x) x$heights)
   heights <- as.numeric(do.call(c, heights))
 
   list(widths = convmeters(unit = unit, x = widths), heights = convmeters(unit = unit, x = heights))
@@ -362,33 +365,34 @@ dim_pretty <- function( x, part = "all", unit = "in", hspans = "none"){
 #' ft_2
 #' @family flextable dimensions
 autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"),
-                    unit = "in", hspans = "none"){
-
+                    unit = "in", hspans = "none") {
   add_w <- convin(unit = unit, x = add_w)
   add_h <- convin(unit = unit, x = add_h)
 
-  stopifnot(inherits(x, "flextable") )
+  stopifnot(inherits(x, "flextable"))
   stopifnot(length(hspans) == 1, hspans %in% c("none", "divided", "included"))
 
-  parts <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE )
-  if( "all" %in% parts ){
+  parts <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE)
+  if ("all" %in% parts) {
     parts <- c("header", "body", "footer")
   }
 
   dimensions_ <- dim_pretty(x, part = parts, hspans = hspans)
   names(dimensions_$widths) <- x$col_keys
 
-  nrows <- lapply(parts, function(j){
-    nrow_part(x, j )
-  } )
-  heights <- list(lengths = unlist(nrows), values = parts )
+  nrows <- lapply(parts, function(j) {
+    nrow_part(x, j)
+  })
+  heights <- list(lengths = unlist(nrows), values = parts)
   class(heights) <- "rle"
-  heights <- data.frame( part = inverse.rle(heights),
-                         height = dimensions_$heights + add_h,
-                         stringsAsFactors = FALSE)
+  heights <- data.frame(
+    part = inverse.rle(heights),
+    height = dimensions_$heights + add_h,
+    stringsAsFactors = FALSE
+  )
   heights <- split(heights$height, heights$part)
 
-  for(j in names(heights)){
+  for (j in names(heights)) {
     x[[j]]$colwidths <- dimensions_$widths + add_w
     x[[j]]$rowheights <- heights[[j]]
   }
@@ -399,8 +403,7 @@ autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"),
 
 
 #' @importFrom gdtools m_str_extents
-optimal_sizes <- function( x, hspans = "none" ){
-
+optimal_sizes <- function(x, hspans = "none") {
   sizes <- text_metric(x)
 
   nr <- nrow(x$spans$rows)
@@ -420,7 +423,7 @@ optimal_sizes <- function( x, hspans = "none" ){
   }
 
   sizes$col_id <- factor(sizes$col_id, levels = x$col_keys)
-  sizes <- sizes[order(sizes$col_id, sizes$ft_row_id ), ]
+  sizes <- sizes[order(sizes$col_id, sizes$ft_row_id), ]
   widths <- as_wide_matrix_(data = sizes[, c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
   dimnames(widths)[[2]] <- gsub("^width\\.", "", dimnames(widths)[[2]])
   heights <- as_wide_matrix_(data = sizes[, c("col_id", "height", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
@@ -434,43 +437,46 @@ optimal_sizes <- function( x, hspans = "none" ){
   widths <- widths + cell_dim$widths
   heights <- heights + cell_dim$heights
 
-  list(widths = apply(widths, 2, max, na.rm = TRUE),
-       heights = apply(heights, 1, max, na.rm = TRUE) )
+  list(
+    widths = apply(widths, 2, max, na.rm = TRUE),
+    heights = apply(heights, 1, max, na.rm = TRUE)
+  )
 }
 
 
 # utils ----
 #' @importFrom stats reshape
-as_wide_matrix_ <- function(data, idvar, timevar = "col_key"){
+as_wide_matrix_ <- function(data, idvar, timevar = "col_key") {
   x <- reshape(data = data, idvar = idvar, timevar = timevar, direction = "wide")
   x[[idvar]] <- NULL
   as.matrix(x)
 }
 
 
-dim_paragraphs <- function(x){
+dim_paragraphs <- function(x) {
   par_dim <- par_struct_to_df(x$styles$pars)
-  par_dim$width <- as.vector(x$styles$pars[,,"padding.right"] + x$styles$pars[,,"padding.left"]) * (4/3) / 72
-  par_dim$height <- as.vector(x$styles$pars[,,"padding.top"] + x$styles$pars[,,"padding.bottom"]) * (4/3) / 72
+  par_dim$width <- as.vector(x$styles$pars[, , "padding.right"] + x$styles$pars[, , "padding.left"]) * (4 / 3) / 72
+  par_dim$height <- as.vector(x$styles$pars[, , "padding.top"] + x$styles$pars[, , "padding.bottom"]) * (4 / 3) / 72
   selection_ <- c("ft_row_id", "col_id", "width", "height")
   par_dim[, selection_]
 
-  list( widths = as_wide_matrix_( par_dim[,c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id" ),
-        heights = as_wide_matrix_( par_dim[,c("col_id", "height", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id" )
+  list(
+    widths = as_wide_matrix_(par_dim[, c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id"),
+    heights = as_wide_matrix_(par_dim[, c("col_id", "height", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
   )
 }
 
-dim_cells <- function(x){
+dim_cells <- function(x) {
   cell_dim <- cell_struct_to_df(x$styles$cells)
-  cell_dim$width <- as.vector(x$styles$cells[,,"margin.right"] + x$styles$cells[,,"margin.left"]) * (4/3) / 72
-  cell_dim$height <- as.vector(x$styles$cells[,,"margin.top"] + x$styles$cells[,,"margin.bottom"]) * (4/3) / 72
+  cell_dim$width <- as.vector(x$styles$cells[, , "margin.right"] + x$styles$cells[, , "margin.left"]) * (4 / 3) / 72
+  cell_dim$height <- as.vector(x$styles$cells[, , "margin.top"] + x$styles$cells[, , "margin.bottom"]) * (4 / 3) / 72
   selection_ <- c("ft_row_id", "col_id", "width", "height")
   cell_dim <- cell_dim[, selection_]
 
-  cellwidths <- as_wide_matrix_( cell_dim[,c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id" )
-  cellheights <- as_wide_matrix_( cell_dim[,c("col_id", "height", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
+  cellwidths <- as_wide_matrix_(cell_dim[, c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
+  cellheights <- as_wide_matrix_(cell_dim[, c("col_id", "height", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
 
-  list( widths = cellwidths, heights = cellheights )
+  list(widths = cellwidths, heights = cellheights)
 }
 
 
@@ -531,7 +537,7 @@ text_metric <- function(x) {
   # swap width/height when cell is rotated
   td_data <- cell_struct_to_df(x$styles$cells)[, c("ft_row_id", "col_id", "text.direction")]
   txt_data <- merge(txt_data, td_data, by = c("ft_row_id", "col_id"))
-  txt_data[txt_data$text.direction %in% c("tbrl","btlr"), c("width", "height") := list(.SD$height, .SD$width)]
+  txt_data[txt_data$text.direction %in% c("tbrl", "btlr"), c("width", "height") := list(.SD$height, .SD$width)]
 
   txt_data <- txt_data[, c(list(width = sum(.SD$width, na.rm = TRUE), height = max(.SD$height, na.rm = TRUE))),
     by = c("ft_row_id", "fake_row_id", "col_id")

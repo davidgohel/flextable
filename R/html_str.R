@@ -3,10 +3,9 @@ gen_raw_html <- function(x,
                          caption = "",
                          topcaption = TRUE,
                          manual_css = "") {
-
   align <- x$properties$align
   # for ubiquity and other packages that dump old flextable
-  if(is.null(align)) align <- "center"
+  if (is.null(align)) align <- "center"
 
   fixed_layout <- x$properties$layout %in% "fixed"
   if (!fixed_layout) {
@@ -34,16 +33,18 @@ gen_raw_html <- function(x,
   }
 
   if (!is.null(x$properties$opts_html$scroll)) {
-
     freeze_first_column <- x$properties$opts_html$scroll$freeze_first_column
     if (isTRUE(freeze_first_column)) {
       freeze_first_css_th <- paste0(
-        ".", classname, " thead > tr > th:first-child {position:sticky;left:0;z-index:5;}")
+        ".", classname, " thead > tr > th:first-child {position:sticky;left:0;z-index:5;}"
+      )
       freeze_first_css_td <- paste0(
-        ".", classname, " tbody > tr > td:first-child {position:sticky;left:0;z-index:3;}")
+        ".", classname, " tbody > tr > td:first-child {position:sticky;left:0;z-index:3;}"
+      )
       freeze_first_css <- paste0(
         c(freeze_first_css_th, freeze_first_css_td),
-        collapse = "")
+        collapse = ""
+      )
 
       x$properties$opts_html$extra_css <- paste0(
         freeze_first_css,
@@ -57,7 +58,6 @@ gen_raw_html <- function(x,
         x$properties$opts_html$extra_css
       )
     }
-
   }
 
   html <- paste0(
@@ -87,7 +87,7 @@ gen_raw_html <- function(x,
   }
 
   style_div <- ""
-  if(!is.null(x$properties$opts_html$scroll)) {
+  if (!is.null(x$properties$opts_html$scroll)) {
     style_div <- do.call(scrollbox, x$properties$opts_html$scroll)
     style_div <- paste0(" style=\"", style_div, "\"")
   }
@@ -111,8 +111,7 @@ scrollbox <- function(height = NULL, add_css = "", ...) {
 
 # to html/css  ----
 #' @importFrom data.table setnames setorderv := setcolorder setDT setDF dcast
-html_content_strs <- function(x){
-
+html_content_strs <- function(x) {
   cell_data_f <- fortify_cells_properties(x)
   setDT(cell_data_f)
   par_data_f <- fortify_paragraphs_properties(x)
@@ -122,12 +121,16 @@ html_content_strs <- function(x){
   span_style_str <- attr(txt_data, "css")
   setDT(txt_data)
 
-  cell_data <- merge(x = cell_data_f,
-                     y = par_data_f[, c(".part", "ft_row_id", "col_id", "text.align")],
-                     by = c(".part", "ft_row_id", "col_id"))
-  par_data <- merge(x = par_data_f,
-                    y = cell_data_f[, c(".part", "ft_row_id", "col_id", "text.direction", "vertical.align")],
-                    by = c(".part", "ft_row_id", "col_id"))
+  cell_data <- merge(
+    x = cell_data_f,
+    y = par_data_f[, c(".part", "ft_row_id", "col_id", "text.align")],
+    by = c(".part", "ft_row_id", "col_id")
+  )
+  par_data <- merge(
+    x = par_data_f,
+    y = cell_data_f[, c(".part", "ft_row_id", "col_id", "text.direction", "vertical.align")],
+    by = c(".part", "ft_row_id", "col_id")
+  )
 
   # get rid of originals that are empty
   cell_data[, c("width", "height", "hrule") := list(NULL, NULL, NULL)]
@@ -155,10 +158,12 @@ html_content_strs <- function(x){
       paste0(
         ifelse(get("rowspan") > 1,
           paste0(" colspan=\"", get("rowspan"), "\""),
-          ""),
+          ""
+        ),
         ifelse(get("colspan") > 1,
           paste0(" rowspan=\"", get("colspan"), "\""),
-          "")
+          ""
+        )
       ),
       "class=\"", get("classname"), "\">"
     )
@@ -166,22 +171,24 @@ html_content_strs <- function(x){
   by = c(".part", "ft_row_id", "col_id")
   ]
 
-  dat <- merge(txt_data, par_data , by = c(".part", "ft_row_id", "col_id"))
+  dat <- merge(txt_data, par_data, by = c(".part", "ft_row_id", "col_id"))
   dat$p_tag <- paste0(dat$p_tag, dat$span_tag, "</p>")
-  dat <- merge(dat, cell_data , by = c(".part", "ft_row_id", "col_id"))
-  dat$td_tag <- paste0(dat$td_tag, dat$p_tag,
-                       ifelse(dat$.part %in% "header", "</th>", "</td>"))
+  dat <- merge(dat, cell_data, by = c(".part", "ft_row_id", "col_id"))
+  dat$td_tag <- paste0(
+    dat$td_tag, dat$p_tag,
+    ifelse(dat$.part %in% "header", "</th>", "</td>")
+  )
 
   data_hrule <- fortify_hrule(x)
   data_hrule$tr_tag <- "<tr>"
   data_hrule$tr_tag[!data_hrule$hrule %in% "exact"] <- "<tr style=\"overflow-wrap:break-word;\">"
 
-  rows_data <- data_hrule[c(".part", "ft_row_id",  "tr_tag")]
+  rows_data <- data_hrule[c(".part", "ft_row_id", "tr_tag")]
 
   dat <- merge(dat, span_data, by = c(".part", "ft_row_id", "col_id"))
   dat$td_tag[dat$rowspan < 1 | dat$colspan < 1] <- ""
 
-  z <- dcast(dat, .part + ft_row_id ~ col_id, drop=TRUE, fill="", value.var = "td_tag", fun.aggregate = I)
+  z <- dcast(dat, .part + ft_row_id ~ col_id, drop = TRUE, fill = "", value.var = "td_tag", fun.aggregate = I)
   z <- merge(z, rows_data, by = c(".part", "ft_row_id"))
   setorderv(z, c(".part", "ft_row_id"))
   z$tr_end <- "</tr>"
@@ -220,47 +227,53 @@ html_content_strs <- function(x){
 
 
 # html chunks ----
-htmlize <- function(x){
-  x <-  htmlEscape(x)
-  x <-  gsub("\t", "&emsp;", x)
+htmlize <- function(x) {
+  x <- htmlEscape(x)
+  x <- gsub("\t", "&emsp;", x)
   x
 }
 
 #' @importFrom officer image_to_base64
-img_as_html <- function(img_data, width, height){
-  img_data <- str_raster <- mapply(function(img_raster, width, height ){
-    if(inherits(img_raster, "raster")){
-      outfile <- tempfile(fileext = ".png")
-      agg_png(filename = outfile, units = "in", res = 300, background = "transparent", width = width, height = height)
-      op <- par(mar=rep(0, 4))
-      plot(img_raster, interpolate = FALSE, asp=NA)
-      par(op)
-      dev.off()
-      img_raster <- outfile
-    }
-    img_raster
-  }, img_data, width, height,
-  SIMPLIFY = TRUE, USE.NAMES = FALSE)
+img_as_html <- function(img_data, width, height) {
+  img_data <- str_raster <- mapply(
+    function(img_raster, width, height) {
+      if (inherits(img_raster, "raster")) {
+        outfile <- tempfile(fileext = ".png")
+        agg_png(filename = outfile, units = "in", res = 300, background = "transparent", width = width, height = height)
+        op <- par(mar = rep(0, 4))
+        plot(img_raster, interpolate = FALSE, asp = NA)
+        par(op)
+        dev.off()
+        img_raster <- outfile
+      }
+      img_raster
+    }, img_data, width, height,
+    SIMPLIFY = TRUE, USE.NAMES = FALSE
+  )
   base64_strings <- image_to_base64(img_data)
-  sprintf("<img style=\"vertical-align:baseline;width:%.0fpx;height:%.0fpx;\" src=\"%s\" />", width*72, height*72, base64_strings)
+  sprintf("<img style=\"vertical-align:baseline;width:%.0fpx;height:%.0fpx;\" src=\"%s\" />", width * 72, height * 72, base64_strings)
 }
 
 # css ----
 
-css_pt <- function(x, digits = 1){
-  x <- ifelse( is.na(x), "inherit",
-               ifelse( x < 0.001, "0",
-                       paste0(format_double(x, digits = digits),"pt")))
+css_pt <- function(x, digits = 1) {
+  x <- ifelse(is.na(x), "inherit",
+    ifelse(x < 0.001, "0",
+      paste0(format_double(x, digits = digits), "pt")
+    )
+  )
   x
 }
-css_no_unit <- function(x, digits = 0){
-  x <- ifelse( is.na(x), "inherit",
-               ifelse( x < 0.001, "0",
-                       format_double(x, digits = digits)))
+css_no_unit <- function(x, digits = 0) {
+  x <- ifelse(is.na(x), "inherit",
+    ifelse(x < 0.001, "0",
+      format_double(x, digits = digits)
+    )
+  )
   x
 }
 
-border_css <- function(color, width, style, side){
+border_css <- function(color, width, style, side) {
   style[!style %in% c("dotted", "dashed", "solid")] <- "solid"
   x <- sprintf("border-%s: %s %s %s;", side, css_pt(width, 2), style, colcodecss(color))
   x
@@ -269,16 +282,15 @@ border_css <- function(color, width, style, side){
 
 
 css_align <- function(text.direction, align) {
-
   textdir <- rep("", length(text.direction))
   textdir[text.direction %in% "btlr"] <- "writing-mode: vertical-rl;transform: rotate(180deg);-ms-writing-mode:bt-lr;-webkit-writing-mode:vertical-rl;"
   textdir[text.direction %in% "tbrl"] <- "writing-mode: vertical-rl;-ms-writing-mode:tb-rl;-webkit-writing-mode:vertical-rl;"
 
-  textalign <- sprintf("text-align:%s;", align )
+  textalign <- sprintf("text-align:%s;", align)
 
   textalign_margins <- rep("", length(text.direction))
   textalign_margins[text.direction %in% "tbrl" & align %in% "center"] <- "margin-left:auto;margin-right:auto;"
-  textalign_margins[text.direction %in% "tbrl" & align %in% "left"] <-"margin-right:auto;"
+  textalign_margins[text.direction %in% "tbrl" & align %in% "left"] <- "margin-right:auto;"
   textalign_margins[text.direction %in% "tbrl" & align %in% "right"] <- "margin-left:auto;"
 
   textalign_margins[text.direction %in% "btlr" & align %in% "center"] <- "margin-left:auto;margin-right:auto;"
@@ -288,8 +300,7 @@ css_align <- function(text.direction, align) {
   paste0(textalign, textalign_margins, textdir)
 }
 
-par_css_styles <- function(x){
-
+par_css_styles <- function(x) {
   shading <- rep("background-color:transparent;", nrow(x))
   has_shading <- colalpha(x$shading.color) > 0
   shading[has_shading] <- sprintf("background-color:%s;", colcodecss(x$shading.color[has_shading]))
@@ -298,35 +309,41 @@ par_css_styles <- function(x){
 
   bb <- border_css(
     color = x$border.color.bottom, width = x$border.width.bottom,
-    style = x$border.style.bottom, side = "bottom")
+    style = x$border.style.bottom, side = "bottom"
+  )
   bt <- border_css(
     color = x$border.color.top, width = x$border.width.top,
-    style = x$border.style.top, side = "top")
+    style = x$border.style.top, side = "top"
+  )
   bl <- border_css(
     color = x$border.color.left, width = x$border.width.left,
-    style = x$border.style.left, side = "left")
+    style = x$border.style.left, side = "left"
+  )
   br <- border_css(
     color = x$border.color.right, width = x$border.width.right,
-    style = x$border.style.right, side = "right")
+    style = x$border.style.right, side = "right"
+  )
 
-  padding.bottom <- sprintf("padding-bottom:%s;", css_pt(x$padding.bottom) )
-  padding.top <- sprintf("padding-top:%s;", css_pt(x$padding.top) )
-  padding.left <- sprintf("padding-left:%s;", css_pt(x$padding.left) )
-  padding.right <- sprintf("padding-right:%s;", css_pt(x$padding.right) )
+  padding.bottom <- sprintf("padding-bottom:%s;", css_pt(x$padding.bottom))
+  padding.top <- sprintf("padding-top:%s;", css_pt(x$padding.top))
+  padding.left <- sprintf("padding-left:%s;", css_pt(x$padding.left))
+  padding.right <- sprintf("padding-right:%s;", css_pt(x$padding.right))
 
-  line_spacing <- sprintf("line-height: %s;", css_no_unit(x$line_spacing, 2) )
+  line_spacing <- sprintf("line-height: %s;", css_no_unit(x$line_spacing, 2))
 
-  style_column <- paste0("margin:0;", textalign, bb, bt, bl, br,
-                         padding.bottom, padding.top, padding.left, padding.right,
-                         line_spacing, shading )
+  style_column <- paste0(
+    "margin:0;", textalign, bb, bt, bl, br,
+    padding.bottom, padding.top, padding.left, padding.right,
+    line_spacing, shading
+  )
   paste0(".", x$classname, "{", style_column, "}", collapse = "")
 }
 
-cell_css_styles <- function(x, add_widths = TRUE){
-
-  background.color <- ifelse( colalpha(x$background.color) > 0,
-                              sprintf("background-color:%s;", colcodecss(x$background.color) ),
-                              "background-color:transparent;")
+cell_css_styles <- function(x, add_widths = TRUE) {
+  background.color <- ifelse(colalpha(x$background.color) > 0,
+    sprintf("background-color:%s;", colcodecss(x$background.color)),
+    "background-color:transparent;"
+  )
   width <- rep("", nrow(x))
   if (add_widths) {
     width[!is.na(x$width)] <- sprintf("width:%sin;", css_no_unit(x$width[!is.na(x$width)], digits = 3))
@@ -342,24 +359,30 @@ cell_css_styles <- function(x, add_widths = TRUE){
 
   bb <- border_css(
     color = x$border.color.bottom, width = x$border.width.bottom,
-    style = x$border.style.bottom, side = "bottom")
+    style = x$border.style.bottom, side = "bottom"
+  )
   bt <- border_css(
     color = x$border.color.top, width = x$border.width.top,
-    style = x$border.style.top, side = "top")
+    style = x$border.style.top, side = "top"
+  )
   bl <- border_css(
     color = x$border.color.left, width = x$border.width.left,
-    style = x$border.style.left, side = "left")
+    style = x$border.style.left, side = "left"
+  )
   br <- border_css(
     color = x$border.color.right, width = x$border.width.right,
-    style = x$border.style.right, side = "right")
+    style = x$border.style.right, side = "right"
+  )
 
-  margin.bottom <- sprintf("margin-bottom:%s;", css_pt(x$margin.bottom) )
-  margin.top <- sprintf("margin-top:%s;", css_pt(x$margin.top) )
-  margin.left <- sprintf("margin-left:%s;", css_pt(x$margin.left) )
-  margin.right <- sprintf("margin-right:%s;", css_pt(x$margin.right) )
+  margin.bottom <- sprintf("margin-bottom:%s;", css_pt(x$margin.bottom))
+  margin.top <- sprintf("margin-top:%s;", css_pt(x$margin.top))
+  margin.left <- sprintf("margin-left:%s;", css_pt(x$margin.left))
+  margin.right <- sprintf("margin-right:%s;", css_pt(x$margin.right))
 
-  style_column <- paste0(width, height, background.color, vertical.align, bb, bt, bl, br,
-                         margin.bottom, margin.top, margin.left, margin.right)
+  style_column <- paste0(
+    width, height, background.color, vertical.align, bb, bt, bl, br,
+    margin.bottom, margin.top, margin.left, margin.right
+  )
   paste0(".", x$classname, "{", style_column, "}", collapse = "")
 }
 
@@ -370,17 +393,17 @@ cell_css_styles <- function(x, add_widths = TRUE){
 #' @description When using loops in an R Markdown for HTML document, the
 #' htmlDependency object for flextable must also be added at least once.
 #' @examples
-#' if(require("htmltools"))
+#' if (require("htmltools")) {
 #'   div(flextable_html_dependency())
+#' }
 #' @keywords internal
-flextable_html_dependency <- function(){
+flextable_html_dependency <- function() {
   htmlDependency("tabwid",
-                 "1.1.3",
-                 src = system.file(package="flextable", "web_1.1.3"),
-                 stylesheet = "tabwid.css",
-                 script = "tabwid.js"
-                 )
-
+    "1.1.3",
+    src = system.file(package = "flextable", "web_1.1.3"),
+    stylesheet = "tabwid.css",
+    script = "tabwid.js"
+  )
 }
 
 html_dependencies_list <- function(x) {
@@ -390,14 +413,17 @@ html_dependencies_list <- function(x) {
 }
 
 #' @importFrom gdtools installed_gfonts
-avail_gfonts <- function(x){
+avail_gfonts <- function(x) {
   z <- character()
-  if( nrow_part(x, part = "body") > 0 )
+  if (nrow_part(x, part = "body") > 0) {
     z <- append(z, unique(as.vector(x$body$styles$text$font.family$data)))
-  if( nrow_part(x, part = "footer") > 0 )
+  }
+  if (nrow_part(x, part = "footer") > 0) {
     z <- append(z, unique(as.vector(x$footer$styles$text$font.family$data)))
-  if( nrow_part(x, part = "header") > 0 )
+  }
+  if (nrow_part(x, part = "header") > 0) {
     z <- append(z, unique(as.vector(x$header$styles$text$font.family$data)))
+  }
   families <- unique(as.character(z))
   intersect(families, installed_gfonts())
 }
@@ -410,12 +436,14 @@ render_htmltag <- function(x, path, title, lang = "en") {
   tryCatch(
     {
       render(rmd_file,
-             output_format = html_document(self_contained = TRUE, theme = NULL,
-                                           mathjax = NULL),
-             # output_file = basename(path),
-             envir = new.env(),
-             quiet = TRUE,
-             params = list(x = x)
+        output_format = html_document(
+          self_contained = TRUE, theme = NULL,
+          mathjax = NULL
+        ),
+        # output_file = basename(path),
+        envir = new.env(),
+        quiet = TRUE,
+        params = list(x = x)
       )
       sucess <- file.copy(html_file, path, overwrite = TRUE)
     },
@@ -431,7 +459,8 @@ tmp_rmd <- function(title, lang = "en") {
   stopifnot(pandoc_available())
   file <- tempfile(fileext = ".Rmd")
   writeLines(
-    c("---",
+    c(
+      "---",
       sprintf("title: \"%s\"", title),
       sprintf("lang: %s", lang),
       "params:",
@@ -444,7 +473,10 @@ tmp_rmd <- function(title, lang = "en") {
       "",
       "```{r}",
       "params$x",
-      "```"),
-    file, useBytes = TRUE)
+      "```"
+    ),
+    file,
+    useBytes = TRUE
+  )
   file
 }

@@ -11,19 +11,23 @@ ooxml_ppr <- function(paragraphs_properties, type = "wml") {
     zz$border.bottom <- fp_border(
       color = zz$border.color.bottom,
       width = zz$border.width.bottom,
-      style = zz$border.style.bottom)
+      style = zz$border.style.bottom
+    )
     zz$border.top <- fp_border(
       color = zz$border.color.top,
       width = zz$border.width.top,
-      style = zz$border.style.top)
+      style = zz$border.style.top
+    )
     zz$border.right <- fp_border(
       color = zz$border.color.right,
       width = zz$border.width.right,
-      style = zz$border.style.right)
+      style = zz$border.style.right
+    )
     zz$border.left <- fp_border(
       color = zz$border.color.left,
       width = zz$border.width.left,
-      style = zz$border.style.left)
+      style = zz$border.style.left
+    )
 
     # delete names not in formals
     zz[grepl(pattern = "^(border\\.color|border\\.width|border\\.style)", names(zz))] <- NULL
@@ -74,8 +78,7 @@ wml_spans <- function(value) {
   span_data
 }
 
-copy_border_bottom_to_next_border_top <- function(x, value){
-
+copy_border_bottom_to_next_border_top <- function(x, value) {
   first_partname <-
     if (nrow_part(value, "header")) {
       "header"
@@ -100,10 +103,12 @@ copy_border_bottom_to_next_border_top <- function(x, value){
 
   x[
     !(x$.part %in% first_partname & x$ft_row_id %in% 1),
-    c("border.width.top", "border.color.top", "border.style.top")] <-
+    c("border.width.top", "border.color.top", "border.style.top")
+  ] <-
     x[
       !(x$.part %in% last_partname & x$ft_row_id %in% max_n),
-      c("border.width.bottom", "border.color.bottom", "border.style.bottom")]
+      c("border.width.bottom", "border.color.bottom", "border.style.bottom")
+    ]
   x
 }
 #' @importFrom data.table shift
@@ -135,26 +140,31 @@ wml_cells <- function(value, cell_data) {
     zz$border.bottom <- fp_border(
       color = zz$border.color.bottom,
       width = zz$border.width.bottom,
-      style = zz$border.style.bottom)
+      style = zz$border.style.bottom
+    )
     zz$border.top <- fp_border(
       color = zz$border.color.top,
       width = zz$border.width.top,
-      style = zz$border.style.top)
+      style = zz$border.style.top
+    )
     zz$border.right <- fp_border(
       color = zz$border.color.right,
       width = zz$border.width.right,
-      style = zz$border.style.right)
+      style = zz$border.style.right
+    )
     zz$border.left <- fp_border(
       color = zz$border.color.left,
       width = zz$border.width.left,
-      style = zz$border.style.left)
+      style = zz$border.style.left
+    )
 
-    zz[c("border.width.bottom", "border.width.top", "border.width.left",
-         "border.width.right", "border.color.bottom", "border.color.top",
-         "border.color.left", "border.color.right", "border.style.bottom",
-         "border.style.top", "border.style.left", "border.style.right",
-         "width", "height", "hrule"
-         )] <- NULL
+    zz[c(
+      "border.width.bottom", "border.width.top", "border.width.left",
+      "border.width.right", "border.color.bottom", "border.color.top",
+      "border.color.left", "border.color.right", "border.style.bottom",
+      "border.style.top", "border.style.left", "border.style.right",
+      "width", "height", "hrule"
+    )] <- NULL
     zz$classname <- NULL
     zz <- do.call(fp_cell, zz)
     zz <- format(zz, type = "wml")
@@ -185,7 +195,6 @@ wml_cells <- function(value, cell_data) {
 
 
 wml_rows <- function(value, split = FALSE) {
-
   # prepare cells formatting properties and add span information
   cell_attributes <- fortify_cells_properties(value)
   span_data <- fortify_span(value)
@@ -274,7 +283,6 @@ wml_rows <- function(value, split = FALSE) {
 
 # docx_str -----
 gen_raw_wml <- function(x, ...) {
-
   align <- x$properties$align
 
   align <- match.arg(align, c("center", "left", "right"), several.ok = FALSE)

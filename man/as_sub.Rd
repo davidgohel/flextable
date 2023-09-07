@@ -18,13 +18,15 @@ flextable with the functions \code{\link[=compose]{compose()}}, \code{\link[=app
 or \code{\link[=prepend_chunks]{prepend_chunks()}}.
 }
 \examples{
-ft <- flextable( head(iris), col_keys = c("dummy") )
+ft <- flextable(head(iris), col_keys = c("dummy"))
 
-ft <- compose(ft, i = 1, j = "dummy", part = "header",
-    value = as_paragraph(
-      as_sub("Sepal.Length"),
-      " anything "
-    ) )
+ft <- compose(ft,
+  i = 1, j = "dummy", part = "header",
+  value = as_paragraph(
+    as_sub("Sepal.Length"),
+    " anything "
+  )
+)
 
 ft <- autofit(ft)
 ft

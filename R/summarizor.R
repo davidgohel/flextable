@@ -20,26 +20,24 @@
 #' data.table::setDTthreads(1)
 #' }
 #' z <- summarizor(CO2[-c(1, 4)],
-#'                 by = "Treatment",
-#'                 overall_label = "Overall"
+#'   by = "Treatment",
+#'   overall_label = "Overall"
 #' )
 #' ft_1 <- as_flextable(z)
 #' ft_1
 #'
-#' ft_2 <- as_flextable(z, sep_w = 0, spread_first_col=TRUE)
+#' ft_2 <- as_flextable(z, sep_w = 0, spread_first_col = TRUE)
 #' ft_2
 #'
 #' z <- summarizor(CO2[-c(1, 4)])
-#' ft_3 <- as_flextable(z, sep_w = 0, spread_first_col=TRUE)
+#' ft_3 <- as_flextable(z, sep_w = 0, spread_first_col = TRUE)
 #' ft_3
 #' @export
 summarizor <- function(
     x, by = character(),
     overall_label = NULL,
     num_stats = c("mean_sd", "median_iqr", "range"),
-    hide_null_na = TRUE
-    ){
-
+    hide_null_na = TRUE) {
   if (length(by) < 1) {
     by <- ".overall"
     x[[by]] <- by
@@ -50,10 +48,10 @@ summarizor <- function(
 
   x <- as.data.frame(x)
 
-  if(length(last_by) > 0 && !is.null(overall_label) ){
+  if (length(last_by) > 0 && !is.null(overall_label)) {
     xoverall <- x
     z <- xoverall[[last_by]]
-    levels_ <- if(is.factor(z)){
+    levels_ <- if (is.factor(z)) {
       c(levels(z), overall_label)
     } else {
       c(sort(unique(z)), overall_label)
@@ -69,18 +67,18 @@ summarizor <- function(
   dtx <- as.data.table(x)
   datn <- dtx[, list(n = .N), by = by]
   setDF(datn)
-  dat <- dtx[, list(data=list(.SD)), by = by, .SDcols = cols]
+  dat <- dtx[, list(data = list(.SD)), by = by, .SDcols = cols]
   dat$data <- lapply(dat$data, dataset_describe)
 
-  dat$data = lapply(dat$data, function(dat, drop_stats) {
-    dat <- dat[!dat$stat %in% drop_stats,]
+  dat$data <- lapply(dat$data, function(dat, drop_stats) {
+    dat <- dat[!dat$stat %in% drop_stats, ]
     if (hide_null_na) {
-      dat <- dat[!(dat$stat %in% "missing" & dat$cts < 1),]
+      dat <- dat[!(dat$stat %in% "missing" & dat$cts < 1), ]
     }
     dat
   }, drop_stats = setdiff(c("mean_sd", "median_iqr", "range"), num_stats))
 
-  for(i in seq_len(nrow(dat))){
+  for (i in seq_len(nrow(dat))) {
     w <- as.data.frame(dat$data[[i]])
     w[by] <- lapply(dat[i, .SD, .SDcols = by], function(z) {
       rep(z, length.out = nrow(w))
@@ -98,8 +96,10 @@ summarizor <- function(
   dat$variable <- factor(dat$variable, levels = cols)
   setDF(dat)
   attr(dat, "use_labels") <- list(
-    stat = c(stat = "", mean_sd = "Mean (SD)", median_iqr = "Median (IQR)",
-             range = "Range", missing = "Missing"),
+    stat = c(
+      stat = "", mean_sd = "Mean (SD)", median_iqr = "Median (IQR)",
+      range = "Range", missing = "Missing"
+    ),
     variable = c(variable = "")
   )
   class(dat) <- c("summarizor", class(dat))
@@ -126,11 +126,11 @@ summarizor <- function(
 #' ft_1 <- as_flextable(z, spread_first_col = TRUE)
 #' ft_1 <- prepend_chunks(ft_1,
 #'   i = ~ is.na(variable), j = 1,
-#'   as_chunk("\t"))
+#'   as_chunk("\t")
+#' )
 #' ft_1 <- autofit(ft_1)
 #' ft_1
 as_flextable.summarizor <- function(x, ...) {
-
   tab <- tabulator(
     x = x,
     rows = c("variable", "stat"),
@@ -152,11 +152,9 @@ as_flextable.summarizor <- function(x, ...) {
 }
 
 #' @importFrom stats sd IQR median
-dataset_describe <- function(dataset){
-
-  w <- lapply(dataset, function(x){
-
-    if(is.factor(x) || is.character(x)){
+dataset_describe <- function(dataset) {
+  w <- lapply(dataset, function(x) {
+    if (is.factor(x) || is.character(x)) {
       z <- table(x, useNA = "always")
       names(z)[is.na(names(z))] <- "missing"
       z <- as.data.frame(z)
@@ -164,13 +162,13 @@ dataset_describe <- function(dataset){
       z$percent <- z$cts / sum(z$cts)
       z$data_type <- "discrete"
       z
-    } else if(is.numeric(x)){
-
+    } else if (is.numeric(x)) {
       z <- data.frame(
         stat = c("mean_sd", "median_iqr", "range", "missing"),
         value1 = c(mean(x, na.rm = TRUE), as.double(median(x, na.rm = TRUE)), min(x, na.rm = TRUE), NA_real_),
         value2 = c(sd(x, na.rm = TRUE), as.double(IQR(x, na.rm = TRUE)), max(x, na.rm = TRUE), NA_real_),
-        cts = NA_real_, percent = NA_real_)
+        cts = NA_real_, percent = NA_real_
+      )
 
       z$cts[z$stat %in% "missing"] <- sum(is.na(x))
       z$percent[z$stat %in% "missing"] <- sum(is.na(x)) / length(x)
@@ -229,18 +227,18 @@ dataset_describe <- function(dataset){
 #' ft_1 <- as_flextable(x = tab_1, separate_with = "variable")
 #' ft_1 <- labelizor(
 #'   x = ft_1, j = "stat",
-#'   labels = c(mean_sd = "Moyenne (ecart-type)",
-#'              median_iqr = "Mediane (IQR)",
-#'              range = "Etendue",
-#'              missing = "Valeurs manquantes"
-#'              )
+#'   labels = c(
+#'     mean_sd = "Moyenne (ecart-type)",
+#'     median_iqr = "Mediane (IQR)",
+#'     range = "Etendue",
+#'     missing = "Valeurs manquantes"
+#'   )
 #' )
 #' ft_1 <- autofit(ft_1)
 #' ft_1
 fmt_2stats <- function(stat, num1, num2, cts, pcts,
                        num1_mask = "%.01f", num2_mask = "(%.01f)",
-                       cts_mask = "%.0f", pcts_mask = "(%.02f%%)"){
-
+                       cts_mask = "%.0f", pcts_mask = "(%.02f%%)") {
   z_num <- character(length = length(num1))
   z_cts <- character(length = length(num1))
 
@@ -272,12 +270,11 @@ fmt_2stats <- function(stat, num1, num2, cts, pcts,
   z_cts[is_cts_2] <- paste0(
     sprintf(cts_mask, cts[is_cts_2]),
     " ",
-    sprintf(pcts_mask, pcts[is_cts_2]*100)
+    sprintf(pcts_mask, pcts[is_cts_2] * 100)
   )
   z_cts[is_cts_1] <- sprintf(cts_mask, cts[is_cts_1])
 
   paste0(z_num, z_cts)
-
 }
 #' @export
 #' @rdname fmt_2stats
@@ -301,22 +298,26 @@ fmt_summarizor <- fmt_2stats
 #'   list(
 #'     cut = structure(
 #'       .Data = 1:5, levels = c(
-#'         "Fair", "Good", "Very Good", "Premium", "Ideal"),
-#'       class = c("ordered", "factor")),
+#'         "Fair", "Good", "Very Good", "Premium", "Ideal"
+#'       ),
+#'       class = c("ordered", "factor")
+#'     ),
 #'     n = c(1610L, 4906L, 12082L, 13791L, 21551L),
 #'     pct = c(0.0299, 0.0909, 0.2239, 0.2557, 0.3995)
 #'   ),
 #'   row.names = c(NA, -5L),
-#'   class = "data.frame")
+#'   class = "data.frame"
+#' )
 #'
 #' ft_1 <- flextable(df, col_keys = c("cut", "txt"))
 #' ft_1 <- mk_par(
 #'   x = ft_1, j = "txt",
-#'   value = as_paragraph(fmt_n_percent(n, pct)))
+#'   value = as_paragraph(fmt_n_percent(n, pct))
+#' )
 #' ft_1 <- align(ft_1, j = "txt", part = "all", align = "right")
 #' ft_1 <- autofit(ft_1)
 #' ft_1
-fmt_n_percent <- function(n, pct, digit = 1){
+fmt_n_percent <- function(n, pct, digit = 1) {
   z1 <- character(length(n))
   z2 <- character(length(n))
   z1[!is.na(n)] <- sprintf("%s", fmt_int(n[!is.na(n)]))
@@ -341,10 +342,11 @@ fmt_n_percent <- function(n, pct, digit = 1){
 #' ft_1 <- flextable(df)
 #' ft_1 <- append_chunks(
 #'   x = ft_1, j = 1, part = "header",
-#'   value = as_chunk(fmt_header_n(200)))
+#'   value = as_chunk(fmt_header_n(200))
+#' )
 #' ft_1 <- autofit(ft_1)
 #' ft_1
-fmt_header_n <- function(n, newline = TRUE){
+fmt_header_n <- function(n, newline = TRUE) {
   z1 <- character(length(n))
 
   mask <- "\n(N=%s)"
@@ -370,10 +372,11 @@ fmt_header_n <- function(n, newline = TRUE){
 #' ft_1 <- flextable(df)
 #' ft_1 <- mk_par(
 #'   x = ft_1, j = 1, part = "body",
-#'   value = as_paragraph(as_chunk(zz, formatter = fmt_int)))
+#'   value = as_paragraph(as_chunk(zz, formatter = fmt_int))
+#' )
 #' ft_1 <- autofit(ft_1)
 #' ft_1
-fmt_int <- function(x){
+fmt_int <- function(x) {
   big.mark <- get_flextable_defaults()$big.mark
   na_str <- get_flextable_defaults()$na_str
   nan_str <- get_flextable_defaults()$nan_str
@@ -394,11 +397,11 @@ fmt_int <- function(x){
 #' ft_1 <- flextable(df)
 #' ft_1 <- mk_par(
 #'   x = ft_1, j = 1, part = "body",
-#'   value = as_paragraph(as_chunk(zz, formatter = fmt_pct)))
+#'   value = as_paragraph(as_chunk(zz, formatter = fmt_pct))
+#' )
 #' ft_1 <- autofit(ft_1)
 #' ft_1
 fmt_pct <- function(x) {
-
   big.mark <- get_flextable_defaults()$big.mark
   decimal.mark <- get_flextable_defaults()$decimal.mark
   pct_digits <- get_flextable_defaults()$pct_digits
@@ -406,7 +409,8 @@ fmt_pct <- function(x) {
   nan_str <- get_flextable_defaults()$nan_str
   format_fun.pct(x,
     big.mark = big.mark, decimal.mark = decimal.mark,
-    pct_digits = pct_digits, na_str = na_str, nan_str = nan_str)
+    pct_digits = pct_digits, na_str = na_str, nan_str = nan_str
+  )
 }
 
 #' @export
@@ -423,11 +427,11 @@ fmt_pct <- function(x) {
 #' ft_1 <- flextable(df)
 #' ft_1 <- mk_par(
 #'   x = ft_1, j = 1, part = "body",
-#'   value = as_paragraph(as_chunk(zz, formatter = fmt_dbl)))
+#'   value = as_paragraph(as_chunk(zz, formatter = fmt_dbl))
+#' )
 #' ft_1 <- autofit(ft_1)
 #' ft_1
 fmt_dbl <- function(x) {
-
   big.mark <- get_flextable_defaults()$big.mark
   decimal.mark <- get_flextable_defaults()$decimal.mark
   digits <- get_flextable_defaults()$digits
@@ -436,7 +440,8 @@ fmt_dbl <- function(x) {
 
   format_fun.double(x,
     big.mark = big.mark, decimal.mark = decimal.mark,
-    digits = digits, na_str = na_str, nan_str = nan_str)
+    digits = digits, na_str = na_str, nan_str = nan_str
+  )
 }
 
 
@@ -451,19 +456,19 @@ fmt_dbl <- function(x) {
 #' @examples
 #' library(flextable)
 #'
-#' df <- data.frame(avg = 1:3*3, sd = 1:3)
+#' df <- data.frame(avg = 1:3 * 3, sd = 1:3)
 #'
 #' ft_1 <- flextable(df, col_keys = "avg")
 #' ft_1 <- mk_par(
 #'   x = ft_1, j = 1, part = "body",
-#'   value = as_paragraph(fmt_avg_dev(avg = avg, dev = sd)))
+#'   value = as_paragraph(fmt_avg_dev(avg = avg, dev = sd))
+#' )
 #' ft_1 <- autofit(ft_1)
 #' ft_1
-fmt_avg_dev <- function(avg, dev, digit1 = 1, digit2 = 1){
+fmt_avg_dev <- function(avg, dev, digit1 = 1, digit2 = 1) {
   z1 <- character(length(avg))
   z2 <- character(length(avg))
   z1[!is.na(avg)] <- sprintf(paste0("%.", digit1, "f"), avg[!is.na(avg)])
   z2[!is.na(dev)] <- sprintf(paste0(" (%.", digit2, "f)"), dev[!is.na(dev)])
   paste0(z1, z2)
 }
-

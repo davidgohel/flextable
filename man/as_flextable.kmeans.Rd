@@ -19,7 +19,7 @@ kmeans object. The function is only using package 'broom'
 that provides the data presented in the resulting flextable.
 }
 \examples{
-if(require("stats")){
+if (require("stats")) {
   cl <- kmeans(scale(mtcars[1:7]), 5)
   ft <- as_flextable(cl)
   ft

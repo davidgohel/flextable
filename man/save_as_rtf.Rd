@@ -43,7 +43,8 @@ sect_properties <- prop_section(
   page_margins = page_mar(),
   header_default = block_list(
     fpar(ftext("text for default page header")),
-      qflextable(data.frame(a = 1L)))
+    qflextable(data.frame(a = 1L))
+  )
 )
 tf <- tempfile(fileext = ".rtf")
 save_as_rtf(

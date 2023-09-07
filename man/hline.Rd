@@ -24,13 +24,13 @@ bottom borders of selected cells.
 }
 \examples{
 library(officer)
-std_border = fp_border(color="gray")
+std_border <- fp_border(color = "gray")
 
 ft <- flextable(head(iris))
 ft <- border_remove(x = ft)
 
 # add horizontal borders
-ft <- hline(ft, part="all", border = std_border )
+ft <- hline(ft, part = "all", border = std_border)
 ft
 }
 \seealso{

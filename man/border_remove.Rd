@@ -13,7 +13,7 @@ border_remove(x)
 The function is deleting all borders of the flextable object.
 }
 \examples{
-dat <- iris[c(1:5, 51:55, 101:105),]
+dat <- iris[c(1:5, 51:55, 101:105), ]
 ft_1 <- flextable(dat)
 ft_1 <- theme_box(ft_1)
 ft_1
