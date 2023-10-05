@@ -146,13 +146,13 @@ gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0)
   rowheights <- cells$height
   cells[, c("ft_row_id", "height", ".part") := list(NULL, NULL, NULL)]
   rows <- apply(as.matrix(cells), 1, paste0, collapse = "")
-  rows <- paste0("<a:tr h=\"", round(rowheights * 914400, 0), "\">", rows, "</a:tr>")
+  rows <- sprintf("<a:tr h=\"%.0f\">%s</a:tr>", rowheights * 914400, rows)
   rows <- paste0(rows, collapse = "")
 
   out <- "<a:tbl>"
   dims <- dim(value)
   widths <- dims$widths
-  colswidths <- paste0("<a:gridCol w=\"", round(widths * 914400, 0), "\"/>", collapse = "")
+  colswidths <- paste0(sprintf("<a:gridCol w=\"%.0f\"/>", widths * 914400), collapse = "")
 
   out <- paste0(out, "<a:tblPr/><a:tblGrid>")
   out <- paste0(out, colswidths)
