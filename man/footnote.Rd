@@ -41,6 +41,13 @@ Symbols are added to the cells designated by the selection \code{i}
 and \code{j}. If you use i = c(1,3) and j = c(2,5), then you will
 add the symbols (or the repeated symbol) to cells \verb{[1,2]}
 and \verb{[3,5]}.
+
+\if{html}{\out{
+<img src="https://www.ardata.fr/img/flextable-imgs/flextable-016.png" alt="add_footer illustration" style="width:100\%;">
+
+See https://www.ardata.fr/en/flextable-gallery/2022-06-23-separate-headers/ for the example
+shown
+}}
 }
 \examples{
 ft_1 <- flextable(head(iris))

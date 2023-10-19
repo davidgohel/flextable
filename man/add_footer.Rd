@@ -32,9 +32,6 @@ the footer.
 
 If some columns are not provided, they will be replaced by
 \code{NA} and displayed as empty.
-\if{html}{\out{
-<img src="https://www.ardata.fr/img/flextable-imgs/flextable-016.png" alt="add_footer illustration" style="width:100\%;">
-}}
 }
 \examples{
 new_row <- as.list(colMeans(iris[, -5]))

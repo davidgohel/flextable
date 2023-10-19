@@ -1,3 +1,10 @@
+# flextable 0.9.4
+
+## Issues
+
+- `ph_with.flextable()` formats widths and heights correctly.
+- move image shown in add_footer to footnote where it should be.
+
 # flextable 0.9.3
 
 ## new features

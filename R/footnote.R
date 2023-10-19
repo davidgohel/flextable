@@ -8,6 +8,13 @@
 #' and `j`. If you use i = c(1,3) and j = c(2,5), then you will
 #' add the symbols (or the repeated symbol) to cells `[1,2]`
 #' and `[3,5]`.
+#'
+#' \if{html}{\out{
+#' <img src="https://www.ardata.fr/img/flextable-imgs/flextable-016.png" alt="add_footer illustration" style="width:100\%;">
+#'
+#' See https://www.ardata.fr/en/flextable-gallery/2022-06-23-separate-headers/ for the example
+#' shown
+#' }}
 #' @param x a flextable object
 #' @param i,j cellwise rows and columns selection
 #' @param value a call to function [as_paragraph()].
