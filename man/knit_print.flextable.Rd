@@ -159,7 +159,8 @@ with styles.
 
 Some features are not implemented in PDF due to technical
 infeasibility. These are the padding, line_spacing and
-height properties.
+height properties. Note also justified text is not supported
+and is transformed to left.
 
 It is recommended to set theses values in a
 'knitr r chunk' so that they are permanent

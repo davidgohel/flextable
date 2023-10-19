@@ -4,6 +4,8 @@
 
 - `ph_with.flextable()` formats widths and heights correctly.
 - move image shown in add_footer to footnote where it should be.
+- update the documentation and automatically change alignment
+'justify' to 'left' for latex output.
 
 # flextable 0.9.3
 
