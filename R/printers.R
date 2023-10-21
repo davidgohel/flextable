@@ -975,10 +975,11 @@ save_as_rtf <- function(..., values = NULL, path, pr_section = NULL) {
 
 
 #' @export
-#' @title Save a flextable in an 'png' file
-#' @description Save a flextable as a png image.
+#' @title Save a flextable in a 'png' or 'svg' file
+#' @description Save a flextable as a png or svg image.
 #' @param x a flextable object
-#' @param path image file to be created. It should end with '.png'.
+#' @param path image file to be created. It should end with '.png'
+#' or '.svg'.
 #' @param expand space in pixels to add around the table.
 #' @param res The resolution of the device
 #' @param ... unused arguments
@@ -1001,16 +1002,36 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
     stop(sprintf("Function `%s` supports only flextable objects.", as.character(sys.call()[[1]])))
   }
 
+  file_ext_pos <- regexpr("\\.([[:alnum:]]+)$", path)
+  file_ext <- substring(path, file_ext_pos + 1L)
+
+  file_ext <- match.arg(tolower(file_ext), choices = c("png", "svg"), several.ok = FALSE)
+
   gr <- gen_grob(x, fit = "fixed", just = "center")
   dims <- dim(gr)
 
-  agg_png(
-    filename = path,
-    width = dims$width + expand / 72,
-    height = dims$height + expand / 72,
-    res = res, units = "in",
-    background = "transparent"
-  )
+  if (file_ext %in% "png") {
+    agg_png(
+      filename = path,
+      width = dims$width + expand / 72,
+      height = dims$height + expand / 72,
+      res = res, units = "in",
+      background = "transparent"
+    )
+  } else if (file_ext %in% "svg") {
+    if (!requireNamespace("svglite", quietly = TRUE)) {
+      stop(sprintf(
+        "'%s' package should be installed to save a flextable in a '%s' image.",
+        "svglite"
+      ))
+    }
+    svglite::svglite(
+      filename = path,
+      width = dims$width + expand / 72,
+      height = dims$height + expand / 72,
+      bg = "transparent"
+    )
+  }
 
   tryCatch(
     {

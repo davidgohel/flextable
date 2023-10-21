@@ -8,6 +8,11 @@
 'justify' to 'left' for latex output.
 - borders'width for grid output are fixed
 
+## new features
+
+- `save_as_image()` now supports svg export. Packages 'ragg'
+and 'svglite' are in the 'Suggests' list of the package.
+
 # flextable 0.9.3
 
 ## new features

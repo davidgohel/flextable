@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.9.4.004
+Version: 0.9.4.005
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -46,7 +46,7 @@ Suggests:
     broom, broom.mixed, 
     mgcv, cluster, lme4, nlme,
     bookdown (>= 0.34), pdftools, officedown,
-    pkgdown (>= 2.0.0), webshot2
+    pkgdown (>= 2.0.0), webshot2, svglite
 Encoding: UTF-8
 URL: https://ardata-fr.github.io/flextable-book/, https://davidgohel.github.io/flextable/
 BugReports: https://github.com/davidgohel/flextable/issues

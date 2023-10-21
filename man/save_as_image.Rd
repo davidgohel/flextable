@@ -2,14 +2,15 @@
 % Please edit documentation in R/printers.R
 \name{save_as_image}
 \alias{save_as_image}
-\title{Save a flextable in an 'png' file}
+\title{Save a flextable in a 'png' or 'svg' file}
 \usage{
 save_as_image(x, path, expand = 10, res = 200, ...)
 }
 \arguments{
 \item{x}{a flextable object}
 
-\item{path}{image file to be created. It should end with '.png'.}
+\item{path}{image file to be created. It should end with '.png'
+or '.svg'.}
 
 \item{expand}{space in pixels to add around the table.}
 
@@ -21,7 +22,7 @@ save_as_image(x, path, expand = 10, res = 200, ...)
 a string containing the full name of the generated file
 }
 \description{
-Save a flextable as a png image.
+Save a flextable as a png or svg image.
 }
 \examples{
 library(gdtools)
