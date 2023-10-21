@@ -163,7 +163,7 @@ latex_gridlines <- function(properties_df) {
     # if cells are vertically merged, dont draw bottom borders nor their vertical columns/joins
     x[, c("hborder_bottom", "hborder_bottom_post_vline") :=
       list(
-        data.table::fifelse(c(.SD$colspan[-1], 1) < 1, fun_hborder(w = .SD$border.width.bottom, cols = .SD$background.color), .SD$hborder_bottom),
+        data.table::fifelse(c(.SD$colspan[-1], 1) < 1, fun_hborder(w = .SD$border.width.bottom, cols = .SD$border.color.bottom), .SD$hborder_bottom),
         data.table::fifelse(c(.SD$colspan[-1], 1) < 1, "", .SD$hborder_bottom_post_vline)
       ), by = c(".part", "col_id")]
 

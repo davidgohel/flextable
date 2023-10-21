@@ -6,6 +6,7 @@
 - move image shown in add_footer to footnote where it should be.
 - update the documentation and automatically change alignment
 'justify' to 'left' for latex output.
+- borders'width for grid output are fixed
 
 # flextable 0.9.3
 
