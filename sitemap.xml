@@ -211,7 +211,13 @@
     <loc>https://davidgohel.github.io/flextable/reference/continuous_summary.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/flextable/reference/delete_columns.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/flextable/reference/delete_part.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/reference/delete_rows.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/df_printer.html</loc>

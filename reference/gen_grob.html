@@ -38,7 +38,7 @@ will not be displayed."><meta property="og:image" content="https://davidgohel.gi
     
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -208,13 +208,15 @@ When set to <code>NULL</code> (default), it is determined according to the <code
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">used_family</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_flextable_defaults.html">get_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">font.family</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu">gdtools</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/gdtools/reference/font_family_exists.html" class="external-link">font_family_exists</a></span><span class="op">(</span><span class="va">used_family</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span></span>
-<span class="r-in"><span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://ragg.r-lib.org" class="external-link">"ragg"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://ragg.r-lib.org" class="external-link">"ragg"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">png_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".png"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="co"># get the size</span></span></span>
 <span class="r-in"><span>  <span class="va">dims</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">dims</span></span></span>
-<span class="r-in"><span>  <span class="fu">ragg</span><span class="fu">::</span><span class="fu"><a href="https://ragg.r-lib.org/reference/agg_png.html" class="external-link">agg_png</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="va">png_f</span>, width <span class="op">=</span> <span class="va">dims</span><span class="op">$</span><span class="va">width</span> <span class="op">+</span> <span class="fl">.1</span>,</span></span>
-<span class="r-in"><span>    height <span class="op">=</span> <span class="va">dims</span><span class="op">$</span><span class="va">height</span> <span class="op">+</span> <span class="fl">.1</span>, units <span class="op">=</span> <span class="st">"in"</span>, res <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">ragg</span><span class="fu">::</span><span class="fu"><a href="https://ragg.r-lib.org/reference/agg_png.html" class="external-link">agg_png</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    filename <span class="op">=</span> <span class="va">png_f</span>, width <span class="op">=</span> <span class="va">dims</span><span class="op">$</span><span class="va">width</span> <span class="op">+</span> <span class="fl">.1</span>,</span></span>
+<span class="r-in"><span>    height <span class="op">=</span> <span class="va">dims</span><span class="op">$</span><span class="va">height</span> <span class="op">+</span> <span class="fl">.1</span>, units <span class="op">=</span> <span class="st">"in"</span>, res <span class="op">=</span> <span class="fl">150</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
