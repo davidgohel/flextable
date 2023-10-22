@@ -100,7 +100,7 @@ reference:
   - title: Add headers and footers
     desc: >
      Add header titles, comments in footers and new rows in body
-     with the following functions.
+     with the following functions, remove rows and columns.
     contents:
     - add_header_row
     - add_footer_row
@@ -112,9 +112,11 @@ reference:
     - set_header_labels
     - set_header_df
     - set_footer_df
-    - delete_part
     - add_body
     - add_body_row
+    - delete_part
+    - delete_rows
+    - delete_columns
   - title: Cell merging
     contents:
     - starts_with("merge_")

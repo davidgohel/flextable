@@ -29,7 +29,7 @@
 #' )
 #' ft
 #' @export
-#' @family functions to add rows in a flextable
+#' @family functions for row and column operations in a flextable
 set_header_labels <- function(x, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "set_header_labels()"))
@@ -65,6 +65,7 @@ set_header_labels <- function(x, ..., values = NULL) {
 #'
 #' @param x a `flextable` object
 #' @param part partname of the table to delete (one of 'body', 'header' or 'footer').
+#' @family functions for row and column operations in a flextable
 #' @examples
 #' ft <- flextable(head(iris))
 #' ft <- delete_part(x = ft, part = "header")
@@ -80,6 +81,127 @@ delete_part <- function(x, part = "header") {
     col_keys = x$col_keys,
     cwidth = x[[part]]$colwidths, cheight = x[[part]]$rowheights
   )
+  x
+}
+
+delete_rows_from_part <- function(x, i) {
+  # dataset rows
+  x$dataset <- x$dataset[-i, ]
+  # heights
+  x$rowheights <- x$rowheights[-i]
+  # hrules
+  x$hrule <- x$hrule[-i]
+  # spans
+  x$spans$rows <- x$spans$rows[-i, , drop = FALSE]
+  x$spans$columns <- x$spans$columns[-i, , drop = FALSE]
+  x <- span_free(x)
+
+  # styles
+  x$styles$cells <- delete_style_row(x$styles$cells, i)
+  x$styles$pars <- delete_style_row(x$styles$pars, i)
+  x$styles$text <- delete_style_row(x$styles$text, i)
+
+  # content
+  x$content <- delete_row_from_fpstruct(x$content, i)
+
+  x
+}
+
+#' @export
+#' @title Delete flextable rows
+#'
+#' @description The function removes one or more rows
+#' from a 'flextable'.
+#' @details
+#' Deleting one or more rows will result in the deletion
+#' of any span parameters that may have been set previously.
+#' They will have to be redone after this operation or
+#' performed only after this deletion.
+#' @param x a `flextable` object
+#' @param i rows selection
+#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @family functions for row and column operations in a flextable
+#' @examples
+#' ft <- flextable(head(iris))
+#' ft <- delete_rows(ft, i = 1:5, part = "body")
+#' ft
+delete_rows <- function(x, i = NULL, part = "body") {
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "delete_rows()"))
+  }
+
+  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+
+  if (part == "all") {
+    for (p in c("header", "body", "footer")) {
+      x <- delete_rows(x = x, i = i, part = p)
+    }
+    return(x)
+  }
+
+  if (nrow_part(x, part) < 1) {
+    return(x)
+  }
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i)
+  x[[part]] <- delete_rows_from_part(x[[part]], i = i)
+  x
+}
+
+
+delete_colums_from_part <- function(x, j) {
+  # heights
+  x$colwidths <- x$colwidths[!x$col_keys %in% j]
+  # spans
+  x$spans$rows <- x$spans$rows[, !x$col_keys %in% j, drop = FALSE]
+  x$spans$columns <- x$spans$columns[, !x$col_keys %in% j, drop = FALSE]
+  x <- span_free(x)
+
+  # styles
+  x$styles$cells <- delete_style_col(x$styles$cells, j)
+  x$styles$pars <- delete_style_col(x$styles$pars, j)
+  x$styles$text <- delete_style_col(x$styles$text, j)
+
+  # content
+  x$content <- delete_col_from_fpstruct(x$content, j)
+  x
+}
+
+#' @export
+#' @title Delete flextable columns
+#'
+#' @description The function removes one or more columns
+#' from a 'flextable'.
+#' @details
+#' Deleting one or more columns will result in the deletion
+#' of any span parameters that may have been set previously.
+#' They will have to be redone after this operation or
+#' performed only after this deletion.
+#' @param x a `flextable` object
+#' @param j columns selection
+#' @family functions for row and column operations in a flextable
+#' @examples
+#' ft <- flextable(head(iris))
+#' ft <- delete_columns(ft, j = "Species")
+#' ft
+delete_columns <- function(x, j = NULL) {
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "delete_columns()"))
+  }
+  cols <- NULL
+
+  parts <- c("header", "body", "footer")
+  for (part in parts) {
+    if (nrow_part(x, part) > 0) {
+      if (is.null(cols)) {
+        cols <- get_columns_id(x[[part]], j)
+        cols <- x$col_keys[cols]
+      }
+      x[[part]] <- delete_colums_from_part(x[[part]], j = cols)
+    }
+  }
+  x$col_keys <- setdiff(x$col_keys, cols)
   x
 }
 
@@ -179,7 +301,7 @@ add_rows_to_tabpart <- function(x, rows, first = FALSE) {
 #'
 #' ft <- theme_booktabs(ft)
 #' ft
-#' @family functions to add rows in a flextable
+#' @family functions for row and column operations in a flextable
 #' @seealso [flextable()]
 add_body <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
@@ -236,7 +358,7 @@ add_body <- function(x, top = TRUE, ..., values = NULL) {
 #' ft_1 <- theme_booktabs(ft_1, bold_header = TRUE)
 #' ft_1 <- align(ft_1, align = "center", part = "all")
 #' ft_1
-#' @family functions to add rows in a flextable
+#' @family functions for row and column operations in a flextable
 add_header <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "add_header()"))
@@ -280,7 +402,7 @@ add_header <- function(x, top = TRUE, ..., values = NULL) {
 #' )
 #' ft <- align(ft, part = "footer", align = "right", j = 1:4)
 #' ft
-#' @family functions to add rows in a flextable
+#' @family functions for row and column operations in a flextable
 add_footer <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "add_footer()"))
@@ -366,7 +488,7 @@ add_footer <- function(x, top = TRUE, ..., values = NULL) {
 #' )
 #' ft_2 <- theme_box(ft_2)
 #' ft_2
-#' @family functions to add rows in a flextable
+#' @family functions for row and column operations in a flextable
 #' @seealso [flextable()], [set_caption()]
 add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0)) {
   if (!inherits(x, "flextable")) {
@@ -478,7 +600,7 @@ add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0))
 #' )
 #' ft_2 <- theme_box(ft_2)
 #' ft_2
-#' @family functions to add rows in a flextable
+#' @family functions for row and column operations in a flextable
 #' @seealso [flextable()], [set_caption()]
 add_header_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)) {
   if (!inherits(x, "flextable")) {
@@ -550,7 +672,7 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
 #'
 #' Labels can be formatted with [as_paragraph()].
 #' @inheritParams add_body_row
-#' @family functions to add rows in a flextable
+#' @family functions for row and column operations in a flextable
 #' @seealso [flextable()], [set_caption()]
 #' @examples
 #' library(flextable)
@@ -728,7 +850,7 @@ add_header_lines <- function(x, values = character(0), top = TRUE) {
 #' This is a sugar function to be used when you need to
 #' add labels in the footer, a footnote for example.
 #' @inheritParams add_header_lines
-#' @family functions to add rows in a flextable
+#' @family functions for row and column operations in a flextable
 #' @examples
 #' ft_1 <- flextable(head(iris))
 #' ft_1 <- add_footer_lines(ft_1,
@@ -849,7 +971,7 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part) {
 #' ft_1 <- theme_vanilla(ft_1)
 #' ft_1 <- fix_border_issues(ft_1)
 #' ft_1
-#' @family functions to add rows in a flextable
+#' @family functions for row and column operations in a flextable
 set_header_df <- function(x, mapping = NULL, key = "col_keys") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "set_header_df()"))
@@ -913,7 +1035,7 @@ set_footer_df <- function(x, mapping = NULL, key = "col_keys") {
 #' to use for splitting.
 #' @param fixed logical. If TRUE match `split` exactly,
 #' otherwise use regular expressions.
-#' @family functions to add rows in a flextable
+#' @family functions for row and column operations in a flextable
 #' @examples
 #' library(flextable)
 #'

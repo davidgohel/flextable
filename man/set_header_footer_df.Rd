@@ -62,7 +62,7 @@ ft_2 <- fix_border_issues(ft_2)
 ft_2
 }
 \seealso{
-Other functions to add rows in a flextable: 
+Other functions for row and column operations in a flextable: 
 \code{\link{add_body_row}()},
 \code{\link{add_body}()},
 \code{\link{add_footer_lines}()},
@@ -70,7 +70,10 @@ Other functions to add rows in a flextable:
 \code{\link{add_footer}()},
 \code{\link{add_header_row}()},
 \code{\link{add_header}()},
+\code{\link{delete_columns}()},
+\code{\link{delete_part}()},
+\code{\link{delete_rows}()},
 \code{\link{separate_header}()},
 \code{\link{set_header_labels}()}
 }
-\concept{functions to add rows in a flextable}
+\concept{functions for row and column operations in a flextable}

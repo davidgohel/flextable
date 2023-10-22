@@ -18,9 +18,27 @@ fpstruct <- function(nrow, keys, default) {
   x
 }
 
+delete_row_from_fpstruct <- function(x, i) {
+  x$content$data <- x$content$data[-i, , drop = FALSE]
+  x$content$nrow <- x$content$nrow - 1L
+  x
+}
+delete_col_from_fpstruct <- function(x, j) {
+  if(!is.null(x$data)) {
+    x$data <- x$data[, !colnames(x$data) %in% j, drop = FALSE]
+    x$ncol <- x$ncol - 1L
+    x$keys <- setdiff(x$keys, j)
+  } else if(!is.null(x$content)) {
+    x$content$data <- x$content$data[, !colnames(x$content$data) %in% j, drop = FALSE]
+    x$content$ncol <- x$content$ncol - 1L
+    x$content$keys <- setdiff(x$content$keys, j)
+  }
+
+  x
+}
 
 `[.fpstruct` <- function(x, i, j) {
-  x$data[i, j]
+  x$data[i, j, drop = FALSE]
 }
 print.fpstruct <- function(x, ...) {
   print(x$data)
@@ -85,6 +103,19 @@ text_struct <- function(nrow, keys,
 }
 `[.text_struct` <- function(x, i, j, property, value) {
   x[[property]][i, j]
+}
+
+delete_style_row <- function(x, i) {
+  for (property in names(x)) {
+    x[[property]] <- delete_row_from_fpstruct(x[[property]], i)
+  }
+  x
+}
+delete_style_col <- function(x, j) {
+  for (property in names(x)) {
+    x[[property]] <- delete_col_from_fpstruct(x[[property]], j)
+  }
+  x
 }
 
 print.text_struct <- function(x, ...) {
@@ -256,6 +287,7 @@ add_rows.cell_struct <- function(x, nrows, first, ...) {
 `[.cell_struct` <- function(x, i, j, property) {
   x[[property]][i, j]
 }
+
 print.cell_struct <- function(x, ...) {
   dims <- dim(x$background.color$data)
   cat("a cell_struct with ", dims[1], " rows and ", dims[2], " columns", sep = "")
@@ -317,8 +349,6 @@ print.chunkset_struct <- function(x, ...) {
 `[.chunkset_struct` <- function(x, i, j) {
   x$content[i, j]
 }
-
-
 
 replace_missing_fptext_by_default <- function(x, default) {
   by_columns <- c(
