@@ -12,6 +12,8 @@
 
 - `save_as_image()` now supports svg export. Packages 'ragg'
 and 'svglite' are in the 'Suggests' list of the package.
+- new functions `delete_columns()` and `delete_rows()` 
+to let users delete rows or columns.
 
 # flextable 0.9.3
 
