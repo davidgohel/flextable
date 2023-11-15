@@ -1,3 +1,9 @@
+# flextable 0.9.5
+
+## Issues
+
+- `summarizor()` don't stop anymore if table only contain discrete columns.
+
 # flextable 0.9.4
 
 ## Issues

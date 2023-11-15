@@ -161,6 +161,8 @@ dataset_describe <- function(dataset) {
       colnames(z) <- c("stat", "cts")
       z$percent <- z$cts / sum(z$cts)
       z$data_type <- "discrete"
+      z$value1 <- rep(NA_real_, nrow(z))
+      z$value2 <- rep(NA_real_, nrow(z))
       z
     } else if (is.numeric(x)) {
       z <- data.frame(
