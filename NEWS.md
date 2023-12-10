@@ -3,6 +3,7 @@
 ## Issues
 
 - `summarizor()` don't stop anymore if table only contain discrete columns.
+- `as_flextable.data.frame()` supports 'data.table'
 
 # flextable 0.9.4
 
