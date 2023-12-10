@@ -1008,29 +1008,24 @@ set_footer_df <- function(x, mapping = NULL, key = "col_keys") {
 
 #' @importFrom data.table tstrsplit
 #' @export
-#' @title Separate collapsed colnames into multiple rows
-#' @description If your variable names contain
-#' multiple delimited labels, they will be separated
-#' and placed in their own rows.
+#' @title Split column names using a separator into multiple rows
+#' @description This function is used to separate and place individual
+#' labels in their own rows if your variable names contain multiple
+#' delimited labels.
 #' \if{html}{\out{
 #' <img src="https://www.ardata.fr/img/flextable-imgs/flextable-016.png" alt="add_header illustration" style="width:100\%;">
 #' }}
 #' @param x a flextable object
-#' @param opts optional treatments to apply
-#' to the resulting header part as a character
-#' vector with multiple supported values.
+#' @param opts Optional treatments to apply to the resulting header part.
+#' This should be a character vector with support for multiple values.
 #'
-#' The supported values are:
+#' Supported values include:
 #'
-#' * "span-top": span empty cells with the
-#' first non empty cell, this operation is made
-#' column by column.
-#' * "center-hspan": center the cells that are
-#' horizontally spanned.
-#' * "bottom-vspan": bottom align the cells treated
-#' when "span-top" is applied.
-#' * "default-theme": apply to the new header part
-#' the theme set in `set_flextable_defaults(theme_fun = ...)`.
+#' - "span-top": This operation spans empty cells with the first non-empty
+#' cell, applied column by column.
+#' - "center-hspan": Center the cells that are horizontally spanned.
+#' - "bottom-vspan": Aligns to the bottom the cells treated at the  when "span-top" is applied.
+#' - "default-theme": Applies the theme set in `set_flextable_defaults(theme_fun = ...)` to the new header part.
 #' @param split a regular expression (unless `fixed = TRUE`)
 #' to use for splitting.
 #' @param fixed logical. If TRUE match `split` exactly,
@@ -1105,11 +1100,12 @@ separate_header <- function(x,
     for (j in seq_len(nrow(ref_list))) {
       if (ref_list[j, 1]) {
         to <- rle(ref_list[j, ])$lengths[1] + 1
-
-        x <- merge_at(
-          x = x, i = seq(1, to), j = j,
-          part = "header"
-        )
+        if (all(x$header$spans$rows[seq(1, to), j] %in% 1)) {#can be v-merged
+          x <- merge_at(
+            x = x, i = seq(1, to), j = j,
+            part = "header"
+          )
+        }
 
         if ("bottom-vspan" %in% opts) {
           x <- valign(

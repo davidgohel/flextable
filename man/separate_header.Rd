@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment_rows.R
 \name{separate_header}
 \alias{separate_header}
-\title{Separate collapsed colnames into multiple rows}
+\title{Split column names using a separator into multiple rows}
 \usage{
 separate_header(
   x,
@@ -14,21 +14,16 @@ separate_header(
 \arguments{
 \item{x}{a flextable object}
 
-\item{opts}{optional treatments to apply
-to the resulting header part as a character
-vector with multiple supported values.
+\item{opts}{Optional treatments to apply to the resulting header part.
+This should be a character vector with support for multiple values.
 
-The supported values are:
+Supported values include:
 \itemize{
-\item "span-top": span empty cells with the
-first non empty cell, this operation is made
-column by column.
-\item "center-hspan": center the cells that are
-horizontally spanned.
-\item "bottom-vspan": bottom align the cells treated
-when "span-top" is applied.
-\item "default-theme": apply to the new header part
-the theme set in \code{set_flextable_defaults(theme_fun = ...)}.
+\item "span-top": This operation spans empty cells with the first non-empty
+cell, applied column by column.
+\item "center-hspan": Center the cells that are horizontally spanned.
+\item "bottom-vspan": Aligns to the bottom the cells treated at the  when "span-top" is applied.
+\item "default-theme": Applies the theme set in \code{set_flextable_defaults(theme_fun = ...)} to the new header part.
 }}
 
 \item{split}{a regular expression (unless \code{fixed = TRUE})
@@ -38,9 +33,9 @@ to use for splitting.}
 otherwise use regular expressions.}
 }
 \description{
-If your variable names contain
-multiple delimited labels, they will be separated
-and placed in their own rows.
+This function is used to separate and place individual
+labels in their own rows if your variable names contain multiple
+delimited labels.
 \if{html}{\out{
 <img src="https://www.ardata.fr/img/flextable-imgs/flextable-016.png" alt="add_header illustration" style="width:100\%;">
 }}
