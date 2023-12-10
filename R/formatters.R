@@ -56,7 +56,8 @@ set_formatter <- function(x, ..., values = NULL, part = "body") {
 #' formatter functions regarding to column types.
 #'
 #' This function will be deprecated in favor of the `colformat_*` functions,
-#' for example [colformat_double()].
+#' for example [colformat_double()]. Note that we want to deprecate the
+#' `set_formatter_type()` function, not the `set_formatter()` function.
 #' @param fmt_double,fmt_integer arguments used by `sprintf` to
 #' format double and integer columns.
 #' @param fmt_date,fmt_datetime arguments used by `format` to
@@ -69,6 +70,8 @@ set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
                                true = "true", false = "false",
                                na_str = "") {
   stopifnot(inherits(x, "flextable"))
+
+  .Deprecated(msg = "Use `colformat_*()` instead.")
 
   col_keys <- x[["body"]]$col_keys
   for (varname in col_keys) {

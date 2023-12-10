@@ -55,7 +55,8 @@ return the formatted values as a character vector.
 formatter functions regarding to column types.
 
 This function will be deprecated in favor of the \verb{colformat_*} functions,
-for example \code{\link[=colformat_double]{colformat_double()}}.
+for example \code{\link[=colformat_double]{colformat_double()}}. Note that we want to deprecate the
+\code{set_formatter_type()} function, not the \code{set_formatter()} function.
 }
 
 \examples{

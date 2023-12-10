@@ -5,6 +5,10 @@
 - `summarizor()` don't stop anymore if table only contain discrete columns.
 - `as_flextable.data.frame()` supports 'data.table'
 
+## Changes
+
+- Deprecate `set_formatter_type()`.
+
 # flextable 0.9.4
 
 ## Issues
