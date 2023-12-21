@@ -5,29 +5,9 @@
 \alias{fmt_summarizor}
 \title{Format content for data generated with summarizor()}
 \usage{
-fmt_2stats(
-  stat,
-  num1,
-  num2,
-  cts,
-  pcts,
-  num1_mask = "\%.01f",
-  num2_mask = "(\%.01f)",
-  cts_mask = "\%.0f",
-  pcts_mask = "(\%.02f\%\%)"
-)
+fmt_2stats(stat, num1, num2, cts, pcts, ...)
 
-fmt_summarizor(
-  stat,
-  num1,
-  num2,
-  cts,
-  pcts,
-  num1_mask = "\%.01f",
-  num2_mask = "(\%.01f)",
-  cts_mask = "\%.0f",
-  pcts_mask = "(\%.02f\%\%)"
-)
+fmt_summarizor(stat, num1, num2, cts, pcts, ...)
 }
 \arguments{
 \item{stat}{a character column containing the name of statictics}
@@ -41,17 +21,7 @@ deviation or a median absolute deviation.}
 
 \item{pcts}{a percentage to display}
 
-\item{num1_mask}{format associated with \code{num1}, a format string
-used by \code{\link[=sprintf]{sprintf()}}.}
-
-\item{num2_mask}{format associated with \code{num2}, a format string
-used by \code{\link[=sprintf]{sprintf()}}.}
-
-\item{cts_mask}{format associated with \code{cts}, a format string
-used by \code{\link[=sprintf]{sprintf()}}.}
-
-\item{pcts_mask}{format associated with \code{pcts}, a format string
-used by \code{\link[=sprintf]{sprintf()}}.}
+\item{...}{unused arguments}
 }
 \description{
 This function was written to allow easy demonstrations

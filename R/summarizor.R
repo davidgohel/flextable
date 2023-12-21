@@ -197,14 +197,7 @@ dataset_describe <- function(dataset) {
 #' deviation or a median absolute deviation.
 #' @param cts a count to display
 #' @param pcts a percentage to display
-#' @param num1_mask format associated with `num1`, a format string
-#' used by [sprintf()].
-#' @param num2_mask format associated with `num2`, a format string
-#' used by [sprintf()].
-#' @param cts_mask format associated with `cts`, a format string
-#' used by [sprintf()].
-#' @param pcts_mask format associated with `pcts`, a format string
-#' used by [sprintf()].
+#' @param ... unused arguments
 #' @seealso [summarizor()], [tabulator()], [mk_par()]
 #' @family text formatter functions
 #' @examples
@@ -238,9 +231,7 @@ dataset_describe <- function(dataset) {
 #' )
 #' ft_1 <- autofit(ft_1)
 #' ft_1
-fmt_2stats <- function(stat, num1, num2, cts, pcts,
-                       num1_mask = "%.01f", num2_mask = "(%.01f)",
-                       cts_mask = "%.0f", pcts_mask = "(%.02f%%)") {
+fmt_2stats <- function(stat, num1, num2, cts, pcts, ...) {
   z_num <- character(length = length(num1))
   z_cts <- character(length = length(num1))
 
@@ -251,30 +242,31 @@ fmt_2stats <- function(stat, num1, num2, cts, pcts,
   is_cts_2 <- !is.na(cts) & !is.na(pcts)
   is_cts_1 <- !is.na(cts) & is.na(pcts)
 
-  z_num[is_num_1] <- sprintf(num1_mask, num1[is_num_1])
+  z_num[is_num_1] <- fmt_dbl(num1[is_num_1])
 
   z_num[is_mean_sd] <- paste0(
-    sprintf(num1_mask, num1[is_mean_sd]),
-    " ",
-    sprintf(num2_mask, num2[is_mean_sd])
+    fmt_dbl(num1[is_mean_sd]),
+    " (",
+    fmt_dbl(num2[is_mean_sd]), ")"
   )
   z_num[is_median_iqr] <- paste0(
-    sprintf(num1_mask, num1[is_median_iqr]),
-    " ",
-    sprintf(num2_mask, num2[is_median_iqr])
+    fmt_dbl(num1[is_median_iqr]),
+    " (",
+    fmt_dbl(num2[is_median_iqr]),
+    ")"
   )
   z_num[is_range] <- paste0(
-    sprintf(num1_mask, num1[is_range]),
+    fmt_dbl(num1[is_range]),
     " - ",
-    sprintf(num1_mask, num2[is_range])
+    fmt_dbl(num2[is_range])
   )
 
   z_cts[is_cts_2] <- paste0(
-    sprintf(cts_mask, cts[is_cts_2]),
-    " ",
-    sprintf(pcts_mask, pcts[is_cts_2] * 100)
+    fmt_int(cts[is_cts_2]),
+    " (",
+    fmt_pct(pcts[is_cts_2]), ")"
   )
-  z_cts[is_cts_1] <- sprintf(cts_mask, cts[is_cts_1])
+  z_cts[is_cts_1] <- fmt_int(cts[is_cts_1])
 
   paste0(z_num, z_cts)
 }
