@@ -4,6 +4,7 @@
 
 - `summarizor()` don't stop anymore if table only contain discrete columns.
 - `as_flextable.data.frame()` supports 'data.table'
+- `footnote()` handle undefined `ref_symbols` argument
 
 ## Changes
 

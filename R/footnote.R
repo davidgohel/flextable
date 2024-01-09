@@ -101,7 +101,7 @@ footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "b
     symbols_str <- ref_symbols
   }
 
-  if (any(ref_symbols %in% "")) {
+  if (any(symbols_str %in% "")) {
     long_msg <- c(
       "Usage of empty symbol '' with footnote should not happen, ",
       "use `add_footer_lines()` instead, it does not require any symbol. ",
@@ -144,7 +144,7 @@ footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "b
     }
 
     paras <- mapply(rbind,
-      as_paragraph(as_sup(ref_symbols)),
+      as_paragraph(as_sup()),
       value,
       as_paragraph(sep_str),
       SIMPLIFY = FALSE
@@ -158,14 +158,14 @@ footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "b
     }
   } else {
     # init new lines
-    x <- add_footer_lines(x, values = ref_symbols)
+    x <- add_footer_lines(x, values = symbols_str)
     for (v in seq_along(value)) {
       # `[<-.chunkset_struct`
       x[["footer"]]$content[n_row + v, j = 1] <- value[v]
       x <- prepend_chunks(
         x = x, i = n_row + v, j = 1,
         part = "footer",
-        as_sup(ref_symbols[v]) # [ as we want a list of df
+        as_sup(symbols_str[v]) # [ as we want a list of df
       )
     }
   }
