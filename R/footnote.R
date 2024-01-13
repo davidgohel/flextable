@@ -144,7 +144,7 @@ footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "b
     }
 
     paras <- mapply(rbind,
-      as_paragraph(as_sup()),
+      as_paragraph(as_sup(ref_symbols)),
       value,
       as_paragraph(sep_str),
       SIMPLIFY = FALSE
