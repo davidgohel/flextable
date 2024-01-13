@@ -52,7 +52,9 @@ init_flextable_defaults()
 }
 \arguments{
 \item{font.family}{single character value. When format is Word, it specifies the font to
-be used to format characters in the Unicode range (U+0000-U+007F).}
+be used to format characters in the Unicode range (U+0000-U+007F). If you
+want to use non ascii characters in Word, you should also set \code{hansi.family}
+to the same family name.}
 
 \item{font.size}{font size (in point) - 0 or positive integer value.}
 

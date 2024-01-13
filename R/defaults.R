@@ -49,7 +49,9 @@ flextable_global$defaults <- default_flextable_settings
 #' Use `set_flextable_defaults()` to override them. Use `init_flextable_defaults()`
 #' to re-init all values with the package defaults.
 #' @param font.family single character value. When format is Word, it specifies the font to
-#' be used to format characters in the Unicode range (U+0000-U+007F).
+#' be used to format characters in the Unicode range (U+0000-U+007F). If you
+#' want to use non ascii characters in Word, you should also set `hansi.family`
+#' to the same family name.
 #' @param cs.family optional and only for Word. Font to be used to format
 #' characters in a complex script Unicode range. For example, Arabic
 #' text might be displayed using the "Arial Unicode MS" font.
