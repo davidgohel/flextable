@@ -51,7 +51,7 @@ if (require("ggplot2")) {
       scale_fill_gradient2(
         low = "blue",
         mid = "white", high = "red", limits = c(-1, 1),
-        guide = FALSE
+        guide = "none"
       ) +
       theme_void()
   }
