@@ -1,7 +1,3 @@
-add_rows <- function(x, ...) {
-  UseMethod("add_rows")
-}
-
 # fpstruct ------
 
 fpstruct <- function(nrow, keys, default) {
@@ -45,7 +41,7 @@ get_fpstruct_elements <- function(x, i, j) {
 
 
 #' @importFrom utils head tail
-add_rows.fpstruct <- function(x, nrows, first, default = x$default, ...) {
+add_rows_fpstruct <- function(x, nrows, first, default = x$default, ...) {
   if (nrow(x$data) < 1) {
     new <- matrix(rep(default, x$ncol * nrows), ncol = x$ncol)
   } else if (first) {
@@ -122,9 +118,9 @@ print.text_struct <- function(x, ...) {
   cat("a text_struct with ", dims[1], " rows and ", dims[2], " columns", sep = "")
 }
 
-add_rows.text_struct <- function(x, nrows, first, ...) {
+add_rows_to_struct <- function(x, nrows, first, ...) {
   for (i in seq_len(length(x))) {
-    x[[i]] <- add_rows(x[[i]], nrows, first = first)
+    x[[i]] <- add_rows_fpstruct(x[[i]], nrows, first = first)
   }
   x
 }
@@ -183,15 +179,6 @@ print.par_struct <- function(x, ...) {
   dims <- dim(x$text.align$data)
   cat("a par_struct with ", dims[1], " rows and ", dims[2], " columns", sep = "")
 }
-
-
-add_rows.par_struct <- function(x, nrows, first, ...) {
-  for (i in seq_len(length(x))) {
-    x[[i]] <- add_rows(x[[i]], nrows, first = first)
-  }
-  x
-}
-
 
 `[<-.par_struct` <- function(x, i, j, property, value) {
   if (inherits(value, "fp_par")) {
@@ -264,13 +251,6 @@ cell_struct <- function(nrow, keys,
   x
 }
 
-add_rows.cell_struct <- function(x, nrows, first, ...) {
-  for (i in seq_len(length(x))) {
-    x[[i]] <- add_rows(x[[i]], nrows, first = first)
-  }
-  x
-}
-
 `[<-.cell_struct` <- function(x, i, j, property, value) {
   if (inherits(value, "fp_cell")) {
     value <- cast_borders(value)
@@ -338,7 +318,7 @@ add_rows_to_chunkset_struct <- function(x, nrows, first, data, ...) {
   names_ <- names(data)
   stopifnot(!is.null(names_))
 
-  x <- add_rows.fpstruct(x, nrows, first = first, default = as_paragraph(as_chunk("")))
+  x <- add_rows_fpstruct(x, nrows, first = first, default = as_paragraph(as_chunk("")))
   if (first) {
     id <- seq_len(nrows)
   } else {

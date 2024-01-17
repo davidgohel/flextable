@@ -271,9 +271,9 @@ add_rows_to_tabpart <- function(x, rows, first = FALSE) {
   ncol <- length(x$col_keys)
   nrow <- nrow(rows)
 
-  x$styles$cells <- add_rows(x$styles$cells, nrows = nrow, first = first)
-  x$styles$pars <- add_rows(x$styles$pars, nrows = nrow, first = first)
-  x$styles$text <- add_rows(x$styles$text, nrows = nrow, first = first)
+  x$styles$cells <- add_rows_to_struct(x$styles$cells, nrows = nrow, first = first)
+  x$styles$pars <- add_rows_to_struct(x$styles$pars, nrows = nrow, first = first)
+  x$styles$text <- add_rows_to_struct(x$styles$text, nrows = nrow, first = first)
   x$content <- add_rows_to_chunkset_struct(x$content, nrows = nrow, first = first, rows)
 
   span_new <- matrix(1, ncol = ncol, nrow = nrow)
