@@ -39,6 +39,16 @@ ft <- set_header_labels(ft,
   )
 )
 ft
+
+ft <- flextable(head(iris))
+ft <- set_header_labels(
+  x = ft,
+  values = c(
+    "Sepal length",
+    "Sepal width", "Petal length",
+    "Petal width", "Species")
+)
+ft
 }
 \seealso{
 Other functions for row and column operations in a flextable: 

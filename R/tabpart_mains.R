@@ -25,16 +25,7 @@ complex_tabpart <- function(data, col_keys = names(data),
   pr_par_init <- as_struct(nrow(data), col_keys, default_pr_par, par_struct)
   pr_text_init <- as_struct(nrow(data), col_keys, default_pr_text, text_struct)
 
-  content <- chunkset_struct(nrow = nrow(data), keys = col_keys)
-  if (nrow(data) > 0) {
-    newcontent <- lapply(
-      data[col_keys],
-      function(x) {
-        as_paragraph(as_chunk(x, formatter = format_fun.default))
-      }
-    )
-    content$content[, col_keys] <- Reduce(append, newcontent)
-  }
+  content <- new_chunkset_struct(col_keys = col_keys, data = data)
 
   span_init <- matrix(1L, nrow = nrow(data), ncol = length(col_keys))
   spans <- list(rows = span_init, columns = span_init)

@@ -240,10 +240,10 @@ distinct_cells_properties <- function(x) {
 # -----
 fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TRUE) {
   if (isTRUE(expand_special_chars)) {
-    x$content$data[] <- lapply(x$content$data, expand_special_char,
+    x$data[] <- lapply(x$data, expand_special_char,
       what = "\n", with = "<br>"
     )
-    x$content$data[] <- lapply(x$content$data, expand_special_char,
+    x$data[] <- lapply(x$data, expand_special_char,
       what = "\t", with = "<tab>"
     )
   }
@@ -252,19 +252,19 @@ fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TR
     function(rows, data) {
       rep(rows, nrow(data))
     },
-    rows = rep(seq_len(nrow(x$content$data)), ncol(x$content$data)),
-    x$content$data, SIMPLIFY = FALSE, USE.NAMES = FALSE
+    rows = rep(seq_len(nrow(x$data)), ncol(x$data)),
+    x$data, SIMPLIFY = FALSE, USE.NAMES = FALSE
   ))
 
   col_id <- unlist(mapply(
     function(columns, data) {
       rep(columns, nrow(data))
     },
-    columns = rep(x$content$keys, each = nrow(x$content$data)),
-    x$content$data, SIMPLIFY = FALSE, USE.NAMES = FALSE
+    columns = rep(x$keys, each = nrow(x$data)),
+    x$data, SIMPLIFY = FALSE, USE.NAMES = FALSE
   ))
 
-  out <- rbindlist(apply(x$content$data, 2, rbindlist), use.names = TRUE, fill = TRUE)
+  out <- rbindlist(apply(x$data, 2, rbindlist), use.names = TRUE, fill = TRUE)
   out$ft_row_id <- row_id
   out$col_id <- col_id
   setDF(out)

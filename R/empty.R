@@ -26,6 +26,18 @@ void <- function(x, j = NULL, part = "body") {
   }
 
   j <- get_columns_id(x[[part]], j)
-  x[[part]]$content[, x$col_keys[j]] <- as_paragraph(as_chunk(x = "", fp_text_default()))
+  j <- x$col_keys[j]
+  newcontent <- as_chunkset_struct(
+    l_paragraph = rep(
+      as_paragraph(as_chunk(x = "", fp_text_default())),
+      nrow_part(x, part)
+    ),
+    keys = j,
+    i = seq_len(nrow_part(x, part)))
+  x[[part]]$content <- set_chunkset_struct_element(
+    x = x[[part]]$content,
+    j = j,
+    value = newcontent)
+
   x
 }

@@ -82,6 +82,9 @@ footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "b
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "footnote()"))
   }
+  if (!inherits(value, "paragraph")) {
+    stop("`value` must be a paragraph.")
+  }
 
   part <- match.arg(part, c("body", "header", "footer"),
     several.ok = FALSE
@@ -132,15 +135,19 @@ footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "b
     )
   }
 
-  n_row <- nrow_part(x, "footer")
+
 
   if (inline) {
     # init a new line
-    if (n_row < 1) {
+    if (nrow_part(x, "footer") < 1) {
       x <- add_footer_lines(x, values = "")
-      n_chunk <- 0
+      n_row <- 1
     } else {
-      n_chunk <- nrow(x[["footer"]]$content[n_row, 1][[1]])
+      n_row <- nrow_part(x, "footer")
+      target_par <- get_fpstruct_elements(
+        x = x[["footer"]]$content,
+        i = n_row,
+        j = 1)[[1,1]]
     }
 
     paras <- mapply(rbind,
@@ -149,23 +156,33 @@ footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "b
       as_paragraph(sep_str),
       SIMPLIFY = FALSE
     )
-    paras <- do.call(rbind, paras)
-    paras$seq_index <- seq_len(nrow(paras)) + n_chunk
-    if (n_row < 1) {
-      x[["footer"]]$content[1, 1] <- list(paras)
-    } else {
-      x[["footer"]]$content[n_row, 1] <- list(rbind(x[["footer"]]$content[n_row, 1][[1]], paras))
+    paras <- rbind_match_columns(paras)
+    paras$seq_index <- NULL
+    for(i in seq_len(nrow(paras))) {
+      x[["footer"]]$content <-
+        append_chunkset_struct_element(
+          x = x[["footer"]]$content,
+          i = n_row,
+          j = 1,
+          chunk_data = paras[i,]
+        )
     }
   } else {
     # init new lines
-    x <- add_footer_lines(x, values = symbols_str)
+    n_row <- nrow_part(x, "footer")
+    x <- add_footer_lines(x, values = rep("", length(value)))
+    newcontent <- as_chunkset_struct(
+      l_paragraph = value, keys = x$col_keys[1])
+    x[["footer"]]$content <- set_chunkset_struct_element(
+      x = x[["footer"]]$content,
+      i = n_row + seq_along(value), j = 1,
+      value = newcontent
+    )
     for (v in seq_along(value)) {
-      # `[<-.chunkset_struct`
-      x[["footer"]]$content[n_row + v, j = 1] <- value[v]
       x <- prepend_chunks(
         x = x, i = n_row + v, j = 1,
         part = "footer",
-        as_sup(symbols_str[v]) # [ as we want a list of df
+        as_sup(symbols_str[v])
       )
     }
   }

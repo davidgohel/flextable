@@ -41,6 +41,7 @@ append_chunks <- function(x, ..., i = NULL, j = NULL, part = "body") {
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
+  j <- x$col_keys[j]
 
   col_exprs <- enquos(...)
 
@@ -48,21 +49,9 @@ append_chunks <- function(x, ..., i = NULL, j = NULL, part = "body") {
 
   for (col_expr in col_exprs) {
     value <- eval_tidy(col_expr, data = tmp_data)
-
-    if (is.data.frame(value) && nrow(value) == 1L && nrow(value) < nrow(tmp_data)) {
-      value <- rep(list(value), nrow(tmp_data))
-      value <- rbind_match_columns(value)
-    }
-
-    if (is.data.frame(value)) {
-      value <- split(value, i)
-    }
-
-    new <- mapply(function(x, y) {
-      y$seq_index <- max(x$seq_index, na.rm = TRUE) + 1
-      rbind_match_columns(list(x, y))
-    }, x = x[[part]]$content[i, j], y = value, SIMPLIFY = FALSE)
-    x[[part]]$content[i, j] <- new
+    x[[part]]$content <- append_chunkset_struct_element(
+      x = x[[part]]$content,
+      i = i, j = j, chunk_data = value)
   }
 
   x
@@ -106,28 +95,14 @@ prepend_chunks <- function(x, ..., i = NULL, j = NULL, part = "body") {
   col_exprs <- enquos(...)
 
   tmp_data <- x[[part]]$dataset[i, , drop = FALSE]
-
-  for (expr_index in rev(seq_along(col_exprs))) {
-    col_expr <- col_exprs[[expr_index]]
+  col_exprs <- rev(col_exprs)
+  for (col_expr in col_exprs) {
     value <- eval_tidy(col_expr, data = tmp_data)
-
-    if (is.data.frame(value) && nrow(value) == 1L && nrow(value) < nrow(tmp_data)) {
-      value <- rep(list(value), nrow(tmp_data))
-      value <- rbind_match_columns(value)
-    }
-
-    if (is.data.frame(value)) {
-      value <- split(value, i)
-    }
-
-    new <- mapply(function(x, y, seq_index) {
-      y$seq_index <- seq_index
-      z <- rbind_match_columns(list(y, x))
-      z <- z[order(z$seq_index), ]
-      z$seq_index <- rleid(z$seq_index)
-      z
-    }, x = x[[part]]$content[i, j], y = value, SIMPLIFY = FALSE, MoreArgs = list(seq_index = -expr_index))
-    x[[part]]$content[i, j] <- new
+    x[[part]]$content <- append_chunkset_struct_element(
+      x = x[[part]]$content,
+      i = i, j = j,
+      chunk_data = value,
+      last = FALSE)
   }
   x
 }

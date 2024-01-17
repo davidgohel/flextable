@@ -11,6 +11,8 @@
 - Deprecate `set_formatter_type()`.
 - renovate `fmt_2stats()` so that it uses global flextable settings, 
 i.e. digits, etc.
+- refactoring of data structure for content
+
 
 # flextable 0.9.4
 

@@ -54,8 +54,10 @@ span_columns <- function(x, columns = NULL, target = columns, combine = FALSE) {
     for (k in seq_along(columns)) {
       column <- columns[k]
       if (column %in% x$col_keys) {
-        values <- sapply(x$content[, columns[k]], function(x) {
-          paste(x$txt, collapse = "")
+        values <- sapply(
+          get_chunkset_struct_element(x$content, j = columns[k]),
+          function(x) {
+            paste(x$txt, collapse = "")
         })
       } else {
         values <- format(x$dataset[[column]], trim = TRUE, justify = "left")
@@ -69,9 +71,11 @@ span_columns <- function(x, columns = NULL, target = columns, combine = FALSE) {
     for (k in seq_along(columns)) {
       column <- columns[k]
       if (column %in% x$col_keys) {
-        values <- sapply(x$content[, columns[k]], function(x) {
-          paste(x$txt, collapse = "")
-        })
+        values <- sapply(
+          get_chunkset_struct_element(x$content, j = columns[k]),
+          function(x) {
+            paste(x$txt, collapse = "")
+          })
       } else {
         values <- format(x$dataset[[column]], trim = TRUE, justify = "left")
       }
@@ -117,9 +121,11 @@ span_rows <- function(x, rows = NULL) {
   row_id <- get_rows_id(x, i = rows)
 
   for (rowi in row_id) {
-    values <- sapply(x$content[rowi, ], function(x) {
-      paste(x$txt, collapse = "")
-    })
+    values <- sapply(
+      get_chunkset_struct_element(x$content, i = rowi),
+      function(x) {
+        paste(x$txt, collapse = "")
+      })
     x$spans$rows[rowi, ] <- merge_rle(values)
   }
 

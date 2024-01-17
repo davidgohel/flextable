@@ -87,12 +87,30 @@ compose <- function(x, i = NULL, j = NULL, value, part = "body", use_dot = FALSE
   j <- get_columns_id(x[[part]], j)
   tmp_data <- x[[part]]$dataset[i, , drop = FALSE]
   if (use_dot) {
-    for (jcol in j) {
+    for (jcol in x$col_keys[j]) {
       tmp_data$. <- tmp_data[, jcol]
-      x[[part]]$content[i, jcol] <- eval_tidy(defused_value, data = tmp_data)
+      newcontent <- eval_tidy(defused_value, data = tmp_data)
+      newcontent <- as_chunkset_struct(
+        l_paragraph = newcontent,
+        keys = jcol, i = i)
+      x[[part]]$content <- set_chunkset_struct_element(
+        x = x[[part]]$content,
+        i = i,
+        j = jcol,
+        value = newcontent
+      )
     }
   } else {
-    x[[part]]$content[i, j] <- eval_tidy(defused_value, data = tmp_data)
+    newcontent <- eval_tidy(defused_value, data = tmp_data)
+    newcontent <- as_chunkset_struct(
+      l_paragraph = newcontent, keys = x$col_keys[j],
+      i = i)
+    x[[part]]$content <- set_chunkset_struct_element(
+      x = x[[part]]$content,
+      i = i,
+      j = j,
+      value = newcontent
+    )
   }
 
   x
@@ -154,6 +172,11 @@ labelizor <- function(x, j = NULL, labels, part = "all") {
     }
     return(x)
   }
+
+  if (nrow_part(x, part = part) < 1) {
+    return(x)
+  }
+
   if (!is.function(labels) && (is.null(names(labels)) || !is.character(labels))) {
     stop("`labels` must be a named character vector or a function.")
   }
@@ -163,27 +186,37 @@ labelizor <- function(x, j = NULL, labels, part = "all") {
 
   j <- as_col_keys(x[[part]], j)
 
+  curr_content_columns <- get_fpstruct_elements(
+    x = x[[part]]$content,
+    j = j
+  )
+
   if (!is.function(labels)) {
     levs <- names(labels)
     labs <- as.character(labels)
-    for (current_col in j) {
-      curr_content_column <- x[[part]]$content$content$data[, current_col]
-      curr_content_column <- lapply(curr_content_column, function(x) {
+    newcontent <- apply(curr_content_columns, 2, function(x) {
+      lapply(x, function(x) {
         x$txt[x$txt %in% levs] <- labs[match(x$txt, levs, nomatch = 0)]
         x
       })
-      x[[part]]$content$content$data[, current_col] <- curr_content_column
-    }
+    }, simplify = FALSE)
   } else {
-    for (current_col in j) {
-      curr_content_column <- x[[part]]$content$content$data[, current_col]
-      curr_content_column <- lapply(curr_content_column, function(z) {
-        z$txt <- labels(z$txt)
-        z
+    newcontent <- apply(curr_content_columns, 2, function(x) {
+      lapply(x, function(x) {
+        x$txt <- labels(x$txt)
+        x
       })
-      x[[part]]$content$content$data[, current_col] <- curr_content_column
-    }
+    }, simplify = FALSE)
   }
+  newcontent <- as_chunkset_struct(
+    l_paragraph = do.call(c, newcontent),
+    keys = j)
+
+  x[[part]]$content <- set_chunkset_struct_element(
+    x = x[[part]]$content,
+    j = j,
+    value = newcontent
+  )
 
   x
 }

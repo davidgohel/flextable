@@ -187,19 +187,24 @@ as_flextable.tabular <- function(x,
   # formatting
   strmat <- format(x)
   colnames(strmat) <- data_columns
-  for (j in data_columns) {
-    rindex <- body_data$.type %in% c("one_row", "list_data")
-    current_col_str <- ft[["body"]]$content$content$data[rindex, j]
 
-    ft[["body"]]$content$content$data[rindex, j] <- mapply(
-      function(obj, txt) {
-        obj$txt <- txt
-        obj
-      },
-      obj = current_col_str, txt = trimws(strmat[, j]),
-      SIMPLIFY = FALSE
-    )
+  rindex <- body_data$.type %in% c("one_row", "list_data")
+
+  newcontent <- get_chunkset_struct_element(
+    x = ft[["body"]]$content,
+    i = rindex, j = data_columns)
+  newtext <- trimws(strmat[, data_columns, drop = FALSE])
+  for(j in data_columns) {
+    for(irow in seq_len(nrow(newtext))) {
+      newcontent[[irow, j]]$txt <- newtext[[irow, j]]
+    }
   }
+  ft[["body"]]$content <- set_chunkset_struct_element(
+    x = ft[["body"]]$content,
+    i = rindex, j = data_columns,
+    value = newcontent)
+
+
   if (any(body_data$.type %in% "list_title")) {
     ft <- merge_h_range(ft,
       i = ~ .type %in% c("list_title"),

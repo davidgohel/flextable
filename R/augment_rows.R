@@ -28,6 +28,16 @@
 #'   )
 #' )
 #' ft
+#'
+#' ft <- flextable(head(iris))
+#' ft <- set_header_labels(
+#'   x = ft,
+#'   values = c(
+#'     "Sepal length",
+#'     "Sepal width", "Petal length",
+#'     "Petal width", "Species")
+#' )
+#' ft
 #' @export
 #' @family functions for row and column operations in a flextable
 set_header_labels <- function(x, ..., values = NULL) {
@@ -41,16 +51,46 @@ set_header_labels <- function(x, ..., values = NULL) {
       stop("there is no header row to be replaced")
     }
   }
+
   names_ <- names(values)
   if (is.null(names_)) {
     if (length(values) != ncol_keys(x)) {
       stop("if unamed, the labels must have the same length than col_keys.")
     }
-    x$header$content[nrow_part(x, "header"), ] <- as_paragraph(as_chunk(values))
+
+    newcontent <- as_paragraph(as_chunk(values))
+    newcontent <- as_chunkset_struct(
+      l_paragraph = newcontent,
+      keys = x$col_keys)
+    x$header$content <- set_chunkset_struct_element(
+      x = x$header$content,
+      i = nrow_part(x, "header"),
+      j = x$col_keys,
+      value = newcontent
+    )
   } else {
     names_ <- names_[names_ %in% x$col_keys]
     values <- values[names_]
-    x$header$content[nrow_part(x, "header"), names_] <- as_paragraph(as_chunk(unlist(values)))
+    if (length(values) < 1) {
+      return(x)
+    }
+    newcontent <- lapply(
+      values,
+      function(x) {
+        as_paragraph(as_chunk(x, formatter = format_fun.default))
+      }
+    )
+
+    newcontent <- as_chunkset_struct(
+      l_paragraph = do.call(c, newcontent),
+      keys = names_)
+
+    x$header$content <- set_chunkset_struct_element(
+      x = x$header$content,
+      i = nrow_part(x, "header"),
+      j = names_,
+      value = newcontent
+    )
   }
 
   x
@@ -165,6 +205,7 @@ delete_colums_from_part <- function(x, j) {
 
   # content
   x$content <- delete_col_from_fpstruct(x$content, j)
+  x$col_keys <- x$content$keys
   x
 }
 
@@ -233,7 +274,7 @@ add_rows_to_tabpart <- function(x, rows, first = FALSE) {
   x$styles$cells <- add_rows(x$styles$cells, nrows = nrow, first = first)
   x$styles$pars <- add_rows(x$styles$pars, nrows = nrow, first = first)
   x$styles$text <- add_rows(x$styles$text, nrows = nrow, first = first)
-  x$content <- add_rows(x$content, nrows = nrow, first = first, rows)
+  x$content <- add_rows_to_chunkset_struct(x$content, nrows = nrow, first = first, rows)
 
   span_new <- matrix(1, ncol = ncol, nrow = nrow)
   rowheights <- x$rowheights
