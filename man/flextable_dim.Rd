@@ -16,7 +16,7 @@ Returns the width, height and
 aspect ratio of a flextable in a named list.
 The aspect ratio is the ratio corresponding to \code{height/width}.
 
-Names of the list are \code{width}, \code{height} and \code{aspect_ratio}.
+Names of the list are \code{widths}, \code{heights} and \code{aspect_ratio}.
 }
 \examples{
 ftab <- flextable(head(iris))

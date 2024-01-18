@@ -21,7 +21,7 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in") {
   for (i in seq_len(max_iter)) {
     fdim <- flextable_dim(x)
     do_stop <- FALSE
-    if (fdim$width > max_width) {
+    if (fdim$widths > max_width) {
       if (nrow_part(x, part = "body") > 0) {
         new_font_sizes <- x$body$styles$text$font.size$data - inc
         if (all(new_font_sizes > 0)) {
@@ -233,7 +233,7 @@ height_all <- function(x, height, part = "all", unit = "in") {
 #' aspect ratio of a flextable in a named list.
 #' The aspect ratio is the ratio corresponding to `height/width`.
 #'
-#' Names of the list are `width`, `height` and `aspect_ratio`.
+#' Names of the list are `widths`, `heights` and `aspect_ratio`.
 #' @param x a flextable object
 #' @param unit unit for returned values, one of "in", "cm", "mm".
 #' @examples
@@ -245,7 +245,6 @@ height_all <- function(x, height, part = "all", unit = "in") {
 flextable_dim <- function(x, unit = "in") {
   dims <- lapply(dim(x), function(x) convin(unit = unit, x = sum(x)))
   dims$aspect_ratio <- dims$heights / dims$widths
-  names(dims) <- c("width", "height", "aspect_ratio")
   dims
 }
 
