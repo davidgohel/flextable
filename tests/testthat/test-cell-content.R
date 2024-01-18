@@ -129,3 +129,25 @@ test_that("append and prepend chunks structure", {
     )
   )
 })
+
+test_that("delete rows and columns", {
+  ftab <- flextable(head(iris))
+  ftab <- delete_columns(ftab, j = 1:3)
+  ftab <- delete_rows(ftab, i = 1:5, part = "body")
+  ftab <- autofit(ftab)
+
+
+  expect_equal(flextable:::fortify_run(ftab)$txt,
+    expected = c("Petal.Width", "Species", "0.4", "setosa")
+  )
+  expect_equal(ftab$col_keys,
+    expected = c("Petal.Width", "Species")
+  )
+  expect_equal(ftab$body$content$nrow,
+    expected = 1L
+  )
+  expect_equal(ftab$body$content$ncol,
+    expected = 2L
+  )
+
+})
