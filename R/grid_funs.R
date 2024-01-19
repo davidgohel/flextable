@@ -8,8 +8,8 @@ get_grid_data <- function(x, autowidths, wrapping) {
     nr <- nrow_part(x, part)
     if (nr > 0) {
       data.frame(
-        col_id = rep(x$col_keys, each = nr),
-        ft_row_id = rep(seq_len(nr), length(x$col_keys)),
+        .col_id = rep(x$col_keys, each = nr),
+        .row_id = rep(seq_len(nr), length(x$col_keys)),
         stringsAsFactors = FALSE,
         check.names = FALSE
       )
@@ -17,27 +17,27 @@ get_grid_data <- function(x, autowidths, wrapping) {
   }), use.names = TRUE, idcol = ".part")
 
   grid_data$.part <- factor(grid_data$.part, levels = intersect(parts, grid_data$.part))
-  grid_data$col_id <- factor(grid_data$col_id, levels = x$col_keys)
-  keycols <- c(".part", "ft_row_id", "col_id")
+  grid_data$.col_id <- factor(grid_data$.col_id, levels = x$col_keys)
+  keycols <- c(".part", ".row_id", ".col_id")
   setorderv(grid_data, cols = keycols)
   grid_data[, c("row_index", "col_index") := list(
-    rleid(.SD$.part, .SD$ft_row_id), as.integer(.SD$col_id)
+    rleid(.SD$.part, .SD$.row_id), as.integer(.SD$.col_id)
   )]
   setorderv(grid_data, cols = c("row_index", "col_index"))
 
   # add column widths
   col_widths <- fortify_width(x)
   colnames(col_widths)[colnames(col_widths) == "width"] <- "col_width"
-  grid_data <- merge(grid_data, col_widths, by = c("col_id"))
+  grid_data <- merge(grid_data, col_widths, by = c(".col_id"))
 
   # add row heights
   row_heights <- fortify_height(x)
   colnames(row_heights)[colnames(row_heights) == "height"] <- "row_height"
-  grid_data <- merge(grid_data, row_heights, by = c(".part", "ft_row_id"))
+  grid_data <- merge(grid_data, row_heights, by = c(".part", ".row_id"))
 
   # add hrule
   row_hrules <- fortify_hrule(x)
-  grid_data <- merge(grid_data, row_hrules, by = c(".part", "ft_row_id"))
+  grid_data <- merge(grid_data, row_hrules, by = c(".part", ".row_id"))
 
   # calculate minimum and maximum cell height according to hrule
   grid_data[, "row_min_height" := fcase(
@@ -109,10 +109,10 @@ get_grid_data <- function(x, autowidths, wrapping) {
 
 
 grid_data_add_cell_info <- function(grid_data, x) {
-  keycols <- c(".part", "ft_row_id", "col_id")
+  keycols <- c(".part", ".row_id", ".col_id")
   spans <- fortify_span(x) # redondant avec get_grid_data, pas bien
   cell_data <- merge(
-    as.data.table(fortify_cells_properties(x)),
+    as.data.table(information_data_cell(x)),
     spans,
     by = keycols
   )
@@ -120,7 +120,7 @@ grid_data_add_cell_info <- function(grid_data, x) {
   fortify_borders_data <- fortify_borders_data[
     , .SD,
     .SDcols = c(
-      ".part", "ft_row_id", "col_id", "border.color.top", "border.color.bottom",
+      ".part", ".row_id", ".col_id", "border.color.top", "border.color.bottom",
       "border.width.left", "border.color.left", "border.width.right",
       "border.color.right", "border.width.top", "border.width.bottom"
     )
@@ -222,10 +222,10 @@ grid_data_add_cell_info <- function(grid_data, x) {
 
 #' @importFrom grid unit
 grid_data_add_par_info <- function(grid_data, x) {
-  par_data <- fortify_paragraphs_properties(x)
+  par_data <- information_data_paragraph(x)
 
   # merge with grid_data to keep only active cells
-  keycols <- c(".part", "ft_row_id", "col_id")
+  keycols <- c(".part", ".row_id", ".col_id")
   par_data <- merge(grid_data[, c(
     keycols, "vertical.align", "angle"
   ), with = FALSE], par_data, by = keycols)
@@ -312,10 +312,10 @@ grid_data_add_par_info <- function(grid_data, x) {
 
 #' @importFrom grDevices is.raster
 grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
-  chunk_data <- fortify_run(x, expand_special_chars = FALSE)
+  chunk_data <- information_data_chunk(x, expand_special_chars = FALSE)
 
   # merge with grid_data to keep only active cells
-  keycols <- c(".part", "ft_row_id", "col_id")
+  keycols <- c(".part", ".row_id", ".col_id")
   chunk_data <- merge(
     grid_data[, c(keycols, "line_spacing", "angle"), with = FALSE],
     chunk_data,
@@ -381,15 +381,15 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
 
   # create chunk .part data (parts split by newline)
   part_data <- chunk_data[, c(
-    ".part", "ft_row_id", "col_id", "line_spacing", "angle",
+    ".part", ".row_id", ".col_id", "line_spacing", "angle",
     "font.family", "font.size", "italic", "bold",
     "txt", "is_text", "is_superscript", "is_subscript", "width", "height",
-    "seq_index", "chunk_index"
+    ".chunk_index", "chunk_index"
   ), with = FALSE]
   # expand by newline
   part_data <- expand_special_char(part_data, what = "\n", with = NA)
   # set part_index per chunk
-  setorderv(part_data, cols = c(keycols, "chunk_index", "seq_index"))
+  setorderv(part_data, cols = c(keycols, "chunk_index", ".chunk_index"))
   part_data[, "part_index" := 1:.N, by = c(keycols, "chunk_index")]
   setorderv(part_data, cols = c(keycols, "chunk_index", "part_index"))
   # calculate metrics
@@ -451,7 +451,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
     split_list <- NULL
 
     # set word_index and word_count per chunk part
-    setorderv(word_data, cols = c(keycols, "chunk_index", "part_index", "seq_index"))
+    setorderv(word_data, cols = c(keycols, "chunk_index", "part_index", ".chunk_index"))
     word_data[, c("word_index", "word_count") := list(1:.N, .N),
       by = c(keycols, "chunk_index", "part_index")
     ]
@@ -524,7 +524,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
     char_data <- expand_special_char(char_data, what = ".", with = NA)
 
     # set word_index and word_count per chunk part
-    setorderv(char_data, cols = c(keycols, "chunk_index", "part_index", "word_index", "seq_index"))
+    setorderv(char_data, cols = c(keycols, "chunk_index", "part_index", "word_index", ".chunk_index"))
     char_data[, c("char_index", "char_count") := list(1:.N, .N),
       by = c(keycols, "chunk_index", "part_index", "word_index")
     ]
@@ -567,8 +567,8 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
     setorderv(part_data, cols = c(
       keycols, "chunk_index", "part_index", "word_index", "char_index"
     ))
-    # set seq_index unique for each cell
-    part_data[, "seq_index" := 1:.N, by = keycols]
+    # set .chunk_index unique for each cell
+    part_data[, ".chunk_index" := 1:.N, by = keycols]
 
     # set wrap child count
     part_data[, "child_count" := fcase(
@@ -591,11 +591,11 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
       by = c(keycols, "chunk_index")
     ]
   } else { # no wrapping
-    part_data[, "seq_index" := 1:.N, by = keycols]
+    part_data[, ".chunk_index" := 1:.N, by = keycols]
     part_data[, "child_count" := 0L]
     part_data[, "children_index" := integer(0)]
   }
-  setorderv(part_data, cols = c(keycols, "seq_index"))
+  setorderv(part_data, cols = c(keycols, ".chunk_index"))
 
   # replace special chars
   part_data[(is_newline), "txt" := ""]
@@ -639,7 +639,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
       list(
         chunk_part_data = list(
           data.table(
-            seq_index = .SD$seq_index,
+            .chunk_index = .SD$.chunk_index,
             chunk_index = .SD$chunk_index,
             child_count = .SD$child_count,
             children_index = .SD$children_index,
@@ -958,20 +958,20 @@ calc_grid_text_metrics <- function(dat) {
 }
 
 calc_grid_wrap_children <- function(dat) {
-  wrap_level <- seq_index <- NULL
+  wrap_level <- .chunk_index <- NULL
   mapply(
     function(level, index, child_count) {
       if (child_count > 0) {
         head(
-          dat[wrap_level == (level + 1) & seq_index > index, , drop = FALSE],
+          dat[wrap_level == (level + 1) & .chunk_index > index, , drop = FALSE],
           n = child_count
-        )$seq_index
+        )$.chunk_index
       } else {
         integer(0)
       }
     },
     dat$wrap_level,
-    dat$seq_index,
+    dat$.chunk_index,
     dat$child_count,
     SIMPLIFY = FALSE
   )

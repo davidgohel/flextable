@@ -100,7 +100,7 @@ test_that("newlines and tabulations expand correctly", {
   )
   z <- delete_part(z, part = "header")
 
-  chunks_txt <- flextable:::fortify_run(z)$txt
+  chunks_txt <- information_data_chunk(z)$txt
 
   expect_equal(
     chunks_txt,
@@ -125,7 +125,7 @@ test_that("word superscript and subscript", {
       as_sub("Sepal.Length")
     )
   )
-  runs <- flextable:::fortify_run(ft)
+  runs <- information_data_chunk(ft)
   expect_equal(runs$vertical.align[1], "subscript")
   openxml <- flextable:::runs_as_wml(ft, txt_data = runs)$run_openxml
   expect_match(openxml, "<w:vertAlign w:val=\"subscript\"/>", fixed = TRUE)
@@ -136,7 +136,7 @@ test_that("word superscript and subscript", {
       as_sup("Sepal.Length")
     )
   )
-  runs <- flextable:::fortify_run(ft)
+  runs <- information_data_chunk(ft)
   expect_equal(runs$vertical.align[1], "superscript")
   openxml <- flextable:::runs_as_wml(ft, txt_data = runs)$run_openxml
   expect_match(openxml, "<w:vertAlign w:val=\"superscript\"/>", fixed = TRUE)

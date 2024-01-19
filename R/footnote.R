@@ -157,7 +157,7 @@ footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "b
       SIMPLIFY = FALSE
     )
     paras <- rbind_match_columns(paras)
-    paras$seq_index <- NULL
+    paras$.chunk_index <- NULL
     for(i in seq_len(nrow(paras))) {
       x[["footer"]]$content <-
         append_chunkset_struct_element(

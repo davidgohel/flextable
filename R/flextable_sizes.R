@@ -408,12 +408,12 @@ optimal_sizes <- function(x, hspans = "none") {
 
   nr <- nrow(x$spans$rows)
   rowspan <- data.frame(
-    col_id = rep(x$col_keys, each = nr),
-    ft_row_id = rep(seq_len(nr), length(x$col_keys)),
+    .col_id = rep(x$col_keys, each = nr),
+    .row_id = rep(seq_len(nr), length(x$col_keys)),
     rowspan = as.vector(x$spans$rows),
     stringsAsFactors = FALSE, check.names = FALSE
   )
-  sizes <- merge(sizes, rowspan, by = c("col_id", "ft_row_id"))
+  sizes <- merge(sizes, rowspan, by = c(".col_id", ".row_id"))
 
   if (hspans %in% "none") {
     sizes[sizes$rowspan != 1, "width"] <- 0
@@ -422,11 +422,11 @@ optimal_sizes <- function(x, hspans = "none") {
     sizes[sizes$rowspan < 1, "width"] <- 0
   }
 
-  sizes$col_id <- factor(sizes$col_id, levels = x$col_keys)
-  sizes <- sizes[order(sizes$col_id, sizes$ft_row_id), ]
-  widths <- as_wide_matrix_(data = sizes[, c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
+  sizes$.col_id <- factor(sizes$.col_id, levels = x$col_keys)
+  sizes <- sizes[order(sizes$.col_id, sizes$.row_id), ]
+  widths <- as_wide_matrix_(data = sizes[, c(".col_id", "width", ".row_id")], idvar = ".row_id", timevar = ".col_id")
   dimnames(widths)[[2]] <- gsub("^width\\.", "", dimnames(widths)[[2]])
-  heights <- as_wide_matrix_(data = sizes[, c("col_id", "height", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
+  heights <- as_wide_matrix_(data = sizes[, c(".col_id", "height", ".row_id")], idvar = ".row_id", timevar = ".col_id")
   dimnames(heights)[[2]] <- gsub("^height\\.", "", dimnames(heights)[[2]])
 
   par_dim <- dim_paragraphs(x)
@@ -457,12 +457,12 @@ dim_paragraphs <- function(x) {
   par_dim <- par_struct_to_df(x$styles$pars)
   par_dim$width <- as.vector(x$styles$pars[, , "padding.right"] + x$styles$pars[, , "padding.left"]) * (4 / 3) / 72
   par_dim$height <- as.vector(x$styles$pars[, , "padding.top"] + x$styles$pars[, , "padding.bottom"]) * (4 / 3) / 72
-  selection_ <- c("ft_row_id", "col_id", "width", "height")
+  selection_ <- c(".row_id", ".col_id", "width", "height")
   par_dim[, selection_]
 
   list(
-    widths = as_wide_matrix_(par_dim[, c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id"),
-    heights = as_wide_matrix_(par_dim[, c("col_id", "height", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
+    widths = as_wide_matrix_(par_dim[, c(".col_id", "width", ".row_id")], idvar = ".row_id", timevar = ".col_id"),
+    heights = as_wide_matrix_(par_dim[, c(".col_id", "height", ".row_id")], idvar = ".row_id", timevar = ".col_id")
   )
 }
 
@@ -470,11 +470,11 @@ dim_cells <- function(x) {
   cell_dim <- cell_struct_to_df(x$styles$cells)
   cell_dim$width <- as.vector(x$styles$cells[, , "margin.right"] + x$styles$cells[, , "margin.left"]) * (4 / 3) / 72
   cell_dim$height <- as.vector(x$styles$cells[, , "margin.top"] + x$styles$cells[, , "margin.bottom"]) * (4 / 3) / 72
-  selection_ <- c("ft_row_id", "col_id", "width", "height")
+  selection_ <- c(".row_id", ".col_id", "width", "height")
   cell_dim <- cell_dim[, selection_]
 
-  cellwidths <- as_wide_matrix_(cell_dim[, c("col_id", "width", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
-  cellheights <- as_wide_matrix_(cell_dim[, c("col_id", "height", "ft_row_id")], idvar = "ft_row_id", timevar = "col_id")
+  cellwidths <- as_wide_matrix_(cell_dim[, c(".col_id", "width", ".row_id")], idvar = ".row_id", timevar = ".col_id")
+  cellheights <- as_wide_matrix_(cell_dim[, c(".col_id", "height", ".row_id")], idvar = ".row_id", timevar = ".col_id")
 
   list(widths = cellwidths, heights = cellheights)
 }
@@ -499,10 +499,10 @@ text_metric <- function(x) {
   )]
   txt_data[, c("fake_row_id") := list(
     cumsum(.SD$fake_row_id)
-  ), by = c("ft_row_id", "col_id")]
+  ), by = c(".row_id", ".col_id")]
   txt_data[, c("fake_row_id") := list(
     rleid(.SD$fake_row_id)
-  ), by = c("ft_row_id", "col_id")]
+  ), by = c(".row_id", ".col_id")]
 
 
   # set new lines to blank
@@ -535,15 +535,15 @@ text_metric <- function(x) {
   txt_data <- cbind(txt_data, extents_values)
 
   # swap width/height when cell is rotated
-  td_data <- cell_struct_to_df(x$styles$cells)[, c("ft_row_id", "col_id", "text.direction")]
-  txt_data <- merge(txt_data, td_data, by = c("ft_row_id", "col_id"))
+  td_data <- cell_struct_to_df(x$styles$cells)[, c(".row_id", ".col_id", "text.direction")]
+  txt_data <- merge(txt_data, td_data, by = c(".row_id", ".col_id"))
   txt_data[txt_data$text.direction %in% c("tbrl", "btlr"), c("width", "height") := list(.SD$height, .SD$width)]
 
   txt_data <- txt_data[, c(list(width = sum(.SD$width, na.rm = TRUE), height = max(.SD$height, na.rm = TRUE))),
-    by = c("ft_row_id", "fake_row_id", "col_id")
+    by = c(".row_id", "fake_row_id", ".col_id")
   ]
   txt_data <- txt_data[, c(list(width = max(.SD$width, na.rm = TRUE), height = sum(.SD$height, na.rm = TRUE))),
-    by = c("ft_row_id", "col_id")
+    by = c(".row_id", ".col_id")
   ]
   setDF(txt_data)
   txt_data

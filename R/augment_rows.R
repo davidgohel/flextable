@@ -1162,7 +1162,7 @@ separate_header <- function(x,
     nr <- nrow(x[["header"]]$spans$rows)
     header_spans <- fortify_span(x, parts = "header")
     header_spans <- header_spans[header_spans$rowspan > 1, ]
-    header_spans <- split(header_spans$col_id, header_spans$ft_row_id)
+    header_spans <- split(header_spans$.col_id, header_spans$.row_id)
     for (i in seq_along(header_spans)) {
       x <- align(
         x = x, i = i, j = as.character(header_spans[[i]]),

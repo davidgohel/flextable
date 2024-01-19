@@ -766,7 +766,7 @@ as_paragraph <- function(..., list_values = NULL) {
   }
 
   data <- mapply(function(x, index) {
-    x$seq_index <- rep(index, nrow(x))
+    x$.chunk_index <- rep(index, nrow(x))
     x
   }, list_values, seq_along(list_values), SIMPLIFY = FALSE, USE.NAMES = FALSE)
   data <- rbind_match_columns(data)

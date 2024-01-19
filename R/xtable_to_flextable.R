@@ -57,150 +57,151 @@
 #' @export
 #' @family as_flextable methods
 as_flextable.xtable <- function(
-  x, text.properties = fp_text_default(),
-  format.args = getOption("xtable.format.args", NULL),
-  rowname_col = "rowname",
-  hline.after = getOption("xtable.hline.after", c(-1,0,nrow(x))),
-  NA.string = getOption("xtable.NA.string", ""),
-  include.rownames = TRUE,
-  rotate.colnames = getOption("xtable.rotate.colnames", FALSE),
-  ...
-){
-
+    x, text.properties = fp_text_default(),
+    format.args = getOption("xtable.format.args", NULL),
+    rowname_col = "rowname",
+    hline.after = getOption("xtable.hline.after", c(-1, 0, nrow(x))),
+    NA.string = getOption("xtable.NA.string", ""),
+    include.rownames = TRUE,
+    rotate.colnames = getOption("xtable.rotate.colnames", FALSE),
+    ...) {
   padding.left <- 4
   padding.right <- 4
 
   stopifnot(inherits(x, "xtable"))
 
-  if( ! is.null(hline.after) ){
+  if (!is.null(hline.after)) {
     if (any(hline.after < -1) | any(hline.after > nrow(x))) {
       stop("'hline.after' must be inside [-1, nrow(x)]")
     }
   }
 
-  if( !include.rownames ){
+  if (!include.rownames) {
     data <- as.data.frame(x, stringsAsFactors = FALSE)
     col_labels <- names(x)
-    col_id <- make.names(col_labels)
+    .col_id <- make.names(col_labels)
   } else {
     rn_x <- row.names(x)
     data <- cbind(
       structure(list(rn_x), .Names = rowname_col, row.names = seq_along(rn_x), class = "data.frame"),
-      as.data.frame(x, stringsAsFactors = FALSE) )
-    col_labels <- c("", names(x) )
-    col_id <- make.names(col_labels)
-    col_id[1] <- rowname_col
+      as.data.frame(x, stringsAsFactors = FALSE)
+    )
+    col_labels <- c("", names(x))
+    .col_id <- make.names(col_labels)
+    .col_id[1] <- rowname_col
   }
-  names(data) <- col_id
+  names(data) <- .col_id
 
   nrow_ <- nrow(data)
   ncol_ <- ncol(data)
 
-  ina <- matrix(FALSE, nrow = nrow(data), ncol = ncol(data) )
+  ina <- matrix(FALSE, nrow = nrow(data), ncol = ncol(data))
 
-  for(j in seq_along(col_id)){
-    if( is.factor( data[[j]] ) ){
+  for (j in seq_along(.col_id)) {
+    if (is.factor(data[[j]])) {
       data[[j]] <- as.character(data[[j]])
     }
-    if(is.list(data[[j]])) {
+    if (is.list(data[[j]])) {
       data[[j]] <- sapply(data[[j]], unlist)
     }
-    ina[,j] <- is.na(data[[j]])
+    ina[, j] <- is.na(data[[j]])
   }
 
-  if (is.null(format.args)){
+  if (is.null(format.args)) {
     format.args <- list()
   }
-  if (is.null(format.args$decimal.mark)){
+  if (is.null(format.args$decimal.mark)) {
     format.args$decimal.mark <- options()$OutDec
   }
 
-  digits_val <- attr( x, "digits", exact = TRUE )
-  display_val <- attr(x, "display", exact = TRUE )
+  digits_val <- attr(x, "digits", exact = TRUE)
+  display_val <- attr(x, "display", exact = TRUE)
   align <- attr(x, "align")
 
-  if(!include.rownames) {
+  if (!include.rownames) {
     digits_val <- digits_val[-1]
     display_val <- display_val[-1]
     which_grep <- grep("^[a-zA-Z]", align)[1]
     align <- align[-seq_len(which_grep)]
   }
 
-  if( !is.matrix( digits_val ) ){
-    digits_val <- rep(digits_val, each = nrow_ )
+  if (!is.matrix(digits_val)) {
+    digits_val <- rep(digits_val, each = nrow_)
   }
   display_val <- ifelse(
     digits_val < 0, "E",
-    rep( display_val, each = nrow_ )
+    rep(display_val, each = nrow_)
   )
 
-  col_names_ <- rep( col_id, each = nrow_ )
+  col_names_ <- rep(.col_id, each = nrow_)
   rows_index <- rep(seq_len(nrow_), ncol_)
 
   ft <- flextable(data)
 
-  ft <- set_header_df(ft, mapping = data.frame(col_keys=col_id, label = col_labels, stringsAsFactors = FALSE) )
-  for(iter in seq_along(rows_index)){
+  ft <- set_header_df(ft, mapping = data.frame(col_keys = .col_id, label = col_labels, stringsAsFactors = FALSE))
+  for (iter in seq_along(rows_index)) {
     # val <- sprintf("value ~ formatC_with_na(%s, digits = %.0f, format = '%s', na_string = '%s')", col_names_[iter], digits_val[iter], display_val[iter], NA.string )
     ft <- compose(
-      ft, j = col_names_[iter], i = rows_index[iter],
-      value = as_paragraph(as_chunk(get(col_names_[iter]), formatter = format_fun)) )
+      ft,
+      j = col_names_[iter], i = rows_index[iter],
+      value = as_paragraph(as_chunk(get(col_names_[iter]), formatter = format_fun))
+    )
   }
   ft <- border(x = ft, border = fp_border(width = 0), part = "all")
-  ft <- style( x = ft, pr_t = text.properties, part = "all")
+  ft <- style(x = ft, pr_t = text.properties, part = "all")
   ft <- bg(x = ft, bg = "transparent", part = "all")
   ft <- bold(x = ft, bold = TRUE, part = "header")
-  if( include.rownames ){
+  if (include.rownames) {
     ft <- bold(x = ft, j = 1, bold = TRUE, part = "body")
   }
 
   parProp <- fp_par(padding.left = padding.left, padding.right = padding.right)
 
-  if( any( align == "|") ){
-    new_align = character(0)
-    border_right_pos = integer(0)
-    do_left_table = FALSE
-    do_right_table = FALSE
-    for( i in seq_along(align)){
-      if( i == 1 && align[i] == "|" ){
-        do_left_table = TRUE
-      } else if( align[i] == "|" && i < length(align) ){
-        border_right_pos = append( border_right_pos, length(new_align) )
-      } else if( align[i] == "|" && i == length(align) ){
-        do_right_table = TRUE
+  if (any(align == "|")) {
+    new_align <- character(0)
+    border_right_pos <- integer(0)
+    do_left_table <- FALSE
+    do_right_table <- FALSE
+    for (i in seq_along(align)) {
+      if (i == 1 && align[i] == "|") {
+        do_left_table <- TRUE
+      } else if (align[i] == "|" && i < length(align)) {
+        border_right_pos <- append(border_right_pos, length(new_align))
+      } else if (align[i] == "|" && i == length(align)) {
+        do_right_table <- TRUE
       } else {
-        new_align = append( new_align, align[i] )
+        new_align <- append(new_align, align[i])
       }
     }
-    align = new_align
+    align <- new_align
 
-    if( do_left_table ) {
+    if (do_left_table) {
       ft <- border(ft, j = 1, border.left = fp_border(), part = "all")
     }
-    if( length( border_right_pos) > 0 ){
+    if (length(border_right_pos) > 0) {
       ft <- border(ft, j = border_right_pos, border.right = fp_border(), part = "all")
     }
-    if( do_right_table ) {
+    if (do_right_table) {
       ft <- border(ft, j = length(align), border.right = fp_border(), part = "all")
     }
   }
 
-  if( rotate.colnames ){
+  if (rotate.colnames) {
     ft <- rotate(x = ft, rotation = "btlr", part = "header")
     header_dims <- dim_pretty(ft, part = "header")
     body_dims <- dim_pretty(ft, part = "body")
     footer_dims <- dim_pretty(ft, part = "footer")
 
-    widths_header <- rep(header_dims$heights, each = length(ft$col_keys) )
-    widths_header <- matrix(widths_header, ncol = length(ft$col_keys) )
-    widths_header <- as.numeric( apply(widths_header, 2, max, na.rm = TRUE) )
-    heights_header <- rep( max(header_dims$widths), nrow_part(ft, "header" ) )
+    widths_header <- rep(header_dims$heights, each = length(ft$col_keys))
+    widths_header <- matrix(widths_header, ncol = length(ft$col_keys))
+    widths_header <- as.numeric(apply(widths_header, 2, max, na.rm = TRUE))
+    heights_header <- rep(max(header_dims$widths), nrow_part(ft, "header"))
     header_dims$widths <- widths_header
     header_dims$heights <- heights_header
 
-    widths_ <- do.call(rbind, list(header_dims$widths, body_dims$widths, footer_dims$widths) )
-    widths_ <- as.numeric( apply( widths_, 2, max, na.rm = TRUE ) )
-    heights_ <- do.call(c, list(header_dims$heights, body_dims$heights, footer_dims$heights) )
+    widths_ <- do.call(rbind, list(header_dims$widths, body_dims$widths, footer_dims$widths))
+    widths_ <- as.numeric(apply(widths_, 2, max, na.rm = TRUE))
+    heights_ <- do.call(c, list(header_dims$heights, body_dims$heights, footer_dims$heights))
     ft <- width(ft, width = widths_)
     ft <- height(ft, height = header_dims$heights, part = "header")
     ft <- height(ft, height = body_dims$heights, part = "body")
@@ -212,31 +213,30 @@ as_flextable.xtable <- function(
 
   widths <- get_xtable_widths(align)
   align[!is.na(widths)] <- "j"
-  if( !all(is.na(widths))){
+  if (!all(is.na(widths))) {
     j <- which(!is.na(widths))
     width <- widths[j]
-    ft <- width( ft, j = j, width = width)
+    ft <- width(ft, j = j, width = width)
   }
 
-  ft <- align( ft, j = align %in% "r", part = "all", align = "right")
-  ft <- align( ft, j = align %in% "l", part = "all", align = "left")
-  ft <- align( ft, j = align %in% "c", part = "all", align = "center")
-  ft <- align( ft, j = align %in% "j", part = "all", align = "justify")
+  ft <- align(ft, j = align %in% "r", part = "all", align = "right")
+  ft <- align(ft, j = align %in% "l", part = "all", align = "left")
+  ft <- align(ft, j = align %in% "c", part = "all", align = "center")
+  ft <- align(ft, j = align %in% "j", part = "all", align = "justify")
 
 
-  if (!is.null(hline.after)){
-    if( -1 %in% hline.after ){
-      hline.after = setdiff( hline.after, -1 )
+  if (!is.null(hline.after)) {
+    if (-1 %in% hline.after) {
+      hline.after <- setdiff(hline.after, -1)
       ft <- border(ft, i = 1, border.top = fp_border(), part = "header")
     }
-    if( 0 %in% hline.after ){
-      hline.after = setdiff( hline.after, 0 )
+    if (0 %in% hline.after) {
+      hline.after <- setdiff(hline.after, 0)
       ft <- border(ft, border.bottom = fp_border(), part = "header")
     }
-    if( length( hline.after ) > 0 ){
+    if (length(hline.after) > 0) {
       ft <- border(ft, i = hline.after, border.bottom = fp_border(), part = "body")
     }
-
   }
 
 
@@ -245,7 +245,7 @@ as_flextable.xtable <- function(
 }
 
 
-get_xtable_widths <- function(align, default_width = .3){
+get_xtable_widths <- function(align, default_width = .3) {
   rex <- "^(p\\{)([0-9\\.]+)(cm|in|px)(\\}$)"
   width <- rep(default_width, length(align))
   w_matches <- grepl(rex, align)
@@ -256,11 +256,10 @@ get_xtable_widths <- function(align, default_width = .3){
 
   units <- gsub(rex, "\\3", align)
   units[!w_matches] <- "in"
-  if( any(!units %in% c("in", "cm", "px")) ){
+  if (any(!units %in% c("in", "cm", "px"))) {
     stop("unknown unit, supported units for column width are in, cm and px")
   }
   newwidths[units %in% "cm"] <- newwidths[units %in% "cm"] / 2.54
   newwidths[units %in% "px"] <- newwidths[units %in% "cm"] / 72
   newwidths
 }
-

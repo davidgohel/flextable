@@ -40,17 +40,17 @@ text_css_styles <- function(x) {
 
   paste0(".", x$classname, "{", style_column, "}", collapse = "")
 }
-runs_as_html <- function(x, chunk_data = fortify_run(x)) {
-  # data can be (1.) from a df computed by fortify_run
-  # or (2.) a single paragraph from x$caption$value and there will be only seq_index
+runs_as_html <- function(x, chunk_data = information_data_chunk(x)) {
+  # data can be (1.) from a df computed by information_data_chunk
+  # or (2.) a single paragraph from x$caption$value and there will be only .chunk_index
   order_columns <-
     intersect(
       x = colnames(chunk_data),
-      y = c(".part", "ft_row_id", "col_id", "seq_index")
+      y = c(".part", ".row_id", ".col_id", ".chunk_index")
     )
 
   # prepare the by col for aggregation
-  by_columns <- intersect(colnames(chunk_data), c(".part", "ft_row_id", "col_id"))
+  by_columns <- intersect(colnames(chunk_data), c(".part", ".row_id", ".col_id"))
   if (length(by_columns) < 1) by_columns <- NULL
 
   unique_text_props <- distinct_text_properties(chunk_data)
@@ -87,17 +87,17 @@ runs_as_html <- function(x, chunk_data = fortify_run(x)) {
   attr(spans_dataset, "css") <- span_style_str
   spans_dataset
 }
-runs_as_text <- function(x, chunk_data = fortify_run(x)) {
-  # data can be (1.) from a df computed by fortify_run
-  # or (2.) a single paragraph from x$caption$value and there will be only seq_index
+runs_as_text <- function(x, chunk_data = information_data_chunk(x)) {
+  # data can be (1.) from a df computed by information_data_chunk
+  # or (2.) a single paragraph from x$caption$value and there will be only .chunk_index
   order_columns <-
     intersect(
       x = colnames(chunk_data),
-      y = c(".part", "ft_row_id", "col_id", "seq_index")
+      y = c(".part", ".row_id", ".col_id", ".chunk_index")
     )
 
   # prepare the by col for aggregation
-  by_columns <- intersect(colnames(chunk_data), c(".part", "ft_row_id", "col_id"))
+  by_columns <- intersect(colnames(chunk_data), c(".part", ".row_id", ".col_id"))
   if (length(by_columns) < 1) by_columns <- NULL
 
   spans_dataset <- as.data.table(chunk_data)
@@ -119,30 +119,30 @@ runs_as_text <- function(x, chunk_data = fortify_run(x)) {
 }
 
 #' @importFrom data.table setkeyv
-runs_as_latex <- function(x, chunk_data = fortify_run(x), ls_df = NULL) {
+runs_as_latex <- function(x, chunk_data = information_data_chunk(x), ls_df = NULL) {
   txt_data <- chunk_data
 
-  # data can be (1.) from a df computed by fortify_run
-  # or (2.) a single paragraph from x$caption$value and there will be only seq_index
+  # data can be (1.) from a df computed by information_data_chunk
+  # or (2.) a single paragraph from x$caption$value and there will be only .chunk_index
   order_columns <-
     intersect(
       x = colnames(txt_data),
-      y = c(".part", "ft_row_id", "col_id", "seq_index")
+      y = c(".part", ".row_id", ".col_id", ".chunk_index")
     )
 
   # prepare the by col for aggregation
-  by_columns <- intersect(colnames(txt_data), c(".part", "ft_row_id", "col_id"))
+  by_columns <- intersect(colnames(txt_data), c(".part", ".row_id", ".col_id"))
   if (length(by_columns) < 1) by_columns <- NULL
 
   setDT(txt_data)
 
-  if ("col_id" %in% colnames(txt_data)) {
-    txt_data$col_id <- factor(txt_data$col_id, levels = x$col_keys)
+  if (".col_id" %in% colnames(txt_data)) {
+    txt_data$.col_id <- factor(txt_data$.col_id, levels = x$col_keys)
   }
 
   if (!is.null(ls_df) &&
-    all(c(".part", "ft_row_id", "col_id") %in% colnames(txt_data))) {
-    txt_data <- merge(txt_data, ls_df, by = c(".part", "ft_row_id", "col_id"))
+    all(c(".part", ".row_id", ".col_id") %in% colnames(txt_data))) {
+    txt_data <- merge(txt_data, ls_df, by = c(".part", ".row_id", ".col_id"))
   } else {
     txt_data$line_spacing <- 1.2
   }
@@ -180,25 +180,25 @@ runs_as_latex <- function(x, chunk_data = fortify_run(x), ls_df = NULL) {
   dat
 }
 #' @importFrom officer str_encode_to_rtf
-runs_as_rtf <- function(x, chunk_data = fortify_run(x)) {
+runs_as_rtf <- function(x, chunk_data = information_data_chunk(x)) {
   txt_data <- chunk_data
 
-  # data can be (1.) from a df computed by fortify_run
-  # or (2.) a single paragraph from x$caption$value and there will be only seq_index
+  # data can be (1.) from a df computed by information_data_chunk
+  # or (2.) a single paragraph from x$caption$value and there will be only .chunk_index
   order_columns <-
     intersect(
       x = colnames(txt_data),
-      y = c(".part", "ft_row_id", "col_id", "seq_index")
+      y = c(".part", ".row_id", ".col_id", ".chunk_index")
     )
 
   # prepare the by col for aggregation
-  by_columns <- intersect(colnames(txt_data), c(".part", "ft_row_id", "col_id"))
+  by_columns <- intersect(colnames(txt_data), c(".part", ".row_id", ".col_id"))
   if (length(by_columns) < 1) by_columns <- NULL
 
   setDT(txt_data)
 
-  if ("col_id" %in% colnames(txt_data)) {
-    txt_data$col_id <- factor(txt_data$col_id, levels = x$col_keys)
+  if (".col_id" %in% colnames(txt_data)) {
+    txt_data$.col_id <- factor(txt_data$.col_id, levels = x$col_keys)
   }
 
   unique_text_props <- distinct_text_properties(as.data.frame(txt_data))
@@ -259,17 +259,17 @@ runs_as_rtf <- function(x, chunk_data = fortify_run(x)) {
 
 
 #' @importFrom officer officer_url_encode
-runs_as_wml <- function(x, txt_data = fortify_run(x)) {
-  # data can be (1.) from a df computed by fortify_run
-  # or (2.) a single paragraph from x$caption$value and there will be only seq_index
+runs_as_wml <- function(x, txt_data = information_data_chunk(x)) {
+  # data can be (1.) from a df computed by information_data_chunk
+  # or (2.) a single paragraph from x$caption$value and there will be only .chunk_index
   order_columns <-
     intersect(
       x = colnames(txt_data),
-      y = c(".part", "ft_row_id", "col_id", "seq_index")
+      y = c(".part", ".row_id", ".col_id", ".chunk_index")
     )
 
   # prepare the by col for aggregation
-  by_columns <- intersect(colnames(txt_data), c(".part", "ft_row_id", "col_id"))
+  by_columns <- intersect(colnames(txt_data), c(".part", ".row_id", ".col_id"))
   if (length(by_columns) < 1) by_columns <- NULL
 
   unique_text_props <- distinct_text_properties(as.data.frame(txt_data))
@@ -325,8 +325,8 @@ runs_as_wml <- function(x, txt_data = fortify_run(x)) {
 }
 
 runs_as_pml <- function(value) {
-  txt_data <- fortify_run(value)
-  txt_data$col_id <- factor(txt_data$col_id, levels = value$col_keys)
+  txt_data <- information_data_chunk(value)
+  txt_data$.col_id <- factor(txt_data$.col_id, levels = value$col_keys)
 
   unique_text_props <- distinct_text_properties(as.data.frame(txt_data))
 
@@ -385,7 +385,7 @@ runs_as_pml <- function(value) {
     paste0(.SD$opening_tag, .SD$rpr, .SD$text_nodes_str, .SD$closing_tag)
   )]
 
-  setorderv(txt_data, cols = c(".part", "ft_row_id", "col_id", "seq_index"))
+  setorderv(txt_data, cols = c(".part", ".row_id", ".col_id", ".chunk_index"))
 
   txt_data <- txt_data[,
     lapply(
@@ -394,7 +394,7 @@ runs_as_pml <- function(value) {
         paste0(x, collapse = "")
       }
     ),
-    by = c(".part", "ft_row_id", "col_id"),
+    by = c(".part", ".row_id", ".col_id"),
     .SDcols = "par_nodes_str"
   ]
   setDF(txt_data)

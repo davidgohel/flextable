@@ -11,62 +11,13 @@ expand_special_char <- function(x, what, with = NA, ...) {
 
     was_dt <- is.data.table(x)
     setDT(x)
-    x <- x[rep(seq_len(.N), len)][, "seq_index" := seq_len(.N)]
+    x <- x[rep(seq_len(.N), len)][, ".chunk_index" := seq_len(.N)]
     x$txt <- unlist(txt)
     if (!was_dt) setDF(x)
   }
   x
 }
 
-#' @importFrom data.table rbindlist setDF
-#' @noRd
-#' @title fortify pars style
-#' @description create a data.frame with formatting information.
-fortify_paragraphs_properties <- function(x) {
-  dat <- list()
-  if (nrow_part(x, "header") > 0) {
-    dat$header <- par_struct_to_df(x$header$styles[["pars"]])
-  }
-  if (nrow_part(x, "body") > 0) {
-    dat$body <- par_struct_to_df(x$body$styles[["pars"]])
-  }
-  if (nrow_part(x, "footer") > 0) {
-    dat$footer <- par_struct_to_df(x$footer$styles[["pars"]])
-  }
-  dat <- rbindlist(dat, use.names = TRUE, idcol = ".part")
-
-  dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
-  dat$col_id <- factor(dat$col_id, levels = x$col_keys)
-  setorderv(dat, cols = c(".part", "ft_row_id", "col_id"))
-
-  setDF(dat)
-
-  dat
-}
-
-#' @noRd
-#' @title fortify cells style
-fortify_cells_properties <- function(x) {
-  dat <- list()
-  if (nrow_part(x, "header") > 0) {
-    dat$header <- cell_struct_to_df(x$header$styles[["cells"]])
-  }
-  if (nrow_part(x, "body") > 0) {
-    dat$body <- cell_struct_to_df(x$body$styles[["cells"]])
-  }
-  if (nrow_part(x, "footer") > 0) {
-    dat$footer <- cell_struct_to_df(x$footer$styles[["cells"]])
-  }
-  dat <- rbindlist(dat, use.names = TRUE, idcol = ".part")
-
-  dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
-  dat$col_id <- factor(dat$col_id, levels = x$col_keys)
-  setorderv(dat, cols = c(".part", "ft_row_id", "col_id"))
-
-  setDF(dat)
-
-  dat
-}
 
 #' @noRd
 #' @title fortify width
@@ -76,14 +27,14 @@ fortify_width <- function(x) {
   for (part in c("header", "body", "footer")) {
     nr <- nrow_part(x, part)
     if (nr > 0) {
-      dat[[part]] <- data.frame(col_id = x$col_keys, width = x[[part]]$colwidths, stringsAsFactors = FALSE)
+      dat[[part]] <- data.frame(.col_id = x$col_keys, width = x[[part]]$colwidths, stringsAsFactors = FALSE)
     }
   }
   dat <- data.table::rbindlist(dat)
-  dat <- dat[, list(width = safe_stat(.SD$width, FUN = max)), by = "col_id"]
+  dat <- dat[, list(width = safe_stat(.SD$width, FUN = max)), by = ".col_id"]
   setDF(dat)
-  dat$col_id <- factor(dat$col_id, levels = x$col_keys)
-  setorderv(dat, cols = c("col_id"))
+  dat$.col_id <- factor(dat$.col_id, levels = x$col_keys)
+  setorderv(dat, cols = c(".col_id"))
 
   dat
 }
@@ -97,7 +48,7 @@ fortify_height <- function(x) {
     nr <- nrow_part(x, part)
     if (nr > 0) {
       rows[[part]] <- data.frame(
-        ft_row_id = seq_len(nr), height = x[[part]]$rowheights,
+        .row_id = seq_len(nr), height = x[[part]]$rowheights,
         stringsAsFactors = FALSE, check.names = FALSE
       )
     }
@@ -105,7 +56,7 @@ fortify_height <- function(x) {
 
   dat <- rbindlist(rows, use.names = TRUE, idcol = ".part")
   dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
-  setorderv(dat, cols = c(".part", "ft_row_id"))
+  setorderv(dat, cols = c(".part", ".row_id"))
 
   setDF(dat)
   dat
@@ -120,7 +71,7 @@ fortify_hrule <- function(x) {
     nr <- nrow_part(x, part)
     if (nr > 0) {
       rows[[part]] <- data.frame(
-        ft_row_id = seq_len(nr), hrule = x[[part]]$hrule,
+        .row_id = seq_len(nr), hrule = x[[part]]$hrule,
         stringsAsFactors = FALSE, check.names = FALSE
       )
     }
@@ -128,7 +79,7 @@ fortify_hrule <- function(x) {
 
   dat <- rbindlist(rows, use.names = TRUE, idcol = ".part")
   dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
-  setorderv(dat, cols = c(".part", "ft_row_id"))
+  setorderv(dat, cols = c(".part", ".row_id"))
   setDF(dat)
   dat
 }
@@ -142,8 +93,8 @@ fortify_span <- function(x, parts = c("header", "body", "footer")) {
     if (nrow_part(x, part) > 0) {
       nr <- nrow(x[[part]]$spans$rows)
       rows[[part]] <- data.frame(
-        col_id = rep(x$col_keys, each = nr),
-        ft_row_id = rep(seq_len(nr), length(x$col_keys)),
+        .col_id = rep(x$col_keys, each = nr),
+        .row_id = rep(seq_len(nr), length(x$col_keys)),
         rowspan = as.vector(x[[part]]$spans$rows),
         colspan = as.vector(x[[part]]$spans$columns),
         stringsAsFactors = FALSE, check.names = FALSE
@@ -152,8 +103,8 @@ fortify_span <- function(x, parts = c("header", "body", "footer")) {
   }
   dat <- rbindlist(rows, use.names = TRUE, idcol = ".part")
   dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
-  dat$col_id <- factor(dat$col_id, levels = x$col_keys)
-  setorderv(dat, cols = c(".part", "ft_row_id", "col_id"))
+  dat$.col_id <- factor(dat$.col_id, levels = x$col_keys)
+  setorderv(dat, cols = c(".part", ".row_id", ".col_id"))
 
   setDF(dat)
 
@@ -237,7 +188,7 @@ distinct_cells_properties <- function(x) {
   uid
 }
 
-# -----
+# information data -----
 fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TRUE) {
   if (isTRUE(expand_special_chars)) {
     x$data[] <- lapply(x$data, expand_special_char,
@@ -256,7 +207,7 @@ fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TR
     x$data, SIMPLIFY = FALSE, USE.NAMES = FALSE
   ))
 
-  col_id <- unlist(mapply(
+  .col_id <- unlist(mapply(
     function(columns, data) {
       rep(columns, nrow(data))
     },
@@ -265,21 +216,54 @@ fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TR
   ))
 
   out <- rbindlist(apply(x$data, 2, rbindlist), use.names = TRUE, fill = TRUE)
-  out$ft_row_id <- row_id
-  out$col_id <- col_id
+  out$.row_id <- row_id
+  out$.col_id <- .col_id
   setDF(out)
 
   default_props <- text_struct_to_df(default_chunk_fmt, stringsAsFactors = FALSE)
   out <- replace_missing_fptext_by_default(out, default_props)
 
-  out$col_id <- factor(out$col_id, levels = default_chunk_fmt$color$keys)
-  out <- out[order(out$col_id, out$ft_row_id, out$seq_index), ]
+  out$.col_id <- factor(out$.col_id, levels = default_chunk_fmt$color$keys)
+  out <- out[order(out$.col_id, out$.row_id, out$.chunk_index), ]
   out
 }
 
 
-#' @importFrom data.table rbindlist setDF
-fortify_run <- function(x, expand_special_chars = TRUE) {
+#' @importFrom data.table rbindlist setDF setcolorder
+#' @export
+#' @title content chunk related information of a flextable
+#' @description
+#' This function takes a flextable object and returns a data.frame containing
+#' information about each text chunk within the flextable. The data.frame includes
+#' details such as the text content, formatting properties, position within the
+#' paragraph, paragraph row, and column.
+#' @param x a flextable object
+#' @section don't use this:
+#'
+#' These data structures should not be used, as they
+#' represent an interpretation of the underlying data
+#' structures, which may evolve over time.
+#'
+#' **They are exported to enable two packages that exploit
+#' these structures to make a transition, and should not
+#' remain available for long.**
+#'
+#' @return a data.frame containing information about chunks:
+#'
+#' - text chunk (column `txt`) and other content (`url`
+#' for the linked url, `eq_data` for content of type 'equation',
+#' `word_field_data` for content of type 'word_field' and
+#' `img_data` for content of type 'image'),
+#' - formatting properties,
+#' - part (`.part`), position within the paragraph (`.chunk_index`),
+#' row (`.row_id`) and column (`.col_id`).
+#' @keywords internal
+#' @examples
+#' ft <- as_flextable(iris)
+#' x <- information_data_chunk(ft)
+#' head(x)
+#' @family information data functions
+information_data_chunk <- function(x, expand_special_chars = TRUE) {
   dat <- list()
   if (nrow_part(x, "header") > 0) {
     dat$header <- fortify_content(x$header$content,
@@ -302,9 +286,114 @@ fortify_run <- function(x, expand_special_chars = TRUE) {
   dat <- rbindlist(dat, use.names = TRUE, idcol = ".part")
 
   dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
-  dat$col_id <- factor(dat$col_id, levels = x$col_keys)
-  setorderv(dat, cols = c(".part", "ft_row_id", "col_id"))
+  dat$.col_id <- factor(dat$.col_id, levels = x$col_keys)
+  setorderv(dat, cols = c(".part", ".row_id", ".col_id"))
+  setcolorder(dat, neworder = c(".part", ".row_id", ".col_id", ".chunk_index"))
 
   setDF(dat)
+  dat
+}
+
+
+#' @importFrom data.table rbindlist setDF
+#' @title paragraph related information of a flextable
+#' @description
+#' This function takes a flextable object and returns a data.frame containing
+#' information about each paragraph within the flextable. The data.frame includes
+#' details about formatting properties and position within the
+#' row and column.
+#' @param x a flextable object
+#' @section don't use this:
+#'
+#' These data structures should not be used, as they
+#' represent an interpretation of the underlying data
+#' structures, which may evolve over time.
+#'
+#' **They are exported to enable two packages that exploit
+#' these structures to make a transition, and should not
+#' remain available for long.**
+#'
+#' @return a data.frame containing information about paragraphs:
+#'
+#' - formatting properties,
+#' - part (`.part`), row (`.row_id`) and column (`.col_id`).
+#' @keywords internal
+#' @examples
+#' ft <- as_flextable(iris)
+#' x <- information_data_paragraph(ft)
+#' head(x)
+#' @export
+#' @family information data functions
+information_data_paragraph <- function(x) {
+  dat <- list()
+  if (nrow_part(x, "header") > 0) {
+    dat$header <- par_struct_to_df(x$header$styles[["pars"]])
+  }
+  if (nrow_part(x, "body") > 0) {
+    dat$body <- par_struct_to_df(x$body$styles[["pars"]])
+  }
+  if (nrow_part(x, "footer") > 0) {
+    dat$footer <- par_struct_to_df(x$footer$styles[["pars"]])
+  }
+  dat <- rbindlist(dat, use.names = TRUE, idcol = ".part")
+
+  dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
+  dat$.col_id <- factor(dat$.col_id, levels = x$col_keys)
+  setorderv(dat, cols = c(".part", ".row_id", ".col_id"))
+  setcolorder(dat, neworder = c(".part", ".row_id", ".col_id"))
+
+  setDF(dat)
+
+  dat
+}
+
+#' @title table cell related information of a flextable
+#' @description
+#' This function takes a flextable object and returns a data.frame containing
+#' information about each cell within the flextable. The data.frame includes
+#' details about formatting properties and position within the
+#' row and column.
+#' @param x a flextable object
+#' @section don't use this:
+#'
+#' These data structures should not be used, as they
+#' represent an interpretation of the underlying data
+#' structures, which may evolve over time.
+#'
+#' **They are exported to enable two packages that exploit
+#' these structures to make a transition, and should not
+#' remain available for long.**
+#'
+#' @return a data.frame containing information about cells:
+#'
+#' - formatting properties,
+#' - part (`.part`), row (`.row_id`) and column (`.col_id`).
+#' @keywords internal
+#' @examples
+#' ft <- as_flextable(iris)
+#' x <- information_data_cell(ft)
+#' head(x)
+#' @export
+#' @family information data functions
+information_data_cell <- function(x) {
+  dat <- list()
+  if (nrow_part(x, "header") > 0) {
+    dat$header <- cell_struct_to_df(x$header$styles[["cells"]])
+  }
+  if (nrow_part(x, "body") > 0) {
+    dat$body <- cell_struct_to_df(x$body$styles[["cells"]])
+  }
+  if (nrow_part(x, "footer") > 0) {
+    dat$footer <- cell_struct_to_df(x$footer$styles[["cells"]])
+  }
+  dat <- rbindlist(dat, use.names = TRUE, idcol = ".part")
+
+  dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
+  dat$.col_id <- factor(dat$.col_id, levels = x$col_keys)
+  setorderv(dat, cols = c(".part", ".row_id", ".col_id"))
+  setcolorder(dat, neworder = c(".part", ".row_id", ".col_id"))
+
+  setDF(dat)
+
   dat
 }

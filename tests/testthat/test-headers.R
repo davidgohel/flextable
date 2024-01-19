@@ -40,7 +40,7 @@ test_that("set_header_labels", {
   ft <- set_header_labels(ft, values = letters[1:ncol(mtcars)])
   ft <- delete_part(ft, part = "body")
   expect_equal(
-    flextable:::fortify_run(ft)$txt,
+    information_data_chunk(ft)$txt,
     letters[1:ncol(mtcars)]
   )
 })

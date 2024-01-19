@@ -129,10 +129,10 @@ text_struct_to_df <- function(object, ...) {
   data <- lapply(object, function(x) {
     as.vector(x$data)
   })
-  data$ft_row_id <- rep(seq_len(nrow(object$color$data)), ncol(object$color$data))
-  data$col_id <- rep(object$color$keys, each = nrow(object$color$data))
+  data$.row_id <- rep(seq_len(nrow(object$color$data)), ncol(object$color$data))
+  data$.col_id <- rep(object$color$keys, each = nrow(object$color$data))
   data <- as.data.frame(data, stringsAsFactors = FALSE)
-  data$col_id <- factor(data$col_id, levels = object$color$keys)
+  data$.col_id <- factor(data$.col_id, levels = object$color$keys)
   data
 }
 
@@ -202,10 +202,10 @@ par_struct_to_df <- function(object, ...) {
   data <- lapply(object, function(x) {
     as.vector(x$data)
   })
-  data$ft_row_id <- rep(seq_len(nrow(object$text.align$data)), ncol(object$text.align$data))
-  data$col_id <- rep(object$text.align$keys, each = nrow(object$text.align$data))
+  data$.row_id <- rep(seq_len(nrow(object$text.align$data)), ncol(object$text.align$data))
+  data$.col_id <- rep(object$text.align$keys, each = nrow(object$text.align$data))
   data <- as.data.frame(data, stringsAsFactors = FALSE)
-  data$col_id <- factor(data$col_id, levels = object$text.align$keys)
+  data$.col_id <- factor(data$.col_id, levels = object$text.align$keys)
   data
 }
 
@@ -277,10 +277,10 @@ cell_struct_to_df <- function(object, ...) {
     as.vector(x$data)
   })
 
-  data$ft_row_id <- rep(seq_len(nrow(object$background.color$data)), ncol(object$background.color$data))
-  data$col_id <- rep(object$background.color$keys, each = nrow(object$background.color$data))
+  data$.row_id <- rep(seq_len(nrow(object$background.color$data)), ncol(object$background.color$data))
+  data$.col_id <- rep(object$background.color$keys, each = nrow(object$background.color$data))
   data <- as.data.frame(data, stringsAsFactors = FALSE)
-  data$col_id <- factor(data$col_id, levels = object$background.color$keys)
+  data$.col_id <- factor(data$.col_id, levels = object$background.color$keys)
   data
 }
 
@@ -360,7 +360,7 @@ is_paragraph <- function(x) {
                        "shading.color", "font.family", "hansi.family", "eastasia.family",
                        "cs.family", "vertical.align", "width", "height", "url", "eq_data",
                        "word_field_data", "img_data",
-                       "seq_index")
+                       ".chunk_index")
   is.data.frame(x) &&
     all(colnames(x) %in% chunk_str_names)
 
@@ -422,13 +422,13 @@ append_chunkset_struct_element <- function(x, i, j, chunk_data, last = TRUE) {
   values <- mapply(
     function(x, y, last = TRUE) {
       if (last) {
-        y$seq_index <- max(x$seq_index, na.rm = TRUE) + 1
+        y$.chunk_index <- max(x$.chunk_index, na.rm = TRUE) + 1
         x <- rbind_match_columns(list(x, y))
       } else {
-        y$seq_index <- min(x$seq_index, na.rm = TRUE) - 1
+        y$.chunk_index <- min(x$.chunk_index, na.rm = TRUE) - 1
         x <- rbind_match_columns(list(y, x))
       }
-      x$seq_index <- rleid(x$seq_index)
+      x$.chunk_index <- rleid(x$.chunk_index)
       x
     },
     x = values,

@@ -5,11 +5,11 @@ rtf_cells <- function(value, cell_data, layout = "fixed") {
 
   cell_data$width <- NULL # need to get rid of originals that are empty, should probably rm them
   cell_data$height <- NULL
-  cell_data <- merge(cell_data, cell_widths, by = "col_id")
-  cell_data <- merge(cell_data, cell_heights, by = c(".part", "ft_row_id"))
+  cell_data <- merge(cell_data, cell_widths, by = ".col_id")
+  cell_data <- merge(cell_data, cell_heights, by = c(".part", ".row_id"))
 
   setDT(cell_data)
-  setorderv(cell_data, cols = c(".part", "ft_row_id", "col_id"))
+  setorderv(cell_data, cols = c(".part", ".row_id", ".col_id"))
 
   # fix for word horiz. borders, copying the bottom props to top props of the next cell
   cell_data <- copy_border_bottom_to_next_border_top(cell_data, value = value)
@@ -69,21 +69,21 @@ rtf_cells <- function(value, cell_data, layout = "fixed") {
     by = intersect(colnames(cell_data), colnames(data_ref_cells))
   )
   cell_data <- merge(cell_data, style_dat, by = "classname")
-  setorderv(cell_data, cols = c(".part", "ft_row_id", "col_id"))
+  setorderv(cell_data, cols = c(".part", ".row_id", ".col_id"))
   if (layout %in% "fixed") {
     cell_data[, c("fp_cell_rtf") := list(
       sprintf("%s\\cellx%.0f", .SD$fp_cell_rtf, cumsum(.SD$width) * 1440)
     ),
-    by = c(".part", "ft_row_id")
+    by = c(".part", ".row_id")
     ]
   } else {
     cell_data[, c("fp_cell_rtf") := list(
       sprintf("%s\\cellx", .SD$fp_cell_rtf)
     ),
-    by = c(".part", "ft_row_id")
+    by = c(".part", ".row_id")
     ]
   }
-  cell_data <- cell_data[, .SD, .SDcols = c(".part", "ft_row_id", "col_id", "fp_cell_rtf")]
+  cell_data <- cell_data[, .SD, .SDcols = c(".part", ".row_id", ".col_id", "fp_cell_rtf")]
   setDF(cell_data)
   cell_data
 }
@@ -92,14 +92,14 @@ rtf_cells <- function(value, cell_data, layout = "fixed") {
 
 rtf_rows <- function(value) {
   # prepare cells formatting properties and add span information
-  cell_attributes <- fortify_cells_properties(value)
+  cell_attributes <- information_data_cell(value)
   span_data <- fortify_span(value)
   setDT(cell_attributes)
-  cell_attributes <- merge(cell_attributes, span_data, by = c(".part", "ft_row_id", "col_id"))
+  cell_attributes <- merge(cell_attributes, span_data, by = c(".part", ".row_id", ".col_id"))
   setDF(cell_attributes)
 
   # prepare paragraphs formatting properties
-  paragraphs_properties <- fortify_paragraphs_properties(value)
+  paragraphs_properties <- information_data_paragraph(value)
 
   # transform alignments for rotated text
   # and add them back to paragraphs_properties and cell_attributes
@@ -112,7 +112,7 @@ rtf_rows <- function(value) {
   cell_attributes$vertical.align <- new_pos$valign
 
   # get runs in wml format and get hyperlinks and images information
-  run_data <- runs_as_rtf(value, chunk_data = fortify_run(value))
+  run_data <- runs_as_rtf(value, chunk_data = information_data_chunk(value))
   cell_data <- rtf_cells(
     value, cell_attributes,
     layout = value$properties$layout
@@ -121,10 +121,10 @@ rtf_rows <- function(value) {
   cell_hrule <- fortify_hrule(value)
 
   setDT(cell_data)
-  tab_data <- merge(cell_data, ooxml_ppr(paragraphs_properties, type = "rtf"), by = c(".part", "ft_row_id", "col_id"))
-  tab_data <- merge(tab_data, run_data, by = c(".part", "ft_row_id", "col_id"))
-  tab_data <- merge(tab_data, span_data, by = c(".part", "ft_row_id", "col_id"))
-  setorderv(tab_data, cols = c(".part", "ft_row_id", "col_id"))
+  tab_data <- merge(cell_data, ooxml_ppr(paragraphs_properties, type = "rtf"), by = c(".part", ".row_id", ".col_id"))
+  tab_data <- merge(tab_data, run_data, by = c(".part", ".row_id", ".col_id"))
+  tab_data <- merge(tab_data, span_data, by = c(".part", ".row_id", ".col_id"))
+  setorderv(tab_data, cols = c(".part", ".row_id", ".col_id"))
 
   tab_data[tab_data$colspan < 1, c("txt") := list("")]
   tab_data[tab_data$rowspan < 1, c("txt") := list("")]
@@ -137,7 +137,7 @@ rtf_rows <- function(value) {
   cells <- tab_data[, list(
     fp_cell_rtf = paste0(.SD$fp_cell_rtf, collapse = ""),
     content_rtf = paste0(.SD$txt, "\\cell", collapse = "")
-  ), by = c(".part", "ft_row_id")]
+  ), by = c(".part", ".row_id")]
 
   split_str <- ""
   if (!value$properties$opts_word$split) split_str <- "\\trkeep"
