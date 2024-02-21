@@ -2,6 +2,7 @@ format_fun <- function(x, ...) {
   UseMethod("format_fun")
 }
 
+#' @export
 format_fun.default <-
   function(x,
            na_str = flextable_global$defaults$na_str,
@@ -70,6 +71,7 @@ format_fun.default <-
     out
   }
 
+#' @export
 format_fun.character <-
   function(x,
            na_str = flextable_global$defaults$na_str,
@@ -81,6 +83,7 @@ format_fun.character <-
     out
   }
 
+#' @export
 format_fun.factor <-
   function(x,
            na_str = flextable_global$defaults$na_str,
@@ -92,6 +95,7 @@ format_fun.factor <-
     out
   }
 
+#' @export
 format_fun.logical <-
   function(x,
            na_str = flextable_global$defaults$na_str,
@@ -129,6 +133,7 @@ format_fun_defaultnum <-
     out
   }
 
+#' @export
 format_fun.double <-
   function(x,
            na_str = flextable_global$defaults$na_str,
@@ -149,6 +154,7 @@ format_fun.double <-
     out[is.nan(x)] <- nan_str
     out
   }
+#' @export
 format_fun.pct <-
   function(x,
            na_str = flextable_global$defaults$na_str,
@@ -173,6 +179,7 @@ format_fun.pct <-
     out
   }
 
+#' @export
 format_fun.integer <-
   function(x,
            na_str = flextable_global$defaults$na_str,
@@ -189,6 +196,7 @@ format_fun.integer <-
     out
   }
 
+#' @export
 format_fun.Date <-
   function(x,
            na_str = flextable_global$defaults$na_str,
@@ -201,6 +209,7 @@ format_fun.Date <-
     out
   }
 
+#' @export
 format_fun.POSIXt <-
   function(x,
            na_str = flextable_global$defaults$na_str,

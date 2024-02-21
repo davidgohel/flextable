@@ -24,6 +24,7 @@ ft
 }
 \seealso{
 Other as_flextable methods: 
+\code{\link{as_flextable}()},
 \code{\link{as_flextable.data.frame}()},
 \code{\link{as_flextable.gam}()},
 \code{\link{as_flextable.glm}()},
@@ -36,7 +37,6 @@ Other as_flextable methods:
 \code{\link{as_flextable.summarizor}()},
 \code{\link{as_flextable.tabular}()},
 \code{\link{as_flextable.tabulator}()},
-\code{\link{as_flextable.xtable}()},
-\code{\link{as_flextable}()}
+\code{\link{as_flextable.xtable}()}
 }
 \concept{as_flextable methods}

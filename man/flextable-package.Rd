@@ -29,3 +29,27 @@ by default. See \code{\link[=set_flextable_defaults]{set_flextable_defaults()}} 
 \url{https://davidgohel.github.io/flextable/},
 \url{https://ardata-fr.github.io/flextable-book/}, \code{\link[=flextable]{flextable()}}
 }
+\author{
+\strong{Maintainer}: David Gohel \email{david.gohel@ardata.fr}
+
+Authors:
+\itemize{
+  \item Panagiotis Skintzos \email{panagiotis.skintzos@ardata.fr}
+}
+
+Other contributors:
+\itemize{
+  \item ArData [copyright holder]
+  \item Clementine Jager [contributor]
+  \item Quentin Fazilleau [contributor]
+  \item Maxim Nazarov (rmarkdown for docx output) [contributor]
+  \item Titouan Robert [contributor]
+  \item Michael Barrowman (inline footnotes) [contributor]
+  \item Atsushi Yasumoto (support for bookdown cross reference) [contributor]
+  \item Paul Julian (support for gam objects) [contributor]
+  \item Sean Browning (work on footnote positioning system) [contributor]
+  \item Rémi Thériault (\href{https://orcid.org/0000-0003-4315-6788}{ORCID}) (theme_apa) [contributor]
+  \item Samuel Jobert (work on pagination) [contributor]
+}
+
+}

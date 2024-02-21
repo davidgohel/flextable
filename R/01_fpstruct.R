@@ -9,10 +9,6 @@ fpstruct <- function(nrow, keys, default) {
   class(x) <- "fpstruct"
   x
 }
-`[<-.fpstruct` <- function(x, i, j, value) {
-  x$data[i, j] <- value
-  x
-}
 
 delete_row_from_fpstruct <- function(x, i) {
   x$data <- x$data[-i, , drop = FALSE]
@@ -29,9 +25,6 @@ delete_col_from_fpstruct <- function(x, j) {
   x
 }
 
-`[.fpstruct` <- function(x, i, j) {
-  get_fpstruct_elements(x = x, i = i, j = j)
-}
 get_fpstruct_elements <- function(x, i, j) {
   if (is.null(x$data)) {
     stop("data coumpound does not exits.")
@@ -85,20 +78,23 @@ text_struct <- function(nrow, keys,
   x
 }
 
-`[<-.text_struct` <- function(x, i, j, property, value) {
+set_text_struct_values <- function(x, i, j, property, value) {
+  if (is.null(j)) j <- x$color$keys
+  if (is.null(i)) i <- seq_len(x$color$nrow)
+
   if (inherits(value, "fp_text")) {
     for (property in intersect(names(value), names(x))) {
-      x[[property]][i, j] <- value[[property]]
+      x[[property]]$data[i, j] <- value[[property]]
     }
   } else if (property %in% names(x)) {
-    x[[property]][i, j] <- value
+    x[[property]]$data[i, j] <- value
   }
 
   x
 }
-`[.text_struct` <- function(x, i, j, property, value) {
-  x[[property]][i, j]
-}
+# `[.text_struct` <- function(x, i, j, property, value) {
+#   x[[property]][i, j]
+# }
 
 delete_style_row <- function(x, i) {
   for (property in names(x)) {
@@ -111,11 +107,6 @@ delete_style_col <- function(x, j) {
     x[[property]] <- delete_col_from_fpstruct(x[[property]], j)
   }
   x
-}
-
-print.text_struct <- function(x, ...) {
-  dims <- dim(x$color$data)
-  cat("a text_struct with ", dims[1], " rows and ", dims[2], " columns", sep = "")
 }
 
 add_rows_to_struct <- function(x, nrows, first, ...) {
@@ -174,28 +165,21 @@ par_struct <- function(nrow, keys,
   x
 }
 
+set_par_struct_values <- function(x, i, j, property, value) {
 
-print.par_struct <- function(x, ...) {
-  dims <- dim(x$text.align$data)
-  cat("a par_struct with ", dims[1], " rows and ", dims[2], " columns", sep = "")
-}
+  if (is.null(j)) j <- x$text.align$keys
+  if (is.null(i)) i <- seq_len(x$text.align$nrow)
 
-`[<-.par_struct` <- function(x, i, j, property, value) {
   if (inherits(value, "fp_par")) {
     value <- cast_borders(value)
     for (property in intersect(names(value), names(x))) {
-      x[[property]][i, j] <- value[[property]]
+      x[[property]]$data[i, j] <- value[[property]]
     }
   } else if (property %in% names(x)) {
-    x[[property]][i, j] <- value
+    x[[property]]$data[i, j] <- value
   }
 
   x
-}
-
-
-`[.par_struct` <- function(x, i, j, property) {
-  x[[property]][i, j]
 }
 
 par_struct_to_df <- function(object, ...) {
@@ -249,27 +233,6 @@ cell_struct <- function(nrow, keys,
   )
   class(x) <- "cell_struct"
   x
-}
-
-`[<-.cell_struct` <- function(x, i, j, property, value) {
-  if (inherits(value, "fp_cell")) {
-    value <- cast_borders(value)
-    for (property in intersect(names(value), names(x))) {
-      x[[property]][i, j] <- value[[property]]
-    }
-  } else if (property %in% names(x)) {
-    x[[property]][i, j] <- value
-  }
-
-  x
-}
-`[.cell_struct` <- function(x, i, j, property) {
-  x[[property]][i, j]
-}
-
-print.cell_struct <- function(x, ...) {
-  dims <- dim(x$background.color$data)
-  cat("a cell_struct with ", dims[1], " rows and ", dims[2], " columns", sep = "")
 }
 
 cell_struct_to_df <- function(object, ...) {
@@ -335,11 +298,6 @@ add_rows_to_chunkset_struct <- function(x, nrows, first, data, ...) {
     x = x,
     i = id, j = x$keys, value = newchunkdata)
   x
-}
-
-print.chunkset_struct <- function(x, ...) {
-  dims <- dim(x$data)
-  cat("a chunkset_struct with ", dims[1], " rows and ", dims[2], " columns", sep = "")
 }
 
 as_chunkset_struct <- function(l_paragraph, keys, i = NULL) {
@@ -442,11 +400,6 @@ append_chunkset_struct_element <- function(x, i, j, chunk_data, last = TRUE) {
 
 get_chunkset_struct_element <- function(x, i, j) {
   x$data[i, j, drop = FALSE]
-}
-
-`[.chunkset_struct` <- function(x, i, j) {
-  stop("you should not see this message")
-  x$data[i, j]
 }
 
 replace_missing_fptext_by_default <- function(x, default) {

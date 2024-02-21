@@ -62,9 +62,9 @@ correct_h_border <- function(x) {
       i_from <- apply_bottom_border$from[i]
       i_to <- apply_bottom_border$to[i]
 
-      x$styles$cells$border.color.bottom[i_to, x$col_keys[j]] <- x$styles$cells$border.color.bottom[i_from, x$col_keys[j]]
-      x$styles$cells$border.width.bottom[i_to, x$col_keys[j]] <- x$styles$cells$border.width.bottom[i_from, x$col_keys[j]]
-      x$styles$cells$border.style.bottom[i_to, x$col_keys[j]] <- x$styles$cells$border.style.bottom[i_from, x$col_keys[j]]
+      x$styles$cells$border.color.bottom$data[i_to, x$col_keys[j]] <- x$styles$cells$border.color.bottom$data[i_from, x$col_keys[j]]
+      x$styles$cells$border.width.bottom$data[i_to, x$col_keys[j]] <- x$styles$cells$border.width.bottom$data[i_from, x$col_keys[j]]
+      x$styles$cells$border.style.bottom$data[i_to, x$col_keys[j]] <- x$styles$cells$border.style.bottom$data[i_from, x$col_keys[j]]
     }
   }
 
@@ -88,9 +88,9 @@ correct_v_border <- function(x) {
     for (j in seq_along(apply_right_border$from)) {
       colkeyto <- x$col_keys[apply_right_border$to[j]]
       colkeyfrom <- x$col_keys[apply_right_border$from[j]]
-      x$styles$cells$border.color.right[i, colkeyto] <- x$styles$cells$border.color.right[i, colkeyfrom]
-      x$styles$cells$border.width.right[i, colkeyto] <- x$styles$cells$border.width.right[i, colkeyfrom]
-      x$styles$cells$border.style.right[i, colkeyto] <- x$styles$cells$border.style.right[i, colkeyfrom]
+      x$styles$cells$border.color.right$data[i, colkeyto] <- x$styles$cells$border.color.right$data[i, colkeyfrom]
+      x$styles$cells$border.width.right$data[i, colkeyto] <- x$styles$cells$border.width.right$data[i, colkeyfrom]
+      x$styles$cells$border.style.right$data[i, colkeyto] <- x$styles$cells$border.style.right$data[i, colkeyfrom]
     }
   }
 

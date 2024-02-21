@@ -68,11 +68,11 @@ ft_2
 \code{\link[=flextable]{flextable()}}, \code{\link[=set_caption]{set_caption()}}
 
 Other functions for row and column operations in a flextable: 
-\code{\link{add_body_row}()},
 \code{\link{add_body}()},
+\code{\link{add_body_row}()},
+\code{\link{add_footer}()},
 \code{\link{add_footer_lines}()},
 \code{\link{add_footer_row}()},
-\code{\link{add_footer}()},
 \code{\link{add_header}()},
 \code{\link{delete_columns}()},
 \code{\link{delete_part}()},

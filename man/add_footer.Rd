@@ -55,12 +55,12 @@ ft
 }
 \seealso{
 Other functions for row and column operations in a flextable: 
-\code{\link{add_body_row}()},
 \code{\link{add_body}()},
+\code{\link{add_body_row}()},
 \code{\link{add_footer_lines}()},
 \code{\link{add_footer_row}()},
-\code{\link{add_header_row}()},
 \code{\link{add_header}()},
+\code{\link{add_header_row}()},
 \code{\link{delete_columns}()},
 \code{\link{delete_part}()},
 \code{\link{delete_rows}()},

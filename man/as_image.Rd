@@ -68,8 +68,8 @@ if (require("magick")) {
 \code{\link[=compose]{compose()}}, \code{\link[=as_paragraph]{as_paragraph()}}
 
 Other chunk elements for paragraph: 
-\code{\link{as_bracket}()},
 \code{\link{as_b}()},
+\code{\link{as_bracket}()},
 \code{\link{as_chunk}()},
 \code{\link{as_equation}()},
 \code{\link{as_highlight}()},

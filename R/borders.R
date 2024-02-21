@@ -82,24 +82,24 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
   j <- get_columns_id(x[[part]], j)
 
   if (!is.null(border.top)) {
-    x[[part]]$styles$cells[i, j, "border.style.top"] <- border.top$style
-    x[[part]]$styles$cells[i, j, "border.color.top"] <- border.top$color
-    x[[part]]$styles$cells[i, j, "border.width.top"] <- border.top$width
+    x[[part]]$styles$cells[["border.style.top"]]$data[i, j] <- border.top$style
+    x[[part]]$styles$cells[["border.color.top"]]$data[i, j] <- border.top$color
+    x[[part]]$styles$cells[["border.width.top"]]$data[i, j] <- border.top$width
   }
   if (!is.null(border.bottom)) {
-    x[[part]]$styles$cells[i, j, "border.style.bottom"] <- border.bottom$style
-    x[[part]]$styles$cells[i, j, "border.color.bottom"] <- border.bottom$color
-    x[[part]]$styles$cells[i, j, "border.width.bottom"] <- border.bottom$width
+    x[[part]]$styles$cells[["border.style.bottom"]]$data[i, j] <- border.bottom$style
+    x[[part]]$styles$cells[["border.color.bottom"]]$data[i, j] <- border.bottom$color
+    x[[part]]$styles$cells[["border.width.bottom"]]$data[i, j] <- border.bottom$width
   }
   if (!is.null(border.left)) {
-    x[[part]]$styles$cells[i, j, "border.style.left"] <- border.left$style
-    x[[part]]$styles$cells[i, j, "border.color.left"] <- border.left$color
-    x[[part]]$styles$cells[i, j, "border.width.left"] <- border.left$width
+    x[[part]]$styles$cells[["border.style.left"]]$data[i, j] <- border.left$style
+    x[[part]]$styles$cells[["border.color.left"]]$data[i, j] <- border.left$color
+    x[[part]]$styles$cells[["border.width.left"]]$data[i, j] <- border.left$width
   }
   if (!is.null(border.right)) {
-    x[[part]]$styles$cells[i, j, "border.style.right"] <- border.right$style
-    x[[part]]$styles$cells[i, j, "border.color.right"] <- border.right$color
-    x[[part]]$styles$cells[i, j, "border.width.right"] <- border.right$width
+    x[[part]]$styles$cells[["border.style.right"]]$data[i, j] <- border.right$style
+    x[[part]]$styles$cells[["border.color.right"]]$data[i, j] <- border.right$color
+    x[[part]]$styles$cells[["border.width.right"]]$data[i, j] <- border.right$width
   }
 
   x

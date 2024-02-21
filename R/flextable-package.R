@@ -26,4 +26,4 @@
 #' @docType package
 #' @aliases flextable-package
 #' @name flextable-package
-NULL
+"_PACKAGE"

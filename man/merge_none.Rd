@@ -32,8 +32,8 @@ ft
 \seealso{
 Other flextable merging function: 
 \code{\link{merge_at}()},
-\code{\link{merge_h_range}()},
 \code{\link{merge_h}()},
+\code{\link{merge_h_range}()},
 \code{\link{merge_v}()}
 }
 \concept{flextable merging function}

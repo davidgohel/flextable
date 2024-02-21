@@ -467,13 +467,18 @@ latex_container_wrap <- function(placement = "l") {
 latex_container_str <- function(x, latex_container, quarto = FALSE, ...) {
   UseMethod("latex_container_str", latex_container)
 }
+
+#' @export
 latex_container_str.latex_container_none <- function(x, latex_container, quarto = FALSE, ...) {
   c("", "")
 }
 
+#' @export
 latex_container_str.latex_container_float <- function(x, latex_container, quarto = FALSE, ...) {
   c("\\begin{table}", "\\end{table}")
 }
+
+#' @export
 latex_container_str.latex_container_wrap <- function(x, latex_container, quarto = FALSE, ...) {
   str <- paste0("\\begin{wraptable}{", latex_container$placement, "}")
 

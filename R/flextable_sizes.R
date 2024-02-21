@@ -455,8 +455,14 @@ as_wide_matrix_ <- function(data, idvar, timevar = "col_key") {
 
 dim_paragraphs <- function(x) {
   par_dim <- par_struct_to_df(x$styles$pars)
-  par_dim$width <- as.vector(x$styles$pars[, , "padding.right"] + x$styles$pars[, , "padding.left"]) * (4 / 3) / 72
-  par_dim$height <- as.vector(x$styles$pars[, , "padding.top"] + x$styles$pars[, , "padding.bottom"]) * (4 / 3) / 72
+
+  par_dim$width <- as.vector(
+    x$styles$pars[["padding.right"]]$data +
+      x$styles$pars[["padding.left"]]$data) * (4 / 3) / 72
+  par_dim$height <- as.vector(
+    x$styles$pars[["padding.top"]]$data +
+      x$styles$pars[["padding.bottom"]]$data) * (4 / 3) / 72
+
   selection_ <- c(".row_id", ".col_id", "width", "height")
   par_dim[, selection_]
 
@@ -468,8 +474,8 @@ dim_paragraphs <- function(x) {
 
 dim_cells <- function(x) {
   cell_dim <- cell_struct_to_df(x$styles$cells)
-  cell_dim$width <- as.vector(x$styles$cells[, , "margin.right"] + x$styles$cells[, , "margin.left"]) * (4 / 3) / 72
-  cell_dim$height <- as.vector(x$styles$cells[, , "margin.top"] + x$styles$cells[, , "margin.bottom"]) * (4 / 3) / 72
+  cell_dim$width <- as.vector(x$styles$cells[["margin.right"]]$data + x$styles$cells[["margin.left"]]$data) * (4 / 3) / 72
+  cell_dim$height <- as.vector(x$styles$cells[["margin.top"]]$data + x$styles$cells[["margin.bottom"]]$data) * (4 / 3) / 72
   selection_ <- c(".row_id", ".col_id", "width", "height")
   cell_dim <- cell_dim[, selection_]
 

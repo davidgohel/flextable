@@ -33,16 +33,16 @@ ft
 }
 \seealso{
 Other borders management: 
+\code{\link{border_inner}()},
 \code{\link{border_inner_h}()},
 \code{\link{border_inner_v}()},
-\code{\link{border_inner}()},
 \code{\link{border_outer}()},
 \code{\link{border_remove}()},
+\code{\link{hline}()},
 \code{\link{hline_bottom}()},
 \code{\link{hline_top}()},
-\code{\link{hline}()},
 \code{\link{surround}()},
-\code{\link{vline_left}()},
-\code{\link{vline}()}
+\code{\link{vline}()},
+\code{\link{vline_left}()}
 }
 \concept{borders management}
