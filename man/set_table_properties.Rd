@@ -82,6 +82,8 @@ paragraph.
 not supported by pdflatex, whereas with the xelatex and lualatex engines they are.
 \item 'caption_repeat': a boolean that indicates if the caption should be
 repeated along pages. Its default value is \code{TRUE}.
+\item 'footer_repeat': a boolean that indicates if the footer should be
+repeated along pages. Its default value is \code{TRUE}.
 \item 'default_line_color': default line color, restored globally after
 the flextable is produced.
 }}

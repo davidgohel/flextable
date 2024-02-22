@@ -167,7 +167,11 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   # add horiz lines ----
   txt_data <- merge(txt_data, latex_borders_data_str$hlines, by = c(".part", ".row_id"), all.x = TRUE, all.y = TRUE)
   setorderv(txt_data, cols = c(".part", ".row_id"))
-  txt_data <- augment_part_separators(txt_data, inherits(lat_container, "latex_container_none") && !quarto)
+  txt_data <- augment_part_separators(
+    z = txt_data,
+    no_container = inherits(lat_container, "latex_container_none") && !quarto,
+    repeat_footer = x$properties$opts_pdf$footer_repeat
+    )
 
   txt_data[, c("txt") := list(paste(
     .SD$hlines_t_strings,
@@ -317,12 +321,15 @@ augment_multicolumn_fixed <- function(properties_df) {
   properties_df
 }
 
-augment_part_separators <- function(z, no_container = TRUE) {
+augment_part_separators <- function(z, no_container = TRUE, repeat_footer = TRUE) {
+  if (repeat_footer) endfoot <- "\\endfoot"
+  else endfoot <- "\\endlastfoot"
+
   part_separators <- merge(z[, c(".part", ".row_id")],
     merge(z[, list(.row_id = max(.SD$.row_id)), by = ".part"],
       data.frame(
         .part = factor(c("header", "body", "footer"), levels = c("header", "body", "footer")),
-        part_sep = if (no_container) c("\\endfirsthead", "", "\\endfoot") else c("\\endfirsthead", "", ""),
+        part_sep = if (no_container) c("\\endfirsthead", "", endfoot) else c("\\endfirsthead", "", ""),
         stringsAsFactors = FALSE
       ),
       by = c(".part")

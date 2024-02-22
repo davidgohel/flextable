@@ -14,7 +14,8 @@
 - renovate `fmt_2stats()` so that it uses global flextable settings, 
 i.e. digits, etc.
 - refactoring of data structure for content
-
+- footer along pages in PDF are now deactivated by default. It can be 
+activated with command `set_table_properties(opts_pdf = list(footer_repeat = TRUE))`.
 
 # flextable 0.9.4
 
