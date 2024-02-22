@@ -5,6 +5,7 @@
 - `summarizor()` don't stop anymore if table only contain discrete columns.
 - `as_flextable.data.frame()` supports 'data.table'
 - `footnote()` handle undefined `ref_symbols` argument
+- `delete_rows()` does not delete rows if the row selection is empty
 
 ## Changes
 

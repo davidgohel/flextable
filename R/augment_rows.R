@@ -185,6 +185,9 @@ delete_rows <- function(x, i = NULL, part = "body") {
 
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
+  if (length(i) < 1) {
+    return(x)
+  }
   x[[part]] <- delete_rows_from_part(x[[part]], i = i)
   x
 }
