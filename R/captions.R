@@ -269,7 +269,7 @@ has_caption <- function(x) {
 
 has_autonum <- function(x) {
   has_it <- FALSE
-  if (!is.null(x$caption$autonum$bookmark)) {
+  if (!is.null(x$caption$autonum)) {
     has_it <- TRUE
   }
   has_it
