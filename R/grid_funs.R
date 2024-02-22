@@ -329,7 +329,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
   chunk_data[, "is_text" := !.SD$is_raster & !.SD$is_equation]
 
   # avoid CMD check warnings
-  is_raster <- is_text <- txt <- is_tab <- is_newline <- is_space <-
+  is_raster <- is_text <- txt <- is_newline <- is_space <-
     is_superscript <- is_subscript <- angle <- NULL
 
   # remove empty text
@@ -434,7 +434,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
     # create chunk word data (parts split by whitespace)
     word_data <- part_data
     word_data[, "wrapping" := fifelse(
-      .SD$is_text & !.SD$is_tab & !.SD$is_space & !.SD$is_newline &
+      .SD$is_text & !.SD$is_space & !.SD$is_newline &
         !.SD$is_superscript & !.SD$is_subscript, "whitespace", "none"
     )]
     # split by wrapping method
@@ -464,13 +464,13 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
     if (autowidths) {
       # don't take into account whitespace dimensions, except newline char in the beggining
       word_data[, "part_width" := fifelse(
-        .SD$is_newline & .SD$part_index > 1 | .SD$is_tab | .SD$is_space, 0, .SD$width
+        .SD$is_newline & .SD$part_index > 1 | .SD$is_space, 0, .SD$width
       )]
       word_data[, "part_ascent" := fifelse(
-        .SD$is_newline & .SD$part_index > 1 | .SD$is_tab | .SD$is_space, 0, .SD$ascent
+        .SD$is_newline & .SD$part_index > 1 | .SD$is_space, 0, .SD$ascent
       )]
       word_data[, "part_descent" := fifelse(
-        .SD$is_newline & .SD$part_index > 1 | .SD$is_tab | .SD$is_space, 0, .SD$descent
+        .SD$is_newline & .SD$part_index > 1 | .SD$is_space, 0, .SD$descent
       )]
 
       # calculate content metrics
@@ -517,7 +517,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
 
     # create chunk word data (parts split by any character)
     char_data <- word_data[
-      (is_text & !is_tab & !is_space & !is_newline & !is_superscript & !is_subscript), ,
+      (is_text & !is_space & !is_newline & !is_superscript & !is_subscript), ,
       drop = FALSE
     ]
     # expand by character
@@ -600,7 +600,6 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
   # replace special chars
   part_data[(is_newline), "txt" := ""]
   part_data[(is_space), "txt" := " "]
-  part_data[(is_tab), "txt" := "    "]
 
   # merge chunk data
   grid_data <- merge(
@@ -646,7 +645,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
             row_index = 0L,
             col_index = 0L,
             is_newline = .SD$is_newline,
-            is_whitespace = .SD$is_tab | .SD$is_space,
+            is_whitespace = .SD$is_space,
             width = .SD$width,
             height = .SD$height,
             ascent = .SD$ascent,
@@ -914,16 +913,14 @@ calc_grid_rotated_just <- function(just, angle) {
 #' @importFrom gdtools str_metrics
 calc_grid_text_metrics <- function(dat) {
   # avoid CMD check warnings
-  is_text <- is_tab <- is_newline <- is_space <- is_superscript <- is_subscript <- NULL
+  is_text <- is_newline <- is_space <- is_superscript <- is_subscript <- NULL
 
   # handle special chars
   dat[, "is_newline" := .SD$is_text & .SD$txt %in% "\n"]
-  dat[, "is_tab" := .SD$is_text & .SD$txt %in% "\t"]
+  dat[, "txt" := gsub("\t", "\u020\u020\u020\u020", .SD$txt)]
   dat[, "is_space" := .SD$is_text & .SD$txt %in% " "]
   # temporarily replace these, so that they get some height
   dat[(is_newline), "txt" := "."]
-  dat[(is_tab), "txt" := "mmmm"]
-  dat[(is_space), "txt" := "."]
 
   # calculate string metrics
   txt_metrics <- mapply(
@@ -947,8 +944,6 @@ calc_grid_text_metrics <- function(dat) {
   dat[(is_text), "height" := .SD$ascent + .SD$descent]
   dat[!(is_text), c("ascent", "descent") := list(.SD$height, 0)]
   dat[(is_newline), "txt" := "\n"]
-  dat[(is_tab), "txt" := "\t"]
-  dat[(is_space), "txt" := " "]
 
   # drop not needed columns
   dat[, c("part_width", "part_ascent", "part_descent") := NULL]
