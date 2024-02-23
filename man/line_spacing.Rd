@@ -40,6 +40,7 @@ Other sugar functions for table style:
 \code{\link{keep_with_next}()},
 \code{\link{padding}()},
 \code{\link{rotate}()},
+\code{\link{tab_settings}()},
 \code{\link{valign}()}
 }
 \concept{sugar functions for table style}

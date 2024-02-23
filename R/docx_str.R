@@ -1,4 +1,5 @@
 # utils -----
+#' @importFrom officer fp_tab fp_tabs
 ooxml_ppr <- function(paragraphs_properties, type = "wml") {
   data_ref_pars <- distinct_paragraphs_properties(paragraphs_properties)
 
@@ -28,6 +29,16 @@ ooxml_ppr <- function(paragraphs_properties, type = "wml") {
       width = zz$border.width.left,
       style = zz$border.style.left
     )
+    if (!is.na(zz$tabs)) {
+      fp_tabs_ <- strsplit(zz$tabs, "&")[[1]]
+      fp_tabs_ <- lapply(strsplit(fp_tabs_, "_"), function(x) {
+        fp_tab(pos = as.numeric(x[2]), style = x[1])
+      })
+      zz$tabs <- do.call(fp_tabs, fp_tabs_)
+    } else {
+      zz$tabs <- NULL
+    }
+
 
     # delete names not in formals
     zz[grepl(pattern = "^(border\\.color|border\\.width|border\\.style)", names(zz))] <- NULL

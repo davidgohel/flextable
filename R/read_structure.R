@@ -143,10 +143,9 @@ distinct_paragraphs_properties <- function(x) {
     "border.width.right", "border.color.bottom", "border.color.top",
     "border.color.left", "border.color.right", "border.style.bottom",
     "border.style.top", "border.style.left", "border.style.right",
-    "text.direction", "vertical.align"
+    "text.direction", "vertical.align", "tabs"
   )
   columns <- intersect(columns, colnames(x))
-
   dat <- as.data.frame(x)[columns]
   setDT(dat)
 

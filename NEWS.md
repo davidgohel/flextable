@@ -1,5 +1,10 @@
 # flextable 0.9.5
 
+## new features
+
+- new functions `tab_settings()` to set tabulation marks configuration
+for Word and RTF. It works with `officer::fp_tabs()`.
+
 ## Issues
 
 - `summarizor()` don't stop anymore if table only contain discrete columns.
