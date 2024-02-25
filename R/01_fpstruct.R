@@ -309,6 +309,14 @@ as_chunkset_struct <- function(l_paragraph, keys, i = NULL) {
       length(keys) > 1) {
     l_paragraph <- rep(l_paragraph, length(keys))
   }
+  # temp fix for ftExtra
+  l_paragraph[] <- lapply(l_paragraph, function(x) {
+    .names <- colnames(x)
+    .names[.names %in% "seq_index"] <- ".chunk_index"
+    colnames(x) <- .names
+    x
+  })
+
   matrix(
     data = l_paragraph,
     ncol = length(keys),
