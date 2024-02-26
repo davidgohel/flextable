@@ -30,7 +30,7 @@ to install necessary dependencies.
 }
 \examples{
 library(flextable)
-if (require("equatags") && mathjax_available()) {
+if (require("equatags")) {
   eqs <- c(
     "(ax^2 + bx + c = 0)",
     "a \\\\ne 0",
