@@ -12,6 +12,7 @@ for Word and RTF. It works with `officer::fp_tabs()`.
 - `footnote()` handle undefined `ref_symbols` argument
 - `delete_rows()` does not delete rows if the row selection is empty
 - improve `gen_grob()` alignments when wrapping text
+- fix horizontal border issue with `gen_grob()` when cells are vertically merged
 - Word captions set with `set_caption()` can have no bookmark and have
 autonumber used together.
 

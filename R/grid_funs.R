@@ -116,7 +116,17 @@ grid_data_add_cell_info <- function(grid_data, x) {
     spans,
     by = keycols
   )
+
   fortify_borders_data <- fortify_latex_borders(cell_data)
+  # apply a correction to borders for vert. merged cells
+  last_bottom_borders_data <- fortify_borders_data[, list(
+    border.width.bottom = last(border.width.bottom),
+    border.color.bottom = last(border.color.bottom)
+  ), by = c(".part", ".col_id", "vspan_id")]
+  fortify_borders_data$border.width.bottom <- NULL
+  fortify_borders_data$border.color.bottom <- NULL
+  fortify_borders_data <- merge(fortify_borders_data, last_bottom_borders_data, by = c(".part", ".col_id", "vspan_id"))
+
   fortify_borders_data <- fortify_borders_data[
     , .SD,
     .SDcols = c(
@@ -139,6 +149,8 @@ grid_data_add_cell_info <- function(grid_data, x) {
   ]
 
   cell_data <- merge(cell_data, fortify_borders_data, by = keycols)
+
+  # browser()
 
   # merge with grid_data to keep only active cells
   cell_data <- merge(grid_data[, keycols, with = FALSE], cell_data, by = keycols)
