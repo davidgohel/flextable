@@ -2,6 +2,7 @@ context("check grid grob")
 
 skip_on_cran()
 skip_if_not_installed("doconv")
+skip_if_not(doconv::msoffice_available())
 library(doconv)
 library(officer)
 library(gdtools)
