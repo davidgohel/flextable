@@ -39,6 +39,6 @@ Other text formatter functions:
 \code{\link{fmt_int}()},
 \code{\link{fmt_n_percent}()},
 \code{\link{fmt_pct}()},
-\code{\link{fmt_signif_after_zero}()}
+\code{\link{fmt_signif_after_zeros}()}
 }
 \concept{text formatter functions}

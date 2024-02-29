@@ -55,6 +55,6 @@ Other text formatter functions:
 \code{\link{fmt_header_n}()},
 \code{\link{fmt_int}()},
 \code{\link{fmt_pct}()},
-\code{\link{fmt_signif_after_zero}()}
+\code{\link{fmt_signif_after_zeros}()}
 }
 \concept{text formatter functions}

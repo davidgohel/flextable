@@ -482,8 +482,9 @@ fmt_avg_dev <- function(avg, dev, digit1 = 1, digit2 = 1) {
 #' )
 #' ft_1 <- flextable(x)
 #' ft_1 <- align(x = ft_1, j = 1, align = "left")
-#' mk_par(ft_1, value = as_paragraph(fmt_signif_after_zeros(x)))
-fmt_signif_after_zero <- function(x, digits = 3) {
+#' mk_par(ft_1, value = as_paragraph(
+#'   fmt_signif_after_zeros(x)))
+fmt_signif_after_zeros <- function(x, digits = 3) {
 
   na_str = flextable_global$defaults$na_str
   nan_str = flextable_global$defaults$nan_str
