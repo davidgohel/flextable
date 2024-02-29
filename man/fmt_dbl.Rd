@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{fmt_dbl}
 \alias{fmt_dbl}
-\title{Format numerical data as percentages}
+\title{Format numerical data}
 \usage{
 fmt_dbl(x)
 }
@@ -10,7 +10,7 @@ fmt_dbl(x)
 \item{x}{numeric values}
 }
 \description{
-The function formats numeric vectors as percentages.
+The function formats numeric vectors.
 }
 \examples{
 library(flextable)
@@ -34,6 +34,7 @@ Other text formatter functions:
 \code{\link{fmt_header_n}()},
 \code{\link{fmt_int}()},
 \code{\link{fmt_n_percent}()},
-\code{\link{fmt_pct}()}
+\code{\link{fmt_pct}()},
+\code{\link{fmt_signif_after_zero}()}
 }
 \concept{text formatter functions}

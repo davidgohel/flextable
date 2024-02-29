@@ -408,8 +408,8 @@ fmt_pct <- function(x) {
 }
 
 #' @export
-#' @title Format numerical data as percentages
-#' @description The function formats numeric vectors as percentages.
+#' @title Format numerical data
+#' @description The function formats numeric vectors.
 #' @param x numeric values
 #' @seealso [tabulator()], [mk_par()]
 #' @family text formatter functions
@@ -466,3 +466,56 @@ fmt_avg_dev <- function(avg, dev, digit1 = 1, digit2 = 1) {
   z2[!is.na(dev)] <- sprintf(paste0(" (%.", digit2, "f)"), dev[!is.na(dev)])
   paste0(z1, z2)
 }
+
+#' @export
+#' @title Format with significant figures after zeros
+#' @description Rounds significant figures after zeros in numeric vectors.
+#' The number of digits displayed after the leading zeros is
+#' customizable using the `digits` parameter.
+#' @param x numeric values
+#' @param digits number of digits displayed after the leading zeros
+#' @seealso [tabulator()], [mk_par()]
+#' @family text formatter functions
+#' @examples
+#' x <- data.frame(
+#'   x = c(0.00000004567, 2.000003456, 3, pi)
+#' )
+#' ft_1 <- flextable(x)
+#' ft_1 <- align(x = ft_1, j = 1, align = "left")
+#' mk_par(ft_1, value = as_paragraph(fmt_signif_after_zeros(x)))
+fmt_signif_after_zero <- function(x, digits = 3) {
+
+  na_str = flextable_global$defaults$na_str
+  nan_str = flextable_global$defaults$nan_str
+  decimal.mark = flextable_global$defaults$decimal.mark
+
+  wisna <- is.na(x)
+  wisnan <- is.nan(x)
+
+  # as character
+  str_rounded <- formatC(x, format = "f", digits = 64)
+
+  # decimal point index
+  decimal_index <- regexpr("\\.", str_rounded)
+
+  # decimal part extraction
+  decimal_part <- substr(str_rounded, decimal_index + 1, nchar(str_rounded))
+
+  # first non zero index
+  regex_non0 <- regexpr("^[0]+", decimal_part)
+  pos_non0 <- attr(regex_non0, "match.length")
+  pos_non0[pos_non0 < 0] <- nchar(decimal_part)[pos_non0 < 0]
+
+  dec_str <- substr(decimal_part, start = regex_non0, stop = pos_non0 + digits)
+  dec_str[regex_non0 < 0] <- substr(decimal_part[regex_non0 < 0], start = 1, stop = digits)
+  which_have_dec <- grepl("[^0]", dec_str)
+  dec_str[which_have_dec] <- paste0(decimal.mark, dec_str[which_have_dec])
+  dec_str[!which_have_dec] <- ""
+
+  out <- paste0(round(x, 0), dec_str)
+
+  out[wisna] <- na_str
+  out[wisnan] <- nan_str
+  out
+}
+

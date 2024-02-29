@@ -4,6 +4,7 @@
 
 - new functions `tab_settings()` to set tabulation marks configuration
 for Word and RTF. It works with `officer::fp_tabs()`.
+- new function `fmt_signif_after_zero()` to round significant figures after zeros.
 
 ## Issues
 
