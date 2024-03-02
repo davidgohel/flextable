@@ -38,6 +38,10 @@ padding(
 \description{
 change paddings of selected rows and columns of a flextable.
 }
+\note{
+Padding is not implemented in PDF due to technical infeasibility but
+it can be replaced with \code{set_table_properties(opts_pdf = list(tabcolsep = 1))}.
+}
 \examples{
 ft_1 <- flextable(head(iris))
 ft_1 <- theme_vader(ft_1)

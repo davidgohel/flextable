@@ -493,6 +493,9 @@ font <- function(x, i = NULL, j = NULL, fontname, part = "body", cs.family = fon
 #' @export
 #' @title Set paragraph paddings
 #' @description change paddings of selected rows and columns of a flextable.
+#' @note
+#' Padding is not implemented in PDF due to technical infeasibility but
+#' it can be replaced with `set_table_properties(opts_pdf = list(tabcolsep = 1))`.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
