@@ -120,8 +120,8 @@ grid_data_add_cell_info <- function(grid_data, x) {
   fortify_borders_data <- fortify_latex_borders(cell_data)
   # apply a correction to borders for vert. merged cells
   last_bottom_borders_data <- fortify_borders_data[, list(
-    border.width.bottom = last(border.width.bottom),
-    border.color.bottom = last(border.color.bottom)
+    border.width.bottom = last(.SD$border.width.bottom),
+    border.color.bottom = last(.SD$border.color.bottom)
   ), by = c(".part", ".col_id", "vspan_id")]
   fortify_borders_data$border.width.bottom <- NULL
   fortify_borders_data$border.color.bottom <- NULL
