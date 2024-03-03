@@ -28,7 +28,7 @@ default_flextable_settings <- list(
   extra_css = "",
   scroll = NULL,
   split = TRUE, keep_with_next = FALSE,
-  tabcolsep = 0, arraystretch = 1.5, float = "none",
+  tabcolsep = 2, arraystretch = 1.5, float = "none",
   fonts_ignore = FALSE,
   theme_fun = "theme_booktabs",
   post_process_all = function(x) x,

@@ -19,6 +19,7 @@ autonumber used together.
 
 ## Changes
 
+- default `tabcolsep` is now set to 2.
 - Deprecate `set_formatter_type()`.
 - renovate `fmt_2stats()` so that it uses global flextable settings, 
 i.e. digits, etc.
