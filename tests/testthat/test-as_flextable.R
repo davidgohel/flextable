@@ -8,7 +8,12 @@ skip_if_not(pandoc_version() >= numeric_version("2"))
 skip_if_not_installed("webshot2")
 
 init_flextable_defaults()
-
+set_flextable_defaults(
+  post_process_pptx = function(x) {
+    set_table_properties(x, layout = "fixed") |>
+      autofit()
+  }
+)
 data_co2 <-
   structure(
     list(
@@ -33,7 +38,7 @@ gdata <- as_grouped_data(x = data_co2, groups = c("Treatment"))
 
 ft_1 <- as_flextable(gdata)
 ft_1 <- colformat_double(ft_1, digits = 2)
-ft_1 <- autofit(ft_1)
+ft_1 <- set_table_properties(ft_1, layout = "autofit")
 
 test_that("pptx grouped-data", {
   local_edition(3)
