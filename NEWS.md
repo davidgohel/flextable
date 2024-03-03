@@ -25,6 +25,7 @@ i.e. digits, etc.
 - refactoring of data structure for content
 - footer along pages in PDF are now deactivated by default. It can be 
 activated with command `set_table_properties(opts_pdf = list(footer_repeat = TRUE))`.
+- more argument checkings in `as_chunk()`
 
 # flextable 0.9.4
 

@@ -150,13 +150,18 @@ default_fptext_prop <- structure(
 #' ft
 as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
   if (is.function(x)) {
-    stop("argument `x` in function `as_chunk` cannot be a function", call. = FALSE)
+    stop("argument `x` in function `as_chunk` cannot be a function")
+  }
+  if (!is.function(formatter)) {
+    stop("argument `formatter` in function `as_chunk` should be a function")
   }
 
   text <- formatter(x, ...)
 
   if (is.null(props)) {
     props <- default_fptext_prop
+  } else if (!inherits(props, "fp_text")) {
+    stop("argument `props` should be an object of class 'fp_text'.")
   }
 
   if (inherits(props, "fp_text")) {
