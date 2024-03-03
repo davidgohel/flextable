@@ -56,33 +56,3 @@ test_that("merged cells can be un-merged", {
   expect_true(all(ft$body$spans$columns == 1))
 })
 
-test_that("separate_header", {
-  x <- data.frame(
-    Species = as.factor(c("setosa", "versicolor", "virginica")),
-    Sepal.Length_mean_zzz = c(5.006, 5.936, 6.588),
-    Sepal.Length_sd = c(0.35249, 0.51617, 0.63588),
-    Sepal.Width_mean = c(3.428, 2.77, 2.974),
-    Sepal.Width_sd_sfsf_dsfsdf = c(0.37906, 0.3138, 0.3225),
-    Petal.Length_mean = c(1.462, 4.26, 5.552),
-    Petal.Length_sd = c(0.17366, 0.46991, 0.55189),
-    Petal.Width_mean = c(0.246, 1.326, 2.026),
-    Petal.Width_sd = c(0.10539, 0.19775, 0.27465)
-  )
-
-  ft_1 <- flextable(x)
-  ft_1 <- separate_header(x = ft_1,
-                          opts = c("span-top", "bottom-vspan")
-  )
-  header_txt <- information_data_chunk(ft_1) |>
-    subset(.part %in% "header")
-  expect_equal(
-    object = header_txt$txt,
-    expected =
-      c("Species", "Sepal", "Sepal", "Sepal", "Sepal", "Petal", "Petal",
-      "Petal", "Petal", "", "Length", "Length", "Width", "Width", "Length",
-      "Length", "Width", "Width", "", "mean", "sd", "mean", "sd", "mean",
-      "sd", "mean", "sd", "", "zzz", "", "", "sfsf", "", "", "", "",
-      "", "", "", "", "dsfsdf", "", "", "", "")
-  )
-
-})

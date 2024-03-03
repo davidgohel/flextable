@@ -7,6 +7,8 @@ library(rmarkdown)
 
 
 test_that("void works as expected", {
+  expect_error(void(12, part = "all"))
+
   ftab <- flextable(head(mtcars))
   ftab <- void(ftab, part = "all")
   expect_true(all(information_data_chunk(ftab)$txt %in% ""))
@@ -101,6 +103,10 @@ test_that("colformat_* functions", {
 
 
 test_that("append and prepend chunks structure", {
+
+  expect_error(append_chunks(12))
+  expect_error(prepend_chunks(12))
+
   ftab <- flextable(head(cars, n = 3))
   ftab <- append_chunks(ftab,
     j = 1,
