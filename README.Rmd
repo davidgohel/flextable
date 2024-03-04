@@ -11,12 +11,17 @@ output:
 [![version](https://www.r-pkg.org/badges/version/flextable)](https://CRAN.R-project.org/package=flextable)
 ![Active](https://www.repostatus.org/badges/latest/active.svg)
 
-```{r, echo = FALSE}
+```{r include=FALSE}
 knitr::opts_chunk$set(
   message = FALSE,
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  dev = "ragg_png",
+  dpi = 200
 )
+library(gdtools)
+register_liberationsans()
 ```
 
 
@@ -29,21 +34,6 @@ an image. The package make it possible to build any table for
 publication from a `data.frame` and provides sugar function 
 `as_flextable()` to convert several R objects to a flextable,
 such as an object return from `table()` or a model.
-
-```{r eval=FALSE}
-set_flextable_defaults(
-  font.family = "Arial", font.size = 10, 
-  border.color = "gray")
-
-flextable(head(cars)) %>% 
-  bold(part = "header") %>% 
-  add_footer_lines("The 'cars' dataset")
-
-ggplot2::diamonds |> 
-  with(table(cut, color)) |> 
-  as_flextable()
-```
-
 
 Tables can be embedded within HTML, PDF, Word and PowerPoint documents 
 from R Markdown documents and within RTF or Microsoft Word or PowerPoint 
@@ -69,6 +59,33 @@ their layout. The package provides functions that give control over:
 
 The package also offers a set of high-level functions that allow tabular
 reporting of statistical models and the creation of complex cross tabulations.
+
+## Examples
+
+
+```{r 'mtcars-dataset', message=FALSE, warning=FALSE}
+library(flextable)
+set_flextable_defaults(
+  font.family = "Arial", font.size = 10, 
+  border.color = "gray", big.mark = "")
+
+ft <- flextable(head(mtcars)) |> 
+  bold(part = "header") 
+ft
+
+ft |> 
+  highlight(i = ~ mpg < 22, j = "disp", color = "#ffe842") |> 
+  bg(j = c("hp", "drat", "wt"), 
+     bg = scales::col_quantile(palette = c("wheat", "red"), domain =NULL)) |> 
+  add_footer_lines("The 'mtcars' dataset")
+```
+
+
+```{r 'diamonds-dataset'}
+ggplot2::diamonds[, c("cut", "carat", "price", "clarity", "table")] |> 
+  summarizor(by = c("cut")) |> 
+  as_flextable(spread_first_col = TRUE)
+```
 
 ## Installation
 

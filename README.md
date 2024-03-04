@@ -16,20 +16,6 @@ it possible to build any table for publication from a `data.frame` and
 provides sugar function `as_flextable()` to convert several R objects to
 a flextable, such as an object return from `table()` or a model.
 
-``` r
-set_flextable_defaults(
-  font.family = "Arial", font.size = 10, 
-  border.color = "gray")
-
-flextable(head(cars)) %>% 
-  bold(part = "header") %>% 
-  add_footer_lines("The 'cars' dataset")
-
-ggplot2::diamonds |> 
-  with(table(cut, color)) |> 
-  as_flextable()
-```
-
 Tables can be embedded within HTML, PDF, Word and PowerPoint documents
 from R Markdown documents and within RTF or Microsoft Word or PowerPoint
 documents with package officer. Tables can also be rendered as R plots
@@ -55,6 +41,40 @@ control over:
 The package also offers a set of high-level functions that allow tabular
 reporting of statistical models and the creation of complex cross
 tabulations.
+
+## Examples
+
+``` r
+library(flextable)
+set_flextable_defaults(
+  font.family = "Arial", font.size = 10, 
+  border.color = "gray", big.mark = "")
+
+ft <- flextable(head(mtcars)) |> 
+  bold(part = "header") 
+ft
+```
+
+<img src="man/figures/README-mtcars-dataset-1.png" width="792" />
+
+``` r
+
+ft |> 
+  highlight(i = ~ mpg < 22, j = "disp", color = "#ffe842") |> 
+  bg(j = c("hp", "drat", "wt"), 
+     bg = scales::col_quantile(palette = c("wheat", "red"), domain =NULL)) |> 
+  add_footer_lines("The 'mtcars' dataset")
+```
+
+<img src="man/figures/README-mtcars-dataset-2.png" width="792" />
+
+``` r
+ggplot2::diamonds[, c("cut", "carat", "price", "clarity", "table")] |> 
+  summarizor(by = c("cut")) |> 
+  as_flextable(spread_first_col = TRUE)
+```
+
+<img src="man/figures/README-diamonds-dataset-1.png" width="740" />
 
 ## Installation
 
