@@ -27,6 +27,7 @@ default_flextable_settings <- list(
   fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
   extra_css = "",
   scroll = NULL,
+  table_align = "center",
   split = TRUE, keep_with_next = FALSE,
   tabcolsep = 2, arraystretch = 1.5, float = "none",
   fonts_ignore = FALSE,
@@ -88,6 +89,8 @@ flextable_global$defaults <- default_flextable_settings
 #' @param extra_css css instructions to be integrated with the table.
 #' @param scroll NULL or a list if you want to add a scroll-box.
 #' See **scroll** element of argument `opts_html` in function [set_table_properties()].
+#' @param table_align default flextable alignment, supported values are 'left', 'center'
+#' and 'right'.
 #' @param split Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
 #' @param keep_with_next default initialization value used by the [paginate()]
@@ -148,6 +151,7 @@ set_flextable_defaults <- function(
     fmt_date = NULL, fmt_datetime = NULL,
     extra_css = NULL,
     scroll = NULL,
+    table_align = "center",
     split = NULL, keep_with_next = NULL,
     tabcolsep = NULL, arraystretch = NULL, float = NULL,
     fonts_ignore = NULL,
@@ -186,6 +190,10 @@ set_flextable_defaults <- function(
 
   if (!is.null(font.color)) {
     x$font.color <- font.color
+  }
+
+  if (!is.null(table_align) && table_align %in% c("left", "right", "center")) {
+    x$table_align <- table_align
   }
 
   if (!is.null(text.align) && text.align %in% c("left", "right", "center", "justify")) {

@@ -521,7 +521,7 @@ regulartable <- function(data, col_keys = names(data), cwidth = .75, cheight = .
 #' ft_4
 #' @family flextable dimensions
 set_table_properties <- function(x, layout = "fixed", width = 0,
-                                 align = "center",
+                                 align = NULL,
                                  opts_html = list(),
                                  opts_word = list(),
                                  opts_pdf = list(),
@@ -546,7 +546,7 @@ set_table_properties <- function(x, layout = "fixed", width = 0,
   x$properties <- list(
     layout = layout,
     width = width,
-    align = align,
+    align = if (is.null(align)) get_flextable_defaults()$table_align else align,
     opts_html = do.call(opts_ft_html, opts_html),
     opts_word = do.call(opts_ft_word, opts_word),
     opts_pdf = do.call(opts_ft_pdf, opts_pdf),

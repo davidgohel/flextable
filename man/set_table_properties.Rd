@@ -8,7 +8,7 @@ set_table_properties(
   x,
   layout = "fixed",
   width = 0,
-  align = "center",
+  align = NULL,
   opts_html = list(),
   opts_word = list(),
   opts_pdf = list(),

@@ -33,6 +33,7 @@ set_flextable_defaults(
   fmt_datetime = NULL,
   extra_css = NULL,
   scroll = NULL,
+  table_align = "center",
   split = NULL,
   keep_with_next = NULL,
   tabcolsep = NULL,
@@ -107,6 +108,9 @@ documented in \code{\link[=strptime]{strptime()}}. Default to '\%Y-\%m-\%d' and 
 
 \item{scroll}{NULL or a list if you want to add a scroll-box.
 See \strong{scroll} element of argument \code{opts_html} in function \code{\link[=set_table_properties]{set_table_properties()}}.}
+
+\item{table_align}{default flextable alignment, supported values are 'left', 'center'
+and 'right'.}
 
 \item{split}{Word option 'Allow row to break across pages' can be
 activated when TRUE.}
