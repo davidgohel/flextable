@@ -101,6 +101,9 @@ The size of the flextable can be known by using the method
 }
 
 \examples{
+\dontshow{
+data.table::setDTthreads(1)
+}
 library(ragg)
 library(gdtools)
 register_liberationsans()
@@ -128,6 +131,28 @@ ragg::agg_png(
 )
 plot(gr)
 dev.off()
+
+
+if (require("ggplot2")) {
+  png_f_3 <- tempfile(fileext = ".png")
+  z <- summarizor(iris, by = "Species") |>
+    as_flextable(spread_first_col = TRUE) |>
+    color(color = "gray", part = "all")
+  gg <- ggplot(data = iris, aes(Sepal.Length, Petal.Width)) +
+    annotation_custom(
+      gen_grob(z, scaling = "full"),
+      xmin  = 4.5, xmax = 7.5, ymin = 0.25, ymax = 2.25) +
+    geom_point() +
+    theme_minimal()
+  ragg::agg_png(
+    filename = png_f_3, width = 7,
+    height = 7, units = "in", res = 150
+  )
+  print(gg)
+  dev.off()
+}
+
+
 }
 \seealso{
 Other flextable print function: 
