@@ -277,6 +277,9 @@
     <loc>https://davidgohel.github.io/flextable/reference/fmt_pct.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/flextable/reference/fmt_signif_after_zeros.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/flextable/reference/font.html</loc>
   </url>
   <url>
@@ -335,6 +338,15 @@
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/reference/information_data_cell.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/reference/information_data_chunk.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/reference/information_data_paragraph.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/italic.html</loc>
@@ -464,6 +476,9 @@
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/surround.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/flextable/reference/tab_settings.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/flextable/reference/tabulator.html</loc>
