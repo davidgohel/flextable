@@ -33,7 +33,7 @@ License: GPL-3
 Imports:
     stats, utils, grDevices, graphics, grid,
     rmarkdown, knitr, htmltools, rlang, ragg,
-    officer (>= 0.6.5), gdtools (>= 0.3.3), 
+    officer (>= 0.6.5), gdtools (>= 0.3.6), 
     xml2, data.table (>= 1.13.0), uuid (>= 0.1-4)
 RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)

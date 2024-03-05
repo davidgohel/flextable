@@ -83,25 +83,33 @@
 #'
 #' @return a grob (gTree) object made with package `grid`
 #' @examples
+#' library(ragg)
+#' library(gdtools)
+#' register_liberationsans()
+#'
+#' set_flextable_defaults(font.family = "Liberation Sans")
+#'
 #' ft <- flextable(head(mtcars))
-#' ft <- autofit(ft)
+#'
 #' gr <- gen_grob(ft)
 #'
-#' used_family <- get_flextable_defaults()$font.family
-#' if (gdtools::font_family_exists(used_family) &&
-#'   require("ragg")) {
-#'   png_f <- tempfile(fileext = ".png")
-#'   # get the size
-#'   dims <- dim(gr)
-#'   dims
-#'   ragg::agg_png(
-#'     filename = png_f, width = dims$width + .1,
-#'     height = dims$height + .1, units = "in", res = 150
-#'   )
-#'   plot(gr)
-#'   dev.off()
-#' }
+#' png_f_1 <- tempfile(fileext = ".png")
+#' ragg::agg_png(
+#'   filename = png_f_1, width = 4, height = 2,
+#'   units = "in", res = 150)
+#' plot(gr)
+#' dev.off()
 #'
+#' png_f_2 <- tempfile(fileext = ".png")
+#' # get the size
+#' dims <- dim(gr)
+#' dims
+#' ragg::agg_png(
+#'   filename = png_f_2, width = dims$width + .1,
+#'   height = dims$height + .1, units = "in", res = 150
+#' )
+#' plot(gr)
+#' dev.off()
 #' @family flextable print function
 #' @importFrom grid gTree
 gen_grob <- function(x,
