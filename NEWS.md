@@ -1,3 +1,9 @@
+# flextable 0.9.6
+
+## Changes
+
+- `headers_flextable_at_bkm()` and `footers_flextable_at_bkm()` are defunct.
+
 # flextable 0.9.5
 
 ## new features
