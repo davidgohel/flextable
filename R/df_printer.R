@@ -246,7 +246,6 @@ as_flextable.data.frame <- function(x,
                                     show_coltype = TRUE,
                                     color_coltype = "#999999",
                                     ...) {
-
   if (inherits(x, "data.table")) {
     x <- as.data.frame(x)
   } else if (inherits(x, "tbl_df")) {
