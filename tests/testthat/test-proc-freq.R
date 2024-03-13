@@ -1,8 +1,5 @@
 context("check proc_freq")
 
-library(utils)
-library(xml2)
-
 p <- structure(list(
   lengths = c(9894L, 104L, 1L, 1L),
   values = c("No", "Yes", NA, NA)

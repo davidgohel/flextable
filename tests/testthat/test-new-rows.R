@@ -1,8 +1,5 @@
 context("check dim and new rows")
 
-library(officer)
-
-
 test_that("nrow_part or ncol_keys checks", {
   expect_error(nrow_part(12))
   expect_error(ncol_keys(12))

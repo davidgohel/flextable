@@ -1,8 +1,5 @@
 context("check hyperlink")
 
-library(xml2)
-library(officer)
-
 data <- data.frame(
   code = c("X01", "X02"),
   name = c("X Number 1", "X Number 2"),

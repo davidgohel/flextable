@@ -2,14 +2,10 @@ context("check markdown captions")
 
 skip_on_cran()
 skip_if_not_installed("doconv")
-library(doconv)
+library(doconv) # it should not load the package here but `::`
 skip_if_not(doconv::msoffice_available())
 skip_if_not(pandoc_version() >= numeric_version("2"))
 skip_if_not_installed("webshot2")
-
-library(rmarkdown)
-library(xml2)
-library(officer)
 
 init_flextable_defaults()
 

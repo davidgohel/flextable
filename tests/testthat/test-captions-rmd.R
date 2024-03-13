@@ -1,8 +1,5 @@
 context("check captions")
 
-library(rmarkdown)
-library(xml2)
-library(officer)
 init_flextable_defaults()
 
 rmd_file_0 <- "rmd/captions.Rmd"
@@ -15,8 +12,6 @@ file.copy(rmd_file_0, rmd_file, overwrite = TRUE)
 html_file <- gsub("\\.Rmd$", ".html", rmd_file)
 docx_file <- gsub("\\.Rmd$", ".docx", rmd_file)
 pdf_file <- gsub("\\.Rmd$", ".pdf", rmd_file)
-
-source("zzzzz.R")
 
 testthat::test_that("with html_document", {
   skip_if_not(rmarkdown::pandoc_available())

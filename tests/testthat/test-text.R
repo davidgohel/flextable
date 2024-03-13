@@ -1,8 +1,5 @@
 context("check cells text")
 
-library(xml2)
-library(officer)
-
 ft1 <- flextable(data.frame(a = "1 < 3", stringsAsFactors = FALSE))
 
 get_xml_doc <- function(tab, main_folder = "docx_folder") {

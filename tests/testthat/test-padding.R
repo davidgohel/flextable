@@ -1,8 +1,5 @@
 context("check paddings")
 
-library(utils)
-library(xml2)
-
 test_that("padding overwrite all paddings", {
   ft <- flextable(data.frame(a = c("", ""), stringsAsFactors = FALSE))
   ft <- padding(ft, padding = 5)

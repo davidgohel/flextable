@@ -1,3 +1,5 @@
+library(xml2) # This should be imported already
+
 get_docx_xml <- function(x) {
   if (inherits(x, "flextable")) {
     docx_file <- tempfile(fileext = ".docx")

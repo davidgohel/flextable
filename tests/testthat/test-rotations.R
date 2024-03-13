@@ -1,9 +1,5 @@
 context("check rotations")
 
-library(officer)
-library(xml2)
-
-
 dat <- data.frame(
   a = c("left-top", "left-middle", "left-bottom"),
   b = c("center-top", "center-middle", "center-bottom"),

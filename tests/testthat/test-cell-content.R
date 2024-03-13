@@ -1,11 +1,5 @@
 context("cell content")
 
-library(utils)
-library(xml2)
-library(officer)
-library(rmarkdown)
-
-
 test_that("void works as expected", {
   expect_error(void(12, part = "all"))
 

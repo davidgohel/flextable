@@ -1,8 +1,5 @@
 context("check grid grob")
 
-library(officer)
-library(gdtools)
-
 register_liberationsans()
 
 init_flextable_defaults()
