@@ -1,5 +1,22 @@
-library(xml2) # This should be imported already
+# Collection of functions and data pre-processing to help with testing
 
+# Utility function to manually test local snapshots ----------------------------
+skip_if_not_local_testing <- function(min_pandoc_version = "2", check_html = FALSE) {
+  skip_on_cran() # When doing manual testing, it should be always skipped on CRAN
+  local_edition(3, .env = parent.frame()) # Set the local_edition at 3
+  skip_if_not_installed("doconv")
+  skip_if_not(doconv::msoffice_available())
+  if (!is.null(min_pandoc_version)) { # Can be turned off with NULL
+    skip_if_not(rmarkdown::pandoc_version() >= numeric_version(min_pandoc_version))
+  }
+  if (isTRUE(check_html)) {
+    skip_if_not_installed("webshot2")
+  }
+  invisible(TRUE)
+}
+
+
+# xml related functions --------------------------------------------------------
 get_docx_xml <- function(x) {
   if (inherits(x, "flextable")) {
     docx_file <- tempfile(fileext = ".docx")
@@ -34,7 +51,7 @@ get_html_xml <- function(x) {
     x <- html_file
   }
   doc <- read_html(x)
-  xml_child(doc, "body")
+  xml2::xml_child(doc, "body")
 }
 get_pdf_text <- function(x, extract_fun) {
   stopifnot(grepl("\\.pdf$", x))

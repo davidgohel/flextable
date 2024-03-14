@@ -114,12 +114,7 @@ test_that("htest", {
 })
 
 test_that("grouped data exports work", {
-  local_edition(3)
-  skip_on_cran()
-  skip_if_not_installed("doconv")
-  skip_if_not(doconv::msoffice_available())
-  skip_if_not(pandoc_version() >= numeric_version("2"))
-  skip_if_not_installed("webshot2")
+  skip_if_not_local_testing(check_html = TRUE)
 
   init_flextable_defaults()
   set_flextable_defaults(

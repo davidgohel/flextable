@@ -14,8 +14,7 @@ docx_file <- gsub("\\.Rmd$", ".docx", rmd_file)
 pdf_file <- gsub("\\.Rmd$", ".pdf", rmd_file)
 
 testthat::test_that("with html_document", {
-  skip_if_not(rmarkdown::pandoc_available())
-  skip_if_not(pandoc_version() >= numeric_version("2"))
+  skip_if_not_local_testing()
   unlink(html_file, force = TRUE)
   render(rmd_file,
     output_format = rmarkdown::html_document(),
@@ -47,10 +46,9 @@ testthat::test_that("with html_document", {
   expect_true(all(!grepl("Table [0-9]+:", xml_text(captions))))
 })
 
-testthat::test_that("with html_document2", {
-  skip_if_not(rmarkdown::pandoc_available())
-  skip_if_not(pandoc_version() >= numeric_version("2"))
-  testthat::skip_if_not_installed("bookdown")
+test_that("with html_document2", {
+  skip_if_not_local_testing()
+  skip_if_not_installed("bookdown")
 
   unlink(html_file, force = TRUE)
   render(rmd_file,
@@ -81,9 +79,8 @@ testthat::test_that("with html_document2", {
   expect_true(grepl("Table 2:", xml_text(caption)))
 })
 
-testthat::test_that("with word_document", {
-  skip_if_not(rmarkdown::pandoc_available())
-  skip_if_not(pandoc_version() >= numeric_version("2"))
+test_that("with word_document", {
+  skip_if_not_local_testing()
   skip_if(pandoc_version() == numeric_version("2.9.2.1"))
 
   unlink(docx_file, force = TRUE)
@@ -114,10 +111,9 @@ testthat::test_that("with word_document", {
 })
 
 testthat::test_that("with word_document2", {
-  skip_if_not(rmarkdown::pandoc_available(version = ))
-  skip_if_not(pandoc_version() > numeric_version("2.7.3"))
-  testthat::skip_if_not_installed("bookdown")
+  skip_if_not_local_testing(min_pandoc_version = "2.7.3")
   skip_if(pandoc_version() == numeric_version("2.9.2.1"))
+  testthat::skip_if_not_installed("bookdown")
 
   unlink(docx_file, force = TRUE)
   render(rmd_file,
@@ -187,9 +183,7 @@ testthat::test_that("word with officer", {
 
 
 test_that("with pdf_document2", {
-  skip_on_cran()
-  skip_if_not(rmarkdown::pandoc_available())
-  skip_if_not(pandoc_version() > numeric_version("2.7.3"))
+  skip_if_not_local_testing(min_pandoc_version = "2.7.3")
   skip_if_not_installed("bookdown")
   skip_if_not_installed("pdftools")
 
