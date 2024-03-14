@@ -25,7 +25,7 @@ test_that("grouped_data", {
   setDT(my_CO2)
   my_CO2$conc <- as.integer(my_CO2$conc)
   data_co2 <- dcast(my_CO2, Treatment + conc ~ Type,
-                    value.var = "uptake", fun.aggregate = mean
+    value.var = "uptake", fun.aggregate = mean
   )
   expect_silent(
     data_co2 <- as_grouped_data(x = data_co2, groups = c("Treatment"))
@@ -40,8 +40,8 @@ test_that("grouped_data", {
   )
 
   out_tmp <- data_co2[1, , drop = TRUE]
-  expect_equal(attr(out_tmp,"groups"), "Treatment")
-  expect_equal(attr(out_tmp,"columns"), c("conc", "Quebec", "Mississippi"))
+  expect_equal(attr(out_tmp, "groups"), "Treatment")
+  expect_equal(attr(out_tmp, "columns"), c("conc", "Quebec", "Mississippi"))
   expect_equal(unlist(out_tmp, use.names = FALSE), c(1, NA, NA, NA))
 
   expect_s3_class(data_co2, "grouped_data")
@@ -71,7 +71,7 @@ test_that("glm and lm", {
   dat <- attitude
   dat$high.rating <- (dat$rating > 70)
   probit.model <- glm(high.rating ~ learning + critical +
-                        advance, data = dat, family = binomial(link = "probit"))
+    advance, data = dat, family = binomial(link = "probit"))
   expect_silent(ft <- as_flextable(probit.model))
 
   expect_equal(
@@ -84,7 +84,7 @@ test_that("glm and lm", {
   )
 
   lmod <- lm(rating ~ complaints + privileges +
-               learning + raises + critical, data = attitude)
+    learning + raises + critical, data = attitude)
   ft <- as_flextable(lmod)
   expect_equal(
     information_data_chunk(ft)$txt[5],

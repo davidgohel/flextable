@@ -18,7 +18,7 @@ Authors@R: c(
     person("Rémi", "Thériault", role = "ctb", comment = c(ORCID = "0000-0003-4315-6788", ctb = "theme_apa")),
     person("Samuel", "Jobert", role = "ctb", comment = "work on pagination")
     )
-Description: Use a grammar for creating and customizing pretty tables. 
+Description: Use a grammar for creating and customizing pretty tables.
  The following formats are supported: 'HTML', 'PDF', 'RTF', 
  'Microsoft Word', 'Microsoft PowerPoint' and R 'Grid Graphics'. 
  'R Markdown', 'Quarto' and the package 'officer' can be used to produce 
@@ -31,44 +31,44 @@ Description: Use a grammar for creating and customizing pretty tables.
  creation of complex cross tabulations.
 License: GPL-3
 Imports:
-    data.table (>= 1.13.0), 
-    gdtools (>= 0.3.6), 
-    graphics, 
-    grDevices, 
+    data.table (>= 1.13.0),
+    gdtools (>= 0.3.6),
+    graphics,
+    grDevices,
     grid,
-    htmltools, 
-    knitr, 
-    officer (>= 0.6.5), 
+    htmltools,
+    knitr,
+    officer (>= 0.6.5),
     ragg,
-    rlang, 
-    rmarkdown (>= 2.0), 
-    stats, 
-    utils, 
+    rlang,
+    rmarkdown (>= 2.0),
+    stats,
+    utils,
     uuid (>= 0.1-4),
-    xml2 
+    xml2
 RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
-Suggests: 
-    bookdown (>= 0.34), 
-    broom, 
-    broom.mixed, 
-    cluster, 
+Suggests:
+    bookdown (>= 0.34),
+    broom,
+    broom.mixed,
+    cluster,
     chromote,
-    commonmark, 
+    commonmark,
     doconv (>= 0.3.0),
-    equatags, 
-    ggplot2, 
-    lme4, 
-    magick, 
-    mgcv, 
+    equatags,
+    ggplot2,
+    lme4,
+    magick,
+    mgcv,
     nlme,
     officedown,
-    pdftools, 
-    pkgdown (>= 2.0.0), 
+    pdftools,
+    pkgdown (>= 2.0.0),
     scales,
     svglite,
     tables (>= 0.9.17),
-    testthat (>= 2.1.0), 
+    testthat (>= 2.1.0),
     webshot2,
     xtable
 Encoding: UTF-8
