@@ -1,21 +1,5 @@
 # Collection of functions and data pre-processing to help with testing
 
-# Utility function to manually test local snapshots ----------------------------
-skip_if_not_local_testing <- function(min_pandoc_version = "2", check_html = FALSE) {
-  skip_on_cran() # When doing manual testing, it should be always skipped on CRAN
-  local_edition(3, .env = parent.frame()) # Set the local_edition at 3
-  skip_if_not_installed("doconv")
-  skip_if_not(doconv::msoffice_available())
-  if (!is.null(min_pandoc_version)) { # Can be turned off with NULL
-    skip_if_not(rmarkdown::pandoc_version() >= numeric_version(min_pandoc_version))
-  }
-  if (isTRUE(check_html)) {
-    skip_if_not_installed("webshot2")
-  }
-  invisible(TRUE)
-}
-
-
 # xml related functions --------------------------------------------------------
 get_docx_xml <- function(x) {
   if (inherits(x, "flextable")) {
@@ -82,3 +66,34 @@ render_rmd <- function(file, rmd_format) {
   )
   sucess
 }
+
+# Utility function to manually test local snapshots ----------------------------
+skip_if_not_local_testing <- function(min_pandoc_version = "2", check_html = FALSE) {
+  skip_on_cran() # When doing manual testing, it should be always skipped on CRAN
+  local_edition(3, .env = parent.frame()) # Set the local_edition at 3
+  skip_if_not_installed("doconv")
+  skip_if_not(doconv::msoffice_available())
+  if (!is.null(min_pandoc_version)) { # Can be turned off with NULL
+    skip_if_not(rmarkdown::pandoc_version() >= numeric_version(min_pandoc_version))
+  }
+  if (isTRUE(check_html)) {
+    skip_if_not_installed("webshot2")
+  }
+  invisible(TRUE)
+}
+
+# Getting snapshots in the _snaps folder for local testing if conditions are met
+test_that("setting up manual testing with msoffice", {
+  skip_if_not_local_testing(check_html = TRUE)
+
+  # Folder where the snapshots are stored
+  folder_to_copy <- system.file("snapshots_for_manual_tests", package = "flextable")
+
+  # Get the path to the tests/testthat directory
+  path_to_testthat <- system.file("tests", "testthat", package = "flextable")
+
+  # Construct the path to the _snaps folder
+  path_to_snaps <- file.path(path_to_testthat, "_snaps")
+
+  file.copy(folder_to_copy, path_to_snaps, recursive = TRUE, overwrite = TRUE)
+})
