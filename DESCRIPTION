@@ -31,22 +31,46 @@ Description: Use a grammar for creating and customizing pretty tables.
  creation of complex cross tabulations.
 License: GPL-3
 Imports:
-    stats, utils, grDevices, graphics, grid,
-    rmarkdown, knitr, htmltools, rlang, ragg,
-    officer (>= 0.6.5), gdtools (>= 0.3.6), 
-    xml2, data.table (>= 1.13.0), uuid (>= 0.1-4)
+    data.table (>= 1.13.0), 
+    gdtools (>= 0.3.6), 
+    graphics, 
+    grDevices, 
+    grid,
+    htmltools, 
+    knitr, 
+    officer (>= 0.6.5), 
+    ragg,
+    rlang, 
+    rmarkdown (>= 2.0), 
+    stats, 
+    utils, 
+    uuid (>= 0.1-4),
+    xml2 
 RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
 Suggests: 
-    testthat (>= 2.1.0), chromote,
-    magick, equatags, commonmark, 
-    ggplot2, scales,
+    bookdown (>= 0.34), 
+    broom, 
+    broom.mixed, 
+    cluster, 
+    chromote,
+    commonmark, 
     doconv (>= 0.3.0),
-    xtable, tables (>= 0.9.17),
-    broom, broom.mixed, 
-    mgcv, cluster, lme4, nlme,
-    bookdown (>= 0.34), pdftools, officedown,
-    pkgdown (>= 2.0.0), webshot2, svglite
+    equatags, 
+    ggplot2, 
+    lme4, 
+    magick, 
+    mgcv, 
+    nlme,
+    officedown,
+    pdftools, 
+    pkgdown (>= 2.0.0), 
+    scales,
+    svglite,
+    tables (>= 0.9.17),
+    testthat (>= 2.1.0), 
+    webshot2,
+    xtable
 Encoding: UTF-8
 URL: https://ardata-fr.github.io/flextable-book/, https://davidgohel.github.io/flextable/
 BugReports: https://github.com/davidgohel/flextable/issues
