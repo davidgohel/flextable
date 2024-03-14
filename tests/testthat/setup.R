@@ -1,4 +1,6 @@
 # Collection of functions and data pre-processing to help with testing
+library(officer)
+library(xml2)
 
 # xml related functions --------------------------------------------------------
 get_docx_xml <- function(x) {
@@ -10,7 +12,7 @@ get_docx_xml <- function(x) {
     x <- docx_file
   }
   redoc <- read_docx(x)
-  xml2::xml_child(docx_body_xml(redoc))
+  xml_child(docx_body_xml(redoc))
 }
 
 get_pptx_xml <- function(x) {
@@ -25,7 +27,7 @@ get_pptx_xml <- function(x) {
 
   redoc <- read_pptx(x)
   slide <- redoc$slide$get_slide(redoc$cursor)
-  xml2::xml_child(slide$get())
+  xml_child(slide$get())
 }
 
 get_html_xml <- function(x) {
@@ -35,7 +37,7 @@ get_html_xml <- function(x) {
     x <- html_file
   }
   doc <- read_html(x)
-  xml2::xml_child(doc, "body")
+  xml_child(doc, "body")
 }
 get_pdf_text <- function(x, extract_fun) {
   stopifnot(grepl("\\.pdf$", x))

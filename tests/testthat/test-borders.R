@@ -92,7 +92,7 @@ test_that("pdf complex borders", {
   # skip_if_not_installed("rmarkdown") # in imports surely installed during tests
   # skip_if_not(pandoc_available()) # I guess this is in pandoc_version()
   # skip_if_not(pandoc_version() > numeric_version("2.7.3"))
-  rmarkdown::render(rmd_file,
+  render(rmd_file,
     output_format = rmarkdown::pdf_document(latex_engine = "xelatex"),
     output_file = pdf_file,
     envir = new.env(),
