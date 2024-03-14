@@ -1,8 +1,5 @@
 context("check borders rendering")
 
-skip_on_cran()
-skip_on_ci() # ?
-
 init_flextable_defaults()
 
 set.seed(2)

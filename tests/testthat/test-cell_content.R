@@ -1,4 +1,4 @@
-context("cell content")
+context("check cell content")
 
 test_that("void works as expected", {
   expect_error(void(12, part = "all"))

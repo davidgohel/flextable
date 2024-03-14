@@ -72,6 +72,7 @@ render_rmd <- function(file, rmd_format) {
 # Utility function to manually test local snapshots ----------------------------
 skip_if_not_local_testing <- function(min_pandoc_version = "2", check_html = FALSE) {
   skip_on_cran() # When doing manual testing, it should be always skipped on CRAN
+  skip_on_ci() # msoffice testing can not be done on ci
   local_edition(3, .env = parent.frame()) # Set the local_edition at 3
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
@@ -85,7 +86,7 @@ skip_if_not_local_testing <- function(min_pandoc_version = "2", check_html = FAL
 }
 
 # Getting snapshots in the _snaps folder for local testing if conditions are met
-test_that("setting up manual testing with msoffice", {
+test_that("setting up manual testing with msoffice snapshots", {
   skip_if_not_local_testing(check_html = TRUE)
 
   # Folder where the snapshots are stored
