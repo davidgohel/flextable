@@ -99,6 +99,20 @@ test_that("glm and lm", {
   )
 })
 
+test_that("htest", {
+  set.seed(16)
+  M <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+  dimnames(M) <- list(
+    gender = c("F", "M"),
+    party = c("Democrat", "Independent", "Republican")
+  )
+  ft <- as_flextable(stats::chisq.test(M))
+  expect_equal(
+    information_data_chunk(ft)$txt[6],
+    "0.0000"
+  )
+})
+
 test_that("grouped data exports work", {
   local_edition(3)
   skip_on_cran()
