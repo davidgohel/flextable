@@ -38,7 +38,7 @@ Imports:
 RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
 Suggests: 
-    testthat (>= 2.1.0),
+    testthat (>= 2.1.0), chromote,
     magick, equatags, commonmark, 
     ggplot2, scales,
     doconv (>= 0.3.0),
