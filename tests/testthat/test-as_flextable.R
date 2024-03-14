@@ -54,8 +54,9 @@ test_that("grouped_data", {
   ft <- as_flextable(data_co2)
   expect_equal(
     information_data_chunk(ft)$txt[seq_len(9)],
-    c("conc", "Quebec", "Mississippi", "Treatment", ": ", "nonchilled", "", "", "95")
+    c("conc", "Quebec", "Mississippi", "Treatment", ": ", "nonchilled", "", "", "")
   )
+  expect_equal(information_data_chunk(ft)$txt[15], "95")
 
   ft <- as_flextable(data_co2, hide_grouplabel = TRUE)
   expect_equal(
@@ -87,7 +88,7 @@ test_that("glm and lm", {
   ft <- as_flextable(lmod)
   expect_equal(
     information_data_chunk(ft)$txt[5],
-    "Pr(>|z|)"
+    "Pr(>|t|)"
   )
   expect_equal(
     information_data_chunk(ft)$txt[44],
