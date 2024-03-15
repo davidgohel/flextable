@@ -71,6 +71,7 @@ render_rmd <- function(file, rmd_format) {
 
 # Utility function to manually test local snapshots ----------------------------
 skip_if_not_local_testing <- function(min_pandoc_version = "2", check_html = FALSE) {
+  skip_if_not(do_manual_msoffice_snapshot_testing)
   skip_on_cran() # When doing manual testing, it should be always skipped on CRAN
   skip_on_ci() # msoffice testing can not be done on ci
   local_edition(3, .env = parent.frame()) # Set the local_edition at 3
@@ -86,17 +87,21 @@ skip_if_not_local_testing <- function(min_pandoc_version = "2", check_html = FAL
 }
 
 # Getting snapshots in the _snaps folder for local testing if conditions are met
-test_that("setting up manual testing with msoffice snapshots", {
-  skip_if_not_local_testing(check_html = TRUE)
+do_manual_msoffice_snapshot_testing <- FALSE
 
-  # Folder where the snapshots are stored
-  folder_to_copy <- system.file("snapshots_for_manual_tests", package = "flextable")
+if (do_manual_msoffice_snapshot_testing) {
+  test_that("setting up manual testing with msoffice snapshots", {
+    skip_if_not_local_testing(check_html = TRUE)
 
-  # Get the path to the tests/testthat directory
-  path_to_testthat <- system.file("tests", "testthat", package = "flextable")
+    # Folder where the snapshots are stored
+    folder_to_copy <- system.file("snapshots_for_manual_tests", package = "flextable")
 
-  # Construct the path to the _snaps folder
-  path_to_snaps <- file.path(path_to_testthat, "_snaps")
+    # Get the path to the tests/testthat directory
+    path_to_testthat <- system.file("tests", "testthat", package = "flextable")
 
-  file.copy(folder_to_copy, path_to_snaps, recursive = TRUE, overwrite = TRUE)
-})
+    # Construct the path to the _snaps folder
+    path_to_snaps <- file.path(path_to_testthat, "_snaps")
+
+    file.copy(folder_to_copy, path_to_snaps, recursive = TRUE, overwrite = TRUE)
+  })
+}
