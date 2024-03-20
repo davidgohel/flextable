@@ -114,6 +114,50 @@ test_that("htest", {
   )
 })
 
+test_that("continuous_summary works", {
+  ft_1 <- continuous_summary(iris, names(iris)[1:4],
+                             by = "Species",
+                             hide_grouplabel = FALSE
+  )
+  expect_identical(
+    information_data_chunk(ft_1)$txt[c(1, 11, 14, 71)],
+    c("Species", "# na", "Sepal.Length", "setosa")
+  )
+})
+
+test_that("transformation of mixed models works", {
+  skip_if_not_installed("broom.mixed")
+  skip_if_not_installed("nlme")
+  m1 <- nlme::lme(distance ~ age, data = nlme::Orthodont)
+  ft <- as_flextable(m1)
+  expect_equal(
+    information_data_chunk(ft)$txt[c(18, 108)],
+    c("(Intercept)", "Akaike Information Criterion: 454.6")
+  )
+})
+
+test_that("kmeans works", {
+  set.seed(11)
+  cl <- kmeans(scale(mtcars[1:7]), 5)
+  ft <- as_flextable(cl)
+  expect_equal(
+    information_data_chunk(ft)$txt[c(37, 163)],
+    c("1.0906", "BSS/TSS ratio: 80.1%")
+  )
+})
+
+test_that("partitioning around medoids works", {
+  skip_if_not_installed("cluster")
+  set.seed(11)
+  dat <- as.data.frame(scale(mtcars[1:7]))
+  cl <- cluster::pam(dat, 3)
+  ft <- as_flextable(cl)
+  expect_equal(
+    information_data_chunk(ft)$txt[c(37, 163, 17)],
+    c("", NA, "2.2")
+  )
+})
+
 test_that("grouped data exports work", {
   skip_if_not_local_testing(check_html = TRUE)
   snap_folder_test_file <- "as_flextable"
