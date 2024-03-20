@@ -45,11 +45,14 @@ tab <- tabulator(
   }))
 )
 
-ft_1 <- as_flextable(x = tab, separate_with = "VISIT",
-                     label_rows = c(
-  LBTEST = "Lab Test",
-                                                                      VISIT = "Visit",
-                                                                      BASELINE = "Reference\nRange\nIndicator"))
+ft_1 <- as_flextable(
+  x = tab, separate_with = "VISIT",
+  label_rows = c(
+    LBTEST = "Lab Test",
+    VISIT = "Visit",
+    BASELINE = "Reference\nRange\nIndicator"
+  )
+)
 ft_1 <- width(ft_1, j = 3, width = 1)
 
 test_that("pptx, docx, and html borders", {

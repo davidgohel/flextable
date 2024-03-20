@@ -31,8 +31,10 @@ test_that("rmarkdown caption", {
   rmd_file <- tempfile(fileext = ".Rmd")
   file.copy("rmd/rmarkdown.Rmd", rmd_file)
   outfile <- tempfile(fileext = ".html")
-  render(rmd_file, output_format = "rmarkdown::html_document",
-         output_file = outfile, envir = new.env(), quiet = TRUE)
+  render(rmd_file,
+    output_format = "rmarkdown::html_document",
+    output_file = outfile, envir = new.env(), quiet = TRUE
+  )
   handle_manual_snapshots(snap_folder_test_file, "rmarkdown_html_document")
   doconv::expect_snapshot_html(
     name = "rmarkdown_html_document", outfile, engine = "testthat",
@@ -68,8 +70,10 @@ test_that("bookdown caption", {
   rmd_file <- tempfile(fileext = ".Rmd")
   file.copy("rmd/bookdown.Rmd", rmd_file)
   outfile <- tempfile(fileext = ".html")
-  render(rmd_file, output_format = "bookdown::html_document2",
-         output_file = outfile, envir = new.env(), quiet = TRUE)
+  render(rmd_file,
+    output_format = "bookdown::html_document2",
+    output_file = outfile, envir = new.env(), quiet = TRUE
+  )
   handle_manual_snapshots(snap_folder_test_file, "bookdown_html_document2")
   doconv::expect_snapshot_html(
     name = "bookdown_html_document2", outfile, engine = "testthat",
