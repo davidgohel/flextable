@@ -70,6 +70,7 @@ Suggests:
     tables (>= 0.9.17),
     testthat (>= 2.1.0),
     webshot2,
+    withr,
     xtable
 Encoding: UTF-8
 URL: https://ardata-fr.github.io/flextable-book/, https://davidgohel.github.io/flextable/

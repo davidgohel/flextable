@@ -1,6 +1,8 @@
 context("check borders rendering")
 
 init_flextable_defaults()
+snap_folder_test_file <- "borders"
+defer_cleaning_snapshot_directory(snap_folder_test_file)
 
 set.seed(2)
 
@@ -43,27 +45,32 @@ tab <- tabulator(
   }))
 )
 
-ft_1 <- as_flextable(x = tab, separate_with = "VISIT", label_rows = c(LBTEST = "Lab Test", VISIT = "Visit", BASELINE = "Reference\nRange\nIndicator"))
+ft_1 <- as_flextable(x = tab, separate_with = "VISIT",
+                     label_rows = c(
+  LBTEST = "Lab Test",
+                                                                      VISIT = "Visit",
+                                                                      BASELINE = "Reference\nRange\nIndicator"))
 ft_1 <- width(ft_1, j = 3, width = 1)
 
-test_that("pptx borders", {
-  skip_if_not_local_testing()
+test_that("pptx, docx, and html borders", {
+  skip_if_not_local_testing(check_html = TRUE)
+
+  # pptx borders
+  handle_manual_snapshots(snap_folder_test_file, "pptx-borders")
   doconv::expect_snapshot_doc(
     x = save_as_pptx(ft_1, path = tempfile(fileext = ".pptx")),
     name = "pptx-borders", engine = "testthat"
   )
-})
 
-test_that("docx borders", {
-  skip_if_not_local_testing()
+  # docx borders
+  handle_manual_snapshots(snap_folder_test_file, "docx-borders")
   doconv::expect_snapshot_doc(
     x = save_as_docx(ft_1, path = tempfile(fileext = ".docx")),
     name = "docx-borders", engine = "testthat"
   )
-})
 
-test_that("html borders", {
-  skip_if_not_local_testing(check_html = TRUE)
+  # html borders
+  handle_manual_snapshots(snap_folder_test_file, "html-borders")
   path <- save_as_html(ft_1, path = tempfile(fileext = ".html"))
   skip_if_not_installed("chromote")
   suppressMessages(is_there_chrome <- chromote::find_chrome())
@@ -84,11 +91,11 @@ docx_file <- gsub("\\.Rmd$", ".docx", rmd_file)
 pdf_file <- gsub("\\.Rmd$", ".pdf", rmd_file)
 pptx_file <- gsub("\\.Rmd$", ".pptx", rmd_file)
 
-test_that("pdf complex borders", {
+test_that("pdf and office complex borders", {
   skip_if_not_local_testing(min_pandoc_version = "2.7.3")
-  # skip_if_not_installed("rmarkdown") # in imports surely installed during tests
-  # skip_if_not(pandoc_available()) # I guess this is in pandoc_version()
-  # skip_if_not(pandoc_version() > numeric_version("2.7.3"))
+
+  # pdf office complex borders
+  handle_manual_snapshots(snap_folder_test_file, "pdf-complex-borders")
   render(rmd_file,
     output_format = rmarkdown::pdf_document(latex_engine = "xelatex"),
     output_file = pdf_file,
@@ -97,10 +104,9 @@ test_that("pdf complex borders", {
   )
   skip_if_not_installed("doconv")
   doconv::expect_snapshot_doc(name = "pdf-complex-borders", pdf_file, engine = "testthat")
-})
 
-test_that("office complex borders", {
-  skip_if_not_local_testing(min_pandoc_version = "2.7.3")
+  # office complex borders
+  handle_manual_snapshots(snap_folder_test_file, "docx-complex-borders")
   render(rmd_file,
     output_format = word_document(),
     output_file = docx_file,
@@ -108,6 +114,8 @@ test_that("office complex borders", {
     quiet = TRUE
   )
   doconv::expect_snapshot_doc(name = "docx-complex-borders", docx_file, engine = "testthat")
+
+  handle_manual_snapshots(snap_folder_test_file, "pptx-complex-borders")
   render(rmd_file,
     output_format = powerpoint_presentation(),
     output_file = pptx_file,
@@ -116,6 +124,5 @@ test_that("office complex borders", {
   )
   doconv::expect_snapshot_doc(name = "pptx-complex-borders", pptx_file, engine = "testthat")
 })
-
 
 init_flextable_defaults()

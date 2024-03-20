@@ -116,6 +116,8 @@ test_that("htest", {
 
 test_that("grouped data exports work", {
   skip_if_not_local_testing(check_html = TRUE)
+  snap_folder_test_file <- "as_flextable"
+  defer_cleaning_snapshot_directory(snap_folder_test_file)
 
   init_flextable_defaults()
   set_flextable_defaults(
@@ -152,14 +154,17 @@ test_that("grouped data exports work", {
   ft_1 <- set_table_properties(ft_1, layout = "autofit")
 
   # pptx grouped-data
+  handle_manual_snapshots(snap_folder_test_file, "pptx-grouped-data")
   path <- save_as_pptx(ft_1, path = tempfile(fileext = ".pptx"))
   doconv::expect_snapshot_doc(name = "pptx-grouped-data", x = path, engine = "testthat")
 
   # docx grouped-data
+  handle_manual_snapshots(snap_folder_test_file, "docx-grouped-data")
   path <- save_as_docx(ft_1, path = tempfile(fileext = ".docx"))
   doconv::expect_snapshot_doc(x = path, name = "docx-grouped-data", engine = "testthat")
 
   # html grouped-data
+  handle_manual_snapshots(snap_folder_test_file, "html-grouped-data")
   path <- save_as_html(ft_1, path = tempfile(fileext = ".html"))
   doconv::expect_snapshot_html(name = "html-grouped-data", path, engine = "testthat")
 
@@ -173,14 +178,17 @@ test_that("grouped data exports work", {
   ft_2 <- autofit(ft_2)
 
   # pptx grouped-data-no-single
+  handle_manual_snapshots(snap_folder_test_file, "pptx-grouped-data-no-single")
   path <- save_as_pptx(ft_2, path = tempfile(fileext = ".pptx"))
   doconv::expect_snapshot_doc(x = path, name = "pptx-grouped-data-no-single", engine = "testthat")
 
   # docx grouped-data-no-single
+  handle_manual_snapshots(snap_folder_test_file, "docx-grouped-data-no-single")
   path <- save_as_docx(ft_2, path = tempfile(fileext = ".docx"))
   doconv::expect_snapshot_doc(x = path, name = "docx-grouped-data-no-single", engine = "testthat")
 
   # html grouped-data-no-single
+  handle_manual_snapshots(snap_folder_test_file, "html-grouped-data-no-single")
   path <- save_as_html(ft_2, path = tempfile(fileext = ".html"))
   doconv::expect_snapshot_html(name = "html-grouped-data-no-single", path, engine = "testthat")
 
