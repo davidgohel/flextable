@@ -95,33 +95,32 @@ test_that("pdf and office complex borders", {
   skip_if_not_local_testing(min_pandoc_version = "2.7.3")
 
   # pdf office complex borders
-  handle_manual_snapshots(snap_folder_test_file, "pdf-complex-borders")
   render(rmd_file,
     output_format = rmarkdown::pdf_document(latex_engine = "xelatex"),
     output_file = pdf_file,
     envir = new.env(),
     quiet = TRUE
   )
-  skip_if_not_installed("doconv")
+  handle_manual_snapshots(snap_folder_test_file, "pdf-complex-borders")
   doconv::expect_snapshot_doc(name = "pdf-complex-borders", pdf_file, engine = "testthat")
 
   # office complex borders
-  handle_manual_snapshots(snap_folder_test_file, "docx-complex-borders")
   render(rmd_file,
     output_format = word_document(),
     output_file = docx_file,
     envir = new.env(),
     quiet = TRUE
   )
+  handle_manual_snapshots(snap_folder_test_file, "docx-complex-borders")
   doconv::expect_snapshot_doc(name = "docx-complex-borders", docx_file, engine = "testthat")
 
-  handle_manual_snapshots(snap_folder_test_file, "pptx-complex-borders")
   render(rmd_file,
     output_format = powerpoint_presentation(),
     output_file = pptx_file,
     envir = new.env(),
     quiet = TRUE
   )
+  handle_manual_snapshots(snap_folder_test_file, "pptx-complex-borders")
   doconv::expect_snapshot_doc(name = "pptx-complex-borders", pptx_file, engine = "testthat")
 })
 
