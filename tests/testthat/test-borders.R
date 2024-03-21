@@ -109,7 +109,7 @@ test_that("pdf and office complex borders", {
 
   # office complex borders
   render(rmd_file,
-    output_format = word_document(),
+    output_format = "word_document",
     output_file = docx_file,
     envir = new.env(),
     quiet = TRUE
@@ -118,7 +118,7 @@ test_that("pdf and office complex borders", {
   doconv::expect_snapshot_doc(name = "docx-complex-borders", docx_file, engine = "testthat")
 
   render(rmd_file,
-    output_format = powerpoint_presentation(),
+    output_format = "powerpoint_presentation",
     output_file = pptx_file,
     envir = new.env(),
     quiet = TRUE
