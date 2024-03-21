@@ -1,7 +1,5 @@
 context("check footnotes")
 
-library(data.table)
-
 ft <- flextable(iris[1:5, ])
 ft <- footnote(
   x = ft, i = 1:3, j = 1:3,

@@ -1,8 +1,5 @@
 context("check formatting")
 
-library(xml2)
-library(officer)
-
 test_that("shortcut functions", {
   ft <- flextable(head(mtcars, n = 2))
 

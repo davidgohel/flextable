@@ -1,9 +1,5 @@
 context("check footers")
 
-library(xml2)
-library(officer)
-
-
 test_that("add_footer", {
   data_ref <- structure(
     list(

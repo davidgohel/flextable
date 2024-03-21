@@ -1,8 +1,5 @@
 context("check merge operations")
 
-library(utils)
-library(xml2)
-
 test_that("identical values within columns are merged", {
   dummy_df <- data.frame(values = rep(letters[1:3], each = 2), stringsAsFactors = FALSE)
   ft <- flextable(dummy_df)

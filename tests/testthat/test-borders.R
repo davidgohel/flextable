@@ -1,11 +1,9 @@
 context("check borders rendering")
 
-skip_on_cran()
-skip_on_ci()
-
 init_flextable_defaults()
+snap_folder_test_file <- "borders"
+defer_cleaning_snapshot_directory(snap_folder_test_file)
 
-library(data.table)
 set.seed(2)
 
 USUBJID <- sprintf("01-ABC-%04.0f", 1:200)
@@ -47,41 +45,40 @@ tab <- tabulator(
   }))
 )
 
-ft_1 <- as_flextable(x = tab, separate_with = "VISIT", label_rows = c(LBTEST = "Lab Test", VISIT = "Visit", BASELINE = "Reference\nRange\nIndicator"))
+ft_1 <- as_flextable(
+  x = tab, separate_with = "VISIT",
+  label_rows = c(
+    LBTEST = "Lab Test",
+    VISIT = "Visit",
+    BASELINE = "Reference\nRange\nIndicator"
+  )
+)
 ft_1 <- width(ft_1, j = 3, width = 1)
 
-test_that("pptx borders", {
-  skip_if_not(pandoc_version() >= numeric_version("2"))
-  skip_if_not_installed("doconv")
-  library(doconv)
-  skip_if_not(doconv::msoffice_available())
-  local_edition(3)
-  expect_snapshot_doc(
+test_that("pptx, docx, and html borders", {
+  skip_if_not_local_testing(check_html = TRUE)
+
+  # pptx borders
+  handle_manual_snapshots(snap_folder_test_file, "pptx-borders")
+  doconv::expect_snapshot_doc(
     x = save_as_pptx(ft_1, path = tempfile(fileext = ".pptx")),
     name = "pptx-borders", engine = "testthat"
   )
-})
 
-test_that("docx borders", {
-  skip_if_not(pandoc_version() >= numeric_version("2"))
-  skip_if_not_installed("doconv")
-  library(doconv)
-  skip_if_not(doconv::msoffice_available())
-  local_edition(3)
-  expect_snapshot_doc(
+  # docx borders
+  handle_manual_snapshots(snap_folder_test_file, "docx-borders")
+  doconv::expect_snapshot_doc(
     x = save_as_docx(ft_1, path = tempfile(fileext = ".docx")),
     name = "docx-borders", engine = "testthat"
   )
-})
 
-test_that("html borders", {
-  local_edition(3)
-  skip_if_not(pandoc_version() >= numeric_version("2"))
-  skip_if_not_installed("doconv")
-  library(doconv)
-  skip_if_not_installed("webshot2")
+  # html borders
+  handle_manual_snapshots(snap_folder_test_file, "html-borders")
   path <- save_as_html(ft_1, path = tempfile(fileext = ".html"))
-  expect_snapshot_html(name = "html-borders", path, engine = "testthat")
+  skip_if_not_installed("chromote")
+  suppressMessages(is_there_chrome <- chromote::find_chrome())
+  skip_if(is.null(is_there_chrome))
+  doconv::expect_snapshot_html(name = "html-borders", path, engine = "testthat")
 })
 
 
@@ -96,45 +93,38 @@ html_file <- gsub("\\.Rmd$", ".html", rmd_file)
 docx_file <- gsub("\\.Rmd$", ".docx", rmd_file)
 pdf_file <- gsub("\\.Rmd$", ".pdf", rmd_file)
 pptx_file <- gsub("\\.Rmd$", ".pptx", rmd_file)
-source("zzzzz.R")
 
-test_that("pdf complex borders", {
-  local_edition(3)
-  library(rmarkdown)
-  skip_if_not(pandoc_available())
-  skip_if_not(pandoc_version() > numeric_version("2.7.3"))
+test_that("pdf and office complex borders", {
+  skip_if_not_local_testing(min_pandoc_version = "2.7.3")
+
+  # pdf office complex borders
   render(rmd_file,
     output_format = rmarkdown::pdf_document(latex_engine = "xelatex"),
     output_file = pdf_file,
     envir = new.env(),
     quiet = TRUE
   )
-  expect_snapshot_doc(name = "pdf-complex-borders", pdf_file, engine = "testthat")
-})
+  handle_manual_snapshots(snap_folder_test_file, "pdf-complex-borders")
+  doconv::expect_snapshot_doc(name = "pdf-complex-borders", pdf_file, engine = "testthat")
 
-test_that("office complex borders", {
-  local_edition(3)
-  library(rmarkdown)
-  skip_if_not(pandoc_available())
-  skip_if_not(pandoc_version() > numeric_version("2.7.3"))
-  skip_if_not_installed("doconv")
-  skip_if_not(doconv::msoffice_available())
-  library(doconv)
+  # office complex borders
   render(rmd_file,
-    output_format = rmarkdown::word_document(),
+    output_format = word_document(),
     output_file = docx_file,
     envir = new.env(),
     quiet = TRUE
   )
-  expect_snapshot_doc(name = "docx-complex-borders", docx_file, engine = "testthat")
+  handle_manual_snapshots(snap_folder_test_file, "docx-complex-borders")
+  doconv::expect_snapshot_doc(name = "docx-complex-borders", docx_file, engine = "testthat")
+
   render(rmd_file,
-    output_format = rmarkdown::powerpoint_presentation(),
+    output_format = powerpoint_presentation(),
     output_file = pptx_file,
     envir = new.env(),
     quiet = TRUE
   )
-  expect_snapshot_doc(name = "pptx-complex-borders", pptx_file, engine = "testthat")
+  handle_manual_snapshots(snap_folder_test_file, "pptx-complex-borders")
+  doconv::expect_snapshot_doc(name = "pptx-complex-borders", pptx_file, engine = "testthat")
 })
-
 
 init_flextable_defaults()

@@ -1,9 +1,5 @@
 context("ppt table structure")
 
-library(utils)
-library(xml2)
-library(officer)
-
 test_that("row height is valid", {
   ft <- flextable(head(iris))
   pptx_file <- "test.pptx"

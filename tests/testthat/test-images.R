@@ -1,8 +1,5 @@
 context("check images")
 
-library(xml2)
-library(officer)
-
 data <- iris[c(1:3, 51:53, 101:104), ]
 col_keys <- c("Species", "sep_1", "Sepal.Length", "Sepal.Width", "sep_2", "Petal.Length", "Petal.Width")
 img.file <- file.path(R.home("doc"), "html", "logo.jpg")

@@ -1,8 +1,5 @@
 context("check captions")
 
-library(rmarkdown)
-library(xml2)
-library(officer)
 init_flextable_defaults()
 
 rmd_file_0 <- "rmd/captions.Rmd"
@@ -16,11 +13,8 @@ html_file <- gsub("\\.Rmd$", ".html", rmd_file)
 docx_file <- gsub("\\.Rmd$", ".docx", rmd_file)
 pdf_file <- gsub("\\.Rmd$", ".pdf", rmd_file)
 
-source("zzzzz.R")
-
-testthat::test_that("with html_document", {
-  skip_if_not(rmarkdown::pandoc_available())
-  skip_if_not(pandoc_version() >= numeric_version("2"))
+test_that("with html_document", {
+  skip_if_not_local_testing()
   unlink(html_file, force = TRUE)
   render(rmd_file,
     output_format = rmarkdown::html_document(),
@@ -52,10 +46,9 @@ testthat::test_that("with html_document", {
   expect_true(all(!grepl("Table [0-9]+:", xml_text(captions))))
 })
 
-testthat::test_that("with html_document2", {
-  skip_if_not(rmarkdown::pandoc_available())
-  skip_if_not(pandoc_version() >= numeric_version("2"))
-  testthat::skip_if_not_installed("bookdown")
+test_that("with html_document2", {
+  skip_if_not_local_testing()
+  skip_if_not_installed("bookdown")
 
   unlink(html_file, force = TRUE)
   render(rmd_file,
@@ -86,9 +79,8 @@ testthat::test_that("with html_document2", {
   expect_true(grepl("Table 2:", xml_text(caption)))
 })
 
-testthat::test_that("with word_document", {
-  skip_if_not(rmarkdown::pandoc_available())
-  skip_if_not(pandoc_version() >= numeric_version("2"))
+test_that("with word_document", {
+  skip_if_not_local_testing()
   skip_if(pandoc_version() == numeric_version("2.9.2.1"))
 
   unlink(docx_file, force = TRUE)
@@ -118,11 +110,10 @@ testthat::test_that("with word_document", {
   expect_length(bookmarks, 0)
 })
 
-testthat::test_that("with word_document2", {
-  skip_if_not(rmarkdown::pandoc_available(version = ))
-  skip_if_not(pandoc_version() > numeric_version("2.7.3"))
-  testthat::skip_if_not_installed("bookdown")
+test_that("with word_document2", {
+  skip_if_not_local_testing(min_pandoc_version = "2.7.3")
   skip_if(pandoc_version() == numeric_version("2.9.2.1"))
+  skip_if_not_installed("bookdown")
 
   unlink(docx_file, force = TRUE)
   render(rmd_file,
@@ -158,7 +149,7 @@ testthat::test_that("with word_document2", {
 
 
 
-testthat::test_that("word with officer", {
+test_that("word with officer", {
   unlink(docx_file, force = TRUE)
   ft <- flextable(head(cars))
   ft <- theme_vanilla(ft)
@@ -192,9 +183,7 @@ testthat::test_that("word with officer", {
 
 
 test_that("with pdf_document2", {
-  skip_on_cran()
-  skip_if_not(rmarkdown::pandoc_available())
-  skip_if_not(pandoc_version() > numeric_version("2.7.3"))
+  skip_if_not_local_testing(min_pandoc_version = "2.7.3")
   skip_if_not_installed("bookdown")
   skip_if_not_installed("pdftools")
 
@@ -204,7 +193,7 @@ test_that("with pdf_document2", {
     doc <- get_pdf_text(pdf_file, extract_fun = pdftools::pdf_text)
     expect_true(any(grepl("Cross-reference is there: 2", doc, fixed = TRUE)))
   } else {
-    testthat::expect_false(sucess) # only necessary to avoid a note
+    expect_false(sucess) # only necessary to avoid a note
   }
 })
 
