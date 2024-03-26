@@ -19,6 +19,9 @@ for example.}
 \description{
 Add a flextable in a PowerPoint document object produced
 by \code{\link[officer:read_pptx]{officer::read_pptx()}}.
+
+This function will create a native PowerPoint table from the flextable
+and the result can be eventually edited.
 }
 \note{
 The width and height of the table can not be set with \code{location}. Use
@@ -26,6 +29,19 @@ functions \code{\link[=width]{width()}}, \code{\link[=height]{height()}}, \code{
 and \code{\link[=dim_pretty]{dim_pretty()}} instead. The overall size is resulting from
 cells, paragraphs and text properties (i.e. padding, font size, border widths).
 }
+\section{caption}{
+
+Captions are not printed in PowerPoint slides.
+
+While captions are useful for document formats like Word, RTF, HTML, or PDF,
+they aren't directly supported in PowerPoint slides. Unlike documents with
+a defined layout, PowerPoint slides lack a structured document flow. They
+don't function like HTML documents or paginated formats (RTF, Word, PDF).
+This makes it technically challenging to determine the ideal placement for
+a caption within a slide. Additionally, including a caption within the table
+itself isn't feasible.
+}
+
 \examples{
 library(officer)
 

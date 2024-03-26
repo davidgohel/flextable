@@ -955,6 +955,15 @@ save_as_rtf <- function(..., values = NULL, path, pr_section = NULL) {
 #' @export
 #' @title Save a flextable in a 'png' or 'svg' file
 #' @description Save a flextable as a png or svg image.
+#' This function uses R graphic system to create an image from the flextable,
+#' allowing for high-quality image output. See [gen_grob()] for more options.
+#'
+#' @section caption:
+#' It's important to note that captions are not part of the table itself.
+#' This means when exporting a table to PNG or SVG formats (image formats),
+#' the caption won't be included. Captions are intended for document outputs
+#' like Word, HTML, or PDF, where tables are embedded within the document
+#' itself.
 #' @param x a flextable object
 #' @param path image file to be created. It should end with '.png'
 #' or '.svg'.
@@ -1032,6 +1041,7 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
 #' should be used to ensure a correct rendering.
 #' @param x a flextable object
 #' @param ... additional arguments passed to [gen_grob()].
+#' @inheritSection save_as_image caption
 #' @examples
 #' library(gdtools)
 #' library(ragg)

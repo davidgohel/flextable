@@ -17,6 +17,15 @@ and display the result in a new graphics window.
 'ragg' or 'svglite' or 'ggiraph' graphical device drivers
 should be used to ensure a correct rendering.
 }
+\section{caption}{
+
+It's important to note that captions are not part of the table itself.
+This means when exporting a table to PNG or SVG formats (image formats),
+the caption won't be included. Captions are intended for document outputs
+like Word, HTML, or PDF, where tables are embedded within the document
+itself.
+}
+
 \examples{
 library(gdtools)
 library(ragg)

@@ -23,7 +23,18 @@ a string containing the full name of the generated file
 }
 \description{
 Save a flextable as a png or svg image.
+This function uses R graphic system to create an image from the flextable,
+allowing for high-quality image output. See \code{\link[=gen_grob]{gen_grob()}} for more options.
 }
+\section{caption}{
+
+It's important to note that captions are not part of the table itself.
+This means when exporting a table to PNG or SVG formats (image formats),
+the caption won't be included. Captions are intended for document outputs
+like Word, HTML, or PDF, where tables are embedded within the document
+itself.
+}
+
 \examples{
 library(gdtools)
 register_liberationsans()

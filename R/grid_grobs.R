@@ -22,6 +22,7 @@
 #' Limitations: equations (see [as_equation()]) and hyperlinks (see [hyperlink_ftext()])
 #' will not be displayed.
 #'
+#' @inheritSection save_as_image caption
 #' @section size:
 #'
 #' The size of the flextable can be known by using the method

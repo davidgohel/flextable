@@ -1,8 +1,23 @@
 #' @importFrom officer ph_with
 #' @export
 #' @title Add a flextable into a PowerPoint slide
-#' @description Add a flextable in a PowerPoint document object produced
+#' @description
+#'
+#' Add a flextable in a PowerPoint document object produced
 #' by [officer::read_pptx()].
+#'
+#' This function will create a native PowerPoint table from the flextable
+#' and the result can be eventually edited.
+#' @section caption:
+#' Captions are not printed in PowerPoint slides.
+#'
+#' While captions are useful for document formats like Word, RTF, HTML, or PDF,
+#' they aren't directly supported in PowerPoint slides. Unlike documents with
+#' a defined layout, PowerPoint slides lack a structured document flow. They
+#' don't function like HTML documents or paginated formats (RTF, Word, PDF).
+#' This makes it technically challenging to determine the ideal placement for
+#' a caption within a slide. Additionally, including a caption within the table
+#' itself isn't feasible.
 #' @param x a pptx device
 #' @param value flextable object
 #' @param location a location for a placeholder. See [officer::ph_location_type()]

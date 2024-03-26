@@ -100,6 +100,15 @@ The size of the flextable can be known by using the method
 \link[=dim.flextableGrob]{dim} on the grob.
 }
 
+\section{caption}{
+
+It's important to note that captions are not part of the table itself.
+This means when exporting a table to PNG or SVG formats (image formats),
+the caption won't be included. Captions are intended for document outputs
+like Word, HTML, or PDF, where tables are embedded within the document
+itself.
+}
+
 \examples{
 \dontshow{
 data.table::setDTthreads(1)
