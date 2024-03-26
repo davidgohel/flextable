@@ -50,11 +50,14 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL,
   html_o
 }
 
+#' @importFrom knitr knit_child
 #' @export
-#' @title flextable raw code
+#' @title Knitr rendering in loops and if statements
 #'
-#' @description Print openxml, latex or html code of a
-#' flextable. The function is particularly useful when you want
+#' @description Print flextable in R Markdown or Quarto documents
+#' within `for` loop or `if` statement.
+#'
+#' The function is particularly useful when you want
 #' to generate flextable in a loop from a R Markdown document.
 #'
 #' Inside R Markdown document, chunk option `results` must be
@@ -85,49 +88,24 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL,
 flextable_to_rmd <- function(x, ...) {
   is_bookdown <- is_in_bookdown()
   is_quarto <- is_in_quarto()
-  x <- knitr_update_properties(x)
 
-  if (is.null(pandoc_to())) {
-    # for 'glossr' test
-    return(invisible("```{=html}\n<div class=\"tabwid tabwid_left\"><style></style></div>\n```\n"))
-  } else if (is_html_output()) { # html
-    type_output <- "html"
-  } else if (is_latex_output()) { # latex
-    type_output <- "pdf"
-  } else if (grepl("docx", opts_knit$get("rmarkdown.pandoc.to"))) { # docx
-    type_output <- "docx"
-  } else if (grepl("pptx", opts_knit$get("rmarkdown.pandoc.to"))) { # pptx
-    type_output <- "pptx"
+  x <- knitr_update_properties(x, bookdown = is_bookdown, quarto = is_quarto)
+
+  if (is_quarto) {
+    tmp_file <- tempfile(fileext = ".Rmd")
   } else {
-    type_output <- "html"
+    tmp_file <- tempfile(fileext = ".qmd")
   }
 
-  if ("html" %in% type_output) {
-    x <- flextable_global$defaults$post_process_all(x)
-    x <- flextable_global$defaults$post_process_html(x)
-    if (!is_bookdown) {
-      caption <- caption_default_html(x)
-      manual_css <- attr(caption, "css")
-    } else {
-      caption <- caption_bookdown_html(x)
-      manual_css <- ""
-    }
-    str <- gen_raw_html(x,
-      class = "tabwid",
-      caption = caption,
-      manual_css = manual_css
-    )
-    str <- raw_block(str, type = "html")
-  } else if ("docx" %in% type_output) {
-    str <- knit_to_wml(x, bookdown = is_bookdown, quarto = is_quarto)
-  } else if ("pptx" %in% type_output) {
-    str <- knit_to_pml(x)
-  } else if ("pdf" %in% type_output) {
-    str <- knit_to_latex(x, bookdown = is_bookdown, quarto = is_quarto)
-    add_latex_dep()
-    str <- raw_latex(x = str)
-  }
-  cat(str)
+  writeLines(
+    c("```{r echo=FALSE}",
+      "x", "```", ""),
+    tmp_file,
+    useBytes = TRUE)
+
+  z <- knit_child(input = tmp_file, envir = environment(), quiet = TRUE)
+  cat(z, sep = '\n')
+
   invisible("")
 }
 

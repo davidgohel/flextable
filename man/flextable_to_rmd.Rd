@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{flextable_to_rmd}
 \alias{flextable_to_rmd}
-\title{flextable raw code}
+\title{Knitr rendering in loops and if statements}
 \usage{
 flextable_to_rmd(x, ...)
 }
@@ -12,8 +12,10 @@ flextable_to_rmd(x, ...)
 \item{...}{unused argument}
 }
 \description{
-Print openxml, latex or html code of a
-flextable. The function is particularly useful when you want
+Print flextable in R Markdown or Quarto documents
+within \code{for} loop or \code{if} statement.
+
+The function is particularly useful when you want
 to generate flextable in a loop from a R Markdown document.
 
 Inside R Markdown document, chunk option \code{results} must be

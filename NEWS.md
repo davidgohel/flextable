@@ -3,6 +3,8 @@
 ## Changes
 
 - `headers_flextable_at_bkm()` and `footers_flextable_at_bkm()` are defunct.
+- `flextable_to_rmd()` is now using `knit_child()` for safer usage from `for`
+loops or `if` statements.
 
 # flextable 0.9.5
 
