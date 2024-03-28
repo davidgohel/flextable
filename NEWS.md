@@ -7,6 +7,7 @@
 loops or `if` statements.
 - Add explanation about caption limitations in the manual of functions 
 `save_as_image()` and `ph_with.flextable()`.
+- Deprecate `as_raster()` since `gen_grob()` is easier to use and render nicer.
 
 # flextable 0.9.5
 

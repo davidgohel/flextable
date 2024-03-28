@@ -1095,6 +1095,7 @@ plot.flextable <- function(x, ...) {
 #' @family flextable print function
 #' @keywords internal
 as_raster <- function(x, ...) {
+  .Deprecated(new = "gen_grob()")
   if (!requireNamespace("magick", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create an image from a flextable.",
