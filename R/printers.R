@@ -85,7 +85,7 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL,
 #'   )
 #' }
 #' }
-flextable_to_rmd <- function(x, print = TRUE, ...) {
+flextable_to_rmd <- function(x, ...) {
   is_bookdown <- is_in_bookdown()
   is_quarto <- is_in_quarto()
 
@@ -104,11 +104,9 @@ flextable_to_rmd <- function(x, print = TRUE, ...) {
     useBytes = TRUE)
 
   z <- knit_child(input = tmp_file, envir = environment(), quiet = TRUE)
-  if (print) {
-    cat(z, sep = '\n')
-  }
+  cat(z, sep = '\n')
 
-  invisible(paste0(z, collapse = "\n"))
+  invisible("")
 }
 
 #' @export

@@ -4,7 +4,7 @@
 \alias{flextable_to_rmd}
 \title{Knitr rendering in loops and if statements}
 \usage{
-flextable_to_rmd(x, print = TRUE, ...)
+flextable_to_rmd(x, ...)
 }
 \arguments{
 \item{x}{a flextable object}
