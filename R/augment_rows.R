@@ -704,7 +704,7 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
 #' @export
 #' @title Add footer labels
 #'
-#' @description Add a row of new columns labels in footer part.
+#' @description Add a row of new column labels in the footer part.
 #' Labels can be spanned along multiple columns, as merged cells.
 #'
 #' Labels are associated with a number of columns
@@ -745,6 +745,7 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
 #'   colwidths = c(3, 8), top = TRUE
 #' )
 #' ft_1
+#' add_footer_row(ft_1, values="My tailor and baker are rich", top=FALSE, colwidths="all")
 #'
 #' ft_2 <- flextable(head(airquality))
 #' ft_2 <- add_footer_row(ft_2,
@@ -758,6 +759,7 @@ add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = int
     stop(sprintf("Function `%s` supports only flextable objects.", "add_footer_row()"))
   }
 
+  if (colwidths == "all") colwidths <- length(x$col_keys)
   if (sum(colwidths) != length(x$col_keys)) {
     stop(sprintf(
       "`colwidths` argument specify room for %.0f columns but %.0f are expected.",
