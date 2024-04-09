@@ -3,7 +3,9 @@ context("check images")
 data <- iris[c(1:3, 51:53, 101:104), ]
 col_keys <- c("Species", "sep_1", "Sepal.Length", "Sepal.Width", "sep_2", "Petal.Length", "Petal.Width")
 img.file <- file.path(R.home("doc"), "html", "logo.jpg")
-file.copy(img.file, "rlogo.jpg")
+
+rlogo <- tempfile(fileext = ".jpg")
+file.copy(img.file, rlogo)
 
 test_that("images", {
   ft <- flextable(data, col_keys = col_keys)
@@ -11,14 +13,14 @@ test_that("images", {
     j = "Sepal.Length",
     value = as_paragraph(
       as_chunk("blah blah "),
-      as_image("rlogo.jpg", width = .3, height = 0.23), " ",
+      as_image(rlogo, width = .3, height = 0.23), " ",
       as_chunk(sprintf("val: %.1f", Sepal.Length), props = fp_text(color = "orange", vertical.align = "superscript"))
     )
   )
   ft <- compose(ft,
     j = "sep_1",
     value = as_paragraph(
-      as_image("rlogo.jpg", width = .3, height = 0.23)
+      as_image(rlogo, width = .3, height = 0.23)
     )
   )
   ft <- compose(ft,
@@ -50,4 +52,69 @@ test_that("images", {
   )
 })
 
-unlink("rlogo.jpg")
+plot1 <- tempfile(fileext = ".png")
+plot2 <- tempfile(fileext = ".png")
+ragg::agg_png(filename = plot1, width = 300, height = 300, units = "px")
+plot(1:15, 1:15)
+dev.off()
+ragg::agg_png(filename = plot2, width = 300, height = 300, units = "px")
+plot(1:150, 1:150)
+dev.off()
+
+df <- data.frame(
+  plot = c(plot1, plot2)
+)
+
+test_that("multiple images", {
+  ft <- flextable(df)
+  ft <- mk_par(ft, j = "plot", value = as_paragraph(as_image(rlogo, width = .3, height = 0.23)), part = "header")
+  ft <- mk_par(ft, j = "plot", value = as_paragraph(as_image(plot, guess_size = TRUE)))
+  chunk_info <- flextable::information_data_chunk(ft)
+  expect_equal(chunk_info$img_data, c(rlogo, df$plot))
+  expect_equal(chunk_info$width, c(.3, 300 / 72, 300 / 72))
+  expect_equal(chunk_info$height, c(.23, 300 / 72, 300 / 72))
+
+
+  docx_path <- save_as_docx(ft, path = tempfile(fileext = ".docx"))
+  doc <- read_docx(docx_path)
+  images_path <- doc$doc_obj$relationship()$get_images_path()
+  expect_equal(
+    gsub("([a-z0-9]+)(\\.png|\\.jpg)$", "\\2", basename(images_path)),
+    c(".jpg", ".png", ".png")
+  )
+
+  html_path <- save_as_html(ft, path = tempfile(fileext = ".html"))
+  doc <- read_html(html_path)
+  all_imgs <- xml_find_all(doc, "//img")
+  src_imgs <- xml_attr(all_imgs, "src")
+  expect_length(src_imgs, 3)
+  if (length(src_imgs) == 3) {
+    expect_match(
+      src_imgs[1],
+      "data:image/jpeg",
+      fixed = TRUE
+    )
+    expect_match(
+      src_imgs[2],
+      "data:image/png",
+      fixed = TRUE
+    )
+    expect_match(
+      src_imgs[3],
+      "data:image/png",
+      fixed = TRUE
+    )
+  }
+
+  zz <- gen_grob(ft)
+  expect_is(zz$children$cell_1_1$children$contents$ftgrobs[[1]], "rastergrob")
+  expect_is(zz$children$cell_2_1$children$contents$ftgrobs[[1]], "rastergrob")
+  expect_is(zz$children$cell_3_1$children$contents$ftgrobs[[1]], "rastergrob")
+
+  ft <- flextable(df)
+  ft <- colformat_image(ft, j = "plot", width = 300 / 72, height = 300 / 72)
+  zz <- gen_grob(ft)
+  expect_is(zz$children$cell_1_1$children$contents$ftgrobs[[1]], "text")
+  expect_is(zz$children$cell_2_1$children$contents$ftgrobs[[1]], "rastergrob")
+  expect_is(zz$children$cell_3_1$children$contents$ftgrobs[[1]], "rastergrob")
+})

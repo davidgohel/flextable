@@ -383,6 +383,10 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
   )]
 
   # resolve image data
+  if (is.character(chunk_data$img_data)) {
+    # fix to avoid data.table complaining about casting from char to list
+    chunk_data$img_data <- as.list(chunk_data$img_data)
+  }
   chunk_data[(is_raster), "img_data" := mapply(
     calc_grid_image,
     .SD$img_data,
@@ -537,12 +541,14 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
 
     # set word_index and word_count per chunk part
     setorderv(char_data, cols = c(keycols, "chunk_index", "part_index", "word_index", ".chunk_index"))
-    char_data[, c("char_index", "char_count") := list(1:.N, .N),
+    char_data[, c("char_index", "char_count") := list(seq_len(.N), .N),
       by = c(keycols, "chunk_index", "part_index", "word_index")
     ]
 
     # calculate metrics
-    char_data <- calc_grid_text_metrics(char_data)
+    if (nrow(char_data) > 0) {
+      char_data <- calc_grid_text_metrics(char_data)
+    }
 
     # merge char_count to word data
     word_char_data <- char_data[, list(

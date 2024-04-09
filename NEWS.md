@@ -9,6 +9,10 @@ loops or `if` statements.
 `save_as_image()` and `ph_with.flextable()`.
 - Deprecate `as_raster()` since `gen_grob()` is easier to use and render nicer.
 
+## Issues
+
+- fix issue with `as_image()` when the table contains no text.
+
 # flextable 0.9.5
 
 ## new features
