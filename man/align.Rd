@@ -10,8 +10,8 @@ align(
   x,
   i = NULL,
   j = NULL,
-  align = c("left", "center", "right", "justify"),
-  part = "body"
+  align = "left",
+  part = c("body", "header", "footer", "all")
 )
 
 align_text_col(x, align = "left", header = TRUE, footer = TRUE)
@@ -25,10 +25,15 @@ align_nottext_col(x, align = "right", header = TRUE, footer = TRUE)
 
 \item{j}{columns selection}
 
-\item{align}{text alignment - a single character value, expected value
-is one of 'left', 'right', 'center', 'justify'.}
+\item{align}{text alignment - a single character value, or a vector of
+character values equal in length to the number of columns selected by \code{j}.
+Expected values must be from the set of ('left', 'right', 'center', or 'justify').
+You can also use shortened versions of these options: ("l", "r", "c", "j").
 
-\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
+If the number of columns is a multiple of the length of the \code{align} parameter,
+then the values in \code{align} will be recycled across the remaining columns.}
+
+\item{part}{partname of the table (one of 'body', 'header', 'footer', 'all')}
 
 \item{header}{should the header be aligned with the body}
 
@@ -38,10 +43,24 @@ is one of 'left', 'right', 'center', 'justify'.}
 change text alignment of selected rows and columns of a flextable.
 }
 \examples{
-ft <- flextable(head(mtcars)[, 3:6])
-ft <- align(ft, align = "right", part = "all")
-ft <- theme_tron_legacy(ft)
-ft
+# Table of 6 columns
+ft_car <- flextable(head(mtcars)[, 2:7])
+
+# All 6 columns right aligned
+align(ft_car, align = "right", part = "all")
+
+# Manually specify alignment of each column
+align(ft_car, align = c("left", "right", "left", "center", "center", "right"), part = "all")
+
+# Center-align column 2 and left-align column 5
+align(ft_car, j = c(2, 5), align = c("center", "left"), part = "all")
+
+# Alternate left and center alignment across columns 1-4 for header only
+align(ft_car, j = 1:4, align = c("left", "center"), part = "header")
+
+# Using shorthand codes for alignment arguments.
+align(ft_car, align = c("l", "r", "l", "c", "j", "r"), part = "all")
+
 ftab <- flextable(mtcars)
 ftab <- align_text_col(ftab, align = "left")
 ftab <- align_nottext_col(ftab, align = "right")

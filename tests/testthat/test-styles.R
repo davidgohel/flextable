@@ -82,3 +82,63 @@ test_that("borders with office docs are sanitized", {
   expect_equal(xml_attr(top_nodes, "w"), c("0", "0", "0", "12700"))
   expect_equal(xml_attr(bot_nodes, "w"), c("0", "12700", "0", "12700"))
 })
+
+test_that("align() accepts default align argument when columns is not a multiple of 4", {
+  ft <- flextable(head(mtcars, n = 2)[, 1:6])
+  ft1 <- align(ft, part = "all")
+  expect_snapshot_value(ft1$header$styles$pars$text.align$data, style = "deparse")
+  expect_snapshot_value(ft1$body$styles$pars$text.align$data, style = "deparse")
+})
+
+test_that("align() accepts combinations of align arguments.", {
+  ft <- flextable(head(mtcars, n = 2)[, 1:6])
+
+  # All columns right-aligned
+  ft2 <- align(ft, align = "right", part = "all")
+  expect_snapshot_value(ft2$header$styles$pars$text.align$data, style = "deparse")
+  expect_snapshot_value(ft2$body$styles$pars$text.align$data, style = "deparse")
+
+  # Custom alignment for each column
+  ft3 <- align(ft, align = c("left", "right", "left", "center", "center", "right"), part = "all")
+  expect_snapshot_value(ft3$header$styles$pars$text.align$data, style = "deparse")
+  expect_snapshot_value(ft3$body$styles$pars$text.align$data, style = "deparse")
+
+  # Custom alignment for only columns 3 and 5 in body only
+  ft4 <- align(ft, j = c(3, 5), align = c("center", "left"), part = "body")
+  expect_snapshot_value(ft4$header$styles$pars$text.align$data, style = "deparse")
+  expect_snapshot_value(ft4$body$styles$pars$text.align$data, style = "deparse")
+
+  # Custom alignment for only columns 3 and 5 in body only (using default body arg)
+  ft4b <- align(ft, j = c(3, 5), align = c("center", "left"))
+  expect_snapshot_value(ft4b$header$styles$pars$text.align$data, style = "deparse")
+  expect_snapshot_value(ft4b$body$styles$pars$text.align$data, style = "deparse")
+
+  # Center alignment for only columns 3 and 5
+  ft5 <- align(ft, j = c(3, 5), align = "center", part = "all")
+  expect_snapshot_value(ft5$header$styles$pars$text.align$data, style = "deparse")
+  expect_snapshot_value(ft5$body$styles$pars$text.align$data, style = "deparse")
+
+  # Alternate left and center alignment across columns 1-4 for header only
+  ft6 <- align(ft, j = 1:4, align = c("left", "center"), part = "header")
+  expect_snapshot_value(ft6$header$styles$pars$text.align$data, style = "deparse")
+  expect_snapshot_value(ft6$body$styles$pars$text.align$data, style = "deparse")
+
+  # Allow shorthand codes for alignment arguments.
+  ft7 <- align(ft, align = c("l", "r", "l", "c", "j", "r"), part = "all")
+  expect_snapshot_value(ft7$header$styles$pars$text.align$data, style = "deparse")
+  expect_snapshot_value(ft7$body$styles$pars$text.align$data, style = "deparse")
+})
+
+test_that("align() will error if invalid align and part arguments are supplied", {
+  ft <- flextable(head(mtcars, n = 2)[, 1:6])
+
+  # Invalid "part" argument
+  expect_error(align(ft, align = c("left", "center", "right"), part = "everything"))
+
+  # Invalid "align" argument
+  expect_error(align(ft, align = "top"))
+
+  # Invalid "align" argument mixed in with valid arguments throws warning
+  expect_warning(ft8 <- align(ft, align = c("top", "left")), "Invalid `align` argument")
+  expect_snapshot_value(ft8$body$styles$pars$text.align$data, style = "deparse")
+})

@@ -600,22 +600,51 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param align text alignment - a single character value, expected value
-#' is one of 'left', 'right', 'center', 'justify'.
+#' @param part partname of the table (one of 'body', 'header', 'footer', 'all')
+#' @param align text alignment - a single character value, or a vector of
+#'   character values equal in length to the number of columns selected by \code{j}.
+#'   Expected values must be from the set of ('left', 'right', 'center', or 'justify').
+#'   You can also use shortened versions of these options: ("l", "r", "c", "j").
+#'
+#'   If the number of columns is a multiple of the length of the \code{align} parameter,
+#'   then the values in \code{align} will be recycled across the remaining columns.
 #' @family sugar functions for table style
 #' @examples
-#' ft <- flextable(head(mtcars)[, 3:6])
-#' ft <- align(ft, align = "right", part = "all")
-#' ft <- theme_tron_legacy(ft)
-#' ft
-align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "justify"),
-                  part = "body") {
+#' # Table of 6 columns
+#' ft_car <- flextable(head(mtcars)[, 2:7])
+#'
+#' # All 6 columns right aligned
+#' align(ft_car, align = "right", part = "all")
+#'
+#' # Manually specify alignment of each column
+#' align(ft_car, align = c("left", "right", "left", "center", "center", "right"), part = "all")
+#'
+#' # Center-align column 2 and left-align column 5
+#' align(ft_car, j = c(2, 5), align = c("center", "left"), part = "all")
+#'
+#' # Alternate left and center alignment across columns 1-4 for header only
+#' align(ft_car, j = 1:4, align = c("left", "center"), part = "header")
+#'
+#' # Using shorthand codes for alignment arguments.
+#' align(ft_car, align = c("l", "r", "l", "c", "j", "r"), part = "all")
+#'
+align <- function(x, i = NULL, j = NULL, align = "left",
+                  part = c("body", "header", "footer", "all")) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "align()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
-  align_value <- match.arg(align, several.ok = TRUE)
+  part <- match.arg(part, several.ok = FALSE)
+
+  allowed_alignments <- c("left", "center", "right", "justify")
+  if (!all(align %in% allowed_alignments) & any(align %in% allowed_alignments)) {
+    warning(
+      "Invalid `align` argument(s) provided to `align()`: \"",
+      paste(setdiff(align, allowed_alignments), collapse = "\", \""),
+      "\".\n  `align` should be one of: \"", paste(allowed_alignments, collapse = "\", \""),
+      "\".\n  All other values will be ignored."
+    )
+  }
+  align_value <- match.arg(align, allowed_alignments, several.ok = TRUE)
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -632,7 +661,7 @@ align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "j
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
 
-  if (length(align_value) == length(j)) {
+  if (length(j) %% length(align_value) == 0) {
     align_value <- rep(align_value, each = length(i))
   }
 

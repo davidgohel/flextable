@@ -1,7 +1,23 @@
-# flextable 0.9.6.007 (Development version)
+# flextable 0.9.6.008 (Development version)
 
 ## Changes
 
+- BREAKING CHANGE: in `align()`, the default argument value for `align`
+  is now `"left"`, rather than `c("left", "center", "right", "justify")`.
+  This returns the default value to how it was in older versions of {flextable}.
+    - in `align()`, use of the old default `align` argument could cause an error
+      if the number of columns being adjusted was not a multiple of 4.
+    - The documentation specified that `align` had to be a single value, when
+      it could actually accept multiple values. This is why a default value of
+      `c("left", "center", "right", "justify")`, was problematic.
+      This documentation has now been updated and
+      new examples included in the documentation.
+    - The default `align` argument will now apply left alignment to all columns in
+      the body.
+    - If the user specifies an alignment that is invalid, a warning will be displayed
+      and the invalid value will be ignored (dropped).
+    - The `path` argument now has a signature of `part = c("body", "header", "footer", "all")`,
+      but because only a single value can be selected, it will pick `"body"` by default, as before.
 - {testthat} version 3 now used for testing
     - Removes `context()` as this is encapsulated by the test file name.
     - Swaps `expect_equivalent()` with `expect_equal(ignore_attr = TRUE)`
