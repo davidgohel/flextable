@@ -1,5 +1,3 @@
-context("check as_flextable")
-
 test_that("data.frame", {
   dummy_df <- data.frame(
     A = rep(letters[1:3], each = 2),

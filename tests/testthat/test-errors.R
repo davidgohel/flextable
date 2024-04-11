@@ -1,6 +1,3 @@
-context("check errors")
-
-
 test_that("rows selections", {
   dummy_df <- data.frame(
     my_col = rep(letters[1:3], each = 2),

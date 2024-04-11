@@ -1,3 +1,12 @@
+# flextable 0.9.6.007 (Development version)
+
+## Changes
+
+- {testthat} version 3 now used for testing
+    - Removes `context()` as this is encapsulated by the test file name.
+    - Swaps `expect_equivalent()` with `expect_equal(ignore_attr = TRUE)`
+    - Swaps `expect_is()` for `expect_s3_class()`.
+
 # flextable 0.9.6
 
 ## Changes

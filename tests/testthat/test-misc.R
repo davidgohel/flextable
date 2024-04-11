@@ -1,5 +1,3 @@
-context("check various minor things")
-
 ft <- flextable(iris)
 
 test_that("print as log", {

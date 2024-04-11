@@ -1,5 +1,3 @@
-context("check proc_freq")
-
 p <- structure(list(
   lengths = c(9894L, 104L, 1L, 1L),
   values = c("No", "Yes", NA, NA)
@@ -51,7 +49,7 @@ test_that("proc_freq executes without errors", {
     stringsAsFactors = FALSE
   )
   ft <- proc_freq(dummy_df, "values", "groups")
-  expect_equivalent(class(ft), "flextable")
+  expect_equal(class(ft), "flextable", ignore_attr = TRUE)
 })
 
 test_that("proc_freq content", {

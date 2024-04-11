@@ -1,5 +1,3 @@
-context("check borders rendering")
-
 init_flextable_defaults()
 snap_folder_test_file <- "borders"
 defer_cleaning_snapshot_directory(snap_folder_test_file)

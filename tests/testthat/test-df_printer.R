@@ -1,5 +1,3 @@
-context("df_printer and utilities")
-
 test_that("use_model_printer and use_df_printer works", {
   rmd_file <- tempfile(fileext = ".Rmd")
   file.copy("rmd/use-printer.Rmd", rmd_file)

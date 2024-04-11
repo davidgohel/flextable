@@ -1,5 +1,3 @@
-context("check cells text")
-
 ft1 <- flextable(data.frame(a = "1 < 3", stringsAsFactors = FALSE))
 
 get_xml_doc <- function(tab, main_folder = "docx_folder") {

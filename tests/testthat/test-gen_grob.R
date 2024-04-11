@@ -1,5 +1,3 @@
-context("check grid grob")
-
 gdtools::register_liberationsans()
 
 init_flextable_defaults()

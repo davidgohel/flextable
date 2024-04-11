@@ -1,5 +1,3 @@
-context("check captions")
-
 init_flextable_defaults()
 
 rmd_file_0 <- "rmd/captions.Rmd"

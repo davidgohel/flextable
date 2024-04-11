@@ -1,5 +1,3 @@
-context("check dim and new rows")
-
 test_that("nrow_part or ncol_keys checks", {
   expect_error(nrow_part(12))
   expect_error(ncol_keys(12))
@@ -121,9 +119,10 @@ test_that("add part rows", {
       5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0)
   )
   expect_true(all(spans$colspan %in% 1))
-  expect_equivalent(
+  expect_equal(
     colSums(is.na(ft_1$header$dataset)),
-    rep(0L, ncol(mtcars))
+    rep(0L, ncol(mtcars)),
+    ignore_attr = TRUE
   )
 
   new_body_sel <- x[x$.part %in% "body" &
@@ -143,9 +142,10 @@ test_that("add part rows", {
     c(5, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0)
   )
   expect_true(all(spans$colspan %in% 1))
-  expect_equivalent(
+  expect_equal(
     colSums(is.na(ft_1$body$dataset)),
-    rep(1L, ncol(mtcars))
+    rep(1L, ncol(mtcars)),
+    ignore_attr = TRUE
   )
 
   new_footer_sel <- x[x$.part %in% "footer" &
@@ -162,9 +162,10 @@ test_that("add part rows", {
     c(3, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0)
   )
   expect_true(all(spans$colspan %in% 1))
-  expect_equivalent(
+  expect_equal(
     colSums(is.na(ft_1$footer$dataset)),
-    rep(0L, ncol(mtcars))
+    rep(0L, ncol(mtcars)),
+    ignore_attr = TRUE
   )
 
 })

@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.9.6.007
+Version: 0.9.6.008
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -68,7 +68,7 @@ Suggests:
     scales,
     svglite,
     tables (>= 0.9.17),
-    testthat (>= 2.1.0),
+    testthat (>= 3.0.0),
     webshot2,
     withr,
     xtable
@@ -76,3 +76,4 @@ Encoding: UTF-8
 URL: https://ardata-fr.github.io/flextable-book/, https://davidgohel.github.io/flextable/
 BugReports: https://github.com/davidgohel/flextable/issues
 VignetteBuilder: knitr
+Config/testthat/edition: 3

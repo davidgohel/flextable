@@ -1,10 +1,8 @@
-context("check merge operations")
-
 test_that("identical values within columns are merged", {
   dummy_df <- data.frame(values = rep(letters[1:3], each = 2), stringsAsFactors = FALSE)
   ft <- flextable(dummy_df)
   ft <- merge_v(x = ft, j = "values")
-  expect_equivalent(ft$body$spans$columns[, 1], rep(c(2, 0), 3))
+  expect_equal(ft$body$spans$columns[, 1], rep(c(2, 0), 3), ignore_attr = TRUE)
 })
 
 test_that("identical values within rows are merged", {
@@ -16,7 +14,7 @@ test_that("identical values within rows are merged", {
   ft <- flextable(dummy_df)
   ft <- merge_h(x = ft)
   ref <- matrix(c(rep(2, 26), rep(0, 26)), ncol = 2)
-  expect_equivalent(ft$body$spans$rows, ref)
+  expect_equal(ft$body$spans$rows, ref, ignore_attr = TRUE)
 })
 
 
@@ -29,9 +27,9 @@ test_that("span at", {
   ft <- flextable(dummy_df)
   ft <- merge_at(x = ft, i = 1:4, j = 1:2)
   ref <- matrix(c(rep(2, 4), rep(1, 22), rep(0, 4), rep(1, 22)), ncol = 2)
-  expect_equivalent(ft$body$spans$rows, ref)
+  expect_equal(ft$body$spans$rows, ref, ignore_attr = TRUE)
   ref <- matrix(c(4, rep(0, 3), rep(1, 22), 4, rep(0, 3), rep(1, 22)), ncol = 2)
-  expect_equivalent(ft$body$spans$columns, ref)
+  expect_equal(ft$body$spans$columns, ref, ignore_attr = TRUE)
 })
 
 
