@@ -432,6 +432,11 @@ get_pdf_engine <- function() {
   rd <- grep("--pdf-engine", pandoc_args)
   if (length(rd)) {
     engine <- pandoc_args[rd + 1]
+  } else if (is_in_quarto()) {
+    engine <- rmarkdown::metadata$`pdf-engine`
+    if (is.null(engine) || engine == "") {
+      engine <- "xelatex"
+    }
   } else {
     engine <- "pdflatex"
   }

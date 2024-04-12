@@ -12,6 +12,7 @@ loops or `if` statements.
 ## Issues
 
 - fix issue with `as_image()` when the table contains no text.
+- fix font instruction issue with PDF and quarto
 
 # flextable 0.9.5
 
