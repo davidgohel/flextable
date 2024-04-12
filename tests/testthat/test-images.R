@@ -118,3 +118,30 @@ test_that("multiple images", {
   expect_is(zz$children$cell_2_1$children$contents$ftgrobs[[1]], "rastergrob")
   expect_is(zz$children$cell_3_1$children$contents$ftgrobs[[1]], "rastergrob")
 })
+
+test_that("minibar", {
+  ft <- flextable(data.frame(n = 1:2))
+
+  ft <- mk_par(
+    ft,
+    j = 1,
+    value = as_paragraph(
+      minibar(value = n, max = 10, width = .5, barcol = "red", bg = "yellow")
+    ),
+    part = "body"
+  )
+  minibar1 <- flextable::information_data_chunk(ft)$img_data[[2]]
+  expect_is(minibar1, "raster")
+  expect_equal(nrow(minibar1), 1)
+  expect_equal(ncol(minibar1), 36)
+  expect_equal(minibar1[1:3], rep("#FF0000", 3))
+  expect_equal(minibar1[4:36], rep("#FFFF00", 33))
+
+  minibar2 <- flextable::information_data_chunk(ft)$img_data[[3]]
+  expect_is(minibar2, "raster")
+  expect_equal(nrow(minibar2), 1)
+  expect_equal(ncol(minibar2), 36)
+  expect_equal(minibar2[1:7], rep("#FF0000", 7))
+  expect_equal(minibar2[8:36], rep("#FFFF00", 29))
+})
+
