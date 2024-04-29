@@ -25,7 +25,7 @@ test_that("fonts are defined in latex", {
   knitr::opts_knit$set("rmarkdown.pandoc.args" = NULL)
 
   # quarto
-  knitr::opts_knit$set("quarto.version" = numeric_version("1.0"))
+  flextable:::fake_quarto()
   latex_str <- flextable:::gen_raw_latex(ft, quarto = TRUE)
   expect_match(latex_str, regexp = "Liberation Sans", fixed = TRUE)
 })

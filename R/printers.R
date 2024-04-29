@@ -1117,7 +1117,18 @@ is_in_bookdown <- function() {
     isTRUE(!is_rdocx_document)
 }
 is_in_quarto <- function() {
-  isTRUE(knitr::opts_knit$get("quarto.version") > numeric_version("0"))
+  if (getRversion() >= numeric_version("4.4.0")) {
+    isTRUE(knitr::opts_knit$get("quarto.version") > 0)
+  } else {
+    isTRUE(knitr::opts_knit$get("quarto.version") > numeric_version("0"))
+  }
+}
+fake_quarto <- function() {
+  if (getRversion() >= numeric_version("4.4.0")) {
+    knitr::opts_knit$set("quarto.version" = 1)
+  } else {
+    knitr::opts_knit$set("quarto.version" = numeric_version("1.0"))
+  }
 }
 is_in_pkgdown <- function() {
   identical(Sys.getenv("IN_PKGDOWN"), "true") &&

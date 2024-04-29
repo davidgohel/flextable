@@ -13,6 +13,7 @@ loops or `if` statements.
 
 - fix issue with `as_image()` when the table contains no text.
 - fix font instruction issue with PDF and quarto
+- fix issue with Quarto detection and R > 4.4
 
 # flextable 0.9.5
 
