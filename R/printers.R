@@ -1117,7 +1117,7 @@ is_in_bookdown <- function() {
     isTRUE(!is_rdocx_document)
 }
 is_in_quarto <- function() {
-  isTRUE(knitr::opts_knit$get("quarto.version") > numeric_version("0"))
+  isTRUE(knitr::opts_knit$get("quarto.version") > 0)
 }
 is_in_pkgdown <- function() {
   identical(Sys.getenv("IN_PKGDOWN"), "true") &&
