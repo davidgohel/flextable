@@ -84,3 +84,13 @@ test_that("borders with office docs are sanitized", {
   expect_equal(xml_attr(top_nodes, "w"), c("0", "0", "0", "12700"))
   expect_equal(xml_attr(bot_nodes, "w"), c("0", "12700", "0", "12700"))
 })
+
+test_that("align is vectorized over columns", {
+  ft <- flextable(head(mtcars[, 2:6]))
+  align_vals <- c("center", "right", "right", "right", "right")
+  ft <- align(ft, align = align_vals, part = "all")
+  expect_equal(
+    rep(align_vals, 7),
+    information_data_paragraph(ft)$text.align
+  )
+})

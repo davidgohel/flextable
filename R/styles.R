@@ -601,25 +601,28 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param align text alignment - a single character value, expected value
-#' is one of 'left', 'right', 'center', 'justify'.
+#' @param align text alignment - character values, expected value
+#' must be 'left', 'right', 'center', 'justify'. It can be a single value or
+#' multiple values, the argument is vectorized over columns.
 #' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(head(mtcars)[, 3:6])
 #' ft <- align(ft, align = "right", part = "all")
 #' ft <- theme_tron_legacy(ft)
 #' ft
-align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "justify"),
-                  part = "body") {
+align <- function(x, i = NULL, j = NULL, align = "left", part = "body") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "align()"))
   }
   part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
-  align_value <- match.arg(align, several.ok = TRUE)
+
+  if (any(!align %in% c("left", "center", "right", "justify"))) {
+    stop("align values can only be 'left', 'center', 'right', 'justify'.")
+  }
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
-      x <- align(x = x, i = i, j = j, align = align_value, part = p)
+      x <- align(x = x, i = i, j = j, align = align, part = p)
     }
     return(x)
   }
@@ -632,8 +635,8 @@ align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "j
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
 
-  if (length(align_value) == length(j)) {
-    align_value <- rep(align_value, each = length(i))
+  if (length(align) == length(j)) {
+    align <- rep(align, each = length(i))
   }
 
   x[[part]]$styles$pars <- set_par_struct_values(
@@ -641,7 +644,7 @@ align <- function(x, i = NULL, j = NULL, align = c("left", "center", "right", "j
     i = i,
     j = j,
     property = "text.align",
-    value = align_value
+    value = align
   )
   x
 }

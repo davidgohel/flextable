@@ -14,6 +14,9 @@ loops or `if` statements.
 - fix issue with `as_image()` when the table contains no text.
 - fix font instruction issue with PDF and quarto
 - fix issue with Quarto detection and R > 4.4
+- fix `align()` issue with recycling and update documentation
+that was wrong about argument `align` that is vectorized over 
+columns.
 
 # flextable 0.9.5
 
