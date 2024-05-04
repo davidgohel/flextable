@@ -57,6 +57,10 @@ flextable with functions:
 \item \code{\link[=append_chunks]{append_chunks()}},
 \item \code{\link[=prepend_chunks]{prepend_chunks()}}.
 }
+
+It is now deprecated and will be soon defunct because we
+think it produces ugly results. Use \code{\link[=gg_chunk]{gg_chunk()}} to
+replace it.
 }
 \note{
 This chunk option requires package officedown in a R Markdown

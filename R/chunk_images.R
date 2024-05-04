@@ -266,6 +266,10 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' - [compose()] and [as_paragraph()],
 #' - [append_chunks()],
 #' - [prepend_chunks()].
+#'
+#' It is now deprecated and will be soon defunct because we
+#' think it produces ugly results. Use [gg_chunk()] to
+#' replace it.
 #' @param value values containing the bar size
 #' @param min min bar size. Default min of value
 #' @param max max bar size. Default max of value
@@ -308,6 +312,7 @@ lollipop <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
                      height = .2, unit = "in", raster_width = 30, positivecol = "#00CC00",
                      negativecol = "#CC0000", neutralcol = "#CCCCCC", neutralrange = c(0, 0),
                      rectanglesize = 2) {
+  .Deprecated(msg = "lollipop function is deprecated as authors don't like the result, please open an issue if you are using it.")
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
 

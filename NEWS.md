@@ -26,6 +26,8 @@
     - The `path` argument now has a signature of `part = c("body", "header",
       "footer", "all")`, but because only a single value can be selected, it
       will pick `"body"` by default, as before.
+- Deprecate `lollipop()` since it produces (ugly) results that can be replaced
+by nice results with `gg_chunk()` or `grid_chunk()`.
 
 ## Issues
 
