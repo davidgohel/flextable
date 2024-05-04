@@ -1,5 +1,3 @@
-context("check cell content")
-
 test_that("void works as expected", {
   expect_error(void(12, part = "all"))
 
@@ -42,7 +40,7 @@ test_that("flextable_defaults values for cell content", {
       "1 116 933", "dark", "01/01/2011 09:09:09", "Adrien Dupuy", "29 02 2028",
       "2", "53,58175", "167,7560", "1 009 038", "dark", "01/01/2011 09:09:09"
     )
-  expect_equivalent(object = information_data_chunk(ft)$txt, expected)
+  expect_equal(object = information_data_chunk(ft)$txt, expected, ignore_attr = TRUE)
 
   init_flextable_defaults()
 })
@@ -79,7 +77,7 @@ test_that("colformat_* functions", {
       "-26/02/2011-", "-c-", "-b-", "-12,566-", "-4-", "-NON-", "-01/01/2011 090905-",
       "-27/02/2011-"
     )
-  expect_equivalent(object = information_data_chunk(ft)$txt, expected)
+  expect_equal(object = information_data_chunk(ft)$txt, expected, ignore_attr = TRUE)
 
   ft <- colformat_num(x = ft, big.mark = "", decimal.mark = ".", prefix = "+", suffix = "+")
   expected <-
@@ -91,7 +89,7 @@ test_that("colformat_* functions", {
       "-26/02/2011-", "-c-", "-b-", "+12.566371+", "+4+", "-NON-",
       "-01/01/2011 090905-", "-27/02/2011-"
     )
-  expect_equivalent(object = information_data_chunk(ft)$txt, expected)
+  expect_equal(object = information_data_chunk(ft)$txt, expected, ignore_attr = TRUE)
 })
 
 

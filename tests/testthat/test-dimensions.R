@@ -1,5 +1,3 @@
-context("check widths and heights")
-
 test_that("dimensions are valid", {
   dummy_df <- data.frame(my_col = rep(letters[1:3], each = 2), stringsAsFactors = FALSE)
   ft <- flextable(dummy_df)

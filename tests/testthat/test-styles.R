@@ -1,5 +1,3 @@
-context("check formatting")
-
 test_that("shortcut functions", {
   ft <- flextable(head(mtcars, n = 2))
 

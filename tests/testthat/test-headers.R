@@ -1,5 +1,3 @@
-context("check headers")
-
 test_that("set_header_labels", {
   col_keys <- c(
     "Species",

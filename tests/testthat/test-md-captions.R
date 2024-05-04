@@ -1,5 +1,3 @@
-context("check markdown captions")
-
 init_flextable_defaults()
 skip_if_not_local_testing(check_html = TRUE)
 snap_folder_test_file <- "md-captions"

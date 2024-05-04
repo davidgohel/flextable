@@ -1,5 +1,3 @@
-context("check keep with next")
-
 init_flextable_defaults()
 
 iris_sum <- summarizor(iris, by = "Species")

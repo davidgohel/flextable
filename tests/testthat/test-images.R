@@ -1,5 +1,3 @@
-context("check images")
-
 data <- iris[c(1:3, 51:53, 101:104), ]
 col_keys <- c("Species", "sep_1", "Sepal.Length", "Sepal.Width", "sep_2", "Petal.Length", "Petal.Width")
 img.file <- file.path(R.home("doc"), "html", "logo.jpg")
@@ -107,16 +105,16 @@ test_that("multiple images", {
   }
 
   zz <- gen_grob(ft)
-  expect_is(zz$children$cell_1_1$children$contents$ftgrobs[[1]], "rastergrob")
-  expect_is(zz$children$cell_2_1$children$contents$ftgrobs[[1]], "rastergrob")
-  expect_is(zz$children$cell_3_1$children$contents$ftgrobs[[1]], "rastergrob")
+  expect_s3_class(zz$children$cell_1_1$children$contents$ftgrobs[[1]], "rastergrob")
+  expect_s3_class(zz$children$cell_2_1$children$contents$ftgrobs[[1]], "rastergrob")
+  expect_s3_class(zz$children$cell_3_1$children$contents$ftgrobs[[1]], "rastergrob")
 
   ft <- flextable(df)
   ft <- colformat_image(ft, j = "plot", width = 300 / 72, height = 300 / 72)
   zz <- gen_grob(ft)
-  expect_is(zz$children$cell_1_1$children$contents$ftgrobs[[1]], "text")
-  expect_is(zz$children$cell_2_1$children$contents$ftgrobs[[1]], "rastergrob")
-  expect_is(zz$children$cell_3_1$children$contents$ftgrobs[[1]], "rastergrob")
+  expect_s3_class(zz$children$cell_1_1$children$contents$ftgrobs[[1]], "text")
+  expect_s3_class(zz$children$cell_2_1$children$contents$ftgrobs[[1]], "rastergrob")
+  expect_s3_class(zz$children$cell_3_1$children$contents$ftgrobs[[1]], "rastergrob")
 })
 
 test_that("minibar", {
@@ -131,14 +129,14 @@ test_that("minibar", {
     part = "body"
   )
   minibar1 <- flextable::information_data_chunk(ft)$img_data[[2]]
-  expect_is(minibar1, "raster")
+  expect_s3_class(minibar1, "raster")
   expect_equal(nrow(minibar1), 1)
   expect_equal(ncol(minibar1), 36)
   expect_equal(minibar1[1:3], rep("#FF0000", 3))
   expect_equal(minibar1[4:36], rep("#FFFF00", 33))
 
   minibar2 <- flextable::information_data_chunk(ft)$img_data[[3]]
-  expect_is(minibar2, "raster")
+  expect_s3_class(minibar2, "raster")
   expect_equal(nrow(minibar2), 1)
   expect_equal(ncol(minibar2), 36)
   expect_equal(minibar2[1:7], rep("#FF0000", 7))

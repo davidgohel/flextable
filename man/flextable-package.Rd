@@ -50,6 +50,7 @@ Other contributors:
   \item Sean Browning (work on footnote positioning system) [contributor]
   \item Rémi Thériault (\href{https://orcid.org/0000-0003-4315-6788}{ORCID}) (theme_apa) [contributor]
   \item Samuel Jobert (work on pagination) [contributor]
+  \item Keith Newman [contributor]
 }
 
 }

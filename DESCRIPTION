@@ -1,36 +1,45 @@
-Package: flextable
 Type: Package
+Package: flextable
 Title: Functions for Tabular Reporting
-Version: 0.9.6.010
+Version: 0.9.6.011
 Authors@R: c(
-    person("David", "Gohel", role = c("aut", "cre"),
-    email = "david.gohel@ardata.fr"),
-    person(given = "ArData", role = "cph"),
+    person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
+    person("ArData", role = "cph"),
     person("Clementine", "Jager", role = "ctb"),
-    person("Panagiotis", "Skintzos", role = "aut", email = "panagiotis.skintzos@ardata.fr"),
+    person("Panagiotis", "Skintzos", , "panagiotis.skintzos@ardata.fr", role = "aut"),
     person("Quentin", "Fazilleau", role = "ctb"),
-    person("Maxim", "Nazarov", role = "ctb", comment = "rmarkdown for docx output"),
+    person("Maxim", "Nazarov", role = "ctb",
+           comment = "rmarkdown for docx output"),
     person("Titouan", "Robert", role = "ctb"),
-    person("Michael", "Barrowman", role = "ctb", comment = "inline footnotes"),
-    person("Atsushi", "Yasumoto", role = "ctb", comment = "support for bookdown cross reference"),
-    person("Paul", "Julian", role = "ctb", comment = "support for gam objects"),
-    person("Sean", "Browning", role = "ctb", comment = "work on footnote positioning system"),
-    person("Rémi", "Thériault", role = "ctb", comment = c(ORCID = "0000-0003-4315-6788", ctb = "theme_apa")),
-    person("Samuel", "Jobert", role = "ctb", comment = "work on pagination"),
+    person("Michael", "Barrowman", role = "ctb",
+           comment = "inline footnotes"),
+    person("Atsushi", "Yasumoto", role = "ctb",
+           comment = "support for bookdown cross reference"),
+    person("Paul", "Julian", role = "ctb",
+           comment = "support for gam objects"),
+    person("Sean", "Browning", role = "ctb",
+           comment = "work on footnote positioning system"),
+    person("Rémi", "Thériault", role = "ctb",
+           comment = c(ORCID = "0000-0003-4315-6788", ctb = "theme_apa")),
+    person("Samuel", "Jobert", role = "ctb",
+           comment = "work on pagination"),
     person("Keith", "Newman", role = "ctb")
-    )
+  )
 Description: Use a grammar for creating and customizing pretty tables.
- The following formats are supported: 'HTML', 'PDF', 'RTF', 
- 'Microsoft Word', 'Microsoft PowerPoint' and R 'Grid Graphics'. 
- 'R Markdown', 'Quarto' and the package 'officer' can be used to produce 
- the result files. The syntax is the same for the user regardless of 
- the type of output to be produced. A set of functions allows the 
- creation, definition of cell arrangement, addition of headers or 
- footers, formatting and definition of cell content with text and 
- or images. The package also offers a set of high-level functions 
- that allow tabular reporting of statistical models and the 
- creation of complex cross tabulations.
+    The following formats are supported: 'HTML', 'PDF', 'RTF', 'Microsoft
+    Word', 'Microsoft PowerPoint' and R 'Grid Graphics'.  'R Markdown',
+    'Quarto' and the package 'officer' can be used to produce the result
+    files. The syntax is the same for the user regardless of the type of
+    output to be produced. A set of functions allows the creation,
+    definition of cell arrangement, addition of headers or footers,
+    formatting and definition of cell content with text and or images. The
+    package also offers a set of high-level functions that allow tabular
+    reporting of statistical models and the creation of complex cross
+    tabulations.
 License: GPL-3
+URL: https://ardata-fr.github.io/flextable-book/,
+    https://davidgohel.github.io/flextable/
+BugReports: https://github.com/davidgohel/flextable/issues
 Imports:
     data.table (>= 1.13.0),
     gdtools (>= 0.3.6),
@@ -47,14 +56,12 @@ Imports:
     utils,
     uuid (>= 0.1-4),
     xml2
-RoxygenNote: 7.3.1
-Roxygen: list(markdown = TRUE)
 Suggests:
     bookdown (>= 0.34),
     broom,
     broom.mixed,
-    cluster,
     chromote,
+    cluster,
     commonmark,
     doconv (>= 0.3.0),
     equatags,
@@ -69,11 +76,13 @@ Suggests:
     scales,
     svglite,
     tables (>= 0.9.17),
-    testthat (>= 2.1.0),
+    testthat (>= 3.0.0),
     webshot2,
     withr,
     xtable
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
 Encoding: UTF-8
-URL: https://ardata-fr.github.io/flextable-book/, https://davidgohel.github.io/flextable/
-BugReports: https://github.com/davidgohel/flextable/issues
-VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1

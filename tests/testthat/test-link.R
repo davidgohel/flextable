@@ -1,5 +1,3 @@
-context("check hyperlink")
-
 data <- data.frame(
   code = c("X01", "X02"),
   name = c("X Number 1", "X Number 2"),
@@ -24,7 +22,7 @@ test_that("URL are preserved in docx", {
   rid <- xml_attr(xml_find_all(body, "//w:hyperlink"), "id")
   rels <- doc$doc_obj$rel_df()
   urls <- rels[rels$id %in% rid, "target"]
-  expect_equivalent(urls, sprintf(url_base, data$code))
+  expect_equal(urls, sprintf(url_base, data$code), ignore_attr = TRUE)
 })
 
 test_that("URL are preserved in pptx", {
@@ -35,7 +33,7 @@ test_that("URL are preserved in pptx", {
   rid <- xml_attr(xml_find_all(xml_slide, "//a:hlinkClick"), "id")
   rels <- doc$slide$get_slide(1)$rel_df()
   urls <- rels[rels$id %in% rid, "target"]
-  expect_equivalent(urls, sprintf(url_base, data$code))
+  expect_equal(urls, sprintf(url_base, data$code), ignore_attr = TRUE)
 })
 
 test_that("URL are preserved in html", {
@@ -46,5 +44,5 @@ test_that("URL are preserved in html", {
   str_ <- gsub("</div></template(.*)", "", str_)
   doc <- read_html(str_)
   urls <- xml_attr(xml_find_all(doc, "//a"), "href")
-  expect_equivalent(urls, sprintf(url_base, data$code))
+  expect_equal(urls, sprintf(url_base, data$code), ignore_attr = TRUE)
 })

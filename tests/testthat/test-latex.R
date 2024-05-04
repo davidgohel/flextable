@@ -1,5 +1,3 @@
-context("latex table structure")
-
 test_that("white spaces are protected", {
   ft <- flextable(data.frame(x = ""))
   ft <- delete_part(ft, part = "header")

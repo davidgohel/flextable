@@ -1,5 +1,3 @@
-context("check footers")
-
 test_that("add_footer", {
   data_ref <- structure(
     list(
