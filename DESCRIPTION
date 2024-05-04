@@ -1,7 +1,7 @@
 Package: flextable
 Type: Package
 Title: Functions for Tabular Reporting
-Version: 0.9.6.009
+Version: 0.9.6.010
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -16,7 +16,8 @@ Authors@R: c(
     person("Paul", "Julian", role = "ctb", comment = "support for gam objects"),
     person("Sean", "Browning", role = "ctb", comment = "work on footnote positioning system"),
     person("Rémi", "Thériault", role = "ctb", comment = c(ORCID = "0000-0003-4315-6788", ctb = "theme_apa")),
-    person("Samuel", "Jobert", role = "ctb", comment = "work on pagination")
+    person("Samuel", "Jobert", role = "ctb", comment = "work on pagination"),
+    person("Keith", "Newman", role = "ctb")
     )
 Description: Use a grammar for creating and customizing pretty tables.
  The following formats are supported: 'HTML', 'PDF', 'RTF', 

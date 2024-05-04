@@ -85,12 +85,82 @@ test_that("borders with office docs are sanitized", {
   expect_equal(xml_attr(bot_nodes, "w"), c("0", "12700", "0", "12700"))
 })
 
-test_that("align is vectorized over columns", {
-  ft <- flextable(head(mtcars[, 2:6]))
-  align_vals <- c("center", "right", "right", "right", "right")
-  ft <- align(ft, align = align_vals, part = "all")
+test_that("align() accepts default align argument when columns is not a multiple of 4", {
+  ft <- flextable(head(mtcars, n = 2)[, 1:6])
+  ft1 <- align(ft, part = "all")
   expect_equal(
-    rep(align_vals, 7),
-    information_data_paragraph(ft)$text.align
+    rep("left", 18),
+    information_data_paragraph(ft1)$text.align
   )
+})
+
+test_that("align() accepts combinations of align arguments.", {
+  ft <- flextable(head(mtcars, n = 2)[, 1:6])
+
+  # All columns right-aligned
+  ft2 <- align(ft, align = "right", part = "all")
+  expect_equal(
+    rep("right", 18),
+    information_data_paragraph(ft2)$text.align
+  )
+
+  # Custom alignment for each column
+  custom_alignment <- c("left", "right", "left", "center", "center", "right")
+  ft3 <- align(ft, align = custom_alignment, part = "all")
+  expect_equal(
+    rep(custom_alignment, 3),
+    information_data_paragraph(ft3)$text.align
+  )
+
+  # Custom alignment for only columns 3 and 5 in body only
+  custom_alignment <- c("center", "left")
+  ft4 <- align(ft, j = c("disp", "drat"), align = custom_alignment, part = "body")
+  subdat <- information_data_paragraph(ft4)
+  subdat <- subdat[subdat$.col_id %in% c("disp", "drat"),]
+  subdat <- subdat[subdat$.part %in% c("body"),]
+  expect_equal(
+    rep(custom_alignment, 2),
+    subdat$text.align
+  )
+
+  # Custom alignment for only columns 3 and 5 in body only (using default body arg)
+  ft4b <- align(ft, j = c("disp", "drat"), align = custom_alignment)
+  subdat <- information_data_paragraph(ft4b)
+  subdat <- subdat[subdat$.col_id %in% c("disp", "drat"),]
+  subdat <- subdat[subdat$.part %in% c("body"),]
+  expect_equal(
+    rep(custom_alignment, 2),
+    subdat$text.align
+  )
+
+  # Center alignment for only columns 3 and 5
+  ft5 <- align(ft, j = c("disp", "drat"), align = "center", part = "all")
+  subdat <- information_data_paragraph(ft5)
+  subdat <- subdat[subdat$.col_id %in% c("disp", "drat"),]
+  expect_equal(
+    rep("center", 6),
+    subdat$text.align
+  )
+
+  # Alternate left and center alignment across columns 1-4 for header only
+  ft6 <- align(ft, j = 1:4, align = c("left", "center"), part = "header")
+  subdat <- information_data_paragraph(ft6)
+  subdat <- subdat[subdat$.part %in% c("header"),]
+  expect_equal(
+    c(rep(c("left", "center"), 2), "right", "right"),
+    subdat$text.align
+  )
+})
+
+test_that("align() will error if invalid align and part arguments are supplied", {
+  ft <- flextable(head(mtcars, n = 2)[, 1:6])
+
+  # Invalid "part" argument
+  expect_error(align(ft, align = c("left", "center", "right"), part = "everything"))
+
+  # Invalid "align" argument
+  expect_error(align(ft, align = "top"))
+
+  # Invalid "align" argument mixed in with valid arguments throws warning
+  expect_error(align(ft, align = c("top", "left")), "Invalid `align` argument")
 })

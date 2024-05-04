@@ -171,9 +171,13 @@ as_flextable.tabular <- function(x,
 
   for (j in columns_keys) {
     ft <- align(ft, j = j, align = text_align$header[, j], part = "header")
+    aligns <- text_align$body[, j]
+    if (".type" %in% colnames(text_align$body)) {
+      aligns <- aligns[text_align$body$.type %in% c("one_row", "list_data")]
+    }
     ft <- align(ft,
       j = j, i = ~ .type %in% c("one_row", "list_data"),
-      align = text_align$body[, j], part = "body"
+      align = aligns, part = "body"
     )
   }
 

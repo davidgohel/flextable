@@ -600,24 +600,46 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param align text alignment - character values, expected value
-#' must be 'left', 'right', 'center', 'justify'. It can be a single value or
-#' multiple values, the argument is vectorized over columns.
+#' @param part partname of the table (one of 'body', 'header', 'footer', 'all')
+#' @param align text alignment - a single character value, or a vector of
+#' character values equal in length to the number of columns selected by `j`.
+#' Expected values must be from the set of ('left', 'right', 'center', or 'justify').
+#'
+#' If the number of columns is a multiple of the length of the `align` parameter,
+#' then the values in `align` will be recycled across the remaining columns.
 #' @family sugar functions for table style
 #' @examples
-#' ft <- flextable(head(mtcars)[, 3:6])
-#' ft <- align(ft, align = "right", part = "all")
-#' ft <- theme_tron_legacy(ft)
-#' ft
-align <- function(x, i = NULL, j = NULL, align = "left", part = "body") {
+#' # Table of 6 columns
+#' ft_car <- flextable(head(mtcars)[, 2:7])
+#'
+#' # All 6 columns right aligned
+#' align(ft_car, align = "right", part = "all")
+#'
+#' # Manually specify alignment of each column
+#' align(
+#'   ft_car,
+#'   align = c("left", "right", "left", "center", "center", "right"),
+#'   part = "all")
+#'
+#' # Center-align column 2 and left-align column 5
+#' align(ft_car, j = c(2, 5), align = c("center", "left"), part = "all")
+#'
+#' # Alternate left and center alignment across columns 1-4 for header only
+#' align(ft_car, j = 1:4, align = c("left", "center"), part = "header")
+align <- function(x, i = NULL, j = NULL, align = "left", part = c("body", "header", "footer", "all")) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "align()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE)
 
-  if (any(!align %in% c("left", "center", "right", "justify"))) {
-    stop("align values can only be 'left', 'center', 'right', 'justify'.")
+  allowed_alignments <- c("left", "center", "right", "justify")
+  if (!all(align %in% allowed_alignments)) {
+    stop(
+      "Invalid `align` argument(s) provided to `align()`: \"",
+      paste(setdiff(align, allowed_alignments), collapse = "\", \""),
+      "\".\n  `align` should be one of: \"", paste(allowed_alignments, collapse = "\", \""),
+      "\"."
+    )
   }
 
   if (part == "all") {
@@ -635,7 +657,7 @@ align <- function(x, i = NULL, j = NULL, align = "left", part = "body") {
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
 
-  if (length(align) == length(j)) {
+  if (length(j) %% length(align) == 0) {
     align <- rep(align, each = length(i))
   }
 
