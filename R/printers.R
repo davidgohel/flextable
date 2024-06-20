@@ -1009,7 +1009,7 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
     if (!requireNamespace("svglite", quietly = TRUE)) {
       stop(sprintf(
         "'%s' package should be installed to save a flextable in a '%s' image.",
-        "svglite"
+        "svglite", "svg"
       ))
     }
     svglite::svglite(
