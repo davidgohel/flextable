@@ -12,7 +12,6 @@ docx_file <- gsub("\\.Rmd$", ".docx", rmd_file)
 pdf_file <- gsub("\\.Rmd$", ".pdf", rmd_file)
 
 test_that("with html_document", {
-  skip_if_not_local_testing()
   unlink(html_file, force = TRUE)
   render(rmd_file,
     output_format = rmarkdown::html_document(),
@@ -45,7 +44,6 @@ test_that("with html_document", {
 })
 
 test_that("with html_document2", {
-  skip_if_not_local_testing()
   skip_if_not_installed("bookdown")
 
   unlink(html_file, force = TRUE)
@@ -78,7 +76,6 @@ test_that("with html_document2", {
 })
 
 test_that("with word_document", {
-  skip_if_not_local_testing()
   skip_if(pandoc_version() == numeric_version("2.9.2.1"))
 
   unlink(docx_file, force = TRUE)
@@ -109,7 +106,7 @@ test_that("with word_document", {
 })
 
 test_that("with word_document2", {
-  skip_if_not_local_testing(min_pandoc_version = "2.7.3")
+  skip_if(pandoc_version() <= numeric_version("2.7.3"))
   skip_if(pandoc_version() == numeric_version("2.9.2.1"))
   skip_if_not_installed("bookdown")
 
@@ -181,7 +178,7 @@ test_that("word with officer", {
 
 
 test_that("with pdf_document2", {
-  skip_if_not_local_testing(min_pandoc_version = "2.7.3")
+  skip_if(pandoc_version() <= numeric_version("2.7.3"))
   skip_if_not_installed("bookdown")
   skip_if_not_installed("pdftools")
 

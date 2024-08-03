@@ -156,11 +156,7 @@ test_that("partitioning around medoids works", {
   )
 })
 
-test_that("grouped data exports work", {
-  skip_if_not_local_testing(check_html = TRUE)
-  snap_folder_test_file <- "as_flextable"
-  defer_cleaning_snapshot_directory(snap_folder_test_file)
-
+test_that("grouped data structure", {
   init_flextable_defaults()
   set_flextable_defaults(
     post_process_pptx = function(x) {
@@ -173,7 +169,7 @@ test_that("grouped data exports work", {
     structure(
       list(
         Treatment = structure(c(3L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 4L, 4L),
-          levels = c("nonchilled", "chilled", "zoubi", "bisou"), class = "factor"
+                              levels = c("nonchilled", "chilled", "zoubi", "bisou"), class = "factor"
         ),
         conc = c(85L, 95L, 175L, 250L, 350L, 500L, 675L, 1000L, 95L, 175L, 250L, 350L, 500L, 675L, 1000L, NA, 1000L),
         Quebec = c(
@@ -195,44 +191,104 @@ test_that("grouped data exports work", {
   ft_1 <- colformat_double(ft_1, digits = 2)
   ft_1 <- set_table_properties(ft_1, layout = "autofit")
 
-  # pptx grouped-data
-  path <- save_as_pptx(ft_1, path = tempfile(fileext = ".pptx"))
-  handle_manual_snapshots(snap_folder_test_file, "pptx-grouped-data")
-  doconv::expect_snapshot_doc(name = "pptx-grouped-data", x = path, engine = "testthat")
+  # pptx testing
+  pptx_file <- tempfile(fileext = ".pptx")
+  save_as_pptx(ft_1, path = pptx_file)
+  doc <- read_pptx(pptx_file)
 
-  # docx grouped-data
-  path <- save_as_docx(ft_1, path = tempfile(fileext = ".docx"))
-  handle_manual_snapshots(snap_folder_test_file, "docx-grouped-data")
-  doconv::expect_snapshot_doc(x = path, name = "docx-grouped-data", engine = "testthat")
+  xml_body <- doc$slide$get_slide(1)$get()
+  xml_tbl <- xml_find_first(xml_body, "/p:sld/p:cSld/p:spTree/p:graphicFrame/a:graphic/a:graphicData/a:tbl")
 
-  # html grouped-data
-  path <- save_as_html(ft_1, path = tempfile(fileext = ".html"))
-  handle_manual_snapshots(snap_folder_test_file, "html-grouped-data")
-  doconv::expect_snapshot_html(name = "html-grouped-data", path, engine = "testthat")
+  xml_cell_2_1 <- xml_child(xml_tbl, "a:tr[2]/a:tc[1]")
+  expect_equal(xml_text(xml_cell_2_1), "Treatment: zoubi")
+  expect_equal(xml_attr(xml_cell_2_1, "gridSpan"), "3")
+  xml_cell_2_2 <- xml_child(xml_tbl, "a:tr[2]/a:tc[2]")
+  expect_equal(xml_text(xml_cell_2_2), "")
+  expect_equal(xml_attr(xml_cell_2_2, "hMerge"), "true")
+  xml_cell_2_3 <- xml_child(xml_tbl, "a:tr[2]/a:tc[3]")
+  expect_equal(xml_text(xml_cell_2_3), "")
+  expect_equal(xml_attr(xml_cell_2_3, "hMerge"), "true")
 
-  gdata <- as_grouped_data(
-    x = data_co2, groups = c("Treatment"),
-    expand_single = FALSE
-  )
+  xml_cell_3_1 <- xml_child(xml_tbl, "a:tr[3]/a:tc[1]")
+  expect_equal(xml_text(xml_cell_3_1), "85")
+  xml_cell_3_2 <- xml_child(xml_tbl, "a:tr[3]/a:tc[2]")
+  expect_equal(xml_text(xml_cell_3_2), "12.00")
+  xml_cell_3_3 <- xml_child(xml_tbl, "a:tr[3]/a:tc[3]")
+  expect_equal(xml_text(xml_cell_3_3), "10.00")
 
-  ft_2 <- as_flextable(gdata)
-  ft_2 <- colformat_double(ft_2, digits = 2)
-  ft_2 <- autofit(ft_2)
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[1]/a:tcPr/a:lnL"), "w"), "0")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[1]/a:tcPr/a:lnR"), "w"), "0")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[1]/a:tcPr/a:lnB"), "w"), "19050")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[1]/a:tcPr/a:lnT"), "w"), "19050")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[2]/a:tcPr/a:lnL"), "w"), "0")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[2]/a:tcPr/a:lnR"), "w"), "0")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[2]/a:tcPr/a:lnB"), "w"), "19050")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[2]/a:tcPr/a:lnT"), "w"), "19050")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[3]/a:tcPr/a:lnL"), "w"), "0")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[3]/a:tcPr/a:lnR"), "w"), "0")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[3]/a:tcPr/a:lnB"), "w"), "19050")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[1]/a:tc[3]/a:tcPr/a:lnT"), "w"), "19050")
 
-  # pptx grouped-data-no-single
-  path <- save_as_pptx(ft_2, path = tempfile(fileext = ".pptx"))
-  handle_manual_snapshots(snap_folder_test_file, "pptx-grouped-data-no-single")
-  doconv::expect_snapshot_doc(x = path, name = "pptx-grouped-data-no-single", engine = "testthat")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[2]/a:tc[1]/a:tcPr/a:lnL"), "w"), "0")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[2]/a:tc[1]/a:tcPr/a:lnR"), "w"), "0")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[2]/a:tc[1]/a:tcPr/a:lnB"), "w"), "0")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[2]/a:tc[1]/a:tcPr/a:lnT"), "w"), "0")
 
-  # docx grouped-data-no-single
-  path <- save_as_docx(ft_2, path = tempfile(fileext = ".docx"))
-  handle_manual_snapshots(snap_folder_test_file, "docx-grouped-data-no-single")
-  doconv::expect_snapshot_doc(x = path, name = "docx-grouped-data-no-single", engine = "testthat")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[22]/a:tc[1]/a:tcPr/a:lnL"), "w"), "0")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[22]/a:tc[1]/a:tcPr/a:lnR"), "w"), "0")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[22]/a:tc[1]/a:tcPr/a:lnB"), "w"), "19050")
+  expect_equal(xml_attr(xml_child(xml_tbl, "a:tr[22]/a:tc[1]/a:tcPr/a:lnT"), "w"), "0")
 
-  # html grouped-data-no-single
-  path <- save_as_html(ft_2, path = tempfile(fileext = ".html"))
-  handle_manual_snapshots(snap_folder_test_file, "html-grouped-data-no-single")
-  doconv::expect_snapshot_html(name = "html-grouped-data-no-single", path, engine = "testthat")
+
+  # docx testing
+  docx_file <- tempfile(fileext = ".docx")
+  save_as_docx(ft_1, path = docx_file)
+  doc <- read_docx(docx_file)
+  xml_doc <- docx_body_xml(doc)
+  xml_tbl <- xml_find_first(xml_doc, "/w:document/w:body/w:tbl")
+  xml_cell_2_1 <- xml_child(xml_tbl, "w:tr[2]/w:tc[1]")
+  expect_equal(xml_text(xml_cell_2_1), "Treatment: zoubi")
+  expect_equal(xml_attr(xml_child(xml_cell_2_1, "w:tcPr/w:gridSpan"), "val"), "3")
+  xml_cell_2_2 <- xml_child(xml_tbl, "w:tr[2]/w:tc[2]")
+  expect_s3_class(xml_cell_2_2, "xml_missing")
+
+  xml_cell_1_1 <- xml_child(xml_tbl, "w:tr[1]/w:tc[1]")
+  expect_equal(xml_text(xml_cell_1_1), "conc")
+  xml_cell_1_2 <- xml_child(xml_tbl, "w:tr[1]/w:tc[2]")
+  expect_equal(xml_text(xml_cell_1_2), "Quebec")
+  xml_cell_1_3 <- xml_child(xml_tbl, "w:tr[1]/w:tc[3]")
+  expect_equal(xml_text(xml_cell_1_3), "Mississippi")
+
+  expect_equal(xml_attr(xml_child(xml_cell_1_3, "w:tcPr/w:tcBorders/w:bottom"), "sz"), "12")
+  expect_equal(xml_attr(xml_child(xml_cell_1_3, "w:tcPr/w:tcBorders/w:top"), "sz"), "12")
+  expect_equal(xml_attr(xml_child(xml_cell_1_3, "w:tcPr/w:tcBorders/w:left"), "sz"), "0")
+  expect_equal(xml_attr(xml_child(xml_cell_1_3, "w:tcPr/w:tcBorders/w:right"), "sz"), "0")
+
+  expect_equal(xml_attr(xml_child(xml_cell_2_1, "w:tcPr/w:tcBorders/w:bottom"), "sz"), "0")
+  expect_equal(xml_attr(xml_child(xml_cell_2_1, "w:tcPr/w:tcBorders/w:top"), "sz"), "12")
+  expect_equal(xml_attr(xml_child(xml_cell_2_1, "w:tcPr/w:tcBorders/w:left"), "sz"), "0")
+  expect_equal(xml_attr(xml_child(xml_cell_2_1, "w:tcPr/w:tcBorders/w:right"), "sz"), "0")
+
+  # html testing
+  html_file <- tempfile(fileext = ".html")
+  save_as_html(ft_1, path = html_file)
+  xml_doc <- read_html(html_file)
+  xml_tbl <- xml_find_first(xml_doc, "//table")
+
+  xml_cell_2_1 <- xml_child(xml_tbl, "tbody/tr[1]/td[1]")
+  expect_equal(xml_text(xml_cell_2_1), "Treatment: zoubi")
+  expect_equal(xml_attr(xml_cell_2_1, "colspan"), "3")
+  xml_cell_2_2 <- xml_child(xml_tbl, "tbody/tr[1]/td[2]")
+  expect_s3_class(xml_cell_2_2, "xml_missing")
+
+  xml_cell_1_1 <- xml_child(xml_tbl, "thead/tr[1]/th[1]")
+  expect_equal(xml_text(xml_cell_1_1), "conc")
+  xml_cell_1_2 <- xml_child(xml_tbl, "thead/tr[1]/th[2]")
+  expect_equal(xml_text(xml_cell_1_2), "Quebec")
+  xml_cell_1_3 <- xml_child(xml_tbl, "thead/tr[1]/th[3]")
+  expect_equal(xml_text(xml_cell_1_3), "Mississippi")
+
 
   init_flextable_defaults()
 })
+
