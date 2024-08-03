@@ -1,3 +1,10 @@
+# flextable 0.9.7
+
+## Issues
+
+- fix caption issue that came with no version of bookdown (issue #645),
+'bookdown' management of caption has been simplified.
+
 # flextable 0.9.6
 
 ## Changes

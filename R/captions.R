@@ -145,7 +145,7 @@ caption_bookdown_html <- function(x) {
 
   reference_label <- ""
   if (!is.null(x$caption$autonum$bookmark)) {
-    reference_label <- paste0("(\\#", x$caption$autonum$seq_id, ":", x$caption$autonum$bookmark, ")")
+    reference_label <- paste0("(#", x$caption$autonum$seq_id, ":", x$caption$autonum$bookmark, ")")
   }
 
   if (!is.null(x$caption$fp_p)) {
@@ -167,12 +167,11 @@ caption_bookdown_html <- function(x) {
   caption_chunks_str <- html_caption$html
   css <- html_caption$css
   caption_str <- paste0(
-    sprintf("<caption%s%s>", inline_css, caption_class),
+    sprintf("\n<caption%s%s>", inline_css, caption_class),
     reference_label,
     caption_chunks_str,
-    "</caption>"
+    "</caption>\n"
   )
-  caption_str <- with_html_unquotes(caption_str)
 
   attr(caption_str, "css") <- css
   caption_str

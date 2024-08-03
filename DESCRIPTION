@@ -1,7 +1,7 @@
 Type: Package
 Package: flextable
 Title: Functions for Tabular Reporting
-Version: 0.9.7.002
+Version: 0.9.7.003
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -57,7 +57,7 @@ Imports:
     uuid (>= 0.1-4),
     xml2
 Suggests:
-    bookdown (>= 0.34),
+    bookdown (>= 0.40),
     broom,
     broom.mixed,
     chromote,
