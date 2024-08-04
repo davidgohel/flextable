@@ -135,6 +135,10 @@ grid_data_add_cell_info <- function(grid_data, x) {
       "border.color.right", "border.width.top", "border.width.bottom"
     )
   ]
+  # apply a correction to overlapping vert. borders
+  setorderv(fortify_borders_data, cols = c(".part", ".row_id", ".col_id"))
+  fortify_borders_data[fortify_borders_data$border.width.right == shift(fortify_borders_data$border.width.left, type = "lead", fill = -1),
+     c("border.width.right") := 0, by = c(".part", ".row_id")]
 
   cell_data <- cell_data[, .SD,
     .SDcols =

@@ -4,6 +4,7 @@
 
 - fix caption issue that came with no version of bookdown (issue #645),
 'bookdown' management of caption has been simplified.
+- fix vertical overlapping lines with grid output (issue #644)
 
 # flextable 0.9.6
 
