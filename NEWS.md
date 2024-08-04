@@ -5,6 +5,8 @@
 - fix caption issue that came with no version of bookdown (issue #645),
 'bookdown' management of caption has been simplified.
 - fix vertical overlapping lines with grid output (issue #644)
+- fix broken internal links in PDF file, probably due to a change in knitr or 
+rmarkdown (issue #632)
 
 # flextable 0.9.6
 

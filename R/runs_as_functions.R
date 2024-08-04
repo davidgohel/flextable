@@ -164,7 +164,8 @@ runs_as_latex <- function(x, chunk_data = information_data_chunk(x), ls_df = NUL
 
   dat[runs_types_lst$is_text == TRUE, c("txt") := list(sanitize_latex_str(.SD$txt))]
   dat[runs_types_lst$is_equation == TRUE, c("txt") := list(paste0("$", .SD$eq_data, "$"))]
-  dat[runs_types_lst$is_hlink, c("txt") := list(paste0("\\href{", sanitize_latex_str(.SD$url), "}{", .SD$txt, "}"))]
+  dat[runs_types_lst$is_hlink & grepl("^#", dat$url), c("txt") := list(paste0("\\hyperref[", gsub("^#", "", .SD$url), "]{", .SD$txt, "}"))]
+  dat[runs_types_lst$is_hlink & !grepl("^#", dat$url), c("txt") := list(paste0("\\href{", sanitize_latex_str(.SD$url), "}{", .SD$txt, "}"))]
   dat[runs_types_lst$is_raster == TRUE, c("txt", "left", "right") := list(img_to_latex(.SD$img_data, .SD$width, .SD$height), "", "")]
   dat[runs_types_lst$is_word_field == TRUE, c("left", "right", "txt") := list("", "", "")]
   dat[runs_types_lst$is_soft_return == TRUE, c("txt") := list("\\linebreak ")]
