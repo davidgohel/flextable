@@ -137,7 +137,9 @@ grid_data_add_cell_info <- function(grid_data, x) {
   ]
   # apply a correction to overlapping vert. borders
   setorderv(fortify_borders_data, cols = c(".part", ".row_id", ".col_id"))
-  fortify_borders_data[fortify_borders_data$border.width.right == shift(fortify_borders_data$border.width.left, type = "lead", fill = -1),
+  fortify_borders_data[
+    fortify_borders_data$border.width.right == shift(fortify_borders_data$border.width.left, type = "lead", fill = -1) &
+      fortify_borders_data$.col_id != tail(x$col_keys, 1),
      c("border.width.right") := 0, by = c(".part", ".row_id")]
 
   cell_data <- cell_data[, .SD,
@@ -153,8 +155,6 @@ grid_data_add_cell_info <- function(grid_data, x) {
   ]
 
   cell_data <- merge(cell_data, fortify_borders_data, by = keycols)
-
-  # browser()
 
   # merge with grid_data to keep only active cells
   cell_data <- merge(grid_data[, keycols, with = FALSE], cell_data, by = keycols)
