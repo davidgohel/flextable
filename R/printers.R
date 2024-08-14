@@ -92,9 +92,9 @@ flextable_to_rmd <- function(x, ...) {
   x <- knitr_update_properties(x, bookdown = is_bookdown, quarto = is_quarto)
 
   if (is_quarto) {
-    tmp_file <- tempfile(fileext = ".Rmd")
-  } else {
     tmp_file <- tempfile(fileext = ".qmd")
+  } else {
+    tmp_file <- tempfile(fileext = ".Rmd")
   }
 
   writeLines(
@@ -105,7 +105,10 @@ flextable_to_rmd <- function(x, ...) {
 
   z <- knit_child(
     input = tmp_file,
-    options = list(fig.path=tempfile()),
+    options = list(
+      fig.path=tempfile(),
+      eval = isTRUE(knitr::opts_current$get("eval"))
+    ),
     envir = environment(), quiet = TRUE)
 
   cat(z, sep = '\n')

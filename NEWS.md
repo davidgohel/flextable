@@ -9,6 +9,7 @@
 rmarkdown (issue #632)
 - fix right outer border issue in grid format (issue #650)
 - fix `flextable_to_rmd()` issue with images in pdf (issue #651)
+- fix `flextable_to_rmd()` issue with local chunk `eval` option (issue #631)
 
 # flextable 0.9.6
 
