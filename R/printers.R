@@ -103,7 +103,11 @@ flextable_to_rmd <- function(x, ...) {
     tmp_file,
     useBytes = TRUE)
 
-  z <- knit_child(input = tmp_file, envir = environment(), quiet = TRUE)
+  z <- knit_child(
+    input = tmp_file,
+    options = list(fig.path=tempfile()),
+    envir = environment(), quiet = TRUE)
+
   cat(z, sep = '\n')
 
   invisible("")

@@ -8,6 +8,7 @@
 - fix broken internal links in PDF file, probably due to a change in knitr or 
 rmarkdown (issue #632)
 - fix right outer border issue in grid format (issue #650)
+- fix `flextable_to_rmd()` issue with images in pdf (issue #651)
 
 # flextable 0.9.6
 
