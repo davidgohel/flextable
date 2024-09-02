@@ -149,3 +149,20 @@ test_that("delete rows and columns", {
   )
 
 })
+
+test_that("labelizor", {
+  zzz <- CO2[,-c(1, 4)]
+  zzz[1,1] <- NA
+  zzz[47,1] <- NA
+
+  z <- summarizor(x = zzz, by = "Treatment", overall_label = "Overall")
+  ftab <- as_flextable(z, separate_with = "variable")
+  ftab <- labelizor(
+    x = ftab, j = c("stat", "nonchilled@blah"),
+    labels = c(Missing = "Kouign amann", "20 (47.6%)" = "plop")
+  )
+  chunk_txt <- information_data_chunk(ftab)$txt
+  expect_equal(chunk_txt[32], expected = "Kouign amann")
+  expect_equal(chunk_txt[18], expected = "plop")
+  expect_equal(chunk_txt[26], expected = "plop")
+})

@@ -199,14 +199,14 @@ labelizor <- function(x, j = NULL, labels, part = "all") {
         x$txt[x$txt %in% levs] <- labs[match(x$txt, levs, nomatch = 0)]
         x
       })
-    }, simplify = FALSE)
+    })
   } else {
     newcontent <- apply(curr_content_columns, 2, function(x) {
       lapply(x, function(x) {
         x$txt <- labels(x$txt)
         x
       })
-    }, simplify = FALSE)
+    })
   }
   newcontent <- as_chunkset_struct(
     l_paragraph = do.call(c, newcontent),
