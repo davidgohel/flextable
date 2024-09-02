@@ -10,6 +10,7 @@ rmarkdown (issue #632)
 - fix right outer border issue in grid format (issue #650)
 - fix `flextable_to_rmd()` issue with images in pdf (issue #651)
 - fix `flextable_to_rmd()` issue with local chunk `eval` option (issue #631)
+- `proc_freq` can now display only the table percentages without the count using `include.table_count = FALSE`.
 
 # flextable 0.9.6
 

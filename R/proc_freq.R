@@ -117,8 +117,8 @@ relayout_freq_data <- function(x, order_by) {
 
 #' @title Frequency table
 #'
-#' @description This function compute a one or two way
-#' contingency table and create a flextable from the result.
+#' @description This function computes a one or two way
+#' contingency table and creates a flextable from the result.
 #'
 #' The function is largely inspired by "PROC FREQ" from "SAS"
 #' and was written with the intent to make it
@@ -129,6 +129,7 @@ relayout_freq_data <- function(x, order_by) {
 #' @param include.row_percent `boolean` whether to include the row percents; defaults to `TRUE`
 #' @param include.column_percent `boolean` whether to include the column percents; defaults to `TRUE`
 #' @param include.table_percent `boolean` whether to include the table percents; defaults to `TRUE`
+#' @param include.table_count `boolean` whether to include the table counts; defaults to `TRUE`
 #' @param weight `character` column name for weight
 #' @param ... unused arguments
 #' @importFrom stats as.formula
@@ -137,8 +138,10 @@ relayout_freq_data <- function(x, order_by) {
 #' proc_freq(mtcars, "gear", "vs", weight = "wt")
 #' @export
 proc_freq <- function(x, row = character(), col = character(),
-                      include.row_percent = TRUE, include.column_percent = TRUE,
+                      include.row_percent = TRUE,
+                      include.column_percent = TRUE,
                       include.table_percent = TRUE,
+                      include.table_count = TRUE,
                       weight = character(), ...) {
   if (length(row) && !is.factor(x[[row]])) {
     x[[row]] <- as.factor(x[[row]])
@@ -178,15 +181,23 @@ proc_freq <- function(x, row = character(), col = character(),
       first_vline <- 1
     }
 
+    table_label <- "Count"
+    if (!include.table_count && include.table_percent) {
+      table_label <- "Percent"
+    } else if (!include.table_count && !include.table_percent) {
+      stop("At least one of the include.table_*  parameters must be TRUE.")
+    }
     tab <- tabulator(
       x = dat,
       rows = rows_set,
       columns = c(".coltitle.", col),
       stat = as_paragraph(
-        if (include.table_percent) {
+        if (include.table_count & include.table_percent) {
           as_chunk(fmt_n_percent(count, pct))
-        } else {
+        } else if (include.table_count) {
           as_chunk(count, formatter = fmt_int)
+        } else if (include.table_percent) {
+          as_chunk(fmt_pct(pct))
         },
         as_chunk(fmt_freq_table(pct_col, pct_row,
           include.column_percent = include.column_percent,
@@ -199,7 +210,7 @@ proc_freq <- function(x, row = character(), col = character(),
     if (include.column_percent || include.row_percent) {
       ft <- labelizor(
         x = ft,
-        labels = c(.what. = "", count = "Count", "mpct" = margins_label), j = ".what."
+        labels = c(.what. = "", "count" = table_label, "mpct" = margins_label), j = ".what."
       )
       if (!is.na(fnote_lab)) {
         ft <- footnote(ft,

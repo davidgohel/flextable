@@ -11,6 +11,7 @@ proc_freq(
   include.row_percent = TRUE,
   include.column_percent = TRUE,
   include.table_percent = TRUE,
+  include.table_count = TRUE,
   weight = character(),
   ...
 )
@@ -28,13 +29,15 @@ proc_freq(
 
 \item{include.table_percent}{\code{boolean} whether to include the table percents; defaults to \code{TRUE}}
 
+\item{include.table_count}{\code{boolean} whether to include the table counts; defaults to \code{TRUE}}
+
 \item{weight}{\code{character} column name for weight}
 
 \item{...}{unused arguments}
 }
 \description{
-This function compute a one or two way
-contingency table and create a flextable from the result.
+This function computes a one or two way
+contingency table and creates a flextable from the result.
 
 The function is largely inspired by "PROC FREQ" from "SAS"
 and was written with the intent to make it
