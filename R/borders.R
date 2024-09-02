@@ -133,7 +133,7 @@ border_remove <- function(x) {
 #' or all parts of a flextable.
 #' @param x a flextable object
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param border border properties defined by a call to [fp_border()]
+#' @param border border properties defined by a call to [officer::fp_border()]
 #' @export
 #' @examples
 #' library(officer)

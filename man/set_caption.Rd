@@ -40,7 +40,7 @@ is deprecated in favor of \code{word_stylename}. If the caption is defined with
 \code{as_paragraph()}, some of the formattings of the paragraph style will be
 replaced by the formattings associated with the chunks (such as the font).}
 
-\item{fp_p}{paragraph formatting properties associated with the caption, see \code{\link[=fp_par]{fp_par()}}.
+\item{fp_p}{paragraph formatting properties associated with the caption, see \code{\link[officer:fp_par]{officer::fp_par()}}.
 It applies when possible, i.e. in HTML and 'Word' but not with bookdown.}
 
 \item{align_with_table}{if TRUE, caption is aligned as the flextable, if FALSE,

@@ -21,7 +21,7 @@ instead of being a column. This helps to reduce the width and allows for
 clear divisions.}
 
 \item{fp_p}{paragraph formatting properties associated with row titles,
-see \code{\link[=fp_par]{fp_par()}}.}
+see \code{\link[officer:fp_par]{officer::fp_par()}}.}
 
 \item{row_title}{a call to \code{\link[=as_paragraph]{as_paragraph()}} - it
 will be applied to the row titles if any

@@ -22,11 +22,11 @@ htmltools_value(
 add in the HTML output.}
 }
 \value{
-an object marked as \link{HTML} ready to be used within
+an object marked as \link[htmltools:HTML]{htmltools::HTML} ready to be used within
 a call to \code{shiny::renderUI} for example.
 }
 \description{
-get a \code{\link[=div]{div()}} from a flextable object.
+get a \code{\link[htmltools:builder]{htmltools::div()}} from a flextable object.
 This can be used in a shiny application. For an output within
 "R Markdown" document, use \link{knit_print.flextable}.
 }

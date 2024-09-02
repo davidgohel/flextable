@@ -19,7 +19,7 @@ border styles.}
 \item{width}{border width - an integer value : 0>= value}
 }
 \description{
-Create a \code{\link[=fp_border]{fp_border()}} object that uses
+Create a \code{\link[officer:fp_border]{officer::fp_border()}} object that uses
 defaut values defined in flextable defaults formatting properties, i.e.
 default border color (see \code{\link[=set_flextable_defaults]{set_flextable_defaults()}}).
 }

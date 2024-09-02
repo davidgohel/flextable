@@ -90,7 +90,7 @@ freeze or not the size of the columns.
 It is not recommended to use this function for
 large tables because the calculations can be long.
 
-Limitations: equations (see \code{\link[=as_equation]{as_equation()}}) and hyperlinks (see \code{\link[=hyperlink_ftext]{hyperlink_ftext()}})
+Limitations: equations (see \code{\link[=as_equation]{as_equation()}}) and hyperlinks (see \code{\link[officer:hyperlink_ftext]{officer::hyperlink_ftext()}})
 will not be displayed.
 }
 \section{size}{

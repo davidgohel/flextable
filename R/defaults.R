@@ -373,7 +373,7 @@ print.flextable_defaults <- function(x, ...) {
 #' @inheritParams officer::fp_text
 #' @title Text formatting properties
 #'
-#' @description Create a [fp_text()] object that uses
+#' @description Create a [officer::fp_text()] object that uses
 #' defaut values defined in the flextable it applies to.
 #'
 #' `fp_text_default()` is a handy function that will allow
@@ -441,7 +441,7 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
 #' @inheritParams officer::fp_border
 #' @title Border formatting properties
 #'
-#' @description Create a [fp_border()] object that uses
+#' @description Create a [officer::fp_border()] object that uses
 #' defaut values defined in flextable defaults formatting properties, i.e.
 #' default border color (see [set_flextable_defaults()]).
 #' @examples

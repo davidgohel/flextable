@@ -7,14 +7,14 @@
 \method{rtf_add}{flextable}(x, value, ...)
 }
 \arguments{
-\item{x}{rtf object, created by \code{\link[=rtf_doc]{rtf_doc()}}.}
+\item{x}{rtf object, created by \code{\link[officer:rtf_doc]{officer::rtf_doc()}}.}
 
 \item{value}{a flextable object}
 
 \item{...}{unused arguments}
 }
 \description{
-\code{\link[=rtf_add]{rtf_add()}} method for adding
+\code{\link[officer:rtf_add]{officer::rtf_add()}} method for adding
 flextable objects into 'RTF' documents.
 }
 \examples{

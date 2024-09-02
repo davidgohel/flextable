@@ -26,7 +26,7 @@
 with an horizontal line.}
 
 \item{big_border, small_border}{big and small border properties defined
-by a call to \code{\link[=fp_border_default]{fp_border_default()}} or \code{\link[=fp_border]{fp_border()}}.}
+by a call to \code{\link[=fp_border_default]{fp_border_default()}} or \code{\link[officer:fp_border]{officer::fp_border()}}.}
 
 \item{rows_alignment, columns_alignment}{alignments to apply to
 columns corresponding to \code{rows} and \code{columns}; see arguments

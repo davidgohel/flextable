@@ -41,6 +41,7 @@ Other contributors:
 \itemize{
   \item ArData [copyright holder]
   \item Clementine Jager [contributor]
+  \item Eli Daniels [contributor]
   \item Quentin Fazilleau [contributor]
   \item Maxim Nazarov (rmarkdown for docx output) [contributor]
   \item Titouan Robert [contributor]
@@ -51,7 +52,6 @@ Other contributors:
   \item Rémi Thériault (\href{https://orcid.org/0000-0003-4315-6788}{ORCID}) (theme_apa) [contributor]
   \item Samuel Jobert (work on pagination) [contributor]
   \item Keith Newman [contributor]
-  \item Eli Daniels [contributor]
 }
 
 }

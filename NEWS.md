@@ -360,7 +360,7 @@ with the argument `align_with_table=FALSE`.
 - new theme 'APA', `theme_apa` (@rempsyc #426)
 - method `as_flextable.tabulator()` gains an argument `spread_first_col` to enable 
 spreading of the first column of the table as a line separator.
-
+- fix doc links to functions from other packages for future releases
 
 ## Issues
 

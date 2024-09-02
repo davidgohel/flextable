@@ -1,7 +1,7 @@
 #' @export
 #' @title Add latex dependencies
 #' @description Manually add flextable latex dependencies to
-#' the knitr session via [knit_meta_add()].
+#' the knitr session via [knitr::knit_meta_add()].
 #'
 #' When enabling caching in 'R Markdown' documents for PDF output,
 #' the flextable cached result is used directly. Call `add_latex_dep()` in a
