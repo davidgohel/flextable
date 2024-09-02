@@ -22,7 +22,7 @@ htmltools_value(
 add in the HTML output.}
 }
 \value{
-an object marked as \link{HTML} ready to be used within
+an object marked as \link[htmltools:HTML]{htmltools::HTML} ready to be used within
 a call to \code{shiny::renderUI} for example.
 }
 \description{
