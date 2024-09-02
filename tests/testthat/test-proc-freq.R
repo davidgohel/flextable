@@ -42,6 +42,20 @@ count_only_dump_txt <-
     ""
   )
 
+no_count_full_dump_txt <-
+  c(
+    "o", "", "p", "p", "p", "p", "o", "", "No", "Yes", "Missing", "Total", "No",
+    "Percent", "96.4%", "", "0.2%", "", "0.0%", "", "96.7%", "", "No", "Mar. pct",
+    " (1)", "", "97.4% ; 99.8%", "", "22.1% ; 0.2%", "", "50.0% ; 0.0%", "", "",
+    "Yes", "Percent", "2.5%", "", "0.8%", "", "", "", "3.3%", "", "Yes", "Mar. pct",
+    "", "2.5% ; 75.7%", "", "77.9% ; 24.3%", "", "", "", "", "Missing", "Percent",
+    "0.0%", "", "", "", "0.0%", "", "0.0%", "", "Missing", "Mar. pct", "", "0.0% ; 50.0%",
+    "", "", "", "50.0% ; 50.0%", "", "", "Total", "Percent", "98.9%", "", "1.0%",
+    "", "0.0%", "", "100.0%", "", " (1)", " Columns and rows percentages", "",
+    "", "", "", ""
+  )
+
+
 test_that("proc_freq executes without errors", {
   dummy_df <- data.frame(
     values = rep(letters[1:3], each = 2),
@@ -67,4 +81,17 @@ test_that("proc_freq content", {
   expect_equal(information_data_chunk(ft)$txt, count_only_dump_txt)
 
   expect_error(proc_freq(dat))
+})
+
+test_that("proc_freq content no count", {
+  ft <- proc_freq(dat,
+                  row = "o", col = "p",
+                  include.table_count = FALSE
+  )
+  expect_equal(information_data_chunk(ft)$txt, no_count_full_dump_txt)
+
+  expect_error(proc_freq(dat,
+                         include.table_count = FALSE,
+                         include.table_percent = FALSE)
+  )
 })
