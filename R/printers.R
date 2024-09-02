@@ -5,7 +5,7 @@
 #' @description get a [htmltools::div()] from a flextable object.
 #' This can be used in a shiny application. For an output within
 #' "R Markdown" document, use [knit_print.flextable].
-#' @return an object marked as [HTML] ready to be used within
+#' @return an object marked as [htmltools::HTML] ready to be used within
 #' a call to `shiny::renderUI` for example.
 #' @param x a flextable object
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
