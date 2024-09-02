@@ -53,7 +53,7 @@ or \code{'subscript'} or \code{'superscript'}}
 a valid color (e.g. "#000000" or "black").}
 }
 \description{
-Create a \code{\link[=fp_text]{fp_text()}} object that uses
+Create a \code{\link[officer:fp_text]{officer::fp_text()}} object that uses
 defaut values defined in the flextable it applies to.
 
 \code{fp_text_default()} is a handy function that will allow

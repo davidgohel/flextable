@@ -19,7 +19,7 @@
 #' It is not recommended to use this function for
 #' large tables because the calculations can be long.
 #'
-#' Limitations: equations (see [as_equation()]) and hyperlinks (see [hyperlink_ftext()])
+#' Limitations: equations (see [as_equation()]) and hyperlinks (see [officer::hyperlink_ftext()])
 #' will not be displayed.
 #'
 #' @inheritSection save_as_image caption

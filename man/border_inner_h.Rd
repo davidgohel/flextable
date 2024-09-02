@@ -9,7 +9,7 @@ border_inner_h(x, border = NULL, part = "body")
 \arguments{
 \item{x}{a flextable object}
 
-\item{border}{border properties defined by a call to \code{\link[=fp_border]{fp_border()}}}
+\item{border}{border properties defined by a call to \code{\link[officer:fp_border]{officer::fp_border()}}}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }

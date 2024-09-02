@@ -15,7 +15,7 @@ used as titles. If provided, argument \code{...} will be ignored.}
 
 \item{path}{Word file to be created}
 
-\item{pr_section}{a \link{prop_section} object that can be used to define page
+\item{pr_section}{a \link[officer:prop_section]{officer::prop_section} object that can be used to define page
 layout such as orientation, width and height.}
 
 \item{align}{left, center (default) or right.}

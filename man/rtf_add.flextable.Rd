@@ -14,7 +14,7 @@
 \item{...}{unused arguments}
 }
 \description{
-\code{\link[=rtf_add]{rtf_add()}} method for adding
+\code{\link[officer:rtf_add]{officer::rtf_add()}} method for adding
 flextable objects into 'RTF' documents.
 }
 \examples{

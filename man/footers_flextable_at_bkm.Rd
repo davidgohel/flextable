@@ -10,6 +10,6 @@ footers_flextable_at_bkm(...)
 \item{...}{unused}
 }
 \description{
-Function is now defunct, use \code{\link[=prop_section]{prop_section()}} instead.
+Function is now defunct, use \code{\link[officer:prop_section]{officer::prop_section()}} instead.
 }
 \keyword{internal}

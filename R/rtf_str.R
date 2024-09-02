@@ -193,7 +193,7 @@ to_rtf.flextable <- function(x, topcaption = TRUE, ...) {
 #' @export
 #' @importFrom officer rtf_add
 #' @title Add a 'flextable' into an RTF document
-#' @description [rtf_add()] method for adding
+#' @description [officer::rtf_add()] method for adding
 #' flextable objects into 'RTF' documents.
 #' @param x rtf object, created by [rtf_doc()].
 #' @param value a flextable object

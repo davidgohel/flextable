@@ -213,7 +213,7 @@ tabulator <- function(x, rows, columns,
 #' @param separate_with columns used to sepatate the groups
 #' with an horizontal line.
 #' @param big_border,small_border big and small border properties defined
-#' by a call to [fp_border_default()] or [fp_border()].
+#' by a call to [fp_border_default()] or [officer::fp_border()].
 #' @param rows_alignment,columns_alignment alignments to apply to
 #' columns corresponding to `rows` and `columns`; see arguments
 #' `rows` and `columns` in [tabulator()].

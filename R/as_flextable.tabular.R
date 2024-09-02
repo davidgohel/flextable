@@ -26,7 +26,7 @@
 #' instead of being a column. This helps to reduce the width and allows for
 #' clear divisions.
 #' @param fp_p paragraph formatting properties associated with row titles,
-#' see [fp_par()].
+#' see [officer::fp_par()].
 #' @param row_title a call to [as_paragraph()] - it
 #' will be applied to the row titles if any
 #' when `spread_first_col=TRUE`.

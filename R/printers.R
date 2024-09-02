@@ -2,7 +2,7 @@
 #' @export
 #' @title flextable as an 'HTML' object
 #'
-#' @description get a [div()] from a flextable object.
+#' @description get a [htmltools::div()] from a flextable object.
 #' This can be used in a shiny application. For an output within
 #' "R Markdown" document, use [knit_print.flextable].
 #' @return an object marked as [HTML] ready to be used within
@@ -810,7 +810,7 @@ save_as_pptx <- function(..., values = NULL, path) {
 #' @param values a list (possibly named), each element is a flextable object. If named objects, names are
 #' used as titles. If provided, argument `...` will be ignored.
 #' @param path Word file to be created
-#' @param pr_section a [prop_section] object that can be used to define page
+#' @param pr_section a [officer::prop_section] object that can be used to define page
 #' layout such as orientation, width and height.
 #' @param align left, center (default) or right.
 #' @return a string containing the full name of the generated file
@@ -885,7 +885,7 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL, align = "c
 #' @param values a list (possibly named), each element is a flextable object. If named objects, names are
 #' used as titles. If provided, argument `...` will be ignored.
 #' @param path Word file to be created
-#' @param pr_section a [prop_section] object that can be used to define page
+#' @param pr_section a [officer::prop_section] object that can be used to define page
 #' layout such as orientation, width and height.
 #' @return a string containing the full name of the generated file
 #' @family flextable print function

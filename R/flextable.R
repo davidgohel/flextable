@@ -296,7 +296,7 @@ qflextable <- function(data) {
 #' is deprecated in favor of `word_stylename`. If the caption is defined with
 #' `as_paragraph()`, some of the formattings of the paragraph style will be
 #' replaced by the formattings associated with the chunks (such as the font).
-#' @param fp_p paragraph formatting properties associated with the caption, see [fp_par()].
+#' @param fp_p paragraph formatting properties associated with the caption, see [officer::fp_par()].
 #' It applies when possible, i.e. in HTML and 'Word' but not with bookdown.
 #' @param align_with_table if TRUE, caption is aligned as the flextable, if FALSE,
 #' `fp_p` will not be updated and alignement is as defined with `fp_p`.
