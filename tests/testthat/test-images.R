@@ -64,6 +64,8 @@ df <- data.frame(
 )
 
 test_that("multiple images", {
+  skip_if_not_installed("magick")
+
   ft <- flextable(df)
   ft <- mk_par(ft, j = "plot", value = as_paragraph(as_image(rlogo, width = .3, height = 0.23)), part = "header")
   ft <- mk_par(ft, j = "plot", value = as_paragraph(as_image(plot, guess_size = TRUE)))
