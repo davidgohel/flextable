@@ -203,6 +203,29 @@ wml_cells <- function(value, cell_data) {
   cell_data
 }
 
+default_fp_text_wml <- function(value) {
+  default_chunks_properties <- information_data_default_chunk(value)
+  unique_text_props <- distinct_text_properties(default_chunks_properties)
+  rpr <- sapply(
+    split(unique_text_props[setdiff(colnames(unique_text_props), "classname")], unique_text_props$classname),
+    function(x) {
+      z <- do.call(officer::fp_text_lite, x)
+      format(z, type = "wml")
+    }
+  )
+
+  unique_text_props$fp_txt_default <- unname(rpr[unique_text_props$classname])
+  setDT(default_chunks_properties)
+  default_chunks_properties <- merge(
+    default_chunks_properties, unique_text_props,
+    by = c("color", "font.size", "bold", "italic", "underlined", "font.family",
+           "hansi.family", "eastasia.family", "cs.family", "vertical.align",
+           "shading.color")
+  )
+  setDF(default_chunks_properties)
+  default_chunks_properties <- default_chunks_properties[, c(".part", ".row_id", ".col_id", "fp_txt_default")]
+  default_chunks_properties
+}
 
 
 wml_rows <- function(value, split = FALSE) {
@@ -234,7 +257,14 @@ wml_rows <- function(value, split = FALSE) {
   cell_hrule <- fortify_hrule(value)
 
   setDT(cell_data)
+
+  default_chunks_properties <- default_fp_text_wml(value)
   tab_data <- merge(cell_data, ooxml_ppr(paragraphs_properties), by = c(".part", ".row_id", ".col_id"))
+  tab_data <- merge(tab_data, default_chunks_properties, by = c(".part", ".row_id", ".col_id"))
+  tab_data[, c("fp_par_xml", "fp_txt_default") := list(
+    paste0(substr(.SD$fp_par_xml, 1, nchar(.SD$fp_par_xml)-8), .SD$fp_txt_default, "</w:pPr>"),
+    NULL
+  )]
   tab_data <- merge(tab_data, run_data, by = c(".part", ".row_id", ".col_id"))
   tab_data <- merge(tab_data, span_data, by = c(".part", ".row_id", ".col_id"))
   setorderv(tab_data, cols = c(".part", ".row_id", ".col_id"))

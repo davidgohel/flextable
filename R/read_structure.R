@@ -227,6 +227,28 @@ fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TR
   out
 }
 
+information_data_default_chunk <- function(x) {
+  dat <- list()
+  if (nrow_part(x, "header") > 0) {
+    dat$header <- text_struct_to_df(x$header$styles[["text"]])
+  }
+  if (nrow_part(x, "body") > 0) {
+    dat$body <- text_struct_to_df(x$body$styles[["text"]])
+  }
+  if (nrow_part(x, "footer") > 0) {
+    dat$footer <- text_struct_to_df(x$footer$styles[["text"]])
+  }
+  dat <- rbindlist(dat, use.names = TRUE, idcol = ".part")
+
+  dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
+  dat$.col_id <- factor(dat$.col_id, levels = x$col_keys)
+  setorderv(dat, cols = c(".part", ".row_id", ".col_id"))
+  setcolorder(dat, neworder = c(".part", ".row_id", ".col_id"))
+
+  setDF(dat)
+
+  dat
+}
 
 #' @importFrom data.table rbindlist setDF setcolorder
 #' @export
