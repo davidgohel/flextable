@@ -460,6 +460,7 @@ regulartable <- function(data, col_keys = names(data), cwidth = .75, cheight = .
 #'     the first column is set as a *sticky* column.
 #'     - If the list has a value named `add_css` it will be used as extra
 #'     css to add, .i.e: `border:1px solid red;`.
+#' - 'extra_class': extra classes to add in the table tag
 #' @param opts_word Word options as a list. Supported elements are:
 #' - 'split':  Word option 'Allow row to break across pages' can be
 #' activated when TRUE.
@@ -558,6 +559,7 @@ set_table_properties <- function(x, layout = "fixed", width = 0,
 
 opts_ft_html <- function(extra_css = get_flextable_defaults()$extra_css,
                          scroll = get_flextable_defaults()$scroll,
+                         extra_class = NULL,
                          ...) {
   if (!is.character(extra_css) || length(extra_css) != 1 || any(is.na(extra_css))) {
     stop(sprintf("'%s' is expected to be a single %s.", "extra_css", "character"), call. = FALSE)
@@ -566,7 +568,7 @@ opts_ft_html <- function(extra_css = get_flextable_defaults()$extra_css,
     stop(sprintf("'%s' is expected to be %s.", "scroll", "NULL or a list"), call. = FALSE)
   }
 
-  z <- list(extra_css = extra_css, scroll = scroll)
+  z <- list(extra_css = extra_css, scroll = scroll, extra_class = extra_class)
   class(z) <- "opts_ft_html"
   z
 }

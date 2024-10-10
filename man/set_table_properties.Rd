@@ -50,6 +50,7 @@ the first column is set as a \emph{sticky} column.
 \item If the list has a value named \code{add_css} it will be used as extra
 css to add, .i.e: \verb{border:1px solid red;}.
 }
+\item 'extra_class': extra classes to add in the table tag
 }}
 
 \item{opts_word}{Word options as a list. Supported elements are:

@@ -60,6 +60,12 @@ gen_raw_html <- function(x,
     }
   }
 
+  if (!is.null(x$properties$opts_html$extra_class)) {
+    classname <- c(
+      classname, x$properties$opts_html$extra_class)
+    classname <- paste0(classname, collapse =  " ")
+  }
+
   html <- paste0(
     "<style>",
     tabcss,
