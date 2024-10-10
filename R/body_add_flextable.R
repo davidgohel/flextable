@@ -115,6 +115,7 @@ body_add_flextable <- function(x, value,
 
   value <- flextable_global$defaults$post_process_all(value)
   value <- flextable_global$defaults$post_process_docx(value)
+  value <- fix_border_issues(value)
 
   caption_str <- NULL
   if (has_caption(value)) {

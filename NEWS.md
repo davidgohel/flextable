@@ -1,5 +1,10 @@
 # flextable 0.9.7
 
+## Changes
+
+- The `fix_border_issues` function is now useless for users, as it is now 
+called automatically before printing.
+
 ## Issues
 
 - fix caption issue that came with no version of bookdown (issue #645),
@@ -10,7 +15,9 @@ rmarkdown (issue #632)
 - fix right outer border issue in grid format (issue #650)
 - fix `flextable_to_rmd()` issue with images in pdf (issue #651)
 - fix `flextable_to_rmd()` issue with local chunk `eval` option (issue #631)
-- `proc_freq` can now display only the table percentages without the count using `include.table_count = FALSE`.
+- `proc_freq` can now display only the table percentages without the count 
+using `include.table_count = FALSE`.
+- bring back support for 'pagedown' with `pagedown >= 0.20.2`
 
 # flextable 0.9.6
 

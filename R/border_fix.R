@@ -5,6 +5,9 @@
 #' border that will be seen will be the bottom border of the first cell in the
 #' column. From a user point of view, this is wrong, the bottom should be the one
 #' defined for cell 3. This function modify the border values to avoid that effect.
+#'
+#' Note since version `0.9.7` that the function is called automatically
+#' before rendering, user should not have to call this function anymore.
 #' @param x flextable object
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @examples
@@ -20,6 +23,7 @@
 #' print(ft)
 #' ft <- fix_border_issues(ft)
 #' print(ft)
+#' @keywords internal
 fix_border_issues <- function(x, part = "all") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "fix_border_issues()"))

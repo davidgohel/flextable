@@ -44,6 +44,7 @@ ph_with.flextable <- function(x, value, location, ...) {
 
   value <- flextable_global$defaults$post_process_all(value)
   value <- flextable_global$defaults$post_process_pptx(value)
+  value <- fix_border_issues(value)
 
   graphic_frame <- gen_raw_pml(value)
   ph_with(x = x, value = as_xml_document(graphic_frame), location = location, ...)

@@ -145,6 +145,10 @@ gen_grob <- function(x,
                      wrapping = TRUE,
                      autowidths = TRUE,
                      just = NULL) {
+
+  x <- flextable_global$defaults$post_process_all(x)
+  x <- fix_border_issues(x)
+
   dots <- list(...)
   debug <- isTRUE(dots$debug)
   if (identical(fit, TRUE)) fit <- "auto"

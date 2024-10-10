@@ -17,6 +17,9 @@ of the first cell. If a column is made of three merged cells, the bottom
 border that will be seen will be the bottom border of the first cell in the
 column. From a user point of view, this is wrong, the bottom should be the one
 defined for cell 3. This function modify the border values to avoid that effect.
+
+Note since version \verb{0.9.7} that the function is called automatically
+before rendering, user should not have to call this function anymore.
 }
 \examples{
 library(officer)
@@ -32,3 +35,4 @@ print(ft)
 ft <- fix_border_issues(ft)
 print(ft)
 }
+\keyword{internal}

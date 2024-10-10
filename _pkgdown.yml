@@ -91,7 +91,6 @@ reference:
     - border_inner_h
     - border_inner_v
     - border_outer
-    - fix_border_issues
     - border_remove
     - surround
   - title: Flextable themes
