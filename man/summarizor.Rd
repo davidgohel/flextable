@@ -9,7 +9,8 @@ summarizor(
   by = character(),
   overall_label = NULL,
   num_stats = c("mean_sd", "median_iqr", "range"),
-  hide_null_na = TRUE
+  hide_null_na = TRUE,
+  use_labels = TRUE
 )
 }
 \arguments{
@@ -23,6 +24,10 @@ summarizor(
 to show, available options are "mean_sd", "median_iqr" and "range".}
 
 \item{hide_null_na}{if TRUE (default), NA counts will not be shown when 0.}
+
+\item{use_labels}{Logical; if TRUE, any column labels or value labels
+present in the dataset will be used for display purposes. Defaults
+to TRUE.}
 }
 \description{
 It performs a univariate statistical analysis of a dataset

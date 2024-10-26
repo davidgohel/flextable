@@ -143,6 +143,16 @@ proc_freq <- function(x, row = character(), col = character(),
                       include.table_percent = TRUE,
                       include.table_count = TRUE,
                       weight = character(), ...) {
+
+  list_lbls <- collect_labels(dataset = x, use_labels = TRUE)
+  for(colname in names(list_lbls$values_labels)) {
+    x[[colname]] <- factor(
+      x = x[[colname]],
+      levels = names(list_lbls$values_labels[[colname]]),
+      labels = unname(list_lbls$values_labels[[colname]])
+    )
+  }
+
   if (length(row) && !is.factor(x[[row]])) {
     x[[row]] <- as.factor(x[[row]])
   }

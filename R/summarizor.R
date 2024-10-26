@@ -14,6 +14,9 @@
 #' @param num_stats available statistics for numerical columns
 #' to show, available options are "mean_sd", "median_iqr" and "range".
 #' @param hide_null_na if TRUE (default), NA counts will not be shown when 0.
+#' @param use_labels Logical; if TRUE, any column labels or value labels
+#' present in the dataset will be used for display purposes. Defaults
+#' to TRUE.
 #' @seealso [fmt_summarizor()], [labelizor()]
 #' @examples
 #' \dontshow{
@@ -37,13 +40,24 @@ summarizor <- function(
     x, by = character(),
     overall_label = NULL,
     num_stats = c("mean_sd", "median_iqr", "range"),
-    hide_null_na = TRUE) {
+    hide_null_na = TRUE,
+    use_labels = TRUE) {
+
   if (length(by) < 1) {
     by <- ".overall"
     x[[by]] <- by
     last_by <- character()
   } else {
     last_by <- by[length(by)]
+  }
+
+  list_lbls <- collect_labels(dataset = x, use_labels = use_labels)
+  for(colname in names(list_lbls$values_labels)) {
+    x[[colname]] <- factor(
+      x = x[[colname]],
+      levels = names(list_lbls$values_labels[[colname]]),
+      labels = unname(list_lbls$values_labels[[colname]])
+      )
   }
 
   x <- as.data.frame(x)
@@ -100,7 +114,7 @@ summarizor <- function(
       stat = "", mean_sd = "Mean (SD)", median_iqr = "Median (IQR)",
       range = "Range", missing = "Missing"
     ),
-    variable = c(variable = "")
+    variable = c(variable = "", unlist(list_lbls$variables_labels))
   )
   class(dat) <- c("summarizor", class(dat))
   attr(dat, "n_by") <- datn

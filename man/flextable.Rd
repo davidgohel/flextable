@@ -11,7 +11,8 @@ flextable(
   cwidth = 0.75,
   cheight = 0.25,
   defaults = list(),
-  theme_fun = theme_booktabs
+  theme_fun = theme_booktabs,
+  use_labels = TRUE
 )
 
 qflextable(data)
@@ -25,6 +26,10 @@ the dataset, they will be added as blank columns by default.}
 \item{cwidth, cheight}{initial width and height to use for cell sizes in inches.}
 
 \item{defaults, theme_fun}{deprecated, use \code{\link[=set_flextable_defaults]{set_flextable_defaults()}} instead.}
+
+\item{use_labels}{Logical; if TRUE, any column labels or value labels
+present in the dataset will be used for display purposes. Defaults
+to TRUE.}
 }
 \description{
 Create a flextable object with function \code{flextable}.

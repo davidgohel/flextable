@@ -194,3 +194,34 @@ if (!"gregexec" %in% getNamespaceExports("base")) {
     }
   }
 }
+
+collect_labels <- function(dataset, use_labels = TRUE) {
+  lbls <- character()
+  values_labels <- list()
+  if (use_labels) {
+    lbls <- lapply(dataset, function(x) attr(x, "label"))
+    lbls <- Filter(function(x) !is.null(x), lbls)
+    values_labels <- lapply(dataset, function(x) attr(x, "labels"))
+    values_labels <- Filter(f = function(x) !is.null(x), values_labels)
+    values_labels <- lapply(values_labels, function(x) {
+      values_lbls <- names(x)
+      names(values_lbls) <- as.character(unname(x))
+      values_lbls
+    })
+  }
+  list(variables_labels = lbls, values_labels = values_labels)
+}
+
+apply_labels <- function(ft, collected_labels) {
+  if (length(collected_labels$values_labels) > 0) {
+    values_labels <- collected_labels$values_labels
+    for(i in seq_along(values_labels)) {
+      colname <- names(values_labels)[i]
+      values_lbls <- values_labels[[colname]]
+      ft <- labelizor(x = ft, part = "body", j = colname, labels = values_lbls)
+      ft <- align(x = ft, j = colname, align = "left", part = "header")
+      ft <- align(x = ft, j = colname, align = "left", part = "body")
+    }
+  }
+  ft
+}

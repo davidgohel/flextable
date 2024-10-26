@@ -58,6 +58,9 @@
 #' the dataset, they will be added as blank columns by default.
 #' @param cwidth,cheight initial width and height to use for cell sizes in inches.
 #' @param defaults,theme_fun deprecated, use [set_flextable_defaults()] instead.
+#' @param use_labels Logical; if TRUE, any column labels or value labels
+#' present in the dataset will be used for display purposes. Defaults
+#' to TRUE.
 #' @examples
 #' ft <- flextable(head(mtcars))
 #' ft
@@ -67,7 +70,8 @@
 #' [compose()], [footnote()], [set_caption()]
 flextable <- function(data, col_keys = names(data),
                       cwidth = .75, cheight = .25,
-                      defaults = list(), theme_fun = theme_booktabs) {
+                      defaults = list(), theme_fun = theme_booktabs,
+                      use_labels = TRUE) {
   stopifnot(is.data.frame(data), ncol(data) > 0)
   if (any(duplicated(col_keys))) {
     stop(sprintf(
@@ -75,6 +79,8 @@ flextable <- function(data, col_keys = names(data),
       paste0(unique(col_keys[duplicated(col_keys)]), collapse = ", ")
     ))
   }
+  list_lbls <- collect_labels(dataset = data, use_labels = use_labels)
+
   if (inherits(data, "data.table") || inherits(data, "tbl_df") || inherits(data, "tbl")) {
     data <- as.data.frame(data, stringsAsFactors = FALSE)
   }
@@ -112,7 +118,11 @@ flextable <- function(data, col_keys = names(data),
   out <- do.call(flextable_global$defaults$theme_fun, list(out))
   out <- set_table_properties(x = out, layout = flextable_global$defaults$table.layout)
 
-  out
+  if (length(list_lbls$variables_labels) > 0) {
+    out <- labelizor(out, labels = unlist(list_lbls$variables_labels), part = "header")
+  }
+
+  apply_labels(out, collected_labels = list_lbls)
 }
 
 #' @export
