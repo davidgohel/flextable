@@ -48,6 +48,9 @@ Word (docx)       \tab >= 2.0 \cr
 PowerPoint (pptx) \tab >= 2.4 \cr
 PDF               \tab >= 1.12
 }
+
+If the output format is not HTML, Word, or PDF (e.g., \code{rtf_document},
+\code{github_document}), an image will be generated instead.
 }
 \section{Chunk options}{
 

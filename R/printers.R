@@ -507,6 +507,9 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #'   PowerPoint (pptx) \tab >= 2.4 \cr
 #'   PDF               \tab >= 1.12
 #' }
+#'
+#' If the output format is not HTML, Word, or PDF (e.g., `rtf_document`,
+#' `github_document`), an image will be generated instead.
 #' @section Chunk options:
 #'
 #' Some features, often specific to an output format, are available to help you
