@@ -382,6 +382,7 @@ runs_as_pml <- function(value) {
   txt_data[runs_types_lst$is_equation, c("opening_tag", "closing_tag") := list("", "")]
   txt_data[runs_types_lst$is_soft_return, c("opening_tag", "closing_tag") := list("<a:br>", "</a:br>")]
 
+  txt_data_is_empty <- txt_data[, list(is_empty = all(.SD$text_nodes_str %in% "<a:t></a:t>")) ,by = c(".part", ".row_id", ".col_id")]
   txt_data[, c("par_nodes_str") := list(
     paste0(.SD$opening_tag, .SD$rpr, .SD$text_nodes_str, .SD$closing_tag)
   )]
@@ -398,6 +399,7 @@ runs_as_pml <- function(value) {
     by = c(".part", ".row_id", ".col_id"),
     .SDcols = "par_nodes_str"
   ]
+  txt_data <- merge(txt_data, txt_data_is_empty, by = c(".part", ".row_id", ".col_id"))
   setDF(txt_data)
   txt_data
 }

@@ -10,6 +10,33 @@ pml_spans <- function(value) {
   )
   span_data
 }
+default_fp_text_pml <- function(value) {
+  default_chunks_properties <- information_data_default_chunk(value)
+  unique_text_props <- distinct_text_properties(default_chunks_properties)
+  rpr <- sapply(
+    split(unique_text_props[setdiff(colnames(unique_text_props), "classname")], unique_text_props$classname),
+    function(x) {
+      z <- do.call(officer::fp_text_lite, x)
+      val <- format(z, type = "pml")
+      val <- gsub("<a:rPr", "<a:endParaRPr", val, fixed = TRUE)
+      val <- gsub("</a:rPr>", "</a:endParaRPr>", val, fixed = TRUE)
+      val
+    }
+  )
+
+  unique_text_props$fp_txt_default <- unname(rpr[unique_text_props$classname])
+  setDT(default_chunks_properties)
+  default_chunks_properties <- merge(
+    default_chunks_properties, unique_text_props,
+    by = c("color", "font.size", "bold", "italic", "underlined", "font.family",
+           "hansi.family", "eastasia.family", "cs.family", "vertical.align",
+           "shading.color")
+  )
+  setDF(default_chunks_properties)
+  default_chunks_properties <- default_chunks_properties[, c(".part", ".row_id", ".col_id", "fp_txt_default")]
+  default_chunks_properties
+}
+
 
 #' @importFrom data.table shift
 pml_cells <- function(value, cell_data) {
@@ -114,10 +141,19 @@ gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0)
   cell_data <- pml_cells(value, cell_attributes)
   cell_heights <- fortify_height(value)
 
+  default_chunks_properties <- default_fp_text_pml(value)
+
   setDT(cell_data)
 
   tab_data <- merge(cell_data, par_data, by = c(".part", ".row_id", ".col_id"))
+  tab_data <- merge(tab_data, default_chunks_properties, by = c(".part", ".row_id", ".col_id"))
   tab_data <- merge(tab_data, txt_data, by = c(".part", ".row_id", ".col_id"))
+
+  tab_data[tab_data$is_empty %in% TRUE, c("fp_par_xml") := list(
+    paste0(.SD$fp_par_xml, .SD$fp_txt_default)
+  )]
+  tab_data[, c("fp_txt_default", "is_empty") := list(NULL, NULL)]
+
   tab_data <- merge(tab_data, span_data, by = c(".part", ".row_id", ".col_id"))
   tab_data$.col_id <- factor(tab_data$.col_id, levels = value$col_keys)
   setorderv(tab_data, cols = c(".part", ".row_id", ".col_id"))

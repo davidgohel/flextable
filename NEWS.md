@@ -22,7 +22,8 @@ rmarkdown (issue #632)
 - `proc_freq` can now display only the table percentages without the count 
 using `include.table_count = FALSE`.
 - bring back support for 'pagedown' with `pagedown >= 0.20.2`
-- flextable now applies defined text-format to empty cells  
+- flextable now applies defined text-format to empty cells for Word and
+Powerpoint outputs.
 
 # flextable 0.9.6
 
