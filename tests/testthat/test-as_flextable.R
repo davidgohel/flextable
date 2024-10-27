@@ -292,3 +292,221 @@ test_that("grouped data structure", {
   init_flextable_defaults()
 })
 
+labelled_df <- data.frame(
+  region =
+    structure(
+      c(1, 2, 1, 9, 2, 3),
+      labels = c(north = 1, south = 2, center = 3, missing = 9),
+      label = "Region of the respondent"
+    ),
+  sex =
+    structure(
+      c("f", "f", "m", "m", "m", "f"),
+      labels = c(female = "f", male = "m"),
+      label = "Sex of the respondent"
+    ),
+  value = 1:6
+)
+
+test_that("labelled data", {
+  ft <- flextable(labelled_df, use_labels = TRUE)
+  expected_txt <- c(
+    "Region of the respondent", "Sex of the respondent", "value",
+    "north", "female", "1", "south", "female", "2", "north", "male",
+    "3", "missing", "male", "4", "south", "male", "5", "center", "female",
+    "6")
+  expect_equal(
+    information_data_chunk(ft)$txt,
+    expected_txt
+  )
+
+  ft <- flextable(labelled_df, use_labels = FALSE)
+  expected_txt <- c(
+    "region", "sex", "value", "1", "f", "1", "2", "f", "2", "1",
+    "m", "3", "9", "m", "4", "2", "m", "5", "3", "f", "6"
+  )
+  expect_equal(
+    information_data_chunk(ft)$txt,
+    expected_txt
+  )
+
+  expected_txt <- c(
+    "region", "sex", "sex", "sex", "region", "female", "male",
+    "Total", "north", "1", "", "1", "", "2", "", "south", "1", "",
+    "1", "", "2", "", "center", "1", "", "", "", "1", "", "missing",
+    "", "", "1", "", "1", "", "Total", "3", "", "3", "", "6", ""
+  )
+  ft <- proc_freq(
+    labelled_df, row = "region", col = "sex",
+    include.row_percent = FALSE,
+    include.column_percent = FALSE,
+    include.table_percent = FALSE
+  )
+  expect_equal(
+    information_data_chunk(ft)$txt,
+    expected_txt
+  )
+
+  expected_txt <- c(
+    "", "", "", "Statistic", "<br>", "(N=6)", "Region of the respondent",
+    "north", "", "2 (33.3%)", "Region of the respondent", "south",
+    "", "2 (33.3%)", "Region of the respondent", "center", "", "1 (16.7%)",
+    "Region of the respondent", "Missing", "", "1 (16.7%)", "Sex of the respondent",
+    "female", "", "3 (50.0%)", "Sex of the respondent", "male", "",
+    "3 (50.0%)", "value", "Mean (SD)", "", "3.5 (1.9)", "value",
+    "Median (IQR)", "", "3.5 (2.5)", "value", "Range", "", "1.0 - 6.0"
+  )
+  ft <- as_flextable(summarizor(labelled_df))
+  expect_equal(
+    information_data_chunk(ft)$txt,
+    expected_txt
+  )
+})
+
+test_that("package tables", {
+
+  skip_if_not_installed("tables")
+  require("tables", quietly = TRUE)
+  x <- tabular((Factor(gear, "Gears") + 1) * ((n = 1) + Percent() +
+         (RowPct = Percent("row")) + (ColPct = Percent("col"))) ~
+         (Factor(carb, "Carburetors") + 1) * Format(digits = 1),
+    data = mtcars)
+
+  ft <- as_flextable(
+    x,
+    spread_first_col = TRUE,
+    row_title = as_paragraph(
+      colorize("Gears: ", color = "#666666"),
+      colorize(as_b(.row_title), color = "red")
+    )
+  )
+  idc <- information_data_chunk(ft)
+
+  expected_txt <- c(
+    "", "Carburetors", "", "", "", "", "", "", "", "1", "2", "3",
+    "4", "6", "8", "All"
+  )
+  expect_equal(
+    idc[idc$.part %in% "header",]$txt,
+    expected_txt
+  )
+
+  expected_txt <- c(
+    "Gears: ", "3", "", "", "", "", "", "", "", "n", "3", "4",
+    "3", "5", "0", "0", "15", "Percent", "9", "12", "9", "16", "0",
+    "0", "47", "RowPct", "20", "27", "20", "33", "0", "0", "100",
+    "ColPct", "43", "40", "100", "50", "0", "0", "47"
+  )
+  expect_equal(
+    idc[idc$.part %in% "body" & idc$.row_id < 6,]$txt,
+    expected_txt
+  )
+
+  idp <- information_data_paragraph(ft)
+  expect_equal(
+    idp[idp$.part %in% "header",]$text.align,
+    rep("center", 16)
+  )
+  expect_equal(
+    idp[idp$.part %in% "body" & idp$.row_id < 6 & idp$.row_id > 1,]$text.align,
+    rep("center", 32)
+  )
+
+
+})
+
+
+test_that("package xtable", {
+
+  skip_if_not_installed("xtable")
+  require("xtable", quietly = TRUE)
+
+  tli <- data.frame(
+    grade = c(6L, 7L, 5L, 3L, 8L, 5L, 8L, 4L, 6L, 7L),
+    sex = factor(c("M", "M", "F", "M", "M", "M", "F", "M", "M", "M")),
+    disadvg = factor(c("YES", "NO", "YES", "YES", "YES", "NO", "YES", "YES", "NO", "YES")),
+    ethnicty = factor(
+      c(
+        "HISPANIC", "BLACK", "HISPANIC", "HISPANIC", "WHITE", "BLACK", "HISPANIC",
+        "BLACK", "WHITE", "HISPANIC"
+      ),
+      levels = c("BLACK", "HISPANIC", "OTHER", "WHITE")
+    ),
+    tlimth = c(43L, 88L, 34L, 65L, 75L, 74L, 72L, 79L, 88L, 87L)
+  )
+
+  tli.table <- xtable(tli)
+  align(tli.table) <- rep("r", 6)
+  align(tli.table) <- "|r|r|clr|r|"
+  ft <- as_flextable(
+    tli.table,
+    rotate.colnames = TRUE,
+    include.rownames = FALSE)
+  ft <- height(ft, i = 1, part = "header", height = 1)
+
+  idc <- information_data_chunk(ft)
+
+  expected_txt <- c(
+    "grade", "sex", "disadvg", "ethnicty", "tlimth", "6", "M",
+    "YES", "HISPANIC", "43", "7", "M", "NO", "BLACK", "88", "5",
+    "F", "YES", "HISPANIC", "34", "3", "M", "YES", "HISPANIC", "65",
+    "8", "M", "YES", "WHITE", "75", "5", "M", "NO", "BLACK", "74",
+    "8", "F", "YES", "HISPANIC", "72", "4", "M", "YES", "BLACK",
+    "79", "6", "M", "NO", "WHITE", "88", "7", "M", "YES", "HISPANIC",
+    "87"
+  )
+  expect_equal(
+    idc$txt,
+    expected_txt
+  )
+
+  idc <- information_data_cell(ft)
+  expect_equal(
+    idc$text.direction,
+    c(rep("btlr", 5), rep("lrtb", 50))
+  )
+
+})
+
+test_that("gam models", {
+
+  skip_if_not_installed("mgcv")
+  require("mgcv", quietly = TRUE)
+
+  set.seed(2)
+  dat <- gamSim(1, n = 400, dist = "normal", scale = 2)
+  b <- gam(y ~ s(x0) + s(x1) + s(x2) + s(x3), data = dat)
+  options(show.signif.stars = FALSE)
+  ft <- as_flextable(b)
+  ft <- delete_part(ft, part = "footer")
+
+  idc <- information_data_chunk(ft)
+
+  expected_txt <- c(
+    "Component", "Term", "Estimate", "Std Error", "t-value", "p-value",
+    "A. parametric coefficients", "(Intercept)", "7.833", "0.099",
+    "79.303", "0.0000", "Component", "Term", "edf", "Ref. df", "F-value",
+    "p-value", "B. smooth terms", "s(x0)", "2.500", "3.115", "6.921",
+    "0.0001", "B. smooth terms", "s(x1)", "2.401", "2.984", "81.858",
+    "0.0000", "B. smooth terms", "s(x2)", "7.698", "8.564", "88.158",
+    "0.0000", "B. smooth terms", "s(x3)", "1.000", "1.000", "4.343",
+    "0.0378"
+  )
+  expect_equal(
+    idc$txt,
+    expected_txt
+  )
+
+  idp <- information_data_paragraph(ft)
+  expect_equal(
+    idp$text.align,
+    c(
+      "left", "left", "right", "right", "right", "right", "left",
+      "left", "right", "right", "right", "right", "left", "left", "right",
+      "right", "right", "right", "left", "left", "right", "right",
+      "right", "right", "left", "left", "right", "right", "right",
+      "right", "left", "left", "right", "right", "right", "right",
+      "left", "left", "right", "right", "right", "right"
+    )
+  )
+})

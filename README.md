@@ -6,6 +6,8 @@ flextable R package
 [![R build
 status](https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/flextable/actions)
 [![version](https://www.r-pkg.org/badges/version/flextable)](https://CRAN.R-project.org/package=flextable)
+[![test
+coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/flextable)
 ![Active](https://www.repostatus.org/badges/latest/active.svg)
 
 The flextable package provides a framework for easily create tables for
