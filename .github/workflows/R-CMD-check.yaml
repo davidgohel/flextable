@@ -9,7 +9,7 @@ on:
   schedule:
     # 4AM every monday
     - cron: '0 4 * * 1'
-    
+
 name: R-CMD-check
 
 jobs:
@@ -73,5 +73,6 @@ jobs:
         if: success() && runner.os == 'Linux' && matrix.config.r == 'release' && matrix.config.pandoc == '2.19'
         run: |
           pak::pkg_install('covr')
+          pak::pkg_install(c('equatags', 'tables', 'xtable', 'lme4', 'broom.mixed', 'ggplot2'))
           covr::codecov()
         shell: Rscript {0}

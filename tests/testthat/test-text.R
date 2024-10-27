@@ -136,3 +136,133 @@ test_that("word superscript and subscript", {
   openxml <- flextable:::runs_as_wml(ft, txt_data = runs)$run_openxml
   expect_match(openxml, "<w:vertAlign w:val=\"superscript\"/>", fixed = TRUE)
 })
+
+test_that("highlight", {
+  ft <- flextable(data.frame(test = "test"))
+  ft <- add_footer_lines(ft, values = "test")
+  ft <- mk_par(ft,
+    j = "test", part = "body",
+    value = as_paragraph(
+      as_highlight(test, color = "yellow")
+    )
+  )
+  ft <- mk_par(ft,
+    j = "test", part = "header",
+    value = as_paragraph(
+      as_highlight(test, color = "red")
+    )
+  )
+  ft <- mk_par(ft,
+    j = "test", part = "footer",
+    value = as_paragraph(
+      as_highlight(test, color = "purple")
+    )
+  )
+
+  runs <- information_data_chunk(ft)
+  expect_equal(runs$shading.color, c("red", "yellow", "purple"))
+
+  openxml <- flextable:::runs_as_wml(ft, txt_data = runs)$run_openxml
+  expect_match(openxml[1], "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"FF0000\"/>", fixed = TRUE)
+  expect_match(openxml[2], "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"FFFF00\"/>", fixed = TRUE)
+  expect_match(openxml[3], "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"A020F0\"/>", fixed = TRUE)
+
+  openxml <- flextable:::runs_as_pml(ft)$par_nodes_str
+  expect_match(openxml[1], "<a:highlight><a:srgbClr val=\"FF0000\">", fixed = TRUE)
+  expect_match(openxml[2], "<a:highlight><a:srgbClr val=\"FFFF00\">", fixed = TRUE)
+  expect_match(openxml[3], "<a:highlight><a:srgbClr val=\"A020F0\">", fixed = TRUE)
+
+  html_info <- flextable:::runs_as_html(ft)
+  css <- attr(html_info, "css")
+  expect_match(css, "background-color:rgba(255, 0, 0, 1.00);}", fixed = TRUE)
+  expect_match(css, "background-color:rgba(255, 255, 0, 1.00);}", fixed = TRUE)
+  expect_match(css, "background-color:rgba(160, 32, 240, 1.00);}", fixed = TRUE)
+
+  latex_str <- flextable:::runs_as_latex(ft)$txt
+  expect_match(latex_str[1], "\\colorbox[HTML]{FF0000}", fixed = TRUE)
+  expect_match(latex_str[2], "\\colorbox[HTML]{FFFF00}", fixed = TRUE)
+  expect_match(latex_str[3], "\\colorbox[HTML]{A020F0}", fixed = TRUE)
+
+  rtf_str <- flextable:::runs_as_rtf(ft)$txt
+  expect_match(rtf_str[1], "%ftshading:red%", fixed = TRUE)
+  expect_match(rtf_str[2], "%ftshading:yellow%", fixed = TRUE)
+  expect_match(rtf_str[3], "%ftshading:purple%", fixed = TRUE)
+})
+
+test_that("as_bracket", {
+  ft <- flextable(head(iris), col_keys = c("Species", "what"))
+  ft <- mk_par(ft,
+    j = "what", part = "body",
+    value = as_paragraph(
+      as_bracket(Sepal.Length, Sepal.Width, sep = "-")
+    )
+  )
+
+  runs <- information_data_chunk(ft)
+  runs <- runs[runs$.part %in% "body", ]
+  expect_equal(
+    runs$txt,
+    c(
+      "setosa", "(5.1-3.5)", "setosa", "(4.9-3)", "setosa",
+      "(4.7-3.2)", "setosa", "(4.6-3.1)", "setosa", "(5-3.6)",
+      "setosa", "(5.4-3.9)"
+    )
+  )
+})
+
+test_that("as_equation", {
+  skip_if_not_installed("equatags")
+
+  eqs <- c(
+    "(ax^2 + bx + c = 0)",
+    "a \\ne 0",
+    "x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}"
+  )
+  df <- data.frame(formula = eqs)
+
+  ft <- flextable(df)
+  ft <- mk_par(ft,
+    j = "formula", part = "body",
+    value = as_paragraph(as_equation(formula, width = 2, height = .5))
+  )
+
+  runs <- information_data_chunk(ft)
+  openxml <- flextable:::runs_as_wml(ft, txt_data = runs)$run_openxml
+  expect_match(openxml[2], "</m:oMath>", fixed = TRUE)
+  expect_match(openxml[3], "</m:oMath>", fixed = TRUE)
+  expect_match(openxml[4], "</m:oMath>", fixed = TRUE)
+
+
+  openxml <- flextable:::runs_as_pml(ft)$par_nodes_str
+  expect_match(openxml[2], "</m:oMath>", fixed = TRUE)
+  expect_match(openxml[3], "</m:oMath>", fixed = TRUE)
+  expect_match(openxml[4], "</m:oMath>", fixed = TRUE)
+
+  latex_str <- flextable:::runs_as_latex(ft)$txt
+  expect_match(latex_str[2], eqs[1], fixed = TRUE)
+  expect_match(latex_str[3], eqs[2], fixed = TRUE)
+  expect_match(latex_str[4], eqs[3], fixed = TRUE)
+
+  runs <- information_data_chunk(ft)
+  html_str <- flextable:::runs_as_html(ft)$span_tag
+  expect_match(html_str[2], "<span class=\"katex\">", fixed = TRUE)
+  expect_match(html_str[3], "<span class=\"katex\">", fixed = TRUE)
+  expect_match(html_str[4], "<span class=\"katex\">", fixed = TRUE)
+})
+
+test_that("as_word_field", {
+
+  ft <- flextable(head(cars))
+  ft <- add_footer_lines(ft, "temp text")
+  ft <- compose(
+    x = ft, part = "footer", i = 1, j = 1,
+    as_paragraph(
+      as_word_field(x = "Page", width = .05)
+    )
+  )
+
+  runs <- information_data_chunk(ft)
+  wml_str <- flextable:::runs_as_wml(ft)
+  wml_str <- wml_str[wml_str$.part %in% "footer",]$run_openxml[1]
+  expect_match(wml_str, "<w:instrText xml:space=\"preserve\" w:dirty=\"true\">Page</w:instrText>", fixed = TRUE)
+})
