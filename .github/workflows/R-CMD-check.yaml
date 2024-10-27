@@ -68,11 +68,3 @@ jobs:
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
-
-      - name: Test coverage
-        if: success() && runner.os == 'Linux' && matrix.config.r == 'release' && matrix.config.pandoc == '2.19'
-        run: |
-          pak::pkg_install('covr')
-          pak::pkg_install(c('equatags', 'tables', 'xtable', 'lme4', 'broom.mixed', 'ggplot2'))
-          covr::codecov()
-        shell: Rscript {0}
