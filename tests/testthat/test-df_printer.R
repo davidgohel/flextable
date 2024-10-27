@@ -3,6 +3,9 @@ test_that("use_model_printer and use_df_printer works", {
   rmd_file <- tempfile(fileext = ".Rmd")
   file.copy("rmd/use-printer.Rmd", rmd_file)
   outfile <- tempfile(fileext = ".html")
+
+  options(show.signif.stars = TRUE)
+
   rmarkdown::render(rmd_file,
          output_file = outfile, output_format = "html_document",
          envir = new.env(), quiet = TRUE
