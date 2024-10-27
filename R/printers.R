@@ -509,7 +509,8 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #' }
 #'
 #' If the output format is not HTML, Word, or PDF (e.g., `rtf_document`,
-#' `github_document`), an image will be generated instead.
+#' `github_document`, `beamer_presentation`), an image will be generated
+#' instead.
 #' @section Chunk options:
 #'
 #' Some features, often specific to an output format, are available to help you

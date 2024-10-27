@@ -50,7 +50,8 @@ PDF               \tab >= 1.12
 }
 
 If the output format is not HTML, Word, or PDF (e.g., \code{rtf_document},
-\code{github_document}), an image will be generated instead.
+\code{github_document}, \code{beamer_presentation}), an image will be generated
+instead.
 }
 \section{Chunk options}{
 
