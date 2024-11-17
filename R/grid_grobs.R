@@ -22,6 +22,8 @@
 #' Limitations: equations (see [as_equation()]) and hyperlinks (see [officer::hyperlink_ftext()])
 #' will not be displayed.
 #'
+#' 'ragg' or 'svglite' or 'ggiraph' graphical device drivers
+#' should be used to ensure a correct rendering.
 #' @inheritSection save_as_image caption
 #' @section size:
 #'

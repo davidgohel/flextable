@@ -92,6 +92,9 @@ large tables because the calculations can be long.
 
 Limitations: equations (see \code{\link[=as_equation]{as_equation()}}) and hyperlinks (see \code{\link[officer:hyperlink_ftext]{officer::hyperlink_ftext()}})
 will not be displayed.
+
+'ragg' or 'svglite' or 'ggiraph' graphical device drivers
+should be used to ensure a correct rendering.
 }
 \section{size}{
 

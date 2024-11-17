@@ -1,7 +1,7 @@
 Type: Package
 Package: flextable
 Title: Functions for Tabular Reporting
-Version: 0.9.7
+Version: 0.9.8.001
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
