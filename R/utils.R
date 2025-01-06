@@ -118,7 +118,7 @@ convmeters <- function(unit, x) {
   if (identical("cm", unit)) {
     x <- x * 2.54
   } else if (identical("mm", unit)) {
-    x <- x * 254
+    x <- x * 25.4
   }
   x
 }
