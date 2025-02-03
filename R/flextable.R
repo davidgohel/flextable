@@ -445,7 +445,7 @@ regulartable <- function(data, col_keys = names(data), cwidth = .75, cheight = .
 #' @note
 #' PowerPoint output ignore 'autofit layout'.
 #' @param x flextable object
-#' @param layout 'autofit' or 'fixed' algorithm. Default to 'autofit'.
+#' @param layout 'autofit' or 'fixed' algorithm. Default to 'fixed'.
 #' @param width The parameter has a different effect depending on the
 #' output format. Users should consider it as a minimum width.
 #' In HTML, it is the minimum width of the space that the

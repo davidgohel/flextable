@@ -19,7 +19,7 @@ set_table_properties(
 \arguments{
 \item{x}{flextable object}
 
-\item{layout}{'autofit' or 'fixed' algorithm. Default to 'autofit'.}
+\item{layout}{'autofit' or 'fixed' algorithm. Default to 'fixed'.}
 
 \item{width}{The parameter has a different effect depending on the
 output format. Users should consider it as a minimum width.
