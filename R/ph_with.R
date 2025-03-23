@@ -1,5 +1,6 @@
 #' @importFrom officer ph_with
 #' @export
+#' @method ph_with flextable
 #' @title Add a flextable into a PowerPoint slide
 #' @description
 #'
