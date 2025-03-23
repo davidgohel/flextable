@@ -4,7 +4,7 @@
 \alias{ph_with.flextable}
 \title{Add a flextable into a PowerPoint slide}
 \usage{
-\method{ph_with}{flextable}(x, value, location, ...)
+ph_with.flextable(x, value, location, ...)
 }
 \arguments{
 \item{x}{a pptx device}

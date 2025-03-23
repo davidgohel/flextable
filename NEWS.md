@@ -5,6 +5,7 @@
 - `tab_settings()` is now using j argument as expected (#635)
 - doc inconsistency for `set_table_properties()` with layout that defaults to 
 "fixed".
+- add_header_row produced an error after using `delete_column()` (#676)
 
 # flextable 0.9.7
 

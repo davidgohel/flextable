@@ -284,13 +284,13 @@ add_rows_to_tabpart <- function(x, rows, first = FALSE) {
   hrule <- x$hrule
 
   if (!first) {
-    data <- rbind(data, rows)
+    data <- rbind_match_columns(list(data, rows))
     spans$rows <- rbind(spans$rows, span_new)
     spans$columns <- rbind(spans$columns, span_new)
     rowheights <- c(rowheights, rep(rev(rowheights)[1], nrow(rows)))
     hrule <- c(hrule, rep(rev(hrule)[1], nrow(rows)))
   } else {
-    data <- rbind(rows, data)
+    data <- rbind_match_columns(list(rows, data))
     spans$rows <- rbind(span_new, spans$rows)
     spans$columns <- rbind(span_new, spans$columns)
     rowheights <- c(rep(rowheights[1], nrow(rows)), rowheights)
