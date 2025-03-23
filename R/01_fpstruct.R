@@ -173,7 +173,9 @@ set_par_struct_values <- function(x, i, j, property, value) {
   if (is.null(i)) i <- seq_len(x$text.align$nrow)
 
   if (inherits(value, "fp_par")) {
-    if (!is.null(value$tabs)) value$tabs <- as.character(value$tabs)
+    if (!is.null(value$tabs)) {
+      value$tabs <- as.character(value$tabs)
+    }
     value <- cast_borders(value)
     for (property in intersect(names(value), names(x))) {
       x[[property]]$data[i, j] <- value[[property]]

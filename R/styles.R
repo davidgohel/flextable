@@ -764,7 +764,7 @@ tab_settings <- function(x, i = NULL, j = NULL, value = TRUE, part = "body") {
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
-      x <- tab_settings(x = x, i = i, value = value, part = p)
+      x <- tab_settings(x = x, i = i, j = j, value = value, part = p)
     }
     return(x)
   }
@@ -779,7 +779,7 @@ tab_settings <- function(x, i = NULL, j = NULL, value = TRUE, part = "body") {
   x[[part]]$styles$pars <- set_par_struct_values(
     x = x[[part]]$styles$pars,
     i = i,
-    j = NULL,
+    j = j,
     property = "tabs",
     value = as.character(value)
   )

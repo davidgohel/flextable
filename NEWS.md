@@ -1,3 +1,11 @@
+# flextable 0.9.8
+
+## Issues
+
+- `tab_settings()` is now using j argument as expected (#635)
+- doc inconsistency for `set_table_properties()` with layout that defaults to 
+"fixed".
+
 # flextable 0.9.7
 
 ## new features
