@@ -527,7 +527,8 @@ fmt_signif_after_zeros <- function(x, digits = 3) {
   dec_str[which_have_dec] <- paste0(decimal.mark, dec_str[which_have_dec])
   dec_str[!which_have_dec] <- ""
 
-  out <- paste0(round(x, 0), dec_str)
+  int_part <- substr(str_rounded, 1, decimal_index - 1)
+  out <- paste0(int_part, dec_str)
 
   out[wisna] <- na_str
   out[wisnan] <- nan_str
