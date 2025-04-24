@@ -24,8 +24,8 @@ jobs:
         config:
           - {os: windows-latest, r: 'release', pandoc: '2.19'}
           - {os: macOS-latest, r: 'release', pandoc : '2.19'}
-          - {os: ubuntu-20.04, r: 'release', pandoc : '2.19'}
-          - {os: ubuntu-20.04, r: 'release', pandoc : '2.9.2.1'}
+          - {os: ubuntu-latest, r: 'release', pandoc : '2.19'}
+          - {os: ubuntu-latest, r: 'release', pandoc : '2.9.2.1'}
           - {os: ubuntu-latest, r: 'devel', pandoc : '2.19'}
 
     env:
