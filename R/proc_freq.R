@@ -231,14 +231,14 @@ proc_freq <- function(x, row = character(), col = character(),
         )
       }
     }
-    ft <- hline(ft, i = as.formula(sprintf("~before(%s, 'Total')", row)))
+    ft <- hline(ft, i = as.formula(sprintf("~before(`%s`, 'Total')", row)))
     ft <- vline(ft, j = ncol_keys(ft) - 1)
     ft <- vline(ft, j = first_vline)
     ft <- autofit(ft)
   } else {
     dat <- dat[do.call(order, dat[by]), ]
     ft <- flextable(dat)
-    ft <- hline(ft, i = as.formula(sprintf("~before(%s, 'Total')", by)))
+    ft <- hline(ft, i = as.formula(sprintf("~before(`%s`, 'Total')", by)))
     ft <- set_formatter(ft, pct = fmt_pct, count = fmt_int)
     ft <- set_header_labels(ft, count = "Count", pct = "Percent")
     ft <- autofit(ft)

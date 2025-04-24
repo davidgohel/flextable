@@ -7,6 +7,7 @@
 "fixed".
 - add_header_row produced an error after using `delete_column()` (#676)
 - `fmt_signif_after_zeros()` fixed issue with 0 rounding
+- `proc_freq` supports now non syntactically names
 
 # flextable 0.9.7
 
