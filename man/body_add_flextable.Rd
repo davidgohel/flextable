@@ -2,10 +2,20 @@
 % Please edit documentation in R/body_add_flextable.R
 \name{body_add_flextable}
 \alias{body_add_flextable}
+\alias{get_flextable_wml}
 \title{Add flextable into a Word document}
 \usage{
 body_add_flextable(
   x,
+  value,
+  align = NULL,
+  pos = "after",
+  split = NULL,
+  topcaption = TRUE,
+  keepnext = NULL
+)
+
+get_flextable_wml(
   value,
   align = NULL,
   pos = "after",
@@ -114,6 +124,10 @@ doc <- body_add_flextable(doc, value = ft_3)
 
 fileout <- tempfile(fileext = ".docx")
 print(doc, target = fileout)
+
+# Get WML code directly
+wml <- get_flextable_wml(ft_1)
+
 \dontshow{
 init_flextable_defaults()
 }
