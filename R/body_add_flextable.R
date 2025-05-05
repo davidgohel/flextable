@@ -37,6 +37,7 @@
 #' caption is added after the table.
 #' @importFrom officer body_add_xml
 #' @seealso [knit_print.flextable()], [save_as_docx()]
+#' @rdname body_add_flextable
 #' @examples
 #' \dontshow{
 #' init_flextable_defaults()
@@ -92,23 +93,51 @@
 #'
 #' fileout <- tempfile(fileext = ".docx")
 #' print(doc, target = fileout)
+#'
+#' # Get WML code directly
+#' wml <- get_flextable_wml(ft_1)
+#'
 #' \dontshow{
 #' init_flextable_defaults()
 #' }
-body_add_flextable <- function(x, value,
-                               align = NULL,
-                               pos = "after",
-                               split = NULL,
-                               topcaption = TRUE,
-                               keepnext = NULL) {
+body_add_flextable <- function(
+  x,
+  value,
+  align = NULL,
+  pos = "after",
+  split = NULL,
+  topcaption = TRUE,
+  keepnext = NULL
+) {
   stopifnot(
-    inherits(x, "rdocx"),
-    inherits(value, "flextable")
+    inherits(x, "rdocx")
   )
+
+  out <- get_flextable_wml(value, align, pos, split, topcaption, keepnext)
+
+  for (str in out) {
+    x <- body_add_xml(x = x, str = str, pos = pos)
+  }
+
+  x
+}
+
+#' @rdname body_add_flextable
+#' @export
+get_flextable_wml <- function(
+  value,
+  align = NULL,
+  pos = "after",
+  split = NULL,
+  topcaption = TRUE,
+  keepnext = NULL
+) {
+  stopifnot(inherits(value, "flextable"))
 
   if (!is.null(align)) {
     value$properties$align <- align
   }
+
   if (!is.null(split)) {
     value$properties$opts_word$split <- split
   }
@@ -133,18 +162,16 @@ body_add_flextable <- function(x, value,
     if ("" %in% caption_str) caption_str <- NULL
   }
 
-  if (topcaption && !is.null(caption_str)) {
-    x <- body_add_xml(x = x, str = caption_str, pos = pos)
-  }
   out <- gen_raw_wml(value, doc = x)
 
-  x <- body_add_xml(x = x, str = out, pos = pos)
-
-  if (!topcaption && !is.null(caption_str)) {
-    x <- body_add_xml(x = x, str = caption_str, pos = pos)
+  if (topcaption && !is.null(caption_str)) {
+    return(c(caption_str, out))
   }
 
-  x
+  if (!topcaption && !is.null(caption_str)) {
+    return(c(out, caption_str))
+  }
+  out
 }
 
 #' @export
@@ -160,9 +187,20 @@ body_add_flextable <- function(x, value,
 #' option 'Allow row to break across pages'.
 #' @importFrom officer cursor_bookmark
 #' @importFrom xml2 as_xml_document
-body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", split = FALSE) {
+body_replace_flextable_at_bkm <- function(
+  x,
+  bookmark,
+  value,
+  align = "center",
+  split = FALSE
+) {
   x <- cursor_bookmark(x, bookmark)
-  x <- body_add_flextable(x = x, value = value, pos = "on", align = align, split = split)
+  x <- body_add_flextable(
+    x = x,
+    value = value,
+    pos = "on",
+    align = align,
+    split = split
+  )
   x
 }
-
