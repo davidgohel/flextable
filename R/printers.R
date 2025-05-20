@@ -809,7 +809,7 @@ save_as_pptx <- function(..., values = NULL, path) {
   show_names <- !is.null(titles)
   z <- read_pptx()
   for (i in seq_along(values)) {
-    z <- add_slide(z)
+    z <- add_slide(z, "Title and Content")
     if (show_names) {
       z <- ph_with(z, titles[i], location = ph_location_type(type = "title"))
     }
