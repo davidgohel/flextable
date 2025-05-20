@@ -152,7 +152,7 @@ if (require("ggplot2")) {
   ft <- color(ft, color = "gray", part = "all")
   gg <- ggplot(data = iris, aes(Sepal.Length, Petal.Width)) +
     annotation_custom(
-      gen_grob(z, scaling = "full"),
+      gen_grob(ft, scaling = "full"),
       xmin  = 4.5, xmax = 7.5, ymin = 0.25, ymax = 2.25) +
     geom_point() +
     theme_minimal()
