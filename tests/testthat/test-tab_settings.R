@@ -12,9 +12,9 @@ test_that("tab_settings works", {
     fp_tab(pos = 1.4, style = "decimal")
   )
 
-  ft <- flextable(z) |>
-    tab_settings(i = 1, j = 2, value = ts) |>
-    width(width = c(1.5, 2))
+  ft <- flextable(z)
+  ft <- tab_settings(ft, i = 1, j = 2, value = ts)
+  ft <- width(ft, width = c(1.5, 2))
 
 
   docx_file <- tempfile(fileext = ".docx")

@@ -120,9 +120,9 @@
 #'
 #' if (require("ggplot2")) {
 #'   png_f_3 <- tempfile(fileext = ".png")
-#'   z <- summarizor(iris, by = "Species") |>
-#'     as_flextable(spread_first_col = TRUE) |>
-#'     color(color = "gray", part = "all")
+#'   z <- summarizor(iris, by = "Species")
+#'   ft <- as_flextable(z, spread_first_col = TRUE)
+#'   ft <- color(ft, color = "gray", part = "all")
 #'   gg <- ggplot(data = iris, aes(Sepal.Length, Petal.Width)) +
 #'     annotation_custom(
 #'       gen_grob(z, scaling = "full"),

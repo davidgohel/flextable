@@ -40,9 +40,9 @@ ts <- fp_tabs(
   fp_tab(pos = 1.4, style = "decimal")
 )
 
-zz <- flextable(z) |>
-  tab_settings(j = 2, value = ts) |>
-  width(width = c(1.5, 2))
+zz <- flextable(z)
+zz <- tab_settings(zz, j = 2, value = ts)
+zz <- width(zz, width = c(1.5, 2))
 
 
 save_as_docx(zz, path = tempfile(fileext = ".docx"))

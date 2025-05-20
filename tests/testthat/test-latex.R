@@ -9,8 +9,8 @@ test_that("white spaces are protected", {
 
 test_that("fonts are defined in latex", {
   gdtools::register_liberationsans()
-  ft <- flextable::flextable(head(cars, n = 1)) |>
-    flextable::font(fontname = "Liberation Sans", part = "body")
+  ft <- flextable::flextable(head(cars, n = 1))
+  ft <- flextable::font(ft, fontname = "Liberation Sans", part = "body")
 
   # R Markdown with pdflatex
   knitr::opts_knit$set("quarto.version" = NULL)

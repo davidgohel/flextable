@@ -58,8 +58,8 @@ test_that("separate_header", {
   ft_1 <- separate_header(x = ft_1,
                           opts = c("span-top", "bottom-vspan")
   )
-  header_txt <- information_data_chunk(ft_1) |>
-    subset(.part %in% "header")
+  header_txt <- information_data_chunk(ft_1)
+  header_txt <- subset(header_txt, .part %in% "header")
   expect_equal(
     object = header_txt$txt,
     expected =

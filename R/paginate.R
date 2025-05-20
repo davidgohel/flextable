@@ -78,8 +78,8 @@
 #' )
 #'
 #' ft_1 <- as_flextable(tab)
-#' ft_1 <- autofit(x = ft_1, add_w = .05) |>
-#'   paginate(group = "cut", group_def = "rle")
+#' ft_1 <- autofit(x = ft_1, add_w = .05)
+#' ft_1 <- paginate(ft_1, group = "cut", group_def = "rle")
 #'
 #' save_as_docx(ft_1, path = tempfile(fileext = ".docx"))
 #' save_as_rtf(ft_1, path = tempfile(fileext = ".rtf"))

@@ -160,8 +160,7 @@ test_that("grouped data structure", {
   init_flextable_defaults()
   set_flextable_defaults(
     post_process_pptx = function(x) {
-      set_table_properties(x, layout = "fixed") |>
-        autofit()
+      autofit(set_table_properties(x, layout = "fixed"))
     }
   )
 
