@@ -58,6 +58,13 @@ caption_default_docx_openxml <- function(x, keep_with_next = FALSE,
   x <- process_caption_fp_par(x, keep_with_next = keep_with_next)
   if (!is.null(x$caption$fp_p)) {
     p_pr <- format(x$caption$fp_p, type = "wml")
+    if (packageVersion("officer") > numeric_version("0.6.8")) {
+      m <- regexpr("w:pstlname=\"[^\"]+\"", p_pr);
+      pstlname <- regmatches(x = p_pr, m)
+      style_name <- gsub("(w:pstlname=)(\")([^\"]+)(\")", "\\3", pstlname)
+      style_id <- gsub("[^a-zA-Z0-9]", "", style_name)
+      p_pr <- gsub(pstlname, sprintf("w:val=\"%s\"", style_id), p_pr, fixed = TRUE)
+    }
   } else {
     cap_style_id <- gsub("[^a-zA-Z0-9]", "", x$caption$word_stylename)
     p_pr <- paste0(
