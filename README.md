@@ -99,10 +99,9 @@ devtools::install_github("davidgohel/flextable")
 ### Getting help / questions
 
 If you have questions about how to use the package, visit Stackoverflow
-and use tags `flextable` and `r` [Stackoverflow
-link](https://stackoverflow.com/questions/tagged/flextable+r). You can
-also use <https://github.com/davidgohel/flextable/discussions> to start
-a discussion.
+and use tags `flextable` and `r`. You can also use
+<https://github.com/davidgohel/flextable/discussions> to start a
+discussion.
 
 ### Bug reports
 
