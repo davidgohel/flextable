@@ -88,6 +88,12 @@ test_that("with word_document", {
 
   doc <- get_docx_xml(docx_file)
 
+  # check no attribute pstlname or tstlname is found
+  node_pstlname <- xml_find_first(doc, "//*[@w:pstlname]")
+  expect_true(inherits(node_pstlname, "xml_missing"))
+  node_pstlname <- xml_find_first(doc, "//*[@w:tstlname]")
+  expect_true(inherits(node_pstlname, "xml_missing"))
+
   caption_node <- xml_find_first(doc,
     xpath = "/w:document/w:body/w:tbl[4]/preceding-sibling::*[1]"
   )

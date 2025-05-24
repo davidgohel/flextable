@@ -1,5 +1,5 @@
 # utils -----
-#' @importFrom officer fp_tab fp_tabs
+#' @importFrom officer fp_tab fp_tabs fp_par_lite
 ooxml_ppr <- function(paragraphs_properties, type = "wml") {
   data_ref_pars <- distinct_paragraphs_properties(paragraphs_properties)
 
@@ -44,7 +44,7 @@ ooxml_ppr <- function(paragraphs_properties, type = "wml") {
     zz[grepl(pattern = "^(border\\.color|border\\.width|border\\.style)", names(zz))] <- NULL
     zz$classname <- NULL
 
-    zz <- do.call(fp_par, zz)
+    zz <- do.call(fp_par_lite, zz)
     format(zz, type = type)
   }, FUN.VALUE = "", USE.NAMES = FALSE)
 

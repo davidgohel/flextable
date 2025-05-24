@@ -1,3 +1,11 @@
+# flextable 0.9.9
+
+## Issues
+
+- fix compatibility issue with rmarkdown::word_document and quarto introduced with
+version `0.9.8`.
+
+
 # flextable 0.9.8
 
 ## Issues
