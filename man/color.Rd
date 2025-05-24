@@ -53,11 +53,6 @@ if (require("scales")) {
     ),
     x
   )
-
-  ft_2 <- flextable(x)
-  ft_2 <- color(ft_2, j = x$colname, color = scale)
-  ft_2 <- set_formatter_type(ft_2)
-  ft_2
 }
 }
 \seealso{

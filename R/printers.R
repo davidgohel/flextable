@@ -1092,43 +1092,6 @@ plot.flextable <- function(x, ...) {
   invisible()
 }
 
-#' @export
-#' @title Transform a flextable into a raster
-#' @description save a flextable as an image and return the corresponding
-#' raster. This function has been implemented to let flextable be printed
-#' on a ggplot object.
-#'
-#' The function is no longer very useful since [gen_grob()] exists and
-#' will be deprecated in a future version.
-#' @note This function requires package 'magick'.
-#' @param x a flextable object
-#' @param ... additional arguments passed to other functions
-#' @importFrom grDevices as.raster
-#' @examples
-#' ft <- qflextable(head(mtcars))
-#' \dontrun{
-#' if (require("ggplot2") && require("magick")) {
-#'   print(qplot(speed, dist, data = cars, geom = "point"))
-#'   grid::grid.raster(as_raster(ft))
-#' }
-#' }
-#' @family flextable print function
-#' @keywords internal
-as_raster <- function(x, ...) {
-  .Deprecated(new = "gen_grob()")
-  if (!requireNamespace("magick", quietly = TRUE)) {
-    stop(sprintf(
-      "'%s' package should be installed to create an image from a flextable.",
-      "magick"
-    ))
-  }
-  path <- tempfile(fileext = ".png")
-  on.exit(unlink(path))
-  save_as_image(x, path, expand = 0)
-  img <- magick::image_read(path = path)
-  as.raster(img, ...)
-}
-
 
 # utils ----
 is_in_bookdown <- function() {

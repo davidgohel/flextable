@@ -5,6 +5,11 @@
 - fix compatibility issue with rmarkdown::word_document and quarto introduced with
 version `0.9.8`.
 
+## Changes
+
+- Defunct previously deprecated functions `as_raster()`, `lollipop()` 
+  and `set_formatter_type()`.
+
 
 # flextable 0.9.8
 

@@ -68,7 +68,6 @@ Other chunk elements for paragraph:
 \code{\link{gg_chunk}()},
 \code{\link{grid_chunk}()},
 \code{\link{linerange}()},
-\code{\link{lollipop}()},
 \code{\link{minibar}()},
 \code{\link{plot_chunk}()}
 }

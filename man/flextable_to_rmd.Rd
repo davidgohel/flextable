@@ -44,7 +44,6 @@ if (pandoc_available() &&
 }
 \seealso{
 Other flextable print function: 
-\code{\link{as_raster}()},
 \code{\link{df_printer}()},
 \code{\link{gen_grob}()},
 \code{\link{htmltools_value}()},

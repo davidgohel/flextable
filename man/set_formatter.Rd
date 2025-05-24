@@ -2,21 +2,9 @@
 % Please edit documentation in R/formatters.R
 \name{set_formatter}
 \alias{set_formatter}
-\alias{set_formatter_type}
 \title{Set column formatter functions}
 \usage{
 set_formatter(x, ..., values = NULL, part = "body")
-
-set_formatter_type(
-  x,
-  fmt_double = "\%.03f",
-  fmt_integer = "\%.0f",
-  fmt_date = "\%Y-\%m-\%d",
-  fmt_datetime = "\%Y-\%m-\%d \%H:\%M:\%S",
-  true = "true",
-  false = "false",
-  na_str = ""
-)
 }
 \arguments{
 \item{x}{a flextable object}
@@ -32,16 +20,6 @@ should be existing col_key values.
 
 \item{part}{part of the table (one of 'body' or 'header' or 'footer')
 where to apply the formatter functions.}
-
-\item{fmt_double, fmt_integer}{arguments used by \code{sprintf} to
-format double and integer columns.}
-
-\item{fmt_date, fmt_datetime}{arguments used by \code{format} to
-format date and date time columns.}
-
-\item{false, true}{string to be used for logical columns}
-
-\item{na_str}{string for NA values}
 }
 \description{
 Apply formatter functions to column keys.
@@ -49,16 +27,6 @@ Apply formatter functions to column keys.
 Functions should have a single argument (the vector) and should
 return the formatted values as a character vector.
 }
-\section{set_formatter_type}{
-
-\code{set_formatter_type} is an helper function to quickly define
-formatter functions regarding to column types.
-
-This function will be deprecated in favor of the \verb{colformat_*} functions,
-for example \code{\link[=colformat_double]{colformat_double()}}. Note that we want to deprecate the
-\code{set_formatter_type()} function, not the \code{set_formatter()} function.
-}
-
 \examples{
 ft <- flextable(head(iris))
 ft <- set_formatter(
@@ -70,16 +38,6 @@ ft <- theme_vanilla(ft)
 ft
 }
 \seealso{
-Other cells formatters: 
-\code{\link{colformat_char}()},
-\code{\link{colformat_date}()},
-\code{\link{colformat_datetime}()},
-\code{\link{colformat_double}()},
-\code{\link{colformat_image}()},
-\code{\link{colformat_int}()},
-\code{\link{colformat_lgl}()},
-\code{\link{colformat_num}()}
-
 Other cells formatters: 
 \code{\link{colformat_char}()},
 \code{\link{colformat_date}()},

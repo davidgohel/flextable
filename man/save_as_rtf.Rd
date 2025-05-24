@@ -56,7 +56,6 @@ save_as_rtf(
 \code{\link[=paginate]{paginate()}}
 
 Other flextable print function: 
-\code{\link{as_raster}()},
 \code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
 \code{\link{gen_grob}()},

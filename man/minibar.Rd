@@ -76,7 +76,6 @@ Other chunk elements for paragraph:
 \code{\link{grid_chunk}()},
 \code{\link{hyperlink_text}()},
 \code{\link{linerange}()},
-\code{\link{lollipop}()},
 \code{\link{plot_chunk}()}
 }
 \concept{chunk elements for paragraph}

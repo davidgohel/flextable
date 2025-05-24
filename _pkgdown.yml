@@ -175,7 +175,6 @@ reference:
     - colorize
     - minibar
     - linerange
-    - lollipop
     - as_bracket
     - hyperlink_text
     - as_equation

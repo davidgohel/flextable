@@ -48,47 +48,6 @@ set_formatter <- function(x, ..., values = NULL, part = "body") {
   x
 }
 
-
-#' @export
-#' @rdname set_formatter
-#' @section set_formatter_type:
-#' `set_formatter_type` is an helper function to quickly define
-#' formatter functions regarding to column types.
-#'
-#' This function will be deprecated in favor of the `colformat_*` functions,
-#' for example [colformat_double()]. Note that we want to deprecate the
-#' `set_formatter_type()` function, not the `set_formatter()` function.
-#' @param fmt_double,fmt_integer arguments used by `sprintf` to
-#' format double and integer columns.
-#' @param fmt_date,fmt_datetime arguments used by `format` to
-#' format date and date time columns.
-#' @param false,true string to be used for logical columns
-#' @param na_str string for NA values
-#' @family cells formatters
-set_formatter_type <- function(x, fmt_double = "%.03f", fmt_integer = "%.0f",
-                               fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
-                               true = "true", false = "false",
-                               na_str = "") {
-  stopifnot(inherits(x, "flextable"))
-
-  .Deprecated(msg = "Use `colformat_*()` instead.")
-
-  col_keys <- x[["body"]]$col_keys
-  for (varname in col_keys) {
-    x <- compose(x = x, j = varname, value = as_paragraph(as_chunk(
-      format_fun(get(varname),
-        na_string = na_str,
-        fmt_double = fmt_double,
-        fmt_integer = fmt_integer,
-        fmt_date = fmt_date,
-        fmt_datetime = fmt_datetime,
-        true = true, false = false
-      )
-    )), part = "body")
-  }
-  x
-}
-
 #' @export
 #' @title Format character cells
 #' @description Format character cells in a flextable.
