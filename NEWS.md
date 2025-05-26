@@ -1,5 +1,10 @@
 # flextable 0.9.9
 
+## new features
+
+- `proc_freq` gains new argument `count_format_fun` to let control the function 
+that format the count values.
+
 ## Issues
 
 - fix compatibility issue with rmarkdown::word_document and quarto introduced with

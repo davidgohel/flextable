@@ -13,6 +13,7 @@ proc_freq(
   include.table_percent = TRUE,
   include.table_count = TRUE,
   weight = character(),
+  count_format_fun = fmt_int,
   ...
 )
 }
@@ -32,6 +33,9 @@ proc_freq(
 \item{include.table_count}{\code{boolean} whether to include the table counts; defaults to \code{TRUE}}
 
 \item{weight}{\code{character} column name for weight}
+
+\item{count_format_fun}{a function to format the count values,
+defaults to \link{fmt_int}.}
 
 \item{...}{unused arguments}
 }

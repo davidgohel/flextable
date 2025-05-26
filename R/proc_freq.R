@@ -131,6 +131,8 @@ relayout_freq_data <- function(x, order_by) {
 #' @param include.table_percent `boolean` whether to include the table percents; defaults to `TRUE`
 #' @param include.table_count `boolean` whether to include the table counts; defaults to `TRUE`
 #' @param weight `character` column name for weight
+#' @param count_format_fun a function to format the count values,
+#' defaults to [fmt_int].
 #' @param ... unused arguments
 #' @importFrom stats as.formula
 #' @examples
@@ -142,7 +144,9 @@ proc_freq <- function(x, row = character(), col = character(),
                       include.column_percent = TRUE,
                       include.table_percent = TRUE,
                       include.table_count = TRUE,
-                      weight = character(), ...) {
+                      weight = character(),
+                      count_format_fun = fmt_int,
+                      ...) {
 
   list_lbls <- collect_labels(dataset = x, use_labels = TRUE)
   for(colname in names(list_lbls$values_labels)) {
@@ -166,7 +170,6 @@ proc_freq <- function(x, row = character(), col = character(),
   }
 
   dat <- fortified_freq(x, row = row, column = col, weight = weight)
-
   if (length(by) > 1) {
     dat <- relayout_freq_data(dat, order_by = by)
     dat <- dat[!(dat[[row]] %in% "Total" & dat[[".what."]] %in% c("mpct")), ]
@@ -205,7 +208,7 @@ proc_freq <- function(x, row = character(), col = character(),
         if (include.table_count & include.table_percent) {
           as_chunk(fmt_n_percent(count, pct))
         } else if (include.table_count) {
-          as_chunk(count, formatter = fmt_int)
+          as_chunk(count, formatter = count_format_fun)
         } else if (include.table_percent) {
           as_chunk(fmt_pct(pct))
         },
