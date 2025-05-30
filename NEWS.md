@@ -14,7 +14,8 @@ version `0.9.8`.
 
 - Defunct previously deprecated functions `as_raster()`, `lollipop()` 
   and `set_formatter_type()`.
-
+- Definitively forbid usage of empty symbol `''` with footnotes. Users should 
+  use `add_footer_lines()` instead.
 
 # flextable 0.9.8
 
