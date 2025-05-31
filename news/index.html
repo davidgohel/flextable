@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,24 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.8" id="flextable-098">flextable 0.9.8<a class="anchor" aria-label="anchor" href="#flextable-098"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.9" id="flextable-099">flextable 0.9.9<a class="anchor" aria-label="anchor" href="#flextable-099"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-9-9">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-9"></a></h3>
+<ul><li>
+<code>proc_freq</code> gains new argument <code>count_format_fun</code> to let control the function that format the count values.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-9-9">Issues<a class="anchor" aria-label="anchor" href="#issues-0-9-9"></a></h3>
+<ul><li>fix compatibility issue with rmarkdown::word_document and quarto introduced with version <code>0.9.8</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-0-9-9">Changes<a class="anchor" aria-label="anchor" href="#changes-0-9-9"></a></h3>
+<ul><li>Defunct previously deprecated functions <code><a href="../reference/as_raster.html">as_raster()</a></code>, <code><a href="../reference/lollipop.html">lollipop()</a></code> and <code><a href="../reference/set_formatter_type.html">set_formatter_type()</a></code>.</li>
+<li>Definitively forbid usage of empty symbol <code>''</code> with footnotes. Users should use <code><a href="../reference/add_footer_lines.html">add_footer_lines()</a></code> instead.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.8" id="flextable-098">flextable 0.9.8<a class="anchor" aria-label="anchor" href="#flextable-098"></a></h2><p class="text-muted">CRAN release: 2025-05-21</p>
 <div class="section level3">
 <h3 id="issues-0-9-8">Issues<a class="anchor" aria-label="anchor" href="#issues-0-9-8"></a></h3>
 <ul><li>
@@ -121,7 +138,7 @@
 <div class="section level3">
 <h3 id="changes-0-9-5">Changes<a class="anchor" aria-label="anchor" href="#changes-0-9-5"></a></h3>
 <ul><li>default <code>tabcolsep</code> is now set to 2.</li>
-<li>Deprecate <code><a href="../reference/set_formatter.html">set_formatter_type()</a></code>.</li>
+<li>Deprecate <code><a href="../reference/set_formatter_type.html">set_formatter_type()</a></code>.</li>
 <li>renovate <code><a href="../reference/fmt_2stats.html">fmt_2stats()</a></code> so that it uses global flextable settings, i.e. digits, etc.</li>
 <li>refactoring of data structure for content</li>
 <li>footer along pages in PDF are now deactivated by default. It can be activated with command <code>set_table_properties(opts_pdf = list(footer_repeat = TRUE))</code>.</li>
@@ -994,7 +1011,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>
