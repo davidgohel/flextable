@@ -1,3 +1,9 @@
+# flextable 0.9.10
+
+## Issues
+
+- fix `format_fun.default` so that it works with logical columns.
+
 # flextable 0.9.9
 
 ## new features

@@ -55,6 +55,12 @@ format_fun.default <-
         nan_str = nan_str,
         prefix = prefix, suffix = suffix
       )
+    } else if (is.logical(x)) {
+      out <- format_fun.logical(x,
+        na_str = na_str,
+        nan_str = nan_str,
+        prefix = prefix, suffix = suffix
+      )
     } else if (is.list(x)) {
       what <- sapply(x, function(x) head(class(x), n = 1))
       out <- sprintf("[[%s]]", what)
