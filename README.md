@@ -96,14 +96,7 @@ devtools::install_github("davidgohel/flextable")
 - Manuals: <https://davidgohel.github.io/flextable/reference/index.html>
 - Gallery of examples: <https://ardata.fr/en/flextable-gallery/>
 
-### Getting help / questions
-
-If you have questions about how to use the package, visit Stackoverflow
-and use tags `flextable` and `r`. You can also use
-<https://github.com/davidgohel/flextable/discussions> to start a
-discussion.
-
-### Bug reports
+## Bug reports
 
 When you file a [bug
 report](https://github.com/davidgohel/flextable/issues), please spend
