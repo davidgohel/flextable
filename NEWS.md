@@ -1,5 +1,10 @@
 # flextable 0.9.10
 
+## new features
+
+- It is now possible to not repeat headers'rows along Word pages
+by using `set_table_properties(opts_word = list(repeat_headers = FALSE))`.
+
 ## Issues
 
 - fix `format_fun.default` so that it works with logical columns.

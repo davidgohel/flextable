@@ -1,6 +1,6 @@
 #' @export
 #' @title Number of rows of a part
-#' @family flextable dimensions
+#' @family functions for flextable size management
 #' @description returns the number of lines in a part of flextable.
 #' @param x flextable object
 #' @param part partname of the table (one of 'body', 'header', 'footer')
@@ -23,7 +23,7 @@ nrow_part <- function(x, part = "body") {
 
 #' @export
 #' @title Number of columns
-#' @family flextable dimensions
+#' @family functions for flextable size management
 #' @description returns the number of columns displayed
 #' @param x flextable object
 #' @examples

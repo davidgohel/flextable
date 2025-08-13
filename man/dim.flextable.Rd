@@ -18,7 +18,7 @@ ftab <- flextable(head(iris))
 dim(ftab)
 }
 \seealso{
-Other flextable dimensions: 
+Other functions for flextable size management: 
 \code{\link{autofit}()},
 \code{\link{dim_pretty}()},
 \code{\link{fit_to_width}()},
@@ -27,7 +27,6 @@ Other flextable dimensions:
 \code{\link{hrule}()},
 \code{\link{ncol_keys}()},
 \code{\link{nrow_part}()},
-\code{\link{set_table_properties}()},
 \code{\link{width}()}
 }
-\concept{flextable dimensions}
+\concept{functions for flextable size management}

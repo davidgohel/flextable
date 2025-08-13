@@ -20,7 +20,7 @@ ft <- qflextable(head(cars))
 nrow_part(ft, part = "body")
 }
 \seealso{
-Other flextable dimensions: 
+Other functions for flextable size management: 
 \code{\link{autofit}()},
 \code{\link{dim.flextable}()},
 \code{\link{dim_pretty}()},
@@ -29,7 +29,6 @@ Other flextable dimensions:
 \code{\link{height}()},
 \code{\link{hrule}()},
 \code{\link{ncol_keys}()},
-\code{\link{set_table_properties}()},
 \code{\link{width}()}
 }
-\concept{flextable dimensions}
+\concept{functions for flextable size management}

@@ -228,7 +228,7 @@ default_fp_text_wml <- function(value) {
 }
 
 
-wml_rows <- function(value, split = FALSE) {
+wml_rows <- function(value, split = FALSE, repeat_headers = TRUE) {
   # prepare cells formatting properties and add span information
   cell_attributes <- information_data_cell(value)
   span_data <- fortify_span(value)
@@ -303,7 +303,9 @@ wml_rows <- function(value, split = FALSE) {
   hrule[hrule %in% "atleast"] <- "atLeast"
 
   header_str <- rep("", nrow(cell_hrule))
-  header_str[cell_hrule$.part %in% "header"] <- "<w:tblHeader/>"
+  if (repeat_headers) {
+    header_str[cell_hrule$.part %in% "header"] <- "<w:tblHeader/>"
+  }
 
   rows <- paste0(
     "<w:tr><w:trPr>",
@@ -371,7 +373,11 @@ gen_raw_wml <- function(x, ...) {
 
   out <- paste0(out, properties_str)
 
-  tab_str <- wml_rows(x, split = x$properties$opts_word$split)
+  tab_str <- wml_rows(
+    value = x,
+    split = x$properties$opts_word$split,
+    repeat_headers = x$properties$opts_word$repeat_headers
+  )
   out <- paste0(out, tab_str, "</w:tbl>")
 
   out

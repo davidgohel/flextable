@@ -14,7 +14,7 @@
 #'
 #' ft_2 <- fit_to_width(ft_1, max_width = 4)
 #' ft_2
-#' @family flextable dimensions
+#' @family functions for flextable size management
 fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in") {
   max_width <- convin(unit = unit, x = max_width)
 
@@ -81,7 +81,7 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in") {
 #' ft <- flextable(head(iris))
 #' ft <- width(ft, width = 1.5)
 #' ft
-#' @family flextable dimensions
+#' @family functions for flextable size management
 width <- function(x, j = NULL, width, unit = "in") {
   width <- convin(unit = unit, x = width)
   j <- get_columns_id(x[["body"]], j)
@@ -115,7 +115,7 @@ width <- function(x, j = NULL, width, unit = "in") {
 #' ft_1 <- height(ft_1, height = .5)
 #' ft_1 <- hrule(ft_1, rule = "exact")
 #' ft_1
-#' @family flextable dimensions
+#' @family functions for flextable size management
 height <- function(x, i = NULL, height, part = "body", unit = "in") {
   height <- convin(unit = unit, x = height)
 
@@ -163,7 +163,7 @@ height <- function(x, i = NULL, height, part = "body", unit = "in") {
 #'
 #' ft_2 <- hrule(ft_1, rule = "auto", part = "header")
 #' ft_2
-#' @family flextable dimensions
+#' @family functions for flextable size management
 hrule <- function(x, i = NULL, rule = "auto", part = "body") {
   part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE)
 
@@ -241,7 +241,7 @@ height_all <- function(x, height, part = "all", unit = "in") {
 #' flextable_dim(ftab)
 #' ftab <- autofit(ftab)
 #' flextable_dim(ftab)
-#' @family flextable dimensions
+#' @family functions for flextable size management
 flextable_dim <- function(x, unit = "in") {
   dims <- lapply(dim(x), function(x) convin(unit = unit, x = sum(x)))
   dims$aspect_ratio <- dims$heights / dims$widths
@@ -253,7 +253,7 @@ flextable_dim <- function(x, unit = "in") {
 #' @description returns widths and heights for each table columns and rows.
 #' Values are expressed in inches.
 #' @param x flextable object
-#' @family flextable dimensions
+#' @family functions for flextable size management
 #' @examples
 #' ftab <- flextable(head(iris))
 #' dim(ftab)
@@ -296,7 +296,7 @@ dim.flextable <- function(x) {
 #' @examples
 #' ftab <- flextable(head(mtcars))
 #' dim_pretty(ftab)
-#' @family flextable dimensions
+#' @family functions for flextable size management
 dim_pretty <- function(x, part = "all", unit = "in", hspans = "none") {
   stopifnot(length(hspans) == 1, hspans %in% c("none", "divided", "included"))
 
@@ -363,7 +363,7 @@ dim_pretty <- function(x, part = "all", unit = "in", hspans = "none") {
 #' ft_1
 #' ft_2 <- autofit(ft_1)
 #' ft_2
-#' @family flextable dimensions
+#' @family functions for flextable size management
 autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"),
                     unit = "in", hspans = "none") {
   add_w <- convin(unit = unit, x = add_w)
