@@ -9,6 +9,12 @@ by using `set_table_properties(opts_word = list(repeat_headers = FALSE))`.
 
 - fix `format_fun.default` so that it works with logical columns.
 
+## Change
+
+- `print.flextable(preview = "log")` use `str()` to show first values of data
+instead of `print()` so that when there are ggplot2 v4 objects in the table, the 
+print is not failing.
+
 # flextable 0.9.9
 
 ## new features

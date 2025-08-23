@@ -427,7 +427,7 @@ knit_to_pml <- function(x) {
 #' @param align left, center (default) or right. Only for docx/html/pdf.
 #' @param ... arguments for 'pdf_document' call when preview is "pdf".
 #' @family flextable print function
-#' @importFrom utils browseURL
+#' @importFrom utils browseURL str
 #' @importFrom rmarkdown render pdf_document
 #' @importFrom officer read_pptx add_slide read_docx
 print.flextable <- function(x, preview = "html", align = "center", ...) {
@@ -439,7 +439,7 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
     cat("header has", nrow(x$header$dataset), "row(s)", "\n")
     cat("body has", nrow(x$body$dataset), "row(s)", "\n")
     cat("original dataset sample:", "\n")
-    print(x$body$dataset[seq_len(min(c(5, nrow(x$body$dataset)))), ])
+    str(x$body$dataset)
   } else if (preview == "html") {
     print(browsable(htmltools_value(x = x, ft.align = align)))
   } else if (preview == "pptx") {
