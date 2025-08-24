@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   overview: overview.html
-last_built: 2025-05-31T08:17Z
+last_built: 2025-08-24T09:36Z
 urls:
   reference: https://davidgohel.github.io/flextable/reference
   article: https://davidgohel.github.io/flextable/articles

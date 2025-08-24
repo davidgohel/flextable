@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.10</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,23 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.9" id="flextable-099">flextable 0.9.9<a class="anchor" aria-label="anchor" href="#flextable-099"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.10" id="flextable-0910">flextable 0.9.10<a class="anchor" aria-label="anchor" href="#flextable-0910"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-9-10">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-10"></a></h3>
+<ul><li>It is now possible to not repeat headers’rows along Word pages by using <code>set_table_properties(opts_word = list(repeat_headers = FALSE))</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-9-10">Issues<a class="anchor" aria-label="anchor" href="#issues-0-9-10"></a></h3>
+<ul><li>fix <code>format_fun.default</code> so that it works with logical columns.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="change-0-9-10">Change<a class="anchor" aria-label="anchor" href="#change-0-9-10"></a></h3>
+<ul><li>
+<code>print.flextable(preview = "log")</code> use <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> to show first values of data instead of <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> so that when there are ggplot2 v4 objects in the table, the print is not failing.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.9" id="flextable-099">flextable 0.9.9<a class="anchor" aria-label="anchor" href="#flextable-099"></a></h2><p class="text-muted">CRAN release: 2025-05-31</p>
 <div class="section level3">
 <h3 id="new-features-0-9-9">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-9"></a></h3>
 <ul><li>
