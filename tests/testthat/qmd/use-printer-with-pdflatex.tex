@@ -65,6 +65,46 @@
 \fi
 \makeatother
 
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
@@ -106,7 +146,6 @@
  
 
 
-\usepackage{fontspec}
 \usepackage{multirow}
 \usepackage{multicol}
 \usepackage{colortbl}
@@ -180,11 +219,60 @@
 \maketitle
 
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(flextable)}
+\CommentTok{\# debugging, as it\textquotesingle{}s impossible to do it interactively with quarto}
+\NormalTok{quarto\_metadata }\OtherTok{\textless{}{-}}\NormalTok{ knitr}\SpecialCharTok{::}\NormalTok{opts\_current}\SpecialCharTok{$}\FunctionTok{get}\NormalTok{()}
+\FunctionTok{saveRDS}\NormalTok{(quarto\_metadata, }\StringTok{"./quarto\_metadata.rds"}\NormalTok{)}
+\NormalTok{rmarkdown\_metadata }\OtherTok{\textless{}{-}}\NormalTok{ rmarkdown}\SpecialCharTok{::}\NormalTok{metadata}
+\FunctionTok{saveRDS}\NormalTok{(rmarkdown\_metadata, }\StringTok{"./rmarkdown\_metadata.rds"}\NormalTok{)}
+\CommentTok{\# pandoc\_args \textless{}{-} knitr::opts\_knit$get("rmarkdown.pandoc.args")}
+\CommentTok{\# saveRDS(pandoc\_args, "./rmarkdown\_pandoc\_args.rds")}
+
+\CommentTok{\# rmarkdown::render("./tests/testthat/qmd/use{-}printer{-}with{-}pdflatex.qmd",}
+\CommentTok{\#                   output\_format = c("pdf\_document"),}
+\CommentTok{\#                   output\_file = "C:/Users/basti/OneDrive/04. BNCL (Post Doc)/Open{-}Source Development/flextable/tests/testthat/qmd/use{-}printer{-}with{-}pdflatex.qmd")}
+
+
+\CommentTok{\# quarto::quarto\_render("./tests/testthat/qmd/use{-}printer{-}with{-}pdflatex.qmd")}
+\end{Highlighting}
+\end{Shaded}
+
 \begin{itemize}
 \tightlist
 \item
   \texttt{flextable} with Equations, see Table~\ref{tbl-flextable}:
 \end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{eqs\_flextable }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+    \StringTok{"(ax\^{}2 + bx + c = 0)"}\NormalTok{,}
+    \StringTok{"a }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{ne 0"}\NormalTok{,}
+    \StringTok{"x = \{{-}b }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{pm }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{sqrt\{b\^{}2{-}4ac\} }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{over 2a\}"}\NormalTok{)}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ tibble}\SpecialCharTok{::}\FunctionTok{tibble}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Y }\SpecialCharTok{\textbackslash{}\textbackslash{}}\AttributeTok{sim W}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ eqs\_flextable)}
+
+
+\NormalTok{ft }\OtherTok{\textless{}{-}} \FunctionTok{flextable}\NormalTok{(df) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{compose}\NormalTok{(}\AttributeTok{j =} \DecValTok{1}\NormalTok{, }\AttributeTok{part =} \StringTok{"header"}\NormalTok{,}
+          \AttributeTok{value =} \FunctionTok{as\_paragraph}\NormalTok{(}\FunctionTok{as\_equation}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Y }\SpecialCharTok{\textbackslash{}\textbackslash{}}\AttributeTok{sim W}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{width =} \DecValTok{2}\NormalTok{, }\AttributeTok{height =}\NormalTok{ .}\DecValTok{5}\NormalTok{)),}
+          \AttributeTok{use\_dot =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{compose}\NormalTok{(}\AttributeTok{j =} \DecValTok{1}\NormalTok{, }\AttributeTok{part =} \StringTok{"body"}\NormalTok{,}
+          \AttributeTok{value =} \FunctionTok{as\_paragraph}\NormalTok{(}\FunctionTok{as\_equation}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Y }\SpecialCharTok{\textbackslash{}\textbackslash{}}\AttributeTok{sim W}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{width =} \DecValTok{2}\NormalTok{, }\AttributeTok{height =}\NormalTok{ .}\DecValTok{5}\NormalTok{))) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{align}\NormalTok{(}\AttributeTok{align =} \StringTok{"center"}\NormalTok{, }\AttributeTok{part =} \StringTok{"all"}\NormalTok{)}
+
+\NormalTok{ft}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning: fonts used in `flextable` are ignored because the `pdflatex` engine is
+used and not `xelatex` or `lualatex`. You can avoid this warning by using the
+`set_flextable_defaults(fonts_ignore=TRUE)` command or use a compatible engine
+by defining `latex_engine: xelatex` in the YAML header of the R Markdown
+document, orlatex-engine: xelatex (or lualatex) in a Quarto document.
+\end{verbatim}
 
 \global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
 
@@ -206,31 +294,31 @@
 
 \ascline{1.5pt}{666666}{1-1}
 
-\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{$Y \sim W$}}}} \\
+\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{$Y \sim W$}}} \\
 
 \ascline{1.5pt}{666666}{1-1}\endfirsthead 
 
 \ascline{1.5pt}{666666}{1-1}
 
-\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{$Y \sim W$}}}} \\
+\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{$Y \sim W$}}} \\
 
 \ascline{1.5pt}{666666}{1-1}\endhead
 
 
 
-\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{$(ax^2 + bx + c = 0)$}}}} \\
+\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{$(ax^2 + bx + c = 0)$}}} \\
 
 
 
 
 
-\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{$a \ne 0$}}}} \\
+\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{$a \ne 0$}}} \\
 
 
 
 
 
-\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$}}}} \\
+\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$}}} \\
 
 \ascline{1.5pt}{666666}{1-1}
 

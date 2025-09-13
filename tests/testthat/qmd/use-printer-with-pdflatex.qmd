@@ -1,18 +1,31 @@
 ---
 title: "Pdflatex not working with flextable"
+engine: knitr
 format:
   pdf: 
     pdf-engine: pdflatex
     keep-tex: true
-execute:
-  echo: false
-  eval: true
 ---
+
 
 ```{r}
 #| label: setup
 
 library(flextable)
+# debugging, as it's impossible to do it interactively with quarto
+quarto_metadata <- knitr::opts_current$get()
+saveRDS(quarto_metadata, "./quarto_metadata.rds")
+rmarkdown_metadata <- rmarkdown::metadata
+saveRDS(rmarkdown_metadata, "./rmarkdown_metadata.rds")
+# pandoc_args <- knitr::opts_knit$get("rmarkdown.pandoc.args")
+# saveRDS(pandoc_args, "./rmarkdown_pandoc_args.rds")
+
+# rmarkdown::render("./tests/testthat/qmd/use-printer-with-pdflatex.qmd",
+#                   output_format = c("pdf_document"),
+#                   output_file = "C:/Users/basti/OneDrive/04. BNCL (Post Doc)/Open-Source Development/flextable/tests/testthat/qmd/use-printer-with-pdflatex.qmd")
+
+
+# quarto::quarto_render("./tests/testthat/qmd/use-printer-with-pdflatex.qmd")
 ```
 
 
@@ -20,6 +33,7 @@ library(flextable)
 
 ```{r}
 #| label: tbl-flextable
+
 
 eqs_flextable <- c(
     "(ax^2 + bx + c = 0)",
