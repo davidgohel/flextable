@@ -222,13 +222,17 @@
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(flextable)}
-\CommentTok{\# debugging, as it\textquotesingle{}s impossible to do it interactively with quarto}
+
+
+\CommentTok{\# different ways to access quarto metadata}
 \NormalTok{quarto\_metadata }\OtherTok{\textless{}{-}}\NormalTok{ knitr}\SpecialCharTok{::}\NormalTok{opts\_current}\SpecialCharTok{$}\FunctionTok{get}\NormalTok{()}
 \FunctionTok{saveRDS}\NormalTok{(quarto\_metadata, }\StringTok{"./quarto\_metadata.rds"}\NormalTok{)}
+\NormalTok{quarto\_metadata\_second\_way }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"QUARTO\_EXECUTE\_INFO"}\NormalTok{)}
+\FunctionTok{saveRDS}\NormalTok{(quarto\_metadata\_second\_way, }\StringTok{"./quarto\_metadata\_second\_way.rds"}\NormalTok{)}
 \NormalTok{rmarkdown\_metadata }\OtherTok{\textless{}{-}}\NormalTok{ rmarkdown}\SpecialCharTok{::}\NormalTok{metadata}
 \FunctionTok{saveRDS}\NormalTok{(rmarkdown\_metadata, }\StringTok{"./rmarkdown\_metadata.rds"}\NormalTok{)}
-\CommentTok{\# pandoc\_args \textless{}{-} knitr::opts\_knit$get("rmarkdown.pandoc.args")}
-\CommentTok{\# saveRDS(pandoc\_args, "./rmarkdown\_pandoc\_args.rds")}
+\NormalTok{rmarkdown\_pandoc\_args }\OtherTok{\textless{}{-}}\NormalTok{ knitr}\SpecialCharTok{::}\NormalTok{opts\_knit}\SpecialCharTok{$}\FunctionTok{get}\NormalTok{(}\StringTok{"rmarkdown.pandoc.args"}\NormalTok{)}
+\FunctionTok{saveRDS}\NormalTok{(rmarkdown\_pandoc\_args, }\StringTok{"./rmarkdown\_pandoc\_args.rds"}\NormalTok{)}
 
 \CommentTok{\# rmarkdown::render("./tests/testthat/qmd/use{-}printer{-}with{-}pdflatex.qmd",}
 \CommentTok{\#                   output\_format = c("pdf\_document"),}

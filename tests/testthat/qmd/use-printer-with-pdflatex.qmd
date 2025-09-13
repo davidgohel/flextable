@@ -12,13 +12,24 @@ format:
 #| label: setup
 
 library(flextable)
-# debugging, as it's impossible to do it interactively with quarto
+
+
+# different ways to access quarto metadata ----
+## Many things listed in quarto_metadata, like default options, but not the current options used in the yaml
 quarto_metadata <- knitr::opts_current$get()
 saveRDS(quarto_metadata, "./quarto_metadata.rds")
+
+## Returns an empty string, maybe not using it properly
+quarto_metadata_second_way <- Sys.getenv("QUARTO_EXECUTE_INFO")
+saveRDS(quarto_metadata_second_way, "./quarto_metadata_second_way.rds")
+
+## This command returns exactly the yaml of the header, great!! :-)
 rmarkdown_metadata <- rmarkdown::metadata
 saveRDS(rmarkdown_metadata, "./rmarkdown_metadata.rds")
-# pandoc_args <- knitr::opts_knit$get("rmarkdown.pandoc.args")
-# saveRDS(pandoc_args, "./rmarkdown_pandoc_args.rds")
+
+## Returns only the output file
+rmarkdown_pandoc_args <- knitr::opts_knit$get("rmarkdown.pandoc.args")
+saveRDS(rmarkdown_pandoc_args, "./rmarkdown_pandoc_args.rds")
 
 # rmarkdown::render("./tests/testthat/qmd/use-printer-with-pdflatex.qmd",
 #                   output_format = c("pdf_document"),
