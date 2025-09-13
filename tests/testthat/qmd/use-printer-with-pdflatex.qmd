@@ -1,0 +1,41 @@
+---
+title: "Pdflatex not working with flextable"
+format:
+  pdf: 
+    pdf-engine: pdflatex
+    keep-tex: true
+execute:
+  echo: false
+  eval: true
+---
+
+```{r}
+#| label: setup
+
+library(flextable)
+```
+
+
+- `flextable` with Equations, see @tbl-flextable:
+
+```{r}
+#| label: tbl-flextable
+
+eqs_flextable <- c(
+    "(ax^2 + bx + c = 0)",
+    "a \\ne 0",
+    "x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}")
+df <- tibble::tibble(`Y \\sim W` = eqs_flextable)
+
+
+ft <- flextable(df) |>
+  compose(j = 1, part = "header",
+          value = as_paragraph(as_equation(`Y \\sim W`, width = 2, height = .5)),
+          use_dot = TRUE) |>
+  compose(j = 1, part = "body",
+          value = as_paragraph(as_equation(`Y \\sim W`, width = 2, height = .5))) |>
+  align(align = "center", part = "all")
+
+ft
+
+```
