@@ -224,13 +224,33 @@
 \FunctionTok{library}\NormalTok{(flextable)}
 
 
-\CommentTok{\# different ways to access quarto metadata}
+\CommentTok{\# different ways to access quarto metadata {-}{-}{-}{-}}
+\DocumentationTok{\#\# Many things listed in quarto\_metadata, like default options, but not the current options used in the yaml}
 \NormalTok{quarto\_metadata }\OtherTok{\textless{}{-}}\NormalTok{ knitr}\SpecialCharTok{::}\NormalTok{opts\_current}\SpecialCharTok{$}\FunctionTok{get}\NormalTok{()}
 \FunctionTok{saveRDS}\NormalTok{(quarto\_metadata, }\StringTok{"./quarto\_metadata.rds"}\NormalTok{)}
-\NormalTok{quarto\_metadata\_second\_way }\OtherTok{\textless{}{-}} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"QUARTO\_EXECUTE\_INFO"}\NormalTok{)}
+
+\DocumentationTok{\#\# Returns an empty string, maybe not using it properly}
+\NormalTok{quarto\_metadata\_second\_way }\OtherTok{\textless{}{-}}\NormalTok{ jsonlite}\SpecialCharTok{::}\FunctionTok{read\_json}\NormalTok{(}
+  \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"QUARTO\_EXECUTE\_INFO"}\NormalTok{))}
+\CommentTok{\# two ways to reach the pdf{-}engine}
+\FunctionTok{all.equal}\NormalTok{(quarto\_metadata\_second\_way}\SpecialCharTok{$}\NormalTok{format}\SpecialCharTok{$}\NormalTok{pandoc}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{pdf{-}engine}\StringTok{\textasciigrave{}}\NormalTok{, }
+\NormalTok{          quarto\_metadata\_second\_way}\SpecialCharTok{$}\NormalTok{format}\SpecialCharTok{$}\NormalTok{metadata}\SpecialCharTok{$}\NormalTok{format}\SpecialCharTok{$}\NormalTok{pdf}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{pdf{-}engine}\StringTok{\textasciigrave{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{saveRDS}\NormalTok{(quarto\_metadata\_second\_way, }\StringTok{"./quarto\_metadata\_second\_way.rds"}\NormalTok{)}
+
+\DocumentationTok{\#\# This command returns exactly the yaml of the header, great!! :{-})}
 \NormalTok{rmarkdown\_metadata }\OtherTok{\textless{}{-}}\NormalTok{ rmarkdown}\SpecialCharTok{::}\NormalTok{metadata}
 \FunctionTok{saveRDS}\NormalTok{(rmarkdown\_metadata, }\StringTok{"./rmarkdown\_metadata.rds"}\NormalTok{)}
+
+\DocumentationTok{\#\# Returns only the output file}
 \NormalTok{rmarkdown\_pandoc\_args }\OtherTok{\textless{}{-}}\NormalTok{ knitr}\SpecialCharTok{::}\NormalTok{opts\_knit}\SpecialCharTok{$}\FunctionTok{get}\NormalTok{(}\StringTok{"rmarkdown.pandoc.args"}\NormalTok{)}
 \FunctionTok{saveRDS}\NormalTok{(rmarkdown\_pandoc\_args, }\StringTok{"./rmarkdown\_pandoc\_args.rds"}\NormalTok{)}
 

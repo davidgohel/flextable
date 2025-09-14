@@ -566,6 +566,8 @@ merge_table_properties <- function(x) {
 }
 
 #' @importFrom utils compareVersion packageVersion
+#' @importFrom quarto quarto_version
+#' @importFrom jsonlite read_json
 get_pdf_engine <- function() {
   if (
     compareVersion(as.character(packageVersion("rmarkdown")), "1.10.14") < 0
@@ -578,8 +580,19 @@ get_pdf_engine <- function() {
   if (length(rd)) {
     engine <- pandoc_args[rd + 1]
   } else if (is_in_quarto()) {
-    # retrieve pdf engine if available
-    engine <- rmarkdown::metadata$format$pdf$`pdf-engine`
+    quarto_v <- quarto::quarto_version()
+    if (quarto_v >= "1.8.0") {
+      # Modern and recommended way to retrieve metadata, from https://github.com/quarto-dev/quarto-cli/discussions/13371
+      quarto_metadata <- jsonlite::read_json(
+        Sys.getenv("QUARTO_EXECUTE_INFO")
+      )
+      # engine <- quarto_metadata$format$pandoc$`pdf-engine` -> this field is never empty
+      engine <- quarto_metadata$format$metadata$format$pdf$`pdf-engine` # this field has a value only if the yaml key is completed
+    } else {
+      # the good old trick of calling metadata
+      quarto_metadata <- rmarkdown::metadata
+      engine <- quarto_metadata$format$pdf$`pdf-engine`
+    }
     if (is.null(engine) || engine == "") {
       engine <- "xelatex"
     }

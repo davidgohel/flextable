@@ -3,7 +3,7 @@ title: "Pdflatex not working with flextable"
 engine: knitr
 format:
   pdf: 
-    pdf-engine: pdflatex
+    pdf-engine: pdflatex # tectonic, latexmk, xelatex, lualatex
     keep-tex: true
 ---
 
@@ -19,8 +19,12 @@ library(flextable)
 quarto_metadata <- knitr::opts_current$get()
 saveRDS(quarto_metadata, "./quarto_metadata.rds")
 
-## Returns an empty string, maybe not using it properly
-quarto_metadata_second_way <- Sys.getenv("QUARTO_EXECUTE_INFO")
+## Only works for quarto version beyond 1.8, but lots of nice execution operations
+quarto_metadata_second_way <- jsonlite::read_json(
+  Sys.getenv("QUARTO_EXECUTE_INFO"))
+# two ways to reach the pdf-engine
+all.equal(quarto_metadata_second_way$format$pandoc$`pdf-engine`, 
+          quarto_metadata_second_way$format$metadata$format$pdf$`pdf-engine`)
 saveRDS(quarto_metadata_second_way, "./quarto_metadata_second_way.rds")
 
 ## This command returns exactly the yaml of the header, great!! :-)
@@ -31,11 +35,10 @@ saveRDS(rmarkdown_metadata, "./rmarkdown_metadata.rds")
 rmarkdown_pandoc_args <- knitr::opts_knit$get("rmarkdown.pandoc.args")
 saveRDS(rmarkdown_pandoc_args, "./rmarkdown_pandoc_args.rds")
 
+## programamtic ways to run qmd, or Rmd scripts ----
 # rmarkdown::render("./tests/testthat/qmd/use-printer-with-pdflatex.qmd",
 #                   output_format = c("pdf_document"),
 #                   output_file = "C:/Users/basti/OneDrive/04. BNCL (Post Doc)/Open-Source Development/flextable/tests/testthat/qmd/use-printer-with-pdflatex.qmd")
-
-
 # quarto::quarto_render("./tests/testthat/qmd/use-printer-with-pdflatex.qmd")
 ```
 
