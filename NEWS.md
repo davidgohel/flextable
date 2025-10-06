@@ -6,6 +6,11 @@
 `m_str_extents()` and `str_metrics()`, goal is to let 'gdtools' use only 'systemfonts'
 and be simplified.
 
+## Issues
+
+- images in google docs should now be sized as expected
+
+
 # flextable 0.9.10
 
 ## new features
