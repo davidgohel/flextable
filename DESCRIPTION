@@ -1,7 +1,7 @@
 Type: Package
 Package: flextable
 Title: Functions for Tabular Reporting
-Version: 0.9.10
+Version: 0.9.11.001
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -37,13 +37,13 @@ URL: https://ardata-fr.github.io/flextable-book/,
 BugReports: https://github.com/davidgohel/flextable/issues
 Imports:
     data.table (>= 1.13.0),
-    gdtools (>= 0.4.0),
+    gdtools (>= 0.4.4),
     graphics,
     grDevices,
     grid,
     htmltools,
     knitr,
-    officer (>= 0.6.10),
+    officer (>= 0.7.0),
     ragg,
     rlang,
     rmarkdown (>= 2.0),
@@ -80,4 +80,4 @@ VignetteBuilder:
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3

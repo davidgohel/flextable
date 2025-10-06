@@ -402,7 +402,7 @@ autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"),
 
 
 
-#' @importFrom gdtools m_str_extents
+#' @importFrom gdtools strings_sizes
 optimal_sizes <- function(x, hspans = "none") {
   sizes <- text_metric(x)
 
@@ -520,13 +520,16 @@ text_metric <- function(x) {
   not_baseline <- !(txt_data$vertical.align %in% "baseline")
   fontsize[not_baseline] <- fontsize[not_baseline] / 2
 
-  extents_values <- m_str_extents(
+  extents_values <- strings_sizes(
     txt_data$txt,
     fontname = txt_data$font.family,
     fontsize = fontsize,
     bold = txt_data$bold,
     italic = txt_data$italic
-  ) / 72
+  )
+  extents_values[,2] <- extents_values[,2] + extents_values[,3]
+  extents_values[[3]] <- NULL
+  colnames(extents_values) <- c("width", "height")
 
   extents_values[, 1] <- ifelse(
     is.na(extents_values[, 1]) & !is.null(widths),
@@ -536,7 +539,6 @@ text_metric <- function(x) {
     is.na(extents_values[, 2]) & !is.null(heights),
     heights, extents_values[, 2]
   )
-  dimnames(extents_values) <- list(NULL, c("width", "height"))
 
   txt_data <- cbind(txt_data, extents_values)
 

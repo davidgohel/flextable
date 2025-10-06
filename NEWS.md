@@ -1,3 +1,11 @@
+# flextable 0.9.11
+
+## Internals
+
+- Strings metrics are now computed with `gdtools::strings_sizes()` instead of 
+`m_str_extents()` and `str_metrics()`, goal is to let 'gdtools' use only 'systemfonts'
+and be simplified.
+
 # flextable 0.9.10
 
 ## new features
