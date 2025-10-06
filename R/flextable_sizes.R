@@ -527,17 +527,18 @@ text_metric <- function(x) {
     bold = txt_data$bold,
     italic = txt_data$italic
   )
-  extents_values[,2] <- extents_values[,2] + extents_values[,3]
-  extents_values[[3]] <- NULL
+  extents_values$height <- extents_values$ascent + extents_values$descent
+  extents_values$ascent <- NULL
+  extents_values$descent <- NULL
   colnames(extents_values) <- c("width", "height")
 
-  extents_values[, 1] <- ifelse(
-    is.na(extents_values[, 1]) & !is.null(widths),
-    widths, extents_values[, 1]
+  extents_values$width <- ifelse(
+    is.na(extents_values$width) & !is.null(widths),
+    widths, extents_values$width
   )
-  extents_values[, 2] <- ifelse(
-    is.na(extents_values[, 2]) & !is.null(heights),
-    heights, extents_values[, 2]
+  extents_values$height <- ifelse(
+    is.na(extents_values$height) & !is.null(heights),
+    heights, extents_values$height
   )
 
   txt_data <- cbind(txt_data, extents_values)
