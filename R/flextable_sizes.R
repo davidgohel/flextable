@@ -520,7 +520,7 @@ text_metric <- function(x) {
   not_baseline <- !(txt_data$vertical.align %in% "baseline")
   fontsize[not_baseline] <- fontsize[not_baseline] / 2
 
-  extents_values <- strings_sizes(
+  extents_values <- strings_sizes_tmp(
     txt_data$txt,
     fontname = txt_data$font.family,
     fontsize = fontsize,
@@ -533,12 +533,14 @@ text_metric <- function(x) {
   colnames(extents_values) <- c("width", "height")
 
   extents_values$width <- ifelse(
-    is.na(extents_values$width) & !is.null(widths),
-    widths, extents_values$width
+    !is.na(widths),
+    widths,
+    extents_values$width
   )
   extents_values$height <- ifelse(
-    is.na(extents_values$height) & !is.null(heights),
-    heights, extents_values$height
+    !is.na(heights),
+    heights,
+    extents_values$height
   )
 
   txt_data <- cbind(txt_data, extents_values)
@@ -557,3 +559,19 @@ text_metric <- function(x) {
   setDF(txt_data)
   txt_data
 }
+
+strings_sizes_tmp <- function(...) {
+
+  if (is.null(dev.list())) {
+    file <- tempfile(fileext = ".png")
+    agg_png(width = 50, height = 50, filename = file, units = "in")
+    on.exit({
+      dev.off()
+      unlink(file, force = TRUE)
+    })
+  }
+  strings_sizes(...)
+}
+
+
+
