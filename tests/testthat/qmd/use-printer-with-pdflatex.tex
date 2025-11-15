@@ -229,7 +229,7 @@
 \NormalTok{quarto\_metadata }\OtherTok{\textless{}{-}}\NormalTok{ knitr}\SpecialCharTok{::}\NormalTok{opts\_current}\SpecialCharTok{$}\FunctionTok{get}\NormalTok{()}
 \FunctionTok{saveRDS}\NormalTok{(quarto\_metadata, }\StringTok{"./quarto\_metadata.rds"}\NormalTok{)}
 
-\DocumentationTok{\#\# Returns an empty string, maybe not using it properly}
+\DocumentationTok{\#\# Only works for quarto version beyond 1.8, but lots of nice execution operations}
 \NormalTok{quarto\_metadata\_second\_way }\OtherTok{\textless{}{-}}\NormalTok{ jsonlite}\SpecialCharTok{::}\FunctionTok{read\_json}\NormalTok{(}
   \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"QUARTO\_EXECUTE\_INFO"}\NormalTok{))}
 \CommentTok{\# two ways to reach the pdf{-}engine}
@@ -254,11 +254,10 @@
 \NormalTok{rmarkdown\_pandoc\_args }\OtherTok{\textless{}{-}}\NormalTok{ knitr}\SpecialCharTok{::}\NormalTok{opts\_knit}\SpecialCharTok{$}\FunctionTok{get}\NormalTok{(}\StringTok{"rmarkdown.pandoc.args"}\NormalTok{)}
 \FunctionTok{saveRDS}\NormalTok{(rmarkdown\_pandoc\_args, }\StringTok{"./rmarkdown\_pandoc\_args.rds"}\NormalTok{)}
 
+\DocumentationTok{\#\# programamtic ways to run qmd, or Rmd scripts {-}{-}{-}{-}}
 \CommentTok{\# rmarkdown::render("./tests/testthat/qmd/use{-}printer{-}with{-}pdflatex.qmd",}
 \CommentTok{\#                   output\_format = c("pdf\_document"),}
 \CommentTok{\#                   output\_file = "C:/Users/basti/OneDrive/04. BNCL (Post Doc)/Open{-}Source Development/flextable/tests/testthat/qmd/use{-}printer{-}with{-}pdflatex.qmd")}
-
-
 \CommentTok{\# quarto::quarto\_render("./tests/testthat/qmd/use{-}printer{-}with{-}pdflatex.qmd")}
 \end{Highlighting}
 \end{Shaded}
@@ -295,7 +294,7 @@ Warning: fonts used in `flextable` are ignored because the `pdflatex` engine is
 used and not `xelatex` or `lualatex`. You can avoid this warning by using the
 `set_flextable_defaults(fonts_ignore=TRUE)` command or use a compatible engine
 by defining `latex_engine: xelatex` in the YAML header of the R Markdown
-document, orlatex-engine: xelatex (or lualatex) in a Quarto document.
+document.
 \end{verbatim}
 
 \global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
