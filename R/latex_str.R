@@ -26,11 +26,9 @@ list_latex_dep <- function(float = FALSE, wrapfig = FALSE) {
     return(list())
   }
 
-  is_quarto <- is_in_quarto()
-
   fonts_ignore <- flextable_global$defaults$fonts_ignore
   fontspec_compat <- get_pdf_engine() %in% c("xelatex", "lualatex")
-  if (!is_quarto && !fonts_ignore && !fontspec_compat) {
+  if (!fonts_ignore && !fontspec_compat) {
     warning("fonts used in `flextable` are ignored because ",
       "the `pdflatex` engine is used and not `xelatex` or ",
       "`lualatex`. You can avoid this warning by using the ",
@@ -43,7 +41,7 @@ list_latex_dep <- function(float = FALSE, wrapfig = FALSE) {
 
   x <- list()
 
-  if (fontspec_compat || is_quarto) {
+  if (fontspec_compat) {
     x$fontspec <- latex_dependency("fontspec")
   }
   x$multirow <- latex_dependency("multirow")
@@ -433,11 +431,24 @@ get_pdf_engine <- function() {
   if (length(rd)) {
     engine <- pandoc_args[rd + 1]
   } else if (is_in_quarto()) {
-    engine <- rmarkdown::metadata$`pdf-engine`
+    quarto_v <- quarto::quarto_version()
+    if (quarto_v >= "1.8.0") {
+      # Modern and recommended way to retrieve metadata, from https://github.com/quarto-dev/quarto-cli/discussions/13371
+      quarto_metadata <- jsonlite::read_json(
+        Sys.getenv("QUARTO_EXECUTE_INFO")
+      )
+      # engine <- quarto_metadata$format$pandoc$`pdf-engine` -> this field is never empty
+      engine <- quarto_metadata$format$metadata$format$pdf$`pdf-engine` # this field has a value only if the yaml key `pdf-engine` is explicitly mentionned
+    } else {
+      # Old trick for calling metadata, only works if the rendering engine is knitr (and not jupyter)
+      quarto_metadata <- rmarkdown::metadata
+      engine <- quarto_metadata$format$pdf$`pdf-engine`
+    }
     if (is.null(engine) || engine == "") {
       engine <- "xelatex"
     }
   } else {
+    # Default pdf-engine for RMarkdown
     engine <- "pdflatex"
   }
   engine
