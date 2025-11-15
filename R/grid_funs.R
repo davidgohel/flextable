@@ -932,7 +932,7 @@ calc_grid_rotated_just <- function(just, angle) {
   )
 }
 
-#' @importFrom gdtools str_metrics
+#' @importFrom gdtools strings_sizes
 calc_grid_text_metrics <- function(dat) {
   # avoid CMD check warnings
   is_text <- is_newline <- is_space <- is_superscript <- is_subscript <- NULL
@@ -945,16 +945,13 @@ calc_grid_text_metrics <- function(dat) {
   dat[(is_newline), "txt" := "."]
 
   # calculate string metrics
-  txt_metrics <- mapply(
-    str_metrics,
+  txt_metrics <- strings_sizes_tmp(
     dat$txt,
     fontname = dat$font.family,
     fontsize = dat$font.size,
     bold = dat$bold,
-    italic = dat$italic,
-    USE.NAMES = FALSE
-  ) / 72
-  txt_metrics <- t(txt_metrics)
+    italic = dat$italic
+  )
   colnames(txt_metrics) <- c("part_width", "part_ascent", "part_descent")
   dat <- cbind(dat, txt_metrics)
 

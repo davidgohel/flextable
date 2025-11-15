@@ -306,7 +306,7 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' ft <- set_table_properties(ft, layout = "autofit", width = .6)
 #' ft <- set_header_labels(ft, box = "boxplot", density = "density")
 #' theme_vanilla(ft)
-#' @importFrom grDevices dev.off
+#' @importFrom grDevices dev.off dev.list
 #' @importFrom graphics boxplot
 #' @importFrom stats density
 plot_chunk <- function(value, width = 1, height = .2,

@@ -93,7 +93,7 @@ wml_image <- function(src, width, height) {
     sprintf("<a:blip r:embed=\"%s\"/>", src),
     "<a:srcRect/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>",
     "<pic:spPr bwMode=\"auto\"><a:xfrm><a:off x=\"0\" y=\"0\"/>",
-    sprintf("<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>", width * 12700, height * 12700),
+    sprintf("<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>", width * 12700 * 72, height * 12700 * 72),
     "</pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
   )
   str
