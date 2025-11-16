@@ -42,7 +42,10 @@ cast_borders <- function(value) {
 
   z <- mapply(function(name, fp_b) {
     x <- unclass(fp_b)
-    names(x) <- paste("border", names(x), name, sep = ".")
+    if (is.null(x)) {
+      x <- list(width = NA_integer_, color = NA_character_, style = NA_character_)
+    }
+    names(x) <- paste("border", c("width", "color", "style"), name, sep = ".")
     x
   }, borders_side, value[borders_id], SIMPLIFY = FALSE, USE.NAMES = FALSE)
   z <- Reduce(f = append, z)

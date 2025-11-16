@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{style}
 \alias{style}
-\title{Set flextable style}
+\title{Set flextable default styles}
 \usage{
 style(
   x,
@@ -21,19 +21,21 @@ style(
 
 \item{j}{columns selection}
 
-\item{pr_t}{object(s) of class \code{fp_text}}
+\item{pr_t}{object(s) of class \code{fp_text}, result of \code{\link[officer:fp_text]{officer::fp_text()}}
+or \code{\link[officer:fp_text]{officer::fp_text_lite()}}}
 
-\item{pr_p}{object(s) of class \code{fp_par}}
+\item{pr_p}{object(s) of class \code{fp_par}, result of \code{\link[officer:fp_par]{officer::fp_par()}}
+or \code{\link[officer:fp_par]{officer::fp_par_lite()}}}
 
-\item{pr_c}{object(s) of class \code{fp_cell}}
+\item{pr_c}{object(s) of class \code{fp_cell}, result of \code{\link[officer:fp_cell]{officer::fp_cell()}}}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header' or 'footer')}
 }
 \description{
-Modify flextable text, paragraphs and cells formatting properties.
-It allows to specify a set of formatting properties for a selection instead
-of using multiple functions (.i.e \code{bold}, \code{italic}, \code{bg}) that
-should all be applied to the same selection of rows and columns.
+Modify flextable text, paragraph, and cell default formatting
+properties. This allows you to specify a set of formatting properties for a
+selection instead of using multiple functions (e.g., \code{bold}, \code{italic}, \code{bg})
+that must all be applied to the same selection of rows and columns.
 }
 \examples{
 library(officer)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{line_spacing}
 \alias{line_spacing}
-\title{Set text alignment}
+\title{Set line spacing}
 \usage{
 line_spacing(x, i = NULL, j = NULL, space = 1, part = "body")
 }
@@ -13,12 +13,12 @@ line_spacing(x, i = NULL, j = NULL, space = 1, part = "body")
 
 \item{j}{columns selection}
 
-\item{space}{space between lines of text, 1 is single line spacing, 2 is double line spacing.}
+\item{space}{space between lines of text; 1 is single line spacing, 2 is double line spacing.}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
-change text alignment of selected rows and columns of a flextable.
+Change the line spacing of selected rows and columns of a flextable.
 }
 \examples{
 ft <- flextable(head(mtcars)[, 3:6])

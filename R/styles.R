@@ -1,15 +1,17 @@
 #' @export
-#' @title Set flextable style
-#' @description Modify flextable text, paragraphs and cells formatting properties.
-#' It allows to specify a set of formatting properties for a selection instead
-#' of using multiple functions (.i.e `bold`, `italic`, `bg`) that
-#' should all be applied to the same selection of rows and columns.
+#' @title Set flextable default styles
+#' @description Modify flextable text, paragraph, and cell default formatting
+#' properties. This allows you to specify a set of formatting properties for a
+#' selection instead of using multiple functions (e.g., `bold`, `italic`, `bg`)
+#' that must all be applied to the same selection of rows and columns.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
-#' @param pr_t object(s) of class `fp_text`
-#' @param pr_p object(s) of class `fp_par`
-#' @param pr_c object(s) of class `fp_cell`
+#' @param pr_t object(s) of class `fp_text`, result of [officer::fp_text()]
+#' or [officer::fp_text_lite()]
+#' @param pr_p object(s) of class `fp_par`, result of [officer::fp_par()]
+#' or [officer::fp_par_lite()]
+#' @param pr_c object(s) of class `fp_cell`, result of [officer::fp_cell()]
 #' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
 #' @importFrom stats terms
 #' @examples
@@ -26,13 +28,23 @@
 #' )
 #'
 #' ft
-style <- function(x, i = NULL, j = NULL,
-                  pr_t = NULL, pr_p = NULL, pr_c = NULL, part = "body") {
+style <- function(
+    x,
+    i = NULL,
+    j = NULL,
+    pr_t = NULL,
+    pr_p = NULL,
+    pr_c = NULL,
+    part = "body") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "style()"))
   }
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     args <- list()
@@ -59,18 +71,27 @@ style <- function(x, i = NULL, j = NULL,
 
   if (!is.null(pr_t)) {
     x[[part]]$styles$text <- set_text_struct_values(
-      x = x[[part]]$styles$text, i = i, j = j,
+      x = x[[part]]$styles$text,
+      i = i,
+      j = j,
       value = pr_t
     )
   }
 
   if (!is.null(pr_p)) {
-    x[[part]]$styles$pars <- set_par_struct_values(
-      x = x[[part]]$styles$pars,
-      i = i,
-      j = j,
-      value = pr_p
-    )
+    if (
+      !is.null(pr_p$tabs) && !isFALSE(pr_p$tabs) && !is.character(pr_p$tabs)
+    ) {
+      pr_p$tabs <- as.character(pr_p$tabs)
+    } else {
+      pr_p$tabs <- NULL
+    }
+
+    for (property in intersect(names(pr_p), names(x[[part]]$styles$pars))) {
+      if (!is.null(pr_p[[property]]) && !is.na(pr_p[[property]])) {
+        x[[part]]$styles$pars[[property]]$data[i, j] <- pr_p[[property]]
+      }
+    }
   }
 
   if (!is.null(pr_c)) {
@@ -88,7 +109,7 @@ style <- function(x, i = NULL, j = NULL,
 
 #' @export
 #' @title Set bold font
-#' @description change font weight of selected rows and columns of a flextable.
+#' @description Change the font weight of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
@@ -103,7 +124,11 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body") {
     stop(sprintf("Function `%s` supports only flextable objects.", "bold()"))
   }
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -125,8 +150,11 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body") {
   }
 
   x[[part]]$styles$text <- set_text_struct_values(
-    x = x[[part]]$styles$text, i = i, j = j,
-    property = "bold", value = bold
+    x = x[[part]]$styles$text,
+    i = i,
+    j = j,
+    property = "bold",
+    value = bold
   )
 
   x
@@ -134,7 +162,7 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body") {
 
 #' @export
 #' @title Set font size
-#' @description change font size of selected rows and columns of a flextable.
+#' @description Change the font size of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
@@ -149,9 +177,16 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body") {
 #' ft
 fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "fontsize()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "fontsize()"
+    ))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -168,8 +203,11 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body") {
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
   x[[part]]$styles$text <- set_text_struct_values(
-    x = x[[part]]$styles$text, i = i, j = j,
-    property = "font.size", value = size
+    x = x[[part]]$styles$text,
+    i = i,
+    j = j,
+    property = "font.size",
+    value = size
   )
 
   x
@@ -177,7 +215,7 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body") {
 
 #' @export
 #' @title Set italic font
-#' @description change font decoration of selected rows and columns of a flextable.
+#' @description Change the font decoration of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
@@ -192,7 +230,11 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
     stop(sprintf("Function `%s` supports only flextable objects.", "italic()"))
   }
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -214,8 +256,11 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
   }
 
   x[[part]]$styles$text <- set_text_struct_values(
-    x = x[[part]]$styles$text, i = i, j = j,
-    property = "italic", value = italic
+    x = x[[part]]$styles$text,
+    i = i,
+    j = j,
+    property = "italic",
+    value = italic
   )
 
   x
@@ -223,25 +268,25 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
 
 #' @export
 #' @title Text highlight color
-#' @description Change text highlight color of selected rows and
+#' @description Change the text highlight color of selected rows and
 #' columns of a flextable. A function can be used instead of
 #' fixed colors.
 #'
 #' When `color` is a function, it is possible to color cells based on values
-#' located in other columns, using hidden columns (those not used by
+#' located in other columns; using hidden columns (those not used by
 #' argument `colkeys`) is a common use case. The argument `source`
-#' has to be used to define what are the columns to be used for the color
-#' definition and the argument `j` has to be used to define where to apply
-#' the colors and only accept values from `colkeys`.
+#' must be used to define the columns to be used for the color
+#' definition, and the argument `j` must be used to define where to apply
+#' the colors and only accepts values from `colkeys`.
 
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param color color to use as text highlighting color.
-#' If a function, function need to return a character vector of colors.
-#' @param source if color is a function, source is specifying the dataset column to be used
-#' as argument to `color`. This is only useful if j is colored with values contained in
+#' If a function, the function must return a character vector of colors.
+#' @param source if color is a function, source specifies the dataset column to be used
+#' as an argument to `color`. This is only useful when j is colored with values contained in
 #' other columns.
 #' @family sugar functions for table style
 #' @examples
@@ -256,12 +301,25 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
 #' ft <- highlight(ft, j = "disp", i = ~ disp > 200, color = "yellow")
 #' ft <- highlight(ft, j = ~ drat + wt + qsec, color = my_color_fun)
 #' ft
-highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", source = j) {
+highlight <- function(
+    x,
+    i = NULL,
+    j = NULL,
+    color = "yellow",
+    part = "body",
+    source = j) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "highlight()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "highlight()"
+    ))
   }
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -291,8 +349,11 @@ highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", so
   }
 
   x[[part]]$styles$text <- set_text_struct_values(
-    x = x[[part]]$styles$text, i = i, j = j,
-    property = "shading.color", value = color
+    x = x[[part]]$styles$text,
+    i = i,
+    j = j,
+    property = "shading.color",
+    value = color
   )
 
   x
@@ -300,25 +361,25 @@ highlight <- function(x, i = NULL, j = NULL, color = "yellow", part = "body", so
 
 #' @export
 #' @title Set font color
-#' @description Change text color of selected rows and
+#' @description Change the text color of selected rows and
 #' columns of a flextable. A function can be used instead of
 #' fixed colors.
 #'
 #' When `color` is a function, it is possible to color cells based on values
-#' located in other columns, using hidden columns (those not used by
+#' located in other columns; using hidden columns (those not used by
 #' argument `colkeys`) is a common use case. The argument `source`
-#' has to be used to define what are the columns to be used for the color
-#' definition and the argument `j` has to be used to define where to apply
-#' the colors and only accept values from `colkeys`.
+#' must be used to define the columns to be used for the color
+#' definition, and the argument `j` must be used to define where to apply
+#' the colors and only accepts values from `colkeys`.
 #'
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param color color to use as font color. If a function, function need to return
+#' @param color color to use as font color. If a function, the function must return
 #' a character vector of colors.
-#' @param source if color is a function, source is specifying the dataset column to be used
-#' as argument to `color`. This is only useful if j is colored with values contained in
+#' @param source if color is a function, source specifies the dataset column to be used
+#' as an argument to `color`. This is only useful when j is colored with values contained in
 #' other columns.
 #' @family sugar functions for table style
 #' @examples
@@ -346,7 +407,11 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
     stop(sprintf("Function `%s` supports only flextable objects.", "color()"))
   }
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -376,8 +441,11 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
   }
 
   x[[part]]$styles$text <- set_text_struct_values(
-    x = x[[part]]$styles$text, i = i, j = j,
-    property = "color", value = color
+    x = x[[part]]$styles$text,
+    i = i,
+    j = j,
+    property = "color",
+    value = color
   )
 
   x
@@ -385,15 +453,15 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
 
 #' @export
 #' @title Set font
-#' @description Change font of selected rows and columns of a flextable.
+#' @description Change the font of selected rows and columns of a flextable.
 #'
 #' Fonts impact the readability and aesthetics of the table. Font families
 #' refer to a set of typefaces that share common design features, such as 'Arial'
 #' and 'Open Sans'.
 #'
 #' 'Google Fonts' is a popular library of free web fonts that can be
-#' easily integrated in flextable with function [gdtools::register_gfont()].
-#' When output is HTML, the font will be automatically added in the HTML
+#' easily integrated into flextable with the [gdtools::register_gfont()] function.
+#' When the output is HTML, the font will be automatically added to the HTML
 #' document.
 #'
 #' @param x a flextable object
@@ -401,22 +469,22 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param fontname single character value, the font family name.
-#' With Word and PowerPoint output, the value specifies the font to
-#' be used to format characters in the Unicode range (U+0000-U+007F).
-#' @param cs.family Optional font to be used to format
+#' With Word and PowerPoint output, this value specifies the font to
+#' be used for formatting characters in the Unicode range (U+0000-U+007F).
+#' @param cs.family Optional font to be used for formatting
 #' characters in a complex script Unicode range. For example, Arabic
 #' text might be displayed using the "Arial Unicode MS" font.
-#' Used only with Word and PowerPoint outputs. Its default value is the value
+#' Used only with Word and PowerPoint outputs. The default value is the value
 #' of `fontname`.
-#' @param eastasia.family optional font to be used to
-#' format characters in an East Asian Unicode range. For example,
+#' @param eastasia.family Optional font to be used for
+#' formatting characters in an East Asian Unicode range. For example,
 #' Japanese text might be displayed using the "MS Mincho" font.
-#' Used only with Word and PowerPoint outputs. Its default value is the value
+#' Used only with Word and PowerPoint outputs. The default value is the value
 #' of `fontname`.
-#' @param hansi.family optional. Specifies the font to be used to format
-#' characters in a Unicode range which does not fall into one of the
+#' @param hansi.family Optional font to be used for formatting
+#' characters in a Unicode range that does not fall into one of the
 #' other categories.
-#' Used only with Word and PowerPoint outputs. Its default value is the value
+#' Used only with Word and PowerPoint outputs. The default value is the value
 #' of `fontname`.
 #' @family sugar functions for table style
 #' @examples
@@ -429,12 +497,24 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
 #'   ft_2 <- font(ft_2, fontname = fontname, j = 5)
 #'   ft_2
 #' }
-font <- function(x, i = NULL, j = NULL, fontname, part = "body", cs.family = fontname, hansi.family = fontname, eastasia.family = fontname) {
+font <- function(
+    x,
+    i = NULL,
+    j = NULL,
+    fontname,
+    part = "body",
+    cs.family = fontname,
+    hansi.family = fontname,
+    eastasia.family = fontname) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "font()"))
   }
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -465,20 +545,32 @@ font <- function(x, i = NULL, j = NULL, fontname, part = "body", cs.family = fon
   }
 
   x[[part]]$styles$text <- set_text_struct_values(
-    x = x[[part]]$styles$text, i = i, j = j,
-    property = "font.family", value = fontname
+    x = x[[part]]$styles$text,
+    i = i,
+    j = j,
+    property = "font.family",
+    value = fontname
   )
   x[[part]]$styles$text <- set_text_struct_values(
-    x = x[[part]]$styles$text, i = i, j = j,
-    property = "cs.family", value = cs.family
+    x = x[[part]]$styles$text,
+    i = i,
+    j = j,
+    property = "cs.family",
+    value = cs.family
   )
   x[[part]]$styles$text <- set_text_struct_values(
-    x = x[[part]]$styles$text, i = i, j = j,
-    property = "hansi.family", value = hansi.family
+    x = x[[part]]$styles$text,
+    i = i,
+    j = j,
+    property = "hansi.family",
+    value = hansi.family
   )
   x[[part]]$styles$text <- set_text_struct_values(
-    x = x[[part]]$styles$text, i = i, j = j,
-    property = "eastasia.family", value = eastasia.family
+    x = x[[part]]$styles$text,
+    i = i,
+    j = j,
+    property = "eastasia.family",
+    value = eastasia.family
   )
   x
 }
@@ -487,7 +579,7 @@ font <- function(x, i = NULL, j = NULL, fontname, part = "body", cs.family = fon
 
 #' @export
 #' @title Set paragraph paddings
-#' @description change paddings of selected rows and columns of a flextable.
+#' @description Change the padding of selected rows and columns of a flextable.
 #' @note
 #' Padding is not implemented in PDF due to technical infeasibility but
 #' it can be replaced with `set_table_properties(opts_pdf = list(tabcolsep = 1))`.
@@ -511,28 +603,48 @@ font <- function(x, i = NULL, j = NULL, fontname, part = "body", cs.family = fon
 #' ft_1 <- padding(ft_1, padding.bottom = 10, part = "header")
 #' ft_1 <- autofit(ft_1)
 #' ft_1
-padding <- function(x, i = NULL, j = NULL, padding = NULL,
-                    padding.top = NULL, padding.bottom = NULL,
-                    padding.left = NULL, padding.right = NULL,
-                    part = "body") {
+padding <- function(
+    x,
+    i = NULL,
+    j = NULL,
+    padding = NULL,
+    padding.top = NULL,
+    padding.bottom = NULL,
+    padding.left = NULL,
+    padding.right = NULL,
+    part = "body") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "padding()"))
   }
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (!is.null(padding)) {
-    if (is.null(padding.top)) padding.top <- padding
-    if (is.null(padding.bottom)) padding.bottom <- padding
-    if (is.null(padding.left)) padding.left <- padding
+    if (is.null(padding.top)) {
+      padding.top <- padding
+    }
+    if (is.null(padding.bottom)) {
+      padding.bottom <- padding
+    }
+    if (is.null(padding.left)) {
+      padding.left <- padding
+    }
     if (is.null(padding.right)) padding.right <- padding
   }
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
       x <- padding(
-        x = x, i = i, j = j,
-        padding.top = padding.top, padding.bottom = padding.bottom,
-        padding.left = padding.left, padding.right = padding.right,
+        x = x,
+        i = i,
+        j = j,
+        padding.top = padding.top,
+        padding.bottom = padding.bottom,
+        padding.left = padding.left,
+        padding.right = padding.right,
         part = p
       )
     }
@@ -546,7 +658,6 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
   check_formula_i_and_part(i, part)
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
-
 
   if (!is.null(padding.top)) {
     x[[part]]$styles$pars <- set_par_struct_values(
@@ -591,14 +702,14 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 
 #' @export
 #' @title Set text alignment
-#' @description change text alignment of selected rows and columns of a flextable.
+#' @description Change the text alignment of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'body', 'header', 'footer', 'all')
 #' @param align text alignment - a single character value, or a vector of
 #' character values equal in length to the number of columns selected by `j`.
-#' Expected values must be from the set of ('left', 'right', 'center', or 'justify').
+#' Expected values must be from the set ('left', 'right', 'center', or 'justify').
 #'
 #' If the number of columns is a multiple of the length of the `align` parameter,
 #' then the values in `align` will be recycled across the remaining columns.
@@ -614,25 +725,36 @@ padding <- function(x, i = NULL, j = NULL, padding = NULL,
 #' align(
 #'   ft_car,
 #'   align = c("left", "right", "left", "center", "center", "right"),
-#'   part = "all")
+#'   part = "all"
+#' )
 #'
 #' # Center-align column 2 and left-align column 5
 #' align(ft_car, j = c(2, 5), align = c("center", "left"), part = "all")
 #'
 #' # Alternate left and center alignment across columns 1-4 for header only
 #' align(ft_car, j = 1:4, align = c("left", "center"), part = "header")
-align <- function(x, i = NULL, j = NULL, align = "left", part = c("body", "header", "footer", "all")) {
+align <- function(
+    x,
+    i = NULL,
+    j = NULL,
+    align = "left",
+    part = c("body", "header", "footer", "all")) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "align()"))
   }
-  part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("body", "header", "footer", "all"),
+    several.ok = FALSE
+  )
 
   allowed_alignments <- c("left", "center", "right", "justify")
   if (!all(align %in% allowed_alignments)) {
     stop(
       "Invalid `align` argument(s) provided to `align()`: \"",
       paste(setdiff(align, allowed_alignments), collapse = "\", \""),
-      "\".\n  `align` should be one of: \"", paste(allowed_alignments, collapse = "\", \""),
+      "\".\n  `align` should be one of: \"",
+      paste(allowed_alignments, collapse = "\", \""),
       "\"."
     )
   }
@@ -669,16 +791,16 @@ align <- function(x, i = NULL, j = NULL, align = "left", part = c("body", "heade
 #' @export
 #' @title Set Word 'Keep with next' instructions
 #' @description The 'Keep with next' functionality in 'Word', applied
-#' to the rows of a table, ensures that the rows with that attribute
-#' stays together and does not break across multiple pages.
+#' to the rows of a table, ensures that rows with that attribute
+#' stay together and do not break across multiple pages.
 #'
-#' This function allows much better control of breaks between
-#' pages than the global `keep_with_next` parameter.
+#' This function provides better control of page breaks than
+#' the global `keep_with_next` parameter.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @param value TRUE or FALSE. When applied to a group, all rows
-#' except the last one should be flagged with attribute 'Keep with next'.
+#' except the last one should be flagged with the 'Keep with next' attribute.
 #' @family sugar functions for table style
 #' @seealso [paginate()]
 #' @examples
@@ -693,7 +815,11 @@ align <- function(x, i = NULL, j = NULL, align = "left", part = c("body", "heade
 #'
 #' save_as_docx(ft, path = tempfile(fileext = ".docx"))
 keep_with_next <- function(x, i = NULL, value = TRUE, part = "body") {
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -722,14 +848,14 @@ keep_with_next <- function(x, i = NULL, value = TRUE, part = "body") {
 #' @export
 #' @title Set tabulation marks configuration
 #' @description Define tabulation marks configuration.
-#' Specifying positions and types of tabulation marks in table
-#' paragraphs helps to organize the content, especially in clinical tables
+#' Specifying the positions and types of tabulation marks in table
+#' paragraphs helps organize content, especially in clinical tables,
 #' by aligning numbers properly.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param value an object of generated by [officer::fp_tabs()].
+#' @param value an object generated by [officer::fp_tabs()].
 #' @family sugar functions for table style
 #' @examples
 #' library(officer)
@@ -755,7 +881,11 @@ keep_with_next <- function(x, i = NULL, value = TRUE, part = "body") {
 #'
 #' save_as_docx(zz, path = tempfile(fileext = ".docx"))
 tab_settings <- function(x, i = NULL, j = NULL, value = TRUE, part = "body") {
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -783,13 +913,13 @@ tab_settings <- function(x, i = NULL, j = NULL, value = TRUE, part = "body") {
 }
 
 #' @export
-#' @title Set text alignment
-#' @description change text alignment of selected rows and columns of a flextable.
+#' @title Set line spacing
+#' @description Change the line spacing of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param space space between lines of text, 1 is single line spacing, 2 is double line spacing.
+#' @param space space between lines of text; 1 is single line spacing, 2 is double line spacing.
 #' @family sugar functions for table style
 #' @examples
 #' ft <- flextable(head(mtcars)[, 3:6])
@@ -797,8 +927,14 @@ tab_settings <- function(x, i = NULL, j = NULL, value = TRUE, part = "body") {
 #' ft <- set_table_properties(ft, layout = "autofit")
 #' ft
 line_spacing <- function(x, i = NULL, j = NULL, space = 1, part = "body") {
-  if (!inherits(x, "flextable")) stop("align supports only flextable objects.")
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  if (!inherits(x, "flextable")) {
+    stop("align supports only flextable objects.")
+  }
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -835,7 +971,9 @@ line_spacing <- function(x, i = NULL, j = NULL, space = 1, part = "body") {
 #' ftab <- align_nottext_col(ftab, align = "right")
 #' ftab
 align_text_col <- function(x, align = "left", header = TRUE, footer = TRUE) {
-  which_j <- which(sapply(x$body$dataset[x$col_keys], function(x) is.character(x) | is.factor(x)))
+  which_j <- which(sapply(x$body$dataset[x$col_keys], function(x) {
+    is.character(x) | is.factor(x)
+  }))
   x <- align(x, j = which_j, align = align, part = "body")
   if (header) {
     x <- align(x, j = which_j, align = align, part = "header")
@@ -848,8 +986,16 @@ align_text_col <- function(x, align = "left", header = TRUE, footer = TRUE) {
 
 #' @export
 #' @rdname align
-align_nottext_col <- function(x, align = "right", header = TRUE, footer = TRUE) {
-  which_j <- which(!sapply(x$body$dataset[x$col_keys], function(x) is.character(x) | is.factor(x)))
+align_nottext_col <- function(
+    x,
+    align = "right",
+    header = TRUE,
+    footer = TRUE) {
+  which_j <- which(
+    !sapply(x$body$dataset[x$col_keys], function(x) {
+      is.character(x) | is.factor(x)
+    })
+  )
   x <- align(x, j = which_j, align = align, part = "body")
   if (header) {
     x <- align(x, j = which_j, align = align, part = "header")
@@ -864,25 +1010,25 @@ align_nottext_col <- function(x, align = "right", header = TRUE, footer = TRUE) 
 
 #' @export
 #' @title Set background color
-#' @description Change background color of selected rows and
+#' @description Change the background color of selected rows and
 #' columns of a flextable. A function can be used instead of
 #' fixed colors.
 #'
 #' When `bg` is a function, it is possible to color cells based on values
-#' located in other columns, using hidden columns (those not used by
+#' located in other columns; using hidden columns (those not used by
 #' argument `colkeys`) is a common use case. The argument `source`
-#' has to be used to define what are the columns to be used for the color
-#' definition and the argument `j` has to be used to define where to apply
-#' the colors and only accept values from `colkeys`.
+#' must be used to define the columns to be used for the color
+#' definition, and the argument `j` must be used to define where to apply
+#' the colors and only accepts values from `colkeys`.
 #'
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
 #' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
-#' @param bg color to use as background color. If a function, function need to return
+#' @param bg color to use as background color. If a function, the function must return
 #' a character vector of colors.
-#' @param source if bg is a function, source is specifying the dataset column to be used
-#' as argument to `bg`. This is only useful if j is colored with values contained in
+#' @param source if bg is a function, source specifies the dataset column to be used
+#' as an argument to `bg`. This is only useful when j is colored with values contained in
 #' other columns.
 #' @family sugar functions for table style
 #' @note
@@ -914,7 +1060,11 @@ bg <- function(x, i = NULL, j = NULL, bg, part = "body", source = j) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "bg()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -957,7 +1107,7 @@ data_colors <- function(dataset, fun) {
     },
     error = function(cond) {
       msg <- paste0(
-        "an error occured while using color function: ",
+        "an error occurred while using color function: ",
         cond$message
       )
       stop(msg, call. = FALSE)
@@ -972,7 +1122,7 @@ data_colors <- function(dataset, fun) {
 
 #' @export
 #' @title Set vertical alignment
-#' @description change vertical alignment of selected rows and columns of a flextable.
+#' @description Change the vertical alignment of selected rows and columns of a flextable.
 #' @param x a flextable object
 #' @param i rows selection
 #' @param j columns selection
@@ -992,7 +1142,11 @@ valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "valign()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -1017,25 +1171,25 @@ valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body") {
 
 #' @export
 #' @title Rotate cell text
-#' @description It can be useful to be able to change the direction,
-#' when the table headers are huge for example, header labels can
-#' be rendered as "tbrl" (top to bottom and right to left) corresponding
-#' to a 90 degrees rotation or "btlr" corresponding to a 270
-#' degrees rotation.
+#' @description It can be useful to change the text direction
+#' when table headers are large. For example, header labels can
+#' be rendered as "tbrl" (top to bottom and right to left), corresponding
+#' to a 90-degree rotation, or "btlr", corresponding to a 270-degree
+#' rotation.
 
-#' The function change cell text direction. By default, it is
-#' "lrtb" which mean from left to right and top to bottom.
+#' This function changes cell text direction. By default, it is
+#' "lrtb", which means from left to right and top to bottom.
 #'
-#' 'Word' and 'PowerPoint' don't handle auto height with rotated headers.
-#' So you need to set header heights (with function [height()])
-#' and set rule "exact" for rows heights (with function [hrule()])
-#' otherwise Word and PowerPoint outputs will have small height
-#' not corresponding to the necessary height to display the text.
+#' 'Word' and 'PowerPoint' do not handle automatic height with rotated headers.
+#' Therefore, you need to set header heights (with the [height()] function)
+#' and set the rule to "exact" for row heights (with the [hrule()] function);
+#' otherwise, Word and PowerPoint outputs will have insufficient height
+#' to properly display the text.
 #'
-#' flextable doesn't do the rotation by any angle. It only
-#' rotates by a number of right angles. This choice is made
-#' to ensure the same rendering between Word, PowerPoint
-#' (limited to angles 0, 270 and 90) HTML and PDF.
+#' flextable does not rotate text by arbitrary angles. It only
+#' rotates by right angles (90-degree increments). This choice ensures
+#' consistent rendering across Word, PowerPoint (limited to angles 0, 270, and 90),
+#' HTML, and PDF.
 #'
 #' @param x a flextable object
 #' @param i rows selection
@@ -1045,9 +1199,9 @@ valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body") {
 #' @param align vertical alignment of paragraph within cell,
 #' one of "center" or "top" or "bottom".
 #' @details
-#' When function `autofit` is used, the rotation will be
+#' When the [autofit()] function is used, rotation will be
 #' ignored. In that case, use [dim_pretty] and [width] instead
-#' of [autofit].
+#' of `autofit()`.
 #' @family sugar functions for table style
 #' @examples
 #' library(flextable)
@@ -1087,11 +1241,21 @@ valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body") {
 #' ft_2 <- valign(ft_2, i = 3, valign = "bottom")
 #'
 #' ft_2
-rotate <- function(x, i = NULL, j = NULL, rotation, align = NULL, part = "body") {
+rotate <- function(
+    x,
+    i = NULL,
+    j = NULL,
+    rotation,
+    align = NULL,
+    part = "body") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "rotate()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -1117,14 +1281,12 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = NULL, part = "body")
 }
 
 
-
 # misc. ----
 
-
-#' @title Make blank columns as transparent
-#' @description blank columns are set as transparent. This is a shortcut function
-#' that will delete top and bottom borders, change background color to
-#' transparent, display empty content and set blank columns' width.
+#' @title Make blank columns transparent
+#' @description Blank columns are set as transparent. This is a shortcut function
+#' that deletes top and bottom borders, changes the background color to
+#' transparent, displays empty content, and sets blank column widths.
 #' @param x a flextable object
 #' @param width width of blank columns (.1 inch by default).
 #' @param unit unit for width, one of "in", "cm", "mm".
@@ -1156,13 +1318,17 @@ rotate <- function(x, i = NULL, j = NULL, rotation, align = NULL, part = "body")
 #' @export
 empty_blanks <- function(x, width = .05, unit = "in", part = "all") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "empty_blanks()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "empty_blanks()"
+    ))
   }
   if (length(x$blanks) < 1) {
     return(x)
   }
 
-  x <- border(x,
+  x <- border(
+    x,
     j = x$blanks,
     border.top = fp_border_default(width = 0),
     border.bottom = fp_border_default(width = 0),

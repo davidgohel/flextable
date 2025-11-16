@@ -18,7 +18,7 @@ fontsize(x, i = NULL, j = NULL, size = 11, part = "body")
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
-change font size of selected rows and columns of a flextable.
+Change the font size of selected rows and columns of a flextable.
 }
 \examples{
 ft <- flextable(head(iris))

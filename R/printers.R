@@ -237,6 +237,12 @@ knit_to_wml <- function(x, bookdown = FALSE, quarto = FALSE) {
   x <- flextable_global$defaults$post_process_docx(x)
   x <- fix_border_issues(x)
 
+  for(part in c("body", "header", "footer")) {
+    if (nrow_part(x, part) > 0L) {
+      x[[part]]$styles$pars$word_style$data[,] <- NA_character_
+    }
+  }
+
   is_rdocx_document <- opts_current$get("is_rdocx_document")
   if (is.null(is_rdocx_document)) is_rdocx_document <- FALSE
 

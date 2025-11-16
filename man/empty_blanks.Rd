@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{empty_blanks}
 \alias{empty_blanks}
-\title{Make blank columns as transparent}
+\title{Make blank columns transparent}
 \usage{
 empty_blanks(x, width = 0.05, unit = "in", part = "all")
 }
@@ -16,9 +16,9 @@ empty_blanks(x, width = 0.05, unit = "in", part = "all")
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
-blank columns are set as transparent. This is a shortcut function
-that will delete top and bottom borders, change background color to
-transparent, display empty content and set blank columns' width.
+Blank columns are set as transparent. This is a shortcut function
+that deletes top and bottom borders, changes the background color to
+transparent, displays empty content, and sets blank column widths.
 }
 \examples{
 typology <- data.frame(

@@ -27,7 +27,7 @@ align_nottext_col(x, align = "right", header = TRUE, footer = TRUE)
 
 \item{align}{text alignment - a single character value, or a vector of
 character values equal in length to the number of columns selected by \code{j}.
-Expected values must be from the set of ('left', 'right', 'center', or 'justify').
+Expected values must be from the set ('left', 'right', 'center', or 'justify').
 
 If the number of columns is a multiple of the length of the \code{align} parameter,
 then the values in \code{align} will be recycled across the remaining columns.}
@@ -39,7 +39,7 @@ then the values in \code{align} will be recycled across the remaining columns.}
 \item{footer}{should the footer be aligned with the body}
 }
 \description{
-change text alignment of selected rows and columns of a flextable.
+Change the text alignment of selected rows and columns of a flextable.
 }
 \examples{
 # Table of 6 columns
@@ -52,7 +52,8 @@ align(ft_car, align = "right", part = "all")
 align(
   ft_car,
   align = c("left", "right", "left", "center", "center", "right"),
-  part = "all")
+  part = "all"
+)
 
 # Center-align column 2 and left-align column 5
 align(ft_car, j = c(2, 5), align = c("center", "left"), part = "all")

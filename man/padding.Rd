@@ -36,7 +36,7 @@ padding(
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
-change paddings of selected rows and columns of a flextable.
+Change the padding of selected rows and columns of a flextable.
 }
 \note{
 Padding is not implemented in PDF due to technical infeasibility but

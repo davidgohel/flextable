@@ -29,7 +29,8 @@ ooxml_ppr <- function(paragraphs_properties, type = "wml") {
       width = zz$border.width.left,
       style = zz$border.style.left
     )
-    if (!is.na(zz$tabs)) {
+
+    if (!is.na(zz$tabs) && !isFALSE(zz$tabs)) {
       fp_tabs_ <- strsplit(zz$tabs, "&")[[1]]
       fp_tabs_ <- lapply(strsplit(fp_tabs_, "_"), function(x) {
         fp_tab(pos = as.numeric(x[2]), style = x[1])

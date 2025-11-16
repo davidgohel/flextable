@@ -9,7 +9,9 @@ and be simplified.
 ## Issues
 
 - images in google docs should now be sized as expected
-
+- specifying a `word_style` for a paragraph style works now.
+The `word_style` values will be ignored if flextable is process by 'rmarkdown'
+or 'quarto'.
 
 # flextable 0.9.10
 

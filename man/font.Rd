@@ -23,39 +23,39 @@ font(
 \item{j}{columns selection}
 
 \item{fontname}{single character value, the font family name.
-With Word and PowerPoint output, the value specifies the font to
-be used to format characters in the Unicode range (U+0000-U+007F).}
+With Word and PowerPoint output, this value specifies the font to
+be used for formatting characters in the Unicode range (U+0000-U+007F).}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 
-\item{cs.family}{Optional font to be used to format
+\item{cs.family}{Optional font to be used for formatting
 characters in a complex script Unicode range. For example, Arabic
 text might be displayed using the "Arial Unicode MS" font.
-Used only with Word and PowerPoint outputs. Its default value is the value
+Used only with Word and PowerPoint outputs. The default value is the value
 of \code{fontname}.}
 
-\item{hansi.family}{optional. Specifies the font to be used to format
-characters in a Unicode range which does not fall into one of the
+\item{hansi.family}{Optional font to be used for formatting
+characters in a Unicode range that does not fall into one of the
 other categories.
-Used only with Word and PowerPoint outputs. Its default value is the value
+Used only with Word and PowerPoint outputs. The default value is the value
 of \code{fontname}.}
 
-\item{eastasia.family}{optional font to be used to
-format characters in an East Asian Unicode range. For example,
+\item{eastasia.family}{Optional font to be used for
+formatting characters in an East Asian Unicode range. For example,
 Japanese text might be displayed using the "MS Mincho" font.
-Used only with Word and PowerPoint outputs. Its default value is the value
+Used only with Word and PowerPoint outputs. The default value is the value
 of \code{fontname}.}
 }
 \description{
-Change font of selected rows and columns of a flextable.
+Change the font of selected rows and columns of a flextable.
 
 Fonts impact the readability and aesthetics of the table. Font families
 refer to a set of typefaces that share common design features, such as 'Arial'
 and 'Open Sans'.
 
 'Google Fonts' is a popular library of free web fonts that can be
-easily integrated in flextable with function \code{\link[gdtools:register_gfont]{gdtools::register_gfont()}}.
-When output is HTML, the font will be automatically added in the HTML
+easily integrated into flextable with the \code{\link[gdtools:register_gfont]{gdtools::register_gfont()}} function.
+When the output is HTML, the font will be automatically added to the HTML
 document.
 }
 \examples{

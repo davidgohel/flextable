@@ -18,7 +18,7 @@ bold(x, i = NULL, j = NULL, bold = TRUE, part = "body")
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
-change font weight of selected rows and columns of a flextable.
+Change the font weight of selected rows and columns of a flextable.
 }
 \examples{
 ft <- flextable(head(iris))

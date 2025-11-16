@@ -21,29 +21,29 @@ one of "center" or "top" or "bottom".}
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
-It can be useful to be able to change the direction,
-when the table headers are huge for example, header labels can
-be rendered as "tbrl" (top to bottom and right to left) corresponding
-to a 90 degrees rotation or "btlr" corresponding to a 270
-degrees rotation.
-The function change cell text direction. By default, it is
-"lrtb" which mean from left to right and top to bottom.
+It can be useful to change the text direction
+when table headers are large. For example, header labels can
+be rendered as "tbrl" (top to bottom and right to left), corresponding
+to a 90-degree rotation, or "btlr", corresponding to a 270-degree
+rotation.
+This function changes cell text direction. By default, it is
+"lrtb", which means from left to right and top to bottom.
 
-'Word' and 'PowerPoint' don't handle auto height with rotated headers.
-So you need to set header heights (with function \code{\link[=height]{height()}})
-and set rule "exact" for rows heights (with function \code{\link[=hrule]{hrule()}})
-otherwise Word and PowerPoint outputs will have small height
-not corresponding to the necessary height to display the text.
+'Word' and 'PowerPoint' do not handle automatic height with rotated headers.
+Therefore, you need to set header heights (with the \code{\link[=height]{height()}} function)
+and set the rule to "exact" for row heights (with the \code{\link[=hrule]{hrule()}} function);
+otherwise, Word and PowerPoint outputs will have insufficient height
+to properly display the text.
 
-flextable doesn't do the rotation by any angle. It only
-rotates by a number of right angles. This choice is made
-to ensure the same rendering between Word, PowerPoint
-(limited to angles 0, 270 and 90) HTML and PDF.
+flextable does not rotate text by arbitrary angles. It only
+rotates by right angles (90-degree increments). This choice ensures
+consistent rendering across Word, PowerPoint (limited to angles 0, 270, and 90),
+HTML, and PDF.
 }
 \details{
-When function \code{autofit} is used, the rotation will be
+When the \code{\link[=autofit]{autofit()}} function is used, rotation will be
 ignored. In that case, use \link{dim_pretty} and \link{width} instead
-of \link{autofit}.
+of \code{autofit()}.
 }
 \examples{
 library(flextable)

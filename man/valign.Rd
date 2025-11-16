@@ -19,7 +19,7 @@ one of "center" or "top" or "bottom".}
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
-change vertical alignment of selected rows and columns of a flextable.
+Change the vertical alignment of selected rows and columns of a flextable.
 }
 \examples{
 ft_1 <- flextable(iris[c(1:3, 51:53, 101:103), ])

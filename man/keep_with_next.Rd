@@ -12,17 +12,17 @@ keep_with_next(x, i = NULL, value = TRUE, part = "body")
 \item{i}{rows selection}
 
 \item{value}{TRUE or FALSE. When applied to a group, all rows
-except the last one should be flagged with attribute 'Keep with next'.}
+except the last one should be flagged with the 'Keep with next' attribute.}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 }
 \description{
 The 'Keep with next' functionality in 'Word', applied
-to the rows of a table, ensures that the rows with that attribute
-stays together and does not break across multiple pages.
+to the rows of a table, ensures that rows with that attribute
+stay together and do not break across multiple pages.
 
-This function allows much better control of breaks between
-pages than the global \code{keep_with_next} parameter.
+This function provides better control of page breaks than
+the global \code{keep_with_next} parameter.
 }
 \examples{
 library(flextable)

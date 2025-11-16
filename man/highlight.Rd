@@ -14,25 +14,25 @@ highlight(x, i = NULL, j = NULL, color = "yellow", part = "body", source = j)
 \item{j}{columns selection}
 
 \item{color}{color to use as text highlighting color.
-If a function, function need to return a character vector of colors.}
+If a function, the function must return a character vector of colors.}
 
 \item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
 
-\item{source}{if color is a function, source is specifying the dataset column to be used
-as argument to \code{color}. This is only useful if j is colored with values contained in
+\item{source}{if color is a function, source specifies the dataset column to be used
+as an argument to \code{color}. This is only useful when j is colored with values contained in
 other columns.}
 }
 \description{
-Change text highlight color of selected rows and
+Change the text highlight color of selected rows and
 columns of a flextable. A function can be used instead of
 fixed colors.
 
 When \code{color} is a function, it is possible to color cells based on values
-located in other columns, using hidden columns (those not used by
+located in other columns; using hidden columns (those not used by
 argument \code{colkeys}) is a common use case. The argument \code{source}
-has to be used to define what are the columns to be used for the color
-definition and the argument \code{j} has to be used to define where to apply
-the colors and only accept values from \code{colkeys}.
+must be used to define the columns to be used for the color
+definition, and the argument \code{j} must be used to define where to apply
+the colors and only accepts values from \code{colkeys}.
 }
 \examples{
 my_color_fun <- function(x) {

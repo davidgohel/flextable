@@ -138,6 +138,7 @@ par_struct <- function(nrow, keys,
                        border.color.bottom = "transparent", border.color.top = "transparent", border.color.left = "transparent", border.color.right = "transparent",
                        border.style.bottom = "solid", border.style.top = "solid", border.style.left = "solid", border.style.right = "solid",
                        keep_with_next = FALSE,
+                       word_style = NA_character_,
                        tabs = NA_character_,
                        shading.color = "transparent", ...) {
   x <- list(
@@ -161,6 +162,7 @@ par_struct <- function(nrow, keys,
     border.style.right = fpstruct(nrow = nrow, keys = keys, default = border.style.right),
     shading.color = fpstruct(nrow = nrow, keys = keys, default = shading.color),
     keep_with_next = fpstruct(nrow = nrow, keys = keys, default = keep_with_next),
+    word_style = fpstruct(nrow = nrow, keys = keys, default = word_style),
     tabs = fpstruct(nrow = nrow, keys = keys, default = tabs)
   )
   class(x) <- "par_struct"
@@ -173,9 +175,9 @@ set_par_struct_values <- function(x, i, j, property, value) {
   if (is.null(i)) i <- seq_len(x$text.align$nrow)
 
   if (inherits(value, "fp_par")) {
-    if (!is.null(value$tabs)) {
+    if (!is.null(value$tabs) && !isFALSE(value$tabs)) {
       value$tabs <- as.character(value$tabs)
-    }
+    } else value$tabs <- as.character(fp_tabs())
     value <- cast_borders(value)
     for (property in intersect(names(value), names(x))) {
       x[[property]]$data[i, j] <- value[[property]]
