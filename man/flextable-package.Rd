@@ -25,6 +25,56 @@ to be called, it is recommended to define formatting properties such as
 font, border color, number of decimals displayed which will then be applied
 by default. See \code{\link[=set_flextable_defaults]{set_flextable_defaults()}} for more details.
 }
+\section{Table Structure}{
+
+
+A flextable is composed of three distinct parts:
+\itemize{
+\item \code{header}: By default, contains one row with the column names from the data.frame
+\item \code{body}: Contains the actual data from the data.frame
+\item \code{footer}: Empty by default, but can contain content (commonly used for footnotes or #' summary rows)
+}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{┌──────────────────┐
+│      HEADER      │  ← Column names, labels, spanning headers
+├──────────────────┤
+│                  │
+│       BODY       │  ← Data rows
+│                  │
+├──────────────────┤
+│      FOOTER      │  ← Summary rows, notes, footnotes (optional)
+└──────────────────┘
+}\if{html}{\out{</div>}}
+
+A basic flextable has:
+\itemize{
+\item in the part 'header': 1 row with column names
+\item in the part 'body': as many rows as there are in the input data.frame
+\item no footer
+}
+
+Rows and columns can be added or removed to the basic flextable:
+\itemize{
+\item Add new rows in header with \code{\link[=add_header]{add_header()}}, \code{\link[=add_header_row]{add_header_row()}},
+\code{\link[=add_header_lines]{add_header_lines()}} and \code{\link[=set_header_labels]{set_header_labels()}}.
+\item Add new rows in footer with \code{\link[=add_footer]{add_footer()}}, \code{\link[=add_footer_lines]{add_footer_lines()}},
+\code{\link[=set_header_footer_df]{set_header_footer_df()}} and \code{\link[=add_footer_row]{add_footer_row()}}.
+\item Add new rows in body with \code{\link[=add_body]{add_body()}} and \code{\link[=add_body_row]{add_body_row()}}.
+\item Delete columns with \code{\link[=delete_columns]{delete_columns()}}.
+\item Delete a part with \code{\link[=delete_part]{delete_part()}}.
+\item Use column names to separate a simple header row into multiple nested
+rows with \code{\link[=separate_header]{separate_header()}}.
+}
+}
+
+\section{Selectors in flextable}{
+
+Selectors are a core feature of flextable that allow you to specify which
+parts (\code{part}), rows (\code{i}) and columns (\code{j}) should be affected by formatting,
+styling, or content operations. See the corresponding manual:
+<\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+}
+
 \seealso{
 \url{https://davidgohel.github.io/flextable/},
 \url{https://ardata-fr.github.io/flextable-book/}, \code{\link[=flextable]{flextable()}}

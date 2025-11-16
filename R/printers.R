@@ -7,7 +7,7 @@
 #' "R Markdown" document, use [knit_print.flextable].
 #' @return an object marked as [htmltools::HTML] ready to be used within
 #' a call to `shiny::renderUI` for example.
-#' @param x a flextable object
+#' @inheritParams args_x_only
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param ft.shadow deprecated.
 #' @param extra_dependencies a list of HTML dependencies to
@@ -65,7 +65,7 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL,
 #' set to 'asis'.
 #'
 #' See [knit_print.flextable] for more details.
-#' @param x a flextable object
+#' @inheritParams args_x_only
 #' @param ... unused argument
 #' @family flextable print function
 #' @examples
@@ -121,7 +121,7 @@ flextable_to_rmd <- function(x, ...) {
 #' @title Get HTML code as a string
 #' @description Generate HTML code of corresponding
 #' flextable as an HTML table or an HTML image.
-#' @param x a flextable object
+#' @inheritParams args_x_only
 #' @param type output type. one of "table" or "img".
 #' @param ... unused
 #' @return If `type='img'`, the result will be a string
@@ -192,7 +192,7 @@ to_wml.flextable <- function(x, ...) {
 #' @noRd
 #' @title flextable HTML string
 #' @description get a string for HTML output with pandoc.
-#' @param x a flextable object
+#' @inheritParams args_x_only
 #' @param bookdown `TRUE` or `FALSE` (default) to support cross referencing with bookdown.
 #' @param quarto `TRUE` or `FALSE` (default).
 #' @examples
@@ -303,7 +303,7 @@ knit_to_wml <- function(x, bookdown = FALSE, quarto = FALSE) {
 #'
 #' @description get latex raw code for PDF
 #' from a flextable object.
-#' @param x a flextable object
+#' @inheritParams args_x_only
 #' @param ft.align flextable alignment, supported values are 'left', 'center' and 'right'.
 #' @param tabcolsep space between the text and the left/right border of its containing
 #' cell, the default value is 8 points.
@@ -427,7 +427,7 @@ knit_to_pml <- function(x) {
 #'
 #' Note also that a print method is used when flextable are used within
 #' R markdown documents. See [knit_print.flextable()].
-#' @param x flextable object
+#' @inheritParams args_x_only
 #' @param preview preview type, one of c("html", "pptx", "docx", "rtf", "pdf, "log").
 #' When `"log"` is used, a description of the flextable is printed.
 #' @param align left, center (default) or right. Only for docx/html/pdf.
@@ -629,7 +629,7 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #'
 #' Images cannot be integrated into tables with the PowerPoint format.
 #'
-#' @param x a `flextable` object
+#' @inheritParams args_x_only
 #' @param ... unused.
 #' @export
 #' @importFrom utils getFromNamespace
@@ -992,7 +992,7 @@ save_as_rtf <- function(..., values = NULL, path, pr_section = NULL) {
 #' the caption won't be included. Captions are intended for document outputs
 #' like Word, HTML, or PDF, where tables are embedded within the document
 #' itself.
-#' @param x a flextable object
+#' @inheritParams args_x_only
 #' @param path image file to be created. It should end with '.png'
 #' or '.svg'.
 #' @param expand space in pixels to add around the table.
@@ -1050,7 +1050,7 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
 
   tryCatch(
     {
-      plot(gr)
+      base::plot(gr)
     },
     finally = {
       dev.off()
@@ -1067,7 +1067,7 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
 #' and display the result in a new graphics window.
 #' 'ragg' or 'svglite' or 'ggiraph' graphical device drivers
 #' should be used to ensure a correct rendering.
-#' @param x a flextable object
+#' @inheritParams args_x_only
 #' @param ... additional arguments passed to [gen_grob()].
 #' @inheritSection save_as_image caption
 #' @examples

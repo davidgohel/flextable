@@ -8,11 +8,8 @@
 #' algorithm where the combinations of these columns are used once for all
 #' target columns.
 #'
-#' @param x `flextable` object
-#' @param j column to used to find consecutive values to be merged. Columns
-#' from orignal dataset can also be used.
+#' @inheritParams args_x_j_part_no_all
 #' @param target columns names where cells have to be merged.
-#' @param part partname of the table where merge has to be done.
 #' @param combine If the value is TRUE, the columns defined by `j` will
 #' be combined into a single column/value and the consecutive values of
 #' this result will be used. Otherwise, the columns are inspected one
@@ -80,9 +77,7 @@ merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE) 
 #' identical values. Text of formatted values are used to compare
 #' values.
 #'
-#' @param x `flextable` object
-#' @param i rows where cells have to be merged.
-#' @param part partname of the table where merge has to be done.
+#' @inheritParams args_x_i_part_no_all
 #' @family flextable merging function
 #' @examples
 #' dummy_df <- data.frame(
@@ -110,8 +105,7 @@ merge_h <- function(x, i = NULL, part = "body") {
 #'
 #' @description Delete all merging informations from a flextable.
 #'
-#' @param x `flextable` object
-#' @param part partname of the table where merge has to be done.
+#' @inheritParams args_x_part
 #' @family flextable merging function
 #' @export
 #' @examples
@@ -155,9 +149,7 @@ merge_none <- function(x, part = "all") {
 #' @description Merge flextable cells into a single one. All
 #' rows and columns must be consecutive.
 #'
-#' @param x `flextable` object
-#' @param i,j columns and rows to merge
-#' @param part partname of the table where merge has to be done.
+#' @inheritParams args_selectors_without_all
 #' @family flextable merging function
 #' @examples
 #' ft_merge <- flextable(head(mtcars), cwidth = .5)
@@ -186,10 +178,8 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body") {
 #' @description Merge flextable columns into a single one for each selected rows. All
 #' columns must be consecutive.
 #'
-#' @param x `flextable` object
-#' @param i selected rows
+#' @inheritParams args_x_i_part_no_all
 #' @param j1,j2 selected columns that will define the range of columns to merge.
-#' @param part partname of the table where merge has to be done.
 #' @family flextable merging function
 #' @examples
 #' ft <- flextable(head(mtcars), cwidth = .5)

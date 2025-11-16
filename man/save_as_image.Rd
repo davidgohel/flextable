@@ -7,7 +7,8 @@
 save_as_image(x, path, expand = 10, res = 200, ...)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{path}{image file to be created. It should end with '.png'
 or '.svg'.}

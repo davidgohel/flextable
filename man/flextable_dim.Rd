@@ -7,7 +7,8 @@
 flextable_dim(x, unit = "in")
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{unit}{unit for returned values, one of "in", "cm", "mm".}
 }

@@ -7,13 +7,16 @@
 empty_blanks(x, width = 0.05, unit = "in", part = "all")
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{width}{width of blank columns (.1 inch by default).}
 
 \item{unit}{unit for width, one of "in", "cm", "mm".}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' can be used.}
 }
 \description{
 Blank columns are set as transparent. This is a shortcut function

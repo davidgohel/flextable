@@ -11,7 +11,8 @@ set_header_df(x, mapping = NULL, key = "col_keys")
 set_footer_df(x, mapping = NULL, key = "col_keys")
 }
 \arguments{
-\item{x}{a \code{flextable} object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{mapping}{a \code{data.frame} specyfing for each colname
 content of the column.}
@@ -69,10 +70,10 @@ Other functions for row and column operations in a flextable:
 \code{\link{add_footer_lines}()},
 \code{\link{add_footer_row}()},
 \code{\link{add_header}()},
+\code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
 \code{\link{delete_columns}()},
 \code{\link{delete_part}()},
-\code{\link{delete_rows}()},
 \code{\link{separate_header}()},
 \code{\link{set_header_labels}()}
 }

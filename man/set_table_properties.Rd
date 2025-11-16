@@ -17,7 +17,8 @@ set_table_properties(
 )
 }
 \arguments{
-\item{x}{flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{layout}{'autofit' or 'fixed' algorithm. Default to 'fixed'.}
 

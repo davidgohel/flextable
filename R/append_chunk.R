@@ -2,12 +2,9 @@
 #' @title Append chunks to flextable content
 #' @description append chunks (for example chunk [as_chunk()])
 #' in a flextable.
-#' @param x a flextable object
+#' @inheritParams args_selectors_without_all
 #' @param ... chunks to be appened, see [as_chunk()], [gg_chunk()] and other
 #' chunk elements for paragraph.
-#' @param i rows selection
-#' @param j column selection
-#' @param part partname of the table (one of 'body', 'header', 'footer')
 #' @seealso [as_chunk()], [as_sup()], [as_sub()], [colorize()]
 #' @family functions for mixed content paragraphs
 #' @examples
@@ -60,12 +57,9 @@ append_chunks <- function(x, ..., i = NULL, j = NULL, part = "body") {
 #' @title Prepend chunks to flextable content
 #' @description prepend chunks (for example chunk [as_chunk()])
 #' in a flextable.
-#' @param x a flextable object
+#' @inheritParams args_selectors_without_all
 #' @param ... chunks to be prepended, see [as_chunk()], [gg_chunk()] and other
 #' chunk elements for paragraph.
-#' @param i rows selection
-#' @param j column selection
-#' @param part partname of the table (one of 'body', 'header', 'footer')
 #' @family functions for mixed content paragraphs
 #' @examples
 #' x <- flextable(head(iris))

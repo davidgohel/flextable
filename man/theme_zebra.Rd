@@ -13,7 +13,8 @@ theme_zebra(
 )
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{odd_header, odd_body, even_header, even_body}{odd/even colors for table header and body}
 }

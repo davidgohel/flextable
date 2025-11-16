@@ -13,7 +13,8 @@ paginate(
 )
 }
 \arguments{
-\item{x}{flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{init}{init value for keep_with_next property, it default
 value is \code{get_flextable_defaults()$keep_with_next}.}

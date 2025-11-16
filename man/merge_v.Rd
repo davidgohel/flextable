@@ -7,14 +7,17 @@
 merge_v(x, j = NULL, target = NULL, part = "body", combine = FALSE)
 }
 \arguments{
-\item{x}{\code{flextable} object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
-\item{j}{column to used to find consecutive values to be merged. Columns
-from orignal dataset can also be used.}
+\item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
+in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 
 \item{target}{columns names where cells have to be merged.}
 
-\item{part}{partname of the table where merge has to be done.}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' is not allowed by the function.}
 
 \item{combine}{If the value is TRUE, the columns defined by \code{j} will
 be combined into a single column/value and the consecutive values of

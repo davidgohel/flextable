@@ -7,16 +7,21 @@
 bg(x, i = NULL, j = NULL, bg, part = "body", source = j)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
-\item{i}{rows selection}
+\item{i}{row selector, see section \emph{Row selection with the \code{i} parameter}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
-\item{j}{columns selection}
+\item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
+in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 
 \item{bg}{color to use as background color. If a function, the function must return
 a character vector of colors.}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' can be used.}
 
 \item{source}{if bg is a function, source specifies the dataset column to be used
 as an argument to \code{bg}. This is only useful when j is colored with values contained in

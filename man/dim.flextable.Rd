@@ -7,7 +7,8 @@
 \method{dim}{flextable}(x)
 }
 \arguments{
-\item{x}{flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 }
 \description{
 returns widths and heights for each table columns and rows.

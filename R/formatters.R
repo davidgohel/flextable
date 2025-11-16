@@ -3,14 +3,12 @@
 #'
 #' Functions should have a single argument (the vector) and should
 #' return the formatted values as a character vector.
-#' @param x a flextable object
+#' @inheritParams args_x_part_no_all
 #' @param ... Name-value pairs of functions, names should be existing col_key values
 #' @param values format functions, If values is supplied argument `...` is ignored.
 #' - It can be a list of name-value pairs of functions, names
 #' should be existing col_key values.
 #' - If `values` is a single function, it will be applied to each column.
-#' @param part part of the table (one of 'body' or 'header' or 'footer')
-#' where to apply the formatter functions.
 #' @examples
 #' ft <- flextable(head(iris))
 #' ft <- set_formatter(
@@ -51,9 +49,7 @@ set_formatter <- function(x, ..., values = NULL, part = "body") {
 #' @export
 #' @title Format character cells
 #' @description Format character cells in a flextable.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection.
+#' @inheritParams args_x_i_j
 #' @param na_str,nan_str string to be used for NA and NaN values
 #' @param prefix,suffix string to be used as prefix or suffix
 #' @family cells formatters

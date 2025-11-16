@@ -7,9 +7,11 @@
 width(x, j = NULL, width, unit = "in")
 }
 \arguments{
-\item{x}{a \code{\link[=flextable]{flextable()}} object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
-\item{j}{columns selection}
+\item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
+in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 
 \item{width}{width in inches}
 

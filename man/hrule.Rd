@@ -7,16 +7,20 @@
 hrule(x, i = NULL, rule = "auto", part = "body")
 }
 \arguments{
-\item{x}{flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
-\item{i}{rows selection}
+\item{i}{row selector, see section \emph{Row selection with the \code{i} parameter}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{rule}{specify the meaning of the height. Possible values
 are "atleast" (height should be at least the value specified), "exact"
 (height should be exactly the value specified), or the default value "auto"
 (height is determined based on the height of the contents, so the value is ignored).}
 
-\item{part}{partname of the table, one of "all", "header", "body", "footer"}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' can be used.}
 }
 \description{
 control rules of each height for a part

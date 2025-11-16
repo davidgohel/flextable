@@ -4,15 +4,12 @@
 #' properties. This allows you to specify a set of formatting properties for a
 #' selection instead of using multiple functions (e.g., `bold`, `italic`, `bg`)
 #' that must all be applied to the same selection of rows and columns.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
+#' @inheritParams args_selectors_with_all
 #' @param pr_t object(s) of class `fp_text`, result of [officer::fp_text()]
 #' or [officer::fp_text_lite()]
 #' @param pr_p object(s) of class `fp_par`, result of [officer::fp_par()]
 #' or [officer::fp_par_lite()]
 #' @param pr_c object(s) of class `fp_cell`, result of [officer::fp_cell()]
-#' @param part partname of the table (one of 'all', 'body', 'header' or 'footer')
 #' @importFrom stats terms
 #' @examples
 #' library(officer)
@@ -110,10 +107,7 @@ style <- function(
 #' @export
 #' @title Set bold font
 #' @description Change the font weight of selected rows and columns of a flextable.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param bold boolean value
 #' @family sugar functions for table style
 #' @examples
@@ -163,10 +157,7 @@ bold <- function(x, i = NULL, j = NULL, bold = TRUE, part = "body") {
 #' @export
 #' @title Set font size
 #' @description Change the font size of selected rows and columns of a flextable.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param size integer value (points)
 #' @family sugar functions for table style
 #' @examples
@@ -216,10 +207,7 @@ fontsize <- function(x, i = NULL, j = NULL, size = 11, part = "body") {
 #' @export
 #' @title Set italic font
 #' @description Change the font decoration of selected rows and columns of a flextable.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param italic boolean value
 #' @family sugar functions for table style
 #' @examples
@@ -279,10 +267,7 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
 #' definition, and the argument `j` must be used to define where to apply
 #' the colors and only accepts values from `colkeys`.
 
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param color color to use as text highlighting color.
 #' If a function, the function must return a character vector of colors.
 #' @param source if color is a function, source specifies the dataset column to be used
@@ -372,10 +357,7 @@ highlight <- function(
 #' definition, and the argument `j` must be used to define where to apply
 #' the colors and only accepts values from `colkeys`.
 #'
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param color color to use as font color. If a function, the function must return
 #' a character vector of colors.
 #' @param source if color is a function, source specifies the dataset column to be used
@@ -464,10 +446,7 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
 #' When the output is HTML, the font will be automatically added to the HTML
 #' document.
 #'
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param fontname single character value, the font family name.
 #' With Word and PowerPoint output, this value specifies the font to
 #' be used for formatting characters in the Unicode range (U+0000-U+007F).
@@ -583,10 +562,7 @@ font <- function(
 #' @note
 #' Padding is not implemented in PDF due to technical infeasibility but
 #' it can be replaced with `set_table_properties(opts_pdf = list(tabcolsep = 1))`.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param padding padding (shortcut for top, bottom, left and right), unit is pts (points).
 #' @param padding.top padding top, unit is pts (points).
 #' @param padding.bottom padding bottom, unit is pts (points).
@@ -703,10 +679,7 @@ padding <- function(
 #' @export
 #' @title Set text alignment
 #' @description Change the text alignment of selected rows and columns of a flextable.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'body', 'header', 'footer', 'all')
+#' @inheritParams args_selectors_with_all
 #' @param align text alignment - a single character value, or a vector of
 #' character values equal in length to the number of columns selected by `j`.
 #' Expected values must be from the set ('left', 'right', 'center', or 'justify').
@@ -796,9 +769,7 @@ align <- function(
 #'
 #' This function provides better control of page breaks than
 #' the global `keep_with_next` parameter.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_without_all
 #' @param value TRUE or FALSE. When applied to a group, all rows
 #' except the last one should be flagged with the 'Keep with next' attribute.
 #' @family sugar functions for table style
@@ -851,10 +822,7 @@ keep_with_next <- function(x, i = NULL, value = TRUE, part = "body") {
 #' Specifying the positions and types of tabulation marks in table
 #' paragraphs helps organize content, especially in clinical tables,
 #' by aligning numbers properly.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param value an object generated by [officer::fp_tabs()].
 #' @family sugar functions for table style
 #' @examples
@@ -915,10 +883,7 @@ tab_settings <- function(x, i = NULL, j = NULL, value = TRUE, part = "body") {
 #' @export
 #' @title Set line spacing
 #' @description Change the line spacing of selected rows and columns of a flextable.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param space space between lines of text; 1 is single line spacing, 2 is double line spacing.
 #' @family sugar functions for table style
 #' @examples
@@ -1021,10 +986,7 @@ align_nottext_col <- function(
 #' definition, and the argument `j` must be used to define where to apply
 #' the colors and only accepts values from `colkeys`.
 #'
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param bg color to use as background color. If a function, the function must return
 #' a character vector of colors.
 #' @param source if bg is a function, source specifies the dataset column to be used
@@ -1123,10 +1085,7 @@ data_colors <- function(dataset, fun) {
 #' @export
 #' @title Set vertical alignment
 #' @description Change the vertical alignment of selected rows and columns of a flextable.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param valign vertical alignment of paragraph within cell,
 #' one of "center" or "top" or "bottom".
 #' @family sugar functions for table style
@@ -1191,10 +1150,7 @@ valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body") {
 #' consistent rendering across Word, PowerPoint (limited to angles 0, 270, and 90),
 #' HTML, and PDF.
 #'
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param rotation one of "lrtb", "tbrl", "btlr".
 #' @param align vertical alignment of paragraph within cell,
 #' one of "center" or "top" or "bottom".
@@ -1287,10 +1243,9 @@ rotate <- function(
 #' @description Blank columns are set as transparent. This is a shortcut function
 #' that deletes top and bottom borders, changes the background color to
 #' transparent, displays empty content, and sets blank column widths.
-#' @param x a flextable object
+#' @inheritParams args_selectors_with_all
 #' @param width width of blank columns (.1 inch by default).
 #' @param unit unit for width, one of "in", "cm", "mm".
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
 #' @family sugar functions for table style
 #' @examples
 #' typology <- data.frame(

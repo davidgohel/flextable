@@ -21,6 +21,51 @@
 #' font, border color, number of decimals displayed which will then be applied
 #' by default. See [set_flextable_defaults()] for more details.
 #'
+#' @section Table Structure:
+#'
+#' A flextable is composed of three distinct parts:
+#'
+#' - `header`: By default, contains one row with the column names from the data.frame
+#' - `body`: Contains the actual data from the data.frame
+#' - `footer`: Empty by default, but can contain content (commonly used for footnotes or #' summary rows)
+#'
+#'
+#' ```
+#' ┌──────────────────┐
+#' │      HEADER      │  ← Column names, labels, spanning headers
+#' ├──────────────────┤
+#' │                  │
+#' │       BODY       │  ← Data rows
+#' │                  │
+#' ├──────────────────┤
+#' │      FOOTER      │  ← Summary rows, notes, footnotes (optional)
+#' └──────────────────┘
+#' ```
+#'
+#' A basic flextable has:
+#'
+#' - in the part 'header': 1 row with column names
+#' - in the part 'body': as many rows as there are in the input data.frame
+#' - no footer
+#'
+#' Rows and columns can be added or removed to the basic flextable:
+#'
+#' - Add new rows in header with [add_header()], [add_header_row()],
+#' [add_header_lines()] and [set_header_labels()].
+#' - Add new rows in footer with [add_footer()], [add_footer_lines()],
+#' [set_header_footer_df()] and [add_footer_row()].
+#' - Add new rows in body with [add_body()] and [add_body_row()].
+#' - Delete columns with [delete_columns()].
+#' - Delete a part with [delete_part()].
+#' - Use column names to separate a simple header row into multiple nested
+#' rows with [separate_header()].
+#'
+#' @section Selectors in flextable:
+#' Selectors are a core feature of flextable that allow you to specify which
+#' parts (`part`), rows (`i`) and columns (`j`) should be affected by formatting,
+#' styling, or content operations. See the corresponding manual:
+#' <[`Selectors in flextable`][flextable_selectors]>.
+#'
 #' @seealso <https://davidgohel.github.io/flextable/>,
 #' <https://ardata-fr.github.io/flextable-book/>, [flextable()]
 #' @docType package

@@ -8,8 +8,7 @@
 #'
 #' Note since version `0.9.7` that the function is called automatically
 #' before rendering, user should not have to call this function anymore.
-#' @param x flextable object
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_x_part
 #' @examples
 #' library(officer)
 #' dat <- data.frame(a = 1:5, b = 6:10)

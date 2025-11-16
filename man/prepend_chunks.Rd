@@ -7,16 +7,21 @@
 prepend_chunks(x, ..., i = NULL, j = NULL, part = "body")
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{...}{chunks to be prepended, see \code{\link[=as_chunk]{as_chunk()}}, \code{\link[=gg_chunk]{gg_chunk()}} and other
 chunk elements for paragraph.}
 
-\item{i}{rows selection}
+\item{i}{row selector, see section \emph{Row selection with the \code{i} parameter}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
-\item{j}{column selection}
+\item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
+in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 
-\item{part}{partname of the table (one of 'body', 'header', 'footer')}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' is not allowed by the function.}
 }
 \description{
 prepend chunks (for example chunk \code{\link[=as_chunk]{as_chunk()}})

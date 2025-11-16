@@ -12,7 +12,8 @@ htmltools_value(
 )
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{ft.align}{flextable alignment, supported values are 'left', 'center' and 'right'.}
 

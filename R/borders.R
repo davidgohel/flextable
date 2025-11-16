@@ -29,10 +29,7 @@
 #' [surround()].
 #' @note
 #' pdf and pptx outputs do not support `border()` usage.
-#' @param x a flextable object
-#' @param i rows selection
-#' @param j columns selection
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_selectors_with_all
 #' @param border border (shortcut for top, bottom, left and right)
 #' @param border.top border top
 #' @param border.bottom border bottom
@@ -44,29 +41,50 @@
 #' ftab <- border(ftab, border.top = fp_border(color = "orange"))
 #' ftab
 #' @keywords internal
-border <- function(x, i = NULL, j = NULL, border = NULL,
-                   border.top = NULL, border.bottom = NULL,
-                   border.left = NULL, border.right = NULL,
-                   part = "body") {
+border <- function(
+  x,
+  i = NULL,
+  j = NULL,
+  border = NULL,
+  border.top = NULL,
+  border.bottom = NULL,
+  border.left = NULL,
+  border.right = NULL,
+  part = "body"
+) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "border()"))
   }
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (!is.null(border)) {
-    if (is.null(border.top)) border.top <- border
-    if (is.null(border.bottom)) border.bottom <- border
-    if (is.null(border.left)) border.left <- border
+    if (is.null(border.top)) {
+      border.top <- border
+    }
+    if (is.null(border.bottom)) {
+      border.bottom <- border
+    }
+    if (is.null(border.left)) {
+      border.left <- border
+    }
     if (is.null(border.right)) border.right <- border
   }
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
       x <- border(
-        x = x, i = i, j = j,
-        border.top = border.top, border.bottom = border.bottom,
-        border.left = border.left, border.right = border.right,
+        x = x,
+        i = i,
+        j = j,
+        border.top = border.top,
+        border.bottom = border.bottom,
+        border.left = border.left,
+        border.right = border.right,
         part = p
       )
     }
@@ -87,19 +105,46 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
     x[[part]]$styles$cells[["border.width.top"]]$data[i, j] <- border.top$width
   }
   if (!is.null(border.bottom)) {
-    x[[part]]$styles$cells[["border.style.bottom"]]$data[i, j] <- border.bottom$style
-    x[[part]]$styles$cells[["border.color.bottom"]]$data[i, j] <- border.bottom$color
-    x[[part]]$styles$cells[["border.width.bottom"]]$data[i, j] <- border.bottom$width
+    x[[part]]$styles$cells[["border.style.bottom"]]$data[
+      i,
+      j
+    ] <- border.bottom$style
+    x[[part]]$styles$cells[["border.color.bottom"]]$data[
+      i,
+      j
+    ] <- border.bottom$color
+    x[[part]]$styles$cells[["border.width.bottom"]]$data[
+      i,
+      j
+    ] <- border.bottom$width
   }
   if (!is.null(border.left)) {
-    x[[part]]$styles$cells[["border.style.left"]]$data[i, j] <- border.left$style
-    x[[part]]$styles$cells[["border.color.left"]]$data[i, j] <- border.left$color
-    x[[part]]$styles$cells[["border.width.left"]]$data[i, j] <- border.left$width
+    x[[part]]$styles$cells[["border.style.left"]]$data[
+      i,
+      j
+    ] <- border.left$style
+    x[[part]]$styles$cells[["border.color.left"]]$data[
+      i,
+      j
+    ] <- border.left$color
+    x[[part]]$styles$cells[["border.width.left"]]$data[
+      i,
+      j
+    ] <- border.left$width
   }
   if (!is.null(border.right)) {
-    x[[part]]$styles$cells[["border.style.right"]]$data[i, j] <- border.right$style
-    x[[part]]$styles$cells[["border.color.right"]]$data[i, j] <- border.right$color
-    x[[part]]$styles$cells[["border.width.right"]]$data[i, j] <- border.right$width
+    x[[part]]$styles$cells[["border.style.right"]]$data[
+      i,
+      j
+    ] <- border.right$style
+    x[[part]]$styles$cells[["border.color.right"]]$data[
+      i,
+      j
+    ] <- border.right$color
+    x[[part]]$styles$cells[["border.width.right"]]$data[
+      i,
+      j
+    ] <- border.right$width
   }
 
   x
@@ -108,7 +153,7 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 
 #' @title Remove borders
 #' @description The function is deleting all borders of the flextable object.
-#' @param x a flextable object
+#' @inheritParams args_x_only
 #' @examples
 #' dat <- iris[c(1:5, 51:55, 101:105), ]
 #' ft_1 <- flextable(dat)
@@ -122,7 +167,10 @@ border <- function(x, i = NULL, j = NULL, border = NULL,
 #' @family borders management
 border_remove <- function(x) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "border_remove()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "border_remove()"
+    ))
   }
   x <- border(x = x, border = fp_border(width = 0), part = "all")
   x
@@ -131,8 +179,7 @@ border_remove <- function(x) {
 #' @title Set outer borders
 #' @description The function is applying a border to outer cells of one
 #' or all parts of a flextable.
-#' @param x a flextable object
-#' @param part partname of the table (one of 'all', 'body', 'header', 'footer')
+#' @inheritParams args_x_part
 #' @param border border properties defined by a call to [officer::fp_border()]
 #' @export
 #' @examples
@@ -149,10 +196,17 @@ border_remove <- function(x) {
 #' @family borders management
 border_outer <- function(x, border = NULL, part = "all") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "border_outer()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "border_outer()"
+    ))
   }
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (is.null(border)) {
     border <- fp_border(color = flextable_global$defaults$border.color)
@@ -195,9 +249,16 @@ border_outer <- function(x, border = NULL, part = "all") {
 #' @family borders management
 border_inner_h <- function(x, border = NULL, part = "body") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "border_inner_h()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "border_inner_h()"
+    ))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (is.null(border)) {
     border <- fp_border(color = flextable_global$defaults$border.color)
@@ -238,9 +299,16 @@ border_inner_h <- function(x, border = NULL, part = "body") {
 #' @family borders management
 border_inner_v <- function(x, border = NULL, part = "all") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "border_inner_v()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "border_inner_v()"
+    ))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (is.null(border)) {
     border <- fp_border(color = flextable_global$defaults$border.color)
@@ -281,9 +349,16 @@ border_inner_v <- function(x, border = NULL, part = "all") {
 #' @family borders management
 border_inner <- function(x, border = NULL, part = "all") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "border_inner()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "border_inner()"
+    ))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (is.null(border)) {
     border <- fp_border(color = flextable_global$defaults$border.color)
@@ -317,9 +392,8 @@ border_inner <- function(x, border = NULL, part = "all") {
 #' @description The function is applying an horizontal border to inner
 #' content of one or all parts of a flextable. The lines are the
 #' bottom borders of selected cells.
-#' @inheritParams border_outer
-#' @param i rows selection
-#' @param j columns selection
+#' @inheritParams args_selectors_with_all
+#' @param border border properties defined by a call to [officer::fp_border()]
 #' @examples
 #' library(officer)
 #' std_border <- fp_border(color = "gray")
@@ -335,7 +409,11 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "hline()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (is.null(border)) {
     border <- fp_border(color = flextable_global$defaults$border.color)
@@ -344,7 +422,9 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body") {
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
       x <- hline(
-        x = x, i = i, j = j,
+        x = x,
+        i = i,
+        j = j,
         border = border,
         part = p
       )
@@ -375,8 +455,8 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body") {
 #' @description The function is applying an horizontal border to the
 #' top of one or all parts of a flextable. The line is the
 #' top border of selected parts.
-#' @inheritParams border_outer
-#' @param j columns selection
+#' @inheritParams args_x_j_part
+#' @param border border properties defined by a call to [officer::fp_border()]
 #' @examples
 #' library(officer)
 #' big_border <- fp_border(color = "orange", width = 3)
@@ -390,9 +470,16 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body") {
 #' @family borders management
 hline_top <- function(x, j = NULL, border = NULL, part = "body") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "hline_top()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "hline_top()"
+    ))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (is.null(border)) {
     border <- fp_border(color = flextable_global$defaults$border.color)
@@ -412,9 +499,21 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body") {
   j <- get_columns_id(x[[part]], j)
 
   if (part %in% "body" && nrow_part(x, "header") > 0) {
-    x <- border(x, i = nrow_part(x, "header"), j = j, border.bottom = border, part = "header")
+    x <- border(
+      x,
+      i = nrow_part(x, "header"),
+      j = j,
+      border.bottom = border,
+      part = "header"
+    )
   } else if (part %in% "footer" && nrow_part(x, "body") > 0) {
-    x <- border(x, i = nrow_part(x, "body"), j = j, border.bottom = border, part = "body")
+    x <- border(
+      x,
+      i = nrow_part(x, "body"),
+      j = j,
+      border.bottom = border,
+      part = "body"
+    )
   } else {
     x <- border(x, i = 1, j = j, border.top = border, part = part)
   }
@@ -427,8 +526,7 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body") {
 #' @description The function is applying an horizontal border to the
 #' bottom of one or all parts of a flextable. The line is the
 #' bottom border of selected parts.
-#' @inheritParams border_outer
-#' @param j columns selection
+#' @inheritParams hline_top
 #' @examples
 #' library(officer)
 #' big_border <- fp_border(color = "orange", width = 3)
@@ -442,9 +540,16 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body") {
 #' @family borders management
 hline_bottom <- function(x, j = NULL, border = NULL, part = "body") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "hline_bottom()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "hline_bottom()"
+    ))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (is.null(border)) {
     border <- fp_border(color = flextable_global$defaults$border.color)
@@ -462,7 +567,13 @@ hline_bottom <- function(x, j = NULL, border = NULL, part = "body") {
   }
 
   j <- get_columns_id(x[[part]], j)
-  x <- border(x, i = nrow_part(x, part), j = j, border.bottom = border, part = part)
+  x <- border(
+    x,
+    i = nrow_part(x, part),
+    j = j,
+    border.bottom = border,
+    part = part
+  )
   x
 }
 
@@ -471,7 +582,8 @@ hline_bottom <- function(x, j = NULL, border = NULL, part = "body") {
 #' @description The function is applying vertical borders to inner
 #' content of one or all parts of a flextable. The lines are the
 #' right borders of selected cells.
-#' @inheritParams hline
+#' @inheritParams args_selectors_with_all
+#' @param border border properties defined by a call to [officer::fp_border()]
 #' @examples
 #' library(officer)
 #' std_border <- fp_border(color = "orange")
@@ -487,7 +599,11 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "vline()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (is.null(border)) {
     border <- fp_border(color = flextable_global$defaults$border.color)
@@ -520,8 +636,8 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all") {
 #' @description The function is applying vertical borders to the
 #' left side of one or all parts of a flextable. The line is the
 #' left border of selected cells of the first column.
-#' @inheritParams border_outer
-#' @param i rows selection
+#' @inheritParams args_x_i_part
+#' @param border border properties defined by a call to [officer::fp_border()]
 #' @examples
 #' library(officer)
 #' std_border <- fp_border(color = "orange")
@@ -535,9 +651,16 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all") {
 #' @family borders management
 vline_left <- function(x, i = NULL, border = NULL, part = "all") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "vline_left()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "vline_left()"
+    ))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (is.null(border)) {
     border <- fp_border(color = flextable_global$defaults$border.color)
@@ -577,9 +700,16 @@ vline_left <- function(x, i = NULL, border = NULL, part = "all") {
 #' @family borders management
 vline_right <- function(x, i = NULL, border = NULL, part = "all") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "vline_right()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "vline_right()"
+    ))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (is.null(border)) {
     border <- fp_border(color = flextable_global$defaults$border.color)
@@ -596,10 +726,15 @@ vline_right <- function(x, i = NULL, border = NULL, part = "all") {
     return(x)
   }
 
-  x <- border(x, j = length(x$col_keys), i = i, border.right = border, part = part)
+  x <- border(
+    x,
+    j = length(x$col_keys),
+    i = i,
+    border.right = border,
+    part = part
+  )
   x
 }
-
 
 
 #' @export
@@ -701,28 +836,52 @@ before <- function(x, entries) {
 #' # print(ft, preview = "docx")
 #' # print(ft, preview = "pdf")
 #' # print(ft, preview = "html")
-surround <- function(x, i = NULL, j = NULL, border = NULL,
-                     border.top = NULL, border.bottom = NULL,
-                     border.left = NULL, border.right = NULL,
-                     part = "body") {
+surround <- function(
+  x,
+  i = NULL,
+  j = NULL,
+  border = NULL,
+  border.top = NULL,
+  border.bottom = NULL,
+  border.left = NULL,
+  border.right = NULL,
+  part = "body"
+) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "surround()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "surround()"
+    ))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (!is.null(border)) {
-    if (is.null(border.top)) border.top <- border
-    if (is.null(border.bottom)) border.bottom <- border
-    if (is.null(border.left)) border.left <- border
+    if (is.null(border.top)) {
+      border.top <- border
+    }
+    if (is.null(border.bottom)) {
+      border.bottom <- border
+    }
+    if (is.null(border.left)) {
+      border.left <- border
+    }
     if (is.null(border.right)) border.right <- border
   }
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
       x <- surround(
-        x = x, i = i, j = j,
-        border.top = border.top, border.bottom = border.bottom,
-        border.left = border.left, border.right = border.right,
+        x = x,
+        i = i,
+        j = j,
+        border.top = border.top,
+        border.bottom = border.bottom,
+        border.left = border.left,
+        border.right = border.right,
         part = p
       )
     }

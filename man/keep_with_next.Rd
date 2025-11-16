@@ -7,14 +7,18 @@
 keep_with_next(x, i = NULL, value = TRUE, part = "body")
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
-\item{i}{rows selection}
+\item{i}{row selector, see section \emph{Row selection with the \code{i} parameter}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{value}{TRUE or FALSE. When applied to a group, all rows
 except the last one should be flagged with the 'Keep with next' attribute.}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header', 'footer')}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' is not allowed by the function.}
 }
 \description{
 The 'Keep with next' functionality in 'Word', applied

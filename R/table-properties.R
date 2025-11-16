@@ -11,7 +11,7 @@
 #' table width is used (as a percentage).
 #' @note
 #' PowerPoint output ignore 'autofit layout'.
-#' @param x flextable object
+#' @inheritParams args_x_only
 #' @param layout 'autofit' or 'fixed' algorithm. Default to 'fixed'.
 #' @param width The parameter has a different effect depending on the
 #' output format. Users should consider it as a minimum width.

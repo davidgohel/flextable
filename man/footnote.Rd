@@ -16,16 +16,23 @@ footnote(
 )
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
-\item{i, j}{cellwise rows and columns selection}
+\item{i}{row selector, see section \emph{Row selection with the \code{i} parameter}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
+
+\item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
+in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 
 \item{value}{a call to function \code{\link[=as_paragraph]{as_paragraph()}}.}
 
 \item{ref_symbols}{character value, symbols to append that will be used
 as references to notes.}
 
-\item{part}{partname of the table (one of 'body', 'header', 'footer')}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' is not allowed by the function.}
 
 \item{inline}{whether to add footnote on same line as previous footnote or not}
 

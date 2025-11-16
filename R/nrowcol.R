@@ -2,8 +2,7 @@
 #' @title Number of rows of a part
 #' @family functions for flextable size management
 #' @description returns the number of lines in a part of flextable.
-#' @param x flextable object
-#' @param part partname of the table (one of 'body', 'header', 'footer')
+#' @inheritParams args_x_part
 #' @examples
 #' library(flextable)
 #' ft <- qflextable(head(cars))
@@ -25,7 +24,7 @@ nrow_part <- function(x, part = "body") {
 #' @title Number of columns
 #' @family functions for flextable size management
 #' @description returns the number of columns displayed
-#' @param x flextable object
+#' @inheritParams args_x_only
 #' @examples
 #' library(flextable)
 #' ft <- qflextable(head(cars))

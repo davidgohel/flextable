@@ -7,7 +7,8 @@
 \method{print}{flextable}(x, preview = "html", align = "center", ...)
 }
 \arguments{
-\item{x}{flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{preview}{preview type, one of c("html", "pptx", "docx", "rtf", "pdf, "log").
 When \code{"log"} is used, a description of the flextable is printed.}

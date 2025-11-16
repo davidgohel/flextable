@@ -19,11 +19,14 @@ align_text_col(x, align = "left", header = TRUE, footer = TRUE)
 align_nottext_col(x, align = "right", header = TRUE, footer = TRUE)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
-\item{i}{rows selection}
+\item{i}{row selector, see section \emph{Row selection with the \code{i} parameter}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
-\item{j}{columns selection}
+\item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
+in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 
 \item{align}{text alignment - a single character value, or a vector of
 character values equal in length to the number of columns selected by \code{j}.
@@ -32,7 +35,9 @@ Expected values must be from the set ('left', 'right', 'center', or 'justify').
 If the number of columns is a multiple of the length of the \code{align} parameter,
 then the values in \code{align} will be recycled across the remaining columns.}
 
-\item{part}{partname of the table (one of 'body', 'header', 'footer', 'all')}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' can be used.}
 
 \item{header}{should the header be aligned with the body}
 

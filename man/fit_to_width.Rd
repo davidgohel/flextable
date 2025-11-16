@@ -7,7 +7,8 @@
 fit_to_width(x, max_width, inc = 1L, max_iter = 20, unit = "in")
 }
 \arguments{
-\item{x}{flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{max_width}{maximum width to fit in inches}
 

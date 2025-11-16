@@ -7,7 +7,8 @@
 information_data_chunk(x, expand_special_chars = TRUE)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 }
 \value{
 a data.frame containing information about chunks:

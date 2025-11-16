@@ -14,13 +14,16 @@ autofit(
 )
 }
 \arguments{
-\item{x}{flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{add_w}{extra width to add in inches}
 
 \item{add_h}{extra height to add in inches}
 
-\item{part}{partname of the table (one of 'all', 'body', 'header' or 'footer')}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' can be used.}
 
 \item{unit}{unit for add_h and add_w, one of "in", "cm", "mm".}
 

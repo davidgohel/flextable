@@ -287,7 +287,7 @@ qflextable <- function(data) {
 #' the Quarto documentation for more information on how to work with captions
 #' in Quarto.
 #'
-#' @param x flextable object
+#' @inheritParams args_x_only
 #' @param caption caption value. The caption can be either a string either
 #' a call to [as_paragraph()]. In the latter case, users are free to format
 #' the caption with colors, italic fonts, also mixed with images or

@@ -7,7 +7,8 @@
 \method{to_html}{flextable}(x, type = c("table", "img"), ...)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{type}{output type. one of "table" or "img".}
 

@@ -7,7 +7,8 @@
 theme_box(x)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 }
 \description{
 Apply theme box to a flextable

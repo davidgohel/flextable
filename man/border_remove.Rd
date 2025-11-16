@@ -7,7 +7,8 @@
 border_remove(x)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 }
 \description{
 The function is deleting all borders of the flextable object.

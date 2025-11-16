@@ -7,7 +7,8 @@
 ncol_keys(x)
 }
 \arguments{
-\item{x}{flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 }
 \description{
 returns the number of columns displayed

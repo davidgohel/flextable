@@ -10,13 +10,17 @@ height(x, i = NULL, height, part = "body", unit = "in")
 height_all(x, height, part = "all", unit = "in")
 }
 \arguments{
-\item{x}{flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
-\item{i}{rows selection}
+\item{i}{row selector, see section \emph{Row selection with the \code{i} parameter}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{height}{height in inches}
 
-\item{part}{partname of the table}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' is not allowed by the function.}
 
 \item{unit}{unit for height, one of "in", "cm", "mm".}
 }

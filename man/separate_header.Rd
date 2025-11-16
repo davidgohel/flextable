@@ -12,7 +12,8 @@ separate_header(
 )
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{opts}{Optional treatments to apply to the resulting header part.
 This should be a character vector with support for multiple values.
@@ -72,10 +73,10 @@ Other functions for row and column operations in a flextable:
 \code{\link{add_footer_lines}()},
 \code{\link{add_footer_row}()},
 \code{\link{add_header}()},
+\code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
 \code{\link{delete_columns}()},
 \code{\link{delete_part}()},
-\code{\link{delete_rows}()},
 \code{\link{set_header_footer_df}},
 \code{\link{set_header_labels}()}
 }

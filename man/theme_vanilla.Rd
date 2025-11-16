@@ -7,7 +7,8 @@
 theme_vanilla(x)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 }
 \description{
 Apply theme vanilla to a flextable:

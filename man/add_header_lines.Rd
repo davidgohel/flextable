@@ -7,7 +7,8 @@
 add_header_lines(x, values = character(0), top = TRUE)
 }
 \arguments{
-\item{x}{a \code{flextable} object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{values}{a character vector or a call to \code{\link[=as_paragraph]{as_paragraph()}}
 to get formated content, each element will
@@ -50,4 +51,19 @@ ft_2 <- add_footer_lines(ft_2, values = ref, top = FALSE)
 ft_2 <- autofit(ft_2)
 ft_2
 }
-\concept{functions that add rows in the table}
+\seealso{
+Other functions for row and column operations in a flextable: 
+\code{\link{add_body}()},
+\code{\link{add_body_row}()},
+\code{\link{add_footer}()},
+\code{\link{add_footer_lines}()},
+\code{\link{add_footer_row}()},
+\code{\link{add_header}()},
+\code{\link{add_header_row}()},
+\code{\link{delete_columns}()},
+\code{\link{delete_part}()},
+\code{\link{separate_header}()},
+\code{\link{set_header_footer_df}},
+\code{\link{set_header_labels}()}
+}
+\concept{functions for row and column operations in a flextable}

@@ -7,7 +7,8 @@
 add_footer_lines(x, values = character(0), top = FALSE)
 }
 \arguments{
-\item{x}{a \code{flextable} object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{values}{a character vector or a call to \code{\link[=as_paragraph]{as_paragraph()}}
 to get formated content, each element will
@@ -37,10 +38,10 @@ Other functions for row and column operations in a flextable:
 \code{\link{add_footer}()},
 \code{\link{add_footer_row}()},
 \code{\link{add_header}()},
+\code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
 \code{\link{delete_columns}()},
 \code{\link{delete_part}()},
-\code{\link{delete_rows}()},
 \code{\link{separate_header}()},
 \code{\link{set_header_footer_df}},
 \code{\link{set_header_labels}()}

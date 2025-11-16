@@ -7,7 +7,8 @@
 add_header(x, top = TRUE, ..., values = NULL)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{top}{should the rows be inserted at the top or the bottom.}
 
@@ -71,10 +72,10 @@ Other functions for row and column operations in a flextable:
 \code{\link{add_footer}()},
 \code{\link{add_footer_lines}()},
 \code{\link{add_footer_row}()},
+\code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
 \code{\link{delete_columns}()},
 \code{\link{delete_part}()},
-\code{\link{delete_rows}()},
 \code{\link{separate_header}()},
 \code{\link{set_header_footer_df}},
 \code{\link{set_header_labels}()}

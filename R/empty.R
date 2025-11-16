@@ -1,8 +1,6 @@
 #' @title Delete flextable content
 #' @description Set content display as a blank `" "`.
-#' @param x `flextable` object
-#' @param j columns selection
-#' @param part partname of the table
+#' @inheritParams args_x_j_part
 #' @examples
 #' ftab <- flextable(head(mtcars))
 #' ftab <- void(ftab, ~ vs + am + gear + carb)

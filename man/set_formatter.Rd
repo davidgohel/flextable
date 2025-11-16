@@ -7,7 +7,8 @@
 set_formatter(x, ..., values = NULL, part = "body")
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{...}{Name-value pairs of functions, names should be existing col_key values}
 
@@ -18,8 +19,9 @@ should be existing col_key values.
 \item If \code{values} is a single function, it will be applied to each column.
 }}
 
-\item{part}{part of the table (one of 'body' or 'header' or 'footer')
-where to apply the formatter functions.}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' is not allowed by the function.}
 }
 \description{
 Apply formatter functions to column keys.

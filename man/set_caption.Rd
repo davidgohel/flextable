@@ -17,7 +17,8 @@ set_caption(
 )
 }
 \arguments{
-\item{x}{flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{caption}{caption value. The caption can be either a string either
 a call to \code{\link[=as_paragraph]{as_paragraph()}}. In the latter case, users are free to format

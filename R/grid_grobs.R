@@ -30,7 +30,7 @@
 #' The size of the flextable can be known by using the method
 #' \link[=dim.flextableGrob]{dim} on the grob.
 #'
-#' @param x A flextable object
+#' @inheritParams args_x_only
 #'
 #' @param fit Determines the fitting/scaling of the grob on its parent viewport.
 #' One of `auto`, `width`, `fixed`, `TRUE`, `FALSE`:

@@ -7,13 +7,17 @@
 merge_h_range(x, i = NULL, j1 = NULL, j2 = NULL, part = "body")
 }
 \arguments{
-\item{x}{\code{flextable} object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
-\item{i}{selected rows}
+\item{i}{row selector, see section \emph{Row selection with the \code{i} parameter}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{j1, j2}{selected columns that will define the range of columns to merge.}
 
-\item{part}{partname of the table where merge has to be done.}
+\item{part}{part selector, see section \emph{Part selection with the \code{part}
+parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
+Value 'all' is not allowed by the function.}
 }
 \description{
 Merge flextable columns into a single one for each selected rows. All

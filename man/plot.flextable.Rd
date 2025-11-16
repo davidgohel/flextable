@@ -7,7 +7,8 @@
 \method{plot}{flextable}(x, ...)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
+'flextable' object.}
 
 \item{...}{additional arguments passed to \code{\link[=gen_grob]{gen_grob()}}.}
 }
