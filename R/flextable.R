@@ -350,7 +350,7 @@ set_caption <- function(x,
     caption_value <- caption[[1]]
 
     by_columns <- c(
-      "font.size", "italic", "bold", "underlined", "color", "shading.color",
+      "font.size", "italic", "bold", "underlined", "strike", "color", "shading.color",
       "font.family", "hansi.family", "eastasia.family", "cs.family",
       "vertical.align"
     )

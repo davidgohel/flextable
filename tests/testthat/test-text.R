@@ -266,3 +266,53 @@ test_that("as_word_field", {
   wml_str <- wml_str[wml_str$.part %in% "footer",]$run_openxml[1]
   expect_match(wml_str, "<w:instrText xml:space=\"preserve\" w:dirty=\"true\">Page</w:instrText>", fixed = TRUE)
 })
+
+test_that("strike", {
+  ft <- flextable(data.frame(test = "test"))
+  ft <- add_footer_lines(ft, values = "test")
+  ft <- mk_par(ft,
+    j = "test", part = "body",
+    value = as_paragraph(
+      as_strike(test)
+    )
+  )
+  ft <- mk_par(ft,
+    j = "test", part = "header",
+    value = as_paragraph(
+      as_strike(test)
+    )
+  )
+  ft <- mk_par(ft,
+    j = "test", part = "footer",
+    value = as_paragraph(
+      as_strike(test)
+    )
+  )
+
+  runs <- information_data_chunk(ft)
+  expect_equal(runs$strike, c(TRUE, TRUE, TRUE))
+
+  openxml <- flextable:::runs_as_wml(ft, txt_data = runs)$run_openxml
+  expect_match(openxml[1], "<w:strike w:val=\"true\"", fixed = TRUE)
+  expect_match(openxml[2], "<w:strike w:val=\"true\"", fixed = TRUE)
+  expect_match(openxml[3], "<w:strike w:val=\"true\"", fixed = TRUE)
+
+  openxml <- flextable:::runs_as_pml(ft)$par_nodes_str
+  expect_match(openxml[1], "strike=\"sngStrike\"", fixed = TRUE)
+  expect_match(openxml[2], "strike=\"sngStrike\"", fixed = TRUE)
+  expect_match(openxml[3], "strike=\"sngStrike\"", fixed = TRUE)
+
+  html_info <- flextable:::runs_as_html(ft)
+  css <- attr(html_info, "css")
+  expect_match(css, "text-decoration:line-through;", fixed = TRUE)
+
+  latex_str <- flextable:::runs_as_latex(ft)$txt
+  expect_match(latex_str[1], "\\sout{", fixed = TRUE)
+  expect_match(latex_str[2], "\\sout{", fixed = TRUE)
+  expect_match(latex_str[3], "\\sout{", fixed = TRUE)
+
+  rtf_str <- flextable:::runs_as_rtf(ft)$txt
+  expect_match(rtf_str[1], "\\strike", fixed = TRUE)
+  expect_match(rtf_str[2], "\\strike", fixed = TRUE)
+  expect_match(rtf_str[3], "\\strike", fixed = TRUE)
+})

@@ -1,5 +1,10 @@
 # flextable 0.9.11
 
+## new features
+
+- support strikethrough formatting with `fp_text_default()`.
+- new function `as_strike()` to apply strikethrough formatting to text chunks.
+
 ## Internals
 
 - Strings metrics are now computed with `gdtools::strings_sizes()` instead of 

@@ -57,6 +57,7 @@ add_rows_fpstruct <- function(x, nrows, first, default = x$default, ...) {
 text_struct <- function(nrow, keys,
                         color = "black", font.size = 10,
                         bold = FALSE, italic = FALSE, underlined = FALSE,
+                        strike = FALSE,
                         font.family = "Arial",
                         hansi.family = "Arial", eastasia.family = "Arial", cs.family = "Arial",
                         vertical.align = "baseline",
@@ -67,6 +68,7 @@ text_struct <- function(nrow, keys,
     bold = fpstruct(nrow = nrow, keys = keys, default = bold),
     italic = fpstruct(nrow = nrow, keys = keys, default = italic),
     underlined = fpstruct(nrow = nrow, keys = keys, default = underlined),
+    strike = fpstruct(nrow = nrow, keys = keys, default = strike),
     font.family = fpstruct(nrow = nrow, keys = keys, default = font.family),
     hansi.family = fpstruct(nrow = nrow, keys = keys, default = hansi.family),
     eastasia.family = fpstruct(nrow = nrow, keys = keys, default = eastasia.family),
@@ -329,7 +331,7 @@ as_chunkset_struct <- function(l_paragraph, keys, i = NULL) {
 }
 
 is_paragraph <- function(x) {
-  chunk_str_names <- c("txt", "font.size", "italic", "bold", "underlined", "color",
+  chunk_str_names <- c("txt", "font.size", "italic", "bold", "underlined", "strike", "color",
                        "shading.color", "font.family", "hansi.family", "eastasia.family",
                        "cs.family", "vertical.align", "width", "height", "url", "eq_data",
                        "word_field_data", "img_data",
@@ -354,7 +356,7 @@ set_chunkset_struct_element <- function(x, i, j, value) {
 }
 
 append_chunkset_struct_element <- function(x, i, j, chunk_data, last = TRUE) {
-  chunk_str_names <- c("txt", "font.size", "italic", "bold", "underlined", "color",
+  chunk_str_names <- c("txt", "font.size", "italic", "bold", "underlined", "strike", "color",
                    "shading.color", "font.family", "hansi.family", "eastasia.family",
                    "cs.family", "vertical.align", "width", "height", "url", "eq_data",
                    "word_field_data", "img_data")
@@ -419,7 +421,7 @@ get_chunkset_struct_element <- function(x, i, j) {
 
 replace_missing_fptext_by_default <- function(x, default) {
   by_columns <- c(
-    "font.size", "italic", "bold", "underlined", "color", "shading.color",
+    "font.size", "italic", "bold", "underlined", "strike", "color", "shading.color",
     "font.family", "hansi.family", "eastasia.family", "cs.family",
     "vertical.align"
   )

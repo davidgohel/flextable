@@ -49,6 +49,7 @@ list_latex_dep <- function(float = FALSE, wrapfig = FALSE) {
   x$multirow <- latex_dependency("multirow")
   x$multicol <- latex_dependency("multicol")
   x$colortbl <- latex_dependency("colortbl")
+  x$ulem <- latex_dependency("ulem")
   x$hhline <- latex_dependency(
     name = "hhline",
     extra_lines = c(

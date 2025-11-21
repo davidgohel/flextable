@@ -25,6 +25,7 @@
 #'   italic = c(FALSE, TRUE),
 #'   bold = c(FALSE, TRUE),
 #'   underlined = c(FALSE, TRUE),
+#'   strike = c(FALSE, TRUE),
 #'   color = c("black", "red"),
 #'   shading.color = c("transparent", "yellow"),
 #'   font.family = c("Arial", "Arial"),
@@ -42,6 +43,7 @@
 #'   italic = c(FALSE, TRUE),
 #'   bold = c(FALSE, TRUE),
 #'   underlined = c(FALSE, TRUE),
+#'   strike = c(FALSE, TRUE),
 #'   color = c("black", "red"),
 #'   shading.color = c("transparent", "yellow"),
 #'   font.family = c("Arial", "Arial"),
@@ -73,6 +75,7 @@ chunk_dataframe <- function(...) {
     italic = def_lgl,
     bold = def_lgl,
     underlined = def_lgl,
+    strike = def_lgl,
     color = def_chr,
     shading.color = def_chr,
     font.family = def_chr,
@@ -103,6 +106,7 @@ default_fptext_prop <- structure(
     bold = as.logical(NA_integer_),
     italic = as.logical(NA_integer_),
     underlined = as.logical(NA_integer_),
+    strike = as.logical(NA_integer_),
     color = NA_character_,
     shading.color = NA_character_,
     font.family = NA_character_,
@@ -182,6 +186,7 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
     italic = sapply(props, function(x) x$italic),
     bold = sapply(props, function(x) x$bold),
     underlined = sapply(props, function(x) x$underlined),
+    strike = sapply(props, function(x) x$strike),
     color = sapply(props, function(x) x$color),
     shading.color = sapply(props, function(x) x$shading.color),
     font.family = sapply(props, function(x) x$font.family),
@@ -291,6 +296,38 @@ as_b <- function(x) {
     x <- as_chunk(x, formatter = format_fun)
   }
   x$bold <- TRUE
+  x
+}
+
+#' @export
+#' @title Strikethrough chunk
+#' @description The function is producing a chunk with
+#' strikethrough font.
+#'
+#' It is used to add it to the content of a cell of the
+#' flextable with the functions [compose()], [append_chunks()]
+#' or [prepend_chunks()].
+#'
+#' @inheritParams as_sub
+#' @family chunk elements for paragraph
+#' @examples
+#' ft <- flextable(head(iris),
+#'   col_keys = c("Sepal.Length", "dummy")
+#' )
+#'
+#' ft <- compose(ft,
+#'   j = "dummy",
+#'   value = as_paragraph(
+#'     as_strike(Sepal.Length)
+#'   )
+#' )
+#'
+#' ft
+as_strike <- function(x) {
+  if (!inherits(x, "chunk")) {
+    x <- as_chunk(x, formatter = format_fun)
+  }
+  x$strike <- TRUE
   x
 }
 
@@ -541,6 +578,7 @@ as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL) {
     italic = sapply(props, function(x) x$italic),
     bold = sapply(props, function(x) x$bold),
     underlined = sapply(props, function(x) x$underlined),
+    strike = sapply(props, function(x) x$strike),
     color = sapply(props, function(x) x$color),
     shading.color = sapply(props, function(x) x$shading.color),
     font.family = sapply(props, function(x) x$font.family),
@@ -659,6 +697,7 @@ as_word_field <- function(x, props = NULL, width = .1, height = .15, unit = "in"
     italic = sapply(props, function(x) x$italic),
     bold = sapply(props, function(x) x$bold),
     underlined = sapply(props, function(x) x$underlined),
+    strike = sapply(props, function(x) x$strike),
     color = sapply(props, function(x) x$color),
     shading.color = sapply(props, function(x) x$shading.color),
     font.family = sapply(props, function(x) x$font.family),

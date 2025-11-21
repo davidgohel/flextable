@@ -118,7 +118,7 @@ fortify_span <- function(x, parts = c("header", "body", "footer")) {
 #' @noRd
 distinct_text_properties <- function(x, add_columns = character(length = 0L)) {
   columns <- c(
-    "color", "font.size", "bold", "italic", "underlined", "font.family",
+    "color", "font.size", "bold", "italic", "underlined", "strike", "font.family",
     "hansi.family", "eastasia.family", "cs.family", "vertical.align",
     "shading.color", add_columns
   )

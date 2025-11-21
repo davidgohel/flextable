@@ -421,6 +421,7 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
                             bold = FALSE,
                             italic = FALSE,
                             underlined = FALSE,
+                            strike = FALSE,
                             font.family = flextable_global$defaults$font.family,
                             cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
                             vertical.align = "baseline",
@@ -434,7 +435,8 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
     font.family = font.family,
     cs.family = cs.family, eastasia.family = eastasia.family, hansi.family = hansi.family,
     vertical.align = vertical.align,
-    shading.color = shading.color
+    shading.color = shading.color,
+    strike = strike
   )
 }
 #' @export

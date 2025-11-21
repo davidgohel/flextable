@@ -219,7 +219,7 @@ default_fp_text_wml <- function(value) {
   setDT(default_chunks_properties)
   default_chunks_properties <- merge(
     default_chunks_properties, unique_text_props,
-    by = c("color", "font.size", "bold", "italic", "underlined", "font.family",
+    by = c("color", "font.size", "bold", "italic", "underlined", "strike", "font.family",
            "hansi.family", "eastasia.family", "cs.family", "vertical.align",
            "shading.color")
   )

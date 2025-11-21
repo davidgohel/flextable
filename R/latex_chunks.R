@@ -61,6 +61,8 @@ as_table_latexstyle_lr <- function(x) {
   underlined_right <- rep("", nrow(x))
   underlined_left[x$underlined %in% TRUE] <- "\\underline{"
   underlined_right[x$underlined %in% TRUE] <- "}"
+  underlined_left[x$strike %in% TRUE] <- "\\sout{"
+  underlined_right[x$strike %in% TRUE] <- "}"
   left <- paste0(left, underlined_left)
   right <- paste0(underlined_right, right)
 

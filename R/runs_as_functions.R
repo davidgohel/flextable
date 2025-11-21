@@ -32,6 +32,8 @@ text_css_styles <- function(x) {
   italic[x$italic] <- "font-style:italic;"
   underline <- rep("text-decoration:none;", nrow(x))
   underline[x$underlined] <- "text-decoration:underline;"
+  has_strike <- !is.na(x$strike) & x$strike
+  underline[has_strike] <- "text-decoration:line-through;"
 
   style_column <- paste0(
     family, font.size, bold, italic, underline,

@@ -10,6 +10,7 @@ fp_text_default(
   bold = FALSE,
   italic = FALSE,
   underlined = FALSE,
+  strike = FALSE,
   font.family = flextable_global$defaults$font.family,
   cs.family = NULL,
   eastasia.family = NULL,
@@ -29,6 +30,8 @@ a valid color (e.g. "#000000" or "black").}
 \item{italic}{is italic}
 
 \item{underlined}{is underlined}
+
+\item{strike}{is strikethrough}
 
 \item{font.family}{single character value. Specifies the font to
 be used to format characters in the Unicode range (U+0000-U+007F).}
