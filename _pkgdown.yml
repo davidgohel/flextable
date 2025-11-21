@@ -169,6 +169,7 @@ reference:
     - grid_chunk
     - as_b
     - as_i
+    - as_strike
     - as_sub
     - as_sup
     - as_highlight
