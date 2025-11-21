@@ -1,10 +1,9 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: 3.1.11
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   overview: overview.html
-last_built: 2023-03-28T21:40Z
+last_built: 2025-11-21T08:05Z
 urls:
   reference: https://davidgohel.github.io/flextable/reference
   article: https://davidgohel.github.io/flextable/articles
-
