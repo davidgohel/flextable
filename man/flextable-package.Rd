@@ -102,6 +102,7 @@ Other contributors:
   \item Rémi Thériault (\href{https://orcid.org/0000-0003-4315-6788}{ORCID}) [contributor]
   \item Samuel Jobert [contributor]
   \item Keith Newman [contributor]
+  \item Wonbin Hahn [contributor]
 }
 
 }

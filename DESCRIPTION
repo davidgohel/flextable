@@ -18,7 +18,8 @@ Authors@R: c(
     person("Rémi", "Thériault", role = "ctb",
            comment = c(ORCID = "0000-0003-4315-6788")),
     person("Samuel", "Jobert", role = "ctb"),
-    person("Keith", "Newman", role = "ctb")
+    person("Keith", "Newman", role = "ctb"),
+    person("Wonbin", "Hahn", role = "ctb")
   )
 Description: Use a grammar for creating and customizing pretty tables.
     The following formats are supported: 'HTML', 'PDF', 'RTF', 'Microsoft
@@ -61,6 +62,7 @@ Suggests:
     doconv (>= 0.3.0),
     equatags,
     ggplot2,
+    gt,
     lme4,
     magick,
     mgcv,
