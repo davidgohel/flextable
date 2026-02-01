@@ -200,6 +200,7 @@ reference:
     - summarizor
     - starts_with("as_flextable")
     - continuous_summary
+    - compact_summary
     - as_grouped_data
     - proc_freq
     - shift_table

@@ -4,6 +4,8 @@
 
 - support strikethrough formatting with `fp_text_default()`.
 - new function `as_strike()` to apply strikethrough formatting to text chunks.
+- new function `compact_summary()` to create a compact summary of a data.frame
+that can be transformed as a flextable with `as_flextable()`.
 
 ## Internals
 
