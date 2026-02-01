@@ -43,6 +43,11 @@ output when background color is set (#673).
 correctly with the default container (`none`) in Quarto output.
 - `merge_v()`: vertically merged cell labels now appear at the top of
 the merged range in PDF/LaTeX output instead of the bottom (#654).
+- vertical alignment (`valign`) in merged cells now works correctly in
+PDF/LaTeX output when rows have different heights (#639). Content is
+placed in the first (top), middle (center), or last (bottom) row of the
+merged range; `\multirow` is no longer used as it miscalculates offsets
+with unequal row heights.
 
 # flextable 0.9.10
 

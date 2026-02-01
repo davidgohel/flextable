@@ -231,24 +231,16 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   latex
 }
 
+# Adds empty multirow_left/multirow_right columns for vertically merged cells.
+#
+# \multirow is no longer used because it calculates vertical offsets assuming
+# equal row heights, giving wrong results when rows have different heights
+# (#639). Instead, reverse_colspan() places content in the correct row
+# (first for top, middle for center, last for bottom) and the column type
+# (p{} for top, m{} for center, b{} for bottom) handles alignment naturally.
 #' @importFrom data.table fcase
 augment_multirow_fixed <- function(properties_df) {
-  properties_df[, c("multirow_left", "multirow_right") :=
-    list(
-      fcase(
-        .SD$colspan > 1,
-        paste0(
-          "\\multirow[",
-          substr(.SD$vertical.align, 1, 1),
-          "]{",
-          format_double(.SD$colspan, digits = 0),
-          "}{*}{\\parbox{", format_double(.SD$width, digits = 2), "in}{",
-          c("center" = "\\centering ", left = "\\raggedright ", justify = "\\raggedright ", right = "\\raggedleft ")[.SD$text.align]
-        ),
-        default = ""
-      ),
-      fcase(.SD$colspan > 1, "}}", default = "")
-    )]
+  properties_df[, c("multirow_left", "multirow_right") := list("", "")]
   properties_df
 }
 
@@ -368,7 +360,70 @@ fill_NA <- function(x) {
 }
 
 
+# Handles row placement of content in vertically merged cells (colspan > 1)
+# for LaTeX output.
+#
+# Context: "colspan" here means vertical span (number of rows merged),
+# despite the name. A cell with colspan > 1 is the spanning cell that
+# holds the content; cells with colspan < 1 are absorbed (empty).
+# By default the spanning cell is in the first row of the merged group.
+#
+# \multirow is NOT used because it calculates offsets assuming equal row
+# heights, which gives wrong positions when rows differ in height (#639).
+# Instead, content is placed in the correct row and the column type
+# (p{} for top, m{} for center, b{} for bottom) handles alignment:
+#
+# - "top": content stays in the first row — no action needed.
+# - "center": content is moved to the middle row (ceiling(N/2)) by
+#     swapping .row_id between the first and middle positions.
+# - "bottom": content is moved to the last row by reversing .row_id
+#     within the merged group.
+#
+# Vertical borders (vborder_left, vborder_right) are also swapped/reversed
+# so they follow the row position they belong to.
 reverse_colspan <- function(df) {
+  setorderv(df, cols = c(".part", ".col_id", ".row_id"))
+
+  # Assign a unique id (col_uid) to each cell, then propagate the spanning
+  # cell's id to its absorbed cells via fill_NA. This groups all cells
+  # belonging to the same vertical merge.
+  df[, c("col_uid") := list(UUIDgenerate(n = nrow(.SD))), by = c(".part", ".row_id")]
+  df[df$colspan < 1, c("col_uid") := list(NA_character_)]
+  df[, c("col_uid") := list(fill_NA(.SD$col_uid)), by = c(".part", ".col_id")]
+
+  # Bottom: reverse row_ids so content moves from first to last row.
+  bottom_uids <- unique(df$col_uid[df$colspan > 1 & df$vertical.align == "bottom"])
+  if (length(bottom_uids) > 0) {
+    df[df$col_uid %in% bottom_uids, c(
+      ".row_id",
+      "vborder_left", "vborder_right"
+    ) :=
+      list(
+        rev(.SD$.row_id),
+        rev(.SD$vborder_left),
+        rev(.SD$vborder_right)
+      ), by = c("col_uid")]
+  }
+
+  # Center: swap row_ids between first and middle positions so content
+  # moves to the middle row. ceiling(N/2) gives the middle index:
+  # N=2 -> 1 (no swap), N=3 -> 2, N=4 -> 2, N=5 -> 3, etc.
+  center_uids <- unique(df$col_uid[df$colspan > 1 & df$vertical.align == "center"])
+  if (length(center_uids) > 0) {
+    for (uid in center_uids) {
+      idx <- which(df$col_uid == uid)
+      mid <- ceiling(length(idx) / 2)
+      if (mid > 1) {
+        for (col_name in c(".row_id", "vborder_left", "vborder_right")) {
+          tmp <- df[[col_name]][idx[1]]
+          data.table::set(df, idx[1], col_name, df[[col_name]][idx[mid]])
+          data.table::set(df, idx[mid], col_name, tmp)
+        }
+      }
+    }
+  }
+
+  df[, c("col_uid") := NULL]
   setorderv(df, cols = c(".part", ".row_id", ".col_id"))
   df
 }

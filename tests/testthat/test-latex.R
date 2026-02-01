@@ -13,26 +13,53 @@ test_that("merge_v places content at top of merged range", {
   latex_str <- flextable:::gen_raw_latex(ft)
 
   lines <- unlist(strsplit(latex_str, "\n"))
-  body_lines <- grep("multirow|\\{\\}", lines, value = TRUE)
 
-  # first body row should contain the multirow command with positive count
-  multirow_line <- grep("\\\\multirow", body_lines, value = TRUE)[1]
-  expect_match(multirow_line, "\\multirow[", fixed = TRUE)
-  expect_match(multirow_line, "]{2}{", fixed = TRUE)
-  expect_false(grepl("]{-2}{", multirow_line, fixed = TRUE))
+  # no \multirow should be used (removed in favour of row placement)
+  expect_false(any(grepl("\\\\multirow", lines)))
 
-  # the multirow for "X" should appear before value "1"
-  multirow_pos <- grep("\\\\multirow", lines)[1]
-  x_in_multirow <- grepl("X", lines[multirow_pos])
-  expect_true(x_in_multirow)
+  # "X" should appear in first body row (with value "1")
+  x_line <- grep("X", lines)[1]
+  expect_true(grepl("1", lines[x_line]))
 
-  # the empty cell {} should come after the multirow row
-  empty_pos <- grep("\\{\\}.*&.*\\{2\\}", lines)
-  if (length(empty_pos) == 0) {
-    empty_pos <- grep("\\{\\}", lines)
-    empty_pos <- empty_pos[empty_pos > multirow_pos]
+  # "Y" should appear in first row of its group (with value "3")
+  y_line <- grep("Y", lines)[1]
+  expect_true(grepl("3", lines[y_line]))
+})
+
+test_that("valign works in merged cells with varying row heights", {
+  ft <- flextable(data.frame(col1 = c("A1", "A1", "A1"), col2 = c("B1", "long text", "B3")))
+  ft <- merge_at(ft, i = 1:3, j = 1)
+
+  lines_for <- function(va) {
+    ft2 <- valign(ft, valign = va)
+    latex_str <- flextable:::gen_raw_latex(ft2)
+    strsplit(latex_str, "\n")[[1]]
   }
-  expect_true(length(empty_pos) > 0)
+
+  # top: A1 in first row, no multirow
+  top_lines <- lines_for("top")
+  top_body <- grep("A1|B1|B3", top_lines, value = TRUE)
+  a1_line <- grep("A1", top_lines)[1]
+  b1_line <- grep("B1", top_lines)[1]
+  expect_equal(a1_line, b1_line) # A1 and B1 on same line
+  expect_false(any(grepl("\\\\multirow", top_body)))
+
+  # center: A1 in middle row (row 2), no multirow
+  ctr_lines <- lines_for("center")
+  a1_line <- grep("A1", ctr_lines)[1]
+  b1_line <- grep("B1", ctr_lines)[1]
+  b3_line <- grep("B3", ctr_lines)[1]
+  expect_true(a1_line > b1_line) # A1 is after B1 (not in first row)
+  expect_true(a1_line < b3_line) # A1 is before B3 (not in last row)
+  expect_false(any(grepl("\\\\multirow", grep("A1", ctr_lines, value = TRUE))))
+
+  # bottom: A1 in last row, no multirow
+  bot_lines <- lines_for("bottom")
+  bot_body <- grep("A1|B1|B3", bot_lines, value = TRUE)
+  a1_line <- grep("A1", bot_lines)[1]
+  b3_line <- grep("B3", bot_lines)[1]
+  expect_equal(a1_line, b3_line) # A1 and B3 on same line
+  expect_false(any(grepl("\\\\multirow", bot_body)))
 })
 
 test_that("fonts are defined in latex", {
