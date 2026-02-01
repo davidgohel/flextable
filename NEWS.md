@@ -25,6 +25,8 @@ or 'quarto'.
 - `as_flextable.tabulator()`: the N= counts in column headers are now
 displayed when there are multiple grouping columns (previously limited
 to a single grouping column).
+- `footnote()` no longer errors when the row selector `i` matches
+zero rows (#712).
 
 # flextable 0.9.10
 

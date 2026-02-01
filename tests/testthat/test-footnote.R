@@ -30,6 +30,22 @@ test_that("symbols are not inserted as a rectangular selection", {
 })
 
 
+test_that("footnote with zero matching rows does not error", {
+  ft_zero <- flextable(data.frame(a = 1:5))
+  expect_silent(
+    ft_result <- footnote(
+      x = ft_zero,
+      i = ~ a > 10,
+      j = "a",
+      value = as_paragraph("big")
+    )
+  )
+  expect_equal(
+    nrow_part(ft_result, "footer"), 0L
+  )
+})
+
+
 ft <- flextable(iris[1:5, ])
 ft <- footnote(
   x = ft, i = 1:3, j = 1:3,

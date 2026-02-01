@@ -96,6 +96,10 @@ footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "b
   i <- get_rows_id(x[[part]], i)
   j <- get_columns_id(x[[part]], j)
 
+  if (length(i) < 1) {
+    return(x)
+  }
+
   if (is.null(ref_symbols)) {
     symbols_str <- as.character(seq_along(value))
   } else {
