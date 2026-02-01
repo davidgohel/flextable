@@ -27,6 +27,8 @@ displayed when there are multiple grouping columns (previously limited
 to a single grouping column).
 - `footnote()` no longer errors when the row selector `i` matches
 zero rows (#712).
+- footnote symbols no longer clash with rotated cells in HTML
+output (#713).
 
 # flextable 0.9.10
 

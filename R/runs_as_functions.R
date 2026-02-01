@@ -11,18 +11,8 @@ text_css_styles <- function(x) {
 
   vertical.align <- rep("", nrow(x))
   has_vertical_align <- x$vertical.align %in% c("superscript", "subscript")
-  positioning_val <- rep(0, nrow(x))
-  positioning_val[has_vertical_align] <- .3
-  positioning_what <- rep("", nrow(x))
-  positioning_what[x$vertical.align %in% "superscript"] <- "bottom"
-  positioning_what[x$vertical.align %in% "subscript"] <- "top"
-  vertical.align[has_vertical_align] <-
-    sprintf(
-      "position: relative;%s:%s;",
-      positioning_what[has_vertical_align],
-      css_pt(x$font.size[has_vertical_align] *
-        positioning_val[has_vertical_align])
-    )
+  vertical.align[x$vertical.align %in% "superscript"] <- "vertical-align:super;"
+  vertical.align[x$vertical.align %in% "subscript"] <- "vertical-align:sub;"
   font.size <- sprintf("font-size:%s;", css_pt(x$font.size))
   font.size[has_vertical_align] <- sprintf("font-size:%s;", css_pt(x$font.size[has_vertical_align] * .6))
 
