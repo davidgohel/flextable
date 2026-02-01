@@ -19,16 +19,24 @@ fortify_latex_borders <- function(x) {
     z[length(z)] <- TRUE
     z
   }), by = c(".part", ".col_id", "vspan_id")]
+  properties_df[, c("draw_hline_top") := list({
+    z <- logical(nrow(.SD))
+    z[1] <- TRUE
+    z
+  }), by = c(".part", ".col_id", "vspan_id")]
 
   top <- dcast(properties_df, .part + .row_id ~ .col_id, value.var = "border.width.top")
   bottom <- dcast(properties_df, .part + .row_id ~ .col_id, value.var = "border.width.bottom")
   draw_hline <- dcast(properties_df, .part + .row_id ~ .col_id, value.var = "draw_hline")
+  draw_hline_top <- dcast(properties_df, .part + .row_id ~ .col_id, value.var = "draw_hline_top")
   top_mat <- as.matrix(top[, 3:ncol(top)])
   bot_mat <- as.matrix(bottom[, 3:ncol(top)])
 
   # don't want the merged columns widths inside
   draw_hline_mat <- as.matrix(draw_hline[, 3:ncol(top)])
+  draw_hline_top_mat <- as.matrix(draw_hline_top[, 3:ncol(top)])
   bot_mat <- bot_mat * (draw_hline_mat > 0)
+  top_mat <- top_mat * (draw_hline_top_mat > 0)
 
   new_row_n <- nrow(top) + 1
 
@@ -163,7 +171,7 @@ latex_gridlines <- function(properties_df) {
     # if cells are vertically merged, dont draw bottom borders nor their vertical columns/joins
     x[, c("hborder_bottom", "hborder_bottom_post_vline") :=
       list(
-        data.table::fifelse(c(.SD$colspan[-1], 1) < 1, fun_hborder(w = .SD$border.width.bottom, cols = .SD$border.color.bottom), .SD$hborder_bottom),
+        data.table::fifelse(c(.SD$colspan[-1], 1) < 1, "~", .SD$hborder_bottom),
         data.table::fifelse(c(.SD$colspan[-1], 1) < 1, "", .SD$hborder_bottom_post_vline)
       ), by = c(".part", ".col_id")]
 

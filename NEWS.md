@@ -31,6 +31,8 @@ to a single grouping column).
 zero rows (#712).
 - footnote symbols no longer clash with rotated cells in HTML
 output (#713).
+- inner borders of vertically merged cells no longer show in PDF
+output when background color is set (#673).
 
 # flextable 0.9.10
 

@@ -498,6 +498,9 @@ latex_container_str.latex_container_wrap <- function(x, latex_container, quarto 
   if (x$properties$layout %in% "fixed") {
     w <- sprintf("%.02fin", flextable_dim(x)$widths)
   } else {
+    # wrapfig interprets 0pt as "auto-calculate width from
+    # content"; needed because in autofit mode, column widths
+    # are determined by LaTeX (columns use 'c' spec), not by R.
     w <- "0pt"
   }
   c(
