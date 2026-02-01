@@ -554,15 +554,12 @@ text_metric <- function(x) {
 }
 
 strings_sizes_tmp <- function(...) {
-
-  if (is.null(dev.list())) {
-    file <- tempfile(fileext = ".png")
-    agg_png(width = 50, height = 50, filename = file, units = "in")
-    on.exit({
-      dev.off()
-      unlink(file, force = TRUE)
-    })
-  }
+  file <- tempfile(fileext = ".png")
+  agg_png(width = 50, height = 50, filename = file, units = "in")
+  on.exit({
+    dev.off()
+    unlink(file, force = TRUE)
+  })
   strings_sizes(...)
 }
 
