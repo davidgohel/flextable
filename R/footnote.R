@@ -22,6 +22,10 @@
 #' @param inline whether to add footnote on same line as previous footnote or not
 #' @param sep used only when inline = TRUE, character string to use as
 #' a separator between footnotes.
+#' @param symbol_sep separator to insert between multiple
+#' footnote symbols in the same cell (e.g. `","` to
+#' produce `1,2` instead of `12`). Default is `""`
+#' (no separator, backward compatible).
 #' @examples
 #' ft_1 <- flextable(head(iris))
 #' ft_1 <- footnote(ft_1,
@@ -75,8 +79,10 @@
 #' ft_3
 #' @export
 #' @importFrom stats update
-footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "body",
-                     inline = FALSE, sep = "; ") {
+footnote <- function(x, i = NULL, j = NULL, value,
+                     ref_symbols = NULL, part = "body",
+                     inline = FALSE, sep = "; ",
+                     symbol_sep = "") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "footnote()"))
   }
@@ -128,6 +134,23 @@ footnote <- function(x, i = NULL, j = NULL, value, ref_symbols = NULL, part = "b
   for (index_num in seq_len(nrow(cell_index))) {
     i_cell <- cell_index[["i"]][index_num]
     j_cell <- cell_index[["j"]][index_num]
+    if (nzchar(symbol_sep)) {
+      cell_para <- get_fpstruct_elements(
+        x = x[[part]]$content,
+        i = i_cell,
+        j = x$col_keys[j_cell]
+      )[[1, 1]]
+      last_valign <- cell_para$vertical.align[
+        nrow(cell_para)
+      ]
+      if (isTRUE(last_valign == "superscript")) {
+        x <- append_chunks(x,
+          i = i_cell, j = j_cell,
+          part = part,
+          as_sup(symbol_sep)
+        )
+      }
+    }
     x <- append_chunks(x,
       i = i_cell, j = j_cell,
       part = part,

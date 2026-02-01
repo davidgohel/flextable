@@ -46,6 +46,101 @@ test_that("footnote with zero matching rows does not error", {
 })
 
 
+test_that("symbol_sep separates multiple footnotes in same cell", {
+  ft_sep <- flextable(head(iris))
+  ft_sep <- footnote(ft_sep,
+    i = 1, j = 1,
+    value = as_paragraph("note one"),
+    ref_symbols = "1", part = "header"
+  )
+  ft_sep <- footnote(ft_sep,
+    i = 1, j = 1,
+    value = as_paragraph("note two"),
+    ref_symbols = "2", part = "header",
+    symbol_sep = ","
+  )
+  td <- information_data_chunk(ft_sep)
+  setDT(td)
+  cell <- td[
+    .row_id %in% 1 &
+      .col_id %in% "Sepal.Length" &
+      .part %in% "header"
+  ]
+  expect_equal(cell$txt, c("Sepal.Length", "1", ",", "2"))
+})
+
+test_that("symbol_sep not added on first footnote", {
+  ft_sep <- flextable(head(iris))
+  ft_sep <- footnote(ft_sep,
+    i = 1, j = 1,
+    value = as_paragraph("note one"),
+    ref_symbols = "1", part = "header",
+    symbol_sep = ","
+  )
+  td <- information_data_chunk(ft_sep)
+  setDT(td)
+  cell <- td[
+    .row_id %in% 1 &
+      .col_id %in% "Sepal.Length" &
+      .part %in% "header"
+  ]
+  expect_equal(cell$txt, c("Sepal.Length", "1"))
+})
+
+test_that("symbol_sep works with three footnotes on same cell", {
+  ft_sep <- flextable(head(iris))
+  for (k in 1:3) {
+    ft_sep <- footnote(ft_sep,
+      i = 1, j = 1,
+      value = as_paragraph(paste("note", k)),
+      ref_symbols = as.character(k),
+      part = "header", symbol_sep = ","
+    )
+  }
+  td <- information_data_chunk(ft_sep)
+  setDT(td)
+  cell <- td[
+    .row_id %in% 1 &
+      .col_id %in% "Sepal.Length" &
+      .part %in% "header"
+  ]
+  expect_equal(
+    cell$txt,
+    c("Sepal.Length", "1", ",", "2", ",", "3")
+  )
+})
+
+test_that("symbol_sep does not affect different cells", {
+  ft_sep <- flextable(head(iris))
+  ft_sep <- footnote(ft_sep,
+    i = 1, j = 1,
+    value = as_paragraph("note one"),
+    ref_symbols = "a", part = "header",
+    symbol_sep = ","
+  )
+  ft_sep <- footnote(ft_sep,
+    i = 1, j = 2,
+    value = as_paragraph("note two"),
+    ref_symbols = "b", part = "header",
+    symbol_sep = ","
+  )
+  td <- information_data_chunk(ft_sep)
+  setDT(td)
+  cell1 <- td[
+    .row_id %in% 1 &
+      .col_id %in% "Sepal.Length" &
+      .part %in% "header"
+  ]
+  cell2 <- td[
+    .row_id %in% 1 &
+      .col_id %in% "Sepal.Width" &
+      .part %in% "header"
+  ]
+  expect_equal(cell1$txt, c("Sepal.Length", "a"))
+  expect_equal(cell2$txt, c("Sepal.Width", "b"))
+})
+
+
 ft <- flextable(iris[1:5, ])
 ft <- footnote(
   x = ft, i = 1:3, j = 1:3,

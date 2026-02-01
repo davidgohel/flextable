@@ -12,7 +12,8 @@ footnote(
   ref_symbols = NULL,
   part = "body",
   inline = FALSE,
-  sep = "; "
+  sep = "; ",
+  symbol_sep = ""
 )
 }
 \arguments{
@@ -38,6 +39,11 @@ Value 'all' is not allowed by the function.}
 
 \item{sep}{used only when inline = TRUE, character string to use as
 a separator between footnotes.}
+
+\item{symbol_sep}{separator to insert between multiple
+footnote symbols in the same cell (e.g. \code{","} to
+produce \verb{1,2} instead of \code{12}). Default is \code{""}
+(no separator, backward compatible).}
 }
 \description{
 The function let add footnotes to a flextable object

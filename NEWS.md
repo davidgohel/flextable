@@ -9,6 +9,8 @@ that can be transformed as a flextable with `as_flextable()`.
 - `summarizor()`: when using `overall_label` with multiple `by` columns,
 an overall level is now added for each grouping column (not only the last one).
 This produces margins at every nesting level, including a grand total.
+- `footnote()` gains a `symbol_sep` argument to insert a separator
+between multiple footnote symbols in the same cell (#699).
 
 ## Internals
 
