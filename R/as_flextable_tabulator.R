@@ -503,19 +503,26 @@ as_flextable.tabulator <- function(
       }
     }
   }
-  if (!is.null(x$n_by) && length(x$columns) == 1L) {
-    sum_x <- visible_columns
-    grp_labels <- sum_x[sum_x$.tab_columns %in% names(x$col_exprs)[1] & sum_x$.type. %in% "columns", x$columns]
-    col_keys <- sum_x[sum_x$.tab_columns %in% names(x$col_exprs)[1] & sum_x$.type. %in% "columns", "col_keys"]
-    names(col_keys) <- grp_labels
-    cts <- x$n_by$n
-    names(cts) <- x$n_by[[x$columns]]
-    for (lvl in names(cts)) {
-      ft <- append_chunks(
-        x = ft,
-        j = col_keys[lvl], i = 1, part = "header",
-        as_chunk(cts[lvl], formatter = fmt_header_n)
-      )
+  if (!is.null(x$n_by)) {
+    sum_x <- visible_columns[
+      visible_columns$.tab_columns %in% names(x$col_exprs)[1] &
+        visible_columns$.type. %in% "columns", , drop = FALSE
+    ]
+    header_row <- length(x$columns)
+
+    for (k in seq_len(nrow(x$n_by))) {
+      mask <- rep(TRUE, nrow(sum_x))
+      for (col in x$columns) {
+        mask <- mask & as.character(sum_x[[col]]) == as.character(x$n_by[[col]][k])
+      }
+      if (any(mask)) {
+        ft <- append_chunks(
+          x = ft,
+          j = sum_x[mask, "col_keys"][1],
+          i = header_row, part = "header",
+          as_chunk(x$n_by$n[k], formatter = fmt_header_n)
+        )
+      }
     }
   }
 

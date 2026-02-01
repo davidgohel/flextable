@@ -6,6 +6,9 @@
 - new function `as_strike()` to apply strikethrough formatting to text chunks.
 - new function `compact_summary()` to create a compact summary of a data.frame
 that can be transformed as a flextable with `as_flextable()`.
+- `summarizor()`: when using `overall_label` with multiple `by` columns,
+an overall level is now added for each grouping column (not only the last one).
+This produces margins at every nesting level, including a grand total.
 
 ## Internals
 
@@ -19,6 +22,9 @@ and be simplified.
 - specifying a `word_style` for a paragraph style works now.
 The `word_style` values will be ignored if flextable is process by 'rmarkdown'
 or 'quarto'.
+- `as_flextable.tabulator()`: the N= counts in column headers are now
+displayed when there are multiple grouping columns (previously limited
+to a single grouping column).
 
 # flextable 0.9.10
 

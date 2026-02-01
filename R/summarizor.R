@@ -63,18 +63,20 @@ summarizor <- function(
   x <- as.data.frame(x)
 
   if (length(last_by) > 0 && !is.null(overall_label)) {
-    xoverall <- x
-    z <- xoverall[[last_by]]
-    levels_ <- if (is.factor(z)) {
-      c(levels(z), overall_label)
-    } else {
-      c(sort(unique(z)), overall_label)
+    for (i in rev(seq_along(by))) {
+      col_i <- by[i]
+      xoverall <- x
+      z <- xoverall[[col_i]]
+      levels_ <- if (is.factor(z)) {
+        c(levels(z), overall_label)
+      } else {
+        c(sort(unique(z)), overall_label)
+      }
+      z <- rep(overall_label, nrow(xoverall))
+      xoverall[[col_i]] <- z
+      x <- rbind(x, xoverall)
+      x[[col_i]] <- factor(x[[col_i]], levels = levels_)
     }
-    z <- rep(overall_label, nrow(xoverall))
-    xoverall[[last_by]] <- z
-    x <- rbind(x, xoverall)
-
-    x[[last_by]] <- factor(x[[last_by]], levels = levels_)
   }
 
   cols <- setdiff(colnames(x), by)
