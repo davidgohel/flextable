@@ -41,6 +41,8 @@ output (#713).
 output when background color is set (#673).
 - PDF/Quarto: footer repetition and longtable part ordering now work
 correctly with the default container (`none`) in Quarto output.
+- `merge_v()`: vertically merged cell labels now appear at the top of
+the merged range in PDF/LaTeX output instead of the bottom (#654).
 
 # flextable 0.9.10
 

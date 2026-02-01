@@ -240,7 +240,7 @@ augment_multirow_fixed <- function(properties_df) {
         paste0(
           "\\multirow[",
           substr(.SD$vertical.align, 1, 1),
-          "]{-",
+          "]{",
           format_double(.SD$colspan, digits = 0),
           "}{*}{\\parbox{", format_double(.SD$width, digits = 2), "in}{",
           c("center" = "\\centering ", left = "\\raggedright ", justify = "\\raggedright ", right = "\\raggedleft ")[.SD$text.align]
@@ -369,21 +369,6 @@ fill_NA <- function(x) {
 
 
 reverse_colspan <- function(df) {
-  setorderv(df, cols = c(".part", ".col_id", ".row_id"))
-  df[, c("col_uid") := list(UUIDgenerate(n = nrow(.SD))), by = c(".part", ".row_id")]
-  df[df$colspan < 1, c("col_uid") := list(NA_character_)]
-  df[, c("col_uid") := list(fill_NA(.SD$col_uid)), by = c(".part", ".col_id")]
-
-  df[, c(
-    ".row_id",
-    "vborder_left", "vborder_right"
-  ) :=
-    list(
-      rev(.SD$.row_id),
-      rev(.SD$vborder_left),
-      rev(.SD$vborder_right)
-    ), by = c("col_uid")]
-  df[, c("col_uid") := NULL]
   setorderv(df, cols = c(".part", ".row_id", ".col_id"))
   df
 }
