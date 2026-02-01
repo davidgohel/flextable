@@ -33,6 +33,8 @@ zero rows (#712).
 output (#713).
 - inner borders of vertically merged cells no longer show in PDF
 output when background color is set (#673).
+- PDF/Quarto: footer repetition and longtable part ordering now work
+correctly with the default container (`none`) in Quarto output.
 
 # flextable 0.9.10
 

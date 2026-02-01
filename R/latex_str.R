@@ -170,7 +170,7 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   setorderv(txt_data, cols = c(".part", ".row_id"))
   txt_data <- augment_part_separators(
     z = txt_data,
-    no_container = inherits(lat_container, "latex_container_none") && !quarto,
+    no_container = inherits(lat_container, "latex_container_none"),
     repeat_footer = x$properties$opts_pdf$footer_repeat
     )
 
@@ -181,7 +181,7 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
     sep = "\n\n"
   ))]
 
-  if (inherits(lat_container, "latex_container_none") && !quarto) {
+  if (inherits(lat_container, "latex_container_none")) {
     txt_data$.part <- factor(as.character(txt_data$.part),
       levels = c("header", "footer", "body")
     )
