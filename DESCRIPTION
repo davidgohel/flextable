@@ -1,7 +1,7 @@
 Type: Package
 Package: flextable
 Title: Functions for Tabular Reporting
-Version: 0.9.11.015
+Version: 0.9.11.016
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -61,11 +61,13 @@ Suggests:
     doconv (>= 0.3.0),
     equatags,
     ggplot2,
+    gtable,
     lme4,
     magick,
     mgcv,
     nlme,
     officedown,
+    patchwork,
     pdftools,
     pkgdown (>= 2.0.0),
     scales,

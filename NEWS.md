@@ -2,6 +2,12 @@
 
 ## new features
 
+- new function `wrap_flextable()` enables integration with 'patchwork' layouts.
+Flextable objects can be combined with 'ggplot2' plots using `+`, `|`, and `/`
+operators. Table headers and footers are aligned with plot panel areas. The
+`panel` argument controls alignment (`"body"`, `"full"`, `"rows"`, `"cols"`)
+and the `space` argument controls sizing (`"free"`, `"fixed"`, `"free_x"`,
+`"free_y"`).
 - support strikethrough formatting with `fp_text_default()`.
 - new function `as_strike()` to apply strikethrough formatting to text chunks.
 - new function `compact_summary()` to create a compact summary of a data.frame
