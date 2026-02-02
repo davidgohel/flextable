@@ -27,7 +27,10 @@ test_that("merge_v places content at top of merged range", {
 })
 
 test_that("valign works in merged cells with varying row heights", {
-  ft <- flextable(data.frame(col1 = c("A1", "A1", "A1"), col2 = c("B1", "long text", "B3")))
+  ft <- flextable(data.frame(
+    col1 = c("A1", "A1", "A1"),
+    col2 = c("B1", "long text", "B3")
+  ))
   ft <- merge_at(ft, i = 1:3, j = 1)
 
   lines_for <- function(va) {
@@ -66,7 +69,9 @@ test_that("valign works in merged cells with varying row heights", {
 test_that("knit_to_latex default float none", {
   ft <- flextable(head(iris, 2))
   z <- flextable:::knit_to_latex(
-    ft, bookdown = FALSE, quarto = FALSE
+    ft,
+    bookdown = FALSE,
+    quarto = FALSE
   )
   expect_true(is.character(z))
   expect_match(z, "\\\\setlength\\{\\\\tabcolsep\\}", perl = TRUE)
@@ -81,7 +86,9 @@ test_that("knit_to_latex float container", {
   ft <- flextable(head(iris, 2))
   ft$properties$opts_pdf$float <- "float"
   z <- flextable:::knit_to_latex(
-    ft, bookdown = FALSE, quarto = FALSE
+    ft,
+    bookdown = FALSE,
+    quarto = FALSE
   )
   expect_match(z, "\\begin{table}", fixed = TRUE)
   expect_match(z, "\\end{table}", fixed = TRUE)
@@ -91,7 +98,9 @@ test_that("knit_to_latex wrap-l container", {
   ft <- flextable(head(iris, 2))
   ft$properties$opts_pdf$float <- "wrap-l"
   z <- flextable:::knit_to_latex(
-    ft, bookdown = FALSE, quarto = FALSE
+    ft,
+    bookdown = FALSE,
+    quarto = FALSE
   )
   expect_match(z, "\\begin{wraptable}{l}", fixed = TRUE)
   expect_match(z, "\\end{wraptable}", fixed = TRUE)
@@ -101,7 +110,9 @@ test_that("knit_to_latex wrap-r container", {
   ft <- flextable(head(iris, 2))
   ft$properties$opts_pdf$float <- "wrap-r"
   z <- flextable:::knit_to_latex(
-    ft, bookdown = FALSE, quarto = FALSE
+    ft,
+    bookdown = FALSE,
+    quarto = FALSE
   )
   expect_match(z, "\\begin{wraptable}{r}", fixed = TRUE)
 })
@@ -110,7 +121,9 @@ test_that("knit_to_latex wrap-i container", {
   ft <- flextable(head(iris, 2))
   ft$properties$opts_pdf$float <- "wrap-i"
   z <- flextable:::knit_to_latex(
-    ft, bookdown = FALSE, quarto = FALSE
+    ft,
+    bookdown = FALSE,
+    quarto = FALSE
   )
   expect_match(z, "\\begin{wraptable}{i}", fixed = TRUE)
 })
@@ -119,7 +132,9 @@ test_that("knit_to_latex wrap-o container", {
   ft <- flextable(head(iris, 2))
   ft$properties$opts_pdf$float <- "wrap-o"
   z <- flextable:::knit_to_latex(
-    ft, bookdown = FALSE, quarto = FALSE
+    ft,
+    bookdown = FALSE,
+    quarto = FALSE
   )
   expect_match(z, "\\begin{wraptable}{o}", fixed = TRUE)
 })
@@ -128,7 +143,9 @@ test_that("knit_to_latex quarto caption is empty", {
   ft <- flextable(head(iris, 2))
   ft <- set_caption(ft, caption = "A test caption")
   z <- flextable:::knit_to_latex(
-    ft, bookdown = FALSE, quarto = TRUE
+    ft,
+    bookdown = FALSE,
+    quarto = TRUE
   )
   # quarto mode: caption should not appear in latex
   expect_no_match(z, "A test caption", fixed = TRUE)
@@ -138,7 +155,9 @@ test_that("knit_to_latex bookdown caption", {
   ft <- flextable(head(iris, 2))
   ft <- set_caption(ft, caption = "My bookdown cap")
   z <- flextable:::knit_to_latex(
-    ft, bookdown = TRUE, quarto = FALSE
+    ft,
+    bookdown = TRUE,
+    quarto = FALSE
   )
   expect_true(is.character(z))
 })
@@ -148,7 +167,9 @@ test_that("knit_to_latex tabcolsep and arraystretch", {
   ft$properties$opts_pdf$tabcolsep <- 5
   ft$properties$opts_pdf$arraystretch <- 2.0
   z <- flextable:::knit_to_latex(
-    ft, bookdown = FALSE, quarto = FALSE
+    ft,
+    bookdown = FALSE,
+    quarto = FALSE
   )
   expect_match(z, "\\setlength{\\tabcolsep}{5pt}", fixed = TRUE)
   expect_match(z, "\\renewcommand*{\\arraystretch}{2}", fixed = TRUE)
@@ -169,8 +190,152 @@ test_that("fonts are defined in latex", {
   expect_match(latex_str, regexp = "Liberation Sans", fixed = TRUE)
   knitr::opts_knit$set("rmarkdown.pandoc.args" = NULL)
 
-  # quarto
+  # quarto (defaults to xelatex)
   flextable:::fake_quarto()
   latex_str <- flextable:::gen_raw_latex(ft, quarto = TRUE)
   expect_match(latex_str, regexp = "Liberation Sans", fixed = TRUE)
+  knitr::opts_knit$set("quarto.version" = NULL)
+})
+
+# helper to temporarily set rmarkdown::metadata
+local_rmarkdown_metadata <- function(value, envir = parent.frame()) {
+  ns <- asNamespace("rmarkdown")
+  unlockBinding("metadata", ns)
+  old <- rmarkdown::metadata
+  assign("metadata", value, envir = ns)
+  withr::defer(
+    {
+      assign("metadata", old, envir = ns)
+      lockBinding("metadata", ns)
+    },
+    envir = envir
+  )
+}
+
+# get_pdf_engine tests ----
+test_that("get_pdf_engine returns pdflatex for Quarto with top-level pdf-engine", {
+  flextable:::fake_quarto()
+  local_rmarkdown_metadata(list("pdf-engine" = "pdflatex"))
+  knitr::opts_knit$set("rmarkdown.pandoc.args" = NULL)
+
+  engine <- flextable:::get_pdf_engine()
+  expect_equal(engine, "pdflatex")
+
+  knitr::opts_knit$set("quarto.version" = NULL)
+})
+
+test_that("get_pdf_engine returns pdflatex for Quarto with nested pdf-engine", {
+  flextable:::fake_quarto()
+  local_rmarkdown_metadata(list(
+    format = list(pdf = list("pdf-engine" = "pdflatex"))
+  ))
+  knitr::opts_knit$set("rmarkdown.pandoc.args" = NULL)
+
+  engine <- flextable:::get_pdf_engine()
+  expect_equal(engine, "pdflatex")
+
+  knitr::opts_knit$set("quarto.version" = NULL)
+})
+
+test_that("get_pdf_engine defaults to xelatex for Quarto with no engine", {
+  flextable:::fake_quarto()
+  local_rmarkdown_metadata(list())
+  knitr::opts_knit$set("rmarkdown.pandoc.args" = NULL)
+
+  engine <- flextable:::get_pdf_engine()
+  expect_equal(engine, "xelatex")
+
+  knitr::opts_knit$set("quarto.version" = NULL)
+})
+
+test_that("get_pdf_engine reads QUARTO_EXECUTE_INFO when available", {
+  skip_if_not_installed("jsonlite")
+  flextable:::fake_quarto()
+  local_rmarkdown_metadata(list())
+  knitr::opts_knit$set("rmarkdown.pandoc.args" = NULL)
+
+  # write a temporary JSON file mimicking QUARTO_EXECUTE_INFO
+  info <- list(format = list(pandoc = list("pdf-engine" = "pdflatex")))
+  tmp <- tempfile(fileext = ".json")
+  jsonlite::write_json(info, tmp, auto_unbox = TRUE)
+  withr::local_envvar("QUARTO_EXECUTE_INFO" = tmp)
+
+  engine <- flextable:::get_pdf_engine()
+  expect_equal(engine, "pdflatex")
+
+  knitr::opts_knit$set("quarto.version" = NULL)
+})
+
+test_that("get_pdf_engine QUARTO_EXECUTE_INFO takes priority over metadata", {
+  skip_if_not_installed("jsonlite")
+  flextable:::fake_quarto()
+  # metadata says xelatex, but QUARTO_EXECUTE_INFO says pdflatex
+  local_rmarkdown_metadata(list("pdf-engine" = "xelatex"))
+  knitr::opts_knit$set("rmarkdown.pandoc.args" = NULL)
+
+  info <- list(format = list(pandoc = list("pdf-engine" = "pdflatex")))
+  tmp <- tempfile(fileext = ".json")
+  jsonlite::write_json(info, tmp, auto_unbox = TRUE)
+  withr::local_envvar("QUARTO_EXECUTE_INFO" = tmp)
+
+  engine <- flextable:::get_pdf_engine()
+  expect_equal(engine, "pdflatex")
+
+  knitr::opts_knit$set("quarto.version" = NULL)
+})
+
+# list_latex_dep / fontspec tests ----
+test_that("list_latex_dep does not include fontspec when Quarto + pdflatex", {
+  flextable:::fake_quarto()
+  local_rmarkdown_metadata(list("pdf-engine" = "pdflatex"))
+  knitr::opts_knit$set("rmarkdown.pandoc.args" = NULL)
+
+  deps <- suppressWarnings(withr::with_options(
+    list(knitr.in.progress = TRUE),
+    {
+      knitr::opts_knit$set("out.format" = "latex")
+      flextable:::list_latex_dep()
+    }
+  ))
+  dep_names <- vapply(deps, function(d) d$name, character(1))
+  expect_false("fontspec" %in% dep_names)
+
+  knitr::opts_knit$set("quarto.version" = NULL, "out.format" = NULL)
+})
+
+test_that("list_latex_dep includes fontspec when Quarto + xelatex", {
+  flextable:::fake_quarto()
+  local_rmarkdown_metadata(list("pdf-engine" = "xelatex"))
+  knitr::opts_knit$set("rmarkdown.pandoc.args" = NULL)
+
+  deps <- withr::with_options(
+    list(knitr.in.progress = TRUE),
+    {
+      knitr::opts_knit$set("out.format" = "latex")
+      flextable:::list_latex_dep()
+    }
+  )
+  dep_names <- vapply(deps, function(d) d$name, character(1))
+  expect_true("fontspec" %in% dep_names)
+
+  knitr::opts_knit$set("quarto.version" = NULL, "out.format" = NULL)
+})
+
+test_that("font warning fires for Quarto + pdflatex", {
+  flextable:::fake_quarto()
+  local_rmarkdown_metadata(list("pdf-engine" = "pdflatex"))
+  knitr::opts_knit$set("rmarkdown.pandoc.args" = NULL)
+
+  expect_warning(
+    withr::with_options(
+      list(knitr.in.progress = TRUE),
+      {
+        knitr::opts_knit$set("out.format" = "latex")
+        flextable:::list_latex_dep()
+      }
+    ),
+    "fonts used in `flextable` are ignored"
+  )
+
+  knitr::opts_knit$set("quarto.version" = NULL, "out.format" = NULL)
 })

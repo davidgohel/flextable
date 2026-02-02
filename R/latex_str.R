@@ -26,24 +26,21 @@ list_latex_dep <- function(float = FALSE, wrapfig = FALSE) {
     return(list())
   }
 
-  is_quarto <- is_in_quarto()
-
   fonts_ignore <- flextable_global$defaults$fonts_ignore
   fontspec_compat <- get_pdf_engine() %in% c("xelatex", "lualatex")
-  if (!is_quarto && !fonts_ignore && !fontspec_compat) {
+  if (!fonts_ignore && !fontspec_compat) {
     warning("fonts used in `flextable` are ignored because ",
       "the `pdflatex` engine is used and not `xelatex` or ",
-      "`lualatex`. You can avoid this warning by using the ",
-      "`set_flextable_defaults(fonts_ignore=TRUE)` command or ",
-      "use a compatible engine by defining `latex_engine: xelatex` ",
-      "in the YAML header of the R Markdown document.",
+      "`lualatex`. You can avoid this warning by using ",
+      "`set_flextable_defaults(fonts_ignore=TRUE)` or use a ",
+      "compatible engine (e.g. `pdf-engine: xelatex`).",
       call. = FALSE
     )
   }
 
   x <- list()
 
-  if (fontspec_compat || is_quarto) {
+  if (fontspec_compat) {
     x$fontspec <- latex_dependency("fontspec")
   }
   x$multirow <- latex_dependency("multirow")
@@ -474,7 +471,23 @@ get_pdf_engine <- function() {
   if (length(rd)) {
     engine <- pandoc_args[rd + 1]
   } else if (is_in_quarto()) {
-    engine <- rmarkdown::metadata$`pdf-engine`
+    engine <- NULL
+
+    # Quarto >= 1.8: read the resolved engine from QUARTO_EXECUTE_INFO
+    exec_info <- Sys.getenv("QUARTO_EXECUTE_INFO", unset = "")
+    if (nzchar(exec_info) && file.exists(exec_info) &&
+        requireNamespace("jsonlite", quietly = TRUE)) {
+      qmd <- jsonlite::read_json(exec_info)
+      engine <- qmd$format$pandoc$`pdf-engine`
+    }
+
+    # Fallback: rmarkdown::metadata (top-level then nested)
+    if (is.null(engine) || engine == "") {
+      engine <- rmarkdown::metadata$`pdf-engine`
+    }
+    if (is.null(engine) || engine == "") {
+      engine <- rmarkdown::metadata$format$pdf$`pdf-engine`
+    }
     if (is.null(engine) || engine == "") {
       engine <- "xelatex"
     }

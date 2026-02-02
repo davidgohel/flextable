@@ -1,7 +1,7 @@
 Type: Package
 Package: flextable
 Title: Functions for Tabular Reporting
-Version: 0.9.11.021
+Version: 0.9.11.022
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -62,6 +62,7 @@ Suggests:
     equatags,
     ggplot2,
     gtable,
+    jsonlite,
     lme4,
     magick,
     mgcv,

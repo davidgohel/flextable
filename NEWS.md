@@ -44,6 +44,11 @@ to a single grouping column).
 zero rows (#712).
 - footnote symbols no longer clash with rotated cells in HTML
 output (#713).
+- PDF/Quarto: the `fontspec` LaTeX package is no longer included when
+the PDF engine is `pdflatex`, fixing compilation errors in Quarto
+documents using `pdf-engine: pdflatex` (#701, #707). Engine detection
+now also reads `QUARTO_EXECUTE_INFO` (Quarto >= 1.8) and nested YAML
+(`format > pdf > pdf-engine`).
 - inner borders of vertically merged cells no longer show in PDF
 output when background color is set (#673).
 - PDF/Quarto: footer repetition and longtable part ordering now work
