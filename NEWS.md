@@ -18,9 +18,16 @@ This produces margins at every nesting level, including a grand total.
 - `footnote()` gains a `symbol_sep` argument to insert a separator
 between multiple footnote symbols in the same cell (#699).
 
+## Known limitations
+
+- PDF/LaTeX: a table row whose content is taller than a page cannot be
+split across pages (#548). This is a fundamental constraint of LaTeX's
+`longtable` environment, which only supports page breaks between rows,
+not within a single row. HTML and Word outputs are not affected.
+
 ## Internals
 
-- Strings metrics are now computed with `gdtools::strings_sizes()` instead of 
+- Strings metrics are now computed with `gdtools::strings_sizes()` instead of
 `m_str_extents()` and `str_metrics()`, goal is to let 'gdtools' use only 'systemfonts'
 and be simplified.
 
