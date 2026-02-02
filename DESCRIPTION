@@ -1,7 +1,7 @@
 Type: Package
 Package: flextable
 Title: Functions for Tabular Reporting
-Version: 0.9.11.020
+Version: 0.9.11.021
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -22,15 +22,15 @@ Authors@R: c(
   )
 Description: Use a grammar for creating and customizing pretty tables.
     The following formats are supported: 'HTML', 'PDF', 'RTF', 'Microsoft
-    Word', 'Microsoft PowerPoint' and R 'Grid Graphics'.  'R Markdown',
-    'Quarto' and the package 'officer' can be used to produce the result
-    files. The syntax is the same for the user regardless of the type of
-    output to be produced. A set of functions allows the creation,
-    definition of cell arrangement, addition of headers or footers,
-    formatting and definition of cell content with text and or images. The
-    package also offers a set of high-level functions that allow tabular
-    reporting of statistical models and the creation of complex cross
-    tabulations.
+    Word', 'Microsoft PowerPoint', R 'Grid Graphics' and 'patchwork'.
+    'R Markdown', 'Quarto' and the package 'officer' can be used to
+    produce the result files. The syntax is the same for the user
+    regardless of the type of output to be produced. A set of functions
+    allows the creation, definition of cell arrangement, addition of
+    headers or footers, formatting and definition of cell content with
+    text and or images. The package also offers a set of high-level
+    functions that allow tabular reporting of statistical models and the
+    creation of complex cross tabulations.
 License: GPL-3
 URL: https://ardata-fr.github.io/flextable-book/,
     https://davidgohel.github.io/flextable/
@@ -43,7 +43,7 @@ Imports:
     grid,
     htmltools,
     knitr,
-    officer (>= 0.7.2),
+    officer (>= 0.7.3),
     ragg,
     rlang,
     rmarkdown (>= 2.0),
@@ -81,6 +81,5 @@ VignetteBuilder:
     knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
-Remotes: davidgohel/officer
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

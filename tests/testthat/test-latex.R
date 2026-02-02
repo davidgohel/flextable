@@ -62,6 +62,98 @@ test_that("valign works in merged cells with varying row heights", {
   expect_false(any(grepl("\\\\multirow", bot_body)))
 })
 
+# knit_to_latex tests ----
+test_that("knit_to_latex default float none", {
+  ft <- flextable(head(iris, 2))
+  z <- flextable:::knit_to_latex(
+    ft, bookdown = FALSE, quarto = FALSE
+  )
+  expect_true(is.character(z))
+  expect_match(z, "\\\\setlength\\{\\\\tabcolsep\\}", perl = TRUE)
+  expect_match(z, "\\\\renewcommand", perl = TRUE)
+  expect_match(z, "arrayrulewidth", fixed = TRUE)
+  # none container => no \begin{table}
+  expect_no_match(z, "\\begin{table}", fixed = TRUE)
+  expect_no_match(z, "\\begin{wraptable}", fixed = TRUE)
+})
+
+test_that("knit_to_latex float container", {
+  ft <- flextable(head(iris, 2))
+  ft$properties$opts_pdf$float <- "float"
+  z <- flextable:::knit_to_latex(
+    ft, bookdown = FALSE, quarto = FALSE
+  )
+  expect_match(z, "\\begin{table}", fixed = TRUE)
+  expect_match(z, "\\end{table}", fixed = TRUE)
+})
+
+test_that("knit_to_latex wrap-l container", {
+  ft <- flextable(head(iris, 2))
+  ft$properties$opts_pdf$float <- "wrap-l"
+  z <- flextable:::knit_to_latex(
+    ft, bookdown = FALSE, quarto = FALSE
+  )
+  expect_match(z, "\\begin{wraptable}{l}", fixed = TRUE)
+  expect_match(z, "\\end{wraptable}", fixed = TRUE)
+})
+
+test_that("knit_to_latex wrap-r container", {
+  ft <- flextable(head(iris, 2))
+  ft$properties$opts_pdf$float <- "wrap-r"
+  z <- flextable:::knit_to_latex(
+    ft, bookdown = FALSE, quarto = FALSE
+  )
+  expect_match(z, "\\begin{wraptable}{r}", fixed = TRUE)
+})
+
+test_that("knit_to_latex wrap-i container", {
+  ft <- flextable(head(iris, 2))
+  ft$properties$opts_pdf$float <- "wrap-i"
+  z <- flextable:::knit_to_latex(
+    ft, bookdown = FALSE, quarto = FALSE
+  )
+  expect_match(z, "\\begin{wraptable}{i}", fixed = TRUE)
+})
+
+test_that("knit_to_latex wrap-o container", {
+  ft <- flextable(head(iris, 2))
+  ft$properties$opts_pdf$float <- "wrap-o"
+  z <- flextable:::knit_to_latex(
+    ft, bookdown = FALSE, quarto = FALSE
+  )
+  expect_match(z, "\\begin{wraptable}{o}", fixed = TRUE)
+})
+
+test_that("knit_to_latex quarto caption is empty", {
+  ft <- flextable(head(iris, 2))
+  ft <- set_caption(ft, caption = "A test caption")
+  z <- flextable:::knit_to_latex(
+    ft, bookdown = FALSE, quarto = TRUE
+  )
+  # quarto mode: caption should not appear in latex
+  expect_no_match(z, "A test caption", fixed = TRUE)
+})
+
+test_that("knit_to_latex bookdown caption", {
+  ft <- flextable(head(iris, 2))
+  ft <- set_caption(ft, caption = "My bookdown cap")
+  z <- flextable:::knit_to_latex(
+    ft, bookdown = TRUE, quarto = FALSE
+  )
+  expect_true(is.character(z))
+})
+
+test_that("knit_to_latex tabcolsep and arraystretch", {
+  ft <- flextable(head(iris, 2))
+  ft$properties$opts_pdf$tabcolsep <- 5
+  ft$properties$opts_pdf$arraystretch <- 2.0
+  z <- flextable:::knit_to_latex(
+    ft, bookdown = FALSE, quarto = FALSE
+  )
+  expect_match(z, "\\setlength{\\tabcolsep}{5pt}", fixed = TRUE)
+  expect_match(z, "\\renewcommand*{\\arraystretch}{2}", fixed = TRUE)
+})
+
 test_that("fonts are defined in latex", {
   gdtools::register_liberationsans()
   ft <- flextable::flextable(head(cars, n = 1))

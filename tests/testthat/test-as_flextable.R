@@ -509,3 +509,276 @@ test_that("gam models", {
     )
   )
 })
+
+# compact_summary ----
+test_that("compact_summary with mixed types", {
+  df <- data.frame(
+    num = c(1.5, 2.3, 3.7),
+    int = 1L:3L,
+    chr = c("a", "b", "a"),
+    fct = factor(c("x", "y", "x")),
+    lgl = c(TRUE, FALSE, TRUE),
+    stringsAsFactors = FALSE
+  )
+  cs <- compact_summary(df)
+  expect_s3_class(cs, "compact_summary")
+  expect_s3_class(cs, "data.frame")
+  expect_equal(nrow(cs), 5L)
+  expect_equal(cs$col_name, c("num", "int", "chr", "fct", "lgl"))
+  expect_equal(
+    cs$col_type,
+    c("numeric", "integer", "character", "factor", "logical")
+  )
+  expect_equal(
+    cs$data_kind,
+    c("numeric", "numeric", "discrete", "discrete", "logical")
+  )
+})
+
+test_that("compact_summary numeric min max", {
+  df <- data.frame(x = c(10, 20, 30))
+  cs <- compact_summary(df)
+  expect_equal(cs$min_val, 10)
+  expect_equal(cs$max_val, 30)
+  expect_equal(cs$n, 3L)
+})
+
+test_that("compact_summary integer type", {
+  df <- data.frame(x = c(5L, 10L, 15L))
+  cs <- compact_summary(df)
+  expect_equal(cs$col_type, "integer")
+  expect_equal(cs$data_kind, "numeric")
+  expect_equal(cs$min_val, 5)
+  expect_equal(cs$max_val, 15)
+})
+
+test_that("compact_summary logical column", {
+  df <- data.frame(x = c(TRUE, TRUE, FALSE, TRUE))
+  cs <- compact_summary(df)
+  expect_equal(cs$col_type, "logical")
+  expect_equal(cs$data_kind, "logical")
+  expect_equal(cs$n, 4L)
+  expect_equal(cs$str_val, "TRUE: 3, FALSE: 1")
+})
+
+test_that("compact_summary factor column", {
+  df <- data.frame(x = factor(c("a", "b", "c", "a")))
+  cs <- compact_summary(df)
+  expect_equal(cs$col_type, "factor")
+  expect_equal(cs$data_kind, "discrete")
+  expect_equal(cs$n, 3L)
+  expect_match(cs$str_val, "'a', 'b', 'c'", fixed = TRUE)
+})
+
+test_that("compact_summary character column", {
+  df <- data.frame(x = c("b", "a", "c", "a"), stringsAsFactors = FALSE)
+  cs <- compact_summary(df)
+  expect_equal(cs$col_type, "character")
+  expect_equal(cs$data_kind, "discrete")
+  expect_equal(cs$n, 3L)
+  # values should be sorted unique
+  expect_match(cs$str_val, "'a', 'b', 'c'", fixed = TRUE)
+})
+
+test_that("compact_summary Date column", {
+  df <- data.frame(x = as.Date(c("2020-01-01", "2020-06-15", "2020-12-31")))
+  cs <- compact_summary(df)
+  expect_equal(cs$col_type, "Date")
+  expect_equal(cs$data_kind, "range")
+  expect_equal(cs$n, 3L)
+  expect_match(cs$str_val, "2020-01-01", fixed = TRUE)
+  expect_match(cs$str_val, "2020-12-31", fixed = TRUE)
+})
+
+test_that("compact_summary POSIXt column", {
+  df <- data.frame(
+    x = as.POSIXct(c("2020-01-01 10:00:00", "2020-12-31 18:00:00"))
+  )
+  cs <- compact_summary(df)
+  expect_equal(cs$col_type, "POSIXct")
+  expect_equal(cs$data_kind, "range")
+  expect_equal(cs$n, 2L)
+})
+
+test_that("compact_summary difftime column", {
+  df <- data.frame(
+    x = as.difftime(c(1, 2, 3), units = "hours")
+  )
+  cs <- compact_summary(df)
+  expect_equal(cs$col_type, "hms")
+  expect_equal(cs$data_kind, "range")
+  expect_equal(cs$n, 3L)
+})
+
+test_that("compact_summary NA handling", {
+  df <- data.frame(
+    x = c(1, NA, 3),
+    y = c(NA, NA, NA)
+  )
+  cs <- compact_summary(df)
+  expect_equal(cs$na_count, c(1L, 3L))
+  # x: 2 non-NA values
+
+  expect_equal(cs$n[1], 2L)
+  expect_equal(cs$min_val[1], 1)
+  expect_equal(cs$max_val[1], 3)
+  # y: all NA => min_val/max_val remain NA
+  expect_equal(cs$n[2], 0L)
+  expect_true(is.na(cs$min_val[2]))
+  expect_true(is.na(cs$max_val[2]))
+})
+
+test_that("compact_summary all NA logical", {
+  df <- data.frame(x = c(NA, NA))
+  df$x <- as.logical(df$x)
+  cs <- compact_summary(df)
+  expect_equal(cs$col_type, "logical")
+  expect_equal(cs$n, 0L)
+  expect_true(is.na(cs$str_val))
+})
+
+test_that("compact_summary empty factor", {
+  df <- data.frame(x = factor(character(0)))
+  cs <- compact_summary(df)
+  expect_equal(cs$col_type, "factor")
+  expect_equal(cs$n, 0L)
+  expect_true(is.na(cs$str_val))
+})
+
+test_that("compact_summary max_levels truncates", {
+  df <- data.frame(
+    x = factor(letters[1:15]),
+    stringsAsFactors = FALSE
+  )
+  cs <- compact_summary(df, max_levels = 5L)
+  expect_match(cs$str_val, ", ...", fixed = TRUE)
+  # only first 5 should appear
+  expect_match(cs$str_val, "'a'", fixed = TRUE)
+  expect_match(cs$str_val, "'e'", fixed = TRUE)
+  expect_no_match(cs$str_val, "'f'", fixed = TRUE)
+
+  # without truncation
+  cs2 <- compact_summary(df, max_levels = 20L)
+  expect_no_match(cs2$str_val, "...", fixed = TRUE)
+})
+
+test_that("compact_summary show_type and show_na attributes", {
+  df <- data.frame(x = 1:3)
+  cs <- compact_summary(df, show_type = TRUE, show_na = TRUE)
+  expect_true(attr(cs, "show_type"))
+  expect_true(attr(cs, "show_na"))
+
+  cs2 <- compact_summary(df)
+  expect_false(attr(cs2, "show_type"))
+  expect_false(attr(cs2, "show_na"))
+})
+
+test_that("compact_summary errors on non data.frame", {
+  expect_error(compact_summary(1:10), "data.frame")
+  expect_error(compact_summary("text"), "data.frame")
+  expect_error(compact_summary(list(a = 1)), "data.frame")
+})
+
+test_that("compact_summary unsupported column type returns empty", {
+  df <- data.frame(x = 1:3)
+  df$z <- list(1:2, 3:4, 5:6)
+  cs <- compact_summary(df)
+  # list column should be dropped (unsupported)
+  expect_equal(nrow(cs), 1L)
+  expect_equal(cs$col_name, "x")
+})
+
+test_that("compact_summary all unsupported types", {
+  df <- data.frame(x = 1)
+  df$x <- list(1:2)
+  cs <- compact_summary(df)
+  expect_equal(nrow(cs), 0L)
+  expect_s3_class(cs, "compact_summary")
+})
+
+# as_flextable.compact_summary ----
+test_that("as_flextable.compact_summary basic", {
+  df <- data.frame(
+    num = c(1.5, 2.3),
+    chr = c("a", "b"),
+    stringsAsFactors = FALSE
+  )
+  cs <- compact_summary(df)
+  ft <- as_flextable(cs)
+  expect_s3_class(ft, "flextable")
+  # default col_keys: col_name, n, Values (no Type, no NA)
+  expect_true("col_name" %in% ft$col_keys)
+  expect_true("n" %in% ft$col_keys)
+  expect_true("Values" %in% ft$col_keys)
+  expect_false("col_type" %in% ft$col_keys)
+  expect_false("na_count" %in% ft$col_keys)
+})
+
+test_that("as_flextable.compact_summary with show_type", {
+  cs <- compact_summary(iris, show_type = TRUE)
+  ft <- as_flextable(cs)
+  expect_true("col_type" %in% ft$col_keys)
+  expect_false("na_count" %in% ft$col_keys)
+})
+
+test_that("as_flextable.compact_summary with show_na", {
+  cs <- compact_summary(iris, show_na = TRUE)
+  ft <- as_flextable(cs)
+  expect_false("col_type" %in% ft$col_keys)
+  expect_true("na_count" %in% ft$col_keys)
+})
+
+test_that("as_flextable.compact_summary with both show_type and show_na", {
+  cs <- compact_summary(iris, show_type = TRUE, show_na = TRUE)
+  ft <- as_flextable(cs)
+  expect_true("col_type" %in% ft$col_keys)
+  expect_true("na_count" %in% ft$col_keys)
+  # check header labels
+  hdr <- information_data_chunk(ft)
+  hdr_parts <- hdr[hdr$.part == "header", ]
+  expect_true("Column" %in% hdr_parts$txt)
+  expect_true("Type" %in% hdr_parts$txt)
+  expect_true("NA" %in% hdr_parts$txt)
+  expect_true("Values" %in% hdr_parts$txt)
+})
+
+test_that("as_flextable.compact_summary numeric values rendering", {
+  df <- data.frame(x = c(1.123, 99.987))
+  cs <- compact_summary(df)
+  ft <- as_flextable(cs)
+  chunks <- information_data_chunk(ft)
+  body_values <- chunks[
+    chunks$.part == "body" & chunks$.col_id == "Values",
+  ]
+  txt <- paste(body_values$txt, collapse = "")
+  expect_match(txt, "Min:", fixed = TRUE)
+  expect_match(txt, "Max:", fixed = TRUE)
+})
+
+test_that("as_flextable.compact_summary discrete values rendering", {
+  df <- data.frame(x = c("a", "b"), stringsAsFactors = FALSE)
+  cs <- compact_summary(df)
+  ft <- as_flextable(cs)
+  chunks <- information_data_chunk(ft)
+  body_values <- chunks[
+    chunks$.part == "body" & chunks$.col_id == "Values",
+  ]
+  txt <- paste(body_values$txt, collapse = "")
+  expect_match(txt, "'a', 'b'", fixed = TRUE)
+})
+
+test_that("as_flextable.compact_summary with iris dataset", {
+  cs <- compact_summary(iris)
+  ft <- as_flextable(cs)
+  expect_s3_class(ft, "flextable")
+  expect_equal(nrow_part(ft, "body"), 5L)
+  expect_equal(nrow_part(ft, "header"), 1L)
+})
+
+test_that("as_flextable.compact_summary empty result errors", {
+  df <- data.frame(x = 1)
+  df$x <- list(1:2)
+  cs <- compact_summary(df)
+  # all columns unsupported: flextable() cannot handle 0-column result
+  expect_error(as_flextable(cs))
+})

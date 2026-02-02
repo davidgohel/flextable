@@ -70,26 +70,6 @@ ooxml_ppr <- function(paragraphs_properties, type = "wml") {
   paragraphs_properties
 }
 
-wml_spans <- function(value) {
-  span_data <- fortify_span(value)
-
-  gridspan <- rep("", nrow(span_data))
-  gridspan[span_data$rowspan > 1] <-
-    paste0(
-      "<w:gridSpan w:val=\"",
-      span_data$rowspan[span_data$rowspan > 1],
-      "\"/>"
-    )
-
-  vmerge <- rep("", nrow(span_data))
-  vmerge[span_data$colspan > 1] <- "<w:vMerge w:val=\"restart\"/>"
-  vmerge[span_data$colspan < 1] <- "<w:vMerge/>"
-
-  span_data$gridspan <- gridspan
-  span_data$vmerge <- vmerge
-  span_data
-}
-
 copy_border_bottom_to_next_border_top <- function(x, value) {
   first_partname <-
     if (nrow_part(value, "header")) {

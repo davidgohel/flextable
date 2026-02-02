@@ -145,3 +145,302 @@ test_that("minibar", {
   expect_equal(minibar2[8:36], rep("#FFFF00", 29))
 })
 
+# linerange ----
+test_that("linerange basic", {
+  ft <- flextable(head(iris, 5))
+  ft <- compose(
+    ft, j = "Sepal.Length",
+    value = as_paragraph(
+      linerange(value = Sepal.Length)
+    ),
+    part = "body"
+  )
+  chunk_info <- information_data_chunk(ft)
+  body_chunks <- chunk_info[chunk_info$.part == "body", ]
+  sl_chunks <- body_chunks[body_chunks$.col_id == "Sepal.Length", ]
+  expect_equal(nrow(sl_chunks), 5)
+  expect_true(all(sl_chunks$width == 1))
+  expect_true(all(sl_chunks$height == 0.2))
+  expect_true(
+    all(vapply(sl_chunks$img_data, inherits, logical(1), "raster"))
+  )
+})
+
+test_that("linerange with min max and colors", {
+  vals <- c(2, 5, 8)
+  ft <- flextable(data.frame(x = vals))
+  ft <- compose(
+    ft, j = "x",
+    value = as_paragraph(
+      linerange(
+        value = x, min = 0, max = 10,
+        rangecol = "blue", stickcol = "green",
+        bg = "white", width = 2, height = .3
+      )
+    ),
+    part = "body"
+  )
+  chunk_info <- information_data_chunk(ft)
+  body_chunks <- chunk_info[
+    chunk_info$.part == "body" &
+      chunk_info$.col_id == "x",
+  ]
+  expect_equal(nrow(body_chunks), 3)
+  expect_true(all(body_chunks$width == 2))
+  expect_true(all(body_chunks$height == 0.3))
+})
+
+test_that("linerange all NA values", {
+  ft <- flextable(data.frame(x = c(NA_real_, NA_real_)))
+  ft <- compose(
+    ft, j = "x",
+    value = as_paragraph(
+      linerange(value = x)
+    ),
+    part = "body"
+  )
+  chunk_info <- information_data_chunk(ft)
+  body_chunks <- chunk_info[
+    chunk_info$.part == "body" &
+      chunk_info$.col_id == "x",
+  ]
+  expect_equal(nrow(body_chunks), 2)
+})
+
+test_that("linerange raster_width < 2 errors", {
+  expect_error(
+    linerange(value = 1:3, raster_width = 1),
+    "raster_width"
+  )
+})
+
+test_that("linerange unit cm", {
+  vals <- c(3, 6)
+  ft <- flextable(data.frame(x = vals))
+  ft <- compose(
+    ft, j = "x",
+    value = as_paragraph(
+      linerange(value = x, width = 2, height = 0.5,
+                unit = "cm")
+    ),
+    part = "body"
+  )
+  chunk_info <- information_data_chunk(ft)
+  body_chunks <- chunk_info[
+    chunk_info$.part == "body" &
+      chunk_info$.col_id == "x",
+  ]
+  # cm -> in conversion: 2cm / 2.54 ~ 0.787
+  expect_true(all(abs(body_chunks$width - 2 / 2.54) < 0.01))
+})
+
+# plot_chunk ----
+test_that("plot_chunk box type", {
+  library(data.table)
+  z <- as.data.table(iris)
+  z <- z[, list(z = list(.SD$Sepal.Length)), by = "Species"]
+  ft <- flextable(z, col_keys = c("Species", "box"))
+  ft <- mk_par(
+    ft, j = "box",
+    value = as_paragraph(
+      plot_chunk(value = z, type = "box")
+    )
+  )
+  chunk_info <- information_data_chunk(ft)
+  box_chunks <- chunk_info[
+    chunk_info$.part == "body" &
+      chunk_info$.col_id == "box",
+  ]
+  expect_equal(nrow(box_chunks), 3)
+  expect_true(all(file.exists(unlist(box_chunks$img_data))))
+})
+
+test_that("plot_chunk line type", {
+  library(data.table)
+  z <- as.data.table(iris)
+  z <- z[, list(z = list(.SD$Sepal.Length)), by = "Species"]
+  ft <- flextable(z, col_keys = c("Species", "pl"))
+  ft <- mk_par(
+    ft, j = "pl",
+    value = as_paragraph(
+      plot_chunk(value = z, type = "line")
+    )
+  )
+  chunk_info <- information_data_chunk(ft)
+  pl_chunks <- chunk_info[
+    chunk_info$.part == "body" &
+      chunk_info$.col_id == "pl",
+  ]
+  expect_equal(nrow(pl_chunks), 3)
+  expect_true(all(file.exists(unlist(pl_chunks$img_data))))
+})
+
+test_that("plot_chunk points type", {
+  library(data.table)
+  z <- as.data.table(iris)
+  z <- z[, list(z = list(.SD$Sepal.Length)), by = "Species"]
+  ft <- flextable(z, col_keys = c("Species", "pl"))
+  ft <- mk_par(
+    ft, j = "pl",
+    value = as_paragraph(
+      plot_chunk(value = z, type = "points")
+    )
+  )
+  chunk_info <- information_data_chunk(ft)
+  pl_chunks <- chunk_info[
+    chunk_info$.part == "body" &
+      chunk_info$.col_id == "pl",
+  ]
+  expect_equal(nrow(pl_chunks), 3)
+  expect_true(all(file.exists(unlist(pl_chunks$img_data))))
+})
+
+test_that("plot_chunk density type", {
+  library(data.table)
+  z <- as.data.table(iris)
+  z <- z[, list(z = list(.SD$Sepal.Length)), by = "Species"]
+  ft <- flextable(z, col_keys = c("Species", "pl"))
+  ft <- mk_par(
+    ft, j = "pl",
+    value = as_paragraph(
+      plot_chunk(value = z, type = "density")
+    )
+  )
+  chunk_info <- information_data_chunk(ft)
+  pl_chunks <- chunk_info[
+    chunk_info$.part == "body" &
+      chunk_info$.col_id == "pl",
+  ]
+  expect_equal(nrow(pl_chunks), 3)
+  expect_true(all(file.exists(unlist(pl_chunks$img_data))))
+})
+
+test_that("plot_chunk free_scale", {
+  library(data.table)
+  z <- as.data.table(iris)
+  z <- z[, list(z = list(.SD$Sepal.Length)), by = "Species"]
+  ft <- flextable(z, col_keys = c("Species", "pl"))
+  ft <- mk_par(
+    ft, j = "pl",
+    value = as_paragraph(
+      plot_chunk(
+        value = z, type = "box",
+        free_scale = TRUE
+      )
+    )
+  )
+  chunk_info <- information_data_chunk(ft)
+  pl_chunks <- chunk_info[
+    chunk_info$.part == "body" &
+      chunk_info$.col_id == "pl",
+  ]
+  expect_equal(nrow(pl_chunks), 3)
+})
+
+# gg_chunk ----
+test_that("gg_chunk", {
+  skip_if_not_installed("ggplot2")
+  library(ggplot2)
+  library(data.table)
+
+  z <- as.data.table(iris)
+  z <- z[, list(
+    gg = list(
+      ggplot(.SD, aes(Sepal.Length, Sepal.Width)) +
+        geom_point() + theme_void()
+    )
+  ), by = "Species"]
+
+  ft <- flextable(z)
+  ft <- mk_par(
+    ft, j = "gg",
+    value = as_paragraph(
+      gg_chunk(value = gg, width = 1, height = 1)
+    )
+  )
+  chunk_info <- information_data_chunk(ft)
+  gg_chunks <- chunk_info[
+    chunk_info$.part == "body" &
+      chunk_info$.col_id == "gg",
+  ]
+  expect_equal(nrow(gg_chunks), 3)
+  expect_true(all(file.exists(unlist(gg_chunks$img_data))))
+  expect_true(all(gg_chunks$width == 1))
+  expect_true(all(gg_chunks$height == 1))
+})
+
+test_that("gg_chunk unit cm", {
+  skip_if_not_installed("ggplot2")
+  library(ggplot2)
+
+  plots <- list(
+    ggplot(iris, aes(Sepal.Length)) +
+      geom_histogram() + theme_void()
+  )
+  ft <- flextable(data.frame(g = "a"))
+  ft <- mk_par(
+    ft, j = "g",
+    value = as_paragraph(
+      gg_chunk(
+        value = plots,
+        width = 3, height = 2, unit = "cm"
+      )
+    )
+  )
+  chunk_info <- information_data_chunk(ft)
+  gg_chunks <- chunk_info[
+    chunk_info$.part == "body" &
+      chunk_info$.col_id == "g",
+  ]
+  expect_true(abs(gg_chunks$width - 3 / 2.54) < 0.01)
+  expect_true(abs(gg_chunks$height - 2 / 2.54) < 0.01)
+})
+
+# grid_chunk ----
+test_that("grid_chunk", {
+  library(grid)
+
+  grobs <- list(
+    circleGrob(gp = gpar(fill = "red", col = "transparent")),
+    rectGrob(gp = gpar(fill = "blue", col = "transparent"))
+  )
+  ft <- flextable(data.frame(a = c("circle", "rect")))
+  ft <- mk_par(
+    ft, j = "a",
+    value = as_paragraph(
+      grid_chunk(
+        value = grobs,
+        width = .5, height = .5
+      )
+    )
+  )
+  chunk_info <- information_data_chunk(ft)
+  grid_chunks <- chunk_info[
+    chunk_info$.part == "body" &
+      chunk_info$.col_id == "a",
+  ]
+  expect_equal(nrow(grid_chunks), 2)
+  expect_true(all(file.exists(unlist(grid_chunks$img_data))))
+  expect_true(all(grid_chunks$width == 0.5))
+  expect_true(all(grid_chunks$height == 0.5))
+})
+
+test_that("grid_chunk in docx output", {
+  library(grid)
+
+  grobs <- list(
+    circleGrob(gp = gpar(fill = "green", col = "transparent"))
+  )
+  ft <- flextable(data.frame(a = "dot"))
+  ft <- mk_par(
+    ft, j = "a",
+    value = as_paragraph(
+      grid_chunk(value = grobs, width = .3, height = .3)
+    )
+  )
+  docx_file <- tempfile(fileext = ".docx")
+  doc <- read_docx()
+  doc <- body_add_flextable(doc, value = ft)
+  expect_no_error(print(doc, target = docx_file))
+  expect_true(file.exists(docx_file))
+})
