@@ -757,6 +757,10 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0),
   sel_columns <- columns[seq_len(length(columns) - 2)]
 
   for (j in rev(seq_along(sel_columns))) {
+    # Check if any group has more than 1 row (only then do we need separators)
+    group_sizes <- table(rleid(ldims[[j]]))
+    if (all(group_sizes <= 1)) next
+
     ldims <- split(ldims, rleid(ldims[[j]]))
     ldims <- lapply(ldims, function(x, j) {
       x[nrow(x), j] <- "dummy"
