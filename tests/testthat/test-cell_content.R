@@ -1,3 +1,89 @@
+test_that("surround sets border properties on target cell", {
+  ft <- flextable(head(iris, 3))
+  ft <- border_remove(ft)
+  brd <- officer::fp_border(color = "red", width = 2, style = "solid")
+  ft <- surround(ft, i = 2, j = 2, border = brd, part = "body")
+
+  props <- flextable:::information_data_cell(ft)
+  cell <- props[props$.part == "body" & props$.row_id == 2 &
+    props$.col_id == "Sepal.Width", ]
+
+  expect_equal(cell$border.width.top, 2)
+  expect_equal(cell$border.width.bottom, 2)
+  expect_equal(cell$border.width.left, 2)
+  expect_equal(cell$border.width.right, 2)
+  expect_equal(cell$border.color.top, "red")
+  expect_equal(cell$border.color.bottom, "red")
+  expect_equal(cell$border.color.left, "red")
+  expect_equal(cell$border.color.right, "red")
+
+  # adjacent cells should not have red borders
+  other <- props[props$.part == "body" & props$.row_id == 1 &
+    props$.col_id == "Sepal.Length", ]
+  expect_equal(other$border.width.top, 0)
+})
+
+test_that("surround border shortcut sets all sides", {
+  ft <- flextable(head(iris, 3))
+  ft <- border_remove(ft)
+  brd <- officer::fp_border(color = "blue", width = 1)
+  # use cell (2,2) to avoid header/body boundary edge case
+  ft <- surround(ft, i = 2, j = 2, border = brd, part = "body")
+
+  props <- flextable:::information_data_cell(ft)
+  cell <- props[props$.part == "body" & props$.row_id == 2 &
+    props$.col_id == "Sepal.Width", ]
+
+  for (side in c("top", "bottom", "left", "right")) {
+    expect_equal(cell[[paste0("border.color.", side)]], "blue")
+    expect_equal(cell[[paste0("border.width.", side)]], 1)
+  }
+})
+
+test_that("surround selective sides", {
+  ft <- flextable(head(iris, 3))
+  ft <- border_remove(ft)
+  brd <- officer::fp_border(color = "green", width = 3)
+  ft <- surround(ft, i = 2, j = 2,
+    border.top = brd, border.bottom = brd,
+    part = "body")
+
+  props <- flextable:::information_data_cell(ft)
+  cell <- props[props$.part == "body" & props$.row_id == 2 &
+    props$.col_id == "Sepal.Width", ]
+
+  expect_equal(cell$border.width.top, 3)
+  expect_equal(cell$border.width.bottom, 3)
+  expect_equal(cell$border.width.left, 0)
+  expect_equal(cell$border.width.right, 0)
+})
+
+test_that("surround renders in HTML", {
+  ft <- flextable(head(iris, 2))
+  ft <- border_remove(ft)
+  brd <- officer::fp_border(color = "red", width = 2, style = "solid")
+  ft <- surround(ft, i = 1, j = 1, border = brd, part = "body")
+
+  html <- flextable:::gen_raw_html(ft)
+  expect_match(html, "border-top: 2pt solid rgba(255, 0, 0", fixed = TRUE)
+  expect_match(html, "border-bottom: 2pt solid rgba(255, 0, 0", fixed = TRUE)
+  expect_match(html, "border-left: 2pt solid rgba(255, 0, 0", fixed = TRUE)
+  expect_match(html, "border-right: 2pt solid rgba(255, 0, 0", fixed = TRUE)
+})
+
+test_that("surround renders in LaTeX", {
+  ft <- flextable(head(iris, 2))
+  ft <- border_remove(ft)
+  brd <- officer::fp_border(color = "red", width = 2, style = "solid")
+  ft <- surround(ft, i = 1, j = 1, border = brd, part = "body")
+
+  latex <- flextable:::gen_raw_latex(ft)
+  # horizontal lines: ascline with red color (FF0000)
+  expect_match(latex, "\\ascline{2pt}{FF0000}{1-1}", fixed = TRUE)
+  # vertical lines: vrule with red color
+  expect_match(latex, "\\color[HTML]{FF0000}\\vrule width 2pt", fixed = TRUE)
+})
+
 test_that("void works as expected", {
   expect_error(void(12, part = "all"))
 
