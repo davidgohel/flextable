@@ -7,7 +7,7 @@ name: pkgdown
 jobs:
   pkgdown:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'sitedeploy')"
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -22,13 +22,17 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown
+          extra-packages: any::pkgdown, local::.
+          needs: website
 
-      - name: Install package
-        run: R CMD INSTALL .
+      - name: Build site
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        shell: Rscript {0}
 
-      - name: Deploy package
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE, clean = TRUE)'
+      - name: Deploy to GitHub pages 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        with:
+          clean: false
+          branch: gh-pages
+          folder: docs

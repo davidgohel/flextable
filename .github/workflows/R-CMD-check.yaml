@@ -26,7 +26,7 @@ jobs:
           - {os: macOS-latest, r: 'release', pandoc : '2.19'}
           - {os: ubuntu-latest, r: 'release', pandoc : '2.19'}
           - {os: ubuntu-latest, r: 'release', pandoc : '2.9.2.1'}
-          - {os: ubuntu-latest, r: 'devel', pandoc : '2.19'}
+          - {os: windows-latest, r: 'devel', pandoc : '2.19'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
