@@ -31,15 +31,11 @@
 #'
 #'
 #' ```
-#' ┌──────────────────┐
-#' │      HEADER      │  ← Column names, labels, spanning headers
-#' ├──────────────────┤
-#' │                  │
-#' │       BODY       │  ← Data rows
-#' │                  │
-#' ├──────────────────┤
-#' │      FOOTER      │  ← Summary rows, notes, footnotes (optional)
-#' └──────────────────┘
+#'        HEADER         <- Column names, labels, spanning headers
+#' --------------------
+#'         BODY          <- Data rows
+#' --------------------
+#'        FOOTER         <- Summary rows, notes, footnotes (optional)
 #' ```
 #'
 #' A basic flextable has:

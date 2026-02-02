@@ -35,15 +35,11 @@ A flextable is composed of three distinct parts:
 \item \code{footer}: Empty by default, but can contain content (commonly used for footnotes or #' summary rows)
 }
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{┌──────────────────┐
-│      HEADER      │  ← Column names, labels, spanning headers
-├──────────────────┤
-│                  │
-│       BODY       │  ← Data rows
-│                  │
-├──────────────────┤
-│      FOOTER      │  ← Summary rows, notes, footnotes (optional)
-└──────────────────┘
+\if{html}{\out{<div class="sourceCode">}}\preformatted{       HEADER         <- Column names, labels, spanning headers
+--------------------
+        BODY          <- Data rows
+--------------------
+       FOOTER         <- Summary rows, notes, footnotes (optional)
 }\if{html}{\out{</div>}}
 
 A basic flextable has:
