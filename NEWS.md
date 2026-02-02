@@ -55,6 +55,9 @@ PDF/LaTeX output when rows have different heights (#639). Content is
 placed in the first (top), middle (center), or last (bottom) row of the
 merged range; `\multirow` is no longer used as it miscalculates offsets
 with unequal row heights.
+- using `by` of `summarizor()` referring to two columns, one of which has
+only one unique value no longer causes and error when passed on to 
+`as_flextable()`.
 
 # flextable 0.9.10
 
