@@ -20,181 +20,22 @@ home:
     href: https://www.ardata.fr
 
 reference:
-  - title: Create flextable
+  - title: Create a flextable
     desc: >
-     These functions create 'flextable' objects that can be modified later.
+      Functions to create flextable objects from data frames or other R objects.
+      Start here - flextable() is the main constructor, qflextable() is a quick
+      shortcut, and as_flextable() converts other objects.
     contents:
     - flextable
     - qflextable
     - as_flextable
     - flextable-package
-  - title: Global options
+
+  - title: Convert objects to flextable
     desc: >
-     Reduce homogenization efforts and the number of functions to be called by
-     defining formatting properties such as font, border color, number of
-     decimal places displayed that should be applied by default.
-    contents:
-    - set_flextable_defaults
-    - get_flextable_defaults
-    - init_flextable_defaults
-  - title: Output functions
-    contents:
-    - print.flextable
-    - knit_print.flextable
-    - body_add_flextable
-    - ph_with.flextable
-    - plot.flextable
-    - save_as_image
-    - save_as_html
-    - save_as_docx
-    - save_as_rtf
-    - save_as_pptx
-    - htmltools_value
-    - wrap_flextable
-    - gen_grob
-    - plot.flextableGrob
-    - to_html.flextable
-    - rtf_add.flextable
-    - flextable_to_rmd
-    - df_printer
-    - use_df_printer
-    - use_model_printer
-    - body_replace_flextable_at_bkm
-  - title: Change visual properties
-    desc: >
-     Modify the visual properties of the components of a 'flextable' such
-     as font color, font size, word highlighting or cell background color.
-    contents:
-    - style
-    - align
-    - bg
-    - font
-    - fontsize
-    - italic
-    - bold
-    - color
-    - line_spacing
-    - highlight
-    - padding
-    - valign
-    - rotate
-    - tab_settings
-    - empty_blanks
-  - title: Management of borders
-    desc: >
-     The border system is based on vertical and horizontal lines which can be
-     easily specified. Some additional tools are provided for specific needs.
-    contents:
-    - fp_border_default
-    - starts_with("hline")
-    - starts_with("vline")
-    - border_inner
-    - border_inner_h
-    - border_inner_v
-    - border_outer
-    - border_remove
-    - surround
-  - title: Flextable themes
-    desc:  Apply theme functions
-    contents:
-    - starts_with("theme_")
-  - title: Add headers and footers
-    desc: >
-     Add header titles, comments in footers and new rows in body
-     with the following functions, remove rows and columns.
-    contents:
-    - add_header_row
-    - add_footer_row
-    - add_header_lines
-    - add_footer_lines
-    - add_header
-    - add_footer
-    - separate_header
-    - set_header_labels
-    - set_header_df
-    - set_footer_df
-    - add_body
-    - add_body_row
-    - delete_part
-    - delete_rows
-    - delete_columns
-  - title: Cell merging
-    contents:
-    - starts_with("merge_")
-  - title: flextable dimensions
-    contents:
-    - starts_with("height")
-    - set_table_properties
-    - paginate
-    - keep_with_next
-    - width
-    - hrule
-    - autofit
-    - fit_to_width
-    - dim.flextable
-    - dim_pretty
-    - flextable_dim
-    - dim.flextableGrob
-    - nrow_part
-    - ncol_keys
-  - title: Define how to display the content
-    desc: >
-     Simple tools for formatting the content of cells such as managing the
-     number of decimals, adding suffixes or prefixes and defining the
-     thousands separator.
-    contents:
-    - starts_with("colformat_")
-    - starts_with("set_formatter")
-    - labelizor
-  - title: Mixed and complex content
-    desc: >
-      How to define complex paragraphs with mixed content or to
-      add images or chunks of text in existing cells.
-    contents:
-    - compose
-    - as_paragraph
-    - append_chunks
-    - prepend_chunks
-    - footnote
-    - fp_text_default
-  - title: Elements for mixed content
-    desc: >
-      Functions that can be called to create rich, formatted content. They are to be used
-      within calls to `mk_par()`, `append_chunks()`, `prepend_chunks()` and
-      possibly `set_caption()` functions.
-    contents:
-    - as_chunk
-    - as_image
-    - gg_chunk
-    - plot_chunk
-    - grid_chunk
-    - as_b
-    - as_i
-    - as_strike
-    - as_sub
-    - as_sup
-    - as_highlight
-    - colorize
-    - minibar
-    - linerange
-    - as_bracket
-    - hyperlink_text
-    - as_equation
-    - as_word_field
-  - title: Caption
-    contents:
-    - set_caption
-  - title: miscellaneous
-    contents:
-    - starts_with("fmt_")
-    - before
-    - void
-  - title: Transform objects into flextables with 'as_flextable'
-    desc: >
-     The `as_flextable()` function is used to transform specific objects
-     into flextable objects. For example, you can transform a crosstab produced
-     with the 'tables' package into a flextable which can then be formatted,
-     annotated or augmented with footnotes.
+      Transform statistical models, cross-tabulations, and summary tables into
+      flextables. Use tabulator() for pivot-style tables, summarizor() for
+      descriptive statistics, and specific as_flextable methods for models.
     contents:
     - tabulator
     - tabulator_colnames
@@ -205,6 +46,231 @@ reference:
     - as_grouped_data
     - proc_freq
     - shift_table
+
+  - title: Headers, footers and structural changes
+    desc: >
+      Add or modify header rows, footer rows, or body rows. Set column labels.
+      Remove rows, columns, or entire parts (header, body, footer) from the table.
+    contents:
+    - add_header_row
+    - add_header_lines
+    - add_header
+    - add_footer_row
+    - add_footer_lines
+    - add_footer
+    - add_body
+    - add_body_row
+    - separate_header
+    - set_header_labels
+    - set_header_df
+    - set_footer_df
+    - delete_part
+    - delete_rows
+    - delete_columns
+
+  - title: Merge cells
+    desc: >
+      Combine adjacent cells horizontally or vertically to create spanning cells.
+      Useful for grouped headers or repeated values.
+    contents:
+    - starts_with("merge_")
+
+  - title: Format cell values
+    desc: >
+      Control how values are displayed: number of decimals, date formats,
+      thousand separators, currency symbols. Use colformat_* functions for
+      column-wide formatting.
+    contents:
+    - starts_with("colformat_")
+    - starts_with("set_formatter")
+    - labelizor
+
+  - title: Compose rich content
+    desc: >
+      Create cells with mixed content: combine text, images, plots, and
+      formatted chunks in a single cell. Use compose() with as_paragraph().
+    contents:
+    - compose
+    - as_paragraph
+    - append_chunks
+    - prepend_chunks
+    - footnote
+
+  - title: Content chunks
+    desc: >
+      Building blocks for rich cell content. Use inside as_paragraph() or
+      compose(): text formatting (as_b, as_i), images (as_image, gg_chunk),
+      links (hyperlink_text), equations (as_equation).
+    contents:
+    - as_chunk
+    - as_b
+    - as_i
+    - as_strike
+    - as_sub
+    - as_sup
+    - as_highlight
+    - colorize
+    - as_bracket
+    - hyperlink_text
+    - as_equation
+    - as_word_field
+    - as_image
+    - gg_chunk
+    - plot_chunk
+    - grid_chunk
+    - minibar
+    - linerange
+
+  - title: Apply themes
+    desc: >
+      Apply predefined visual themes to quickly style the entire table.
+      Themes set fonts, colors, borders, and padding in one call.
+    contents:
+    - starts_with("theme_")
+
+  - title: Style text and cells
+    desc: >
+      Control typography and cell appearance: font family, size, color,
+      bold, italic, background color, text highlighting.
+    contents:
+    - style
+    - font
+    - fontsize
+    - bold
+    - italic
+    - color
+    - highlight
+    - bg
+    - fp_text_default
+
+  - title: Alignment and spacing
+    desc: >
+      Control text alignment (left, center, right), vertical alignment,
+      cell padding, line spacing, and text rotation.
+    contents:
+    - align
+    - valign
+    - padding
+    - line_spacing
+    - rotate
+    - tab_settings
+    - empty_blanks
+
+  - title: Borders
+    desc: >
+      Add, remove, or customize cell borders. Use hline/vline for single lines,
+      border_inner/border_outer for bulk operations, surround for highlighting.
+    contents:
+    - fp_border_default
+    - starts_with("hline")
+    - starts_with("vline")
+    - border_inner
+    - border_inner_h
+    - border_inner_v
+    - border_outer
+    - border_remove
+    - surround
+
+  - title: Table and column dimensions
+    desc: >
+      Control table width, column widths, and automatic sizing. Use autofit()
+      for automatic adjustment, width() for manual control.
+    contents:
+    - width
+    - autofit
+    - fit_to_width
+    - set_table_properties
+
+  - title: Row height and pagination
+    desc: >
+      Control row heights and how tables break across pages. Use paginate()
+      to split long tables, keep_with_next to prevent orphan rows.
+    contents:
+    - starts_with("height")
+    - hrule
+    - paginate
+    - keep_with_next
+
+  - title: Get dimensions
+    desc: >
+      Query table dimensions: number of rows, columns, pixel sizes.
+      Useful for dynamic layouts and conditional formatting.
+    contents:
+    - dim.flextable
+    - dim_pretty
+    - flextable_dim
+    - nrow_part
+    - ncol_keys
+
+  - title: Caption and labels
+    desc: >
+      Add table captions for cross-referencing in documents. Captions appear
+      above or below the table and can be numbered automatically.
+    contents:
+    - set_caption
+
+  - title: Save to files
+    desc: >
+      Export flextables to standalone files: Word (.docx), PowerPoint (.pptx),
+      HTML, RTF, or images (PNG, PDF, SVG).
+    contents:
+    - save_as_docx
+    - save_as_pptx
+    - save_as_html
+    - save_as_rtf
+    - save_as_image
+
+  - title: Integrate with R Markdown and Quarto
+    desc: >
+      Functions for rendering flextables in R Markdown, Quarto, and knitr
+      documents. Automatic rendering is usually handled by knit_print.
+    contents:
+    - knit_print.flextable
+    - flextable_to_rmd
+    - df_printer
+    - use_df_printer
+    - use_model_printer
+
+  - title: Integrate with officer (Word/PowerPoint)
+    desc: >
+      Add flextables to Word and PowerPoint documents created with the officer
+      package. Use body_add_flextable for Word, ph_with for PowerPoint.
+    contents:
+    - body_add_flextable
+    - body_replace_flextable_at_bkm
+    - ph_with.flextable
+    - rtf_add.flextable
+
+  - title: Other output formats
+    desc: >
+      Convert flextables to HTML strings, plots, grobs, or interactive widgets.
+    contents:
+    - print.flextable
+    - to_html.flextable
+    - htmltools_value
+    - wrap_flextable
+    - plot.flextable
+    - gen_grob
+    - plot.flextableGrob
+    - dim.flextableGrob
+
+  - title: Global defaults
+    desc: >
+      Set default formatting options that apply to all new flextables:
+      fonts, colors, borders, padding. Reduces repetitive code.
+    contents:
+    - set_flextable_defaults
+    - get_flextable_defaults
+    - init_flextable_defaults
+
+  - title: Utilities
+    desc: >
+      Helper functions for conditional display (void), row positioning (before),
+      and value formatting (fmt_*).
+    contents:
+    - starts_with("fmt_")
+    - before
+    - void
 
 
 navbar:
