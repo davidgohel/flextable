@@ -26,6 +26,7 @@
 #' using `+`, `|`, or `/` operators.
 #' @export
 #' @examples
+#' \donttest{
 #' library(gdtools)
 #' register_liberationsans()
 #' set_flextable_defaults(
@@ -123,6 +124,7 @@
 #'   print(ptch)
 #'   dev.off()
 #'   init_flextable_defaults()
+#' }
 #' }
 #' @family flextable print function
 wrap_flextable <- function(

@@ -44,6 +44,7 @@ optional alignment of table headers and body with plot panel areas.
 Note this is experimental and may change in the future.
 }
 \examples{
+\donttest{
 library(gdtools)
 register_liberationsans()
 set_flextable_defaults(
@@ -141,6 +142,7 @@ if (require("patchwork") && require("ggplot2")) {
   print(ptch)
   dev.off()
   init_flextable_defaults()
+}
 }
 }
 \seealso{
