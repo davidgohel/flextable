@@ -74,6 +74,7 @@ Other flextable print function:
 ## Examples
 
 ``` r
+# \donttest{
 library(gdtools)
 register_liberationsans()
 #> [1] TRUE
@@ -174,4 +175,5 @@ if (require("patchwork") && require("ggplot2")) {
   init_flextable_defaults()
 }
 #> Loading required package: patchwork
+# }
 ```

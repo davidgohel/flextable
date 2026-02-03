@@ -77,7 +77,7 @@ ft <- flextable(head(mtcars))
 ft <- autofit(ft)
 tf <- tempfile(fileext = ".png")
 save_as_image(x = ft, path = tf)
-#> [1] "/tmp/RtmpHeq5Ku/file25be4cc7539.png"
+#> [1] "/tmp/RtmpRIJlYB/file255179cf57fb.png"
 
 init_flextable_defaults()
 ```
