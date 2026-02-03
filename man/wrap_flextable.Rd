@@ -7,7 +7,8 @@
 wrap_flextable(
   x,
   panel = c("body", "full", "rows", "cols"),
-  space = c("free", "free_x", "free_y", "fixed")
+  space = c("free", "free_x", "free_y", "fixed"),
+  n_row_headers = 0L
 )
 }
 \arguments{
@@ -25,6 +26,10 @@ composition? \code{"fixed"} means that the table width and height will set the
 dimensions of the area it occupies. \code{"free"} means the table dimensions will
 not influence the sizing. \code{"free_x"} and \code{"free_y"} allow freeing either
 direction.}
+
+\item{n_row_headers}{Number of leading columns to treat as row headers.
+These columns will be placed outside the panel region and will not
+participate in alignment with the plot axes.}
 }
 \value{
 A patchwork-compliant object that can be combined with ggplot2 plots
@@ -35,22 +40,107 @@ This function wraps a flextable as a patchwork-compliant patch, similar
 to what \code{\link[patchwork:wrap_table]{patchwork::wrap_table()}} does for gt tables. It allows flextable
 objects to be combined with ggplot2 plots in a patchwork layout, with
 optional alignment of table headers and body with plot panel areas.
+
+Note this is experimental and may change in the future.
 }
 \examples{
+library(gdtools)
+register_liberationsans()
+set_flextable_defaults(
+  font.family = "Liberation Sans",
+  font.size = 7,
+  padding = 4,
+  big.mark = ""
+)
+
 if (require("patchwork") && require("ggplot2")) {
   ft <- flextable(head(iris))
   ft <- autofit(ft)
   p <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
     geom_point()
 
+  tf <- tempfile(fileext = ".png")
+  ragg::agg_png(
+    filename = tf, width = 8,
+    height = 7, units = "in", res = 150
+  )
   # Place side by side
-  p | wrap_flextable(ft)
+  print(p | wrap_flextable(ft))
+  dev.off()
 
+  tf <- tempfile(fileext = ".png")
+  ragg::agg_png(
+    filename = tf, width = 8,
+    height = 7, units = "in", res = 150
+  )
   # Stack vertically
-  p / wrap_flextable(ft)
+  print(p / wrap_flextable(ft))
+  dev.off()
 
+  tf <- tempfile(fileext = ".png")
+  ragg::agg_png(
+    filename = tf, width = 8,
+    height = 7, units = "in", res = 150
+  )
   # Use + operator (also works directly: p + ft)
-  p + wrap_flextable(ft)
+  print(p + wrap_flextable(ft))
+  dev.off()
+
+  # does not work perfectly if below the boxplot
+  p <- ggplot(diamonds, aes(color, x)) +
+    geom_boxplot(position = position_dodge(width = 1))
+
+  ft <- summarizor(diamonds[c("color", "cut", "carat")], by = c("color"))
+  ft <- as_flextable(
+      ft,
+      sep_w = 0.0,
+      spread_first_col = TRUE
+    )
+  ft <- delete_part(ft, "header")
+
+  ptch <- p / wrap_flextable(
+    x = ft,
+    panel = "body",
+    space = "fixed",
+    n_row_headers = 1
+  )
+
+  tf <- tempfile(fileext = ".png")
+  ragg::agg_png(
+    filename = tf, width = 8,
+    height = 7, units = "in", res = 150
+  )
+  print(ptch)
+  dev.off()
+
+
+
+  # This one works well - horizontally
+  p <- ggplot(diamonds) +
+    geom_bar(aes(y = cut)) +
+    scale_y_discrete(name = NULL, guide = "none")
+
+  cts <- data.frame(
+    cut = ordered(
+      c("Fair", "Good", "Very Good", "Premium", "Ideal"),
+      levels = c("Fair", "Good", "Very Good", "Premium", "Ideal")
+    ),
+    n = c(1610L, 4906L, 12082L, 13791L, 21551L)
+  )
+
+  ft_tab <- flextable(cts)
+  ft_tab <- autofit(ft_tab)
+
+  ptch <- wrap_flextable(ft_tab, space = "fixed") + p
+
+  tf <- tempfile(fileext = ".png")
+  ragg::agg_png(
+    filename = tf, width = 6,
+    height = 2, units = "in", res = 150
+  )
+  print(ptch)
+  dev.off()
+  init_flextable_defaults()
 }
 }
 \seealso{
