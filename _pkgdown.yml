@@ -50,6 +50,7 @@ reference:
     - save_as_rtf
     - save_as_pptx
     - htmltools_value
+    - wrap_flextable
     - gen_grob
     - plot.flextableGrob
     - to_html.flextable
