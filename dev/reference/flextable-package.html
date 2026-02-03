@@ -35,7 +35,7 @@ by default. See set_flextable_defaults() for more details."><meta property="og:i
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.11.007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.11.022</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,15 +87,11 @@ by default. See <code><a href="set_flextable_defaults.html">set_flextable_defaul
 <p>A flextable is composed of three distinct parts:</p><ul><li><p><code>header</code>: By default, contains one row with the column names from the data.frame</p></li>
 <li><p><code>body</code>: Contains the actual data from the data.frame</p></li>
 <li><p><code>footer</code>: Empty by default, but can contain content (commonly used for footnotes or #' summary rows)</p></li>
-</ul><p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>┌──────────────────┐</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>│      HEADER      │  ← Column names, labels, spanning headers</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>├──────────────────┤</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>│                  │</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>│       BODY       │  ← Data rows</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>│                  │</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>├──────────────────┤</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>│      FOOTER      │  ← Summary rows, notes, <span class="fu">footnotes</span> (optional)</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>└──────────────────┘</span></code></pre><p></p></div>
+</ul><p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>       HEADER         <span class="ot">&lt;-</span> Column names, labels, spanning headers</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="sc">--------------------</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>        BODY          <span class="ot">&lt;-</span> Data rows</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="sc">--------------------</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>       FOOTER         <span class="ot">&lt;-</span> Summary rows, notes, <span class="fu">footnotes</span> (optional)</span></code></pre><p></p></div>
 <p>A basic flextable has:</p><ul><li><p>in the part 'header': 1 row with column names</p></li>
 <li><p>in the part 'body': as many rows as there are in the input data.frame</p></li>
 <li><p>no footer</p></li>

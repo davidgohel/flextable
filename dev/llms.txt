@@ -154,6 +154,8 @@ decimal places displayed that should be applied by default.
   : Save flextable objects in a 'PowerPoint' file
 - [`htmltools_value()`](https://davidgohel.github.io/flextable/dev/reference/htmltools_value.md)
   : flextable as an 'HTML' object
+- [`wrap_flextable()`](https://davidgohel.github.io/flextable/dev/reference/wrap_flextable.md)
+  : Wrap a flextable for use with patchwork
 - [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
   : Convert a flextable to a grid grob object
 - [`plot(`*`<flextableGrob>`*`)`](https://davidgohel.github.io/flextable/dev/reference/plot.flextableGrob.md)
@@ -487,6 +489,8 @@ augmented with footnotes.
   : Data summary preparation
 - [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md)
   : Method to transform objects into flextables
+- [`as_flextable(`*`<compact_summary>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.compact_summary.md)
+  : Transform a 'compact_summary' object into a flextable
 - [`as_flextable(`*`<data.frame>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.data.frame.md)
   : Transform and summarise a 'data.frame' into a flextable Simple
   summary of a data.frame as a flextable
@@ -524,6 +528,8 @@ augmented with footnotes.
   : Transform a 'xtable' object into a flextable
 - [`continuous_summary()`](https://davidgohel.github.io/flextable/dev/reference/continuous_summary.md)
   : Continuous columns summary
+- [`compact_summary()`](https://davidgohel.github.io/flextable/dev/reference/compact_summary.md)
+  : Compact Summary of a Dataset
 - [`as_grouped_data()`](https://davidgohel.github.io/flextable/dev/reference/as_grouped_data.md)
   : Add row separators to grouped data
 - [`proc_freq()`](https://davidgohel.github.io/flextable/dev/reference/proc_freq.md)

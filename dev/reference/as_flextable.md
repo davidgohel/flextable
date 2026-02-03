@@ -23,6 +23,7 @@ as_flextable(x, ...)
 ## See also
 
 Other as_flextable methods:
+[`as_flextable.compact_summary()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.compact_summary.md),
 [`as_flextable.data.frame()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.data.frame.md),
 [`as_flextable.gam()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.gam.md),
 [`as_flextable.glm()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.glm.md),
@@ -36,4 +37,5 @@ Other as_flextable methods:
 [`as_flextable.table()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.table.md),
 [`as_flextable.tabular()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.tabular.md),
 [`as_flextable.tabulator()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.tabulator.md),
-[`as_flextable.xtable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.xtable.md)
+[`as_flextable.xtable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.xtable.md),
+[`compact_summary()`](https://davidgohel.github.io/flextable/dev/reference/compact_summary.md)

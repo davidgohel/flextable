@@ -62,7 +62,8 @@ Other flextable print function:
 [`save_as_html()`](https://davidgohel.github.io/flextable/dev/reference/save_as_html.md),
 [`save_as_pptx()`](https://davidgohel.github.io/flextable/dev/reference/save_as_pptx.md),
 [`save_as_rtf()`](https://davidgohel.github.io/flextable/dev/reference/save_as_rtf.md),
-[`to_html.flextable()`](https://davidgohel.github.io/flextable/dev/reference/to_html.flextable.md)
+[`to_html.flextable()`](https://davidgohel.github.io/flextable/dev/reference/to_html.flextable.md),
+[`wrap_flextable()`](https://davidgohel.github.io/flextable/dev/reference/wrap_flextable.md)
 
 ## Examples
 
@@ -76,7 +77,7 @@ ft <- flextable(head(mtcars))
 ft <- autofit(ft)
 tf <- tempfile(fileext = ".png")
 save_as_image(x = ft, path = tf)
-#> [1] "/tmp/RtmpmeQC6p/file229278eb271d.png"
+#> [1] "/tmp/RtmpHeq5Ku/file25be4cc7539.png"
 
 init_flextable_defaults()
 ```

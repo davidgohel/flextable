@@ -46,7 +46,8 @@ Other flextable print function:
 [`save_as_image()`](https://davidgohel.github.io/flextable/dev/reference/save_as_image.md),
 [`save_as_pptx()`](https://davidgohel.github.io/flextable/dev/reference/save_as_pptx.md),
 [`save_as_rtf()`](https://davidgohel.github.io/flextable/dev/reference/save_as_rtf.md),
-[`to_html.flextable()`](https://davidgohel.github.io/flextable/dev/reference/to_html.flextable.md)
+[`to_html.flextable()`](https://davidgohel.github.io/flextable/dev/reference/to_html.flextable.md),
+[`wrap_flextable()`](https://davidgohel.github.io/flextable/dev/reference/wrap_flextable.md)
 
 ## Examples
 

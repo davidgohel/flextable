@@ -4,11 +4,41 @@
 
 ### new features
 
+- new function
+  [`wrap_flextable()`](https://davidgohel.github.io/flextable/dev/reference/wrap_flextable.md)
+  enables integration with ‘patchwork’ layouts. Flextable objects can be
+  combined with ‘ggplot2’ plots using `+`, `|`, and `/` operators. Table
+  headers and footers are aligned with plot panel areas. The `panel`
+  argument controls alignment (`"body"`, `"full"`, `"rows"`, `"cols"`)
+  and the `space` argument controls sizing (`"free"`, `"fixed"`,
+  `"free_x"`, `"free_y"`).
 - support strikethrough formatting with
   [`fp_text_default()`](https://davidgohel.github.io/flextable/dev/reference/fp_text_default.md).
 - new function
   [`as_strike()`](https://davidgohel.github.io/flextable/dev/reference/as_strike.md)
   to apply strikethrough formatting to text chunks.
+- new function
+  [`compact_summary()`](https://davidgohel.github.io/flextable/dev/reference/compact_summary.md)
+  to create a compact summary of a data.frame that can be transformed as
+  a flextable with
+  [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md).
+- [`summarizor()`](https://davidgohel.github.io/flextable/dev/reference/summarizor.md):
+  when using `overall_label` with multiple `by` columns, an overall
+  level is now added for each grouping column (not only the last one).
+  This produces margins at every nesting level, including a grand total.
+- [`footnote()`](https://davidgohel.github.io/flextable/dev/reference/footnote.md)
+  gains a `symbol_sep` argument to insert a separator between multiple
+  footnote symbols in the same cell
+  ([\#699](https://github.com/davidgohel/flextable/issues/699)).
+
+### Known limitations
+
+- PDF/LaTeX: a table row whose content is taller than a page cannot be
+  split across pages
+  ([\#548](https://github.com/davidgohel/flextable/issues/548)). This is
+  a fundamental constraint of LaTeX’s `longtable` environment, which
+  only supports page breaks between rows, not within a single row. HTML
+  and Word outputs are not affected.
 
 ### Internals
 
@@ -26,6 +56,42 @@
 - specifying a `word_style` for a paragraph style works now. The
   `word_style` values will be ignored if flextable is process by
   ‘rmarkdown’ or ‘quarto’.
+- [`as_flextable.tabulator()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.tabulator.md):
+  the N= counts in column headers are now displayed when there are
+  multiple grouping columns (previously limited to a single grouping
+  column).
+- [`footnote()`](https://davidgohel.github.io/flextable/dev/reference/footnote.md)
+  no longer errors when the row selector `i` matches zero rows
+  ([\#712](https://github.com/davidgohel/flextable/issues/712)).
+- footnote symbols no longer clash with rotated cells in HTML output
+  ([\#713](https://github.com/davidgohel/flextable/issues/713)).
+- PDF/Quarto: the `fontspec` LaTeX package is no longer included when
+  the PDF engine is `pdflatex`, fixing compilation errors in Quarto
+  documents using `pdf-engine: pdflatex`
+  ([\#701](https://github.com/davidgohel/flextable/issues/701),
+  [\#707](https://github.com/davidgohel/flextable/issues/707)). Engine
+  detection now also reads `QUARTO_EXECUTE_INFO` (Quarto \>= 1.8) and
+  nested YAML (`format > pdf > pdf-engine`).
+- inner borders of vertically merged cells no longer show in PDF output
+  when background color is set
+  ([\#673](https://github.com/davidgohel/flextable/issues/673)).
+- PDF/Quarto: footer repetition and longtable part ordering now work
+  correctly with the default container (`none`) in Quarto output.
+- [`merge_v()`](https://davidgohel.github.io/flextable/dev/reference/merge_v.md):
+  vertically merged cell labels now appear at the top of the merged
+  range in PDF/LaTeX output instead of the bottom
+  ([\#654](https://github.com/davidgohel/flextable/issues/654)).
+- vertical alignment (`valign`) in merged cells now works correctly in
+  PDF/LaTeX output when rows have different heights
+  ([\#639](https://github.com/davidgohel/flextable/issues/639)). Content
+  is placed in the first (top), middle (center), or last (bottom) row of
+  the merged range; `\multirow` is no longer used as it miscalculates
+  offsets with unequal row heights.
+- using `by` of
+  [`summarizor()`](https://davidgohel.github.io/flextable/dev/reference/summarizor.md)
+  referring to two columns, one of which has only one unique value no
+  longer causes and error when passed on to
+  [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md).
 
 ## flextable 0.9.10
 

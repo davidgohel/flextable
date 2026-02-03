@@ -39,15 +39,11 @@ A flextable is composed of three distinct parts:
 - `footer`: Empty by default, but can contain content (commonly used for
   footnotes or \#' summary rows)
 
-    ┌──────────────────┐
-    │      HEADER      │  ← Column names, labels, spanning headers
-    ├──────────────────┤
-    │                  │
-    │       BODY       │  ← Data rows
-    │                  │
-    ├──────────────────┤
-    │      FOOTER      │  ← Summary rows, notes, footnotes (optional)
-    └──────────────────┘
+           HEADER         <- Column names, labels, spanning headers
+    --------------------
+            BODY          <- Data rows
+    --------------------
+           FOOTER         <- Summary rows, notes, footnotes (optional)
 
 A basic flextable has:
 

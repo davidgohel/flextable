@@ -30,6 +30,7 @@
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_bracket.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_chunk.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_equation.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/dev/reference/as_flextable.compact_summary.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_flextable.data.frame.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_flextable.gam.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_flextable.glm.html</loc></url>
@@ -78,6 +79,7 @@
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/colformat_num.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/color.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/colorize.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/dev/reference/compact_summary.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/compose.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/continuous_summary.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/delete_columns.html</loc></url>
@@ -192,5 +194,6 @@
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/vline_right.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/void.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/width.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/dev/reference/wrap_flextable.html</loc></url>
 </urlset>
 
