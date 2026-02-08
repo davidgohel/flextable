@@ -945,7 +945,7 @@ calc_grid_text_metrics <- function(dat) {
   dat[(is_newline), "txt" := "."]
 
   # calculate string metrics
-  txt_metrics <- strings_sizes_tmp(
+  txt_metrics <- gdtools::strings_sizes(
     dat$txt,
     fontname = dat$font.family,
     fontsize = dat$font.size,

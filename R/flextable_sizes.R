@@ -513,7 +513,7 @@ text_metric <- function(x) {
   not_baseline <- !(txt_data$vertical.align %in% "baseline")
   fontsize[not_baseline] <- fontsize[not_baseline] / 2
 
-  extents_values <- strings_sizes_tmp(
+  extents_values <- gdtools::strings_sizes(
     txt_data$txt,
     fontname = txt_data$font.family,
     fontsize = fontsize,
@@ -552,19 +552,3 @@ text_metric <- function(x) {
   setDF(txt_data)
   txt_data
 }
-
-#' @importFrom grDevices dev.cur dev.set
-strings_sizes_tmp <- function(...) {
-  old_dev <- dev.cur()
-  file <- tempfile(fileext = ".png")
-  agg_png(width = 50, height = 50, filename = file, units = "in")
-  on.exit({
-    dev.off()
-    if (old_dev > 1L) dev.set(old_dev)
-    unlink(file, force = TRUE)
-  })
-  strings_sizes(...)
-}
-
-
-
