@@ -28,9 +28,9 @@ ftab <- flextable(head(iris))
 gr <- gen_grob(ftab)
 dim(gr)
 #> $width
-#> [1] 5.043403
+#> [1] 5.065769
 #> 
 #> $height
-#> [1] 1.791667
+#> [1] 1.813395
 #> 
 ```

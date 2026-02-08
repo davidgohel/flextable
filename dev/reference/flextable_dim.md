@@ -53,12 +53,12 @@ flextable_dim(ftab)
 ftab <- autofit(ftab)
 flextable_dim(ftab)
 #> $widths
-#> [1] 5.751881
+#> [1] 5.774125
 #> 
 #> $heights
-#> [1] 2.815741
+#> [1] 2.837469
 #> 
 #> $aspect_ratio
-#> [1] 0.4895339
+#> [1] 0.4914111
 #> 
 ```

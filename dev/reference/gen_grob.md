@@ -184,7 +184,7 @@ dims
 #> [1] 8.25
 #> 
 #> $height
-#> [1] 1.777778
+#> [1] 1.763638
 #> 
 ragg::agg_png(
   filename = png_f_2, width = dims$width + .1,
