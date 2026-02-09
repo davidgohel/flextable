@@ -238,21 +238,11 @@ using <code>+</code>, <code>|</code>, or <code>/</code> operators.</p>
 <span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="align.html">align</a></span><span class="op">(</span><span class="va">ft</span>, align <span class="op">=</span> <span class="st">"right"</span>, part <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="autofit.html">autofit</a></span><span class="op">(</span><span class="va">ft</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".png"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">ragg</span><span class="fu">::</span><span class="fu"><a href="https://ragg.r-lib.org/reference/agg_png.html" class="external-link">agg_png</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  filename <span class="op">=</span> <span class="va">tf</span>, width <span class="op">=</span> <span class="fl">10</span>,</span></span>
-<span class="r-in"><span>  height <span class="op">=</span> <span class="fl">5</span>, units <span class="op">=</span> <span class="st">"in"</span>, res <span class="op">=</span> <span class="fl">150</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu">wrap_flextable</span><span class="op">(</span><span class="va">ft</span>, flex_body <span class="op">=</span> <span class="cn">TRUE</span>, just <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>    <span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> agg_record_1916162531 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     2 </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="set_flextable_defaults.html">init_flextable_defaults</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="wrap_flextable-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
