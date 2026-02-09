@@ -56,8 +56,7 @@ Best practices:
 \itemize{
 \item Use character vectors (\code{j = c("col1", "col2")}) for clarity and
 maintainability.
-\item Use formulas (\code{j = ~ col1 + col2}) for excluding columns or when
-using \code{use_dot = TRUE}.
+\item Use formulas (\code{j = ~ col1 + col2}) for excluding columns.
 \item Avoid integer positions when possible (less maintainable).
 \item Column selectors work with all parts (header, body, footer, all).
 }
@@ -90,41 +89,6 @@ This restriction exists because formula selectors evaluate conditions using
 the actual data types from your dataset (numeric, logical, etc.). Headers and
 footers store only character representations of values, so conditional
 expressions like \code{i = ~ price < 330} cannot be evaluated on them.
-}
-
-\section{Functions Supporting Selectors}{
-
-
-Selectors \code{part}, \code{i} and \code{j} are supported by many flextable functions:
-\itemize{
-\item Formatting Functions
-\itemize{
-\item \code{\link[=style]{style()}} - Apply multiple formatting properties at once
-\item \code{\link[=bold]{bold()}}, \code{\link[=italic]{italic()}} - Text weight and style
-\item \code{\link[=color]{color()}}, \code{\link[=highlight]{highlight()}} - Text and background colors
-\item \code{\link[=fontsize]{fontsize()}}, \code{\link[=font]{font()}} - Font properties
-\item \code{\link[=align]{align()}}, \code{\link[=valign]{valign()}} - Text alignment
-\item \code{\link[=padding]{padding()}}, \code{\link[=line_spacing]{line_spacing()}} - Spacing properties
-\item \code{\link[=bg]{bg()}} - Background color
-\item \code{\link[=rotate]{rotate()}} - Text rotation
-}
-\item Border Functions
-\itemize{
-\item \code{\link[=hline]{hline()}}, \code{\link[=vline]{vline()}} - Horizontal and vertical lines
-\item \code{\link[=border_outer]{border_outer()}}, \code{\link[=border_inner_h]{border_inner_h()}}, \code{\link[=border_inner_v]{border_inner_v()}} - Border styling
-}
-\item Content Functions
-\itemize{
-\item \code{\link[=mk_par]{mk_par()}} - Define custom cell content
-\item \code{\link[=append_chunks]{append_chunks()}}, \code{\link[=prepend_chunks]{prepend_chunks()}} - Add content chunks
-}
-\item Layout Functions
-\itemize{
-\item \code{\link[=merge_at]{merge_at()}}, \code{\link[=merge_v]{merge_v()}}, \code{\link[=merge_h]{merge_h()}} - Merge cells
-\item \code{\link[=width]{width()}}, \code{\link[=height]{height()}} - Set dimensions
-\item \code{\link[=empty_blanks]{empty_blanks()}} - Format blank columns
-}
-}
 }
 
 \section{Advanced Programming with Selectors}{

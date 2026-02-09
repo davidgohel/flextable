@@ -22,7 +22,7 @@ style(
 in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
-in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{pr_t}{an \code{\link[officer:fp_text]{officer::fp_text()}} or \code{\link[officer:fp_text]{officer::fp_text_lite()}} object
 defining text formatting (font, size, color, bold, ...).}

@@ -23,7 +23,7 @@ colformat_date(
 in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
-in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{fmt_date}{see \code{\link[=strptime]{strptime()}}}
 

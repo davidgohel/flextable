@@ -22,7 +22,7 @@ colformat_char(
 in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
-in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{na_str, nan_str}{string to be used for NA and NaN values}
 

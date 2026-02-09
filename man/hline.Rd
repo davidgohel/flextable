@@ -14,7 +14,7 @@ hline(x, i = NULL, j = NULL, border = NULL, part = "body")
 in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
-in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{border}{border properties defined by a call to
 \code{\link[officer:fp_border]{officer::fp_border()}}}

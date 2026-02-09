@@ -11,7 +11,7 @@ width(x, j = NULL, width, unit = "in")
 'flextable' object.}
 
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
-in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{width}{width in inches}
 

@@ -11,7 +11,7 @@ labelizor(x, j = NULL, labels, part = "all")
 'flextable' object.}
 
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
-in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{labels}{a named vector whose names will be used to identify
 values to replace and values will be used as labels.}

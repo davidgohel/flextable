@@ -64,7 +64,7 @@ NULL
 #' @param i row selector, see section *Row selection with the `i` parameter*
 #' in <[`Selectors in flextable`][flextable_selectors]>.
 #' @param j column selector, see section *Column selection with the `j` parameter*
-#' in <[`flextable column selection`][flextable_selectors]>.
+#' in <[`Selectors in flextable`][flextable_selectors]>.
 #' @name args_x_i_j
 #' @keywords internal
 NULL
@@ -74,7 +74,7 @@ NULL
 #' @param x a 'flextable' object, see [flextable-package] to learn how to create
 #' 'flextable' object.
 #' @param j column selector, see section *Column selection with the `j` parameter*
-#' in <[`flextable column selection`][flextable_selectors]>.
+#' in <[`Selectors in flextable`][flextable_selectors]>.
 #' @name args_x_j
 #' @keywords internal
 NULL
@@ -84,7 +84,7 @@ NULL
 #' @param x a 'flextable' object, see [flextable-package] to learn how to create
 #' 'flextable' object.
 #' @param j column selector, see section *Column selection with the `j` parameter*
-#' in <[`flextable column selection`][flextable_selectors]>.
+#' in <[`Selectors in flextable`][flextable_selectors]>.
 #' @param part part selector, see section *Part selection with the `part`
 #' parameter* in <[`Selectors in flextable`][flextable_selectors]>.
 #' Value 'all' can be used.
@@ -97,7 +97,7 @@ NULL
 #' @param x a 'flextable' object, see [flextable-package] to learn how to create
 #' 'flextable' object.
 #' @param j column selector, see section *Column selection with the `j` parameter*
-#' in <[`flextable column selection`][flextable_selectors]>.
+#' in <[`Selectors in flextable`][flextable_selectors]>.
 #' @param part part selector, see section *Part selection with the `part`
 #' parameter* in <[`Selectors in flextable`][flextable_selectors]>.
 #' Value 'all' is not allowed by the function.
@@ -113,7 +113,7 @@ NULL
 #' @param i row selector, see section *Row selection with the `i` parameter*
 #' in <[`Selectors in flextable`][flextable_selectors]>.
 #' @param j column selector, see section *Column selection with the `j` parameter*
-#' in <[`flextable column selection`][flextable_selectors]>.
+#' in <[`Selectors in flextable`][flextable_selectors]>.
 #' @param part part selector, see section *Part selection with the `part`
 #' parameter* in <[`Selectors in flextable`][flextable_selectors]>.
 #' Value 'all' can be used.
@@ -129,7 +129,7 @@ NULL
 #' @param i row selector, see section *Row selection with the `i` parameter*
 #' in <[`Selectors in flextable`][flextable_selectors]>.
 #' @param j column selector, see section *Column selection with the `j` parameter*
-#' in <[`flextable column selection`][flextable_selectors]>.
+#' in <[`Selectors in flextable`][flextable_selectors]>.
 #' @param part part selector, see section *Part selection with the `part`
 #' parameter* in <[`Selectors in flextable`][flextable_selectors]>.
 #' Value 'all' is not allowed by the function.
@@ -193,8 +193,7 @@ NULL
 #'
 #' - Use character vectors (`j = c("col1", "col2")`) for clarity and
 #' maintainability.
-#' - Use formulas (`j = ~ col1 + col2`) for excluding columns or when
-#' using `use_dot = TRUE`.
+#' - Use formulas (`j = ~ col1 + col2`) for excluding columns.
 #' - Avoid integer positions when possible (less maintainable).
 #' - Column selectors work with all parts (header, body, footer, all).
 #'
@@ -224,30 +223,6 @@ NULL
 #' the actual data types from your dataset (numeric, logical, etc.). Headers and
 #' footers store only character representations of values, so conditional
 #' expressions like `i = ~ price < 330` cannot be evaluated on them.
-#'
-#' @section Functions Supporting Selectors:
-#'
-#' Selectors `part`, `i` and `j` are supported by many flextable functions:
-#'
-#' - Formatting Functions
-#'   - [style()] - Apply multiple formatting properties at once
-#'   - [bold()], [italic()] - Text weight and style
-#'   - [color()], [highlight()] - Text and background colors
-#'   - [fontsize()], [font()] - Font properties
-#'   - [align()], [valign()] - Text alignment
-#'   - [padding()], [line_spacing()] - Spacing properties
-#'   - [bg()] - Background color
-#'   - [rotate()] - Text rotation
-#' - Border Functions
-#'   - [hline()], [vline()] - Horizontal and vertical lines
-#'   - [border_outer()], [border_inner_h()], [border_inner_v()] - Border styling
-#' - Content Functions
-#'   - [mk_par()] - Define custom cell content
-#'   - [append_chunks()], [prepend_chunks()] - Add content chunks
-#' - Layout Functions
-#'   - [merge_at()], [merge_v()], [merge_h()] - Merge cells
-#'   - [width()], [height()] - Set dimensions
-#'   - [empty_blanks()] - Format blank columns
 #'
 #' @section Advanced Programming with Selectors:
 #'

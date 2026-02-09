@@ -14,7 +14,7 @@ color(x, i = NULL, j = NULL, color, part = "body", source = j)
 in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
-in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
+in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
 \item{color}{color to use as font color. If a function, the function must return
 a character vector of colors.}
