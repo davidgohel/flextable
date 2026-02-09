@@ -267,7 +267,7 @@ opts_ft_pdf <- function(
   }
   if (!is.logical(caption_repeat) || length(caption_repeat) != 1) {
     stop(
-      sprintf("'%s' is expected to be a single %s.", "logical"),
+      sprintf("'%s' is expected to be a single %s.", "caption_repeat", "logical"),
       call. = FALSE
     )
   }
