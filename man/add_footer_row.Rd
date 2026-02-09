@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment_rows.R
 \name{add_footer_row}
 \alias{add_footer_row}
-\title{Add footer labels}
+\title{Add a footer row with spanning labels}
 \usage{
 add_footer_row(x, top = TRUE, values = character(0), colwidths = integer(0))
 }
@@ -27,8 +27,8 @@ efficient conditional formatting.}
 \item{colwidths}{the number of columns to merge in the row for each label}
 }
 \description{
-Add a row of new columns labels in footer part.
-Labels can be spanned along multiple columns, as merged cells.
+Add a single row to the footer where labels can span
+multiple columns (merged cells) via the \code{colwidths} argument.
 
 Labels are associated with a number of columns
 to merge that default to one if not specified.

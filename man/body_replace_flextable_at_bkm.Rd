@@ -2,7 +2,7 @@
 % Please edit documentation in R/body_add_flextable.R
 \name{body_replace_flextable_at_bkm}
 \alias{body_replace_flextable_at_bkm}
-\title{Add flextable at boorkmark location in a Word document}
+\title{Add flextable at bookmark location in a Word document}
 \usage{
 body_replace_flextable_at_bkm(
   x,

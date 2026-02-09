@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable_sizes.R
 \name{flextable_dim}
 \alias{flextable_dim}
-\title{Get width and height of a flextable object}
+\title{Get overall width and height of a flextable}
 \usage{
 flextable_dim(x, unit = "in")
 }

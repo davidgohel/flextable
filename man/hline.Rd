@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{hline}
 \alias{hline}
-\title{Set horizontal borders}
+\title{Set horizontal borders below selected rows}
 \usage{
 hline(x, i = NULL, j = NULL, border = NULL, part = "body")
 }
@@ -16,16 +16,27 @@ in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
 in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 
-\item{border}{border properties defined by a call to \code{\link[officer:fp_border]{officer::fp_border()}}}
+\item{border}{border properties defined by a call to
+\code{\link[officer:fp_border]{officer::fp_border()}}}
 
 \item{part}{part selector, see section \emph{Part selection with the \code{part}
 parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
 Value 'all' can be used.}
 }
 \description{
-The function is applying an horizontal border to inner
-content of one or all parts of a flextable. The lines are the
-bottom borders of selected cells.
+\code{hline()} draws a horizontal line \strong{below} each selected row by
+setting the bottom border of cells at row \code{i} (and the top border
+of cells at row \code{i + 1} so that the line renders consistently
+across output formats).
+
+Use the \code{i} selector to target specific rows (e.g. a formula
+such as \code{~ before(col, "Total")}). When \code{i} is \code{NULL} (the
+default) the border is added below every row, which produces
+a full grid of inner horizontal lines.
+
+For the \strong{outer} edges of the table, use \code{\link[=hline_top]{hline_top()}} and
+\code{\link[=hline_bottom]{hline_bottom()}} instead; those always target the very first
+or very last row of a part.
 }
 \examples{
 library(officer)
@@ -34,7 +45,7 @@ std_border <- fp_border(color = "gray")
 ft <- flextable(head(iris))
 ft <- border_remove(x = ft)
 
-# add horizontal borders
+# add horizontal borders below every row
 ft <- hline(ft, part = "all", border = std_border)
 ft
 }

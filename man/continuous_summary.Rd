@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable.R
 \name{continuous_summary}
 \alias{continuous_summary}
-\title{Continuous columns summary}
+\title{Summarize continuous variables as a flextable}
 \usage{
 continuous_summary(
   dat,

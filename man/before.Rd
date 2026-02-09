@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{before}
 \alias{before}
-\title{Is an element before a match with entries}
+\title{Detect rows before a given value}
 \usage{
 before(x, entries)
 }
@@ -12,8 +12,10 @@ before(x, entries)
 \item{entries}{a sequence of items to be searched in \code{x}.}
 }
 \description{
-return a logical vector of the same length as x, indicating
-if elements are located before a set of entries to match or not.
+Returns a logical vector indicating which elements
+of \code{x} appear before the first occurrence of any of the
+\code{entries} values. Useful as a row selector in \code{\link[=hline]{hline()}} to
+insert a border above a summary row such as \code{"Total"}.
 }
 \examples{
 library(flextable)

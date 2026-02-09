@@ -2,7 +2,7 @@
 % Please edit documentation in R/chunk_images.R
 \name{plot_chunk}
 \alias{plot_chunk}
-\title{Mini plots chunk wrapper}
+\title{Mini plot chunk}
 \usage{
 plot_chunk(
   value,

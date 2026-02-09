@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{as_word_field}
 \alias{as_word_field}
-\title{'Word' computed field}
+\title{Word dynamic field chunk}
 \usage{
 as_word_field(x, props = NULL, width = 0.1, height = 0.15, unit = "in")
 }
@@ -18,22 +18,23 @@ the default text properties of the cell(s).}
 \item{unit}{unit for width and height, one of "in", "cm", "mm".}
 }
 \description{
-This function is used to insert
-'Word' computed field into flextable.
+\code{as_word_field()} inserts a Word field code (e.g. page
+numbers, dates, cross-references) as a chunk inside a
+flextable cell. Field codes are Word's mechanism for
+auto-computed values; see
+\href{https://support.microsoft.com/en-us/office/list-of-field-codes-in-word-1ad6d91a-55a7-4a8d-b535-cf7888659a51}{Microsoft's field-code reference}
+for the available codes.
 
-It is used to add it to the content of a cell of the
-flextable with the functions \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}
-or \code{\link[=prepend_chunks]{prepend_chunks()}}.
+The chunk is used with \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}
+or \code{\link[=prepend_chunks]{prepend_chunks()}}. It only has an effect in Word
+(docx) output; other formats ignore it. To apply it
+conditionally, use the post-processing step (see
+\code{set_flextable_defaults(post_process_docx = ...)}).
 
-This has only effect on 'Word' output. If you want to
-condition its execution only for Word output, you can
-use it in the post processing step (see
-\code{set_flextable_defaults(post_process_docx = ...)})
-
-\strong{Do not forget to update the computed field in Word}.
-Fields are defined but are not computed, this computing is an
-operation that has to be made by 'Microsoft Word'
-(select all text and hit \code{F9} when on mac os).
+\strong{Important}: fields are inserted but not computed.
+After opening the document in Word, select all text
+and press \code{F9} (on macOS: \code{Fn + F9}) to refresh the
+field values.
 }
 \examples{
 library(flextable)

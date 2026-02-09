@@ -13,7 +13,7 @@ as_flextable <- function(x, ...) {
 }
 
 
-#' @title Add row separators to grouped data
+#' @title Insert group-label rows into a data frame
 #'
 #' @description Repeated consecutive values of group columns will
 #' be used to define the title of the groups and will
@@ -410,7 +410,7 @@ as_flextable.htest <- function(x, ...) {
 
 
 #' @export
-#' @title Continuous columns summary
+#' @title Summarize continuous variables as a flextable
 #' @description create a data.frame summary for continuous variables
 #' @param dat a data.frame
 #' @param columns continuous variables to be summarized. If NULL all
@@ -489,7 +489,7 @@ continuous_summary <- function(dat, columns = NULL,
 
 
 #' @export
-#' @title Transform a mixed model into a flextable
+#' @title Transform a 'merMod' or 'lme' object into a flextable
 #' @description produce a flextable describing a
 #' mixed model. The function is only using package 'broom.mixed'
 #' that provides the data presented in the resulting flextable.
@@ -862,7 +862,7 @@ as_flextable.pam <- function(x, digits = 4, ...) {
 
 
 #' @export
-#' @title set model automatic printing as a flextable
+#' @title Set automatic flextable printing for models
 #' @description Define [as_flextable()] as
 #' print method in an R Markdown document for models
 #' of class:

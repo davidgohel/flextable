@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment_rows.R
 \name{add_header}
 \alias{add_header}
-\title{Add column values as new lines in header}
+\title{Add header rows with one value per column}
 \usage{
 add_header(x, top = TRUE, ..., values = NULL)
 }
@@ -25,11 +25,9 @@ instead of \code{...} for programming purpose (If \code{values} is
 supplied argument \code{...} is ignored).}
 }
 \description{
-The function adds a list of values to be inserted as
-new rows in the header. The values are inserted in
-existing columns of the input data of the flextable.
-Rows can be inserted at the top or the bottom of
-the header.
+Add new rows to the header where each value maps to a named column.
+Unlike \code{\link[=add_header_row]{add_header_row()}} where labels can span multiple columns,
+here each value fills exactly one column.
 
 If some columns are not provided, they will be replaced by
 \code{NA} and displayed as empty.

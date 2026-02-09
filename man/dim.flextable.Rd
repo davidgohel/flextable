@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable_sizes.R
 \name{dim.flextable}
 \alias{dim.flextable}
-\title{Get widths and heights of flextable}
+\title{Get column widths and row heights of a flextable}
 \usage{
 \method{dim}{flextable}(x)
 }

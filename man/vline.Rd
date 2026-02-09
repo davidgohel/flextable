@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{vline}
 \alias{vline}
-\title{Set vertical borders}
+\title{Set vertical borders to the right of selected columns}
 \usage{
 vline(x, i = NULL, j = NULL, border = NULL, part = "all")
 }
@@ -16,16 +16,26 @@ in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
 in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 
-\item{border}{border properties defined by a call to \code{\link[officer:fp_border]{officer::fp_border()}}}
+\item{border}{border properties defined by a call to
+\code{\link[officer:fp_border]{officer::fp_border()}}}
 
 \item{part}{part selector, see section \emph{Part selection with the \code{part}
 parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
 Value 'all' can be used.}
 }
 \description{
-The function is applying vertical borders to inner
-content of one or all parts of a flextable. The lines are the
-right borders of selected cells.
+\code{vline()} draws a vertical line to the \strong{right} of each
+selected column by setting the right border of cells at
+column \code{j} (and the left border of cells at column \code{j + 1}
+so that the line renders consistently across output formats).
+
+Use the \code{j} selector to target specific columns. When \code{j} is
+\code{NULL} (the default) the border is added to the right of every
+column, producing a full grid of inner vertical lines.
+
+For the \strong{outer} edges of the table, use \code{\link[=vline_left]{vline_left()}} and
+\code{\link[=vline_right]{vline_right()}} instead; those always target the very first
+or very last column.
 }
 \examples{
 library(officer)
@@ -34,7 +44,7 @@ std_border <- fp_border(color = "orange")
 ft <- flextable(head(iris))
 ft <- border_remove(x = ft)
 
-# add vertical borders
+# add vertical borders to the right of every column
 ft <- vline(ft, border = std_border)
 ft
 }

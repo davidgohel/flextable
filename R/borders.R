@@ -1,9 +1,9 @@
 # borders format ----
 
 #' @export
-#' @title Cell borders update
+#' @title Set cell borders
 #' @description change borders of selected rows and columns of a flextable.
-#' This function is not to be used by end user (it requires careful
+#' This function is **not to be used by end user** (it requires careful
 #' settings to avoid overlapping borders) but only for programming purposes.
 #'
 #' If you need to add borders, use instead other functions:
@@ -231,7 +231,7 @@ border_outer <- function(x, border = NULL, part = "all") {
 }
 
 #' @export
-#' @title Set inner borders
+#' @title Set inner horizontal borders
 #' @description The function is applying a border to inner content of one
 #' or all parts of a flextable.
 #' @inheritParams border_outer
@@ -281,7 +281,7 @@ border_inner_h <- function(x, border = NULL, part = "body") {
 }
 
 #' @export
-#' @title Set vertical inner borders
+#' @title Set inner vertical borders
 #' @description The function is applying a vertical border to inner content of one
 #' or all parts of a flextable.
 #' @inheritParams border_outer
@@ -331,7 +331,7 @@ border_inner_v <- function(x, border = NULL, part = "all") {
 }
 
 #' @export
-#' @title Set vertical & horizontal inner borders
+#' @title Set all inner borders
 #' @description The function is applying a vertical and horizontal borders to inner content of one
 #' or all parts of a flextable.
 #' @inheritParams border_outer
@@ -388,12 +388,24 @@ border_inner <- function(x, border = NULL, part = "all") {
 }
 
 #' @export
-#' @title Set horizontal borders
-#' @description The function is applying an horizontal border to inner
-#' content of one or all parts of a flextable. The lines are the
-#' bottom borders of selected cells.
+#' @title Set horizontal borders below selected rows
+#' @description
+#' `hline()` draws a horizontal line **below** each selected row by
+#' setting the bottom border of cells at row `i` (and the top border
+#' of cells at row `i + 1` so that the line renders consistently
+#' across output formats).
+#'
+#' Use the `i` selector to target specific rows (e.g. a formula
+#' such as `~ before(col, "Total")`). When `i` is `NULL` (the
+#' default) the border is added below every row, which produces
+#' a full grid of inner horizontal lines.
+#'
+#' For the **outer** edges of the table, use [hline_top()] and
+#' [hline_bottom()] instead; those always target the very first
+#' or very last row of a part.
 #' @inheritParams args_selectors_with_all
-#' @param border border properties defined by a call to [officer::fp_border()]
+#' @param border border properties defined by a call to
+#' [officer::fp_border()]
 #' @examples
 #' library(officer)
 #' std_border <- fp_border(color = "gray")
@@ -401,7 +413,7 @@ border_inner <- function(x, border = NULL, part = "all") {
 #' ft <- flextable(head(iris))
 #' ft <- border_remove(x = ft)
 #'
-#' # add horizontal borders
+#' # add horizontal borders below every row
 #' ft <- hline(ft, part = "all", border = std_border)
 #' ft
 #' @family borders management
@@ -451,12 +463,21 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body") {
 }
 
 #' @export
-#' @title Set top horizontal border
-#' @description The function is applying an horizontal border to the
-#' top of one or all parts of a flextable. The line is the
-#' top border of selected parts.
+#' @title Set the top border of a table part
+#' @description
+#' `hline_top()` draws a horizontal line at the **very top** of a
+#' table part. It does not accept a row selector `i` because it
+#' always targets the first row.
+#'
+#' When the part above exists (e.g. header above body), the line
+#' is stored as the bottom border of that adjacent part so that
+#' it renders seamlessly.
+#'
+#' Unlike [hline()], which adds inner lines below arbitrary rows,
+#' `hline_top()` is meant for the outer top edge of a part.
 #' @inheritParams args_x_j_part
-#' @param border border properties defined by a call to [officer::fp_border()]
+#' @param border border properties defined by a call to
+#' [officer::fp_border()]
 #' @examples
 #' library(officer)
 #' big_border <- fp_border(color = "orange", width = 3)
@@ -464,7 +485,7 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body") {
 #' ft <- flextable(head(iris))
 #' ft <- border_remove(x = ft)
 #'
-#' # add horizontal border on top
+#' # add a thick line on top of each part
 #' ft <- hline_top(ft, part = "all", border = big_border)
 #' ft
 #' @family borders management
@@ -522,10 +543,14 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body") {
 }
 
 #' @export
-#' @title Set bottom horizontal border
-#' @description The function is applying an horizontal border to the
-#' bottom of one or all parts of a flextable. The line is the
-#' bottom border of selected parts.
+#' @title Set the bottom border of a table part
+#' @description
+#' `hline_bottom()` draws a horizontal line at the **very bottom**
+#' of a table part. It does not accept a row selector `i` because
+#' it always targets the last row.
+#'
+#' Unlike [hline()], which adds inner lines below arbitrary rows,
+#' `hline_bottom()` is meant for the outer bottom edge of a part.
 #' @inheritParams hline_top
 #' @examples
 #' library(officer)
@@ -534,7 +559,7 @@ hline_top <- function(x, j = NULL, border = NULL, part = "body") {
 #' ft <- flextable(head(iris))
 #' ft <- border_remove(x = ft)
 #'
-#' # add/replace horizontal border on bottom
+#' # add a thick line at the bottom of the body
 #' ft <- hline_bottom(ft, part = "body", border = big_border)
 #' ft
 #' @family borders management
@@ -578,12 +603,23 @@ hline_bottom <- function(x, j = NULL, border = NULL, part = "body") {
 }
 
 #' @export
-#' @title Set vertical borders
-#' @description The function is applying vertical borders to inner
-#' content of one or all parts of a flextable. The lines are the
-#' right borders of selected cells.
+#' @title Set vertical borders to the right of selected columns
+#' @description
+#' `vline()` draws a vertical line to the **right** of each
+#' selected column by setting the right border of cells at
+#' column `j` (and the left border of cells at column `j + 1`
+#' so that the line renders consistently across output formats).
+#'
+#' Use the `j` selector to target specific columns. When `j` is
+#' `NULL` (the default) the border is added to the right of every
+#' column, producing a full grid of inner vertical lines.
+#'
+#' For the **outer** edges of the table, use [vline_left()] and
+#' [vline_right()] instead; those always target the very first
+#' or very last column.
 #' @inheritParams args_selectors_with_all
-#' @param border border properties defined by a call to [officer::fp_border()]
+#' @param border border properties defined by a call to
+#' [officer::fp_border()]
 #' @examples
 #' library(officer)
 #' std_border <- fp_border(color = "orange")
@@ -591,7 +627,7 @@ hline_bottom <- function(x, j = NULL, border = NULL, part = "body") {
 #' ft <- flextable(head(iris))
 #' ft <- border_remove(x = ft)
 #'
-#' # add vertical borders
+#' # add vertical borders to the right of every column
 #' ft <- vline(ft, border = std_border)
 #' ft
 #' @family borders management
@@ -632,12 +668,22 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all") {
 }
 
 #' @export
-#' @title Set flextable left vertical borders
-#' @description The function is applying vertical borders to the
-#' left side of one or all parts of a flextable. The line is the
-#' left border of selected cells of the first column.
+#' @title Set the left border of the table
+#' @description
+#' `vline_left()` draws a vertical line along the **left edge**
+#' of the table by setting the left border of the first column.
+#' It does not accept a column selector `j` because it always
+#' targets column 1.
+#'
+#' An optional row selector `i` lets you restrict the line to
+#' specific rows (e.g. only the body, or only certain rows).
+#'
+#' Unlike [vline()], which adds inner lines to the right of
+#' arbitrary columns, `vline_left()` is meant for the outer
+#' left edge of the table.
 #' @inheritParams args_x_i_part
-#' @param border border properties defined by a call to [officer::fp_border()]
+#' @param border border properties defined by a call to
+#' [officer::fp_border()]
 #' @examples
 #' library(officer)
 #' std_border <- fp_border(color = "orange")
@@ -645,7 +691,7 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all") {
 #' ft <- flextable(head(iris))
 #' ft <- border_remove(x = ft)
 #'
-#' # add vertical border on the left side of the table
+#' # add a border on the left edge of the table
 #' ft <- vline_left(ft, border = std_border)
 #' ft
 #' @family borders management
@@ -682,10 +728,19 @@ vline_left <- function(x, i = NULL, border = NULL, part = "all") {
 }
 
 #' @export
-#' @title Set flextable right vertical borders
-#' @description The function is applying vertical borders to the
-#' right side of one or all parts of a flextable. The line is the
-#' right border of selected cells of the last column.
+#' @title Set the right border of the table
+#' @description
+#' `vline_right()` draws a vertical line along the **right edge**
+#' of the table by setting the right border of the last column.
+#' It does not accept a column selector `j` because it always
+#' targets the last column.
+#'
+#' An optional row selector `i` lets you restrict the line to
+#' specific rows.
+#'
+#' Unlike [vline()], which adds inner lines to the right of
+#' arbitrary columns, `vline_right()` is meant for the outer
+#' right edge of the table.
 #' @inheritParams vline_left
 #' @examples
 #' library(officer)
@@ -694,7 +749,7 @@ vline_left <- function(x, i = NULL, border = NULL, part = "all") {
 #' ft <- flextable(head(iris))
 #' ft <- border_remove(x = ft)
 #'
-#' # add vertical border on the left side of the table
+#' # add a border on the right edge of the table
 #' ft <- vline_right(ft, border = std_border)
 #' ft
 #' @family borders management
@@ -738,9 +793,11 @@ vline_right <- function(x, i = NULL, border = NULL, part = "all") {
 
 
 #' @export
-#' @title Is an element before a match with entries
-#' @description return a logical vector of the same length as x, indicating
-#' if elements are located before a set of entries to match or not.
+#' @title Detect rows before a given value
+#' @description Returns a logical vector indicating which elements
+#' of `x` appear before the first occurrence of any of the
+#' `entries` values. Useful as a row selector in [hline()] to
+#' insert a border above a summary row such as `"Total"`.
 #' @param x an atomic vector of values to be tested
 #' @param entries a sequence of items to be searched in `x`.
 #' @seealso [hline()]
@@ -783,8 +840,10 @@ before <- function(x, entries) {
 }
 
 #' @export
-#' @title Set borders for a selection of cells
-#' @description Highlight specific cells with borders.
+#' @title Surround cells with borders
+#' @description
+#' `surround()` draws borders around specific cells, highlighting
+#' them individually.
 #'
 #' To set borders for the whole table, use [border_outer()],
 #' [border_inner_h()] and [border_inner_v()].

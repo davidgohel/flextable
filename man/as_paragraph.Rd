@@ -2,27 +2,35 @@
 % Please edit documentation in R/05_content.R
 \name{as_paragraph}
 \alias{as_paragraph}
-\title{Concatenate chunks in a flextable}
+\title{Build a paragraph from chunks}
 \usage{
 as_paragraph(..., list_values = NULL)
 }
 \arguments{
-\item{...}{chunk elements that are defining paragraph. If a character is used,
-it is transformed to a chunk object with function \code{\link[=as_chunk]{as_chunk()}}.}
+\item{...}{chunk elements that are defining the paragraph content.
+If a character is used, it is transformed to a chunk object with
+function \code{\link[=as_chunk]{as_chunk()}}.}
 
-\item{list_values}{a list of chunk elements that are defining paragraph. If
-specified argument \code{...} is unused.}
+\item{list_values}{a list of chunk elements that are defining
+the paragraph content. If specified argument \code{...} is unused.}
 }
 \description{
-The function is concatenating text and images within paragraphs of
-a flextable object, this function is to be used with functions such as \code{\link[=compose]{compose()}},
-\code{\link[=add_header_lines]{add_header_lines()}}, \code{\link[=add_footer_lines]{add_footer_lines()}}.
+\code{as_paragraph()} assembles one or more chunks into a single paragraph
+that defines the content of a flextable cell. Each cell in a flextable
+contains exactly one paragraph; a paragraph is an ordered sequence of
+chunks.
 
-This allows the concatenation of formatted pieces of text (chunks) that
-represent the content of a paragraph.
+Chunks are the smallest content units and can be created with
+\code{\link[=as_chunk]{as_chunk()}} (formatted text), \code{\link[=as_b]{as_b()}} / \code{\link[=as_i]{as_i()}} (bold / italic
+shortcuts), \code{\link[=minibar]{minibar()}} (inline bar), \code{\link[=as_image]{as_image()}} (image),
+\code{\link[=gg_chunk]{gg_chunk()}} (ggplot), \code{\link[=as_equation]{as_equation()}} (equation) or
+\code{\link[=hyperlink_text]{hyperlink_text()}} (link). Plain character strings passed to
+\code{as_paragraph()} are automatically converted to chunks via
+\code{\link[=as_chunk]{as_chunk()}}.
 
-The cells of a flextable contain each a single paragraph. This paragraph
-is made of chunks that can be text, images or plots, equations and links.
+The resulting paragraph is passed to the \code{value} argument of
+\code{\link[=compose]{compose()}}, \code{\link[=mk_par]{mk_par()}}, \code{\link[=add_header_lines]{add_header_lines()}},
+\code{\link[=add_footer_lines]{add_footer_lines()}} or \code{\link[=footnote]{footnote()}} to set cell content.
 }
 \examples{
 library(flextable)

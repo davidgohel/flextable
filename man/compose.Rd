@@ -3,7 +3,7 @@
 \name{compose}
 \alias{compose}
 \alias{mk_par}
-\title{Define displayed values and mixed content}
+\title{Set cell content from paragraph chunks}
 \usage{
 compose(x, i = NULL, j = NULL, value, part = "body", use_dot = FALSE)
 

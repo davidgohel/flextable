@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment_rows.R
 \name{add_footer_lines}
 \alias{add_footer_lines}
-\title{Add labels as new rows in the footer}
+\title{Add full-width rows to the footer}
 \usage{
 add_footer_lines(x, values = character(0), top = FALSE)
 }
@@ -18,11 +18,9 @@ be added as a new row.}
 or the bottom. Default to TRUE.}
 }
 \description{
-Add labels as new rows in the footer,
-where all columns are merged.
-
-This is a sugar function to be used when you need to
-add labels in the footer, a footnote for example.
+Add one or more rows to the footer where each label
+spans all columns (all cells merged into one). Useful for adding
+footnotes or source notes below the table.
 }
 \examples{
 ft_1 <- flextable(head(iris))

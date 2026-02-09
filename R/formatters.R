@@ -82,8 +82,10 @@ colformat_char <- function(
 }
 
 #' @export
-#' @title Format numeric cells
-#' @description Format numeric cells in a flextable.
+#' @title Format double cells
+#' @description Format numeric cells in a flextable using
+#' [formatC()] with explicit control over digits and
+#' decimal mark.
 #' @inheritParams colformat_char
 #' @param big.mark,digits,decimal.mark see [formatC()]
 #' @family cells formatters
@@ -124,8 +126,9 @@ colformat_double <- function(
   docall_display(col_keys, fun_, x, i = i)
 }
 #' @export
-#' @title Format numeric cells
-#' @description Format numeric cells in a flextable.
+#' @title Format numeric cells with format()
+#' @description Format numeric cells in a flextable
+#' using R's [format()] function.
 #'
 #' The function is different from [colformat_double()] on numeric type
 #' columns. The function uses the [format()] function of R on numeric

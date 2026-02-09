@@ -148,7 +148,7 @@ body_add_flextable <- function(x, value,
 }
 
 #' @export
-#' @title Add flextable at boorkmark location in a Word document
+#' @title Add flextable at bookmark location in a Word document
 #' @description
 #' Use this function if you want to replace a paragraph containing
 #' a bookmark with a flextable. As a side effect, the bookmark will be lost.

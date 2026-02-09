@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{hyperlink_text}
 \alias{hyperlink_text}
-\title{Chunk of text with hyperlink}
+\title{Hyperlink chunk}
 \usage{
 hyperlink_text(x, props = NULL, formatter = format_fun, url, ...)
 }

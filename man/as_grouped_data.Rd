@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable.R
 \name{as_grouped_data}
 \alias{as_grouped_data}
-\title{Add row separators to grouped data}
+\title{Insert group-label rows into a data frame}
 \usage{
 as_grouped_data(x, groups, columns = NULL, expand_single = TRUE)
 }

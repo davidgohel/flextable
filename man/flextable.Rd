@@ -3,7 +3,7 @@
 \name{flextable}
 \alias{flextable}
 \alias{qflextable}
-\title{flextable creation}
+\title{Create a flextable from a data frame}
 \usage{
 flextable(
   data,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{vline_left}
 \alias{vline_left}
-\title{Set flextable left vertical borders}
+\title{Set the left border of the table}
 \usage{
 vline_left(x, i = NULL, border = NULL, part = "all")
 }
@@ -13,16 +13,25 @@ vline_left(x, i = NULL, border = NULL, part = "all")
 \item{i}{row selector, see section \emph{Row selection with the \code{i} parameter}
 in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 
-\item{border}{border properties defined by a call to \code{\link[officer:fp_border]{officer::fp_border()}}}
+\item{border}{border properties defined by a call to
+\code{\link[officer:fp_border]{officer::fp_border()}}}
 
 \item{part}{part selector, see section \emph{Part selection with the \code{part}
 parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
 Value 'all' can be used.}
 }
 \description{
-The function is applying vertical borders to the
-left side of one or all parts of a flextable. The line is the
-left border of selected cells of the first column.
+\code{vline_left()} draws a vertical line along the \strong{left edge}
+of the table by setting the left border of the first column.
+It does not accept a column selector \code{j} because it always
+targets column 1.
+
+An optional row selector \code{i} lets you restrict the line to
+specific rows (e.g. only the body, or only certain rows).
+
+Unlike \code{\link[=vline]{vline()}}, which adds inner lines to the right of
+arbitrary columns, \code{vline_left()} is meant for the outer
+left edge of the table.
 }
 \examples{
 library(officer)
@@ -31,7 +40,7 @@ std_border <- fp_border(color = "orange")
 ft <- flextable(head(iris))
 ft <- border_remove(x = ft)
 
-# add vertical border on the left side of the table
+# add a border on the left edge of the table
 ft <- vline_left(ft, border = std_border)
 ft
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{fmt_int}
 \alias{fmt_int}
-\title{Format numerical data as integer}
+\title{Format numbers as integers}
 \usage{
 fmt_int(x)
 }
@@ -10,7 +10,7 @@ fmt_int(x)
 \item{x}{numeric values}
 }
 \description{
-The function formats numeric vectors as integer.
+Format numeric values as integers (no decimals).
 }
 \examples{
 library(flextable)

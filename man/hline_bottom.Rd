@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{hline_bottom}
 \alias{hline_bottom}
-\title{Set bottom horizontal border}
+\title{Set the bottom border of a table part}
 \usage{
 hline_bottom(x, j = NULL, border = NULL, part = "body")
 }
@@ -13,16 +13,20 @@ hline_bottom(x, j = NULL, border = NULL, part = "body")
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
 in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 
-\item{border}{border properties defined by a call to \code{\link[officer:fp_border]{officer::fp_border()}}}
+\item{border}{border properties defined by a call to
+\code{\link[officer:fp_border]{officer::fp_border()}}}
 
 \item{part}{part selector, see section \emph{Part selection with the \code{part}
 parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
 Value 'all' can be used.}
 }
 \description{
-The function is applying an horizontal border to the
-bottom of one or all parts of a flextable. The line is the
-bottom border of selected parts.
+\code{hline_bottom()} draws a horizontal line at the \strong{very bottom}
+of a table part. It does not accept a row selector \code{i} because
+it always targets the last row.
+
+Unlike \code{\link[=hline]{hline()}}, which adds inner lines below arbitrary rows,
+\code{hline_bottom()} is meant for the outer bottom edge of a part.
 }
 \examples{
 library(officer)
@@ -31,7 +35,7 @@ big_border <- fp_border(color = "orange", width = 3)
 ft <- flextable(head(iris))
 ft <- border_remove(x = ft)
 
-# add/replace horizontal border on bottom
+# add a thick line at the bottom of the body
 ft <- hline_bottom(ft, part = "body", border = big_border)
 ft
 }

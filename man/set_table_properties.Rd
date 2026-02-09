@@ -2,7 +2,7 @@
 % Please edit documentation in R/table-properties.R
 \name{set_table_properties}
 \alias{set_table_properties}
-\title{Global table properties}
+\title{Set table layout and width properties}
 \usage{
 set_table_properties(
   x,

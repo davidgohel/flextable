@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{as_chunk}
 \alias{as_chunk}
-\title{Chunk of text wrapper}
+\title{Text chunk}
 \usage{
 as_chunk(x, props = NULL, formatter = format_fun, ...)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/chunk_images.R
 \name{minibar}
 \alias{minibar}
-\title{Mini barplots chunk wrapper}
+\title{Mini barplot chunk}
 \usage{
 minibar(
   value,

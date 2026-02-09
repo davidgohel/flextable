@@ -2,7 +2,7 @@
 % Please edit documentation in R/paginate.R
 \name{paginate}
 \alias{paginate}
-\title{Paginate tables}
+\title{Prevent page breaks inside a flextable}
 \usage{
 paginate(
   x,

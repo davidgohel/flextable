@@ -2,7 +2,7 @@
 % Please edit documentation in R/chunk_images.R
 \name{as_image}
 \alias{as_image}
-\title{Image chunk wrapper}
+\title{Image chunk}
 \usage{
 as_image(src, width = NULL, height = NULL, unit = "in", guess_size = TRUE, ...)
 }

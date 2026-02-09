@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable_sizes.R
 \name{autofit}
 \alias{autofit}
-\title{Adjusts cell widths and heights}
+\title{Adjust cell widths and heights}
 \usage{
 autofit(
   x,

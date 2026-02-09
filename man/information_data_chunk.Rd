@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_structure.R
 \name{information_data_chunk}
 \alias{information_data_chunk}
-\title{content chunk related information of a flextable}
+\title{Get chunk-level content information from a flextable}
 \usage{
 information_data_chunk(x, expand_special_chars = TRUE)
 }

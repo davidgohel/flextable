@@ -1,4 +1,4 @@
-#' @title Data summary preparation
+#' @title Prepare descriptive statistics for flextable
 #' @description It performs a univariate statistical analysis of a dataset
 #' by group and formats the results so that they can be used with
 #' the [tabulator()] function or directly with [as_flextable][as_flextable.summarizor].
@@ -200,13 +200,10 @@ dataset_describe <- function(dataset) {
 }
 
 #' @export
-#' @title Format content for data generated with summarizor()
-#' @description This function was written to allow easy demonstrations
-#' of flextable's ability to produce table summaries (with [summarizor()]).
-#' It assumes that we have either a quantitative variable, in which
-#' case we will display the mean and the standard deviation, or a
-#' qualitative variable, in which case we will display the count and the
-#' percentage corresponding to each modality.
+#' @title Format summarizor statistics as text
+#' @description Format the output of [summarizor()] into display strings:
+#' quantitative variables are shown as mean (sd), median (IQR), or range;
+#' qualitative variables are shown as count (percentage).
 #' @param stat a character column containing the name of statictics
 #' @param num1 a numeric statistic to display such as a mean or a median
 #' @param num2 a numeric statistic to display such as a standard
@@ -292,10 +289,9 @@ fmt_summarizor <- fmt_2stats
 
 
 #' @export
-#' @title Format content for count data
-#' @description The function formats counts and
-#' percentages as `n (xx.x%)`. If percentages are
-#' missing, they are not printed.
+#' @title Format count and percentage as text
+#' @description Format counts and percentages as `n (xx.x%)`.
+#' If percentages are missing, only the count is shown.
 #' @param n count values
 #' @param pct percent values
 #' @param digit number of digits for the percentages
@@ -336,9 +332,9 @@ fmt_n_percent <- function(n, pct, digit = 1) {
 }
 
 #' @export
-#' @title Format count data for headers
-#' @description The function formats counts as `\n(N=XX)`. This helper
-#' function is used to add counts in columns titles.
+#' @title Format count as '(N=XX)' for column headers
+#' @description Format counts as `\n(N=XX)` for appending
+#' sample sizes to column titles.
 #' @param n count values
 #' @param newline indicates to prefix the text with a new line
 #' (sof return).
@@ -369,8 +365,8 @@ fmt_header_n <- function(n, newline = TRUE) {
 }
 
 #' @export
-#' @title Format numerical data as integer
-#' @description The function formats numeric vectors as integer.
+#' @title Format numbers as integers
+#' @description Format numeric values as integers (no decimals).
 #' @param x numeric values
 #' @seealso [tabulator()], [mk_par()]
 #' @family text formatter functions
@@ -394,8 +390,8 @@ fmt_int <- function(x) {
 }
 
 #' @export
-#' @title Format numerical data as percentages
-#' @description The function formats numeric vectors as percentages.
+#' @title Format numbers as percentages
+#' @description Format numeric values as percentages (e.g. `"45.0%"`).
 #' @param x numeric values
 #' @seealso [tabulator()], [mk_par()]
 #' @family text formatter functions
@@ -424,8 +420,9 @@ fmt_pct <- function(x) {
 }
 
 #' @export
-#' @title Format numerical data
-#' @description The function formats numeric vectors.
+#' @title Format numbers as doubles
+#' @description Format numeric values with decimal digits, using
+#' the flextable default settings for separators and precision.
 #' @param x numeric values
 #' @seealso [tabulator()], [mk_par()]
 #' @family text formatter functions
@@ -456,9 +453,8 @@ fmt_dbl <- function(x) {
 
 
 #' @export
-#' @title Format content for mean and sd
-#' @description The function formats means and
-#' standard deviations as `mean (sd)`.
+#' @title Format mean and standard deviation as text
+#' @description Format means and standard deviations as `mean (sd)`.
 #' @param avg,dev mean and sd values
 #' @param digit1,digit2 number of digits to show when printing 'mean' and 'sd'.
 #' @seealso [tabulator()], [mk_par()]

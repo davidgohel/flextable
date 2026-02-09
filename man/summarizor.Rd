@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{summarizor}
 \alias{summarizor}
-\title{Data summary preparation}
+\title{Prepare descriptive statistics for flextable}
 \usage{
 summarizor(
   x,

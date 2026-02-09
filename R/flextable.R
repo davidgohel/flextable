@@ -1,4 +1,4 @@
-#' @title flextable creation
+#' @title Create a flextable from a data frame
 #'
 #' @description Create a flextable object with function `flextable`.
 #'
@@ -139,7 +139,7 @@ qflextable <- function(data) {
 }
 
 #' @export
-#' @title Set Caption
+#' @title Set flextable caption
 #' @description Set caption value in a flextable. The function
 #' can also be used to define formattings that will be applied
 #' if possible to Word and HTML outputs.

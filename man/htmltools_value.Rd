@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{htmltools_value}
 \alias{htmltools_value}
-\title{flextable as an 'HTML' object}
+\title{Convert a flextable to an HTML object}
 \usage{
 htmltools_value(
   x,

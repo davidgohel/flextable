@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{flextable_to_rmd}
 \alias{flextable_to_rmd}
-\title{Knitr rendering in loops and if statements}
+\title{Print a flextable inside knitr loops and conditionals}
 \usage{
 flextable_to_rmd(x, ...)
 }

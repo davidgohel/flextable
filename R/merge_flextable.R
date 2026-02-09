@@ -101,9 +101,9 @@ merge_h <- function(x, i = NULL, part = "body") {
 }
 
 
-#' @title Delete flextable merging informations
+#' @title Delete flextable merging information
 #'
-#' @description Delete all merging informations from a flextable.
+#' @description Delete all merging information from a flextable.
 #'
 #' @inheritParams args_x_part
 #' @family flextable merging function

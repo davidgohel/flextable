@@ -2,7 +2,7 @@
 % Please edit documentation in R/border_fix.R
 \name{fix_border_issues}
 \alias{fix_border_issues}
-\title{Fix border issues when cell are merged}
+\title{Fix border issues when cells are merged}
 \usage{
 fix_border_issues(x, part = "all")
 }

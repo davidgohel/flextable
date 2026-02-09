@@ -1,5 +1,19 @@
-#' @title Delete flextable content
-#' @description Set content display as a blank `" "`.
+#' @title Clear the displayed content of selected columns
+#' @description
+#' `void()` replaces the visible text of the selected columns
+#' with an empty string. The columns themselves (and their
+#' headers) remain in the table, but the cell values are no
+#' longer displayed.
+#'
+#' This is useful when a column should stay in the layout
+#' (e.g. to preserve its width or to keep its header label)
+#' but its body values should be hidden, for instance
+#' after using [compose()] to build a richer display in a
+#' neighbouring column that already incorporates those values.
+#'
+#' The underlying dataset is not modified; only the displayed
+#' content is affected. To remove a column entirely, use
+#' the `col_keys` argument of [flextable()] instead.
 #' @inheritParams args_x_j_part
 #' @examples
 #' ftab <- flextable(head(mtcars))

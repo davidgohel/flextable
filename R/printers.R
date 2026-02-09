@@ -1,6 +1,6 @@
 # main ----
 #' @export
-#' @title flextable as an 'HTML' object
+#' @title Convert a flextable to an HTML object
 #'
 #' @description get a [htmltools::div()] from a flextable object.
 #' This can be used in a shiny application. For an output within
@@ -53,7 +53,7 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL,
 
 #' @importFrom knitr knit_child
 #' @export
-#' @title Knitr rendering in loops and if statements
+#' @title Print a flextable inside knitr loops and conditionals
 #'
 #' @description Print flextable in R Markdown or Quarto documents
 #' within `for` loop or `if` statement.
@@ -409,7 +409,7 @@ knit_to_pml <- function(x) {
 
 #' @importFrom htmltools HTML browsable
 #' @export
-#' @title flextable printing
+#' @title Print a flextable
 #'
 #' @description print a flextable object to format `html`, `docx`,
 #' `pptx` or as text (not for display but for informative purpose).

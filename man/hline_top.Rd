@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{hline_top}
 \alias{hline_top}
-\title{Set top horizontal border}
+\title{Set the top border of a table part}
 \usage{
 hline_top(x, j = NULL, border = NULL, part = "body")
 }
@@ -13,16 +13,24 @@ hline_top(x, j = NULL, border = NULL, part = "body")
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
 in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 
-\item{border}{border properties defined by a call to \code{\link[officer:fp_border]{officer::fp_border()}}}
+\item{border}{border properties defined by a call to
+\code{\link[officer:fp_border]{officer::fp_border()}}}
 
 \item{part}{part selector, see section \emph{Part selection with the \code{part}
 parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
 Value 'all' can be used.}
 }
 \description{
-The function is applying an horizontal border to the
-top of one or all parts of a flextable. The line is the
-top border of selected parts.
+\code{hline_top()} draws a horizontal line at the \strong{very top} of a
+table part. It does not accept a row selector \code{i} because it
+always targets the first row.
+
+When the part above exists (e.g. header above body), the line
+is stored as the bottom border of that adjacent part so that
+it renders seamlessly.
+
+Unlike \code{\link[=hline]{hline()}}, which adds inner lines below arbitrary rows,
+\code{hline_top()} is meant for the outer top edge of a part.
 }
 \examples{
 library(officer)
@@ -31,7 +39,7 @@ big_border <- fp_border(color = "orange", width = 3)
 ft <- flextable(head(iris))
 ft <- border_remove(x = ft)
 
-# add horizontal border on top
+# add a thick line on top of each part
 ft <- hline_top(ft, part = "all", border = big_border)
 ft
 }

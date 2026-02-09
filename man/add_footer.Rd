@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment_rows.R
 \name{add_footer}
 \alias{add_footer}
-\title{Add column values as new lines in footer}
+\title{Add footer rows with one value per column}
 \usage{
 add_footer(x, top = TRUE, ..., values = NULL)
 }
@@ -25,11 +25,9 @@ instead of \code{...} for programming purpose (If \code{values} is
 supplied argument \code{...} is ignored).}
 }
 \description{
-The function adds a list of values to be inserted as
-new rows in the footer. The values are inserted in
-existing columns of the input data of the flextable.
-Rows can be inserted at the top or the bottom of
-the footer.
+Add new rows to the footer where each value maps to a named column.
+Unlike \code{\link[=add_footer_row]{add_footer_row()}} where labels can span multiple columns,
+here each value fills exactly one column.
 
 If some columns are not provided, they will be replaced by
 \code{NA} and displayed as empty.

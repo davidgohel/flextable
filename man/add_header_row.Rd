@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment_rows.R
 \name{add_header_row}
 \alias{add_header_row}
-\title{Add header labels}
+\title{Add a header row with spanning labels}
 \usage{
 add_header_row(x, top = TRUE, values = character(0), colwidths = integer(0))
 }
@@ -20,8 +20,8 @@ or a call to \code{\link[=as_paragraph]{as_paragraph()}}.}
 \item{colwidths}{the number of columns used for each label}
 }
 \description{
-Add a row of new columns labels in header part.
-Labels can be spanned along multiple columns, as merged cells.
+Add a single row to the header where labels can span
+multiple columns (merged cells) via the \code{colwidths} argument.
 
 Labels are associated with a number of columns
 to merge that default to one if not specified.

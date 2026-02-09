@@ -120,7 +120,7 @@ default_fptext_prop <- structure(
 
 
 #' @export
-#' @title Chunk of text wrapper
+#' @title Text chunk
 #' @description The function lets add formated text in flextable
 #' cells.
 #'
@@ -425,7 +425,7 @@ as_highlight <- function(x, color) {
 }
 
 #' @export
-#' @title Chunk with values in brackets
+#' @title Bracket chunk
 #' @description The function is producing a chunk by
 #' pasting values and add the result in brackets.
 #'
@@ -462,7 +462,7 @@ as_bracket <- function(..., sep = ", ", p = "(", s = ")") {
 }
 
 #' @export
-#' @title Chunk of text with hyperlink
+#' @title Hyperlink chunk
 #' @description The function lets add hyperlinks within flextable
 #' objects.
 #'
@@ -593,23 +593,25 @@ as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL) {
 
 
 #' @export
-#' @title 'Word' computed field
-#' @description This function is used to insert
-#' 'Word' computed field into flextable.
+#' @title Word dynamic field chunk
+#' @description
+#' `as_word_field()` inserts a Word field code (e.g. page
+#' numbers, dates, cross-references) as a chunk inside a
+#' flextable cell. Field codes are Word's mechanism for
+#' auto-computed values; see
+#' [Microsoft's field-code reference](https://support.microsoft.com/en-us/office/list-of-field-codes-in-word-1ad6d91a-55a7-4a8d-b535-cf7888659a51)
+#' for the available codes.
 #'
-#' It is used to add it to the content of a cell of the
-#' flextable with the functions [compose()], [append_chunks()]
-#' or [prepend_chunks()].
+#' The chunk is used with [compose()], [append_chunks()]
+#' or [prepend_chunks()]. It only has an effect in Word
+#' (docx) output; other formats ignore it. To apply it
+#' conditionally, use the post-processing step (see
+#' `set_flextable_defaults(post_process_docx = ...)`).
 #'
-#' This has only effect on 'Word' output. If you want to
-#' condition its execution only for Word output, you can
-#' use it in the post processing step (see
-#' `set_flextable_defaults(post_process_docx = ...)`)
-#'
-#' **Do not forget to update the computed field in Word**.
-#' Fields are defined but are not computed, this computing is an
-#' operation that has to be made by 'Microsoft Word'
-#' (select all text and hit `F9` when on mac os).
+#' **Important**: fields are inserted but not computed.
+#' After opening the document in Word, select all text
+#' and press `F9` (on macOS: `Fn + F9`) to refresh the
+#' field values.
 #' @param x computed field strings
 #' @param props text properties (see [fp_text_default()] or [officer::fp_text()])
 #' object to be used to format the text. If not specified, it will use
@@ -736,21 +738,30 @@ to_wml_word_field <- function(x, pr_txt) {
 
 
 #' @export
-#' @title Concatenate chunks in a flextable
-#' @description The function is concatenating text and images within paragraphs of
-#' a flextable object, this function is to be used with functions such as [compose()],
-#' [add_header_lines()], [add_footer_lines()].
+#' @title Build a paragraph from chunks
+#' @description
+#' `as_paragraph()` assembles one or more chunks into a single paragraph
+#' that defines the content of a flextable cell. Each cell in a flextable
+#' contains exactly one paragraph; a paragraph is an ordered sequence of
+#' chunks.
 #'
-#' This allows the concatenation of formatted pieces of text (chunks) that
-#' represent the content of a paragraph.
+#' Chunks are the smallest content units and can be created with
+#' [as_chunk()] (formatted text), [as_b()] / [as_i()] (bold / italic
+#' shortcuts), [minibar()] (inline bar), [as_image()] (image),
+#' [gg_chunk()] (ggplot), [as_equation()] (equation) or
+#' [hyperlink_text()] (link). Plain character strings passed to
+#' `as_paragraph()` are automatically converted to chunks via
+#' [as_chunk()].
 #'
-#' The cells of a flextable contain each a single paragraph. This paragraph
-#' is made of chunks that can be text, images or plots, equations and links.
+#' The resulting paragraph is passed to the `value` argument of
+#' [compose()], [mk_par()], [add_header_lines()],
+#' [add_footer_lines()] or [footnote()] to set cell content.
 #'
-#' @param ... chunk elements that are defining paragraph. If a character is used,
-#' it is transformed to a chunk object with function [as_chunk()].
-#' @param list_values a list of chunk elements that are defining paragraph. If
-#' specified argument `...` is unused.
+#' @param ... chunk elements that are defining the paragraph content.
+#' If a character is used, it is transformed to a chunk object with
+#' function [as_chunk()].
+#' @param list_values a list of chunk elements that are defining
+#' the paragraph content. If specified argument `...` is unused.
 #' @family functions for mixed content paragraphs
 #' @seealso [as_chunk()], [minibar()],
 #' [as_image()], [hyperlink_text()]

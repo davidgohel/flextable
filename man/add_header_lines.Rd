@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment_rows.R
 \name{add_header_lines}
 \alias{add_header_lines}
-\title{Add labels as new rows in the header}
+\title{Add full-width rows to the header}
 \usage{
 add_header_lines(x, values = character(0), top = TRUE)
 }
@@ -18,12 +18,9 @@ be added as a new row.}
 or the bottom. Default to TRUE.}
 }
 \description{
-Add labels as new rows in the header,
-where all columns are merged.
-
-This is a sugar function to be used when you need to
-add labels in the header, most of the time it will
-be used to adding titles on the top rows of the flextable.
+Add one or more rows to the header where each label
+spans all columns (all cells merged into one). Useful for adding
+titles or subtitles above the column headers.
 }
 \examples{
 # ex 1----

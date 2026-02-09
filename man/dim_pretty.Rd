@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable_sizes.R
 \name{dim_pretty}
 \alias{dim_pretty}
-\title{Calculate pretty dimensions}
+\title{Calculate optimal column widths and row heights}
 \usage{
 dim_pretty(x, part = "all", unit = "in", hspans = "none")
 }

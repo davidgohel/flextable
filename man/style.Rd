@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{style}
 \alias{style}
-\title{Set flextable default styles}
+\title{Set formatting properties on a flextable selection}
 \usage{
 style(
   x,
@@ -24,23 +24,40 @@ in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 \item{j}{column selector, see section \emph{Column selection with the \code{j} parameter}
 in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 
-\item{pr_t}{object(s) of class \code{fp_text}, result of \code{\link[officer:fp_text]{officer::fp_text()}}
-or \code{\link[officer:fp_text]{officer::fp_text_lite()}}}
+\item{pr_t}{an \code{\link[officer:fp_text]{officer::fp_text()}} or \code{\link[officer:fp_text]{officer::fp_text_lite()}} object
+defining text formatting (font, size, color, bold, ...).}
 
-\item{pr_p}{object(s) of class \code{fp_par}, result of \code{\link[officer:fp_par]{officer::fp_par()}}
-or \code{\link[officer:fp_par]{officer::fp_par_lite()}}}
+\item{pr_p}{an \code{\link[officer:fp_par]{officer::fp_par()}} or \code{\link[officer:fp_par]{officer::fp_par_lite()}} object
+defining paragraph formatting (alignment, padding, line spacing, ...).}
 
-\item{pr_c}{object(s) of class \code{fp_cell}, result of \code{\link[officer:fp_cell]{officer::fp_cell()}}}
+\item{pr_c}{an \code{\link[officer:fp_cell]{officer::fp_cell()}} object defining cell formatting
+(background, borders, vertical alignment, ...).}
 
 \item{part}{part selector, see section \emph{Part selection with the \code{part}
 parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
 Value 'all' can be used.}
 }
 \description{
-Modify flextable text, paragraph, and cell default formatting
-properties. This allows you to specify a set of formatting properties for a
-selection instead of using multiple functions (e.g., \code{bold}, \code{italic}, \code{bg})
-that must all be applied to the same selection of rows and columns.
+\code{style()} applies text, paragraph and cell formatting properties
+to a selection of rows and columns in one call. It is a lower-level
+function that bundles what the convenience functions do individually:
+\itemize{
+\item text (\code{pr_t}): font family, size, color, bold, italic, etc.,
+same properties as \code{\link[=bold]{bold()}}, \code{\link[=italic]{italic()}}, \code{\link[=color]{color()}}, \code{\link[=fontsize]{fontsize()}},
+\code{\link[=font]{font()}}, \code{\link[=highlight]{highlight()}}.
+\item paragraph (\code{pr_p}): alignment, padding, line spacing,
+same properties as \code{\link[=align]{align()}}, \code{\link[=padding]{padding()}}, \code{\link[=line_spacing]{line_spacing()}}.
+\item cell (\code{pr_c}): background colour, borders, vertical alignment,
+same properties as \code{\link[=bg]{bg()}}, \code{\link[=border]{border()}}, \code{\link[=valign]{valign()}}.
+}
+
+Use \code{style()} when you need to set several property types at once
+on the same selection; use the convenience functions when you
+only need to change one aspect.
+
+Note that \code{style()} modifies an existing flextable.
+To change the initial formatting applied to every new
+flextable, use \code{\link[=set_flextable_defaults]{set_flextable_defaults()}} instead.
 }
 \examples{
 library(officer)
@@ -57,3 +74,22 @@ ft <- style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
 
 ft
 }
+\seealso{
+Other sugar functions for table style: 
+\code{\link{align}()},
+\code{\link{bg}()},
+\code{\link{bold}()},
+\code{\link{color}()},
+\code{\link{empty_blanks}()},
+\code{\link{font}()},
+\code{\link{fontsize}()},
+\code{\link{highlight}()},
+\code{\link{italic}()},
+\code{\link{keep_with_next}()},
+\code{\link{line_spacing}()},
+\code{\link{padding}()},
+\code{\link{rotate}()},
+\code{\link{tab_settings}()},
+\code{\link{valign}()}
+}
+\concept{sugar functions for table style}

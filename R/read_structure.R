@@ -252,7 +252,7 @@ information_data_default_chunk <- function(x) {
 
 #' @importFrom data.table rbindlist setDF setcolorder
 #' @export
-#' @title content chunk related information of a flextable
+#' @title Get chunk-level content information from a flextable
 #' @description
 #' This function takes a flextable object and returns a data.frame containing
 #' information about each text chunk within the flextable. The data.frame includes
@@ -317,7 +317,7 @@ information_data_chunk <- function(x, expand_special_chars = TRUE) {
 
 
 #' @importFrom data.table rbindlist setDF
-#' @title paragraph related information of a flextable
+#' @title Get paragraph-level information from a flextable
 #' @description
 #' This function takes a flextable object and returns a data.frame containing
 #' information about each paragraph within the flextable. The data.frame includes
@@ -368,7 +368,7 @@ information_data_paragraph <- function(x) {
   dat
 }
 
-#' @title table cell related information of a flextable
+#' @title Get cell-level information from a flextable
 #' @description
 #' This function takes a flextable object and returns a data.frame containing
 #' information about each cell within the flextable. The data.frame includes

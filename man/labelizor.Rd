@@ -2,7 +2,7 @@
 % Please edit documentation in R/compose.R
 \name{labelizor}
 \alias{labelizor}
-\title{Change displayed labels}
+\title{Replace displayed text with labels}
 \usage{
 labelizor(x, j = NULL, labels, part = "all")
 }
@@ -21,13 +21,18 @@ parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
 Value 'all' can be used.}
 }
 \description{
-The function replace text values
-in a flextable with labels. The labels are defined
-with character named vector.
+\code{labelizor()} substitutes text values shown in a flextable
+with human-readable labels. This is useful to turn column
+values such as variable names, factor levels or coded strings
+into presentation-ready wording (e.g. \code{"Sepal.Length"} to
+\code{"Sepal Length"}).
 
-The function is not written to be fast but to be handy. It does
-not replace the values in the underlying dataset but replace the defined
-content in the flextable (as defined with \code{\link[=compose]{compose()}}).
+\code{labels} can be either a \strong{named character vector} (names
+identify values to find, values are the replacement labels)
+or a \strong{function} applied to every text chunk (e.g. \code{\link[=toupper]{toupper()}}).
+
+Only the displayed content is affected; the underlying data
+of the flextable is unchanged.
 }
 \examples{
 \dontshow{

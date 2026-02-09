@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{fmt_header_n}
 \alias{fmt_header_n}
-\title{Format count data for headers}
+\title{Format count as '(N=XX)' for column headers}
 \usage{
 fmt_header_n(n, newline = TRUE)
 }
@@ -13,8 +13,8 @@ fmt_header_n(n, newline = TRUE)
 (sof return).}
 }
 \description{
-The function formats counts as \verb{\\n(N=XX)}. This helper
-function is used to add counts in columns titles.
+Format counts as \verb{\\n(N=XX)} for appending
+sample sizes to column titles.
 }
 \examples{
 library(flextable)

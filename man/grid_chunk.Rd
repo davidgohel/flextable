@@ -2,7 +2,7 @@
 % Please edit documentation in R/chunk_images.R
 \name{grid_chunk}
 \alias{grid_chunk}
-\title{'Grid Graphics' chunk wrapper}
+\title{Grid Graphics chunk}
 \usage{
 grid_chunk(value, width = 1, height = 0.2, unit = "in", res = 300)
 }

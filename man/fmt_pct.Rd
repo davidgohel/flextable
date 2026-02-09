@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{fmt_pct}
 \alias{fmt_pct}
-\title{Format numerical data as percentages}
+\title{Format numbers as percentages}
 \usage{
 fmt_pct(x)
 }
@@ -10,7 +10,7 @@ fmt_pct(x)
 \item{x}{numeric values}
 }
 \description{
-The function formats numeric vectors as percentages.
+Format numeric values as percentages (e.g. \code{"45.0\%"}).
 }
 \examples{
 library(flextable)

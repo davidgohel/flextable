@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{border_inner_h}
 \alias{border_inner_h}
-\title{Set inner borders}
+\title{Set inner horizontal borders}
 \usage{
 border_inner_h(x, border = NULL, part = "body")
 }

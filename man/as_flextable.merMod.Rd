@@ -8,7 +8,7 @@
 \alias{as_flextable.brmsfit}
 \alias{as_flextable.glmmTMB}
 \alias{as_flextable.glmmadmb}
-\title{Transform a mixed model into a flextable}
+\title{Transform a 'merMod' or 'lme' object into a flextable}
 \usage{
 \method{as_flextable}{merMod}(x, add.random = TRUE, ...)
 

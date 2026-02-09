@@ -137,10 +137,18 @@ height <- function(x, i = NULL, height, part = "body", unit = "in") {
 }
 
 #' @export
-#' @title Set flextable rule for rows heights
-#' @description control rules of each height for a part
-#' of the flextable, this is only for Word and PowerPoint outputs, it
-#' will not have any effect when output is HTML or PDF.
+#' @title Set how row heights are determined
+#' @description
+#' `hrule()` controls whether row heights are automatic,
+#' minimum or fixed. This only affects Word and PowerPoint
+#' outputs; it has no effect on HTML or PDF.
+#'
+#' * `"auto"` (default): the row height adjusts to fit the
+#'   content; any value set by [height()] is ignored.
+#' * `"atleast"`: the row is at least as tall as the value
+#'   set by [height()], but can grow if the content is taller.
+#' * `"exact"`: the row is exactly the height set by
+#'   [height()]; content that overflows is clipped.
 #'
 #' For PDF see the `ft.arraystretch` chunk option.
 #' @inheritParams args_x_i_part
@@ -223,7 +231,7 @@ height_all <- function(x, height, part = "all", unit = "in") {
 }
 
 #' @export
-#' @title Get width and height of a flextable object
+#' @title Get overall width and height of a flextable
 #' @description Returns the width, height and
 #' aspect ratio of a flextable in a named list.
 #' The aspect ratio is the ratio corresponding to `height/width`.
@@ -244,7 +252,7 @@ flextable_dim <- function(x, unit = "in") {
 }
 
 
-#' @title Get widths and heights of flextable
+#' @title Get column widths and row heights of a flextable
 #' @description returns widths and heights for each table columns and rows.
 #' Values are expressed in inches.
 #' @inheritParams args_x_only
@@ -276,7 +284,7 @@ dim.flextable <- function(x) {
 }
 
 #' @export
-#' @title Calculate pretty dimensions
+#' @title Calculate optimal column widths and row heights
 #' @description return minimum estimated widths and heights for
 #' each table columns and rows in inches.
 #' @inheritParams args_x_part
@@ -321,7 +329,7 @@ dim_pretty <- function(x, part = "all", unit = "in", hspans = "none") {
 
 
 #' @export
-#' @title Adjusts cell widths and heights
+#' @title Adjust cell widths and heights
 #' @description compute and apply optimized widths and heights
 #' (minimum estimated widths and heights for each table columns and rows
 #' in inches returned by function [dim_pretty()]).

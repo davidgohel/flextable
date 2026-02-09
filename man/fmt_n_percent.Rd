@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{fmt_n_percent}
 \alias{fmt_n_percent}
-\title{Format content for count data}
+\title{Format count and percentage as text}
 \usage{
 fmt_n_percent(n, pct, digit = 1)
 }
@@ -14,9 +14,8 @@ fmt_n_percent(n, pct, digit = 1)
 \item{digit}{number of digits for the percentages}
 }
 \description{
-The function formats counts and
-percentages as \verb{n (xx.x\%)}. If percentages are
-missing, they are not printed.
+Format counts and percentages as \verb{n (xx.x\%)}.
+If percentages are missing, only the count is shown.
 }
 \examples{
 library(flextable)

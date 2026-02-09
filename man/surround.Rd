@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{surround}
 \alias{surround}
-\title{Set borders for a selection of cells}
+\title{Surround cells with borders}
 \usage{
 surround(
   x,
@@ -41,7 +41,8 @@ parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
 Value 'all' can be used.}
 }
 \description{
-Highlight specific cells with borders.
+\code{surround()} draws borders around specific cells, highlighting
+them individually.
 
 To set borders for the whole table, use \code{\link[=border_outer]{border_outer()}},
 \code{\link[=border_inner_h]{border_inner_h()}} and \code{\link[=border_inner_v]{border_inner_v()}}.

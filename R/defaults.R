@@ -371,27 +371,16 @@ print.flextable_defaults <- function(x, ...) {
 
 #' @export
 #' @inheritParams officer::fp_text
-#' @title Text formatting properties
+#' @title Create text formatting with flextable defaults
 #'
-#' @description Create a [officer::fp_text()] object that uses
-#' defaut values defined in the flextable it applies to.
+#' @description Create a [officer::fp_text()] object whose unspecified
+#' arguments inherit from [set_flextable_defaults()] (font family, size, color).
 #'
-#' `fp_text_default()` is a handy function that will allow
-#' you to specify certain formatting values to be applied
-#' to a piece of text, the formatting values that are not
-#' specified will simply be the existing formatting values.
+#' Use `fp_text_default()` instead of `officer::fp_text()` when building
+#' chunks with [as_chunk()]: only override the properties you need,
+#' and the rest will match the table's default style.
 #'
-#' For example, if you set the text in the cell to red
-#' previously, using the code `fp_text_default(bold = TRUE)`,
-#' the formatting will be 'bold' but it will also be 'red'.
-#'
-#' On the other hand, the `fp_text()` function forces you
-#' to specify all the parameters, so we strongly recommend
-#' working with `fp_text_default()` which was created
-#' to replace the use of the former.
-#'
-#' See also [set_flextable_defaults()] to modify flextable
-#' defaults formatting properties.
+#' See also [set_flextable_defaults()] to modify the inherited values.
 #' @examples
 #' library(flextable)
 #'
@@ -441,11 +430,13 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
 }
 #' @export
 #' @inheritParams officer::fp_border
-#' @title Border formatting properties
+#' @title Create border formatting with flextable defaults
 #'
-#' @description Create a [officer::fp_border()] object that uses
-#' defaut values defined in flextable defaults formatting properties, i.e.
-#' default border color (see [set_flextable_defaults()]).
+#' @description Create a [officer::fp_border()] object whose unspecified
+#' arguments inherit from [set_flextable_defaults()] (border color, width).
+#'
+#' Use `fp_border_default()` instead of `officer::fp_border()` so that
+#' borders automatically match the table's default style.
 #' @examples
 #' library(flextable)
 #'

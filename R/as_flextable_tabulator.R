@@ -1,7 +1,7 @@
 # main -----
 
 #' @export
-#' @title Tabulation of aggregations
+#' @title Create pivot-style summary tables
 #' @description It tabulates a data.frame representing an aggregation
 #' which is then transformed as a flextable with
 #' [as_flextable][as_flextable.tabulator]. The function

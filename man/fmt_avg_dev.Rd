@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{fmt_avg_dev}
 \alias{fmt_avg_dev}
-\title{Format content for mean and sd}
+\title{Format mean and standard deviation as text}
 \usage{
 fmt_avg_dev(avg, dev, digit1 = 1, digit2 = 1)
 }
@@ -12,8 +12,7 @@ fmt_avg_dev(avg, dev, digit1 = 1, digit2 = 1)
 \item{digit1, digit2}{number of digits to show when printing 'mean' and 'sd'.}
 }
 \description{
-The function formats means and
-standard deviations as \code{mean (sd)}.
+Format means and standard deviations as \code{mean (sd)}.
 }
 \examples{
 library(flextable)

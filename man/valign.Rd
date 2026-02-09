@@ -50,6 +50,7 @@ Other sugar functions for table style:
 \code{\link{line_spacing}()},
 \code{\link{padding}()},
 \code{\link{rotate}()},
+\code{\link{style}()},
 \code{\link{tab_settings}()}
 }
 \concept{sugar functions for table style}

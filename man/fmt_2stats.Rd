@@ -3,7 +3,7 @@
 \name{fmt_2stats}
 \alias{fmt_2stats}
 \alias{fmt_summarizor}
-\title{Format content for data generated with summarizor()}
+\title{Format summarizor statistics as text}
 \usage{
 fmt_2stats(stat, num1, num2, cts, pcts, ...)
 
@@ -24,12 +24,9 @@ deviation or a median absolute deviation.}
 \item{...}{unused arguments}
 }
 \description{
-This function was written to allow easy demonstrations
-of flextable's ability to produce table summaries (with \code{\link[=summarizor]{summarizor()}}).
-It assumes that we have either a quantitative variable, in which
-case we will display the mean and the standard deviation, or a
-qualitative variable, in which case we will display the count and the
-percentage corresponding to each modality.
+Format the output of \code{\link[=summarizor]{summarizor()}} into display strings:
+quantitative variables are shown as mean (sd), median (IQR), or range;
+qualitative variables are shown as count (percentage).
 }
 \examples{
 library(flextable)

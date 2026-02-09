@@ -370,7 +370,7 @@ fill_NA <- function(x) {
 # Instead, content is placed in the correct row and the column type
 # (p{} for top, m{} for center, b{} for bottom) handles alignment:
 #
-# - "top": content stays in the first row — no action needed.
+# - "top": content stays in the first row, no action needed.
 # - "center": content is moved to the middle row (ceiling(N/2)) by
 #     swapping .row_id between the first and middle positions.
 # - "bottom": content is moved to the last row by reversing .row_id

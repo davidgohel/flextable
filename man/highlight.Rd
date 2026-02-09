@@ -2,7 +2,7 @@
 % Please edit documentation in R/styles.R
 \name{highlight}
 \alias{highlight}
-\title{Text highlight color}
+\title{Set text highlight color}
 \usage{
 highlight(x, i = NULL, j = NULL, color = "yellow", part = "body", source = j)
 }
@@ -66,6 +66,7 @@ Other sugar functions for table style:
 \code{\link{line_spacing}()},
 \code{\link{padding}()},
 \code{\link{rotate}()},
+\code{\link{style}()},
 \code{\link{tab_settings}()},
 \code{\link{valign}()}
 }

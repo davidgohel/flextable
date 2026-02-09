@@ -2,7 +2,7 @@
 % Please edit documentation in R/borders.R
 \name{border}
 \alias{border}
-\title{Cell borders update}
+\title{Set cell borders}
 \usage{
 border(
   x,
@@ -42,7 +42,7 @@ Value 'all' can be used.}
 }
 \description{
 change borders of selected rows and columns of a flextable.
-This function is not to be used by end user (it requires careful
+This function is \strong{not to be used by end user} (it requires careful
 settings to avoid overlapping borders) but only for programming purposes.
 
 If you need to add borders, use instead other functions:

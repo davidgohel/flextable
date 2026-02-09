@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable_sizes.R
 \name{hrule}
 \alias{hrule}
-\title{Set flextable rule for rows heights}
+\title{Set how row heights are determined}
 \usage{
 hrule(x, i = NULL, rule = "auto", part = "body")
 }
@@ -23,9 +23,17 @@ parameter} in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.
 Value 'all' can be used.}
 }
 \description{
-control rules of each height for a part
-of the flextable, this is only for Word and PowerPoint outputs, it
-will not have any effect when output is HTML or PDF.
+\code{hrule()} controls whether row heights are automatic,
+minimum or fixed. This only affects Word and PowerPoint
+outputs; it has no effect on HTML or PDF.
+\itemize{
+\item \code{"auto"} (default): the row height adjusts to fit the
+content; any value set by \code{\link[=height]{height()}} is ignored.
+\item \code{"atleast"}: the row is at least as tall as the value
+set by \code{\link[=height]{height()}}, but can grow if the content is taller.
+\item \code{"exact"}: the row is exactly the height set by
+\code{\link[=height]{height()}}; content that overflows is clipped.
+}
 
 For PDF see the \code{ft.arraystretch} chunk option.
 }

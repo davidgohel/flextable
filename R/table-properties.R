@@ -1,6 +1,6 @@
 #' @importFrom officer table_layout table_width table_colwidths prop_table
 #' @export
-#' @title Global table properties
+#' @title Set table layout and width properties
 #' @description Set table layout and table width. Default to fixed
 #' algorithm.
 #'

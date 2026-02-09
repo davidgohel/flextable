@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_flextable.R
 \name{use_model_printer}
 \alias{use_model_printer}
-\title{set model automatic printing as a flextable}
+\title{Set automatic flextable printing for models}
 \usage{
 use_model_printer()
 }

@@ -1,7 +1,8 @@
-#' @title Change headers labels
+#' @title Rename column labels in the header
 #'
-#' @description This function set labels for specified
-#' columns in the bottom row header of a flextable.
+#' @description Change the display labels in the bottom row of the header.
+#' Unlike [set_header_df()] which replaces the entire header structure,
+#' this function only modifies column labels in the last header row.
 #'
 #' @inheritParams args_x_only
 #' @param ... named arguments (names are data colnames), each element is a single character
@@ -301,14 +302,13 @@ add_rows_to_tabpart <- function(x, rows, first = FALSE) {
 # add header/footer content ----
 
 #' @export
-#' @title Add column values as new lines in body
+#' @title Add body rows with one value per column
 #'
 #' @description
-#' The function adds a list of values to be inserted as
-#' new rows in the body. The values are inserted in
-#' existing columns of the input data of the flextable.
-#' Rows can be inserted at the top or the bottom of
-#' the body.
+#' Add new rows to the body where each value maps to a named column,
+#' preserving the original column data types.
+#' Unlike [add_body_row()] where labels can span multiple columns,
+#' here each value fills exactly one column.
 #'
 #' If some columns are not provided, they will be replaced by
 #' `NA` and displayed as empty.
@@ -355,14 +355,12 @@ add_body <- function(x, top = TRUE, ..., values = NULL) {
 
 
 #' @export
-#' @title Add column values as new lines in header
+#' @title Add header rows with one value per column
 #'
 #' @description
-#' The function adds a list of values to be inserted as
-#' new rows in the header. The values are inserted in
-#' existing columns of the input data of the flextable.
-#' Rows can be inserted at the top or the bottom of
-#' the header.
+#' Add new rows to the header where each value maps to a named column.
+#' Unlike [add_header_row()] where labels can span multiple columns,
+#' here each value fills exactly one column.
 #'
 #' If some columns are not provided, they will be replaced by
 #' `NA` and displayed as empty.
@@ -410,14 +408,12 @@ add_header <- function(x, top = TRUE, ..., values = NULL) {
 }
 
 #' @export
-#' @title Add column values as new lines in footer
+#' @title Add footer rows with one value per column
 #'
 #' @description
-#' The function adds a list of values to be inserted as
-#' new rows in the footer. The values are inserted in
-#' existing columns of the input data of the flextable.
-#' Rows can be inserted at the top or the bottom of
-#' the footer.
+#' Add new rows to the footer where each value maps to a named column.
+#' Unlike [add_footer_row()] where labels can span multiple columns,
+#' here each value fills exactly one column.
 #'
 #' If some columns are not provided, they will be replaced by
 #' `NA` and displayed as empty.
@@ -461,10 +457,10 @@ add_footer <- function(x, top = TRUE, ..., values = NULL) {
 # add spanned labels as a single row ----
 
 #' @export
-#' @title Add body labels
+#' @title Add a body row with spanning labels
 #'
-#' @description Add a row of new columns labels in body part.
-#' Labels can be spanned along multiple columns, as merged cells.
+#' @description Add a single row to the body where labels can span
+#' multiple columns (merged cells) via the `colwidths` argument.
 #'
 #' Labels are associated with a number of columns
 #' to merge that default to one if not specified.
@@ -586,10 +582,10 @@ add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0))
 }
 
 #' @export
-#' @title Add header labels
+#' @title Add a header row with spanning labels
 #'
-#' @description Add a row of new columns labels in header part.
-#' Labels can be spanned along multiple columns, as merged cells.
+#' @description Add a single row to the header where labels can span
+#' multiple columns (merged cells) via the `colwidths` argument.
 #'
 #' Labels are associated with a number of columns
 #' to merge that default to one if not specified.
@@ -697,10 +693,10 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
 
 
 #' @export
-#' @title Add footer labels
+#' @title Add a footer row with spanning labels
 #'
-#' @description Add a row of new columns labels in footer part.
-#' Labels can be spanned along multiple columns, as merged cells.
+#' @description Add a single row to the footer where labels can span
+#' multiple columns (merged cells) via the `colwidths` argument.
 #'
 #' Labels are associated with a number of columns
 #' to merge that default to one if not specified.
@@ -811,14 +807,11 @@ data_from_char <- function(values, colwidths, col_keys) {
 # add labels as spanned rows ----
 
 #' @export
-#' @title Add labels as new rows in the header
+#' @title Add full-width rows to the header
 #'
-#' @description Add labels as new rows in the header,
-#' where all columns are merged.
-#'
-#' This is a sugar function to be used when you need to
-#' add labels in the header, most of the time it will
-#' be used to adding titles on the top rows of the flextable.
+#' @description Add one or more rows to the header where each label
+#' spans all columns (all cells merged into one). Useful for adding
+#' titles or subtitles above the column headers.
 #'
 #' @inheritParams args_x_only
 #' @param values a character vector or a call to [as_paragraph()]
@@ -881,13 +874,11 @@ add_header_lines <- function(x, values = character(0), top = TRUE) {
 
 
 #' @export
-#' @title Add labels as new rows in the footer
+#' @title Add full-width rows to the footer
 #'
-#' @description Add labels as new rows in the footer,
-#' where all columns are merged.
-#'
-#' This is a sugar function to be used when you need to
-#' add labels in the footer, a footnote for example.
+#' @description Add one or more rows to the footer where each label
+#' spans all columns (all cells merged into one). Useful for adding
+#' footnotes or source notes below the table.
 #' @inheritParams add_header_lines
 #' @family functions for row and column operations in a flextable
 #' @examples
@@ -978,9 +969,11 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part) {
 #' @export
 #' @rdname set_header_footer_df
 #' @name set_header_footer_df
-#' @title Set flextable's header or footer rows
+#' @title Replace the entire header or footer from a data frame
 #'
-#' @description Use a data.frame to specify flextable's header or footer rows.
+#' @description Replace all header or footer rows using a mapping data frame.
+#' Unlike [set_header_labels()] which only renames the bottom header row,
+#' this function rebuilds the entire header (or footer) structure.
 #'
 #' The data.frame must contain a column whose values match flextable
 #' `col_keys` argument, this column will be used as join key. The

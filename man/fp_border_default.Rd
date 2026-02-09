@@ -2,7 +2,7 @@
 % Please edit documentation in R/defaults.R
 \name{fp_border_default}
 \alias{fp_border_default}
-\title{Border formatting properties}
+\title{Create border formatting with flextable defaults}
 \usage{
 fp_border_default(
   color = flextable_global$defaults$border.color,
@@ -19,9 +19,11 @@ border styles.}
 \item{width}{border width - an integer value : 0>= value}
 }
 \description{
-Create a \code{\link[officer:fp_border]{officer::fp_border()}} object that uses
-defaut values defined in flextable defaults formatting properties, i.e.
-default border color (see \code{\link[=set_flextable_defaults]{set_flextable_defaults()}}).
+Create a \code{\link[officer:fp_border]{officer::fp_border()}} object whose unspecified
+arguments inherit from \code{\link[=set_flextable_defaults]{set_flextable_defaults()}} (border color, width).
+
+Use \code{fp_border_default()} instead of \code{officer::fp_border()} so that
+borders automatically match the table's default style.
 }
 \examples{
 library(flextable)

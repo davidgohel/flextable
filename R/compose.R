@@ -1,6 +1,6 @@
 #' @export
 #' @importFrom rlang eval_tidy enquo quo_name
-#' @title Define displayed values and mixed content
+#' @title Set cell content from paragraph chunks
 #' @description Modify flextable displayed values with eventually
 #' mixed content paragraphs.
 #'
@@ -119,14 +119,20 @@ mk_par <- compose
 
 
 #' @export
-#' @title Change displayed labels
-#' @description The function replace text values
-#' in a flextable with labels. The labels are defined
-#' with character named vector.
+#' @title Replace displayed text with labels
+#' @description
+#' `labelizor()` substitutes text values shown in a flextable
+#' with human-readable labels. This is useful to turn column
+#' values such as variable names, factor levels or coded strings
+#' into presentation-ready wording (e.g. `"Sepal.Length"` to
+#' `"Sepal Length"`).
 #'
-#' The function is not written to be fast but to be handy. It does
-#' not replace the values in the underlying dataset but replace the defined
-#' content in the flextable (as defined with [compose()]).
+#' `labels` can be either a **named character vector** (names
+#' identify values to find, values are the replacement labels)
+#' or a **function** applied to every text chunk (e.g. [toupper()]).
+#'
+#' Only the displayed content is affected; the underlying data
+#' of the flextable is unchanged.
 #' @inheritParams args_selectors_with_all
 #' @param labels a named vector whose names will be used to identify
 #' values to replace and values will be used as labels.

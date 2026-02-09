@@ -2,7 +2,7 @@
 % Please edit documentation in R/printers.R
 \name{print.flextable}
 \alias{print.flextable}
-\title{flextable printing}
+\title{Print a flextable}
 \usage{
 \method{print}{flextable}(x, preview = "html", align = "center", ...)
 }

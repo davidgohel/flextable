@@ -1,6 +1,6 @@
 #' @importFrom grDevices as.raster
 #' @export
-#' @title Image chunk wrapper
+#' @title Image chunk
 #' @description The function lets add images within flextable
 #' objects with functions:
 #' - [compose()] and [as_paragraph()],
@@ -83,7 +83,7 @@ as_image <- function(src, width = NULL, height = NULL, unit = "in", guess_size =
 
 
 #' @export
-#' @title Mini barplots chunk wrapper
+#' @title Mini barplot chunk
 #' @description This function is used to insert bars into
 #' flextable with functions:
 #' - [compose()] and [as_paragraph()],
@@ -163,7 +163,7 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 }
 
 #' @export
-#' @title Mini linerange chunk wrapper
+#' @title Mini linerange chunk
 #' @description This function is used to insert lineranges into
 #' flextable with functions:
 #' - [compose()] and [as_paragraph()],
@@ -260,7 +260,7 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 }
 
 #' @export
-#' @title Mini plots chunk wrapper
+#' @title Mini plot chunk
 #' @description This function is used to insert mini plots into
 #' flextable with functions:
 #' - [compose()] and [as_paragraph()],
@@ -383,7 +383,7 @@ plot_chunk <- function(value, width = 1, height = .2,
 
 
 #' @export
-#' @title 'ggplots' chunk wrapper
+#' @title ggplot chunk
 #' @description This function is used to insert mini gg plots into
 #' flextable with functions:
 #' - [compose()] and [as_paragraph()],
@@ -467,7 +467,7 @@ gg_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
 }
 
 #' @export
-#' @title 'Grid Graphics' chunk wrapper
+#' @title Grid Graphics chunk
 #' @description This function is used to insert grid objects into
 #' flextable with functions:
 #' - [compose()] and [as_paragraph()],

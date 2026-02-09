@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable.R
 \name{set_caption}
 \alias{set_caption}
-\title{Set Caption}
+\title{Set flextable caption}
 \usage{
 set_caption(
   x,

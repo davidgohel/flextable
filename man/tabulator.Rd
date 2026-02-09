@@ -3,7 +3,7 @@
 \name{tabulator}
 \alias{tabulator}
 \alias{summary.tabulator}
-\title{Tabulation of aggregations}
+\title{Create pivot-style summary tables}
 \usage{
 tabulator(
   x,

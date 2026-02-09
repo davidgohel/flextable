@@ -72,6 +72,7 @@ Other sugar functions for table style:
 \code{\link{keep_with_next}()},
 \code{\link{line_spacing}()},
 \code{\link{rotate}()},
+\code{\link{style}()},
 \code{\link{tab_settings}()},
 \code{\link{valign}()}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/formatters.R
 \name{colformat_num}
 \alias{colformat_num}
-\title{Format numeric cells}
+\title{Format numeric cells with format()}
 \usage{
 colformat_num(
   x,
@@ -37,7 +37,8 @@ in <\code{\link[=flextable_selectors]{flextable column selection}}>.}
 and \code{digits} can not be used.}
 }
 \description{
-Format numeric cells in a flextable.
+Format numeric cells in a flextable
+using R's \code{\link[=format]{format()}} function.
 
 The function is different from \code{\link[=colformat_double]{colformat_double()}} on numeric type
 columns. The function uses the \code{\link[=format]{format()}} function of R on numeric

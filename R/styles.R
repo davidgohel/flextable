@@ -1,15 +1,33 @@
 #' @export
-#' @title Set flextable default styles
-#' @description Modify flextable text, paragraph, and cell default formatting
-#' properties. This allows you to specify a set of formatting properties for a
-#' selection instead of using multiple functions (e.g., `bold`, `italic`, `bg`)
-#' that must all be applied to the same selection of rows and columns.
+#' @title Set formatting properties on a flextable selection
+#' @description
+#' `style()` applies text, paragraph and cell formatting properties
+#' to a selection of rows and columns in one call. It is a lower-level
+#' function that bundles what the convenience functions do individually:
+#'
+#' * text (`pr_t`): font family, size, color, bold, italic, etc.,
+#'   same properties as [bold()], [italic()], [color()], [fontsize()],
+#'   [font()], [highlight()].
+#' * paragraph (`pr_p`): alignment, padding, line spacing,
+#'   same properties as [align()], [padding()], [line_spacing()].
+#' * cell (`pr_c`): background colour, borders, vertical alignment,
+#'   same properties as [bg()], [border()], [valign()].
+#'
+#' Use `style()` when you need to set several property types at once
+#' on the same selection; use the convenience functions when you
+#' only need to change one aspect.
+#'
+#' Note that `style()` modifies an existing flextable.
+#' To change the initial formatting applied to every new
+#' flextable, use [set_flextable_defaults()] instead.
 #' @inheritParams args_selectors_with_all
-#' @param pr_t object(s) of class `fp_text`, result of [officer::fp_text()]
-#' or [officer::fp_text_lite()]
-#' @param pr_p object(s) of class `fp_par`, result of [officer::fp_par()]
-#' or [officer::fp_par_lite()]
-#' @param pr_c object(s) of class `fp_cell`, result of [officer::fp_cell()]
+#' @param pr_t an [officer::fp_text()] or [officer::fp_text_lite()] object
+#' defining text formatting (font, size, color, bold, ...).
+#' @param pr_p an [officer::fp_par()] or [officer::fp_par_lite()] object
+#' defining paragraph formatting (alignment, padding, line spacing, ...).
+#' @param pr_c an [officer::fp_cell()] object defining cell formatting
+#' (background, borders, vertical alignment, ...).
+#' @family sugar functions for table style
 #' @importFrom stats terms
 #' @examples
 #' library(officer)
@@ -255,7 +273,7 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
 }
 
 #' @export
-#' @title Text highlight color
+#' @title Set text highlight color
 #' @description Change the text highlight color of selected rows and
 #' columns of a flextable. A function can be used instead of
 #' fixed colors.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarizor.R
 \name{fmt_dbl}
 \alias{fmt_dbl}
-\title{Format numerical data}
+\title{Format numbers as doubles}
 \usage{
 fmt_dbl(x)
 }
@@ -10,7 +10,8 @@ fmt_dbl(x)
 \item{x}{numeric values}
 }
 \description{
-The function formats numeric vectors.
+Format numeric values with decimal digits, using
+the flextable default settings for separators and precision.
 }
 \examples{
 library(flextable)

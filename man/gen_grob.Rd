@@ -2,7 +2,7 @@
 % Please edit documentation in R/grid_grobs.R
 \name{gen_grob}
 \alias{gen_grob}
-\title{Convert a flextable to a grid grob object}
+\title{Render a flextable as a graphic object}
 \usage{
 gen_grob(
   x,
@@ -74,28 +74,31 @@ When set to \code{NULL} (default), it is determined according to the \code{fit} 
 a grob (gTree) object made with package \code{grid}
 }
 \description{
-It uses Grid Graphics (package \code{grid}) to Convert a flextable
-into a grob object with scaling and text wrapping capabilities.
+\code{gen_grob()} converts a flextable into a Grid Graphics
+object (\code{grob}) that can be drawn on any R graphic device.
+This is the function behind \code{\link[=save_as_image]{save_as_image()}} and the
+patchwork integration (\code{\link[=wrap_flextable]{wrap_flextable()}}).
 
-This method can be used to insert a flextable inside a \code{ggplot2} plot,
-it can also be used with package 'patchwork' or 'cowplot' to combine
-ggplots and flextables into the same graphic.
+Typical uses:
+\itemize{
+\item embed a flextable in a \code{ggplot2} plot (via
+\code{\link[=wrap_flextable]{wrap_flextable()}} or cowplot)
+\item export a flextable as a PNG or SVG image (via
+\code{\link[=save_as_image]{save_as_image()}})
+}
 
-User can vary the size of the elements according to the size of the graphic window. The text
-behavior is controllable, user can decide to make the paragraphs (texts and images)
-distribute themselves correctly in the available space of the cell. It is possible
-to define resizing options, for example by using only the width, or by distributing
-the content so that it occupies the whole graphic space. It is also possible to
-freeze or not the size of the columns.
+Text wrapping and scaling are supported. The \code{fit}
+argument controls how the table adapts to the available
+space (fixed size, auto-fit width, or fill the device).
 
-It is not recommended to use this function for
-large tables because the calculations can be long.
+Not recommended for very large tables because the
+grid calculations can be slow.
 
-Limitations: equations (see \code{\link[=as_equation]{as_equation()}}) and hyperlinks (see \code{\link[officer:hyperlink_ftext]{officer::hyperlink_ftext()}})
-will not be displayed.
+Limitations: equations (\code{\link[=as_equation]{as_equation()}}) and hyperlinks
+(\code{\link[officer:hyperlink_ftext]{officer::hyperlink_ftext()}}) are not rendered.
 
-'ragg' or 'svglite' or 'ggiraph' graphical device drivers
-should be used to ensure a correct rendering.
+Use a 'ragg', 'svglite' or 'ggiraph' device for correct
+rendering.
 }
 \section{size}{
 
