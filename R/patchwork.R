@@ -22,116 +22,135 @@
 #' @param n_row_headers Number of leading columns to treat as row headers.
 #' These columns will be placed outside the panel region and will not
 #' participate in alignment with the plot axes.
+#' @param flex_body If `TRUE`, the table body row heights become flexible:
+#' the adjacent ggplot determines the panel height and the body rows
+#' stretch equally to fill it. Header and footer keep their fixed size.
+#' This is useful to align table rows with discrete bars or categories
+#' in a neighbouring plot. Implies `free_y` for `space`.
+#' @param flex_cols If `TRUE`, the data column widths (all columns after
+#' `n_row_headers`) become flexible: the adjacent ggplot determines the
+#' panel width and the data columns stretch to fill it. Row header
+#' columns keep their fixed width. This is useful to align table columns
+#' with discrete x-axis categories in a neighbouring plot.
+#' Implies `free_x` for `space`.
+#' @param expand Expansion value matching the ggplot discrete axis expansion
+#' (`ggplot2::expansion(add = expand)`). Default is `0.6`, which is the
+#' ggplot2 default for discrete axes. Only used when `flex_cols = TRUE`.
+#' @param just Horizontal alignment of the table within its patchwork panel.
+#' One of `"left"` (default), `"right"`, or `"center"`. Useful when the
+#' table is narrower than the available panel width.
+#' Ignored when `flex_cols = TRUE` (columns fill the panel).
 #' @return A patchwork-compliant object that can be combined with ggplot2 plots
 #' using `+`, `|`, or `/` operators.
 #' @export
-#' @examples
-#' \donttest{
+#' @examplesIf requireNamespace("patchwork", quietly = TRUE) && requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("ragg", quietly = TRUE)
 #' library(gdtools)
-#' register_liberationsans()
+#' font_set_liberation()
+#' library(ggplot2)
+#' library(patchwork)
+#'
 #' set_flextable_defaults(
 #'   font.family = "Liberation Sans",
-#'   font.size = 7,
-#'   padding = 4,
-#'   big.mark = ""
+#'   font.size = 10,
+#'   big.mark = "",
+#'   border.color = "grey60"
 #' )
 #'
-#' if (require("patchwork") && require("ggplot2")) {
-#'   ft <- flextable(head(iris))
-#'   ft <- autofit(ft)
-#'   p <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
-#'     geom_point()
+#' # Adapted from <https://r-graph-gallery.com/web-dumbell-chart.html>
 #'
-#'   tf <- tempfile(fileext = ".png")
-#'   ragg::agg_png(
-#'     filename = tf, width = 8,
-#'     height = 7, units = "in", res = 150
-#'   )
-#'   # Place side by side
-#'   print(p | wrap_flextable(ft))
-#'   dev.off()
+#' dataset <- data.frame(
+#'   team = c(
+#'     "FC Bayern Munchen", "SV Werder Bremen", "Borussia Dortmund",
+#'     "VfB Stuttgart", "Borussia M'gladbach", "Hamburger SV",
+#'     "Eintracht Frankfurt", "FC Schalke 04", "1. FC Koln",
+#'     "Bayer 04 Leverkusen"
+#'   ),
+#'   matches = c(2000, 1992, 1924, 1924, 1898, 1866, 1856, 1832, 1754, 1524),
+#'   won     = c(1206,  818,  881,  782,  763,  746,  683,  700,  674,  669),
+#'   lost    = c( 363,  676,  563,  673,  636,  625,  693,  669,  628,  447)
+#' )
+#' dataset$win_pct  <- dataset$won  / dataset$matches * 100
+#' dataset$loss_pct <- dataset$lost / dataset$matches * 100
+#' dataset$team <- factor(dataset$team, levels = rev(dataset$team))
 #'
-#'   tf <- tempfile(fileext = ".png")
-#'   ragg::agg_png(
-#'     filename = tf, width = 8,
-#'     height = 7, units = "in", res = 150
-#'   )
-#'   # Stack vertically
-#'   print(p / wrap_flextable(ft))
-#'   dev.off()
+#' # -- dumbbell chart --
+#' pal <- c(lost = "#EFAC00", won = "#28A87D")
+#' df_long <- reshape(dataset, direction = "long",
+#'   varying = list(c("loss_pct", "win_pct")),
+#'   v.names = "pct", timevar = "type",
+#'   times = c("lost", "won"), idvar = "team"
+#' )
 #'
-#'   tf <- tempfile(fileext = ".png")
-#'   ragg::agg_png(
-#'     filename = tf, width = 8,
-#'     height = 7, units = "in", res = 150
-#'   )
-#'   # Use + operator (also works directly: p + ft)
-#'   print(p + wrap_flextable(ft))
-#'   dev.off()
-#'
-#'   # does not work perfectly if below the boxplot
-#'   p <- ggplot(diamonds, aes(color, x)) +
-#'     geom_boxplot(position = position_dodge(width = 1))
-#'
-#'   ft <- summarizor(diamonds[c("color", "cut", "carat")], by = c("color"))
-#'   ft <- as_flextable(
-#'       ft,
-#'       sep_w = 0.0,
-#'       spread_first_col = TRUE
-#'     )
-#'   ft <- delete_part(ft, "header")
-#'
-#'   ptch <- p / wrap_flextable(
-#'     x = ft,
-#'     panel = "body",
-#'     space = "fixed",
-#'     n_row_headers = 1
-#'   )
-#'
-#'   tf <- tempfile(fileext = ".png")
-#'   ragg::agg_png(
-#'     filename = tf, width = 8,
-#'     height = 7, units = "in", res = 150
-#'   )
-#'   print(ptch)
-#'   dev.off()
-#'
-#'
-#'
-#'   # This one works well - horizontally
-#'   p <- ggplot(diamonds) +
-#'     geom_bar(aes(y = cut)) +
-#'     scale_y_discrete(name = NULL, guide = "none")
-#'
-#'   cts <- data.frame(
-#'     cut = ordered(
-#'       c("Fair", "Good", "Very Good", "Premium", "Ideal"),
-#'       levels = c("Fair", "Good", "Very Good", "Premium", "Ideal")
-#'     ),
-#'     n = c(1610L, 4906L, 12082L, 13791L, 21551L)
+#' p <- ggplot(df_long, aes(x = pct / 100, y = team)) +
+#'   stat_summary(
+#'     geom = "linerange", fun.min = "min", fun.max = "max",
+#'     linewidth = .7, color = "grey60"
+#'   ) +
+#'   geom_point(aes(fill = type), size = 4, shape = 21,
+#'     stroke = .8, color = "white"
+#'   ) +
+#'   scale_x_continuous(
+#'     labels = scales::percent,
+#'     expand = expansion(add = c(.02, .02))
+#'   ) +
+#'   scale_y_discrete(name = NULL, guide = "none") +
+#'   scale_fill_manual(
+#'     values = pal,
+#'     labels = c(lost = "Lost", won = "Won")
+#'   ) +
+#'   labs(x = NULL, fill = NULL) +
+#'   theme_minimal(base_family = "Liberation Sans", base_size = 10) +
+#'   theme(
+#'     legend.position = "top",
+#'     legend.justification = "left",
+#'     panel.grid.minor = element_blank(),
+#'     panel.grid.major.y = element_blank()
 #'   )
 #'
-#'   ft_tab <- flextable(cts)
-#'   ft_tab <- autofit(ft_tab)
+#' # -- flextable --
+#' ft_dat <- dataset[, c("matches", "win_pct", "loss_pct", "team")]
+#' ft_dat$team <- as.character(ft_dat$team)
 #'
-#'   ptch <- wrap_flextable(ft_tab, space = "fixed") + p
+#' ft <- flextable(ft_dat)
+#' ft <- border_remove(ft)
+#' ft <- bold(ft, part = "header")
+#' ft <- colformat_double(ft, j = c("win_pct", "loss_pct"),
+#'   digits = 1, suffix = "%"
+#' )
+#' ft <- set_header_labels(ft,
+#'   team = "Team", matches = "GP",
+#'   win_pct = "", loss_pct = ""
+#' )
+#' ft <- color(ft, color = "#28A87D", j = 2)
+#' ft <- color(ft, color = "#EFAC00", j = 3)
+#' ft <- bold(ft, bold = TRUE, j = 2:3)
+#' ft <- italic(ft, italic = TRUE, j = 4)
+#' ft <- align(ft, align = "right", part = "all")
+#' ft <- autofit(ft)
 #'
-#'   tf <- tempfile(fileext = ".png")
-#'   ragg::agg_png(
-#'     filename = tf, width = 6,
-#'     height = 2, units = "in", res = 150
-#'   )
-#'   print(ptch)
-#'   dev.off()
-#'   init_flextable_defaults()
-#' }
-#' }
+#' tf <- tempfile(fileext = ".png")
+#' ragg::agg_png(
+#'   filename = tf, width = 10,
+#'   height = 5, units = "in", res = 150
+#' )
+#' print(
+#'   wrap_flextable(ft, flex_body = TRUE, just = "right") +
+#'     p +
+#'     plot_layout(widths = c(1.1, 2))
+#' )
+#' dev.off()
+#'
+#' init_flextable_defaults()
 #' @family flextable print function
 wrap_flextable <- function(
   x,
   panel = c("body", "full", "rows", "cols"),
   space = c("free", "free_x", "free_y", "fixed"),
-  n_row_headers = 0L
+  n_row_headers = 0L,
+  flex_body = FALSE,
+  flex_cols = FALSE,
+  expand = 0.6,
+  just = c("left", "right", "center")
 ) {
   if (!requireNamespace("patchwork", quietly = TRUE)) {
     stop("Package 'patchwork' is required for wrap_flextable().", call. = FALSE)
@@ -141,13 +160,26 @@ wrap_flextable <- function(
   }
   panel <- match.arg(panel)
   space <- match.arg(space)
+  just <- match.arg(just)
+  flex_body <- isTRUE(flex_body)
+  flex_cols <- isTRUE(flex_cols)
+
+  if (flex_body) {
+    attr(x, ".patchwork_flex_body") <- TRUE
+  }
+  if (flex_cols) {
+    attr(x, ".patchwork_flex_cols") <- TRUE
+    attr(x, ".patchwork_n_row_headers") <- as.integer(n_row_headers)
+    attr(x, ".patchwork_flex_cols_expand") <- expand
+  }
+  attr(x, ".patchwork_just") <- just
 
   wrapped <- patchwork::wrap_elements(panel = x, ignore_tag = FALSE)
   attr(wrapped, "patch_settings")$panel <- panel
   attr(wrapped, "patch_settings")$n_row_headers <- as.integer(n_row_headers)
   attr(wrapped, "patch_settings")$space <- c(
-    space %in% c("free", "free_x"),
-    space %in% c("free", "free_y")
+    if (flex_cols) TRUE else space %in% c("free", "free_x"),
+    if (flex_body) TRUE else space %in% c("free", "free_y")
   )
   class(wrapped) <- c("wrapped_table", class(wrapped))
   wrapped
@@ -169,18 +201,51 @@ as_patch.flextable <- function(x, ...) {
     stop("Package 'gtable' is required.", call. = FALSE)
   }
 
+  flex_body <- isTRUE(attr(x, ".patchwork_flex_body"))
+  flex_cols <- isTRUE(attr(x, ".patchwork_flex_cols"))
+  n_row_hdrs <- as.integer(attr(x, ".patchwork_n_row_headers") %||% 0L)
+
   n_header <- nrow_part(x, "header")
   n_body <- nrow_part(x, "body")
   n_footer <- nrow_part(x, "footer")
   n_rows <- n_header + n_body + n_footer
 
-  # Generate the grob with fixed dimensions
-  grob <- gen_grob(x, fit = "fixed", scaling = "fixed")
+  if (flex_body || flex_cols) {
+    grob <- gen_grob(x, fit = "auto", scaling = "fixed")
+  } else {
+    grob <- gen_grob(x, fit = "fixed", scaling = "fixed")
+  }
   widths <- grob$ftpar$widths
   heights <- grob$ftpar$heights
+  n_cols <- length(widths)
 
-  col_widths <- unit(widths, "in")
-  row_heights <- unit(heights, "in")
+  # --- row heights ---
+  if (flex_body && n_body > 0) {
+    grob$ftpar$flex_body <- TRUE
+    grob$ftpar$n_header_rows <- n_header
+    grob$ftpar$n_body_rows <- n_body
+    grob$ftpar$n_footer_rows <- n_footer
+
+    row_heights <- unit(heights, "in")
+    body_seq <- seq.int(n_header + 1L, n_header + n_body)
+    row_heights[body_seq] <- unit(rep(1, n_body), "null")
+  } else {
+    row_heights <- unit(heights, "in")
+  }
+
+  # --- column widths ---
+  n_data_cols <- n_cols - n_row_hdrs
+  if (flex_cols && n_data_cols > 0) {
+    grob$ftpar$flex_cols <- TRUE
+    grob$ftpar$n_row_header_cols <- n_row_hdrs
+    grob$ftpar$n_data_cols <- n_data_cols
+
+    col_widths <- unit(widths, "in")
+    data_seq <- seq.int(n_row_hdrs + 1L, n_cols)
+    col_widths[data_seq] <- unit(rep(1, n_data_cols), "null")
+  } else {
+    col_widths <- unit(widths, "in")
+  }
 
   # Create the gtable skeleton
   gt <- gtable::gtable(
@@ -195,7 +260,7 @@ as_patch.flextable <- function(x, ...) {
     t = 1L,
     l = 1L,
     b = n_rows,
-    r = length(widths),
+    r = n_cols,
     clip = "off",
     name = "table"
   )
@@ -210,20 +275,62 @@ as_patch.flextable <- function(x, ...) {
       t = body_top,
       l = 1L,
       b = body_bottom,
-      r = length(widths),
+      r = n_cols,
       clip = "off",
       name = "table_body"
     )
   }
 
-  # Set viewport for positioning (top-left anchored)
+  # --- viewport height ---
+  if (flex_body && n_header > 0) {
+    header_height <- sum(unit(heights[seq_len(n_header)], "in"))
+    vp_height <- unit(1, "npc") + header_height
+  } else if (flex_body) {
+    vp_height <- unit(1, "npc")
+  } else {
+    vp_height <- sum(row_heights)
+  }
+
+  # --- viewport width and horizontal position ---
+  if (flex_cols && n_data_cols > 0) {
+    expand_val <- as.numeric(
+      attr(x, ".patchwork_flex_cols_expand") %||% 0.6
+    )
+    # clamp: below 0.5, viewport would overflow the panel
+    expand_eff <- max(expand_val, 0.5)
+    range_units <- n_data_cols - 1 + 2 * expand_eff
+    # data columns span n_dc/range of the panel; margins are empty
+    cat_fraction <- n_data_cols / range_units
+    vp_x <- unit((expand_eff - 0.5) / range_units, "npc")
+    if (n_row_hdrs > 0) {
+      row_hdr_width <- sum(unit(widths[seq_len(n_row_hdrs)], "in"))
+      vp_width <- unit(cat_fraction, "npc") + row_hdr_width
+    } else {
+      vp_width <- unit(cat_fraction, "npc")
+    }
+    vp_just_x <- 0
+  } else {
+    halign <- attr(x, ".patchwork_just") %||% "left"
+    if (halign == "right") {
+      vp_x <- unit(1, "npc")
+      vp_just_x <- 1
+    } else if (halign == "center") {
+      vp_x <- unit(0.5, "npc")
+      vp_just_x <- 0.5
+    } else {
+      vp_x <- unit(0, "npc")
+      vp_just_x <- 0
+    }
+    vp_width <- sum(col_widths)
+  }
+
   gt$vp <- viewport(
-    x = 0,
+    x = vp_x,
     y = 1,
-    width = sum(col_widths),
-    height = sum(row_heights),
+    width = vp_width,
+    height = vp_height,
     default.units = "npc",
-    just = c(0, 1)
+    just = c(vp_just_x, 1)
   )
 
   gt

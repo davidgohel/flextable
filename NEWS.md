@@ -7,7 +7,12 @@ Flextable objects can be combined with 'ggplot2' plots using `+`, `|`, and `/`
 operators. Table headers and footers are aligned with plot panel areas. The
 `panel` argument controls alignment (`"body"`, `"full"`, `"rows"`, `"cols"`)
 and the `space` argument controls sizing (`"free"`, `"fixed"`, `"free_x"`,
-`"free_y"`).
+`"free_y"`). `flex_body` stretches body rows to match a neighbouring plot's
+panel height; `flex_cols` stretches data columns to match the panel width.
+`just` controls horizontal alignment (`"left"`, `"right"`, `"center"`)
+when the table is narrower than the panel. S3 methods `ggplot_add.flextable`
+and `as_patch.flextable` are registered so that `plot + flextable` works
+transparently.
 - support strikethrough formatting with `fp_text_default()`.
 - new function `as_strike()` to apply strikethrough formatting to text chunks.
 - new function `compact_summary()` to create a compact summary of a data.frame

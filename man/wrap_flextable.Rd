@@ -8,7 +8,11 @@ wrap_flextable(
   x,
   panel = c("body", "full", "rows", "cols"),
   space = c("free", "free_x", "free_y", "fixed"),
-  n_row_headers = 0L
+  n_row_headers = 0L,
+  flex_body = FALSE,
+  flex_cols = FALSE,
+  expand = 0.6,
+  just = c("left", "right", "center")
 )
 }
 \arguments{
@@ -30,6 +34,28 @@ direction.}
 \item{n_row_headers}{Number of leading columns to treat as row headers.
 These columns will be placed outside the panel region and will not
 participate in alignment with the plot axes.}
+
+\item{flex_body}{If \code{TRUE}, the table body row heights become flexible:
+the adjacent ggplot determines the panel height and the body rows
+stretch equally to fill it. Header and footer keep their fixed size.
+This is useful to align table rows with discrete bars or categories
+in a neighbouring plot. Implies \code{free_y} for \code{space}.}
+
+\item{flex_cols}{If \code{TRUE}, the data column widths (all columns after
+\code{n_row_headers}) become flexible: the adjacent ggplot determines the
+panel width and the data columns stretch to fill it. Row header
+columns keep their fixed width. This is useful to align table columns
+with discrete x-axis categories in a neighbouring plot.
+Implies \code{free_x} for \code{space}.}
+
+\item{expand}{Expansion value matching the ggplot discrete axis expansion
+(\code{ggplot2::expansion(add = expand)}). Default is \code{0.6}, which is the
+ggplot2 default for discrete axes. Only used when \code{flex_cols = TRUE}.}
+
+\item{just}{Horizontal alignment of the table within its patchwork panel.
+One of \code{"left"} (default), \code{"right"}, or \code{"center"}. Useful when the
+table is narrower than the available panel width.
+Ignored when \code{flex_cols = TRUE} (columns fill the panel).}
 }
 \value{
 A patchwork-compliant object that can be combined with ggplot2 plots
@@ -44,106 +70,105 @@ optional alignment of table headers and body with plot panel areas.
 Note this is experimental and may change in the future.
 }
 \examples{
-\donttest{
+\dontshow{if (requireNamespace("patchwork", quietly = TRUE) && requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("ragg", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 library(gdtools)
-register_liberationsans()
+font_set_liberation()
+library(ggplot2)
+library(patchwork)
+
 set_flextable_defaults(
   font.family = "Liberation Sans",
-  font.size = 7,
-  padding = 4,
-  big.mark = ""
+  font.size = 10,
+  big.mark = "",
+  border.color = "grey60"
 )
 
-if (require("patchwork") && require("ggplot2")) {
-  ft <- flextable(head(iris))
-  ft <- autofit(ft)
-  p <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
-    geom_point()
+# Adapted from <https://r-graph-gallery.com/web-dumbell-chart.html>
 
-  tf <- tempfile(fileext = ".png")
-  ragg::agg_png(
-    filename = tf, width = 8,
-    height = 7, units = "in", res = 150
-  )
-  # Place side by side
-  print(p | wrap_flextable(ft))
-  dev.off()
+dataset <- data.frame(
+  team = c(
+    "FC Bayern Munchen", "SV Werder Bremen", "Borussia Dortmund",
+    "VfB Stuttgart", "Borussia M'gladbach", "Hamburger SV",
+    "Eintracht Frankfurt", "FC Schalke 04", "1. FC Koln",
+    "Bayer 04 Leverkusen"
+  ),
+  matches = c(2000, 1992, 1924, 1924, 1898, 1866, 1856, 1832, 1754, 1524),
+  won     = c(1206,  818,  881,  782,  763,  746,  683,  700,  674,  669),
+  lost    = c( 363,  676,  563,  673,  636,  625,  693,  669,  628,  447)
+)
+dataset$win_pct  <- dataset$won  / dataset$matches * 100
+dataset$loss_pct <- dataset$lost / dataset$matches * 100
+dataset$team <- factor(dataset$team, levels = rev(dataset$team))
 
-  tf <- tempfile(fileext = ".png")
-  ragg::agg_png(
-    filename = tf, width = 8,
-    height = 7, units = "in", res = 150
-  )
-  # Stack vertically
-  print(p / wrap_flextable(ft))
-  dev.off()
+# -- dumbbell chart --
+pal <- c(lost = "#EFAC00", won = "#28A87D")
+df_long <- reshape(dataset, direction = "long",
+  varying = list(c("loss_pct", "win_pct")),
+  v.names = "pct", timevar = "type",
+  times = c("lost", "won"), idvar = "team"
+)
 
-  tf <- tempfile(fileext = ".png")
-  ragg::agg_png(
-    filename = tf, width = 8,
-    height = 7, units = "in", res = 150
-  )
-  # Use + operator (also works directly: p + ft)
-  print(p + wrap_flextable(ft))
-  dev.off()
-
-  # does not work perfectly if below the boxplot
-  p <- ggplot(diamonds, aes(color, x)) +
-    geom_boxplot(position = position_dodge(width = 1))
-
-  ft <- summarizor(diamonds[c("color", "cut", "carat")], by = c("color"))
-  ft <- as_flextable(
-      ft,
-      sep_w = 0.0,
-      spread_first_col = TRUE
-    )
-  ft <- delete_part(ft, "header")
-
-  ptch <- p / wrap_flextable(
-    x = ft,
-    panel = "body",
-    space = "fixed",
-    n_row_headers = 1
-  )
-
-  tf <- tempfile(fileext = ".png")
-  ragg::agg_png(
-    filename = tf, width = 8,
-    height = 7, units = "in", res = 150
-  )
-  print(ptch)
-  dev.off()
-
-
-
-  # This one works well - horizontally
-  p <- ggplot(diamonds) +
-    geom_bar(aes(y = cut)) +
-    scale_y_discrete(name = NULL, guide = "none")
-
-  cts <- data.frame(
-    cut = ordered(
-      c("Fair", "Good", "Very Good", "Premium", "Ideal"),
-      levels = c("Fair", "Good", "Very Good", "Premium", "Ideal")
-    ),
-    n = c(1610L, 4906L, 12082L, 13791L, 21551L)
+p <- ggplot(df_long, aes(x = pct / 100, y = team)) +
+  stat_summary(
+    geom = "linerange", fun.min = "min", fun.max = "max",
+    linewidth = .7, color = "grey60"
+  ) +
+  geom_point(aes(fill = type), size = 4, shape = 21,
+    stroke = .8, color = "white"
+  ) +
+  scale_x_continuous(
+    labels = scales::percent,
+    expand = expansion(add = c(.02, .02))
+  ) +
+  scale_y_discrete(name = NULL, guide = "none") +
+  scale_fill_manual(
+    values = pal,
+    labels = c(lost = "Lost", won = "Won")
+  ) +
+  labs(x = NULL, fill = NULL) +
+  theme_minimal(base_family = "Liberation Sans", base_size = 10) +
+  theme(
+    legend.position = "top",
+    legend.justification = "left",
+    panel.grid.minor = element_blank(),
+    panel.grid.major.y = element_blank()
   )
 
-  ft_tab <- flextable(cts)
-  ft_tab <- autofit(ft_tab)
+# -- flextable --
+ft_dat <- dataset[, c("matches", "win_pct", "loss_pct", "team")]
+ft_dat$team <- as.character(ft_dat$team)
 
-  ptch <- wrap_flextable(ft_tab, space = "fixed") + p
+ft <- flextable(ft_dat)
+ft <- border_remove(ft)
+ft <- bold(ft, part = "header")
+ft <- colformat_double(ft, j = c("win_pct", "loss_pct"),
+  digits = 1, suffix = "\%"
+)
+ft <- set_header_labels(ft,
+  team = "Team", matches = "GP",
+  win_pct = "", loss_pct = ""
+)
+ft <- color(ft, color = "#28A87D", j = 2)
+ft <- color(ft, color = "#EFAC00", j = 3)
+ft <- bold(ft, bold = TRUE, j = 2:3)
+ft <- italic(ft, italic = TRUE, j = 4)
+ft <- align(ft, align = "right", part = "all")
+ft <- autofit(ft)
 
-  tf <- tempfile(fileext = ".png")
-  ragg::agg_png(
-    filename = tf, width = 6,
-    height = 2, units = "in", res = 150
-  )
-  print(ptch)
-  dev.off()
-  init_flextable_defaults()
-}
-}
+tf <- tempfile(fileext = ".png")
+ragg::agg_png(
+  filename = tf, width = 10,
+  height = 5, units = "in", res = 150
+)
+print(
+  wrap_flextable(ft, flex_body = TRUE, just = "right") +
+    p +
+    plot_layout(widths = c(1.1, 2))
+)
+dev.off()
+
+init_flextable_defaults()
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other flextable print function: 

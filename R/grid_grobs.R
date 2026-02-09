@@ -380,6 +380,32 @@ makeContext.flextableGrob <- function(x) {
     # recalculate the heights
     heights <- calc_grob_heights(x, dat, params$dims)
     table_height <- sum(heights)
+
+    # flex_body: redistribute body row heights to fill the panel
+    if (isTRUE(params$flex_body)) {
+      n_h <- params$n_header_rows
+      n_b <- params$n_body_rows
+      n_f <- params$n_footer_rows
+      header_h <- if (n_h > 0) sum(heights[seq_len(n_h)]) else 0
+      footer_h <- if (n_f > 0) sum(heights[seq.int(n_h + n_b + 1L, length(heights))]) else 0
+      body_h <- norm_height - header_h - footer_h
+      if (body_h > 0 && n_b > 0) {
+        heights[seq.int(n_h + 1L, n_h + n_b)] <- body_h / n_b
+        table_height <- sum(heights)
+      }
+    }
+
+    # flex_cols: redistribute data column widths to fill the panel
+    if (isTRUE(params$flex_cols)) {
+      n_rh <- params$n_row_header_cols
+      n_dc <- params$n_data_cols
+      rh_w <- if (n_rh > 0) sum(widths[seq_len(n_rh)]) else 0
+      data_w <- norm_width - rh_w
+      if (data_w > 0 && n_dc > 0) {
+        widths[seq.int(n_rh + 1L, n_rh + n_dc)] <- data_w / n_dc
+        table_width <- sum(widths)
+      }
+    }
   }
 
   # create viewport
