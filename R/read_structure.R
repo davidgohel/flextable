@@ -122,6 +122,7 @@ distinct_text_properties <- function(x, add_columns = character(length = 0L)) {
     "hansi.family", "eastasia.family", "cs.family", "vertical.align",
     "shading.color", add_columns
   )
+  columns <- intersect(columns, colnames(x))
   dat <- as.data.table(x[columns])
   uid <- unique(dat)
   setDF(dat)

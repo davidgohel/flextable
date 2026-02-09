@@ -425,6 +425,7 @@ replace_missing_fptext_by_default <- function(x, default) {
     "font.family", "hansi.family", "eastasia.family", "cs.family",
     "vertical.align"
   )
+  by_columns <- intersect(by_columns, names(default))
 
   keys <- default[, setdiff(names(default), by_columns), drop = FALSE]
   values <- default[, by_columns, drop = FALSE]

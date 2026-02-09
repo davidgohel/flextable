@@ -197,11 +197,15 @@ default_fp_text_wml <- function(value) {
 
   unique_text_props$fp_txt_default <- unname(rpr[unique_text_props$classname])
   setDT(default_chunks_properties)
+
+  by_cols <- c("color", "font.size", "bold", "italic", "underlined", "strike", "font.family",
+               "hansi.family", "eastasia.family", "cs.family", "vertical.align",
+               "shading.color")
+  by_cols <- intersect(by_cols, colnames(default_chunks_properties))
+  by_cols <- intersect(by_cols, colnames(unique_text_props))
   default_chunks_properties <- merge(
     default_chunks_properties, unique_text_props,
-    by = c("color", "font.size", "bold", "italic", "underlined", "strike", "font.family",
-           "hansi.family", "eastasia.family", "cs.family", "vertical.align",
-           "shading.color")
+    by = by_cols
   )
   setDF(default_chunks_properties)
   default_chunks_properties <- default_chunks_properties[, c(".part", ".row_id", ".col_id", "fp_txt_default")]
