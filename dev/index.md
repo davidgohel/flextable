@@ -7,28 +7,28 @@ status](https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg)
 coverage](https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/flextable)
 ![Active](https://www.repostatus.org/badges/latest/active.svg)
 
-The flextable package provides a framework for easily create tables for
-reporting and publications. Tables can be easily formatted with a set of
+The flextable package provides a framework for easily creating tables
+for reporting and publications. Tables can be formatted with a set of
 verbs such as
 [`bold()`](https://davidgohel.github.io/flextable/dev/reference/bold.md),
 [`color()`](https://davidgohel.github.io/flextable/dev/reference/color.md),
 they can receive a header of more than one line, cells can be merged or
-contain an image. The package make it possible to build any table for
-publication from a `data.frame` and provides sugar function
+contain an image. The package makes it possible to build any table for
+publication from a `data.frame` and provides convenience function
 [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md)
-to convert several R objects to a flextable, such as an object return
+to convert several R objects to a flextable, such as an object returned
 from [`table()`](https://rdrr.io/r/base/table.html) or a model.
 
 Tables can be embedded within HTML, PDF, Word and PowerPoint documents
-from R Markdown documents and within RTF or Microsoft Word or PowerPoint
-documents with package officer. Tables can also be rendered as R plots
-or graphic files (png).
-
-![flextable formats](reference/figures/fig_formats.png)
+from R Markdown and Quarto documents and within RTF or Microsoft Word or
+PowerPoint documents with package
+[officer](https://davidgohel.github.io/officer/). Tables can also be
+exported as image files (png, svg) or combined with ggplot2 plots in
+patchwork layouts.
 
 ``` r
-flextable(mtcars) %>% 
-  theme_vanilla() %>% 
+flextable(mtcars) |>
+  theme_vanilla() |>
   save_as_docx(path = "mytable.docx")
 ```
 
@@ -49,31 +49,29 @@ tabulations.
 
 ``` r
 library(flextable)
-set_flextable_defaults(
-  font.family = "Arial", font.size = 10, 
-  border.color = "gray", big.mark = "")
 
-ft <- flextable(head(mtcars)) |> 
-  bold(part = "header") 
-ft
+flextable(head(airquality))
+```
+
+![](reference/figures/README-simple-example-1.png)
+
+Formatting can be layered on with a set of functions:
+
+``` r
+flextable(head(mtcars)) |>
+  highlight(i = ~ mpg < 22, j = "disp", color = "#ffe842") |>
+  bg(
+    j = c("hp", "drat", "wt"),
+    bg = scales::col_quantile(palette = c("wheat", "red"), domain = NULL)
+  ) |>
+  add_footer_lines("The 'mtcars' dataset")
 ```
 
 ![](reference/figures/README-mtcars-dataset-1.png)
 
 ``` r
-
-ft |> 
-  highlight(i = ~ mpg < 22, j = "disp", color = "#ffe842") |> 
-  bg(j = c("hp", "drat", "wt"), 
-     bg = scales::col_quantile(palette = c("wheat", "red"), domain =NULL)) |> 
-  add_footer_lines("The 'mtcars' dataset")
-```
-
-![](reference/figures/README-mtcars-dataset-2.png)
-
-``` r
-ggplot2::diamonds[, c("cut", "carat", "price", "clarity", "table")] |> 
-  summarizor(by = c("cut")) |> 
+ggplot2::diamonds[, c("cut", "carat", "price", "clarity", "table")] |>
+  summarizor(by = c("cut")) |>
   as_flextable(spread_first_col = TRUE)
 ```
 
@@ -93,9 +91,10 @@ devtools::install_github("davidgohel/flextable")
 
 ## Resources
 
-- User guide: <https://ardata-fr.github.io/flextable-book/>
-- Manuals: <https://davidgohel.github.io/flextable/reference/index.html>
-- Gallery of examples: <https://ardata.fr/en/flextable-gallery/>
+- [User guide](https://ardata-fr.github.io/flextable-book/)
+- [Reference
+  manual](https://davidgohel.github.io/flextable/reference/index.html)
+- [Gallery of examples](https://ardata.fr/en/flextable-gallery/)
 
 ## Bug reports
 
