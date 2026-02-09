@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.11.025</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.11.026</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-9-11">Issues<a class="anchor" aria-label="anchor" href="#issues-0-9-11"></a></h3>
-<ul><li>images in google docs should now be sized as expected</li>
+<ul><li>line breaks (<code>\n</code>) in captions now render correctly in PDF/LaTeX output (<a href="https://github.com/davidgohel/flextable/issues/663" class="external-link">#663</a>).</li>
+<li>images in google docs should now be sized as expected</li>
 <li>specifying a <code>word_style</code> for a paragraph style works now. The <code>word_style</code> values will be ignored if flextable is process by ‘rmarkdown’ or ‘quarto’.</li>
 <li>
 <code><a href="../reference/as_flextable.tabulator.html">as_flextable.tabulator()</a></code>: the N= counts in column headers are now displayed when there are multiple grouping columns (previously limited to a single grouping column).</li>
