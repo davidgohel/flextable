@@ -127,48 +127,17 @@ register_liberationsans()
 set_flextable_defaults(font.family = "Liberation Sans")
 
 ft <- flextable(head(mtcars))
-
 gr <- gen_grob(ft)
-
-png_f_1 <- tempfile(fileext = ".png")
-ragg::agg_png(
-  filename = png_f_1, width = 4, height = 2,
-  units = "in", res = 150)
-plot(gr)
-dev.off()
-
-png_f_2 <- tempfile(fileext = ".png")
-# get the size
-dims <- dim(gr)
-dims
-ragg::agg_png(
-  filename = png_f_2, width = dims$width + .1,
-  height = dims$height + .1, units = "in", res = 150
-)
-plot(gr)
-dev.off()
-
-
-if (require("ggplot2")) {
-  png_f_3 <- tempfile(fileext = ".png")
-  z <- summarizor(iris, by = "Species")
-  ft <- as_flextable(z, spread_first_col = TRUE)
-  ft <- color(ft, color = "gray", part = "all")
-  gg <- ggplot(data = iris, aes(Sepal.Length, Petal.Width)) +
-    annotation_custom(
-      gen_grob(ft, scaling = "full"),
-      xmin  = 4.5, xmax = 7.5, ymin = 0.25, ymax = 2.25) +
-    geom_point() +
-    theme_minimal()
-  ragg::agg_png(
-    filename = png_f_3, width = 7,
-    height = 7, units = "in", res = 150
-  )
-  print(gg)
-  dev.off()
+\dontshow{
+cap <- ragg::agg_capture(width = 7, height = 4, units = "in", res = 150)
+grDevices::dev.control("enable")
 }
-
-
+plot(gr)
+\dontshow{
+raster <- cap()
+dev.off()
+plot(as.raster(raster))
+}
 }
 \seealso{
 Other flextable print function: 

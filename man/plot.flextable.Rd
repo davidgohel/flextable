@@ -34,13 +34,17 @@ register_liberationsans()
 set_flextable_defaults(font.family = "Liberation Sans")
 ftab <- as_flextable(cars)
 
-tf <- tempfile(fileext = ".png")
-agg_png(
-  filename = tf, width = 1.7, height = 3.26, unit = "in",
-  background = "transparent", res = 150
-)
+\dontshow{
+cap <- ragg::agg_capture(width = 7, height = 6, units = "in", res = 150)
+grDevices::dev.control("enable")
+}
 plot(ftab)
+\dontshow{
+raster <- cap()
 dev.off()
+plot(as.raster(raster))
+init_flextable_defaults()
+}
 }
 \seealso{
 Other flextable print function: 

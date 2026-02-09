@@ -155,19 +155,20 @@ ft <- italic(ft, italic = TRUE, j = 4)
 ft <- align(ft, align = "right", part = "all")
 ft <- autofit(ft)
 
-tf <- tempfile(fileext = ".png")
-ragg::agg_png(
-  filename = tf, width = 10,
-  height = 5, units = "in", res = 150
-)
+\dontshow{
+cap <- ragg::agg_capture(width = 7, height = 6, units = "in", res = 150)
+grDevices::dev.control("enable")
+}
 print(
   wrap_flextable(ft, flex_body = TRUE, just = "right") +
-    p +
-    plot_layout(widths = c(1.1, 2))
+    p + plot_layout(widths = c(1.1, 2))
 )
+\dontshow{
+raster <- cap()
 dev.off()
-
+plot(as.raster(raster))
 init_flextable_defaults()
+}
 \dontshow{\}) # examplesIf}
 }
 \seealso{

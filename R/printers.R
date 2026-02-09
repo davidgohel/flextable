@@ -1011,7 +1011,7 @@ save_as_rtf <- function(..., values = NULL, path, pr_section = NULL) {
 #'
 #' init_flextable_defaults()
 #' @family flextable print function
-#' @importFrom ragg agg_png
+#' @importFrom ragg agg_png agg_capture
 save_as_image <- function(x, path, expand = 10, res = 200, ...) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", as.character(sys.call()[[1]])))
@@ -1077,13 +1077,17 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
 #' set_flextable_defaults(font.family = "Liberation Sans")
 #' ftab <- as_flextable(cars)
 #'
-#' tf <- tempfile(fileext = ".png")
-#' agg_png(
-#'   filename = tf, width = 1.7, height = 3.26, unit = "in",
-#'   background = "transparent", res = 150
-#' )
+#' \dontshow{
+#' cap <- ragg::agg_capture(width = 7, height = 6, units = "in", res = 150)
+#' grDevices::dev.control("enable")
+#' }
 #' plot(ftab)
+#' \dontshow{
+#' raster <- cap()
 #' dev.off()
+#' plot(as.raster(raster))
+#' init_flextable_defaults()
+#' }
 #' @family flextable print function
 #' @importFrom grid grid.newpage grid.draw viewport pushViewport popViewport
 plot.flextable <- function(x, ...) {
