@@ -13,6 +13,8 @@ panel height; `flex_cols` stretches data columns to match the panel width.
 when the table is narrower than the panel. S3 methods `ggplot_add.flextable`
 and `as_patch.flextable` are registered so that `plot + flextable` works
 transparently.
+- new function `theme_borderless()` applies a minimal theme with no borders,
+bold header, and standard column alignment.
 - support strikethrough formatting with `fp_text_default()`.
 - new function `as_strike()` to apply strikethrough formatting to text chunks.
 - new function `compact_summary()` to create a compact summary of a data.frame

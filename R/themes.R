@@ -1,3 +1,27 @@
+#' @export
+#' @title Apply borderless theme
+#' @description Apply theme borderless to a flextable.
+#' All borders are removed. Header text is bold,
+#' text columns are left aligned, other columns are
+#' right aligned.
+#' @inheritParams args_x_only
+#' @family functions related to themes
+#' @inheritSection theme_vanilla behavior
+#' @examples
+#' ft <- flextable(head(airquality))
+#' ft <- theme_borderless(ft)
+#' ft
+theme_borderless <- function(x) {
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "theme_borderless()"))
+  }
+  x <- border_remove(x)
+  x <- bold(x = x, bold = TRUE, part = "header")
+  x <- align_text_col(x, align = "left", header = TRUE)
+  x <- align_nottext_col(x, align = "right", header = TRUE)
+  x
+}
+
 #' @importFrom officer fp_border fp_par
 #' @export
 #' @title Apply vanilla theme

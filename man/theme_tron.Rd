@@ -49,6 +49,7 @@ Other functions related to themes:
 \code{\link{theme_alafoli}()},
 \code{\link{theme_apa}()},
 \code{\link{theme_booktabs}()},
+\code{\link{theme_borderless}()},
 \code{\link{theme_box}()},
 \code{\link{theme_tron_legacy}()},
 \code{\link{theme_vader}()},
