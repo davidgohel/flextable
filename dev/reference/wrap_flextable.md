@@ -209,7 +209,7 @@ print(
     plot_layout(widths = c(1.1, 2))
 )
 dev.off()
-#> agg_record_2068917068 
+#> agg_record_1916162531 
 #>                     2 
 
 init_flextable_defaults()

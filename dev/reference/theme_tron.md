@@ -51,6 +51,7 @@ Other functions related to themes:
 [`theme_alafoli()`](https://davidgohel.github.io/flextable/dev/reference/theme_alafoli.md),
 [`theme_apa()`](https://davidgohel.github.io/flextable/dev/reference/theme_apa.md),
 [`theme_booktabs()`](https://davidgohel.github.io/flextable/dev/reference/theme_booktabs.md),
+[`theme_borderless()`](https://davidgohel.github.io/flextable/dev/reference/theme_borderless.md),
 [`theme_box()`](https://davidgohel.github.io/flextable/dev/reference/theme_box.md),
 [`theme_tron_legacy()`](https://davidgohel.github.io/flextable/dev/reference/theme_tron_legacy.md),
 [`theme_vader()`](https://davidgohel.github.io/flextable/dev/reference/theme_vader.md),
@@ -65,7 +66,7 @@ ft <- theme_tron(ft)
 ft
 
 
-.cl-48119134{}.cl-480b0e54{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(236, 147, 70, 1.00);background-color:transparent;}.cl-480b0e68{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-480dcce8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-480df060{width:0.75in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 0.75pt solid rgba(164, 206, 229, 1.00);border-top: 0.75pt solid rgba(164, 206, 229, 1.00);border-left: 0.75pt solid rgba(164, 206, 229, 1.00);border-right: 0.75pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-a9608b48{}.cl-a95a4530{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(236, 147, 70, 1.00);background-color:transparent;}.cl-a95a4544{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(164, 206, 229, 1.00);background-color:transparent;}.cl-a95cf6b8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a95d17f6{width:0.75in;background-color:rgba(0, 0, 0, 1.00);vertical-align: middle;border-bottom: 0.75pt solid rgba(164, 206, 229, 1.00);border-top: 0.75pt solid rgba(164, 206, 229, 1.00);border-left: 0.75pt solid rgba(164, 206, 229, 1.00);border-right: 0.75pt solid rgba(164, 206, 229, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 Ozone

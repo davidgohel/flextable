@@ -1,11 +1,13 @@
-# Apply tron legacy theme
+# Apply borderless theme
 
-Apply theme tron legacy to a flextable
+Apply theme borderless to a flextable. All borders are removed. Header
+text is bold, text columns are left aligned, other columns are right
+aligned.
 
 ## Usage
 
 ``` r
-theme_tron_legacy(x)
+theme_borderless(x)
 ```
 
 ## Arguments
@@ -51,9 +53,9 @@ Other functions related to themes:
 [`theme_alafoli()`](https://davidgohel.github.io/flextable/dev/reference/theme_alafoli.md),
 [`theme_apa()`](https://davidgohel.github.io/flextable/dev/reference/theme_apa.md),
 [`theme_booktabs()`](https://davidgohel.github.io/flextable/dev/reference/theme_booktabs.md),
-[`theme_borderless()`](https://davidgohel.github.io/flextable/dev/reference/theme_borderless.md),
 [`theme_box()`](https://davidgohel.github.io/flextable/dev/reference/theme_box.md),
 [`theme_tron()`](https://davidgohel.github.io/flextable/dev/reference/theme_tron.md),
+[`theme_tron_legacy()`](https://davidgohel.github.io/flextable/dev/reference/theme_tron_legacy.md),
 [`theme_vader()`](https://davidgohel.github.io/flextable/dev/reference/theme_vader.md),
 [`theme_vanilla()`](https://davidgohel.github.io/flextable/dev/reference/theme_vanilla.md),
 [`theme_zebra()`](https://davidgohel.github.io/flextable/dev/reference/theme_zebra.md)
@@ -62,11 +64,11 @@ Other functions related to themes:
 
 ``` r
 ft <- flextable(head(airquality))
-ft <- theme_tron_legacy(ft)
+ft <- theme_borderless(ft)
 ft
 
 
-.cl-a985f310{}.cl-a97f9eca{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(223, 116, 12, 1.00);background-color:transparent;}.cl-a97f9ede{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 230, 77, 1.00);background-color:transparent;}.cl-a98242c4{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a982639e{width:0.75in;background-color:rgba(12, 20, 31, 1.00);vertical-align: middle;border-bottom: 0.75pt solid rgba(111, 195, 223, 1.00);border-top: 0.75pt solid rgba(111, 195, 223, 1.00);border-left: 0.75pt solid rgba(111, 195, 223, 1.00);border-right: 0.75pt solid rgba(111, 195, 223, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-a917154e{}.cl-a910ce5a{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a910ce6e{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a91371fa{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a91393a6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 Ozone

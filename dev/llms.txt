@@ -333,6 +333,8 @@ set fonts, colors, borders, and padding in one call.
   : Apply APA theme
 - [`theme_booktabs()`](https://davidgohel.github.io/flextable/dev/reference/theme_booktabs.md)
   : Apply booktabs theme
+- [`theme_borderless()`](https://davidgohel.github.io/flextable/dev/reference/theme_borderless.md)
+  : Apply borderless theme
 - [`theme_box()`](https://davidgohel.github.io/flextable/dev/reference/theme_box.md)
   : Apply box theme
 - [`theme_tron()`](https://davidgohel.github.io/flextable/dev/reference/theme_tron.md)

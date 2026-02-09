@@ -21,6 +21,7 @@ Other functions related to themes:
 [`theme_alafoli()`](https://davidgohel.github.io/flextable/dev/reference/theme_alafoli.md),
 [`theme_apa()`](https://davidgohel.github.io/flextable/dev/reference/theme_apa.md),
 [`theme_booktabs()`](https://davidgohel.github.io/flextable/dev/reference/theme_booktabs.md),
+[`theme_borderless()`](https://davidgohel.github.io/flextable/dev/reference/theme_borderless.md),
 [`theme_box()`](https://davidgohel.github.io/flextable/dev/reference/theme_box.md),
 [`theme_tron()`](https://davidgohel.github.io/flextable/dev/reference/theme_tron.md),
 [`theme_tron_legacy()`](https://davidgohel.github.io/flextable/dev/reference/theme_tron_legacy.md),

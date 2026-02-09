@@ -17,6 +17,10 @@
   (`"left"`, `"right"`, `"center"`) when the table is narrower than the
   panel. S3 methods `ggplot_add.flextable` and `as_patch.flextable` are
   registered so that `plot + flextable` works transparently.
+- new function
+  [`theme_borderless()`](https://davidgohel.github.io/flextable/dev/reference/theme_borderless.md)
+  applies a minimal theme with no borders, bold header, and standard
+  column alignment.
 - support strikethrough formatting with
   [`fp_text_default()`](https://davidgohel.github.io/flextable/dev/reference/fp_text_default.md).
 - new function
