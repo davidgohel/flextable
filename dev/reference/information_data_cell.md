@@ -1,4 +1,4 @@
-# table cell related information of a flextable
+# Get cell-level information from a flextable
 
 This function takes a flextable object and returns a data.frame
 containing information about each cell within the flextable. The

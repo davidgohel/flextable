@@ -1,4 +1,4 @@
-# Knitr rendering in loops and if statements
+# Print a flextable inside knitr loops and conditionals
 
 Print flextable in R Markdown or Quarto documents within `for` loop or
 `if` statement.

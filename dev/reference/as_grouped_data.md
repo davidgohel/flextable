@@ -1,4 +1,4 @@
-# Add row separators to grouped data
+# Insert group-label rows into a data frame
 
 Repeated consecutive values of group columns will be used to define the
 title of the groups and will be added as a row title.

@@ -1,27 +1,21 @@
-# Text formatting properties
+# Create text formatting with flextable defaults
 
 Create a
 [`officer::fp_text()`](https://davidgohel.github.io/officer/reference/fp_text.html)
-object that uses defaut values defined in the flextable it applies to.
+object whose unspecified arguments inherit from
+[`set_flextable_defaults()`](https://davidgohel.github.io/flextable/dev/reference/set_flextable_defaults.md)
+(font family, size, color).
 
-`fp_text_default()` is a handy function that will allow you to specify
-certain formatting values to be applied to a piece of text, the
-formatting values that are not specified will simply be the existing
-formatting values.
-
-For example, if you set the text in the cell to red previously, using
-the code `fp_text_default(bold = TRUE)`, the formatting will be 'bold'
-but it will also be 'red'.
-
-On the other hand, the
-[`fp_text()`](https://davidgohel.github.io/officer/reference/fp_text.html)
-function forces you to specify all the parameters, so we strongly
-recommend working with `fp_text_default()` which was created to replace
-the use of the former.
+Use `fp_text_default()` instead of
+[`officer::fp_text()`](https://davidgohel.github.io/officer/reference/fp_text.html)
+when building chunks with
+[`as_chunk()`](https://davidgohel.github.io/flextable/dev/reference/as_chunk.md):
+only override the properties you need, and the rest will match the
+table's default style.
 
 See also
 [`set_flextable_defaults()`](https://davidgohel.github.io/flextable/dev/reference/set_flextable_defaults.md)
-to modify flextable defaults formatting properties.
+to modify the inherited values.
 
 ## Usage
 
@@ -135,7 +129,7 @@ z <- compose(
 z
 
 
-.cl-956140b0{table-layout:auto;}.cl-955af19c{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(48, 48, 48, 1.00);background-color:transparent;}.cl-955af1a6{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-955af1b0{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(48, 48, 48, 1.00);background-color:transparent;}.cl-955da3d8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-955dc822{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-955dc82c{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-955dc836{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-052de6fc{table-layout:auto;}.cl-05279c66{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(48, 48, 48, 1.00);background-color:transparent;}.cl-05279c70{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-05279c7a{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(48, 48, 48, 1.00);background-color:transparent;}.cl-052a508c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-052a7472{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-052a7486{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-052a7490{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 speed

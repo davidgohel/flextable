@@ -1,4 +1,4 @@
-# Get width and height of a flextable object
+# Get overall width and height of a flextable
 
 Returns the width, height and aspect ratio of a flextable in a named
 list. The aspect ratio is the ratio corresponding to `height/width`.

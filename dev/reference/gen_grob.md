@@ -1,31 +1,34 @@
-# Convert a flextable to a grid grob object
+# Render a flextable as a graphic object
 
-It uses Grid Graphics (package `grid`) to Convert a flextable into a
-grob object with scaling and text wrapping capabilities.
+`gen_grob()` converts a flextable into a Grid Graphics object (`grob`)
+that can be drawn on any R graphic device. This is the function behind
+[`save_as_image()`](https://davidgohel.github.io/flextable/dev/reference/save_as_image.md)
+and the patchwork integration
+([`wrap_flextable()`](https://davidgohel.github.io/flextable/dev/reference/wrap_flextable.md)).
 
-This method can be used to insert a flextable inside a `ggplot2` plot,
-it can also be used with package 'patchwork' or 'cowplot' to combine
-ggplots and flextables into the same graphic.
+Typical uses:
 
-User can vary the size of the elements according to the size of the
-graphic window. The text behavior is controllable, user can decide to
-make the paragraphs (texts and images) distribute themselves correctly
-in the available space of the cell. It is possible to define resizing
-options, for example by using only the width, or by distributing the
-content so that it occupies the whole graphic space. It is also possible
-to freeze or not the size of the columns.
+- embed a flextable in a `ggplot2` plot (via
+  [`wrap_flextable()`](https://davidgohel.github.io/flextable/dev/reference/wrap_flextable.md)
+  or cowplot)
 
-It is not recommended to use this function for large tables because the
-calculations can be long.
+- export a flextable as a PNG or SVG image (via
+  [`save_as_image()`](https://davidgohel.github.io/flextable/dev/reference/save_as_image.md))
 
-Limitations: equations (see
-[`as_equation()`](https://davidgohel.github.io/flextable/dev/reference/as_equation.md))
-and hyperlinks (see
-[`officer::hyperlink_ftext()`](https://davidgohel.github.io/officer/reference/hyperlink_ftext.html))
-will not be displayed.
+Text wrapping and scaling are supported. The `fit` argument controls how
+the table adapts to the available space (fixed size, auto-fit width, or
+fill the device).
 
-'ragg' or 'svglite' or 'ggiraph' graphical device drivers should be used
-to ensure a correct rendering.
+Not recommended for very large tables because the grid calculations can
+be slow.
+
+Limitations: equations
+([`as_equation()`](https://davidgohel.github.io/flextable/dev/reference/as_equation.md))
+and hyperlinks
+([`officer::hyperlink_ftext()`](https://davidgohel.github.io/officer/reference/hyperlink_ftext.html))
+are not rendered.
+
+Use a 'ragg', 'svglite' or 'ggiraph' device for correct rendering.
 
 ## Usage
 

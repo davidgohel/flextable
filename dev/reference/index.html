@@ -45,7 +45,7 @@
           <code><a href="flextable.html">flextable()</a></code> <code><a href="flextable.html">qflextable()</a></code>
 
         </dt>
-        <dd>flextable creation</dd>
+        <dd>Create a flextable from a data frame</dd>
 
         <dt>
 
@@ -75,7 +75,7 @@
           <code><a href="tabulator.html">tabulator()</a></code> <code><a href="tabulator.html">summary(<i>&lt;tabulator&gt;</i>)</a></code>
 
         </dt>
-        <dd>Tabulation of aggregations</dd>
+        <dd>Create pivot-style summary tables</dd>
 
         <dt>
 
@@ -89,7 +89,7 @@
           <code><a href="summarizor.html">summarizor()</a></code>
 
         </dt>
-        <dd>Data summary preparation</dd>
+        <dd>Prepare descriptive statistics for flextable</dd>
 
         <dt>
 
@@ -159,7 +159,7 @@
           <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;merMod&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;lme&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;gls&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;nlme&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;brmsfit&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;glmmTMB&gt;</i>)</a></code> <code><a href="as_flextable.merMod.html">as_flextable(<i>&lt;glmmadmb&gt;</i>)</a></code>
 
         </dt>
-        <dd>Transform a mixed model into a flextable</dd>
+        <dd>Transform a 'merMod' or 'lme' object into a flextable</dd>
 
         <dt>
 
@@ -208,7 +208,7 @@
           <code><a href="continuous_summary.html">continuous_summary()</a></code>
 
         </dt>
-        <dd>Continuous columns summary</dd>
+        <dd>Summarize continuous variables as a flextable</dd>
 
         <dt>
 
@@ -222,7 +222,7 @@
           <code><a href="as_grouped_data.html">as_grouped_data()</a></code>
 
         </dt>
-        <dd>Add row separators to grouped data</dd>
+        <dd>Insert group-label rows into a data frame</dd>
 
         <dt>
 
@@ -252,56 +252,56 @@
           <code><a href="add_header_row.html">add_header_row()</a></code>
 
         </dt>
-        <dd>Add header labels</dd>
+        <dd>Add a header row with spanning labels</dd>
 
         <dt>
 
           <code><a href="add_header_lines.html">add_header_lines()</a></code>
 
         </dt>
-        <dd>Add labels as new rows in the header</dd>
+        <dd>Add full-width rows to the header</dd>
 
         <dt>
 
           <code><a href="add_header.html">add_header()</a></code>
 
         </dt>
-        <dd>Add column values as new lines in header</dd>
+        <dd>Add header rows with one value per column</dd>
 
         <dt>
 
           <code><a href="add_footer_row.html">add_footer_row()</a></code>
 
         </dt>
-        <dd>Add footer labels</dd>
+        <dd>Add a footer row with spanning labels</dd>
 
         <dt>
 
           <code><a href="add_footer_lines.html">add_footer_lines()</a></code>
 
         </dt>
-        <dd>Add labels as new rows in the footer</dd>
+        <dd>Add full-width rows to the footer</dd>
 
         <dt>
 
           <code><a href="add_footer.html">add_footer()</a></code>
 
         </dt>
-        <dd>Add column values as new lines in footer</dd>
+        <dd>Add footer rows with one value per column</dd>
 
         <dt>
 
           <code><a href="add_body.html">add_body()</a></code>
 
         </dt>
-        <dd>Add column values as new lines in body</dd>
+        <dd>Add body rows with one value per column</dd>
 
         <dt>
 
           <code><a href="add_body_row.html">add_body_row()</a></code>
 
         </dt>
-        <dd>Add body labels</dd>
+        <dd>Add a body row with spanning labels</dd>
 
         <dt>
 
@@ -315,14 +315,14 @@
           <code><a href="set_header_labels.html">set_header_labels()</a></code>
 
         </dt>
-        <dd>Change headers labels</dd>
+        <dd>Rename column labels in the header</dd>
 
         <dt>
 
           <code><a href="set_header_footer_df.html">set_header_df()</a></code> <code><a href="set_header_footer_df.html">set_footer_df()</a></code>
 
         </dt>
-        <dd>Set flextable's header or footer rows</dd>
+        <dd>Replace the entire header or footer from a data frame</dd>
 
         <dt>
 
@@ -380,7 +380,7 @@
           <code><a href="merge_none.html">merge_none()</a></code>
 
         </dt>
-        <dd>Delete flextable merging informations</dd>
+        <dd>Delete flextable merging information</dd>
 
         <dt>
 
@@ -424,7 +424,7 @@
           <code><a href="colformat_double.html">colformat_double()</a></code>
 
         </dt>
-        <dd>Format numeric cells</dd>
+        <dd>Format double cells</dd>
 
         <dt>
 
@@ -452,7 +452,7 @@
           <code><a href="colformat_num.html">colformat_num()</a></code>
 
         </dt>
-        <dd>Format numeric cells</dd>
+        <dd>Format numeric cells with format()</dd>
 
         <dt>
 
@@ -466,7 +466,7 @@
           <code><a href="labelizor.html">labelizor()</a></code>
 
         </dt>
-        <dd>Change displayed labels</dd>
+        <dd>Replace displayed text with labels</dd>
       </dl></div><div class="section level2">
       <h2 id="compose-rich-content">Compose rich content<a class="anchor" aria-label="anchor" href="#compose-rich-content"></a></h2>
 
@@ -482,14 +482,14 @@
           <code><a href="compose.html">compose()</a></code> <code><a href="compose.html">mk_par()</a></code>
 
         </dt>
-        <dd>Define displayed values and mixed content</dd>
+        <dd>Set cell content from paragraph chunks</dd>
 
         <dt>
 
           <code><a href="as_paragraph.html">as_paragraph()</a></code>
 
         </dt>
-        <dd>Concatenate chunks in a flextable</dd>
+        <dd>Build a paragraph from chunks</dd>
 
         <dt>
 
@@ -526,7 +526,7 @@
           <code><a href="as_chunk.html">as_chunk()</a></code>
 
         </dt>
-        <dd>Chunk of text wrapper</dd>
+        <dd>Text chunk</dd>
 
         <dt>
 
@@ -582,14 +582,14 @@
           <code><a href="as_bracket.html">as_bracket()</a></code>
 
         </dt>
-        <dd>Chunk with values in brackets</dd>
+        <dd>Bracket chunk</dd>
 
         <dt>
 
           <code><a href="hyperlink_text.html">hyperlink_text()</a></code>
 
         </dt>
-        <dd>Chunk of text with hyperlink</dd>
+        <dd>Hyperlink chunk</dd>
 
         <dt>
 
@@ -603,49 +603,49 @@
           <code><a href="as_word_field.html">as_word_field()</a></code>
 
         </dt>
-        <dd>'Word' computed field</dd>
+        <dd>Word dynamic field chunk</dd>
 
         <dt>
 
           <code><a href="as_image.html">as_image()</a></code>
 
         </dt>
-        <dd>Image chunk wrapper</dd>
+        <dd>Image chunk</dd>
 
         <dt>
 
           <code><a href="gg_chunk.html">gg_chunk()</a></code>
 
         </dt>
-        <dd>'ggplots' chunk wrapper</dd>
+        <dd>ggplot chunk</dd>
 
         <dt>
 
           <code><a href="plot_chunk.html">plot_chunk()</a></code>
 
         </dt>
-        <dd>Mini plots chunk wrapper</dd>
+        <dd>Mini plot chunk</dd>
 
         <dt>
 
           <code><a href="grid_chunk.html">grid_chunk()</a></code>
 
         </dt>
-        <dd>'Grid Graphics' chunk wrapper</dd>
+        <dd>Grid Graphics chunk</dd>
 
         <dt>
 
           <code><a href="minibar.html">minibar()</a></code>
 
         </dt>
-        <dd>Mini barplots chunk wrapper</dd>
+        <dd>Mini barplot chunk</dd>
 
         <dt>
 
           <code><a href="linerange.html">linerange()</a></code>
 
         </dt>
-        <dd>Mini linerange chunk wrapper</dd>
+        <dd>Mini linerange chunk</dd>
       </dl></div><div class="section level2">
       <h2 id="apply-themes">Apply themes<a class="anchor" aria-label="anchor" href="#apply-themes"></a></h2>
 
@@ -740,7 +740,7 @@
           <code><a href="style.html">style()</a></code>
 
         </dt>
-        <dd>Set flextable default styles</dd>
+        <dd>Set formatting properties on a flextable selection</dd>
 
         <dt>
 
@@ -782,7 +782,7 @@
           <code><a href="highlight.html">highlight()</a></code>
 
         </dt>
-        <dd>Text highlight color</dd>
+        <dd>Set text highlight color</dd>
 
         <dt>
 
@@ -796,7 +796,7 @@
           <code><a href="fp_text_default.html">fp_text_default()</a></code>
 
         </dt>
-        <dd>Text formatting properties</dd>
+        <dd>Create text formatting with flextable defaults</dd>
       </dl></div><div class="section level2">
       <h2 id="alignment-and-spacing">Alignment and spacing<a class="anchor" aria-label="anchor" href="#alignment-and-spacing"></a></h2>
 
@@ -870,70 +870,70 @@
           <code><a href="fp_border_default.html">fp_border_default()</a></code>
 
         </dt>
-        <dd>Border formatting properties</dd>
+        <dd>Create border formatting with flextable defaults</dd>
 
         <dt>
 
           <code><a href="hline.html">hline()</a></code>
 
         </dt>
-        <dd>Set horizontal borders</dd>
+        <dd>Set horizontal borders below selected rows</dd>
 
         <dt>
 
           <code><a href="hline_bottom.html">hline_bottom()</a></code>
 
         </dt>
-        <dd>Set bottom horizontal border</dd>
+        <dd>Set the bottom border of a table part</dd>
 
         <dt>
 
           <code><a href="hline_top.html">hline_top()</a></code>
 
         </dt>
-        <dd>Set top horizontal border</dd>
+        <dd>Set the top border of a table part</dd>
 
         <dt>
 
           <code><a href="vline.html">vline()</a></code>
 
         </dt>
-        <dd>Set vertical borders</dd>
+        <dd>Set vertical borders to the right of selected columns</dd>
 
         <dt>
 
           <code><a href="vline_left.html">vline_left()</a></code>
 
         </dt>
-        <dd>Set flextable left vertical borders</dd>
+        <dd>Set the left border of the table</dd>
 
         <dt>
 
           <code><a href="vline_right.html">vline_right()</a></code>
 
         </dt>
-        <dd>Set flextable right vertical borders</dd>
+        <dd>Set the right border of the table</dd>
 
         <dt>
 
           <code><a href="border_inner.html">border_inner()</a></code>
 
         </dt>
-        <dd>Set vertical &amp; horizontal inner borders</dd>
+        <dd>Set all inner borders</dd>
 
         <dt>
 
           <code><a href="border_inner_h.html">border_inner_h()</a></code>
 
         </dt>
-        <dd>Set inner borders</dd>
+        <dd>Set inner horizontal borders</dd>
 
         <dt>
 
           <code><a href="border_inner_v.html">border_inner_v()</a></code>
 
         </dt>
-        <dd>Set vertical inner borders</dd>
+        <dd>Set inner vertical borders</dd>
 
         <dt>
 
@@ -954,7 +954,7 @@
           <code><a href="surround.html">surround()</a></code>
 
         </dt>
-        <dd>Set borders for a selection of cells</dd>
+        <dd>Surround cells with borders</dd>
       </dl></div><div class="section level2">
       <h2 id="table-and-column-dimensions">Table and column dimensions<a class="anchor" aria-label="anchor" href="#table-and-column-dimensions"></a></h2>
 
@@ -977,7 +977,7 @@
           <code><a href="autofit.html">autofit()</a></code>
 
         </dt>
-        <dd>Adjusts cell widths and heights</dd>
+        <dd>Adjust cell widths and heights</dd>
 
         <dt>
 
@@ -991,7 +991,7 @@
           <code><a href="set_table_properties.html">set_table_properties()</a></code>
 
         </dt>
-        <dd>Global table properties</dd>
+        <dd>Set table layout and width properties</dd>
       </dl></div><div class="section level2">
       <h2 id="row-height-and-pagination">Row height and pagination<a class="anchor" aria-label="anchor" href="#row-height-and-pagination"></a></h2>
 
@@ -1014,14 +1014,14 @@
           <code><a href="hrule.html">hrule()</a></code>
 
         </dt>
-        <dd>Set flextable rule for rows heights</dd>
+        <dd>Set how row heights are determined</dd>
 
         <dt>
 
           <code><a href="paginate.html">paginate()</a></code>
 
         </dt>
-        <dd>Paginate tables</dd>
+        <dd>Prevent page breaks inside a flextable</dd>
 
         <dt>
 
@@ -1044,21 +1044,21 @@
           <code><a href="dim.flextable.html">dim(<i>&lt;flextable&gt;</i>)</a></code>
 
         </dt>
-        <dd>Get widths and heights of flextable</dd>
+        <dd>Get column widths and row heights of a flextable</dd>
 
         <dt>
 
           <code><a href="dim_pretty.html">dim_pretty()</a></code>
 
         </dt>
-        <dd>Calculate pretty dimensions</dd>
+        <dd>Calculate optimal column widths and row heights</dd>
 
         <dt>
 
           <code><a href="flextable_dim.html">flextable_dim()</a></code>
 
         </dt>
-        <dd>Get width and height of a flextable object</dd>
+        <dd>Get overall width and height of a flextable</dd>
 
         <dt>
 
@@ -1088,7 +1088,7 @@
           <code><a href="set_caption.html">set_caption()</a></code>
 
         </dt>
-        <dd>Set Caption</dd>
+        <dd>Set flextable caption</dd>
       </dl></div><div class="section level2">
       <h2 id="save-to-files">Save to files<a class="anchor" aria-label="anchor" href="#save-to-files"></a></h2>
 
@@ -1155,7 +1155,7 @@
           <code><a href="flextable_to_rmd.html">flextable_to_rmd()</a></code>
 
         </dt>
-        <dd>Knitr rendering in loops and if statements</dd>
+        <dd>Print a flextable inside knitr loops and conditionals</dd>
 
         <dt>
 
@@ -1176,7 +1176,7 @@
           <code><a href="use_model_printer.html">use_model_printer()</a></code>
 
         </dt>
-        <dd>set model automatic printing as a flextable</dd>
+        <dd>Set automatic flextable printing for models</dd>
       </dl></div><div class="section level2">
       <h2 id="integrate-with-officer-word-powerpoint-">Integrate with officer (Word/PowerPoint)<a class="anchor" aria-label="anchor" href="#integrate-with-officer-word-powerpoint-"></a></h2>
 
@@ -1199,7 +1199,7 @@
           <code><a href="body_replace_flextable_at_bkm.html">body_replace_flextable_at_bkm()</a></code>
 
         </dt>
-        <dd>Add flextable at boorkmark location in a Word document</dd>
+        <dd>Add flextable at bookmark location in a Word document</dd>
 
         <dt>
 
@@ -1229,7 +1229,7 @@
           <code><a href="print.flextable.html">print(<i>&lt;flextable&gt;</i>)</a></code>
 
         </dt>
-        <dd>flextable printing</dd>
+        <dd>Print a flextable</dd>
 
         <dt>
 
@@ -1243,7 +1243,7 @@
           <code><a href="htmltools_value.html">htmltools_value()</a></code>
 
         </dt>
-        <dd>flextable as an 'HTML' object</dd>
+        <dd>Convert a flextable to an HTML object</dd>
 
         <dt>
 
@@ -1264,7 +1264,7 @@
           <code><a href="gen_grob.html">gen_grob()</a></code>
 
         </dt>
-        <dd>Convert a flextable to a grid grob object</dd>
+        <dd>Render a flextable as a graphic object</dd>
 
         <dt>
 
@@ -1317,49 +1317,49 @@
           <code><a href="fmt_2stats.html">fmt_2stats()</a></code> <code><a href="fmt_2stats.html">fmt_summarizor()</a></code>
 
         </dt>
-        <dd>Format content for data generated with summarizor()</dd>
+        <dd>Format summarizor statistics as text</dd>
 
         <dt>
 
           <code><a href="fmt_avg_dev.html">fmt_avg_dev()</a></code>
 
         </dt>
-        <dd>Format content for mean and sd</dd>
+        <dd>Format mean and standard deviation as text</dd>
 
         <dt>
 
           <code><a href="fmt_dbl.html">fmt_dbl()</a></code>
 
         </dt>
-        <dd>Format numerical data</dd>
+        <dd>Format numbers as doubles</dd>
 
         <dt>
 
           <code><a href="fmt_header_n.html">fmt_header_n()</a></code>
 
         </dt>
-        <dd>Format count data for headers</dd>
+        <dd>Format count as '(N=XX)' for column headers</dd>
 
         <dt>
 
           <code><a href="fmt_int.html">fmt_int()</a></code>
 
         </dt>
-        <dd>Format numerical data as integer</dd>
+        <dd>Format numbers as integers</dd>
 
         <dt>
 
           <code><a href="fmt_n_percent.html">fmt_n_percent()</a></code>
 
         </dt>
-        <dd>Format content for count data</dd>
+        <dd>Format count and percentage as text</dd>
 
         <dt>
 
           <code><a href="fmt_pct.html">fmt_pct()</a></code>
 
         </dt>
-        <dd>Format numerical data as percentages</dd>
+        <dd>Format numbers as percentages</dd>
 
         <dt>
 
@@ -1373,14 +1373,14 @@
           <code><a href="before.html">before()</a></code>
 
         </dt>
-        <dd>Is an element before a match with entries</dd>
+        <dd>Detect rows before a given value</dd>
 
         <dt>
 
           <code><a href="void.html">void()</a></code>
 
         </dt>
-        <dd>Delete flextable content</dd>
+        <dd>Clear the displayed content of selected columns</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

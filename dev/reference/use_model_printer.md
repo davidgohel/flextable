@@ -1,4 +1,4 @@
-# set model automatic printing as a flextable
+# Set automatic flextable printing for models
 
 Define
 [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md)

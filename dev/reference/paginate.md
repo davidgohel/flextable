@@ -1,4 +1,4 @@
-# Paginate tables
+# Prevent page breaks inside a flextable
 
 Prevents breaks between tables rows you want to stay together. This
 feature only applies to Word and RTF output.

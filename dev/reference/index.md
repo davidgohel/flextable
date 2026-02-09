@@ -8,7 +8,7 @@ is a quick shortcut, and as_flextable() converts other objects.
 
 - [`flextable()`](https://davidgohel.github.io/flextable/dev/reference/flextable.md)
   [`qflextable()`](https://davidgohel.github.io/flextable/dev/reference/flextable.md)
-  : flextable creation
+  : Create a flextable from a data frame
 - [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md)
   : Method to transform objects into flextables
 - [`flextable-package`](https://davidgohel.github.io/flextable/dev/reference/flextable-package.md)
@@ -22,11 +22,11 @@ descriptive statistics, and specific as_flextable methods for models.
 
 - [`tabulator()`](https://davidgohel.github.io/flextable/dev/reference/tabulator.md)
   [`summary(`*`<tabulator>`*`)`](https://davidgohel.github.io/flextable/dev/reference/tabulator.md)
-  : Tabulation of aggregations
+  : Create pivot-style summary tables
 - [`tabulator_colnames()`](https://davidgohel.github.io/flextable/dev/reference/tabulator_colnames.md)
   : Column keys of tabulator objects
 - [`summarizor()`](https://davidgohel.github.io/flextable/dev/reference/summarizor.md)
-  : Data summary preparation
+  : Prepare descriptive statistics for flextable
 - [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md)
   : Method to transform objects into flextables
 - [`as_flextable(`*`<compact_summary>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.compact_summary.md)
@@ -53,7 +53,7 @@ descriptive statistics, and specific as_flextable methods for models.
   [`as_flextable(`*`<brmsfit>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.merMod.md)
   [`as_flextable(`*`<glmmTMB>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.merMod.md)
   [`as_flextable(`*`<glmmadmb>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.merMod.md)
-  : Transform a mixed model into a flextable
+  : Transform a 'merMod' or 'lme' object into a flextable
 - [`as_flextable(`*`<pam>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.pam.md)
   : Transform a 'pam' object into a flextable
 - [`as_flextable(`*`<summarizor>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.summarizor.md)
@@ -67,11 +67,11 @@ descriptive statistics, and specific as_flextable methods for models.
 - [`as_flextable(`*`<xtable>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.xtable.md)
   : Transform a 'xtable' object into a flextable
 - [`continuous_summary()`](https://davidgohel.github.io/flextable/dev/reference/continuous_summary.md)
-  : Continuous columns summary
+  : Summarize continuous variables as a flextable
 - [`compact_summary()`](https://davidgohel.github.io/flextable/dev/reference/compact_summary.md)
   : Compact Summary of a Dataset
 - [`as_grouped_data()`](https://davidgohel.github.io/flextable/dev/reference/as_grouped_data.md)
-  : Add row separators to grouped data
+  : Insert group-label rows into a data frame
 - [`proc_freq()`](https://davidgohel.github.io/flextable/dev/reference/proc_freq.md)
   : Frequency table
 - [`shift_table()`](https://davidgohel.github.io/flextable/dev/reference/shift_table.md)
@@ -84,28 +84,28 @@ Remove rows, columns, or entire parts (header, body, footer) from the
 table.
 
 - [`add_header_row()`](https://davidgohel.github.io/flextable/dev/reference/add_header_row.md)
-  : Add header labels
+  : Add a header row with spanning labels
 - [`add_header_lines()`](https://davidgohel.github.io/flextable/dev/reference/add_header_lines.md)
-  : Add labels as new rows in the header
+  : Add full-width rows to the header
 - [`add_header()`](https://davidgohel.github.io/flextable/dev/reference/add_header.md)
-  : Add column values as new lines in header
+  : Add header rows with one value per column
 - [`add_footer_row()`](https://davidgohel.github.io/flextable/dev/reference/add_footer_row.md)
-  : Add footer labels
+  : Add a footer row with spanning labels
 - [`add_footer_lines()`](https://davidgohel.github.io/flextable/dev/reference/add_footer_lines.md)
-  : Add labels as new rows in the footer
+  : Add full-width rows to the footer
 - [`add_footer()`](https://davidgohel.github.io/flextable/dev/reference/add_footer.md)
-  : Add column values as new lines in footer
+  : Add footer rows with one value per column
 - [`add_body()`](https://davidgohel.github.io/flextable/dev/reference/add_body.md)
-  : Add column values as new lines in body
+  : Add body rows with one value per column
 - [`add_body_row()`](https://davidgohel.github.io/flextable/dev/reference/add_body_row.md)
-  : Add body labels
+  : Add a body row with spanning labels
 - [`separate_header()`](https://davidgohel.github.io/flextable/dev/reference/separate_header.md)
   : Split column names using a separator into multiple rows
 - [`set_header_labels()`](https://davidgohel.github.io/flextable/dev/reference/set_header_labels.md)
-  : Change headers labels
+  : Rename column labels in the header
 - [`set_header_df()`](https://davidgohel.github.io/flextable/dev/reference/set_header_footer_df.md)
   [`set_footer_df()`](https://davidgohel.github.io/flextable/dev/reference/set_header_footer_df.md)
-  : Set flextable's header or footer rows
+  : Replace the entire header or footer from a data frame
 - [`delete_part()`](https://davidgohel.github.io/flextable/dev/reference/delete_part.md)
   : Delete flextable part
 - [`delete_rows()`](https://davidgohel.github.io/flextable/dev/reference/delete_rows.md)
@@ -125,7 +125,7 @@ cells. Useful for grouped headers or repeated values.
 - [`merge_h_range()`](https://davidgohel.github.io/flextable/dev/reference/merge_h_range.md)
   : Rowwise merge of a range of columns
 - [`merge_none()`](https://davidgohel.github.io/flextable/dev/reference/merge_none.md)
-  : Delete flextable merging informations
+  : Delete flextable merging information
 - [`merge_v()`](https://davidgohel.github.io/flextable/dev/reference/merge_v.md)
   : Merge flextable cells vertically
 
@@ -142,7 +142,7 @@ column-wide formatting.
 - [`colformat_datetime()`](https://davidgohel.github.io/flextable/dev/reference/colformat_datetime.md)
   : Format datetime cells
 - [`colformat_double()`](https://davidgohel.github.io/flextable/dev/reference/colformat_double.md)
-  : Format numeric cells
+  : Format double cells
 - [`colformat_image()`](https://davidgohel.github.io/flextable/dev/reference/colformat_image.md)
   : Format cells as images
 - [`colformat_int()`](https://davidgohel.github.io/flextable/dev/reference/colformat_int.md)
@@ -150,11 +150,11 @@ column-wide formatting.
 - [`colformat_lgl()`](https://davidgohel.github.io/flextable/dev/reference/colformat_lgl.md)
   : Format logical cells
 - [`colformat_num()`](https://davidgohel.github.io/flextable/dev/reference/colformat_num.md)
-  : Format numeric cells
+  : Format numeric cells with format()
 - [`set_formatter()`](https://davidgohel.github.io/flextable/dev/reference/set_formatter.md)
   : Set column formatter functions
 - [`labelizor()`](https://davidgohel.github.io/flextable/dev/reference/labelizor.md)
-  : Change displayed labels
+  : Replace displayed text with labels
 
 ## Compose rich content
 
@@ -163,9 +163,9 @@ formatted chunks in a single cell. Use compose() with as_paragraph().
 
 - [`compose()`](https://davidgohel.github.io/flextable/dev/reference/compose.md)
   [`mk_par()`](https://davidgohel.github.io/flextable/dev/reference/compose.md)
-  : Define displayed values and mixed content
+  : Set cell content from paragraph chunks
 - [`as_paragraph()`](https://davidgohel.github.io/flextable/dev/reference/as_paragraph.md)
-  : Concatenate chunks in a flextable
+  : Build a paragraph from chunks
 - [`append_chunks()`](https://davidgohel.github.io/flextable/dev/reference/append_chunks.md)
   : Append chunks to flextable content
 - [`prepend_chunks()`](https://davidgohel.github.io/flextable/dev/reference/prepend_chunks.md)
@@ -180,7 +180,7 @@ compose(): text formatting (as_b, as_i), images (as_image, gg_chunk),
 links (hyperlink_text), equations (as_equation).
 
 - [`as_chunk()`](https://davidgohel.github.io/flextable/dev/reference/as_chunk.md)
-  : Chunk of text wrapper
+  : Text chunk
 - [`as_b()`](https://davidgohel.github.io/flextable/dev/reference/as_b.md)
   : Bold chunk
 - [`as_i()`](https://davidgohel.github.io/flextable/dev/reference/as_i.md)
@@ -196,25 +196,25 @@ links (hyperlink_text), equations (as_equation).
 - [`colorize()`](https://davidgohel.github.io/flextable/dev/reference/colorize.md)
   : Colorize chunk
 - [`as_bracket()`](https://davidgohel.github.io/flextable/dev/reference/as_bracket.md)
-  : Chunk with values in brackets
+  : Bracket chunk
 - [`hyperlink_text()`](https://davidgohel.github.io/flextable/dev/reference/hyperlink_text.md)
-  : Chunk of text with hyperlink
+  : Hyperlink chunk
 - [`as_equation()`](https://davidgohel.github.io/flextable/dev/reference/as_equation.md)
   : Equation chunk
 - [`as_word_field()`](https://davidgohel.github.io/flextable/dev/reference/as_word_field.md)
-  : 'Word' computed field
+  : Word dynamic field chunk
 - [`as_image()`](https://davidgohel.github.io/flextable/dev/reference/as_image.md)
-  : Image chunk wrapper
+  : Image chunk
 - [`gg_chunk()`](https://davidgohel.github.io/flextable/dev/reference/gg_chunk.md)
-  : 'ggplots' chunk wrapper
+  : ggplot chunk
 - [`plot_chunk()`](https://davidgohel.github.io/flextable/dev/reference/plot_chunk.md)
-  : Mini plots chunk wrapper
+  : Mini plot chunk
 - [`grid_chunk()`](https://davidgohel.github.io/flextable/dev/reference/grid_chunk.md)
-  : 'Grid Graphics' chunk wrapper
+  : Grid Graphics chunk
 - [`minibar()`](https://davidgohel.github.io/flextable/dev/reference/minibar.md)
-  : Mini barplots chunk wrapper
+  : Mini barplot chunk
 - [`linerange()`](https://davidgohel.github.io/flextable/dev/reference/linerange.md)
-  : Mini linerange chunk wrapper
+  : Mini linerange chunk
 
 ## Apply themes
 
@@ -248,7 +248,7 @@ Control typography and cell appearance: font family, size, color, bold,
 italic, background color, text highlighting.
 
 - [`style()`](https://davidgohel.github.io/flextable/dev/reference/style.md)
-  : Set flextable default styles
+  : Set formatting properties on a flextable selection
 - [`font()`](https://davidgohel.github.io/flextable/dev/reference/font.md)
   : Set font
 - [`fontsize()`](https://davidgohel.github.io/flextable/dev/reference/fontsize.md)
@@ -260,11 +260,11 @@ italic, background color, text highlighting.
 - [`color()`](https://davidgohel.github.io/flextable/dev/reference/color.md)
   : Set font color
 - [`highlight()`](https://davidgohel.github.io/flextable/dev/reference/highlight.md)
-  : Text highlight color
+  : Set text highlight color
 - [`bg()`](https://davidgohel.github.io/flextable/dev/reference/bg.md) :
   Set background color
 - [`fp_text_default()`](https://davidgohel.github.io/flextable/dev/reference/fp_text_default.md)
-  : Text formatting properties
+  : Create text formatting with flextable defaults
 
 ## Alignment and spacing
 
@@ -295,31 +295,31 @@ lines, border_inner/border_outer for bulk operations, surround for
 highlighting.
 
 - [`fp_border_default()`](https://davidgohel.github.io/flextable/dev/reference/fp_border_default.md)
-  : Border formatting properties
+  : Create border formatting with flextable defaults
 - [`hline()`](https://davidgohel.github.io/flextable/dev/reference/hline.md)
-  : Set horizontal borders
+  : Set horizontal borders below selected rows
 - [`hline_bottom()`](https://davidgohel.github.io/flextable/dev/reference/hline_bottom.md)
-  : Set bottom horizontal border
+  : Set the bottom border of a table part
 - [`hline_top()`](https://davidgohel.github.io/flextable/dev/reference/hline_top.md)
-  : Set top horizontal border
+  : Set the top border of a table part
 - [`vline()`](https://davidgohel.github.io/flextable/dev/reference/vline.md)
-  : Set vertical borders
+  : Set vertical borders to the right of selected columns
 - [`vline_left()`](https://davidgohel.github.io/flextable/dev/reference/vline_left.md)
-  : Set flextable left vertical borders
+  : Set the left border of the table
 - [`vline_right()`](https://davidgohel.github.io/flextable/dev/reference/vline_right.md)
-  : Set flextable right vertical borders
+  : Set the right border of the table
 - [`border_inner()`](https://davidgohel.github.io/flextable/dev/reference/border_inner.md)
-  : Set vertical & horizontal inner borders
+  : Set all inner borders
 - [`border_inner_h()`](https://davidgohel.github.io/flextable/dev/reference/border_inner_h.md)
-  : Set inner borders
+  : Set inner horizontal borders
 - [`border_inner_v()`](https://davidgohel.github.io/flextable/dev/reference/border_inner_v.md)
-  : Set vertical inner borders
+  : Set inner vertical borders
 - [`border_outer()`](https://davidgohel.github.io/flextable/dev/reference/border_outer.md)
   : Set outer borders
 - [`border_remove()`](https://davidgohel.github.io/flextable/dev/reference/border_remove.md)
   : Remove borders
 - [`surround()`](https://davidgohel.github.io/flextable/dev/reference/surround.md)
-  : Set borders for a selection of cells
+  : Surround cells with borders
 
 ## Table and column dimensions
 
@@ -329,11 +329,11 @@ for automatic adjustment, width() for manual control.
 - [`width()`](https://davidgohel.github.io/flextable/dev/reference/width.md)
   : Set columns width
 - [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md)
-  : Adjusts cell widths and heights
+  : Adjust cell widths and heights
 - [`fit_to_width()`](https://davidgohel.github.io/flextable/dev/reference/fit_to_width.md)
   : Fit a flextable to a maximum width
 - [`set_table_properties()`](https://davidgohel.github.io/flextable/dev/reference/set_table_properties.md)
-  : Global table properties
+  : Set table layout and width properties
 
 ## Row height and pagination
 
@@ -344,9 +344,9 @@ split long tables, keep_with_next to prevent orphan rows.
   [`height_all()`](https://davidgohel.github.io/flextable/dev/reference/height.md)
   : Set flextable rows height
 - [`hrule()`](https://davidgohel.github.io/flextable/dev/reference/hrule.md)
-  : Set flextable rule for rows heights
+  : Set how row heights are determined
 - [`paginate()`](https://davidgohel.github.io/flextable/dev/reference/paginate.md)
-  : Paginate tables
+  : Prevent page breaks inside a flextable
 - [`keep_with_next()`](https://davidgohel.github.io/flextable/dev/reference/keep_with_next.md)
   : Set Word 'Keep with next' instructions
 
@@ -356,11 +356,11 @@ Query table dimensions: number of rows, columns, pixel sizes. Useful for
 dynamic layouts and conditional formatting.
 
 - [`dim(`*`<flextable>`*`)`](https://davidgohel.github.io/flextable/dev/reference/dim.flextable.md)
-  : Get widths and heights of flextable
+  : Get column widths and row heights of a flextable
 - [`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md)
-  : Calculate pretty dimensions
+  : Calculate optimal column widths and row heights
 - [`flextable_dim()`](https://davidgohel.github.io/flextable/dev/reference/flextable_dim.md)
-  : Get width and height of a flextable object
+  : Get overall width and height of a flextable
 - [`nrow_part()`](https://davidgohel.github.io/flextable/dev/reference/nrow_part.md)
   : Number of rows of a part
 - [`ncol_keys()`](https://davidgohel.github.io/flextable/dev/reference/ncol_keys.md)
@@ -372,7 +372,7 @@ Add table captions for cross-referencing in documents. Captions appear
 above or below the table and can be numbered automatically.
 
 - [`set_caption()`](https://davidgohel.github.io/flextable/dev/reference/set_caption.md)
-  : Set Caption
+  : Set flextable caption
 
 ## Save to files
 
@@ -398,13 +398,13 @@ documents. Automatic rendering is usually handled by knit_print.
 - [`knit_print(`*`<flextable>`*`)`](https://davidgohel.github.io/flextable/dev/reference/knit_print.flextable.md)
   : Render flextable with 'knitr'
 - [`flextable_to_rmd()`](https://davidgohel.github.io/flextable/dev/reference/flextable_to_rmd.md)
-  : Knitr rendering in loops and if statements
+  : Print a flextable inside knitr loops and conditionals
 - [`df_printer()`](https://davidgohel.github.io/flextable/dev/reference/df_printer.md)
   : data.frame automatic printing as a flextable
 - [`use_df_printer()`](https://davidgohel.github.io/flextable/dev/reference/use_df_printer.md)
   : Set data.frame automatic printing as a flextable
 - [`use_model_printer()`](https://davidgohel.github.io/flextable/dev/reference/use_model_printer.md)
-  : set model automatic printing as a flextable
+  : Set automatic flextable printing for models
 
 ## Integrate with officer (Word/PowerPoint)
 
@@ -414,7 +414,7 @@ package. Use body_add_flextable for Word, ph_with for PowerPoint.
 - [`body_add_flextable()`](https://davidgohel.github.io/flextable/dev/reference/body_add_flextable.md)
   : Add flextable into a Word document
 - [`body_replace_flextable_at_bkm()`](https://davidgohel.github.io/flextable/dev/reference/body_replace_flextable_at_bkm.md)
-  : Add flextable at boorkmark location in a Word document
+  : Add flextable at bookmark location in a Word document
 - [`ph_with(`*`<flextable>`*`)`](https://davidgohel.github.io/flextable/dev/reference/ph_with.flextable.md)
   : Add a flextable into a PowerPoint slide
 - [`rtf_add(`*`<flextable>`*`)`](https://davidgohel.github.io/flextable/dev/reference/rtf_add.flextable.md)
@@ -426,17 +426,17 @@ Convert flextables to HTML strings, plots, grobs, or interactive
 widgets.
 
 - [`print(`*`<flextable>`*`)`](https://davidgohel.github.io/flextable/dev/reference/print.flextable.md)
-  : flextable printing
+  : Print a flextable
 - [`to_html(`*`<flextable>`*`)`](https://davidgohel.github.io/flextable/dev/reference/to_html.flextable.md)
   : Get HTML code as a string
 - [`htmltools_value()`](https://davidgohel.github.io/flextable/dev/reference/htmltools_value.md)
-  : flextable as an 'HTML' object
+  : Convert a flextable to an HTML object
 - [`wrap_flextable()`](https://davidgohel.github.io/flextable/dev/reference/wrap_flextable.md)
   : Wrap a flextable for use with patchwork
 - [`plot(`*`<flextable>`*`)`](https://davidgohel.github.io/flextable/dev/reference/plot.flextable.md)
   : Plot a flextable
 - [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
-  : Convert a flextable to a grid grob object
+  : Render a flextable as a graphic object
 - [`plot(`*`<flextableGrob>`*`)`](https://davidgohel.github.io/flextable/dev/reference/plot.flextableGrob.md)
   : plot a flextable grob
 - [`dim(`*`<flextableGrob>`*`)`](https://davidgohel.github.io/flextable/dev/reference/dim.flextableGrob.md)
@@ -460,22 +460,22 @@ Helper functions for conditional display (void), row positioning
 
 - [`fmt_2stats()`](https://davidgohel.github.io/flextable/dev/reference/fmt_2stats.md)
   [`fmt_summarizor()`](https://davidgohel.github.io/flextable/dev/reference/fmt_2stats.md)
-  : Format content for data generated with summarizor()
+  : Format summarizor statistics as text
 - [`fmt_avg_dev()`](https://davidgohel.github.io/flextable/dev/reference/fmt_avg_dev.md)
-  : Format content for mean and sd
+  : Format mean and standard deviation as text
 - [`fmt_dbl()`](https://davidgohel.github.io/flextable/dev/reference/fmt_dbl.md)
-  : Format numerical data
+  : Format numbers as doubles
 - [`fmt_header_n()`](https://davidgohel.github.io/flextable/dev/reference/fmt_header_n.md)
-  : Format count data for headers
+  : Format count as '(N=XX)' for column headers
 - [`fmt_int()`](https://davidgohel.github.io/flextable/dev/reference/fmt_int.md)
-  : Format numerical data as integer
+  : Format numbers as integers
 - [`fmt_n_percent()`](https://davidgohel.github.io/flextable/dev/reference/fmt_n_percent.md)
-  : Format content for count data
+  : Format count and percentage as text
 - [`fmt_pct()`](https://davidgohel.github.io/flextable/dev/reference/fmt_pct.md)
-  : Format numerical data as percentages
+  : Format numbers as percentages
 - [`fmt_signif_after_zeros()`](https://davidgohel.github.io/flextable/dev/reference/fmt_signif_after_zeros.md)
   : Format with significant figures after zeros
 - [`before()`](https://davidgohel.github.io/flextable/dev/reference/before.md)
-  : Is an element before a match with entries
+  : Detect rows before a given value
 - [`void()`](https://davidgohel.github.io/flextable/dev/reference/void.md)
-  : Delete flextable content
+  : Clear the displayed content of selected columns

@@ -1,22 +1,23 @@
-# 'Word' computed field
+# Word dynamic field chunk
 
-This function is used to insert 'Word' computed field into flextable.
+`as_word_field()` inserts a Word field code (e.g. page numbers, dates,
+cross-references) as a chunk inside a flextable cell. Field codes are
+Word's mechanism for auto-computed values; see [Microsoft's field-code
+reference](https://support.microsoft.com/en-us/office/list-of-field-codes-in-word-1ad6d91a-55a7-4a8d-b535-cf7888659a51)
+for the available codes.
 
-It is used to add it to the content of a cell of the flextable with the
-functions
+The chunk is used with
 [`compose()`](https://davidgohel.github.io/flextable/dev/reference/compose.md),
 [`append_chunks()`](https://davidgohel.github.io/flextable/dev/reference/append_chunks.md)
 or
 [`prepend_chunks()`](https://davidgohel.github.io/flextable/dev/reference/prepend_chunks.md).
+It only has an effect in Word (docx) output; other formats ignore it. To
+apply it conditionally, use the post-processing step (see
+`set_flextable_defaults(post_process_docx = ...)`).
 
-This has only effect on 'Word' output. If you want to condition its
-execution only for Word output, you can use it in the post processing
-step (see `set_flextable_defaults(post_process_docx = ...)`)
-
-**Do not forget to update the computed field in Word**. Fields are
-defined but are not computed, this computing is an operation that has to
-be made by 'Microsoft Word' (select all text and hit `F9` when on mac
-os).
+**Important**: fields are inserted but not computed. After opening the
+document in Word, select all text and press `F9` (on macOS: `Fn + F9`)
+to refresh the field values.
 
 ## Usage
 

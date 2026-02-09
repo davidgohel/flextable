@@ -1,4 +1,4 @@
-# paragraph related information of a flextable
+# Get paragraph-level information from a flextable
 
 This function takes a flextable object and returns a data.frame
 containing information about each paragraph within the flextable. The

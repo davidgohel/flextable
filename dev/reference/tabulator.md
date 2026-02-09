@@ -1,4 +1,4 @@
-# Tabulation of aggregations
+# Create pivot-style summary tables
 
 It tabulates a data.frame representing an aggregation which is then
 transformed as a flextable with

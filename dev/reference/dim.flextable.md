@@ -1,4 +1,4 @@
-# Get widths and heights of flextable
+# Get column widths and row heights of a flextable
 
 returns widths and heights for each table columns and rows. Values are
 expressed in inches.

@@ -95,6 +95,7 @@ Other sugar functions for table style:
 [`line_spacing()`](https://davidgohel.github.io/flextable/dev/reference/line_spacing.md),
 [`padding()`](https://davidgohel.github.io/flextable/dev/reference/padding.md),
 [`rotate()`](https://davidgohel.github.io/flextable/dev/reference/rotate.md),
+[`style()`](https://davidgohel.github.io/flextable/dev/reference/style.md),
 [`tab_settings()`](https://davidgohel.github.io/flextable/dev/reference/tab_settings.md),
 [`valign()`](https://davidgohel.github.io/flextable/dev/reference/valign.md)
 

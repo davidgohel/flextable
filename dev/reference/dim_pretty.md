@@ -1,4 +1,4 @@
-# Calculate pretty dimensions
+# Calculate optimal column widths and row heights
 
 return minimum estimated widths and heights for each table columns and
 rows in inches.

@@ -1,4 +1,4 @@
-# flextable printing
+# Print a flextable
 
 print a flextable object to format `html`, `docx`, `pptx` or as text
 (not for display but for informative purpose). This function is to be

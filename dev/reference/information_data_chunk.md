@@ -1,4 +1,4 @@
-# content chunk related information of a flextable
+# Get chunk-level content information from a flextable
 
 This function takes a flextable object and returns a data.frame
 containing information about each text chunk within the flextable. The

@@ -1,4 +1,4 @@
-# Add flextable at boorkmark location in a Word document
+# Add flextable at bookmark location in a Word document
 
 Use this function if you want to replace a paragraph containing a
 bookmark with a flextable. As a side effect, the bookmark will be lost.
