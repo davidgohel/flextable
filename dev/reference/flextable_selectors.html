@@ -89,8 +89,7 @@ formatting, styling, or content operations.</p>
 <span><span class="va">j</span> <span class="op">=</span> <span class="cn">NULL</span>                  <span class="co"># All columns (default)</span></span></code></pre><p></p></div>
 <p>Best practices:</p><ul><li><p>Use character vectors (<code>j = c("col1", "col2")</code>) for clarity and
 maintainability.</p></li>
-<li><p>Use formulas (<code>j = ~ col1 + col2</code>) for excluding columns or when
-using <code>use_dot = TRUE</code>.</p></li>
+<li><p>Use formulas (<code>j = ~ col1 + col2</code>) for excluding columns.</p></li>
 <li><p>Avoid integer positions when possible (less maintainable).</p></li>
 <li><p>Column selectors work with all parts (header, body, footer, all).</p></li>
 </ul></div>
@@ -114,31 +113,6 @@ the actual data types from your dataset (numeric, logical, etc.). Headers and
 footers store only character representations of values, so conditional
 expressions like <code>i = ~ price &lt; 330</code> cannot be evaluated on them.</p>
     </div>
-    <div class="section level2">
-    <h2 id="functions-supporting-selectors">Functions Supporting Selectors<a class="anchor" aria-label="anchor" href="#functions-supporting-selectors"></a></h2>
-
-
-
-<p>Selectors <code>part</code>, <code>i</code> and <code>j</code> are supported by many flextable functions:</p><ul><li><p>Formatting Functions</p><ul><li><p><code><a href="style.html">style()</a></code> - Apply multiple formatting properties at once</p></li>
-<li><p><code><a href="bold.html">bold()</a></code>, <code><a href="italic.html">italic()</a></code> - Text weight and style</p></li>
-<li><p><code><a href="color.html">color()</a></code>, <code><a href="highlight.html">highlight()</a></code> - Text and background colors</p></li>
-<li><p><code><a href="fontsize.html">fontsize()</a></code>, <code><a href="font.html">font()</a></code> - Font properties</p></li>
-<li><p><code><a href="align.html">align()</a></code>, <code><a href="valign.html">valign()</a></code> - Text alignment</p></li>
-<li><p><code><a href="padding.html">padding()</a></code>, <code><a href="line_spacing.html">line_spacing()</a></code> - Spacing properties</p></li>
-<li><p><code><a href="bg.html">bg()</a></code> - Background color</p></li>
-<li><p><code><a href="rotate.html">rotate()</a></code> - Text rotation</p></li>
-</ul></li>
-<li><p>Border Functions</p><ul><li><p><code><a href="hline.html">hline()</a></code>, <code><a href="vline.html">vline()</a></code> - Horizontal and vertical lines</p></li>
-<li><p><code><a href="border_outer.html">border_outer()</a></code>, <code><a href="border_inner_h.html">border_inner_h()</a></code>, <code><a href="border_inner_v.html">border_inner_v()</a></code> - Border styling</p></li>
-</ul></li>
-<li><p>Content Functions</p><ul><li><p><code><a href="compose.html">mk_par()</a></code> - Define custom cell content</p></li>
-<li><p><code><a href="append_chunks.html">append_chunks()</a></code>, <code><a href="prepend_chunks.html">prepend_chunks()</a></code> - Add content chunks</p></li>
-</ul></li>
-<li><p>Layout Functions</p><ul><li><p><code><a href="merge_at.html">merge_at()</a></code>, <code><a href="merge_v.html">merge_v()</a></code>, <code><a href="merge_h.html">merge_h()</a></code> - Merge cells</p></li>
-<li><p><code><a href="width.html">width()</a></code>, <code><a href="height.html">height()</a></code> - Set dimensions</p></li>
-<li><p><code><a href="empty_blanks.html">empty_blanks()</a></code> - Format blank columns</p></li>
-</ul></li>
-</ul></div>
     <div class="section level2">
     <h2 id="advanced-programming-with-selectors">Advanced Programming with Selectors<a class="anchor" aria-label="anchor" href="#advanced-programming-with-selectors"></a></h2>
 

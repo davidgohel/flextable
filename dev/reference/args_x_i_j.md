@@ -19,4 +19,4 @@ internal utils for roxygen tags reuse
 
   column selector, see section *Column selection with the `j` parameter*
   in
-  \<[`flextable column selection`](https://davidgohel.github.io/flextable/dev/reference/flextable_selectors.md)\>.
+  \<[`Selectors in flextable`](https://davidgohel.github.io/flextable/dev/reference/flextable_selectors.md)\>.

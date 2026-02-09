@@ -65,7 +65,7 @@ style(
 
   column selector, see section *Column selection with the `j` parameter*
   in
-  \<[`flextable column selection`](https://davidgohel.github.io/flextable/dev/reference/flextable_selectors.md)\>.
+  \<[`Selectors in flextable`](https://davidgohel.github.io/flextable/dev/reference/flextable_selectors.md)\>.
 
 - pr_t:
 
@@ -135,7 +135,7 @@ ft <- style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
 ft
 
 
-.cl-02cb4cec{}.cl-02c44924{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-02c4492e{font-family:'Arial';font-size:10pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-02c7336e{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:0;padding-top:0;padding-left:0;padding-right:0;line-height: 1;background-color:transparent;}.cl-02c75560{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(245, 222, 179, 1.00);border-top: 1pt solid rgba(245, 222, 179, 1.00);border-left: 1pt solid rgba(245, 222, 179, 1.00);border-right: 1pt solid rgba(245, 222, 179, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-3981ae04{}.cl-397b1b66{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-397b1b70{font-family:'Arial';font-size:10pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-397de116{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:0;padding-top:0;padding-left:0;padding-right:0;line-height: 1;background-color:transparent;}.cl-397e03c6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(245, 222, 179, 1.00);border-top: 1pt solid rgba(245, 222, 179, 1.00);border-left: 1pt solid rgba(245, 222, 179, 1.00);border-right: 1pt solid rgba(245, 222, 179, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 mpg

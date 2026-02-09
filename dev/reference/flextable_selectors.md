@@ -61,8 +61,7 @@ Best practices:
 - Use character vectors (`j = c("col1", "col2")`) for clarity and
   maintainability.
 
-- Use formulas (`j = ~ col1 + col2`) for excluding columns or when using
-  `use_dot = TRUE`.
+- Use formulas (`j = ~ col1 + col2`) for excluding columns.
 
 - Avoid integer positions when possible (less maintainable).
 
@@ -98,75 +97,6 @@ using the actual data types from your dataset (numeric, logical, etc.).
 Headers and footers store only character representations of values, so
 conditional expressions like `i = ~ price < 330` cannot be evaluated on
 them.
-
-## Functions Supporting Selectors
-
-Selectors `part`, `i` and `j` are supported by many flextable functions:
-
-- Formatting Functions
-
-  - [`style()`](https://davidgohel.github.io/flextable/dev/reference/style.md) -
-    Apply multiple formatting properties at once
-
-  - [`bold()`](https://davidgohel.github.io/flextable/dev/reference/bold.md),
-    [`italic()`](https://davidgohel.github.io/flextable/dev/reference/italic.md) -
-    Text weight and style
-
-  - [`color()`](https://davidgohel.github.io/flextable/dev/reference/color.md),
-    [`highlight()`](https://davidgohel.github.io/flextable/dev/reference/highlight.md) -
-    Text and background colors
-
-  - [`fontsize()`](https://davidgohel.github.io/flextable/dev/reference/fontsize.md),
-    [`font()`](https://davidgohel.github.io/flextable/dev/reference/font.md) -
-    Font properties
-
-  - [`align()`](https://davidgohel.github.io/flextable/dev/reference/align.md),
-    [`valign()`](https://davidgohel.github.io/flextable/dev/reference/valign.md) -
-    Text alignment
-
-  - [`padding()`](https://davidgohel.github.io/flextable/dev/reference/padding.md),
-    [`line_spacing()`](https://davidgohel.github.io/flextable/dev/reference/line_spacing.md) -
-    Spacing properties
-
-  - [`bg()`](https://davidgohel.github.io/flextable/dev/reference/bg.md) -
-    Background color
-
-  - [`rotate()`](https://davidgohel.github.io/flextable/dev/reference/rotate.md) -
-    Text rotation
-
-- Border Functions
-
-  - [`hline()`](https://davidgohel.github.io/flextable/dev/reference/hline.md),
-    [`vline()`](https://davidgohel.github.io/flextable/dev/reference/vline.md) -
-    Horizontal and vertical lines
-
-  - [`border_outer()`](https://davidgohel.github.io/flextable/dev/reference/border_outer.md),
-    [`border_inner_h()`](https://davidgohel.github.io/flextable/dev/reference/border_inner_h.md),
-    [`border_inner_v()`](https://davidgohel.github.io/flextable/dev/reference/border_inner_v.md) -
-    Border styling
-
-- Content Functions
-
-  - [`mk_par()`](https://davidgohel.github.io/flextable/dev/reference/compose.md) -
-    Define custom cell content
-
-  - [`append_chunks()`](https://davidgohel.github.io/flextable/dev/reference/append_chunks.md),
-    [`prepend_chunks()`](https://davidgohel.github.io/flextable/dev/reference/prepend_chunks.md) -
-    Add content chunks
-
-- Layout Functions
-
-  - [`merge_at()`](https://davidgohel.github.io/flextable/dev/reference/merge_at.md),
-    [`merge_v()`](https://davidgohel.github.io/flextable/dev/reference/merge_v.md),
-    [`merge_h()`](https://davidgohel.github.io/flextable/dev/reference/merge_h.md) -
-    Merge cells
-
-  - [`width()`](https://davidgohel.github.io/flextable/dev/reference/width.md),
-    [`height()`](https://davidgohel.github.io/flextable/dev/reference/height.md) -
-    Set dimensions
-
-  - [`empty_blanks()`](https://davidgohel.github.io/flextable/dev/reference/empty_blanks.md) -
-    Format blank columns
 
 ## Advanced Programming with Selectors
 
