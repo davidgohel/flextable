@@ -339,8 +339,10 @@ caption_chunks_latex <- function(x) {
   if (!x$caption$simple_caption) {
     caption_str <- runs_as_latex(x = x, chunk_data = x$caption$value)
     caption_chunks_str <- paste(caption_str$txt, collapse = "")
+    caption_chunks_str <- gsub("\\linebreak ", "\\newline ", caption_chunks_str, fixed = TRUE)
   } else {
     caption_chunks_str <- sanitize_latex_str(x$caption$value)
+    caption_chunks_str <- gsub("\n", "\\newline ", caption_chunks_str, fixed = TRUE)
   }
   caption_chunks_str
 }

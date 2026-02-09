@@ -40,6 +40,8 @@ and be simplified.
 
 ## Issues
 
+- line breaks (`\n`) in captions now render correctly in PDF/LaTeX
+output (#663).
 - images in google docs should now be sized as expected
 - specifying a `word_style` for a paragraph style works now.
 The `word_style` values will be ignored if flextable is process by 'rmarkdown'
