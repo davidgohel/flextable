@@ -110,6 +110,7 @@ reference:
     - as_sup
     - as_highlight
     - colorize
+    - as_qmd
     - as_bracket
     - hyperlink_text
     - as_equation
@@ -225,6 +226,7 @@ reference:
       Functions for rendering flextables in R Markdown, Quarto, and knitr
       documents. Automatic rendering is usually handled by knit_print.
     contents:
+    - use_flextable_qmd
     - knit_print.flextable
     - flextable_to_rmd
     - df_printer
