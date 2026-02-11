@@ -1,4 +1,4 @@
---- tbl-qmd : resout les spans data-qmd-base64 dans les RawBlocks
+--- flextable-qmd : resout les spans data-qmd-base64 dans les RawBlocks
 --- HTML/LaTeX/OOXML produits par flextable.
 ---
 --- Ce filtre Quarto s'execute APRES les filtres internes de Quarto :
