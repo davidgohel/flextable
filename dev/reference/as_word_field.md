@@ -58,6 +58,7 @@ Other chunk elements for paragraph:
 [`as_highlight()`](https://davidgohel.github.io/flextable/dev/reference/as_highlight.md),
 [`as_i()`](https://davidgohel.github.io/flextable/dev/reference/as_i.md),
 [`as_image()`](https://davidgohel.github.io/flextable/dev/reference/as_image.md),
+[`as_qmd()`](https://davidgohel.github.io/flextable/dev/reference/as_qmd.md),
 [`as_strike()`](https://davidgohel.github.io/flextable/dev/reference/as_strike.md),
 [`as_sub()`](https://davidgohel.github.io/flextable/dev/reference/as_sub.md),
 [`as_sup()`](https://davidgohel.github.io/flextable/dev/reference/as_sup.md),

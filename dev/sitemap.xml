@@ -51,6 +51,7 @@
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_i.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_image.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_paragraph.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/dev/reference/as_qmd.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_raster.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_strike.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_sub.html</loc></url>
@@ -188,6 +189,7 @@
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/theme_zebra.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/to_html.flextable.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/use_df_printer.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/dev/reference/use_flextable_qmd.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/use_model_printer.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/valign.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/vline.html</loc></url>

@@ -300,6 +300,8 @@ links (hyperlink_text), equations (as_equation).
   : Highlight chunk
 - [`colorize()`](https://davidgohel.github.io/flextable/dev/reference/colorize.md)
   : Colorize chunk
+- [`as_qmd()`](https://davidgohel.github.io/flextable/dev/reference/as_qmd.md)
+  : Quarto markdown chunk
 - [`as_bracket()`](https://davidgohel.github.io/flextable/dev/reference/as_bracket.md)
   : Bracket chunk
 - [`hyperlink_text()`](https://davidgohel.github.io/flextable/dev/reference/hyperlink_text.md)
@@ -500,6 +502,8 @@ HTML, RTF, or images (PNG, PDF, SVG).
 Functions for rendering flextables in R Markdown, Quarto, and knitr
 documents. Automatic rendering is usually handled by knit_print.
 
+- [`use_flextable_qmd()`](https://davidgohel.github.io/flextable/dev/reference/use_flextable_qmd.md)
+  : Install the flextable-qmd Quarto extension
 - [`knit_print(`*`<flextable>`*`)`](https://davidgohel.github.io/flextable/dev/reference/knit_print.flextable.md)
   : Render flextable with 'knitr'
 - [`flextable_to_rmd()`](https://davidgohel.github.io/flextable/dev/reference/flextable_to_rmd.md)

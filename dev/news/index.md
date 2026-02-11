@@ -39,6 +39,14 @@
   gains a `symbol_sep` argument to insert a separator between multiple
   footnote symbols in the same cell
   ([\#699](https://github.com/davidgohel/flextable/issues/699)).
+- new function
+  [`as_qmd()`](https://davidgohel.github.io/flextable/dev/reference/as_qmd.md)
+  to embed Quarto markdown (cross-references, bold/italic, links, math,
+  inline code) inside flextable cells. Works with HTML, PDF and Word
+  outputs. New function
+  [`use_flextable_qmd()`](https://davidgohel.github.io/flextable/dev/reference/use_flextable_qmd.md)
+  installs the companion `flextable-qmd` Lua filter extension in the
+  Quarto project.
 
 ### Known limitations
 

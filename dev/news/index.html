@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.11.026</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.11.027</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,7 @@
 <code><a href="../reference/summarizor.html">summarizor()</a></code>: when using <code>overall_label</code> with multiple <code>by</code> columns, an overall level is now added for each grouping column (not only the last one). This produces margins at every nesting level, including a grand total.</li>
 <li>
 <code><a href="../reference/footnote.html">footnote()</a></code> gains a <code>symbol_sep</code> argument to insert a separator between multiple footnote symbols in the same cell (<a href="https://github.com/davidgohel/flextable/issues/699" class="external-link">#699</a>).</li>
+<li>new function <code><a href="../reference/as_qmd.html">as_qmd()</a></code> to embed Quarto markdown (cross-references, bold/italic, links, math, inline code) inside flextable cells. Works with HTML, PDF and Word outputs. New function <code><a href="../reference/use_flextable_qmd.html">use_flextable_qmd()</a></code> installs the companion <code>flextable-qmd</code> Lua filter extension in the Quarto project.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="known-limitations-0-9-11">Known limitations<a class="anchor" aria-label="anchor" href="#known-limitations-0-9-11"></a></h3>
