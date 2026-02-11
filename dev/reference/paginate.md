@@ -76,6 +76,10 @@ and an algorithm for determining the groups.
 
     paginate(x, group = "grp", group_def = "rle")
 
+## See also
+
+[`knit_print.flextable()`](https://davidgohel.github.io/flextable/dev/reference/knit_print.flextable.md)
+
 ## Examples
 
 ``` r

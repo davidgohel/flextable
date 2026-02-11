@@ -505,7 +505,7 @@ documents. Automatic rendering is usually handled by knit_print.
 - [`use_flextable_qmd()`](https://davidgohel.github.io/flextable/dev/reference/use_flextable_qmd.md)
   : Install the flextable-qmd Quarto extension
 - [`knit_print(`*`<flextable>`*`)`](https://davidgohel.github.io/flextable/dev/reference/knit_print.flextable.md)
-  : Render flextable with 'knitr'
+  : Render flextable in knitr documents
 - [`flextable_to_rmd()`](https://davidgohel.github.io/flextable/dev/reference/flextable_to_rmd.md)
   : Print a flextable inside knitr loops and conditionals
 - [`df_printer()`](https://davidgohel.github.io/flextable/dev/reference/df_printer.md)

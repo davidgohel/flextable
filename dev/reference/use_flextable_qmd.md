@@ -44,7 +44,9 @@ The path to the installed extension (invisibly).
 ## See also
 
 [`as_qmd()`](https://davidgohel.github.io/flextable/dev/reference/as_qmd.md)
-for creating Quarto markdown chunks.
+for creating Quarto markdown chunks,
+[`knit_print.flextable()`](https://davidgohel.github.io/flextable/dev/reference/knit_print.flextable.md)
+for rendering options in knitr documents.
 
 ## Examples
 

@@ -24,6 +24,10 @@ add_latex_dep(float = FALSE, wrapfig = FALSE)
 
   load package 'wrapfig'
 
+## See also
+
+[`knit_print.flextable()`](https://davidgohel.github.io/flextable/dev/reference/knit_print.flextable.md)
+
 ## Examples
 
 ``` r

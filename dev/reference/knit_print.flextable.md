@@ -1,33 +1,11 @@
-# Render flextable with 'knitr'
+# Render flextable in knitr documents
 
-Function used to render flextable in knitr/rmarkdown documents.
+This function is called automatically by knitr to display a flextable in
+R Markdown and Quarto documents. You do not need to call it directly.
 
-You should not call this method directly. This function is used by the
-knitr package to automatically display a flextable in an "R Markdown"
-document from a chunk. However, it is recommended to read its
-documentation in order to get familiar with the different options
-available.
-
-R Markdown outputs can be :
-
-- HTML
-
-- 'Microsoft Word'
-
-- 'Microsoft PowerPoint'
-
-- PDF
-
-![](figures/fig_formats.png)
-
-Table captioning is a flextable feature compatible with R Markdown
-documents. The feature is available for HTML, PDF and Word documents.
-Compatibility with the "bookdown" package is also ensured, including the
-ability to produce captions so that they can be used in
-cross-referencing.
-
-For Word, it's recommanded to work with package 'officedown' that
-supports all features of flextable.
+Supported output formats: HTML, Word (docx), PDF and PowerPoint (pptx).
+For other formats (e.g., `github_document`, `beamer_presentation`), the
+table is rendered as a PNG image.
 
 ## Usage
 
@@ -48,162 +26,144 @@ knit_print(x, ...)
 
   unused.
 
-## Note
+## Getting started
 
-Supported formats require some minimum
-[pandoc](https://pandoc.org/installing.html) versions:
+No special setup is needed: place a flextable object in a code chunk and
+it will be rendered in the output document.
 
-|                   |                            |
-|-------------------|----------------------------|
-| **Output format** | **pandoc minimal version** |
-| HTML              | \>= 1.12                   |
-| Word (docx)       | \>= 2.0                    |
-| PowerPoint (pptx) | \>= 2.4                    |
-| PDF               | \>= 1.12                   |
+Add a caption with
+[`set_caption()`](https://davidgohel.github.io/flextable/dev/reference/set_caption.md):
 
-If the output format is not HTML, Word, or PDF (e.g., `rtf_document`,
-`github_document`, `beamer_presentation`), an image will be generated
-instead.
+    ft <- set_caption(ft, caption = "My table caption")
+
+In Quarto documents, use chunk options `tbl-cap` and `label` instead:
+
+    ```{r}
+    #| label: tbl-mytable
+    #| tbl-cap: "My table caption"
+    ft
+    ```
+
+## Captions
+
+**Recommended method:** use
+[`set_caption()`](https://davidgohel.github.io/flextable/dev/reference/set_caption.md)
+to define the caption directly on the flextable object. When
+[`set_caption()`](https://davidgohel.github.io/flextable/dev/reference/set_caption.md)
+is used, chunk options related to captions are ignored.
+
+**Alternative (R Markdown only):** use knitr chunk options `tab.cap` and
+`tab.id`:
+
+|                             |                  |             |
+|-----------------------------|------------------|-------------|
+| **Description**             | **Chunk option** | **Default** |
+| Caption text                | tab.cap          | NULL        |
+| Caption id/bookmark         | tab.id           | NULL        |
+| Caption on top of the table | tab.topcaption   | TRUE        |
+| Caption sequence identifier | tab.lp           | "tab:"      |
+| Word style for captions     | tab.cap.style    | NULL        |
+
+**Bookdown:** cross-references use the pattern `\@ref(tab:chunk_label)`.
+The usual bookdown numbering applies.
+
+**Quarto:** cross-references use `@tbl-chunk_label`. To embed
+cross-references or other Quarto markdown inside flextable cells, use
+[`as_qmd()`](https://davidgohel.github.io/flextable/dev/reference/as_qmd.md)
+with the `flextable-qmd` extension (see
+[`use_flextable_qmd()`](https://davidgohel.github.io/flextable/dev/reference/use_flextable_qmd.md)).
 
 ## Chunk options
 
-Some features, often specific to an output format, are available to help
-you configure some global settings relatve to the table output. knitr's
-chunk options are to be used to change the default settings:
+Use `knitr::opts_chunk$set(...)` to set defaults for the whole document.
 
-- HTML, PDF and Word:
+**All formats:**
 
-  - `ft.align`: flextable alignment, supported values are 'left',
-    'center' and 'right'. Its default value is 'center'.
+- `ft.align`: table alignment, one of `'left'`, `'center'` (default) or
+  `'right'`.
 
-- HTML only:
+**HTML:**
 
-  - `ft.htmlscroll`, can be `TRUE` or `FALSE` (default) to enable
-    horizontal scrolling. Use
-    [`set_table_properties()`](https://davidgohel.github.io/flextable/dev/reference/set_table_properties.md)
-    for more options about scrolling.
+- `ft.htmlscroll`: `TRUE` or `FALSE` (default) to enable horizontal
+  scrolling. See
+  [`set_table_properties()`](https://davidgohel.github.io/flextable/dev/reference/set_table_properties.md)
+  for finer control.
 
-- Word only:
+**Word:**
 
-  - `ft.split` Word option 'Allow row to break across pages' can be
-    activated when TRUE (default value).
+- `ft.split`: allow rows to break across pages (`TRUE` by default).
 
-  - `ft.keepnext` defunct in favor of
-    [`paginate()`](https://davidgohel.github.io/flextable/dev/reference/paginate.md)
+**PDF:**
 
-- PDF only:
+- `ft.tabcolsep`: space between text and cell borders (default 0 pt).
 
-  - `ft.tabcolsep` space between the text and the left/right border of
-    its containing cell, the default value is 0 points.
+- `ft.arraystretch`: row height multiplier (default 1.5).
 
-  - `ft.arraystretch` height of each row relative to its default height,
-    the default value is 1.5.
+- `ft.latex.float`: floating placement. One of `'none'` (default),
+  `'float'`, `'wrap-r'`, `'wrap-l'`, `'wrap-i'`, `'wrap-o'`.
 
-  - `ft.latex.float` type of floating placement in the document, one of:
+**PowerPoint:**
 
-    - 'none' (the default value), table is placed after the preceding
-      paragraph.
+- `ft.left`, `ft.top`: top-left coordinates of the table placeholder in
+  inches (defaults: 1 and 2).
 
-    - 'float', table can float to a place in the text where it fits best
+## Word with officedown
 
-    - 'wrap-r', wrap text around the table positioned to the right side
-      of the text
-
-    - 'wrap-l', wrap text around the table positioned to the left side
-      of the text
-
-    - 'wrap-i', wrap text around the table positioned inside edge-near
-      the binding
-
-    - 'wrap-o', wrap text around the table positioned outside edge-far
-      from the binding
-
-- PowerPoint only:
-
-  - `ft.left`, `ft.top` Position should be defined with these options.
-    Theses are the top left coordinates in inches of the placeholder
-    that will contain the table. Their default values are 1 and 2
-    inches.
-
-If some values are to be used all the time in the same document, it is
-recommended to set these values in a 'knitr r chunk' by using function
-`knitr::opts_chunk$set(ft.split=FALSE, ...)`.
-
-## Table caption
-
-Captions can be defined in two ways.
-
-The first is with the
-[`set_caption()`](https://davidgohel.github.io/flextable/dev/reference/set_caption.md)
-function. If it is used, the other method will be ignored. The second
-method is by using knitr chunk option `tab.cap`.
-
-    set_caption(x, caption = "my caption")
-
-If `set_caption` function is not used, caption identifier will be read
-from knitr's chunk option `tab.id`. Note that in a bookdown and when not
-using
+When using
 [`officedown::rdocx_document()`](https://davidgohel.github.io/officedown/reference/rdocx_document.html),
-the usual numbering feature of bookdown is used.
+additional caption options are available:
 
-`tab.id='my_id'`.
+|                                       |                  |                           |
+|---------------------------------------|------------------|---------------------------|
+| **Description**                       | **Chunk option** | **Default**               |
+| Numbering prefix                      | tab.cap.pre      | "Table "                  |
+| Numbering suffix                      | tab.cap.sep      | ": "                      |
+| Title number depth                    | tab.cap.tnd      | 0                         |
+| Caption prefix formatting             | tab.cap.fp_text  | `fp_text_lite(bold=TRUE)` |
+| Title number / table number separator | tab.cap.tns      | "-"                       |
 
-Some options are available to customise captions for any output:
+## Quarto
 
-|                                                  |                |           |
-|--------------------------------------------------|----------------|-----------|
-| **label**                                        | **name**       | **value** |
-| Word stylename to use for table captions.        | tab.cap.style  | NULL      |
-| caption id/bookmark                              | tab.id         | NULL      |
-| caption                                          | tab.cap        | NULL      |
-| display table caption on top of the table or not | tab.topcaption | TRUE      |
-| caption table sequence identifier.               | tab.lp         | "tab:"    |
+flextable works natively in Quarto documents for HTML, PDF and Word.
 
-Word output when
-[`officedown::rdocx_document()`](https://davidgohel.github.io/officedown/reference/rdocx_document.html)
-is used is coming with more options such as ability to choose the prefix
-for numbering chunk for example. The table below expose these options:
+The `flextable-qmd` Lua filter extension enables Quarto markdown inside
+flextable cells: cross-references (`@tbl-xxx`, `@fig-xxx`), bold/italic,
+links, math, inline code and shortcodes. See
+[`as_qmd()`](https://davidgohel.github.io/flextable/dev/reference/as_qmd.md)
+and
+[`use_flextable_qmd()`](https://davidgohel.github.io/flextable/dev/reference/use_flextable_qmd.md)
+for setup instructions.
 
-|                                                         |                 |                           |
-|---------------------------------------------------------|-----------------|---------------------------|
-| **label**                                               | **name**        | **value**                 |
-| prefix for numbering chunk (default to "Table ").       | tab.cap.pre     | Table                     |
-| suffix for numbering chunk (default to ": ").           | tab.cap.sep     | " :"                      |
-| title number depth                                      | tab.cap.tnd     | 0                         |
-| caption prefix formatting properties                    | tab.cap.fp_text | fp_text_lite(bold = TRUE) |
-| separator to use between title number and table number. | tab.cap.tns     | "-"                       |
+## PDF limitations
 
-## HTML output
+The following properties are not supported in PDF output: padding,
+`line_spacing` and row `height`. Justified text is converted to
+left-aligned.
 
-HTML output is using shadow dom to encapsule the table into an isolated
-part of the page so that no clash happens with styles.
-
-## PDF output
-
-Some features are not implemented in PDF due to technical infeasibility.
-These are the padding, line_spacing and height properties. Note also
-justified text is not supported and is transformed to left.
-
-It is recommended to set theses values in a 'knitr r chunk' so that they
-are permanent all along the document:
-`knitr::opts_chunk$set(ft.tabcolsep=0, ft.latex.float = "none")`.
+To use system fonts, set `latex_engine: xelatex` in the YAML header (the
+default `pdflatex` engine does not support them).
 
 See
 [`add_latex_dep()`](https://davidgohel.github.io/flextable/dev/reference/add_latex_dep.md)
-if caching flextable results in 'R Markdown' documents.
+when caching flextable results.
 
-## PowerPoint output
+## PowerPoint limitations
 
-Auto-adjust Layout is not available for PowerPoint, PowerPoint only
-support fixed layout. It's then often necessary to call function
+PowerPoint only supports fixed table layout. Use
 [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md)
-so that the columns' widths are adjusted if user does not provide the
-withs.
+to adjust column widths. Images inside table cells are not supported
+(this is a PowerPoint limitation).
 
-Images cannot be integrated into tables with the PowerPoint format.
+## HTML note
+
+HTML output uses Shadow DOM to isolate table styles from the rest of the
+page.
 
 ## See also
 
+[`set_caption()`](https://davidgohel.github.io/flextable/dev/reference/set_caption.md),
+[`as_qmd()`](https://davidgohel.github.io/flextable/dev/reference/as_qmd.md),
+[`use_flextable_qmd()`](https://davidgohel.github.io/flextable/dev/reference/use_flextable_qmd.md),
 [`paginate()`](https://davidgohel.github.io/flextable/dev/reference/paginate.md)
 
 Other flextable print function:
