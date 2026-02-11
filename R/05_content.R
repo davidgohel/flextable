@@ -88,6 +88,7 @@ chunk_dataframe <- function(...) {
     url = def_chr,
     eq_data = def_chr,
     word_field_data = def_chr,
+    qmd_data = def_chr,
     stringsAsFactors = FALSE
   )
   data0$img_data <- def_lst
@@ -735,7 +736,152 @@ to_wml_word_field <- function(x, pr_txt) {
   out
 }
 
+#' @export
+#' @title Quarto markdown chunk
+#' @description
+#' `as_qmd()` creates a chunk whose content will be processed
+#' by Quarto as markdown. This enables cross-references
+#' (`@fig-xxx`, `@tbl-xxx`), links, bold/italic, math,
+#' inline code, shortcodes and other Quarto markdown
+#' features inside flextable cells.
+#'
+#' The chunk is used with [compose()], [append_chunks()]
+#' or [prepend_chunks()]. It requires the `flextable-qmd` Lua
+#' filter extension (see [use_flextable_qmd()]) and works with
+#' HTML, PDF and Word (docx) Quarto output formats.
+#'
+#' @section Setup:
+#'
+#' 1. Install the extension once per project:
+#'
+#' ```r
+#' flextable::use_flextable_qmd()
+#' ```
+#'
+#' 2. Add the filter to your Quarto document YAML.
+#' For HTML and PDF, a single line is enough:
+#'
+#' ```yaml
+#' filters:
+#'   - flextable-qmd
+#' ```
+#'
+#' For Word (docx), an additional post-render filter
+#' removes the wrapper table that Quarto adds around
+#' labelled flextables:
+#'
+#' ```yaml
+#' filters:
+#'   - flextable-qmd
+#'   - at: post-render
+#'     path: _extensions/flextable-qmd/unwrap-float.lua
+#' ```
+#'
+#' @section Supported markdown:
+#'
+#' - Cross-references: `@fig-xxx`, `@tbl-xxx`
+#' - Bold / italic: `**bold**`, `*italic*`
+#' - Inline code: `` `code` ``
+#' - Links: `[text](url)` (internal and external)
+#' - Math: `$\\alpha + \\beta$`
+#' - Shortcodes and other Quarto markdown constructs
+#'
+#' @param x character vector of Quarto markdown content.
+#' @param display character vector of display text used
+#' as fallback when the Lua filter is not active.
+#' Defaults to `x`.
+#' @family chunk elements for paragraph
+#' @seealso [use_flextable_qmd()] to install the Lua filter extension.
+#' @examples
+#' library(flextable)
+#'
+#' dat <- data.frame(
+#'   label = c("Bold", "Link", "Code"),
+#'   content = c(
+#'     "This is **bold** text",
+#'     "Visit [Quarto](https://quarto.org)",
+#'     "Use `print()` here"
+#'   )
+#' )
+#' ft <- flextable(dat)
+#' ft <- mk_par(ft, j = "content",
+#'   value = as_paragraph(as_qmd(content)))
+#' ft
+as_qmd <- function(x, display = x) {
+  x <- as.character(x)
+  display <- as.character(display)
+  if (length(display) != length(x)) {
+    stop(
+      sprintf("`display` must be the same length as `x`: %.0f.", length(x)),
+      call. = FALSE
+    )
+  }
+  chunk_dataframe(
+    txt = display,
+    qmd_data = x
+  )
+}
 
+#' @export
+#' @title Install the flextable-qmd Quarto extension
+#' @description
+#' Copies the `flextable-qmd` Quarto extension (bundled with
+#' flextable) into the `_extensions/` directory of a
+#' Quarto project. The extension provides Lua filters
+#' that resolve Quarto markdown content produced by
+#' [as_qmd()] inside flextable cells for HTML, PDF
+#' and Word (docx) output formats.
+#'
+#' After installation, add the filter to your document
+#' or project YAML:
+#'
+#' ```yaml
+#' filters:
+#'   - flextable-qmd
+#' ```
+#'
+#' For Word (docx) output with labelled flextable chunks
+#' (e.g. `#| label: tbl-xxx`), add the post-render filter
+#' to remove the wrapper table Quarto creates around the
+#' flextable:
+#'
+#' ```yaml
+#' filters:
+#'   - flextable-qmd
+#'   - at: post-render
+#'     path: _extensions/flextable-qmd/unwrap-float.lua
+#' ```
+#' @param path Path to the Quarto project root. Defaults
+#'   to the current working directory.
+#' @param quiet If `TRUE`, suppress informational messages.
+#' @return The path to the installed extension (invisibly).
+#' @seealso [as_qmd()] for creating Quarto markdown chunks.
+#' @examples
+#' \dontrun{
+#' use_flextable_qmd()
+#' }
+use_flextable_qmd <- function(path = ".", quiet = FALSE) {
+  src <- system.file(
+    "_extensions", "flextable-qmd",
+    package = "flextable",
+    mustWork = TRUE
+  )
+  dest <- file.path(path, "_extensions", "flextable-qmd")
+  if (!dir.exists(dirname(dest))) {
+    dir.create(dirname(dest), recursive = TRUE)
+  }
+  if (dir.exists(dest)) {
+    unlink(dest, recursive = TRUE)
+  }
+  file.copy(src, dirname(dest), recursive = TRUE)
+  if (!quiet) {
+    message(
+      "Installed flextable-qmd extension in ", dest, ".\n",
+      "Add `filters: [flextable-qmd]` to your document YAML."
+    )
+  }
+  invisible(dest)
+}
 
 #' @export
 #' @title Build a paragraph from chunks

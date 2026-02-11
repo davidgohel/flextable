@@ -61,6 +61,9 @@ runs_as_html <- function(x, chunk_data = information_data_chunk(x)) {
   spans_dataset[runs_types_lst$is_soft_return == TRUE, c("txt") := list("<br>")]
   spans_dataset[runs_types_lst$is_tab == TRUE, c("txt") := list("&emsp;")]
   spans_dataset[runs_types_lst$is_hlink == TRUE, c("txt") := list(paste0("<a href=\"", .SD$url, "\">", .SD$txt, "</a>"))]
+  spans_dataset[runs_types_lst$is_qmd == TRUE, c("txt") := list(
+    sprintf("<span data-qmd-base64=\"%s\">%s</span>", officer::as_base64(.SD$qmd_data), htmlize(.SD$txt))
+  )]
 
   if (requireNamespace("equatags", quietly = TRUE) && any(runs_types_lst$is_equation)) {
     transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
@@ -155,6 +158,9 @@ runs_as_latex <- function(x, chunk_data = information_data_chunk(x), ls_df = NUL
   runs_types_lst <- runs_types(dat)
 
   dat[runs_types_lst$is_text == TRUE, c("txt") := list(sanitize_latex_str(.SD$txt))]
+  dat[runs_types_lst$is_qmd == TRUE, c("txt") := list(
+    sprintf("\\tblqmd{%s}", officer::as_base64(.SD$qmd_data))
+  )]
   dat[runs_types_lst$is_equation == TRUE, c("txt") := list(paste0("$", .SD$eq_data, "$"))]
   dat[runs_types_lst$is_hlink & grepl("^#", dat$url), c("txt") := list(paste0("\\hyperref[", gsub("^#", "", .SD$url), "]{", .SD$txt, "}"))]
   dat[runs_types_lst$is_hlink & !grepl("^#", dat$url), c("txt") := list(paste0("\\href{", sanitize_latex_str(.SD$url), "}{", .SD$txt, "}"))]
@@ -225,6 +231,7 @@ runs_as_rtf <- function(x, chunk_data = information_data_chunk(x)) {
     }, img_data, width, height, SIMPLIFY = TRUE)
   }
   dat[runs_types_lst$is_text, c("txt") := list(str_encode_to_rtf(.SD$txt))]
+  dat[runs_types_lst$is_qmd, c("txt") := list(str_encode_to_rtf(.SD$txt))]
   dat[runs_types_lst$is_raster == TRUE, c("txt") := list(image_fun(img_data = .SD$img_data, width = .SD$width, height = .SD$height))]
   dat[runs_types_lst$is_soft_return == TRUE, c("txt") := list("\\line")]
   dat[runs_types_lst$is_tab == TRUE, c("txt") := list("\\tab")]
@@ -292,6 +299,9 @@ runs_as_wml <- function(x, txt_data = information_data_chunk(x)) {
   txt_data[runs_types_lst$is_raster, c("run_openxml") := list(.SD$img_str)]
   txt_data[runs_types_lst$is_text, c("run_openxml") := list(
     paste0("<w:t xml:space=\"preserve\">", htmlEscape(.SD$txt), "</w:t>")
+  )]
+  txt_data[runs_types_lst$is_qmd, c("run_openxml") := list(
+    sprintf("<!--TBLQMD:%s-->", officer::as_base64(.SD$qmd_data))
   )]
   txt_data[runs_types_lst$is_soft_return, c("run_openxml") := list("<w:br/>")]
   txt_data[runs_types_lst$is_tab, c("run_openxml") := list("<w:tab/>")]
@@ -403,6 +413,7 @@ runs_types <- function(dat) {
     is_tab = dat$txt %in% "<tab>",
     is_equation = !is.na(dat$eq_data),
     is_word_field = !is.na(dat$word_field_data),
+    is_qmd = !is.na(dat$qmd_data),
     is_hlink = !is.na(dat$url),
     is_raster = sapply(dat$img_data, function(x) {
       inherits(x, "raster") || is.character(x)
@@ -415,6 +426,7 @@ runs_types <- function(dat) {
       !x$is_tab,
       !x$is_equation,
       !x$is_word_field,
+      !x$is_qmd,
       !x$is_raster
     )
   )

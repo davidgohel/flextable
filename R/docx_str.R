@@ -278,8 +278,9 @@ wml_rows <- function(value, split = FALSE, repeat_headers = TRUE) {
     drop = TRUE, fill = "", value.var = "wml",
     fun.aggregate = I
   )
-
-  wml <- apply(as.matrix(cells), 1, paste0, collapse = "")
+  setDF(cells)
+  col_ids <- setdiff(colnames(cells), c(".part", ".row_id"))
+  wml <- do.call(paste0, cells[col_ids])
 
   split_str <- ""
   if (!split) split_str <- "<w:cantSplit/>"

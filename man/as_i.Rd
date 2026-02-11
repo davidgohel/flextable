@@ -37,6 +37,7 @@ Other chunk elements for paragraph:
 \code{\link{as_equation}()},
 \code{\link{as_highlight}()},
 \code{\link{as_image}()},
+\code{\link{as_qmd}()},
 \code{\link{as_strike}()},
 \code{\link{as_sub}()},
 \code{\link{as_sup}()},

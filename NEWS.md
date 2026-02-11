@@ -24,6 +24,11 @@ an overall level is now added for each grouping column (not only the last one).
 This produces margins at every nesting level, including a grand total.
 - `footnote()` gains a `symbol_sep` argument to insert a separator
 between multiple footnote symbols in the same cell (#699).
+- new function `as_qmd()` to embed Quarto markdown (cross-references,
+bold/italic, links, math, inline code) inside flextable cells.
+Works with HTML, PDF and Word outputs. New function `use_flextable_qmd()`
+installs the companion `flextable-qmd` Lua filter extension in
+the Quarto project.
 
 ## Known limitations
 

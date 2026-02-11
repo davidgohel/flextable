@@ -1,0 +1,6 @@
+title: flextable-qmd
+author: ardata-fr
+version: 0.0.1
+contributes:
+  filters:
+    - flextable-qmd.lua
