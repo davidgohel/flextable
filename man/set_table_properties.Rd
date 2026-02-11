@@ -140,5 +140,6 @@ ft_4 <- set_table_properties(
 ft_4
 }
 \seealso{
-\code{\link[=flextable]{flextable()}}, \code{\link[=as_flextable]{as_flextable()}}, \code{\link[=autofit]{autofit()}}
+\code{\link[=flextable]{flextable()}}, \code{\link[=as_flextable]{as_flextable()}}, \code{\link[=autofit]{autofit()}},
+\code{\link[=knit_print.flextable]{knit_print.flextable()}}
 }

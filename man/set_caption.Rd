@@ -217,5 +217,5 @@ ftab <- set_caption(ftab, caption = "mtcars data", autonum = autonum)
 ftab
 }
 \seealso{
-\code{\link[=flextable]{flextable()}}
+\code{\link[=flextable]{flextable()}}, \code{\link[=knit_print.flextable]{knit_print.flextable()}}
 }

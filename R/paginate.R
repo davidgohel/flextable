@@ -83,6 +83,7 @@
 #'
 #' save_as_docx(ft_1, path = tempfile(fileext = ".docx"))
 #' save_as_rtf(ft_1, path = tempfile(fileext = ".rtf"))
+#' @seealso [knit_print.flextable()]
 paginate <- function(
     x,
     init = NULL,

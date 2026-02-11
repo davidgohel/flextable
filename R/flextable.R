@@ -327,7 +327,7 @@ qflextable <- function(data) {
 #' ftab
 #' @importFrom officer run_autonum
 #' @importFrom htmltools htmlEscape
-#' @seealso [flextable()]
+#' @seealso [flextable()], [knit_print.flextable()]
 set_caption <- function(x,
                         caption = NULL,
                         autonum = NULL,

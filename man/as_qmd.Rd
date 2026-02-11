@@ -82,7 +82,8 @@ ft <- mk_par(ft, j = "content",
 ft
 }
 \seealso{
-\code{\link[=use_flextable_qmd]{use_flextable_qmd()}} to install the Lua filter extension.
+\code{\link[=use_flextable_qmd]{use_flextable_qmd()}} to install the Lua filter extension,
+\code{\link[=knit_print.flextable]{knit_print.flextable()}} for rendering options in knitr documents.
 
 Other chunk elements for paragraph: 
 \code{\link{as_b}()},

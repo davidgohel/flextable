@@ -99,7 +99,8 @@
 #'   )
 #' )
 #' ft_4
-#' @seealso [flextable()], [as_flextable()], [autofit()]
+#' @seealso [flextable()], [as_flextable()], [autofit()],
+#' [knit_print.flextable()]
 set_table_properties <- function(
   x,
   layout = "fixed",

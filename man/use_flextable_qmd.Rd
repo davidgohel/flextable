@@ -47,5 +47,6 @@ use_flextable_qmd()
 }
 }
 \seealso{
-\code{\link[=as_qmd]{as_qmd()}} for creating Quarto markdown chunks.
+\code{\link[=as_qmd]{as_qmd()}} for creating Quarto markdown chunks,
+\code{\link[=knit_print.flextable]{knit_print.flextable()}} for rendering options in knitr documents.
 }

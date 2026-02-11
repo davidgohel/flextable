@@ -791,7 +791,8 @@ to_wml_word_field <- function(x, pr_txt) {
 #' as fallback when the Lua filter is not active.
 #' Defaults to `x`.
 #' @family chunk elements for paragraph
-#' @seealso [use_flextable_qmd()] to install the Lua filter extension.
+#' @seealso [use_flextable_qmd()] to install the Lua filter extension,
+#' [knit_print.flextable()] for rendering options in knitr documents.
 #' @examples
 #' library(flextable)
 #'
@@ -855,7 +856,8 @@ as_qmd <- function(x, display = x) {
 #'   to the current working directory.
 #' @param quiet If `TRUE`, suppress informational messages.
 #' @return The path to the installed extension (invisibly).
-#' @seealso [as_qmd()] for creating Quarto markdown chunks.
+#' @seealso [as_qmd()] for creating Quarto markdown chunks,
+#' [knit_print.flextable()] for rendering options in knitr documents.
 #' @examples
 #' \dontrun{
 #' use_flextable_qmd()

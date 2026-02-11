@@ -23,4 +23,7 @@ to knitr metadata.
 \examples{
 add_latex_dep()
 }
+\seealso{
+\code{\link[=knit_print.flextable]{knit_print.flextable()}}
+}
 \keyword{internal}

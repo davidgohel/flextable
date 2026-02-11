@@ -103,3 +103,6 @@ ft_1 <- paginate(ft_1, group = "cut", group_def = "rle")
 save_as_docx(ft_1, path = tempfile(fileext = ".docx"))
 save_as_rtf(ft_1, path = tempfile(fileext = ".rtf"))
 }
+\seealso{
+\code{\link[=knit_print.flextable]{knit_print.flextable()}}
+}
