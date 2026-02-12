@@ -4,9 +4,10 @@
 --- le rendu des floats). A ce stade, le FloatRefTarget de Quarto a ete
 --- converti en un Table Pandoc contenant : la caption (en tant que Para
 --- dans un Div de cellule) + le flextable (en tant que RawBlock openxml).
---- Ce filtre detecte ces Tables wrapper a cellule unique et les remplace
+--- On va detecter ces Tables wrapper a cellule unique et les remplace
 --- par leur contenu (caption + table), ne supprimant que l'enveloppe
---- Pandoc tout en preservant tout ce qu'il y a a l'interieur.
+--- Pandoc tout en preservant tout ce qu'il y a a l'interieur. Sauf si
+--- deux tableaux qui est une limitation.
 ---
 --- Structure attendue au post-render :
 ---
@@ -35,6 +36,7 @@
 ---    doit produire un seul Table wrapper contenant un seul RawBlock <w:tbl>.
 ---    Si un chunk produit plusieurs flextables (ex. layout-ncol: 2), le
 ---    filtre leve une erreur et suggere d'utiliser officer::block_section().
+---    TODO: founir un exemple.
 ---
 --- 4. Label en `tbl-` : le chunk doit avoir un label avec le prefixe
 ---    `tbl-` (ex. `tbl-ft`) pour que Quarto cree le float avec caption.
@@ -43,9 +45,13 @@
 ---
 --- 5. Detection par `<w:tbl` : tout Table Pandoc dont les cellules
 ---    contiennent un RawBlock(openxml) avec `<w:tbl` est considere
----    comme un wrapper Quarto et sera desemballe. Si un vrai Table
+---    comme un wrapper Quarto et sera desemballe. Si une vrai Table
 ---    Pandoc (multi-cellules) contenait du raw OOXML avec `<w:tbl`,
----    il serait desemballe a tort — cas peu probable en pratique.
+---    il serait desemballe a tort. Il serait bien sur preferable
+---    d'etre en mesure d'identifier les sorties provenant de flextable
+---    mais je ne vois pas comment on pourrait faire sans rendre le code lua
+---    vraiment difficile a maintenir. TODO: tester l'ajout d'un flag dans le OOXML
+---    et voir si on peut faire un 'if' avec cela.
 ---
 --- 6. Aplatissement des Div : les Div intermediaires dans les cellules
 ---    du wrapper sont aplatis (leur contenu est extrait). Les attributs
@@ -118,7 +124,7 @@ local function process_table(tbl)
   return pandoc.Blocks({tbl}), false
 end
 
--- Parcourt recursivement une liste de blocs, traite les Tables et descend dans les Div
+-- Parcour d'une liste de blocs en recursif, traite les Tables et descend dans les Div
 local function process_blocks(blocks)
   local result = pandoc.Blocks({})
   local changed = false

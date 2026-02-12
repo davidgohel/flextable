@@ -737,13 +737,17 @@ to_wml_word_field <- function(x, pr_txt) {
 }
 
 #' @export
-#' @title Quarto markdown chunk
+#' @title Quarto inline markdown chunk
 #' @description
-#' `as_qmd()` creates a chunk whose content will be processed
-#' by Quarto as markdown. This enables cross-references
+#' `as_qmd()` creates a chunk for inline Quarto markdown
+#' content (text-level) that fits within a table
+#' cell paragraph. This enables cross-references
 #' (`@fig-xxx`, `@tbl-xxx`), links, bold/italic, math,
-#' inline code, shortcodes and other Quarto markdown
+#' inline code, shortcodes and other inline Quarto markdown
 #' features inside flextable cells.
+#'
+#' It is not designed for block-level elements such as
+#' headings, bullet lists or fenced code blocks.
 #'
 #' The chunk is used with [compose()], [append_chunks()]
 #' or [prepend_chunks()]. It requires the `flextable-qmd` Lua
@@ -785,6 +789,15 @@ to_wml_word_field <- function(x, pr_txt) {
 #' - Links: `[text](url)` (internal and external)
 #' - Math: `$\\alpha + \\beta$`
 #' - Shortcodes and other Quarto markdown constructs
+#'
+#' @section Limitations:
+#'
+#' Each table cell in a flextable contains a single paragraph
+#' built from inline chunks (see [as_paragraph()]). There is no
+#' mechanism to insert block-level structures (multiple
+#' paragraphs, lists, headings, fenced code blocks, callouts,
+#' etc.) inside a cell. Because `as_qmd()` produces one of
+#' these inline chunks, only inline markdown is supported.
 #'
 #' @param x character vector of Quarto markdown content.
 #' @param display character vector of display text used

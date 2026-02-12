@@ -11,6 +11,13 @@
 #' properties (bold, font color, etc.). Function [mk_par()] lets customise
 #' text of cells.
 #'
+#' Each cell holds a single paragraph composed of inline chunks
+#' (see [as_paragraph()]). This means cell content is strictly
+#' inline: bold, italic, links, images, equations, inline code, etc.
+#' Block-level structures (multiple paragraphs, bullet lists,
+#' headings or fenced code blocks) cannot be placed inside a cell.
+#' Soft line breaks (`\n`) are however supported.
+#'
 #' The [as_flextable()] function is used to transform specific objects into
 #' flextable objects. For example, you can transform a crosstab produced with
 #' the 'tables' package into a flextable which can then be formatted,

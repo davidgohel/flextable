@@ -2,6 +2,14 @@
 --- HTML/LaTeX/OOXML produits par flextable.
 ---
 --- Ce filtre Quarto s'execute APRES les filtres internes de Quarto :
+---
+--- Quarto offre les lua comme moyen de bosser sur les contenus. La plus importante
+--- des features qu'on veut c'est de pouvoir gerer les cross-ref. Vu que c quarto
+--- qui gere cela, on va poser dans un tableau fake toutes les expressions qui viennent
+--- de as_qmd et paf plus la peine de les traduire mais juste de les rebouger au
+--- bon endroit. C'est moche mais moins que les alternatives boiteuses. Cette
+--- solution a le merite de fonctionner.
+---
 --- 1. Construit une table de correspondance des references croisees
 ---    a partir des Links resolus dans le corps du document et des
 ---    entrees FloatRefTarget internes de Quarto.
@@ -34,6 +42,8 @@ local function base64_decode(data)
 end
 
 -- Echappement des motifs Lua ------------------------------------------------
+--- permet le string literal matching, on veut remplacer la chaîne exacte, pas un pattern.
+--- et il faut proteger les caracteres spéciaux Lua
 local function escape_pattern(s)
   return s:gsub("([%(%)%.%%%+%-%*%?%[%]%^%$])", "%%%1")
 end
@@ -169,6 +179,66 @@ local function inlines_to_ooxml(inls, props)
   return table.concat(parts)
 end
 
+-- Extrait les inlines depuis une liste de blocs Para/Plain ----------------
+local function extract_inlines(blocks)
+  local inlines = pandoc.Inlines({})
+  for _, block in ipairs(blocks) do
+    if block.t == "Para" or block.t == "Plain" then
+      if #inlines > 0 then inlines:insert(pandoc.Space()) end
+      inlines:extend(block.content)
+    end
+  end
+  return inlines
+end
+
+-- Detecte la presence d'images dans des inlines ---------------------------
+local function has_images(inlines)
+  for _, el in ipairs(inlines) do
+    if el.t == "Image" then return true end
+  end
+  return false
+end
+
+-- Convertit des inlines en mix RawInline OOXML + Image Pandoc natif -------
+local function inlines_to_mixed_ooxml(inls)
+  local result = pandoc.Inlines({})
+  local text_buf = pandoc.Inlines({})
+
+  local function flush()
+    if #text_buf > 0 then
+      local xml = inlines_to_ooxml(text_buf)
+      if xml ~= "" then
+        result:insert(pandoc.RawInline("openxml", xml))
+      end
+      text_buf = pandoc.Inlines({})
+    end
+  end
+
+  for _, el in ipairs(inls) do
+    if el.t == "Image" then
+      flush()
+      result:insert(el)
+    else
+      text_buf:insert(el)
+    end
+  end
+  flush()
+  return result
+end
+
+-- Trouve les bornes <w:p>...</w:p> autour d'un marqueur ------------------
+local function find_p_bounds(xml, marker_start, marker_end)
+  local before = xml:sub(1, marker_start - 1)
+  local p_open = nil
+  for pos in before:gmatch("()<w:p[%s>]") do
+    p_open = pos
+  end
+  if not p_open then return nil end
+  local _, p_close = xml:find("</w:p>", marker_end + 1)
+  if not p_close then return nil end
+  return p_open, p_close
+end
+
 -- Extrait le type de ref croisee depuis l'identifiant : "fig-scatter" -> "fig"
 local function ref_type(id)
   return id:match("^([^%-]+)")
@@ -277,7 +347,7 @@ local function process_html_raw(html)
     '(<span[^>]- data%-qmd%-base64="([^"]-)"[^>]*>[^<]-</span>)'
   ) do
     local decoded = base64_decode(encoded)
-    local doc = pandoc.read(decoded, "markdown")
+    local doc = pandoc.read(decoded, "markdown-implicit_figures")
     local rendered = blocks_to_output(doc.blocks, "html")
 
     local safe = rendered:gsub("%%", "%%%%")
@@ -290,7 +360,7 @@ local function process_html_raw(html)
   for full, raw_qmd in work:gmatch(
     '(<span[^>]- data%-qmd="([^"]-)"[^>]*>[^<]-</span>)'
   ) do
-    local doc = pandoc.read(raw_qmd, "markdown")
+    local doc = pandoc.read(raw_qmd, "markdown-implicit_figures")
     local rendered = blocks_to_output(doc.blocks, "html")
 
     local safe = rendered:gsub("%%", "%%%%")
@@ -308,7 +378,7 @@ local function process_latex_raw(tex)
   local work = tex
   for full, encoded in work:gmatch("(\\tblqmd{([^}]+)})") do
     local decoded = base64_decode(encoded)
-    local doc = pandoc.read(decoded, "markdown")
+    local doc = pandoc.read(decoded, "markdown-implicit_figures")
     local rendered = blocks_to_output(doc.blocks, "latex")
 
     local safe = rendered:gsub("%%", "%%%%")
@@ -320,31 +390,79 @@ local function process_latex_raw(tex)
 end
 
 -- Passe 2c : traite les RawBlocks OpenXML (marqueurs <!--TBLQMD:base64-->) --
+-- Retourne : nil | RawBlock | {Block...} (liste si images detectees)
 local function process_openxml_raw(xml)
   local modified = false
 
+  -- Passe A : remplace les marqueurs SANS images (substitution de chaine)
   local work = xml
   for full, encoded in work:gmatch("(<!%-%-TBLQMD:([^%-]+)%-%->)") do
     local decoded = base64_decode(encoded)
-    local doc = pandoc.read(decoded, "markdown")
+    local doc = pandoc.read(decoded, "markdown-implicit_figures")
     local resolved = resolve_cites(doc.blocks)
+    local inlines = extract_inlines(resolved)
 
-    -- Extrait les inlines des blocs resolus
-    local inlines = pandoc.Inlines({})
-    for _, block in ipairs(resolved) do
-      if block.t == "Para" or block.t == "Plain" then
-        if #inlines > 0 then inlines:insert(pandoc.Space()) end
-        inlines:extend(block.content)
-      end
+    if not has_images(inlines) then
+      local ooxml = inlines_to_ooxml(inlines)
+      local safe = ooxml:gsub("%%", "%%%%")
+      xml = xml:gsub(escape_pattern(full), safe, 1)
+      modified = true
     end
-
-    local ooxml = inlines_to_ooxml(inlines)
-    local safe = ooxml:gsub("%%", "%%%%")
-    xml = xml:gsub(escape_pattern(full), safe, 1)
-    modified = true
   end
 
-  return xml, modified
+  -- Passe B : collecte les marqueurs restants (AVEC images)
+  local image_markers = {}
+  local search_start = 1
+  while true do
+    local ms, me = xml:find("<!%-%-TBLQMD:([^%-]+)%-%->", search_start)
+    if not ms then break end
+    local encoded = xml:match("<!%-%-TBLQMD:([^%-]+)%-%->", ms)
+    table.insert(image_markers, { ms = ms, me = me, encoded = encoded })
+    search_start = me + 1
+  end
+
+  if #image_markers == 0 then
+    if modified then return pandoc.RawBlock("openxml", xml) end
+    return nil
+  end
+
+  -- Decoupage du XML autour des marqueurs avec images
+  local blocks = {}
+  local pos = 1
+
+  for _, m in ipairs(image_markers) do
+    local decoded = base64_decode(m.encoded)
+    local doc = pandoc.read(decoded, "markdown-implicit_figures")
+    local resolved = resolve_cites(doc.blocks)
+    local inlines = extract_inlines(resolved)
+
+    local p_open, p_close = find_p_bounds(xml, m.ms, m.me)
+    if p_open and p_close and p_open >= pos then
+      -- XML avant le <w:p> contenant le marqueur
+      local before = xml:sub(pos, p_open - 1)
+      if before ~= "" then
+        table.insert(blocks, pandoc.RawBlock("openxml", before))
+      end
+      -- Para natif avec inlines mixtes (RawInline OOXML + Image Pandoc)
+      local mixed = inlines_to_mixed_ooxml(inlines)
+      table.insert(blocks, pandoc.Para(mixed))
+      pos = p_close + 1
+    else
+      -- Repli : remplacement du marqueur par du texte OOXML (images perdues)
+      local before = xml:sub(pos, m.ms - 1)
+      local ooxml = inlines_to_ooxml(inlines)
+      table.insert(blocks, pandoc.RawBlock("openxml", before .. ooxml))
+      pos = m.me + 1
+    end
+  end
+
+  -- XML restant apres le dernier marqueur avec image
+  local rest = xml:sub(pos)
+  if rest ~= "" then
+    table.insert(blocks, pandoc.RawBlock("openxml", rest))
+  end
+
+  return blocks
 end
 
 -- Traitement unifie des RawBlocks -------------------------------------------
@@ -361,8 +479,7 @@ local function process_raw_block(el)
 
   elseif el.format == "openxml" then
     if not el.text:find("TBLQMD") then return nil end
-    local result, modified = process_openxml_raw(el.text)
-    if modified then return pandoc.RawBlock("openxml", result) end
+    return process_openxml_raw(el.text)
   end
 
   return nil
@@ -382,17 +499,9 @@ local function process_span(el)
     return nil
   end
 
-  local doc = pandoc.read(qmd_text, "markdown")
+  local doc = pandoc.read(qmd_text, "markdown-implicit_figures")
   local resolved = resolve_cites(doc.blocks)
-
-  -- extrait les inlines
-  local inlines = pandoc.Inlines({})
-  for _, block in ipairs(resolved) do
-    if block.t == "Para" or block.t == "Plain" then
-      if #inlines > 0 then inlines:insert(pandoc.Space()) end
-      inlines:extend(block.content)
-    end
-  end
+  local inlines = extract_inlines(resolved)
 
   if #inlines > 0 then return inlines end
   return nil

@@ -2,7 +2,7 @@
 % Please edit documentation in R/05_content.R
 \name{as_qmd}
 \alias{as_qmd}
-\title{Quarto markdown chunk}
+\title{Quarto inline markdown chunk}
 \usage{
 as_qmd(x, display = x)
 }
@@ -14,11 +14,15 @@ as fallback when the Lua filter is not active.
 Defaults to \code{x}.}
 }
 \description{
-\code{as_qmd()} creates a chunk whose content will be processed
-by Quarto as markdown. This enables cross-references
+\code{as_qmd()} creates a chunk for inline Quarto markdown
+content (text-level) that fits within a table
+cell paragraph. This enables cross-references
 (\verb{@fig-xxx}, \verb{@tbl-xxx}), links, bold/italic, math,
-inline code, shortcodes and other Quarto markdown
+inline code, shortcodes and other inline Quarto markdown
 features inside flextable cells.
+
+It is not designed for block-level elements such as
+headings, bullet lists or fenced code blocks.
 
 The chunk is used with \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}
 or \code{\link[=prepend_chunks]{prepend_chunks()}}. It requires the \code{flextable-qmd} Lua
@@ -63,6 +67,17 @@ labelled flextables:
 \item Math: \verb{$\\\\alpha + \\\\beta$}
 \item Shortcodes and other Quarto markdown constructs
 }
+}
+
+\section{Limitations}{
+
+
+Each table cell in a flextable contains a single paragraph
+built from inline chunks (see \code{\link[=as_paragraph]{as_paragraph()}}). There is no
+mechanism to insert block-level structures (multiple
+paragraphs, lists, headings, fenced code blocks, callouts,
+etc.) inside a cell. Because \code{as_qmd()} produces one of
+these inline chunks, only inline markdown is supported.
 }
 
 \examples{
