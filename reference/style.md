@@ -1,0 +1,294 @@
+# Set formatting properties on a flextable selection
+
+`style()` applies text, paragraph and cell formatting properties to a
+selection of rows and columns in one call. It is a lower-level function
+that bundles what the convenience functions do individually:
+
+- text (`pr_t`): font family, size, color, bold, italic, etc., same
+  properties as
+  [`bold()`](https://davidgohel.github.io/flextable/reference/bold.md),
+  [`italic()`](https://davidgohel.github.io/flextable/reference/italic.md),
+  [`color()`](https://davidgohel.github.io/flextable/reference/color.md),
+  [`fontsize()`](https://davidgohel.github.io/flextable/reference/fontsize.md),
+  [`font()`](https://davidgohel.github.io/flextable/reference/font.md),
+  [`highlight()`](https://davidgohel.github.io/flextable/reference/highlight.md).
+
+- paragraph (`pr_p`): alignment, padding, line spacing, same properties
+  as
+  [`align()`](https://davidgohel.github.io/flextable/reference/align.md),
+  [`padding()`](https://davidgohel.github.io/flextable/reference/padding.md),
+  [`line_spacing()`](https://davidgohel.github.io/flextable/reference/line_spacing.md).
+
+- cell (`pr_c`): background colour, borders, vertical alignment, same
+  properties as
+  [`bg()`](https://davidgohel.github.io/flextable/reference/bg.md),
+  [`border()`](https://davidgohel.github.io/flextable/reference/border.md),
+  [`valign()`](https://davidgohel.github.io/flextable/reference/valign.md).
+
+Use `style()` when you need to set several property types at once on the
+same selection; use the convenience functions when you only need to
+change one aspect.
+
+Note that `style()` modifies an existing flextable. To change the
+initial formatting applied to every new flextable, use
+[`set_flextable_defaults()`](https://davidgohel.github.io/flextable/reference/set_flextable_defaults.md)
+instead.
+
+## Usage
+
+``` r
+style(
+  x,
+  i = NULL,
+  j = NULL,
+  pr_t = NULL,
+  pr_p = NULL,
+  pr_c = NULL,
+  part = "body"
+)
+```
+
+## Arguments
+
+- x:
+
+  a 'flextable' object, see
+  [flextable-package](https://davidgohel.github.io/flextable/reference/flextable-package.md)
+  to learn how to create 'flextable' object.
+
+- i:
+
+  row selector, see section *Row selection with the `i` parameter* in
+  \<[`Selectors in flextable`](https://davidgohel.github.io/flextable/reference/flextable_selectors.md)\>.
+
+- j:
+
+  column selector, see section *Column selection with the `j` parameter*
+  in
+  \<[`Selectors in flextable`](https://davidgohel.github.io/flextable/reference/flextable_selectors.md)\>.
+
+- pr_t:
+
+  an
+  [`officer::fp_text()`](https://davidgohel.github.io/officer/reference/fp_text.html)
+  or
+  [`officer::fp_text_lite()`](https://davidgohel.github.io/officer/reference/fp_text.html)
+  object defining text formatting (font, size, color, bold, ...).
+
+- pr_p:
+
+  an
+  [`officer::fp_par()`](https://davidgohel.github.io/officer/reference/fp_par.html)
+  or
+  [`officer::fp_par_lite()`](https://davidgohel.github.io/officer/reference/fp_par.html)
+  object defining paragraph formatting (alignment, padding, line
+  spacing, ...).
+
+- pr_c:
+
+  an
+  [`officer::fp_cell()`](https://davidgohel.github.io/officer/reference/fp_cell.html)
+  object defining cell formatting (background, borders, vertical
+  alignment, ...).
+
+- part:
+
+  part selector, see section *Part selection with the `part` parameter*
+  in
+  \<[`Selectors in flextable`](https://davidgohel.github.io/flextable/reference/flextable_selectors.md)\>.
+  Value 'all' can be used.
+
+## See also
+
+Other sugar functions for table style:
+[`align()`](https://davidgohel.github.io/flextable/reference/align.md),
+[`bg()`](https://davidgohel.github.io/flextable/reference/bg.md),
+[`bold()`](https://davidgohel.github.io/flextable/reference/bold.md),
+[`color()`](https://davidgohel.github.io/flextable/reference/color.md),
+[`empty_blanks()`](https://davidgohel.github.io/flextable/reference/empty_blanks.md),
+[`font()`](https://davidgohel.github.io/flextable/reference/font.md),
+[`fontsize()`](https://davidgohel.github.io/flextable/reference/fontsize.md),
+[`highlight()`](https://davidgohel.github.io/flextable/reference/highlight.md),
+[`italic()`](https://davidgohel.github.io/flextable/reference/italic.md),
+[`keep_with_next()`](https://davidgohel.github.io/flextable/reference/keep_with_next.md),
+[`line_spacing()`](https://davidgohel.github.io/flextable/reference/line_spacing.md),
+[`padding()`](https://davidgohel.github.io/flextable/reference/padding.md),
+[`rotate()`](https://davidgohel.github.io/flextable/reference/rotate.md),
+[`tab_settings()`](https://davidgohel.github.io/flextable/reference/tab_settings.md),
+[`valign()`](https://davidgohel.github.io/flextable/reference/valign.md)
+
+## Examples
+
+``` r
+library(officer)
+def_cell <- fp_cell(border = fp_border(color = "wheat"))
+
+def_par <- fp_par(text.align = "center")
+
+ft <- flextable(head(mtcars))
+
+ft <- style(ft, pr_c = def_cell, pr_p = def_par, part = "all")
+ft <- style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
+  pr_t = fp_text(color = "red", italic = TRUE)
+)
+
+ft
+
+
+.cl-30bcb9a4{}.cl-30b5db34{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-30b5db48{font-family:'Arial';font-size:10pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-30b8db40{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:0;padding-top:0;padding-left:0;padding-right:0;line-height: 1;background-color:transparent;}.cl-30b8fc2e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(245, 222, 179, 1.00);border-top: 1pt solid rgba(245, 222, 179, 1.00);border-left: 1pt solid rgba(245, 222, 179, 1.00);border-right: 1pt solid rgba(245, 222, 179, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+
+
+mpg
+```
+
+cyl
+
+disp
+
+hp
+
+drat
+
+wt
+
+qsec
+
+vs
+
+am
+
+gear
+
+carb
+
+21.0
+
+6
+
+160
+
+110
+
+3.90
+
+2.620
+
+16.46
+
+0
+
+1
+
+4
+
+4
+
+21.0
+
+6
+
+160
+
+110
+
+3.90
+
+2.875
+
+17.02
+
+0
+
+1
+
+4
+
+4
+
+22.8
+
+4
+
+108
+
+93
+
+3.85
+
+2.320
+
+18.61
+
+1
+
+1
+
+4
+
+1
+
+21.4
+
+6
+
+258
+
+110
+
+3.08
+
+3.215
+
+19.44
+
+1
+
+0
+
+3
+
+1
+
+18.7
+
+8
+
+360
+
+175
+
+3.15
+
+3.440
+
+17.02
+
+0
+
+0
+
+3
+
+2
+
+18.1
+
+6
+
+225
+
+105
+
+2.76
+
+3.460
+
+20.22
+
+1
+
+0
+
+3
+
+1

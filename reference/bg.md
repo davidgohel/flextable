@@ -1,0 +1,268 @@
+# Set background color
+
+Change the background color of selected rows and columns of a flextable.
+A function can be used instead of fixed colors.
+
+When `bg` is a function, it is possible to color cells based on values
+located in other columns; using hidden columns (those not used by
+argument `colkeys`) is a common use case. The argument `source` must be
+used to define the columns to be used for the color definition, and the
+argument `j` must be used to define where to apply the colors and only
+accepts values from `colkeys`.
+
+## Usage
+
+``` r
+bg(x, i = NULL, j = NULL, bg, part = "body", source = j)
+```
+
+## Arguments
+
+- x:
+
+  a 'flextable' object, see
+  [flextable-package](https://davidgohel.github.io/flextable/reference/flextable-package.md)
+  to learn how to create 'flextable' object.
+
+- i:
+
+  row selector, see section *Row selection with the `i` parameter* in
+  \<[`Selectors in flextable`](https://davidgohel.github.io/flextable/reference/flextable_selectors.md)\>.
+
+- j:
+
+  column selector, see section *Column selection with the `j` parameter*
+  in
+  \<[`Selectors in flextable`](https://davidgohel.github.io/flextable/reference/flextable_selectors.md)\>.
+
+- bg:
+
+  color to use as background color. If a function, the function must
+  return a character vector of colors.
+
+- part:
+
+  part selector, see section *Part selection with the `part` parameter*
+  in
+  \<[`Selectors in flextable`](https://davidgohel.github.io/flextable/reference/flextable_selectors.md)\>.
+  Value 'all' can be used.
+
+- source:
+
+  if bg is a function, source specifies the dataset column to be used as
+  an argument to `bg`. This is only useful when j is colored with values
+  contained in other columns.
+
+## Note
+
+Word does not allow you to apply transparency to table cells or
+paragraph shading.
+
+## See also
+
+Other sugar functions for table style:
+[`align()`](https://davidgohel.github.io/flextable/reference/align.md),
+[`bold()`](https://davidgohel.github.io/flextable/reference/bold.md),
+[`color()`](https://davidgohel.github.io/flextable/reference/color.md),
+[`empty_blanks()`](https://davidgohel.github.io/flextable/reference/empty_blanks.md),
+[`font()`](https://davidgohel.github.io/flextable/reference/font.md),
+[`fontsize()`](https://davidgohel.github.io/flextable/reference/fontsize.md),
+[`highlight()`](https://davidgohel.github.io/flextable/reference/highlight.md),
+[`italic()`](https://davidgohel.github.io/flextable/reference/italic.md),
+[`keep_with_next()`](https://davidgohel.github.io/flextable/reference/keep_with_next.md),
+[`line_spacing()`](https://davidgohel.github.io/flextable/reference/line_spacing.md),
+[`padding()`](https://davidgohel.github.io/flextable/reference/padding.md),
+[`rotate()`](https://davidgohel.github.io/flextable/reference/rotate.md),
+[`style()`](https://davidgohel.github.io/flextable/reference/style.md),
+[`tab_settings()`](https://davidgohel.github.io/flextable/reference/tab_settings.md),
+[`valign()`](https://davidgohel.github.io/flextable/reference/valign.md)
+
+## Examples
+
+``` r
+ft_1 <- flextable(head(mtcars))
+ft_1 <- bg(ft_1, bg = "wheat", part = "header")
+ft_1 <- bg(ft_1, i = ~ qsec < 18, bg = "#EFEFEF", part = "body")
+ft_1 <- bg(ft_1, j = "drat", bg = "#606060", part = "all")
+ft_1 <- color(ft_1, j = "drat", color = "white", part = "all")
+ft_1
+
+
+.cl-1244f860{}.cl-123dd4b8{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-123dd4c2{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-1240be80{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-1240e054{width:0.75in;background-color:rgba(245, 222, 179, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1240e055{width:0.75in;background-color:rgba(96, 96, 96, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1240e05e{width:0.75in;background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1240e068{width:0.75in;background-color:rgba(96, 96, 96, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1240e069{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1240e06a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1240e072{width:0.75in;background-color:rgba(96, 96, 96, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+
+
+mpg
+```
+
+cyl
+
+disp
+
+hp
+
+drat
+
+wt
+
+qsec
+
+vs
+
+am
+
+gear
+
+carb
+
+21.0
+
+6
+
+160
+
+110
+
+3.90
+
+2.620
+
+16.46
+
+0
+
+1
+
+4
+
+4
+
+21.0
+
+6
+
+160
+
+110
+
+3.90
+
+2.875
+
+17.02
+
+0
+
+1
+
+4
+
+4
+
+22.8
+
+4
+
+108
+
+93
+
+3.85
+
+2.320
+
+18.61
+
+1
+
+1
+
+4
+
+1
+
+21.4
+
+6
+
+258
+
+110
+
+3.08
+
+3.215
+
+19.44
+
+1
+
+0
+
+3
+
+1
+
+18.7
+
+8
+
+360
+
+175
+
+3.15
+
+3.440
+
+17.02
+
+0
+
+0
+
+3
+
+2
+
+18.1
+
+6
+
+225
+
+105
+
+2.76
+
+3.460
+
+20.22
+
+1
+
+0
+
+3
+
+1
+
+if
+([require](https://rdrr.io/r/base/library.html)(["scales"](https://scales.r-lib.org)))
+{ ft_2 \<-
+[flextable](https://davidgohel.github.io/flextable/reference/flextable.md)([head](https://rdrr.io/r/utils/head.html)(iris))
+colourer \<-
+[col_numeric](https://scales.r-lib.org/reference/col_numeric.html)(
+palette = [c](https://rdrr.io/r/base/c.html)("wheat", "red"), domain =
+[c](https://rdrr.io/r/base/c.html)(0, 7) ) ft_2 \<- bg(ft_2, j =
+[c](https://rdrr.io/r/base/c.html)( "Sepal.Length", "Sepal.Width",
+"Petal.Length", "Petal.Width" ), bg = colourer, part = "body" ) ft_2 }
+\#\> Loading required package: scales
+
+| Sepal.Length | Sepal.Width | Petal.Length | Petal.Width | Species |
+|--------------|-------------|--------------|-------------|---------|
+| 5.1          | 3.5         | 1.4          | 0.2         | setosa  |
+| 4.9          | 3.0         | 1.4          | 0.2         | setosa  |
+| 4.7          | 3.2         | 1.3          | 0.2         | setosa  |
+| 4.6          | 3.1         | 1.5          | 0.2         | setosa  |
+| 5.0          | 3.6         | 1.4          | 0.2         | setosa  |
+| 5.4          | 3.9         | 1.7          | 0.4         | setosa  |

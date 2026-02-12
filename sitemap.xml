@@ -16,10 +16,22 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/add_latex_dep.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/align.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/append_chunks.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/args_selectors_with_all.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/args_selectors_without_all.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/args_x_i_j.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/args_x_i_part.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/args_x_i_part_no_all.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/args_x_j.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/args_x_j_part.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/args_x_j_part_no_all.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/args_x_only.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/args_x_part.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/args_x_part_no_all.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_b.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_bracket.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_chunk.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_equation.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/as_flextable.compact_summary.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_flextable.data.frame.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_flextable.gam.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_flextable.glm.html</loc></url>
@@ -40,7 +52,9 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/as_i.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_image.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_paragraph.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/as_qmd.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_raster.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/as_strike.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_sub.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_sup.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_word_field.html</loc></url>
@@ -67,6 +81,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/colformat_num.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/color.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/colorize.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/compact_summary.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/compose.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/continuous_summary.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/delete_columns.html</loc></url>
@@ -83,6 +98,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/flextable.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/flextable_dim.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/flextable_html_dependency.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/flextable_selectors.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/flextable_to_rmd.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/fmt_2stats.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/fmt_avg_dev.html</loc></url>
@@ -165,6 +181,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/theme_alafoli.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/theme_apa.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/theme_booktabs.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/theme_borderless.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/theme_box.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/theme_tron.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/theme_tron_legacy.html</loc></url>
@@ -173,6 +190,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/theme_zebra.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/to_html.flextable.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/use_df_printer.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/use_flextable_qmd.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/use_model_printer.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/valign.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/vline.html</loc></url>
@@ -180,5 +198,6 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/vline_right.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/void.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/width.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/wrap_flextable.html</loc></url>
 </urlset>
 

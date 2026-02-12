@@ -12,8 +12,8 @@
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Functions for Tabular Reporting">
-<meta name="description" content="Use a grammar for creating and customizing pretty tables. The following formats are supported: HTML, PDF, RTF, Microsoft Word, Microsoft PowerPoint and R Grid Graphics. R Markdown, Quarto and the package officer can be used to produce the result files. The syntax is the same for the user regardless of the type of output to be produced. A set of functions allows the creation, definition of cell arrangement, addition of headers or footers, formatting and definition of cell content with text and or images. The package also offers a set of high-level functions that allow tabular reporting of statistical models and the creation of complex cross tabulations.">
-<meta property="og:description" content="Use a grammar for creating and customizing pretty tables. The following formats are supported: HTML, PDF, RTF, Microsoft Word, Microsoft PowerPoint and R Grid Graphics. R Markdown, Quarto and the package officer can be used to produce the result files. The syntax is the same for the user regardless of the type of output to be produced. A set of functions allows the creation, definition of cell arrangement, addition of headers or footers, formatting and definition of cell content with text and or images. The package also offers a set of high-level functions that allow tabular reporting of statistical models and the creation of complex cross tabulations.">
+<meta name="description" content="Use a grammar for creating and customizing pretty tables. The following formats are supported: HTML, PDF, RTF, Microsoft Word, Microsoft PowerPoint, R Grid Graphics and patchwork. R Markdown, Quarto and the package officer can be used to produce the result files. The syntax is the same for the user regardless of the type of output to be produced. A set of functions allows the creation, definition of cell arrangement, addition of headers or footers, formatting and definition of cell content with text and or images. The package also offers a set of high-level functions that allow tabular reporting of statistical models and the creation of complex cross tabulations.">
+<meta property="og:description" content="Use a grammar for creating and customizing pretty tables. The following formats are supported: HTML, PDF, RTF, Microsoft Word, Microsoft PowerPoint, R Grid Graphics and patchwork. R Markdown, Quarto and the package officer can be used to produce the result files. The syntax is the same for the user regardless of the type of output to be produced. A set of functions allows the creation, definition of cell arrangement, addition of headers or footers, formatting and definition of cell content with text and or images. The package also offers a set of high-level functions that allow tabular reporting of statistical models and the creation of complex cross tabulations.">
 <meta property="og:image" content="https://davidgohel.github.io/flextable/logo.png">
 </head>
 <body>
@@ -24,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,12 +55,11 @@
 </div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <p><a href="https://github.com/davidgohel/flextable/actions" class="external-link"><img src="https://github.com/davidgohel/flextable/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://CRAN.R-project.org/package=flextable" class="external-link"><img src="https://www.r-pkg.org/badges/version/flextable" alt="version"></a> <a href="https://app.codecov.io/gh/davidgohel/flextable" class="external-link"><img src="https://codecov.io/gh/davidgohel/flextable/branch/master/graph/badge.svg" alt="test coverage"></a> <img src="https://www.repostatus.org/badges/latest/active.svg" alt="Active"></p>
-<p>The flextable package provides a framework for easily create tables for reporting and publications. Tables can be easily formatted with a set of verbs such as <code><a href="reference/bold.html">bold()</a></code>, <code><a href="reference/color.html">color()</a></code>, they can receive a header of more than one line, cells can be merged or contain an image. The package make it possible to build any table for publication from a <code>data.frame</code> and provides sugar function <code><a href="reference/as_flextable.html">as_flextable()</a></code> to convert several R objects to a flextable, such as an object return from <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code> or a model.</p>
-<p>Tables can be embedded within HTML, PDF, Word and PowerPoint documents from R Markdown documents and within RTF or Microsoft Word or PowerPoint documents with package officer. Tables can also be rendered as R plots or graphic files (png).</p>
-<p><img src="reference/figures/fig_formats.png" width="170px" alt="flextable formats" align="center"></p>
+<p>The flextable package provides a framework for easily creating tables for reporting and publications. Tables can be formatted with a set of verbs such as <code><a href="reference/bold.html">bold()</a></code>, <code><a href="reference/color.html">color()</a></code>, they can receive a header of more than one line, cells can be merged or contain an image. The package makes it possible to build any table for publication from a <code>data.frame</code> and provides convenience function <code><a href="reference/as_flextable.html">as_flextable()</a></code> to convert several R objects to a flextable, such as an object returned from <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code> or a model.</p>
+<p>Tables can be embedded within HTML, PDF, Word and PowerPoint documents from R Markdown and Quarto documents and within RTF or Microsoft Word or PowerPoint documents with package <a href="https://davidgohel.github.io/officer/" class="external-link">officer</a>. Tables can also be exported as image files (png, svg) or combined with ggplot2 plots in patchwork layouts.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/flextable.html">flextable</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu"><a href="reference/theme_vanilla.html">theme_vanilla</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/flextable.html">flextable</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/theme_vanilla.html">theme_vanilla</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/save_as_docx.html">save_as_docx</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"mytable.docx"</span><span class="op">)</span></span></code></pre></div>
 <p>A <code>flextable</code> object is a data.frame representation. An API is available to let R users create tables for reporting and control their formatting properties and their layout. The package provides functions that give control over:</p>
 <ul>
@@ -74,27 +73,24 @@
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">flextable</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/set_flextable_defaults.html">set_flextable_defaults</a></span><span class="op">(</span></span>
-<span>  font.family <span class="op">=</span> <span class="st">"Arial"</span>, font.size <span class="op">=</span> <span class="fl">10</span>, </span>
-<span>  border.color <span class="op">=</span> <span class="st">"gray"</span>, big.mark <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="reference/bold.html">bold</a></span><span class="op">(</span>part <span class="op">=</span> <span class="st">"header"</span><span class="op">)</span> </span>
-<span><span class="va">ft</span></span></code></pre></div>
-<p><img src="reference/figures/README-mtcars-dataset-1.png" width="792"></p>
+<span><span class="fu"><a href="reference/flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">airquality</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-simple-example-1.png" alt="" width="432"></p>
+<p>Formatting can be layered on with a set of functions:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">ft</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="reference/highlight.html">highlight</a></span><span class="op">(</span>i <span class="op">=</span> <span class="op">~</span> <span class="va">mpg</span> <span class="op">&lt;</span> <span class="fl">22</span>, j <span class="op">=</span> <span class="st">"disp"</span>, color <span class="op">=</span> <span class="st">"#ffe842"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="reference/bg.html">bg</a></span><span class="op">(</span>j <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hp"</span>, <span class="st">"drat"</span>, <span class="st">"wt"</span><span class="op">)</span>, </span>
-<span>     bg <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/col_numeric.html" class="external-link">col_quantile</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat"</span>, <span class="st">"red"</span><span class="op">)</span>, domain <span class="op">=</span><span class="cn">NULL</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/flextable.html">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/highlight.html">highlight</a></span><span class="op">(</span>i <span class="op">=</span> <span class="op">~</span> <span class="va">mpg</span> <span class="op">&lt;</span> <span class="fl">22</span>, j <span class="op">=</span> <span class="st">"disp"</span>, color <span class="op">=</span> <span class="st">"#ffe842"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/bg.html">bg</a></span><span class="op">(</span></span>
+<span>    j <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hp"</span>, <span class="st">"drat"</span>, <span class="st">"wt"</span><span class="op">)</span>,</span>
+<span>    bg <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/col_numeric.html" class="external-link">col_quantile</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wheat"</span>, <span class="st">"red"</span><span class="op">)</span>, domain <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/add_footer_lines.html">add_footer_lines</a></span><span class="op">(</span><span class="st">"The 'mtcars' dataset"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-mtcars-dataset-2.png" width="792"></p>
+<p><img src="reference/figures/README-mtcars-dataset-1.png" alt="" width="792"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cut"</span>, <span class="st">"carat"</span>, <span class="st">"price"</span>, <span class="st">"clarity"</span>, <span class="st">"table"</span><span class="op">)</span><span class="op">]</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="reference/summarizor.html">summarizor</a></span><span class="op">(</span>by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cut"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html" class="external-link">diamonds</a></span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cut"</span>, <span class="st">"carat"</span>, <span class="st">"price"</span>, <span class="st">"clarity"</span>, <span class="st">"table"</span><span class="op">)</span><span class="op">]</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/summarizor.html">summarizor</a></span><span class="op">(</span>by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cut"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/as_flextable.html">as_flextable</a></span><span class="op">(</span>spread_first_col <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-diamonds-dataset-1.png" width="740"></p>
+<p><img src="reference/figures/README-diamonds-dataset-1.png" alt="" width="740"></p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -109,12 +105,9 @@
 <h2 id="resources">Resources<a class="anchor" aria-label="anchor" href="#resources"></a>
 </h2>
 <ul>
-<li>User guide: <a href="https://ardata-fr.github.io/flextable-book/" class="external-link uri">https://ardata-fr.github.io/flextable-book/</a>
-</li>
-<li>Manuals: <a href="https://davidgohel.github.io/flextable/reference/index.html" class="uri">https://davidgohel.github.io/flextable/reference/index.html</a>
-</li>
-<li>Gallery of examples: <a href="https://ardata.fr/en/flextable-gallery/" class="external-link uri">https://ardata.fr/en/flextable-gallery/</a>
-</li>
+<li><a href="https://ardata-fr.github.io/flextable-book/" class="external-link">User guide</a></li>
+<li><a href="https://davidgohel.github.io/flextable/reference/index.html">Reference manual</a></li>
+<li><a href="https://ardata.fr/en/flextable-gallery/" class="external-link">Gallery of examples</a></li>
 </ul>
 </div>
 <div class="section level2">
@@ -170,7 +163,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

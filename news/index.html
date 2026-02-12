@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,49 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.10" id="flextable-0910">flextable 0.9.10<a class="anchor" aria-label="anchor" href="#flextable-0910"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.11" id="flextable-0911">flextable 0.9.11<a class="anchor" aria-label="anchor" href="#flextable-0911"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-9-11">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-11"></a></h3>
+<ul><li>new function <code><a href="../reference/wrap_flextable.html">wrap_flextable()</a></code> enables integration with ‘patchwork’ layouts. Flextable objects can be combined with ‘ggplot2’ plots using <code>+</code>, <code>|</code>, and <code>/</code> operators. Table headers and footers are aligned with plot panel areas. The <code>panel</code> argument controls alignment (<code>"body"</code>, <code>"full"</code>, <code>"rows"</code>, <code>"cols"</code>) and the <code>space</code> argument controls sizing (<code>"free"</code>, <code>"fixed"</code>, <code>"free_x"</code>, <code>"free_y"</code>). <code>flex_body</code> stretches body rows to match a neighbouring plot’s panel height; <code>flex_cols</code> stretches data columns to match the panel width. <code>just</code> controls horizontal alignment (<code>"left"</code>, <code>"right"</code>, <code>"center"</code>) when the table is narrower than the panel. S3 methods <code>ggplot_add.flextable</code> and <code>as_patch.flextable</code> are registered so that <code>plot + flextable</code> works transparently.</li>
+<li>new function <code><a href="../reference/theme_borderless.html">theme_borderless()</a></code> applies a minimal theme with no borders, bold header, and standard column alignment.</li>
+<li>support strikethrough formatting with <code><a href="../reference/fp_text_default.html">fp_text_default()</a></code>.</li>
+<li>new function <code><a href="../reference/as_strike.html">as_strike()</a></code> to apply strikethrough formatting to text chunks.</li>
+<li>new function <code><a href="../reference/compact_summary.html">compact_summary()</a></code> to create a compact summary of a data.frame that can be transformed as a flextable with <code><a href="../reference/as_flextable.html">as_flextable()</a></code>.</li>
+<li>
+<code><a href="../reference/summarizor.html">summarizor()</a></code>: when using <code>overall_label</code> with multiple <code>by</code> columns, an overall level is now added for each grouping column (not only the last one). This produces margins at every nesting level, including a grand total.</li>
+<li>
+<code><a href="../reference/footnote.html">footnote()</a></code> gains a <code>symbol_sep</code> argument to insert a separator between multiple footnote symbols in the same cell (<a href="https://github.com/davidgohel/flextable/issues/699" class="external-link">#699</a>).</li>
+<li>new function <code><a href="../reference/as_qmd.html">as_qmd()</a></code> to embed Quarto markdown (cross-references, bold/italic, links, math, inline code) inside flextable cells. Works with HTML, PDF and Word outputs. New function <code><a href="../reference/use_flextable_qmd.html">use_flextable_qmd()</a></code> installs the companion <code>flextable-qmd</code> Lua filter extension in the Quarto project.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="known-limitations-0-9-11">Known limitations<a class="anchor" aria-label="anchor" href="#known-limitations-0-9-11"></a></h3>
+<ul><li>PDF/LaTeX: a table row whose content is taller than a page cannot be split across pages (<a href="https://github.com/davidgohel/flextable/issues/548" class="external-link">#548</a>). This is a fundamental constraint of LaTeX’s <code>longtable</code> environment, which only supports page breaks between rows, not within a single row. HTML and Word outputs are not affected.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="internals-0-9-11">Internals<a class="anchor" aria-label="anchor" href="#internals-0-9-11"></a></h3>
+<ul><li>Strings metrics are now computed with <code><a href="https://davidgohel.github.io/gdtools/reference/strings_sizes.html" class="external-link">gdtools::strings_sizes()</a></code> instead of <code><a href="https://davidgohel.github.io/gdtools/reference/m_str_extents.html" class="external-link">m_str_extents()</a></code> and <code><a href="https://davidgohel.github.io/gdtools/reference/str_metrics.html" class="external-link">str_metrics()</a></code>, goal is to let ‘gdtools’ use only ‘systemfonts’ and be simplified.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-9-11">Issues<a class="anchor" aria-label="anchor" href="#issues-0-9-11"></a></h3>
+<ul><li>line breaks (<code>\n</code>) in captions now render correctly in PDF/LaTeX output (<a href="https://github.com/davidgohel/flextable/issues/663" class="external-link">#663</a>).</li>
+<li>images in google docs should now be sized as expected</li>
+<li>specifying a <code>word_style</code> for a paragraph style works now. The <code>word_style</code> values will be ignored if flextable is process by ‘rmarkdown’ or ‘quarto’.</li>
+<li>
+<code><a href="../reference/as_flextable.tabulator.html">as_flextable.tabulator()</a></code>: the N= counts in column headers are now displayed when there are multiple grouping columns (previously limited to a single grouping column).</li>
+<li>
+<code><a href="../reference/footnote.html">footnote()</a></code> no longer errors when the row selector <code>i</code> matches zero rows (<a href="https://github.com/davidgohel/flextable/issues/712" class="external-link">#712</a>).</li>
+<li>footnote symbols no longer clash with rotated cells in HTML output (<a href="https://github.com/davidgohel/flextable/issues/713" class="external-link">#713</a>).</li>
+<li>PDF/Quarto: the <code>fontspec</code> LaTeX package is no longer included when the PDF engine is <code>pdflatex</code>, fixing compilation errors in Quarto documents using <code>pdf-engine: pdflatex</code> (<a href="https://github.com/davidgohel/flextable/issues/701" class="external-link">#701</a>, <a href="https://github.com/davidgohel/flextable/issues/707" class="external-link">#707</a>). Engine detection now also reads <code>QUARTO_EXECUTE_INFO</code> (Quarto &gt;= 1.8) and nested YAML (<code>format &gt; pdf &gt; pdf-engine</code>).</li>
+<li>inner borders of vertically merged cells no longer show in PDF output when background color is set (<a href="https://github.com/davidgohel/flextable/issues/673" class="external-link">#673</a>).</li>
+<li>PDF/Quarto: footer repetition and longtable part ordering now work correctly with the default container (<code>none</code>) in Quarto output.</li>
+<li>
+<code><a href="../reference/merge_v.html">merge_v()</a></code>: vertically merged cell labels now appear at the top of the merged range in PDF/LaTeX output instead of the bottom (<a href="https://github.com/davidgohel/flextable/issues/654" class="external-link">#654</a>).</li>
+<li>vertical alignment (<code>valign</code>) in merged cells now works correctly in PDF/LaTeX output when rows have different heights (<a href="https://github.com/davidgohel/flextable/issues/639" class="external-link">#639</a>). Content is placed in the first (top), middle (center), or last (bottom) row of the merged range; <code>\multirow</code> is no longer used as it miscalculates offsets with unequal row heights.</li>
+<li>using <code>by</code> of <code><a href="../reference/summarizor.html">summarizor()</a></code> referring to two columns, one of which has only one unique value no longer causes and error when passed on to <code><a href="../reference/as_flextable.html">as_flextable()</a></code>.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.10" id="flextable-0910">flextable 0.9.10<a class="anchor" aria-label="anchor" href="#flextable-0910"></a></h2><p class="text-muted">CRAN release: 2025-08-24</p>
 <div class="section level3">
 <h3 id="new-features-0-9-10">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-10"></a></h3>
 <ul><li>It is now possible to not repeat headers’rows along Word pages by using <code>set_table_properties(opts_word = list(repeat_headers = FALSE))</code>.</li>
@@ -1027,7 +1069,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
