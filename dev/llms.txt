@@ -301,7 +301,7 @@ links (hyperlink_text), equations (as_equation).
 - [`colorize()`](https://davidgohel.github.io/flextable/dev/reference/colorize.md)
   : Colorize chunk
 - [`as_qmd()`](https://davidgohel.github.io/flextable/dev/reference/as_qmd.md)
-  : Quarto markdown chunk
+  : Quarto inline markdown chunk
 - [`as_bracket()`](https://davidgohel.github.io/flextable/dev/reference/as_bracket.md)
   : Bracket chunk
 - [`hyperlink_text()`](https://davidgohel.github.io/flextable/dev/reference/hyperlink_text.md)

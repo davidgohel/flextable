@@ -6,6 +6,12 @@ flextable() function is producing flexible tables where each cell
 can contain several chunks of text with their own set of formatting
 properties (bold, font color, etc.). Function mk_par() lets customise
 text of cells.
+Each cell holds a single paragraph composed of inline chunks
+(see as_paragraph()). This means cell content is strictly
+inline: bold, italic, links, images, equations, inline code, etc.
+Block-level structures (multiple paragraphs, bullet lists,
+headings or fenced code blocks) cannot be placed inside a cell.
+Soft line breaks (\n) are however supported.
 The as_flextable() function is used to transform specific objects into
 flextable objects. For example, you can transform a crosstab produced with
 the 'tables' package into a flextable which can then be formatted,
@@ -20,6 +26,12 @@ flextable() function is producing flexible tables where each cell
 can contain several chunks of text with their own set of formatting
 properties (bold, font color, etc.). Function mk_par() lets customise
 text of cells.
+Each cell holds a single paragraph composed of inline chunks
+(see as_paragraph()). This means cell content is strictly
+inline: bold, italic, links, images, equations, inline code, etc.
+Block-level structures (multiple paragraphs, bullet lists,
+headings or fenced code blocks) cannot be placed inside a cell.
+Soft line breaks (\n) are however supported.
 The as_flextable() function is used to transform specific objects into
 flextable objects. For example, you can transform a crosstab produced with
 the 'tables' package into a flextable which can then be formatted,
@@ -35,7 +47,7 @@ by default. See set_flextable_defaults() for more details."><meta property="og:i
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.11.027</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.11.028</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,6 +80,12 @@ tabular reporting elements from R.</p>
 can contain several chunks of text with their own set of formatting
 properties (bold, font color, etc.). Function <code><a href="compose.html">mk_par()</a></code> lets customise
 text of cells.</p>
+<p>Each cell holds a single paragraph composed of inline chunks
+(see <code><a href="as_paragraph.html">as_paragraph()</a></code>). This means cell content is strictly
+inline: bold, italic, links, images, equations, inline code, etc.
+Block-level structures (multiple paragraphs, bullet lists,
+headings or fenced code blocks) cannot be placed inside a cell.
+Soft line breaks (<code>\n</code>) are however supported.</p>
 <p>The <code><a href="as_flextable.html">as_flextable()</a></code> function is used to transform specific objects into
 flextable objects. For example, you can transform a crosstab produced with
 the 'tables' package into a flextable which can then be formatted,

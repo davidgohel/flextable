@@ -13,6 +13,13 @@ several chunks of text with their own set of formatting properties
 [`mk_par()`](https://davidgohel.github.io/flextable/dev/reference/compose.md)
 lets customise text of cells.
 
+Each cell holds a single paragraph composed of inline chunks (see
+[`as_paragraph()`](https://davidgohel.github.io/flextable/dev/reference/as_paragraph.md)).
+This means cell content is strictly inline: bold, italic, links, images,
+equations, inline code, etc. Block-level structures (multiple
+paragraphs, bullet lists, headings or fenced code blocks) cannot be
+placed inside a cell. Soft line breaks (`\n`) are however supported.
+
 The
 [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md)
 function is used to transform specific objects into flextable objects.
