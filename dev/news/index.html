@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,6 +37,8 @@
 <h3 id="issues-0-9-12">issues<a class="anchor" aria-label="anchor" href="#issues-0-9-12"></a></h3>
 <ul><li>
 <code>padding.left</code> and <code>padding.right</code> are now supported in PDF/LaTeX output.</li>
+<li>
+<code><a href="../reference/delete_rows.html">delete_rows()</a></code> and <code><a href="../reference/delete_columns.html">delete_columns()</a></code> no longer reset all spans unconditionally. <code>span_free()</code> is now only triggered when the deletion actually breaks a merged cell, preserving existing merge structures in all other cases.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-0-9-12">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-12"></a></h3>

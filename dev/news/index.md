@@ -6,6 +6,12 @@
 
 - `padding.left` and `padding.right` are now supported in PDF/LaTeX
   output.
+- [`delete_rows()`](https://davidgohel.github.io/flextable/dev/reference/delete_rows.md)
+  and
+  [`delete_columns()`](https://davidgohel.github.io/flextable/dev/reference/delete_columns.md)
+  no longer reset all spans unconditionally. `span_free()` is now only
+  triggered when the deletion actually breaks a merged cell, preserving
+  existing merge structures in all other cases.
 
 ### new features
 
