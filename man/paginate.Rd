@@ -9,7 +9,7 @@ paginate(
   init = NULL,
   hdr_ftr = TRUE,
   group = character(),
-  group_def = c("rle", "nonempty")
+  group_def = c("rle", "nonempty", "starts")
 )
 }
 \arguments{
@@ -22,15 +22,20 @@ value is \code{get_flextable_defaults()$keep_with_next}.}
 \item{hdr_ftr}{if TRUE (default), prevent breaks between table body
 and header and between table body and footer.}
 
-\item{group}{name of a column to use for finding groups}
+\item{group}{name of a column to use for finding groups (when
+\code{group_def} is \code{"rle"} or \code{"nonempty"}) or an integer vector
+of row indices that start new groups (when \code{group_def} is \code{"starts"}).}
 
 \item{group_def}{algorithm to be used to identify groups
-that should not be split into two pages, one of 'rle', 'nonempty':
+that should not be split into two pages, one of 'rle', 'nonempty',
+'starts':
 \itemize{
 \item 'rle': runs of equal values are used to define the groups,
 to be used with \code{\link[=tabulator]{tabulator()}}.
 \item 'nonempty': non empty value start a new group,
 to be used with \code{\link[=as_flextable.tabular]{as_flextable.tabular()}}.
+\item 'starts': \code{group} is a numeric vector of body row indices
+where new groups begin. Page breaks are allowed before these rows.
 }}
 }
 \value{
