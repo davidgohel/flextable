@@ -11,7 +11,7 @@ paginate(
   init = NULL,
   hdr_ftr = TRUE,
   group = character(),
-  group_def = c("rle", "nonempty")
+  group_def = c("rle", "nonempty", "starts")
 )
 ```
 
@@ -35,12 +35,14 @@ paginate(
 
 - group:
 
-  name of a column to use for finding groups
+  name of a column to use for finding groups (when `group_def` is
+  `"rle"` or `"nonempty"`) or an integer vector of row indices that
+  start new groups (when `group_def` is `"starts"`).
 
 - group_def:
 
   algorithm to be used to identify groups that should not be split into
-  two pages, one of 'rle', 'nonempty':
+  two pages, one of 'rle', 'nonempty', 'starts':
 
   - 'rle': runs of equal values are used to define the groups, to be
     used with
@@ -48,6 +50,9 @@ paginate(
 
   - 'nonempty': non empty value start a new group, to be used with
     [`as_flextable.tabular()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.tabular.md).
+
+  - 'starts': `group` is a numeric vector of body row indices where new
+    groups begin. Page breaks are allowed before these rows.
 
 ## Value
 

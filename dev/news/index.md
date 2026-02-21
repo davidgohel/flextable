@@ -7,6 +7,14 @@
 - `padding.left` and `padding.right` are now supported in PDF/LaTeX
   output.
 
+### new features
+
+- function
+  [`paginate()`](https://davidgohel.github.io/flextable/dev/reference/paginate.md)
+  gains a new option `"starts"` for argument `group_def`. When used,
+  `group` is an integer vector of body row indices where new groups
+  begin; page breaks are allowed before these rows.
+
 ## flextable 0.9.11
 
 CRAN release: 2026-02-13

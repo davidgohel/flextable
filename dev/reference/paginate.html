@@ -9,7 +9,7 @@ This feature only applies to Word and RTF output."><meta property="og:image" con
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@ This feature only applies to Word and RTF output.</p>
 <span>  init <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  hdr_ftr <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  group_def <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rle"</span>, <span class="st">"nonempty"</span><span class="op">)</span></span>
+<span>  group_def <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rle"</span>, <span class="st">"nonempty"</span>, <span class="st">"starts"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -70,15 +70,20 @@ and header and between table body and footer.</p></dd>
 
 
 <dt id="arg-group">group<a class="anchor" aria-label="anchor" href="#arg-group"></a></dt>
-<dd><p>name of a column to use for finding groups</p></dd>
+<dd><p>name of a column to use for finding groups (when
+<code>group_def</code> is <code>"rle"</code> or <code>"nonempty"</code>) or an integer vector
+of row indices that start new groups (when <code>group_def</code> is <code>"starts"</code>).</p></dd>
 
 
 <dt id="arg-group-def">group_def<a class="anchor" aria-label="anchor" href="#arg-group-def"></a></dt>
 <dd><p>algorithm to be used to identify groups
-that should not be split into two pages, one of 'rle', 'nonempty':</p><ul><li><p>'rle': runs of equal values are used to define the groups,
+that should not be split into two pages, one of 'rle', 'nonempty',
+'starts':</p><ul><li><p>'rle': runs of equal values are used to define the groups,
 to be used with <code><a href="tabulator.html">tabulator()</a></code>.</p></li>
 <li><p>'nonempty': non empty value start a new group,
 to be used with <code><a href="as_flextable.tabular.html">as_flextable.tabular()</a></code>.</p></li>
+<li><p>'starts': <code>group</code> is a numeric vector of body row indices
+where new groups begin. Page breaks are allowed before these rows.</p></li>
 </ul></dd>
 
 </dl></div>
