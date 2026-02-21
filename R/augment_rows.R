@@ -131,10 +131,17 @@ delete_rows_from_part <- function(x, i) {
   x$rowheights <- x$rowheights[-i]
   # hrules
   x$hrule <- x$hrule[-i]
-  # spans
+  # spans — only reset if vertical spans are broken
+  runs <- split(i, cumsum(c(1, diff(i) != 1)))
+  has_broken_vspan <- any(vapply(runs, function(r) {
+    any(colSums(x$spans$columns[r, , drop = FALSE]) != length(r))
+  }, logical(1)))
+
   x$spans$rows <- x$spans$rows[-i, , drop = FALSE]
   x$spans$columns <- x$spans$columns[-i, , drop = FALSE]
-  x <- span_free(x)
+  if (has_broken_vspan) {
+    x <- span_free(x)
+  }
 
   # styles
   x$styles$cells <- delete_style_row(x$styles$cells, i)
@@ -191,12 +198,20 @@ delete_rows <- function(x, i = NULL, part = "body") {
 
 
 delete_colums_from_part <- function(x, j) {
+  j_idx <- which(x$col_keys %in% j)
   # heights
   x$colwidths <- x$colwidths[!x$col_keys %in% j]
-  # spans
-  x$spans$rows <- x$spans$rows[, !x$col_keys %in% j, drop = FALSE]
-  x$spans$columns <- x$spans$columns[, !x$col_keys %in% j, drop = FALSE]
-  x <- span_free(x)
+  # spans — only reset if horizontal spans are broken
+  runs <- split(j_idx, cumsum(c(1, diff(j_idx) != 1)))
+  has_broken_hspan <- any(vapply(runs, function(r) {
+    any(rowSums(x$spans$rows[, r, drop = FALSE]) != length(r))
+  }, logical(1)))
+
+  x$spans$rows <- x$spans$rows[, -j_idx, drop = FALSE]
+  x$spans$columns <- x$spans$columns[, -j_idx, drop = FALSE]
+  if (has_broken_hspan) {
+    x <- span_free(x)
+  }
 
   # styles
   x$styles$cells <- delete_style_col(x$styles$cells, j)

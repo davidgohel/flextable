@@ -80,13 +80,20 @@ merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE) 
 #' @inheritParams args_x_i_part_no_all
 #' @family flextable merging function
 #' @examples
-#' dummy_df <- data.frame(
-#'   col1 = letters,
-#'   col2 = letters, stringsAsFactors = FALSE
+#' library(flextable)
+#'
+#' schedule <- data.frame(
+#'   time = c("9h", "10h", "11h", "14h", "15h", "16h"),
+#'   monday = c("Math", "Math", "French", "History", "Science", "French"),
+#'   tuesday = c("English", "Math", "Art", "Math", "Math", "French"),
+#'   wednesday = c("Science", "Math", "Science", "English", "English", "French"),
+#'   stringsAsFactors = FALSE
 #' )
-#' ft_merge <- flextable(dummy_df)
-#' ft_merge <- merge_h(x = ft_merge)
-#' ft_merge
+#'
+#' ft <- flextable(schedule)
+#' ft <- theme_box(ft)
+#' ft <- merge_h(ft)
+#' ft
 #' @export
 merge_h <- function(x, i = NULL, part = "body") {
   if (!inherits(x, "flextable")) {
