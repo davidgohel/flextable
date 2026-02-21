@@ -128,10 +128,22 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   # latex for multirow ----
   augment_multirow_fixed(cell_properties_df)
 
+  # paragraph padding ----
+  cell_properties_df[, c("padding_left_str", "padding_right_str") := list(
+    ifelse(.SD$padding.left > 0,
+           sprintf("\\advance\\leftskip by %.1fpt\\relax ", .SD$padding.left),
+           ""),
+    ifelse(.SD$padding.right > 0,
+           sprintf("\\advance\\rightskip by %.1fpt\\relax ", .SD$padding.right),
+           "")
+  )]
+
   # paste everything ----
   cell_properties_df[, c("txt") := list(
     paste0(
       .SD$multirow_left,
+      .SD$padding_left_str,
+      .SD$padding_right_str,
       .SD$text_direction_left,
       .SD$txt,
       .SD$text_direction_right,

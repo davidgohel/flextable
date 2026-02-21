@@ -44,8 +44,10 @@ Value 'all' can be used.}
 Change the padding of selected rows and columns of a flextable.
 }
 \note{
-Padding is not implemented in PDF due to technical infeasibility but
-it can be replaced with \code{set_table_properties(opts_pdf = list(tabcolsep = 1))}.
+In PDF output, only \code{padding.left} and \code{padding.right} are supported.
+\code{padding.top} and \code{padding.bottom} are ignored due to LaTeX limitations.
+Global horizontal spacing can also be set with
+\code{set_table_properties(opts_pdf = list(tabcolsep = 1))}.
 }
 \examples{
 ft_1 <- flextable(head(iris))

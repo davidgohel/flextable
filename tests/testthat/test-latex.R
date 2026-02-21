@@ -339,3 +339,27 @@ test_that("font warning fires for Quarto + pdflatex", {
 
   knitr::opts_knit$set("quarto.version" = NULL, "out.format" = NULL)
 })
+
+test_that("padding.left and padding.right produce advance leftskip/rightskip in latex", {
+  ft <- flextable(data.frame(a = c("hello", "world"), b = 1:2))
+  ft <- padding(ft, padding.left = 0, padding.right = 0, part = "all")
+  ft <- padding(ft, i = 1, j = 1, padding.left = 20)
+  ft <- padding(ft, i = 2, j = 1, padding.right = 15)
+  latex_str <- flextable:::gen_raw_latex(ft)
+
+  # row 1 col 1: \advance\leftskip by 20.0pt\relax
+  expect_match(latex_str, "\\advance\\leftskip by 20.0pt\\relax", fixed = TRUE)
+
+  # row 2 col 1: \advance\rightskip by 15.0pt\relax
+  expect_match(latex_str, "\\advance\\rightskip by 15.0pt\\relax", fixed = TRUE)
+
+  # only 1 leftskip and 1 rightskip (other cells have padding = 0)
+  expect_equal(
+    length(gregexpr("advance\\\\leftskip", latex_str, perl = TRUE)[[1]]),
+    1L
+  )
+  expect_equal(
+    length(gregexpr("advance\\\\rightskip", latex_str, perl = TRUE)[[1]]),
+    1L
+  )
+})

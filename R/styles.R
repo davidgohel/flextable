@@ -578,8 +578,10 @@ font <- function(
 #' @title Set paragraph paddings
 #' @description Change the padding of selected rows and columns of a flextable.
 #' @note
-#' Padding is not implemented in PDF due to technical infeasibility but
-#' it can be replaced with `set_table_properties(opts_pdf = list(tabcolsep = 1))`.
+#' In PDF output, only `padding.left` and `padding.right` are supported.
+#' `padding.top` and `padding.bottom` are ignored due to LaTeX limitations.
+#' Global horizontal spacing can also be set with
+#' `set_table_properties(opts_pdf = list(tabcolsep = 1))`.
 #' @inheritParams args_selectors_with_all
 #' @param padding padding (shortcut for top, bottom, left and right), unit is pts (points).
 #' @param padding.top padding top, unit is pts (points).

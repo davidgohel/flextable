@@ -135,8 +135,8 @@ See \code{\link[=as_qmd]{as_qmd()}} and \code{\link[=use_flextable_qmd]{use_flex
 
 
 The following properties are not supported in PDF output:
-padding, \code{line_spacing} and row \code{height}. Justified text is
-converted to left-aligned.
+\code{padding.top}, \code{padding.bottom}, \code{line_spacing} and row \code{height}.
+Justified text is converted to left-aligned.
 
 To use system fonts, set \code{latex_engine: xelatex} in the YAML
 header (the default \code{pdflatex} engine does not support them).

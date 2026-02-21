@@ -581,8 +581,8 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #' @section PDF limitations:
 #'
 #' The following properties are not supported in PDF output:
-#' padding, `line_spacing` and row `height`. Justified text is
-#' converted to left-aligned.
+#' `padding.top`, `padding.bottom`, `line_spacing` and row `height`.
+#' Justified text is converted to left-aligned.
 #'
 #' To use system fonts, set `latex_engine: xelatex` in the YAML
 #' header (the default `pdflatex` engine does not support them).
