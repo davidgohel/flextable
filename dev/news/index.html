@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.11.028</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,15 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.11" id="flextable-0911">flextable 0.9.11<a class="anchor" aria-label="anchor" href="#flextable-0911"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.12" id="flextable-0912">flextable 0.9.12<a class="anchor" aria-label="anchor" href="#flextable-0912"></a></h2>
+<div class="section level3">
+<h3 id="issues-0-9-12">issues<a class="anchor" aria-label="anchor" href="#issues-0-9-12"></a></h3>
+<ul><li>
+<code>padding.left</code> and <code>padding.right</code> are now supported in PDF/LaTeX output.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.11" id="flextable-0911">flextable 0.9.11<a class="anchor" aria-label="anchor" href="#flextable-0911"></a></h2><p class="text-muted">CRAN release: 2026-02-13</p>
 <div class="section level3">
 <h3 id="new-features-0-9-11">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-11"></a></h3>
 <ul><li>new function <code><a href="../reference/wrap_flextable.html">wrap_flextable()</a></code> enables integration with ‘patchwork’ layouts. Flextable objects can be combined with ‘ggplot2’ plots using <code>+</code>, <code>|</code>, and <code>/</code> operators. Table headers and footers are aligned with plot panel areas. The <code>panel</code> argument controls alignment (<code>"body"</code>, <code>"full"</code>, <code>"rows"</code>, <code>"cols"</code>) and the <code>space</code> argument controls sizing (<code>"free"</code>, <code>"fixed"</code>, <code>"free_x"</code>, <code>"free_y"</code>). <code>flex_body</code> stretches body rows to match a neighbouring plot’s panel height; <code>flex_cols</code> stretches data columns to match the panel width. <code>just</code> controls horizontal alignment (<code>"left"</code>, <code>"right"</code>, <code>"center"</code>) when the table is narrower than the panel. S3 methods <code>ggplot_add.flextable</code> and <code>as_patch.flextable</code> are registered so that <code>plot + flextable</code> works transparently.</li>

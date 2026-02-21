@@ -17,7 +17,7 @@ the table is rendered as a PNG image."><meta property="og:image" content="https:
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.11.028</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,8 +144,8 @@ See <code><a href="as_qmd.html">as_qmd()</a></code> and <code><a href="use_flext
 
 
 <p>The following properties are not supported in PDF output:
-padding, <code>line_spacing</code> and row <code>height</code>. Justified text is
-converted to left-aligned.</p>
+<code>padding.top</code>, <code>padding.bottom</code>, <code>line_spacing</code> and row <code>height</code>.
+Justified text is converted to left-aligned.</p>
 <p>To use system fonts, set <code>latex_engine: xelatex</code> in the YAML
 header (the default <code>pdflatex</code> engine does not support them).</p>
 <p>See <code><a href="add_latex_dep.html">add_latex_dep()</a></code> when caching flextable results.</p>

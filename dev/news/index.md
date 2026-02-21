@@ -1,6 +1,15 @@
 # Changelog
 
+## flextable 0.9.12
+
+### issues
+
+- `padding.left` and `padding.right` are now supported in PDF/LaTeX
+  output.
+
 ## flextable 0.9.11
+
+CRAN release: 2026-02-13
 
 ### new features
 
