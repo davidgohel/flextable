@@ -7,6 +7,7 @@
   unconditionally. `span_free()` is now only triggered when the
   deletion actually breaks a merged cell, preserving existing
   merge structures in all other cases.
+- fix Shadow DOM handling for paged.js contexts, again
 
 ## new features
 
@@ -61,6 +62,10 @@ and be simplified.
 
 ## Issues
 
+- fix Shadow DOM handling for paged.js contexts (e.g. pagedown):
+tables marked with `no-shadow-dom` are no longer moved into a
+Shadow DOM, restoring visibility when the document contains
+LaTeX equations (pagedown#332).
 - line breaks (`\n`) in captions now render correctly in PDF/LaTeX
 output (#663).
 - images in google docs should now be sized as expected
