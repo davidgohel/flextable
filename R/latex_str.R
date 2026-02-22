@@ -13,6 +13,7 @@
 #' @examples
 #' add_latex_dep()
 #' @seealso [knit_print.flextable()]
+#' @family flextable_configuration
 #' @keywords internal
 #' @importFrom knitr knit_meta_add
 add_latex_dep <- function(float = FALSE, wrapfig = FALSE) {

@@ -2,6 +2,7 @@
 #' @title Add flextable into a Word document
 #' @description Add a flextable into a Word document
 #' created with 'officer'.
+#' @family officer_integration
 #'
 #' @details
 #' Use the [paginate()] function to define whether the table should
@@ -149,6 +150,7 @@ body_add_flextable <- function(x, value,
 
 #' @export
 #' @title Add flextable at bookmark location in a Word document
+#' @family officer_integration
 #' @description
 #' Use this function if you want to replace a paragraph containing
 #' a bookmark with a flextable. As a side effect, the bookmark will be lost.

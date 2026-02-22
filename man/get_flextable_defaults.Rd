@@ -18,7 +18,7 @@ These default values are returned by this function.
 get_flextable_defaults()
 }
 \seealso{
-Other functions related to themes: 
+Other themes and defaults:
 \code{\link{set_flextable_defaults}()},
 \code{\link{theme_alafoli}()},
 \code{\link{theme_apa}()},
@@ -31,4 +31,4 @@ Other functions related to themes:
 \code{\link{theme_vanilla}()},
 \code{\link{theme_zebra}()}
 }
-\concept{functions related to themes}
+\concept{themes_and_defaults}

@@ -79,6 +79,7 @@
 #' ft_3
 #' @export
 #' @importFrom stats update
+#' @family cell_content_composition
 footnote <- function(x, i = NULL, j = NULL, value,
                      ref_symbols = NULL, part = "body",
                      inline = FALSE, sep = "; ",

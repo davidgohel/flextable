@@ -20,6 +20,7 @@
 #' ftab <- void(ftab, ~ vs + am + gear + carb)
 #' ftab
 #' @export
+#' @family cell_content_composition
 void <- function(x, j = NULL, part = "body") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "void()"))

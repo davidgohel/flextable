@@ -31,10 +31,10 @@ ft <- flextable::align(ft, i = ~ cyl == 6, align = "center")
 ft
 }
 \seealso{
-Other flextable merging function: 
+Other cell merging functions: 
 \code{\link{merge_at}()},
 \code{\link{merge_h}()},
 \code{\link{merge_none}()},
 \code{\link{merge_v}()}
 }
-\concept{flextable merging function}
+\concept{cell merging functions}

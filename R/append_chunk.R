@@ -6,7 +6,7 @@
 #' @param ... chunks to be appened, see [as_chunk()], [gg_chunk()] and other
 #' chunk elements for paragraph.
 #' @seealso [as_chunk()], [as_sup()], [as_sub()], [colorize()]
-#' @family functions for mixed content paragraphs
+#' @family cell_content_composition
 #' @examples
 #' library(flextable)
 #' img.file <- file.path(R.home("doc"), "html", "logo.jpg")
@@ -60,7 +60,7 @@ append_chunks <- function(x, ..., i = NULL, j = NULL, part = "body") {
 #' @inheritParams args_selectors_without_all
 #' @param ... chunks to be prepended, see [as_chunk()], [gg_chunk()] and other
 #' chunk elements for paragraph.
-#' @family functions for mixed content paragraphs
+#' @family cell_content_composition
 #' @examples
 #' x <- flextable(head(iris))
 #' x <- prepend_chunks(

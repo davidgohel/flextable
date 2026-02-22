@@ -36,7 +36,7 @@ ft_2 <- valign(ft_1, j = 5, valign = "top", part = "all")
 ft_2
 }
 \seealso{
-Other sugar functions for table style: 
+Other formatting shortcuts:
 \code{\link{align}()},
 \code{\link{bg}()},
 \code{\link{bold}()},
@@ -53,4 +53,4 @@ Other sugar functions for table style:
 \code{\link{style}()},
 \code{\link{tab_settings}()}
 }
-\concept{sugar functions for table style}
+\concept{formatting_shortcuts}

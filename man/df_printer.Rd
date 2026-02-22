@@ -53,7 +53,7 @@ Default to "#999999".
 df_printer(head(mtcars))
 }
 \seealso{
-Other flextable print function: 
+Other functions for flextable output and export:
 \code{\link{flextable_to_rmd}()},
 \code{\link{gen_grob}()},
 \code{\link{htmltools_value}()},
@@ -68,4 +68,4 @@ Other flextable print function:
 \code{\link{to_html.flextable}()},
 \code{\link{wrap_flextable}()}
 }
-\concept{flextable print function}
+\concept{flextable_output_export}

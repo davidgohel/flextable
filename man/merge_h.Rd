@@ -39,10 +39,10 @@ ft <- merge_h(ft)
 ft
 }
 \seealso{
-Other flextable merging function: 
+Other cell merging functions: 
 \code{\link{merge_at}()},
 \code{\link{merge_h_range}()},
 \code{\link{merge_none}()},
 \code{\link{merge_v}()}
 }
-\concept{flextable merging function}
+\concept{cell merging functions}

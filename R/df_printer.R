@@ -39,7 +39,7 @@
 #' Default to TRUE.
 #' * `ft_color_coltype`: Color to use for column types.
 #' Default to "#999999".
-#' @family flextable print function
+#' @family flextable_output_export
 #' @examples
 #' df_printer(head(mtcars))
 df_printer <- function(dat, ...) {
@@ -79,6 +79,7 @@ df_printer <- function(dat, ...) {
 #' flextable::use_df_printer()
 #' ```
 #' @seealso [df_printer()], [flextable()]
+#' @family flextable_configuration
 use_df_printer <- function() {
   registerS3method("knit_print", "data.frame", df_printer)
   registerS3method("knit_print", "data.table", df_printer)

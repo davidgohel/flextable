@@ -49,4 +49,10 @@ use_flextable_qmd()
 \seealso{
 \code{\link[=as_qmd]{as_qmd()}} for creating Quarto markdown chunks,
 \code{\link[=knit_print.flextable]{knit_print.flextable()}} for rendering options in knitr documents.
+
+Other flextable configuration:
+\code{\link{add_latex_dep}()},
+\code{\link{use_df_printer}()},
+\code{\link{use_model_printer}()}
 }
+\concept{flextable_configuration}

@@ -109,4 +109,8 @@ ft
 \seealso{
 \code{\link[=style]{style()}}, \code{\link[=autofit]{autofit()}}, \code{\link[=theme_booktabs]{theme_booktabs()}}, \code{\link[=knit_print.flextable]{knit_print.flextable()}},
 \code{\link[=compose]{compose()}}, \code{\link[=footnote]{footnote()}}, \code{\link[=set_caption]{set_caption()}}
+
+Other flextable constructors:
+\code{\link{as_flextable}()}
 }
+\concept{flextable_constructors}

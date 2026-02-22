@@ -212,7 +212,7 @@ dataset_describe <- function(dataset) {
 #' @param pcts a percentage to display
 #' @param ... unused arguments
 #' @seealso [summarizor()], [tabulator()], [mk_par()]
-#' @family text formatter functions
+#' @family value formatters
 #' @examples
 #' library(flextable)
 #' z <- summarizor(iris, by = "Species")
@@ -296,7 +296,7 @@ fmt_summarizor <- fmt_2stats
 #' @param pct percent values
 #' @param digit number of digits for the percentages
 #' @seealso [tabulator()], [mk_par()]
-#' @family text formatter functions
+#' @family value formatters
 #' @examples
 #' library(flextable)
 #'
@@ -339,7 +339,7 @@ fmt_n_percent <- function(n, pct, digit = 1) {
 #' @param newline indicates to prefix the text with a new line
 #' (sof return).
 #' @seealso [tabulator()], [mk_par()]
-#' @family text formatter functions
+#' @family value formatters
 #' @examples
 #' library(flextable)
 #'
@@ -369,7 +369,7 @@ fmt_header_n <- function(n, newline = TRUE) {
 #' @description Format numeric values as integers (no decimals).
 #' @param x numeric values
 #' @seealso [tabulator()], [mk_par()]
-#' @family text formatter functions
+#' @family value formatters
 #' @examples
 #' library(flextable)
 #'
@@ -394,7 +394,7 @@ fmt_int <- function(x) {
 #' @description Format numeric values as percentages (e.g. `"45.0%"`).
 #' @param x numeric values
 #' @seealso [tabulator()], [mk_par()]
-#' @family text formatter functions
+#' @family value formatters
 #' @examples
 #' library(flextable)
 #'
@@ -425,7 +425,7 @@ fmt_pct <- function(x) {
 #' the flextable default settings for separators and precision.
 #' @param x numeric values
 #' @seealso [tabulator()], [mk_par()]
-#' @family text formatter functions
+#' @family value formatters
 #' @examples
 #' library(flextable)
 #'
@@ -458,7 +458,7 @@ fmt_dbl <- function(x) {
 #' @param avg,dev mean and sd values
 #' @param digit1,digit2 number of digits to show when printing 'mean' and 'sd'.
 #' @seealso [tabulator()], [mk_par()]
-#' @family text formatter functions
+#' @family value formatters
 #' @examples
 #' library(flextable)
 #'
@@ -487,7 +487,7 @@ fmt_avg_dev <- function(avg, dev, digit1 = 1, digit2 = 1) {
 #' @param x numeric values
 #' @param digits number of digits displayed after the leading zeros
 #' @seealso [tabulator()], [mk_par()]
-#' @family text formatter functions
+#' @family value formatters
 #' @examples
 #' x <- data.frame(
 #'   x = c(0.00000004567, 2.000003456, 3, pi)

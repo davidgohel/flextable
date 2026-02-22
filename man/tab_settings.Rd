@@ -53,7 +53,7 @@ zz <- width(zz, width = c(1.5, 2))
 save_as_docx(zz, path = tempfile(fileext = ".docx"))
 }
 \seealso{
-Other sugar functions for table style: 
+Other formatting shortcuts:
 \code{\link{align}()},
 \code{\link{bg}()},
 \code{\link{bold}()},
@@ -70,4 +70,4 @@ Other sugar functions for table style:
 \code{\link{style}()},
 \code{\link{valign}()}
 }
-\concept{sugar functions for table style}
+\concept{formatting_shortcuts}

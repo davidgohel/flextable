@@ -7,7 +7,7 @@
 #' @param x object to be transformed as flextable
 #' @param ... arguments for custom methods
 #' @export
-#' @family as_flextable methods
+#' @family flextable_constructors
 as_flextable <- function(x, ...) {
   UseMethod("as_flextable")
 }
@@ -881,6 +881,7 @@ as_flextable.pam <- function(x, digits = 4, ...) {
 #' flextable::use_model_printer()
 #' ```
 #' @seealso [use_df_printer()], [flextable()]
+#' @family flextable_configuration
 use_model_printer <- function() {
   fun <- function(x, ...) knitr::knit_print(as_flextable(x))
   registerS3method("knit_print", "lm", fun)

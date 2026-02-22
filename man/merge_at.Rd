@@ -30,10 +30,10 @@ ft_merge <- merge_at(ft_merge, i = 1:2, j = 1:2)
 ft_merge
 }
 \seealso{
-Other flextable merging function: 
+Other cell merging functions: 
 \code{\link{merge_h}()},
 \code{\link{merge_h_range}()},
 \code{\link{merge_none}()},
 \code{\link{merge_v}()}
 }
-\concept{flextable merging function}
+\concept{cell merging functions}

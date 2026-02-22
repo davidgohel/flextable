@@ -38,3 +38,13 @@ ftab <- flextable(head(mtcars))
 ftab <- void(ftab, ~ vs + am + gear + carb)
 ftab
 }
+\seealso{
+Other functions to compose cell content:
+\code{\link{append_chunks}()},
+\code{\link{as_paragraph}()},
+\code{\link{compose}()},
+\code{\link{footnote}()},
+\code{\link{labelizor}()},
+\code{\link{prepend_chunks}()}
+}
+\concept{cell_content_composition}

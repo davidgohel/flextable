@@ -43,7 +43,7 @@ ft <- theme_tron(ft)
 ft
 }
 \seealso{
-Other functions related to themes: 
+Other themes and defaults:
 \code{\link{get_flextable_defaults}()},
 \code{\link{set_flextable_defaults}()},
 \code{\link{theme_alafoli}()},
@@ -56,4 +56,4 @@ Other functions related to themes:
 \code{\link{theme_vanilla}()},
 \code{\link{theme_zebra}()}
 }
-\concept{functions related to themes}
+\concept{themes_and_defaults}

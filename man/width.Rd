@@ -45,6 +45,7 @@ Other functions for flextable size management:
 \code{\link{height}()},
 \code{\link{hrule}()},
 \code{\link{ncol_keys}()},
-\code{\link{nrow_part}()}
+\code{\link{nrow_part}()},
+\code{\link{set_table_properties}()}
 }
 \concept{functions for flextable size management}

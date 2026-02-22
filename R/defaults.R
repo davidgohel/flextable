@@ -131,7 +131,7 @@ flextable_global$defaults <- default_flextable_settings
 #' ft_2
 #'
 #' do.call(set_flextable_defaults, old)
-#' @family functions related to themes
+#' @family themes_and_defaults
 #' @importFrom utils modifyList
 set_flextable_defaults <- function(
     font.family = NULL,
@@ -327,7 +327,7 @@ init_flextable_defaults <- function() {
 #' @return a list containing default values.
 #' @examples
 #' get_flextable_defaults()
-#' @family functions related to themes
+#' @family themes_and_defaults
 get_flextable_defaults <- function() {
   x <- flextable_global$defaults
   class(x) <- "flextable_defaults"
@@ -403,7 +403,7 @@ print.flextable_defaults <- function(x, ...) {
 #'
 #' init_flextable_defaults()
 #'
-#' @family functions for defining formatting properties
+#' @family default_formatting_properties
 #' @seealso [as_chunk()], [compose()], [append_chunks()], [prepend_chunks()]
 fp_text_default <- function(color = flextable_global$defaults$font.color,
                             font.size = flextable_global$defaults$font.size,
@@ -460,7 +460,7 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
 #'
 #' init_flextable_defaults()
 #'
-#' @family functions for defining formatting properties
+#' @family default_formatting_properties
 #' @seealso [hline()], [vline()]
 fp_border_default <- function(
     color = flextable_global$defaults$border.color,

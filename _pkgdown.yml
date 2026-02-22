@@ -265,12 +265,18 @@ reference:
     - get_flextable_defaults
     - init_flextable_defaults
 
-  - title: Utilities
+  - title: Value formatters
     desc: >
-      Helper functions for conditional display (void), row positioning (before),
-      and value formatting (fmt_*).
+      Format numeric values as text strings for display in cells:
+      integers, decimals, percentages, mean±sd. Use inside as_paragraph()
+      or as the formatter argument of as_chunk().
     contents:
     - starts_with("fmt_")
+
+  - title: Utilities
+    desc: >
+      Helper functions
+    contents:
     - before
     - void
 

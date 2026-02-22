@@ -71,7 +71,7 @@ ftab <- align_nottext_col(ftab, align = "right")
 ftab
 }
 \seealso{
-Other sugar functions for table style: 
+Other formatting shortcuts:
 \code{\link{bg}()},
 \code{\link{bold}()},
 \code{\link{color}()},
@@ -88,4 +88,4 @@ Other sugar functions for table style:
 \code{\link{tab_settings}()},
 \code{\link{valign}()}
 }
-\concept{sugar functions for table style}
+\concept{formatting_shortcuts}

@@ -38,9 +38,12 @@ x <- prepend_chunks(
 x
 }
 \seealso{
-Other functions for mixed content paragraphs: 
+Other functions to compose cell content:
 \code{\link{append_chunks}()},
 \code{\link{as_paragraph}()},
-\code{\link{compose}()}
+\code{\link{compose}()},
+\code{\link{footnote}()},
+\code{\link{labelizor}()},
+\code{\link{void}()}
 }
-\concept{functions for mixed content paragraphs}
+\concept{cell_content_composition}

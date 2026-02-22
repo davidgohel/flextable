@@ -284,7 +284,7 @@ information_data_default_chunk <- function(x) {
 #' ft <- as_flextable(iris)
 #' x <- information_data_chunk(ft)
 #' head(x)
-#' @family information data functions
+#' @family table data extraction
 information_data_chunk <- function(x, expand_special_chars = TRUE) {
   dat <- list()
   if (nrow_part(x, "header") > 0) {
@@ -345,7 +345,7 @@ information_data_chunk <- function(x, expand_special_chars = TRUE) {
 #' x <- information_data_paragraph(ft)
 #' head(x)
 #' @export
-#' @family information data functions
+#' @family table data extraction
 information_data_paragraph <- function(x) {
   dat <- list()
   if (nrow_part(x, "header") > 0) {
@@ -396,7 +396,7 @@ information_data_paragraph <- function(x) {
 #' x <- information_data_cell(ft)
 #' head(x)
 #' @export
-#' @family information data functions
+#' @family table data extraction
 information_data_cell <- function(x) {
   dat <- list()
   if (nrow_part(x, "header") > 0) {

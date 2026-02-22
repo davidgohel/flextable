@@ -28,3 +28,10 @@ option 'Allow row to break across pages'.}
 Use this function if you want to replace a paragraph containing
 a bookmark with a flextable. As a side effect, the bookmark will be lost.
 }
+\seealso{
+Other functions for officer integration:
+\code{\link{body_add_flextable}()},
+\code{\link{ph_with.flextable}()},
+\code{\link{rtf_add.flextable}()}
+}
+\concept{officer_integration}

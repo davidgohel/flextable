@@ -182,7 +182,7 @@ if (pandoc_available() &&
 \code{\link[=set_caption]{set_caption()}}, \code{\link[=as_qmd]{as_qmd()}}, \code{\link[=use_flextable_qmd]{use_flextable_qmd()}},
 \code{\link[=paginate]{paginate()}}
 
-Other flextable print function: 
+Other functions for flextable output and export:
 \code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
 \code{\link{gen_grob}()},
@@ -197,4 +197,4 @@ Other flextable print function:
 \code{\link{to_html.flextable}()},
 \code{\link{wrap_flextable}()}
 }
-\concept{flextable print function}
+\concept{flextable_output_export}

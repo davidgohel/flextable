@@ -52,7 +52,7 @@ init_flextable_defaults()
 \seealso{
 \code{\link[=hline]{hline()}}, \code{\link[=vline]{vline()}}
 
-Other functions for defining formatting properties: 
+Other default formatting properties:
 \code{\link{fp_text_default}()}
 }
-\concept{functions for defining formatting properties}
+\concept{default_formatting_properties}

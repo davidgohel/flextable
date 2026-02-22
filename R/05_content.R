@@ -871,6 +871,7 @@ as_qmd <- function(x, display = x) {
 #' @return The path to the installed extension (invisibly).
 #' @seealso [as_qmd()] for creating Quarto markdown chunks,
 #' [knit_print.flextable()] for rendering options in knitr documents.
+#' @family flextable_configuration
 #' @examples
 #' \dontrun{
 #' use_flextable_qmd()
@@ -923,7 +924,7 @@ use_flextable_qmd <- function(path = ".", quiet = FALSE) {
 #' function [as_chunk()].
 #' @param list_values a list of chunk elements that are defining
 #' the paragraph content. If specified argument `...` is unused.
-#' @family functions for mixed content paragraphs
+#' @family cell_content_composition
 #' @seealso [as_chunk()], [minibar()],
 #' [as_image()], [hyperlink_text()]
 #' @examples

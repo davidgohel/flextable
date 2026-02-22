@@ -28,7 +28,7 @@ ft_1
 \seealso{
 \code{\link[=tabulator]{tabulator()}}, \code{\link[=mk_par]{mk_par()}}
 
-Other text formatter functions: 
+Other value formatters: 
 \code{\link{fmt_2stats}()},
 \code{\link{fmt_avg_dev}()},
 \code{\link{fmt_dbl}()},
@@ -37,4 +37,4 @@ Other text formatter functions:
 \code{\link{fmt_n_percent}()},
 \code{\link{fmt_signif_after_zeros}()}
 }
-\concept{text formatter functions}
+\concept{value formatters}

@@ -54,3 +54,10 @@ doc <- ph_with(doc, ft, location = ph_location_left())
 fileout <- tempfile(fileext = ".pptx")
 print(doc, target = fileout)
 }
+\seealso{
+Other functions for officer integration:
+\code{\link{body_add_flextable}()},
+\code{\link{body_replace_flextable_at_bkm}()},
+\code{\link{rtf_add.flextable}()}
+}
+\concept{officer_integration}

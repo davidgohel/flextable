@@ -48,7 +48,7 @@
 #'   target = c("srdr_id", "substances")
 #' )
 #' ft_2
-#' @family flextable merging function
+#' @family cell merging functions
 #' @export
 merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE) {
   if (!inherits(x, "flextable")) {
@@ -78,7 +78,7 @@ merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE) 
 #' values.
 #'
 #' @inheritParams args_x_i_part_no_all
-#' @family flextable merging function
+#' @family cell merging functions
 #' @examples
 #' library(flextable)
 #'
@@ -113,7 +113,7 @@ merge_h <- function(x, i = NULL, part = "body") {
 #' @description Delete all merging information from a flextable.
 #'
 #' @inheritParams args_x_part
-#' @family flextable merging function
+#' @family cell merging functions
 #' @export
 #' @examples
 #' typology <- data.frame(
@@ -157,7 +157,7 @@ merge_none <- function(x, part = "all") {
 #' rows and columns must be consecutive.
 #'
 #' @inheritParams args_selectors_without_all
-#' @family flextable merging function
+#' @family cell merging functions
 #' @examples
 #' ft_merge <- flextable(head(mtcars), cwidth = .5)
 #' ft_merge <- merge_at(ft_merge, i = 1:2, j = 1:2)
@@ -187,7 +187,7 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body") {
 #'
 #' @inheritParams args_x_i_part_no_all
 #' @param j1,j2 selected columns that will define the range of columns to merge.
-#' @family flextable merging function
+#' @family cell merging functions
 #' @examples
 #' ft <- flextable(head(mtcars), cwidth = .5)
 #' ft <- theme_box(ft)

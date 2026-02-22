@@ -58,7 +58,6 @@ as_flextable(z)
 \code{\link[=as_flextable.compact_summary]{as_flextable.compact_summary()}}
 
 Other as_flextable methods: 
-\code{\link{as_flextable}()},
 \code{\link{as_flextable.compact_summary}()},
 \code{\link{as_flextable.data.frame}()},
 \code{\link{as_flextable.gam}()},

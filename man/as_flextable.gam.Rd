@@ -34,7 +34,6 @@ if (require("mgcv")) {
 }
 \seealso{
 Other as_flextable methods: 
-\code{\link{as_flextable}()},
 \code{\link{as_flextable.compact_summary}()},
 \code{\link{as_flextable.data.frame}()},
 \code{\link{as_flextable.glm}()},

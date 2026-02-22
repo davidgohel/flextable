@@ -51,9 +51,12 @@ ft
 \code{\link[=as_chunk]{as_chunk()}}, \code{\link[=minibar]{minibar()}},
 \code{\link[=as_image]{as_image()}}, \code{\link[=hyperlink_text]{hyperlink_text()}}
 
-Other functions for mixed content paragraphs: 
+Other functions to compose cell content:
 \code{\link{append_chunks}()},
 \code{\link{compose}()},
-\code{\link{prepend_chunks}()}
+\code{\link{footnote}()},
+\code{\link{labelizor}()},
+\code{\link{prepend_chunks}()},
+\code{\link{void}()}
 }
-\concept{functions for mixed content paragraphs}
+\concept{cell_content_composition}

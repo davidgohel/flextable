@@ -61,7 +61,7 @@ if (require("scales")) {
 }
 }
 \seealso{
-Other sugar functions for table style: 
+Other formatting shortcuts:
 \code{\link{align}()},
 \code{\link{bg}()},
 \code{\link{bold}()},
@@ -78,4 +78,4 @@ Other sugar functions for table style:
 \code{\link{tab_settings}()},
 \code{\link{valign}()}
 }
-\concept{sugar functions for table style}
+\concept{formatting_shortcuts}

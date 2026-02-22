@@ -53,7 +53,7 @@ ft
 \seealso{
 \code{\link[=flextable]{flextable()}}
 
-Other functions for row and column operations in a flextable: 
+Other row and column operations:
 \code{\link{add_body_row}()},
 \code{\link{add_footer}()},
 \code{\link{add_footer_lines}()},
@@ -63,8 +63,10 @@ Other functions for row and column operations in a flextable:
 \code{\link{add_header_row}()},
 \code{\link{delete_columns}()},
 \code{\link{delete_part}()},
+\code{\link{delete_rows}()},
+\code{\link{paginate}()},
 \code{\link{separate_header}()},
 \code{\link{set_header_footer_df}},
 \code{\link{set_header_labels}()}
 }
-\concept{functions for row and column operations in a flextable}
+\concept{table_structure}

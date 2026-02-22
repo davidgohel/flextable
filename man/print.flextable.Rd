@@ -36,7 +36,7 @@ Note also that a print method is used when flextable are used within
 R markdown documents. See \code{\link[=knit_print.flextable]{knit_print.flextable()}}.
 }
 \seealso{
-Other flextable print function: 
+Other functions for flextable output and export:
 \code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
 \code{\link{gen_grob}()},
@@ -51,4 +51,4 @@ Other flextable print function:
 \code{\link{to_html.flextable}()},
 \code{\link{wrap_flextable}()}
 }
-\concept{flextable print function}
+\concept{flextable_output_export}

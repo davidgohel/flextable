@@ -48,7 +48,7 @@ ftab <- width(ftab, j = c(2, 5), width = .1)
 ftab
 }
 \seealso{
-Other sugar functions for table style: 
+Other formatting shortcuts:
 \code{\link{align}()},
 \code{\link{bg}()},
 \code{\link{bold}()},
@@ -65,4 +65,4 @@ Other sugar functions for table style:
 \code{\link{tab_settings}()},
 \code{\link{valign}()}
 }
-\concept{sugar functions for table style}
+\concept{formatting_shortcuts}

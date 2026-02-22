@@ -29,7 +29,7 @@ ft <- delete_columns(ft, j = "Species")
 ft
 }
 \seealso{
-Other functions for row and column operations in a flextable: 
+Other row and column operations:
 \code{\link{add_body}()},
 \code{\link{add_body_row}()},
 \code{\link{add_footer}()},
@@ -39,8 +39,10 @@ Other functions for row and column operations in a flextable:
 \code{\link{add_header_lines}()},
 \code{\link{add_header_row}()},
 \code{\link{delete_part}()},
+\code{\link{delete_rows}()},
+\code{\link{paginate}()},
 \code{\link{separate_header}()},
 \code{\link{set_header_footer_df}},
 \code{\link{set_header_labels}()}
 }
-\concept{functions for row and column operations in a flextable}
+\concept{table_structure}

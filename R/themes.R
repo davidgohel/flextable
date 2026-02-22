@@ -5,7 +5,7 @@
 #' text columns are left aligned, other columns are
 #' right aligned.
 #' @inheritParams args_x_only
-#' @family functions related to themes
+#' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
@@ -54,7 +54,7 @@ theme_borderless <- function(x) {
 #' in this case, don't forget to take care that the theme doesn't
 #' override any formatting done before the print statement.
 #' @inheritParams args_x_only
-#' @family functions related to themes
+#' @family themes_and_defaults
 #' @examples
 #' ft <- flextable(head(airquality))
 #' ft <- theme_vanilla(ft)
@@ -84,7 +84,7 @@ theme_vanilla <- function(x) {
 #' @title Apply box theme
 #' @description Apply theme box to a flextable
 #' @inheritParams args_x_only
-#' @family functions related to themes
+#' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
@@ -118,7 +118,7 @@ theme_box <- function(x) {
 #' @title Apply alafoli theme
 #' @description Apply alafoli theme
 #' @inheritParams args_x_only
-#' @family functions related to themes
+#' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
@@ -153,7 +153,7 @@ theme_alafoli <- function(x) {
 #' @description Apply Sith Lord Darth Vader theme to a flextable
 #' @inheritParams args_x_only
 #' @param ... unused
-#' @family functions related to themes
+#' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
@@ -198,7 +198,7 @@ theme_vader <- function(x, ...) {
 #' @description Apply theme zebra to a flextable
 #' @inheritParams args_x_only
 #' @param odd_header,odd_body,even_header,even_body odd/even colors for table header and body
-#' @family functions related to themes
+#' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
@@ -250,7 +250,7 @@ theme_zebra <- function(x, odd_header = "#CFCFCF", odd_body = "#EFEFEF",
 #' @title Apply tron legacy theme
 #' @description Apply theme tron legacy to a flextable
 #' @inheritParams args_x_only
-#' @family functions related to themes
+#' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
@@ -292,7 +292,7 @@ theme_tron_legacy <- function(x) {
 #' @title Apply tron theme
 #' @description Apply theme tron to a flextable
 #' @inheritParams args_x_only
-#' @family functions related to themes
+#' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
@@ -336,7 +336,7 @@ theme_tron <- function(x) {
 #' @inheritParams args_x_only
 #' @param bold_header header will be bold if TRUE.
 #' @param ... unused
-#' @family functions related to themes
+#' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(airquality))
@@ -388,7 +388,7 @@ theme_booktabs <- function(x, bold_header = FALSE, ...) {
 #'              Psychological Association) to a flextable
 #' @inheritParams args_x_only
 #' @param ... unused
-#' @family functions related to themes
+#' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
 #' ft <- flextable(head(mtcars * 22.22))

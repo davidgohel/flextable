@@ -12,7 +12,7 @@
 #' @param ft.shadow deprecated.
 #' @param extra_dependencies a list of HTML dependencies to
 #' add in the HTML output.
-#' @family flextable print function
+#' @family flextable_output_export
 #' @examples
 #' htmltools_value(flextable(iris[1:5, ]))
 #' @importFrom htmltools tagList attachDependencies tags
@@ -67,7 +67,7 @@ htmltools_value <- function(x, ft.align = NULL, ft.shadow = NULL,
 #' See [knit_print.flextable] for more details.
 #' @inheritParams args_x_only
 #' @param ... unused argument
-#' @family flextable print function
+#' @family flextable_output_export
 #' @examples
 #' \dontrun{
 #' library(rmarkdown)
@@ -128,7 +128,7 @@ flextable_to_rmd <- function(x, ...) {
 #' containing HTML code of an image tag, otherwise, the
 #' result will be a string containing HTML code of
 #' a table tag.
-#' @family flextable print function
+#' @family flextable_output_export
 #' @examples
 #' library(officer)
 #' library(flextable)
@@ -432,7 +432,7 @@ knit_to_pml <- function(x) {
 #' When `"log"` is used, a description of the flextable is printed.
 #' @param align left, center (default) or right. Only for docx/html/pdf.
 #' @param ... arguments for 'pdf_document' call when preview is "pdf".
-#' @family flextable print function
+#' @family flextable_output_export
 #' @importFrom utils browseURL str
 #' @importFrom rmarkdown render pdf_document
 #' @importFrom officer read_pptx add_slide read_docx
@@ -610,7 +610,7 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #' @importFrom rmarkdown pandoc_version
 #' @importFrom stats runif
 #' @importFrom graphics plot par
-#' @family flextable print function
+#' @family flextable_output_export
 #' @seealso [set_caption()], [as_qmd()], [use_flextable_qmd()],
 #' [paginate()]
 #' @examples
@@ -717,7 +717,7 @@ knit_print.flextable <- function(x, ...) {
 #'   )
 #'   # browseURL(tf2)
 #' }
-#' @family flextable print function
+#' @family flextable_output_export
 #' @importFrom htmltools save_html
 save_as_html <- function(..., values = NULL, path,
                          lang = "en",
@@ -776,7 +776,7 @@ save_as_html <- function(..., values = NULL, path,
 #' ft2 <- flextable(head(mtcars))
 #' tf <- tempfile(fileext = ".pptx")
 #' save_as_pptx(`iris table` = ft1, `mtcars table` = ft2, path = tf)
-#' @family flextable print function
+#' @family flextable_output_export
 save_as_pptx <- function(..., values = NULL, path) {
   if (is.null(values)) {
     values <- list(...)
@@ -833,7 +833,7 @@ save_as_pptx <- function(..., values = NULL, path) {
 #'   `iris table` = ft1, `mtcars table` = ft2,
 #'   path = tf, pr_section = sect_properties
 #' )
-#' @family flextable print function
+#' @family flextable_output_export
 #' @seealso [paginate()]
 #' @importFrom officer body_add_par prop_section body_set_default_section
 #'   page_size page_mar
@@ -883,7 +883,7 @@ save_as_docx <- function(..., values = NULL, path, pr_section = NULL, align = "c
 #' @param pr_section a [officer::prop_section] object that can be used to define page
 #' layout such as orientation, width and height.
 #' @return a string containing the full name of the generated file
-#' @family flextable print function
+#' @family flextable_output_export
 #' @seealso [paginate()]
 #' @examples
 #'
@@ -982,7 +982,7 @@ save_as_rtf <- function(..., values = NULL, path, pr_section = NULL) {
 #' save_as_image(x = ft, path = tf)
 #'
 #' init_flextable_defaults()
-#' @family flextable print function
+#' @family flextable_output_export
 #' @importFrom ragg agg_png agg_capture
 save_as_image <- function(x, path, expand = 10, res = 200, ...) {
   if (!inherits(x, "flextable")) {
@@ -1060,7 +1060,7 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
 #' plot(as.raster(raster))
 #' init_flextable_defaults()
 #' }
-#' @family flextable print function
+#' @family flextable_output_export
 #' @importFrom grid grid.newpage grid.draw viewport pushViewport popViewport
 plot.flextable <- function(x, ...) {
   grid.newpage()

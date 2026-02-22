@@ -69,10 +69,10 @@ ft_2 <- merge_v(ft_1,
 ft_2
 }
 \seealso{
-Other flextable merging function: 
+Other cell merging functions: 
 \code{\link{merge_at}()},
 \code{\link{merge_h}()},
 \code{\link{merge_h_range}()},
 \code{\link{merge_none}()}
 }
-\concept{flextable merging function}
+\concept{cell merging functions}

@@ -60,4 +60,13 @@ ft_1
 }
 \seealso{
 \code{\link[=mk_par]{mk_par()}}, \code{\link[=append_chunks]{append_chunks()}}, \code{\link[=prepend_chunks]{prepend_chunks()}}
+
+Other functions to compose cell content:
+\code{\link{append_chunks}()},
+\code{\link{as_paragraph}()},
+\code{\link{compose}()},
+\code{\link{footnote}()},
+\code{\link{prepend_chunks}()},
+\code{\link{void}()}
 }
+\concept{cell_content_composition}

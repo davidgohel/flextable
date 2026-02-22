@@ -109,7 +109,7 @@
 #' dev.off()
 #' plot(as.raster(raster))
 #' }
-#' @family flextable print function
+#' @family flextable_output_export
 #' @importFrom grid gTree
 gen_grob <- function(x,
                      ...,

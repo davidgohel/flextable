@@ -54,7 +54,7 @@
 #' ft_2 <- autofit(ft_2)
 #' ft_2
 #' @export
-#' @family functions for mixed content paragraphs
+#' @family cell_content_composition
 #' @seealso [fp_text_default()], [as_chunk()], [as_b()], [as_word_field()], [labelizor()]
 compose <- function(x, i = NULL, j = NULL, value, part = "body", use_dot = FALSE) {
   if (!inherits(x, "flextable")) {
@@ -160,6 +160,7 @@ mk_par <- compose
 #' )
 #'
 #' ft_1
+#' @family cell_content_composition
 labelizor <- function(x, j = NULL, labels, part = "all") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "labelizor()"))

@@ -49,7 +49,7 @@ save_as_image(x = ft, path = tf)
 init_flextable_defaults()
 }
 \seealso{
-Other flextable print function: 
+Other functions for flextable output and export:
 \code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
 \code{\link{gen_grob}()},
@@ -64,4 +64,4 @@ Other flextable print function:
 \code{\link{to_html.flextable}()},
 \code{\link{wrap_flextable}()}
 }
-\concept{flextable print function}
+\concept{flextable_output_export}

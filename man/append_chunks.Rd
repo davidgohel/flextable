@@ -47,9 +47,12 @@ ft_1
 \seealso{
 \code{\link[=as_chunk]{as_chunk()}}, \code{\link[=as_sup]{as_sup()}}, \code{\link[=as_sub]{as_sub()}}, \code{\link[=colorize]{colorize()}}
 
-Other functions for mixed content paragraphs: 
+Other functions to compose cell content:
 \code{\link{as_paragraph}()},
 \code{\link{compose}()},
-\code{\link{prepend_chunks}()}
+\code{\link{footnote}()},
+\code{\link{labelizor}()},
+\code{\link{prepend_chunks}()},
+\code{\link{void}()}
 }
-\concept{functions for mixed content paragraphs}
+\concept{cell_content_composition}

@@ -142,7 +142,7 @@
 #' plot(as.raster(raster))
 #' init_flextable_defaults()
 #' }
-#' @family flextable print function
+#' @family flextable_output_export
 wrap_flextable <- function(
   x,
   panel = c("body", "full", "rows", "cols"),

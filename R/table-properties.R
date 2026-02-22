@@ -101,6 +101,7 @@
 #' ft_4
 #' @seealso [flextable()], [as_flextable()], [autofit()],
 #' [knit_print.flextable()]
+#' @family functions for flextable size management
 set_table_properties <- function(
   x,
   layout = "fixed",

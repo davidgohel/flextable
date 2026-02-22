@@ -172,7 +172,7 @@ init_flextable_defaults()
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other flextable print function: 
+Other functions for flextable output and export:
 \code{\link{df_printer}()},
 \code{\link{flextable_to_rmd}()},
 \code{\link{gen_grob}()},
@@ -187,4 +187,4 @@ Other flextable print function:
 \code{\link{save_as_rtf}()},
 \code{\link{to_html.flextable}()}
 }
-\concept{flextable print function}
+\concept{flextable_output_export}

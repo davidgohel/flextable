@@ -25,5 +25,11 @@ add_latex_dep()
 }
 \seealso{
 \code{\link[=knit_print.flextable]{knit_print.flextable()}}
+
+Other flextable configuration:
+\code{\link{use_df_printer}()},
+\code{\link{use_flextable_qmd}()},
+\code{\link{use_model_printer}()}
 }
+\concept{flextable_configuration}
 \keyword{internal}

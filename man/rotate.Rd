@@ -90,7 +90,7 @@ ft_2 <- valign(ft_2, i = 3, valign = "bottom")
 ft_2
 }
 \seealso{
-Other sugar functions for table style: 
+Other formatting shortcuts:
 \code{\link{align}()},
 \code{\link{bg}()},
 \code{\link{bold}()},
@@ -107,4 +107,4 @@ Other sugar functions for table style:
 \code{\link{tab_settings}()},
 \code{\link{valign}()}
 }
-\concept{sugar functions for table style}
+\concept{formatting_shortcuts}

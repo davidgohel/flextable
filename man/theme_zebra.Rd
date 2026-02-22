@@ -51,7 +51,7 @@ ft <- theme_zebra(ft)
 ft
 }
 \seealso{
-Other functions related to themes: 
+Other themes and defaults:
 \code{\link{get_flextable_defaults}()},
 \code{\link{set_flextable_defaults}()},
 \code{\link{theme_alafoli}()},
@@ -64,4 +64,4 @@ Other functions related to themes:
 \code{\link{theme_vader}()},
 \code{\link{theme_vanilla}()}
 }
-\concept{functions related to themes}
+\concept{themes_and_defaults}

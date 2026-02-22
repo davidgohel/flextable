@@ -26,4 +26,10 @@ In a setup run chunk:
 }
 \seealso{
 \code{\link[=use_df_printer]{use_df_printer()}}, \code{\link[=flextable]{flextable()}}
+
+Other flextable configuration:
+\code{\link{add_latex_dep}()},
+\code{\link{use_df_printer}()},
+\code{\link{use_flextable_qmd}()}
 }
+\concept{flextable_configuration}

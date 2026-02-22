@@ -110,4 +110,21 @@ save_as_rtf(ft_1, path = tempfile(fileext = ".rtf"))
 }
 \seealso{
 \code{\link[=knit_print.flextable]{knit_print.flextable()}}
+
+Other row and column operations:
+\code{\link{add_body}()},
+\code{\link{add_body_row}()},
+\code{\link{add_footer}()},
+\code{\link{add_footer_lines}()},
+\code{\link{add_footer_row}()},
+\code{\link{add_header}()},
+\code{\link{add_header_lines}()},
+\code{\link{add_header_row}()},
+\code{\link{delete_columns}()},
+\code{\link{delete_part}()},
+\code{\link{delete_rows}()},
+\code{\link{separate_header}()},
+\code{\link{set_header_footer_df}},
+\code{\link{set_header_labels}()}
 }
+\concept{table_structure}

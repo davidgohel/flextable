@@ -55,7 +55,6 @@ as_flextable(mtcars)
 }
 \seealso{
 Other as_flextable methods: 
-\code{\link{as_flextable}()},
 \code{\link{as_flextable.compact_summary}()},
 \code{\link{as_flextable.gam}()},
 \code{\link{as_flextable.glm}()},

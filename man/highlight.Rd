@@ -53,7 +53,7 @@ ft <- highlight(ft, j = ~ drat + wt + qsec, color = my_color_fun)
 ft
 }
 \seealso{
-Other sugar functions for table style: 
+Other formatting shortcuts:
 \code{\link{align}()},
 \code{\link{bg}()},
 \code{\link{bold}()},
@@ -70,4 +70,4 @@ Other sugar functions for table style:
 \code{\link{tab_settings}()},
 \code{\link{valign}()}
 }
-\concept{sugar functions for table style}
+\concept{formatting_shortcuts}

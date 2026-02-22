@@ -142,4 +142,17 @@ ft_4
 \seealso{
 \code{\link[=flextable]{flextable()}}, \code{\link[=as_flextable]{as_flextable()}}, \code{\link[=autofit]{autofit()}},
 \code{\link[=knit_print.flextable]{knit_print.flextable()}}
+
+Other functions for flextable size management: 
+\code{\link{autofit}()},
+\code{\link{dim.flextable}()},
+\code{\link{dim_pretty}()},
+\code{\link{fit_to_width}()},
+\code{\link{flextable_dim}()},
+\code{\link{height}()},
+\code{\link{hrule}()},
+\code{\link{ncol_keys}()},
+\code{\link{nrow_part}()},
+\code{\link{width}()}
 }
+\concept{functions for flextable size management}
