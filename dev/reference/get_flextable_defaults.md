@@ -16,7 +16,7 @@ a list containing default values.
 
 ## See also
 
-Other functions related to themes:
+Other themes and defaults:
 [`set_flextable_defaults()`](https://davidgohel.github.io/flextable/dev/reference/set_flextable_defaults.md),
 [`theme_alafoli()`](https://davidgohel.github.io/flextable/dev/reference/theme_alafoli.md),
 [`theme_apa()`](https://davidgohel.github.io/flextable/dev/reference/theme_apa.md),

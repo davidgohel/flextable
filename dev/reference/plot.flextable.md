@@ -34,7 +34,7 @@ document itself.
 
 ## See also
 
-Other flextable print function:
+Other functions for flextable output and export:
 [`df_printer()`](https://davidgohel.github.io/flextable/dev/reference/df_printer.md),
 [`flextable_to_rmd()`](https://davidgohel.github.io/flextable/dev/reference/flextable_to_rmd.md),
 [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md),

@@ -28,6 +28,11 @@ add_latex_dep(float = FALSE, wrapfig = FALSE)
 
 [`knit_print.flextable()`](https://davidgohel.github.io/flextable/dev/reference/knit_print.flextable.md)
 
+Other flextable configuration:
+[`use_df_printer()`](https://davidgohel.github.io/flextable/dev/reference/use_df_printer.md),
+[`use_flextable_qmd()`](https://davidgohel.github.io/flextable/dev/reference/use_flextable_qmd.md),
+[`use_model_printer()`](https://davidgohel.github.io/flextable/dev/reference/use_model_printer.md)
+
 ## Examples
 
 ``` r

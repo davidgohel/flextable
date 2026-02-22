@@ -37,3 +37,10 @@ body_replace_flextable_at_bkm(
 
   set to TRUE if you want to activate Word option 'Allow row to break
   across pages'.
+
+## See also
+
+Other functions for officer integration:
+[`body_add_flextable()`](https://davidgohel.github.io/flextable/dev/reference/body_add_flextable.md),
+[`ph_with.flextable()`](https://davidgohel.github.io/flextable/dev/reference/ph_with.flextable.md),
+[`rtf_add.flextable()`](https://davidgohel.github.io/flextable/dev/reference/rtf_add.flextable.md)

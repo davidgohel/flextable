@@ -82,6 +82,11 @@ the caption before the table (default) or after the table (use `FALSE`).
 [`knit_print.flextable()`](https://davidgohel.github.io/flextable/dev/reference/knit_print.flextable.md),
 [`save_as_docx()`](https://davidgohel.github.io/flextable/dev/reference/save_as_docx.md)
 
+Other functions for officer integration:
+[`body_replace_flextable_at_bkm()`](https://davidgohel.github.io/flextable/dev/reference/body_replace_flextable_at_bkm.md),
+[`ph_with.flextable()`](https://davidgohel.github.io/flextable/dev/reference/ph_with.flextable.md),
+[`rtf_add.flextable()`](https://davidgohel.github.io/flextable/dev/reference/rtf_add.flextable.md)
+
 ## Examples
 
 ``` r

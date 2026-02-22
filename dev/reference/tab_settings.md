@@ -43,7 +43,7 @@ tab_settings(x, i = NULL, j = NULL, value = TRUE, part = "body")
 
 ## See also
 
-Other sugar functions for table style:
+Other formatting shortcuts:
 [`align()`](https://davidgohel.github.io/flextable/dev/reference/align.md),
 [`bg()`](https://davidgohel.github.io/flextable/dev/reference/bg.md),
 [`bold()`](https://davidgohel.github.io/flextable/dev/reference/bold.md),

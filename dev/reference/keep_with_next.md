@@ -42,7 +42,7 @@ keep_with_next(x, i = NULL, value = TRUE, part = "body")
 
 [`paginate()`](https://davidgohel.github.io/flextable/dev/reference/paginate.md)
 
-Other sugar functions for table style:
+Other formatting shortcuts:
 [`align()`](https://davidgohel.github.io/flextable/dev/reference/align.md),
 [`bg()`](https://davidgohel.github.io/flextable/dev/reference/bg.md),
 [`bold()`](https://davidgohel.github.io/flextable/dev/reference/bold.md),

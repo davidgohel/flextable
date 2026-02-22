@@ -58,6 +58,13 @@ determine the ideal placement for a caption within a slide.
 Additionally, including a caption within the table itself isn't
 feasible.
 
+## See also
+
+Other functions for officer integration:
+[`body_add_flextable()`](https://davidgohel.github.io/flextable/dev/reference/body_add_flextable.md),
+[`body_replace_flextable_at_bkm()`](https://davidgohel.github.io/flextable/dev/reference/body_replace_flextable_at_bkm.md),
+[`rtf_add.flextable()`](https://davidgohel.github.io/flextable/dev/reference/rtf_add.flextable.md)
+
 ## Examples
 
 ``` r

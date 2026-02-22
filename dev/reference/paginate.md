@@ -85,6 +85,22 @@ and an algorithm for determining the groups.
 
 [`knit_print.flextable()`](https://davidgohel.github.io/flextable/dev/reference/knit_print.flextable.md)
 
+Other row and column operations:
+[`add_body()`](https://davidgohel.github.io/flextable/dev/reference/add_body.md),
+[`add_body_row()`](https://davidgohel.github.io/flextable/dev/reference/add_body_row.md),
+[`add_footer()`](https://davidgohel.github.io/flextable/dev/reference/add_footer.md),
+[`add_footer_lines()`](https://davidgohel.github.io/flextable/dev/reference/add_footer_lines.md),
+[`add_footer_row()`](https://davidgohel.github.io/flextable/dev/reference/add_footer_row.md),
+[`add_header()`](https://davidgohel.github.io/flextable/dev/reference/add_header.md),
+[`add_header_lines()`](https://davidgohel.github.io/flextable/dev/reference/add_header_lines.md),
+[`add_header_row()`](https://davidgohel.github.io/flextable/dev/reference/add_header_row.md),
+[`delete_columns()`](https://davidgohel.github.io/flextable/dev/reference/delete_columns.md),
+[`delete_part()`](https://davidgohel.github.io/flextable/dev/reference/delete_part.md),
+[`delete_rows()`](https://davidgohel.github.io/flextable/dev/reference/delete_rows.md),
+[`separate_header()`](https://davidgohel.github.io/flextable/dev/reference/separate_header.md),
+[`set_header_footer_df`](https://davidgohel.github.io/flextable/dev/reference/set_header_footer_df.md),
+[`set_header_labels()`](https://davidgohel.github.io/flextable/dev/reference/set_header_labels.md)
+
 ## Examples
 
 ``` r

@@ -38,7 +38,7 @@ to make a transition, and should not remain available for long.**
 
 ## See also
 
-Other information data functions:
+Other table data extraction:
 [`information_data_chunk()`](https://davidgohel.github.io/flextable/dev/reference/information_data_chunk.md),
 [`information_data_paragraph()`](https://davidgohel.github.io/flextable/dev/reference/information_data_paragraph.md)
 

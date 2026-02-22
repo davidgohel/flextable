@@ -30,3 +30,8 @@ use_model_printer()
 
 [`use_df_printer()`](https://davidgohel.github.io/flextable/dev/reference/use_df_printer.md),
 [`flextable()`](https://davidgohel.github.io/flextable/dev/reference/flextable.md)
+
+Other flextable configuration:
+[`add_latex_dep()`](https://davidgohel.github.io/flextable/dev/reference/add_latex_dep.md),
+[`use_df_printer()`](https://davidgohel.github.io/flextable/dev/reference/use_df_printer.md),
+[`use_flextable_qmd()`](https://davidgohel.github.io/flextable/dev/reference/use_flextable_qmd.md)

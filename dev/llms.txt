@@ -562,10 +562,11 @@ colors, borders, padding. Reduces repetitive code.
 - [`get_flextable_defaults()`](https://davidgohel.github.io/flextable/dev/reference/get_flextable_defaults.md)
   : Get flextable defaults formatting properties
 
-## Utilities
+## Value formatters
 
-Helper functions for conditional display (void), row positioning
-(before), and value formatting (fmt\_\*).
+Format numeric values as text strings for display in cells: integers,
+decimals, percentages, mean±sd. Use inside as_paragraph() or as the
+formatter argument of as_chunk().
 
 - [`fmt_2stats()`](https://davidgohel.github.io/flextable/dev/reference/fmt_2stats.md)
   [`fmt_summarizor()`](https://davidgohel.github.io/flextable/dev/reference/fmt_2stats.md)
@@ -584,6 +585,11 @@ Helper functions for conditional display (void), row positioning
   : Format numbers as percentages
 - [`fmt_signif_after_zeros()`](https://davidgohel.github.io/flextable/dev/reference/fmt_signif_after_zeros.md)
   : Format with significant figures after zeros
+
+## Utilities
+
+Helper functions
+
 - [`before()`](https://davidgohel.github.io/flextable/dev/reference/before.md)
   : Detect rows before a given value
 - [`void()`](https://davidgohel.github.io/flextable/dev/reference/void.md)

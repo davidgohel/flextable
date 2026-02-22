@@ -85,7 +85,6 @@ as_flextable(
 [`as_grouped_data()`](https://davidgohel.github.io/flextable/dev/reference/as_grouped_data.md)
 
 Other as_flextable methods:
-[`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md),
 [`as_flextable.compact_summary()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.compact_summary.md),
 [`as_flextable.data.frame()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.data.frame.md),
 [`as_flextable.gam()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.gam.md),

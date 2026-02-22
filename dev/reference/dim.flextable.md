@@ -29,6 +29,7 @@ Other functions for flextable size management:
 [`hrule()`](https://davidgohel.github.io/flextable/dev/reference/hrule.md),
 [`ncol_keys()`](https://davidgohel.github.io/flextable/dev/reference/ncol_keys.md),
 [`nrow_part()`](https://davidgohel.github.io/flextable/dev/reference/nrow_part.md),
+[`set_table_properties()`](https://davidgohel.github.io/flextable/dev/reference/set_table_properties.md),
 [`width()`](https://davidgohel.github.io/flextable/dev/reference/width.md)
 
 ## Examples
