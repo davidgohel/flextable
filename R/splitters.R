@@ -181,3 +181,52 @@ split_rows <- function(x, max_height, group = integer(0), unit = "in") {
     }
   })
 }
+
+#' @export
+#' @title Split a flextable into pages by rows and columns
+#' @description Split a flextable into a list of flextables that fit
+#' within the given height and width constraints. Rows are split
+#' first, then columns are split within each row page.
+#'
+#' This is a convenience wrapper around [split_rows()] and
+#' [split_columns()].
+#' @inheritParams args_x_only
+#' @param max_width Maximum width per page (in inches by default).
+#'   `NULL` means no column splitting.
+#' @param max_height Maximum height per page, including header and
+#'   footer (in inches by default). `NULL` means no row splitting.
+#' @param rep_cols Columns to repeat on every horizontal page. Can be
+#'   a character vector of column names, an integer vector of column
+#'   positions, or `NULL` (default, no repetition).
+#' @param group Integer vector of body row indices that start a new
+#'   group. Default is `integer(0)`.
+#' @param unit Unit for `max_width` and `max_height`, one of
+#'   `"in"`, `"cm"`, `"mm"`.
+#' @return A list of flextable objects.
+#' @family table_structure
+#' @examples
+#' ft <- flextable(iris)
+#' ft_pages <- split_to_pages(ft, max_width = 4, max_height = 5)
+#' length(ft_pages)
+split_to_pages <- function(x, max_width = NULL, max_height = NULL,
+                        rep_cols = NULL, group = integer(0),
+                        unit = "in") {
+  ft_list <- list(x)
+
+  if (!is.null(max_height)) {
+    ft_list <- split_rows(x, max_height = max_height,
+                          group = group, unit = unit)
+  }
+
+  if (!is.null(max_width)) {
+    ft_list <- unlist(
+      lapply(ft_list, split_columns,
+             max_width = max_width,
+             rep_cols = rep_cols,
+             unit = unit),
+      recursive = FALSE
+    )
+  }
+
+  ft_list
+}

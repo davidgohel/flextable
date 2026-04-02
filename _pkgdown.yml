@@ -191,6 +191,7 @@ reference:
     - starts_with("height")
     - hrule
     - paginate
+    - split_to_pages
     - split_rows
     - split_columns
     - keep_with_next

@@ -57,6 +57,7 @@ Other row and column operations:
 \code{\link{separate_header}()},
 \code{\link{set_header_footer_df}},
 \code{\link{set_header_labels}()},
-\code{\link{split_columns}()}
+\code{\link{split_columns}()},
+\code{\link{split_to_pages}()}
 }
 \concept{table_structure}

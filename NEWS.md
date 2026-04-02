@@ -22,10 +22,18 @@
 - function `paginate()` gains a new option `"starts"` for argument `group_def`.
   When used, `group` is an integer vector of body row indices where new groups
   begin; page breaks are allowed before these rows.
-- New exported functions `split_columns()` and `split_rows()` to split a flextable
+- New functions `split_columns()` and `split_rows()` to split a flextable
   into a list of flextables that fit within a given width or height.
-  `split_columns()` accepts column names or indices for `rep_cols`
+  `split_columns()` accepts column names, indices, or formulas for `rep_cols`,
   allowing users to choose which columns to repeat and in what order.
+  `split_rows()` supports a `group` argument to keep row groups together
+  across pages; header and footer are repeated on every page.
+- new function `split_to_pages()` combines `split_rows()` and `split_columns()`
+  in a single call for convenient two-dimensional pagination.
+- new method `as_flextable()` for 'rtables' `TableTree` and `ElementaryTable`
+  objects. The conversion maps formatted content, column spans, alignments,
+  indentation and footnotes to flextable features. Use `split_to_pages()` on
+  the result for pagination.
 
 # flextable 0.9.11
 

@@ -1,7 +1,7 @@
 Type: Package
 Package: flextable
 Title: Functions for Tabular Reporting
-Version: 0.9.12.007
+Version: 0.9.12.008
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -55,6 +55,7 @@ Suggests:
     bookdown (>= 0.40),
     broom,
     broom.mixed,
+    formatters,
     chromote,
     cluster,
     commonmark,
@@ -71,6 +72,7 @@ Suggests:
     patchwork,
     pdftools,
     pkgdown (>= 2.0.0),
+    rtables,
     scales,
     svglite,
     tables (>= 0.9.17),
