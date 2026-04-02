@@ -5,11 +5,12 @@
 #' wide tables in Word or PowerPoint output.
 #'
 #' @inheritParams args_x_only
-#' @param max_width Maximum width in inches for each page.
+#' @param max_width Maximum width for each page (in inches by default).
 #' @param rep_cols Columns to repeat on every page. Can be a character
 #'   vector of column names or an integer vector of column positions.
 #'   `NULL` (default) means no repetition. Repeated columns appear at
 #'   the beginning of each page in the order specified.
+#' @param unit Unit for `max_width`, one of `"in"`, `"cm"`, `"mm"`.
 #' @return A list of flextable objects. If no splitting is needed, a
 #' single-element list is returned.
 #' @family table_structure
@@ -18,7 +19,8 @@
 #' ft_pages <- split_columns(ft, max_width = 5)
 #' length(ft_pages)
 #' @export
-split_columns <- function(x, max_width, rep_cols = NULL) {
+split_columns <- function(x, max_width, rep_cols = NULL, unit = "in") {
+  max_width <- convin(unit = unit, x = max_width)
   all_keys <- x$col_keys
 
   if (is.null(rep_cols)) {
@@ -100,11 +102,12 @@ split_columns <- function(x, max_width, rep_cols = NULL) {
 #' are restructured to track their association with body rows.
 #'
 #' @inheritParams args_x_only
-#' @param max_height Maximum height in inches for each page (including
-#' header and footer).
+#' @param max_height Maximum height for each page, including
+#' header and footer (in inches by default).
 #' @param group Integer vector of body row indices that start a new group.
 #' Rows belonging to the same group are kept together on a single page.
 #' Default is `integer(0)` (no grouping, every row is independent).
+#' @param unit Unit for `max_height`, one of `"in"`, `"cm"`, `"mm"`.
 #' @return A list of flextable objects. If no splitting is needed, a
 #' single-element list is returned.
 #' @family table_structure
@@ -113,7 +116,8 @@ split_columns <- function(x, max_width, rep_cols = NULL) {
 #' ft_pages <- split_rows(ft, max_height = 3)
 #' length(ft_pages)
 #' @export
-split_rows <- function(x, max_height, group = integer(0)) {
+split_rows <- function(x, max_height, group = integer(0), unit = "in") {
+  max_height <- convin(unit = unit, x = max_height)
   heights <- dim_pretty(x)$heights
   n_hdr <- nrow_part(x, "header")
   n_ftr <- nrow_part(x, "footer")

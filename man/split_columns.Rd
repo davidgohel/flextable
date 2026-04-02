@@ -4,18 +4,20 @@
 \alias{split_columns}
 \title{Split a flextable into pages by columns}
 \usage{
-split_columns(x, max_width, rep_cols = NULL)
+split_columns(x, max_width, rep_cols = NULL, unit = "in")
 }
 \arguments{
 \item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
 'flextable' object.}
 
-\item{max_width}{Maximum width in inches for each page.}
+\item{max_width}{Maximum width for each page (in inches by default).}
 
 \item{rep_cols}{Columns to repeat on every page. Can be a character
 vector of column names or an integer vector of column positions.
 \code{NULL} (default) means no repetition. Repeated columns appear at
 the beginning of each page in the order specified.}
+
+\item{unit}{Unit for \code{max_width}, one of \code{"in"}, \code{"cm"}, \code{"mm"}.}
 }
 \value{
 A list of flextable objects. If no splitting is needed, a

@@ -4,18 +4,20 @@
 \alias{split_rows}
 \title{Split a flextable into pages by rows}
 \usage{
-split_rows(x, max_height, group = integer(0))
+split_rows(x, max_height, group = integer(0), unit = "in")
 }
 \arguments{
 \item{x}{a 'flextable' object, see \link{flextable-package} to learn how to create
 'flextable' object.}
 
-\item{max_height}{Maximum height in inches for each page (including
-header and footer).}
+\item{max_height}{Maximum height for each page, including
+header and footer (in inches by default).}
 
 \item{group}{Integer vector of body row indices that start a new group.
 Rows belonging to the same group are kept together on a single page.
 Default is \code{integer(0)} (no grouping, every row is independent).}
+
+\item{unit}{Unit for \code{max_height}, one of \code{"in"}, \code{"cm"}, \code{"mm"}.}
 }
 \value{
 A list of flextable objects. If no splitting is needed, a
