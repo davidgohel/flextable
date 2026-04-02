@@ -7,7 +7,7 @@ Word or PowerPoint output.
 ## Usage
 
 ``` r
-split_columns(x, max_width, rep_cols = NULL)
+split_columns(x, max_width, rep_cols = NULL, unit = "in")
 ```
 
 ## Arguments
@@ -20,7 +20,7 @@ split_columns(x, max_width, rep_cols = NULL)
 
 - max_width:
 
-  Maximum width in inches for each page.
+  Maximum width for each page (in inches by default).
 
 - rep_cols:
 
@@ -28,6 +28,10 @@ split_columns(x, max_width, rep_cols = NULL)
   names or an integer vector of column positions. `NULL` (default) means
   no repetition. Repeated columns appear at the beginning of each page
   in the order specified.
+
+- unit:
+
+  Unit for `max_width`, one of `"in"`, `"cm"`, `"mm"`.
 
 ## Value
 

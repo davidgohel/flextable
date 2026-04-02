@@ -8,7 +8,7 @@ inside a group).
 ## Usage
 
 ``` r
-split_rows(x, max_height, group = integer(0))
+split_rows(x, max_height, group = integer(0), unit = "in")
 ```
 
 ## Arguments
@@ -21,13 +21,18 @@ split_rows(x, max_height, group = integer(0))
 
 - max_height:
 
-  Maximum height in inches for each page (including header and footer).
+  Maximum height for each page, including header and footer (in inches
+  by default).
 
 - group:
 
   Integer vector of body row indices that start a new group. Rows
   belonging to the same group are kept together on a single page.
   Default is `integer(0)` (no grouping, every row is independent).
+
+- unit:
+
+  Unit for `max_height`, one of `"in"`, `"cm"`, `"mm"`.
 
 ## Value
 
