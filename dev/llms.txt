@@ -436,9 +436,11 @@ for automatic adjustment, width() for manual control.
 - [`width()`](https://davidgohel.github.io/flextable/dev/reference/width.md)
   : Set columns width
 - [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md)
-  : Adjust cell widths and heights
+  : Adjust columns to their content size
 - [`fit_to_width()`](https://davidgohel.github.io/flextable/dev/reference/fit_to_width.md)
-  : Fit a flextable to a maximum width
+  : Constrain table width by shrinking font size
+- [`fit_columns()`](https://davidgohel.github.io/flextable/dev/reference/fit_columns.md)
+  : Constrain table width by wrapping text
 - [`set_table_properties()`](https://davidgohel.github.io/flextable/dev/reference/set_table_properties.md)
   : Set table layout and width properties
 
@@ -454,6 +456,10 @@ split long tables, keep_with_next to prevent orphan rows.
   : Set how row heights are determined
 - [`paginate()`](https://davidgohel.github.io/flextable/dev/reference/paginate.md)
   : Prevent page breaks inside a flextable
+- [`split_rows()`](https://davidgohel.github.io/flextable/dev/reference/split_rows.md)
+  : Split a flextable into pages by rows
+- [`split_columns()`](https://davidgohel.github.io/flextable/dev/reference/split_columns.md)
+  : Split a flextable into pages by columns
 - [`keep_with_next()`](https://davidgohel.github.io/flextable/dev/reference/keep_with_next.md)
   : Set Word 'Keep with next' instructions
 

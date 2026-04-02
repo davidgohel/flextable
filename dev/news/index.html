@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.005</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,8 @@
 <div class="section level3">
 <h3 id="issues-0-9-12">issues<a class="anchor" aria-label="anchor" href="#issues-0-9-12"></a></h3>
 <ul><li>
+<code><a href="../reference/dim_pretty.html">dim_pretty()</a></code> height estimates now account for line spacing and border widths.</li>
+<li>
 <code>padding.left</code> and <code>padding.right</code> are now supported in PDF/LaTeX output.</li>
 <li>
 <code><a href="../reference/delete_rows.html">delete_rows()</a></code> and <code><a href="../reference/delete_columns.html">delete_columns()</a></code> no longer reset all spans unconditionally. <code>span_free()</code> is now only triggered when the deletion actually breaks a merged cell, preserving existing merge structures in all other cases.</li>
@@ -43,7 +45,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-0-9-12">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-12"></a></h3>
-<ul><li>function <code><a href="../reference/paginate.html">paginate()</a></code> gains a new option <code>"starts"</code> for argument <code>group_def</code>. When used, <code>group</code> is an integer vector of body row indices where new groups begin; page breaks are allowed before these rows.</li>
+<ul><li>new function <code><a href="../reference/fit_columns.html">fit_columns()</a></code> constrains total table width by shrinking columns proportionally. Text wraps inside narrower cells; font sizes are unchanged. Columns that cannot shrink below their longest word are clamped at that floor and remaining space is iteratively redistributed among unclamped columns. A <code>no_wrap</code> argument lets specific columns keep their optimal width.</li>
+<li>function <code><a href="../reference/paginate.html">paginate()</a></code> gains a new option <code>"starts"</code> for argument <code>group_def</code>. When used, <code>group</code> is an integer vector of body row indices where new groups begin; page breaks are allowed before these rows.</li>
+<li>New exported functions <code><a href="../reference/split_columns.html">split_columns()</a></code> and <code><a href="../reference/split_rows.html">split_rows()</a></code> to split a flextable into a list of flextables that fit within a given width or height. <code><a href="../reference/split_columns.html">split_columns()</a></code> accepts column names or indices for <code>rep_cols</code> allowing users to choose which columns to repeat and in what order.</li>
 </ul></div>
 </div>
     <div class="section level2">

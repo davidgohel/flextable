@@ -29,6 +29,7 @@ Other functions for flextable size management:
 [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md),
 [`dim.flextable()`](https://davidgohel.github.io/flextable/dev/reference/dim.flextable.md),
 [`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md),
+[`fit_columns()`](https://davidgohel.github.io/flextable/dev/reference/fit_columns.md),
 [`fit_to_width()`](https://davidgohel.github.io/flextable/dev/reference/fit_to_width.md),
 [`height()`](https://davidgohel.github.io/flextable/dev/reference/height.md),
 [`hrule()`](https://davidgohel.github.io/flextable/dev/reference/hrule.md),
@@ -57,9 +58,9 @@ flextable_dim(ftab)
 #> [1] 5.774125
 #> 
 #> $heights
-#> [1] 2.837469
+#> [1] 2.986806
 #> 
 #> $aspect_ratio
-#> [1] 0.4914111
+#> [1] 0.5172742
 #> 
 ```

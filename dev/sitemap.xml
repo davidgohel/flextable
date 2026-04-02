@@ -91,6 +91,7 @@
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/dim.flextableGrob.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/dim_pretty.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/empty_blanks.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/dev/reference/fit_columns.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/fit_to_width.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/fix_border_issues.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/flextable-package.html</loc></url>
@@ -171,6 +172,8 @@
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/set_header_labels.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/set_table_properties.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/shift_table.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/dev/reference/split_columns.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/dev/reference/split_rows.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/style.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/summarizor.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/surround.html</loc></url>

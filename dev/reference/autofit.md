@@ -1,17 +1,15 @@
-# Adjust cell widths and heights
+# Adjust columns to their content size
 
-compute and apply optimized widths and heights (minimum estimated widths
-and heights for each table columns and rows in inches returned by
-function
-[`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md)).
+Compute and apply the minimum widths and heights needed to display each
+cell's content on a single line, with an optional extra margin (`add_w`,
+`add_h`).
 
-This function is to be used when the table widths and heights should be
-adjusted to fit the size of the content.
-
-The function does not let you adjust a content that is too wide in a
-paginated document. It simply calculates the width of the columns so
-that each content has the minimum width necessary to display the content
-on one line.
+This function sizes columns to fit their content. It does not constrain
+the table to a given total width. To enforce a maximum width, use
+[`fit_columns()`](https://davidgohel.github.io/flextable/dev/reference/fit_columns.md)
+(wraps text) or
+[`fit_to_width()`](https://davidgohel.github.io/flextable/dev/reference/fit_to_width.md)
+(shrinks font size).
 
 Note that this function is not related to 'Microsoft Word' *Autofit*
 feature.
@@ -76,6 +74,7 @@ autofit(
 Other functions for flextable size management:
 [`dim.flextable()`](https://davidgohel.github.io/flextable/dev/reference/dim.flextable.md),
 [`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md),
+[`fit_columns()`](https://davidgohel.github.io/flextable/dev/reference/fit_columns.md),
 [`fit_to_width()`](https://davidgohel.github.io/flextable/dev/reference/fit_to_width.md),
 [`flextable_dim()`](https://davidgohel.github.io/flextable/dev/reference/flextable_dim.md),
 [`height()`](https://davidgohel.github.io/flextable/dev/reference/height.md),
@@ -92,7 +91,7 @@ ft_1 <- flextable(head(mtcars))
 ft_1
 
 
-.cl-5cdca1d8{}.cl-5cd56800{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5cd881de{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5cd8a6b4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5cd8a6be{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5cd8a6c8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-f32a74fc{}.cl-f3236a68{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f326634e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f3268496{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f32684a0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f32684a1{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 mpg

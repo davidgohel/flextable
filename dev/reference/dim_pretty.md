@@ -43,6 +43,7 @@ dim_pretty(x, part = "all", unit = "in", hspans = "none")
 Other functions for flextable size management:
 [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md),
 [`dim.flextable()`](https://davidgohel.github.io/flextable/dev/reference/dim.flextable.md),
+[`fit_columns()`](https://davidgohel.github.io/flextable/dev/reference/fit_columns.md),
 [`fit_to_width()`](https://davidgohel.github.io/flextable/dev/reference/fit_to_width.md),
 [`flextable_dim()`](https://davidgohel.github.io/flextable/dev/reference/flextable_dim.md),
 [`height()`](https://davidgohel.github.io/flextable/dev/reference/height.md),
@@ -62,6 +63,6 @@ dim_pretty(ftab)
 #>  [8] 0.3551952 0.4276304 0.5325905 0.5225943
 #> 
 #> $heights
-#> [1] 0.3330395 0.3007383 0.3007383 0.3007383 0.3007383 0.3007383 0.3007383
+#> [1] 0.3430556 0.3222222 0.3222222 0.3222222 0.3222222 0.3222222 0.3326389
 #> 
 ```

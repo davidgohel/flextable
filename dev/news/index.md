@@ -4,6 +4,8 @@
 
 ### issues
 
+- [`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md)
+  height estimates now account for line spacing and border widths.
 - `padding.left` and `padding.right` are now supported in PDF/LaTeX
   output.
 - [`delete_rows()`](https://davidgohel.github.io/flextable/dev/reference/delete_rows.md)
@@ -16,11 +18,27 @@
 
 ### new features
 
+- new function
+  [`fit_columns()`](https://davidgohel.github.io/flextable/dev/reference/fit_columns.md)
+  constrains total table width by shrinking columns proportionally. Text
+  wraps inside narrower cells; font sizes are unchanged. Columns that
+  cannot shrink below their longest word are clamped at that floor and
+  remaining space is iteratively redistributed among unclamped columns.
+  A `no_wrap` argument lets specific columns keep their optimal width.
 - function
   [`paginate()`](https://davidgohel.github.io/flextable/dev/reference/paginate.md)
   gains a new option `"starts"` for argument `group_def`. When used,
   `group` is an integer vector of body row indices where new groups
   begin; page breaks are allowed before these rows.
+- New exported functions
+  [`split_columns()`](https://davidgohel.github.io/flextable/dev/reference/split_columns.md)
+  and
+  [`split_rows()`](https://davidgohel.github.io/flextable/dev/reference/split_rows.md)
+  to split a flextable into a list of flextables that fit within a given
+  width or height.
+  [`split_columns()`](https://davidgohel.github.io/flextable/dev/reference/split_columns.md)
+  accepts column names or indices for `rep_cols` allowing users to
+  choose which columns to repeat and in what order.
 
 ## flextable 0.9.11
 

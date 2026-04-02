@@ -99,7 +99,9 @@ Other row and column operations:
 [`delete_rows()`](https://davidgohel.github.io/flextable/dev/reference/delete_rows.md),
 [`separate_header()`](https://davidgohel.github.io/flextable/dev/reference/separate_header.md),
 [`set_header_footer_df`](https://davidgohel.github.io/flextable/dev/reference/set_header_footer_df.md),
-[`set_header_labels()`](https://davidgohel.github.io/flextable/dev/reference/set_header_labels.md)
+[`set_header_labels()`](https://davidgohel.github.io/flextable/dev/reference/set_header_labels.md),
+[`split_columns()`](https://davidgohel.github.io/flextable/dev/reference/split_columns.md),
+[`split_rows()`](https://davidgohel.github.io/flextable/dev/reference/split_rows.md)
 
 ## Examples
 
