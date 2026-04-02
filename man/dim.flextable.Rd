@@ -22,6 +22,7 @@ dim(ftab)
 Other functions for flextable size management: 
 \code{\link{autofit}()},
 \code{\link{dim_pretty}()},
+\code{\link{fit_columns}()},
 \code{\link{fit_to_width}()},
 \code{\link{flextable_dim}()},
 \code{\link{height}()},

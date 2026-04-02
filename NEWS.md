@@ -11,6 +11,12 @@
 
 ## new features
 
+- new function `fit_columns()` constrains total table width by shrinking
+columns proportionally. Text wraps inside narrower cells; font sizes are
+unchanged. Columns that cannot shrink below their longest word are clamped
+at that floor and remaining space is iteratively redistributed among
+unclamped columns. A `no_wrap` argument lets specific columns keep their
+optimal width.
 - function `paginate()` gains a new option `"starts"` for argument `group_def`.
 When used, `group` is an integer vector of body row indices where new groups
 begin; page breaks are allowed before these rows.
