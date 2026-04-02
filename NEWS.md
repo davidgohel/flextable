@@ -2,6 +2,8 @@
 
 ## issues
 
+- `dim_pretty()` height estimates now account for line spacing and
+  border widths.
 - `padding.left` and `padding.right` are now supported in PDF/LaTeX output.
 - `delete_rows()` and `delete_columns()` no longer reset all spans
   unconditionally. `span_free()` is now only triggered when the
@@ -12,14 +14,18 @@
 ## new features
 
 - new function `fit_columns()` constrains total table width by shrinking
-columns proportionally. Text wraps inside narrower cells; font sizes are
-unchanged. Columns that cannot shrink below their longest word are clamped
-at that floor and remaining space is iteratively redistributed among
-unclamped columns. A `no_wrap` argument lets specific columns keep their
-optimal width.
+  columns proportionally. Text wraps inside narrower cells; font sizes are
+  unchanged. Columns that cannot shrink below their longest word are clamped
+  at that floor and remaining space is iteratively redistributed among
+  unclamped columns. A `no_wrap` argument lets specific columns keep their
+  optimal width.
 - function `paginate()` gains a new option `"starts"` for argument `group_def`.
-When used, `group` is an integer vector of body row indices where new groups
-begin; page breaks are allowed before these rows.
+  When used, `group` is an integer vector of body row indices where new groups
+  begin; page breaks are allowed before these rows.
+- New exported functions `split_columns()` and `split_rows()` to split a flextable
+  into a list of flextables that fit within a given width or height.
+  `split_columns()` accepts column names or indices for `rep_cols`
+  allowing users to choose which columns to repeat and in what order.
 
 # flextable 0.9.11
 

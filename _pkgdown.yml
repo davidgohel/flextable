@@ -180,6 +180,7 @@ reference:
     - width
     - autofit
     - fit_to_width
+    - fit_columns
     - set_table_properties
 
   - title: Row height and pagination
@@ -190,6 +191,8 @@ reference:
     - starts_with("height")
     - hrule
     - paginate
+    - split_rows
+    - split_columns
     - keep_with_next
 
   - title: Get dimensions

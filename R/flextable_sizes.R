@@ -326,6 +326,11 @@ fit_columns_metrics <- function(x) {
   txt_data$txt[txt_data$txt %in% "<br>"] <- ""
   txt_data$txt[txt_data$txt %in% "<tab>"] <- "mmmm"
 
+  # line_spacing per cell for minimum line height
+  ls_data <- par_struct_to_df(x$styles$pars)[, c(".row_id", ".col_id")]
+  ls_data$line_spacing <- as.vector(x$styles$pars[["line_spacing"]]$data)
+  txt_data <- merge(txt_data, ls_data, by = c(".row_id", ".col_id"))
+
   fontsize <- txt_data$font.size
   not_baseline <- !(txt_data$vertical.align %in% "baseline")
   fontsize[not_baseline] <- fontsize[not_baseline] / 2
@@ -337,7 +342,9 @@ fit_columns_metrics <- function(x) {
     bold = txt_data$bold,
     italic = txt_data$italic
   )
-  extents_values$height <- extents_values$ascent + extents_values$descent
+  glyph_height <- extents_values$ascent + extents_values$descent
+  line_height <- fontsize * txt_data$line_spacing * 1.2 / 72
+  extents_values$height <- pmax(glyph_height, line_height, 0, na.rm = TRUE)
   extents_values$ascent <- NULL
   extents_values$descent <- NULL
   colnames(extents_values) <- c("width", "height")
@@ -856,7 +863,7 @@ dim_paragraphs <- function(x) {
       x$styles$pars[["padding.left"]]$data) * (4 / 3) / 72
   par_dim$height <- as.vector(
     x$styles$pars[["padding.top"]]$data +
-      x$styles$pars[["padding.bottom"]]$data) * (4 / 3) / 72
+      x$styles$pars[["padding.bottom"]]$data) / 72
 
   selection_ <- c(".row_id", ".col_id", "width", "height")
   par_dim[, selection_]
@@ -870,7 +877,8 @@ dim_paragraphs <- function(x) {
 dim_cells <- function(x) {
   cell_dim <- cell_struct_to_df(x$styles$cells)
   cell_dim$width <- as.vector(x$styles$cells[["margin.right"]]$data + x$styles$cells[["margin.left"]]$data) * (4 / 3) / 72
-  cell_dim$height <- as.vector(x$styles$cells[["margin.top"]]$data + x$styles$cells[["margin.bottom"]]$data) * (4 / 3) / 72
+  cell_dim$height <- as.vector(x$styles$cells[["margin.top"]]$data + x$styles$cells[["margin.bottom"]]$data) / 72 +
+    as.vector(x$styles$cells[["border.width.top"]]$data + x$styles$cells[["border.width.bottom"]]$data) / 2 / 72
   selection_ <- c(".row_id", ".col_id", "width", "height")
   cell_dim <- cell_dim[, selection_]
 
@@ -911,6 +919,11 @@ text_metric <- function(x) {
   # set tabs to 4 'm'
   txt_data$txt[txt_data$txt %in% "<tab>"] <- "mmmm"
 
+  # line_spacing per cell for minimum line height
+  ls_data <- par_struct_to_df(x$styles$pars)[, c(".row_id", ".col_id")]
+  ls_data$line_spacing <- as.vector(x$styles$pars[["line_spacing"]]$data)
+  txt_data <- merge(txt_data, ls_data, by = c(".row_id", ".col_id"))
+
   fontsize <- txt_data$font.size
   not_baseline <- !(txt_data$vertical.align %in% "baseline")
   fontsize[not_baseline] <- fontsize[not_baseline] / 2
@@ -922,7 +935,9 @@ text_metric <- function(x) {
     bold = txt_data$bold,
     italic = txt_data$italic
   )
-  extents_values$height <- extents_values$ascent + extents_values$descent
+  glyph_height <- extents_values$ascent + extents_values$descent
+  line_height <- fontsize * txt_data$line_spacing * 1.2 / 72
+  extents_values$height <- pmax(glyph_height, line_height, 0, na.rm = TRUE)
   extents_values$ascent <- NULL
   extents_values$descent <- NULL
   colnames(extents_values) <- c("width", "height")
