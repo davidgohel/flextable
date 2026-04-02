@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,9 @@
 <h3 id="new-features-0-9-12">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-12"></a></h3>
 <ul><li>new function <code><a href="../reference/fit_columns.html">fit_columns()</a></code> constrains total table width by shrinking columns proportionally. Text wraps inside narrower cells; font sizes are unchanged. Columns that cannot shrink below their longest word are clamped at that floor and remaining space is iteratively redistributed among unclamped columns. A <code>no_wrap</code> argument lets specific columns keep their optimal width.</li>
 <li>function <code><a href="../reference/paginate.html">paginate()</a></code> gains a new option <code>"starts"</code> for argument <code>group_def</code>. When used, <code>group</code> is an integer vector of body row indices where new groups begin; page breaks are allowed before these rows.</li>
-<li>New exported functions <code><a href="../reference/split_columns.html">split_columns()</a></code> and <code><a href="../reference/split_rows.html">split_rows()</a></code> to split a flextable into a list of flextables that fit within a given width or height. <code><a href="../reference/split_columns.html">split_columns()</a></code> accepts column names or indices for <code>rep_cols</code> allowing users to choose which columns to repeat and in what order.</li>
+<li>New functions <code><a href="../reference/split_columns.html">split_columns()</a></code> and <code><a href="../reference/split_rows.html">split_rows()</a></code> to split a flextable into a list of flextables that fit within a given width or height. <code><a href="../reference/split_columns.html">split_columns()</a></code> accepts column names, indices, or formulas for <code>rep_cols</code>, allowing users to choose which columns to repeat and in what order. <code><a href="../reference/split_rows.html">split_rows()</a></code> supports a <code>group</code> argument to keep row groups together across pages; header and footer are repeated on every page.</li>
+<li>new function <code><a href="../reference/split_to_pages.html">split_to_pages()</a></code> combines <code><a href="../reference/split_rows.html">split_rows()</a></code> and <code><a href="../reference/split_columns.html">split_columns()</a></code> in a single call for convenient two-dimensional pagination.</li>
+<li>new method <code><a href="../reference/as_flextable.html">as_flextable()</a></code> for ‘rtables’ <code>TableTree</code> and <code>ElementaryTable</code> objects. The conversion maps formatted content, column spans, alignments, indentation and footnotes to flextable features. Use <code><a href="../reference/split_to_pages.html">split_to_pages()</a></code> on the result for pagination.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -106,7 +108,7 @@
 <div class="section level3">
 <h3 id="change-0-9-10">Change<a class="anchor" aria-label="anchor" href="#change-0-9-10"></a></h3>
 <ul><li>
-<code>print.flextable(preview = "log")</code> use <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> to show first values of data instead of <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> so that when there are ggplot2 v4 objects in the table, the print is not failing.</li>
+<code>print.flextable(preview = "log")</code> use <code><a href="https://insightsengineering.github.io/rtables/latest-tag/reference/int_methods.html" class="external-link">str()</a></code> to show first values of data instead of <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> so that when there are ggplot2 v4 objects in the table, the print is not failing.</li>
 </ul></div>
 </div>
     <div class="section level2">

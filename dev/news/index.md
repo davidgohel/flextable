@@ -30,15 +30,32 @@
   gains a new option `"starts"` for argument `group_def`. When used,
   `group` is an integer vector of body row indices where new groups
   begin; page breaks are allowed before these rows.
-- New exported functions
+- New functions
   [`split_columns()`](https://davidgohel.github.io/flextable/dev/reference/split_columns.md)
   and
   [`split_rows()`](https://davidgohel.github.io/flextable/dev/reference/split_rows.md)
   to split a flextable into a list of flextables that fit within a given
   width or height.
   [`split_columns()`](https://davidgohel.github.io/flextable/dev/reference/split_columns.md)
-  accepts column names or indices for `rep_cols` allowing users to
-  choose which columns to repeat and in what order.
+  accepts column names, indices, or formulas for `rep_cols`, allowing
+  users to choose which columns to repeat and in what order.
+  [`split_rows()`](https://davidgohel.github.io/flextable/dev/reference/split_rows.md)
+  supports a `group` argument to keep row groups together across pages;
+  header and footer are repeated on every page.
+- new function
+  [`split_to_pages()`](https://davidgohel.github.io/flextable/dev/reference/split_to_pages.md)
+  combines
+  [`split_rows()`](https://davidgohel.github.io/flextable/dev/reference/split_rows.md)
+  and
+  [`split_columns()`](https://davidgohel.github.io/flextable/dev/reference/split_columns.md)
+  in a single call for convenient two-dimensional pagination.
+- new method
+  [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md)
+  for ‘rtables’ `TableTree` and `ElementaryTable` objects. The
+  conversion maps formatted content, column spans, alignments,
+  indentation and footnotes to flextable features. Use
+  [`split_to_pages()`](https://davidgohel.github.io/flextable/dev/reference/split_to_pages.md)
+  on the result for pagination.
 
 ## flextable 0.9.11
 
@@ -175,10 +192,10 @@ CRAN release: 2025-08-24
 ### Change
 
 - `print.flextable(preview = "log")` use
-  [`str()`](https://rdrr.io/r/utils/str.html) to show first values of
-  data instead of [`print()`](https://rdrr.io/r/base/print.html) so that
-  when there are ggplot2 v4 objects in the table, the print is not
-  failing.
+  [`str()`](https://insightsengineering.github.io/rtables/latest-tag/reference/int_methods.html)
+  to show first values of data instead of
+  [`print()`](https://rdrr.io/r/base/print.html) so that when there are
+  ggplot2 v4 objects in the table, the print is not failing.
 
 ## flextable 0.9.9
 

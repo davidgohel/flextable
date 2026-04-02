@@ -30,6 +30,7 @@
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_bracket.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_chunk.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_equation.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/dev/reference/as_flextable.TableTree.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_flextable.compact_summary.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_flextable.data.frame.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/as_flextable.gam.html</loc></url>
@@ -174,6 +175,7 @@
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/shift_table.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/split_columns.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/split_rows.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/dev/reference/split_to_pages.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/style.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/summarizor.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/dev/reference/surround.html</loc></url>

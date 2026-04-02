@@ -29,6 +29,9 @@ descriptive statistics, and specific as_flextable methods for models.
   : Prepare descriptive statistics for flextable
 - [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md)
   : Method to transform objects into flextables
+- [`as_flextable(`*`<TableTree>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.TableTree.md)
+  [`as_flextable(`*`<ElementaryTable>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.TableTree.md)
+  : Transform an rtables object into a flextable
 - [`as_flextable(`*`<compact_summary>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.compact_summary.md)
   : Transform a 'compact_summary' object into a flextable
 - [`as_flextable(`*`<data.frame>`*`)`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.data.frame.md)
@@ -351,6 +354,8 @@ split long tables, keep_with_next to prevent orphan rows.
   : Set how row heights are determined
 - [`paginate()`](https://davidgohel.github.io/flextable/dev/reference/paginate.md)
   : Prevent page breaks inside a flextable
+- [`split_to_pages()`](https://davidgohel.github.io/flextable/dev/reference/split_to_pages.md)
+  : Split a flextable into pages by rows and columns
 - [`split_rows()`](https://davidgohel.github.io/flextable/dev/reference/split_rows.md)
   : Split a flextable into pages by rows
 - [`split_columns()`](https://davidgohel.github.io/flextable/dev/reference/split_columns.md)
