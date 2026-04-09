@@ -102,6 +102,7 @@ style <- function(
       pr_p$tabs <- NULL
     }
 
+    pr_p <- cast_borders(pr_p)
     for (property in intersect(names(pr_p), names(x[[part]]$styles$pars))) {
       if (!is.null(pr_p[[property]]) && !is.na(pr_p[[property]])) {
         x[[part]]$styles$pars[[property]]$data[i, j] <- pr_p[[property]]
