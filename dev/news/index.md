@@ -15,6 +15,14 @@
   triggered when the deletion actually breaks a merged cell, preserving
   existing merge structures in all other cases.
 - fix Shadow DOM handling for paged.js contexts, again
+- Image chunks
+  ([`as_image()`](https://davidgohel.github.io/flextable/dev/reference/as_image.md),
+  [`colformat_image()`](https://davidgohel.github.io/flextable/dev/reference/colformat_image.md),
+  [`plot_chunk()`](https://davidgohel.github.io/flextable/dev/reference/plot_chunk.md),
+  [`gg_chunk()`](https://davidgohel.github.io/flextable/dev/reference/gg_chunk.md),
+  [`grid_chunk()`](https://davidgohel.github.io/flextable/dev/reference/grid_chunk.md))
+  gain an `alt` parameter for alternative text. Alt text is rendered in
+  DOCX (`descr` attribute) and HTML (`alt` attribute) output.
 
 ### new features
 

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.009</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.010</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,7 @@
 <li>
 <code><a href="../reference/delete_rows.html">delete_rows()</a></code> and <code><a href="../reference/delete_columns.html">delete_columns()</a></code> no longer reset all spans unconditionally. <code>span_free()</code> is now only triggered when the deletion actually breaks a merged cell, preserving existing merge structures in all other cases.</li>
 <li>fix Shadow DOM handling for paged.js contexts, again</li>
+<li>Image chunks (<code><a href="../reference/as_image.html">as_image()</a></code>, <code><a href="../reference/colformat_image.html">colformat_image()</a></code>, <code><a href="../reference/plot_chunk.html">plot_chunk()</a></code>, <code><a href="../reference/gg_chunk.html">gg_chunk()</a></code>, <code><a href="../reference/grid_chunk.html">grid_chunk()</a></code>) gain an <code>alt</code> parameter for alternative text. Alt text is rendered in DOCX (<code>descr</code> attribute) and HTML (<code>alt</code> attribute) output.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-0-9-12">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-12"></a></h3>
