@@ -578,6 +578,19 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #' bold/italic, links, math, inline code and shortcodes.
 #' See [as_qmd()] and [use_flextable_qmd()] for setup instructions.
 #'
+#' @section PDF accessibility (PDF/UA-2):
+#'
+#' Quarto's `pdf-standard: ua-2` injects `\DocumentMetadata{tagging=on}`
+#' in the LaTeX preamble, activating 'tagpdf'.
+#' This code patches LaTeX commands at compile time to insert
+#' PDF structure tags. Neither Quarto nor flextable control this process.
+#'
+#' The tagging code does not yet support `longtable` + `colortbl`,
+#' `booktabs` rules, and `cline`, which flextable relies on. Compilation
+#' fails with `\ERRORtbl/row`. When these upstream issues are resolved,
+#' flextable PDF output will support tagging without changes. Other formats are
+#' not affected.
+#'
 #' @section PDF limitations:
 #'
 #' The following properties are not supported in PDF output:
