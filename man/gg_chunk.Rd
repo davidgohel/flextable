@@ -4,7 +4,7 @@
 \alias{gg_chunk}
 \title{ggplot chunk}
 \usage{
-gg_chunk(value, width = 1, height = 0.2, unit = "in", res = 300)
+gg_chunk(value, width = 1, height = 0.2, unit = "in", res = 300, alt = "")
 }
 \arguments{
 \item{value}{gg objects, stored in a list column; or a list
@@ -15,6 +15,8 @@ of 'ggplot' objects.}
 \item{unit}{unit for width and height, one of "in", "cm", "mm".}
 
 \item{res}{resolution of the png image in ppi}
+
+\item{alt}{alternative text for the image (used for accessibility)}
 }
 \description{
 This function is used to insert mini gg plots into

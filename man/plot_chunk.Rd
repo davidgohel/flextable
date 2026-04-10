@@ -11,6 +11,7 @@ plot_chunk(
   type = "box",
   free_scale = FALSE,
   unit = "in",
+  alt = "",
   ...
 )
 }
@@ -24,6 +25,8 @@ plot_chunk(
 \item{free_scale}{Should scales be free (TRUE or FALSE, the default value).}
 
 \item{unit}{unit for width and height, one of "in", "cm", "mm".}
+
+\item{alt}{alternative text for the image (used for accessibility)}
 
 \item{...}{arguments sent to plot functions (see \code{\link[=par]{par()}})}
 }

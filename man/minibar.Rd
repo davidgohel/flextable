@@ -11,7 +11,8 @@ minibar(
   bg = "transparent",
   width = 1,
   height = 0.2,
-  unit = "in"
+  unit = "in",
+  alt = ""
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ minibar(
 \item{width, height}{size of the resulting png file in inches}
 
 \item{unit}{unit for width and height, one of "in", "cm", "mm".}
+
+\item{alt}{alternative text for the image (used for accessibility)}
 }
 \description{
 This function is used to insert bars into

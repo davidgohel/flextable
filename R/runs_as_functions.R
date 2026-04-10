@@ -56,7 +56,7 @@ runs_as_html <- function(x, chunk_data = information_data_chunk(x)) {
 
   runs_types_lst <- runs_types(spans_dataset)
   spans_dataset[runs_types_lst$is_text == TRUE, c("txt") := list(sprintf("<span class=\"%s\">%s</span>", .SD$classname, htmlize(.SD$txt)))]
-  spans_dataset[runs_types_lst$is_raster == TRUE, c("txt") := list(img_as_html(img_data = .SD$img_data, width = .SD$width, height = .SD$height))]
+  spans_dataset[runs_types_lst$is_raster == TRUE, c("txt") := list(img_as_html(img_data = .SD$img_data, width = .SD$width, height = .SD$height, alt = .SD$alt))]
   spans_dataset[runs_types_lst$is_word_field == TRUE, c("txt") := list("")]
   spans_dataset[runs_types_lst$is_soft_return == TRUE, c("txt") := list("<br>")]
   spans_dataset[runs_types_lst$is_tab == TRUE, c("txt") := list("&emsp;")]
@@ -436,7 +436,8 @@ runs_types <- function(dat) {
 #' @import data.table
 add_raster_as_filecolumn <- function(x, is_raster) {
   whichs_ <- which(is_raster)
-  files <- mapply(function(x, width, height) {
+  alt_vals <- if (!is.null(x$alt)) x$alt[whichs_] else rep("", length(whichs_))
+  files <- mapply(function(x, width, height, alt) {
     if (inherits(x, "raster")) {
       file <- tempfile(fileext = ".png")
       agg_png(filename = file, units = "in", res = 300, background = "transparent", width = width, height = height)
@@ -450,13 +451,13 @@ add_raster_as_filecolumn <- function(x, is_raster) {
       stop("unknown image format")
     }
 
-
+    alt <- if (is.na(alt)) "" else alt
     data.frame(
       file = file,
-      img_str = wml_image(file, width, height),
+      img_str = wml_image(file, width, height, alt = alt),
       stringsAsFactors = FALSE
     )
-  }, x$img_data[whichs_], x$width[whichs_], x$height[whichs_], SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  }, x$img_data[whichs_], x$width[whichs_], x$height[whichs_], alt_vals, SIMPLIFY = FALSE, USE.NAMES = FALSE)
   files <- rbindlist(files)
   setDF(files)
 

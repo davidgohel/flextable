@@ -19,6 +19,7 @@
 #' should be avoid if possible as it can be an extensive task when
 #' several images.
 #' @param unit unit for width and height, one of "in", "cm", "mm".
+#' @param alt alternative text for the image (used for accessibility)
 #' @param ... unused argument
 #' @family chunk elements for paragraph
 #' @note
@@ -49,7 +50,7 @@
 #'   ft <- autofit(myft)
 #'   ft
 #' }
-as_image <- function(src, width = NULL, height = NULL, unit = "in", guess_size = TRUE, ...) {
+as_image <- function(src, width = NULL, height = NULL, unit = "in", guess_size = TRUE, alt = "", ...) {
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
 
@@ -72,10 +73,12 @@ as_image <- function(src, width = NULL, height = NULL, unit = "in", guess_size =
     height <- sizes[, 2] / 72
   }
 
+  alt <- rep_len(alt, length(src))
   data <- chunk_dataframe(
     width = as.double(width),
     height = as.double(height),
-    img_data = src
+    img_data = src,
+    alt = alt
   )
   class(data) <- c("img_src", class(data))
   data
@@ -95,6 +98,7 @@ as_image <- function(src, width = NULL, height = NULL, unit = "in", guess_size =
 #' @param bg background color
 #' @param width,height size of the resulting png file in inches
 #' @param unit unit for width and height, one of "in", "cm", "mm".
+#' @param alt alternative text for the image (used for accessibility)
 #' @note
 #' This chunk option requires package officedown in a R Markdown
 #' context with Word output format.
@@ -117,7 +121,7 @@ as_image <- function(src, width = NULL, height = NULL, unit = "in", guess_size =
 #' ft
 #' @importFrom grDevices as.raster col2rgb rgb
 #' @seealso [compose()], [as_paragraph()]
-minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", width = 1, height = .2, unit = "in") {
+minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", width = 1, height = .2, unit = "in", alt = "") {
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
 
@@ -152,10 +156,12 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
     bg_on = barcol, bg_off = bg,
     SIMPLIFY = FALSE
   )
+  alt <- rep_len(alt, length(value))
   z <- chunk_dataframe(
     width = as.double(rep(width, length(value))),
     height = as.double(rep(height, length(value))),
-    img_data = rasters
+    img_data = rasters,
+    alt = alt
   )
 
   class(z) <- c("img_chunk", class(z))
@@ -177,6 +183,7 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' @param bg background color
 #' @param width,height size of the resulting png file in inches
 #' @param unit unit for width and height, one of "in", "cm", "mm".
+#' @param alt alternative text for the image (used for accessibility)
 #' @param raster_width number of pixels used as width
 #' when interpolating value.
 #' @note
@@ -203,7 +210,7 @@ minibar <- function(value, max = NULL, barcol = "#CCCCCC", bg = "transparent", w
 #' @seealso [compose()], [as_paragraph()]
 linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
                       stickcol = "#FF0000", bg = "transparent", width = 1,
-                      height = .2, raster_width = 30, unit = "in") {
+                      height = .2, raster_width = 30, unit = "in", alt = "") {
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
 
@@ -249,10 +256,12 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
     as.raster(newmat)
   }, base, stickcol)
 
+  alt <- rep_len(alt, length(value))
   z <- chunk_dataframe(
     width = as.double(rep(width, length(value))),
     height = as.double(rep(height, length(value))),
-    img_data = rasters
+    img_data = rasters,
+    alt = alt
   )
 
   class(z) <- c("img_chunk", class(z))
@@ -273,6 +282,7 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @param type type of the plot: 'box', 'line', 'points' or 'density'.
 #' @param free_scale Should scales be free (TRUE or FALSE, the default value).
 #' @param unit unit for width and height, one of "in", "cm", "mm".
+#' @param alt alternative text for the image (used for accessibility)
 #' @param ... arguments sent to plot functions (see [par()])
 #' @note
 #' This chunk option requires package officedown in a R Markdown
@@ -310,7 +320,7 @@ linerange <- function(value, min = NULL, max = NULL, rangecol = "#CCCCCC",
 #' @importFrom graphics boxplot
 #' @importFrom stats density
 plot_chunk <- function(value, width = 1, height = .2,
-                       type = "box", free_scale = FALSE, unit = "in", ...) {
+                       type = "box", free_scale = FALSE, unit = "in", alt = "", ...) {
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
 
@@ -376,7 +386,8 @@ plot_chunk <- function(value, width = 1, height = .2,
 
   files <- as.character(unlist(files))
 
-  z <- chunk_dataframe(width = width, height = height, img_data = files)
+  alt <- rep_len(alt, length(value))
+  z <- chunk_dataframe(width = width, height = height, img_data = files, alt = alt)
   class(z) <- c("img_chunk", class(z))
   z
 }
@@ -395,6 +406,7 @@ plot_chunk <- function(value, width = 1, height = .2,
 #' @param width,height size of the resulting png file.
 #' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @param res resolution of the png image in ppi
+#' @param alt alternative text for the image (used for accessibility)
 #' @note
 #' This chunk option requires package officedown in a R Markdown
 #' context with Word output format.
@@ -436,7 +448,7 @@ plot_chunk <- function(value, width = 1, height = .2,
 #'   )
 #'   ft
 #' }
-gg_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
+gg_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300, alt = "") {
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
 
@@ -461,7 +473,8 @@ gg_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
 
   files <- as.character(unlist(files))
 
-  z <- chunk_dataframe(width = width, height = height, img_data = files)
+  alt <- rep_len(alt, length(value))
+  z <- chunk_dataframe(width = width, height = height, img_data = files, alt = alt)
   class(z) <- c("img_chunk", class(z))
   z
 }
@@ -479,6 +492,7 @@ gg_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
 #' @param width,height size of the resulting png file
 #' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @param res resolution of the png image in ppi
+#' @param alt alternative text for the image (used for accessibility)
 #' @note
 #' This chunk option requires package officedown in a R Markdown
 #' context with Word output format.
@@ -504,7 +518,7 @@ gg_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
 #'   )
 #' }
 #' ft_1
-grid_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
+grid_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300, alt = "") {
   if (!requireNamespace("grid", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
@@ -535,7 +549,8 @@ grid_chunk <- function(value, width = 1, height = .2, unit = "in", res = 300) {
 
   files <- as.character(unlist(files))
 
-  z <- chunk_dataframe(width = width, height = height, img_data = files)
+  alt <- rep_len(alt, length(value))
+  z <- chunk_dataframe(width = width, height = height, img_data = files, alt = alt)
   class(z) <- c("img_chunk", class(z))
   z
 }

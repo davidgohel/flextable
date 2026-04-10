@@ -215,7 +215,7 @@ fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TR
     x$data, SIMPLIFY = FALSE, USE.NAMES = FALSE
   ))
 
-  out <- rbindlist(apply(x$data, 2, rbindlist), use.names = TRUE, fill = TRUE)
+  out <- rbindlist(apply(x$data, 2, function(col) rbindlist(col, use.names = TRUE, fill = TRUE)), use.names = TRUE, fill = TRUE)
   out$.row_id <- row_id
   out$.col_id <- .col_id
   setDF(out)
@@ -305,7 +305,7 @@ information_data_chunk <- function(x, expand_special_chars = TRUE) {
       expand_special_chars = expand_special_chars
     )
   }
-  dat <- rbindlist(dat, use.names = TRUE, idcol = ".part")
+  dat <- rbindlist(dat, use.names = TRUE, fill = TRUE, idcol = ".part")
 
   dat$.part <- factor(dat$.part, levels = c("header", "body", "footer"))
   dat$.col_id <- factor(dat$.col_id, levels = x$col_keys)

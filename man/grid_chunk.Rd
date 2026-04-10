@@ -4,7 +4,7 @@
 \alias{grid_chunk}
 \title{Grid Graphics chunk}
 \usage{
-grid_chunk(value, width = 1, height = 0.2, unit = "in", res = 300)
+grid_chunk(value, width = 1, height = 0.2, unit = "in", res = 300, alt = "")
 }
 \arguments{
 \item{value}{grid objects, stored in a list column; or a list
@@ -15,6 +15,8 @@ of grid objects.}
 \item{unit}{unit for width and height, one of "in", "cm", "mm".}
 
 \item{res}{resolution of the png image in ppi}
+
+\item{alt}{alternative text for the image (used for accessibility)}
 }
 \description{
 This function is used to insert grid objects into

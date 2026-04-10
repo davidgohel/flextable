@@ -240,7 +240,7 @@ htmlize <- function(x) {
 }
 
 #' @importFrom officer image_to_base64
-img_as_html <- function(img_data, width, height) {
+img_as_html <- function(img_data, width, height, alt = "") {
   img_data <- str_raster <- mapply(
     function(img_raster, width, height) {
       if (inherits(img_raster, "raster")) {
@@ -257,7 +257,8 @@ img_as_html <- function(img_data, width, height) {
     SIMPLIFY = TRUE, USE.NAMES = FALSE
   )
   base64_strings <- image_to_base64(img_data)
-  sprintf("<img style=\"vertical-align:baseline;width:%.0fpx;height:%.0fpx;\" src=\"%s\" />", width * 72, height * 72, base64_strings)
+  alt <- ifelse(is.na(alt), "", alt)
+  sprintf("<img style=\"vertical-align:baseline;width:%.0fpx;height:%.0fpx;\" src=\"%s\" alt=\"%s\" />", width * 72, height * 72, base64_strings, htmlEscape(alt))
 }
 
 # css ----

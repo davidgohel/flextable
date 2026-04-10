@@ -80,12 +80,12 @@ as_struct <- function(nrow, keys, pr, fun) {
 
 base_ns <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\""
 
-wml_image <- function(src, width, height) {
+wml_image <- function(src, width, height, alt = "") {
   str <- paste0(
     sprintf("<w:r %s>", base_ns),
     "<w:rPr/><w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
     sprintf("<wp:extent cx=\"%.0f\" cy=\"%.0f\"/>", width * 12700 * 72, height * 12700 * 72),
-    "<wp:docPr id=\"\" name=\"\"/>",
+    sprintf("<wp:docPr id=\"\" name=\"\" descr=\"%s\"/>", htmlEscape(alt)),
     "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
     "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",
     "<pic:nvPicPr>",

@@ -13,7 +13,8 @@ colformat_image(
   na_str = get_flextable_defaults()$na_str,
   nan_str = get_flextable_defaults()$nan_str,
   prefix = "",
-  suffix = ""
+  suffix = "",
+  alt = ""
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ in <\code{\link[=flextable_selectors]{Selectors in flextable}}>.}
 \item{na_str, nan_str}{string to be used for NA and NaN values}
 
 \item{prefix, suffix}{string to be used as prefix or suffix}
+
+\item{alt}{alternative text for the images (used for accessibility)}
 }
 \description{
 Format image paths as images in a flextable.

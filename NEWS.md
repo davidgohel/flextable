@@ -3,13 +3,16 @@
 ## issues
 
 - `dim_pretty()` height estimates now account for line spacing and
-  border widths.
+border widths.
 - `padding.left` and `padding.right` are now supported in PDF/LaTeX output.
 - `delete_rows()` and `delete_columns()` no longer reset all spans
-  unconditionally. `span_free()` is now only triggered when the
-  deletion actually breaks a merged cell, preserving existing
-  merge structures in all other cases.
+unconditionally. `span_free()` is now only triggered when the
+deletion actually breaks a merged cell, preserving existing
+merge structures in all other cases.
 - fix Shadow DOM handling for paged.js contexts, again
+- Image chunks (`as_image()`, `colformat_image()`, `plot_chunk()`, `gg_chunk()`,
+`grid_chunk()`) gain an `alt` parameter for alternative text. Alt text is 
+rendered in DOCX (`descr` attribute) and HTML (`alt` attribute) output.
 
 ## new features
 

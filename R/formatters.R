@@ -350,6 +350,7 @@ colformat_lgl <- function(
 #' @description Format image paths as images in a flextable.
 #' @inheritParams colformat_char
 #' @param width,height size of the png file in inches
+#' @param alt alternative text for the images (used for accessibility)
 #' @family cells formatters
 #' @export
 #' @examples
@@ -372,7 +373,8 @@ colformat_image <- function(
     width, height,
     na_str = get_flextable_defaults()$na_str,
     nan_str = get_flextable_defaults()$nan_str,
-    prefix = "", suffix = "") {
+    prefix = "", suffix = "",
+    alt = "") {
   stopifnot(inherits(x, "flextable"))
 
   col_keys <- filter_col_keys(x, j, is.character)
@@ -383,7 +385,7 @@ colformat_image <- function(
       x = x, j = varname, i = i, value =
         as_paragraph(
           prefix,
-          as_image(get(varname), width = width, height = height),
+          as_image(get(varname), width = width, height = height, alt = alt),
           suffix
         ),
       part = "body"

@@ -14,7 +14,8 @@ linerange(
   width = 1,
   height = 0.2,
   raster_width = 30,
-  unit = "in"
+  unit = "in",
+  alt = ""
 )
 }
 \arguments{
@@ -36,6 +37,8 @@ linerange(
 when interpolating value.}
 
 \item{unit}{unit for width and height, one of "in", "cm", "mm".}
+
+\item{alt}{alternative text for the image (used for accessibility)}
 }
 \description{
 This function is used to insert lineranges into

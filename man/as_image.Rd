@@ -4,7 +4,15 @@
 \alias{as_image}
 \title{Image chunk}
 \usage{
-as_image(src, width = NULL, height = NULL, unit = "in", guess_size = TRUE, ...)
+as_image(
+  src,
+  width = NULL,
+  height = NULL,
+  unit = "in",
+  guess_size = TRUE,
+  alt = "",
+  ...
+)
 }
 \arguments{
 \item{src}{image filename}
@@ -20,6 +28,8 @@ can be used (set it to \code{TRUE} and don't provide values for paramters
 the images will be read and width and height will be guessed. This
 should be avoid if possible as it can be an extensive task when
 several images.}
+
+\item{alt}{alternative text for the image (used for accessibility)}
 
 \item{...}{unused argument}
 }

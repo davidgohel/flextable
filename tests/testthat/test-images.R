@@ -444,3 +444,62 @@ test_that("grid_chunk in docx output", {
   expect_no_error(print(doc, target = docx_file))
   expect_true(file.exists(docx_file))
 })
+
+test_that("as_image alt text in DOCX", {
+  ft <- flextable(head(iris, 2))
+  ft <- compose(ft, i = 1, j = 1, value = as_paragraph(
+    as_image(src = rlogo, width = 0.3, height = 0.23, alt = "R logo")
+  ), part = "body")
+  doc <- read_docx()
+  doc <- body_add_flextable(doc, ft)
+  out <- print(doc, target = tempfile(fileext = ".docx"))
+  unpack_dir <- tempfile()
+  officer::unpack_folder(out, unpack_dir)
+  doc_xml <- paste(readLines(
+    file.path(unpack_dir, "word", "document.xml")
+  ), collapse = "")
+  expect_true(grepl('descr="R logo"', doc_xml))
+})
+
+test_that("as_image alt text in HTML", {
+  ft <- flextable(head(iris, 2))
+  ft <- compose(ft, i = 1, j = 1, value = as_paragraph(
+    as_image(src = rlogo, width = 0.3, height = 0.23, alt = "R logo")
+  ), part = "body")
+  html <- as.character(htmltools::tagList(htmltools_value(ft)))
+  expect_true(grepl('alt="R logo"', html))
+})
+
+test_that("as_image without alt has empty alt", {
+  ft <- flextable(head(iris, 2))
+  ft <- compose(ft, i = 1, j = 1, value = as_paragraph(
+    as_image(src = rlogo, width = 0.3, height = 0.23)
+  ), part = "body")
+  html <- as.character(htmltools::tagList(htmltools_value(ft)))
+  expect_true(grepl('alt=""', html))
+})
+
+test_that("paragraph borders restored via style()", {
+  border <- fp_border_default(width = 0.75, color = "black")
+  ft <- qflextable(head(iris, 3)) |> border_remove()
+  ft <- add_header_row(ft,
+    values = c("Sepal", "Petal", "Species"),
+    colwidths = c(2, 2, 1)
+  )
+  ft <- style(
+    x = ft, part = "header", i = 1, j = c(1, 3),
+    pr_p = officer::fp_par(
+      border.bottom = border,
+      text.align = "center"
+    )
+  )
+  doc <- read_docx()
+  doc <- body_add_flextable(doc, ft)
+  out <- print(doc, target = tempfile(fileext = ".docx"))
+  unpack_dir <- tempfile()
+  officer::unpack_folder(out, unpack_dir)
+  doc_xml <- paste(readLines(
+    file.path(unpack_dir, "word", "document.xml")
+  ), collapse = "")
+  expect_true(grepl("w:pBdr", doc_xml))
+})

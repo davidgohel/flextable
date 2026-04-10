@@ -334,7 +334,7 @@ is_paragraph <- function(x) {
   chunk_str_names <- c("txt", "font.size", "italic", "bold", "underlined", "strike", "color",
                        "shading.color", "font.family", "hansi.family", "eastasia.family",
                        "cs.family", "vertical.align", "width", "height", "url", "eq_data",
-                       "word_field_data", "qmd_data", "img_data",
+                       "word_field_data", "qmd_data", "img_data", "alt",
                        ".chunk_index")
   is.data.frame(x) &&
     all(colnames(x) %in% chunk_str_names)
