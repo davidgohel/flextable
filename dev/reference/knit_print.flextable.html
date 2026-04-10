@@ -139,6 +139,21 @@ bold/italic, links, math, inline code and shortcodes.
 See <code><a href="as_qmd.html">as_qmd()</a></code> and <code><a href="use_flextable_qmd.html">use_flextable_qmd()</a></code> for setup instructions.</p>
     </div>
     <div class="section level2">
+    <h2 id="pdf-accessibility-pdf-ua-">PDF accessibility (PDF/UA-2)<a class="anchor" aria-label="anchor" href="#pdf-accessibility-pdf-ua-"></a></h2>
+
+
+
+<p>Quarto's <code>pdf-standard: ua-2</code> injects <code>\DocumentMetadata{tagging=on}</code>
+in the LaTeX preamble, activating 'tagpdf'.
+This code patches LaTeX commands at compile time to insert
+PDF structure tags. Neither Quarto nor flextable control this process.</p>
+<p>The tagging code does not yet support <code>longtable</code> + <code>colortbl</code>,
+<code>booktabs</code> rules, and <code>cline</code>, which flextable relies on. Compilation
+fails with <code>\ERRORtbl/row</code>. When these upstream issues are resolved,
+flextable PDF output will support tagging without changes. Other formats are
+not affected.</p>
+    </div>
+    <div class="section level2">
     <h2 id="pdf-limitations">PDF limitations<a class="anchor" aria-label="anchor" href="#pdf-limitations"></a></h2>
 
 
