@@ -26,6 +26,7 @@ library(gdtools)
 font_set_liberation()
 set_flextable_defaults(
   font.size = 10,
+  background.color = "white",
   border.color = "gray",
   big.mark = "",
   theme_fun = theme_booktabs,
