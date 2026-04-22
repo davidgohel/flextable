@@ -362,6 +362,21 @@ test_that("labelled data", {
   )
 })
 
+test_that("spread_first_col preserves variable labels (#724)", {
+  data(cars)
+  attr(cars$speed, "label") <- "Speed (km/h)"
+  attr(cars$dist,  "label") <- "Stopping distance (m)"
+
+  expect_no_warning(
+    ft <- as_flextable(summarizor(cars), spread_first_col = TRUE)
+  )
+
+  chunks <- information_data_chunk(ft)$txt
+  expect_true("Speed (km/h)" %in% chunks)
+  expect_true("Stopping distance (m)" %in% chunks)
+  expect_false(any(is.na(chunks)))
+})
+
 test_that("package tables", {
 
   skip_if_not_installed("tables")

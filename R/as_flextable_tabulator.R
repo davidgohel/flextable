@@ -387,6 +387,18 @@ as_flextable.tabulator <- function(
     row_spanner <- rows[1]
     rows <- rows[-1]
 
+    row_spanner_map <- x$use_labels[[row_spanner]]
+    apply_row_spanner_map <- function(values) {
+      if (is.null(row_spanner_map)) return(values)
+      # coerce to character first: dat[[row_spanner]] is typically a
+      # factor and assigning a replacement not in its levels would
+      # silently turn the cell into NA.
+      values <- as.character(values)
+      idx <- match(values, names(row_spanner_map))
+      values[!is.na(idx)] <- row_spanner_map[idx[!is.na(idx)]]
+      values
+    }
+
     # treatment of groups
     rleid_ <- do.call(rleid, dat[row_spanner])
     table_rleid <- table(rleid_[is.na(dat[[row_spanner]])])
@@ -394,14 +406,14 @@ as_flextable.tabulator <- function(
 
     # write title rows for non single groups
     sel <- rleid_ %in% table_uid
-    row_spanner_labels <- dat[[row_spanner]][sel]
+    row_spanner_labels <- apply_row_spanner_map(dat[[row_spanner]][sel])
     ft <- mk_par(ft, i = sel, value = as_paragraph(row_spanner_labels))
     ft <- merge_h(ft, i = sel)
 
     # write title rows for single groups
     sna <- !is.na(dat[[row_spanner]])
     sna <- c(sna[-length(sna)] == sna[-1], FALSE) & sna
-    row_spanner_labels <- dat[[row_spanner]][sna]
+    row_spanner_labels <- apply_row_spanner_map(dat[[row_spanner]][sna])
     ft <- mk_par(ft, i = sna, j = 1, value = as_paragraph(row_spanner_labels))
   }
 
