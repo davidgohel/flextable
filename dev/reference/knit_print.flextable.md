@@ -113,14 +113,14 @@ When using
 [`officedown::rdocx_document()`](https://davidgohel.github.io/officedown/reference/rdocx_document.html),
 additional caption options are available:
 
-|                                       |                  |                           |
-|---------------------------------------|------------------|---------------------------|
-| **Description**                       | **Chunk option** | **Default**               |
-| Numbering prefix                      | tab.cap.pre      | "Table "                  |
-| Numbering suffix                      | tab.cap.sep      | ": "                      |
-| Title number depth                    | tab.cap.tnd      | 0                         |
-| Caption prefix formatting             | tab.cap.fp_text  | `fp_text_lite(bold=TRUE)` |
-| Title number / table number separator | tab.cap.tns      | "-"                       |
+|  |  |  |
+|----|----|----|
+| **Description** | **Chunk option** | **Default** |
+| Numbering prefix | tab.cap.pre | "Table " |
+| Numbering suffix | tab.cap.sep | ": " |
+| Title number depth | tab.cap.tnd | 0 |
+| Caption prefix formatting | tab.cap.fp_text | `fp_text_lite(bold=TRUE)` |
+| Title number / table number separator | tab.cap.tns | "-" |
 
 ## Quarto
 

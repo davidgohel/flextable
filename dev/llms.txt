@@ -27,6 +27,7 @@ exported as image files (png, svg) or combined with ggplot2 plots in
 patchwork layouts.
 
 ``` r
+
 flextable(mtcars) |>
   theme_vanilla() |>
   save_as_docx(path = "mytable.docx")
@@ -48,6 +49,7 @@ tabulations.
 ## Examples
 
 ``` r
+
 library(flextable)
 
 flextable(head(airquality))
@@ -58,6 +60,7 @@ flextable(head(airquality))
 Formatting can be layered on with a set of functions:
 
 ``` r
+
 flextable(head(mtcars)) |>
   highlight(i = ~ mpg < 22, j = "disp", color = "#ffe842") |>
   bg(
@@ -70,6 +73,7 @@ flextable(head(mtcars)) |>
 ![](reference/figures/README-mtcars-dataset-1.png)
 
 ``` r
+
 ggplot2::diamonds[, c("cut", "carat", "price", "clarity", "table")] |>
   summarizor(by = c("cut")) |>
   as_flextable(spread_first_col = TRUE)
@@ -80,12 +84,14 @@ ggplot2::diamonds[, c("cut", "carat", "price", "clarity", "table")] |>
 ## Installation
 
 ``` r
+
 install.packages("flextable")
 ```
 
 You can get the development version from GitHub:
 
 ``` r
+
 devtools::install_github("davidgohel/flextable")
 ```
 

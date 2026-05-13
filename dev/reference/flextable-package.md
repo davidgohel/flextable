@@ -111,6 +111,8 @@ manual:
 
 Authors:
 
+- David Gohel <david.gohel@ardata.fr>
+
 - Panagiotis Skintzos <panagiotis.skintzos@ardata.fr>
 
 Other contributors:

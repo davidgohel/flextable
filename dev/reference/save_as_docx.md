@@ -62,6 +62,7 @@ Other functions for flextable output and export:
 ## Examples
 
 ``` r
+
 tf <- tempfile(fileext = ".docx")
 
 library(officer)
