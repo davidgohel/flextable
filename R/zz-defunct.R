@@ -17,7 +17,6 @@ footers_flextable_at_bkm <- function(...) {
 }
 
 
-
 #' @export
 #' @title Transform a flextable into a raster
 #' @description Function is now defunct, use [gen_grob()] instead.
@@ -37,9 +36,6 @@ lollipop <- function(...) {
 }
 
 
-
-
-
 #' @export
 #' @title Set Formatter by Types of Columns
 #' @description Function is now defunct, use `colformat_` functions instead.
@@ -47,4 +43,3 @@ lollipop <- function(...) {
 set_formatter_type <- function(...) {
   .Defunct(new = "colformat_*", package = "flextable")
 }
-

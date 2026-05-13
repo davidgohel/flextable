@@ -51,8 +51,8 @@ use_flextable_qmd()
 \code{\link[=knit_print.flextable]{knit_print.flextable()}} for rendering options in knitr documents.
 
 Other flextable configuration:
-\code{\link{add_latex_dep}()},
-\code{\link{use_df_printer}()},
-\code{\link{use_model_printer}()}
+\code{\link[=add_latex_dep]{add_latex_dep()}},
+\code{\link[=use_df_printer]{use_df_printer()}},
+\code{\link[=use_model_printer]{use_model_printer()}}
 }
 \concept{flextable_configuration}

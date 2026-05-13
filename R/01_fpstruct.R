@@ -3,9 +3,20 @@
 fpstruct <- function(nrow, keys, default) {
   ncol <- length(keys)
   data <- rep(default, length.out = nrow * ncol)
-  map_data <- matrix(data = data, nrow = nrow, ncol = ncol, dimnames = list(NULL, keys))
+  map_data <- matrix(
+    data = data,
+    nrow = nrow,
+    ncol = ncol,
+    dimnames = list(NULL, keys)
+  )
 
-  x <- list(data = map_data, keys = keys, nrow = nrow, ncol = ncol, default = default)
+  x <- list(
+    data = map_data,
+    keys = keys,
+    nrow = nrow,
+    ncol = ncol,
+    default = default
+  )
   class(x) <- "fpstruct"
   x
 }
@@ -16,8 +27,9 @@ delete_row_from_fpstruct <- function(x, i) {
   x
 }
 delete_col_from_fpstruct <- function(x, j) {
-
-  if(is.null(x$data)) stop("unexpected error, could not find any data to drop")
+  if (is.null(x$data)) {
+    stop("unexpected error, could not find any data to drop")
+  }
   x$data <- x$data[, !colnames(x$data) %in% j, drop = FALSE]
   x$ncol <- x$ncol - length(j)
   x$keys <- setdiff(x$keys, j)
@@ -54,14 +66,23 @@ add_rows_fpstruct <- function(x, nrows, first, default = x$default, ...) {
 }
 
 # text_struct ------
-text_struct <- function(nrow, keys,
-                        color = "black", font.size = 10,
-                        bold = FALSE, italic = FALSE, underlined = FALSE,
-                        strike = FALSE,
-                        font.family = "Arial",
-                        hansi.family = "Arial", eastasia.family = "Arial", cs.family = "Arial",
-                        vertical.align = "baseline",
-                        shading.color = "transparent", ...) {
+text_struct <- function(
+  nrow,
+  keys,
+  color = "black",
+  font.size = 10,
+  bold = FALSE,
+  italic = FALSE,
+  underlined = FALSE,
+  strike = FALSE,
+  font.family = "Arial",
+  hansi.family = "Arial",
+  eastasia.family = "Arial",
+  cs.family = "Arial",
+  vertical.align = "baseline",
+  shading.color = "transparent",
+  ...
+) {
   x <- list(
     color = fpstruct(nrow = nrow, keys = keys, default = color),
     font.size = fpstruct(nrow = nrow, keys = keys, default = font.size),
@@ -71,9 +92,17 @@ text_struct <- function(nrow, keys,
     strike = fpstruct(nrow = nrow, keys = keys, default = strike),
     font.family = fpstruct(nrow = nrow, keys = keys, default = font.family),
     hansi.family = fpstruct(nrow = nrow, keys = keys, default = hansi.family),
-    eastasia.family = fpstruct(nrow = nrow, keys = keys, default = eastasia.family),
+    eastasia.family = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = eastasia.family
+    ),
     cs.family = fpstruct(nrow = nrow, keys = keys, default = cs.family),
-    vertical.align = fpstruct(nrow = nrow, keys = keys, default = vertical.align),
+    vertical.align = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = vertical.align
+    ),
     shading.color = fpstruct(nrow = nrow, keys = keys, default = shading.color)
   )
   class(x) <- "text_struct"
@@ -81,8 +110,12 @@ text_struct <- function(nrow, keys,
 }
 
 set_text_struct_values <- function(x, i, j, property, value) {
-  if (is.null(j)) j <- x$color$keys
-  if (is.null(i)) i <- seq_len(x$color$nrow)
+  if (is.null(j)) {
+    j <- x$color$keys
+  }
+  if (is.null(i)) {
+    i <- seq_len(x$color$nrow)
+  }
 
   if (inherits(value, "fp_text")) {
     for (property in intersect(names(value), names(x))) {
@@ -131,39 +164,110 @@ text_struct_to_df <- function(object, ...) {
 
 
 # par_struct -----
-par_struct <- function(nrow, keys,
-                       text.align = "left",
-                       line_spacing = 1,
-                       padding.bottom = 0, padding.top = 0,
-                       padding.left = 0, padding.right = 0,
-                       border.width.bottom = 0, border.width.top = 0, border.width.left = 0, border.width.right = 0,
-                       border.color.bottom = "transparent", border.color.top = "transparent", border.color.left = "transparent", border.color.right = "transparent",
-                       border.style.bottom = "solid", border.style.top = "solid", border.style.left = "solid", border.style.right = "solid",
-                       keep_with_next = FALSE,
-                       word_style = NA_character_,
-                       tabs = NA_character_,
-                       shading.color = "transparent", ...) {
+par_struct <- function(
+  nrow,
+  keys,
+  text.align = "left",
+  line_spacing = 1,
+  padding.bottom = 0,
+  padding.top = 0,
+  padding.left = 0,
+  padding.right = 0,
+  border.width.bottom = 0,
+  border.width.top = 0,
+  border.width.left = 0,
+  border.width.right = 0,
+  border.color.bottom = "transparent",
+  border.color.top = "transparent",
+  border.color.left = "transparent",
+  border.color.right = "transparent",
+  border.style.bottom = "solid",
+  border.style.top = "solid",
+  border.style.left = "solid",
+  border.style.right = "solid",
+  keep_with_next = FALSE,
+  word_style = NA_character_,
+  tabs = NA_character_,
+  shading.color = "transparent",
+  ...
+) {
   x <- list(
     text.align = fpstruct(nrow = nrow, keys = keys, default = text.align),
-    padding.bottom = fpstruct(nrow = nrow, keys = keys, default = padding.bottom),
+    padding.bottom = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = padding.bottom
+    ),
     padding.top = fpstruct(nrow = nrow, keys = keys, default = padding.top),
     padding.left = fpstruct(nrow = nrow, keys = keys, default = padding.left),
     padding.right = fpstruct(nrow = nrow, keys = keys, default = padding.right),
     line_spacing = fpstruct(nrow = nrow, keys = keys, default = line_spacing),
-    border.width.bottom = fpstruct(nrow = nrow, keys = keys, default = border.width.bottom),
-    border.width.top = fpstruct(nrow = nrow, keys = keys, default = border.width.top),
-    border.width.left = fpstruct(nrow = nrow, keys = keys, default = border.width.left),
-    border.width.right = fpstruct(nrow = nrow, keys = keys, default = border.width.right),
-    border.color.bottom = fpstruct(nrow = nrow, keys = keys, default = border.color.bottom),
-    border.color.top = fpstruct(nrow = nrow, keys = keys, default = border.color.top),
-    border.color.left = fpstruct(nrow = nrow, keys = keys, default = border.color.left),
-    border.color.right = fpstruct(nrow = nrow, keys = keys, default = border.color.right),
-    border.style.bottom = fpstruct(nrow = nrow, keys = keys, default = border.style.bottom),
-    border.style.top = fpstruct(nrow = nrow, keys = keys, default = border.style.top),
-    border.style.left = fpstruct(nrow = nrow, keys = keys, default = border.style.left),
-    border.style.right = fpstruct(nrow = nrow, keys = keys, default = border.style.right),
+    border.width.bottom = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.width.bottom
+    ),
+    border.width.top = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.width.top
+    ),
+    border.width.left = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.width.left
+    ),
+    border.width.right = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.width.right
+    ),
+    border.color.bottom = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.color.bottom
+    ),
+    border.color.top = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.color.top
+    ),
+    border.color.left = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.color.left
+    ),
+    border.color.right = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.color.right
+    ),
+    border.style.bottom = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.style.bottom
+    ),
+    border.style.top = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.style.top
+    ),
+    border.style.left = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.style.left
+    ),
+    border.style.right = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.style.right
+    ),
     shading.color = fpstruct(nrow = nrow, keys = keys, default = shading.color),
-    keep_with_next = fpstruct(nrow = nrow, keys = keys, default = keep_with_next),
+    keep_with_next = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = keep_with_next
+    ),
     word_style = fpstruct(nrow = nrow, keys = keys, default = word_style),
     tabs = fpstruct(nrow = nrow, keys = keys, default = tabs)
   )
@@ -172,14 +276,19 @@ par_struct <- function(nrow, keys,
 }
 
 set_par_struct_values <- function(x, i, j, property, value) {
-
-  if (is.null(j)) j <- x$text.align$keys
-  if (is.null(i)) i <- seq_len(x$text.align$nrow)
+  if (is.null(j)) {
+    j <- x$text.align$keys
+  }
+  if (is.null(i)) {
+    i <- seq_len(x$text.align$nrow)
+  }
 
   if (inherits(value, "fp_par")) {
     if (!is.null(value$tabs) && !isFALSE(value$tabs)) {
       value$tabs <- as.character(value$tabs)
-    } else value$tabs <- as.character(fp_tabs())
+    } else {
+      value$tabs <- as.character(fp_tabs())
+    }
     value <- cast_borders(value)
     for (property in intersect(names(value), names(x))) {
       x[[property]]$data[i, j] <- value[[property]]
@@ -195,8 +304,14 @@ par_struct_to_df <- function(object, ...) {
   data <- lapply(object, function(x) {
     as.vector(x$data)
   })
-  data$.row_id <- rep(seq_len(nrow(object$text.align$data)), ncol(object$text.align$data))
-  data$.col_id <- rep(object$text.align$keys, each = nrow(object$text.align$data))
+  data$.row_id <- rep(
+    seq_len(nrow(object$text.align$data)),
+    ncol(object$text.align$data)
+  )
+  data$.col_id <- rep(
+    object$text.align$keys,
+    each = nrow(object$text.align$data)
+  )
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   data$.col_id <- factor(data$.col_id, levels = object$text.align$keys)
   data
@@ -204,40 +319,118 @@ par_struct_to_df <- function(object, ...) {
 
 
 # cell_struct -----
-cell_struct <- function(nrow, keys,
-                        vertical.align = "top", text.direction = "lrtb",
-                        margin.bottom = 0, margin.top = 0,
-                        margin.left = 0, margin.right = 0,
-                        border.width.bottom = 1, border.width.top = 1, border.width.left = 1, border.width.right = 1,
-                        border.color.bottom = "transparent", border.color.top = "transparent", border.color.left = "transparent", border.color.right = "transparent",
-                        border.style.bottom = "solid", border.style.top = "solid", border.style.left = "solid", border.style.right = "solid",
-                        background.color = "#34CC27", width = NA_real_, height = NA_real_, hrule = "auto",
-                        ...) {
+cell_struct <- function(
+  nrow,
+  keys,
+  vertical.align = "top",
+  text.direction = "lrtb",
+  margin.bottom = 0,
+  margin.top = 0,
+  margin.left = 0,
+  margin.right = 0,
+  border.width.bottom = 1,
+  border.width.top = 1,
+  border.width.left = 1,
+  border.width.right = 1,
+  border.color.bottom = "transparent",
+  border.color.top = "transparent",
+  border.color.left = "transparent",
+  border.color.right = "transparent",
+  border.style.bottom = "solid",
+  border.style.top = "solid",
+  border.style.left = "solid",
+  border.style.right = "solid",
+  background.color = "#34CC27",
+  width = NA_real_,
+  height = NA_real_,
+  hrule = "auto",
+  ...
+) {
   check_choice(value = vertical.align, choices = c("top", "center", "bottom"))
   check_choice(value = text.direction, choices = c("lrtb", "tbrl", "btlr"))
 
   x <- list(
-    vertical.align = fpstruct(nrow = nrow, keys = keys, default = vertical.align),
+    vertical.align = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = vertical.align
+    ),
     width = fpstruct(nrow = nrow, keys = keys, default = width),
     height = fpstruct(nrow = nrow, keys = keys, default = height),
     margin.bottom = fpstruct(nrow = nrow, keys = keys, default = margin.bottom),
     margin.top = fpstruct(nrow = nrow, keys = keys, default = margin.top),
     margin.left = fpstruct(nrow = nrow, keys = keys, default = margin.left),
     margin.right = fpstruct(nrow = nrow, keys = keys, default = margin.right),
-    border.width.bottom = fpstruct(nrow = nrow, keys = keys, default = border.width.bottom),
-    border.width.top = fpstruct(nrow = nrow, keys = keys, default = border.width.top),
-    border.width.left = fpstruct(nrow = nrow, keys = keys, default = border.width.left),
-    border.width.right = fpstruct(nrow = nrow, keys = keys, default = border.width.right),
-    border.color.bottom = fpstruct(nrow = nrow, keys = keys, default = border.color.bottom),
-    border.color.top = fpstruct(nrow = nrow, keys = keys, default = border.color.top),
-    border.color.left = fpstruct(nrow = nrow, keys = keys, default = border.color.left),
-    border.color.right = fpstruct(nrow = nrow, keys = keys, default = border.color.right),
-    border.style.bottom = fpstruct(nrow = nrow, keys = keys, default = border.style.bottom),
-    border.style.top = fpstruct(nrow = nrow, keys = keys, default = border.style.top),
-    border.style.left = fpstruct(nrow = nrow, keys = keys, default = border.style.left),
-    border.style.right = fpstruct(nrow = nrow, keys = keys, default = border.style.right),
-    text.direction = fpstruct(nrow = nrow, keys = keys, default = text.direction),
-    background.color = fpstruct(nrow = nrow, keys = keys, default = background.color),
+    border.width.bottom = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.width.bottom
+    ),
+    border.width.top = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.width.top
+    ),
+    border.width.left = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.width.left
+    ),
+    border.width.right = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.width.right
+    ),
+    border.color.bottom = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.color.bottom
+    ),
+    border.color.top = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.color.top
+    ),
+    border.color.left = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.color.left
+    ),
+    border.color.right = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.color.right
+    ),
+    border.style.bottom = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.style.bottom
+    ),
+    border.style.top = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.style.top
+    ),
+    border.style.left = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.style.left
+    ),
+    border.style.right = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = border.style.right
+    ),
+    text.direction = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = text.direction
+    ),
+    background.color = fpstruct(
+      nrow = nrow,
+      keys = keys,
+      default = background.color
+    ),
     hrule = fpstruct(nrow = nrow, keys = keys, default = hrule)
   )
   class(x) <- "cell_struct"
@@ -249,8 +442,14 @@ cell_struct_to_df <- function(object, ...) {
     as.vector(x$data)
   })
 
-  data$.row_id <- rep(seq_len(nrow(object$background.color$data)), ncol(object$background.color$data))
-  data$.col_id <- rep(object$background.color$keys, each = nrow(object$background.color$data))
+  data$.row_id <- rep(
+    seq_len(nrow(object$background.color$data)),
+    ncol(object$background.color$data)
+  )
+  data$.col_id <- rep(
+    object$background.color$keys,
+    each = nrow(object$background.color$data)
+  )
   data <- as.data.frame(data, stringsAsFactors = FALSE)
   data$.col_id <- factor(data$.col_id, levels = object$background.color$keys)
   data
@@ -263,7 +462,11 @@ cell_struct_to_df <- function(object, ...) {
 # It is a matrix, each column is a colkey, each row is a row
 # It contains paragraphs, paragraphs are made of chunks
 new_chunkset_struct <- function(col_keys, data) {
-  chunkdata <- fpstruct(nrow = nrow(data), keys = col_keys, default = as_paragraph(as_chunk("")))
+  chunkdata <- fpstruct(
+    nrow = nrow(data),
+    keys = col_keys,
+    default = as_paragraph(as_chunk(""))
+  )
   class(chunkdata) <- c("chunkset_struct")
 
   if (nrow(data) > 0) {
@@ -276,12 +479,14 @@ new_chunkset_struct <- function(col_keys, data) {
     newchunkdata <- matrix(
       do.call(c, newchunkdata),
       ncol = length(col_keys),
-      dimnames = list(NULL, col_keys))
+      dimnames = list(NULL, col_keys)
+    )
     chunkdata <- set_chunkset_struct_element(
       x = chunkdata,
       i = seq_len(nrow(data)),
       j = col_keys,
-      value = newchunkdata)
+      value = newchunkdata
+    )
   }
   chunkdata
 }
@@ -290,29 +495,42 @@ add_rows_to_chunkset_struct <- function(x, nrows, first, data, ...) {
   names_ <- names(data)
   stopifnot(!is.null(names_))
 
-  x <- add_rows_fpstruct(x, nrows, first = first, default = as_paragraph(as_chunk("")))
+  x <- add_rows_fpstruct(
+    x,
+    nrows,
+    first = first,
+    default = as_paragraph(as_chunk(""))
+  )
   if (first) {
     id <- seq_len(nrows)
   } else {
     id <- rev(rev(seq_len(x$nrow))[seq_len(nrows)])
   }
 
-  newchunkdata <- lapply(data[x$keys], function(x) as_paragraph(as_chunk(x, formatter = format_fun.default)))
+  newchunkdata <- lapply(data[x$keys], function(x) {
+    as_paragraph(as_chunk(x, formatter = format_fun.default))
+  })
   newchunkdata <- matrix(
     do.call(c, newchunkdata),
     ncol = length(x$keys),
-    dimnames = list(NULL, x$keys))
+    dimnames = list(NULL, x$keys)
+  )
 
   x <- set_chunkset_struct_element(
     x = x,
-    i = id, j = x$keys, value = newchunkdata)
+    i = id,
+    j = x$keys,
+    value = newchunkdata
+  )
   x
 }
 
 as_chunkset_struct <- function(l_paragraph, keys, i = NULL) {
-  if (!is.null(i) &&
+  if (
+    !is.null(i) &&
       length(l_paragraph) == length(i) &&
-      length(keys) > 1) {
+      length(keys) > 1
+  ) {
     l_paragraph <- rep(l_paragraph, length(keys))
   }
   # temp fix for ftExtra
@@ -331,17 +549,34 @@ as_chunkset_struct <- function(l_paragraph, keys, i = NULL) {
 }
 
 is_paragraph <- function(x) {
-  chunk_str_names <- c("txt", "font.size", "italic", "bold", "underlined", "strike", "color",
-                       "shading.color", "font.family", "hansi.family", "eastasia.family",
-                       "cs.family", "vertical.align", "width", "height", "url", "eq_data",
-                       "word_field_data", "qmd_data", "img_data", "alt",
-                       ".chunk_index")
+  chunk_str_names <- c(
+    "txt",
+    "font.size",
+    "italic",
+    "bold",
+    "underlined",
+    "strike",
+    "color",
+    "shading.color",
+    "font.family",
+    "hansi.family",
+    "eastasia.family",
+    "cs.family",
+    "vertical.align",
+    "width",
+    "height",
+    "url",
+    "eq_data",
+    "word_field_data",
+    "qmd_data",
+    "img_data",
+    "alt",
+    ".chunk_index"
+  )
   is.data.frame(x) &&
     all(colnames(x) %in% chunk_str_names)
-
 }
 set_chunkset_struct_element <- function(x, i, j, value) {
-
   names_ <- colnames(value)
   stopifnot(
     is.matrix(value),
@@ -356,10 +591,28 @@ set_chunkset_struct_element <- function(x, i, j, value) {
 }
 
 append_chunkset_struct_element <- function(x, i, j, chunk_data, last = TRUE) {
-  chunk_str_names <- c("txt", "font.size", "italic", "bold", "underlined", "strike", "color",
-                   "shading.color", "font.family", "hansi.family", "eastasia.family",
-                   "cs.family", "vertical.align", "width", "height", "url", "eq_data",
-                   "word_field_data", "qmd_data", "img_data")
+  chunk_str_names <- c(
+    "txt",
+    "font.size",
+    "italic",
+    "bold",
+    "underlined",
+    "strike",
+    "color",
+    "shading.color",
+    "font.family",
+    "hansi.family",
+    "eastasia.family",
+    "cs.family",
+    "vertical.align",
+    "width",
+    "height",
+    "url",
+    "eq_data",
+    "word_field_data",
+    "qmd_data",
+    "img_data"
+  )
   stopifnot(
     is.data.frame(chunk_data),
     all(chunk_str_names %in% colnames(chunk_data))
@@ -407,7 +660,8 @@ append_chunkset_struct_element <- function(x, i, j, chunk_data, last = TRUE) {
       x
     },
     x = values,
-    y = chunk_data, SIMPLIFY = FALSE,
+    y = chunk_data,
+    SIMPLIFY = FALSE,
     MoreArgs = list(last = last)
   )
 
@@ -421,8 +675,17 @@ get_chunkset_struct_element <- function(x, i, j) {
 
 replace_missing_fptext_by_default <- function(x, default) {
   by_columns <- c(
-    "font.size", "italic", "bold", "underlined", "strike", "color", "shading.color",
-    "font.family", "hansi.family", "eastasia.family", "cs.family",
+    "font.size",
+    "italic",
+    "bold",
+    "underlined",
+    "strike",
+    "color",
+    "shading.color",
+    "font.family",
+    "hansi.family",
+    "eastasia.family",
+    "cs.family",
     "vertical.align"
   )
   by_columns <- intersect(by_columns, names(default))
@@ -439,7 +702,11 @@ replace_missing_fptext_by_default <- function(x, default) {
   setDF(newx)
   for (j in by_columns) {
     if (!is.null(newx[[j]])) {
-      newx[[j]] <- ifelse(is.na(newx[[j]]), newx[[paste0(j, "_default")]], newx[[j]])
+      newx[[j]] <- ifelse(
+        is.na(newx[[j]]),
+        newx[[paste0(j, "_default")]],
+        newx[[j]]
+      )
     } else {
       newx[[j]] <- newx[[paste0(j, "_default")]]
     }

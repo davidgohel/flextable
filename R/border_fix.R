@@ -25,9 +25,16 @@
 #' @keywords internal
 fix_border_issues <- function(x, part = "all") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "fix_border_issues()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "fix_border_issues()"
+    ))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -59,15 +66,26 @@ correct_h_border <- function(x) {
   for (j in seq_len(ncol(x$spans$columns))) {
     apply_bottom_border <- l_apply_bottom_border[[j]]
 
-    if (apply_bottom_border$dont) next
+    if (apply_bottom_border$dont) {
+      next
+    }
 
     for (i in seq_along(apply_bottom_border$from)) {
       i_from <- apply_bottom_border$from[i]
       i_to <- apply_bottom_border$to[i]
 
-      x$styles$cells$border.color.bottom$data[i_to, x$col_keys[j]] <- x$styles$cells$border.color.bottom$data[i_from, x$col_keys[j]]
-      x$styles$cells$border.width.bottom$data[i_to, x$col_keys[j]] <- x$styles$cells$border.width.bottom$data[i_from, x$col_keys[j]]
-      x$styles$cells$border.style.bottom$data[i_to, x$col_keys[j]] <- x$styles$cells$border.style.bottom$data[i_from, x$col_keys[j]]
+      x$styles$cells$border.color.bottom$data[
+        i_to,
+        x$col_keys[j]
+      ] <- x$styles$cells$border.color.bottom$data[i_from, x$col_keys[j]]
+      x$styles$cells$border.width.bottom$data[
+        i_to,
+        x$col_keys[j]
+      ] <- x$styles$cells$border.width.bottom$data[i_from, x$col_keys[j]]
+      x$styles$cells$border.style.bottom$data[
+        i_to,
+        x$col_keys[j]
+      ] <- x$styles$cells$border.style.bottom$data[i_from, x$col_keys[j]]
     }
   }
 
@@ -86,14 +104,25 @@ correct_v_border <- function(x) {
   for (i in seq_along(l_apply_right_border)) {
     apply_right_border <- l_apply_right_border[[i]]
 
-    if (apply_right_border$dont) next
+    if (apply_right_border$dont) {
+      next
+    }
 
     for (j in seq_along(apply_right_border$from)) {
       colkeyto <- x$col_keys[apply_right_border$to[j]]
       colkeyfrom <- x$col_keys[apply_right_border$from[j]]
-      x$styles$cells$border.color.right$data[i, colkeyto] <- x$styles$cells$border.color.right$data[i, colkeyfrom]
-      x$styles$cells$border.width.right$data[i, colkeyto] <- x$styles$cells$border.width.right$data[i, colkeyfrom]
-      x$styles$cells$border.style.right$data[i, colkeyto] <- x$styles$cells$border.style.right$data[i, colkeyfrom]
+      x$styles$cells$border.color.right$data[
+        i,
+        colkeyto
+      ] <- x$styles$cells$border.color.right$data[i, colkeyfrom]
+      x$styles$cells$border.width.right$data[
+        i,
+        colkeyto
+      ] <- x$styles$cells$border.width.right$data[i, colkeyfrom]
+      x$styles$cells$border.style.right$data[
+        i,
+        colkeyto
+      ] <- x$styles$cells$border.style.right$data[i, colkeyfrom]
     }
   }
 

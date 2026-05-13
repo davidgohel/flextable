@@ -52,11 +52,11 @@ ft
 \code{\link[=as_image]{as_image()}}, \code{\link[=hyperlink_text]{hyperlink_text()}}
 
 Other functions to compose cell content:
-\code{\link{append_chunks}()},
-\code{\link{compose}()},
-\code{\link{footnote}()},
-\code{\link{labelizor}()},
-\code{\link{prepend_chunks}()},
-\code{\link{void}()}
+\code{\link[=append_chunks]{append_chunks()}},
+\code{\link[=compose]{compose()}},
+\code{\link[=footnote]{footnote()}},
+\code{\link[=labelizor]{labelizor()}},
+\code{\link[=prepend_chunks]{prepend_chunks()}},
+\code{\link[=void]{void()}}
 }
 \concept{cell_content_composition}

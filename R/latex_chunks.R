@@ -25,7 +25,6 @@ as_table_latexstyle_lr <- function(x) {
   left <- paste0(left, highlight_left)
   right <- paste0(highlight_right, right)
 
-
   fontsize_left <- paste0(latex_fontsize(x$font.size, x$line_spacing), "{")
   fontsize_right <- rep("}", nrow(x))
   fontsize_left[is.na(x$font.size) | is.na(x$line_spacing)] <- ""
@@ -75,7 +74,12 @@ as_table_latexstyle_lr <- function(x) {
   left <- paste0(left, valign_left)
   right <- paste0(valign_right, right)
 
-  data.frame(left = left, right = right, classname = x$classname, stringsAsFactors = TRUE)
+  data.frame(
+    left = left,
+    right = right,
+    classname = x$classname,
+    stringsAsFactors = TRUE
+  )
 }
 
 latex_fontsize <- function(x, line_spacing = 1, digits = 0) {
@@ -124,23 +128,43 @@ img_to_latex <- function(img_data, width, height) {
     dir.create(d, showWarnings = FALSE, recursive = TRUE)
   }
 
-  str_raster <- mapply(function(img_raster, new_file, width, height) {
-    if (inherits(img_raster, "raster")) {
-      agg_png(filename = new_file, units = "in", res = 300, background = "transparent", width = width, height = height)
-      op <- par(mar = rep(0, 4))
-      plot(img_raster, interpolate = FALSE, asp = NA)
-      par(op)
-      dev.off()
-    } else if (is.character(img_raster)) {
-      if (!file.exists(img_raster)) {
-        stop(sprintf("File '%s' could not be found.", img_raster))
+  str_raster <- mapply(
+    function(img_raster, new_file, width, height) {
+      if (inherits(img_raster, "raster")) {
+        agg_png(
+          filename = new_file,
+          units = "in",
+          res = 300,
+          background = "transparent",
+          width = width,
+          height = height
+        )
+        op <- par(mar = rep(0, 4))
+        plot(img_raster, interpolate = FALSE, asp = NA)
+        par(op)
+        dev.off()
+      } else if (is.character(img_raster)) {
+        if (!file.exists(img_raster)) {
+          stop(sprintf("File '%s' could not be found.", img_raster))
+        }
+        file.copy(from = img_raster, to = new_file, overwrite = TRUE)
+      } else {
+        stop("`image_data` can only be a raster or a filename.")
       }
-      file.copy(from = img_raster, to = new_file, overwrite = TRUE)
-    } else {
-      stop("`image_data` can only be a raster or a filename.")
-    }
-    sprintf("\\includegraphics[width=%sin, height=%sin]{%s}", width, height, new_file)
-  }, img_data, new_files, width, height, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+      sprintf(
+        "\\includegraphics[width=%sin, height=%sin]{%s}",
+        width,
+        height,
+        new_file
+      )
+    },
+    img_data,
+    new_files,
+    width,
+    height,
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+  )
   str_raster <- as.character(unlist(str_raster))
   str_raster
 }

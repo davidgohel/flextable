@@ -9,7 +9,10 @@
 #' nrow_part(ft, part = "body")
 nrow_part <- function(x, part = "body") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "nrow_part()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "nrow_part()"
+    ))
   }
   if (is.null(x[[part]])) {
     0
@@ -31,7 +34,10 @@ nrow_part <- function(x, part = "body") {
 #' ncol_keys(ft)
 ncol_keys <- function(x) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "ncol_keys()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "ncol_keys()"
+    ))
   }
   length(x$col_keys)
 }

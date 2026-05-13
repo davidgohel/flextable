@@ -56,11 +56,22 @@
 #' @export
 #' @family cell_content_composition
 #' @seealso [fp_text_default()], [as_chunk()], [as_b()], [as_word_field()], [labelizor()]
-compose <- function(x, i = NULL, j = NULL, value, part = "body", use_dot = FALSE) {
+compose <- function(
+  x,
+  i = NULL,
+  j = NULL,
+  value,
+  part = "body",
+  use_dot = FALSE
+) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "compose()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -89,7 +100,9 @@ compose <- function(x, i = NULL, j = NULL, value, part = "body", use_dot = FALSE
       newcontent <- eval_tidy(defused_value, data = tmp_data)
       newcontent <- as_chunkset_struct(
         l_paragraph = newcontent,
-        keys = jcol, i = i)
+        keys = jcol,
+        i = i
+      )
       x[[part]]$content <- set_chunkset_struct_element(
         x = x[[part]]$content,
         i = i,
@@ -100,8 +113,10 @@ compose <- function(x, i = NULL, j = NULL, value, part = "body", use_dot = FALSE
   } else {
     newcontent <- eval_tidy(defused_value, data = tmp_data)
     newcontent <- as_chunkset_struct(
-      l_paragraph = newcontent, keys = x$col_keys[j],
-      i = i)
+      l_paragraph = newcontent,
+      keys = x$col_keys[j],
+      i = i
+    )
     x[[part]]$content <- set_chunkset_struct_element(
       x = x[[part]]$content,
       i = i,
@@ -163,10 +178,17 @@ mk_par <- compose
 #' @family cell_content_composition
 labelizor <- function(x, j = NULL, labels, part = "all") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "labelizor()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "labelizor()"
+    ))
   }
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -179,7 +201,9 @@ labelizor <- function(x, j = NULL, labels, part = "all") {
     return(x)
   }
 
-  if (!is.function(labels) && (is.null(names(labels)) || !is.character(labels))) {
+  if (
+    !is.function(labels) && (is.null(names(labels)) || !is.character(labels))
+  ) {
     stop("`labels` must be a named character vector or a function.")
   }
   if (is.null(j)) {
@@ -212,7 +236,8 @@ labelizor <- function(x, j = NULL, labels, part = "all") {
   }
   newcontent <- as_chunkset_struct(
     l_paragraph = do.call(c, newcontent),
-    keys = j)
+    keys = j
+  )
 
   x[[part]]$content <- set_chunkset_struct_element(
     x = x[[part]]$content,

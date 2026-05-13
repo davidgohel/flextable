@@ -11,3 +11,5 @@
 ^\.github$
 ^tests/testthat/_snaps$
 
+^\.positai$
+^\.claude$

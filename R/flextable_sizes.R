@@ -51,7 +51,9 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in") {
         }
       }
       if (do_stop) {
-        warning("The function has to be stopped because it results in negative font sizes.")
+        warning(
+          "The function has to be stopped because it results in negative font sizes."
+        )
         return(x)
       }
       x <- autofit(x, add_w = 0.0, add_h = 0.0)
@@ -98,7 +100,7 @@ fit_columns <- function(x, max_width, no_wrap = NULL, unit = "in") {
   # compute both optimal and floor widths (single fortify_content per part)
   metrics <- fit_columns_metrics(x)
   pretty_w <- metrics$pretty_w
-  floor_w  <- metrics$floor_w
+  floor_w <- metrics$floor_w
   n_col <- length(pretty_w)
 
   # resolve no_wrap to integer indices
@@ -106,9 +108,11 @@ fit_columns <- function(x, max_width, no_wrap = NULL, unit = "in") {
     if (is.character(no_wrap)) {
       no_wrap <- match(no_wrap, x$col_keys)
       if (anyNA(no_wrap)) {
-        stop("Column(s) not found in flextable: ",
-             paste(x$col_keys[is.na(no_wrap)], collapse = ", "),
-             call. = FALSE)
+        stop(
+          "Column(s) not found in flextable: ",
+          paste(x$col_keys[is.na(no_wrap)], collapse = ", "),
+          call. = FALSE
+        )
       }
     }
     no_wrap <- as.integer(no_wrap)
@@ -148,21 +152,25 @@ fit_columns <- function(x, max_width, no_wrap = NULL, unit = "in") {
   # clamped per iteration in the worst case), each iteration doing
   # only vector arithmetic (negligible cost).
   comp_pretty <- pretty_w[compressible]
-  comp_floor  <- floor_w[compressible]
+  comp_floor <- floor_w[compressible]
   target <- rep(0, length(compressible))
   free <- rep(TRUE, length(compressible))
 
   repeat {
     free_pretty <- comp_pretty[free]
     total_free <- sum(free_pretty)
-    if (total_free <= 0) break
+    if (total_free <= 0) {
+      break
+    }
 
     remaining <- available - sum(comp_floor[!free])
     target[free] <- free_pretty / total_free * remaining
     target[free] <- pmax(target[free], comp_floor[free])
 
     newly_clamped <- free & (target == comp_floor)
-    if (!any(newly_clamped)) break
+    if (!any(newly_clamped)) {
+      break
+    }
 
     free[newly_clamped] <- FALSE
     if (!any(free)) break
@@ -192,10 +200,12 @@ fit_columns <- function(x, max_width, no_wrap = NULL, unit = "in") {
 fit_columns_metrics <- function(x) {
   parts <- c("header", "body", "footer")
   all_pretty <- list()
-  all_floor  <- list()
+  all_floor <- list()
 
   for (p in parts) {
-    if (nrow_part(x, p) < 1) next
+    if (nrow_part(x, p) < 1) {
+      next
+    }
     part_obj <- x[[p]]
 
     txt_data <- fortify_content(
@@ -211,18 +221,29 @@ fit_columns_metrics <- function(x) {
       .col_id = rep(part_obj$col_keys, each = nr),
       .row_id = rep(seq_len(nr), length(part_obj$col_keys)),
       rowspan = as.vector(part_obj$spans$rows),
-      stringsAsFactors = FALSE, check.names = FALSE
+      stringsAsFactors = FALSE,
+      check.names = FALSE
     )
     pretty_sizes <- merge(pretty_sizes, rowspan, by = c(".col_id", ".row_id"))
     pretty_sizes[pretty_sizes$rowspan != 1, "width"] <- 0
 
-    pretty_sizes$.col_id <- factor(pretty_sizes$.col_id, levels = part_obj$col_keys)
-    pretty_sizes <- pretty_sizes[order(pretty_sizes$.col_id, pretty_sizes$.row_id), ]
+    pretty_sizes$.col_id <- factor(
+      pretty_sizes$.col_id,
+      levels = part_obj$col_keys
+    )
+    pretty_sizes <- pretty_sizes[
+      order(pretty_sizes$.col_id, pretty_sizes$.row_id),
+    ]
     widths_mat <- as_wide_matrix_(
       data = pretty_sizes[, c(".col_id", "width", ".row_id")],
-      idvar = ".row_id", timevar = ".col_id"
+      idvar = ".row_id",
+      timevar = ".col_id"
     )
-    dimnames(widths_mat)[[2]] <- gsub("^width\\.", "", dimnames(widths_mat)[[2]])
+    dimnames(widths_mat)[[2]] <- gsub(
+      "^width\\.",
+      "",
+      dimnames(widths_mat)[[2]]
+    )
 
     par_dim <- dim_paragraphs(part_obj)
     widths_mat <- widths_mat + par_dim$widths
@@ -236,12 +257,12 @@ fit_columns_metrics <- function(x) {
     words <- strsplit(txt_data$txt, "(?<=[- ])", perl = TRUE)
     n_words <- vapply(words, length, integer(1))
 
-    word_txt   <- unlist(words, use.names = FALSE)
-    word_col   <- rep(txt_data$.col_id, n_words)
+    word_txt <- unlist(words, use.names = FALSE)
+    word_col <- rep(txt_data$.col_id, n_words)
     word_fname <- rep(txt_data$font.family, n_words)
     word_fsize <- rep(txt_data$font.size, n_words)
-    word_bold  <- rep(txt_data$bold, n_words)
-    word_ital  <- rep(txt_data$italic, n_words)
+    word_bold <- rep(txt_data$bold, n_words)
+    word_ital <- rep(txt_data$italic, n_words)
 
     if (length(word_txt) > 0) {
       word_sizes <- gdtools::strings_sizes(
@@ -283,18 +304,26 @@ fit_columns_metrics <- function(x) {
   cell_w <- pad_w
 
   for (p in parts) {
-    if (nrow_part(x, p) < 1) next
+    if (nrow_part(x, p) < 1) {
+      next
+    }
     part_obj <- x[[p]]
 
     par_dim <- dim_paragraphs(part_obj)
     pad_col <- apply(par_dim$widths, 2, max, na.rm = TRUE)
-    pad_col <- setNames(as.numeric(pad_col), gsub("^width\\.", "", names(pad_col)))
+    pad_col <- setNames(
+      as.numeric(pad_col),
+      gsub("^width\\.", "", names(pad_col))
+    )
     matched <- intersect(names(pad_col), all_cols)
     pad_w[matched] <- pmax(pad_w[matched], pad_col[matched])
 
     cell_dim <- dim_cells(part_obj)
     cell_col <- apply(cell_dim$widths, 2, max, na.rm = TRUE)
-    cell_col <- setNames(as.numeric(cell_col), gsub("^width\\.", "", names(cell_col)))
+    cell_col <- setNames(
+      as.numeric(cell_col),
+      gsub("^width\\.", "", names(cell_col))
+    )
     matched <- intersect(names(cell_col), all_cols)
     cell_w[matched] <- pmax(cell_w[matched], cell_col[matched])
   }
@@ -313,15 +342,26 @@ fit_columns_metrics <- function(x) {
 
   txt_data[, c("width", "height") := list(NULL, NULL)]
 
-  txt_data[, c("fake_row_id") := list(
-    fcase(.SD$txt %in% "<br>", 1L, default = 0L)
-  )]
-  txt_data[, c("fake_row_id") := list(
-    cumsum(.SD$fake_row_id)
-  ), by = c(".row_id", ".col_id")]
-  txt_data[, c("fake_row_id") := list(
-    rleid(.SD$fake_row_id)
-  ), by = c(".row_id", ".col_id")]
+  txt_data[,
+    c("fake_row_id") := list(
+      fcase(
+        .SD$txt %in% "<br>" , 1L ,
+        default = 0L
+      )
+    )
+  ]
+  txt_data[,
+    c("fake_row_id") := list(
+      cumsum(.SD$fake_row_id)
+    ),
+    by = c(".row_id", ".col_id")
+  ]
+  txt_data[,
+    c("fake_row_id") := list(
+      rleid(.SD$fake_row_id)
+    ),
+    by = c(".row_id", ".col_id")
+  ]
 
   txt_data$txt[txt_data$txt %in% "<br>"] <- ""
   txt_data$txt[txt_data$txt %in% "<tab>"] <- "mmmm"
@@ -362,14 +402,29 @@ fit_columns_metrics <- function(x) {
 
   txt_data <- cbind(txt_data, extents_values)
 
-  td_data <- cell_struct_to_df(x$styles$cells)[, c(".row_id", ".col_id", "text.direction")]
+  td_data <- cell_struct_to_df(x$styles$cells)[, c(
+    ".row_id",
+    ".col_id",
+    "text.direction"
+  )]
   txt_data <- merge(txt_data, td_data, by = c(".row_id", ".col_id"))
-  txt_data[txt_data$text.direction %in% c("tbrl", "btlr"), c("width", "height") := list(.SD$height, .SD$width)]
+  txt_data[
+    txt_data$text.direction %in% c("tbrl", "btlr"),
+    c("width", "height") := list(.SD$height, .SD$width)
+  ]
 
-  txt_data <- txt_data[, c(list(width = sum(.SD$width, na.rm = TRUE), height = max(.SD$height, na.rm = TRUE))),
+  txt_data <- txt_data[,
+    c(list(
+      width = sum(.SD$width, na.rm = TRUE),
+      height = max(.SD$height, na.rm = TRUE)
+    )),
     by = c(".row_id", "fake_row_id", ".col_id")
   ]
-  txt_data <- txt_data[, c(list(width = max(.SD$width, na.rm = TRUE), height = sum(.SD$height, na.rm = TRUE))),
+  txt_data <- txt_data[,
+    c(list(
+      width = max(.SD$width, na.rm = TRUE),
+      height = sum(.SD$height, na.rm = TRUE)
+    )),
     by = c(".row_id", ".col_id")
   ]
   setDF(txt_data)
@@ -383,7 +438,9 @@ min_col_widths <- function(x) {
   all_min_w <- list()
 
   for (p in parts) {
-    if (nrow_part(x, p) < 1) next
+    if (nrow_part(x, p) < 1) {
+      next
+    }
 
     part_obj <- x[[p]]
 
@@ -396,14 +453,16 @@ min_col_widths <- function(x) {
     words <- strsplit(txt_data$txt, "(?<=[- ])", perl = TRUE)
     n_words <- vapply(words, length, integer(1))
 
-    word_txt   <- unlist(words, use.names = FALSE)
-    word_col   <- rep(txt_data$.col_id, n_words)
+    word_txt <- unlist(words, use.names = FALSE)
+    word_col <- rep(txt_data$.col_id, n_words)
     word_fname <- rep(txt_data$font.family, n_words)
     word_fsize <- rep(txt_data$font.size, n_words)
-    word_bold  <- rep(txt_data$bold, n_words)
-    word_ital  <- rep(txt_data$italic, n_words)
+    word_bold <- rep(txt_data$bold, n_words)
+    word_ital <- rep(txt_data$italic, n_words)
 
-    if (length(word_txt) == 0) next
+    if (length(word_txt) == 0) {
+      next
+    }
 
     # measure each word
     word_sizes <- gdtools::strings_sizes(
@@ -436,25 +495,32 @@ min_col_widths <- function(x) {
     min_text_w[matched] <- pmax(min_text_w[matched], agg[matched])
   }
 
-
   # add padding and margins (take max across rows per column)
   pad_w <- rep(0, length(all_cols))
   names(pad_w) <- all_cols
   cell_w <- pad_w
 
   for (p in parts) {
-    if (nrow_part(x, p) < 1) next
+    if (nrow_part(x, p) < 1) {
+      next
+    }
     part_obj <- x[[p]]
 
     par_dim <- dim_paragraphs(part_obj)
     pad_col <- apply(par_dim$widths, 2, max, na.rm = TRUE)
-    pad_col <- setNames(as.numeric(pad_col), gsub("^width\\.", "", names(pad_col)))
+    pad_col <- setNames(
+      as.numeric(pad_col),
+      gsub("^width\\.", "", names(pad_col))
+    )
     matched <- intersect(names(pad_col), all_cols)
     pad_w[matched] <- pmax(pad_w[matched], pad_col[matched])
 
     cell_dim <- dim_cells(part_obj)
     cell_col <- apply(cell_dim$widths, 2, max, na.rm = TRUE)
-    cell_col <- setNames(as.numeric(cell_col), gsub("^width\\.", "", names(cell_col)))
+    cell_col <- setNames(
+      as.numeric(cell_col),
+      gsub("^width\\.", "", names(cell_col))
+    )
     matched <- intersect(names(cell_col), all_cols)
     cell_w[matched] <- pmax(cell_w[matched], cell_col[matched])
   }
@@ -491,7 +557,9 @@ width <- function(x, j = NULL, width, unit = "in") {
 
   stopifnot(length(j) == length(width) || length(width) == 1)
 
-  if (length(width) == 1) width <- rep(width, length(j))
+  if (length(width) == 1) {
+    width <- rep(width, length(j))
+  }
 
   x$header$colwidths[j] <- width
   x$footer$colwidths[j] <- width
@@ -572,7 +640,11 @@ height <- function(x, i = NULL, height, part = "body", unit = "in") {
 #' ft_2
 #' @family functions for flextable size management
 hrule <- function(x, i = NULL, rule = "auto", part = "body") {
-  part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("body", "header", "footer", "all"),
+    several.ok = FALSE
+  )
 
   if ("all" %in% part) {
     for (i in c("body", "header", "footer")) {
@@ -615,7 +687,11 @@ hrule <- function(x, i = NULL, rule = "auto", part = "body") {
 height_all <- function(x, height, part = "all", unit = "in") {
   height <- convin(unit = unit, x = height)
 
-  part <- match.arg(part, c("body", "header", "footer", "all"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("body", "header", "footer", "all"),
+    several.ok = FALSE
+  )
   if (length(height) != 1 || !is.numeric(height) || height < 0.0) {
     stop("height should be a single positive numeric value", call. = FALSE)
   }
@@ -706,7 +782,11 @@ dim.flextable <- function(x) {
 dim_pretty <- function(x, part = "all", unit = "in", hspans = "none") {
   stopifnot(length(hspans) == 1, hspans %in% c("none", "divided", "included"))
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = TRUE
+  )
   if ("all" %in% part) {
     part <- c("header", "body", "footer")
   }
@@ -727,9 +807,11 @@ dim_pretty <- function(x, part = "all", unit = "in", hspans = "none") {
   heights <- lapply(dimensions, function(x) x$heights)
   heights <- as.numeric(do.call(c, heights))
 
-  list(widths = convmeters(unit = unit, x = widths), heights = convmeters(unit = unit, x = heights))
+  list(
+    widths = convmeters(unit = unit, x = widths),
+    heights = convmeters(unit = unit, x = heights)
+  )
 }
-
 
 
 #' @export
@@ -766,15 +848,25 @@ dim_pretty <- function(x, part = "all", unit = "in", hspans = "none") {
 #' ft_2 <- autofit(ft_1)
 #' ft_2
 #' @family functions for flextable size management
-autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"),
-                    unit = "in", hspans = "none") {
+autofit <- function(
+  x,
+  add_w = 0.1,
+  add_h = 0.1,
+  part = c("body", "header"),
+  unit = "in",
+  hspans = "none"
+) {
   add_w <- convin(unit = unit, x = add_w)
   add_h <- convin(unit = unit, x = add_h)
 
   stopifnot(inherits(x, "flextable"))
   stopifnot(length(hspans) == 1, hspans %in% c("none", "divided", "included"))
 
-  parts <- match.arg(part, c("all", "body", "header", "footer"), several.ok = TRUE)
+  parts <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = TRUE
+  )
   if ("all" %in% parts) {
     parts <- c("header", "body", "footer")
   }
@@ -802,8 +894,6 @@ autofit <- function(x, add_w = 0.1, add_h = 0.1, part = c("body", "header"),
 }
 
 
-
-
 #' @importFrom gdtools strings_sizes
 optimal_sizes <- function(x, hspans = "none") {
   sizes <- text_metric(x)
@@ -813,22 +903,32 @@ optimal_sizes <- function(x, hspans = "none") {
     .col_id = rep(x$col_keys, each = nr),
     .row_id = rep(seq_len(nr), length(x$col_keys)),
     rowspan = as.vector(x$spans$rows),
-    stringsAsFactors = FALSE, check.names = FALSE
+    stringsAsFactors = FALSE,
+    check.names = FALSE
   )
   sizes <- merge(sizes, rowspan, by = c(".col_id", ".row_id"))
 
   if (hspans %in% "none") {
     sizes[sizes$rowspan != 1, "width"] <- 0
   } else if (hspans %in% "divided") {
-    sizes[sizes$rowspan > 1, "width"] <- sizes[sizes$rowspan > 1, "width"] / sizes[sizes$rowspan > 1, "rowspan"]
+    sizes[sizes$rowspan > 1, "width"] <- sizes[sizes$rowspan > 1, "width"] /
+      sizes[sizes$rowspan > 1, "rowspan"]
     sizes[sizes$rowspan < 1, "width"] <- 0
   }
 
   sizes$.col_id <- factor(sizes$.col_id, levels = x$col_keys)
   sizes <- sizes[order(sizes$.col_id, sizes$.row_id), ]
-  widths <- as_wide_matrix_(data = sizes[, c(".col_id", "width", ".row_id")], idvar = ".row_id", timevar = ".col_id")
+  widths <- as_wide_matrix_(
+    data = sizes[, c(".col_id", "width", ".row_id")],
+    idvar = ".row_id",
+    timevar = ".col_id"
+  )
   dimnames(widths)[[2]] <- gsub("^width\\.", "", dimnames(widths)[[2]])
-  heights <- as_wide_matrix_(data = sizes[, c(".col_id", "height", ".row_id")], idvar = ".row_id", timevar = ".col_id")
+  heights <- as_wide_matrix_(
+    data = sizes[, c(".col_id", "height", ".row_id")],
+    idvar = ".row_id",
+    timevar = ".col_id"
+  )
   dimnames(heights)[[2]] <- gsub("^height\\.", "", dimnames(heights)[[2]])
 
   par_dim <- dim_paragraphs(x)
@@ -849,7 +949,12 @@ optimal_sizes <- function(x, hspans = "none") {
 # utils ----
 #' @importFrom stats reshape
 as_wide_matrix_ <- function(data, idvar, timevar = "col_key") {
-  x <- reshape(data = data, idvar = idvar, timevar = timevar, direction = "wide")
+  x <- reshape(
+    data = data,
+    idvar = idvar,
+    timevar = timevar,
+    direction = "wide"
+  )
   x[[idvar]] <- NULL
   as.matrix(x)
 }
@@ -860,30 +965,63 @@ dim_paragraphs <- function(x) {
 
   par_dim$width <- as.vector(
     x$styles$pars[["padding.right"]]$data +
-      x$styles$pars[["padding.left"]]$data) * (4 / 3) / 72
+      x$styles$pars[["padding.left"]]$data
+  ) *
+    (4 / 3) /
+    72
   par_dim$height <- as.vector(
     x$styles$pars[["padding.top"]]$data +
-      x$styles$pars[["padding.bottom"]]$data) / 72
+      x$styles$pars[["padding.bottom"]]$data
+  ) /
+    72
 
   selection_ <- c(".row_id", ".col_id", "width", "height")
   par_dim[, selection_]
 
   list(
-    widths = as_wide_matrix_(par_dim[, c(".col_id", "width", ".row_id")], idvar = ".row_id", timevar = ".col_id"),
-    heights = as_wide_matrix_(par_dim[, c(".col_id", "height", ".row_id")], idvar = ".row_id", timevar = ".col_id")
+    widths = as_wide_matrix_(
+      par_dim[, c(".col_id", "width", ".row_id")],
+      idvar = ".row_id",
+      timevar = ".col_id"
+    ),
+    heights = as_wide_matrix_(
+      par_dim[, c(".col_id", "height", ".row_id")],
+      idvar = ".row_id",
+      timevar = ".col_id"
+    )
   )
 }
 
 dim_cells <- function(x) {
   cell_dim <- cell_struct_to_df(x$styles$cells)
-  cell_dim$width <- as.vector(x$styles$cells[["margin.right"]]$data + x$styles$cells[["margin.left"]]$data) * (4 / 3) / 72
-  cell_dim$height <- as.vector(x$styles$cells[["margin.top"]]$data + x$styles$cells[["margin.bottom"]]$data) / 72 +
-    as.vector(x$styles$cells[["border.width.top"]]$data + x$styles$cells[["border.width.bottom"]]$data) / 2 / 72
+  cell_dim$width <- as.vector(
+    x$styles$cells[["margin.right"]]$data + x$styles$cells[["margin.left"]]$data
+  ) *
+    (4 / 3) /
+    72
+  cell_dim$height <- as.vector(
+    x$styles$cells[["margin.top"]]$data + x$styles$cells[["margin.bottom"]]$data
+  ) /
+    72 +
+    as.vector(
+      x$styles$cells[["border.width.top"]]$data +
+        x$styles$cells[["border.width.bottom"]]$data
+    ) /
+      2 /
+      72
   selection_ <- c(".row_id", ".col_id", "width", "height")
   cell_dim <- cell_dim[, selection_]
 
-  cellwidths <- as_wide_matrix_(cell_dim[, c(".col_id", "width", ".row_id")], idvar = ".row_id", timevar = ".col_id")
-  cellheights <- as_wide_matrix_(cell_dim[, c(".col_id", "height", ".row_id")], idvar = ".row_id", timevar = ".col_id")
+  cellwidths <- as_wide_matrix_(
+    cell_dim[, c(".col_id", "width", ".row_id")],
+    idvar = ".row_id",
+    timevar = ".col_id"
+  )
+  cellheights <- as_wide_matrix_(
+    cell_dim[, c(".col_id", "height", ".row_id")],
+    idvar = ".row_id",
+    timevar = ".col_id"
+  )
 
   list(widths = cellwidths, heights = cellheights)
 }
@@ -903,16 +1041,26 @@ text_metric <- function(x) {
   txt_data[, c("width", "height") := list(NULL, NULL)]
 
   # build a fake_row_id so that new lines are considered
-  txt_data[, c("fake_row_id") := list(
-    fcase(.SD$txt %in% "<br>", 1L, default = 0L)
-  )]
-  txt_data[, c("fake_row_id") := list(
-    cumsum(.SD$fake_row_id)
-  ), by = c(".row_id", ".col_id")]
-  txt_data[, c("fake_row_id") := list(
-    rleid(.SD$fake_row_id)
-  ), by = c(".row_id", ".col_id")]
-
+  txt_data[,
+    c("fake_row_id") := list(
+      fcase(
+        .SD$txt %in% "<br>" , 1L ,
+        default = 0L
+      )
+    )
+  ]
+  txt_data[,
+    c("fake_row_id") := list(
+      cumsum(.SD$fake_row_id)
+    ),
+    by = c(".row_id", ".col_id")
+  ]
+  txt_data[,
+    c("fake_row_id") := list(
+      rleid(.SD$fake_row_id)
+    ),
+    by = c(".row_id", ".col_id")
+  ]
 
   # set new lines to blank
   txt_data$txt[txt_data$txt %in% "<br>"] <- ""
@@ -956,14 +1104,29 @@ text_metric <- function(x) {
   txt_data <- cbind(txt_data, extents_values)
 
   # swap width/height when cell is rotated
-  td_data <- cell_struct_to_df(x$styles$cells)[, c(".row_id", ".col_id", "text.direction")]
+  td_data <- cell_struct_to_df(x$styles$cells)[, c(
+    ".row_id",
+    ".col_id",
+    "text.direction"
+  )]
   txt_data <- merge(txt_data, td_data, by = c(".row_id", ".col_id"))
-  txt_data[txt_data$text.direction %in% c("tbrl", "btlr"), c("width", "height") := list(.SD$height, .SD$width)]
+  txt_data[
+    txt_data$text.direction %in% c("tbrl", "btlr"),
+    c("width", "height") := list(.SD$height, .SD$width)
+  ]
 
-  txt_data <- txt_data[, c(list(width = sum(.SD$width, na.rm = TRUE), height = max(.SD$height, na.rm = TRUE))),
+  txt_data <- txt_data[,
+    c(list(
+      width = sum(.SD$width, na.rm = TRUE),
+      height = max(.SD$height, na.rm = TRUE)
+    )),
     by = c(".row_id", "fake_row_id", ".col_id")
   ]
-  txt_data <- txt_data[, c(list(width = max(.SD$width, na.rm = TRUE), height = sum(.SD$height, na.rm = TRUE))),
+  txt_data <- txt_data[,
+    c(list(
+      width = max(.SD$width, na.rm = TRUE),
+      height = sum(.SD$height, na.rm = TRUE)
+    )),
     by = c(".row_id", ".col_id")
   ]
   setDF(txt_data)

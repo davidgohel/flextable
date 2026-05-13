@@ -96,12 +96,15 @@
 #' \dontshow{
 #' init_flextable_defaults()
 #' }
-body_add_flextable <- function(x, value,
-                               align = NULL,
-                               pos = "after",
-                               split = NULL,
-                               topcaption = TRUE,
-                               keepnext = NULL) {
+body_add_flextable <- function(
+  x,
+  value,
+  align = NULL,
+  pos = "after",
+  split = NULL,
+  topcaption = TRUE,
+  keepnext = NULL
+) {
   stopifnot(
     inherits(x, "rdocx"),
     inherits(value, "flextable")
@@ -162,9 +165,20 @@ body_add_flextable <- function(x, value,
 #' option 'Allow row to break across pages'.
 #' @importFrom officer cursor_bookmark
 #' @importFrom xml2 as_xml_document
-body_replace_flextable_at_bkm <- function(x, bookmark, value, align = "center", split = FALSE) {
+body_replace_flextable_at_bkm <- function(
+  x,
+  bookmark,
+  value,
+  align = "center",
+  split = FALSE
+) {
   x <- cursor_bookmark(x, bookmark)
-  x <- body_add_flextable(x = x, value = value, pos = "on", align = align, split = split)
+  x <- body_add_flextable(
+    x = x,
+    value = value,
+    pos = "on",
+    align = align,
+    split = split
+  )
   x
 }
-

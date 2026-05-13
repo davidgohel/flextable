@@ -40,14 +40,14 @@ ft <- theme_vanilla(ft)
 ft
 }
 \seealso{
-Other cells formatters: 
-\code{\link{colformat_char}()},
-\code{\link{colformat_date}()},
-\code{\link{colformat_datetime}()},
-\code{\link{colformat_double}()},
-\code{\link{colformat_image}()},
-\code{\link{colformat_int}()},
-\code{\link{colformat_lgl}()},
-\code{\link{colformat_num}()}
+Other cells formatters:
+\code{\link[=colformat_char]{colformat_char()}},
+\code{\link[=colformat_date]{colformat_date()}},
+\code{\link[=colformat_datetime]{colformat_datetime()}},
+\code{\link[=colformat_double]{colformat_double()}},
+\code{\link[=colformat_image]{colformat_image()}},
+\code{\link[=colformat_int]{colformat_int()}},
+\code{\link[=colformat_lgl]{colformat_lgl()}},
+\code{\link[=colformat_num]{colformat_num()}}
 }
 \concept{cells formatters}

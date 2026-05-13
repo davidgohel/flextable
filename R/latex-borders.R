@@ -3,32 +3,67 @@
 #' as hline. If two borders overlap, the largest is
 #' choosen.
 fortify_latex_borders <- function(x) {
-  properties_df <- x[, .SD, .SDcols = c(
-    ".part", ".col_id", ".row_id",
-    "colspan", "rowspan",
-    "border.width.top", "border.color.top",
-    "border.width.bottom", "border.color.bottom",
-    "border.width.left", "border.color.left",
-    "border.width.right", "border.color.right",
-    "background.color"
-  )]
+  properties_df <- x[,
+    .SD,
+    .SDcols = c(
+      ".part",
+      ".col_id",
+      ".row_id",
+      "colspan",
+      "rowspan",
+      "border.width.top",
+      "border.color.top",
+      "border.width.bottom",
+      "border.color.bottom",
+      "border.width.left",
+      "border.color.left",
+      "border.width.right",
+      "border.color.right",
+      "background.color"
+    )
+  ]
   col_id_levels <- levels(properties_df$.col_id)
-  properties_df[, c("vspan_id") := list(rleid(cumsum(.SD$colspan))), by = c(".part", ".col_id")]
-  properties_df[, c("draw_hline") := list({
-    z <- logical(nrow(.SD))
-    z[length(z)] <- TRUE
-    z
-  }), by = c(".part", ".col_id", "vspan_id")]
-  properties_df[, c("draw_hline_top") := list({
-    z <- logical(nrow(.SD))
-    z[1] <- TRUE
-    z
-  }), by = c(".part", ".col_id", "vspan_id")]
+  properties_df[,
+    c("vspan_id") := list(rleid(cumsum(.SD$colspan))),
+    by = c(".part", ".col_id")
+  ]
+  properties_df[,
+    c("draw_hline") := list({
+      z <- logical(nrow(.SD))
+      z[length(z)] <- TRUE
+      z
+    }),
+    by = c(".part", ".col_id", "vspan_id")
+  ]
+  properties_df[,
+    c("draw_hline_top") := list({
+      z <- logical(nrow(.SD))
+      z[1] <- TRUE
+      z
+    }),
+    by = c(".part", ".col_id", "vspan_id")
+  ]
 
-  top <- dcast(properties_df, .part + .row_id ~ .col_id, value.var = "border.width.top")
-  bottom <- dcast(properties_df, .part + .row_id ~ .col_id, value.var = "border.width.bottom")
-  draw_hline <- dcast(properties_df, .part + .row_id ~ .col_id, value.var = "draw_hline")
-  draw_hline_top <- dcast(properties_df, .part + .row_id ~ .col_id, value.var = "draw_hline_top")
+  top <- dcast(
+    properties_df,
+    .part + .row_id ~ .col_id,
+    value.var = "border.width.top"
+  )
+  bottom <- dcast(
+    properties_df,
+    .part + .row_id ~ .col_id,
+    value.var = "border.width.bottom"
+  )
+  draw_hline <- dcast(
+    properties_df,
+    .part + .row_id ~ .col_id,
+    value.var = "draw_hline"
+  )
+  draw_hline_top <- dcast(
+    properties_df,
+    .part + .row_id ~ .col_id,
+    value.var = "draw_hline_top"
+  )
   top_mat <- as.matrix(top[, 3:ncol(top)])
   bot_mat <- as.matrix(bottom[, 3:ncol(top)])
 
@@ -40,7 +75,8 @@ fortify_latex_borders <- function(x) {
 
   new_row_n <- nrow(top) + 1
 
-  if (new_row_n > 2) { # at least 3 rows
+  if (new_row_n > 2) {
+    # at least 3 rows
     # hlinemat is the top border and all bottom borders
     hlinemat <- matrix(0.0, nrow = new_row_n, ncol = ncol(top_mat))
 
@@ -51,21 +87,26 @@ fortify_latex_borders <- function(x) {
 
     # lines width in between must all have the same width, i.e. max observed width
 
-    hlinemat[setdiff(seq_len(new_row_n), c(1, new_row_n)), ] <- pmax(bot_mat[-nrow(bot_mat), , drop = FALSE], top_mat[-1, , drop = FALSE])
+    hlinemat[setdiff(seq_len(new_row_n), c(1, new_row_n)), ] <- pmax(
+      bot_mat[-nrow(bot_mat), , drop = FALSE],
+      top_mat[-1, , drop = FALSE]
+    )
 
     # now lets replace values
     bottom[, 3:ncol(top)] <- as.data.table(hlinemat[-1, ])
     top[1, 3:ncol(top)] <- as.data.table(hlinemat[1, , drop = FALSE])
     top[2:nrow(top), 3:ncol(top)] <- 0.0
 
-    top <- melt(top,
+    top <- melt(
+      top,
       id.vars = c(".part", ".row_id"),
       variable.name = ".col_id",
       value.name = "border.width.top",
       variable.factor = FALSE
     )
     top$.col_id <- factor(top$.col_id, levels = col_id_levels)
-    bottom <- melt(bottom,
+    bottom <- melt(
+      bottom,
       id.vars = c(".part", ".row_id"),
       variable.name = ".col_id",
       value.name = "border.width.bottom",
@@ -97,29 +138,43 @@ latex_gridlines <- function(properties_df) {
   x <- fortify_latex_borders(properties_df)
 
   # init computed latex instructions
-  x[, c(
-    "vborder_left", "vborder_right",
-    "hborder_bottom", "hborder_top",
-    "hborder_bottom_pre_vline", "hborder_bottom_post_vline"
-  ) :=
-    list(
-      "", "",
-      "~", "~",
-      "", ""
-    )]
-  x[has_border(x, "left"), c("vborder_left") :=
-    list(
+  x[,
+    c(
+      "vborder_left",
+      "vborder_right",
+      "hborder_bottom",
+      "hborder_top",
+      "hborder_bottom_pre_vline",
+      "hborder_bottom_post_vline"
+    ) := list(
+      "",
+      "",
+      "~",
+      "~",
+      "",
+      ""
+    )
+  ]
+  x[
+    has_border(x, "left"),
+    c("vborder_left") := list(
       vline_token(w = .SD$border.width.left, cols = .SD$border.color.left)
-    )]
-  x[has_border(x, "right"), c("vborder_right") :=
-    list(
+    )
+  ]
+  x[
+    has_border(x, "right"),
+    c("vborder_right") := list(
       fcase(
-        (as.integer(.SD$.col_id) + .SD$rowspan) == (nlevels(.SD$.col_id) + 1L),
-        vline_token(w = .SD$border.width.right, cols = .SD$border.color.right),
+        (as.integer(.SD$.col_id) + .SD$rowspan) == (nlevels(.SD$.col_id) + 1L) ,
+        vline_token(w = .SD$border.width.right, cols = .SD$border.color.right) ,
         default = ""
       )
-    )]
-  vlines <- x[, .SD, .SDcols = c(".part", ".col_id", ".row_id", "vborder_left", "vborder_right")]
+    )
+  ]
+  vlines <- x[,
+    .SD,
+    .SDcols = c(".part", ".col_id", ".row_id", "vborder_left", "vborder_right")
+  ]
   setDF(vlines)
 
   is_transparent <- !has_background(x)
@@ -133,47 +188,69 @@ latex_gridlines <- function(properties_df) {
   # generate hborder_top only for the first row
   x[
     x$.row_id %in% 1 & as.integer(x$.part) == min(as.integer(x$.part)),
-    c("hborder_top") := list(fun_hborder(w = .SD$border.width.top, cols = .SD$border.color.top))
+    c("hborder_top") := list(fun_hborder(
+      w = .SD$border.width.top,
+      cols = .SD$border.color.top
+    ))
   ]
   # generate hborder_bottom for those that have bottom borders
   x[
     has_border(x, "bottom"),
-    c("hborder_bottom") := list(fun_hborder(w = .SD$border.width.bottom, cols = .SD$border.color.bottom))
+    c("hborder_bottom") := list(fun_hborder(
+      w = .SD$border.width.bottom,
+      cols = .SD$border.color.bottom
+    ))
   ]
   if (is_transparent) {
-    x[!x$draw_hline, c("hborder_bottom") := list({
-      rep("ascline{0pt}{FFFFFF}", nrow(.SD))
-    }), by = c(".part", ".col_id", "vspan_id")]
+    x[
+      !x$draw_hline,
+      c("hborder_bottom") := list({
+        rep("ascline{0pt}{FFFFFF}", nrow(.SD))
+      }),
+      by = c(".part", ".col_id", "vspan_id")
+    ]
 
     x[x$hborder_top %in% "~", c("hborder_top") := list("ascline{0pt}{FFFFFF}")]
-    hlines <- x[, list(
-      hlines_b_strings = cline_intruction(.SD$hborder_bottom),
-      hlines_t_strings = cline_intruction(.SD$hborder_top)
-    ),
-    by = c(".part", ".row_id")
+    hlines <- x[,
+      list(
+        hlines_b_strings = cline_intruction(.SD$hborder_bottom),
+        hlines_t_strings = cline_intruction(.SD$hborder_top)
+      ),
+      by = c(".part", ".row_id")
     ]
     setDF(hlines)
   } else {
     # set hborder_bottom_pre_vline to '|' for the first column where there are bottom and left borders
     x[
-      has_border(x, "bottom") & has_border(x, "left") & x$.col_id %in% head(levels(x$.col_id), 1),
+      has_border(x, "bottom") &
+        has_border(x, "left") &
+        x$.col_id %in% head(levels(x$.col_id), 1),
       c("hborder_bottom_pre_vline") := list("|")
     ]
     # set hborder_bottom_post_vline to '|' where there are bottom and right borders
-    x[, c("has_bdr_right") := list(
-      shift(.SD[["border.width.left"]], type = "lead") > 0 &
-        colalpha(shift(.SD[["border.color.left"]], type = "lead")) > 0
-    ), by = c(".part", ".row_id")]
+    x[,
+      c("has_bdr_right") := list(
+        shift(.SD[["border.width.left"]], type = "lead") > 0 &
+          colalpha(shift(.SD[["border.color.left"]], type = "lead")) > 0
+      ),
+      by = c(".part", ".row_id")
+    ]
     x[
       x[["has_bdr_right"]],
       c("hborder_bottom_post_vline") := list("|")
     ]
     # if cells are vertically merged, dont draw bottom borders nor their vertical columns/joins
-    x[, c("hborder_bottom", "hborder_bottom_post_vline") :=
-      list(
+    x[,
+      c("hborder_bottom", "hborder_bottom_post_vline") := list(
         data.table::fifelse(c(.SD$colspan[-1], 1) < 1, "~", .SD$hborder_bottom),
-        data.table::fifelse(c(.SD$colspan[-1], 1) < 1, "", .SD$hborder_bottom_post_vline)
-      ), by = c(".part", ".col_id")]
+        data.table::fifelse(
+          c(.SD$colspan[-1], 1) < 1,
+          "",
+          .SD$hborder_bottom_post_vline
+        )
+      ),
+      by = c(".part", ".col_id")
+    ]
 
     # reinit color and line size before drawing new h borders
     x_rulecolor_start <- x[x$.col_id %in% head(levels(x$.col_id), 1), ]
@@ -183,17 +260,23 @@ latex_gridlines <- function(properties_df) {
       colcode0(x_rulecolor_start$border.color.left)
     )
 
-    hlines <- x[, list(
-      hlines_b_strings = hhline_instruction(.SD$hborder_bottom,
-        pre_str = .SD$hborder_bottom_pre_vline,
-        post_str = .SD$hborder_bottom_post_vline
+    hlines <- x[,
+      list(
+        hlines_b_strings = hhline_instruction(
+          .SD$hborder_bottom,
+          pre_str = .SD$hborder_bottom_pre_vline,
+          post_str = .SD$hborder_bottom_post_vline
+        ),
+        hlines_t_strings = hhline_instruction(.SD$hborder_top)
       ),
-      hlines_t_strings = hhline_instruction(.SD$hborder_top)
-    ), by = c(".part", ".row_id")]
-    hlines$hlines_b_strings <- paste0(x_rulecolor_start, hlines$hlines_b_strings)
+      by = c(".part", ".row_id")
+    ]
+    hlines$hlines_b_strings <- paste0(
+      x_rulecolor_start,
+      hlines$hlines_b_strings
+    )
     setDF(hlines)
   }
-
 
   list(hlines = hlines, vlines = vlines)
 }
@@ -235,7 +318,9 @@ hline_token <- function(w, cols, digits = 2) {
   cols <- colcode0(cols)
   z <- sprintf(
     ">{\\arrayrulecolor[HTML]{%s}\\global\\arrayrulewidth=%spt}%s",
-    cols, size, "-"
+    cols,
+    size,
+    "-"
   )
   z
 }
@@ -260,7 +345,11 @@ cline_intruction <- function(token) {
   paste(sprintf("\\%s{%.0f-%.0f}", values, start_at, end_at), collapse = "")
 }
 
-hhline_instruction <- function(x, pre_str = character(length(x)), post_str = character(length(x))) {
+hhline_instruction <- function(
+  x,
+  pre_str = character(length(x)),
+  post_str = character(length(x))
+) {
   if (all(x %in% c("~", "|"))) {
     return("")
   }

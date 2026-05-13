@@ -92,6 +92,6 @@ init_flextable_defaults()
 \code{\link[=as_chunk]{as_chunk()}}, \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}, \code{\link[=prepend_chunks]{prepend_chunks()}}
 
 Other default formatting properties:
-\code{\link{fp_border_default}()}
+\code{\link[=fp_border_default]{fp_border_default()}}
 }
 \concept{default_formatting_properties}

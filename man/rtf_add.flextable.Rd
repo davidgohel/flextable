@@ -31,8 +31,8 @@ print(z, target = tempfile(fileext = ".rtf"))
 }
 \seealso{
 Other functions for officer integration:
-\code{\link{body_add_flextable}()},
-\code{\link{body_replace_flextable_at_bkm}()},
-\code{\link{ph_with.flextable}()}
+\code{\link[=body_add_flextable]{body_add_flextable()}},
+\code{\link[=body_replace_flextable_at_bkm]{body_replace_flextable_at_bkm()}},
+\code{\link[=ph_with.flextable]{ph_with.flextable()}}
 }
 \concept{officer_integration}

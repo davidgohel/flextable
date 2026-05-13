@@ -9,10 +9,16 @@ def_fonts <- if (Sys.info()["sysname"] == "Windows") {
 flextable_global <- new.env(parent = emptyenv())
 default_flextable_settings <- list(
   font.family = def_fonts,
-  cs.family = def_fonts, eastasia.family = def_fonts, hansi.family = def_fonts,
-  font.size = 11, font.color = "black",
-  text.align = "left", padding.bottom = 5, padding.top = 5,
-  padding.left = 5, padding.right = 5,
+  cs.family = def_fonts,
+  eastasia.family = def_fonts,
+  hansi.family = def_fonts,
+  font.size = 11,
+  font.color = "black",
+  text.align = "left",
+  padding.bottom = 5,
+  padding.top = 5,
+  padding.left = 5,
+  padding.right = 5,
   line_spacing = 1,
   border.color = "#666666",
   border.width = .75,
@@ -24,12 +30,16 @@ default_flextable_settings <- list(
   pct_digits = 1,
   na_str = "",
   nan_str = "",
-  fmt_date = "%Y-%m-%d", fmt_datetime = "%Y-%m-%d %H:%M:%S",
+  fmt_date = "%Y-%m-%d",
+  fmt_datetime = "%Y-%m-%d %H:%M:%S",
   extra_css = "",
   scroll = NULL,
   table_align = "center",
-  split = TRUE, keep_with_next = FALSE,
-  tabcolsep = 2, arraystretch = 1.5, float = "none",
+  split = TRUE,
+  keep_with_next = FALSE,
+  tabcolsep = 2,
+  arraystretch = 1.5,
+  float = "none",
   fonts_ignore = FALSE,
   theme_fun = "theme_booktabs",
   post_process_all = function(x) x,
@@ -134,40 +144,60 @@ flextable_global$defaults <- default_flextable_settings
 #' @family themes_and_defaults
 #' @importFrom utils modifyList
 set_flextable_defaults <- function(
-    font.family = NULL,
-    font.size = NULL, font.color = NULL,
-    text.align = NULL,
-    padding = NULL,
-    padding.bottom = NULL, padding.top = NULL,
-    padding.left = NULL, padding.right = NULL,
-    border.color = NULL,
-    border.width = NULL,
-    background.color = NULL,
-    line_spacing = NULL,
-    table.layout = NULL,
-    cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
-    decimal.mark = NULL, big.mark = NULL, digits = NULL, pct_digits = NULL,
-    na_str = NULL, nan_str = NULL,
-    fmt_date = NULL, fmt_datetime = NULL,
-    extra_css = NULL,
-    scroll = NULL,
-    table_align = "center",
-    split = NULL, keep_with_next = NULL,
-    tabcolsep = NULL, arraystretch = NULL, float = NULL,
-    fonts_ignore = NULL,
-    theme_fun = NULL,
-    post_process_all = NULL,
-    post_process_pdf = NULL,
-    post_process_docx = NULL,
-    post_process_html = NULL,
-    post_process_pptx = NULL,
-    ...) {
+  font.family = NULL,
+  font.size = NULL,
+  font.color = NULL,
+  text.align = NULL,
+  padding = NULL,
+  padding.bottom = NULL,
+  padding.top = NULL,
+  padding.left = NULL,
+  padding.right = NULL,
+  border.color = NULL,
+  border.width = NULL,
+  background.color = NULL,
+  line_spacing = NULL,
+  table.layout = NULL,
+  cs.family = NULL,
+  eastasia.family = NULL,
+  hansi.family = NULL,
+  decimal.mark = NULL,
+  big.mark = NULL,
+  digits = NULL,
+  pct_digits = NULL,
+  na_str = NULL,
+  nan_str = NULL,
+  fmt_date = NULL,
+  fmt_datetime = NULL,
+  extra_css = NULL,
+  scroll = NULL,
+  table_align = "center",
+  split = NULL,
+  keep_with_next = NULL,
+  tabcolsep = NULL,
+  arraystretch = NULL,
+  float = NULL,
+  fonts_ignore = NULL,
+  theme_fun = NULL,
+  post_process_all = NULL,
+  post_process_pdf = NULL,
+  post_process_docx = NULL,
+  post_process_html = NULL,
+  post_process_pptx = NULL,
+  ...
+) {
   x <- list()
 
   if (!is.null(padding)) {
-    if (is.null(padding.top)) padding.top <- padding
-    if (is.null(padding.bottom)) padding.bottom <- padding
-    if (is.null(padding.left)) padding.left <- padding
+    if (is.null(padding.top)) {
+      padding.top <- padding
+    }
+    if (is.null(padding.bottom)) {
+      padding.bottom <- padding
+    }
+    if (is.null(padding.left)) {
+      padding.left <- padding
+    }
     if (is.null(padding.right)) padding.right <- padding
   }
 
@@ -196,23 +226,36 @@ set_flextable_defaults <- function(
     x$table_align <- table_align
   }
 
-  if (!is.null(text.align) && text.align %in% c("left", "right", "center", "justify")) {
+  if (
+    !is.null(text.align) &&
+      text.align %in% c("left", "right", "center", "justify")
+  ) {
     x$text.align <- text.align
   }
 
-  if (!is.null(padding.bottom) && is.numeric(padding.bottom) && !(padding.bottom < 0)) {
+  if (
+    !is.null(padding.bottom) &&
+      is.numeric(padding.bottom) &&
+      !(padding.bottom < 0)
+  ) {
     x$padding.bottom <- padding.bottom
   }
   if (!is.null(padding.top) && is.numeric(padding.top) && !(padding.top < 0)) {
     x$padding.top <- padding.top
   }
-  if (!is.null(padding.left) && is.numeric(padding.left) && !(padding.left < 0)) {
+  if (
+    !is.null(padding.left) && is.numeric(padding.left) && !(padding.left < 0)
+  ) {
     x$padding.left <- padding.left
   }
-  if (!is.null(padding.right) && is.numeric(padding.right) && !(padding.right < 0)) {
+  if (
+    !is.null(padding.right) && is.numeric(padding.right) && !(padding.right < 0)
+  ) {
     x$padding.right <- padding.right
   }
-  if (!is.null(line_spacing) && is.numeric(line_spacing) && !(line_spacing < 0)) {
+  if (
+    !is.null(line_spacing) && is.numeric(line_spacing) && !(line_spacing < 0)
+  ) {
     x$line_spacing <- line_spacing
   }
 
@@ -278,7 +321,9 @@ set_flextable_defaults <- function(
     x$fmt_datetime <- fmt_datetime
   }
 
-  if (!is.null(theme_fun) && is.character(theme_fun) && length(theme_fun) == 1) {
+  if (
+    !is.null(theme_fun) && is.character(theme_fun) && length(theme_fun) == 1
+  ) {
     x$theme_fun <- theme_fun
   }
   if (!is.null(theme_fun) && is.function(theme_fun)) {
@@ -338,35 +383,58 @@ get_flextable_defaults <- function() {
 print.flextable_defaults <- function(x, ...) {
   cat("## style properties\n")
   styles <- c(
-    "font.family", "hansi.family", "eastasia.family", "cs.family",
-    "font.size", "font.color", "text.align", "padding.bottom",
-    "padding.top", "padding.left", "padding.right", "line_spacing",
-    "border.color", "border.width",
+    "font.family",
+    "hansi.family",
+    "eastasia.family",
+    "cs.family",
+    "font.size",
+    "font.color",
+    "text.align",
+    "padding.bottom",
+    "padding.top",
+    "padding.left",
+    "padding.right",
+    "line_spacing",
+    "border.color",
+    "border.width",
     "background.color"
   )
-  df <- data.frame(property = styles, value = unlist(x[styles]), stringsAsFactors = FALSE)
+  df <- data.frame(
+    property = styles,
+    value = unlist(x[styles]),
+    stringsAsFactors = FALSE
+  )
   row.names(df) <- NULL
   print(df)
   cat("\n")
 
   cat("## cell content settings\n")
   contents <- c(
-    "decimal.mark", "big.mark",
-    "digits", "pct_digits",
-    "na_str", "nan_str", "fmt_date", "fmt_datetime"
+    "decimal.mark",
+    "big.mark",
+    "digits",
+    "pct_digits",
+    "na_str",
+    "nan_str",
+    "fmt_date",
+    "fmt_datetime"
   )
-  df <- data.frame(property = contents, value = unlist(x[contents]), stringsAsFactors = FALSE)
+  df <- data.frame(
+    property = contents,
+    value = unlist(x[contents]),
+    stringsAsFactors = FALSE
+  )
   row.names(df) <- NULL
   print(df)
   cat("\n")
 
   cat("## table.layout is:", x$table.layout, "\n")
-  if (is.character(x$theme_fun)) cat("## default theme is:", x$theme_fun, "\n")
+  if (is.character(x$theme_fun)) {
+    cat("## default theme is:", x$theme_fun, "\n")
+  }
 
   invisible(NULL)
 }
-
-
 
 
 #' @export
@@ -405,16 +473,20 @@ print.flextable_defaults <- function(x, ...) {
 #'
 #' @family default_formatting_properties
 #' @seealso [as_chunk()], [compose()], [append_chunks()], [prepend_chunks()]
-fp_text_default <- function(color = flextable_global$defaults$font.color,
-                            font.size = flextable_global$defaults$font.size,
-                            bold = FALSE,
-                            italic = FALSE,
-                            underlined = FALSE,
-                            strike = FALSE,
-                            font.family = flextable_global$defaults$font.family,
-                            cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
-                            vertical.align = "baseline",
-                            shading.color = "transparent") {
+fp_text_default <- function(
+  color = flextable_global$defaults$font.color,
+  font.size = flextable_global$defaults$font.size,
+  bold = FALSE,
+  italic = FALSE,
+  underlined = FALSE,
+  strike = FALSE,
+  font.family = flextable_global$defaults$font.family,
+  cs.family = NULL,
+  eastasia.family = NULL,
+  hansi.family = NULL,
+  vertical.align = "baseline",
+  shading.color = "transparent"
+) {
   fp_text(
     color = color,
     font.size = font.size,
@@ -422,7 +494,9 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
     italic = italic,
     underlined = underlined,
     font.family = font.family,
-    cs.family = cs.family, eastasia.family = eastasia.family, hansi.family = hansi.family,
+    cs.family = cs.family,
+    eastasia.family = eastasia.family,
+    hansi.family = hansi.family,
     vertical.align = vertical.align,
     shading.color = shading.color,
     strike = strike
@@ -463,9 +537,10 @@ fp_text_default <- function(color = flextable_global$defaults$font.color,
 #' @family default_formatting_properties
 #' @seealso [hline()], [vline()]
 fp_border_default <- function(
-    color = flextable_global$defaults$border.color,
-    style = "solid",
-    width = flextable_global$defaults$border.width) {
+  color = flextable_global$defaults$border.color,
+  style = "solid",
+  width = flextable_global$defaults$border.width
+) {
   fp_border(
     color = color,
     style = style,

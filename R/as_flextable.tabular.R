@@ -92,12 +92,14 @@
 #'   )
 #'   as_flextable(tab)
 #' }
-as_flextable.tabular <- function(x,
-                                 spread_first_col = FALSE,
-                                 fp_p = fp_par(text.align = "center", padding.top = 4),
-                                 row_title = as_paragraph(as_chunk(.row_title)),
-                                 add_tab = FALSE,
-                                 ...) {
+as_flextable.tabular <- function(
+  x,
+  spread_first_col = FALSE,
+  fp_p = fp_par(text.align = "center", padding.top = 4),
+  row_title = as_paragraph(as_chunk(.row_title)),
+  add_tab = FALSE,
+  ...
+) {
   stopifnot(requireNamespace("tables", quietly = TRUE))
 
   body_data <- fortify_tabular_body(x)
@@ -121,13 +123,15 @@ as_flextable.tabular <- function(x,
 
     body_data <- expand_dataset(
       body_data = body_data,
-      is_title = .is_list_title, is_single = .is_one_row,
+      is_title = .is_list_title,
+      is_single = .is_one_row,
       group_colname = group_colname
     )
 
     text_align$body <- expand_dataset(
       body_data = as.data.frame(text_align$body),
-      is_title = .is_list_title, is_single = .is_one_row,
+      is_title = .is_list_title,
+      is_single = .is_one_row,
       group_colname = group_colname
     )
   } else {
@@ -137,9 +141,18 @@ as_flextable.tabular <- function(x,
 
   columns_keys <- setdiff(c(row_columns, data_columns), group_colname)
 
-  vmerge_ins <- vmerge_ins[, setdiff(colnames(vmerge_ins), group_colname), drop = FALSE]
-  text_align$header <- text_align$header[, setdiff(colnames(text_align$header), group_colname), drop = FALSE]
-  text_align$body <- text_align$body[, setdiff(colnames(text_align$body), group_colname), drop = FALSE]
+  vmerge_ins <- vmerge_ins[,
+    setdiff(colnames(vmerge_ins), group_colname),
+    drop = FALSE
+  ]
+  text_align$header <- text_align$header[,
+    setdiff(colnames(text_align$header), group_colname),
+    drop = FALSE
+  ]
+  text_align$body <- text_align$body[,
+    setdiff(colnames(text_align$body), group_colname),
+    drop = FALSE
+  ]
 
   if (length(group_colname)) {
     body_data$.row_title <- body_data[[group_colname]]
@@ -175,9 +188,12 @@ as_flextable.tabular <- function(x,
     if (".type" %in% colnames(text_align$body)) {
       aligns <- aligns[text_align$body$.type %in% c("one_row", "list_data")]
     }
-    ft <- align(ft,
-      j = j, i = ~ .type %in% c("one_row", "list_data"),
-      align = aligns, part = "body"
+    ft <- align(
+      ft,
+      j = j,
+      i = ~ .type %in% c("one_row", "list_data"),
+      align = aligns,
+      part = "body"
     )
   }
 
@@ -196,36 +212,60 @@ as_flextable.tabular <- function(x,
 
   newcontent <- get_chunkset_struct_element(
     x = ft[["body"]]$content,
-    i = rindex, j = data_columns)
+    i = rindex,
+    j = data_columns
+  )
   newtext <- trimws(strmat[, data_columns, drop = FALSE])
-  for(j in data_columns) {
-    for(irow in seq_len(nrow(newtext))) {
+  for (j in data_columns) {
+    for (irow in seq_len(nrow(newtext))) {
       newcontent[[irow, j]]$txt <- newtext[[irow, j]]
     }
   }
   ft[["body"]]$content <- set_chunkset_struct_element(
     x = ft[["body"]]$content,
-    i = rindex, j = data_columns,
-    value = newcontent)
-
+    i = rindex,
+    j = data_columns,
+    value = newcontent
+  )
 
   if (any(body_data$.type %in% "list_title")) {
-    ft <- merge_h_range(ft,
+    ft <- merge_h_range(
+      ft,
       i = ~ .type %in% c("list_title"),
-      j1 = 1L, j2 = length(columns_keys)
+      j1 = 1L,
+      j2 = length(columns_keys)
     )
-    ft <- mk_par(ft, i = body_data$.type %in% c("list_title", "one_row"), j = 1, value = {{ row_title }})
-    ft <- style(ft, i = body_data$.type %in% c("list_title", "one_row"), j = 1, pr_p = fp_p, part = "body")
+    ft <- mk_par(
+      ft,
+      i = body_data$.type %in% c("list_title", "one_row"),
+      j = 1,
+      value = {{ row_title }}
+    )
+    ft <- style(
+      ft,
+      i = body_data$.type %in% c("list_title", "one_row"),
+      j = 1,
+      pr_p = fp_p,
+      part = "body"
+    )
     if (add_tab) {
-      ft <- prepend_chunks(ft, i = ~ .type %in% "list_data", j = 1, as_chunk("\t"))
+      ft <- prepend_chunks(
+        ft,
+        i = ~ .type %in% "list_data",
+        j = 1,
+        as_chunk("\t")
+      )
     }
   }
-
 
   ft <- fix_border_issues(ft)
   best_widths_ <- dim_pretty(ft)$widths
 
-  best_widths_[setdiff(seq_along(columns_keys), seq_len(.ncol))] <- max(best_widths_[setdiff(seq_along(columns_keys), seq_len(.ncol))]) * 1.1
+  best_widths_[setdiff(
+    seq_along(columns_keys),
+    seq_len(.ncol)
+  )] <- max(best_widths_[setdiff(seq_along(columns_keys), seq_len(.ncol))]) *
+    1.1
   ft <- width(ft, width = best_widths_)
 
   if (spread_first_col) {
@@ -244,9 +284,11 @@ as_flextable.tabular <- function(x,
 # utils -----
 
 expand_dataset <- function(
-    body_data,
-    is_title, is_single,
-    group_colname = "COL1") {
+  body_data,
+  is_title,
+  is_single,
+  group_colname = "COL1"
+) {
   body_data$.fakeid <- seq_len(nrow(body_data))
 
   title_dat <- body_data[is_title, ]
@@ -265,7 +307,11 @@ expand_dataset <- function(
   body_data[[group_colname]] <- rep(NA_character_, nrow(body_data))
   body_data$.type <- rep("list_data", nrow(body_data))
 
-  dat <- rbindlist(list(title_dat, singlerow_dat, body_data), use.names = TRUE, fill = TRUE)
+  dat <- rbindlist(
+    list(title_dat, singlerow_dat, body_data),
+    use.names = TRUE,
+    fill = TRUE
+  )
   dat <- dat[order(dat$.fakeid), ]
   dat$.fakeid <- NULL
 
@@ -303,7 +349,10 @@ fortify_tabular_body <- function(x, ...) {
     unlist(dat)
   })
   celldata <- as.data.frame(celldata)
-  names(celldata) <- sprintf("COL%.0f", seq_len(ncol(celldata)) + ncol(row_labels))
+  names(celldata) <- sprintf(
+    "COL%.0f",
+    seq_len(ncol(celldata)) + ncol(row_labels)
+  )
   cbind(row_labels, celldata)
 }
 
@@ -311,7 +360,8 @@ fortify_tabular_header <- function(x, ...) {
   col_labels <- as.data.frame(unclass(tables::colLabels(x)))
   row_labels <- matrix(
     rep(colnames(tables::rowLabels(x)), nrow(col_labels)),
-    nrow = nrow(col_labels), byrow = TRUE
+    nrow = nrow(col_labels),
+    byrow = TRUE
   )
 
   dat <- cbind(row_labels, col_labels)
@@ -342,7 +392,11 @@ fortify_tabular_justify <- function(x, justification = "c", ...) {
 
   list(
     header = justify[seq_len(nrow(clabels)), , drop = FALSE],
-    body = justify[setdiff(seq_len(nrow(justify)), seq_len(nrow(clabels))), , drop = FALSE]
+    body = justify[
+      setdiff(seq_len(nrow(justify)), seq_len(nrow(clabels))),
+      ,
+      drop = FALSE
+    ]
   )
 }
 
@@ -355,4 +409,3 @@ is_one_row <- function(x) {
   lag_str <- c(tail(x, -1), "")
   !is.na(x) & !is.na(lag_str)
 }
-

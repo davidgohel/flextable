@@ -27,7 +27,11 @@ fortify_width <- function(x) {
   for (part in c("header", "body", "footer")) {
     nr <- nrow_part(x, part)
     if (nr > 0) {
-      dat[[part]] <- data.frame(.col_id = x$col_keys, width = x[[part]]$colwidths, stringsAsFactors = FALSE)
+      dat[[part]] <- data.frame(
+        .col_id = x$col_keys,
+        width = x[[part]]$colwidths,
+        stringsAsFactors = FALSE
+      )
     }
   }
   dat <- data.table::rbindlist(dat)
@@ -48,8 +52,10 @@ fortify_height <- function(x) {
     nr <- nrow_part(x, part)
     if (nr > 0) {
       rows[[part]] <- data.frame(
-        .row_id = seq_len(nr), height = x[[part]]$rowheights,
-        stringsAsFactors = FALSE, check.names = FALSE
+        .row_id = seq_len(nr),
+        height = x[[part]]$rowheights,
+        stringsAsFactors = FALSE,
+        check.names = FALSE
       )
     }
   }
@@ -71,8 +77,10 @@ fortify_hrule <- function(x) {
     nr <- nrow_part(x, part)
     if (nr > 0) {
       rows[[part]] <- data.frame(
-        .row_id = seq_len(nr), hrule = x[[part]]$hrule,
-        stringsAsFactors = FALSE, check.names = FALSE
+        .row_id = seq_len(nr),
+        hrule = x[[part]]$hrule,
+        stringsAsFactors = FALSE,
+        check.names = FALSE
       )
     }
   }
@@ -97,7 +105,8 @@ fortify_span <- function(x, parts = c("header", "body", "footer")) {
         .row_id = rep(seq_len(nr), length(x$col_keys)),
         rowspan = as.vector(x[[part]]$spans$rows),
         colspan = as.vector(x[[part]]$spans$columns),
-        stringsAsFactors = FALSE, check.names = FALSE
+        stringsAsFactors = FALSE,
+        check.names = FALSE
       )
     }
   }
@@ -118,9 +127,19 @@ fortify_span <- function(x, parts = c("header", "body", "footer")) {
 #' @noRd
 distinct_text_properties <- function(x, add_columns = character(length = 0L)) {
   columns <- c(
-    "color", "font.size", "bold", "italic", "underlined", "strike", "font.family",
-    "hansi.family", "eastasia.family", "cs.family", "vertical.align",
-    "shading.color", add_columns
+    "color",
+    "font.size",
+    "bold",
+    "italic",
+    "underlined",
+    "strike",
+    "font.family",
+    "hansi.family",
+    "eastasia.family",
+    "cs.family",
+    "vertical.align",
+    "shading.color",
+    add_columns
   )
   columns <- intersect(columns, colnames(x))
   dat <- as.data.table(x[columns])
@@ -138,13 +157,30 @@ distinct_text_properties <- function(x, add_columns = character(length = 0L)) {
 distinct_paragraphs_properties <- function(x) {
   # fp_columns <- intersect(names(formals(officer::fp_par)), colnames(x))
   columns <- c(
-    "text.align", "line_spacing", "padding.bottom", "padding.top",
-    "padding.left", "padding.right", "shading.color", "keep_with_next",
-    "border.width.bottom", "border.width.top", "border.width.left",
-    "border.width.right", "border.color.bottom", "border.color.top",
-    "border.color.left", "border.color.right", "border.style.bottom",
-    "border.style.top", "border.style.left", "border.style.right",
-    "text.direction", "vertical.align", "tabs", "word_style"
+    "text.align",
+    "line_spacing",
+    "padding.bottom",
+    "padding.top",
+    "padding.left",
+    "padding.right",
+    "shading.color",
+    "keep_with_next",
+    "border.width.bottom",
+    "border.width.top",
+    "border.width.left",
+    "border.width.right",
+    "border.color.bottom",
+    "border.color.top",
+    "border.color.left",
+    "border.color.right",
+    "border.style.bottom",
+    "border.style.top",
+    "border.style.left",
+    "border.style.right",
+    "text.direction",
+    "vertical.align",
+    "tabs",
+    "word_style"
   )
   columns <- intersect(columns, colnames(x))
   dat <- as.data.frame(x)[columns]
@@ -164,14 +200,31 @@ distinct_paragraphs_properties <- function(x) {
 distinct_cells_properties <- function(x) {
   # fp_columns <- intersect(names(formals(officer::fp_cell)), colnames(x))
   columns <- c(
-    "vertical.align", "margin.bottom", "margin.top", "margin.left",
-    "margin.right", "background.color", "text.direction",
-    "text.align", "width", "height", "hrule", # workaround for some formats
-    "border.width.bottom", "border.width.top", "border.width.left",
-    "border.width.right", "border.color.bottom", "border.color.top",
-    "border.color.left", "border.color.right", "border.style.bottom",
-    "border.style.top", "border.style.left", "border.style.right",
-    "rowspan", "colspan"
+    "vertical.align",
+    "margin.bottom",
+    "margin.top",
+    "margin.left",
+    "margin.right",
+    "background.color",
+    "text.direction",
+    "text.align",
+    "width",
+    "height",
+    "hrule", # workaround for some formats
+    "border.width.bottom",
+    "border.width.top",
+    "border.width.left",
+    "border.width.right",
+    "border.color.bottom",
+    "border.color.top",
+    "border.color.left",
+    "border.color.right",
+    "border.style.bottom",
+    "border.style.top",
+    "border.style.left",
+    "border.style.right",
+    "rowspan",
+    "colspan"
   )
   columns <- intersect(columns, colnames(x))
 
@@ -189,14 +242,15 @@ distinct_cells_properties <- function(x) {
 }
 
 # information data -----
-fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TRUE) {
+fortify_content <- function(
+  x,
+  default_chunk_fmt,
+  ...,
+  expand_special_chars = TRUE
+) {
   if (isTRUE(expand_special_chars)) {
-    x$data[] <- lapply(x$data, expand_special_char,
-      what = "\n", with = "<br>"
-    )
-    x$data[] <- lapply(x$data, expand_special_char,
-      what = "\t", with = "<tab>"
-    )
+    x$data[] <- lapply(x$data, expand_special_char, what = "\n", with = "<br>")
+    x$data[] <- lapply(x$data, expand_special_char, what = "\t", with = "<tab>")
   }
 
   row_id <- unlist(mapply(
@@ -204,7 +258,9 @@ fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TR
       rep(rows, nrow(data))
     },
     rows = rep(seq_len(nrow(x$data)), ncol(x$data)),
-    x$data, SIMPLIFY = FALSE, USE.NAMES = FALSE
+    x$data,
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
   ))
 
   .col_id <- unlist(mapply(
@@ -212,15 +268,26 @@ fortify_content <- function(x, default_chunk_fmt, ..., expand_special_chars = TR
       rep(columns, nrow(data))
     },
     columns = rep(x$keys, each = nrow(x$data)),
-    x$data, SIMPLIFY = FALSE, USE.NAMES = FALSE
+    x$data,
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
   ))
 
-  out <- rbindlist(apply(x$data, 2, function(col) rbindlist(col, use.names = TRUE, fill = TRUE)), use.names = TRUE, fill = TRUE)
+  out <- rbindlist(
+    apply(x$data, 2, function(col) {
+      rbindlist(col, use.names = TRUE, fill = TRUE)
+    }),
+    use.names = TRUE,
+    fill = TRUE
+  )
   out$.row_id <- row_id
   out$.col_id <- .col_id
   setDF(out)
 
-  default_props <- text_struct_to_df(default_chunk_fmt, stringsAsFactors = FALSE)
+  default_props <- text_struct_to_df(
+    default_chunk_fmt,
+    stringsAsFactors = FALSE
+  )
   out <- replace_missing_fptext_by_default(out, default_props)
 
   out$.col_id <- factor(out$.col_id, levels = default_chunk_fmt$color$keys)
@@ -288,19 +355,22 @@ information_data_default_chunk <- function(x) {
 information_data_chunk <- function(x, expand_special_chars = TRUE) {
   dat <- list()
   if (nrow_part(x, "header") > 0) {
-    dat$header <- fortify_content(x$header$content,
+    dat$header <- fortify_content(
+      x$header$content,
       default_chunk_fmt = x$header$styles$text,
       expand_special_chars = expand_special_chars
     )
   }
   if (nrow_part(x, "body") > 0) {
-    dat$body <- fortify_content(x$body$content,
+    dat$body <- fortify_content(
+      x$body$content,
       default_chunk_fmt = x$body$styles$text,
       expand_special_chars = expand_special_chars
     )
   }
   if (nrow_part(x, "footer") > 0) {
-    dat$footer <- fortify_content(x$footer$content,
+    dat$footer <- fortify_content(
+      x$footer$content,
       default_chunk_fmt = x$footer$styles$text,
       expand_special_chars = expand_special_chars
     )

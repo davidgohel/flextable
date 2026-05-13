@@ -62,11 +62,11 @@ ft_1
 \code{\link[=mk_par]{mk_par()}}, \code{\link[=append_chunks]{append_chunks()}}, \code{\link[=prepend_chunks]{prepend_chunks()}}
 
 Other functions to compose cell content:
-\code{\link{append_chunks}()},
-\code{\link{as_paragraph}()},
-\code{\link{compose}()},
-\code{\link{footnote}()},
-\code{\link{prepend_chunks}()},
-\code{\link{void}()}
+\code{\link[=append_chunks]{append_chunks()}},
+\code{\link[=as_paragraph]{as_paragraph()}},
+\code{\link[=compose]{compose()}},
+\code{\link[=footnote]{footnote()}},
+\code{\link[=prepend_chunks]{prepend_chunks()}},
+\code{\link[=void]{void()}}
 }
 \concept{cell_content_composition}

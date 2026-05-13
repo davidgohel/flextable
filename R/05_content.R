@@ -178,7 +178,10 @@ as_chunk <- function(x, props = NULL, formatter = format_fun, ...) {
       stop("`props` should be a list of `fp_text` object(s).")
     }
     if (length(props) != length(text)) {
-      stop(sprintf("`props` should be a list of same length than `x`: %.0f.", length(text)))
+      stop(sprintf(
+        "`props` should be a list of same length than `x`: %.0f.",
+        length(text)
+      ))
     }
   }
   data <- chunk_dataframe(
@@ -548,7 +551,9 @@ as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL) {
   height <- convin(unit = unit, x = height)
 
   if (length(x) > 1) {
-    if (length(width) == 1) width <- rep(width, length(x))
+    if (length(width) == 1) {
+      width <- rep(width, length(x))
+    }
     if (length(height) == 1) height <- rep(height, length(x))
   }
   if (is.null(props)) {
@@ -668,7 +673,13 @@ as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL) {
 #'
 #' # reset default values ----
 #' init_flextable_defaults()
-as_word_field <- function(x, props = NULL, width = .1, height = .15, unit = "in") {
+as_word_field <- function(
+  x,
+  props = NULL,
+  width = .1,
+  height = .15,
+  unit = "in"
+) {
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
 
@@ -722,7 +733,10 @@ to_wml_word_field <- function(x, pr_txt) {
   xml_elt_2 <- paste0(
     "<w:r>",
     pr_txt,
-    sprintf("<w:instrText xml:space=\"preserve\" w:dirty=\"true\">%s</w:instrText>", x),
+    sprintf(
+      "<w:instrText xml:space=\"preserve\" w:dirty=\"true\">%s</w:instrText>",
+      x
+    ),
     "</w:r>"
   )
   xml_elt_3 <- paste0(
@@ -878,7 +892,8 @@ as_qmd <- function(x, display = x) {
 #' }
 use_flextable_qmd <- function(path = ".", quiet = FALSE) {
   src <- system.file(
-    "_extensions", "flextable-qmd",
+    "_extensions",
+    "flextable-qmd",
     package = "flextable",
     mustWork = TRUE
   )
@@ -892,7 +907,9 @@ use_flextable_qmd <- function(path = ".", quiet = FALSE) {
   file.copy(src, dirname(dest), recursive = TRUE)
   if (!quiet) {
     message(
-      "Installed flextable-qmd extension in ", dest, ".\n",
+      "Installed flextable-qmd extension in ",
+      dest,
+      ".\n",
       "Add `filters: [flextable-qmd]` to your document YAML."
     )
   }
@@ -962,19 +979,27 @@ as_paragraph <- function(..., list_values = NULL) {
 
   id_recycl <- which(nrows == 1)
   if (length(nrows) != 1 && length(id_recycl) > 0) {
-    list_values[id_recycl] <- lapply(list_values[id_recycl], function(x, n) {
-      z <- rbind_match_columns(rep(list(x), n))
-      z
-    }, exp_nrow)
+    list_values[id_recycl] <- lapply(
+      list_values[id_recycl],
+      function(x, n) {
+        z <- rbind_match_columns(rep(list(x), n))
+        z
+      },
+      exp_nrow
+    )
   }
 
   nrows <- sapply(list_values, nrow)
 
   if (length(unique(nrows)) != 1 && 1 %in% nrows) {
     which_ <- which(nrows %in% 1)
-    list_values[which_] <- lapply(list_values[which_], function(x, n) {
-      rbind_match_columns(rep(list(x), n))
-    }, n = max(nrows, na.rm = TRUE))
+    list_values[which_] <- lapply(
+      list_values[which_],
+      function(x, n) {
+        rbind_match_columns(rep(list(x), n))
+      },
+      n = max(nrows, na.rm = TRUE)
+    )
   }
   nrows <- sapply(list_values, nrow)
 
@@ -982,13 +1007,22 @@ as_paragraph <- function(..., list_values = NULL) {
     stop("paragraph elements should all have the same length")
   }
 
-  data <- mapply(function(x, index) {
-    x$.chunk_index <- rep(index, nrow(x))
-    x
-  }, list_values, seq_along(list_values), SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  data <- mapply(
+    function(x, index) {
+      x$.chunk_index <- rep(index, nrow(x))
+      x
+    },
+    list_values,
+    seq_along(list_values),
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+  )
   data <- rbind_match_columns(data)
 
-  data <- split(data, rep(seq_len(nrow(list_values[[1]])), length((list_values))))
+  data <- split(
+    data,
+    rep(seq_len(nrow(list_values[[1]])), length((list_values)))
+  )
   names(data) <- NULL
   class(data) <- c("paragraph")
   data

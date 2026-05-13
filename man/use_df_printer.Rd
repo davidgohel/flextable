@@ -19,8 +19,8 @@ In a setup run chunk:
 \code{\link[=df_printer]{df_printer()}}, \code{\link[=flextable]{flextable()}}
 
 Other flextable configuration:
-\code{\link{add_latex_dep}()},
-\code{\link{use_flextable_qmd}()},
-\code{\link{use_model_printer}()}
+\code{\link[=add_latex_dep]{add_latex_dep()}},
+\code{\link[=use_flextable_qmd]{use_flextable_qmd()}},
+\code{\link[=use_model_printer]{use_model_printer()}}
 }
 \concept{flextable_configuration}

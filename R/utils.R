@@ -35,8 +35,12 @@ absolute_path <- function(x) {
 
 #' @importFrom stats median median sd mad
 #' @importFrom stats quantile
-Q1 <- function(z) as.double(quantile(z, probs = .25, na.rm = TRUE, names = FALSE))
-Q3 <- function(z) as.double(quantile(z, probs = .75, na.rm = TRUE, names = FALSE))
+Q1 <- function(z) {
+  as.double(quantile(z, probs = .25, na.rm = TRUE, names = FALSE))
+}
+Q3 <- function(z) {
+  as.double(quantile(z, probs = .75, na.rm = TRUE, names = FALSE))
+}
 MEDIAN <- function(z) as.double(median(z, na.rm = TRUE))
 MEAN <- function(z) as.double(mean(z, na.rm = TRUE))
 SD <- function(z) as.double(sd(z, na.rm = TRUE))
@@ -49,13 +53,23 @@ NAS <- function(z) sum(is.na(z))
 
 as_bookmark <- function(id, str) {
   new_id <- UUIDgenerate()
-  bm_start_str <- sprintf("<w:bookmarkStart w:id=\"%s\" w:name=\"%s\"/>", new_id, id)
+  bm_start_str <- sprintf(
+    "<w:bookmarkStart w:id=\"%s\" w:name=\"%s\"/>",
+    new_id,
+    id
+  )
   bm_start_end <- sprintf("<w:bookmarkEnd w:id=\"%s\"/>", new_id)
   paste0(bm_start_str, str, bm_start_end)
 }
 
 format_double <- function(x, digits = 2) {
-  formatC(x, format = "f", digits = digits, decimal.mark = ".", drop0trailing = TRUE)
+  formatC(
+    x,
+    format = "f",
+    digits = digits,
+    decimal.mark = ".",
+    drop0trailing = TRUE
+  )
 }
 
 has_value <- function(x) {
@@ -92,7 +106,13 @@ safe_stat <- function(..., FUN = max, NA_value = NA_real_) {
 
 safe_stat_ext <- function(..., FUN = max, NA_value = NA_real_, LENGTH = NULL) {
   x <- na.omit(unlist(list(...)))
-  if (length(x) > 0 && (!is.numeric(LENGTH) || length(LENGTH) == 0 || is.na(LENGTH) || length(x) == LENGTH[1])) {
+  if (
+    length(x) > 0 &&
+      (!is.numeric(LENGTH) ||
+        length(LENGTH) == 0 ||
+        is.na(LENGTH) ||
+        length(x) == LENGTH[1])
+  ) {
     FUN(x)
   } else {
     NA_value
@@ -126,12 +146,22 @@ convmeters <- function(unit, x) {
 # check for gregexec -----
 if (!"gregexec" %in% getNamespaceExports("base")) {
   # copied from R source, grep.R
-  gregexec <- function(pattern, text, ignore.case = FALSE, perl = FALSE,
-                       fixed = FALSE, useBytes = FALSE) {
+  gregexec <- function(
+    pattern,
+    text,
+    ignore.case = FALSE,
+    perl = FALSE,
+    fixed = FALSE,
+    useBytes = FALSE
+  ) {
     if (is.factor(text) && length(levels(text)) < length(text)) {
       out <- gregexec(
-        pattern, c(levels(text), NA_character_),
-        ignore.case, perl, fixed, useBytes
+        pattern,
+        c(levels(text), NA_character_),
+        ignore.case,
+        perl,
+        fixed,
+        useBytes
       )
       outna <- out[length(out)]
       out <- out[text]
@@ -140,8 +170,12 @@ if (!"gregexec" %in% getNamespaceExports("base")) {
     }
 
     dat <- gregexpr(
-      pattern = pattern, text = text, ignore.case = ignore.case,
-      fixed = fixed, useBytes = useBytes, perl = perl
+      pattern = pattern,
+      text = text,
+      ignore.case = ignore.case,
+      fixed = fixed,
+      useBytes = useBytes,
+      perl = perl
     )
     if (perl && !fixed) {
       ## Perl generates match data, so use that
@@ -167,10 +201,14 @@ if (!"gregexec" %in% getNamespaceExports("base")) {
       lapply(dat, process)
     } else {
       ## For TRE or fixed we must compute the match data ourselves
-      m1 <- lapply(regmatches(text, dat),
+      m1 <- lapply(
+        regmatches(text, dat),
         regexec,
-        pattern = pattern, ignore.case = ignore.case,
-        perl = perl, fixed = fixed, useBytes = useBytes
+        pattern = pattern,
+        ignore.case = ignore.case,
+        perl = perl,
+        fixed = fixed,
+        useBytes = useBytes
       )
       mlen <- lengths(m1)
       res <- vector("list", length(m1))
@@ -215,7 +253,7 @@ collect_labels <- function(dataset, use_labels = TRUE) {
 apply_labels <- function(ft, collected_labels) {
   if (length(collected_labels$values_labels) > 0) {
     values_labels <- collected_labels$values_labels
-    for(i in seq_along(values_labels)) {
+    for (i in seq_along(values_labels)) {
       colname <- names(values_labels)[i]
       values_lbls <- values_labels[[colname]]
       ft <- labelizor(x = ft, part = "body", j = colname, labels = values_lbls)

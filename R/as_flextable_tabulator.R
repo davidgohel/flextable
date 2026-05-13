@@ -120,12 +120,16 @@
 #' @importFrom data.table rleidv as.data.table
 #' @seealso [as_flextable.tabulator()], [summarizor()],
 #' [as_grouped_data()], [tabulator_colnames()]
-tabulator <- function(x, rows, columns,
-                      datasup_first = NULL,
-                      datasup_last = NULL,
-                      hidden_data = NULL,
-                      row_compose = list(),
-                      ...) {
+tabulator <- function(
+  x,
+  rows,
+  columns,
+  datasup_first = NULL,
+  datasup_last = NULL,
+  hidden_data = NULL,
+  row_compose = list(),
+  ...
+) {
   stopifnot(
     `rows can not be empty` = length(rows) > 0,
     `columns can not be empty` = length(columns) > 0
@@ -143,7 +147,8 @@ tabulator <- function(x, rows, columns,
   col_expr_names <- names(col_exprs)
 
   hidden_columns <- map_hidden_columns(
-    dat = x, columns = columns,
+    dat = x,
+    columns = columns,
     rows = rows
   )
 
@@ -151,7 +156,9 @@ tabulator <- function(x, rows, columns,
   supp_colnames <- setdiff(colnames(datasup_first), rows)
   supp_colnames_last <- setdiff(colnames(datasup_last), rows)
   visible_columns <- map_visible_columns(
-    dat = x, columns = columns, rows = rows,
+    dat = x,
+    columns = columns,
+    rows = rows,
     supp_colnames = supp_colnames,
     supp_colnames_last = supp_colnames_last,
     value_names = col_expr_names
@@ -171,14 +178,16 @@ tabulator <- function(x, rows, columns,
 
   .formula <- paste(
     paste0("`", rows, "`", collapse = "+"),
-    "~", paste0("`", columns, "`", collapse = "+")
+    "~",
+    paste0("`", columns, "`", collapse = "+")
   )
   value_vars <- c(data_colnames, col_expr_names)
 
   dat <- dcast(
     data = as.data.table(x),
     formula = .formula,
-    value.var = value_vars, sep = "@"
+    value.var = value_vars,
+    sep = "@"
   )
   setDF(dat)
 
@@ -287,13 +296,19 @@ tabulator <- function(x, rows, columns,
 #' init_flextable_defaults()
 #' }
 as_flextable.tabulator <- function(
-    x, separate_with = character(0),
-    big_border = fp_border_default(width = 1.5),
-    small_border = fp_border_default(width = .75),
-    rows_alignment = "left", columns_alignment = "center",
-    label_rows = x$rows, spread_first_col = FALSE,
-    expand_single = FALSE,
-    sep_w = .05, unit = "in", ...) {
+  x,
+  separate_with = character(0),
+  big_border = fp_border_default(width = 1.5),
+  small_border = fp_border_default(width = .75),
+  rows_alignment = "left",
+  columns_alignment = "center",
+  label_rows = x$rows,
+  spread_first_col = FALSE,
+  expand_single = FALSE,
+  sep_w = .05,
+  unit = "in",
+  ...
+) {
   # get necessary element
   dat <- x$data
 
@@ -310,22 +325,26 @@ as_flextable.tabulator <- function(
   col_exprs <- x$col_exprs
 
   if (sep_w < 0.001) {
-    visible_columns <- visible_columns[!visible_columns[[".tab_columns"]] %in% "dummy", ]
+    visible_columns <- visible_columns[
+      !visible_columns[[".tab_columns"]] %in% "dummy",
+    ]
   }
 
   visible_columns_keys <- visible_columns[
-    visible_columns$.type. %in% "columns" &
+    visible_columns$.type. %in%
+      "columns" &
       !visible_columns[[".tab_columns"]] %in% "dummy",
     "col_keys"
   ]
   blank_columns <- visible_columns[
-    visible_columns[[".tab_columns"]] %in% "dummy", "col_keys"
+    visible_columns[[".tab_columns"]] %in% "dummy",
+    "col_keys"
   ]
 
   # create border_h_major from separate_with
   stopifnot(
-    `separate_with is not part of rows` =
-      length(separate_with) < 1 || all(separate_with %in% rows)
+    `separate_with is not part of rows` = length(separate_with) < 1 ||
+      all(separate_with %in% rows)
   )
 
   border_h_major <- integer()
@@ -345,13 +364,25 @@ as_flextable.tabulator <- function(
 
   # for later iteration, a list of visible columns
   # to use when filling the table
-  visible_columns_mapping <- visible_columns[visible_columns$.type. %in% "columns" & !visible_columns[[".tab_columns"]] %in% "dummy", ]
+  visible_columns_mapping <- visible_columns[
+    visible_columns$.type. %in%
+      "columns" &
+      !visible_columns[[".tab_columns"]] %in% "dummy",
+  ]
   visible_columns_mapping$.type. <- NULL
-  visible_columns_mapping <- split(visible_columns_mapping, visible_columns_mapping[columns], drop = TRUE)
+  visible_columns_mapping <- split(
+    visible_columns_mapping,
+    visible_columns_mapping[columns],
+    drop = TRUE
+  )
 
   # for later iteration, a list of hidden columns that can
   # be used by expressions defined by the user
-  hidden_columns_mapping <- split(hidden_columns, hidden_columns[columns], drop = TRUE)
+  hidden_columns_mapping <- split(
+    hidden_columns,
+    hidden_columns[columns],
+    drop = TRUE
+  )
 
   ft <- flextable(dat, col_keys = visible_columns$col_keys)
   ft <- border_remove(ft)
@@ -372,14 +403,19 @@ as_flextable.tabulator <- function(
   for (j in names(visible_columns_mapping)) {
     visible_columns_mapping_j <- visible_columns_mapping[[j]]
     replication_info <- hidden_columns_mapping[[j]]
-    ft$body$dataset[as.character(replication_info$.user_columns)] <- ft$body$dataset[replication_info$col_keys]
+    ft$body$dataset[as.character(
+      replication_info$.user_columns
+    )] <- ft$body$dataset[replication_info$col_keys]
 
     for (i in seq_len(nrow(visible_columns_mapping_j))) {
       colname <- visible_columns_mapping_j[i, "col_keys"]
       exp_name <- visible_columns_mapping_j[i, ".tab_columns"]
       ft <- mk_par(ft, j = colname, value = !!col_exprs[[exp_name]])
     }
-    ft$body$dataset[as.character(replication_info$.user_columns)] <- rep(list(NULL), nrow(replication_info))
+    ft$body$dataset[as.character(replication_info$.user_columns)] <- rep(
+      list(NULL),
+      nrow(replication_info)
+    )
   }
 
   row_spanner <- character(length = 0L)
@@ -389,7 +425,9 @@ as_flextable.tabulator <- function(
 
     row_spanner_map <- x$use_labels[[row_spanner]]
     apply_row_spanner_map <- function(values) {
-      if (is.null(row_spanner_map)) return(values)
+      if (is.null(row_spanner_map)) {
+        return(values)
+      }
       # coerce to character first: dat[[row_spanner]] is typically a
       # factor and assigning a replacement not in its levels would
       # silently turn the cell into NA.
@@ -434,10 +472,13 @@ as_flextable.tabulator <- function(
     ft <- add_header_row(
       x = ft,
       values = rel_$values,
-      colwidths = rel_$lengths, top = TRUE
+      colwidths = rel_$lengths,
+      top = TRUE
     )
-    ft <- hline(ft,
-      i = 1, j = which(!visible_columns[[column]] %in% c("dummy", rows)),
+    ft <- hline(
+      ft,
+      i = 1,
+      j = which(!visible_columns[[column]] %in% c("dummy", rows)),
       border = small_border,
       part = "header"
     )
@@ -445,19 +486,31 @@ as_flextable.tabulator <- function(
   }
 
   rows_supp <- visible_columns$col_keys[
-    visible_columns$.type. %in% c("rows_supp", "rows_supp_last") &
+    visible_columns$.type. %in%
+      c("rows_supp", "rows_supp_last") &
       !visible_columns$.tab_columns %in% "dummy"
   ]
   ft <- merge_v(
     x = ft,
-    j = c(rows, rows_supp), part = "header"
+    j = c(rows, rows_supp),
+    part = "header"
   )
 
   ft <- valign(ft, valign = "bottom", j = c(rows, rows_supp), part = "header")
   ft <- valign(ft, valign = "top", part = "body")
 
-  ft <- align(x = ft, j = visible_columns_keys, align = columns_alignment, part = "all")
-  ft <- align(x = ft, j = c(rows, rows_supp), align = rows_alignment, part = "all")
+  ft <- align(
+    x = ft,
+    j = visible_columns_keys,
+    align = columns_alignment,
+    part = "all"
+  )
+  ft <- align(
+    x = ft,
+    j = c(rows, rows_supp),
+    align = rows_alignment,
+    part = "all"
+  )
 
   if (sep_w > 0) {
     ft <- padding(ft, j = blank_columns, padding = 0, part = "all")
@@ -467,16 +520,19 @@ as_flextable.tabulator <- function(
 
   ft <- hline(ft, i = border_h_major, border = small_border)
 
-  ft <- hline(ft,
+  ft <- hline(
+    ft,
     i = nrow_part(ft, part = "header"),
     j = setdiff(visible_columns$col_keys, blank_columns),
-    border = big_border, part = "header"
+    border = big_border,
+    part = "header"
   )
   ft <- hline_top(x = ft, border = big_border, part = "header")
   ft <- hline_bottom(x = ft, border = big_border, part = "body")
 
   if (sep_w > 0) {
-    ft <- border(ft,
+    ft <- border(
+      ft,
       j = blank_columns,
       border.top = fp_border_default(width = 0),
       border.bottom = fp_border_default(width = 0),
@@ -493,22 +549,29 @@ as_flextable.tabulator <- function(
       j_labs <- j_labs[!names(label_rows) %in% row_spanner]
       label_rows <- label_rows[!names(label_rows) %in% row_spanner]
     }
-    ft <- mk_par(ft,
-      i = 1, j = j_labs,
+    ft <- mk_par(
+      ft,
+      i = 1,
+      j = j_labs,
       value = as_paragraph(as.character(label_rows)),
       part = "header"
     )
   }
 
   if (spread_first_col) {
-    ft <- align(x = ft, i = !is.na(dat[[row_spanner]]), align = columns_alignment)
+    ft <- align(
+      x = ft,
+      i = !is.na(dat[[row_spanner]]),
+      align = columns_alignment
+    )
   }
 
   if (!is.null(x$use_labels)) {
     for (labj in names(x$use_labels)) {
       if (labj %in% ft$col_keys) {
         ft <- labelizor(
-          x = ft, j = labj,
+          x = ft,
+          j = labj,
           labels = x$use_labels[[labj]],
           part = "all"
         )
@@ -517,27 +580,31 @@ as_flextable.tabulator <- function(
   }
   if (!is.null(x$n_by)) {
     sum_x <- visible_columns[
-      visible_columns$.tab_columns %in% names(x$col_exprs)[1] &
-        visible_columns$.type. %in% "columns", , drop = FALSE
+      visible_columns$.tab_columns %in%
+        names(x$col_exprs)[1] &
+        visible_columns$.type. %in% "columns",
+      ,
+      drop = FALSE
     ]
     header_row <- length(x$columns)
 
     for (k in seq_len(nrow(x$n_by))) {
       mask <- rep(TRUE, nrow(sum_x))
       for (col in x$columns) {
-        mask <- mask & as.character(sum_x[[col]]) == as.character(x$n_by[[col]][k])
+        mask <- mask &
+          as.character(sum_x[[col]]) == as.character(x$n_by[[col]][k])
       }
       if (any(mask)) {
         ft <- append_chunks(
           x = ft,
           j = sum_x[mask, "col_keys"][1],
-          i = header_row, part = "header",
+          i = header_row,
+          part = "header",
           as_chunk(x$n_by$n[k], formatter = fmt_header_n)
         )
       }
     }
   }
-
 
   ft <- autofit(ft, part = "all", add_w = .2, add_h = .0, unit = "cm")
   ft <- fix_border_issues(ft, part = "all")
@@ -659,10 +726,14 @@ tabulator_colnames <- function(x, columns, ..., type = NULL) {
   }
 
   exprs <- enquos(...)
-  exprs_evals <- lapply(exprs, function(expr_filter, dat) {
-    check_filter_expr(expr_filter, dat)
-    eval_tidy({{ expr_filter }}, data = dat)
-  }, dat = dat)
+  exprs_evals <- lapply(
+    exprs,
+    function(expr_filter, dat) {
+      check_filter_expr(expr_filter, dat)
+      eval_tidy({{ expr_filter }}, data = dat)
+    },
+    dat = dat
+  )
   exprs_evals <- append(exprs_evals, list(dat$column %in% columns))
   keep <- Reduce(`&`, exprs_evals)
 
@@ -689,9 +760,15 @@ print.tabulator <- function(x, ...) {
     "\n"
   )
   visible_columns <- x$visible_columns
-  columns_keys <- visible_columns[visible_columns$.type. %in% "columns" & !visible_columns[[".tab_columns"]] %in% "dummy", "col_keys"]
+  columns_keys <- visible_columns[
+    visible_columns$.type. %in%
+      "columns" &
+      !visible_columns[[".tab_columns"]] %in% "dummy",
+    "col_keys"
+  ]
 
-  cat("\ncol_keys: c(",
+  cat(
+    "\ncol_keys: c(",
     paste0(shQuote(columns_keys, type = "cmd"), collapse = ", "),
     ")\n",
     sep = ""
@@ -739,15 +816,26 @@ merge_additional_dataset <- function(a, b, rows) {
 }
 
 #' @importFrom data.table setorderv
-map_visible_columns <- function(dat, columns, rows, value_names = character(0),
-                                supp_colnames = character(0),
-                                supp_colnames_last = character(0)) {
+map_visible_columns <- function(
+  dat,
+  columns,
+  rows,
+  value_names = character(0),
+  supp_colnames = character(0),
+  supp_colnames_last = character(0)
+) {
   dat <- dat[c(columns, rows)]
-  dat[value_names] <- lapply(value_names, function(x, n) character(n), n = nrow(dat))
+  dat[value_names] <- lapply(
+    value_names,
+    function(x, n) character(n),
+    n = nrow(dat)
+  )
   dat <- as.data.table(dat)
-  dat <- melt(as.data.table(dat),
+  dat <- melt(
+    as.data.table(dat),
     id.vars = c(rows, columns),
-    measure.vars = value_names, variable.name = ".tab_columns"
+    measure.vars = value_names,
+    variable.name = ".tab_columns"
   )
   setorderv(dat, cols = c(rows, columns))
 
@@ -759,11 +847,15 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0),
 
   last_m1_column <- length(columns) - 1
   ldims <- split(ldims, rleid(ldims[[last_m1_column]]))
-  ldims <- lapply(ldims, function(x, j) {
-    x1 <- x[1, ]
-    x1[, j] <- "dummy"
-    rbind(x, x1)
-  }, j = seq(last_m1_column, length(columns), by = 1L))
+  ldims <- lapply(
+    ldims,
+    function(x, j) {
+      x1 <- x[1, ]
+      x1[, j] <- "dummy"
+      rbind(x, x1)
+    },
+    j = seq(last_m1_column, length(columns), by = 1L)
+  )
   ldims <- do.call(rbind, ldims)
 
   sel_columns <- columns[seq_len(length(columns) - 2)]
@@ -771,17 +863,22 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0),
   for (j in rev(seq_along(sel_columns))) {
     # Check if any group has more than 1 row (only then do we need separators)
     group_sizes <- table(rleid(ldims[[j]]))
-    if (all(group_sizes <= 1)) next
+    if (all(group_sizes <= 1)) {
+      next
+    }
 
     ldims <- split(ldims, rleid(ldims[[j]]))
-    ldims <- lapply(ldims, function(x, j) {
-      x[nrow(x), j] <- "dummy"
-      x
-    }, j = j)
+    ldims <- lapply(
+      ldims,
+      function(x, j) {
+        x[nrow(x), j] <- "dummy"
+        x
+      },
+      j = j
+    )
     ldims <- do.call(rbind, ldims)
   }
   ldims <- ldims[-nrow(ldims), ]
-
 
   rdims <- lapply(rows, function(x, n) rep(x, n), n = ncol(ldims))
   rdims <- do.call(rbind, rdims)
@@ -793,7 +890,11 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0),
 
   rdims_supp <- NULL
   if (length(supp_colnames) > 0) {
-    rdims_supp <- lapply(supp_colnames, function(x, n) rep(x, n), n = ncol(ldims))
+    rdims_supp <- lapply(
+      supp_colnames,
+      function(x, n) rep(x, n),
+      n = ncol(ldims)
+    )
     rdims_supp <- do.call(rbind, rdims_supp)
     x1 <- rdims_supp[1, ]
     x1[] <- "dummy"
@@ -805,7 +906,11 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0),
 
   rdims_supp_last <- NULL
   if (length(supp_colnames_last) > 0) {
-    rdims_supp_last <- lapply(supp_colnames_last, function(x, n) rep(x, n), n = ncol(ldims))
+    rdims_supp_last <- lapply(
+      supp_colnames_last,
+      function(x, n) rep(x, n),
+      n = ncol(ldims)
+    )
     rdims_supp_last <- do.call(rbind, rdims_supp_last)
     x1 <- rdims_supp_last[1, ]
     x1[] <- "dummy"
@@ -815,22 +920,30 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0),
     rdims_supp_last$.type. <- "rows_supp_last"
   }
 
-
   ldims$.type. <- "columns"
   rdims$.type. <- "rows"
   last_column <- columns[length(columns)]
   dims <- rbind(rdims, rdims_supp, ldims, rdims_supp_last)
 
   is_dummy <- dims[[last_column]] %in% "dummy"
-  dims$col_keys <- do.call(paste, append(as.list(dims[uid_cols]), list(sep = "@")))
+  dims$col_keys <- do.call(
+    paste,
+    append(as.list(dims[uid_cols]), list(sep = "@"))
+  )
   if (length(value_names) > 1) {
     dims$col_keys <- paste0(dims$.stat_name, "@", dims$col_keys)
   }
   dims$col_keys[is_dummy] <- paste0("dummy", seq_len(sum(is_dummy)))
 
-  dims$col_keys[dims$.type. %in% "rows" & !is_dummy] <- dims[[last_column]][dims$.type. %in% "rows" & !is_dummy]
-  dims$col_keys[dims$.type. %in% "rows_supp" & !is_dummy] <- dims[[last_column]][dims$.type. %in% "rows_supp" & !is_dummy]
-  dims$col_keys[dims$.type. %in% "rows_supp_last" & !is_dummy] <- dims[[last_column]][dims$.type. %in% "rows_supp_last" & !is_dummy]
+  dims$col_keys[dims$.type. %in% "rows" & !is_dummy] <- dims[[last_column]][
+    dims$.type. %in% "rows" & !is_dummy
+  ]
+  dims$col_keys[dims$.type. %in% "rows_supp" & !is_dummy] <- dims[[
+    last_column
+  ]][dims$.type. %in% "rows_supp" & !is_dummy]
+  dims$col_keys[dims$.type. %in% "rows_supp_last" & !is_dummy] <- dims[[
+    last_column
+  ]][dims$.type. %in% "rows_supp_last" & !is_dummy]
   setDF(dims)
   dims
 }
@@ -838,17 +951,27 @@ map_visible_columns <- function(dat, columns, rows, value_names = character(0),
 map_hidden_columns <- function(dat, columns, rows) {
   user_columns <- setdiff(colnames(dat), c(columns, rows))
   dat <- as.data.table(dat)
-  dat[, c(user_columns) :=
-    lapply(.SD, function(x) character(length(x))), .SDcols = user_columns]
-  dat <- melt(as.data.table(dat),
+  dat[,
+    c(user_columns) := lapply(.SD, function(x) character(length(x))),
+    .SDcols = user_columns
+  ]
+  dat <- melt(
+    as.data.table(dat),
     id.vars = c(columns, rows),
-    measure.vars = user_columns, variable.name = ".user_columns"
+    measure.vars = user_columns,
+    variable.name = ".user_columns"
   )
   columns <- c(columns, ".user_columns")
   dims <- dat[, .SD, .SDcols = columns]
   setDF(dat)
   dims <- unique(dims)
-  dims$col_keys <- do.call(paste, append(as.list(dims[, .SD, .SDcols = columns[-length(columns)]]), list(sep = "@")))
+  dims$col_keys <- do.call(
+    paste,
+    append(
+      as.list(dims[, .SD, .SDcols = columns[-length(columns)]]),
+      list(sep = "@")
+    )
+  )
   dims$col_keys <- paste0(dims$.user_columns, "@", dims$col_keys)
   setDF(dims)
   dims

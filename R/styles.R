@@ -44,13 +44,14 @@
 #'
 #' ft
 style <- function(
-    x,
-    i = NULL,
-    j = NULL,
-    pr_t = NULL,
-    pr_p = NULL,
-    pr_c = NULL,
-    part = "body") {
+  x,
+  i = NULL,
+  j = NULL,
+  pr_t = NULL,
+  pr_p = NULL,
+  pr_c = NULL,
+  part = "body"
+) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "style()"))
   }
@@ -306,12 +307,13 @@ italic <- function(x, i = NULL, j = NULL, italic = TRUE, part = "body") {
 #' ft <- highlight(ft, j = ~ drat + wt + qsec, color = my_color_fun)
 #' ft
 highlight <- function(
-    x,
-    i = NULL,
-    j = NULL,
-    color = "yellow",
-    part = "body",
-    source = j) {
+  x,
+  i = NULL,
+  j = NULL,
+  color = "yellow",
+  part = "body",
+  source = j
+) {
   if (!inherits(x, "flextable")) {
     stop(sprintf(
       "Function `%s` supports only flextable objects.",
@@ -496,14 +498,15 @@ color <- function(x, i = NULL, j = NULL, color, part = "body", source = j) {
 #'   ft_2
 #' }
 font <- function(
-    x,
-    i = NULL,
-    j = NULL,
-    fontname,
-    part = "body",
-    cs.family = fontname,
-    hansi.family = fontname,
-    eastasia.family = fontname) {
+  x,
+  i = NULL,
+  j = NULL,
+  fontname,
+  part = "body",
+  cs.family = fontname,
+  hansi.family = fontname,
+  eastasia.family = fontname
+) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "font()"))
   }
@@ -601,15 +604,16 @@ font <- function(
 #' ft_1 <- autofit(ft_1)
 #' ft_1
 padding <- function(
-    x,
-    i = NULL,
-    j = NULL,
-    padding = NULL,
-    padding.top = NULL,
-    padding.bottom = NULL,
-    padding.left = NULL,
-    padding.right = NULL,
-    part = "body") {
+  x,
+  i = NULL,
+  j = NULL,
+  padding = NULL,
+  padding.top = NULL,
+  padding.bottom = NULL,
+  padding.left = NULL,
+  padding.right = NULL,
+  part = "body"
+) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "padding()"))
   }
@@ -728,11 +732,12 @@ padding <- function(
 #' # Alternate left and center alignment across columns 1-4 for header only
 #' align(ft_car, j = 1:4, align = c("left", "center"), part = "header")
 align <- function(
-    x,
-    i = NULL,
-    j = NULL,
-    align = "left",
-    part = c("body", "header", "footer", "all")) {
+  x,
+  i = NULL,
+  j = NULL,
+  align = "left",
+  part = c("body", "header", "footer", "all")
+) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "align()"))
   }
@@ -973,10 +978,11 @@ align_text_col <- function(x, align = "left", header = TRUE, footer = TRUE) {
 #' @export
 #' @rdname align
 align_nottext_col <- function(
-    x,
-    align = "right",
-    header = TRUE,
-    footer = TRUE) {
+  x,
+  align = "right",
+  header = TRUE,
+  footer = TRUE
+) {
   which_j <- which(
     !sapply(x$body$dataset[x$col_keys], function(x) {
       is.character(x) | is.factor(x)
@@ -1219,12 +1225,13 @@ valign <- function(x, i = NULL, j = NULL, valign = "center", part = "body") {
 #'
 #' ft_2
 rotate <- function(
-    x,
-    i = NULL,
-    j = NULL,
-    rotation,
-    align = NULL,
-    part = "body") {
+  x,
+  i = NULL,
+  j = NULL,
+  rotation,
+  align = NULL,
+  part = "body"
+) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "rotate()"))
   }

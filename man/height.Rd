@@ -53,17 +53,17 @@ ft_2 <- hrule(ft_2, rule = "exact")
 ft_2
 }
 \seealso{
-Other functions for flextable size management: 
-\code{\link{autofit}()},
-\code{\link{dim.flextable}()},
-\code{\link{dim_pretty}()},
-\code{\link{fit_columns}()},
-\code{\link{fit_to_width}()},
-\code{\link{flextable_dim}()},
-\code{\link{hrule}()},
-\code{\link{ncol_keys}()},
-\code{\link{nrow_part}()},
-\code{\link{set_table_properties}()},
-\code{\link{width}()}
+Other functions for flextable size management:
+\code{\link[=autofit]{autofit()}},
+\code{\link[=dim.flextable]{dim.flextable()}},
+\code{\link[=dim_pretty]{dim_pretty()}},
+\code{\link[=fit_columns]{fit_columns()}},
+\code{\link[=fit_to_width]{fit_to_width()}},
+\code{\link[=flextable_dim]{flextable_dim()}},
+\code{\link[=hrule]{hrule()}},
+\code{\link[=ncol_keys]{ncol_keys()}},
+\code{\link[=nrow_part]{nrow_part()}},
+\code{\link[=set_table_properties]{set_table_properties()}},
+\code{\link[=width]{width()}}
 }
 \concept{functions for flextable size management}

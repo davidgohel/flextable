@@ -40,11 +40,11 @@ ftab
 }
 \seealso{
 Other functions to compose cell content:
-\code{\link{append_chunks}()},
-\code{\link{as_paragraph}()},
-\code{\link{compose}()},
-\code{\link{footnote}()},
-\code{\link{labelizor}()},
-\code{\link{prepend_chunks}()}
+\code{\link[=append_chunks]{append_chunks()}},
+\code{\link[=as_paragraph]{as_paragraph()}},
+\code{\link[=compose]{compose()}},
+\code{\link[=footnote]{footnote()}},
+\code{\link[=labelizor]{labelizor()}},
+\code{\link[=prepend_chunks]{prepend_chunks()}}
 }
 \concept{cell_content_composition}

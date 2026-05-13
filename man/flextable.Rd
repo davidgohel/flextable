@@ -111,6 +111,6 @@ ft
 \code{\link[=compose]{compose()}}, \code{\link[=footnote]{footnote()}}, \code{\link[=set_caption]{set_caption()}}
 
 Other flextable constructors:
-\code{\link{as_flextable}()}
+\code{\link[=as_flextable]{as_flextable()}}
 }
 \concept{flextable_constructors}

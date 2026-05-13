@@ -57,14 +57,16 @@
 #' @export
 #' @family as_flextable methods
 as_flextable.xtable <- function(
-    x, text.properties = fp_text_default(),
-    format.args = getOption("xtable.format.args", NULL),
-    rowname_col = "rowname",
-    hline.after = getOption("xtable.hline.after", c(-1, 0, nrow(x))),
-    NA.string = getOption("xtable.NA.string", ""),
-    include.rownames = TRUE,
-    rotate.colnames = getOption("xtable.rotate.colnames", FALSE),
-    ...) {
+  x,
+  text.properties = fp_text_default(),
+  format.args = getOption("xtable.format.args", NULL),
+  rowname_col = "rowname",
+  hline.after = getOption("xtable.hline.after", c(-1, 0, nrow(x))),
+  NA.string = getOption("xtable.NA.string", ""),
+  include.rownames = TRUE,
+  rotate.colnames = getOption("xtable.rotate.colnames", FALSE),
+  ...
+) {
   padding.left <- 4
   padding.right <- 4
 
@@ -83,7 +85,12 @@ as_flextable.xtable <- function(
   } else {
     rn_x <- row.names(x)
     data <- cbind(
-      structure(list(rn_x), .Names = rowname_col, row.names = seq_along(rn_x), class = "data.frame"),
+      structure(
+        list(rn_x),
+        .Names = rowname_col,
+        row.names = seq_along(rn_x),
+        class = "data.frame"
+      ),
       as.data.frame(x, stringsAsFactors = FALSE)
     )
     col_labels <- c("", names(x))
@@ -129,7 +136,8 @@ as_flextable.xtable <- function(
     digits_val <- rep(digits_val, each = nrow_)
   }
   display_val <- ifelse(
-    digits_val < 0, "E",
+    digits_val < 0,
+    "E",
     rep(display_val, each = nrow_)
   )
 
@@ -138,13 +146,24 @@ as_flextable.xtable <- function(
 
   ft <- flextable(data)
 
-  ft <- set_header_df(ft, mapping = data.frame(col_keys = .col_id, label = col_labels, stringsAsFactors = FALSE))
+  ft <- set_header_df(
+    ft,
+    mapping = data.frame(
+      col_keys = .col_id,
+      label = col_labels,
+      stringsAsFactors = FALSE
+    )
+  )
   for (iter in seq_along(rows_index)) {
     # val <- sprintf("value ~ formatC_with_na(%s, digits = %.0f, format = '%s', na_string = '%s')", col_names_[iter], digits_val[iter], display_val[iter], NA.string )
     ft <- compose(
       ft,
-      j = col_names_[iter], i = rows_index[iter],
-      value = as_paragraph(as_chunk(get(col_names_[iter]), formatter = format_fun))
+      j = col_names_[iter],
+      i = rows_index[iter],
+      value = as_paragraph(as_chunk(
+        get(col_names_[iter]),
+        formatter = format_fun
+      ))
     )
   }
   ft <- border(x = ft, border = fp_border(width = 0), part = "all")
@@ -179,10 +198,20 @@ as_flextable.xtable <- function(
       ft <- border(ft, j = 1, border.left = fp_border(), part = "all")
     }
     if (length(border_right_pos) > 0) {
-      ft <- border(ft, j = border_right_pos, border.right = fp_border(), part = "all")
+      ft <- border(
+        ft,
+        j = border_right_pos,
+        border.right = fp_border(),
+        part = "all"
+      )
     }
     if (do_right_table) {
-      ft <- border(ft, j = length(align), border.right = fp_border(), part = "all")
+      ft <- border(
+        ft,
+        j = length(align),
+        border.right = fp_border(),
+        part = "all"
+      )
     }
   }
 
@@ -199,9 +228,15 @@ as_flextable.xtable <- function(
     header_dims$widths <- widths_header
     header_dims$heights <- heights_header
 
-    widths_ <- do.call(rbind, list(header_dims$widths, body_dims$widths, footer_dims$widths))
+    widths_ <- do.call(
+      rbind,
+      list(header_dims$widths, body_dims$widths, footer_dims$widths)
+    )
     widths_ <- as.numeric(apply(widths_, 2, max, na.rm = TRUE))
-    heights_ <- do.call(c, list(header_dims$heights, body_dims$heights, footer_dims$heights))
+    heights_ <- do.call(
+      c,
+      list(header_dims$heights, body_dims$heights, footer_dims$heights)
+    )
     ft <- width(ft, width = widths_)
     ft <- height(ft, height = header_dims$heights, part = "header")
     ft <- height(ft, height = body_dims$heights, part = "body")
@@ -224,7 +259,6 @@ as_flextable.xtable <- function(
   ft <- align(ft, j = align %in% "c", part = "all", align = "center")
   ft <- align(ft, j = align %in% "j", part = "all", align = "justify")
 
-
   if (!is.null(hline.after)) {
     if (-1 %in% hline.after) {
       hline.after <- setdiff(hline.after, -1)
@@ -235,11 +269,14 @@ as_flextable.xtable <- function(
       ft <- border(ft, border.bottom = fp_border(), part = "header")
     }
     if (length(hline.after) > 0) {
-      ft <- border(ft, i = hline.after, border.bottom = fp_border(), part = "body")
+      ft <- border(
+        ft,
+        i = hline.after,
+        border.bottom = fp_border(),
+        part = "body"
+      )
     }
   }
-
-
 
   ft
 }

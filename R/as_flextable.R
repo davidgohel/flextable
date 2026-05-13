@@ -42,7 +42,12 @@ as_flextable <- function(x, ...) {
 #' @seealso [as_flextable.grouped_data()]
 #' @export
 as_grouped_data <- function(x, groups, columns = NULL, expand_single = TRUE) {
-  if (inherits(x, "data.table") || inherits(x, "tbl_df") || inherits(x, "tbl") || is.matrix(x)) {
+  if (
+    inherits(x, "data.table") ||
+      inherits(x, "tbl_df") ||
+      inherits(x, "tbl") ||
+      is.matrix(x)
+  ) {
     x <- as.data.frame(x, stringsAsFactors = FALSE)
   }
 
@@ -66,31 +71,44 @@ as_grouped_data <- function(x, groups, columns = NULL, expand_single = TRUE) {
   for (grp_i in seq_along(groups)) {
     grp_comb <- groups[seq_len(grp_i)]
     if (!expand_single) {
-      subdat <- unique(z[z$rlen > 1, .SD, .SDcols = c(grp_comb, "rleid")], by = "rleid")
+      subdat <- unique(
+        z[z$rlen > 1, .SD, .SDcols = c(grp_comb, "rleid")],
+        by = "rleid"
+      )
     } else {
       subdat <- unique(z[, .SD, .SDcols = c(grp_comb, "rleid")], by = "rleid")
     }
     subdat[, c("rleid") := list(.SD$rleid - 1 + grp_i * .1)]
     void_cols <- setdiff(colnames(subdat), c(groups[grp_i], "rleid"))
     if (length(void_cols)) {
-      subdat[, c(void_cols) := lapply(.SD, function(w) {
-        w[] <- NA
-        w
-      }), .SDcols = void_cols]
+      subdat[,
+        c(void_cols) := lapply(.SD, function(w) {
+          w[] <- NA
+          w
+        }),
+        .SDcols = void_cols
+      ]
     }
     subsets[[length(subsets) + 1]] <- subdat
   }
 
   if (!expand_single) {
-    z[z$rlen > 1, c(groups) := lapply(.SD, function(w) {
-      w[] <- NA
-      w
-    }), .SDcols = groups]
+    z[
+      z$rlen > 1,
+      c(groups) := lapply(.SD, function(w) {
+        w[] <- NA
+        w
+      }),
+      .SDcols = groups
+    ]
   } else {
-    z[, c(groups) := lapply(.SD, function(w) {
-      w[] <- NA
-      w
-    }), .SDcols = groups]
+    z[,
+      c(groups) := lapply(.SD, function(w) {
+        w[] <- NA
+        w
+      }),
+      .SDcols = groups
+    ]
   }
   z$rlen <- NULL
 
@@ -136,7 +154,12 @@ as_grouped_data <- function(x, groups, columns = NULL, expand_single = TRUE) {
 #' ft
 #' @family as_flextable methods
 #' @seealso [as_grouped_data()]
-as_flextable.grouped_data <- function(x, col_keys = NULL, hide_grouplabel = FALSE, ...) {
+as_flextable.grouped_data <- function(
+  x,
+  col_keys = NULL,
+  hide_grouplabel = FALSE,
+  ...
+) {
   if (is.null(col_keys)) {
     col_keys <- attr(x, "columns")
   }
@@ -151,8 +174,10 @@ as_flextable.grouped_data <- function(x, col_keys = NULL, hide_grouplabel = FALS
     i <- !is.na(x[[grp_name]])
     gnames <- x[[grp_name]][i]
     if (!hide_grouplabel) {
-      z <- compose(z,
-        i = i, j = 1,
+      z <- compose(
+        z,
+        i = i,
+        j = 1,
         value = as_paragraph(as_chunk(grp_name), ": ", as_chunk(gnames))
       )
     } else {
@@ -167,10 +192,12 @@ as_flextable.grouped_data <- function(x, col_keys = NULL, hide_grouplabel = FALS
 }
 
 
-
-
 pvalue_format <- function(x) {
-  z <- cut(x, breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf), labels = c("***", " **", "  *", "  .", "   "))
+  z <- cut(
+    x,
+    breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf),
+    labels = c("***", " **", "  *", "  .", "   ")
+  )
   z <- as.character(z)
   z[is.na(x)] <- ""
   z
@@ -201,53 +228,87 @@ as_flextable.glm <- function(x, ...) {
   if (!requireNamespace("broom", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "glm"
+      "broom",
+      "glm"
     ))
   }
 
   data_t <- broom::tidy(x)
   sum_obj <- summary(x)
-  show_signif <- !is.null(getOption("show.signif.stars")) && getOption("show.signif.stars")
+  show_signif <- !is.null(getOption("show.signif.stars")) &&
+    getOption("show.signif.stars")
 
-  ft <- flextable(data_t, col_keys = c(
-    "term", "estimate",
-    "std.error", "statistic", "p.value", if (show_signif) "signif"
-  ))
-  ft <- colformat_double(ft, j = c(
-    "estimate", "std.error",
-    "statistic"
-  ), digits = 3)
+  ft <- flextable(
+    data_t,
+    col_keys = c(
+      "term",
+      "estimate",
+      "std.error",
+      "statistic",
+      "p.value",
+      if (show_signif) "signif"
+    )
+  )
+  ft <- colformat_double(
+    ft,
+    j = c(
+      "estimate",
+      "std.error",
+      "statistic"
+    ),
+    digits = 3
+  )
   ft <- colformat_double(ft, j = c("p.value"), digits = 4) # nolint
   if (show_signif) {
-    ft <- mk_par(ft,
-      j = "signif",
-      value = as_paragraph(pvalue_format(p.value))
-    )
+    ft <- mk_par(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)))
   }
 
-  ft <- set_header_labels(ft,
-    term = "", estimate = "Estimate",
-    std.error = "Standard Error", statistic = "z value",
+  ft <- set_header_labels(
+    ft,
+    term = "",
+    estimate = "Estimate",
+    std.error = "Standard Error",
+    statistic = "z value",
     p.value = "Pr(>|z|)"
   )
 
   digits <- max(3L, getOption("digits") - 3L)
 
-  ft <- add_footer_lines(ft, values = c(
-    if (show_signif) "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
-    if (show_signif) " ",
-    paste("(Dispersion parameter for ", x$family$family, " family taken to be ", format(sum_obj$dispersion), ")", sep = ""),
-    sprintf("Null deviance: %s on %s degrees of freedom", formatC(sum_obj$null.deviance), formatC(sum_obj$df.null)),
-    sprintf("Residual deviance: %s on %s degrees of freedom", formatC(sum_obj$deviance), formatC(sum_obj$df.residual)),
-    {
-      mess <- naprint(sum_obj$na.action)
-      if (nzchar(mess)) {
-        paste("  (", mess, ")\n", sep = "")
-      } else {
-        character(0)
+  ft <- add_footer_lines(
+    ft,
+    values = c(
+      if (show_signif) {
+        "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"
+      },
+      if (show_signif) " ",
+      paste(
+        "(Dispersion parameter for ",
+        x$family$family,
+        " family taken to be ",
+        format(sum_obj$dispersion),
+        ")",
+        sep = ""
+      ),
+      sprintf(
+        "Null deviance: %s on %s degrees of freedom",
+        formatC(sum_obj$null.deviance),
+        formatC(sum_obj$df.null)
+      ),
+      sprintf(
+        "Residual deviance: %s on %s degrees of freedom",
+        formatC(sum_obj$deviance),
+        formatC(sum_obj$df.residual)
+      ),
+      {
+        mess <- naprint(sum_obj$na.action)
+        if (nzchar(mess)) {
+          paste("  (", mess, ")\n", sep = "")
+        } else {
+          character(0)
+        }
       }
-    }
-  ))
+    )
+  )
   if (show_signif) {
     ft <- align(ft, i = 1, align = "right", part = "footer")
     ft <- italic(ft, i = 1, italic = TRUE, part = "footer")
@@ -283,41 +344,74 @@ as_flextable.lm <- function(x, ...) {
   if (!requireNamespace("broom", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "lm"
+      "broom",
+      "lm"
     ))
   }
 
   data_t <- broom::tidy(x)
   data_g <- broom::glance(x)
 
-  show_signif <- !is.null(getOption("show.signif.stars")) && getOption("show.signif.stars")
+  show_signif <- !is.null(getOption("show.signif.stars")) &&
+    getOption("show.signif.stars")
   col_keys <- c(
-    "term", "estimate", "std.error", "statistic", "p.value",
+    "term",
+    "estimate",
+    "std.error",
+    "statistic",
+    "p.value",
     if (show_signif) "signif"
   )
 
   ft <- flextable(data_t, col_keys = col_keys)
-  ft <- colformat_double(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
+  ft <- colformat_double(
+    ft,
+    j = c("estimate", "std.error", "statistic"),
+    digits = 3
+  )
   ft <- colformat_double(ft, j = c("p.value"), digits = 4)
 
   if (show_signif) {
     ft <- mk_par(ft, j = "signif", value = as_paragraph(pvalue_format(p.value)))
   }
 
-  ft <- set_header_labels(ft,
-    term = "", estimate = "Estimate",
-    std.error = "Standard Error", statistic = "t value",
-    p.value = "Pr(>|t|)", signif = ""
+  ft <- set_header_labels(
+    ft,
+    term = "",
+    estimate = "Estimate",
+    std.error = "Standard Error",
+    statistic = "t value",
+    p.value = "Pr(>|t|)",
+    signif = ""
   )
   dimpretty <- dim_pretty(ft, part = "all")
 
-  ft <- add_footer_lines(ft, values = c(
-    if (show_signif) "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
-    if (show_signif) "",
-    sprintf("Residual standard error: %s on %.0f degrees of freedom", formatC(data_g$sigma), data_g$df.residual),
-    sprintf("Multiple R-squared: %s, Adjusted R-squared: %s", formatC(data_g$r.squared), formatC(data_g$adj.r.squared)),
-    sprintf("F-statistic: %s on %.0f and %.0f DF, p-value: %.4f", formatC(data_g$statistic), data_g$df.residual, data_g$df, data_g$p.value)
-  ))
+  ft <- add_footer_lines(
+    ft,
+    values = c(
+      if (show_signif) {
+        "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"
+      },
+      if (show_signif) "",
+      sprintf(
+        "Residual standard error: %s on %.0f degrees of freedom",
+        formatC(data_g$sigma),
+        data_g$df.residual
+      ),
+      sprintf(
+        "Multiple R-squared: %s, Adjusted R-squared: %s",
+        formatC(data_g$r.squared),
+        formatC(data_g$adj.r.squared)
+      ),
+      sprintf(
+        "F-statistic: %s on %.0f and %.0f DF, p-value: %.4f",
+        formatC(data_g$statistic),
+        data_g$df.residual,
+        data_g$df,
+        data_g$p.value
+      )
+    )
+  )
 
   if (show_signif) {
     ft <- align(ft, i = 1, align = "right", part = "footer")
@@ -388,25 +482,30 @@ as_flextable.htest <- function(x, ...) {
   z <- flextable(dat)
   z <- colformat_double(z)
 
-  show_signif <- !is.null(getOption("show.signif.stars")) && getOption("show.signif.stars")
+  show_signif <- !is.null(getOption("show.signif.stars")) &&
+    getOption("show.signif.stars")
 
   if ("p.value" %in% colnames(dat)) {
     z <- colformat_double(z, j = "p.value", digits = 4)
 
     if (show_signif) {
       z <- append_chunks(
-        x = z, j = "p.value", part = "body",
+        x = z,
+        j = "p.value",
+        part = "body",
         dumb = as_chunk(p.value, formatter = pvalue_format)
       )
-      z <- add_footer_lines(z, values = c(
-        "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"
-      ))
+      z <- add_footer_lines(
+        z,
+        values = c(
+          "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05"
+        )
+      )
     }
   }
   z <- autofit(z)
   z
 }
-
 
 
 #' @export
@@ -425,20 +524,33 @@ as_flextable.htest <- function(x, ...) {
 #'   hide_grouplabel = FALSE
 #' )
 #' ft_1
-continuous_summary <- function(dat, columns = NULL,
-                               by = character(0),
-                               hide_grouplabel = TRUE,
-                               digits = 3) {
+continuous_summary <- function(
+  dat,
+  columns = NULL,
+  by = character(0),
+  hide_grouplabel = TRUE,
+  digits = 3
+) {
   if (!is.data.table(dat)) {
     x <- as.data.table(dat)
   }
   if (is.null(columns)) {
-    columns <- colnames(dat)[sapply(dat, function(z) is.double(z) || is.integer(z))]
+    columns <- colnames(dat)[sapply(dat, function(z) {
+      is.double(z) || is.integer(z)
+    })]
   }
 
   fun_list <- c(
-    "N", "MIN", "Q1", "MEDIAN",
-    "Q3", "MAX", "MEAN", "SD", "MAD", "NAS"
+    "N",
+    "MIN",
+    "Q1",
+    "MEDIAN",
+    "Q3",
+    "MAX",
+    "MEAN",
+    "SD",
+    "MAD",
+    "NAS"
   )
   agg <- x[,
     c(
@@ -462,30 +574,52 @@ continuous_summary <- function(dat, columns = NULL,
 
   agg <- melt(agg, measure = c(gen_cn), value.name = fun_list)
   levels(x = agg[["variable"]]) <- columns
-  z <- as_grouped_data(agg, groups = "variable", columns = setdiff(names(agg), "variable"))
+  z <- as_grouped_data(
+    agg,
+    groups = "variable",
+    columns = setdiff(names(agg), "variable")
+  )
   is_label <- !is.na(z$variable)
   ft <- as_flextable(z, hide_grouplabel = hide_grouplabel)
 
-
   ft <- colformat_int(ft, j = c("N", "NAS"))
-  ft <- colformat_double(ft, j = setdiff(fun_list, c("N", "NAS")), digits = digits)
-  ft <- set_header_labels(ft, values = c(
-    "MIN" = "min.", "MAX" = "max.",
-    "Q1" = "q1", "Q3" = "q3",
-    "MEDIAN" = "median", "MEAN" = "mean", "SD" = "sd",
-    "MAD" = "mad",
-    "NAS" = "# na"
-  ))
+  ft <- colformat_double(
+    ft,
+    j = setdiff(fun_list, c("N", "NAS")),
+    digits = digits
+  )
+  ft <- set_header_labels(
+    ft,
+    values = c(
+      "MIN" = "min.",
+      "MAX" = "max.",
+      "Q1" = "q1",
+      "Q3" = "q3",
+      "MEDIAN" = "median",
+      "MEAN" = "mean",
+      "SD" = "sd",
+      "MAD" = "mad",
+      "NAS" = "# na"
+    )
+  )
   ft <- hline(ft, i = is_label, border = officer::fp_border(width = .5))
   ft <- italic(ft, italic = TRUE, i = is_label)
   ft <- merge_v(ft, j = by)
   ft <- valign(ft, j = by, valign = "top")
-  ft <- vline(ft, j = length(by), border = officer::fp_border(width = .5), part = "body")
-  ft <- vline(ft, j = length(by), border = officer::fp_border(width = .5), part = "header")
+  ft <- vline(
+    ft,
+    j = length(by),
+    border = officer::fp_border(width = .5),
+    part = "body"
+  )
+  ft <- vline(
+    ft,
+    j = length(by),
+    border = officer::fp_border(width = .5),
+    part = "header"
+  )
   fix_border_issues(ft)
 }
-
-
 
 
 #' @export
@@ -511,44 +645,56 @@ as_flextable.merMod <- function(x, add.random = TRUE, ...) {
   if (!requireNamespace("broom.mixed", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom.mixed", "mixed model"
+      "broom.mixed",
+      "mixed model"
     ))
   }
 
   data_t <- broom::tidy(x)
   data_t$effect[data_t$effect %in% "fixed"] <- "Fixed effects"
-  data_t$effect[data_t$effect %in% c("ran_pars", "ran_vals", "ran_coefs")] <- "Random effects"
+  data_t$effect[
+    data_t$effect %in% c("ran_pars", "ran_vals", "ran_coefs")
+  ] <- "Random effects"
 
   data_g <- broom::glance(x)
 
   has_pvalue <- if ("p.value" %in% colnames(data_t)) TRUE else FALSE
-  show_signif <- !is.null(getOption("show.signif.stars")) && getOption("show.signif.stars")
+  show_signif <- !is.null(getOption("show.signif.stars")) &&
+    getOption("show.signif.stars")
 
   col_keys <- c(
-    "effect", "group", "term", "estimate",
-    "std.error", "df", "statistic",
+    "effect",
+    "group",
+    "term",
+    "estimate",
+    "std.error",
+    "df",
+    "statistic",
     if (has_pvalue) c("p.value"),
     if (has_pvalue && show_signif) "signif"
   )
 
   if (add.random) {
     data_t <- as_grouped_data(x = data_t, groups = "effect", )
-    ft <- as_flextable(data_t,
-      col_keys = col_keys,
-      hide_grouplabel = TRUE
-    )
+    ft <- as_flextable(data_t, col_keys = col_keys, hide_grouplabel = TRUE)
   } else {
     data_t <- data_t[data_t$effect %in% "Fixed effects", ]
     ft <- flextable(data_t, col_keys = setdiff(col_keys, c("effect", "group")))
   }
 
-  ft <- colformat_double(ft, j = c("estimate", "std.error", "statistic"), digits = 3)
+  ft <- colformat_double(
+    ft,
+    j = c("estimate", "std.error", "statistic"),
+    digits = 3
+  )
   ft <- colformat_double(ft, j = c("df"), digits = 0)
   if (has_pvalue) {
     ft <- colformat_double(ft, j = "p.value", digits = 4)
   }
-  ft <- set_header_labels(ft,
-    term = "", estimate = "Estimate",
+  ft <- set_header_labels(
+    ft,
+    term = "",
+    estimate = "Estimate",
     std.error = "Standard Error",
     p.value = "p-value"
   )
@@ -561,10 +707,13 @@ as_flextable.merMod <- function(x, add.random = TRUE, ...) {
   ft <- align(ft, i = ~ !is.na(effect), align = "center")
 
   if (has_pvalue && show_signif) {
-    ft <- add_footer_lines(ft, values = c(
-      "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
-      ""
-    ))
+    ft <- add_footer_lines(
+      ft,
+      values = c(
+        "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
+        ""
+      )
+    )
   }
 
   mod_stats <- c("sigma", "logLik", "AIC", "BIC")
@@ -641,20 +790,26 @@ as_flextable.kmeans <- function(x, digits = 4, ...) {
   if (!requireNamespace("broom", quietly = TRUE)) {
     stop(sprintf(
       "'%s' package should be installed to create a flextable from an object of type '%s'.",
-      "broom", "kmeans"
+      "broom",
+      "kmeans"
     ))
   }
 
   ## kmeans body ----
   clusters_stat <- broom::tidy(x)
   setDT(clusters_stat)
-  keys <- c("withinss", "size", setdiff(colnames(clusters_stat), c("cluster", "withinss", "size")))
+  keys <- c(
+    "withinss",
+    "size",
+    setdiff(colnames(clusters_stat), c("cluster", "withinss", "size"))
+  )
   key_type <- rep("Centers", length(keys))
   key_type[1:2] <- "Statistics"
   clusters_stat[, c(keys) := lapply(.SD, as.double), .SDcols = keys]
 
   clusters_stat <- melt.data.table(
-    data = clusters_stat, id.vars = "cluster",
+    data = clusters_stat,
+    id.vars = "cluster",
     measure.vars = setdiff(colnames(clusters_stat), c("cluster")),
     value.name = "value"
   )
@@ -676,7 +831,8 @@ as_flextable.kmeans <- function(x, digits = 4, ...) {
   betweenss <- data_g$betweenss
   ratio <- betweenss / totss
   w_labels <- paste0(
-    w_labels, ": ",
+    w_labels,
+    ": ",
     c(
       format_fun(totss),
       format_fun(tot.withinss),
@@ -688,7 +844,9 @@ as_flextable.kmeans <- function(x, digits = 4, ...) {
 
   ## tabulate ----
   ct <- tabulator(
-    x = clusters_stat, rows = c("variable"), columns = "cluster",
+    x = clusters_stat,
+    rows = c("variable"),
+    columns = "cluster",
     hidden_data = data.frame(
       variable = keys,
       key_type = key_type
@@ -705,7 +863,8 @@ as_flextable.kmeans <- function(x, digits = 4, ...) {
 
   for (j in seq_along(zz_labs)) {
     sym_val <- sym(value_labq[j])
-    ft <- mk_par(ft,
+    ft <- mk_par(
+      ft,
       i = ~ variable %in% "size",
       j = zz_labs[j],
       value = as_paragraph(
@@ -715,7 +874,8 @@ as_flextable.kmeans <- function(x, digits = 4, ...) {
         )
       )
     )
-    ft <- mk_par(ft,
+    ft <- mk_par(
+      ft,
       i = ~ !variable %in% c("size", "withinss"),
       j = zz_labs[j],
       value = as_paragraph(
@@ -726,21 +886,22 @@ as_flextable.kmeans <- function(x, digits = 4, ...) {
       )
     )
   }
-  ft <- append_chunks(ft,
-    j = 1, part = "body",
+  ft <- append_chunks(
+    ft,
+    j = 1,
+    part = "body",
     i = ~ key_type %in% "Centers",
     as_chunk("*")
   )
-  ft <- hline(ft,
-    j = c("variable", zz_labs), i = ~ variable %in% "size",
+  ft <- hline(
+    ft,
+    j = c("variable", zz_labs),
+    i = ~ variable %in% "size",
     border = fp_border_default()
   )
   ft <- autofit(ft, part = c("header", "body"))
   ft <- align(ft, align = "right", part = "footer")
-  ft <- align(ft,
-    align = "left", i = 1,
-    part = "footer"
-  )
+  ft <- align(ft, align = "left", i = 1, part = "footer")
   ft <- hrule(ft, rule = "auto")
   ft <- bold(ft, part = "header", bold = TRUE)
   ft
@@ -767,14 +928,19 @@ as_flextable.pam <- function(x, digits = 4, ...) {
     if (!requireNamespace("broom", quietly = TRUE)) {
       stop(sprintf(
         "'%s' package should be installed to create a flextable from an object of type '%s'.",
-        "broom", "pam"
+        "broom",
+        "pam"
       ))
     }
   }
 
   clus_stat_names <- c(
-    "size", "max.diss", "avg.diss", "diameter",
-    "separation", "avg.width"
+    "size",
+    "max.diss",
+    "avg.diss",
+    "diameter",
+    "separation",
+    "avg.width"
   )
 
   ## kmeans body ----
@@ -782,14 +948,17 @@ as_flextable.pam <- function(x, digits = 4, ...) {
   setDT(clusters_stat)
   keys <- colnames(clusters_stat)
   clusters_stat <- melt.data.table(
-    data = clusters_stat, id.vars = "cluster",
+    data = clusters_stat,
+    id.vars = "cluster",
     measure.vars = setdiff(colnames(clusters_stat), c("cluster")),
     value.name = "value"
   )
 
   ## tabulate ----
   ct <- tabulator(
-    x = clusters_stat, rows = c("variable"), columns = "cluster",
+    x = clusters_stat,
+    rows = c("variable"),
+    columns = "cluster",
     zz = as_paragraph(as_chunk(value))
   )
 
@@ -802,7 +971,8 @@ as_flextable.pam <- function(x, digits = 4, ...) {
 
   for (j in seq_along(zz_labs)) {
     sym_val <- sym(value_labq[j])
-    ft <- mk_par(ft,
+    ft <- mk_par(
+      ft,
       i = ~ variable %in% "size",
       j = zz_labs[j],
       value = as_paragraph(
@@ -812,11 +982,17 @@ as_flextable.pam <- function(x, digits = 4, ...) {
         )
       )
     )
-    ft <- mk_par(ft,
-      i = ~ !variable %in% c(
-        "size", "max.diss", "avg.diss", "diameter",
-        "separation", "avg.width"
-      ),
+    ft <- mk_par(
+      ft,
+      i = ~ !variable %in%
+        c(
+          "size",
+          "max.diss",
+          "avg.diss",
+          "diameter",
+          "separation",
+          "avg.width"
+        ),
       j = zz_labs[j],
       value = as_paragraph(
         as_chunk(
@@ -831,16 +1007,25 @@ as_flextable.pam <- function(x, digits = 4, ...) {
 
   data_g <- broom::glance(x)
 
-  ft <- append_chunks(ft,
-    j = 1, part = "body",
-    i = ~ !variable %in% c(
-      "size", "max.diss", "avg.diss", "diameter",
-      "separation", "avg.width"
-    ),
+  ft <- append_chunks(
+    ft,
+    j = 1,
+    part = "body",
+    i = ~ !variable %in%
+      c(
+        "size",
+        "max.diss",
+        "avg.diss",
+        "diameter",
+        "separation",
+        "avg.width"
+      ),
     as_chunk("*")
   )
-  ft <- hline(ft,
-    j = c("variable", zz_labs), i = ~ variable %in% "avg.width",
+  ft <- hline(
+    ft,
+    j = c("variable", zz_labs),
+    i = ~ variable %in% "avg.width",
     border = fp_border_default()
   )
 

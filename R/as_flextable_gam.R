@@ -25,20 +25,35 @@ as_flextable.gam <- function(x, ...) {
   data_t <- tidy_gam(x)
   data_g <- glance_gam(x)
 
-  std_border <- fp_border(color = flextable_global$defaults$border.color, style = "solid", ...)
+  std_border <- fp_border(
+    color = flextable_global$defaults$border.color,
+    style = "solid",
+    ...
+  )
 
-  param.head <- c("Component", "Term", "Estimate", "Std Error", "t-value", "p-value")
+  param.head <- c(
+    "Component",
+    "Term",
+    "Estimate",
+    "Std Error",
+    "t-value",
+    "p-value"
+  )
   smooth.head <- c("Component", "Term", "edf", "Ref. df", "F-value", "p-value")
   names(param.head) <- names(data_t$parametric)
   names(smooth.head) <- names(data_t$parametric)
 
   has_pvalue <- if ("p.value" %in% colnames(data_t)) TRUE else FALSE
-  show_signif <- !is.null(getOption("show.signif.stars")) && getOption("show.signif.stars")
+  show_signif <- !is.null(getOption("show.signif.stars")) &&
+    getOption("show.signif.stars")
 
-  ft <- flextable(data_t$parametric, col_keys = c(
-    names(data_t$parametric),
-    if (show_signif) "signif"
-  ))
+  ft <- flextable(
+    data_t$parametric,
+    col_keys = c(
+      names(data_t$parametric),
+      if (show_signif) "signif"
+    )
+  )
   ft <- border_remove(ft)
   ft <- set_header_labels(ft, values = param.head)
 
@@ -59,7 +74,11 @@ as_flextable.gam <- function(x, ...) {
   }
 
   if (nrow(data_t$smooth) > 0) {
-    ft <- mk_par(ft, i = nrow(data_t$parametric) + 1, value = as_paragraph(c(smooth.head, if (show_signif) "")))
+    ft <- mk_par(
+      ft,
+      i = nrow(data_t$parametric) + 1,
+      value = as_paragraph(c(smooth.head, if (show_signif) ""))
+    )
     ft <- hline(ft, i = nrow(data_t$parametric) + c(0, 1), border = std_border)
     ft <- bold(ft, i = nrow(data_t$parametric) + 1)
   }
@@ -74,15 +93,31 @@ as_flextable.gam <- function(x, ...) {
   ft <- align_text_col(ft)
   ft <- fix_border_issues(ft)
   if (show_signif) {
-    ft <- add_footer_lines(ft, values = c(
-      "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
-      ""
-    ))
+    ft <- add_footer_lines(
+      ft,
+      values = c(
+        "Signif. codes: 0 <= '***' < 0.001 < '**' < 0.01 < '*' < 0.05",
+        ""
+      )
+    )
   }
-  ft <- add_footer_lines(ft, values = c(
-    sprintf("Adjusted R-squared: %s, Deviance explained %s", format(data_g$adj.r.squared, digits = 3, format = "f", nsmall = 3), format(data_g$deviance, digits = 3, format = "f", nsmall = 3)),
-    sprintf("%s : %s, Scale est: %s, N: %d", data_g$method, format(data_g$sp.crit, format = "f", digits = 3, nsmall = 3), format(data_g$scale.est, digits = 3, nsmall = 3), data_g$nobs)
-  ))
+  ft <- add_footer_lines(
+    ft,
+    values = c(
+      sprintf(
+        "Adjusted R-squared: %s, Deviance explained %s",
+        format(data_g$adj.r.squared, digits = 3, format = "f", nsmall = 3),
+        format(data_g$deviance, digits = 3, format = "f", nsmall = 3)
+      ),
+      sprintf(
+        "%s : %s, Scale est: %s, N: %d",
+        data_g$method,
+        format(data_g$sp.crit, format = "f", digits = 3, nsmall = 3),
+        format(data_g$scale.est, digits = 3, nsmall = 3),
+        data_g$nobs
+      )
+    )
+  )
   ft <- align(ft, i = 1, align = "right", part = "footer")
   ft <- autofit(ft, part = c("header", "body"))
   if (show_signif) {
@@ -101,14 +136,28 @@ tidy_gam <- function(model) {
   rownames(ptab) <- NULL
   ptab$Component <- "A. parametric coefficients"
   ptab <- ptab[, c(6, 5, 1:4)]
-  colnames(ptab) <- c("Component", "Term", "Estimate", "Std.Error", "t.value", "p.value")
+  colnames(ptab) <- c(
+    "Component",
+    "Term",
+    "Estimate",
+    "Std.Error",
+    "t.value",
+    "p.value"
+  )
 
   stab <- data.frame(summary(model)$s.table)
   if (nrow(stab) > 0) {
     stab$term <- rownames(stab)
     stab$Component <- "B. smooth terms"
     stab <- stab[, c(6, 5, 1:4)]
-    colnames(stab) <- c("Component", "Term", "edf", "Ref. df", "F.value", "p.value")
+    colnames(stab) <- c(
+      "Component",
+      "Term",
+      "edf",
+      "Ref. df",
+      "F.value",
+      "p.value"
+    )
     rownames(stab) <- NULL
   }
 
@@ -121,23 +170,41 @@ tidy_gam <- function(model) {
 #' @importFrom stats AIC BIC logLik df.residual nobs
 glance_gam <- function(model) {
   df <- sum(model$edf)
-  if (length(df) < 1) df <- NA_real_
+  if (length(df) < 1) {
+    df <- NA_real_
+  }
   df.res <- df.residual(model)
-  if (length(df.res) < 1) df.res <- NA_real_
+  if (length(df.res) < 1) {
+    df.res <- NA_real_
+  }
   logLik <- as.numeric(logLik(model))
-  if (length(logLik) < 1) logLik <- NA_real_
+  if (length(logLik) < 1) {
+    logLik <- NA_real_
+  }
   aic <- AIC(model)
-  if (length(aic) < 1) aic <- NA_real_
+  if (length(aic) < 1) {
+    aic <- NA_real_
+  }
   bic <- BIC(model)
-  if (length(bic) < 1) bic <- NA_real_
+  if (length(bic) < 1) {
+    bic <- NA_real_
+  }
   dev <- summary(model)$dev.expl
-  if (length(dev) < 1) dev <- NA_real_
+  if (length(dev) < 1) {
+    dev <- NA_real_
+  }
   adj.r.squared <- summary(model)$r.sq
-  if (length(adj.r.squared) < 1) adj.r.squared <- NA_real_
+  if (length(adj.r.squared) < 1) {
+    adj.r.squared <- NA_real_
+  }
   scale.est <- summary(model)$scale
-  if (length(scale.est) < 1) scale.est <- NA_real_
+  if (length(scale.est) < 1) {
+    scale.est <- NA_real_
+  }
   sp.criterion <- as.numeric(summary(model)$sp.criterion)
-  if (length(sp.criterion) < 1) sp.criterion <- NA_real_
+  if (length(sp.criterion) < 1) {
+    sp.criterion <- NA_real_
+  }
 
   data.frame(
     df = df,

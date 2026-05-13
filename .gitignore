@@ -7,3 +7,4 @@ src/*.so
 todo.*
 inst/doc
 revdep
+.positai

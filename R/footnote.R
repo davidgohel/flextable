@@ -80,20 +80,28 @@
 #' @export
 #' @importFrom stats update
 #' @family cell_content_composition
-footnote <- function(x, i = NULL, j = NULL, value,
-                     ref_symbols = NULL, part = "body",
-                     inline = FALSE, sep = "; ",
-                     symbol_sep = "") {
+footnote <- function(
+  x,
+  i = NULL,
+  j = NULL,
+  value,
+  ref_symbols = NULL,
+  part = "body",
+  inline = FALSE,
+  sep = "; ",
+  symbol_sep = ""
+) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "footnote()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "footnote()"
+    ))
   }
   if (!inherits(value, "paragraph")) {
     stop("`value` must be a paragraph.")
   }
 
-  part <- match.arg(part, c("body", "header", "footer"),
-    several.ok = FALSE
-  )
+  part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
 
   if (nrow_part(x, part) < 1) {
     return(x)
@@ -145,21 +153,23 @@ footnote <- function(x, i = NULL, j = NULL, value,
         nrow(cell_para)
       ]
       if (isTRUE(last_valign == "superscript")) {
-        x <- append_chunks(x,
-          i = i_cell, j = j_cell,
+        x <- append_chunks(
+          x,
+          i = i_cell,
+          j = j_cell,
           part = part,
           as_sup(symbol_sep)
         )
       }
     }
-    x <- append_chunks(x,
-      i = i_cell, j = j_cell,
+    x <- append_chunks(
+      x,
+      i = i_cell,
+      j = j_cell,
       part = part,
       as_sup(symbols_str[index_num])
     )
   }
-
-
 
   if (inline) {
     # init a new line
@@ -171,10 +181,12 @@ footnote <- function(x, i = NULL, j = NULL, value,
       target_par <- get_fpstruct_elements(
         x = x[["footer"]]$content,
         i = n_row,
-        j = 1)[[1,1]]
+        j = 1
+      )[[1, 1]]
     }
 
-    paras <- mapply(rbind,
+    paras <- mapply(
+      rbind,
       as_paragraph(as_sup(ref_symbols)),
       value,
       as_paragraph(sep_str),
@@ -182,13 +194,13 @@ footnote <- function(x, i = NULL, j = NULL, value,
     )
     paras <- rbind_match_columns(paras)
     paras$.chunk_index <- NULL
-    for(i in seq_len(nrow(paras))) {
+    for (i in seq_len(nrow(paras))) {
       x[["footer"]]$content <-
         append_chunkset_struct_element(
           x = x[["footer"]]$content,
           i = n_row,
           j = 1,
-          chunk_data = paras[i,]
+          chunk_data = paras[i, ]
         )
     }
   } else {
@@ -196,15 +208,20 @@ footnote <- function(x, i = NULL, j = NULL, value,
     n_row <- nrow_part(x, "footer")
     x <- add_footer_lines(x, values = rep("", length(value)))
     newcontent <- as_chunkset_struct(
-      l_paragraph = value, keys = x$col_keys[1])
+      l_paragraph = value,
+      keys = x$col_keys[1]
+    )
     x[["footer"]]$content <- set_chunkset_struct_element(
       x = x[["footer"]]$content,
-      i = n_row + seq_along(value), j = 1,
+      i = n_row + seq_along(value),
+      j = 1,
       value = newcontent
     )
     for (v in seq_along(value)) {
       x <- prepend_chunks(
-        x = x, i = n_row + v, j = 1,
+        x = x,
+        i = n_row + v,
+        j = 1,
         part = "footer",
         as_sup(symbols_str[v])
       )

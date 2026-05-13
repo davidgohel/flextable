@@ -6,11 +6,23 @@ ooxml_rotation_alignments <- function(rotation, align, valign) {
   center_top <- rotation %in% "btlr" & valign %in% "top" & align %in% "center"
   right_top <- rotation %in% "btlr" & valign %in% "top" & align %in% "right"
   left_middle <- rotation %in% "btlr" & valign %in% "center" & align %in% "left"
-  center_middle <- rotation %in% "btlr" & valign %in% "center" & align %in% "center"
-  right_middle <- rotation %in% "btlr" & valign %in% "center" & align %in% "right"
+  center_middle <- rotation %in%
+    "btlr" &
+    valign %in% "center" &
+    align %in% "center"
+  right_middle <- rotation %in%
+    "btlr" &
+    valign %in% "center" &
+    align %in% "right"
   left_bottom <- rotation %in% "btlr" & valign %in% "bottom" & align %in% "left"
-  center_bottom <- rotation %in% "btlr" & valign %in% "bottom" & align %in% "center"
-  right_bottom <- rotation %in% "btlr" & valign %in% "bottom" & align %in% "right"
+  center_bottom <- rotation %in%
+    "btlr" &
+    valign %in% "bottom" &
+    align %in% "center"
+  right_bottom <- rotation %in%
+    "btlr" &
+    valign %in% "bottom" &
+    align %in% "right"
 
   # left-top to right-top
   halign_out[left_top] <- "right"
@@ -44,11 +56,23 @@ ooxml_rotation_alignments <- function(rotation, align, valign) {
   center_top <- rotation %in% "tbrl" & valign %in% "top" & align %in% "center"
   right_top <- rotation %in% "tbrl" & valign %in% "top" & align %in% "right"
   left_middle <- rotation %in% "tbrl" & valign %in% "center" & align %in% "left"
-  center_middle <- rotation %in% "tbrl" & valign %in% "center" & align %in% "center"
-  right_middle <- rotation %in% "tbrl" & valign %in% "center" & align %in% "right"
+  center_middle <- rotation %in%
+    "tbrl" &
+    valign %in% "center" &
+    align %in% "center"
+  right_middle <- rotation %in%
+    "tbrl" &
+    valign %in% "center" &
+    align %in% "right"
   left_bottom <- rotation %in% "tbrl" & valign %in% "bottom" & align %in% "left"
-  center_bottom <- rotation %in% "tbrl" & valign %in% "bottom" & align %in% "center"
-  right_bottom <- rotation %in% "tbrl" & valign %in% "bottom" & align %in% "right"
+  center_bottom <- rotation %in%
+    "tbrl" &
+    valign %in% "bottom" &
+    align %in% "center"
+  right_bottom <- rotation %in%
+    "tbrl" &
+    valign %in% "bottom" &
+    align %in% "right"
 
   # left-top to left-bottom
   halign_out[left_top] <- "left"

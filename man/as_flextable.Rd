@@ -20,6 +20,6 @@ see what arguments can be used.
 }
 \seealso{
 Other flextable constructors:
-\code{\link{flextable}()}
+\code{\link[=flextable]{flextable()}}
 }
 \concept{flextable_constructors}

@@ -8,7 +8,17 @@
 #' the dataset, they will be added as blank columns by default.
 #' @param cwidth,cheight initial width and height to use for cell sizes in inches.
 #' @export
-regulartable <- function(data, col_keys = names(data), cwidth = .75, cheight = .25) {
+regulartable <- function(
+  data,
+  col_keys = names(data),
+  cwidth = .75,
+  cheight = .25
+) {
   .Deprecated(new = "flextable")
-  flextable(data = data, col_keys = col_keys, cwidth = cwidth, cheight = cheight)
+  flextable(
+    data = data,
+    col_keys = col_keys,
+    cwidth = cwidth,
+    cheight = cheight
+  )
 }

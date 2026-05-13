@@ -50,17 +50,17 @@ ft <- hline(ft, part = "all", border = std_border)
 ft
 }
 \seealso{
-Other borders management: 
-\code{\link{border_inner}()},
-\code{\link{border_inner_h}()},
-\code{\link{border_inner_v}()},
-\code{\link{border_outer}()},
-\code{\link{border_remove}()},
-\code{\link{hline_bottom}()},
-\code{\link{hline_top}()},
-\code{\link{surround}()},
-\code{\link{vline}()},
-\code{\link{vline_left}()},
-\code{\link{vline_right}()}
+Other borders management:
+\code{\link[=border_inner]{border_inner()}},
+\code{\link[=border_inner_h]{border_inner_h()}},
+\code{\link[=border_inner_v]{border_inner_v()}},
+\code{\link[=border_outer]{border_outer()}},
+\code{\link[=border_remove]{border_remove()}},
+\code{\link[=hline_bottom]{hline_bottom()}},
+\code{\link[=hline_top]{hline_top()}},
+\code{\link[=surround]{surround()}},
+\code{\link[=vline]{vline()}},
+\code{\link[=vline_left]{vline_left()}},
+\code{\link[=vline_right]{vline_right()}}
 }
 \concept{borders management}

@@ -63,13 +63,13 @@ ft_1
 \seealso{
 \code{\link[=summarizor]{summarizor()}}, \code{\link[=tabulator]{tabulator()}}, \code{\link[=mk_par]{mk_par()}}
 
-Other value formatters: 
-\code{\link{fmt_avg_dev}()},
-\code{\link{fmt_dbl}()},
-\code{\link{fmt_header_n}()},
-\code{\link{fmt_int}()},
-\code{\link{fmt_n_percent}()},
-\code{\link{fmt_pct}()},
-\code{\link{fmt_signif_after_zeros}()}
+Other value formatters:
+\code{\link[=fmt_avg_dev]{fmt_avg_dev()}},
+\code{\link[=fmt_dbl]{fmt_dbl()}},
+\code{\link[=fmt_header_n]{fmt_header_n()}},
+\code{\link[=fmt_int]{fmt_int()}},
+\code{\link[=fmt_n_percent]{fmt_n_percent()}},
+\code{\link[=fmt_pct]{fmt_pct()}},
+\code{\link[=fmt_signif_after_zeros]{fmt_signif_after_zeros()}}
 }
 \concept{value formatters}

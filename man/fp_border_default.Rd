@@ -53,6 +53,6 @@ init_flextable_defaults()
 \code{\link[=hline]{hline()}}, \code{\link[=vline]{vline()}}
 
 Other default formatting properties:
-\code{\link{fp_text_default}()}
+\code{\link[=fp_text_default]{fp_text_default()}}
 }
 \concept{default_formatting_properties}

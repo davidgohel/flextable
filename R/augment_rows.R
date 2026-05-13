@@ -43,7 +43,10 @@
 #' @family table_structure
 set_header_labels <- function(x, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "set_header_labels()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "set_header_labels()"
+    ))
   }
 
   if (is.null(values)) {
@@ -62,7 +65,8 @@ set_header_labels <- function(x, ..., values = NULL) {
     newcontent <- as_paragraph(as_chunk(values))
     newcontent <- as_chunkset_struct(
       l_paragraph = newcontent,
-      keys = x$col_keys)
+      keys = x$col_keys
+    )
     x$header$content <- set_chunkset_struct_element(
       x = x$header$content,
       i = nrow_part(x, "header"),
@@ -84,7 +88,8 @@ set_header_labels <- function(x, ..., values = NULL) {
 
     newcontent <- as_chunkset_struct(
       l_paragraph = do.call(c, newcontent),
-      keys = names_)
+      keys = names_
+    )
 
     x$header$content <- set_chunkset_struct_element(
       x = x$header$content,
@@ -112,14 +117,18 @@ set_header_labels <- function(x, ..., values = NULL) {
 #' ft
 delete_part <- function(x, part = "header") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "delete_part()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "delete_part()"
+    ))
   }
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
   nrow_ <- nrow(x[[part]]$dataset)
   x[[part]] <- complex_tabpart(
     data = x[[part]]$dataset[-seq_len(nrow_), , drop = FALSE],
     col_keys = x$col_keys,
-    cwidth = x[[part]]$colwidths, cheight = x[[part]]$rowheights
+    cwidth = x[[part]]$colwidths,
+    cheight = x[[part]]$rowheights
   )
   x
 }
@@ -133,9 +142,13 @@ delete_rows_from_part <- function(x, i) {
   x$hrule <- x$hrule[-i]
   # spans — only reset if vertical spans are broken
   runs <- split(i, cumsum(c(1, diff(i) != 1)))
-  has_broken_vspan <- any(vapply(runs, function(r) {
-    any(colSums(x$spans$columns[r, , drop = FALSE]) != length(r))
-  }, logical(1)))
+  has_broken_vspan <- any(vapply(
+    runs,
+    function(r) {
+      any(colSums(x$spans$columns[r, , drop = FALSE]) != length(r))
+    },
+    logical(1)
+  ))
 
   x$spans$rows <- x$spans$rows[-i, , drop = FALSE]
   x$spans$columns <- x$spans$columns[-i, , drop = FALSE]
@@ -171,10 +184,17 @@ delete_rows_from_part <- function(x, i) {
 #' ft
 delete_rows <- function(x, i = NULL, part = "body") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "delete_rows()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "delete_rows()"
+    ))
   }
 
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -203,9 +223,13 @@ delete_colums_from_part <- function(x, j) {
   x$colwidths <- x$colwidths[!x$col_keys %in% j]
   # spans — only reset if horizontal spans are broken
   runs <- split(j_idx, cumsum(c(1, diff(j_idx) != 1)))
-  has_broken_hspan <- any(vapply(runs, function(r) {
-    any(rowSums(x$spans$rows[, r, drop = FALSE]) != length(r))
-  }, logical(1)))
+  has_broken_hspan <- any(vapply(
+    runs,
+    function(r) {
+      any(rowSums(x$spans$rows[, r, drop = FALSE]) != length(r))
+    },
+    logical(1)
+  ))
 
   x$spans$rows <- x$spans$rows[, -j_idx, drop = FALSE]
   x$spans$columns <- x$spans$columns[, -j_idx, drop = FALSE]
@@ -242,7 +266,10 @@ delete_colums_from_part <- function(x, j) {
 #' ft
 delete_columns <- function(x, j = NULL) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "delete_columns()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "delete_columns()"
+    ))
   }
   cols <- NULL
 
@@ -272,7 +299,11 @@ as_new_data <- function(x, ..., values = NULL) {
     stop("argument 'values' must be a list")
   }
 
-  args_ <- lapply(x$col_keys, function(x, n) rep(NA, n), n = length(values[[1]]))
+  args_ <- lapply(
+    x$col_keys,
+    function(x, n) rep(NA, n),
+    n = length(values[[1]])
+  )
   names(args_) <- x$col_keys
   args_[names(values)] <- values
 
@@ -285,10 +316,27 @@ add_rows_to_tabpart <- function(x, rows, first = FALSE) {
   ncol <- length(x$col_keys)
   nrow <- nrow(rows)
 
-  x$styles$cells <- add_rows_to_struct(x$styles$cells, nrows = nrow, first = first)
-  x$styles$pars <- add_rows_to_struct(x$styles$pars, nrows = nrow, first = first)
-  x$styles$text <- add_rows_to_struct(x$styles$text, nrows = nrow, first = first)
-  x$content <- add_rows_to_chunkset_struct(x$content, nrows = nrow, first = first, rows)
+  x$styles$cells <- add_rows_to_struct(
+    x$styles$cells,
+    nrows = nrow,
+    first = first
+  )
+  x$styles$pars <- add_rows_to_struct(
+    x$styles$pars,
+    nrows = nrow,
+    first = first
+  )
+  x$styles$text <- add_rows_to_struct(
+    x$styles$text,
+    nrows = nrow,
+    first = first
+  )
+  x$content <- add_rows_to_chunkset_struct(
+    x$content,
+    nrows = nrow,
+    first = first,
+    rows
+  )
 
   span_new <- matrix(1, ncol = ncol, nrow = nrow)
   rowheights <- x$rowheights
@@ -359,14 +407,16 @@ add_rows_to_tabpart <- function(x, rows, first = FALSE) {
 #' @seealso [flextable()]
 add_body <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "add_body()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "add_body()"
+    ))
   }
 
   new_data <- as_new_data(x = x, ..., values = values)
   x$body <- add_rows_to_tabpart(x$body, new_data, first = top)
   x
 }
-
 
 
 #' @export
@@ -413,7 +463,10 @@ add_body <- function(x, top = TRUE, ..., values = NULL) {
 #' @family table_structure
 add_header <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "add_header()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "add_header()"
+    ))
   }
 
   header_data <- as_new_data(x = x, ..., values = values)
@@ -455,13 +508,21 @@ add_header <- function(x, top = TRUE, ..., values = NULL) {
 #' @family table_structure
 add_footer <- function(x, top = TRUE, ..., values = NULL) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "add_footer()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "add_footer()"
+    ))
   }
 
   footer_data <- as_new_data(x = x, ..., values = values)
 
   if (nrow_part(x, "footer") < 1) {
-    x$footer <- complex_tabpart(data = footer_data, col_keys = x$col_keys, cwidth = .75, cheight = .25)
+    x$footer <- complex_tabpart(
+      data = footer_data,
+      col_keys = x$col_keys,
+      cwidth = .75,
+      cheight = .25
+    )
   } else {
     x$footer <- add_rows_to_tabpart(x$footer, footer_data, first = top)
   }
@@ -540,9 +601,17 @@ add_footer <- function(x, top = TRUE, ..., values = NULL) {
 #' ft_2
 #' @family table_structure
 #' @seealso [flextable()], [set_caption()]
-add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0)) {
+add_body_row <- function(
+  x,
+  top = TRUE,
+  values = list(),
+  colwidths = integer(0)
+) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "add_body_row()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "add_body_row()"
+    ))
   }
 
   if (length(colwidths) < 1) {
@@ -568,8 +637,9 @@ add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0))
 
   body_data <- x$body$dataset[nrow(x$body$dataset) + 1, ]
 
-  if (inherits(values, "paragraph")) {
-  } else if (!is.null(attr(values, "names"))) {
+  if (inherits(values, "paragraph")) {} else if (
+    !is.null(attr(values, "names"))
+  ) {
     body_data[, names(values)] <- values
   } else {
     body_data[, which(row_span > 0)] <- values
@@ -577,8 +647,10 @@ add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0))
 
   if (nrow_part(x, "body") < 1) {
     x$body <- complex_tabpart(
-      data = body_data, col_keys = x$col_keys,
-      cwidth = dim(x)$widths, cheight = .25
+      data = body_data,
+      col_keys = x$col_keys,
+      cwidth = dim(x)$widths,
+      cheight = .25
     )
   } else {
     x$body <- add_rows_to_tabpart(x$body, body_data, first = top)
@@ -652,9 +724,17 @@ add_body_row <- function(x, top = TRUE, values = list(), colwidths = integer(0))
 #' ft_2
 #' @family table_structure
 #' @seealso [flextable()], [set_caption()]
-add_header_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)) {
+add_header_row <- function(
+  x,
+  top = TRUE,
+  values = character(0),
+  colwidths = integer(0)
+) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "add_header_row()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "add_header_row()"
+    ))
   }
 
   if (length(colwidths) < 1) {
@@ -669,14 +749,27 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
   }
 
   if (inherits(values, "paragraph")) {
-    str_values <- vapply(values, function(x) paste0(x$txt, collapse = ""), FUN.VALUE = "")
+    str_values <- vapply(
+      values,
+      function(x) paste0(x$txt, collapse = ""),
+      FUN.VALUE = ""
+    )
   } else {
     str_values <- values
   }
-  header_data <- data_from_char(values = str_values, colwidths = colwidths, col_keys = x$col_keys)
+  header_data <- data_from_char(
+    values = str_values,
+    colwidths = colwidths,
+    col_keys = x$col_keys
+  )
 
   if (nrow_part(x, "header") < 1) {
-    x$header <- complex_tabpart(data = header_data, col_keys = x$col_keys, cwidth = dim(x)$widths, cheight = .25)
+    x$header <- complex_tabpart(
+      data = header_data,
+      col_keys = x$col_keys,
+      cwidth = dim(x)$widths,
+      cheight = .25
+    )
   } else {
     x$header <- add_rows_to_tabpart(x$header, header_data, first = top)
   }
@@ -759,15 +852,24 @@ add_header_row <- function(x, top = TRUE, values = character(0), colwidths = int
 #' )
 #' ft_2 <- theme_box(ft_2)
 #' ft_2
-add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = integer(0)) {
+add_footer_row <- function(
+  x,
+  top = TRUE,
+  values = character(0),
+  colwidths = integer(0)
+) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "add_footer_row()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "add_footer_row()"
+    ))
   }
 
   if (sum(colwidths) != length(x$col_keys)) {
     stop(sprintf(
       "`colwidths` argument specify room for %.0f columns but %.0f are expected.",
-      sum(colwidths), length(x$col_keys)
+      sum(colwidths),
+      length(x$col_keys)
     ))
   }
   if (is.atomic(values)) {
@@ -775,14 +877,27 @@ add_footer_row <- function(x, top = TRUE, values = character(0), colwidths = int
   }
 
   if (inherits(values, "paragraph")) {
-    str_values <- vapply(values, function(x) paste0(x$txt, collapse = ""), FUN.VALUE = "")
+    str_values <- vapply(
+      values,
+      function(x) paste0(x$txt, collapse = ""),
+      FUN.VALUE = ""
+    )
   } else {
     str_values <- values
   }
-  footer_data <- data_from_char(values = str_values, colwidths = colwidths, col_keys = x$col_keys)
+  footer_data <- data_from_char(
+    values = str_values,
+    colwidths = colwidths,
+    col_keys = x$col_keys
+  )
 
   if (nrow_part(x, "footer") < 1) {
-    x$footer <- complex_tabpart(data = footer_data, col_keys = x$col_keys, cwidth = dim(x)$widths, cheight = .25)
+    x$footer <- complex_tabpart(
+      data = footer_data,
+      col_keys = x$col_keys,
+      cwidth = dim(x)$widths,
+      cheight = .25
+    )
   } else {
     x$footer <- add_rows_to_tabpart(x$footer, footer_data, first = top)
   }
@@ -812,7 +927,10 @@ data_from_char <- function(values, colwidths, col_keys) {
     stop("'values' must be an atomic vector or a list.")
   }
 
-  values_ <- inverse.rle(structure(list(lengths = colwidths, values = values), class = "rle"))
+  values_ <- inverse.rle(structure(
+    list(lengths = colwidths, values = values),
+    class = "rle"
+  ))
   values_ <- as.list(values_)
 
   names(values_) <- col_keys
@@ -862,14 +980,24 @@ data_from_char <- function(values, colwidths, col_keys) {
 #' ft_2
 add_header_lines <- function(x, values = character(0), top = TRUE) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "add_header_lines()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "add_header_lines()"
+    ))
   }
   values_map <- values
-  if (top) values_map <- rev(values_map)
+  if (top) {
+    values_map <- rev(values_map)
+  }
 
   if (inherits(values, "paragraph")) {
     for (ivalue in seq_len(length(values_map))) {
-      x <- add_header_row(x, values = "", colwidths = length(x$col_keys), top = top)
+      x <- add_header_row(
+        x,
+        values = "",
+        colwidths = length(x$col_keys),
+        top = top
+      )
       if (top) {
         i <- 1
       } else {
@@ -879,10 +1007,14 @@ add_header_lines <- function(x, values = character(0), top = TRUE) {
     }
   } else {
     for (value in values_map) {
-      x <- add_header_row(x, values = value, colwidths = length(x$col_keys), top = top)
+      x <- add_header_row(
+        x,
+        values = value,
+        colwidths = length(x$col_keys),
+        top = top
+      )
     }
   }
-
 
   x
 }
@@ -904,7 +1036,10 @@ add_header_lines <- function(x, values = character(0), top = TRUE) {
 #' ft_1
 add_footer_lines <- function(x, values = character(0), top = FALSE) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "add_footer_lines()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "add_footer_lines()"
+    ))
   }
 
   ivalues <- seq_len(length(values))
@@ -914,7 +1049,12 @@ add_footer_lines <- function(x, values = character(0), top = FALSE) {
 
   if (inherits(values, "paragraph")) {
     for (ivalue in ivalues) {
-      x <- add_footer_row(x, values = "", colwidths = length(x$col_keys), top = top)
+      x <- add_footer_row(
+        x,
+        values = "",
+        colwidths = length(x$col_keys),
+        top = top
+      )
       if (top) {
         i <- 1
       } else {
@@ -924,17 +1064,17 @@ add_footer_lines <- function(x, values = character(0), top = FALSE) {
     }
   } else {
     for (ivalue in ivalues) {
-      x <- add_footer_row(x,
+      x <- add_footer_row(
+        x,
         values = values[ivalue],
-        colwidths = length(x$col_keys), top = top
+        colwidths = length(x$col_keys),
+        top = top
       )
     }
   }
 
   x
 }
-
-
 
 
 # add header/footer with reference table ----
@@ -946,7 +1086,14 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part) {
   )
   names(keys) <- key
 
-  part_data <- merge(keys, mapping, by = key, all.x = TRUE, all.y = FALSE, sort = FALSE)
+  part_data <- merge(
+    keys,
+    mapping,
+    by = key,
+    all.x = TRUE,
+    all.y = FALSE,
+    sort = FALSE
+  )
   part_data <- part_data[match(keys[[key]], part_data[[key]]), ]
 
   part_data[[key]] <- NULL
@@ -964,14 +1111,14 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part) {
     part_data[x$blanks] <- replace_
   }
 
-
   colwidths <- x[[part]]$colwidths
   x[[part]] <- eval(
     call(
       class(x[[part]]),
       data = part_data,
       col_keys = x$col_keys,
-      cwidth = .75, cheight = .25
+      cwidth = .75,
+      cheight = .25
     )
   )
   cheight <- optimal_sizes(x[[part]])$heights
@@ -1021,7 +1168,10 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part) {
 #' @family table_structure
 set_header_df <- function(x, mapping = NULL, key = "col_keys") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "set_header_df()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "set_header_df()"
+    ))
   }
 
   set_part_df(x, mapping = mapping, key = key, part = "header")
@@ -1047,7 +1197,10 @@ set_header_df <- function(x, mapping = NULL, key = "col_keys") {
 #' ft_2
 set_footer_df <- function(x, mapping = NULL, key = "col_keys") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "set_footer_df()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "set_footer_df()"
+    ))
   }
 
   set_part_df(x, mapping = mapping, key = key, part = "footer")
@@ -1101,15 +1254,21 @@ set_footer_df <- function(x, mapping = NULL, key = "col_keys") {
 #'   opts = c("span-top", "bottom-vspan")
 #' )
 #' ft_1
-separate_header <- function(x,
-                            opts = c(
-                              "span-top", "center-hspan",
-                              "bottom-vspan", "default-theme"
-                            ),
-                            split = "[_\\.]",
-                            fixed = FALSE) {
+separate_header <- function(
+  x,
+  opts = c(
+    "span-top",
+    "center-hspan",
+    "bottom-vspan",
+    "default-theme"
+  ),
+  split = "[_\\.]",
+  fixed = FALSE
+) {
   if (nrow_part(x, "header") > 1) {
-    stop("the flextable object already have additional row(s),\nrun `separate_header()` before any header row augmentation")
+    stop(
+      "the flextable object already have additional row(s),\nrun `separate_header()` before any header row augmentation"
+    )
   }
 
   ref_list <- tstrsplit(x$col_keys, split = split, fill = "", fixed = fixed)
@@ -1127,7 +1286,8 @@ separate_header <- function(x,
     rle_labs$values[grepl("^dummy\\-", rle_labs$values)] <- ""
 
     x <- add_header_row(
-      x = x, top = TRUE,
+      x = x,
+      top = TRUE,
       values = rle_labs$values,
       colwidths = rle_labs$lengths
     )
@@ -1147,17 +1307,23 @@ separate_header <- function(x,
     for (j in seq_len(nrow(ref_list))) {
       if (ref_list[j, 1]) {
         to <- rle(ref_list[j, ])$lengths[1] + 1
-        if (all(x$header$spans$rows[seq(1, to), j] %in% 1)) {#can be v-merged
+        if (all(x$header$spans$rows[seq(1, to), j] %in% 1)) {
+          #can be v-merged
           x <- merge_at(
-            x = x, i = seq(1, to), j = j,
+            x = x,
+            i = seq(1, to),
+            j = j,
             part = "header"
           )
         }
 
         if ("bottom-vspan" %in% opts) {
           x <- valign(
-            x = x, i = seq(1, to), j = j,
-            valign = "bottom", part = "header"
+            x = x,
+            i = seq(1, to),
+            j = j,
+            valign = "bottom",
+            part = "header"
           )
         }
       }
@@ -1171,8 +1337,11 @@ separate_header <- function(x,
     header_spans <- split(header_spans$.col_id, header_spans$.row_id)
     for (i in seq_along(header_spans)) {
       x <- align(
-        x = x, i = i, j = as.character(header_spans[[i]]),
-        align = "center", part = "header"
+        x = x,
+        i = i,
+        j = as.character(header_spans[[i]]),
+        align = "center",
+        part = "header"
       )
     }
   }

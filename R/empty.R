@@ -25,7 +25,11 @@ void <- function(x, j = NULL, part = "body") {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "void()"))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
@@ -46,11 +50,13 @@ void <- function(x, j = NULL, part = "body") {
       nrow_part(x, part)
     ),
     keys = j,
-    i = seq_len(nrow_part(x, part)))
+    i = seq_len(nrow_part(x, part))
+  )
   x[[part]]$content <- set_chunkset_struct_element(
     x = x[[part]]$content,
     j = j,
-    value = newcontent)
+    value = newcontent
+  )
 
   x
 }

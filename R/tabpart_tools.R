@@ -58,7 +58,8 @@ span_columns <- function(x, columns = NULL, target = columns, combine = FALSE) {
           get_chunkset_struct_element(x$content, j = columns[k]),
           function(x) {
             paste(x$txt, collapse = "")
-        })
+          }
+        )
       } else {
         values <- format(x$dataset[[column]], trim = TRUE, justify = "left")
       }
@@ -75,7 +76,8 @@ span_columns <- function(x, columns = NULL, target = columns, combine = FALSE) {
           get_chunkset_struct_element(x$content, j = columns[k]),
           function(x) {
             paste(x$txt, collapse = "")
-          })
+          }
+        )
       } else {
         values <- format(x$dataset[[column]], trim = TRUE, justify = "left")
       }
@@ -99,8 +101,10 @@ span_cells_at <- function(x, columns = NULL, rows = NULL) {
   row_id <- match(rows, seq_len(nrow(x$dataset)))
   .col_id <- match(columns, x$col_keys)
 
-  test_valid_r <- (length(row_id) > 1 && all(diff(row_id) == 1)) || length(row_id) == 1
-  test_valid_c <- (length(.col_id) > 1 && all(diff(.col_id) == 1)) || length(.col_id) == 1
+  test_valid_r <- (length(row_id) > 1 && all(diff(row_id) == 1)) ||
+    length(row_id) == 1
+  test_valid_c <- (length(.col_id) > 1 && all(diff(.col_id) == 1)) ||
+    length(.col_id) == 1
 
   if (!test_valid_r) {
     stop("selected rows should all be consecutive")
@@ -125,7 +129,8 @@ span_rows <- function(x, rows = NULL) {
       get_chunkset_struct_element(x$content, i = rowi),
       function(x) {
         paste(x$txt, collapse = "")
-      })
+      }
+    )
     x$spans$rows[rowi, ] <- merge_rle(values)
   }
 
@@ -152,14 +157,20 @@ as_col_keys <- function(x, j = NULL, blanks = character()) {
     j <- get_j_from_formula(j, tmp_dat)
   } else if (is.logical(j)) {
     if (length(j) != length(candidates)) {
-      stop("j (as logical) is expected to have the same length than the original 'data.frame' used in call to `flextable()`.")
+      stop(
+        "j (as logical) is expected to have the same length than the original 'data.frame' used in call to `flextable()`."
+      )
     }
     j <- candidates[j]
   } else if (is.character(j)) {
     if (!all(j %in% candidates)) {
       wrong_col <- j[!j %in% candidates]
       wrong_col <- paste0(shQuote(wrong_col), collapse = ",")
-      warning(sprintf("Some column(s) can not be found in the original data.frame: %s.", wrong_col),
+      warning(
+        sprintf(
+          "Some column(s) can not be found in the original data.frame: %s.",
+          wrong_col
+        ),
         call. = FALSE
       )
     }
@@ -257,7 +268,8 @@ get_rows_id <- function(x, i = NULL) {
       stop(
         sprintf(
           "invalid row selection. `length(i)` [%.0f] != `nrow(dataset)` [%.0f].",
-          length(i), maxrow
+          length(i),
+          maxrow
         )
       )
     } else {

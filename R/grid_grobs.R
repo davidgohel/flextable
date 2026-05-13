@@ -111,23 +111,32 @@
 #' }
 #' @family flextable_output_export
 #' @importFrom grid gTree
-gen_grob <- function(x,
-                     ...,
-                     fit = c("auto", "width", "fixed"),
-                     scaling = c("min", "full", "fixed"),
-                     wrapping = TRUE,
-                     autowidths = TRUE,
-                     just = NULL) {
-
+gen_grob <- function(
+  x,
+  ...,
+  fit = c("auto", "width", "fixed"),
+  scaling = c("min", "full", "fixed"),
+  wrapping = TRUE,
+  autowidths = TRUE,
+  just = NULL
+) {
   x <- flextable_global$defaults$post_process_all(x)
   x <- fix_border_issues(x)
 
   dots <- list(...)
   debug <- isTRUE(dots$debug)
-  if (identical(fit, TRUE)) fit <- "auto"
-  if (identical(fit, FALSE)) fit <- "fixed"
-  if (identical(scaling, TRUE)) scaling <- "min"
-  if (identical(scaling, FALSE)) scaling <- "fixed"
+  if (identical(fit, TRUE)) {
+    fit <- "auto"
+  }
+  if (identical(fit, FALSE)) {
+    fit <- "fixed"
+  }
+  if (identical(scaling, TRUE)) {
+    scaling <- "min"
+  }
+  if (identical(scaling, FALSE)) {
+    scaling <- "fixed"
+  }
   fit <- match.arg(fit)
   scaling <- match.arg(scaling)
   wrapping <- isTRUE(wrapping)
@@ -174,68 +183,84 @@ gen_grob <- function(x,
 make_flextable_grob <- function(dat, fit, scaling, wrapping, debug = FALSE) {
   gTree(
     cl = "flextableGrob",
-    children = do.call(gList, mapply(
-      function(row_index, col_index, cell_vp, cell_width, cell_height, cell_params,
-               background, borders, contents_vp, chunk_data, chunk_part_data) {
-        # single cell grob
-        gTree(
-          children = gList(
-            # background
-            make_background_grob(background),
-            # borders
-            make_borders_grob(borders),
-            # debug contents rect
-            if (debug) {
-              rectGrob(
-                gp = gpar(col = "red", fill = "yellow", alpha = 0.15),
-                vp = viewport(
-                  width = unit(1, "npc") - unit(cell_params$paddingx, "in"),
-                  height = unit(1, "npc") - unit(cell_params$paddingy, "in")
+    children = do.call(
+      gList,
+      mapply(
+        function(
+          row_index,
+          col_index,
+          cell_vp,
+          cell_width,
+          cell_height,
+          cell_params,
+          background,
+          borders,
+          contents_vp,
+          chunk_data,
+          chunk_part_data
+        ) {
+          # single cell grob
+          gTree(
+            children = gList(
+              # background
+              make_background_grob(background),
+              # borders
+              make_borders_grob(borders),
+              # debug contents rect
+              if (debug) {
+                rectGrob(
+                  gp = gpar(col = "red", fill = "yellow", alpha = 0.15),
+                  vp = viewport(
+                    width = unit(1, "npc") - unit(cell_params$paddingx, "in"),
+                    height = unit(1, "npc") - unit(cell_params$paddingy, "in")
+                  )
                 )
-              )
-            },
-            # contents
-            make_contents_grob(
-              row_index = row_index,
-              col_index = col_index,
-              chunk_data = chunk_data,
-              chunk_part_data = chunk_part_data,
-              vp = contents_vp,
-              params = cell_params,
-              width = cell_width,
-              height = cell_height,
-              fit = fit,
-              scaling = scaling,
-              wrapping = wrapping,
-              debug = debug
+              },
+              # contents
+              make_contents_grob(
+                row_index = row_index,
+                col_index = col_index,
+                chunk_data = chunk_data,
+                chunk_part_data = chunk_part_data,
+                vp = contents_vp,
+                params = cell_params,
+                width = cell_width,
+                height = cell_height,
+                fit = fit,
+                scaling = scaling,
+                wrapping = wrapping,
+                debug = debug
+              ),
+              # debug text
+              if (debug) {
+                textGrob(
+                  label = paste(row_index, col_index, sep = "_"),
+                  x = cell_params$just[[1]],
+                  y = cell_params$just[[2]],
+                  gp = gpar(col = "red", fontsize = 8),
+                  just = cell_params$justr,
+                  rot = cell_params$angle
+                )
+              }
             ),
-            # debug text
-            if (debug) {
-              textGrob(
-                label = paste(row_index, col_index, sep = "_"),
-                x = cell_params$just[[1]], y = cell_params$just[[2]],
-                gp = gpar(col = "red", fontsize = 8),
-                just = cell_params$justr, rot = cell_params$angle
-              )
-            }
-          ),
-          vp = do.call(viewport, cell_vp),
-          name = paste("cell", row_index, col_index, sep = "_")
-        )
-      },
-      row_index = dat$row_index,
-      col_index = dat$col_index,
-      cell_vp = dat$cell_vp,
-      cell_width = dat$cell_width,
-      cell_height = dat$cell_height,
-      cell_params = dat$cell_params,
-      background = dat$background,
-      borders = dat$borders,
-      contents_vp = dat$contents_vp,
-      chunk_data = dat$chunk_data,
-      chunk_part_data = dat$chunk_part_data,
-      SIMPLIFY = FALSE
-    ))
+            vp = do.call(viewport, cell_vp),
+            name = paste("cell", row_index, col_index, sep = "_")
+          )
+        },
+        row_index = dat$row_index,
+        col_index = dat$col_index,
+        cell_vp = dat$cell_vp,
+        cell_width = dat$cell_width,
+        cell_height = dat$cell_height,
+        cell_params = dat$cell_params,
+        background = dat$background,
+        borders = dat$borders,
+        contents_vp = dat$contents_vp,
+        chunk_data = dat$chunk_data,
+        chunk_part_data = dat$chunk_part_data,
+        SIMPLIFY = FALSE
+      )
+    )
   )
 }
 
@@ -247,13 +272,17 @@ make_flextable_grob <- function(dat, fit, scaling, wrapping, debug = FALSE) {
 #' @noRd
 calc_grob_widths <- function(x, dat, dims) {
   # get the minimum width of each column
-  col_dat <- dat[, list(width = min(.SD$cell_width, na.rm = TRUE)), by = "col_index"]
+  col_dat <- dat[,
+    list(width = min(.SD$cell_width, na.rm = TRUE)),
+    by = "col_index"
+  ]
   # dims contain all columns, but some of them might have been merged
   # completely into others and they should get a 0 size.
   col_dat <- merge(
     data.table(col_index = seq_along(dims$widths)),
     col_dat,
-    by = "col_index", all.x = TRUE
+    by = "col_index",
+    all.x = TRUE
   )
   col_dat[is.na(col_dat$width), "width" := 0]
   col_dat$width
@@ -294,13 +323,17 @@ calc_grob_heights <- function(x, dat, dims) {
     by = c("row_index", "colspan")
   )
   # get the maximum height of each row
-  height_dat <- height_dat[, list(height = max(.SD$height, na.rm = TRUE)), by = "row_index"]
+  height_dat <- height_dat[,
+    list(height = max(.SD$height, na.rm = TRUE)),
+    by = "row_index"
+  ]
   # dims contain all rows, but some of them might have been merged
   # completely into others and they should get a 0 size.
   row_dat <- merge(
     data.table(row_index = seq_along(dims$heights)),
     height_dat,
-    by = "row_index", all.x = TRUE
+    by = "row_index",
+    all.x = TRUE
   )
   row_dat[is.na(row_dat$height), "height" := 0]
   row_dat$height
@@ -323,7 +356,11 @@ makeContext.flextableGrob <- function(x) {
   if (params$fit %in% c("auto", "width")) {
     # dimensions of drawing area
     norm_width <- convertWidth(unit(1, "npc"), unitTo = "in", valueOnly = TRUE)
-    norm_height <- convertHeight(unit(1, "npc"), unitTo = "in", valueOnly = TRUE)
+    norm_height <- convertHeight(
+      unit(1, "npc"),
+      unitTo = "in",
+      valueOnly = TRUE
+    )
     # calculate table scale factor
     norm_surface <- norm_width * norm_height
     table_surface <- table_width * table_height
@@ -333,7 +370,11 @@ makeContext.flextableGrob <- function(x) {
 
     # set cex/lex as the smallest of the three
     scale_factor <- min(surface_factor, width_factor, height_factor)
-    if (params$scaling %in% "full" || (params$scaling %in% "min" && scale_factor < 1)) {
+    if (
+      params$scaling %in%
+        "full" ||
+        (params$scaling %in% "min" && scale_factor < 1)
+    ) {
       lex <- cex <- scale_factor
     }
 
@@ -342,8 +383,11 @@ makeContext.flextableGrob <- function(x) {
     for (cell_name in cell_names) {
       gr <- x$children[[cell_name]]$children[["contents"]]
       if (is.grob(gr)) {
-        x$children[[cell_name]]$children[["contents"]] <- arrange_contents_grob(gr,
-          width_factor = width_factor, height_factor = height_factor, cex = cex
+        x$children[[cell_name]]$children[["contents"]] <- arrange_contents_grob(
+          gr,
+          width_factor = width_factor,
+          height_factor = height_factor,
+          cex = cex
         )
       }
     }
@@ -358,7 +402,11 @@ makeContext.flextableGrob <- function(x) {
       n_b <- params$n_body_rows
       n_f <- params$n_footer_rows
       header_h <- if (n_h > 0) sum(heights[seq_len(n_h)]) else 0
-      footer_h <- if (n_f > 0) sum(heights[seq.int(n_h + n_b + 1L, length(heights))]) else 0
+      footer_h <- if (n_f > 0) {
+        sum(heights[seq.int(n_h + n_b + 1L, length(heights))])
+      } else {
+        0
+      }
       body_h <- norm_height - header_h - footer_h
       if (body_h > 0 && n_b > 0) {
         heights[seq.int(n_h + 1L, n_h + n_b)] <- body_h / n_b
@@ -448,25 +496,42 @@ plot.flextableGrob <- function(x, ...) {
 #' dim(gr)
 #' @export
 dim.flextableGrob <- function(x) {
-  list(width = sum(x$ftpar$widths, na.rm = TRUE), height = sum(x$ftpar$heights, na.rm = TRUE))
+  list(
+    width = sum(x$ftpar$widths, na.rm = TRUE),
+    height = sum(x$ftpar$heights, na.rm = TRUE)
+  )
 }
 
 # contents grob -----------------------------------------------------------
 
 #' @importFrom data.table is.data.table .GRP
-make_contents_grob <- function(row_index, col_index,
-                               chunk_data, chunk_part_data,
-                               vp, params, ...) {
-  if (!is.data.table(chunk_data) || !nrow(chunk_data) ||
-    !is.data.table(chunk_part_data) || !nrow(chunk_part_data)) {
+make_contents_grob <- function(
+  row_index,
+  col_index,
+  chunk_data,
+  chunk_part_data,
+  vp,
+  params,
+  ...
+) {
+  if (
+    !is.data.table(chunk_data) ||
+      !nrow(chunk_data) ||
+      !is.data.table(chunk_part_data) ||
+      !nrow(chunk_part_data)
+  ) {
     return(NULL)
   }
 
   dots <- list(...)
-  params <- c(list(
-    row_index = row_index,
-    col_index = col_index
-  ), params, dots)
+  params <- c(
+    list(
+      row_index = row_index,
+      col_index = col_index
+    ),
+    params,
+    dots
+  )
 
   # create contents grob
   gr <- gTree(
@@ -495,11 +560,13 @@ make_contents_grob <- function(row_index, col_index,
 }
 
 #' @importFrom grid setChildren
-arrange_contents_grob <- function(x,
-                                  width_factor = 1,
-                                  height_factor = 1,
-                                  cex = 1,
-                                  do_update_grob = TRUE) {
+arrange_contents_grob <- function(
+  x,
+  width_factor = 1,
+  height_factor = 1,
+  cex = 1,
+  do_update_grob = TRUE
+) {
   params <- x$ftpar
   dat <- x$ftdat
 
@@ -508,14 +575,23 @@ arrange_contents_grob <- function(x,
     if (params$angle == 0) {
       max_width <- (params$width - params$paddingx) * width_factor
     } else {
-      max_width <- (max(params$height, params$min_height, params$max_height, na.rm = TRUE) -
-        params$paddingy) * height_factor
+      max_width <- (max(
+        params$height,
+        params$min_height,
+        params$max_height,
+        na.rm = TRUE
+      ) -
+        params$paddingy) *
+        height_factor
     }
 
     child_count <- .chunk_index <- width <- NULL
     if (params$wrapping) {
       filtered <- c(
-        unlist(dat[child_count > 0 & width * cex <= max_width, "children_index"]),
+        unlist(dat[
+          child_count > 0 & width * cex <= max_width,
+          "children_index"
+        ]),
         unlist(dat[child_count > 0 & width * cex > max_width, ".chunk_index"])
       )
       dat <- dat[!.chunk_index %in% filtered, , drop = FALSE]
@@ -612,11 +688,14 @@ arrange_contents_grob <- function(x,
     }
 
     if (params$debug) {
-      grobs <- c(grobs, list(
-        rectGrob(
-          gp = gpar(lwd = 0.5, col = "red", fill = NA)
+      grobs <- c(
+        grobs,
+        list(
+          rectGrob(
+            gp = gpar(lwd = 0.5, col = "red", fill = NA)
+          )
         )
-      ))
+      )
     }
 
     gTree(
@@ -630,9 +709,15 @@ arrange_contents_grob <- function(x,
     )
   }
 
-  make_col_grob <- function(col_index, chunk_index,
-                            txt_data, from_.chunk_index, to_.chunk_index,
-                            width, height) {
+  make_col_grob <- function(
+    col_index,
+    chunk_index,
+    txt_data,
+    from_.chunk_index,
+    to_.chunk_index,
+    width,
+    height
+  ) {
     gr <- x$ftgrobs[[chunk_index]]
     params <- gr$ftpar
     if (inherits(gr, "text") && params$txt_data != txt_data) {
@@ -643,7 +728,14 @@ arrange_contents_grob <- function(x,
         is_bold = params$is_bold,
         is_italic = params$is_italic
       )
-      gr$name <- paste(gr$name, "seq", from_.chunk_index, "to", to_.chunk_index, sep = "_")
+      gr$name <- paste(
+        gr$name,
+        "seq",
+        from_.chunk_index,
+        "to",
+        to_.chunk_index,
+        sep = "_"
+      )
     }
     gr$vp <- viewport(
       layout.pos.row = 1,
@@ -663,52 +755,62 @@ arrange_contents_grob <- function(x,
 
   if (nrow(dat) > 1) {
     # group data by row, column and chunk
-    col_dat <- dat[, list(
-      from = min(.SD$.chunk_index),
-      to = max(.SD$.chunk_index),
-      txt_data = paste0(.SD$txt_data, collapse = ""),
-      width = sum(.SD$width),
-      height = max(.SD$ascent) + max(.SD$descent)
-    ), by = c("row_index", "col_index", "chunk_index")]
+    col_dat <- dat[,
+      list(
+        from = min(.SD$.chunk_index),
+        to = max(.SD$.chunk_index),
+        txt_data = paste0(.SD$txt_data, collapse = ""),
+        width = sum(.SD$width),
+        height = max(.SD$ascent) + max(.SD$descent)
+      ),
+      by = c("row_index", "col_index", "chunk_index")
+    ]
 
     if (do_update_grob) {
       # create grobs for columns
-      col_dat[, "grob" := mapply(
-        make_col_grob,
-        .SD$col_index,
-        .SD$chunk_index,
-        .SD$txt_data,
-        .SD$from,
-        .SD$to,
-        .SD$width,
-        .SD$height,
-        SIMPLIFY = FALSE
-      )]
+      col_dat[,
+        "grob" := mapply(
+          make_col_grob,
+          .SD$col_index,
+          .SD$chunk_index,
+          .SD$txt_data,
+          .SD$from,
+          .SD$to,
+          .SD$width,
+          .SD$height,
+          SIMPLIFY = FALSE
+        )
+      ]
     }
 
     # group data by row
-    row_dat <- col_dat[, list(
-      grobs = list(.SD$grob),
-      layout = list(grid.layout(
-        nrow = 1,
-        ncol = nrow(.SD),
-        widths = unit(.SD$width * cex, "in"),
-        # heights = unit(max(.SD$height * cex), "in"),
-        just = params$justr
-      )),
-      width = sum(.SD$width * cex),
-      height = max(.SD$height * cex)
-    ), by = "row_index"]
+    row_dat <- col_dat[,
+      list(
+        grobs = list(.SD$grob),
+        layout = list(grid.layout(
+          nrow = 1,
+          ncol = nrow(.SD),
+          widths = unit(.SD$width * cex, "in"),
+          # heights = unit(max(.SD$height * cex), "in"),
+          just = params$justr
+        )),
+        width = sum(.SD$width * cex),
+        height = max(.SD$height * cex)
+      ),
+      by = "row_index"
+    ]
 
     if (do_update_grob) {
       # create grobs for rows
-      row_dat[, "grob" := mapply(
-        make_row_grob,
-        .SD$row_index,
-        .SD$grobs,
-        .SD$layout,
-        SIMPLIFY = FALSE
-      )]
+      row_dat[,
+        "grob" := mapply(
+          make_row_grob,
+          .SD$row_index,
+          .SD$grobs,
+          .SD$layout,
+          SIMPLIFY = FALSE
+        )
+      ]
       children <- do.call(gList, row_dat$grob)
     }
     widths <- row_dat$width
@@ -716,9 +818,13 @@ arrange_contents_grob <- function(x,
   } else {
     if (do_update_grob) {
       children <- gList(make_col_grob(
-        1L, dat$chunk_index,
-        dat$txt_data, dat$.chunk_index, dat$.chunk_index,
-        dat$width, dat$height
+        1L,
+        dat$chunk_index,
+        dat$txt_data,
+        dat$.chunk_index,
+        dat$.chunk_index,
+        dat$width,
+        dat$height
       ))
     }
     widths <- dat$width * cex
@@ -743,7 +849,8 @@ arrange_contents_grob <- function(x,
     height <- max(widths) + params$paddingy
   }
   height <- min(
-    max(height, params$min_height, na.rm = TRUE), params$max_height,
+    max(height, params$min_height, na.rm = TRUE),
+    params$max_height,
     na.rm = TRUE
   )
 

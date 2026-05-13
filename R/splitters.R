@@ -33,7 +33,9 @@ split_columns <- function(x, max_width, rep_cols = NULL, unit = "in") {
     if (is.character(rep_cols)) {
       rep_keys <- rep_cols[rep_cols %in% resolved]
     } else if (is.numeric(rep_cols)) {
-      rep_keys <- all_keys[rep_cols[rep_cols >= 1L & rep_cols <= length(all_keys)]]
+      rep_keys <- all_keys[rep_cols[
+        rep_cols >= 1L & rep_cols <= length(all_keys)
+      ]]
     } else {
       rep_keys <- resolved
     }
@@ -48,7 +50,9 @@ split_columns <- function(x, max_width, rep_cols = NULL, unit = "in") {
   available <- max_width - rep_width
 
   if (available <= 0) {
-    warning("max_width is too small to fit the repeated columns, no pagination performed.")
+    warning(
+      "max_width is too small to fit the repeated columns, no pagination performed."
+    )
     return(list(x))
   }
 
@@ -69,7 +73,9 @@ split_columns <- function(x, max_width, rep_cols = NULL, unit = "in") {
     pages <- c(pages, list(current))
   }
 
-  if (length(pages) <= 1L) return(list(x))
+  if (length(pages) <= 1L) {
+    return(list(x))
+  }
 
   lapply(pages, function(idx) {
     keep <- c(rep_keys, data_keys[idx])
@@ -133,14 +139,19 @@ split_rows <- function(x, max_height, group = integer(0), unit = "in") {
   available <- max_height - hdr_height - ftr_height
 
   if (available <= 0) {
-    warning("max_height is too small to fit header and footer, no pagination performed.")
+    warning(
+      "max_height is too small to fit header and footer, no pagination performed."
+    )
     return(list(x))
   }
 
   # Build groups from group starts (indices of group starts in body)
   if (length(group) > 0L) {
     if (is.unsorted(group, strictly = TRUE)) {
-      stop("group must be a strictly increasing vector of row indices.", call. = FALSE)
+      stop(
+        "group must be a strictly increasing vector of row indices.",
+        call. = FALSE
+      )
     }
     if (any(group < 1L | group > n_body)) {
       stop("group indices must be between 1 and ", n_body, ".", call. = FALSE)
@@ -169,7 +180,9 @@ split_rows <- function(x, max_height, group = integer(0), unit = "in") {
     pages <- c(pages, list(current))
   }
 
-  if (length(pages) <= 1L) return(list(x))
+  if (length(pages) <= 1L) {
+    return(list(x))
+  }
 
   # Split via delete_rows (spans preserved when no vertical span is broken)
   lapply(pages, function(keep_rows) {
@@ -208,22 +221,34 @@ split_rows <- function(x, max_height, group = integer(0), unit = "in") {
 #' ft <- flextable(iris)
 #' ft_pages <- split_to_pages(ft, max_width = 4, max_height = 5)
 #' length(ft_pages)
-split_to_pages <- function(x, max_width = NULL, max_height = NULL,
-                        rep_cols = NULL, group = integer(0),
-                        unit = "in") {
+split_to_pages <- function(
+  x,
+  max_width = NULL,
+  max_height = NULL,
+  rep_cols = NULL,
+  group = integer(0),
+  unit = "in"
+) {
   ft_list <- list(x)
 
   if (!is.null(max_height)) {
-    ft_list <- split_rows(x, max_height = max_height,
-                          group = group, unit = unit)
+    ft_list <- split_rows(
+      x,
+      max_height = max_height,
+      group = group,
+      unit = unit
+    )
   }
 
   if (!is.null(max_width)) {
     ft_list <- unlist(
-      lapply(ft_list, split_columns,
-             max_width = max_width,
-             rep_cols = rep_cols,
-             unit = unit),
+      lapply(
+        ft_list,
+        split_columns,
+        max_width = max_width,
+        rep_cols = rep_cols,
+        unit = unit
+      ),
       recursive = FALSE
     )
   }

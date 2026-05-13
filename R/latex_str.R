@@ -31,7 +31,8 @@ list_latex_dep <- function(float = FALSE, wrapfig = FALSE) {
   fonts_ignore <- flextable_global$defaults$fonts_ignore
   fontspec_compat <- get_pdf_engine() %in% c("xelatex", "lualatex")
   if (!fonts_ignore && !fontspec_compat) {
-    warning("fonts used in `flextable` are ignored because ",
+    warning(
+      "fonts used in `flextable` are ignored because ",
       "the `pdflatex` engine is used and not `xelatex` or ",
       "`lualatex`. You can avoid this warning by using ",
       "`set_flextable_defaults(fonts_ignore=TRUE)` or use a ",
@@ -70,8 +71,13 @@ list_latex_dep <- function(float = FALSE, wrapfig = FALSE) {
 }
 
 
-gen_raw_latex <- function(x, lat_container = latex_container_none(),
-                          caption = "", topcaption = TRUE, quarto = FALSE) {
+gen_raw_latex <- function(
+  x,
+  lat_container = latex_container_none(),
+  caption = "",
+  topcaption = TRUE,
+  quarto = FALSE
+) {
   dims <- dim(x)
   column_sizes <- dims$widths
   column_sizes_df <- data.frame(
@@ -80,9 +86,13 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
     stringsAsFactors = FALSE
   )
 
-
   properties_df <- merge_table_properties(x)
-  linespacing_df <- properties_df[, c(".part", ".row_id", ".col_id", "line_spacing")]
+  linespacing_df <- properties_df[, c(
+    ".part",
+    ".row_id",
+    ".col_id",
+    "line_spacing"
+  )]
   dat <- runs_as_latex(
     x = x,
     chunk_data = information_data_chunk(x),
@@ -91,33 +101,58 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
 
   # hhlines and vborders ----
   latex_borders_data_str <- latex_gridlines(properties_df)
-  properties_df <- merge(properties_df, latex_borders_data_str$vlines, by = c(".part", ".col_id", ".row_id"))
-  properties_df[, setdiff(grep("^border\\.", colnames(properties_df), value = TRUE), "border.width.left") := NULL]
+  properties_df <- merge(
+    properties_df,
+    latex_borders_data_str$vlines,
+    by = c(".part", ".col_id", ".row_id")
+  )
+  properties_df[,
+    setdiff(
+      grep("^border\\.", colnames(properties_df), value = TRUE),
+      "border.width.left"
+    ) := NULL
+  ]
   setorderv(properties_df, c(".part", ".col_id", ".row_id"))
 
   # cell background color -----
-  properties_df[, c("background_color") := list(
-    latex_cell_bgcolor(.SD$background.color)
-  )]
+  properties_df[,
+    c("background_color") := list(
+      latex_cell_bgcolor(.SD$background.color)
+    )
+  ]
   properties_df[, c("background.color") := NULL]
 
   # text direction ----
-  properties_df[, c("text_direction_left", "text_direction_right") := list(
-    latex_text_direction(.SD$text.direction, left = TRUE),
-    latex_text_direction(.SD$text.direction, left = FALSE)
-  )]
+  properties_df[,
+    c("text_direction_left", "text_direction_right") := list(
+      latex_text_direction(.SD$text.direction, left = TRUE),
+      latex_text_direction(.SD$text.direction, left = FALSE)
+    )
+  ]
   properties_df[, c("text.direction") := NULL]
 
   # merge prop and text and sizes----
-  cell_properties_df <- merge(properties_df, dat, by = c(".part", ".row_id", ".col_id"))
-  cell_properties_df <- merge(cell_properties_df, column_sizes_df, by = c(".col_id"))
+  cell_properties_df <- merge(
+    properties_df,
+    dat,
+    by = c(".part", ".row_id", ".col_id")
+  )
+  cell_properties_df <- merge(
+    cell_properties_df,
+    column_sizes_df,
+    by = c(".col_id")
+  )
 
   # update colspan -----
   cell_properties_df <- reverse_colspan(cell_properties_df)
   # add col sizes -----
   column_sizes_df <- calc_column_size(cell_properties_df, x$col_keys)
   cell_properties_df[, c("column_size") := NULL]
-  cell_properties_df <- merge(cell_properties_df, column_sizes_df, by = c(".part", ".row_id", ".col_id"))
+  cell_properties_df <- merge(
+    cell_properties_df,
+    column_sizes_df,
+    by = c(".part", ".row_id", ".col_id")
+  )
 
   # latex for multicolumn + add vert lines ----
   if ("fixed" %in% x$properties$layout) {
@@ -130,37 +165,47 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   augment_multirow_fixed(cell_properties_df)
 
   # paragraph padding ----
-  cell_properties_df[, c("padding_left_str", "padding_right_str") := list(
-    ifelse(.SD$padding.left > 0,
-           sprintf("\\advance\\leftskip by %.1fpt\\relax ", .SD$padding.left),
-           ""),
-    ifelse(.SD$padding.right > 0,
-           sprintf("\\advance\\rightskip by %.1fpt\\relax ", .SD$padding.right),
-           "")
-  )]
+  cell_properties_df[,
+    c("padding_left_str", "padding_right_str") := list(
+      ifelse(
+        .SD$padding.left > 0,
+        sprintf("\\advance\\leftskip by %.1fpt\\relax ", .SD$padding.left),
+        ""
+      ),
+      ifelse(
+        .SD$padding.right > 0,
+        sprintf("\\advance\\rightskip by %.1fpt\\relax ", .SD$padding.right),
+        ""
+      )
+    )
+  ]
 
   # paste everything ----
-  cell_properties_df[, c("txt") := list(
-    paste0(
-      .SD$multirow_left,
-      .SD$padding_left_str,
-      .SD$padding_right_str,
-      .SD$text_direction_left,
-      .SD$txt,
-      .SD$text_direction_right,
-      .SD$multirow_right
+  cell_properties_df[,
+    c("txt") := list(
+      paste0(
+        .SD$multirow_left,
+        .SD$padding_left_str,
+        .SD$padding_right_str,
+        .SD$text_direction_left,
+        .SD$txt,
+        .SD$text_direction_right,
+        .SD$multirow_right
+      )
     )
-  )]
+  ]
 
   cell_properties_df[cell_properties_df$colspan < 1, c("txt") := list("")]
 
-  cell_properties_df[, c("txt") := list(
-    paste0(
-      .SD$multicolumn_left,
-      .SD$txt,
-      .SD$multicolumn_right
+  cell_properties_df[,
+    c("txt") := list(
+      paste0(
+        .SD$multicolumn_left,
+        .SD$txt,
+        .SD$multicolumn_right
+      )
     )
-  )]
+  ]
   cell_properties_df[
     cell_properties_df$rowspan < 1,
     c("txt") := list(
@@ -168,7 +213,8 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
     )
   ]
   setorderv(cell_properties_df, c(".part", ".row_id", ".col_id"))
-  txt_data <- cell_properties_df[, list(txt = paste0(.SD$txt[!is.na(.SD$txt)], collapse = " & ")),
+  txt_data <- cell_properties_df[,
+    list(txt = paste0(.SD$txt[!is.na(.SD$txt)], collapse = " & ")),
     by = c(".part", ".row_id")
   ]
 
@@ -177,27 +223,37 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
   setorderv(txt_data, c(".part", ".row_id"))
 
   # add horiz lines ----
-  txt_data <- merge(txt_data, latex_borders_data_str$hlines, by = c(".part", ".row_id"), all.x = TRUE, all.y = TRUE)
+  txt_data <- merge(
+    txt_data,
+    latex_borders_data_str$hlines,
+    by = c(".part", ".row_id"),
+    all.x = TRUE,
+    all.y = TRUE
+  )
   setorderv(txt_data, cols = c(".part", ".row_id"))
   txt_data <- augment_part_separators(
     z = txt_data,
     no_container = inherits(lat_container, "latex_container_none"),
     repeat_footer = x$properties$opts_pdf$footer_repeat
-    )
+  )
 
-  txt_data[, c("txt") := list(paste(
-    .SD$hlines_t_strings,
-    .SD$txt,
-    .SD$hlines_b_strings,
-    sep = "\n\n"
-  ))]
+  txt_data[,
+    c("txt") := list(paste(
+      .SD$hlines_t_strings,
+      .SD$txt,
+      .SD$hlines_b_strings,
+      sep = "\n\n"
+    ))
+  ]
 
   if (inherits(lat_container, "latex_container_none")) {
-    txt_data$.part <- factor(as.character(txt_data$.part),
+    txt_data$.part <- factor(
+      as.character(txt_data$.part),
       levels = c("header", "footer", "body")
     )
   } else {
-    txt_data$.part <- factor(as.character(txt_data$.part),
+    txt_data$.part <- factor(
+      as.character(txt_data$.part),
       levels = c("header", "body", "footer")
     )
   }
@@ -214,13 +270,19 @@ gen_raw_latex <- function(x, lat_container = latex_container_none(),
 
   table_start <- sprintf(
     "\\begin{longtable}[%s]{%s}",
-    align_tag, paste(column_sizes_latex, collapse = "")
+    align_tag,
+    paste(column_sizes_latex, collapse = "")
   )
   table_end <- "\\end{longtable}"
 
   if (x$properties$opts_pdf$caption_repeat && topcaption) {
     second_caption <- gsub("\\caption", "\\caption[]", caption)
-    txt_data$part_sep <- gsub("\\endfirsthead", paste("\\endfirsthead", second_caption), txt_data$part_sep, fixed = TRUE)
+    txt_data$part_sep <- gsub(
+      "\\endfirsthead",
+      paste("\\endfirsthead", second_caption),
+      txt_data$part_sep,
+      fixed = TRUE
+    )
   }
 
   latex <- paste0(txt_data$txt, txt_data$part_sep, collapse = "\n\n")
@@ -256,18 +318,44 @@ augment_multirow_fixed <- function(properties_df) {
 }
 
 latex_colwidth <- function(x) {
-  grid_dat <- x[, .SD, .SDcols = c(".part", ".row_id", ".col_id", "rowspan", "border.width.left", "column_size")]
-  grid_dat[, c("hspan_id") := list(calc_grid_span_group(.SD$rowspan)), by = c(".part", ".row_id")]
+  grid_dat <- x[,
+    .SD,
+    .SDcols = c(
+      ".part",
+      ".row_id",
+      ".col_id",
+      "rowspan",
+      "border.width.left",
+      "column_size"
+    )
+  ]
+  grid_dat[,
+    c("hspan_id") := list(calc_grid_span_group(.SD$rowspan)),
+    by = c(".part", ".row_id")
+  ]
 
   # bdr sum of width
-  bdr_dat <- grid_dat[, list(.col_id = first(.SD$.col_id), border_widths = sum(.SD$border.width.left[-1])), by = c(".part", ".row_id", "hspan_id")]
+  bdr_dat <- grid_dat[,
+    list(
+      .col_id = first(.SD$.col_id),
+      border_widths = sum(.SD$border.width.left[-1])
+    ),
+    by = c(".part", ".row_id", "hspan_id")
+  ]
   bdr_dat$hspan_id <- NULL
   bdr_dat <- bdr_dat[bdr_dat$border_widths > 0, ]
 
-  grid_dat <- merge(grid_dat, bdr_dat, by = c(".part", ".row_id", ".col_id"), all.x = TRUE)
+  grid_dat <- merge(
+    grid_dat,
+    bdr_dat,
+    by = c(".part", ".row_id", ".col_id"),
+    all.x = TRUE
+  )
 
   colwidths <- paste0(
-    "\\dimexpr ", format_double(grid_dat$column_size, 2), "in+",
+    "\\dimexpr ",
+    format_double(grid_dat$column_size, 2),
+    "in+",
     format_double((grid_dat$rowspan - 1) * 2, digits = 0),
     "\\tabcolsep"
   )
@@ -277,7 +365,10 @@ latex_colwidth <- function(x) {
   bdr_width_instr[!is.na(grid_dat$border_widths)] <-
     paste0(
       "+",
-      format_double(grid_dat$border_widths[!is.na(grid_dat$border_widths)], digits = 2),
+      format_double(
+        grid_dat$border_widths[!is.na(grid_dat$border_widths)],
+        digits = 2
+      ),
       "pt"
     )
 
@@ -288,57 +379,88 @@ latex_colwidth <- function(x) {
 augment_multicolumn_autofit <- function(properties_df) {
   stopifnot(is.data.table(properties_df))
 
-  properties_df[, c("multicolumn_left", "multicolumn_right") :=
-    list(
+  properties_df[,
+    c("multicolumn_left", "multicolumn_right") := list(
       paste0(
         "\\multicolumn{",
         format_double(.SD$rowspan, digits = 0),
         "}{",
         .SD$vborder_left,
-        ">{", .SD$background_color, "}",
+        ">{",
+        .SD$background_color,
+        "}",
         substr(.SD$text.align, 1, 1),
         .SD$vborder_right,
         "}{"
       ),
       "}"
-    )]
+    )
+  ]
   properties_df
 }
 augment_multicolumn_fixed <- function(properties_df) {
   stopifnot(is.data.table(properties_df))
 
-  properties_df[, c("multicolumn_left", "multicolumn_right") :=
-    list(
+  properties_df[,
+    c("multicolumn_left", "multicolumn_right") := list(
       paste0(
-        "\\multicolumn{", format_double(.SD$rowspan, digits = 0), "}{",
+        "\\multicolumn{",
+        format_double(.SD$rowspan, digits = 0),
+        "}{",
         .SD$vborder_left,
-        ">{", .SD$background_color,
-        c("center" = "\\centering", left = "\\raggedright", right = "\\raggedleft")[.SD$text.align],
+        ">{",
+        .SD$background_color,
+        c(
+          "center" = "\\centering",
+          left = "\\raggedright",
+          right = "\\raggedleft"
+        )[.SD$text.align],
         "}",
         c(center = "m", "top" = "p", "bottom" = "b")[.SD$vertical.align],
-        "{", latex_colwidth(.SD), "}",
+        "{",
+        latex_colwidth(.SD),
+        "}",
         .SD$vborder_right,
         "}{"
       ),
       "}"
-    )]
+    )
+  ]
   properties_df
 }
 
-augment_part_separators <- function(z, no_container = TRUE, repeat_footer = TRUE) {
-  if (repeat_footer) endfoot <- "\\endfoot"
-  else endfoot <- "\\endlastfoot"
+augment_part_separators <- function(
+  z,
+  no_container = TRUE,
+  repeat_footer = TRUE
+) {
+  if (repeat_footer) {
+    endfoot <- "\\endfoot"
+  } else {
+    endfoot <- "\\endlastfoot"
+  }
 
-  part_separators <- merge(z[, c(".part", ".row_id")],
-    merge(z[, list(.row_id = max(.SD$.row_id)), by = ".part"],
+  part_separators <- merge(
+    z[, c(".part", ".row_id")],
+    merge(
+      z[, list(.row_id = max(.SD$.row_id)), by = ".part"],
       data.frame(
-        .part = factor(c("header", "body", "footer"), levels = c("header", "body", "footer")),
-        part_sep = if (no_container) c("\\endfirsthead", "", endfoot) else c("\\endfirsthead", "", ""),
+        .part = factor(
+          c("header", "body", "footer"),
+          levels = c("header", "body", "footer")
+        ),
+        part_sep = if (no_container) {
+          c("\\endfirsthead", "", endfoot)
+        } else {
+          c("\\endfirsthead", "", "")
+        },
         stringsAsFactors = FALSE
       ),
       by = c(".part")
     ),
-    by = c(".part", ".row_id"), all.x = TRUE, all.y = FALSE
+    by = c(".part", ".row_id"),
+    all.x = TRUE,
+    all.y = FALSE
   )
   part_separators$part_sep[is.na(part_separators$part_sep)] <- ""
   setorderv(part_separators, c(".part", ".row_id"))
@@ -349,7 +471,11 @@ augment_part_separators <- function(z, no_container = TRUE, repeat_footer = TRUE
     z_header <- z[z$.part %in% "header", ]
     z_header$.row_id <- z_header$.row_id + max(z_header$.row_id)
     z_header$part_sep[nrow(z_header)] <- "\\endhead"
-    z <- rbind(z[z$.part %in% "header", ], z_header, z[!z$.part %in% "header", ])
+    z <- rbind(
+      z[z$.part %in% "header", ],
+      z_header,
+      z[!z$.part %in% "header", ]
+    )
   }
 
   z
@@ -398,28 +524,39 @@ reverse_colspan <- function(df) {
   # Assign a unique id (col_uid) to each cell, then propagate the spanning
   # cell's id to its absorbed cells via fill_NA. This groups all cells
   # belonging to the same vertical merge.
-  df[, c("col_uid") := list(UUIDgenerate(n = nrow(.SD))), by = c(".part", ".row_id")]
+  df[,
+    c("col_uid") := list(UUIDgenerate(n = nrow(.SD))),
+    by = c(".part", ".row_id")
+  ]
   df[df$colspan < 1, c("col_uid") := list(NA_character_)]
   df[, c("col_uid") := list(fill_NA(.SD$col_uid)), by = c(".part", ".col_id")]
 
   # Bottom: reverse row_ids so content moves from first to last row.
-  bottom_uids <- unique(df$col_uid[df$colspan > 1 & df$vertical.align == "bottom"])
+  bottom_uids <- unique(df$col_uid[
+    df$colspan > 1 & df$vertical.align == "bottom"
+  ])
   if (length(bottom_uids) > 0) {
-    df[df$col_uid %in% bottom_uids, c(
-      ".row_id",
-      "vborder_left", "vborder_right"
-    ) :=
-      list(
+    df[
+      df$col_uid %in% bottom_uids,
+      c(
+        ".row_id",
+        "vborder_left",
+        "vborder_right"
+      ) := list(
         rev(.SD$.row_id),
         rev(.SD$vborder_left),
         rev(.SD$vborder_right)
-      ), by = c("col_uid")]
+      ),
+      by = c("col_uid")
+    ]
   }
 
   # Center: swap row_ids between first and middle positions so content
   # moves to the middle row. ceiling(N/2) gives the middle index:
   # N=2 -> 1 (no swap), N=3 -> 2, N=4 -> 2, N=5 -> 3, etc.
-  center_uids <- unique(df$col_uid[df$colspan > 1 & df$vertical.align == "center"])
+  center_uids <- unique(df$col_uid[
+    df$colspan > 1 & df$vertical.align == "center"
+  ])
   if (length(center_uids) > 0) {
     for (uid in center_uids) {
       idx <- which(df$col_uid == uid)
@@ -443,10 +580,16 @@ calc_column_size <- function(df, levels) {
   z <- df[, c(".col_id", ".part", ".row_id", "rowspan", "column_size")]
   z$.col_id <- factor(z$.col_id, levels = levels)
   setorderv(z, cols = c(".part", ".row_id", ".col_id"))
-  z[, c("col_uid") := list(UUIDgenerate(n = nrow(.SD))), by = c(".part", ".row_id")]
+  z[,
+    c("col_uid") := list(UUIDgenerate(n = nrow(.SD))),
+    by = c(".part", ".row_id")
+  ]
   z[z$rowspan < 1, c("col_uid") := list(NA_character_)]
   z[, c("col_uid") := list(fill_NA(.SD$col_uid)), by = c(".part", ".row_id")]
-  z[, c("column_size") := list(sum(.SD$column_size, na.rm = TRUE)), by = c(".part", ".row_id", "col_uid")]
+  z[,
+    c("column_size") := list(sum(.SD$column_size, na.rm = TRUE)),
+    by = c(".part", ".row_id", "col_uid")
+  ]
   z[, c("col_uid", "rowspan") := NULL]
   setorderv(z, cols = c(".part", ".row_id", ".col_id"))
   setDT(z)
@@ -463,7 +606,11 @@ merge_table_properties <- function(x) {
   cell_data[, c("width", "height", "hrule") := NULL]
   cell_data <- merge(cell_data, fortify_width(x), by = ".col_id")
   cell_data <- merge(cell_data, fortify_height(x), by = c(".part", ".row_id"))
-  cell_data <- merge(cell_data, fortify_span(x), by = c(".part", ".row_id", ".col_id"))
+  cell_data <- merge(
+    cell_data,
+    fortify_span(x),
+    by = c(".part", ".row_id", ".col_id")
+  )
 
   oldnames <- grep("^border\\.", colnames(cell_data), value = TRUE)
   newnames <- paste0("paragraph.", oldnames)
@@ -476,7 +623,9 @@ merge_table_properties <- function(x) {
 
 #' @importFrom utils compareVersion packageVersion
 get_pdf_engine <- function() {
-  if (compareVersion(as.character(packageVersion("rmarkdown")), "1.10.14") < 0) {
+  if (
+    compareVersion(as.character(packageVersion("rmarkdown")), "1.10.14") < 0
+  ) {
     stop("package rmarkdown >= 1.10.14 is required to use this function")
   }
 
@@ -489,8 +638,11 @@ get_pdf_engine <- function() {
 
     # Quarto >= 1.8: read the resolved engine from QUARTO_EXECUTE_INFO
     exec_info <- Sys.getenv("QUARTO_EXECUTE_INFO", unset = "")
-    if (nzchar(exec_info) && file.exists(exec_info) &&
-        requireNamespace("jsonlite", quietly = TRUE)) {
+    if (
+      nzchar(exec_info) &&
+        file.exists(exec_info) &&
+        requireNamespace("jsonlite", quietly = TRUE)
+    ) {
       qmd <- jsonlite::read_json(exec_info)
       engine <- qmd$format$pandoc$`pdf-engine`
     }
@@ -549,17 +701,32 @@ latex_container_str <- function(x, latex_container, quarto = FALSE, ...) {
 }
 
 #' @export
-latex_container_str.latex_container_none <- function(x, latex_container, quarto = FALSE, ...) {
+latex_container_str.latex_container_none <- function(
+  x,
+  latex_container,
+  quarto = FALSE,
+  ...
+) {
   c("", "")
 }
 
 #' @export
-latex_container_str.latex_container_float <- function(x, latex_container, quarto = FALSE, ...) {
+latex_container_str.latex_container_float <- function(
+  x,
+  latex_container,
+  quarto = FALSE,
+  ...
+) {
   c("\\begin{table}", "\\end{table}")
 }
 
 #' @export
-latex_container_str.latex_container_wrap <- function(x, latex_container, quarto = FALSE, ...) {
+latex_container_str.latex_container_wrap <- function(
+  x,
+  latex_container,
+  quarto = FALSE,
+  ...
+) {
   str <- paste0("\\begin{wraptable}{", latex_container$placement, "}")
 
   if (x$properties$layout %in% "fixed") {

@@ -33,10 +33,10 @@ ft <- theme_tron_legacy(merge_none(ft))
 ft
 }
 \seealso{
-Other cell merging functions: 
-\code{\link{merge_at}()},
-\code{\link{merge_h}()},
-\code{\link{merge_h_range}()},
-\code{\link{merge_v}()}
+Other cell merging functions:
+\code{\link[=merge_at]{merge_at()}},
+\code{\link[=merge_h]{merge_h()}},
+\code{\link[=merge_h_range]{merge_h_range()}},
+\code{\link[=merge_v]{merge_v()}}
 }
 \concept{cell merging functions}

@@ -50,7 +50,13 @@
 #' ft_2
 #' @family cell merging functions
 #' @export
-merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE) {
+merge_v <- function(
+  x,
+  j = NULL,
+  target = NULL,
+  part = "body",
+  combine = FALSE
+) {
   if (!inherits(x, "flextable")) {
     stop(sprintf("Function `%s` supports only flextable objects.", "merge_v()"))
   }
@@ -64,11 +70,15 @@ merge_v <- function(x, j = NULL, target = NULL, part = "body", combine = FALSE) 
     target <- as_col_keys(x[[part]], j, blanks = character())
   }
 
-  x[[part]] <- span_columns(x = x[[part]], columns = j, target = target, combine = combine)
+  x[[part]] <- span_columns(
+    x = x[[part]],
+    columns = j,
+    target = target,
+    combine = combine
+  )
 
   x
 }
-
 
 
 #' @title Merge flextable cells horizontally
@@ -131,9 +141,16 @@ merge_h <- function(x, i = NULL, part = "body") {
 #' ft
 merge_none <- function(x, part = "all") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "merge_none()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "merge_none()"
+    ))
   }
-  part <- match.arg(part, c("all", "body", "header", "footer"), several.ok = FALSE)
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
 
   if (part == "all") {
     args <- list()
@@ -146,9 +163,6 @@ merge_none <- function(x, part = "all") {
 
   x
 }
-
-
-
 
 
 #' @title Merge flextable cells into a single one
@@ -165,7 +179,10 @@ merge_none <- function(x, part = "all") {
 #' @export
 merge_at <- function(x, i = NULL, j = NULL, part = "body") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "merge_at()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "merge_at()"
+    ))
   }
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
 
@@ -197,7 +214,10 @@ merge_at <- function(x, i = NULL, j = NULL, part = "body") {
 #' @export
 merge_h_range <- function(x, i = NULL, j1 = NULL, j2 = NULL, part = "body") {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "merge_h_range()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "merge_h_range()"
+    ))
   }
   part <- match.arg(part, c("body", "header", "footer"), several.ok = FALSE)
 
@@ -210,7 +230,6 @@ merge_h_range <- function(x, i = NULL, j1 = NULL, j2 = NULL, part = "body") {
   x[[part]]$spans$rows[i, seq_cols] <- 0
   x[[part]]$spans$rows[i, j1] <- length(seq_cols)
   check_merge(x[[part]])
-
 
   x
 }

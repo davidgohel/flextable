@@ -122,8 +122,8 @@ init_flextable_defaults()
 \code{\link[=knit_print.flextable]{knit_print.flextable()}}, \code{\link[=save_as_docx]{save_as_docx()}}
 
 Other functions for officer integration:
-\code{\link{body_replace_flextable_at_bkm}()},
-\code{\link{ph_with.flextable}()},
-\code{\link{rtf_add.flextable}()}
+\code{\link[=body_replace_flextable_at_bkm]{body_replace_flextable_at_bkm()}},
+\code{\link[=ph_with.flextable]{ph_with.flextable()}},
+\code{\link[=rtf_add.flextable]{rtf_add.flextable()}}
 }
 \concept{officer_integration}

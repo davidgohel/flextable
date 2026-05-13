@@ -48,16 +48,16 @@ ft
 }
 \seealso{
 Other themes and defaults:
-\code{\link{get_flextable_defaults}()},
-\code{\link{set_flextable_defaults}()},
-\code{\link{theme_alafoli}()},
-\code{\link{theme_apa}()},
-\code{\link{theme_borderless}()},
-\code{\link{theme_box}()},
-\code{\link{theme_tron}()},
-\code{\link{theme_tron_legacy}()},
-\code{\link{theme_vader}()},
-\code{\link{theme_vanilla}()},
-\code{\link{theme_zebra}()}
+\code{\link[=get_flextable_defaults]{get_flextable_defaults()}},
+\code{\link[=set_flextable_defaults]{set_flextable_defaults()}},
+\code{\link[=theme_alafoli]{theme_alafoli()}},
+\code{\link[=theme_apa]{theme_apa()}},
+\code{\link[=theme_borderless]{theme_borderless()}},
+\code{\link[=theme_box]{theme_box()}},
+\code{\link[=theme_tron]{theme_tron()}},
+\code{\link[=theme_tron_legacy]{theme_tron_legacy()}},
+\code{\link[=theme_vader]{theme_vader()}},
+\code{\link[=theme_vanilla]{theme_vanilla()}},
+\code{\link[=theme_zebra]{theme_zebra()}}
 }
 \concept{themes_and_defaults}

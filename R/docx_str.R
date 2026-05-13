@@ -7,47 +7,54 @@ ooxml_ppr <- function(paragraphs_properties, type = "wml") {
   fp_par_xml <- data_ref_pars
   classnames <- data_ref_pars$classname
   fp_par_xml <- split(fp_par_xml, classnames)
-  fp_par_xml <- vapply(fp_par_xml, function(x) {
-    zz <- as.list(x)
-    zz$border.bottom <- fp_border(
-      color = zz$border.color.bottom,
-      width = zz$border.width.bottom,
-      style = zz$border.style.bottom
-    )
-    zz$border.top <- fp_border(
-      color = zz$border.color.top,
-      width = zz$border.width.top,
-      style = zz$border.style.top
-    )
-    zz$border.right <- fp_border(
-      color = zz$border.color.right,
-      width = zz$border.width.right,
-      style = zz$border.style.right
-    )
-    zz$border.left <- fp_border(
-      color = zz$border.color.left,
-      width = zz$border.width.left,
-      style = zz$border.style.left
-    )
+  fp_par_xml <- vapply(
+    fp_par_xml,
+    function(x) {
+      zz <- as.list(x)
+      zz$border.bottom <- fp_border(
+        color = zz$border.color.bottom,
+        width = zz$border.width.bottom,
+        style = zz$border.style.bottom
+      )
+      zz$border.top <- fp_border(
+        color = zz$border.color.top,
+        width = zz$border.width.top,
+        style = zz$border.style.top
+      )
+      zz$border.right <- fp_border(
+        color = zz$border.color.right,
+        width = zz$border.width.right,
+        style = zz$border.style.right
+      )
+      zz$border.left <- fp_border(
+        color = zz$border.color.left,
+        width = zz$border.width.left,
+        style = zz$border.style.left
+      )
 
-    if (!is.na(zz$tabs) && !isFALSE(zz$tabs)) {
-      fp_tabs_ <- strsplit(zz$tabs, "&")[[1]]
-      fp_tabs_ <- lapply(strsplit(fp_tabs_, "_"), function(x) {
-        fp_tab(pos = as.numeric(x[2]), style = x[1])
-      })
-      zz$tabs <- do.call(fp_tabs, fp_tabs_)
-    } else {
-      zz$tabs <- NULL
-    }
+      if (!is.na(zz$tabs) && !isFALSE(zz$tabs)) {
+        fp_tabs_ <- strsplit(zz$tabs, "&")[[1]]
+        fp_tabs_ <- lapply(strsplit(fp_tabs_, "_"), function(x) {
+          fp_tab(pos = as.numeric(x[2]), style = x[1])
+        })
+        zz$tabs <- do.call(fp_tabs, fp_tabs_)
+      } else {
+        zz$tabs <- NULL
+      }
 
+      # delete names not in formals
+      zz[grepl(
+        pattern = "^(border\\.color|border\\.width|border\\.style)",
+        names(zz)
+      )] <- NULL
+      zz$classname <- NULL
 
-    # delete names not in formals
-    zz[grepl(pattern = "^(border\\.color|border\\.width|border\\.style)", names(zz))] <- NULL
-    zz$classname <- NULL
-
-    zz <- do.call(fp_par_lite, zz)
-    format(zz, type = type)
-  }, FUN.VALUE = "", USE.NAMES = FALSE)
+      zz <- do.call(fp_par_lite, zz)
+      format(zz, type = type)
+    },
+    FUN.VALUE = "",
+    USE.NAMES = FALSE
+  )
 
   style_dat <- data.frame(
     fp_par_xml = fp_par_xml,
@@ -58,12 +65,23 @@ ooxml_ppr <- function(paragraphs_properties, type = "wml") {
   # organise everything
   setDT(paragraphs_properties)
 
-  paragraphs_properties <- merge(paragraphs_properties, data_ref_pars, by = intersect(colnames(paragraphs_properties), colnames(data_ref_pars)))
-  paragraphs_properties <- merge(paragraphs_properties, style_dat, by = "classname")
-  paragraphs_properties <- paragraphs_properties[, .SD,
+  paragraphs_properties <- merge(
+    paragraphs_properties,
+    data_ref_pars,
+    by = intersect(colnames(paragraphs_properties), colnames(data_ref_pars))
+  )
+  paragraphs_properties <- merge(
+    paragraphs_properties,
+    style_dat,
+    by = "classname"
+  )
+  paragraphs_properties <- paragraphs_properties[,
+    .SD,
     .SDcols = c(
-      ".part", ".row_id",
-      ".col_id", "fp_par_xml"
+      ".part",
+      ".row_id",
+      ".col_id",
+      "fp_par_xml"
     )
   ]
   setDF(paragraphs_properties)
@@ -127,41 +145,56 @@ wml_cells <- function(value, cell_data) {
   fp_cell_wml$classname <- NULL
 
   fp_cell_wml <- split(fp_cell_wml, classnames)
-  fp_cell_wml <- vapply(fp_cell_wml, function(x) {
-    zz <- as.list(x)
-    zz$border.bottom <- fp_border(
-      color = zz$border.color.bottom,
-      width = zz$border.width.bottom,
-      style = zz$border.style.bottom
-    )
-    zz$border.top <- fp_border(
-      color = zz$border.color.top,
-      width = zz$border.width.top,
-      style = zz$border.style.top
-    )
-    zz$border.right <- fp_border(
-      color = zz$border.color.right,
-      width = zz$border.width.right,
-      style = zz$border.style.right
-    )
-    zz$border.left <- fp_border(
-      color = zz$border.color.left,
-      width = zz$border.width.left,
-      style = zz$border.style.left
-    )
+  fp_cell_wml <- vapply(
+    fp_cell_wml,
+    function(x) {
+      zz <- as.list(x)
+      zz$border.bottom <- fp_border(
+        color = zz$border.color.bottom,
+        width = zz$border.width.bottom,
+        style = zz$border.style.bottom
+      )
+      zz$border.top <- fp_border(
+        color = zz$border.color.top,
+        width = zz$border.width.top,
+        style = zz$border.style.top
+      )
+      zz$border.right <- fp_border(
+        color = zz$border.color.right,
+        width = zz$border.width.right,
+        style = zz$border.style.right
+      )
+      zz$border.left <- fp_border(
+        color = zz$border.color.left,
+        width = zz$border.width.left,
+        style = zz$border.style.left
+      )
 
-    zz[c(
-      "border.width.bottom", "border.width.top", "border.width.left",
-      "border.width.right", "border.color.bottom", "border.color.top",
-      "border.color.left", "border.color.right", "border.style.bottom",
-      "border.style.top", "border.style.left", "border.style.right",
-      "width", "height", "hrule"
-    )] <- NULL
-    zz$classname <- NULL
-    zz <- do.call(fp_cell, zz)
-    zz <- format(zz, type = "wml")
-    zz
-  }, FUN.VALUE = "", USE.NAMES = FALSE)
+      zz[c(
+        "border.width.bottom",
+        "border.width.top",
+        "border.width.left",
+        "border.width.right",
+        "border.color.bottom",
+        "border.color.top",
+        "border.color.left",
+        "border.color.right",
+        "border.style.bottom",
+        "border.style.top",
+        "border.style.left",
+        "border.style.right",
+        "width",
+        "height",
+        "hrule"
+      )] <- NULL
+      zz$classname <- NULL
+      zz <- do.call(fp_cell, zz)
+      zz <- format(zz, type = "wml")
+      zz
+    },
+    FUN.VALUE = "",
+    USE.NAMES = FALSE
+  )
 
   style_dat <- data.frame(
     fp_cell_wml = fp_cell_wml,
@@ -170,14 +203,19 @@ wml_cells <- function(value, cell_data) {
   )
 
   # organise everything
-  cell_data <- merge(cell_data, data_ref_cells,
+  cell_data <- merge(
+    cell_data,
+    data_ref_cells,
     by = intersect(colnames(cell_data), colnames(data_ref_cells))
   )
   cell_data <- merge(cell_data, style_dat, by = "classname")
-  cell_data <- cell_data[, .SD,
+  cell_data <- cell_data[,
+    .SD,
     .SDcols = c(
-      ".part", ".row_id",
-      ".col_id", "fp_cell_wml"
+      ".part",
+      ".row_id",
+      ".col_id",
+      "fp_cell_wml"
     )
   ]
   setDF(cell_data)
@@ -188,7 +226,10 @@ default_fp_text_wml <- function(value) {
   default_chunks_properties <- information_data_default_chunk(value)
   unique_text_props <- distinct_text_properties(default_chunks_properties)
   rpr <- sapply(
-    split(unique_text_props[setdiff(colnames(unique_text_props), "classname")], unique_text_props$classname),
+    split(
+      unique_text_props[setdiff(colnames(unique_text_props), "classname")],
+      unique_text_props$classname
+    ),
     function(x) {
       z <- do.call(officer::fp_text_lite, x)
       format(z, type = "wml")
@@ -198,17 +239,34 @@ default_fp_text_wml <- function(value) {
   unique_text_props$fp_txt_default <- unname(rpr[unique_text_props$classname])
   setDT(default_chunks_properties)
 
-  by_cols <- c("color", "font.size", "bold", "italic", "underlined", "strike", "font.family",
-               "hansi.family", "eastasia.family", "cs.family", "vertical.align",
-               "shading.color")
+  by_cols <- c(
+    "color",
+    "font.size",
+    "bold",
+    "italic",
+    "underlined",
+    "strike",
+    "font.family",
+    "hansi.family",
+    "eastasia.family",
+    "cs.family",
+    "vertical.align",
+    "shading.color"
+  )
   by_cols <- intersect(by_cols, colnames(default_chunks_properties))
   by_cols <- intersect(by_cols, colnames(unique_text_props))
   default_chunks_properties <- merge(
-    default_chunks_properties, unique_text_props,
+    default_chunks_properties,
+    unique_text_props,
     by = by_cols
   )
   setDF(default_chunks_properties)
-  default_chunks_properties <- default_chunks_properties[, c(".part", ".row_id", ".col_id", "fp_txt_default")]
+  default_chunks_properties <- default_chunks_properties[, c(
+    ".part",
+    ".row_id",
+    ".col_id",
+    "fp_txt_default"
+  )]
   default_chunks_properties
 }
 
@@ -218,7 +276,11 @@ wml_rows <- function(value, split = FALSE, repeat_headers = TRUE) {
   cell_attributes <- information_data_cell(value)
   span_data <- fortify_span(value)
   setDT(cell_attributes)
-  cell_attributes <- merge(cell_attributes, span_data, by = c(".part", ".row_id", ".col_id"))
+  cell_attributes <- merge(
+    cell_attributes,
+    span_data,
+    by = c(".part", ".row_id", ".col_id")
+  )
   setDF(cell_attributes)
 
   # prepare paragraphs formatting properties
@@ -244,38 +306,63 @@ wml_rows <- function(value, split = FALSE, repeat_headers = TRUE) {
   setDT(cell_data)
 
   default_chunks_properties <- default_fp_text_wml(value)
-  tab_data <- merge(cell_data, ooxml_ppr(paragraphs_properties), by = c(".part", ".row_id", ".col_id"))
-  tab_data <- merge(tab_data, default_chunks_properties, by = c(".part", ".row_id", ".col_id"))
-  tab_data[, c("fp_par_xml", "fp_txt_default") := list(
-    paste0(substr(.SD$fp_par_xml, 1, nchar(.SD$fp_par_xml)-8), .SD$fp_txt_default, "</w:pPr>"),
-    NULL
-  )]
+  tab_data <- merge(
+    cell_data,
+    ooxml_ppr(paragraphs_properties),
+    by = c(".part", ".row_id", ".col_id")
+  )
+  tab_data <- merge(
+    tab_data,
+    default_chunks_properties,
+    by = c(".part", ".row_id", ".col_id")
+  )
+  tab_data[,
+    c("fp_par_xml", "fp_txt_default") := list(
+      paste0(
+        substr(.SD$fp_par_xml, 1, nchar(.SD$fp_par_xml) - 8),
+        .SD$fp_txt_default,
+        "</w:pPr>"
+      ),
+      NULL
+    )
+  ]
   tab_data <- merge(tab_data, run_data, by = c(".part", ".row_id", ".col_id"))
   tab_data <- merge(tab_data, span_data, by = c(".part", ".row_id", ".col_id"))
   setorderv(tab_data, cols = c(".part", ".row_id", ".col_id"))
 
-  tab_data[, c("wml", "fp_par_xml", "run_openxml") := list(
-    paste0("<w:p>", .SD$fp_par_xml, .SD$run_openxml, "</w:p>"),
-    NULL,
-    NULL
-  )]
-
-  tab_data[tab_data$colspan < 1, c("wml") := list(
-    gsub("<w:r\\b[^<]*>[^<]*(?:<[^<]*)*</w:r>", "", .SD$wml)
-  )]
-
-  tab_data[, c("wml") := list(
-    paste0(
-      "<w:tc>",
-      .SD$fp_cell_wml,
-      .SD$wml, "</w:tc>"
+  tab_data[,
+    c("wml", "fp_par_xml", "run_openxml") := list(
+      paste0("<w:p>", .SD$fp_par_xml, .SD$run_openxml, "</w:p>"),
+      NULL,
+      NULL
     )
-  )]
+  ]
+
+  tab_data[
+    tab_data$colspan < 1,
+    c("wml") := list(
+      gsub("<w:r\\b[^<]*>[^<]*(?:<[^<]*)*</w:r>", "", .SD$wml)
+    )
+  ]
+
+  tab_data[,
+    c("wml") := list(
+      paste0(
+        "<w:tc>",
+        .SD$fp_cell_wml,
+        .SD$wml,
+        "</w:tc>"
+      )
+    )
+  ]
   tab_data[tab_data$rowspan < 1, c("wml") := list("")]
 
   cells <- dcast(
-    data = tab_data, formula = .part + .row_id ~ .col_id,
-    drop = TRUE, fill = "", value.var = "wml",
+    data = tab_data,
+    formula = .part + .row_id ~ .col_id,
+    drop = TRUE,
+    fill = "",
+    value.var = "wml",
     fun.aggregate = I
   )
   setDF(cells)
@@ -283,7 +370,9 @@ wml_rows <- function(value, split = FALSE, repeat_headers = TRUE) {
   wml <- do.call(paste0, cells[col_ids])
 
   split_str <- ""
-  if (!split) split_str <- "<w:cantSplit/>"
+  if (!split) {
+    split_str <- "<w:cantSplit/>"
+  }
 
   hrule <- cell_hrule$hrule
   hrule[hrule %in% "atleast"] <- "atLeast"
@@ -303,7 +392,9 @@ wml_rows <- function(value, split = FALSE, repeat_headers = TRUE) {
     hrule,
     "\"/>",
     header_str,
-    "</w:trPr>", wml, "</w:tr>"
+    "</w:trPr>",
+    wml,
+    "</w:tr>"
   )
 
   paste0(rows, collapse = "")

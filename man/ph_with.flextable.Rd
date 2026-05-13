@@ -56,8 +56,8 @@ print(doc, target = fileout)
 }
 \seealso{
 Other functions for officer integration:
-\code{\link{body_add_flextable}()},
-\code{\link{body_replace_flextable_at_bkm}()},
-\code{\link{rtf_add.flextable}()}
+\code{\link[=body_add_flextable]{body_add_flextable()}},
+\code{\link[=body_replace_flextable_at_bkm]{body_replace_flextable_at_bkm()}},
+\code{\link[=rtf_add.flextable]{rtf_add.flextable()}}
 }
 \concept{officer_integration}

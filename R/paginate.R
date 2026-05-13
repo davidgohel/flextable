@@ -91,11 +91,12 @@
 #' @seealso [knit_print.flextable()]
 #' @family table_structure
 paginate <- function(
-    x,
-    init = NULL,
-    hdr_ftr = TRUE,
-    group = character(),
-    group_def = c("rle", "nonempty", "starts")) {
+  x,
+  init = NULL,
+  hdr_ftr = TRUE,
+  group = character(),
+  group_def = c("rle", "nonempty", "starts")
+) {
   if (is.null(init)) {
     init <- get_flextable_defaults()$keep_with_next
   }
@@ -128,7 +129,12 @@ paginate_hdr_ftr <- function(x) {
     x <- keep_with_next(x, value = TRUE, part = "header")
   }
   if (nrow_footer > 0 && nrow_part(x, "body")) {
-    x <- keep_with_next(x, value = TRUE, part = "body", i = nrow_part(x, "body"))
+    x <- keep_with_next(
+      x,
+      value = TRUE,
+      part = "body",
+      i = nrow_part(x, "body")
+    )
   }
   if (nrow_footer > 0) {
     x <- keep_with_next(x, value = TRUE, part = "footer")
@@ -146,7 +152,10 @@ paginate_nonempty <- function(x, group) {
     stop("could not find ", shQuote(group))
   }
   grp_val <- x$body$dataset[[group]]
-  index_false <- c(which(!is.na(grp_val) & !grp_val %in% ""), length(grp_val) + 1)
+  index_false <- c(
+    which(!is.na(grp_val) & !grp_val %in% ""),
+    length(grp_val) + 1
+  )
   index_false <- index_false - 1
   index_false <- index_false[index_false > 0]
   x <- keep_with_next(x, value = TRUE, part = "body")
@@ -163,7 +172,11 @@ paginate_rleid <- function(x, group) {
     stop("could not find ", shQuote(group))
   }
   grp_val <- x$body$dataset[[group]]
-  index_false <- as.integer(tapply(seq_along(grp_val), rleid(grp_val), function(z) z[length(z)]))
+  index_false <- as.integer(tapply(
+    seq_along(grp_val),
+    rleid(grp_val),
+    function(z) z[length(z)]
+  ))
   x <- keep_with_next(x, value = TRUE, part = "body")
   x <- keep_with_next(x, i = index_false, value = FALSE, part = "body")
   x
@@ -171,7 +184,9 @@ paginate_rleid <- function(x, group) {
 
 paginate_starts <- function(x, starts) {
   n <- nrow_part(x, "body")
-  if (n < 1L) return(x)
+  if (n < 1L) {
+    return(x)
+  }
 
   index_false <- starts - 1L
   index_false <- index_false[index_false > 0L & index_false <= n]

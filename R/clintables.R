@@ -6,13 +6,23 @@ c_if <- function(...) {
 }
 
 
-full_shift_structure <- function(x, cn_is_baseline, baseline_identifier,
-                                 cn_treatment, cn_lab_cat, cn_visit,
-                                 cn_baseline, cn_grade,
-                                 grade_levels) {
+full_shift_structure <- function(
+  x,
+  cn_is_baseline,
+  baseline_identifier,
+  cn_treatment,
+  cn_lab_cat,
+  cn_visit,
+  cn_baseline,
+  cn_grade,
+  grade_levels
+) {
   DAT_UCAT <- as.data.table(x)
   DAT_UCAT <- DAT_UCAT[!DAT_UCAT[[cn_is_baseline]] %in% baseline_identifier, ]
-  DAT_UCAT <- DAT_UCAT[, .SD, .SDcols = c_if(cn_treatment, cn_lab_cat, cn_visit)]
+  DAT_UCAT <- DAT_UCAT[,
+    .SD,
+    .SDcols = c_if(cn_treatment, cn_lab_cat, cn_visit)
+  ]
   DAT_UCAT <- unique(DAT_UCAT)
   DAT_UCAT$DUMMY_JOIN <- 1L
 
@@ -27,26 +37,52 @@ full_shift_structure <- function(x, cn_is_baseline, baseline_identifier,
   DAT_UBS$DUMMY_JOIN <- 1L
 
   PIVOT_DATA <- merge(
-    x = DAT_UCAT, y = DAT_UBS, by = "DUMMY_JOIN",
+    x = DAT_UCAT,
+    y = DAT_UBS,
+    by = "DUMMY_JOIN",
     allow.cartesian = TRUE,
-    all.x = TRUE, all.y = TRUE
+    all.x = TRUE,
+    all.y = TRUE
   )
   PIVOT_DATA$DUMMY_JOIN <- NULL
-  setorderv(PIVOT_DATA, cols = c_if(cn_treatment, cn_lab_cat, cn_visit, cn_baseline, cn_grade))
+  setorderv(
+    PIVOT_DATA,
+    cols = c_if(cn_treatment, cn_lab_cat, cn_visit, cn_baseline, cn_grade)
+  )
   setDF(PIVOT_DATA)
   PIVOT_DATA
 }
 
-pivot_baseline <- function(x, cn_is_baseline, baseline_identifier, cn_visit, cn_usubjid, cn_grade, cn_lab_cat, cn_treatment, cn_baseline) {
+pivot_baseline <- function(
+  x,
+  cn_is_baseline,
+  baseline_identifier,
+  cn_visit,
+  cn_usubjid,
+  cn_grade,
+  cn_lab_cat,
+  cn_treatment,
+  cn_baseline
+) {
   BASELINE <- as.data.table(x)
   BASELINE <- BASELINE[BASELINE[[cn_is_baseline]] %in% baseline_identifier, ]
-  BASELINE <- BASELINE[, .SD, .SDcols = c_if(cn_usubjid, cn_grade, cn_lab_cat, cn_treatment)]
+  BASELINE <- BASELINE[,
+    .SD,
+    .SDcols = c_if(cn_usubjid, cn_grade, cn_lab_cat, cn_treatment)
+  ]
   setnames(BASELINE, old = cn_grade, new = cn_baseline)
 
   DATAMART <- as.data.table(x)
   DATAMART <- DATAMART[!DATAMART[[cn_is_baseline]] %in% baseline_identifier, ]
-  DATAMART <- DATAMART[, .SD, .SDcols = c_if(cn_usubjid, cn_visit, cn_grade, cn_lab_cat, cn_treatment)]
-  DATAMART <- merge(DATAMART, BASELINE, by = c_if(cn_lab_cat, cn_treatment, cn_usubjid))
+  DATAMART <- DATAMART[,
+    .SD,
+    .SDcols = c_if(cn_usubjid, cn_visit, cn_grade, cn_lab_cat, cn_treatment)
+  ]
+  DATAMART <- merge(
+    DATAMART,
+    BASELINE,
+    by = c_if(cn_lab_cat, cn_treatment, cn_usubjid)
+  )
   setDF(DATAMART)
   DATAMART
 }
@@ -68,7 +104,11 @@ facfun_visit <- function(x, cn_visit = "VISIT", cn_visit_num = "VISITNUM") {
   visit_as_factor
 }
 
-facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_labels = grade_levels) {
+facfun_grade <- function(
+  x,
+  grade_levels = c("LOW", "NORMAL", "HIGH"),
+  grade_labels = grade_levels
+) {
   new_function(
     # categories "MISSING" and "SUM" are added
     pairlist2(
@@ -229,17 +269,26 @@ facfun_grade <- function(x, grade_levels = c("LOW", "NORMAL", "HIGH"), grade_lab
 #'
 #' ft_1
 shift_table <- function(
-    x,
-    cn_visit = "VISIT", cn_visit_num = "VISITNUM", cn_grade = "LBNRIND",
-    cn_usubjid = "USUBJID", cn_lab_cat = NA_character_, cn_is_baseline = "LBBLFL",
-    baseline_identifier = "Y", cn_treatment = NA_character_,
-    grade_levels = c("LOW", "NORMAL", "HIGH"),
-    grade_labels = c("Low", "Normal", "High")) {
+  x,
+  cn_visit = "VISIT",
+  cn_visit_num = "VISITNUM",
+  cn_grade = "LBNRIND",
+  cn_usubjid = "USUBJID",
+  cn_lab_cat = NA_character_,
+  cn_is_baseline = "LBBLFL",
+  baseline_identifier = "Y",
+  cn_treatment = NA_character_,
+  grade_levels = c("LOW", "NORMAL", "HIGH"),
+  grade_labels = c("Low", "Normal", "High")
+) {
   cn_baseline <- "BASELINE"
 
   PIVOT_DATA <- full_shift_structure(
-    x = x, cn_is_baseline = cn_is_baseline, baseline_identifier = baseline_identifier,
-    cn_treatment = cn_treatment, cn_lab_cat = cn_lab_cat,
+    x = x,
+    cn_is_baseline = cn_is_baseline,
+    baseline_identifier = baseline_identifier,
+    cn_treatment = cn_treatment,
+    cn_lab_cat = cn_lab_cat,
     cn_visit = cn_visit,
     cn_baseline = cn_baseline,
     cn_grade = cn_grade,
@@ -247,17 +296,23 @@ shift_table <- function(
   )
 
   DATAMART <- pivot_baseline(
-    x = x, cn_is_baseline = cn_is_baseline, baseline_identifier = baseline_identifier,
+    x = x,
+    cn_is_baseline = cn_is_baseline,
+    baseline_identifier = baseline_identifier,
     cn_visit = cn_visit,
     cn_usubjid = cn_usubjid,
     cn_grade = cn_grade,
-    cn_treatment = cn_treatment, cn_lab_cat = cn_lab_cat,
+    cn_treatment = cn_treatment,
+    cn_lab_cat = cn_lab_cat,
     cn_baseline = cn_baseline
   )
 
   SHIFT_TABLE_VISIT <- as.data.table(DATAMART)
   by <- c_if(cn_lab_cat, cn_treatment, cn_visit)
-  SHIFT_TABLE_VISIT <- SHIFT_TABLE_VISIT[, list(N_VISIT = length(.SD[[cn_usubjid]])), by = by]
+  SHIFT_TABLE_VISIT <- SHIFT_TABLE_VISIT[,
+    list(N_VISIT = length(.SD[[cn_usubjid]])),
+    by = by
+  ]
   setDF(SHIFT_TABLE_VISIT)
 
   SHIFT_TABLE_CT <- as.data.table(DATAMART)
@@ -267,13 +322,22 @@ shift_table <- function(
 
   SHIFT_TABLE_DETAIL <- as.data.table(SHIFT_TABLE_CT)
   by <- c_if(cn_treatment, cn_lab_cat, cn_visit)
-  SHIFT_TABLE_DETAIL[, c("PCT") := list(.SD[["N"]] / sum(.SD[["N"]], na.rm = TRUE)), by = by]
+  SHIFT_TABLE_DETAIL[,
+    c("PCT") := list(.SD[["N"]] / sum(.SD[["N"]], na.rm = TRUE)),
+    by = by
+  ]
 
   SHIFT_TABLE_SUM <- as.data.table(SHIFT_TABLE_CT)
   by <- c_if(cn_treatment, cn_lab_cat, cn_visit, cn_grade)
-  SHIFT_TABLE_SUM <- SHIFT_TABLE_SUM[, list(N = sum(.SD[["N"]], na.rm = TRUE)), by = by]
+  SHIFT_TABLE_SUM <- SHIFT_TABLE_SUM[,
+    list(N = sum(.SD[["N"]], na.rm = TRUE)),
+    by = by
+  ]
   by <- c_if(cn_treatment, cn_lab_cat, cn_visit)
-  SHIFT_TABLE_SUM[, c("PCT") := list(.SD[["N"]] / sum(.SD[["N"]], na.rm = TRUE)), by = by]
+  SHIFT_TABLE_SUM[,
+    c("PCT") := list(.SD[["N"]] / sum(.SD[["N"]], na.rm = TRUE)),
+    by = by
+  ]
   SHIFT_TABLE_SUM[[cn_baseline]] <- "SUM"
 
   replct <- list("MISSING", "MISSING", N = 0L, PCT = 0.0)
@@ -283,22 +347,44 @@ shift_table <- function(
   setDF(SHIFT_TABLE_DETAIL)
   setDF(SHIFT_TABLE_SUM)
   for (j in names(replct)) {
-    set(SHIFT_TABLE, i = which(is.na(SHIFT_TABLE[[j]])), j = j, value = replct[[j]])
+    set(
+      SHIFT_TABLE,
+      i = which(is.na(SHIFT_TABLE[[j]])),
+      j = j,
+      value = replct[[j]]
+    )
   }
 
   setDT(PIVOT_DATA)
   by <- c_if(cn_treatment, cn_lab_cat, cn_visit, cn_baseline, cn_grade)
-  SHIFT_TABLE <- merge(PIVOT_DATA, SHIFT_TABLE,
-    by = by, all.x = TRUE, all.y = TRUE
+  SHIFT_TABLE <- merge(
+    PIVOT_DATA,
+    SHIFT_TABLE,
+    by = by,
+    all.x = TRUE,
+    all.y = TRUE
   )
   for (j in names(replct)) {
-    set(SHIFT_TABLE, i = which(is.na(SHIFT_TABLE[[j]])), j = j, value = replct[[j]])
+    set(
+      SHIFT_TABLE,
+      i = which(is.na(SHIFT_TABLE[[j]])),
+      j = j,
+      value = replct[[j]]
+    )
   }
 
   setDF(SHIFT_TABLE)
 
   attr(SHIFT_TABLE, "VISIT_N") <- SHIFT_TABLE_VISIT
-  attr(SHIFT_TABLE, "FUN_VISIT") <- facfun_visit(x, cn_visit = cn_visit, cn_visit_num = cn_visit_num)
-  attr(SHIFT_TABLE, "FUN_GRADE") <- facfun_grade(x, grade_levels = grade_levels, grade_labels = grade_labels)
+  attr(SHIFT_TABLE, "FUN_VISIT") <- facfun_visit(
+    x,
+    cn_visit = cn_visit,
+    cn_visit_num = cn_visit_num
+  )
+  attr(SHIFT_TABLE, "FUN_GRADE") <- facfun_grade(
+    x,
+    grade_levels = grade_levels,
+    grade_labels = grade_labels
+  )
   SHIFT_TABLE
 }

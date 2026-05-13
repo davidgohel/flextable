@@ -1,10 +1,20 @@
 pml_spans <- function(value) {
   span_data <- fortify_span(value)
-  span_data$grid_span <- ifelse(span_data$rowspan == 1, "",
-    ifelse(span_data$rowspan > 1, paste0(" gridSpan=\"", span_data$rowspan, "\""), " hMerge=\"true\"")
+  span_data$grid_span <- ifelse(
+    span_data$rowspan == 1,
+    "",
+    ifelse(
+      span_data$rowspan > 1,
+      paste0(" gridSpan=\"", span_data$rowspan, "\""),
+      " hMerge=\"true\""
+    )
   )
-  span_data$row_span <- ifelse(span_data$colspan == 1, "",
-    ifelse(span_data$colspan > 1, paste0(" rowSpan=\"", span_data$colspan, "\""),
+  span_data$row_span <- ifelse(
+    span_data$colspan == 1,
+    "",
+    ifelse(
+      span_data$colspan > 1,
+      paste0(" rowSpan=\"", span_data$colspan, "\""),
       " vMerge=\"true\""
     )
   )
@@ -14,7 +24,10 @@ default_fp_text_pml <- function(value) {
   default_chunks_properties <- information_data_default_chunk(value)
   unique_text_props <- distinct_text_properties(default_chunks_properties)
   rpr <- sapply(
-    split(unique_text_props[setdiff(colnames(unique_text_props), "classname")], unique_text_props$classname),
+    split(
+      unique_text_props[setdiff(colnames(unique_text_props), "classname")],
+      unique_text_props$classname
+    ),
     function(x) {
       z <- do.call(officer::fp_text_lite, x)
       val <- format(z, type = "pml")
@@ -26,17 +39,34 @@ default_fp_text_pml <- function(value) {
 
   unique_text_props$fp_txt_default <- unname(rpr[unique_text_props$classname])
   setDT(default_chunks_properties)
-  by_cols <- c("color", "font.size", "bold", "italic", "underlined", "strike", "font.family",
-               "hansi.family", "eastasia.family", "cs.family", "vertical.align",
-               "shading.color")
+  by_cols <- c(
+    "color",
+    "font.size",
+    "bold",
+    "italic",
+    "underlined",
+    "strike",
+    "font.family",
+    "hansi.family",
+    "eastasia.family",
+    "cs.family",
+    "vertical.align",
+    "shading.color"
+  )
   by_cols <- intersect(by_cols, colnames(default_chunks_properties))
   by_cols <- intersect(by_cols, colnames(unique_text_props))
   default_chunks_properties <- merge(
-    default_chunks_properties, unique_text_props,
+    default_chunks_properties,
+    unique_text_props,
     by = by_cols
   )
   setDF(default_chunks_properties)
-  default_chunks_properties <- default_chunks_properties[, c(".part", ".row_id", ".col_id", "fp_txt_default")]
+  default_chunks_properties <- default_chunks_properties[, c(
+    ".part",
+    ".row_id",
+    ".col_id",
+    "fp_txt_default"
+  )]
   default_chunks_properties
 }
 
@@ -87,11 +117,21 @@ pml_cells <- function(value, cell_data) {
     )
 
     zz[c(
-      "border.width.bottom", "border.width.top", "border.width.left",
-      "border.width.right", "border.color.bottom", "border.color.top",
-      "border.color.left", "border.color.right", "border.style.bottom",
-      "border.style.top", "border.style.left", "border.style.right",
-      "width", "height", "hrule"
+      "border.width.bottom",
+      "border.width.top",
+      "border.width.left",
+      "border.width.right",
+      "border.color.bottom",
+      "border.color.top",
+      "border.color.left",
+      "border.color.right",
+      "border.style.bottom",
+      "border.style.top",
+      "border.style.left",
+      "border.style.right",
+      "width",
+      "height",
+      "hrule"
     )] <- NULL
     zz$classname <- NULL
     zz <- do.call(fp_cell, zz)
@@ -104,14 +144,28 @@ pml_cells <- function(value, cell_data) {
   )
 
   # organise everything
-  cell_data <- merge(cell_data, data_ref_cells, by = intersect(colnames(cell_data), colnames(data_ref_cells)))
+  cell_data <- merge(
+    cell_data,
+    data_ref_cells,
+    by = intersect(colnames(cell_data), colnames(data_ref_cells))
+  )
   cell_data <- merge(cell_data, style_dat, by = "classname")
-  cell_data <- cell_data[, .SD, .SDcols = c(".part", ".row_id", ".col_id", "fp_cell_pml")]
+  cell_data <- cell_data[,
+    .SD,
+    .SDcols = c(".part", ".row_id", ".col_id", "fp_cell_pml")
+  ]
   setDF(cell_data)
   cell_data
 }
 
-gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0) {
+gen_raw_pml <- function(
+  value,
+  uid = 99999L,
+  offx = 0,
+  offy = 0,
+  cx = 0,
+  cy = 0
+) {
   cell_attributes <- information_data_cell(value)
   par_attributes <- information_data_paragraph(value)
 
@@ -128,13 +182,21 @@ gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0)
   setDT(cell_attributes)
   cell_attributes <- merge(
     cell_attributes,
-    par_attributes[, c(".part", ".row_id", ".col_id", "padding.bottom", "padding.top")],
+    par_attributes[, c(
+      ".part",
+      ".row_id",
+      ".col_id",
+      "padding.bottom",
+      "padding.top"
+    )],
     by = c(".part", ".row_id", ".col_id")
   )
-  cell_attributes[, c("margin.bottom", "margin.top") :=
-    list(
-      .SD$padding.bottom, .SD$padding.top
-    )]
+  cell_attributes[,
+    c("margin.bottom", "margin.top") := list(
+      .SD$padding.bottom,
+      .SD$padding.top
+    )
+  ]
   cell_attributes[, c("padding.bottom", "padding.top") := NULL]
   setDF(cell_attributes)
 
@@ -149,37 +211,64 @@ gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0)
   setDT(cell_data)
 
   tab_data <- merge(cell_data, par_data, by = c(".part", ".row_id", ".col_id"))
-  tab_data <- merge(tab_data, default_chunks_properties, by = c(".part", ".row_id", ".col_id"))
+  tab_data <- merge(
+    tab_data,
+    default_chunks_properties,
+    by = c(".part", ".row_id", ".col_id")
+  )
   tab_data <- merge(tab_data, txt_data, by = c(".part", ".row_id", ".col_id"))
 
-  tab_data[tab_data$is_empty %in% TRUE, c("fp_par_xml") := list(
-    paste0(.SD$fp_par_xml, .SD$fp_txt_default)
-  )]
+  tab_data[
+    tab_data$is_empty %in% TRUE,
+    c("fp_par_xml") := list(
+      paste0(.SD$fp_par_xml, .SD$fp_txt_default)
+    )
+  ]
   tab_data[, c("fp_txt_default", "is_empty") := list(NULL, NULL)]
 
   tab_data <- merge(tab_data, span_data, by = c(".part", ".row_id", ".col_id"))
   tab_data$.col_id <- factor(tab_data$.col_id, levels = value$col_keys)
   setorderv(tab_data, cols = c(".part", ".row_id", ".col_id"))
 
-  tab_data[, c("pml") := list(
-    paste0(
-      "<a:txBody><a:bodyPr/><a:lstStyle/>",
-      "<a:p>", .SD$fp_par_xml,
-      .SD$par_nodes_str, "</a:p>",
-      "</a:txBody>"
+  tab_data[,
+    c("pml") := list(
+      paste0(
+        "<a:txBody><a:bodyPr/><a:lstStyle/>",
+        "<a:p>",
+        .SD$fp_par_xml,
+        .SD$par_nodes_str,
+        "</a:p>",
+        "</a:txBody>"
+      )
     )
-  )]
+  ]
   tab_data[, c("fp_par_xml", "par_nodes_str") := list(NULL, NULL)]
 
-  tab_data[, c("pml") := list(
-    paste0(
-      "<a:tc", .SD$grid_span, .SD$row_span, ">", .SD$pml,
-      .SD$fp_cell_pml, "</a:tc>"
+  tab_data[,
+    c("pml") := list(
+      paste0(
+        "<a:tc",
+        .SD$grid_span,
+        .SD$row_span,
+        ">",
+        .SD$pml,
+        .SD$fp_cell_pml,
+        "</a:tc>"
+      )
     )
-  )]
-  tab_data[, c("fp_cell_pml", "grid_span", "row_span") := list(NULL, NULL, NULL)]
+  ]
+  tab_data[,
+    c("fp_cell_pml", "grid_span", "row_span") := list(NULL, NULL, NULL)
+  ]
 
-  cells <- dcast(tab_data, .part + .row_id ~ .col_id, drop = TRUE, fill = "", value.var = "pml", fun.aggregate = I)
+  cells <- dcast(
+    tab_data,
+    .part + .row_id ~ .col_id,
+    drop = TRUE,
+    fill = "",
+    value.var = "pml",
+    fun.aggregate = I
+  )
   cells <- merge(cells, cell_heights, by = c(".part", ".row_id"))
 
   rowheights <- cells$height
@@ -191,7 +280,10 @@ gen_raw_pml <- function(value, uid = 99999L, offx = 0, offy = 0, cx = 0, cy = 0)
   out <- "<a:tbl>"
   dims <- dim(value)
   widths <- dims$widths
-  colswidths <- paste0(sprintf("<a:gridCol w=\"%.0f\"/>", widths * 914400), collapse = "")
+  colswidths <- paste0(
+    sprintf("<a:gridCol w=\"%.0f\"/>", widths * 914400),
+    collapse = ""
+  )
 
   out <- paste0(out, "<a:tblPr/><a:tblGrid>")
   out <- paste0(out, colswidths)

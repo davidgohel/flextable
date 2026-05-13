@@ -27,7 +27,7 @@ an object marked as \link[htmltools:HTML]{htmltools::HTML} ready to be used with
 a call to \code{shiny::renderUI} for example.
 }
 \description{
-get a \code{\link[htmltools:builder]{htmltools::div()}} from a flextable object.
+get a \code{\link[htmltools:div]{htmltools::div()}} from a flextable object.
 This can be used in a shiny application. For an output within
 "R Markdown" document, use \link{knit_print.flextable}.
 }
@@ -36,18 +36,18 @@ htmltools_value(flextable(iris[1:5, ]))
 }
 \seealso{
 Other functions for flextable output and export:
-\code{\link{df_printer}()},
-\code{\link{flextable_to_rmd}()},
-\code{\link{gen_grob}()},
-\code{\link{knit_print.flextable}()},
-\code{\link{plot.flextable}()},
-\code{\link{print.flextable}()},
-\code{\link{save_as_docx}()},
-\code{\link{save_as_html}()},
-\code{\link{save_as_image}()},
-\code{\link{save_as_pptx}()},
-\code{\link{save_as_rtf}()},
-\code{\link{to_html.flextable}()},
-\code{\link{wrap_flextable}()}
+\code{\link[=df_printer]{df_printer()}},
+\code{\link[=flextable_to_rmd]{flextable_to_rmd()}},
+\code{\link[=gen_grob]{gen_grob()}},
+\code{\link[=knit_print.flextable]{knit_print.flextable()}},
+\code{\link[=plot.flextable]{plot.flextable()}},
+\code{\link[=print.flextable]{print.flextable()}},
+\code{\link[=save_as_docx]{save_as_docx()}},
+\code{\link[=save_as_html]{save_as_html()}},
+\code{\link[=save_as_image]{save_as_image()}},
+\code{\link[=save_as_pptx]{save_as_pptx()}},
+\code{\link[=save_as_rtf]{save_as_rtf()}},
+\code{\link[=to_html.flextable]{to_html.flextable()}},
+\code{\link[=wrap_flextable]{wrap_flextable()}}
 }
 \concept{flextable_output_export}

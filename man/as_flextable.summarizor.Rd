@@ -32,21 +32,21 @@ ft_1 <- autofit(ft_1)
 ft_1
 }
 \seealso{
-Other as_flextable methods: 
-\code{\link{as_flextable.compact_summary}()},
-\code{\link{as_flextable.data.frame}()},
-\code{\link{as_flextable.gam}()},
-\code{\link{as_flextable.glm}()},
-\code{\link{as_flextable.grouped_data}()},
-\code{\link{as_flextable.htest}()},
-\code{\link{as_flextable.kmeans}()},
-\code{\link{as_flextable.lm}()},
-\code{\link{as_flextable.merMod}()},
-\code{\link{as_flextable.pam}()},
-\code{\link{as_flextable.table}()},
-\code{\link{as_flextable.tabular}()},
-\code{\link{as_flextable.tabulator}()},
-\code{\link{as_flextable.xtable}()},
-\code{\link{compact_summary}()}
+Other as_flextable methods:
+\code{\link[=as_flextable.compact_summary]{as_flextable.compact_summary()}},
+\code{\link[=as_flextable.data.frame]{as_flextable.data.frame()}},
+\code{\link[=as_flextable.gam]{as_flextable.gam()}},
+\code{\link[=as_flextable.glm]{as_flextable.glm()}},
+\code{\link[=as_flextable.grouped_data]{as_flextable.grouped_data()}},
+\code{\link[=as_flextable.htest]{as_flextable.htest()}},
+\code{\link[=as_flextable.kmeans]{as_flextable.kmeans()}},
+\code{\link[=as_flextable.lm]{as_flextable.lm()}},
+\code{\link[=as_flextable.merMod]{as_flextable.merMod()}},
+\code{\link[=as_flextable.pam]{as_flextable.pam()}},
+\code{\link[=as_flextable.table]{as_flextable.table()}},
+\code{\link[=as_flextable.tabular]{as_flextable.tabular()}},
+\code{\link[=as_flextable.tabulator]{as_flextable.tabulator()}},
+\code{\link[=as_flextable.xtable]{as_flextable.xtable()}},
+\code{\link[=compact_summary]{compact_summary()}}
 }
 \concept{as_flextable methods}

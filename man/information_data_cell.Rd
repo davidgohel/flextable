@@ -41,9 +41,9 @@ x <- information_data_cell(ft)
 head(x)
 }
 \seealso{
-Other table data extraction: 
-\code{\link{information_data_chunk}()},
-\code{\link{information_data_paragraph}()}
+Other table data extraction:
+\code{\link[=information_data_chunk]{information_data_chunk()}},
+\code{\link[=information_data_paragraph]{information_data_paragraph()}}
 }
 \concept{table data extraction}
 \keyword{internal}

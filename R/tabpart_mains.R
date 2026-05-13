@@ -1,26 +1,30 @@
 #' @importFrom officer fp_cell fp_par fp_text fp_border
-complex_tabpart <- function(data, col_keys = names(data),
-                            default_pr_text = fp_text(
-                              font.family = flextable_global$defaults$font.family,
-                              cs.family = flextable_global$defaults$cs.family,
-                              eastasia.family = flextable_global$defaults$eastasia.family,
-                              hansi.family = flextable_global$defaults$hansi.family,
-                              font.size = flextable_global$defaults$font.size,
-                              color = flextable_global$defaults$font.color
-                            ),
-                            default_pr_par = fp_par(
-                              text.align = flextable_global$defaults$text.align,
-                              padding.left = flextable_global$defaults$padding.left,
-                              padding.right = flextable_global$defaults$padding.right,
-                              padding.bottom = flextable_global$defaults$padding.bottom,
-                              padding.top = flextable_global$defaults$padding.top,
-                              line_spacing = flextable_global$defaults$line_spacing
-                            ),
-                            default_pr_cell = fp_cell(
-                              background.color = flextable_global$defaults$background.color,
-                              border = fp_border(color = "transparent", width = 0)
-                            ),
-                            cwidth = NULL, cheight = NULL) {
+complex_tabpart <- function(
+  data,
+  col_keys = names(data),
+  default_pr_text = fp_text(
+    font.family = flextable_global$defaults$font.family,
+    cs.family = flextable_global$defaults$cs.family,
+    eastasia.family = flextable_global$defaults$eastasia.family,
+    hansi.family = flextable_global$defaults$hansi.family,
+    font.size = flextable_global$defaults$font.size,
+    color = flextable_global$defaults$font.color
+  ),
+  default_pr_par = fp_par(
+    text.align = flextable_global$defaults$text.align,
+    padding.left = flextable_global$defaults$padding.left,
+    padding.right = flextable_global$defaults$padding.right,
+    padding.bottom = flextable_global$defaults$padding.bottom,
+    padding.top = flextable_global$defaults$padding.top,
+    line_spacing = flextable_global$defaults$line_spacing
+  ),
+  default_pr_cell = fp_cell(
+    background.color = flextable_global$defaults$background.color,
+    border = fp_border(color = "transparent", width = 0)
+  ),
+  cwidth = NULL,
+  cheight = NULL
+) {
   pr_cell_init <- as_struct(nrow(data), col_keys, default_pr_cell, cell_struct)
   pr_par_init <- as_struct(nrow(data), col_keys, default_pr_par, par_struct)
   pr_text_init <- as_struct(nrow(data), col_keys, default_pr_text, text_struct)
@@ -47,7 +51,8 @@ complex_tabpart <- function(data, col_keys = names(data),
     hrule = rep("auto", nrow(data)),
     spans = spans,
     styles = list(
-      cells = pr_cell_init, pars = pr_par_init,
+      cells = pr_cell_init,
+      pars = pr_par_init,
       text = pr_text_init
     )
   )

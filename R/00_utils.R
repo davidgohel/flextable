@@ -25,7 +25,8 @@ check_choice <- function(value, choices) {
       stop(
         sprintf(
           "%s is expected to be one of: %s",
-          varname, paste(shQuote(choices))
+          varname,
+          paste(shQuote(choices))
         ),
         call. = FALSE
       )
@@ -40,14 +41,24 @@ cast_borders <- function(value) {
   borders_id <- c("border.bottom", "border.top", "border.left", "border.right")
   borders_side <- c("bottom", "top", "left", "right")
 
-  z <- mapply(function(name, fp_b) {
-    x <- unclass(fp_b)
-    if (is.null(x)) {
-      x <- list(width = NA_integer_, color = NA_character_, style = NA_character_)
-    }
-    names(x) <- paste("border", c("width", "color", "style"), name, sep = ".")
-    x
-  }, borders_side, value[borders_id], SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  z <- mapply(
+    function(name, fp_b) {
+      x <- unclass(fp_b)
+      if (is.null(x)) {
+        x <- list(
+          width = NA_integer_,
+          color = NA_character_,
+          style = NA_character_
+        )
+      }
+      names(x) <- paste("border", c("width", "color", "style"), name, sep = ".")
+      x
+    },
+    borders_side,
+    value[borders_id],
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+  )
   z <- Reduce(f = append, z)
   value <- append(value, z)
   value[borders_id] <- NULL
@@ -64,11 +75,17 @@ as_struct <- function(nrow, keys, pr, fun) {
   avail_bdr_id <- borders_id %in% names(pr)
   bdr_id <- borders_id[avail_bdr_id]
   bdr_side <- borders_side[avail_bdr_id]
-  z <- mapply(function(name, fp_b) {
-    x <- unclass(fp_b)
-    names(x) <- paste("border", names(x), name, sep = ".")
-    x
-  }, bdr_side, pr[bdr_id], SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  z <- mapply(
+    function(name, fp_b) {
+      x <- unclass(fp_b)
+      names(x) <- paste("border", names(x), name, sep = ".")
+      x
+    },
+    bdr_side,
+    pr[bdr_id],
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+  )
   z <- Reduce(f = append, z)
 
   args <- append(args, z)
@@ -84,7 +101,11 @@ wml_image <- function(src, width, height, alt = "") {
   str <- paste0(
     sprintf("<w:r %s>", base_ns),
     "<w:rPr/><w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
-    sprintf("<wp:extent cx=\"%.0f\" cy=\"%.0f\"/>", width * 12700 * 72, height * 12700 * 72),
+    sprintf(
+      "<wp:extent cx=\"%.0f\" cy=\"%.0f\"/>",
+      width * 12700 * 72,
+      height * 12700 * 72
+    ),
     sprintf("<wp:docPr id=\"\" name=\"\" descr=\"%s\"/>", htmlEscape(alt)),
     "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
     "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",
@@ -96,7 +117,11 @@ wml_image <- function(src, width, height, alt = "") {
     sprintf("<a:blip r:embed=\"%s\"/>", src),
     "<a:srcRect/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>",
     "<pic:spPr bwMode=\"auto\"><a:xfrm><a:off x=\"0\" y=\"0\"/>",
-    sprintf("<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>", width * 12700 * 72, height * 12700 * 72),
+    sprintf(
+      "<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>",
+      width * 12700 * 72,
+      height * 12700 * 72
+    ),
     "</pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
   )
   str
@@ -111,4 +136,3 @@ with_openxml_quotes <- function(x) {
 
   paste("\n\n``````{=openxml}", x, "``````\n\n", sep = "\n")
 }
-

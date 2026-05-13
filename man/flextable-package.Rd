@@ -87,6 +87,7 @@ styling, or content operations. See the corresponding manual:
 
 Authors:
 \itemize{
+  \item David Gohel \email{david.gohel@ardata.fr}
   \item Panagiotis Skintzos \email{panagiotis.skintzos@ardata.fr}
 }
 

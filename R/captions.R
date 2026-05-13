@@ -24,7 +24,13 @@ caption_bookdown_docx_md <- function(x, tab_props = opts_current_table()) {
   caption_chunks_str <- paste("`", caption_chunks_str, "`{=openxml}", sep = "")
 
   caption_id <- if (!is.null(x$caption$autonum$bookmark)) {
-    paste0("(\\#", x$caption$autonum$seq_id, ":", x$caption$autonum$bookmark, ")")
+    paste0(
+      "(\\#",
+      x$caption$autonum$seq_id,
+      ":",
+      x$caption$autonum$bookmark,
+      ")"
+    )
   } else {
     ""
   }
@@ -39,8 +45,11 @@ caption_bookdown_docx_md <- function(x, tab_props = opts_current_table()) {
   caption
 }
 
-caption_default_docx_openxml <- function(x, keep_with_next = FALSE,
-                                         allow_autonum = TRUE) {
+caption_default_docx_openxml <- function(
+  x,
+  keep_with_next = FALSE,
+  allow_autonum = TRUE
+) {
   # for rmarkdown::word_document
   # There is no table reference and no cross-references.
   # It is possible to format chunk of text and also define
@@ -59,11 +68,16 @@ caption_default_docx_openxml <- function(x, keep_with_next = FALSE,
   if (!is.null(x$caption$fp_p)) {
     p_pr <- format(x$caption$fp_p, type = "wml")
     if (packageVersion("officer") > numeric_version("0.6.8")) {
-      m <- regexpr("w:pstlname=\"[^\"]+\"", p_pr);
+      m <- regexpr("w:pstlname=\"[^\"]+\"", p_pr)
       pstlname <- regmatches(x = p_pr, m)
       style_name <- gsub("(w:pstlname=)(\")([^\"]+)(\")", "\\3", pstlname)
       style_id <- gsub("[^a-zA-Z0-9]", "", style_name)
-      p_pr <- gsub(pstlname, sprintf("w:val=\"%s\"", style_id), p_pr, fixed = TRUE)
+      p_pr <- gsub(
+        pstlname,
+        sprintf("w:val=\"%s\"", style_id),
+        p_pr,
+        fixed = TRUE
+      )
     }
   } else {
     cap_style_id <- gsub("[^a-zA-Z0-9]", "", x$caption$word_stylename)
@@ -128,8 +142,6 @@ caption_default_rtf <- function(x, keep_with_next = FALSE) {
 
 # HTML ----
 
-
-
 caption_bookdown_html <- function(x) {
   # for bookdown::html_document2.
   # 'bookdown' wants a table reference as (#tab:bookmark) to enable cross-references
@@ -152,7 +164,13 @@ caption_bookdown_html <- function(x) {
 
   reference_label <- ""
   if (!is.null(x$caption$autonum$bookmark)) {
-    reference_label <- paste0("(#", x$caption$autonum$seq_id, ":", x$caption$autonum$bookmark, ")")
+    reference_label <- paste0(
+      "(#",
+      x$caption$autonum$seq_id,
+      ":",
+      x$caption$autonum$bookmark,
+      ")"
+    )
   }
 
   if (!is.null(x$caption$fp_p)) {
@@ -236,7 +254,9 @@ caption_default_latex <- function(x) {
   caption_chunks_str <- caption_chunks_latex(x)
 
   caption <- paste0(
-    "\\caption{", caption_chunks_str, "}",
+    "\\caption{",
+    caption_chunks_str,
+    "}",
     "\\\\"
   )
   caption
@@ -249,13 +269,21 @@ caption_bookdown_latex <- function(x) {
 
   reference_label <- ""
   if (!is.null(x$caption$autonum$bookmark)) {
-    reference_label <- paste0("(\\#", x$caption$autonum$seq_id, ":", x$caption$autonum$bookmark, ")")
+    reference_label <- paste0(
+      "(\\#",
+      x$caption$autonum$seq_id,
+      ":",
+      x$caption$autonum$bookmark,
+      ")"
+    )
   }
 
   caption_chunks_str <- caption_chunks_latex(x)
 
   caption <- paste0(
-    "\\caption{", caption_chunks_str, "}",
+    "\\caption{",
+    caption_chunks_str,
+    "}",
     reference_label,
     "\\\\"
   )
@@ -339,10 +367,20 @@ caption_chunks_latex <- function(x) {
   if (!x$caption$simple_caption) {
     caption_str <- runs_as_latex(x = x, chunk_data = x$caption$value)
     caption_chunks_str <- paste(caption_str$txt, collapse = "")
-    caption_chunks_str <- gsub("\\linebreak ", "\\newline ", caption_chunks_str, fixed = TRUE)
+    caption_chunks_str <- gsub(
+      "\\linebreak ",
+      "\\newline ",
+      caption_chunks_str,
+      fixed = TRUE
+    )
   } else {
     caption_chunks_str <- sanitize_latex_str(x$caption$value)
-    caption_chunks_str <- gsub("\n", "\\newline ", caption_chunks_str, fixed = TRUE)
+    caption_chunks_str <- gsub(
+      "\n",
+      "\\newline ",
+      caption_chunks_str,
+      fixed = TRUE
+    )
   }
   caption_chunks_str
 }

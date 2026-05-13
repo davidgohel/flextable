@@ -95,15 +95,17 @@ look_like_int <- function(x) {
   (is.numeric(x) && isTRUE(all.equal(x, as.integer(x)))) || is.integer(x)
 }
 
-multirow_df_printer <- function(dat,
-                                max_row = 10,
-                                split_colnames = FALSE,
-                                short_strings = FALSE,
-                                short_size = 35,
-                                short_suffix = "...",
-                                do_autofit = TRUE,
-                                show_coltype = TRUE,
-                                color_coltype = "#999999") {
+multirow_df_printer <- function(
+  dat,
+  max_row = 10,
+  split_colnames = FALSE,
+  short_strings = FALSE,
+  short_size = 35,
+  short_suffix = "...",
+  do_autofit = TRUE,
+  show_coltype = TRUE,
+  color_coltype = "#999999"
+) {
   x <- as.data.frame(dat)
   nro <- nrow(x)
 
@@ -150,21 +152,28 @@ multirow_df_printer <- function(dat,
   ft <- do.call(z$theme_fun, list(ft))
 
   if (show_coltype) {
-    ft <- color(ft, i = nrow_part(ft, "header"), part = "header", color = color_coltype)
+    ft <- color(
+      ft,
+      i = nrow_part(ft, "header"),
+      part = "header",
+      color = color_coltype
+    )
   }
   ft <- align(ft, align = "left", part = "footer")
   ft
 }
 
-singlerow_df_printer <- function(dat,
-                                 max_row = 10,
-                                 split_colnames = FALSE,
-                                 short_strings = FALSE,
-                                 short_size = 35,
-                                 short_suffix = "...",
-                                 do_autofit = TRUE,
-                                 show_coltype = TRUE,
-                                 color_coltype = "#999999") {
+singlerow_df_printer <- function(
+  dat,
+  max_row = 10,
+  split_colnames = FALSE,
+  short_strings = FALSE,
+  short_size = 35,
+  short_suffix = "...",
+  do_autofit = TRUE,
+  show_coltype = TRUE,
+  color_coltype = "#999999"
+) {
   coltypes <- as.character(sapply(dat, function(x) head(class(x), 1)))
 
   lli <- sapply(dat, look_like_int)
@@ -201,10 +210,14 @@ singlerow_df_printer <- function(dat,
   ft <- valign(x = ft, valign = "top", part = "body")
   if (show_coltype) {
     ft <- append_chunks(
-      x = ft, j = "Col.",
+      x = ft,
+      j = "Col.",
       as_chunk("\n"),
       colorize(
-        x = as_chunk(Type, props = fp_text_default(font.size = z$font.size * 2 / 3)),
+        x = as_chunk(
+          Type,
+          props = fp_text_default(font.size = z$font.size * 2 / 3)
+        ),
         color = color_coltype
       )
     )
@@ -237,16 +250,18 @@ singlerow_df_printer <- function(dat,
 #' @examples
 #' as_flextable(mtcars)
 #' @family as_flextable methods
-as_flextable.data.frame <- function(x,
-                                    max_row = 10,
-                                    split_colnames = FALSE,
-                                    short_strings = FALSE,
-                                    short_size = 35,
-                                    short_suffix = "...",
-                                    do_autofit = TRUE,
-                                    show_coltype = TRUE,
-                                    color_coltype = "#999999",
-                                    ...) {
+as_flextable.data.frame <- function(
+  x,
+  max_row = 10,
+  split_colnames = FALSE,
+  short_strings = FALSE,
+  short_size = 35,
+  short_suffix = "...",
+  do_autofit = TRUE,
+  show_coltype = TRUE,
+  color_coltype = "#999999",
+  ...
+) {
   if (inherits(x, "data.table")) {
     x <- as.data.frame(x)
   } else if (inherits(x, "tbl_df")) {

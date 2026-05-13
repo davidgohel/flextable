@@ -257,5 +257,3 @@ NULL
 #' @keywords internal
 #' @name flextable_selectors
 NULL
-
-

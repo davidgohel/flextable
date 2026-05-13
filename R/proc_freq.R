@@ -1,4 +1,9 @@
-fmt_freq_table <- function(pctcol, pctrow, include.row_percent = TRUE, include.column_percent = TRUE) {
+fmt_freq_table <- function(
+  pctcol,
+  pctrow,
+  include.row_percent = TRUE,
+  include.column_percent = TRUE
+) {
   out_cols <- rep("", length(pctcol))
   out_rows <- out_sep <- out_cols
 
@@ -16,22 +21,31 @@ fmt_freq_table <- function(pctcol, pctrow, include.row_percent = TRUE, include.c
 }
 
 add_level_total <- function(sdat, to_na = TRUE, lev = "Total") {
-  z <- sdat[, lapply(.SD, function(x, lev) {
-    if (is.factor(x)) {
-      old_levs <- levels(x)
-      new_levs <- c(old_levs, lev)
-      levels(x) <- new_levs
-      if (to_na && all(is.na(x))) x[] <- lev
-    }
-    x
-  }, lev = lev)]
+  z <- sdat[, lapply(
+    .SD,
+    function(x, lev) {
+      if (is.factor(x)) {
+        old_levs <- levels(x)
+        new_levs <- c(old_levs, lev)
+        levels(x) <- new_levs
+        if (to_na && all(is.na(x))) x[] <- lev
+      }
+      x
+    },
+    lev = lev
+  )]
   z$grouping <- NULL
   z
 }
 
 
 #' @importFrom data.table groupingsets
-fortified_freq <- function(dat, row = character(), column = character(), weight = character()) {
+fortified_freq <- function(
+  dat,
+  row = character(),
+  column = character(),
+  weight = character()
+) {
   by <- unique(c(row, column))
   sets <- list()
   if (length(by) > 1) {
@@ -47,17 +61,20 @@ fortified_freq <- function(dat, row = character(), column = character(), weight 
   }
 
   # replace na with "Missing"
-  dataset[, c(by) := lapply(.SD, function(x) {
-    if (is.factor(x)) {
-      old_levs <- levels(x)
-      new_levs <- c(old_levs, "Missing")
-      levels(x) <- new_levs
-      x[is.na(x)] <- "Missing"
-    } else if (is.character(x)) {
-      x[is.na(x)] <- "Missing"
-    }
-    x
-  }), .SDcols = by]
+  dataset[,
+    c(by) := lapply(.SD, function(x) {
+      if (is.factor(x)) {
+        old_levs <- levels(x)
+        new_levs <- c(old_levs, "Missing")
+        levels(x) <- new_levs
+        x[is.na(x)] <- "Missing"
+      } else if (is.character(x)) {
+        x[is.na(x)] <- "Missing"
+      }
+      x
+    }),
+    .SDcols = by
+  ]
 
   freq_data <- groupingsets(
     x = dataset,
@@ -77,12 +94,24 @@ fortified_freq <- function(dat, row = character(), column = character(), weight 
     setnames(row_sums, old = "count", new = "total_row")
     row_sums[[column]] <- NULL
     rtab <- merge(tab, row_sums, by = row)
-    rtab[, c("pct_row", "total_row", "count") := list(.SD$count / .SD$total_row, NULL, NULL)]
+    rtab[,
+      c("pct_row", "total_row", "count") := list(
+        .SD$count / .SD$total_row,
+        NULL,
+        NULL
+      )
+    ]
 
     setnames(col_sums, old = "count", new = "total_col")
     col_sums[[row]] <- NULL
     ctab <- merge(tab, col_sums, by = column)
-    ctab[, c("pct_col", "total_col", "count") := list(.SD$count / .SD$total_col, NULL, NULL)]
+    ctab[,
+      c("pct_col", "total_col", "count") := list(
+        .SD$count / .SD$total_col,
+        NULL,
+        NULL
+      )
+    ]
 
     tab_margins <- merge(ctab, rtab, by = by, all = FALSE)
     tab <- merge(tab, tab_margins, by = by, all = TRUE)
@@ -104,9 +133,7 @@ relayout_freq_data <- function(x, order_by) {
   dat$.what. <- "count"
   dat[, c("pct_col", "pct_row") := NULL]
 
-  dat <- rbindlist(list(dat_pct_rowcol, dat),
-    fill = TRUE, use.names = TRUE
-  )
+  dat <- rbindlist(list(dat_pct_rowcol, dat), fill = TRUE, use.names = TRUE)
   dat$.what. <- factor(dat$.what., c("count", "mpct"))
   setorderv(dat, c(order_by, ".what."))
 
@@ -139,17 +166,20 @@ relayout_freq_data <- function(x, order_by) {
 #' proc_freq(mtcars, "vs", "gear")
 #' proc_freq(mtcars, "gear", "vs", weight = "wt")
 #' @export
-proc_freq <- function(x, row = character(), col = character(),
-                      include.row_percent = TRUE,
-                      include.column_percent = TRUE,
-                      include.table_percent = TRUE,
-                      include.table_count = TRUE,
-                      weight = character(),
-                      count_format_fun = fmt_int,
-                      ...) {
-
+proc_freq <- function(
+  x,
+  row = character(),
+  col = character(),
+  include.row_percent = TRUE,
+  include.column_percent = TRUE,
+  include.table_percent = TRUE,
+  include.table_count = TRUE,
+  weight = character(),
+  count_format_fun = fmt_int,
+  ...
+) {
   list_lbls <- collect_labels(dataset = x, use_labels = TRUE)
-  for(colname in names(list_lbls$values_labels)) {
+  for (colname in names(list_lbls$values_labels)) {
     x[[colname]] <- factor(
       x = x[[colname]],
       levels = names(list_lbls$values_labels[[colname]]),
@@ -166,7 +196,9 @@ proc_freq <- function(x, row = character(), col = character(),
   }
   by <- unique(c(row, col))
   if (!length(by) %in% 1:2) {
-    stop("The `col` and `row` parameters do not allow to define a univariate or bivariate count table. It requires exactly one or two columns.")
+    stop(
+      "The `col` and `row` parameters do not allow to define a univariate or bivariate count table. It requires exactly one or two columns."
+    )
   }
 
   dat <- fortified_freq(x, row = row, column = col, weight = weight)
@@ -212,7 +244,9 @@ proc_freq <- function(x, row = character(), col = character(),
         } else if (include.table_percent) {
           as_chunk(fmt_pct(pct))
         },
-        as_chunk(fmt_freq_table(pct_col, pct_row,
+        as_chunk(fmt_freq_table(
+          pct_col,
+          pct_row,
           include.column_percent = include.column_percent,
           include.row_percent = include.row_percent
         ))
@@ -223,14 +257,17 @@ proc_freq <- function(x, row = character(), col = character(),
     if (include.column_percent || include.row_percent) {
       ft <- labelizor(
         x = ft,
-        labels = c(.what. = "", "count" = table_label, "mpct" = margins_label), j = ".what."
+        labels = c(.what. = "", "count" = table_label, "mpct" = margins_label),
+        j = ".what."
       )
       if (!is.na(fnote_lab)) {
-        ft <- footnote(ft,
+        ft <- footnote(
+          ft,
           ref_symbols = " (1)",
           j = ".what.",
           i = ~ .what. %in% "mpct" & !duplicated(.what.),
-          value = as_paragraph(fnote_lab), part = "body"
+          value = as_paragraph(fnote_lab),
+          part = "body"
         )
       }
     }
