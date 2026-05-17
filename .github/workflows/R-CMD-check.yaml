@@ -1,11 +1,10 @@
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
-      - test-branch
+      - main
   schedule:
     # 4AM every monday
     - cron: '0 4 * * 1'
