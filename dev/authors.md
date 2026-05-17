@@ -36,7 +36,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/davidgohel/flextable/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/davidgohel/flextable/blob/main/DESCRIPTION)
 
 Gohel D, Skintzos P (2026). *flextable: Functions for Tabular
 Reporting*. R package version 0.9.12.011,
