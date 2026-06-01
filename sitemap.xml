@@ -31,6 +31,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/as_bracket.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_chunk.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_equation.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/as_flextable.TableTree.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_flextable.compact_summary.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_flextable.data.frame.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_flextable.gam.html</loc></url>
@@ -92,6 +93,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/dim.flextableGrob.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/dim_pretty.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/empty_blanks.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/fit_columns.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/fit_to_width.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/fix_border_issues.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/flextable-package.html</loc></url>
@@ -172,6 +174,9 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/set_header_labels.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/set_table_properties.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/shift_table.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/split_columns.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/split_rows.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/split_to_pages.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/style.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/summarizor.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/surround.html</loc></url>

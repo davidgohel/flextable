@@ -25,6 +25,13 @@ rtf_add(x, value, ...)
 
   unused arguments
 
+## See also
+
+Other functions for officer integration:
+[`body_add_flextable()`](https://davidgohel.github.io/flextable/reference/body_add_flextable.md),
+[`body_replace_flextable_at_bkm()`](https://davidgohel.github.io/flextable/reference/body_replace_flextable_at_bkm.md),
+[`ph_with.flextable()`](https://davidgohel.github.io/flextable/reference/ph_with.flextable.md)
+
 ## Examples
 
 ``` r
@@ -38,5 +45,5 @@ z <- rtf_doc()
 z <- rtf_add(z, ft)
 
 print(z, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/RtmpuvrvZI/file25622ca637eb.rtf"
+#> [1] "/tmp/RtmpTX2E2h/file22e94c77d82d.rtf"
 ```

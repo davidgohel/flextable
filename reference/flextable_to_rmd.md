@@ -33,7 +33,7 @@ flextable_to_rmd(x, ...)
 
 ## See also
 
-Other flextable print function:
+Other functions for flextable output and export:
 [`df_printer()`](https://davidgohel.github.io/flextable/reference/df_printer.md),
 [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md),
 [`htmltools_value()`](https://davidgohel.github.io/flextable/reference/htmltools_value.md),

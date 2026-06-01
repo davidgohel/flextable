@@ -34,7 +34,7 @@ set_header_labels(x, ..., values = NULL)
 
 ## See also
 
-Other functions for row and column operations in a flextable:
+Other row and column operations:
 [`add_body()`](https://davidgohel.github.io/flextable/reference/add_body.md),
 [`add_body_row()`](https://davidgohel.github.io/flextable/reference/add_body_row.md),
 [`add_footer()`](https://davidgohel.github.io/flextable/reference/add_footer.md),
@@ -45,8 +45,13 @@ Other functions for row and column operations in a flextable:
 [`add_header_row()`](https://davidgohel.github.io/flextable/reference/add_header_row.md),
 [`delete_columns()`](https://davidgohel.github.io/flextable/reference/delete_columns.md),
 [`delete_part()`](https://davidgohel.github.io/flextable/reference/delete_part.md),
+[`delete_rows()`](https://davidgohel.github.io/flextable/reference/delete_rows.md),
+[`paginate()`](https://davidgohel.github.io/flextable/reference/paginate.md),
 [`separate_header()`](https://davidgohel.github.io/flextable/reference/separate_header.md),
-[`set_header_footer_df`](https://davidgohel.github.io/flextable/reference/set_header_footer_df.md)
+[`set_header_footer_df`](https://davidgohel.github.io/flextable/reference/set_header_footer_df.md),
+[`split_columns()`](https://davidgohel.github.io/flextable/reference/split_columns.md),
+[`split_rows()`](https://davidgohel.github.io/flextable/reference/split_rows.md),
+[`split_to_pages()`](https://davidgohel.github.io/flextable/reference/split_to_pages.md)
 
 ## Examples
 
@@ -70,91 +75,8 @@ ft <- set_header_labels(ft,
 ft
 
 
-.cl-2eca6880{}.cl-2ec2861a{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2ec6b29e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2ec6b2b2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2ec6d49a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ec6d49b{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ec6d4a4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ec6d4a5{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ec6d4a6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ec6d4ae{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-5c92b54c{}.cl-5c8be3d4{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5c8ec48c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5c8ec4a0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5c8ee6f6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c8ee700{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c8ee70a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c8ee714{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c8ee715{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c8ee71e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 Sepal length
 ```
-
-Sepal width
-
-Petal length
-
-Petal width
-
-Species
-
-5.1
-
-3.5
-
-1.4
-
-0.2
-
-setosa
-
-4.9
-
-3.0
-
-1.4
-
-0.2
-
-setosa
-
-4.7
-
-3.2
-
-1.3
-
-0.2
-
-setosa
-
-4.6
-
-3.1
-
-1.5
-
-0.2
-
-setosa
-
-5.0
-
-3.6
-
-1.4
-
-0.2
-
-setosa
-
-5.4
-
-3.9
-
-1.7
-
-0.4
-
-setosa
-
-ft \<-
-[flextable](https://davidgohel.github.io/flextable/reference/flextable.md)([head](https://rdrr.io/r/utils/head.html)(iris))
-ft \<- set_header_labels( x = ft, values =
-[c](https://rdrr.io/r/base/c.html)( "Sepal length", "Sepal width",
-"Petal length", "Petal width", "Species") ) ft
-
-| Sepal length | Sepal width | Petal length | Petal width | Species |
-|--------------|-------------|--------------|-------------|---------|
-| 5.1          | 3.5         | 1.4          | 0.2         | setosa  |
-| 4.9          | 3.0         | 1.4          | 0.2         | setosa  |
-| 4.7          | 3.2         | 1.3          | 0.2         | setosa  |
-| 4.6          | 3.1         | 1.5          | 0.2         | setosa  |
-| 5.0          | 3.6         | 1.4          | 0.2         | setosa  |
-| 5.4          | 3.9         | 1.7          | 0.4         | setosa  |

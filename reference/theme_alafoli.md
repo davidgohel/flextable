@@ -45,7 +45,7 @@ doesn't override any formatting done before the print statement.
 
 ## See also
 
-Other functions related to themes:
+Other themes and defaults:
 [`get_flextable_defaults()`](https://davidgohel.github.io/flextable/reference/get_flextable_defaults.md),
 [`set_flextable_defaults()`](https://davidgohel.github.io/flextable/reference/set_flextable_defaults.md),
 [`theme_apa()`](https://davidgohel.github.io/flextable/reference/theme_apa.md),
@@ -66,84 +66,8 @@ ft <- theme_alafoli(ft)
 ft
 
 
-.cl-32b5dc90{}.cl-32af6cb6{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(102, 102, 102, 1.00);background-color:transparent;}.cl-32b22e10{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-32b24e22{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-32b24e2c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-626caf2c{}.cl-6265df1c{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(102, 102, 102, 1.00);background-color:transparent;}.cl-6268d366{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;}.cl-6268f67a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6268f684{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 Ozone
 ```
-
-Solar.R
-
-Wind
-
-Temp
-
-Month
-
-Day
-
-41
-
-190
-
-7.4
-
-67
-
-5
-
-1
-
-36
-
-118
-
-8.0
-
-72
-
-5
-
-2
-
-12
-
-149
-
-12.6
-
-74
-
-5
-
-3
-
-18
-
-313
-
-11.5
-
-62
-
-5
-
-4
-
-14.3
-
-56
-
-5
-
-5
-
-28
-
-14.9
-
-66
-
-5
-
-6

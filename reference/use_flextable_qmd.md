@@ -48,6 +48,11 @@ for creating Quarto markdown chunks,
 [`knit_print.flextable()`](https://davidgohel.github.io/flextable/reference/knit_print.flextable.md)
 for rendering options in knitr documents.
 
+Other flextable configuration:
+[`add_latex_dep()`](https://davidgohel.github.io/flextable/reference/add_latex_dep.md),
+[`use_df_printer()`](https://davidgohel.github.io/flextable/reference/use_df_printer.md),
+[`use_model_printer()`](https://davidgohel.github.io/flextable/reference/use_model_printer.md)
+
 ## Examples
 
 ``` r

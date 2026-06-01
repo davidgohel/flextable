@@ -29,6 +29,9 @@ descriptive statistics, and specific as_flextable methods for models.
   : Prepare descriptive statistics for flextable
 - [`as_flextable()`](https://davidgohel.github.io/flextable/reference/as_flextable.md)
   : Method to transform objects into flextables
+- [`as_flextable(`*`<TableTree>`*`)`](https://davidgohel.github.io/flextable/reference/as_flextable.TableTree.md)
+  [`as_flextable(`*`<ElementaryTable>`*`)`](https://davidgohel.github.io/flextable/reference/as_flextable.TableTree.md)
+  : Transform an rtables object into a flextable
 - [`as_flextable(`*`<compact_summary>`*`)`](https://davidgohel.github.io/flextable/reference/as_flextable.compact_summary.md)
   : Transform a 'compact_summary' object into a flextable
 - [`as_flextable(`*`<data.frame>`*`)`](https://davidgohel.github.io/flextable/reference/as_flextable.data.frame.md)
@@ -331,9 +334,11 @@ for automatic adjustment, width() for manual control.
 - [`width()`](https://davidgohel.github.io/flextable/reference/width.md)
   : Set columns width
 - [`autofit()`](https://davidgohel.github.io/flextable/reference/autofit.md)
-  : Adjust cell widths and heights
+  : Adjust columns to their content size
 - [`fit_to_width()`](https://davidgohel.github.io/flextable/reference/fit_to_width.md)
-  : Fit a flextable to a maximum width
+  : Constrain table width by shrinking font size
+- [`fit_columns()`](https://davidgohel.github.io/flextable/reference/fit_columns.md)
+  : Constrain table width by wrapping text
 - [`set_table_properties()`](https://davidgohel.github.io/flextable/reference/set_table_properties.md)
   : Set table layout and width properties
 
@@ -349,6 +354,12 @@ split long tables, keep_with_next to prevent orphan rows.
   : Set how row heights are determined
 - [`paginate()`](https://davidgohel.github.io/flextable/reference/paginate.md)
   : Prevent page breaks inside a flextable
+- [`split_to_pages()`](https://davidgohel.github.io/flextable/reference/split_to_pages.md)
+  : Split a flextable into pages by rows and columns
+- [`split_rows()`](https://davidgohel.github.io/flextable/reference/split_rows.md)
+  : Split a flextable into pages by rows
+- [`split_columns()`](https://davidgohel.github.io/flextable/reference/split_columns.md)
+  : Split a flextable into pages by columns
 - [`keep_with_next()`](https://davidgohel.github.io/flextable/reference/keep_with_next.md)
   : Set Word 'Keep with next' instructions
 
@@ -457,10 +468,11 @@ colors, borders, padding. Reduces repetitive code.
 - [`get_flextable_defaults()`](https://davidgohel.github.io/flextable/reference/get_flextable_defaults.md)
   : Get flextable defaults formatting properties
 
-## Utilities
+## Value formatters
 
-Helper functions for conditional display (void), row positioning
-(before), and value formatting (fmt\_\*).
+Format numeric values as text strings for display in cells: integers,
+decimals, percentages, mean±sd. Use inside as_paragraph() or as the
+formatter argument of as_chunk().
 
 - [`fmt_2stats()`](https://davidgohel.github.io/flextable/reference/fmt_2stats.md)
   [`fmt_summarizor()`](https://davidgohel.github.io/flextable/reference/fmt_2stats.md)
@@ -479,6 +491,11 @@ Helper functions for conditional display (void), row positioning
   : Format numbers as percentages
 - [`fmt_signif_after_zeros()`](https://davidgohel.github.io/flextable/reference/fmt_signif_after_zeros.md)
   : Format with significant figures after zeros
+
+## Utilities
+
+Helper functions
+
 - [`before()`](https://davidgohel.github.io/flextable/reference/before.md)
   : Detect rows before a given value
 - [`void()`](https://davidgohel.github.io/flextable/reference/void.md) :

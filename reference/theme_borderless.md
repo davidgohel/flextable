@@ -47,7 +47,7 @@ doesn't override any formatting done before the print statement.
 
 ## See also
 
-Other functions related to themes:
+Other themes and defaults:
 [`get_flextable_defaults()`](https://davidgohel.github.io/flextable/reference/get_flextable_defaults.md),
 [`set_flextable_defaults()`](https://davidgohel.github.io/flextable/reference/set_flextable_defaults.md),
 [`theme_alafoli()`](https://davidgohel.github.io/flextable/reference/theme_alafoli.md),
@@ -68,84 +68,8 @@ ft <- theme_borderless(ft)
 ft
 
 
-.cl-333a4174{}.cl-3333ca7e{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-3333ca92{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-33369650{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-3336b95a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-62f8735e{}.cl-62f1522c{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-62f15236{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-62f45062{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-62f47664{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 Ozone
 ```
-
-Solar.R
-
-Wind
-
-Temp
-
-Month
-
-Day
-
-41
-
-190
-
-7.4
-
-67
-
-5
-
-1
-
-36
-
-118
-
-8.0
-
-72
-
-5
-
-2
-
-12
-
-149
-
-12.6
-
-74
-
-5
-
-3
-
-18
-
-313
-
-11.5
-
-62
-
-5
-
-4
-
-14.3
-
-56
-
-5
-
-5
-
-28
-
-14.9
-
-66
-
-5
-
-6

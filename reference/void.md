@@ -43,6 +43,16 @@ void(x, j = NULL, part = "body")
   \<[`Selectors in flextable`](https://davidgohel.github.io/flextable/reference/flextable_selectors.md)\>.
   Value 'all' can be used.
 
+## See also
+
+Other functions to compose cell content:
+[`append_chunks()`](https://davidgohel.github.io/flextable/reference/append_chunks.md),
+[`as_paragraph()`](https://davidgohel.github.io/flextable/reference/as_paragraph.md),
+[`compose()`](https://davidgohel.github.io/flextable/reference/compose.md),
+[`footnote()`](https://davidgohel.github.io/flextable/reference/footnote.md),
+[`labelizor()`](https://davidgohel.github.io/flextable/reference/labelizor.md),
+[`prepend_chunks()`](https://davidgohel.github.io/flextable/reference/prepend_chunks.md)
+
 ## Examples
 
 ``` r
@@ -51,112 +61,8 @@ ftab <- void(ftab, ~ vs + am + gear + carb)
 ftab
 
 
-.cl-35d143f6{}.cl-35ca0f64{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-35cd17e0{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-35cd3a9a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-35cd3aa4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-35cd3aae{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-65ef6f18{}.cl-65e88162{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-65eb7098{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-65eb92da{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-65eb92e4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-65eb92e5{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 mpg
 ```
-
-cyl
-
-disp
-
-hp
-
-drat
-
-wt
-
-qsec
-
-vs
-
-am
-
-gear
-
-carb
-
-21.0
-
-6
-
-160
-
-110
-
-3.90
-
-2.620
-
-16.46
-
-21.0
-
-6
-
-160
-
-110
-
-3.90
-
-2.875
-
-17.02
-
-22.8
-
-4
-
-108
-
-93
-
-3.85
-
-2.320
-
-18.61
-
-21.4
-
-6
-
-258
-
-110
-
-3.08
-
-3.215
-
-19.44
-
-18.7
-
-8
-
-360
-
-175
-
-3.15
-
-3.440
-
-17.02
-
-18.1
-
-6
-
-225
-
-105
-
-2.76
-
-3.460
-
-20.22

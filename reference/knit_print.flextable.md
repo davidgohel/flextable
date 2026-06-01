@@ -113,14 +113,14 @@ When using
 [`officedown::rdocx_document()`](https://davidgohel.github.io/officedown/reference/rdocx_document.html),
 additional caption options are available:
 
-|                                       |                  |                           |
-|---------------------------------------|------------------|---------------------------|
-| **Description**                       | **Chunk option** | **Default**               |
-| Numbering prefix                      | tab.cap.pre      | "Table "                  |
-| Numbering suffix                      | tab.cap.sep      | ": "                      |
-| Title number depth                    | tab.cap.tnd      | 0                         |
-| Caption prefix formatting             | tab.cap.fp_text  | `fp_text_lite(bold=TRUE)` |
-| Title number / table number separator | tab.cap.tns      | "-"                       |
+|  |  |  |
+|----|----|----|
+| **Description** | **Chunk option** | **Default** |
+| Numbering prefix | tab.cap.pre | "Table " |
+| Numbering suffix | tab.cap.sep | ": " |
+| Title number depth | tab.cap.tnd | 0 |
+| Caption prefix formatting | tab.cap.fp_text | `fp_text_lite(bold=TRUE)` |
+| Title number / table number separator | tab.cap.tns | "-" |
 
 ## Quarto
 
@@ -134,11 +134,24 @@ and
 [`use_flextable_qmd()`](https://davidgohel.github.io/flextable/reference/use_flextable_qmd.md)
 for setup instructions.
 
+## PDF accessibility (PDF/UA-2)
+
+Quarto's `pdf-standard: ua-2` injects `\DocumentMetadata{tagging=on}` in
+the LaTeX preamble, activating 'tagpdf'. This code patches LaTeX
+commands at compile time to insert PDF structure tags. Neither Quarto
+nor flextable control this process.
+
+The tagging code does not yet support `longtable` + `colortbl`,
+`booktabs` rules, and `cline`, which flextable relies on. Compilation
+fails with `\ERRORtbl/row`. When these upstream issues are resolved,
+flextable PDF output will support tagging without changes. Other formats
+are not affected.
+
 ## PDF limitations
 
-The following properties are not supported in PDF output: padding,
-`line_spacing` and row `height`. Justified text is converted to
-left-aligned.
+The following properties are not supported in PDF output: `padding.top`,
+`padding.bottom`, `line_spacing` and row `height`. Justified text is
+converted to left-aligned.
 
 To use system fonts, set `latex_engine: xelatex` in the YAML header (the
 default `pdflatex` engine does not support them).
@@ -166,7 +179,7 @@ page.
 [`use_flextable_qmd()`](https://davidgohel.github.io/flextable/reference/use_flextable_qmd.md),
 [`paginate()`](https://davidgohel.github.io/flextable/reference/paginate.md)
 
-Other flextable print function:
+Other functions for flextable output and export:
 [`df_printer()`](https://davidgohel.github.io/flextable/reference/df_printer.md),
 [`flextable_to_rmd()`](https://davidgohel.github.io/flextable/reference/flextable_to_rmd.md),
 [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md),

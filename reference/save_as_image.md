@@ -50,7 +50,7 @@ document itself.
 
 ## See also
 
-Other flextable print function:
+Other functions for flextable output and export:
 [`df_printer()`](https://davidgohel.github.io/flextable/reference/df_printer.md),
 [`flextable_to_rmd()`](https://davidgohel.github.io/flextable/reference/flextable_to_rmd.md),
 [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md),
@@ -77,7 +77,7 @@ ft <- flextable(head(mtcars))
 ft <- autofit(ft)
 tf <- tempfile(fileext = ".png")
 save_as_image(x = ft, path = tf)
-#> [1] "/tmp/RtmpuvrvZI/file256215600791.png"
+#> [1] "/tmp/RtmpTX2E2h/file22e964ae1ab9.png"
 
 init_flextable_defaults()
 ```

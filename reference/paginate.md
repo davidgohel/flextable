@@ -11,7 +11,7 @@ paginate(
   init = NULL,
   hdr_ftr = TRUE,
   group = character(),
-  group_def = c("rle", "nonempty")
+  group_def = c("rle", "nonempty", "starts")
 )
 ```
 
@@ -35,12 +35,14 @@ paginate(
 
 - group:
 
-  name of a column to use for finding groups
+  name of a column to use for finding groups (when `group_def` is
+  `"rle"` or `"nonempty"`) or an integer vector of row indices that
+  start new groups (when `group_def` is `"starts"`).
 
 - group_def:
 
   algorithm to be used to identify groups that should not be split into
-  two pages, one of 'rle', 'nonempty':
+  two pages, one of 'rle', 'nonempty', 'starts':
 
   - 'rle': runs of equal values are used to define the groups, to be
     used with
@@ -48,6 +50,9 @@ paginate(
 
   - 'nonempty': non empty value start a new group, to be used with
     [`as_flextable.tabular()`](https://davidgohel.github.io/flextable/reference/as_flextable.tabular.md).
+
+  - 'starts': `group` is a numeric vector of body row indices where new
+    groups begin. Page breaks are allowed before these rows.
 
 ## Value
 
@@ -79,6 +84,25 @@ and an algorithm for determining the groups.
 ## See also
 
 [`knit_print.flextable()`](https://davidgohel.github.io/flextable/reference/knit_print.flextable.md)
+
+Other row and column operations:
+[`add_body()`](https://davidgohel.github.io/flextable/reference/add_body.md),
+[`add_body_row()`](https://davidgohel.github.io/flextable/reference/add_body_row.md),
+[`add_footer()`](https://davidgohel.github.io/flextable/reference/add_footer.md),
+[`add_footer_lines()`](https://davidgohel.github.io/flextable/reference/add_footer_lines.md),
+[`add_footer_row()`](https://davidgohel.github.io/flextable/reference/add_footer_row.md),
+[`add_header()`](https://davidgohel.github.io/flextable/reference/add_header.md),
+[`add_header_lines()`](https://davidgohel.github.io/flextable/reference/add_header_lines.md),
+[`add_header_row()`](https://davidgohel.github.io/flextable/reference/add_header_row.md),
+[`delete_columns()`](https://davidgohel.github.io/flextable/reference/delete_columns.md),
+[`delete_part()`](https://davidgohel.github.io/flextable/reference/delete_part.md),
+[`delete_rows()`](https://davidgohel.github.io/flextable/reference/delete_rows.md),
+[`separate_header()`](https://davidgohel.github.io/flextable/reference/separate_header.md),
+[`set_header_footer_df`](https://davidgohel.github.io/flextable/reference/set_header_footer_df.md),
+[`set_header_labels()`](https://davidgohel.github.io/flextable/reference/set_header_labels.md),
+[`split_columns()`](https://davidgohel.github.io/flextable/reference/split_columns.md),
+[`split_rows()`](https://davidgohel.github.io/flextable/reference/split_rows.md),
+[`split_to_pages()`](https://davidgohel.github.io/flextable/reference/split_to_pages.md)
 
 ## Examples
 

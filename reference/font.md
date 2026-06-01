@@ -82,7 +82,7 @@ font(
 
 ## See also
 
-Other sugar functions for table style:
+Other formatting shortcuts:
 [`align()`](https://davidgohel.github.io/flextable/reference/align.md),
 [`bg()`](https://davidgohel.github.io/flextable/reference/bg.md),
 [`bold()`](https://davidgohel.github.io/flextable/reference/bold.md),

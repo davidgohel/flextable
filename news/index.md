@@ -1,6 +1,78 @@
 # Changelog
 
+## flextable 0.9.12
+
+### issues
+
+- PDF/LaTeX cell fonts are now selected with `\fontspec` instead of
+  `\global\setmainfont`. The latter re-ran the math font machinery on
+  every cell, which could exhaust LaTeX math alphabets and break
+  compilation when a document contained many equations before the table
+  ([\#636](https://github.com/davidgohel/flextable/issues/636)).
+- [`dim_pretty()`](https://davidgohel.github.io/flextable/reference/dim_pretty.md)
+  height estimates now account for line spacing and border widths.
+- `padding.left` and `padding.right` are now supported in PDF/LaTeX
+  output.
+- [`delete_rows()`](https://davidgohel.github.io/flextable/reference/delete_rows.md)
+  and
+  [`delete_columns()`](https://davidgohel.github.io/flextable/reference/delete_columns.md)
+  no longer reset all spans unconditionally. `span_free()` is now only
+  triggered when the deletion actually breaks a merged cell, preserving
+  existing merge structures in all other cases.
+- fix Shadow DOM handling for paged.js contexts, again
+- Image chunks
+  ([`as_image()`](https://davidgohel.github.io/flextable/reference/as_image.md),
+  [`colformat_image()`](https://davidgohel.github.io/flextable/reference/colformat_image.md),
+  [`plot_chunk()`](https://davidgohel.github.io/flextable/reference/plot_chunk.md),
+  [`gg_chunk()`](https://davidgohel.github.io/flextable/reference/gg_chunk.md),
+  [`grid_chunk()`](https://davidgohel.github.io/flextable/reference/grid_chunk.md))
+  gain an `alt` parameter for alternative text. Alt text is rendered in
+  DOCX (`descr` attribute) and HTML (`alt` attribute) output.
+
+### new features
+
+- new function
+  [`fit_columns()`](https://davidgohel.github.io/flextable/reference/fit_columns.md)
+  constrains total table width by shrinking columns proportionally. Text
+  wraps inside narrower cells; font sizes are unchanged. Columns that
+  cannot shrink below their longest word are clamped at that floor and
+  remaining space is iteratively redistributed among unclamped columns.
+  A `no_wrap` argument lets specific columns keep their optimal width.
+- function
+  [`paginate()`](https://davidgohel.github.io/flextable/reference/paginate.md)
+  gains a new option `"starts"` for argument `group_def`. When used,
+  `group` is an integer vector of body row indices where new groups
+  begin; page breaks are allowed before these rows.
+- New functions
+  [`split_columns()`](https://davidgohel.github.io/flextable/reference/split_columns.md)
+  and
+  [`split_rows()`](https://davidgohel.github.io/flextable/reference/split_rows.md)
+  to split a flextable into a list of flextables that fit within a given
+  width or height.
+  [`split_columns()`](https://davidgohel.github.io/flextable/reference/split_columns.md)
+  accepts column names, indices, or formulas for `rep_cols`, allowing
+  users to choose which columns to repeat and in what order.
+  [`split_rows()`](https://davidgohel.github.io/flextable/reference/split_rows.md)
+  supports a `group` argument to keep row groups together across pages;
+  header and footer are repeated on every page.
+- new function
+  [`split_to_pages()`](https://davidgohel.github.io/flextable/reference/split_to_pages.md)
+  combines
+  [`split_rows()`](https://davidgohel.github.io/flextable/reference/split_rows.md)
+  and
+  [`split_columns()`](https://davidgohel.github.io/flextable/reference/split_columns.md)
+  in a single call for convenient two-dimensional pagination.
+- new method
+  [`as_flextable()`](https://davidgohel.github.io/flextable/reference/as_flextable.md)
+  for ‘rtables’ `TableTree` and `ElementaryTable` objects. The
+  conversion maps formatted content, column spans, alignments,
+  indentation and footnotes to flextable features. Use
+  [`split_to_pages()`](https://davidgohel.github.io/flextable/reference/split_to_pages.md)
+  on the result for pagination.
+
 ## flextable 0.9.11
+
+CRAN release: 2026-02-13
 
 ### new features
 
@@ -69,6 +141,10 @@
 
 ### Issues
 
+- fix Shadow DOM handling for paged.js contexts (e.g. pagedown): tables
+  marked with `no-shadow-dom` are no longer moved into a Shadow DOM,
+  restoring visibility when the document contains LaTeX equations
+  (pagedown#332).
 - line breaks (`\n`) in captions now render correctly in PDF/LaTeX
   output ([\#663](https://github.com/davidgohel/flextable/issues/663)).
 - images in google docs should now be sized as expected
@@ -129,10 +205,10 @@ CRAN release: 2025-08-24
 ### Change
 
 - `print.flextable(preview = "log")` use
-  [`str()`](https://rdrr.io/r/utils/str.html) to show first values of
-  data instead of [`print()`](https://rdrr.io/r/base/print.html) so that
-  when there are ggplot2 v4 objects in the table, the print is not
-  failing.
+  [`str()`](https://insightsengineering.github.io/rtables/latest-tag/reference/int_methods.html)
+  to show first values of data instead of
+  [`print()`](https://rdrr.io/r/base/print.html) so that when there are
+  ggplot2 v4 objects in the table, the print is not failing.
 
 ## flextable 0.9.9
 

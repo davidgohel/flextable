@@ -151,6 +151,19 @@ PowerPoint output ignore 'autofit layout'.
 [`autofit()`](https://davidgohel.github.io/flextable/reference/autofit.md),
 [`knit_print.flextable()`](https://davidgohel.github.io/flextable/reference/knit_print.flextable.md)
 
+Other functions for flextable size management:
+[`autofit()`](https://davidgohel.github.io/flextable/reference/autofit.md),
+[`dim.flextable()`](https://davidgohel.github.io/flextable/reference/dim.flextable.md),
+[`dim_pretty()`](https://davidgohel.github.io/flextable/reference/dim_pretty.md),
+[`fit_columns()`](https://davidgohel.github.io/flextable/reference/fit_columns.md),
+[`fit_to_width()`](https://davidgohel.github.io/flextable/reference/fit_to_width.md),
+[`flextable_dim()`](https://davidgohel.github.io/flextable/reference/flextable_dim.md),
+[`height()`](https://davidgohel.github.io/flextable/reference/height.md),
+[`hrule()`](https://davidgohel.github.io/flextable/reference/hrule.md),
+[`ncol_keys()`](https://davidgohel.github.io/flextable/reference/ncol_keys.md),
+[`nrow_part()`](https://davidgohel.github.io/flextable/reference/nrow_part.md),
+[`width()`](https://davidgohel.github.io/flextable/reference/width.md)
+
 ## Examples
 
 ``` r
@@ -161,79 +174,8 @@ ft_2 <- set_table_properties(ft_1, width = .5, layout = "autofit")
 ft_2
 
 
-.cl-2f0ec1b0{table-layout:auto;width:50%;}.cl-2f087cb0{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2f0b29e2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2f0b4ac6{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2f0b4ad0{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2f0b4ada{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2f0b4ae4{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2f0b4ae5{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2f0b4aee{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2f0b4aef{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2f0b4af8{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2f0b4af9{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2f0b4afa{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-5cde4e80{table-layout:auto;width:50%;}.cl-5cd7fa8a{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5cdabb3a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5cdadd2c{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5cdadd40{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5cdadd41{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5cdadd4a{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5cdadd4b{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5cdadd54{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 speed
 ```
-
-dist
-
-4
-
-2
-
-4
-
-10
-
-7
-
-4
-
-7
-
-22
-
-8
-
-16
-
-9
-
-10
-
-ft_3 \<- set_table_properties(ft_1, width = 1, layout = "autofit") \#
-add scroll for HTML ----
-[set.seed](https://rdrr.io/r/base/Random.html)(2) dat \<-
-[lapply](https://rdrr.io/r/base/lapply.html)(1:14, function(x)
-[rnorm](https://rdrr.io/r/stats/Normal.html)(n = 20)) dat \<-
-[setNames](https://rdrr.io/r/stats/setNames.html)(dat,
-[paste0](https://rdrr.io/r/base/paste.html)("colname", 1:14)) dat \<-
-[as.data.frame](https://rdrr.io/r/base/as.data.frame.html)(dat) ft_4 \<-
-[flextable](https://davidgohel.github.io/flextable/reference/flextable.md)(dat)
-ft_4 \<-
-[colformat_double](https://davidgohel.github.io/flextable/reference/colformat_double.md)(ft_4)
-ft_4 \<-
-[bg](https://davidgohel.github.io/flextable/reference/bg.md)(ft_4, j =
-1, bg = "#DDDDDD", part = "all") ft_4 \<-
-[bg](https://davidgohel.github.io/flextable/reference/bg.md)(ft_4, i =
-1, bg = "#DDDDDD", part = "header") ft_4 \<-
-[autofit](https://davidgohel.github.io/flextable/reference/autofit.md)(ft_4)
-ft_4 \<- set_table_properties( x = ft_4, opts_html =
-[list](https://rdrr.io/r/base/list.html)( scroll =
-[list](https://rdrr.io/r/base/list.html)( height = "500px",
-freeze_first_column = TRUE ) ) ) ft_4
-
-| colname1 | colname2 | colname3 | colname4 | colname5 | colname6 | colname7 | colname8 | colname9 | colname10 | colname11 | colname12 | colname13 | colname14 |
-|----------|----------|----------|----------|----------|----------|----------|----------|----------|-----------|-----------|-----------|-----------|-----------|
-| -0.9     | 2.1      | -0.4     | -1.8     | 1.0      | 1.1      | 1.2      | -0.6     | 0.4      | -1.0      | 0.3       | 0.4       | -0.1      | 1.3       |
-| 0.2      | -1.2     | -2.0     | 2.0      | -1.7     | 0.3      | 0.1      | 0.4      | -0.6     | -1.3      | -1.0      | 0.7       | 2.9       | -0.1      |
-| 1.6      | 1.6      | -0.8     | -0.7     | -0.5     | -0.3     | 1.7      | -0.8     | -0.3     | 0.4       | 2.9       | -0.8      | 1.2       | -0.3      |
-| -1.1     | 2.0      | 1.9      | 0.2      | -1.4     | -0.7     | -0.4     | 0.1      | 0.4      | -1.1      | 0.2       | 1.9       | 0.5       | -1.9      |
-| -0.1     | 0.0      | 0.6      | 0.5      | -2.2     | -0.9     | -1.0     | 0.7      | -1.3     | 0.5       | -1.0      | 0.1       | 0.8       | -0.6      |
-| 0.1      | -2.5     | 2.0      | -0.8     | 1.8      | 2.0      | 0.5      | -0.7     | -0.9     | 1.2       | 0.4       | 0.5       | -0.6      | -1.4      |
-| 0.7      | 0.5      | -0.3     | -2.0     | -0.7     | 0.9      | -0.7     | 0.7      | 2.1      | 0.0       | -0.1      | -0.1      | 0.1       | 1.9       |
-| -0.2     | -0.6     | -0.1     | -0.5     | -0.3     | 2.0      | 0.6      | 0.5      | -2.1     | 0.5       | -0.4      | 0.9       | 0.3       | 0.5       |
-| 2.0      | 0.8      | -0.2     | 0.1      | -0.4     | -0.4     | -1.7     | -0.8     | -1.2     | -0.7      | 0.6       | -0.4      | -0.5      | 0.5       |
-| -0.1     | 0.3      | -1.2     | -0.9     | 0.4      | -0.4     | -1.7     | -1.0     | 1.0      | 0.5       | 0.2       | 2.3       | -0.5      | -0.0      |
-| 0.4      | 0.7      | -0.8     | -0.9     | 1.6      | -1.0     | 0.7      | 1.0      | 1.1      | -1.3      | 1.0       | 1.6       | 0.5       | -2.7      |
-| 1.0      | 0.3      | 2.1      | 0.3      | 1.7      | -0.3     | 0.3      | -0.2     | 0.8      | -0.1      | -0.5      | -2.0      | -0.4      | -0.0      |
-| -0.4     | 1.1      | -0.6     | -0.1     | -1.2     | 0.5      | 0.9      | 0.7      | 0.1      | -1.3      | 1.8       | -0.6      | -0.2      | 0.0       |
-| -1.0     | -0.3     | 1.3      | 0.4      | -1.4     | 1.4      | -2.0     | -0.8     | 0.3      | -0.3      | -1.4      | -0.0      | -0.3      | -1.2      |
-| 1.8      | -0.8     | -1.0     | -0.1     | -1.5     | 0.6      | 1.2      | 1.3      | -0.9     | 1.1       | 0.1       | -1.7      | 0.8       | 0.3       |
-| -2.3     | -0.6     | -2.0     | -0.9     | -1.3     | 0.5      | 1.2      | -1.3     | -0.7     | 0.7       | 0.5       | -1.1      | 0.5       | 1.6       |
-| 0.9      | -1.7     | -0.3     | 1.3      | 2.0      | 1.2      | 1.0      | 0.8      | -0.3     | -0.4      | 1.2       | -0.6      | -0.3      | -0.0      |
-| 0.0      | -0.9     | 0.9      | 0.8      | 0.0      | 1.1      | 0.8      | 0.5      | -0.9     | -0.8      | -1.3      | 0.5       | -0.3      | 1.0       |
-| 1.0      | -0.6     | 1.1      | 1.1      | -0.8     | 0.1      | 2.1      | 0.3      | 0.8      | -0.9      | -1.1      | 0.1       | 1.0       | -0.4      |
-| 0.4      | -0.2     | 1.7      | -1.4     | -0.6     | -0.8     | -1.5     | 0.7      | -1.6     | -0.7      | 1.7       | -0.6      | -0.2      | 0.1       |

@@ -23,12 +23,14 @@ dim(x)
 Other functions for flextable size management:
 [`autofit()`](https://davidgohel.github.io/flextable/reference/autofit.md),
 [`dim_pretty()`](https://davidgohel.github.io/flextable/reference/dim_pretty.md),
+[`fit_columns()`](https://davidgohel.github.io/flextable/reference/fit_columns.md),
 [`fit_to_width()`](https://davidgohel.github.io/flextable/reference/fit_to_width.md),
 [`flextable_dim()`](https://davidgohel.github.io/flextable/reference/flextable_dim.md),
 [`height()`](https://davidgohel.github.io/flextable/reference/height.md),
 [`hrule()`](https://davidgohel.github.io/flextable/reference/hrule.md),
 [`ncol_keys()`](https://davidgohel.github.io/flextable/reference/ncol_keys.md),
 [`nrow_part()`](https://davidgohel.github.io/flextable/reference/nrow_part.md),
+[`set_table_properties()`](https://davidgohel.github.io/flextable/reference/set_table_properties.md),
 [`width()`](https://davidgohel.github.io/flextable/reference/width.md)
 
 ## Examples

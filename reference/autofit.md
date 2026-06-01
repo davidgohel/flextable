@@ -1,17 +1,15 @@
-# Adjust cell widths and heights
+# Adjust columns to their content size
 
-compute and apply optimized widths and heights (minimum estimated widths
-and heights for each table columns and rows in inches returned by
-function
-[`dim_pretty()`](https://davidgohel.github.io/flextable/reference/dim_pretty.md)).
+Compute and apply the minimum widths and heights needed to display each
+cell's content on a single line, with an optional extra margin (`add_w`,
+`add_h`).
 
-This function is to be used when the table widths and heights should be
-adjusted to fit the size of the content.
-
-The function does not let you adjust a content that is too wide in a
-paginated document. It simply calculates the width of the columns so
-that each content has the minimum width necessary to display the content
-on one line.
+This function sizes columns to fit their content. It does not constrain
+the table to a given total width. To enforce a maximum width, use
+[`fit_columns()`](https://davidgohel.github.io/flextable/reference/fit_columns.md)
+(wraps text) or
+[`fit_to_width()`](https://davidgohel.github.io/flextable/reference/fit_to_width.md)
+(shrinks font size).
 
 Note that this function is not related to 'Microsoft Word' *Autofit*
 feature.
@@ -76,12 +74,14 @@ autofit(
 Other functions for flextable size management:
 [`dim.flextable()`](https://davidgohel.github.io/flextable/reference/dim.flextable.md),
 [`dim_pretty()`](https://davidgohel.github.io/flextable/reference/dim_pretty.md),
+[`fit_columns()`](https://davidgohel.github.io/flextable/reference/fit_columns.md),
 [`fit_to_width()`](https://davidgohel.github.io/flextable/reference/fit_to_width.md),
 [`flextable_dim()`](https://davidgohel.github.io/flextable/reference/flextable_dim.md),
 [`height()`](https://davidgohel.github.io/flextable/reference/height.md),
 [`hrule()`](https://davidgohel.github.io/flextable/reference/hrule.md),
 [`ncol_keys()`](https://davidgohel.github.io/flextable/reference/ncol_keys.md),
 [`nrow_part()`](https://davidgohel.github.io/flextable/reference/nrow_part.md),
+[`set_table_properties()`](https://davidgohel.github.io/flextable/reference/set_table_properties.md),
 [`width()`](https://davidgohel.github.io/flextable/reference/width.md)
 
 ## Examples
@@ -91,171 +91,8 @@ ft_1 <- flextable(head(mtcars))
 ft_1
 
 
-.cl-11cb989e{}.cl-11c4870c{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-11c7877c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-11c7acc0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-11c7acca{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-11c7acd4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-3cd0c758{}.cl-3cc9c2fa{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-3cccb71c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-3cccd7c4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3cccd7ce{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3cccd7e2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 mpg
 ```
-
-cyl
-
-disp
-
-hp
-
-drat
-
-wt
-
-qsec
-
-vs
-
-am
-
-gear
-
-carb
-
-21.0
-
-6
-
-160
-
-110
-
-3.90
-
-2.620
-
-16.46
-
-0
-
-1
-
-4
-
-4
-
-21.0
-
-6
-
-160
-
-110
-
-3.90
-
-2.875
-
-17.02
-
-0
-
-1
-
-4
-
-4
-
-22.8
-
-4
-
-108
-
-93
-
-3.85
-
-2.320
-
-18.61
-
-1
-
-1
-
-4
-
-1
-
-21.4
-
-6
-
-258
-
-110
-
-3.08
-
-3.215
-
-19.44
-
-1
-
-0
-
-3
-
-1
-
-18.7
-
-8
-
-360
-
-175
-
-3.15
-
-3.440
-
-17.02
-
-0
-
-0
-
-3
-
-2
-
-18.1
-
-6
-
-225
-
-105
-
-2.76
-
-3.460
-
-20.22
-
-1
-
-0
-
-3
-
-1
-
-ft_2 \<- autofit(ft_1) ft_2
-
-| mpg  | cyl | disp | hp  | drat | wt    | qsec  | vs  | am  | gear | carb |
-|------|-----|------|-----|------|-------|-------|-----|-----|------|------|
-| 21.0 | 6   | 160  | 110 | 3.90 | 2.620 | 16.46 | 0   | 1   | 4    | 4    |
-| 21.0 | 6   | 160  | 110 | 3.90 | 2.875 | 17.02 | 0   | 1   | 4    | 4    |
-| 22.8 | 4   | 108  | 93  | 3.85 | 2.320 | 18.61 | 1   | 1   | 4    | 1    |
-| 21.4 | 6   | 258  | 110 | 3.08 | 3.215 | 19.44 | 1   | 0   | 3    | 1    |
-| 18.7 | 8   | 360  | 175 | 3.15 | 3.440 | 17.02 | 0   | 0   | 3    | 2    |
-| 18.1 | 6   | 225  | 105 | 2.76 | 3.460 | 20.22 | 1   | 0   | 3    | 1    |

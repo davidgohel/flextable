@@ -56,7 +56,7 @@ add_footer_row(x, top = TRUE, values = character(0), colwidths = integer(0))
 [`flextable()`](https://davidgohel.github.io/flextable/reference/flextable.md),
 [`set_caption()`](https://davidgohel.github.io/flextable/reference/set_caption.md)
 
-Other functions for row and column operations in a flextable:
+Other row and column operations:
 [`add_body()`](https://davidgohel.github.io/flextable/reference/add_body.md),
 [`add_body_row()`](https://davidgohel.github.io/flextable/reference/add_body_row.md),
 [`add_footer()`](https://davidgohel.github.io/flextable/reference/add_footer.md),
@@ -66,9 +66,14 @@ Other functions for row and column operations in a flextable:
 [`add_header_row()`](https://davidgohel.github.io/flextable/reference/add_header_row.md),
 [`delete_columns()`](https://davidgohel.github.io/flextable/reference/delete_columns.md),
 [`delete_part()`](https://davidgohel.github.io/flextable/reference/delete_part.md),
+[`delete_rows()`](https://davidgohel.github.io/flextable/reference/delete_rows.md),
+[`paginate()`](https://davidgohel.github.io/flextable/reference/paginate.md),
 [`separate_header()`](https://davidgohel.github.io/flextable/reference/separate_header.md),
 [`set_header_footer_df`](https://davidgohel.github.io/flextable/reference/set_header_footer_df.md),
-[`set_header_labels()`](https://davidgohel.github.io/flextable/reference/set_header_labels.md)
+[`set_header_labels()`](https://davidgohel.github.io/flextable/reference/set_header_labels.md),
+[`split_columns()`](https://davidgohel.github.io/flextable/reference/split_columns.md),
+[`split_rows()`](https://davidgohel.github.io/flextable/reference/split_rows.md),
+[`split_to_pages()`](https://davidgohel.github.io/flextable/reference/split_to_pages.md)
 
 ## Examples
 
@@ -101,186 +106,8 @@ ft_1 <- add_footer_row(ft_1,
 ft_1
 
 
-.cl-03b2b67a{}.cl-03aacd7a{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-03aacd84{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-03aacd8e{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-03add7e0{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-03add7ea{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-03adfb6c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-03adfb76{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-03adfb77{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-03adfb80{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-2ce49694{}.cl-2cdcb00a{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2cdcb01e{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 165, 0, 1.00);background-color:transparent;}.cl-2cdcb01f{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-2cdfe5d6{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2cdfe5ea{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2ce00868{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ce00869{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ce00872{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ce0087c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 mpg
 ```
-
-cyl
-
-disp
-
-hp
-
-drat
-
-wt
-
-qsec
-
-vs
-
-am
-
-gear
-
-carb
-
-21.0
-
-6
-
-160
-
-110
-
-3.90
-
-2.620
-
-16.46
-
-0
-
-1
-
-4
-
-4
-
-21.0
-
-6
-
-160
-
-110
-
-3.90
-
-2.875
-
-17.02
-
-0
-
-1
-
-4
-
-4
-
-22.8
-
-4
-
-108
-
-93
-
-3.85
-
-2.320
-
-18.61
-
-1
-
-1
-
-4
-
-1
-
-21.4
-
-6
-
-258
-
-110
-
-3.08
-
-3.215
-
-19.44
-
-1
-
-0
-
-3
-
-1
-
-18.7
-
-8
-
-360
-
-175
-
-3.15
-
-3.440
-
-17.02
-
-0
-
-0
-
-3
-
-2
-
-18.1
-
-6
-
-225
-
-105
-
-2.76
-
-3.460
-
-20.22
-
-1
-
-0
-
-3
-
-1
-
-(1) My tailor is rich
-
-(2) My baker is rich
-
-(1) My tailor is rich
-
-(2) My baker is rich
-
-ft_2 \<-
-[flextable](https://davidgohel.github.io/flextable/reference/flextable.md)([head](https://rdrr.io/r/utils/head.html)(airquality))
-ft_2 \<- add_footer_row(ft_2, values =
-[c](https://rdrr.io/r/base/c.html)("Measure", "Time"), colwidths =
-[c](https://rdrr.io/r/base/c.html)(4, 2), top = TRUE ) ft_2 \<-
-[theme_box](https://davidgohel.github.io/flextable/reference/theme_box.md)(ft_2)
-ft_2
-
-| Ozone   | Solar.R | Wind | Temp | Month | Day |
-|---------|---------|------|------|-------|-----|
-| 41      | 190     | 7.4  | 67   | 5     | 1   |
-| 36      | 118     | 8.0  | 72   | 5     | 2   |
-| 12      | 149     | 12.6 | 74   | 5     | 3   |
-| 18      | 313     | 11.5 | 62   | 5     | 4   |
-|         |         | 14.3 | 56   | 5     | 5   |
-| 28      |         | 14.9 | 66   | 5     | 6   |
-| Measure |         |      |      | Time  |     |

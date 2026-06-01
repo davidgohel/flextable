@@ -31,7 +31,7 @@ merge_h(x, i = NULL, part = "body")
 
 ## See also
 
-Other flextable merging function:
+Other cell merging functions:
 [`merge_at()`](https://davidgohel.github.io/flextable/reference/merge_at.md),
 [`merge_h_range()`](https://davidgohel.github.io/flextable/reference/merge_h_range.md),
 [`merge_none()`](https://davidgohel.github.io/flextable/reference/merge_none.md),
@@ -40,71 +40,24 @@ Other flextable merging function:
 ## Examples
 
 ``` r
-dummy_df <- data.frame(
-  col1 = letters,
-  col2 = letters, stringsAsFactors = FALSE
+library(flextable)
+
+schedule <- data.frame(
+  time = c("9h", "10h", "11h", "14h", "15h", "16h"),
+  monday = c("Math", "Math", "French", "History", "Science", "French"),
+  tuesday = c("English", "Math", "Art", "Math", "Math", "French"),
+  wednesday = c("Science", "Math", "Science", "English", "English", "French"),
+  stringsAsFactors = FALSE
 )
-ft_merge <- flextable(dummy_df)
-ft_merge <- merge_h(x = ft_merge)
-ft_merge
+
+ft <- flextable(schedule)
+ft <- theme_box(ft)
+ft <- merge_h(ft)
+ft
 
 
-.cl-24b94c26{}.cl-24b280f8{font-family:'Liberation Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-24b56b4c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-24b58c6c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-24b58c76{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-24b58c80{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-51e036c4{}.cl-51d97082{font-family:'Liberation Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-51d970a0{font-family:'Liberation Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-51dc4d7a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-51dc6e40{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0.75pt solid rgba(102, 102, 102, 1.00);border-right: 0.75pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-51dc6e4a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0.75pt solid rgba(102, 102, 102, 1.00);border-right: 0.75pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
-col1
+time
 ```
-
-col2
-
-a
-
-b
-
-c
-
-d
-
-e
-
-f
-
-g
-
-h
-
-i
-
-j
-
-k
-
-l
-
-m
-
-n
-
-o
-
-p
-
-q
-
-r
-
-s
-
-t
-
-u
-
-v
-
-w
-
-x
-
-y
-
-z

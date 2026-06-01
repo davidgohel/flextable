@@ -40,7 +40,7 @@ bold(x, i = NULL, j = NULL, bold = TRUE, part = "body")
 
 ## See also
 
-Other sugar functions for table style:
+Other formatting shortcuts:
 [`align()`](https://davidgohel.github.io/flextable/reference/align.md),
 [`bg()`](https://davidgohel.github.io/flextable/reference/bg.md),
 [`color()`](https://davidgohel.github.io/flextable/reference/color.md),

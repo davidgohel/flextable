@@ -44,7 +44,7 @@ a string containing the full name of the generated file
 
 [`paginate()`](https://davidgohel.github.io/flextable/reference/paginate.md)
 
-Other flextable print function:
+Other functions for flextable output and export:
 [`df_printer()`](https://davidgohel.github.io/flextable/reference/df_printer.md),
 [`flextable_to_rmd()`](https://davidgohel.github.io/flextable/reference/flextable_to_rmd.md),
 [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md),
@@ -62,6 +62,7 @@ Other flextable print function:
 ## Examples
 
 ``` r
+
 tf <- tempfile(fileext = ".docx")
 
 library(officer)
