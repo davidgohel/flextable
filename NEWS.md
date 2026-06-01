@@ -2,6 +2,10 @@
 
 ## issues
 
+- PDF/LaTeX cell fonts are now selected with `\fontspec` instead of
+`\global\setmainfont`. The latter re-ran the math font machinery on every
+cell, which could exhaust LaTeX math alphabets and break compilation when a
+document contained many equations before the table (#636).
 - `dim_pretty()` height estimates now account for line spacing and
 border widths.
 - `padding.left` and `padding.right` are now supported in PDF/LaTeX output.

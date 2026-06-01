@@ -34,7 +34,7 @@ as_table_latexstyle_lr <- function(x) {
 
   fonts_ok <- get_pdf_engine() %in% c("xelatex", "lualatex")
   if (fonts_ok && !flextable_global$defaults$fonts_ignore) {
-    font_family_left <- sprintf("\\global\\setmainfont{%s}{", x$font.family)
+    font_family_left <- sprintf("{\\fontspec{%s} ", x$font.family)
     font_family_right <- rep("}", nrow(x))
     font_family_left[is.na(x$font.family)] <- ""
     font_family_right[is.na(x$font.family)] <- ""
