@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.12.012</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.0.001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,14 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.12" id="flextable-0912">flextable 0.9.12<a class="anchor" aria-label="anchor" href="#flextable-0912"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.10.0" id="flextable-0100">flextable 0.10.0<a class="anchor" aria-label="anchor" href="#flextable-0100"></a></h2>
+<div class="section level3">
+<h3 id="issues-0-10-0">issues<a class="anchor" aria-label="anchor" href="#issues-0-10-0"></a></h3>
+<ul><li>the <code>ulem</code> LaTeX package is now loaded with the <code>normalem</code> option, so that <code>\emph</code> (italic) text outside the table is no longer rendered as underlined in PDF output (<a href="https://github.com/davidgohel/flextable/issues/726" class="external-link">#726</a>).</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.12" id="flextable-0912">flextable 0.9.12<a class="anchor" aria-label="anchor" href="#flextable-0912"></a></h2><p class="text-muted">CRAN release: 2026-06-02</p>
 <div class="section level3">
 <h3 id="issues-0-9-12">issues<a class="anchor" aria-label="anchor" href="#issues-0-9-12"></a></h3>
 <ul><li>PDF/LaTeX cell fonts are now selected with <code>\fontspec</code> instead of <code>\global\setmainfont</code>. The latter re-ran the math font machinery on every cell, which could exhaust LaTeX math alphabets and break compilation when a document contained many equations before the table (<a href="https://github.com/davidgohel/flextable/issues/636" class="external-link">#636</a>).</li>

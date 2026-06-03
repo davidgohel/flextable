@@ -1,6 +1,17 @@
 # Changelog
 
+## flextable 0.10.0
+
+### issues
+
+- the `ulem` LaTeX package is now loaded with the `normalem` option, so
+  that `\emph` (italic) text outside the table is no longer rendered as
+  underlined in PDF output
+  ([\#726](https://github.com/davidgohel/flextable/issues/726)).
+
 ## flextable 0.9.12
+
+CRAN release: 2026-06-02
 
 ### issues
 
