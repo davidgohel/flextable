@@ -389,7 +389,25 @@ local function process_latex_raw(tex)
   return tex, modified
 end
 
--- Passe 2c : traite les RawBlocks OpenXML (marqueurs <!--TBLQMD:base64-->) --
+-- Passe 2c : traite les RawBlocks Typst (marqueurs /*tblqmd:base64*/) -----
+local function process_typst_raw(typ)
+  local modified = false
+
+  local work = typ
+  for full, encoded in work:gmatch("(/%*tblqmd:([A-Za-z0-9+/=]+)%*/)") do
+    local decoded = base64_decode(encoded)
+    local doc = pandoc.read(decoded, "markdown-implicit_figures")
+    local rendered = blocks_to_output(doc.blocks, "typst")
+
+    local safe = rendered:gsub("%%", "%%%%")
+    typ = typ:gsub(escape_pattern(full), safe, 1)
+    modified = true
+  end
+
+  return typ, modified
+end
+
+-- Passe 2d : traite les RawBlocks OpenXML (marqueurs <!--TBLQMD:base64-->) --
 -- Retourne : nil | RawBlock | {Block...} (liste si images detectees)
 local function process_openxml_raw(xml)
   local modified = false
@@ -476,6 +494,11 @@ local function process_raw_block(el)
     if not el.text:find("\\tblqmd") then return nil end
     local result, modified = process_latex_raw(el.text)
     if modified then return pandoc.RawBlock("latex", result) end
+
+  elseif el.format == "typst" then
+    if not el.text:find("tblqmd") then return nil end
+    local result, modified = process_typst_raw(el.text)
+    if modified then return pandoc.RawBlock("typst", result) end
 
   elseif el.format == "openxml" then
     if not el.text:find("TBLQMD") then return nil end

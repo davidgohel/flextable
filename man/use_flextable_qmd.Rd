@@ -20,8 +20,8 @@ Copies the \code{flextable-qmd} Quarto extension (bundled with
 flextable) into the \verb{_extensions/} directory of a
 Quarto project. The extension provides Lua filters
 that resolve Quarto markdown content produced by
-\code{\link[=as_qmd]{as_qmd()}} inside flextable cells for HTML, PDF
-and Word (docx) output formats.
+\code{\link[=as_qmd]{as_qmd()}} inside flextable cells for HTML, PDF,
+Typst and Word (docx) output formats.
 
 After installation, add the filter to your document
 or project YAML:
@@ -30,10 +30,14 @@ or project YAML:
   - flextable-qmd
 }\if{html}{\out{</div>}}
 
+This single filter is all that is required for HTML,
+PDF and Typst (\code{format: typst}) output.
+
 For Word (docx) output with labelled flextable chunks
 (e.g. \verb{#| label: tbl-xxx}), add the post-render filter
 to remove the wrapper table Quarto creates around the
-flextable:
+flextable (this extra filter is not needed for Typst,
+where the table is embedded directly in the figure):
 
 \if{html}{\out{<div class="sourceCode yaml">}}\preformatted{filters:
   - flextable-qmd

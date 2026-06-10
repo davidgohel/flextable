@@ -440,6 +440,27 @@ knit_to_pml <- function(x) {
   with_openxml_quotes(str)
 }
 
+#' @noRd
+#' @title flextable Typst string
+#' @description get Typst raw code from a flextable object, to be
+#' embedded in a Quarto document rendered with `format: typst`.
+knit_to_typst <- function(x, bookdown = FALSE, quarto = FALSE) {
+  x <- flextable_global$defaults$post_process_all(x)
+  x <- fix_border_issues(x)
+
+  str <- gen_raw_typst(x)
+
+  # equations rely on the mitex Typst package; emit the import once,
+  # right before a table that contains at least one equation. Users can
+  # also declare it in the document preamble.
+  has_equation <- any(!is.na(information_data_chunk(x)$eq_data))
+  if (has_equation) {
+    str <- paste0("#import \"@preview/mitex:0.2.7\": *\n", str)
+  }
+
+  str
+}
+
 #' @importFrom htmltools HTML browsable
 #' @export
 #' @title Print a flextable
@@ -726,6 +747,10 @@ knit_print.flextable <- function(x, ...) {
     }
     str <- knit_to_pml(x)
     str <- asis_output(str)
+  } else if (grepl("typst", opts_knit$get("rmarkdown.pandoc.to"))) {
+    # typst (Quarto `format: typst`)
+    str <- knit_to_typst(x, bookdown = is_bookdown, quarto = is_quarto)
+    str <- raw_block(str, "typst")
   } else {
     plot_counter <- getFromNamespace("plot_counter", "knitr")
     in_base_dir <- getFromNamespace("in_base_dir", "knitr")

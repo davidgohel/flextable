@@ -857,8 +857,8 @@ as_qmd <- function(x, display = x) {
 #' flextable) into the `_extensions/` directory of a
 #' Quarto project. The extension provides Lua filters
 #' that resolve Quarto markdown content produced by
-#' [as_qmd()] inside flextable cells for HTML, PDF
-#' and Word (docx) output formats.
+#' [as_qmd()] inside flextable cells for HTML, PDF,
+#' Typst and Word (docx) output formats.
 #'
 #' After installation, add the filter to your document
 #' or project YAML:
@@ -868,10 +868,14 @@ as_qmd <- function(x, display = x) {
 #'   - flextable-qmd
 #' ```
 #'
+#' This single filter is all that is required for HTML,
+#' PDF and Typst (`format: typst`) output.
+#'
 #' For Word (docx) output with labelled flextable chunks
 #' (e.g. `#| label: tbl-xxx`), add the post-render filter
 #' to remove the wrapper table Quarto creates around the
-#' flextable:
+#' flextable (this extra filter is not needed for Typst,
+#' where the table is embedded directly in the figure):
 #'
 #' ```yaml
 #' filters:

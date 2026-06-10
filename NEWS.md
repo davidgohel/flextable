@@ -1,5 +1,9 @@
 # flextable 0.10.0
 
+## new features
+
+- flextable now supports PDF/typst output format.
+
 ## issues
 
 - the `ulem` LaTeX package is now loaded with the `normalem` option, so that
