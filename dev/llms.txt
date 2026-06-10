@@ -20,8 +20,8 @@ to convert several R objects to a flextable, such as an object returned
 from [`table()`](https://rdrr.io/r/base/table.html) or a model.
 
 Tables can be embedded within HTML, PDF, Word and PowerPoint documents
-from R Markdown and Quarto documents and within RTF or Microsoft Word or
-PowerPoint documents with package
+from R Markdown and Quarto documents (plus Typst with Quarto) and within
+RTF or Microsoft Word or PowerPoint documents with package
 [officer](https://davidgohel.github.io/officer/). Tables can also be
 exported as image files (png, svg) or combined with ggplot2 plots in
 patchwork layouts.
