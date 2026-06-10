@@ -131,18 +131,18 @@ img_to_latex <- function(img_data, width, height) {
   str_raster <- mapply(
     function(img_raster, new_file, width, height) {
       if (inherits(img_raster, "raster")) {
-        agg_png(
-          filename = new_file,
-          units = "in",
-          res = 300,
-          background = "transparent",
+        plot_in_png(
+          code = {
+            op <- par(mar = rep(0, 4))
+            plot(img_raster, interpolate = FALSE, asp = NA)
+            par(op)
+          },
           width = width,
-          height = height
+          height = height,
+          res = 300,
+          units = "in",
+          path = new_file
         )
-        op <- par(mar = rep(0, 4))
-        plot(img_raster, interpolate = FALSE, asp = NA)
-        par(op)
-        dev.off()
       } else if (is.character(img_raster)) {
         if (!file.exists(img_raster)) {
           stop(sprintf("File '%s' could not be found.", img_raster))

@@ -163,30 +163,19 @@ to_html.flextable <- function(x, type = c("table", "img"), ...) {
       manual_css = paste0(manual_css, collapse = "\n")
     )
   } else {
-    tmp <- tempfile(fileext = ".png")
-
     gr <- gen_grob(x, fit = "fixed", just = "center")
     dims <- dim(gr)
     expand <- 10
     width <- dims$width + expand / 72
     height <- dims$height + expand / 72
 
-    agg_png(
-      filename = tmp,
-      width = dims$width + expand / 72,
-      height = dims$height + expand / 72,
+    tmp <- plot_in_png(
+      code = plot(gr),
+      width = width,
+      height = height,
       res = 200,
       units = "in",
-      background = "transparent"
-    )
-
-    tryCatch(
-      {
-        plot(gr)
-      },
-      finally = {
-        dev.off()
-      }
+      path = tempfile(fileext = ".png")
     )
 
     base64_string <- image_to_base64(tmp)
@@ -1104,13 +1093,13 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
   dims <- dim(gr)
 
   if (file_ext %in% "png") {
-    agg_png(
-      filename = path,
+    plot_in_png(
+      code = base::plot(gr),
       width = dims$width + expand / 72,
       height = dims$height + expand / 72,
       res = res,
       units = "in",
-      background = "transparent"
+      path = path
     )
   } else if (file_ext %in% "svg") {
     if (!requireNamespace("svglite", quietly = TRUE)) {
@@ -1126,16 +1115,15 @@ save_as_image <- function(x, path, expand = 10, res = 200, ...) {
       height = dims$height + expand / 72,
       bg = "transparent"
     )
+    tryCatch(
+      {
+        base::plot(gr)
+      },
+      finally = {
+        dev.off()
+      }
+    )
   }
-
-  tryCatch(
-    {
-      base::plot(gr)
-    },
-    finally = {
-      dev.off()
-    }
-  )
 
   path
 }

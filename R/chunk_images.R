@@ -400,41 +400,41 @@ plot_chunk <- function(
 
   files <- mapply(
     function(x, width, height, type) {
-      file <- tempfile(fileext = ".png")
-      agg_png(
-        filename = file,
+      # pointsize = 12 matches agg_png's previous default (plot_in_png uses 11)
+      plot_in_png(
+        code = {
+          par(mar = rep(0, 4))
+          parcall <- params
+
+          if ("box" %in% type) {
+            parcall$x <- x
+            parcall$horizontal <- TRUE
+            parcall$ylim <- lims
+            do.call(boxplot, parcall)
+          } else if ("line" %in% type) {
+            parcall$x <- seq_along(x)
+            parcall$y <- x
+            parcall$type <- "l"
+            parcall$ylim <- lims
+            do.call(plot, parcall)
+          } else if ("points" %in% type) {
+            parcall$x <- seq_along(x)
+            parcall$y <- x
+            parcall$ylim <- lims
+            do.call(plot, parcall)
+          } else if ("density" %in% type) {
+            parcall$x <- density(x)
+            parcall$xlim <- lims
+            do.call(plot, parcall)
+          }
+        },
         width = width,
         height = height,
         res = 200,
         units = "in",
-        background = "transparent"
+        pointsize = 12,
+        path = tempfile(fileext = ".png")
       )
-      par(mar = rep(0, 4))
-      parcall <- params
-
-      if ("box" %in% type) {
-        parcall$x <- x
-        parcall$horizontal <- TRUE
-        parcall$ylim <- lims
-        do.call(boxplot, parcall)
-      } else if ("line" %in% type) {
-        parcall$x <- seq_along(x)
-        parcall$y <- x
-        parcall$type <- "l"
-        parcall$ylim <- lims
-        do.call(plot, parcall)
-      } else if ("points" %in% type) {
-        parcall$x <- seq_along(x)
-        parcall$y <- x
-        parcall$ylim <- lims
-        do.call(plot, parcall)
-      } else if ("density" %in% type) {
-        parcall$x <- density(x)
-        parcall$xlim <- lims
-        do.call(plot, parcall)
-      }
-      dev.off()
-      file
     },
     x = value,
     width = width,
@@ -528,18 +528,14 @@ gg_chunk <- function(
 
   files <- mapply(
     function(x, width, height) {
-      file <- tempfile(fileext = ".png")
-      agg_png(
-        filename = file,
+      plot_in_png(
+        ggobj = x,
         width = width,
         height = height,
         units = "in",
-        background = "transparent",
-        res = res
+        res = res,
+        path = tempfile(fileext = ".png")
       )
-      print(x)
-      dev.off()
-      file
     },
     x = value,
     width = width,
@@ -622,18 +618,14 @@ grid_chunk <- function(
   height <- as.double(rep(height, length(value)))
   files <- mapply(
     function(x, width, height) {
-      file <- tempfile(fileext = ".png")
-      agg_png(
-        filename = file,
+      plot_in_png(
+        code = grid::grid.draw(x),
         width = width,
         height = height,
         units = "in",
-        background = "transparent",
-        res = res
+        res = res,
+        path = tempfile(fileext = ".png")
       )
-      grid::grid.draw(x)
-      dev.off()
-      file
     },
     x = value,
     width = width,

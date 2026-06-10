@@ -217,12 +217,13 @@ reference:
   - title: Save to files
     desc: >
       Export flextables to standalone files: Word (.docx), PowerPoint (.pptx),
-      HTML, RTF, or images (PNG, PDF, SVG).
+      HTML, RTF, TYPST or images (PNG, PDF, SVG).
     contents:
     - save_as_docx
     - save_as_pptx
     - save_as_html
     - save_as_rtf
+    - save_as_typst
     - save_as_image
 
   - title: Integrate with R Markdown and Quarto

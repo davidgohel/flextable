@@ -48,7 +48,7 @@ img_as_typst <- function(img_data, width, height, alt = "", embed = FALSE) {
     function(img, w, h) {
       # obtain a file on disk for this image (render raster, or external path)
       if (inherits(img, "raster")) {
-        src <- officer::plot_in_png(
+        src <- plot_in_png(
           code = {
             op <- par(mar = rep(0, 4))
             plot(img, interpolate = FALSE, asp = NA)

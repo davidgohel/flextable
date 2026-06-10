@@ -300,25 +300,23 @@ htmlize <- function(x) {
   x
 }
 
-#' @importFrom officer image_to_base64
+#' @importFrom officer image_to_base64 plot_in_png
 img_as_html <- function(img_data, width, height, alt = "") {
   img_data <- str_raster <- mapply(
     function(img_raster, width, height) {
       if (inherits(img_raster, "raster")) {
-        outfile <- tempfile(fileext = ".png")
-        agg_png(
-          filename = outfile,
-          units = "in",
-          res = 300,
-          background = "transparent",
+        img_raster <- plot_in_png(
+          code = {
+            op <- par(mar = rep(0, 4))
+            plot(img_raster, interpolate = FALSE, asp = NA)
+            par(op)
+          },
           width = width,
-          height = height
+          height = height,
+          res = 300,
+          units = "in",
+          path = tempfile(fileext = ".png")
         )
-        op <- par(mar = rep(0, 4))
-        plot(img_raster, interpolate = FALSE, asp = NA)
-        par(op)
-        dev.off()
-        img_raster <- outfile
       }
       img_raster
     },
