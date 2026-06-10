@@ -82,6 +82,7 @@ Tabs are different depending on the output format:
 \item Word - a Word 'tab' element
 \item PowerPoint - a PowerPoint 'tab' element
 \item latex - tag "\\quad "
+\item Typst - horizontal space \verb{#h(1em)}
 }
 }
 

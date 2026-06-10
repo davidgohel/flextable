@@ -17,9 +17,10 @@ This function is called automatically by knitr to display
 a flextable in R Markdown and Quarto documents. You do not need to call
 it directly.
 
-Supported output formats: HTML, Word (docx), PDF and PowerPoint (pptx).
-For other formats (e.g., \code{github_document}, \code{beamer_presentation}),
-the table is rendered as a PNG image.
+Supported output formats: HTML, Word (docx), PDF, PowerPoint (pptx) and
+Typst (\code{format: typst}, Quarto only). For other formats (e.g.,
+\code{github_document}, \code{beamer_presentation}), the table is rendered as a
+PNG image.
 }
 \section{Getting started}{
 
@@ -123,7 +124,8 @@ are available:\tabular{lcc}{
 \section{Quarto}{
 
 
-flextable works natively in Quarto documents for HTML, PDF and Word.
+flextable works natively in Quarto documents for HTML, PDF, Word and
+Typst.
 
 The \code{flextable-qmd} Lua filter extension enables Quarto markdown
 inside flextable cells: cross-references (\verb{@tbl-xxx}, \verb{@fig-xxx}),

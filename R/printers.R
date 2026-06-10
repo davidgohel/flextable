@@ -526,9 +526,10 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #' a flextable in R Markdown and Quarto documents. You do not need to call
 #' it directly.
 #'
-#' Supported output formats: HTML, Word (docx), PDF and PowerPoint (pptx).
-#' For other formats (e.g., `github_document`, `beamer_presentation`),
-#' the table is rendered as a PNG image.
+#' Supported output formats: HTML, Word (docx), PDF, PowerPoint (pptx) and
+#' Typst (`format: typst`, Quarto only). For other formats (e.g.,
+#' `github_document`, `beamer_presentation`), the table is rendered as a
+#' PNG image.
 #'
 #' @section Getting started:
 #'
@@ -616,7 +617,8 @@ print.flextable <- function(x, preview = "html", align = "center", ...) {
 #'
 #' @section Quarto:
 #'
-#' flextable works natively in Quarto documents for HTML, PDF and Word.
+#' flextable works natively in Quarto documents for HTML, PDF, Word and
+#' Typst.
 #'
 #' The `flextable-qmd` Lua filter extension enables Quarto markdown
 #' inside flextable cells: cross-references (`@tbl-xxx`, `@fig-xxx`),

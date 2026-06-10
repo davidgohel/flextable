@@ -766,7 +766,7 @@ to_wml_word_field <- function(x, pr_txt) {
 #' The chunk is used with [compose()], [append_chunks()]
 #' or [prepend_chunks()]. It requires the `flextable-qmd` Lua
 #' filter extension (see [use_flextable_qmd()]) and works with
-#' HTML, PDF and Word (docx) Quarto output formats.
+#' HTML, PDF, Typst and Word (docx) Quarto output formats.
 #'
 #' @section Setup:
 #'

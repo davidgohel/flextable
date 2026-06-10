@@ -27,7 +27,7 @@ headings, bullet lists or fenced code blocks.
 The chunk is used with \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}
 or \code{\link[=prepend_chunks]{prepend_chunks()}}. It requires the \code{flextable-qmd} Lua
 filter extension (see \code{\link[=use_flextable_qmd]{use_flextable_qmd()}}) and works with
-HTML, PDF and Word (docx) Quarto output formats.
+HTML, PDF, Typst and Word (docx) Quarto output formats.
 }
 \section{Setup}{
 

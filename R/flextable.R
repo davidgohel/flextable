@@ -47,6 +47,7 @@
 #' - Word - a Word 'tab' element
 #' - PowerPoint - a PowerPoint 'tab' element
 #' - latex - tag "\\quad "
+#' - Typst - horizontal space `#h(1em)`
 #' @section flextable parts:
 #'
 #' A `flextable` is made of 3 parts: header, body and footer.

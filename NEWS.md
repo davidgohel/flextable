@@ -2,7 +2,9 @@
 
 ## new features
 
-- flextable now supports PDF/typst output format.
+- flextable now supports Typst output: tables are printed automatically in
+Quarto documents with `format: typst` and `save_as_typst()` exports one or more
+flextables to a standalone `.typ` file.
 
 ## issues
 
