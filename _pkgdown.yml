@@ -238,6 +238,7 @@ reference:
     - df_printer
     - use_df_printer
     - use_model_printer
+    - repair_docx
 
   - title: Integrate with officer (Word/PowerPoint)
     desc: >
