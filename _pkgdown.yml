@@ -155,7 +155,7 @@ reference:
     - line_spacing
     - rotate
     - tab_settings
-    - indent
+    - indentation
     - empty_blanks
 
   - title: Borders
