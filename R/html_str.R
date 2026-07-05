@@ -556,12 +556,90 @@ flextable_html_dependency <- function() {
   )
 }
 
+# URL of the KaTeX stylesheet that `equatags`/`katex` emits when rendering
+# equations to HTML. Extracted from the actual output so the version always
+# matches the markup (no hard-coded version, no version skew). The extraction
+# spins up a V8 rendering, so the result is cached for the session in
+# `flextable_global`; it only depends on the installed katex version, which
+# cannot change in a loaded session. Failures (no equatags, no match) are not
+# cached so a later call can recover.
+katex_css_href <- function() {
+  if (!is.null(flextable_global$katex_css_href)) {
+    return(flextable_global$katex_css_href)
+  }
+  if (!requireNamespace("equatags", quietly = TRUE)) {
+    return(NULL)
+  }
+  transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
+  html <- transform_mathjax("1", to = "html")
+  href <- regmatches(
+    html,
+    regexpr("https://[^\"']+katex[^\"']+\\.css", html)
+  )
+  if (length(href) < 1) {
+    return(NULL)
+  }
+  flextable_global$katex_css_href <- href[1]
+  href[1]
+}
+
+# `data-external="1"` keeps pandoc --self-contained/--embed-resources from
+# downloading and inlining the stylesheet: inlining would break its relative
+# `url(fonts/...)` references and require internet at render time.
+katex_css_link <- function() {
+  href <- katex_css_href()
+  if (is.null(href)) {
+    return(NULL)
+  }
+  sprintf(
+    "<link rel=\"stylesheet\" href=\"%s\" data-external=\"1\">",
+    href
+  )
+}
+
+# flextable renders HTML tables inside a shadow DOM (see web_1.1.3/tabwid.js),
+# which moves the table and the KaTeX stylesheet injected in cells into a
+# shadow root. `@font-face` rules declared inside a shadow root are not
+# registered by the browser, so the KaTeX math fonts (KaTeX_SansSerif,
+# KaTeX_Typewriter, KaTeX_Fraktur, KaTeX_AMS) never load and the corresponding
+# variants (`\mathsf`, `\mathtt`, `\mathfrak`, `\mathbb`) silently fall back to
+# the default font (issue #622). Adding the same stylesheet as a document-level
+# dependency registers the fonts in the light DOM, where they become usable by
+# the shadow DOM content too.
+katex_html_dependency <- function() {
+  link <- katex_css_link()
+  if (is.null(link)) {
+    return(NULL)
+  }
+  version <- sub(".*katex@([0-9.]+).*", "\\1", link)
+  if (!grepl("^[0-9.]+$", version)) {
+    version <- "0.0.0"
+  }
+  # The stylesheet is served from a CDN; remote `href` dependencies are not
+  # supported by the knitr meta path ("not disk-based"), so emit the link tag
+  # via `head` while pointing `src` at an existing on-disk directory and
+  # copying nothing (`all_files = FALSE`).
+  htmlDependency(
+    name = "katex",
+    version = version,
+    src = system.file(package = "flextable", "web_1.1.3"),
+    all_files = FALSE,
+    head = link
+  )
+}
+
 html_dependencies_list <- function(x) {
   list_deps <- list(flextable_html_dependency())
   list_deps <- append(
     list_deps,
     lapply(avail_gfonts(x), gdtools::gfontHtmlDependency)
   )
+  if (has_equation(x)) {
+    katex_dep <- katex_html_dependency()
+    if (!is.null(katex_dep)) {
+      list_deps <- append(list_deps, list(katex_dep))
+    }
+  }
   list_deps
 }
 

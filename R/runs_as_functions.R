@@ -124,11 +124,6 @@ runs_as_html <- function(x, chunk_data = information_data_chunk(x)) {
         )
       )
     ]
-    katex_link <- "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css\" data-external=\"1\">"
-    spans_dataset[
-      which(runs_types_lst$is_equation == TRUE)[1],
-      c("txt") := list(paste0(katex_link, .SD$txt))
-    ]
   }
 
   setorderv(spans_dataset, cols = order_columns)

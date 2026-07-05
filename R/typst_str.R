@@ -510,18 +510,6 @@ typst_b64_decoder <- function() {
   )
 }
 
-typst_has_equation <- function(x) {
-  any(!is.na(information_data_chunk(x)$eq_data))
-}
-
-typst_has_raster <- function(x) {
-  any(vapply(
-    information_data_chunk(x)$img_data,
-    function(z) inherits(z, "raster") || is.character(z),
-    logical(1)
-  ))
-}
-
 #' @export
 #' @title Save flextable objects in a Typst file
 #' @description Writes one or more flextables to a standalone Typst
@@ -559,8 +547,8 @@ save_as_typst <- function(
     NA_character_
   )
 
-  need_eq <- any(vapply(values, typst_has_equation, logical(1)))
-  need_img <- any(vapply(values, typst_has_raster, logical(1)))
+  need_eq <- any(vapply(values, has_equation, logical(1)))
+  need_img <- any(vapply(values, has_raster, logical(1)))
 
   preamble <- c(
     if (need_eq) '#import "@preview/mitex:0.2.7": *',

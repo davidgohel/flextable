@@ -156,12 +156,22 @@ to_html.flextable <- function(x, type = c("table", "img"), ...) {
       system.file(package = "flextable", "web_1.1.3", "tabwid.css"),
       encoding = "UTF-8"
     )
-    gen_raw_html(
+    str <- gen_raw_html(
       x,
       class = "tabwid",
       caption = "",
       manual_css = paste0(manual_css, collapse = "\n")
     )
+    # `to_html()` returns a standalone string that does not carry html
+    # dependencies; like `tabwid.css` above, the KaTeX stylesheet (math
+    # fonts, issue #622) must travel inline with the markup.
+    if (has_equation(x)) {
+      katex_link <- katex_css_link()
+      if (!is.null(katex_link)) {
+        str <- paste0(katex_link, str)
+      }
+    }
+    str
   } else {
     gr <- gen_grob(x, fit = "fixed", just = "center")
     dims <- dim(gr)
@@ -442,8 +452,7 @@ knit_to_typst <- function(x, bookdown = FALSE, quarto = FALSE) {
   # equations rely on the mitex Typst package; emit the import once,
   # right before a table that contains at least one equation. Users can
   # also declare it in the document preamble.
-  has_equation <- any(!is.na(information_data_chunk(x)$eq_data))
-  if (has_equation) {
+  if (has_equation(x)) {
     str <- paste0("#import \"@preview/mitex:0.2.7\": *\n", str)
   }
 

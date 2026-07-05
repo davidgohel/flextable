@@ -386,6 +386,61 @@ information_data_chunk <- function(x, expand_special_chars = TRUE) {
   dat
 }
 
+# Cheap detection of equation content.
+#
+# `information_data_chunk()` is expensive (it runs `fortify_content()` over
+# every part), so it should not be called just to find out whether a table
+# contains any equation - equations are rare and the answer is almost always
+# FALSE. Equations are stored by `as_equation()` as an `eq_data` column in the
+# per-cell chunk data.frames; a cell without an equation does not even carry
+# that column. This probe scans the raw content structures directly and
+# short-circuits on the first equation found, avoiding the full pipeline.
+has_equation <- function(x) {
+  for (part in c("header", "body", "footer")) {
+    cnt <- x[[part]]$content
+    if (is.null(cnt) || nrow(cnt$data) < 1) {
+      next
+    }
+    for (cell in cnt$data) {
+      eq <- cell[["eq_data"]]
+      if (!is.null(eq) && !all(is.na(eq))) {
+        return(TRUE)
+      }
+    }
+  }
+  FALSE
+}
+
+# Cheap detection of image content, same rationale as `has_equation()`.
+#
+# In the raw chunk data.frames `img_data` is either a list column (raster
+# objects, file paths - `gg_chunk()`/`plot_chunk()` render to PNG at chunk
+# creation) or a plain character column of file paths; an empty slot is NULL
+# or a scalar NA. The predicate matches `runs_types()$is_raster`.
+has_raster <- function(x) {
+  for (part in c("header", "body", "footer")) {
+    cnt <- x[[part]]$content
+    if (is.null(cnt) || nrow(cnt$data) < 1) {
+      next
+    }
+    for (cell in cnt$data) {
+      img <- cell[["img_data"]]
+      if (is.null(img)) {
+        next
+      }
+      if (!is.list(img)) {
+        img <- as.list(img)
+      }
+      for (z in img) {
+        if (inherits(z, "raster") || (is.character(z) && any(!is.na(z)))) {
+          return(TRUE)
+        }
+      }
+    }
+  }
+  FALSE
+}
+
 
 #' @importFrom data.table rbindlist setDF
 #' @title Get paragraph-level information from a flextable
