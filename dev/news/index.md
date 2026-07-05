@@ -9,7 +9,7 @@
   [`save_as_typst()`](https://davidgohel.github.io/flextable/dev/reference/save_as_typst.md)
   exports one or more flextables to a standalone `.typ` file.
 - new function
-  [`indent()`](https://davidgohel.github.io/flextable/dev/reference/indent.md)
+  [`indentation()`](https://davidgohel.github.io/flextable/dev/reference/indentation.md)
   to set first-line (`first_line`) and hanging (`hanging`) paragraph
   indents in cells. The properties can also be set with
   `style(pr_p = fp_par(...))` (requires officer \>= 0.7.5). Supported in

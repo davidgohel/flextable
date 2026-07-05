@@ -51,7 +51,7 @@ Other formatting shortcuts:
 [`font()`](https://davidgohel.github.io/flextable/dev/reference/font.md),
 [`fontsize()`](https://davidgohel.github.io/flextable/dev/reference/fontsize.md),
 [`highlight()`](https://davidgohel.github.io/flextable/dev/reference/highlight.md),
-[`indent()`](https://davidgohel.github.io/flextable/dev/reference/indent.md),
+[`indentation()`](https://davidgohel.github.io/flextable/dev/reference/indentation.md),
 [`italic()`](https://davidgohel.github.io/flextable/dev/reference/italic.md),
 [`line_spacing()`](https://davidgohel.github.io/flextable/dev/reference/line_spacing.md),
 [`padding()`](https://davidgohel.github.io/flextable/dev/reference/padding.md),
