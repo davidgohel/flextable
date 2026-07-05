@@ -443,6 +443,23 @@ has_raster <- function(x) {
   FALSE
 }
 
+# Cheap detection of hyperlink content, same rationale as `has_equation()`.
+has_hlink <- function(x) {
+  for (part in c("header", "body", "footer")) {
+    cnt <- x[[part]]$content
+    if (is.null(cnt) || nrow(cnt$data) < 1) {
+      next
+    }
+    for (cell in cnt$data) {
+      url <- cell[["url"]]
+      if (!is.null(url) && !all(is.na(url))) {
+        return(TRUE)
+      }
+    }
+  }
+  FALSE
+}
+
 
 #' @importFrom data.table rbindlist setDF
 #' @title Get paragraph-level information from a flextable

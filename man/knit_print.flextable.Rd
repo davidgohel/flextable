@@ -206,6 +206,7 @@ Other functions for flextable output and export:
 \code{\link[=htmltools_value]{htmltools_value()}},
 \code{\link[=plot.flextable]{plot.flextable()}},
 \code{\link[=print.flextable]{print.flextable()}},
+\code{\link[=repair_docx]{repair_docx()}},
 \code{\link[=save_as_docx]{save_as_docx()}},
 \code{\link[=save_as_html]{save_as_html()}},
 \code{\link[=save_as_image]{save_as_image()}},

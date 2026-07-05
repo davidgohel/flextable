@@ -9,6 +9,12 @@ flextables to a standalone `.typ` file.
 (`hanging`) paragraph indents in cells. The properties can also be set with
 `style(pr_p = fp_par(...))` (requires officer >= 0.7.5). Supported in Word,
 HTML, PowerPoint, RTF, PDF, Typst and grid outputs (#704).
+- new function `repair_docx()` to repair Word files produced by Quarto
+(`format: docx`) or `rmarkdown::word_document()` when tables contain images
+or hyperlinks; pandoc writes these files without resolving the image and
+hyperlink references and Word can not open them. The officer rewrite also
+processes sections, footnotes, custom styles, list markers and poured
+documents. flextable now also emits a warning in that situation (#711).
 
 ## issues
 

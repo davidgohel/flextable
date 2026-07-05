@@ -57,6 +57,7 @@ Other functions for flextable output and export:
 \code{\link[=knit_print.flextable]{knit_print.flextable()}},
 \code{\link[=plot.flextable]{plot.flextable()}},
 \code{\link[=print.flextable]{print.flextable()}},
+\code{\link[=repair_docx]{repair_docx()}},
 \code{\link[=save_as_docx]{save_as_docx()}},
 \code{\link[=save_as_image]{save_as_image()}},
 \code{\link[=save_as_pptx]{save_as_pptx()}},

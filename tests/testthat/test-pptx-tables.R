@@ -7,7 +7,7 @@ test_that("row height is valid", {
   doc <- print(doc, target = pptx_file)
 
   main_folder <- file.path(getwd(), "pptx_folder")
-  unzip(pptx_file, exdir = main_folder)
+  officer::unpack_folder(pptx_file, folder = main_folder)
 
   slide_file <- file.path(main_folder, "/ppt/slides/slide1.xml")
   doc <- read_xml(slide_file)

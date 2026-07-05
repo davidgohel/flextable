@@ -41,7 +41,9 @@ flextable with functions:
 }
 \note{
 This chunk option requires package officedown in a R Markdown
-context with Word output format.
+context with Word output format. With Quarto (\code{format: docx}) or
+\code{rmarkdown::word_document()}, the resulting file must be repaired
+with \code{\link[=repair_docx]{repair_docx()}}.
 
 PowerPoint cannot mix images and text in a paragraph, images
 are removed when outputing to PowerPoint format.

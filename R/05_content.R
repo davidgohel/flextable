@@ -478,7 +478,9 @@ as_bracket <- function(..., sep = ", ", p = "(", s = ")") {
 #'
 #' @note
 #' This chunk option requires package officedown in a R Markdown
-#' context with Word output format.
+#' context with Word output format. With Quarto (`format: docx`) or
+#' `rmarkdown::word_document()`, the resulting file must be repaired
+#' with [repair_docx()].
 #' @inheritParams as_chunk
 #' @param url url to be used
 #' @seealso [compose()]
