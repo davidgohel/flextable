@@ -39,13 +39,13 @@ Source:
 [`DESCRIPTION`](https://github.com/davidgohel/flextable/blob/main/DESCRIPTION)
 
 Gohel D, Skintzos P (2026). *flextable: Functions for Tabular
-Reporting*. R package version 0.10.0.005,
+Reporting*. R package version 0.10.0.006,
 <https://ardata-fr.github.io/flextable-book/>.
 
     @Manual{,
       title = {flextable: Functions for Tabular Reporting},
       author = {David Gohel and Panagiotis Skintzos},
       year = {2026},
-      note = {R package version 0.10.0.005},
+      note = {R package version 0.10.0.006},
       url = {https://ardata-fr.github.io/flextable-book/},
     }

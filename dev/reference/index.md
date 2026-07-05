@@ -290,6 +290,8 @@ padding, line spacing, and text rotation.
   : Rotate cell text
 - [`tab_settings()`](https://davidgohel.github.io/flextable/dev/reference/tab_settings.md)
   : Set tabulation marks configuration
+- [`indent()`](https://davidgohel.github.io/flextable/dev/reference/indent.md)
+  : Set paragraph indents
 - [`empty_blanks()`](https://davidgohel.github.io/flextable/dev/reference/empty_blanks.md)
   : Make blank columns transparent
 

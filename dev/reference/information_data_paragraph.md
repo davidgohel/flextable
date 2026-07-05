@@ -83,11 +83,11 @@ head(x)
 #> 4             solid              solid   transparent          FALSE     Normal
 #> 5             solid              solid   transparent          FALSE     Normal
 #> 6             solid              solid   transparent          FALSE     Normal
-#>   tabs
-#> 1 <NA>
-#> 2 <NA>
-#> 3 <NA>
-#> 4 <NA>
-#> 5 <NA>
-#> 6 <NA>
+#>   tabs first_line hanging
+#> 1 <NA>         NA      NA
+#> 2 <NA>         NA      NA
+#> 3 <NA>         NA      NA
+#> 4 <NA>         NA      NA
+#> 5 <NA>         NA      NA
+#> 6 <NA>         NA      NA
 ```
