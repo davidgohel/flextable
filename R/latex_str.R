@@ -164,12 +164,33 @@ gen_raw_latex <- function(
   # latex for multirow ----
   augment_multirow_fixed(cell_properties_df)
 
+  # paragraph indents (hanging wins over first_line, as in officer) ----
+  # `\hangindent` indents lines 2+ from the left, so the Word semantics
+  # (all lines at padding.left, first line outdented by `hanging`)
+  # translate to leftskip = padding.left - hanging plus
+  # \hangindent=hanging. `first_line` is a \hspace* on the first line.
+  cell_properties_df[,
+    c("hanging_pt", "first_line_pt") := list(
+      fifelse(!is.na(.SD$hanging) & .SD$hanging > 0, .SD$hanging, 0),
+      fifelse(
+        (is.na(.SD$hanging) | .SD$hanging <= 0) &
+          !is.na(.SD$first_line) &
+          .SD$first_line > 0,
+        .SD$first_line,
+        0
+      )
+    )
+  ]
+
   # paragraph padding ----
   cell_properties_df[,
     c("padding_left_str", "padding_right_str") := list(
       ifelse(
-        .SD$padding.left > 0,
-        sprintf("\\advance\\leftskip by %.1fpt\\relax ", .SD$padding.left),
+        abs(.SD$padding.left - .SD$hanging_pt) > 0,
+        sprintf(
+          "\\advance\\leftskip by %.1fpt\\relax ",
+          .SD$padding.left - .SD$hanging_pt
+        ),
         ""
       ),
       ifelse(
@@ -180,6 +201,24 @@ gen_raw_latex <- function(
     )
   ]
 
+  cell_properties_df[,
+    c("indent_str") := list(
+      paste0(
+        ifelse(
+          .SD$hanging_pt > 0,
+          sprintf("\\hangindent=%.1fpt\\hangafter=1\\relax ", .SD$hanging_pt),
+          ""
+        ),
+        ifelse(
+          .SD$first_line_pt > 0,
+          sprintf("\\hspace*{%.1fpt}", .SD$first_line_pt),
+          ""
+        )
+      )
+    )
+  ]
+  cell_properties_df[, c("hanging_pt", "first_line_pt") := NULL]
+
   # paste everything ----
   cell_properties_df[,
     c("txt") := list(
@@ -187,6 +226,7 @@ gen_raw_latex <- function(
         .SD$multirow_left,
         .SD$padding_left_str,
         .SD$padding_right_str,
+        .SD$indent_str,
         .SD$text_direction_left,
         .SD$txt,
         .SD$text_direction_right,

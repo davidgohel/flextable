@@ -446,6 +446,21 @@ par_css_styles <- function(x) {
 
   line_spacing <- sprintf("line-height: %s;", css_no_unit(x$line_spacing, 2))
 
+  # first-line/hanging indents: CSS `text-indent` only moves the first
+  # line, so hanging is a negative value relative to `padding-left`
+  # (hanging wins over first_line, as in officer's `fp_par()`).
+  text_indent <- rep("", nrow(x))
+  has_first <- !is.na(x$first_line) & x$first_line > 0
+  text_indent[has_first] <- sprintf(
+    "text-indent:%s;",
+    css_pt(x$first_line[has_first])
+  )
+  has_hanging <- !is.na(x$hanging) & x$hanging > 0
+  text_indent[has_hanging] <- sprintf(
+    "text-indent:-%s;",
+    css_pt(x$hanging[has_hanging])
+  )
+
   style_column <- paste0(
     "margin:0;",
     textalign,
@@ -458,6 +473,7 @@ par_css_styles <- function(x) {
     padding.left,
     padding.right,
     line_spacing,
+    text_indent,
     shading
   )
   paste0(".", x$classname, "{", style_column, "}", collapse = "")

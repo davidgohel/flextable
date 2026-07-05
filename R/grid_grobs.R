@@ -570,6 +570,24 @@ arrange_contents_grob <- function(
   params <- x$ftpar
   dat <- x$ftdat
 
+  # first-line/hanging indents: honored for horizontal, left-justified
+  # content only. The contents viewport is already placed at the
+  # first-line position (see grid_data_add_par_info), so the first line
+  # uses the full width and continuation lines are indented by `hanging`
+  # (`first_line` is the reverse: only the first line is indented).
+  hanging_in <- params$hanging
+  if (is.null(hanging_in) || is.na(hanging_in)) {
+    hanging_in <- 0
+  }
+  first_line_in <- params$first_line
+  if (is.null(first_line_in) || is.na(first_line_in)) {
+    first_line_in <- 0
+  }
+  if (params$angle != 0 || !isTRUE(params$just[[1]] == 0)) {
+    hanging_in <- 0
+    first_line_in <- 0
+  }
+
   if (nrow(dat) > 1) {
     # calculate real max width for the contents
     if (params$angle == 0) {
@@ -584,15 +602,19 @@ arrange_contents_grob <- function(
         params$paddingy) *
         height_factor
     }
+    indented_width <- max_width - max(hanging_in, first_line_in)
 
     child_count <- .chunk_index <- width <- NULL
     if (params$wrapping) {
       filtered <- c(
         unlist(dat[
-          child_count > 0 & width * cex <= max_width,
+          child_count > 0 & width * cex <= indented_width,
           "children_index"
         ]),
-        unlist(dat[child_count > 0 & width * cex > max_width, ".chunk_index"])
+        unlist(dat[
+          child_count > 0 & width * cex > indented_width,
+          ".chunk_index"
+        ])
       )
       dat <- dat[!.chunk_index %in% filtered, , drop = FALSE]
     }
@@ -609,6 +631,10 @@ arrange_contents_grob <- function(
       for (i in seq_len(n)) {
         item <- dat[i, ]
         cur_width <- cur_width + (item$width * cex)
+        # available width depends on the line: `first_line` narrows the
+        # first line, `hanging` narrows the continuation lines
+        row_width <- max_width -
+          (if (cur_row == 1) first_line_in else hanging_in)
         if (item$is_newline) {
           # if it's the first item in first row, add it, else ignore it
           if (cur_row == 1 && cur_col == 1) {
@@ -619,7 +645,7 @@ arrange_contents_grob <- function(
           cur_col <- 1L
           cur_width <- 0
           cur_chunk <- 0L
-        } else if (params$wrapping && cur_width > max_width) {
+        } else if (params$wrapping && cur_width > row_width) {
           if (cur_col == 1) {
             # if it's the first item in row, add it and go to next row
             row_index[[i]] <- cur_row
@@ -766,6 +792,17 @@ arrange_contents_grob <- function(
       by = c("row_index", "col_index", "chunk_index")
     ]
 
+    # per-line indent, materialized as an extra leading layout column
+    # (first line for `first_line`, continuation lines for `hanging`)
+    col_dat[,
+      "row_indent" := fifelse(
+        .SD$row_index == 1L,
+        first_line_in,
+        hanging_in
+      )
+    ]
+    col_dat[, "col_index" := .SD$col_index + (.SD$row_indent > 0)]
+
     if (do_update_grob) {
       # create grobs for columns
       col_dat[,
@@ -785,18 +822,24 @@ arrange_contents_grob <- function(
 
     # group data by row
     row_dat <- col_dat[,
-      list(
-        grobs = list(.SD$grob),
-        layout = list(grid.layout(
-          nrow = 1,
-          ncol = nrow(.SD),
-          widths = unit(.SD$width * cex, "in"),
-          # heights = unit(max(.SD$height * cex), "in"),
-          just = params$justr
-        )),
-        width = sum(.SD$width * cex),
-        height = max(.SD$height * cex)
-      ),
+      {
+        row_indent <- first(.SD$row_indent)
+        list(
+          grobs = list(.SD$grob),
+          layout = list(grid.layout(
+            nrow = 1,
+            ncol = nrow(.SD) + (row_indent > 0),
+            widths = unit(
+              c(if (row_indent > 0) row_indent, .SD$width * cex),
+              "in"
+            ),
+            # heights = unit(max(.SD$height * cex), "in"),
+            just = params$justr
+          )),
+          width = row_indent + sum(.SD$width * cex),
+          height = max(.SD$height * cex)
+        )
+      },
       by = "row_index"
     ]
 

@@ -251,3 +251,15 @@ test_that("save_as_typst injects the base64 decoder when images are embedded", {
 test_that("save_as_typst errors without a flextable", {
   expect_error(save_as_typst(1, path = tempfile()), "no flextable")
 })
+
+test_that("cells are not justified unless text.align is justify", {
+  ft <- ft_lib(data.frame(a = "some long text", stringsAsFactors = FALSE))
+  ty <- paste(flextable:::gen_raw_typst(ft), collapse = "\n")
+  # Quarto sets par(justify: true) document-wide; the table opts out
+  expect_match(ty, "#set par(justify: false)", fixed = TRUE)
+  expect_no_match(ty, "justify: true", fixed = TRUE)
+
+  ft <- align(ft, align = "justify", part = "body")
+  ty <- paste(flextable:::gen_raw_typst(ft), collapse = "\n")
+  expect_match(ty, "#par(justify: true)[", fixed = TRUE)
+})

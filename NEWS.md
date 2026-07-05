@@ -5,6 +5,10 @@
 - flextable now supports Typst output: tables are printed automatically in
 Quarto documents with `format: typst` and `save_as_typst()` exports one or more
 flextables to a standalone `.typ` file.
+- new function `indent()` to set first-line (`first_line`) and hanging
+(`hanging`) paragraph indents in cells. The properties can also be set with
+`style(pr_p = fp_par(...))` (requires officer >= 0.7.5). Supported in Word,
+HTML, PowerPoint, RTF, PDF, Typst and grid outputs (#704).
 
 ## issues
 

@@ -368,6 +368,27 @@ grid_data_add_par_info <- function(grid_data, x) {
   par_data[, "padding.left" := .SD$padding.left / 72]
   par_data[, "padding.bottom" := .SD$padding.bottom / 72]
   par_data[, "padding.right" := .SD$padding.right / 72]
+
+  # first-line/hanging indents in inches (hanging wins, as in officer).
+  # Word semantics: all lines at padding.left, first line outdented by
+  # `hanging` -> place the contents viewport at the first-line position
+  # and indent continuation lines (see arrange_contents_grob)
+  par_data[,
+    "hanging" := fifelse(
+      !is.na(.SD$hanging) & .SD$hanging > 0,
+      .SD$hanging / 72,
+      0
+    )
+  ]
+  par_data[,
+    "first_line" := fifelse(
+      .SD$hanging <= 0 & !is.na(.SD$first_line) & .SD$first_line > 0,
+      .SD$first_line / 72,
+      0
+    )
+  ]
+  par_data[, "padding.left" := pmax(0, .SD$padding.left - .SD$hanging)]
+
   par_data[, "paddingx" := .SD$padding.left + .SD$padding.right]
   par_data[, "paddingy" := .SD$padding.top + .SD$padding.bottom]
 
@@ -417,6 +438,8 @@ grid_data_add_par_info <- function(grid_data, x) {
       "justr",
       "paddingx",
       "paddingy",
+      "first_line",
+      "hanging",
       "contents_vp"
     ),
     with = FALSE
@@ -434,6 +457,8 @@ grid_data_add_par_info <- function(grid_data, x) {
       justr = .SD$justr,
       paddingx = .SD$paddingx,
       paddingy = .SD$paddingy,
+      first_line = .SD$first_line,
+      hanging = .SD$hanging,
       angle = .SD$angle,
       lineheight = .SD$line_spacing,
       SIMPLIFY = FALSE

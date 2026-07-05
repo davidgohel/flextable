@@ -189,6 +189,8 @@ par_struct <- function(
   word_style = NA_character_,
   tabs = NA_character_,
   shading.color = "transparent",
+  first_line = NA_real_,
+  hanging = NA_real_,
   ...
 ) {
   x <- list(
@@ -269,7 +271,9 @@ par_struct <- function(
       default = keep_with_next
     ),
     word_style = fpstruct(nrow = nrow, keys = keys, default = word_style),
-    tabs = fpstruct(nrow = nrow, keys = keys, default = tabs)
+    tabs = fpstruct(nrow = nrow, keys = keys, default = tabs),
+    first_line = fpstruct(nrow = nrow, keys = keys, default = first_line),
+    hanging = fpstruct(nrow = nrow, keys = keys, default = hanging)
   )
   class(x) <- "par_struct"
   x

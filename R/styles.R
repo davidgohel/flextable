@@ -700,6 +700,99 @@ padding <- function(
   x
 }
 
+#' @export
+#' @title Set paragraph indents
+#' @description Change the first-line or hanging indent of paragraphs in
+#' selected rows and columns of a flextable.
+#'
+#' A *first-line* indent moves only the first line of the paragraph to the
+#' right. A *hanging* indent moves all lines **but** the first one to the
+#' right; the indented lines start at the paragraph left padding plus the
+#' hanging value, so `hanging` should not exceed the left padding
+#' (see [padding()]).
+#' @inheritParams args_selectors_with_all
+#' @param first_line first-line indent in pts (points). Use NA to unset.
+#' @param hanging hanging indent in pts (points). Use NA to unset. If both
+#' `first_line` and `hanging` are provided, `hanging` wins.
+#' @family formatting_shortcuts
+#' @examples
+#' ft_1 <- flextable(head(iris))
+#' ft_1 <- mk_par(
+#'   x = ft_1, i = 1, j = 1, part = "header",
+#'   value = as_paragraph("A rather long header that will wrap on two lines")
+#' )
+#' ft_1 <- padding(ft_1, i = 1, j = 1, padding.left = 30, part = "header")
+#' ft_1 <- indent(ft_1, i = 1, j = 1, hanging = 20, part = "header")
+#' ft_1 <- width(ft_1, j = 1, width = 1.2)
+#' ft_1
+indent <- function(
+  x,
+  i = NULL,
+  j = NULL,
+  first_line = NULL,
+  hanging = NULL,
+  part = "body"
+) {
+  if (!inherits(x, "flextable")) {
+    stop(sprintf("Function `%s` supports only flextable objects.", "indent()"))
+  }
+
+  part <- match.arg(
+    part,
+    c("all", "body", "header", "footer"),
+    several.ok = FALSE
+  )
+
+  if (part == "all") {
+    for (p in c("header", "body", "footer")) {
+      x <- indent(
+        x = x,
+        i = i,
+        j = j,
+        first_line = first_line,
+        hanging = hanging,
+        part = p
+      )
+    }
+    return(x)
+  }
+
+  if (nrow_part(x, part) < 1) {
+    return(x)
+  }
+
+  check_formula_i_and_part(i, part)
+  i <- get_rows_id(x[[part]], i)
+  j <- get_columns_id(x[[part]], j)
+
+  if (!is.null(first_line)) {
+    if (!is.numeric(first_line) && !all(is.na(first_line))) {
+      stop("`first_line` must be numeric (pts) or NA.", call. = FALSE)
+    }
+    x[[part]]$styles$pars <- set_par_struct_values(
+      x = x[[part]]$styles$pars,
+      i = i,
+      j = j,
+      property = "first_line",
+      value = as.double(first_line)
+    )
+  }
+  if (!is.null(hanging)) {
+    if (!is.numeric(hanging) && !all(is.na(hanging))) {
+      stop("`hanging` must be numeric (pts) or NA.", call. = FALSE)
+    }
+    x[[part]]$styles$pars <- set_par_struct_values(
+      x = x[[part]]$styles$pars,
+      i = i,
+      j = j,
+      property = "hanging",
+      value = as.double(hanging)
+    )
+  }
+
+  x
+}
+
 
 #' @export
 #' @title Set text alignment

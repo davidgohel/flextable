@@ -180,7 +180,9 @@ distinct_paragraphs_properties <- function(x) {
     "text.direction",
     "vertical.align",
     "tabs",
-    "word_style"
+    "word_style",
+    "first_line",
+    "hanging"
   )
   columns <- intersect(columns, colnames(x))
   dat <- as.data.frame(x)[columns]

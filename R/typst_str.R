@@ -287,10 +287,32 @@ typst_content_strs <- function(x, image_mode = "path") {
       "padding.top",
       "padding.bottom",
       "padding.left",
-      "padding.right"
+      "padding.right",
+      "first_line",
+      "hanging"
     )],
     by = c(".part", ".row_id", ".col_id")
   )
+
+  # first-line/hanging indents (hanging wins, as in officer). Typst
+  # `hanging-indent` indents lines 2+, so the Word semantics (all lines
+  # at padding.left, first line outdented by `hanging`) translate to
+  # inset left = padding.left - hanging plus par(hanging-indent:).
+  cell_data[,
+    c("hanging_pt", "first_line_pt") := list(
+      fifelse(!is.na(.SD$hanging) & .SD$hanging > 0, .SD$hanging, 0),
+      fifelse(
+        (is.na(.SD$hanging) | .SD$hanging <= 0) &
+          !is.na(.SD$first_line) &
+          .SD$first_line > 0,
+        .SD$first_line,
+        0
+      )
+    )
+  ]
+  cell_data[,
+    c("padding.left") := list(pmax(0, .SD$padding.left - .SD$hanging_pt))
+  ]
 
   cell_data[, c("width", "height", "hrule") := list(NULL, NULL, NULL)]
   cell_data <- merge(cell_data, fortify_width(x), by = ".col_id")
@@ -383,6 +405,34 @@ typst_content_strs <- function(x, image_mode = "path") {
 
   dat <- merge(txt_data, cell_data, by = c(".part", ".row_id", ".col_id"))
 
+  # paragraph properties needing an explicit par() constructor: the
+  # inline content of a table cell is not a real `par` element, so a
+  # `#set par()` rule has no effect on it. `hanging-indent` implements
+  # `hanging`; `justify: true` re-enables justification (disabled at
+  # table level, see gen_raw_typst) when text.align is "justify".
+  # `first_line` is a #h() shift of the first line.
+  par_args_indent <- ifelse(
+    dat$hanging_pt > 0,
+    sprintf("hanging-indent: %s", typst_pt(dat$hanging_pt)),
+    ""
+  )
+  par_args_justify <- ifelse(dat$text.align %in% "justify", "justify: true", "")
+  par_args <- ifelse(
+    nzchar(par_args_indent) & nzchar(par_args_justify),
+    paste0(par_args_justify, ", ", par_args_indent),
+    paste0(par_args_justify, par_args_indent)
+  )
+  span_tag <- ifelse(
+    nzchar(par_args),
+    sprintf("#par(%s)[%s]", par_args, dat$span_tag),
+    dat$span_tag
+  )
+  span_tag <- ifelse(
+    dat$first_line_pt > 0,
+    paste0(sprintf("#h(%s)", typst_pt(dat$first_line_pt)), span_tag),
+    span_tag
+  )
+
   # rotated text -> wrap the content in #rotate(..., reflow: true)[ ... ] so
   # the cell sizes to the rotated box. tbrl: top->bottom (90deg clockwise);
   # btlr: bottom->top (counter-clockwise). reflow expands row height/col width.
@@ -397,8 +447,8 @@ typst_content_strs <- function(x, image_mode = "path") {
   )
   content <- ifelse(
     nzchar(rot_open),
-    paste0(rot_open, dat$span_tag, "]"),
-    dat$span_tag
+    paste0(rot_open, span_tag, "]"),
+    span_tag
   )
   dat[,
     c("cell_str") := list(ifelse(
@@ -469,12 +519,20 @@ gen_raw_typst <- function(x, image_mode = "path") {
     parts <- c(parts, sprintf("  table.footer(\n%s\n  ),", codes$footer))
   }
 
+  # flextable's text.align semantics: "left" is not "justify". Quarto's
+  # Typst template sets `par(justify: true)` document-wide, which would
+  # justify (and hyphenate) every cell; scope it off around the table.
+  # Cells with text.align "justify" opt back in with a per-cell
+  # `#par(justify: true)` (see typst_content_strs).
   paste0(
+    "#[\n",
+    "#set par(justify: false)\n",
     "#table(\n",
     sprintf("  columns: %s,\n", cols),
     "  stroke: none,\n",
     paste0(parts, collapse = "\n"),
-    "\n)\n"
+    "\n)\n",
+    "]\n"
   )
 }
 

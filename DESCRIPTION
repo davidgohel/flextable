@@ -1,7 +1,7 @@
 Type: Package
 Package: flextable
 Title: Functions for Tabular Reporting
-Version: 0.10.0.005
+Version: 0.10.0.006
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -43,7 +43,7 @@ Imports:
     grid,
     htmltools,
     knitr,
-    officer (>= 0.7.3),
+    officer (>= 0.7.5),
     ragg,
     rlang,
     rmarkdown (>= 2.0),
