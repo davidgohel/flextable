@@ -722,10 +722,10 @@ padding <- function(
 #'   value = as_paragraph("A rather long header that will wrap on two lines")
 #' )
 #' ft_1 <- padding(ft_1, i = 1, j = 1, padding.left = 30, part = "header")
-#' ft_1 <- indent(ft_1, i = 1, j = 1, hanging = 20, part = "header")
+#' ft_1 <- indentation(ft_1, i = 1, j = 1, hanging = 20, part = "header")
 #' ft_1 <- width(ft_1, j = 1, width = 1.2)
 #' ft_1
-indent <- function(
+indentation <- function(
   x,
   i = NULL,
   j = NULL,
@@ -734,7 +734,7 @@ indent <- function(
   part = "body"
 ) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "indent()"))
+    stop(sprintf("Function `%s` supports only flextable objects.", "indentation()"))
   }
 
   part <- match.arg(
@@ -745,7 +745,7 @@ indent <- function(
 
   if (part == "all") {
     for (p in c("header", "body", "footer")) {
-      x <- indent(
+      x <- indentation(
         x = x,
         i = i,
         j = j,

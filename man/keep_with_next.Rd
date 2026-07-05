@@ -52,7 +52,7 @@ Other formatting shortcuts:
 \code{\link[=font]{font()}},
 \code{\link[=fontsize]{fontsize()}},
 \code{\link[=highlight]{highlight()}},
-\code{\link[=indent]{indent()}},
+\code{\link[=indentation]{indentation()}},
 \code{\link[=italic]{italic()}},
 \code{\link[=line_spacing]{line_spacing()}},
 \code{\link[=padding]{padding()}},

@@ -45,7 +45,7 @@ Other formatting shortcuts:
 \code{\link[=font]{font()}},
 \code{\link[=fontsize]{fontsize()}},
 \code{\link[=highlight]{highlight()}},
-\code{\link[=indent]{indent()}},
+\code{\link[=indentation]{indentation()}},
 \code{\link[=italic]{italic()}},
 \code{\link[=keep_with_next]{keep_with_next()}},
 \code{\link[=line_spacing]{line_spacing()}},

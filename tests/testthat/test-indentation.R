@@ -1,12 +1,12 @@
 get_indent_ft <- function() {
   ft <- flextable(head(cars, 2))
   ft <- padding(ft, i = 1, j = 1, padding.left = 30, part = "header")
-  ft <- indent(ft, i = 1, j = 1, hanging = 20, part = "header")
-  ft <- indent(ft, i = 1, j = 2, first_line = 15, part = "header")
+  ft <- indentation(ft, i = 1, j = 1, hanging = 20, part = "header")
+  ft <- indentation(ft, i = 1, j = 2, first_line = 15, part = "header")
   ft
 }
 
-test_that("indent() stores first_line and hanging", {
+test_that("indentation() stores first_line and hanging", {
   ft <- get_indent_ft()
   dat <- information_data_paragraph(ft)
   header <- dat[dat$.part %in% "header", ]
@@ -16,8 +16,8 @@ test_that("indent() stores first_line and hanging", {
   expect_true(all(is.na(body$hanging)))
   expect_true(all(is.na(body$first_line)))
 
-  expect_error(indent(ft, hanging = "z"), "must be numeric")
-  expect_error(indent(iris), "supports only flextable")
+  expect_error(indentation(ft, hanging = "z"), "must be numeric")
+  expect_error(indentation(iris), "supports only flextable")
 })
 
 test_that("indents can be set with style(pr_p = fp_par(...))", {
@@ -108,7 +108,7 @@ test_that("indents in grid output", {
   ft <- align(ft, align = "left", part = "all")
   ft <- width(ft, j = 1, width = 1.6)
 
-  ft_hang <- indent(ft, i = 1, j = 1, hanging = 24, part = "header")
+  ft_hang <- indentation(ft, i = 1, j = 1, hanging = 24, part = "header")
   gr1 <- gen_grob(ft_hang, fit = "fixed")
 
   # first line has no indent column, continuation rows carry a leading
@@ -123,7 +123,7 @@ test_that("indents in grid output", {
   }
 
   # first_line: only the first row is indented
-  ft_first <- indent(ft, i = 1, j = 1, first_line = 24, part = "header")
+  ft_first <- indentation(ft, i = 1, j = 1, first_line = 24, part = "header")
   gr2 <- gen_grob(ft_first, fit = "fixed")
   rows2 <- gr2$children[[1]]$children$contents$children
   expect_equal(
