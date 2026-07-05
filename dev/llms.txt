@@ -535,6 +535,8 @@ documents. Automatic rendering is usually handled by knit_print.
   : Set data.frame automatic printing as a flextable
 - [`use_model_printer()`](https://davidgohel.github.io/flextable/dev/reference/use_model_printer.md)
   : Set automatic flextable printing for models
+- [`repair_docx()`](https://davidgohel.github.io/flextable/dev/reference/repair_docx.md)
+  : Repair flextables in a 'Word' document produced by 'pandoc'
 
 ## Integrate with officer (Word/PowerPoint)
 

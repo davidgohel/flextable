@@ -58,6 +58,7 @@ Other functions for flextable output and export:
 [`knit_print.flextable()`](https://davidgohel.github.io/flextable/dev/reference/knit_print.flextable.md),
 [`plot.flextable()`](https://davidgohel.github.io/flextable/dev/reference/plot.flextable.md),
 [`print.flextable()`](https://davidgohel.github.io/flextable/dev/reference/print.flextable.md),
+[`repair_docx()`](https://davidgohel.github.io/flextable/dev/reference/repair_docx.md),
 [`save_as_docx()`](https://davidgohel.github.io/flextable/dev/reference/save_as_docx.md),
 [`save_as_html()`](https://davidgohel.github.io/flextable/dev/reference/save_as_html.md),
 [`save_as_pptx()`](https://davidgohel.github.io/flextable/dev/reference/save_as_pptx.md),
@@ -77,7 +78,7 @@ ft <- flextable(head(mtcars))
 ft <- autofit(ft)
 tf <- tempfile(fileext = ".png")
 save_as_image(x = ft, path = tf)
-#> [1] "/tmp/Rtmp8d37tI/file238759feb2bc.png"
+#> [1] "/tmp/RtmpBF4LSb/file2353235c8ff3.png"
 
 init_flextable_defaults()
 ```
