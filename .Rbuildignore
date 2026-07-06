@@ -10,6 +10,6 @@
 ^ISSUE_TEMPLATE\.md$
 ^\.github$
 ^tests/testthat/_snaps$
-
+^\.quarto$
 ^\.positai$
 ^\.claude$
