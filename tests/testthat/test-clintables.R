@@ -12,28 +12,39 @@ LBBLFL <- rep(NA_character_, length(VISITNUM))
 LBBLFL[1] <- "Y"
 
 VISIT <- data.frame(
-  VISIT = VISITS, VISITNUM = VISITNUM,
-  LBBLFL = LBBLFL, stringsAsFactors = FALSE
+  VISIT = VISITS,
+  VISITNUM = VISITNUM,
+  LBBLFL = LBBLFL,
+  stringsAsFactors = FALSE
 )
 labdata <- expand.grid(
-  USUBJID = USUBJID, LBTEST = LBTEST,
-  VISITNUM = VISITNUM, stringsAsFactors = FALSE
+  USUBJID = USUBJID,
+  LBTEST = LBTEST,
+  VISITNUM = VISITNUM,
+  stringsAsFactors = FALSE
 )
 setDT(labdata)
 labdata <- merge(labdata, VISIT, by = "VISITNUM")
-labdata[, c("LBNRIND") := list(
-  sample(
-    x = c("LOW", "NORMAL", "HIGH"), size = .N,
-    replace = TRUE, prob = c(.03, .9, .07)
+labdata[,
+  c("LBNRIND") := list(
+    sample(
+      x = c("LOW", "NORMAL", "HIGH"),
+      size = .N,
+      replace = TRUE,
+      prob = c(.03, .9, .07)
+    )
   )
-)]
+]
 setDF(labdata)
 
 test_that("shift_table without treatment", {
   st <- shift_table(
-    x = labdata, cn_visit = "VISIT",
-    cn_grade = "LBNRIND", cn_usubjid = "USUBJID",
-    cn_lab_cat = "LBTEST", cn_is_baseline = "LBBLFL",
+    x = labdata,
+    cn_visit = "VISIT",
+    cn_grade = "LBNRIND",
+    cn_usubjid = "USUBJID",
+    cn_lab_cat = "LBTEST",
+    cn_is_baseline = "LBBLFL",
     baseline_identifier = "Y",
     grade_levels = c("LOW", "NORMAL", "HIGH")
   )
@@ -71,14 +82,18 @@ test_that("shift_table with treatment", {
   subject_elts <- unique(labdata[, "USUBJID", drop = FALSE])
   subject_elts$TREAT <- sample(
     c("Treatment", "Placebo"),
-    size = nrow(subject_elts), replace = TRUE
+    size = nrow(subject_elts),
+    replace = TRUE
   )
   labdata_treat <- merge(labdata, subject_elts, by = "USUBJID")
 
   st <- shift_table(
-    x = labdata_treat, cn_visit = "VISIT",
-    cn_grade = "LBNRIND", cn_usubjid = "USUBJID",
-    cn_lab_cat = "LBTEST", cn_treatment = "TREAT",
+    x = labdata_treat,
+    cn_visit = "VISIT",
+    cn_grade = "LBNRIND",
+    cn_usubjid = "USUBJID",
+    cn_lab_cat = "LBTEST",
+    cn_treatment = "TREAT",
     cn_is_baseline = "LBBLFL",
     baseline_identifier = "Y",
     grade_levels = c("LOW", "NORMAL", "HIGH")
@@ -93,9 +108,12 @@ test_that("shift_table with treatment", {
 
 test_that("shift_table works with tabulator and as_flextable", {
   st <- shift_table(
-    x = labdata, cn_visit = "VISIT",
-    cn_grade = "LBNRIND", cn_usubjid = "USUBJID",
-    cn_lab_cat = "LBTEST", cn_is_baseline = "LBBLFL",
+    x = labdata,
+    cn_visit = "VISIT",
+    cn_grade = "LBNRIND",
+    cn_usubjid = "USUBJID",
+    cn_lab_cat = "LBTEST",
+    cn_is_baseline = "LBBLFL",
     baseline_identifier = "Y",
     grade_levels = c("LOW", "NORMAL", "HIGH")
   )
@@ -110,7 +128,8 @@ test_that("shift_table works with tabulator and as_flextable", {
   visit_n$VISIT <- fun_visit(visit_n$VISIT)
 
   tab <- tabulator(
-    x = st, hidden_data = visit_n,
+    x = st,
+    hidden_data = visit_n,
     row_compose = list(
       VISIT = as_paragraph(VISIT, "\n(N=", N_VISIT, ")")
     ),
@@ -126,9 +145,12 @@ test_that("shift_table works with tabulator and as_flextable", {
 
 test_that("shift_table with custom labels", {
   st <- shift_table(
-    x = labdata, cn_visit = "VISIT",
-    cn_grade = "LBNRIND", cn_usubjid = "USUBJID",
-    cn_lab_cat = "LBTEST", cn_is_baseline = "LBBLFL",
+    x = labdata,
+    cn_visit = "VISIT",
+    cn_grade = "LBNRIND",
+    cn_usubjid = "USUBJID",
+    cn_lab_cat = "LBTEST",
+    cn_is_baseline = "LBBLFL",
     baseline_identifier = "Y",
     grade_levels = c("LOW", "NORMAL", "HIGH"),
     grade_labels = c("Bas", "Normal", "Haut")

@@ -30,7 +30,10 @@ test_that("docx rotations", {
   valign_val <- xml_find_all(docx, "w:body/w:tbl/w:tr/w:tc/w:tcPr/w:vAlign")
   valign_val <- xml_attr(valign_val, "val")
 
-  text_direction_val <- xml_find_all(docx, "w:body/w:tbl/w:tr/w:tc/w:tcPr/w:textDirection")
+  text_direction_val <- xml_find_all(
+    docx,
+    "w:body/w:tbl/w:tr/w:tc/w:tcPr/w:textDirection"
+  )
   text_direction_val <- xml_attr(text_direction_val, "val")
 
   align_val <- xml_find_all(docx, "w:body/w:tbl/w:tr/w:tc/w:p/w:pPr/w:jc")

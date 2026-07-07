@@ -16,8 +16,7 @@ dat <- data.frame(
 )
 
 ft_qmd <- flextable(dat)
-ft_qmd <- mk_par(ft_qmd, j = "content",
-  value = as_paragraph(as_qmd(content)))
+ft_qmd <- mk_par(ft_qmd, j = "content", value = as_paragraph(as_qmd(content)))
 
 # -- as_qmd() object creation ------------------------------------------------
 test_that("as_qmd creates a chunk with qmd_data", {
@@ -47,7 +46,8 @@ test_that("DOCX output contains TBLQMD markers", {
 
   # label column: regular text
   labels <- xml_text(xml_find_all(
-    body, "w:body/w:tbl/w:tr[position()>1]/w:tc[1]"
+    body,
+    "w:body/w:tbl/w:tr[position()>1]/w:tc[1]"
   ))
   expect_equal(labels, dat$label)
 
@@ -90,7 +90,9 @@ test_that("HTML output contains data-qmd-base64 spans", {
 # -- LaTeX markers (\tblqmd{base64}) ----------------------------------------
 test_that("LaTeX output contains tblqmd markers", {
   latex_str <- flextable:::knit_to_latex(
-    ft_qmd, bookdown = FALSE, quarto = TRUE
+    ft_qmd,
+    bookdown = FALSE,
+    quarto = TRUE
   )
 
   # each cell should produce a \tblqmd{...} marker
@@ -130,11 +132,15 @@ test_that("as_qmd works alongside other chunk types in DOCX", {
     stringsAsFactors = FALSE
   )
   ft_mix <- flextable(mixed)
-  ft_mix <- mk_par(ft_mix, i = 1, j = "a",
+  ft_mix <- mk_par(
+    ft_mix,
+    i = 1,
+    j = "a",
     value = as_paragraph(
       as_chunk("prefix: "),
       as_qmd("**bold ref** to @tbl-x")
-    ))
+    )
+  )
 
   docx_file <- tempfile(fileext = ".docx")
   save_as_docx(ft_mix, path = docx_file)
@@ -147,7 +153,8 @@ test_that("as_qmd works alongside other chunk types in DOCX", {
   expect_true(grepl("<!--TBLQMD:", doc_str))
   # only one marker (one as_qmd cell)
   marker_count <- lengths(regmatches(
-    doc_str, gregexpr("<!--TBLQMD:", doc_str)
+    doc_str,
+    gregexpr("<!--TBLQMD:", doc_str)
   ))
   expect_equal(marker_count, 1)
 })

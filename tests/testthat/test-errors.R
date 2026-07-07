@@ -24,7 +24,13 @@ test_that("part=header and formula selection for rows", {
   ft <- flextable(head(mtcars, n = 10))
   def_cell <- fp_cell(border = fp_border(color = "#00FFFF"))
   def_par <- fp_par(text.align = "center")
-  expect_error(style(ft, i = ~ mpg < 20, pr_c = def_cell, pr_p = def_par, part = "all"))
+  expect_error(style(
+    ft,
+    i = ~ mpg < 20,
+    pr_c = def_cell,
+    pr_p = def_par,
+    part = "all"
+  ))
   expect_error(bg(ft, i = ~ mpg < 20, bg = "#DDDDDD", part = "header"))
   expect_error(bold(ft, i = ~ mpg < 20, bold = TRUE, part = "header"))
   expect_error(fontsize(ft, i = ~ mpg < 20, size = 10, part = "header"))
@@ -32,9 +38,17 @@ test_that("part=header and formula selection for rows", {
   expect_error(color(ft, i = ~ mpg < 20, color = "red", part = "header"))
   expect_error(padding(ft, i = ~ mpg < 20, padding = 3, part = "header"))
   expect_error(align(ft, i = ~ mpg < 20, align = "center", part = "header"))
-  expect_error(border(ft,
-    i = ~ mpg < 20, border = fp_border(color = "orange"),
+  expect_error(border(
+    ft,
+    i = ~ mpg < 20,
+    border = fp_border(color = "orange"),
     part = "header"
   ))
-  expect_error(rotate(ft, i = ~ mpg < 20, rotation = "lrtb", align = "top", part = "header"))
+  expect_error(rotate(
+    ft,
+    i = ~ mpg < 20,
+    rotation = "lrtb",
+    align = "top",
+    part = "header"
+  ))
 })

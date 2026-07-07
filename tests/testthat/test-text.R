@@ -32,7 +32,10 @@ test_that("docx - string are html encoded", {
   main_folder <- "docx_folder"
 
   doc <- get_xml_doc(tab = ft1, main_folder = main_folder)
-  text_ <- xml_text(xml_find_first(doc, "w:body/w:tbl[1]/w:tr[2]/w:tc/w:p/w:r/w:t"))
+  text_ <- xml_text(xml_find_first(
+    doc,
+    "w:body/w:tbl[1]/w:tr[2]/w:tc/w:p/w:r/w:t"
+  ))
   expect_equal(text_, c("1 < 3"))
 
   unlink(main_folder, recursive = TRUE, force = TRUE)
@@ -42,9 +45,11 @@ test_that("pptx - string are html encoded", {
   main_folder <- "pptx_folder"
 
   doc <- get_xml_ppt(tab = ft1, main_folder = main_folder)
-  text_ <- xml_text(xml_find_first(doc, "//a:tbl/a:tr[2]/a:tc/a:txBody/a:p/a:r/a:t"))
+  text_ <- xml_text(xml_find_first(
+    doc,
+    "//a:tbl/a:tr[2]/a:tc/a:txBody/a:p/a:r/a:t"
+  ))
   expect_equal(text_, c("1 < 3"))
-
 
   unlink(main_folder, recursive = TRUE, force = TRUE)
 })
@@ -85,11 +90,18 @@ test_that("NA managment", {
 test_that("newlines and tabulations expand correctly", {
   z <- flextable(data.frame(a = c("")))
   z <- compose(
-    x = z, i = 1, j = 1,
+    x = z,
+    i = 1,
+    j = 1,
     value = as_paragraph(
       "this\nis\nit",
-      "\n\t", "This", "\n",
-      "is", "\n", "it", "\n",
+      "\n\t",
+      "This",
+      "\n",
+      "is",
+      "\n",
+      "it",
+      "\n",
       "this\tis\tit\nthatsit\n"
     )
   )
@@ -100,11 +112,27 @@ test_that("newlines and tabulations expand correctly", {
   expect_equal(
     chunks_txt,
     c(
-      "this", "<br>", "is", "<br>", "it",
-      "<br>", "<tab>", "This", "<br>",
-      "is", "<br>", "it", "<br>", "this",
-      "<tab>", "is", "<tab>", "it", "<br>",
-      "thatsit", "<br>"
+      "this",
+      "<br>",
+      "is",
+      "<br>",
+      "it",
+      "<br>",
+      "<tab>",
+      "This",
+      "<br>",
+      "is",
+      "<br>",
+      "it",
+      "<br>",
+      "this",
+      "<tab>",
+      "is",
+      "<tab>",
+      "it",
+      "<br>",
+      "thatsit",
+      "<br>"
     )
   )
 })
@@ -113,9 +141,11 @@ test_that("word superscript and subscript", {
   ft <- flextable(data.frame(a = ""), col_keys = c("dummy"))
   ft <- delete_part(ft, part = "header")
 
-
-  ft <- compose(ft,
-    i = 1, j = "dummy", part = "body",
+  ft <- compose(
+    ft,
+    i = 1,
+    j = "dummy",
+    part = "body",
     value = as_paragraph(
       as_sub("Sepal.Length")
     )
@@ -125,8 +155,11 @@ test_that("word superscript and subscript", {
   openxml <- flextable:::runs_as_wml(ft, txt_data = runs)$run_openxml
   expect_match(openxml, "<w:vertAlign w:val=\"subscript\"/>", fixed = TRUE)
 
-  ft <- compose(ft,
-    i = 1, j = "dummy", part = "body",
+  ft <- compose(
+    ft,
+    i = 1,
+    j = "dummy",
+    part = "body",
     value = as_paragraph(
       as_sup("Sepal.Length")
     )
@@ -140,20 +173,26 @@ test_that("word superscript and subscript", {
 test_that("highlight", {
   ft <- flextable(data.frame(test = "test"))
   ft <- add_footer_lines(ft, values = "test")
-  ft <- mk_par(ft,
-    j = "test", part = "body",
+  ft <- mk_par(
+    ft,
+    j = "test",
+    part = "body",
     value = as_paragraph(
       as_highlight(test, color = "yellow")
     )
   )
-  ft <- mk_par(ft,
-    j = "test", part = "header",
+  ft <- mk_par(
+    ft,
+    j = "test",
+    part = "header",
     value = as_paragraph(
       as_highlight(test, color = "red")
     )
   )
-  ft <- mk_par(ft,
-    j = "test", part = "footer",
+  ft <- mk_par(
+    ft,
+    j = "test",
+    part = "footer",
     value = as_paragraph(
       as_highlight(test, color = "purple")
     )
@@ -163,14 +202,38 @@ test_that("highlight", {
   expect_equal(runs$shading.color, c("red", "yellow", "purple"))
 
   openxml <- flextable:::runs_as_wml(ft, txt_data = runs)$run_openxml
-  expect_match(openxml[1], "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"FF0000\"/>", fixed = TRUE)
-  expect_match(openxml[2], "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"FFFF00\"/>", fixed = TRUE)
-  expect_match(openxml[3], "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"A020F0\"/>", fixed = TRUE)
+  expect_match(
+    openxml[1],
+    "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"FF0000\"/>",
+    fixed = TRUE
+  )
+  expect_match(
+    openxml[2],
+    "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"FFFF00\"/>",
+    fixed = TRUE
+  )
+  expect_match(
+    openxml[3],
+    "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"A020F0\"/>",
+    fixed = TRUE
+  )
 
   openxml <- flextable:::runs_as_pml(ft)$par_nodes_str
-  expect_match(openxml[1], "<a:highlight><a:srgbClr val=\"FF0000\">", fixed = TRUE)
-  expect_match(openxml[2], "<a:highlight><a:srgbClr val=\"FFFF00\">", fixed = TRUE)
-  expect_match(openxml[3], "<a:highlight><a:srgbClr val=\"A020F0\">", fixed = TRUE)
+  expect_match(
+    openxml[1],
+    "<a:highlight><a:srgbClr val=\"FF0000\">",
+    fixed = TRUE
+  )
+  expect_match(
+    openxml[2],
+    "<a:highlight><a:srgbClr val=\"FFFF00\">",
+    fixed = TRUE
+  )
+  expect_match(
+    openxml[3],
+    "<a:highlight><a:srgbClr val=\"A020F0\">",
+    fixed = TRUE
+  )
 
   html_info <- flextable:::runs_as_html(ft)
   css <- attr(html_info, "css")
@@ -191,8 +254,10 @@ test_that("highlight", {
 
 test_that("as_bracket", {
   ft <- flextable(head(iris), col_keys = c("Species", "what"))
-  ft <- mk_par(ft,
-    j = "what", part = "body",
+  ft <- mk_par(
+    ft,
+    j = "what",
+    part = "body",
     value = as_paragraph(
       as_bracket(Sepal.Length, Sepal.Width, sep = "-")
     )
@@ -203,9 +268,18 @@ test_that("as_bracket", {
   expect_equal(
     runs$txt,
     c(
-      "setosa", "(5.1-3.5)", "setosa", "(4.9-3)", "setosa",
-      "(4.7-3.2)", "setosa", "(4.6-3.1)", "setosa", "(5-3.6)",
-      "setosa", "(5.4-3.9)"
+      "setosa",
+      "(5.1-3.5)",
+      "setosa",
+      "(4.9-3)",
+      "setosa",
+      "(4.7-3.2)",
+      "setosa",
+      "(4.6-3.1)",
+      "setosa",
+      "(5-3.6)",
+      "setosa",
+      "(5.4-3.9)"
     )
   )
 })
@@ -221,8 +295,10 @@ test_that("as_equation", {
   df <- data.frame(formula = eqs)
 
   ft <- flextable(df)
-  ft <- mk_par(ft,
-    j = "formula", part = "body",
+  ft <- mk_par(
+    ft,
+    j = "formula",
+    part = "body",
     value = as_paragraph(as_equation(formula, width = 2, height = .5))
   )
 
@@ -231,7 +307,6 @@ test_that("as_equation", {
   expect_match(openxml[2], "</m:oMath>", fixed = TRUE)
   expect_match(openxml[3], "</m:oMath>", fixed = TRUE)
   expect_match(openxml[4], "</m:oMath>", fixed = TRUE)
-
 
   openxml <- flextable:::runs_as_pml(ft)$par_nodes_str
   expect_match(openxml[2], "</m:oMath>", fixed = TRUE)
@@ -251,11 +326,13 @@ test_that("as_equation", {
 })
 
 test_that("as_word_field", {
-
   ft <- flextable(head(cars))
   ft <- add_footer_lines(ft, "temp text")
   ft <- compose(
-    x = ft, part = "footer", i = 1, j = 1,
+    x = ft,
+    part = "footer",
+    i = 1,
+    j = 1,
     as_paragraph(
       as_word_field(x = "Page", width = .05)
     )
@@ -263,27 +340,37 @@ test_that("as_word_field", {
 
   runs <- information_data_chunk(ft)
   wml_str <- flextable:::runs_as_wml(ft)
-  wml_str <- wml_str[wml_str$.part %in% "footer",]$run_openxml[1]
-  expect_match(wml_str, "<w:instrText xml:space=\"preserve\" w:dirty=\"true\">Page</w:instrText>", fixed = TRUE)
+  wml_str <- wml_str[wml_str$.part %in% "footer", ]$run_openxml[1]
+  expect_match(
+    wml_str,
+    "<w:instrText xml:space=\"preserve\" w:dirty=\"true\">Page</w:instrText>",
+    fixed = TRUE
+  )
 })
 
 test_that("strike", {
   ft <- flextable(data.frame(test = "test"))
   ft <- add_footer_lines(ft, values = "test")
-  ft <- mk_par(ft,
-    j = "test", part = "body",
+  ft <- mk_par(
+    ft,
+    j = "test",
+    part = "body",
     value = as_paragraph(
       as_strike(test)
     )
   )
-  ft <- mk_par(ft,
-    j = "test", part = "header",
+  ft <- mk_par(
+    ft,
+    j = "test",
+    part = "header",
     value = as_paragraph(
       as_strike(test)
     )
   )
-  ft <- mk_par(ft,
-    j = "test", part = "footer",
+  ft <- mk_par(
+    ft,
+    j = "test",
+    part = "footer",
     value = as_paragraph(
       as_strike(test)
     )

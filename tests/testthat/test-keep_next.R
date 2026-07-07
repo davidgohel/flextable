@@ -5,11 +5,10 @@ ft_1 <- as_flextable(iris_sum, sep_w = 0)
 ft_1 <- set_caption(ft_1, "a caption")
 
 test_that("docx-keep-with-next", {
-
   tmp_file <- tempfile(fileext = ".docx")
   docx <- read_docx()
   docx <- body_add_flextable(docx, ft_1)
-  for(i in 1:10) {
+  for (i in 1:10) {
     docx <- body_add_par(docx, value = "")
   }
   ft_1 <- paginate(ft_1, init = TRUE, hdr_ftr = TRUE)
@@ -28,7 +27,6 @@ test_that("docx-keep-with-next", {
     xml_find_all(body_xml, "//w:tbl[2]/w:tr/w:tc/w:p/w:pPr/w:keepNext"),
     n = 65
   )
-
 })
 
 test_that("paginate with default init uses flextable defaults", {
@@ -99,8 +97,11 @@ test_that("paginate with group_def nonempty", {
   ft <- flextable(dat)
 
   ft_paged <- paginate(
-    ft, init = FALSE, hdr_ftr = FALSE,
-    group = "grp", group_def = "nonempty"
+    ft,
+    init = FALSE,
+    hdr_ftr = FALSE,
+    group = "grp",
+    group_def = "nonempty"
   )
   par_data <- information_data_paragraph(ft_paged)
   body_data <- par_data[par_data$.part == "body", ]
@@ -140,15 +141,19 @@ test_that("paginate with group_def rle", {
   ft <- flextable(dat)
 
   ft_paged <- paginate(
-    ft, init = FALSE, hdr_ftr = FALSE,
-    group = "grp", group_def = "rle"
+    ft,
+    init = FALSE,
+    hdr_ftr = FALSE,
+    group = "grp",
+    group_def = "rle"
   )
   par_data <- information_data_paragraph(ft_paged)
   body_data <- par_data[par_data$.part == "body", ]
 
   kwn_by_row <- tapply(
     body_data$keep_with_next,
-    body_data$.row_id, unique
+    body_data$.row_id,
+    unique
   )
 
   # Groups: rows 1-3 (A), rows 4-5 (B), row 6 (C)
@@ -181,7 +186,9 @@ test_that("paginate nonempty with empty body returns unchanged", {
   dat <- data.frame(a = character(0), b = numeric(0))
   ft <- flextable(dat)
   ft_paged <- paginate(
-    ft, group = "a", group_def = "nonempty"
+    ft,
+    group = "a",
+    group_def = "nonempty"
   )
   expect_equal(nrow_part(ft_paged, "body"), 0L)
 })

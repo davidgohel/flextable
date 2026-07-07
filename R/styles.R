@@ -734,7 +734,10 @@ indentation <- function(
   part = "body"
 ) {
   if (!inherits(x, "flextable")) {
-    stop(sprintf("Function `%s` supports only flextable objects.", "indentation()"))
+    stop(sprintf(
+      "Function `%s` supports only flextable objects.",
+      "indentation()"
+    ))
   }
 
   part <- match.arg(

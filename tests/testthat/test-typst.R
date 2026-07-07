@@ -82,10 +82,18 @@ test_that("bold / italic / colour render as #text args", {
 test_that("underline, strike and super/subscript wrap the run", {
   mk <- function(props) {
     ft <- ft_lib(data.frame(a = "x", stringsAsFactors = FALSE))
-    ft <- compose(ft, j = "a", value = as_paragraph(as_chunk("x", props = props)))
+    ft <- compose(
+      ft,
+      j = "a",
+      value = as_paragraph(as_chunk("x", props = props))
+    )
     flextable:::gen_raw_typst(ft)
   }
-  expect_match(mk(fp_text_default(underlined = TRUE)), "#underline[", fixed = TRUE)
+  expect_match(
+    mk(fp_text_default(underlined = TRUE)),
+    "#underline[",
+    fixed = TRUE
+  )
   expect_match(mk(fp_text_default(strike = TRUE)), "#strike[", fixed = TRUE)
   expect_match(
     mk(fp_text_default(vertical.align = "superscript")),
@@ -110,7 +118,10 @@ test_that("markup shorthand triggers are escaped (no dash/ellipsis/quote subst)"
   # a digit into a minus sign, and '/" into curly quotes. Each trigger char is
   # escaped individually so the literal text is preserved.
   mk <- function(txt) {
-    flextable:::gen_raw_typst(ft_lib(data.frame(a = txt, stringsAsFactors = FALSE)))
+    flextable:::gen_raw_typst(ft_lib(data.frame(
+      a = txt,
+      stringsAsFactors = FALSE
+    )))
   }
   expect_match(mk("a--b"), "a\\-\\-b", fixed = TRUE)
   expect_match(mk("a---b"), "a\\-\\-\\-b", fixed = TRUE)
@@ -123,7 +134,10 @@ test_that("line-start markers are escaped (no heading/enum/term marker)", {
   # `=`/`+`/`/` are markup markers at a line start; `/` even fails to compile.
   # Escaping every occurrence keeps the literal text and is safe mid-line too.
   mk <- function(txt) {
-    flextable:::gen_raw_typst(ft_lib(data.frame(a = txt, stringsAsFactors = FALSE)))
+    flextable:::gen_raw_typst(ft_lib(data.frame(
+      a = txt,
+      stringsAsFactors = FALSE
+    )))
   }
   expect_match(mk("= Titre"), "\\= Titre", fixed = TRUE)
   expect_match(mk("+ item"), "\\+ item", fixed = TRUE)

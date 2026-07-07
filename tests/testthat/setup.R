@@ -53,7 +53,8 @@ render_rmd <- function(file, rmd_format) {
   sucess <- FALSE
   tryCatch(
     {
-      render(rmd_file,
+      render(
+        rmd_file,
         output_format = rmd_format,
         output_file = pdf_file,
         envir = new.env(),
@@ -61,10 +62,8 @@ render_rmd <- function(file, rmd_format) {
       )
       sucess <- TRUE
     },
-    warning = function(e) {
-    },
-    error = function(e) {
-    }
+    warning = function(e) {},
+    error = function(e) {}
   )
   sucess
 }

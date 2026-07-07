@@ -146,8 +146,10 @@ test_that("theme_zebra rejects non-flextable", {
 test_that("theme_zebra custom colors", {
   ft <- theme_zebra(
     make_ft(),
-    odd_header = "#FF0000", odd_body = "#00FF00",
-    even_header = "#0000FF", even_body = "#FFFF00"
+    odd_header = "#FF0000",
+    odd_body = "#00FF00",
+    even_header = "#0000FF",
+    even_body = "#FFFF00"
   )
   expect_s3_class(ft, "flextable")
 })
@@ -240,8 +242,12 @@ test_that("theme_borderless grob has no border segments", {
 test_that("all themes produce valid grobs", {
   ft <- make_ft()
   themes <- list(
-    theme_borderless, theme_apa, theme_tron,
-    theme_tron_legacy, theme_zebra, theme_vader,
+    theme_borderless,
+    theme_apa,
+    theme_tron,
+    theme_tron_legacy,
+    theme_zebra,
+    theme_vader,
     theme_alafoli
   )
   for (thm in themes) {

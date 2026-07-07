@@ -12,7 +12,10 @@ test_that("row height is valid", {
   slide_file <- file.path(main_folder, "/ppt/slides/slide1.xml")
   doc <- read_xml(slide_file)
 
-  nodes <- xml_find_all(doc, "//p:graphicFrame/a:graphic/a:graphicData/a:tbl/a:tr")
+  nodes <- xml_find_all(
+    doc,
+    "//p:graphicFrame/a:graphic/a:graphicData/a:tbl/a:tr"
+  )
   h_values <- sapply(nodes, xml_attr, attr = "h")
   h_values <- as.integer(h_values)
   expect_true(all(is.finite(h_values)))

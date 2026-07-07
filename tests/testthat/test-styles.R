@@ -8,7 +8,12 @@ test_that("shortcut functions", {
   ft <- color(x = ft, color = "gray", j = 5, part = "all")
   ft <- padding(x = ft, padding = 5, j = 6, part = "all")
   ft <- align(x = ft, align = "left", j = 7, part = "all")
-  ft <- border(x = ft, border = fp_border(color = "orange"), j = 8, part = "all")
+  ft <- border(
+    x = ft,
+    border = fp_border(color = "orange"),
+    j = 8,
+    part = "all"
+  )
 
   docx_file <- tempfile(fileext = ".docx")
 
@@ -69,10 +74,22 @@ test_that("borders with office docs are sanitized", {
   docx <- read_docx(docx_file)
   doc <- docx_body_xml(docx)
 
-  top_nodes <- xml_find_all(doc, "w:body/w:tbl/w:tr/w:tc/w:tcPr/w:tcBorders/w:top")
-  bot_nodes <- xml_find_all(doc, "w:body/w:tbl/w:tr/w:tc/w:tcPr/w:tcBorders/w:bottom")
-  expect_equal(xml_attr(top_nodes, "color"), c("000000", "000000", "000000", "666666"))
-  expect_equal(xml_attr(bot_nodes, "color"), c("000000", "666666", "000000", "666666"))
+  top_nodes <- xml_find_all(
+    doc,
+    "w:body/w:tbl/w:tr/w:tc/w:tcPr/w:tcBorders/w:top"
+  )
+  bot_nodes <- xml_find_all(
+    doc,
+    "w:body/w:tbl/w:tr/w:tc/w:tcPr/w:tcBorders/w:bottom"
+  )
+  expect_equal(
+    xml_attr(top_nodes, "color"),
+    c("000000", "000000", "000000", "666666")
+  )
+  expect_equal(
+    xml_attr(bot_nodes, "color"),
+    c("000000", "666666", "000000", "666666")
+  )
 
   pptx <- read_pptx(pptx_file)
   slide <- pptx$slide$get_slide(1)$get()
@@ -112,10 +129,15 @@ test_that("align() accepts combinations of align arguments.", {
 
   # Custom alignment for only columns 3 and 5 in body only
   custom_alignment <- c("center", "left")
-  ft4 <- align(ft, j = c("disp", "drat"), align = custom_alignment, part = "body")
+  ft4 <- align(
+    ft,
+    j = c("disp", "drat"),
+    align = custom_alignment,
+    part = "body"
+  )
   subdat <- information_data_paragraph(ft4)
-  subdat <- subdat[subdat$.col_id %in% c("disp", "drat"),]
-  subdat <- subdat[subdat$.part %in% c("body"),]
+  subdat <- subdat[subdat$.col_id %in% c("disp", "drat"), ]
+  subdat <- subdat[subdat$.part %in% c("body"), ]
   expect_equal(
     rep(custom_alignment, 2),
     subdat$text.align
@@ -124,8 +146,8 @@ test_that("align() accepts combinations of align arguments.", {
   # Custom alignment for only columns 3 and 5 in body only (using default body arg)
   ft4b <- align(ft, j = c("disp", "drat"), align = custom_alignment)
   subdat <- information_data_paragraph(ft4b)
-  subdat <- subdat[subdat$.col_id %in% c("disp", "drat"),]
-  subdat <- subdat[subdat$.part %in% c("body"),]
+  subdat <- subdat[subdat$.col_id %in% c("disp", "drat"), ]
+  subdat <- subdat[subdat$.part %in% c("body"), ]
   expect_equal(
     rep(custom_alignment, 2),
     subdat$text.align
@@ -134,7 +156,7 @@ test_that("align() accepts combinations of align arguments.", {
   # Center alignment for only columns 3 and 5
   ft5 <- align(ft, j = c("disp", "drat"), align = "center", part = "all")
   subdat <- information_data_paragraph(ft5)
-  subdat <- subdat[subdat$.col_id %in% c("disp", "drat"),]
+  subdat <- subdat[subdat$.col_id %in% c("disp", "drat"), ]
   expect_equal(
     rep("center", 6),
     subdat$text.align
@@ -143,7 +165,7 @@ test_that("align() accepts combinations of align arguments.", {
   # Alternate left and center alignment across columns 1-4 for header only
   ft6 <- align(ft, j = 1:4, align = c("left", "center"), part = "header")
   subdat <- information_data_paragraph(ft6)
-  subdat <- subdat[subdat$.part %in% c("header"),]
+  subdat <- subdat[subdat$.part %in% c("header"), ]
   expect_equal(
     c(rep(c("left", "center"), 2), "right", "right"),
     subdat$text.align
@@ -154,7 +176,11 @@ test_that("align() will error if invalid align and part arguments are supplied",
   ft <- flextable(head(mtcars, n = 2)[, 1:6])
 
   # Invalid "part" argument
-  expect_error(align(ft, align = c("left", "center", "right"), part = "everything"))
+  expect_error(align(
+    ft,
+    align = c("left", "center", "right"),
+    part = "everything"
+  ))
 
   # Invalid "align" argument
   expect_error(align(ft, align = "top"))

@@ -6,9 +6,12 @@ test_that("use_model_printer and use_df_printer works", {
 
   options(show.signif.stars = TRUE)
 
-  rmarkdown::render(rmd_file,
-         output_file = outfile, output_format = "html_document",
-         envir = new.env(), quiet = TRUE
+  rmarkdown::render(
+    rmd_file,
+    output_file = outfile,
+    output_format = "html_document",
+    envir = new.env(),
+    quiet = TRUE
   )
 
   doc <- read_html(outfile)

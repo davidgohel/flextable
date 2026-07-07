@@ -1,7 +1,8 @@
 init_flextable_defaults()
 
 rmd_file_0 <- "rmd/captions.Rmd"
-if (!file.exists(rmd_file_0)) { # just for dev purpose
+if (!file.exists(rmd_file_0)) {
+  # just for dev purpose
   rmd_file_0 <- "tests/testthat/rmd/captions.Rmd"
 }
 rmd_file <- tempfile(fileext = ".Rmd")
@@ -13,7 +14,8 @@ pdf_file <- gsub("\\.Rmd$", ".pdf", rmd_file)
 
 test_that("with html_document", {
   unlink(html_file, force = TRUE)
-  render(rmd_file,
+  render(
+    rmd_file,
     output_format = rmarkdown::html_document(),
     output_file = html_file,
     envir = new.env(),
@@ -30,7 +32,10 @@ test_that("with html_document", {
   # first_chunk has an defined class
   first_chunk_class <- xml_attr(xml_child(caption_id2, 1), "class")
   expect_true(grepl("^cl\\-", first_chunk_class))
-  expect_true(any(grepl(first_chunk_class, xml_text(xml_find_all(xml_doc, "//style")))))
+  expect_true(any(grepl(
+    first_chunk_class,
+    xml_text(xml_find_all(xml_doc, "//style"))
+  )))
 
   crossref_chunk <- xml_find_first(xml_doc, "//a[@href='#tab:id1']")
   expect_true(inherits(crossref_chunk, "xml_missing"))
@@ -47,7 +52,8 @@ test_that("with html_document2", {
   skip_if_not_installed("bookdown")
 
   unlink(html_file, force = TRUE)
-  render(rmd_file,
+  render(
+    rmd_file,
     output_format = bookdown::html_document2(keep_md = FALSE),
     output_file = html_file,
     envir = new.env(),
@@ -58,8 +64,14 @@ test_that("with html_document2", {
 
   # id is there, caption is the one of set_caption, numbering
   caption_id2 <- xml_find_first(xml_doc, "//table/caption/span[@id='tab:id2']")
-  expect_true(grepl("text-align:center;", xml_attr(xml_parent(caption_id2), "style")))
-  expect_true(grepl("Table [0-9]+\\: azerty querty", xml_text(xml_parent(caption_id2))))
+  expect_true(grepl(
+    "text-align:center;",
+    xml_attr(xml_parent(caption_id2), "style")
+  ))
+  expect_true(grepl(
+    "Table [0-9]+\\: azerty querty",
+    xml_text(xml_parent(caption_id2))
+  ))
 
   # first_chunk has an defined class
   first_chunk_class <- xml_attr(xml_siblings(caption_id2), "class")
@@ -79,7 +91,8 @@ test_that("with word_document", {
   skip_if(pandoc_version() == numeric_version("2.9.2.1"))
 
   unlink(docx_file, force = TRUE)
-  render(rmd_file,
+  render(
+    rmd_file,
     output_format = rmarkdown::word_document(keep_md = FALSE),
     output_file = docx_file,
     envir = new.env(),
@@ -94,7 +107,8 @@ test_that("with word_document", {
   node_pstlname <- xml_find_first(doc, "//*[@w:tstlname]")
   expect_true(inherits(node_pstlname, "xml_missing"))
 
-  caption_node <- xml_find_first(doc,
+  caption_node <- xml_find_first(
+    doc,
     xpath = "/w:document/w:body/w:tbl[4]/preceding-sibling::*[1]"
   )
   expect_false(grepl("Table [1-5]+", xml_text(caption_node), fixed = TRUE))
@@ -107,7 +121,10 @@ test_that("with word_document", {
     all(!grepl("^Table [1-5]+\\:", xml_text(txt_nodes)))
   )
 
-  bookmarks <- xml_find_all(doc, "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart")
+  bookmarks <- xml_find_all(
+    doc,
+    "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart"
+  )
   expect_length(bookmarks, 0)
 })
 
@@ -117,7 +134,8 @@ test_that("with word_document2", {
   skip_if_not_installed("bookdown")
 
   unlink(docx_file, force = TRUE)
-  render(rmd_file,
+  render(
+    rmd_file,
     output_format = bookdown::word_document2(keep_md = FALSE),
     output_file = docx_file,
     envir = new.env(),
@@ -126,7 +144,8 @@ test_that("with word_document2", {
 
   doc <- get_docx_xml(docx_file)
 
-  caption_node <- xml_find_first(doc,
+  caption_node <- xml_find_first(
+    doc,
     xpath = "/w:document/w:body/w:tbl[2]/preceding-sibling::*[1]"
   )
   expect_true(grepl("Table 2", xml_text(caption_node), fixed = TRUE))
@@ -144,10 +163,12 @@ test_that("with word_document2", {
     )
   )
 
-  bookmarks <- xml_find_all(doc, "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart")
+  bookmarks <- xml_find_all(
+    doc,
+    "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart"
+  )
   expect_length(bookmarks, 3)
 })
-
 
 
 test_that("word with officer", {
@@ -169,7 +190,8 @@ test_that("word with officer", {
   )
   doc <- get_docx_xml(ft)
 
-  caption_node <- xml_find_first(doc,
+  caption_node <- xml_find_first(
+    doc,
     xpath = "/w:document/w:body/w:tbl/preceding-sibling::*[1]"
   )
   expect_false(grepl("Table [1-5]+", xml_text(caption_node), fixed = TRUE))
@@ -177,7 +199,10 @@ test_that("word with officer", {
   style_nodes <- xml_find_all(doc, "//w:pStyle[@w:val='TableCaption']")
   expect_length(style_nodes, 1)
   expect_true(all(xml_attr(style_nodes, "val") %in% "TableCaption"))
-  bookmarks <- xml_find_all(doc, "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart")
+  bookmarks <- xml_find_all(
+    doc,
+    "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart"
+  )
   expect_length(bookmarks, 1)
   expect_equal(xml_attr(bookmarks, "name"), "id2")
 })
@@ -189,7 +214,10 @@ test_that("with pdf_document2", {
   skip_if_not_installed("pdftools")
 
   require("pdftools")
-  sucess <- render_rmd(file = pdf_file, rmd_format = bookdown::pdf_document2(keep_md = FALSE))
+  sucess <- render_rmd(
+    file = pdf_file,
+    rmd_format = bookdown::pdf_document2(keep_md = FALSE)
+  )
   if (sucess) {
     doc <- get_pdf_text(pdf_file, extract_fun = pdftools::pdf_text)
     expect_true(any(grepl("Cross-reference is there: 2", doc, fixed = TRUE)))

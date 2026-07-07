@@ -81,9 +81,14 @@ test_that("opts_ft_word rejects invalid repeat_headers", {
 })
 
 test_that("opts_ft_word accepts valid values", {
-  ft2 <- set_table_properties(ft, opts_word = list(
-    split = TRUE, keep_with_next = FALSE, repeat_headers = TRUE
-  ))
+  ft2 <- set_table_properties(
+    ft,
+    opts_word = list(
+      split = TRUE,
+      keep_with_next = FALSE,
+      repeat_headers = TRUE
+    )
+  )
   expect_true(ft2$properties$opts_word$split)
   expect_false(ft2$properties$opts_word$keep_with_next)
   expect_true(ft2$properties$opts_word$repeat_headers)
@@ -150,10 +155,17 @@ test_that("opts_ft_pdf accepts all valid float values", {
 })
 
 test_that("opts_ft_pdf accepts valid combinations", {
-  ft2 <- set_table_properties(ft, opts_pdf = list(
-    tabcolsep = 4, arraystretch = 2, float = "float",
-    fonts_ignore = TRUE, caption_repeat = FALSE, footer_repeat = TRUE
-  ))
+  ft2 <- set_table_properties(
+    ft,
+    opts_pdf = list(
+      tabcolsep = 4,
+      arraystretch = 2,
+      float = "float",
+      fonts_ignore = TRUE,
+      caption_repeat = FALSE,
+      footer_repeat = TRUE
+    )
+  )
   expect_equal(ft2$properties$opts_pdf$tabcolsep, 4)
   expect_equal(ft2$properties$opts_pdf$arraystretch, 2)
   expect_equal(ft2$properties$opts_pdf$float, "float")
@@ -182,7 +194,6 @@ test_that("tab_settings works", {
   ft <- tab_settings(ft, i = 1, j = 2, value = ts)
   ft <- width(ft, width = c(1.5, 2))
 
-
   docx_file <- tempfile(fileext = ".docx")
   doc <- read_docx()
   doc <- body_add_flextable(doc, value = ft)
@@ -194,10 +205,16 @@ test_that("tab_settings works", {
   doc_file <- file.path(main_folder, "/word/document.xml")
   doc <- read_xml(doc_file)
 
-  tabnode <- xml_find_first(doc, "w:body/w:tbl/w:tr[3]/w:tc[2]/w:p/w:pPr/w:tabs")
+  tabnode <- xml_find_first(
+    doc,
+    "w:body/w:tbl/w:tr[3]/w:tc[2]/w:p/w:pPr/w:tabs"
+  )
   expect_true(inherits(tabnode, "xml_missing"))
 
-  tabnode <- xml_find_first(doc, "w:body/w:tbl/w:tr[2]/w:tc[2]/w:p/w:pPr/w:tabs")
+  tabnode <- xml_find_first(
+    doc,
+    "w:body/w:tbl/w:tr[2]/w:tc[2]/w:p/w:pPr/w:tabs"
+  )
 
   expect_false(inherits(tabnode, "xml_missing"))
   tab1 <- xml_child(tabnode, "w:tab[1]")

@@ -1,5 +1,13 @@
 data <- iris[c(1:3, 51:53, 101:104), ]
-col_keys <- c("Species", "sep_1", "Sepal.Length", "Sepal.Width", "sep_2", "Petal.Length", "Petal.Width")
+col_keys <- c(
+  "Species",
+  "sep_1",
+  "Sepal.Length",
+  "Sepal.Width",
+  "sep_2",
+  "Petal.Length",
+  "Petal.Width"
+)
 img.file <- file.path(R.home("doc"), "html", "logo.jpg")
 
 rlogo <- tempfile(fileext = ".jpg")
@@ -7,37 +15,48 @@ file.copy(img.file, rlogo)
 
 test_that("images", {
   ft <- flextable(data, col_keys = col_keys)
-  ft <- compose(ft,
+  ft <- compose(
+    ft,
     j = "Sepal.Length",
     value = as_paragraph(
       as_chunk("blah blah "),
-      as_image(rlogo, width = .3, height = 0.23), " ",
-      as_chunk(sprintf("val: %.1f", Sepal.Length), props = fp_text(color = "orange", vertical.align = "superscript"))
+      as_image(rlogo, width = .3, height = 0.23),
+      " ",
+      as_chunk(
+        sprintf("val: %.1f", Sepal.Length),
+        props = fp_text(color = "orange", vertical.align = "superscript")
+      )
     )
   )
-  ft <- compose(ft,
+  ft <- compose(
+    ft,
     j = "sep_1",
     value = as_paragraph(
       as_image(rlogo, width = .3, height = 0.23)
     )
   )
-  ft <- compose(ft,
+  ft <- compose(
+    ft,
     j = "Petal.Length",
     value = as_paragraph(
       "blah blah ",
-      as_chunk(Sepal.Length, props = fp_text(color = "orange", vertical.align = "superscript"))
+      as_chunk(
+        Sepal.Length,
+        props = fp_text(color = "orange", vertical.align = "superscript")
+      )
     )
   )
-  ft <- style(ft,
+  ft <- style(
+    ft,
     pr_c = fp_cell(margin = 0, border = fp_border(width = 0)),
     pr_p = fp_par(padding = 0, border = fp_border(width = 0)),
-    pr_t = fp_text(font.size = 10), part = "all"
+    pr_t = fp_text(font.size = 10),
+    part = "all"
   )
   ft <- autofit(ft, add_w = 0, add_h = 0)
 
   dims <- ft$body$colwidths
   expect_equal(as.vector(dims["sep_1"]), .3, tolerance = .00001)
-
 
   docx_file <- tempfile(fileext = ".docx")
   doc <- read_docx()
@@ -67,13 +86,21 @@ test_that("multiple images", {
   skip_if_not_installed("magick")
 
   ft <- flextable(df)
-  ft <- mk_par(ft, j = "plot", value = as_paragraph(as_image(rlogo, width = .3, height = 0.23)), part = "header")
-  ft <- mk_par(ft, j = "plot", value = as_paragraph(as_image(plot, guess_size = TRUE)))
+  ft <- mk_par(
+    ft,
+    j = "plot",
+    value = as_paragraph(as_image(rlogo, width = .3, height = 0.23)),
+    part = "header"
+  )
+  ft <- mk_par(
+    ft,
+    j = "plot",
+    value = as_paragraph(as_image(plot, guess_size = TRUE))
+  )
   chunk_info <- flextable::information_data_chunk(ft)
   expect_equal(chunk_info$img_data, c(rlogo, df$plot))
   expect_equal(chunk_info$width, c(.3, 300 / 72, 300 / 72))
   expect_equal(chunk_info$height, c(.23, 300 / 72, 300 / 72))
-
 
   docx_path <- save_as_docx(ft, path = tempfile(fileext = ".docx"))
   doc <- read_docx(docx_path)
@@ -107,16 +134,31 @@ test_that("multiple images", {
   }
 
   zz <- gen_grob(ft)
-  expect_s3_class(zz$children$cell_1_1$children$contents$ftgrobs[[1]], "rastergrob")
-  expect_s3_class(zz$children$cell_2_1$children$contents$ftgrobs[[1]], "rastergrob")
-  expect_s3_class(zz$children$cell_3_1$children$contents$ftgrobs[[1]], "rastergrob")
+  expect_s3_class(
+    zz$children$cell_1_1$children$contents$ftgrobs[[1]],
+    "rastergrob"
+  )
+  expect_s3_class(
+    zz$children$cell_2_1$children$contents$ftgrobs[[1]],
+    "rastergrob"
+  )
+  expect_s3_class(
+    zz$children$cell_3_1$children$contents$ftgrobs[[1]],
+    "rastergrob"
+  )
 
   ft <- flextable(df)
   ft <- colformat_image(ft, j = "plot", width = 300 / 72, height = 300 / 72)
   zz <- gen_grob(ft)
   expect_s3_class(zz$children$cell_1_1$children$contents$ftgrobs[[1]], "text")
-  expect_s3_class(zz$children$cell_2_1$children$contents$ftgrobs[[1]], "rastergrob")
-  expect_s3_class(zz$children$cell_3_1$children$contents$ftgrobs[[1]], "rastergrob")
+  expect_s3_class(
+    zz$children$cell_2_1$children$contents$ftgrobs[[1]],
+    "rastergrob"
+  )
+  expect_s3_class(
+    zz$children$cell_3_1$children$contents$ftgrobs[[1]],
+    "rastergrob"
+  )
 })
 
 test_that("minibar", {
@@ -149,7 +191,8 @@ test_that("minibar", {
 test_that("linerange basic", {
   ft <- flextable(head(iris, 5))
   ft <- compose(
-    ft, j = "Sepal.Length",
+    ft,
+    j = "Sepal.Length",
     value = as_paragraph(
       linerange(value = Sepal.Length)
     ),
@@ -170,12 +213,18 @@ test_that("linerange with min max and colors", {
   vals <- c(2, 5, 8)
   ft <- flextable(data.frame(x = vals))
   ft <- compose(
-    ft, j = "x",
+    ft,
+    j = "x",
     value = as_paragraph(
       linerange(
-        value = x, min = 0, max = 10,
-        rangecol = "blue", stickcol = "green",
-        bg = "white", width = 2, height = .3
+        value = x,
+        min = 0,
+        max = 10,
+        rangecol = "blue",
+        stickcol = "green",
+        bg = "white",
+        width = 2,
+        height = .3
       )
     ),
     part = "body"
@@ -193,7 +242,8 @@ test_that("linerange with min max and colors", {
 test_that("linerange all NA values", {
   ft <- flextable(data.frame(x = c(NA_real_, NA_real_)))
   ft <- compose(
-    ft, j = "x",
+    ft,
+    j = "x",
     value = as_paragraph(
       linerange(value = x)
     ),
@@ -218,10 +268,10 @@ test_that("linerange unit cm", {
   vals <- c(3, 6)
   ft <- flextable(data.frame(x = vals))
   ft <- compose(
-    ft, j = "x",
+    ft,
+    j = "x",
     value = as_paragraph(
-      linerange(value = x, width = 2, height = 0.5,
-                unit = "cm")
+      linerange(value = x, width = 2, height = 0.5, unit = "cm")
     ),
     part = "body"
   )
@@ -241,7 +291,8 @@ test_that("plot_chunk box type", {
   z <- z[, list(z = list(.SD$Sepal.Length)), by = "Species"]
   ft <- flextable(z, col_keys = c("Species", "box"))
   ft <- mk_par(
-    ft, j = "box",
+    ft,
+    j = "box",
     value = as_paragraph(
       plot_chunk(value = z, type = "box")
     )
@@ -261,7 +312,8 @@ test_that("plot_chunk line type", {
   z <- z[, list(z = list(.SD$Sepal.Length)), by = "Species"]
   ft <- flextable(z, col_keys = c("Species", "pl"))
   ft <- mk_par(
-    ft, j = "pl",
+    ft,
+    j = "pl",
     value = as_paragraph(
       plot_chunk(value = z, type = "line")
     )
@@ -281,7 +333,8 @@ test_that("plot_chunk points type", {
   z <- z[, list(z = list(.SD$Sepal.Length)), by = "Species"]
   ft <- flextable(z, col_keys = c("Species", "pl"))
   ft <- mk_par(
-    ft, j = "pl",
+    ft,
+    j = "pl",
     value = as_paragraph(
       plot_chunk(value = z, type = "points")
     )
@@ -301,7 +354,8 @@ test_that("plot_chunk density type", {
   z <- z[, list(z = list(.SD$Sepal.Length)), by = "Species"]
   ft <- flextable(z, col_keys = c("Species", "pl"))
   ft <- mk_par(
-    ft, j = "pl",
+    ft,
+    j = "pl",
     value = as_paragraph(
       plot_chunk(value = z, type = "density")
     )
@@ -321,10 +375,12 @@ test_that("plot_chunk free_scale", {
   z <- z[, list(z = list(.SD$Sepal.Length)), by = "Species"]
   ft <- flextable(z, col_keys = c("Species", "pl"))
   ft <- mk_par(
-    ft, j = "pl",
+    ft,
+    j = "pl",
     value = as_paragraph(
       plot_chunk(
-        value = z, type = "box",
+        value = z,
+        type = "box",
         free_scale = TRUE
       )
     )
@@ -344,16 +400,21 @@ test_that("gg_chunk", {
   library(data.table)
 
   z <- as.data.table(iris)
-  z <- z[, list(
-    gg = list(
-      ggplot(.SD, aes(Sepal.Length, Sepal.Width)) +
-        geom_point() + theme_void()
-    )
-  ), by = "Species"]
+  z <- z[,
+    list(
+      gg = list(
+        ggplot(.SD, aes(Sepal.Length, Sepal.Width)) +
+          geom_point() +
+          theme_void()
+      )
+    ),
+    by = "Species"
+  ]
 
   ft <- flextable(z)
   ft <- mk_par(
-    ft, j = "gg",
+    ft,
+    j = "gg",
     value = as_paragraph(
       gg_chunk(value = gg, width = 1, height = 1)
     )
@@ -375,15 +436,19 @@ test_that("gg_chunk unit cm", {
 
   plots <- list(
     ggplot(iris, aes(Sepal.Length)) +
-      geom_histogram() + theme_void()
+      geom_histogram() +
+      theme_void()
   )
   ft <- flextable(data.frame(g = "a"))
   ft <- mk_par(
-    ft, j = "g",
+    ft,
+    j = "g",
     value = as_paragraph(
       gg_chunk(
         value = plots,
-        width = 3, height = 2, unit = "cm"
+        width = 3,
+        height = 2,
+        unit = "cm"
       )
     )
   )
@@ -406,11 +471,13 @@ test_that("grid_chunk", {
   )
   ft <- flextable(data.frame(a = c("circle", "rect")))
   ft <- mk_par(
-    ft, j = "a",
+    ft,
+    j = "a",
     value = as_paragraph(
       grid_chunk(
         value = grobs,
-        width = .5, height = .5
+        width = .5,
+        height = .5
       )
     )
   )
@@ -433,7 +500,8 @@ test_that("grid_chunk in docx output", {
   )
   ft <- flextable(data.frame(a = "dot"))
   ft <- mk_par(
-    ft, j = "a",
+    ft,
+    j = "a",
     value = as_paragraph(
       grid_chunk(value = grobs, width = .3, height = .3)
     )
@@ -447,34 +515,55 @@ test_that("grid_chunk in docx output", {
 
 test_that("as_image alt text in DOCX", {
   ft <- flextable(head(iris, 2))
-  ft <- compose(ft, i = 1, j = 1, value = as_paragraph(
-    as_image(src = rlogo, width = 0.3, height = 0.23, alt = "R logo")
-  ), part = "body")
+  ft <- compose(
+    ft,
+    i = 1,
+    j = 1,
+    value = as_paragraph(
+      as_image(src = rlogo, width = 0.3, height = 0.23, alt = "R logo")
+    ),
+    part = "body"
+  )
   doc <- read_docx()
   doc <- body_add_flextable(doc, ft)
   out <- print(doc, target = tempfile(fileext = ".docx"))
   unpack_dir <- tempfile()
   officer::unpack_folder(out, unpack_dir)
-  doc_xml <- paste(readLines(
-    file.path(unpack_dir, "word", "document.xml")
-  ), collapse = "")
+  doc_xml <- paste(
+    readLines(
+      file.path(unpack_dir, "word", "document.xml")
+    ),
+    collapse = ""
+  )
   expect_true(grepl('descr="R logo"', doc_xml))
 })
 
 test_that("as_image alt text in HTML", {
   ft <- flextable(head(iris, 2))
-  ft <- compose(ft, i = 1, j = 1, value = as_paragraph(
-    as_image(src = rlogo, width = 0.3, height = 0.23, alt = "R logo")
-  ), part = "body")
+  ft <- compose(
+    ft,
+    i = 1,
+    j = 1,
+    value = as_paragraph(
+      as_image(src = rlogo, width = 0.3, height = 0.23, alt = "R logo")
+    ),
+    part = "body"
+  )
   html <- as.character(htmltools::tagList(htmltools_value(ft)))
   expect_true(grepl('alt="R logo"', html))
 })
 
 test_that("as_image without alt has empty alt", {
   ft <- flextable(head(iris, 2))
-  ft <- compose(ft, i = 1, j = 1, value = as_paragraph(
-    as_image(src = rlogo, width = 0.3, height = 0.23)
-  ), part = "body")
+  ft <- compose(
+    ft,
+    i = 1,
+    j = 1,
+    value = as_paragraph(
+      as_image(src = rlogo, width = 0.3, height = 0.23)
+    ),
+    part = "body"
+  )
   html <- as.character(htmltools::tagList(htmltools_value(ft)))
   expect_true(grepl('alt=""', html))
 })
@@ -482,12 +571,16 @@ test_that("as_image without alt has empty alt", {
 test_that("paragraph borders restored via style()", {
   border <- fp_border_default(width = 0.75, color = "black")
   ft <- qflextable(head(iris, 3)) |> border_remove()
-  ft <- add_header_row(ft,
+  ft <- add_header_row(
+    ft,
     values = c("Sepal", "Petal", "Species"),
     colwidths = c(2, 2, 1)
   )
   ft <- style(
-    x = ft, part = "header", i = 1, j = c(1, 3),
+    x = ft,
+    part = "header",
+    i = 1,
+    j = c(1, 3),
     pr_p = officer::fp_par(
       border.bottom = border,
       text.align = "center"
@@ -498,8 +591,11 @@ test_that("paragraph borders restored via style()", {
   out <- print(doc, target = tempfile(fileext = ".docx"))
   unpack_dir <- tempfile()
   officer::unpack_folder(out, unpack_dir)
-  doc_xml <- paste(readLines(
-    file.path(unpack_dir, "word", "document.xml")
-  ), collapse = "")
+  doc_xml <- paste(
+    readLines(
+      file.path(unpack_dir, "word", "document.xml")
+    ),
+    collapse = ""
+  )
   expect_true(grepl("w:pBdr", doc_xml))
 })

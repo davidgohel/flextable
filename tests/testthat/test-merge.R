@@ -1,5 +1,8 @@
 test_that("identical values within columns are merged", {
-  dummy_df <- data.frame(values = rep(letters[1:3], each = 2), stringsAsFactors = FALSE)
+  dummy_df <- data.frame(
+    values = rep(letters[1:3], each = 2),
+    stringsAsFactors = FALSE
+  )
   ft <- flextable(dummy_df)
   ft <- merge_v(x = ft, j = "values")
   expect_equal(ft$body$spans$columns[, 1], rep(c(2, 0), 3), ignore_attr = TRUE)
@@ -59,7 +62,11 @@ test_that("delete_rows preserves vertical spans when deletion does not break the
     stringsAsFactors = FALSE
   ))
   ft <- merge_v(ft, j = "col1")
-  expect_equal(ft$body$spans$columns[, 1], c(2, 0, 2, 0, 2, 0), ignore_attr = TRUE)
+  expect_equal(
+    ft$body$spans$columns[, 1],
+    c(2, 0, 2, 0, 2, 0),
+    ignore_attr = TRUE
+  )
 
   # delete rows 5:6 (the "c" group) — no span is broken
   ft2 <- delete_rows(ft, i = 5:6)
@@ -109,4 +116,3 @@ test_that("delete_columns resets spans when deletion breaks a horizontal span", 
   expect_true(all(ft2$body$spans$columns == 1))
   expect_true(all(ft2$body$spans$rows == 1))
 })
-
