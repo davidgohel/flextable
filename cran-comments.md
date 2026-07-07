@@ -1,6 +1,6 @@
 ## Test environments
 
-- local OS X install (R 4.5.2)
+- local OS X install (R 4.6.1)
 - ubuntu 24.04 (release)
 - winbuilder (with release and devel) 
 
