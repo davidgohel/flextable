@@ -3,17 +3,20 @@
 flextable) into the _extensions/ directory of a
 Quarto project. The extension provides Lua filters
 that resolve Quarto markdown content produced by
-as_qmd() inside flextable cells for HTML, PDF
-and Word (docx) output formats.
+as_qmd() inside flextable cells for HTML, PDF,
+Typst and Word (docx) output formats.
 After installation, add the filter to your document
 or project YAML:
 filters:
   - flextable-qmd
 
+This single filter is all that is required for HTML,
+PDF and Typst (format: typst) output.
 For Word (docx) output with labelled flextable chunks
 (e.g. #| label: tbl-xxx), add the post-render filter
 to remove the wrapper table Quarto creates around the
-flextable:
+flextable (this extra filter is not needed for Typst,
+where the table is embedded directly in the figure):
 filters:
   - flextable-qmd
   - at: post-render
@@ -22,17 +25,20 @@ filters:
 flextable) into the _extensions/ directory of a
 Quarto project. The extension provides Lua filters
 that resolve Quarto markdown content produced by
-as_qmd() inside flextable cells for HTML, PDF
-and Word (docx) output formats.
+as_qmd() inside flextable cells for HTML, PDF,
+Typst and Word (docx) output formats.
 After installation, add the filter to your document
 or project YAML:
 filters:
   - flextable-qmd
 
+This single filter is all that is required for HTML,
+PDF and Typst (format: typst) output.
 For Word (docx) output with labelled flextable chunks
 (e.g. #| label: tbl-xxx), add the post-render filter
 to remove the wrapper table Quarto creates around the
-flextable:
+flextable (this extra filter is not needed for Typst,
+where the table is embedded directly in the figure):
 filters:
   - flextable-qmd
   - at: post-render
@@ -45,7 +51,7 @@ filters:
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.12</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,16 +81,19 @@ filters:
 flextable) into the <code>_extensions/</code> directory of a
 Quarto project. The extension provides Lua filters
 that resolve Quarto markdown content produced by
-<code><a href="as_qmd.html">as_qmd()</a></code> inside flextable cells for HTML, PDF
-and Word (docx) output formats.</p>
+<code><a href="as_qmd.html">as_qmd()</a></code> inside flextable cells for HTML, PDF,
+Typst and Word (docx) output formats.</p>
 <p>After installation, add the filter to your document
 or project YAML:</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> flextable-qmd</span></span></code></pre><p></p></div>
+<p>This single filter is all that is required for HTML,
+PDF and Typst (<code>format: typst</code>) output.</p>
 <p>For Word (docx) output with labelled flextable chunks
 (e.g. <code>#| label: tbl-xxx</code>), add the post-render filter
 to remove the wrapper table Quarto creates around the
-flextable:</p>
+flextable (this extra filter is not needed for Typst,
+where the table is embedded directly in the figure):</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> flextable-qmd</span></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">at</span><span class="kw">:</span><span class="at"> post-render</span></span>

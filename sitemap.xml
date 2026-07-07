@@ -129,6 +129,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/hrule.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/htmltools_value.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/hyperlink_text.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/indentation.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/index.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/information_data_cell.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/information_data_chunk.html</loc></url>
@@ -147,6 +148,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/merge_v.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/minibar.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/ncol_keys.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/note_docx_images.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/nrow_part.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/padding.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/paginate.html</loc></url>
@@ -158,6 +160,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/print.flextable.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/proc_freq.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/regulartable.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/repair_docx.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/rotate.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/rtf_add.flextable.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/save_as_docx.html</loc></url>
@@ -165,6 +168,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/save_as_image.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/save_as_pptx.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/save_as_rtf.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/save_as_typst.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/separate_header.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/set_caption.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/set_flextable_defaults.html</loc></url>

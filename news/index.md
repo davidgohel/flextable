@@ -1,6 +1,41 @@
 # Changelog
 
+## flextable 0.10.0
+
+### new features
+
+- flextable now supports Typst output: tables are printed automatically
+  in Quarto documents with `format: typst` and
+  [`save_as_typst()`](https://davidgohel.github.io/flextable/reference/save_as_typst.md)
+  exports one or more flextables to a standalone `.typ` file.
+- new function
+  [`indentation()`](https://davidgohel.github.io/flextable/reference/indentation.md)
+  to set first-line (`first_line`) and hanging (`hanging`) paragraph
+  indents in cells. The properties can also be set with
+  `style(pr_p = fp_par(...))` (requires officer \>= 0.7.5). Supported in
+  Word, HTML, PowerPoint, RTF, PDF, Typst and grid outputs
+  ([\#704](https://github.com/davidgohel/flextable/issues/704)).
+- new function
+  [`repair_docx()`](https://davidgohel.github.io/flextable/reference/repair_docx.md)
+  to repair Word files produced by Quarto (`format: docx`) or
+  [`rmarkdown::word_document()`](https://pkgs.rstudio.com/rmarkdown/reference/word_document.html)
+  when tables contain images or hyperlinks; pandoc writes these files
+  without resolving the image and hyperlink references and Word can not
+  open them. The officer rewrite also processes sections, footnotes,
+  custom styles, list markers and poured documents. flextable now also
+  emits a warning in that situation
+  ([\#711](https://github.com/davidgohel/flextable/issues/711)).
+
+### issues
+
+- the `ulem` LaTeX package is now loaded with the `normalem` option, so
+  that `\emph` (italic) text outside the table is no longer rendered as
+  underlined in PDF output
+  ([\#726](https://github.com/davidgohel/flextable/issues/726)).
+
 ## flextable 0.9.12
+
+CRAN release: 2026-06-02
 
 ### issues
 

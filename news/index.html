@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.12</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,20 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.12" id="flextable-0912">flextable 0.9.12<a class="anchor" aria-label="anchor" href="#flextable-0912"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.10.0" id="flextable-0100">flextable 0.10.0<a class="anchor" aria-label="anchor" href="#flextable-0100"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-10-0">new features<a class="anchor" aria-label="anchor" href="#new-features-0-10-0"></a></h3>
+<ul><li>flextable now supports Typst output: tables are printed automatically in Quarto documents with <code>format: typst</code> and <code><a href="../reference/save_as_typst.html">save_as_typst()</a></code> exports one or more flextables to a standalone <code>.typ</code> file.</li>
+<li>new function <code><a href="../reference/indentation.html">indentation()</a></code> to set first-line (<code>first_line</code>) and hanging (<code>hanging</code>) paragraph indents in cells. The properties can also be set with <code>style(pr_p = fp_par(...))</code> (requires officer &gt;= 0.7.5). Supported in Word, HTML, PowerPoint, RTF, PDF, Typst and grid outputs (<a href="https://github.com/davidgohel/flextable/issues/704" class="external-link">#704</a>).</li>
+<li>new function <code><a href="../reference/repair_docx.html">repair_docx()</a></code> to repair Word files produced by Quarto (<code>format: docx</code>) or <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/word_document.html" class="external-link">rmarkdown::word_document()</a></code> when tables contain images or hyperlinks; pandoc writes these files without resolving the image and hyperlink references and Word can not open them. The officer rewrite also processes sections, footnotes, custom styles, list markers and poured documents. flextable now also emits a warning in that situation (<a href="https://github.com/davidgohel/flextable/issues/711" class="external-link">#711</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-10-0">issues<a class="anchor" aria-label="anchor" href="#issues-0-10-0"></a></h3>
+<ul><li>the <code>ulem</code> LaTeX package is now loaded with the <code>normalem</code> option, so that <code>\emph</code> (italic) text outside the table is no longer rendered as underlined in PDF output (<a href="https://github.com/davidgohel/flextable/issues/726" class="external-link">#726</a>).</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.12" id="flextable-0912">flextable 0.9.12<a class="anchor" aria-label="anchor" href="#flextable-0912"></a></h2><p class="text-muted">CRAN release: 2026-06-02</p>
 <div class="section level3">
 <h3 id="issues-0-9-12">issues<a class="anchor" aria-label="anchor" href="#issues-0-9-12"></a></h3>
 <ul><li>PDF/LaTeX cell fonts are now selected with <code>\fontspec</code> instead of <code>\global\setmainfont</code>. The latter re-ran the math font machinery on every cell, which could exhaust LaTeX math alphabets and break compilation when a document contained many equations before the table (<a href="https://github.com/davidgohel/flextable/issues/636" class="external-link">#636</a>).</li>

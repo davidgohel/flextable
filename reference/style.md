@@ -109,6 +109,7 @@ Other formatting shortcuts:
 [`font()`](https://davidgohel.github.io/flextable/reference/font.md),
 [`fontsize()`](https://davidgohel.github.io/flextable/reference/fontsize.md),
 [`highlight()`](https://davidgohel.github.io/flextable/reference/highlight.md),
+[`indentation()`](https://davidgohel.github.io/flextable/reference/indentation.md),
 [`italic()`](https://davidgohel.github.io/flextable/reference/italic.md),
 [`keep_with_next()`](https://davidgohel.github.io/flextable/reference/keep_with_next.md),
 [`line_spacing()`](https://davidgohel.github.io/flextable/reference/line_spacing.md),
@@ -135,7 +136,7 @@ ft <- style(ft, ~ drat > 3.5, ~ vs + am + gear + carb,
 ft
 
 
-.cl-60355e5c{}.cl-6027f7c6{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6027f7da{font-family:'Arial';font-size:10pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-602c2116{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:0;padding-top:0;padding-left:0;padding-right:0;line-height: 1;background-color:transparent;}.cl-602c9826{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(245, 222, 179, 1.00);border-top: 1pt solid rgba(245, 222, 179, 1.00);border-left: 1pt solid rgba(245, 222, 179, 1.00);border-right: 1pt solid rgba(245, 222, 179, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-606acbe8{}.cl-60636498{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-606364ac{font-family:'Arial';font-size:10pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(255, 0, 0, 1.00);background-color:transparent;}.cl-606685d8{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:0;padding-top:0;padding-left:0;padding-right:0;line-height: 1;background-color:transparent;}.cl-6066ac2a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(245, 222, 179, 1.00);border-top: 1pt solid rgba(245, 222, 179, 1.00);border-left: 1pt solid rgba(245, 222, 179, 1.00);border-right: 1pt solid rgba(245, 222, 179, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 mpg

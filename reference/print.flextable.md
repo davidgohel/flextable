@@ -56,6 +56,7 @@ Other functions for flextable output and export:
 [`htmltools_value()`](https://davidgohel.github.io/flextable/reference/htmltools_value.md),
 [`knit_print.flextable()`](https://davidgohel.github.io/flextable/reference/knit_print.flextable.md),
 [`plot.flextable()`](https://davidgohel.github.io/flextable/reference/plot.flextable.md),
+[`repair_docx()`](https://davidgohel.github.io/flextable/reference/repair_docx.md),
 [`save_as_docx()`](https://davidgohel.github.io/flextable/reference/save_as_docx.md),
 [`save_as_html()`](https://davidgohel.github.io/flextable/reference/save_as_html.md),
 [`save_as_image()`](https://davidgohel.github.io/flextable/reference/save_as_image.md),

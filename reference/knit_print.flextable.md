@@ -3,9 +3,10 @@
 This function is called automatically by knitr to display a flextable in
 R Markdown and Quarto documents. You do not need to call it directly.
 
-Supported output formats: HTML, Word (docx), PDF and PowerPoint (pptx).
-For other formats (e.g., `github_document`, `beamer_presentation`), the
-table is rendered as a PNG image.
+Supported output formats: HTML, Word (docx), PDF, PowerPoint (pptx) and
+Typst (`format: typst`, Quarto only). For other formats (e.g.,
+`github_document`, `beamer_presentation`), the table is rendered as a
+PNG image.
 
 ## Usage
 
@@ -124,7 +125,8 @@ additional caption options are available:
 
 ## Quarto
 
-flextable works natively in Quarto documents for HTML, PDF and Word.
+flextable works natively in Quarto documents for HTML, PDF, Word and
+Typst.
 
 The `flextable-qmd` Lua filter extension enables Quarto markdown inside
 flextable cells: cross-references (`@tbl-xxx`, `@fig-xxx`), bold/italic,
@@ -186,6 +188,7 @@ Other functions for flextable output and export:
 [`htmltools_value()`](https://davidgohel.github.io/flextable/reference/htmltools_value.md),
 [`plot.flextable()`](https://davidgohel.github.io/flextable/reference/plot.flextable.md),
 [`print.flextable()`](https://davidgohel.github.io/flextable/reference/print.flextable.md),
+[`repair_docx()`](https://davidgohel.github.io/flextable/reference/repair_docx.md),
 [`save_as_docx()`](https://davidgohel.github.io/flextable/reference/save_as_docx.md),
 [`save_as_html()`](https://davidgohel.github.io/flextable/reference/save_as_html.md),
 [`save_as_image()`](https://davidgohel.github.io/flextable/reference/save_as_image.md),

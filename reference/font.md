@@ -90,6 +90,7 @@ Other formatting shortcuts:
 [`empty_blanks()`](https://davidgohel.github.io/flextable/reference/empty_blanks.md),
 [`fontsize()`](https://davidgohel.github.io/flextable/reference/fontsize.md),
 [`highlight()`](https://davidgohel.github.io/flextable/reference/highlight.md),
+[`indentation()`](https://davidgohel.github.io/flextable/reference/indentation.md),
 [`italic()`](https://davidgohel.github.io/flextable/reference/italic.md),
 [`keep_with_next()`](https://davidgohel.github.io/flextable/reference/keep_with_next.md),
 [`line_spacing()`](https://davidgohel.github.io/flextable/reference/line_spacing.md),

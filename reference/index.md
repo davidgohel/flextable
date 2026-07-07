@@ -290,6 +290,8 @@ padding, line spacing, and text rotation.
   : Rotate cell text
 - [`tab_settings()`](https://davidgohel.github.io/flextable/reference/tab_settings.md)
   : Set tabulation marks configuration
+- [`indentation()`](https://davidgohel.github.io/flextable/reference/indentation.md)
+  : Set paragraph indents
 - [`empty_blanks()`](https://davidgohel.github.io/flextable/reference/empty_blanks.md)
   : Make blank columns transparent
 
@@ -390,7 +392,7 @@ above or below the table and can be numbered automatically.
 ## Save to files
 
 Export flextables to standalone files: Word (.docx), PowerPoint (.pptx),
-HTML, RTF, or images (PNG, PDF, SVG).
+HTML, RTF, TYPST or images (PNG, PDF, SVG).
 
 - [`save_as_docx()`](https://davidgohel.github.io/flextable/reference/save_as_docx.md)
   : Save flextable objects in a 'Word' file
@@ -400,6 +402,8 @@ HTML, RTF, or images (PNG, PDF, SVG).
   : Save flextable objects in an 'HTML' file
 - [`save_as_rtf()`](https://davidgohel.github.io/flextable/reference/save_as_rtf.md)
   : Save flextable objects in an 'RTF' file
+- [`save_as_typst()`](https://davidgohel.github.io/flextable/reference/save_as_typst.md)
+  : Save flextable objects in a Typst file
 - [`save_as_image()`](https://davidgohel.github.io/flextable/reference/save_as_image.md)
   : Save a flextable in a 'png' or 'svg' file
 
@@ -420,6 +424,8 @@ documents. Automatic rendering is usually handled by knit_print.
   : Set data.frame automatic printing as a flextable
 - [`use_model_printer()`](https://davidgohel.github.io/flextable/reference/use_model_printer.md)
   : Set automatic flextable printing for models
+- [`repair_docx()`](https://davidgohel.github.io/flextable/reference/repair_docx.md)
+  : Repair flextables in a 'Word' document produced by 'pandoc'
 
 ## Integrate with officer (Word/PowerPoint)
 
