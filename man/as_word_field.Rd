@@ -22,7 +22,7 @@ the default text properties of the cell(s).}
 numbers, dates, cross-references) as a chunk inside a
 flextable cell. Field codes are Word's mechanism for
 auto-computed values; see
-\href{https://support.microsoft.com/en-us/office/list-of-field-codes-in-word-1ad6d91a-55a7-4a8d-b535-cf7888659a51}{Microsoft's field-code reference}
+\href{https://support.microsoft.com/en-US/Word/list-of-field-codes-in-word}{Microsoft's field-code reference}
 for the available codes.
 
 The chunk is used with \code{\link[=compose]{compose()}}, \code{\link[=append_chunks]{append_chunks()}}
