@@ -527,7 +527,12 @@ gen_raw_typst <- function(x, image_mode = "path") {
     parts <- c(parts, codes$body)
   }
   if (nzchar(codes$footer)) {
-    parts <- c(parts, sprintf("  table.footer(\n%s\n  ),", codes$footer))
+    # Typst repeats footers on every page by default; Word and PDF outputs
+    # only show footer rows once, at the end of the table
+    parts <- c(
+      parts,
+      sprintf("  table.footer(\n  repeat: false,\n%s\n  ),", codes$footer)
+    )
   }
 
   align <- x$properties$align

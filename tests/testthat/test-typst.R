@@ -58,6 +58,12 @@ test_that("layout and width drive the columns specification", {
   )
 })
 
+test_that("footer rows are emitted once, not repeated on every page", {
+  ft <- add_footer_lines(ft_lib(head(iris, 2)), values = "a note")
+  str <- flextable:::gen_raw_typst(ft)
+  expect_match(str, "table.footer(\n  repeat: false,", fixed = TRUE)
+})
+
 test_that("table alignment wraps the table in #align", {
   # default alignment is center
   str <- flextable:::gen_raw_typst(ft_lib(head(iris, 2)))
