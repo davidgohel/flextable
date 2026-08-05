@@ -1,6 +1,17 @@
 # Changelog
 
+## flextable 0.10.1
+
+### issues
+
+- Typst output now honors `set_table_properties(width, align)`: the
+  table takes the requested share of the available width (with
+  `layout = "autofit"`) and is aligned accordingly, centered by default
+  ([\#730](https://github.com/davidgohel/flextable/issues/730)).
+
 ## flextable 0.10.0
+
+CRAN release: 2026-07-07
 
 ### new features
 
@@ -240,8 +251,8 @@ CRAN release: 2025-08-24
 ### Change
 
 - `print.flextable(preview = "log")` use
-  [`str()`](https://insightsengineering.github.io/rtables/latest-tag/reference/int_methods.html)
-  to show first values of data instead of
+  [`str()`](https://rdrr.io/pkg/rtables/man/int_methods.html) to show
+  first values of data instead of
   [`print()`](https://rdrr.io/r/base/print.html) so that when there are
   ggplot2 v4 objects in the table, the print is not failing.
 
