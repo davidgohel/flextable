@@ -504,6 +504,17 @@ gen_raw_typst <- function(x, image_mode = "path") {
         collapse = ", "
       )
     )
+  } else if (x$properties$width > 0) {
+    # autofit with a table width: relative column widths summing to
+    # `width` of the container, proportional to the natural widths
+    pct <- widths$width / sum(widths$width) * x$properties$width * 100
+    cols <- sprintf(
+      "(%s)",
+      paste0(
+        sprintf("%s%%", format_double(pct, digits = 2)),
+        collapse = ", "
+      )
+    )
   } else {
     cols <- sprintf("(%s)", paste0(rep("auto", nrow(widths)), collapse = ", "))
   }
@@ -519,19 +530,28 @@ gen_raw_typst <- function(x, image_mode = "path") {
     parts <- c(parts, sprintf("  table.footer(\n%s\n  ),", codes$footer))
   }
 
+  align <- x$properties$align
+  if (is.null(align) || !align %in% c("left", "center", "right")) {
+    align <- "center"
+  }
+
   # flextable's text.align semantics: "left" is not "justify". Quarto's
   # Typst template sets `par(justify: true)` document-wide, which would
   # justify (and hyphenate) every cell; scope it off around the table.
   # Cells with text.align "justify" opt back in with a per-cell
-  # `#par(justify: true)` (see typst_content_strs).
+  # `#par(justify: true)` (see typst_content_strs). The `#align` wrapper
+  # positions the table block itself; cell content is unaffected because
+  # every rendered cell carries an explicit `table.cell(align: ...)`.
   paste0(
     "#[\n",
     "#set par(justify: false)\n",
+    sprintf("#align(%s)[\n", align),
     "#table(\n",
     sprintf("  columns: %s,\n", cols),
     "  stroke: none,\n",
     paste0(parts, collapse = "\n"),
     "\n)\n",
+    "]\n",
     "]\n"
   )
 }

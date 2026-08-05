@@ -1,3 +1,12 @@
+# flextable 0.10.1
+
+## issues
+
+- Typst output now honors `set_table_properties(width, align)`: the table
+takes the requested share of the available width (with `layout = "autofit"`)
+and is aligned accordingly, centered by default (#730).
+
+
 # flextable 0.10.0
 
 ## new features

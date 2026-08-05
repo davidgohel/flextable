@@ -31,6 +31,43 @@ test_that("gen_raw_typst emits a Typst table skeleton", {
   expect_match(str, "table.header(", fixed = TRUE)
 })
 
+test_that("layout and width drive the columns specification", {
+  # fixed layout: absolute widths in inches
+  ft <- set_table_properties(ft_lib(head(iris, 2)), layout = "fixed")
+  expect_match(
+    flextable:::gen_raw_typst(ft),
+    "columns: (0.75in, 0.75in, 0.75in, 0.75in, 0.75in)",
+    fixed = TRUE
+  )
+  # autofit without width: auto columns
+  ft <- set_table_properties(ft_lib(head(iris, 2)), layout = "autofit")
+  expect_match(
+    flextable:::gen_raw_typst(ft),
+    "columns: (auto, auto, auto, auto, auto)",
+    fixed = TRUE
+  )
+  # autofit with width: relative widths summing to the table width (#730)
+  ft <- set_table_properties(
+    ft_lib(head(iris, 2)),
+    layout = "autofit", width = 0.7
+  )
+  expect_match(
+    flextable:::gen_raw_typst(ft),
+    "columns: (14%, 14%, 14%, 14%, 14%)",
+    fixed = TRUE
+  )
+})
+
+test_that("table alignment wraps the table in #align", {
+  # default alignment is center
+  str <- flextable:::gen_raw_typst(ft_lib(head(iris, 2)))
+  expect_match(str, "#align(center)[", fixed = TRUE)
+  ft <- set_table_properties(ft_lib(head(iris, 2)), align = "right")
+  expect_match(flextable:::gen_raw_typst(ft), "#align(right)[", fixed = TRUE)
+  ft <- set_table_properties(ft_lib(head(iris, 2)), align = "left")
+  expect_match(flextable:::gen_raw_typst(ft), "#align(left)[", fixed = TRUE)
+})
+
 test_that("font family is emitted from the cell property", {
   str <- flextable:::gen_raw_typst(ft_lib(head(iris, 1)))
   expect_match(str, 'font: "Liberation Sans"', fixed = TRUE)
