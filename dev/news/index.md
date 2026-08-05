@@ -8,6 +8,8 @@
   table takes the requested share of the available width (with
   `layout = "autofit"`) and is aligned accordingly, centered by default
   ([\#730](https://github.com/davidgohel/flextable/issues/730)).
+- Typst output: footer rows are no longer repeated on every page; they
+  are printed once at the end of the table, as in Word and PDF outputs.
 
 ## flextable 0.10.0
 
