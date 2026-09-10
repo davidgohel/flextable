@@ -45,5 +45,5 @@ z <- rtf_doc()
 z <- rtf_add(z, ft)
 
 print(z, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/RtmpzNOUSc/file23943ef3300a.rtf"
+#> [1] "/tmp/RtmpVgeJe6/file22d94d418207.rtf"
 ```
