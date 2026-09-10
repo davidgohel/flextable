@@ -87,7 +87,7 @@ as_flextable.xtable <- function(
     data <- cbind(
       structure(
         list(rn_x),
-        .Names = rowname_col,
+        names = rowname_col,
         row.names = seq_along(rn_x),
         class = "data.frame"
       ),

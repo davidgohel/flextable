@@ -63,7 +63,7 @@ test_that("add_header", {
       Petal.Width = c("Petal", "", "(cm)"),
       Species = c("Species", "", "(cm)")
     ),
-    .Names = c(
+    names = c(
       "Sepal.Length",
       "Sepal.Width",
       "Petal.Length",
@@ -164,7 +164,7 @@ test_that("set_header_df", {
       Petal.Length = c("Petal", "Length"),
       Petal.Width = c("Petal", "Width")
     ),
-    .Names = c(
+    names = c(
       "Species",
       "sep_1",
       "Sepal.Length",

@@ -130,11 +130,7 @@ z <-
         167.755981621553
       ),
       n_peanuts = c(821107L, 774581L, 721301L, 1116933L, 1009038L),
-      eye_color = structure(
-        c(2L, 1L, 1L, 1L, 1L),
-        .Label = c("dark", "green"),
-        class = "factor"
-      )
+      eye_color = factor(rep(c("green", "dark"), c(1L, 4L)))
     ),
     row.names = c(NA, -5L),
     class = "data.frame"

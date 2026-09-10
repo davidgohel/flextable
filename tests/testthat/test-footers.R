@@ -7,7 +7,7 @@ test_that("add_footer", {
       Petal.Width = c("Petal", "", "(cm)"),
       Species = c("Species", "", "(cm)")
     ),
-    .Names = c(
+    names = c(
       "Sepal.Length",
       "Sepal.Width",
       "Petal.Length",
