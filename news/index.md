@@ -1,6 +1,33 @@
 # Changelog
 
+## flextable 0.10.1
+
+### new features
+
+- the HTML output is now deterministic: two renderings of the same
+  flextable produce the same bytes, as content-addressed caches and
+  reproducible reports need. The CSS class names are computed from the
+  formatting properties they stand for instead of being drawn at random,
+  so a same style also keeps the same class name from one table to
+  another.
+
+### issues
+
+- Word, PowerPoint and RTF outputs: formatting properties could be
+  assigned to the wrong cells, paragraphs or runs (alignments, borders
+  or highlight colors swapped between styles). The styles were matched
+  back to the cells by position, through a grouping that does not
+  preserve it.
+- Typst output now honors `set_table_properties(width, align)`: the
+  table takes the requested share of the available width (with
+  `layout = "autofit"`) and is aligned accordingly, centered by default
+  ([\#730](https://github.com/davidgohel/flextable/issues/730)).
+- Typst output: footer rows are no longer repeated on every page; they
+  are printed once at the end of the table, as in Word and PDF outputs.
+
 ## flextable 0.10.0
+
+CRAN release: 2026-07-07
 
 ### new features
 
@@ -240,8 +267,8 @@ CRAN release: 2025-08-24
 ### Change
 
 - `print.flextable(preview = "log")` use
-  [`str()`](https://insightsengineering.github.io/rtables/latest-tag/reference/int_methods.html)
-  to show first values of data instead of
+  [`str()`](https://rdrr.io/pkg/rtables/man/int_methods.html) to show
+  first values of data instead of
   [`print()`](https://rdrr.io/r/base/print.html) so that when there are
   ggplot2 v4 objects in the table, the print is not failing.
 
