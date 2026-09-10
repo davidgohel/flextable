@@ -1,25 +1,32 @@
-# From https://github.com/yihui/knitr
+# From https://github.com/dessant/lock-threads
 name: 'Lock threads'
 
 on:
   # chaque semaine le jeudi a 5 AM
   schedule:
     - cron: '0 5 * * 4'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+  discussions: write
+
+concurrency:
+  group: lock-threads
 
 jobs:
   lock:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@v2.0.1
+      - uses: dessant/lock-threads@v6
         with:
-          github-token: ${{ github.token }}
-          issue-lock-inactive-days: '180'
-          # issue-exclude-created-before: ''
-          # issue-exclude-labels: ''
-          # issue-lock-labels: ''
-          issue-lock-comment: >
+          issue-inactive-days: '180'
+          issue-comment: >
             This old thread has been automatically locked. If you think you have
             found something related to this, please open a new issue and link to this
             old issue if necessary.
           issue-lock-reason: 'resolved'
-          pr-lock-inactive-days: '180'
+          pr-inactive-days: '180'
+          pr-lock-reason: 'resolved'
+          discussion-inactive-days: '180'
