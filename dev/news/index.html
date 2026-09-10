@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.1.002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.1.003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,8 +34,13 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.10.1" id="flextable-0101">flextable 0.10.1<a class="anchor" aria-label="anchor" href="#flextable-0101"></a></h2>
 <div class="section level3">
+<h3 id="new-features-0-10-1">new features<a class="anchor" aria-label="anchor" href="#new-features-0-10-1"></a></h3>
+<ul><li>the HTML output is now deterministic: two renderings of the same flextable produce the same bytes, as content-addressed caches and reproducible reports need. The CSS class names are computed from the formatting properties they stand for instead of being drawn at random, so a same style also keeps the same class name from one table to another.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="issues-0-10-1">issues<a class="anchor" aria-label="anchor" href="#issues-0-10-1"></a></h3>
-<ul><li>Typst output now honors <code>set_table_properties(width, align)</code>: the table takes the requested share of the available width (with <code>layout = "autofit"</code>) and is aligned accordingly, centered by default (<a href="https://github.com/davidgohel/flextable/issues/730" class="external-link">#730</a>).</li>
+<ul><li>Word, PowerPoint and RTF outputs: formatting properties could be assigned to the wrong cells, paragraphs or runs (alignments, borders or highlight colors swapped between styles). The styles were matched back to the cells by position, through a grouping that does not preserve it.</li>
+<li>Typst output now honors <code>set_table_properties(width, align)</code>: the table takes the requested share of the available width (with <code>layout = "autofit"</code>) and is aligned accordingly, centered by default (<a href="https://github.com/davidgohel/flextable/issues/730" class="external-link">#730</a>).</li>
 <li>Typst output: footer rows are no longer repeated on every page; they are printed once at the end of the table, as in Word and PDF outputs.</li>
 </ul></div>
 </div>

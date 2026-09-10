@@ -2,8 +2,22 @@
 
 ## flextable 0.10.1
 
+### new features
+
+- the HTML output is now deterministic: two renderings of the same
+  flextable produce the same bytes, as content-addressed caches and
+  reproducible reports need. The CSS class names are computed from the
+  formatting properties they stand for instead of being drawn at random,
+  so a same style also keeps the same class name from one table to
+  another.
+
 ### issues
 
+- Word, PowerPoint and RTF outputs: formatting properties could be
+  assigned to the wrong cells, paragraphs or runs (alignments, borders
+  or highlight colors swapped between styles). The styles were matched
+  back to the cells by position, through a grouping that does not
+  preserve it.
 - Typst output now honors `set_table_properties(width, align)`: the
   table takes the requested share of the available width (with
   `layout = "autofit"`) and is aligned accordingly, centered by default
