@@ -17,11 +17,8 @@ rtf_cells <- function(value, cell_data, layout = "fixed") {
   data_ref_cells <- distinct_cells_properties(cell_data)
 
   ## cell style wml
-  fp_cell_rtf <- data_ref_cells
   classnames <- data_ref_cells$classname
-  fp_cell_rtf$classname <- NULL
-
-  fp_cell_rtf <- split(fp_cell_rtf, classnames)
+  fp_cell_rtf <- split_by_classname(data_ref_cells)
   fp_cell_rtf <- vapply(
     fp_cell_rtf,
     function(x) {
@@ -64,7 +61,6 @@ rtf_cells <- function(value, cell_data, layout = "fixed") {
         "height",
         "hrule"
       )] <- NULL
-      zz$classname <- NULL
       zz <- do.call(fp_cell, zz)
       zz <- format(zz, type = "rtf")
       zz

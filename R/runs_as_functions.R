@@ -324,10 +324,7 @@ runs_as_rtf <- function(x, chunk_data = information_data_chunk(x)) {
     by = intersect(colnames(unique_text_props), colnames(txt_data))
   )
   span_rtfstyle <- vapply(
-    split(
-      unique_text_props[setdiff(colnames(unique_text_props), "classname")],
-      unique_text_props$classname
-    ),
+    split_by_classname(unique_text_props),
     function(x) {
       z <- do.call(officer::fp_text_lite, x)
       format(z, type = "rtf")
@@ -429,10 +426,7 @@ runs_as_wml <- function(x, txt_data = information_data_chunk(x)) {
   unique_text_props <- distinct_text_properties(as.data.frame(txt_data))
 
   rpr <- vapply(
-    split(
-      unique_text_props[setdiff(colnames(unique_text_props), "classname")],
-      unique_text_props$classname
-    ),
+    split_by_classname(unique_text_props),
     function(x) {
       z <- do.call(officer::fp_text_lite, x)
       format(z, type = "wml")
@@ -527,10 +521,7 @@ runs_as_pml <- function(value) {
   unique_text_props <- distinct_text_properties(as.data.frame(txt_data))
 
   rpr <- sapply(
-    split(
-      unique_text_props[setdiff(colnames(unique_text_props), "classname")],
-      unique_text_props$classname
-    ),
+    split_by_classname(unique_text_props),
     function(x) {
       z <- do.call(officer::fp_text_lite, x)
       format(z, type = "pml")

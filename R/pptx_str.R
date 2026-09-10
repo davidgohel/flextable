@@ -24,10 +24,7 @@ default_fp_text_pml <- function(value) {
   default_chunks_properties <- information_data_default_chunk(value)
   unique_text_props <- distinct_text_properties(default_chunks_properties)
   rpr <- sapply(
-    split(
-      unique_text_props[setdiff(colnames(unique_text_props), "classname")],
-      unique_text_props$classname
-    ),
+    split_by_classname(unique_text_props),
     function(x) {
       z <- do.call(officer::fp_text_lite, x)
       val <- format(z, type = "pml")
@@ -90,9 +87,8 @@ pml_cells <- function(value, cell_data) {
   data_ref_cells <- distinct_cells_properties(cell_data)
 
   ## cell style pml
-  fp_cell_pml <- data_ref_cells
   classnames <- data_ref_cells$classname
-  fp_cell_pml <- split(fp_cell_pml, classnames)
+  fp_cell_pml <- split_by_classname(data_ref_cells)
   fp_cell_pml <- lapply(fp_cell_pml, function(x) {
     zz <- as.list(x)
     zz$border.bottom <- fp_border(
@@ -133,7 +129,6 @@ pml_cells <- function(value, cell_data) {
       "height",
       "hrule"
     )] <- NULL
-    zz$classname <- NULL
     zz <- do.call(fp_cell, zz)
     format(zz, type = "pml")
   })

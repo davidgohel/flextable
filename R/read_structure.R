@@ -121,11 +121,96 @@ fortify_span <- function(x, parts = c("header", "body", "footer")) {
 }
 
 
+# css class names ----
+# Class names are cross references between the style sheet and the cells;
+# their value carries no meaning. A class name is a short hash of the set
+# of properties it stands for, so that the same table renders the same
+# bytes twice - which content addressed caches and reproducible reports
+# need - and a same style keeps the same name from one table to another.
+#
+# `layout` is part of the key for cells: widths only belong to the CSS rule
+# when the table layout is fixed, and two rules that differ must not share
+# a name, as CSS selectors are global to the page.
+#' @importFrom rlang hash
+#' @noRd
+css_class_names <- function(uid, layout = NULL) {
+  hashes <- vapply(
+    props_keys(uid, layout = layout),
+    hash,
+    FUN.VALUE = "",
+    USE.NAMES = FALSE
+  )
+
+  # keep names short, but grow them if truncation makes two distinct
+  # sets of properties collide
+  n <- 8L
+  while (n < nchar(hashes[1]) && anyDuplicated(substr(hashes, 1L, n)) > 0L) {
+    n <- n + 8L
+  }
+  classname <- paste0("cl-", substr(hashes, 1L, n))
+
+  # uniqueness is a precondition of the pipeline: a name is a key that
+  # the styles are joined back on, and two distinct sets of properties
+  # sharing one would be merged. It cannot be left to the hash alone.
+  make.unique(classname, sep = "-")
+}
+
+# `as.character()` only prints 15 significant digits: two widths that
+# differ beyond that (as computed column widths do) would give the same
+# key. The hexadecimal notation is exact.
+as_key_chr <- function(v) {
+  if (is.double(v)) {
+    sprintf("%a", v)
+  } else {
+    as.character(v)
+  }
+}
+
+# one string per row of `uid`, made of the column names and their values,
+# so that the hash only depends on the properties, not on how many rows
+# or which other rows are being rendered.
+props_keys <- function(uid, layout = NULL) {
+  values <- lapply(uid, function(col) {
+    if (is.list(col)) {
+      chr <- vapply(
+        col,
+        function(z) paste0(as_key_chr(z), collapse = ","),
+        FUN.VALUE = "",
+        USE.NAMES = FALSE
+      )
+    } else {
+      chr <- as_key_chr(col)
+    }
+    # a sentinel, so that NA and the "NA" string do not collide
+    chr[is.na(col)] <- "\u0001NA"
+    chr
+  })
+  prefix <- paste0(
+    paste0(c(layout, names(uid)), collapse = "\u001f"),
+    "\u001e"
+  )
+  paste0(prefix, do.call(paste, c(values, list(sep = "\u001f"))))
+}
+
+# Splits a set of distinct properties into one group per class name, the
+# `classname` column removed. `split()` orders its groups by name; the
+# factor keeps them in the order of `x` instead, as the styles built from
+# the groups are matched back to their class name by position.
+#' @noRd
+split_by_classname <- function(x) {
+  classnames <- x$classname
+  x$classname <- NULL
+  split(x, factor(classnames, levels = classnames))
+}
+
 # distinct_properties ----
 #' @importFrom data.table setDT
 #' @importFrom uuid UUIDgenerate
 #' @noRd
-distinct_text_properties <- function(x, add_columns = character(length = 0L)) {
+distinct_text_properties <- function(
+  x,
+  add_columns = character(length = 0L)
+) {
   columns <- c(
     "color",
     "font.size",
@@ -146,9 +231,7 @@ distinct_text_properties <- function(x, add_columns = character(length = 0L)) {
   uid <- unique(dat)
   setDF(dat)
 
-  classname <- UUIDgenerate(n = nrow(uid), use.time = TRUE)
-  classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
-  uid$classname <- classname
+  uid$classname <- css_class_names(uid)
 
   setDF(uid)
 
@@ -190,16 +273,14 @@ distinct_paragraphs_properties <- function(x) {
 
   uid <- unique(dat)
 
-  classname <- UUIDgenerate(n = nrow(uid), use.time = TRUE)
-  classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
-  uid$classname <- classname
+  uid$classname <- css_class_names(uid)
 
   setDF(uid)
 
   uid
 }
 
-distinct_cells_properties <- function(x) {
+distinct_cells_properties <- function(x, layout = NULL) {
   # fp_columns <- intersect(names(formals(officer::fp_cell)), colnames(x))
   columns <- c(
     "vertical.align",
@@ -234,9 +315,7 @@ distinct_cells_properties <- function(x) {
   setDT(dat)
 
   uid <- unique(dat)
-  classname <- UUIDgenerate(n = nrow(uid), use.time = TRUE)
-  classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
-  uid$classname <- classname
+  uid$classname <- css_class_names(uid, layout = layout)
 
   setDF(uid)
 

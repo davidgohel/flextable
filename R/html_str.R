@@ -1,3 +1,11 @@
+# The table class name carries the table level CSS rule: the table
+# layout, and the rules added for the `scroll` option. Both must be part
+# of the hash, as two tables sharing a class name must share their rule.
+table_css_class <- function(x, tabcss) {
+  key <- list(tabcss, x$properties$opts_html$scroll)
+  paste0("cl-", substr(hash(key), 1L, 8L))
+}
+
 gen_raw_html <- function(
   x,
   class = "tabwid",
@@ -26,8 +34,7 @@ gen_raw_html <- function(
 
   codes <- html_content_strs(x)
 
-  classname <- UUIDgenerate(n = 1, use.time = TRUE)
-  classname <- gsub("(^[[:alnum:]]+)(.*)$", "cl-\\1", classname)
+  classname <- table_css_class(x, tabcss)
   tabcss <- paste0(".", classname, "{", tabcss, "}")
 
   if (is.null(manual_css) || "" %in% manual_css) {
@@ -181,7 +188,10 @@ html_content_strs <- function(x) {
 
   data_ref_pars <- distinct_paragraphs_properties(par_data)
   setDT(data_ref_pars)
-  data_ref_cells <- distinct_cells_properties(cell_data)
+  data_ref_cells <- distinct_cells_properties(
+    cell_data,
+    layout = x$properties$layout
+  )
   setDT(data_ref_cells)
 
   par_data <- merge(

@@ -225,175 +225,202 @@ export(void)
 export(width)
 export(wrap_flextable)
 import(data.table)
-importFrom(data.table,":=")
-importFrom(data.table,.GRP)
-importFrom(data.table,.N)
-importFrom(data.table,.SD)
-importFrom(data.table,as.data.table)
-importFrom(data.table,copy)
-importFrom(data.table,data.table)
-importFrom(data.table,dcast)
-importFrom(data.table,fcase)
-importFrom(data.table,fifelse)
-importFrom(data.table,first)
-importFrom(data.table,fsetdiff)
-importFrom(data.table,groupingsets)
-importFrom(data.table,is.data.table)
-importFrom(data.table,rbindlist)
-importFrom(data.table,rleid)
-importFrom(data.table,rleidv)
-importFrom(data.table,setDF)
-importFrom(data.table,setDT)
-importFrom(data.table,setcolorder)
-importFrom(data.table,setkeyv)
-importFrom(data.table,setnames)
-importFrom(data.table,setorderv)
-importFrom(data.table,shift)
-importFrom(data.table,tstrsplit)
-importFrom(gdtools,installed_gfonts)
-importFrom(gdtools,strings_sizes)
-importFrom(grDevices,as.raster)
-importFrom(grDevices,col2rgb)
-importFrom(grDevices,dev.list)
-importFrom(grDevices,dev.off)
-importFrom(grDevices,is.raster)
-importFrom(grDevices,rgb)
-importFrom(graphics,boxplot)
-importFrom(graphics,par)
-importFrom(graphics,plot)
-importFrom(grid,convertHeight)
-importFrom(grid,convertWidth)
-importFrom(grid,drawDetails)
-importFrom(grid,gList)
-importFrom(grid,gTree)
-importFrom(grid,gpar)
-importFrom(grid,grid.draw)
-importFrom(grid,grid.layout)
-importFrom(grid,grid.newpage)
-importFrom(grid,grid.rect)
-importFrom(grid,grobDescent)
-importFrom(grid,grobHeight)
-importFrom(grid,grobWidth)
-importFrom(grid,is.grob)
-importFrom(grid,makeContext)
-importFrom(grid,popViewport)
-importFrom(grid,pushViewport)
-importFrom(grid,rasterGrob)
-importFrom(grid,rectGrob)
-importFrom(grid,segmentsGrob)
-importFrom(grid,setChildren)
-importFrom(grid,textGrob)
-importFrom(grid,unit)
-importFrom(grid,viewport)
-importFrom(grid,vpStack)
-importFrom(htmltools,HTML)
-importFrom(htmltools,attachDependencies)
-importFrom(htmltools,browsable)
-importFrom(htmltools,div)
-importFrom(htmltools,htmlDependency)
-importFrom(htmltools,htmlEscape)
-importFrom(htmltools,save_html)
-importFrom(htmltools,tagList)
-importFrom(htmltools,tags)
-importFrom(knitr,asis_output)
-importFrom(knitr,fig_path)
-importFrom(knitr,include_graphics)
-importFrom(knitr,is_html_output)
-importFrom(knitr,is_latex_output)
-importFrom(knitr,knit_child)
-importFrom(knitr,knit_meta_add)
-importFrom(knitr,knit_print)
-importFrom(knitr,opts_current)
-importFrom(knitr,opts_knit)
-importFrom(knitr,pandoc_to)
-importFrom(knitr,raw_block)
-importFrom(knitr,raw_html)
-importFrom(knitr,raw_latex)
-importFrom(officer,add_slide)
-importFrom(officer,body_add_par)
-importFrom(officer,body_add_xml)
-importFrom(officer,body_set_default_section)
-importFrom(officer,cursor_bookmark)
-importFrom(officer,fp_border)
-importFrom(officer,fp_cell)
-importFrom(officer,fp_par)
-importFrom(officer,fp_par_lite)
-importFrom(officer,fp_tab)
-importFrom(officer,fp_tabs)
-importFrom(officer,fp_text)
-importFrom(officer,fp_text_lite)
-importFrom(officer,fpar)
-importFrom(officer,ftext)
-importFrom(officer,image_to_base64)
-importFrom(officer,officer_url_encode)
-importFrom(officer,opts_current_table)
-importFrom(officer,page_mar)
-importFrom(officer,page_size)
-importFrom(officer,ph_location_type)
-importFrom(officer,ph_with)
-importFrom(officer,plot_in_png)
-importFrom(officer,prop_section)
-importFrom(officer,prop_table)
-importFrom(officer,read_docx)
-importFrom(officer,read_pptx)
-importFrom(officer,rtf_add)
-importFrom(officer,rtf_doc)
-importFrom(officer,run_autonum)
-importFrom(officer,run_bookmark)
-importFrom(officer,str_encode_to_rtf)
-importFrom(officer,table_colwidths)
-importFrom(officer,table_layout)
-importFrom(officer,table_width)
-importFrom(officer,to_html)
-importFrom(officer,to_rtf)
-importFrom(officer,to_wml)
-importFrom(ragg,agg_capture)
-importFrom(ragg,agg_png)
-importFrom(rlang,"%||%")
-importFrom(rlang,call_args)
-importFrom(rlang,enquo)
-importFrom(rlang,enquos)
-importFrom(rlang,eval_tidy)
-importFrom(rlang,get_expr)
-importFrom(rlang,new_function)
-importFrom(rlang,pairlist2)
-importFrom(rlang,quo)
-importFrom(rlang,quo_name)
-importFrom(rlang,quo_text)
-importFrom(rlang,sym)
-importFrom(rmarkdown,html_document)
-importFrom(rmarkdown,latex_dependency)
-importFrom(rmarkdown,pandoc_available)
-importFrom(rmarkdown,pandoc_version)
-importFrom(rmarkdown,pdf_document)
-importFrom(rmarkdown,render)
-importFrom(stats,AIC)
-importFrom(stats,BIC)
-importFrom(stats,IQR)
-importFrom(stats,approx)
-importFrom(stats,as.formula)
-importFrom(stats,density)
-importFrom(stats,df.residual)
-importFrom(stats,logLik)
-importFrom(stats,mad)
-importFrom(stats,median)
-importFrom(stats,na.omit)
-importFrom(stats,naprint)
-importFrom(stats,nobs)
-importFrom(stats,quantile)
-importFrom(stats,reshape)
-importFrom(stats,runif)
-importFrom(stats,sd)
-importFrom(stats,setNames)
-importFrom(stats,terms)
-importFrom(stats,update)
-importFrom(utils,browseURL)
-importFrom(utils,compareVersion)
-importFrom(utils,getFromNamespace)
-importFrom(utils,head)
-importFrom(utils,modifyList)
-importFrom(utils,packageVersion)
-importFrom(utils,str)
-importFrom(utils,tail)
+importFrom(data.table,
+  ":=",
+  .GRP,
+  .N,
+  .SD,
+  as.data.table,
+  copy,
+  data.table,
+  dcast,
+  fcase,
+  fifelse,
+  first,
+  fsetdiff,
+  groupingsets,
+  is.data.table,
+  rbindlist,
+  rleid,
+  rleidv,
+  setDF,
+  setDT,
+  setcolorder,
+  setkeyv,
+  setnames,
+  setorderv,
+  shift,
+  tstrsplit
+)
+importFrom(gdtools,
+  installed_gfonts,
+  strings_sizes
+)
+importFrom(grDevices,
+  as.raster,
+  col2rgb,
+  dev.list,
+  dev.off,
+  is.raster,
+  rgb
+)
+importFrom(graphics,
+  boxplot,
+  par,
+  plot
+)
+importFrom(grid,
+  convertHeight,
+  convertWidth,
+  drawDetails,
+  gList,
+  gTree,
+  gpar,
+  grid.draw,
+  grid.layout,
+  grid.newpage,
+  grid.rect,
+  grobDescent,
+  grobHeight,
+  grobWidth,
+  is.grob,
+  makeContext,
+  popViewport,
+  pushViewport,
+  rasterGrob,
+  rectGrob,
+  segmentsGrob,
+  setChildren,
+  textGrob,
+  unit,
+  viewport,
+  vpStack
+)
+importFrom(htmltools,
+  HTML,
+  attachDependencies,
+  browsable,
+  div,
+  htmlDependency,
+  htmlEscape,
+  save_html,
+  tagList,
+  tags
+)
+importFrom(knitr,
+  asis_output,
+  fig_path,
+  include_graphics,
+  is_html_output,
+  is_latex_output,
+  knit_child,
+  knit_meta_add,
+  knit_print,
+  opts_current,
+  opts_knit,
+  pandoc_to,
+  raw_block,
+  raw_html,
+  raw_latex
+)
+importFrom(officer,
+  add_slide,
+  body_add_par,
+  body_add_xml,
+  body_set_default_section,
+  cursor_bookmark,
+  fp_border,
+  fp_cell,
+  fp_par,
+  fp_par_lite,
+  fp_tab,
+  fp_tabs,
+  fp_text,
+  fp_text_lite,
+  fpar,
+  ftext,
+  image_to_base64,
+  officer_url_encode,
+  opts_current_table,
+  page_mar,
+  page_size,
+  ph_location_type,
+  ph_with,
+  plot_in_png,
+  prop_section,
+  prop_table,
+  read_docx,
+  read_pptx,
+  rtf_add,
+  rtf_doc,
+  run_autonum,
+  run_bookmark,
+  str_encode_to_rtf,
+  table_colwidths,
+  table_layout,
+  table_width,
+  to_html,
+  to_rtf,
+  to_wml
+)
+importFrom(ragg,
+  agg_capture,
+  agg_png
+)
+importFrom(rlang,
+  "%||%",
+  call_args,
+  enquo,
+  enquos,
+  eval_tidy,
+  get_expr,
+  hash,
+  new_function,
+  pairlist2,
+  quo,
+  quo_name,
+  quo_text,
+  sym
+)
+importFrom(rmarkdown,
+  html_document,
+  latex_dependency,
+  pandoc_available,
+  pandoc_version,
+  pdf_document,
+  render
+)
+importFrom(stats,
+  AIC,
+  BIC,
+  IQR,
+  approx,
+  as.formula,
+  density,
+  df.residual,
+  logLik,
+  mad,
+  median,
+  na.omit,
+  naprint,
+  nobs,
+  quantile,
+  reshape,
+  runif,
+  sd,
+  setNames,
+  terms,
+  update
+)
+importFrom(utils,
+  browseURL,
+  compareVersion,
+  getFromNamespace,
+  head,
+  modifyList,
+  packageVersion,
+  str,
+  tail
+)
 importFrom(uuid,UUIDgenerate)
 importFrom(xml2,as_xml_document)

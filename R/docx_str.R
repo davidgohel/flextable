@@ -4,9 +4,8 @@ ooxml_ppr <- function(paragraphs_properties, type = "wml") {
   data_ref_pars <- distinct_paragraphs_properties(paragraphs_properties)
 
   ## par style wml
-  fp_par_xml <- data_ref_pars
   classnames <- data_ref_pars$classname
-  fp_par_xml <- split(fp_par_xml, classnames)
+  fp_par_xml <- split_by_classname(data_ref_pars)
   fp_par_xml <- vapply(
     fp_par_xml,
     function(x) {
@@ -47,7 +46,6 @@ ooxml_ppr <- function(paragraphs_properties, type = "wml") {
         pattern = "^(border\\.color|border\\.width|border\\.style)",
         names(zz)
       )] <- NULL
-      zz$classname <- NULL
 
       zz <- do.call(fp_par_lite, zz)
       format(zz, type = type)
@@ -140,11 +138,8 @@ wml_cells <- function(value, cell_data) {
   data_ref_cells <- distinct_cells_properties(cell_data)
 
   ## cell style wml
-  fp_cell_wml <- data_ref_cells
   classnames <- data_ref_cells$classname
-  fp_cell_wml$classname <- NULL
-
-  fp_cell_wml <- split(fp_cell_wml, classnames)
+  fp_cell_wml <- split_by_classname(data_ref_cells)
   fp_cell_wml <- vapply(
     fp_cell_wml,
     function(x) {
@@ -187,7 +182,6 @@ wml_cells <- function(value, cell_data) {
         "height",
         "hrule"
       )] <- NULL
-      zz$classname <- NULL
       zz <- do.call(fp_cell, zz)
       zz <- format(zz, type = "wml")
       zz
@@ -226,10 +220,7 @@ default_fp_text_wml <- function(value) {
   default_chunks_properties <- information_data_default_chunk(value)
   unique_text_props <- distinct_text_properties(default_chunks_properties)
   rpr <- sapply(
-    split(
-      unique_text_props[setdiff(colnames(unique_text_props), "classname")],
-      unique_text_props$classname
-    ),
+    split_by_classname(unique_text_props),
     function(x) {
       z <- do.call(officer::fp_text_lite, x)
       format(z, type = "wml")
