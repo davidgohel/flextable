@@ -44,17 +44,17 @@ To paginate the resulting flextable into multiple pages, use
 calling \code{as_flextable()}.
 }
 \examples{
-if (require("rtables", character.only = TRUE, quietly = TRUE)) {
-  library(rtables)
+\dontshow{if (requireNamespace("rtables", quietly = TRUE) && packageVersion("rtables") >= "0.6.17") withAutoprint(\{ # examplesIf}
+library(rtables)
 
-  lyt <- basic_table(title = "Demographic Summary") \%>\%
-    split_cols_by("ARM") \%>\%
-    split_rows_by("SEX") \%>\%
-    analyze("AGE", afun = mean, format = "xx.x")
+lyt <- basic_table(title = "Demographic Summary") |>
+  split_cols_by("ARM") |>
+  split_rows_by("SEX") |>
+  analyze("AGE", afun = mean, format = "xx.x")
 
-  tbl <- build_table(lyt, DM)
-  as_flextable(tbl)
-}
+tbl <- build_table(lyt, DM)
+as_flextable(tbl)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=split_to_pages]{split_to_pages()}}, \code{\link[=split_rows]{split_rows()}}, \code{\link[=split_columns]{split_columns()}}
