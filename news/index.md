@@ -2,6 +2,8 @@
 
 ## flextable 0.10.1
 
+CRAN release: 2026-09-10
+
 ### new features
 
 - the HTML output is now deterministic: two renderings of the same
@@ -267,8 +269,8 @@ CRAN release: 2025-08-24
 ### Change
 
 - `print.flextable(preview = "log")` use
-  [`str()`](https://rdrr.io/pkg/rtables/man/int_methods.html) to show
-  first values of data instead of
+  [`str()`](https://insightsengineering.github.io/rtables/latest-tag/reference/int_methods.html)
+  to show first values of data instead of
   [`print()`](https://rdrr.io/r/base/print.html) so that when there are
   ggplot2 v4 objects in the table, the print is not failing.
 
