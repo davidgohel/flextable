@@ -1,3 +1,15 @@
+# flextable 0.10.2
+
+## issues
+
+- `fit_columns()` no longer exceeds `max_width` when a heading spans several
+columns. A merged cell only has to fit across the columns it covers, but its
+longest word was imposed as a minimum width on each of them, so a header
+merged over seven columns could make the table more than twice as wide as
+requested (#731). Also, it no longer warns about column floors exceeding 
+`max_width` when the table fits it exactly, a rounding error away.
+
+
 # flextable 0.10.1
 
 ## new features

@@ -176,8 +176,9 @@ fit_columns <- function(x, max_width, no_wrap = NULL, unit = "in") {
     if (!any(free)) break
   }
 
-  # warn if floors exceed available space
-  if (sum(target) > available) {
+  # warn if floors exceed available space (with a tolerance, as the
+  # redistribution loop lands on `available` up to a rounding error)
+  if (sum(target) - available > 1e-9) {
     warning(
       "Column floor widths exceed max_width; some text wrapping ",
       "at word boundaries may not be achievable.",
@@ -201,6 +202,7 @@ fit_columns_metrics <- function(x) {
   parts <- c("header", "body", "footer")
   all_pretty <- list()
   all_floor <- list()
+  all_spans <- list()
 
   for (p in parts) {
     if (nrow_part(x, p) < 1) {
@@ -254,11 +256,31 @@ fit_columns_metrics <- function(x) {
     all_pretty[[p]] <- apply(widths_mat, 2, max, na.rm = TRUE)
 
     # --- floor widths (min_col_widths logic) ---
+    #
+    # Horizontal spans need a separate treatment. A merged cell covers
+    # several columns but its text is stored in each of them, so taking
+    # the longest word column by column would require every covered
+    # column to be as wide as the whole word. The cells hidden by a span
+    # (span value 0) are therefore dropped, and a spanning cell (span
+    # value above 1) becomes a constraint on the *sum* of the columns it
+    # covers, resolved later by .distribute_span_floors().
+    colspan <- data.frame(
+      .col_id = rep(part_obj$col_keys, each = nr),
+      .row_id = rep(seq_len(nr), length(part_obj$col_keys)),
+      colspan = as.vector(part_obj$spans$rows),
+      stringsAsFactors = FALSE,
+      check.names = FALSE
+    )
+    txt_data <- merge(txt_data, colspan, by = c(".col_id", ".row_id"))
+    txt_data <- txt_data[txt_data$colspan > 0, , drop = FALSE]
+
     words <- strsplit(txt_data$txt, "(?<=[- ])", perl = TRUE)
     n_words <- vapply(words, length, integer(1))
 
     word_txt <- unlist(words, use.names = FALSE)
     word_col <- rep(txt_data$.col_id, n_words)
+    word_row <- rep(txt_data$.row_id, n_words)
+    word_span <- rep(txt_data$colspan, n_words)
     word_fname <- rep(txt_data$font.family, n_words)
     word_fsize <- rep(txt_data$font.size, n_words)
     word_bold <- rep(txt_data$bold, n_words)
@@ -274,11 +296,35 @@ fit_columns_metrics <- function(x) {
       )
       word_df <- data.frame(
         .col_id = word_col,
+        .row_id = word_row,
+        colspan = word_span,
         width = word_sizes$width,
         stringsAsFactors = FALSE
       )
-      agg <- tapply(word_df$width, word_df$.col_id, max, na.rm = TRUE)
-      all_floor[[p]] <- agg
+
+      single <- word_df[word_df$colspan == 1, , drop = FALSE]
+      if (nrow(single) > 0) {
+        all_floor[[p]] <- tapply(
+          single$width,
+          single$.col_id,
+          max,
+          na.rm = TRUE
+        )
+      }
+
+      spanned <- word_df[word_df$colspan > 1, , drop = FALSE]
+      if (nrow(spanned) > 0) {
+        # longest word of each spanning cell
+        cell_key <- paste(spanned$.row_id, spanned$.col_id, sep = "\r")
+        cell_max <- tapply(spanned$width, cell_key, max, na.rm = TRUE)
+        first <- match(names(cell_max), cell_key)
+        all_spans[[p]] <- data.frame(
+          col = match(spanned$.col_id[first], x$col_keys),
+          ncols = spanned$colspan[first],
+          width = as.numeric(cell_max),
+          stringsAsFactors = FALSE
+        )
+      }
     }
   }
 
@@ -330,7 +376,50 @@ fit_columns_metrics <- function(x) {
 
   floor_w <- as.numeric(min_text_w + pad_w + cell_w)
 
+  if (length(all_spans) > 0) {
+    constraints <- do.call(rbind, all_spans)
+    constraints <- constraints[!is.na(constraints$col), , drop = FALSE]
+  } else {
+    constraints <- NULL
+  }
+  if (length(constraints) > 0 && nrow(constraints) > 0) {
+    # a spanning cell also needs room for its own padding and cell margins
+    constraints$width <- constraints$width +
+      pad_w[constraints$col] + cell_w[constraints$col]
+    floor_w <- .distribute_span_floors(floor_w, constraints)
+  }
+
   list(pretty_w = pretty_w, floor_w = floor_w)
+}
+
+# Raise column floors so that each spanning cell fits across the columns it
+# covers. The constraint of a merged cell is on the total width of its
+# columns, not on each of them, so only the missing width is spread over
+# them, proportionally to the floors they already have. Narrower spans are
+# resolved first, as the automatic table layout of CSS does, so that the
+# width granted to a wide span accounts for what its sub-spans secured.
+.distribute_span_floors <- function(floor_w, constraints) {
+  constraints <- constraints[order(constraints$ncols), , drop = FALSE]
+
+  for (i in seq_len(nrow(constraints))) {
+    cols <- seq(constraints$col[i], length.out = constraints$ncols[i])
+    cols <- cols[cols <= length(floor_w)]
+    if (!length(cols)) {
+      next
+    }
+    current <- floor_w[cols]
+    deficit <- constraints$width[i] - sum(current)
+    if (deficit <= 0) {
+      next
+    }
+    if (sum(current) > 0) {
+      floor_w[cols] <- current + deficit * current / sum(current)
+    } else {
+      floor_w[cols] <- current + deficit / length(cols)
+    }
+  }
+
+  floor_w
 }
 
 # text_metric logic accepting pre-computed txt_data
