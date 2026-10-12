@@ -19,18 +19,18 @@ mycut <- cut( cor_matrix,
   breaks = c(-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1), 
   include.lowest = TRUE, label = FALSE)
 mycolors <- col_palette[mycut]
-data <- data.frame(rowname = row.names(cor_matrix), stringsAsFactors = FALSE) %>%
+data <- data.frame(rowname = row.names(cor_matrix), stringsAsFactors = FALSE) |>
   cbind(cor_matrix)
 ```
 
 ## An example 
 
 ```{r}
-flextable(data) %>%
-  bg(j = colnames(cor_matrix), bg = mycolors) %>%
-  align(align = "center", part = "all") %>%
-  compose(i = 1, j = 1, value = as_paragraph(""), part = "header") %>% 
-  colformat_num(j = colnames(cor_matrix), digits = 2) %>% 
+flextable(data) |>
+  bg(j = colnames(cor_matrix), bg = mycolors) |>
+  align(align = "center", part = "all") |>
+  compose(i = 1, j = 1, value = as_paragraph(""), part = "header") |> 
+  colformat_num(j = colnames(cor_matrix), digits = 2) |> 
   autofit()
 ```
 
@@ -68,17 +68,17 @@ data_CO2 <- dcast(as.data.table(CO2),
   Treatment + conc ~ Type, value.var = "uptake", fun.aggregate = mean)
 data_CO2 <- as_grouped_data(x = data_CO2, groups = c("Treatment"))
 
-as_flextable( data_CO2 ) %>% 
-  bold(j = 1, i = ~ !is.na(Treatment), bold = TRUE, part = "body" ) %>% 
-  bold(part = "header", bold = TRUE ) %>% 
-  width(width = 1.5) %>% 
+as_flextable( data_CO2 ) |> 
+  bold(j = 1, i = ~ !is.na(Treatment), bold = TRUE, part = "body" ) |> 
+  bold(part = "header", bold = TRUE ) |> 
+  width(width = 1.5) |> 
   compose(i = ~ !is.na(conc), j = "conc", 
           value = as_paragraph(
             as_chunk(conc, formatter = function(x) sprintf("%.0f", x))
           )
-  ) %>% add_footer_lines("dataset CO2 has been used for this flextable") %>% 
-  bg(bg = "#FFFFFF", part = "footer") %>% 
-  set_header_labels(conc = "Concentration") %>% 
+  ) |> add_footer_lines("dataset CO2 has been used for this flextable") |> 
+  bg(bg = "#FFFFFF", part = "footer") |> 
+  set_header_labels(conc = "Concentration") |> 
   width(width = c(1.5, 1, 1)) 
 ```
 

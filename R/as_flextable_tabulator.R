@@ -96,9 +96,9 @@
 #' ]
 #' # dplyr version
 #' # library(dplyr)
-#' # dat <- iris %>%
-#' #   pivot_longer(cols = -c(Species)) %>%
-#' #   group_by(Species, name) %>%
+#' # dat <- iris |>
+#' #   pivot_longer(cols = -c(Species)) |>
+#' #   group_by(Species, name) |>
 #' #   summarise(avg = mean(value, na.rm = TRUE),
 #' #   sd = sd(value, na.rm = TRUE),
 #' #   .groups = "drop")

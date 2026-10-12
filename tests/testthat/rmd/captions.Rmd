@@ -13,8 +13,8 @@ knitr::opts_chunk$set(ft.shadow = FALSE,
   tab.lp = "tab:", 
   tab.cap.style = "Table Caption")
 
-ft <- flextable(head(cars)) %>% 
-  theme_vanilla() %>% 
+ft <- flextable(head(cars)) |> 
+  theme_vanilla() |> 
   autofit()
 ```
 

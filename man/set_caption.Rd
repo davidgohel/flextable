@@ -174,7 +174,7 @@ the 'officer' package:
 \if{html}{\out{<div class="sourceCode">}}\preformatted{library(flextable)
 library(officer)
 
-ftab <- flextable(head(cars)) \%>\%
+ftab <- flextable(head(cars)) |>
   set_caption(
     as_paragraph(
       as_chunk("caption", props = fp_text_default(font.family = "Cambria"))
