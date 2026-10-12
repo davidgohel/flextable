@@ -21,7 +21,7 @@ across rows and columns.
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -213,9 +213,9 @@ can evolve or change.</p>
 <span class="r-in"><span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="co"># dplyr version</span></span></span>
 <span class="r-in"><span><span class="co"># library(dplyr)</span></span></span>
-<span class="r-in"><span><span class="co"># dat &lt;- iris %&gt;%</span></span></span>
-<span class="r-in"><span><span class="co">#   pivot_longer(cols = -c(Species)) %&gt;%</span></span></span>
-<span class="r-in"><span><span class="co">#   group_by(Species, name) %&gt;%</span></span></span>
+<span class="r-in"><span><span class="co"># dat &lt;- iris |&gt;</span></span></span>
+<span class="r-in"><span><span class="co">#   pivot_longer(cols = -c(Species)) |&gt;</span></span></span>
+<span class="r-in"><span><span class="co">#   group_by(Species, name) |&gt;</span></span></span>
 <span class="r-in"><span><span class="co">#   summarise(avg = mean(value, na.rm = TRUE),</span></span></span>
 <span class="r-in"><span><span class="co">#   sd = sd(value, na.rm = TRUE),</span></span></span>
 <span class="r-in"><span><span class="co">#   .groups = "drop")</span></span></span>
