@@ -213,9 +213,9 @@ can evolve or change.</p>
 <span class="r-in"><span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="co"># dplyr version</span></span></span>
 <span class="r-in"><span><span class="co"># library(dplyr)</span></span></span>
-<span class="r-in"><span><span class="co"># dat &lt;- iris %&gt;%</span></span></span>
-<span class="r-in"><span><span class="co">#   pivot_longer(cols = -c(Species)) %&gt;%</span></span></span>
-<span class="r-in"><span><span class="co">#   group_by(Species, name) %&gt;%</span></span></span>
+<span class="r-in"><span><span class="co"># dat &lt;- iris |&gt;</span></span></span>
+<span class="r-in"><span><span class="co">#   pivot_longer(cols = -c(Species)) |&gt;</span></span></span>
+<span class="r-in"><span><span class="co">#   group_by(Species, name) |&gt;</span></span></span>
 <span class="r-in"><span><span class="co">#   summarise(avg = mean(value, na.rm = TRUE),</span></span></span>
 <span class="r-in"><span><span class="co">#   sd = sd(value, na.rm = TRUE),</span></span></span>
 <span class="r-in"><span><span class="co">#   .groups = "drop")</span></span></span>
