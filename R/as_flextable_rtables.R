@@ -30,10 +30,10 @@
 #' @examplesIf requireNamespace("rtables", quietly = TRUE) && packageVersion("rtables") >= "0.6.17"
 #' library(rtables)
 #'
-#' lyt <- basic_table(title = "Demographic Summary") |>
-#'   split_cols_by("ARM") |>
-#'   split_rows_by("SEX") |>
-#'   analyze("AGE", afun = mean, format = "xx.x")
+#' lyt <- basic_table(title = "Demographic Summary")
+#' lyt <- split_cols_by(lyt, "ARM")
+#' lyt <- split_rows_by(lyt, "SEX")
+#' lyt <- analyze(lyt, "AGE", afun = mean, format = "xx.x")
 #'
 #' tbl <- build_table(lyt, DM)
 #' as_flextable(tbl)
