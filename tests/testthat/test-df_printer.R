@@ -9,7 +9,7 @@ test_that("use_model_printer and use_df_printer works", {
   rmarkdown::render(
     rmd_file,
     output_file = outfile,
-    output_format = "html_document",
+    output_format = rmarkdown::html_document(mathjax = NULL),
     envir = new.env(),
     quiet = TRUE
   )

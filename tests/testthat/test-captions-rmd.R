@@ -16,7 +16,7 @@ test_that("with html_document", {
   unlink(html_file, force = TRUE)
   render(
     rmd_file,
-    output_format = rmarkdown::html_document(),
+    output_format = rmarkdown::html_document(mathjax = NULL),
     output_file = html_file,
     envir = new.env(),
     quiet = TRUE
@@ -54,7 +54,7 @@ test_that("with html_document2", {
   unlink(html_file, force = TRUE)
   render(
     rmd_file,
-    output_format = bookdown::html_document2(keep_md = FALSE),
+    output_format = bookdown::html_document2(keep_md = FALSE, mathjax = NULL),
     output_file = html_file,
     envir = new.env(),
     quiet = TRUE
