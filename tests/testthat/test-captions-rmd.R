@@ -123,7 +123,7 @@ test_that("with word_document", {
 
   bookmarks <- xml_find_all(
     doc,
-    "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart"
+    "//w:tbl/preceding-sibling::w:p[1][w:pPr/w:pStyle[@w:val='TableCaption']]/w:bookmarkStart"
   )
   expect_length(bookmarks, 0)
 })
@@ -165,9 +165,15 @@ test_that("with word_document2", {
 
   bookmarks <- xml_find_all(
     doc,
-    "//w:tbl/preceding-sibling::w:p[1]/w:bookmarkStart"
+    "//w:tbl/preceding-sibling::w:p[1][w:pPr/w:pStyle[@w:val='TableCaption']]/w:bookmarkStart"
   )
   expect_length(bookmarks, 3)
+
+  bookmarks <- xml_find_all(
+    doc,
+    "//w:tbl/following-sibling::w:p[1][w:pPr/w:pStyle[@w:val='TableCaption']]/w:bookmarkStart"
+  )
+  expect_length(bookmarks, 1)
 })
 
 
