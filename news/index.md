@@ -1,5 +1,13 @@
 # Changelog
 
+## flextable 0.10.3
+
+### issues
+
+- fix tests for caption: newer pandoc versions add bookmarks to
+  paragraphs next to tables that are not table captions, which made the
+  bookmark counts fail on CRAN.
+
 ## flextable 0.10.2
 
 ### issues
