@@ -14,7 +14,7 @@ name: R-CMD-check
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }}, pandoc ${{ matrix.config.pandoc }})
 
     strategy:
       fail-fast: false
@@ -24,6 +24,7 @@ jobs:
           - {os: macOS-latest, r: 'release', pandoc : '2.19'}
           - {os: ubuntu-latest, r: 'release', pandoc : '2.19'}
           - {os: ubuntu-latest, r: 'release', pandoc : '2.9.2.1'}
+          - {os: ubuntu-latest, r: 'release', pandoc : 'latest'}
           - {os: windows-latest, r: 'devel', pandoc : '2.19'}
 
     env:
