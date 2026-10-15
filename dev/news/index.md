@@ -2,6 +2,8 @@
 
 ## flextable 0.10.3
 
+CRAN release: 2026-10-14
+
 ### issues
 
 - fix tests for caption: newer pandoc versions add bookmarks to
