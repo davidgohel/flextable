@@ -32,7 +32,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # macOS runner images no longer ship XQuartz, but the RSPM binary of
       # gdtools is linked against /opt/X11/lib/libXrender.1.dylib.
