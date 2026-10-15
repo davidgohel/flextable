@@ -13,3 +13,4 @@
 ^\.quarto$
 ^\.positai$
 ^\.claude$
+^man-roxygen$

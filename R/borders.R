@@ -29,7 +29,7 @@
 #' [surround()].
 #' @note
 #' pdf and pptx outputs do not support `border()` usage.
-#' @inheritParams args_selectors_with_all
+#' @template params_x_i_j_part_all
 #' @param border border (shortcut for top, bottom, left and right)
 #' @param border.top border top
 #' @param border.bottom border bottom
@@ -153,7 +153,7 @@ border <- function(
 
 #' @title Remove borders
 #' @description The function is deleting all borders of the flextable object.
-#' @inheritParams args_x_only
+#' @template params_x
 #' @examples
 #' dat <- iris[c(1:5, 51:55, 101:105), ]
 #' ft_1 <- flextable(dat)
@@ -179,7 +179,7 @@ border_remove <- function(x) {
 #' @title Set outer borders
 #' @description The function is applying a border to outer cells of one
 #' or all parts of a flextable.
-#' @inheritParams args_x_part
+#' @template params_x_part_all
 #' @param border border properties defined by a call to [officer::fp_border()]
 #' @export
 #' @examples
@@ -403,7 +403,7 @@ border_inner <- function(x, border = NULL, part = "all") {
 #' For the **outer** edges of the table, use [hline_top()] and
 #' [hline_bottom()] instead; those always target the very first
 #' or very last row of a part.
-#' @inheritParams args_selectors_with_all
+#' @template params_x_i_j_part_all
 #' @param border border properties defined by a call to
 #' [officer::fp_border()]
 #' @examples
@@ -475,7 +475,7 @@ hline <- function(x, i = NULL, j = NULL, border = NULL, part = "body") {
 #'
 #' Unlike [hline()], which adds inner lines below arbitrary rows,
 #' `hline_top()` is meant for the outer top edge of a part.
-#' @inheritParams args_x_j_part
+#' @template params_x_j_part_all
 #' @param border border properties defined by a call to
 #' [officer::fp_border()]
 #' @examples
@@ -617,7 +617,7 @@ hline_bottom <- function(x, j = NULL, border = NULL, part = "body") {
 #' For the **outer** edges of the table, use [vline_left()] and
 #' [vline_right()] instead; those always target the very first
 #' or very last column.
-#' @inheritParams args_selectors_with_all
+#' @template params_x_i_j_part_all
 #' @param border border properties defined by a call to
 #' [officer::fp_border()]
 #' @examples
@@ -681,7 +681,7 @@ vline <- function(x, i = NULL, j = NULL, border = NULL, part = "all") {
 #' Unlike [vline()], which adds inner lines to the right of
 #' arbitrary columns, `vline_left()` is meant for the outer
 #' left edge of the table.
-#' @inheritParams args_x_i_part
+#' @template params_x_i_part_all
 #' @param border border properties defined by a call to
 #' [officer::fp_border()]
 #' @examples

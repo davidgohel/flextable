@@ -4,7 +4,7 @@
 #' All borders are removed. Header text is bold,
 #' text columns are left aligned, other columns are
 #' right aligned.
-#' @inheritParams args_x_only
+#' @template params_x
 #' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
@@ -56,7 +56,7 @@ theme_borderless <- function(x) {
 #' to be applied systematically before the `flextable()` is printed;
 #' in this case, don't forget to take care that the theme doesn't
 #' override any formatting done before the print statement.
-#' @inheritParams args_x_only
+#' @template params_x
 #' @family themes_and_defaults
 #' @examples
 #' ft <- flextable(head(airquality))
@@ -95,7 +95,7 @@ theme_vanilla <- function(x) {
 #' @export
 #' @title Apply box theme
 #' @description Apply theme box to a flextable
-#' @inheritParams args_x_only
+#' @template params_x
 #' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
@@ -132,7 +132,7 @@ theme_box <- function(x) {
 #' @export
 #' @title Apply alafoli theme
 #' @description Apply alafoli theme
-#' @inheritParams args_x_only
+#' @template params_x
 #' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
@@ -169,7 +169,7 @@ theme_alafoli <- function(x) {
 #' @export
 #' @title Apply Sith Lord Darth Vader theme
 #' @description Apply Sith Lord Darth Vader theme to a flextable
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param ... unused
 #' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
@@ -220,7 +220,7 @@ theme_vader <- function(x, ...) {
 #' @export
 #' @title Apply zebra theme
 #' @description Apply theme zebra to a flextable
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param odd_header,odd_body,even_header,even_body odd/even colors for table header and body
 #' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
@@ -281,7 +281,7 @@ theme_zebra <- function(
 #' @export
 #' @title Apply tron legacy theme
 #' @description Apply theme tron legacy to a flextable
-#' @inheritParams args_x_only
+#' @template params_x
 #' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
@@ -330,7 +330,7 @@ theme_tron_legacy <- function(x) {
 #' @export
 #' @title Apply tron theme
 #' @description Apply theme tron to a flextable
-#' @inheritParams args_x_only
+#' @template params_x
 #' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior
 #' @examples
@@ -379,7 +379,7 @@ theme_tron <- function(x) {
 #' @export
 #' @title Apply booktabs theme
 #' @description Apply theme booktabs to a flextable
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param bold_header header will be bold if TRUE.
 #' @param ... unused
 #' @family themes_and_defaults
@@ -438,7 +438,7 @@ theme_booktabs <- function(x, bold_header = FALSE, ...) {
 #' @title Apply APA theme
 #' @description Apply theme APA (the stylistic style of the American
 #'              Psychological Association) to a flextable
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param ... unused
 #' @family themes_and_defaults
 #' @inheritSection theme_vanilla behavior

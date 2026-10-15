@@ -11,7 +11,7 @@
 #' table width is used (as a percentage).
 #' @note
 #' PowerPoint output ignore 'autofit layout'.
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param layout 'autofit' or 'fixed' algorithm. Default to 'fixed'.
 #' @param width The parameter has a different effect depending on the
 #' output format. Users should consider it as a minimum width.

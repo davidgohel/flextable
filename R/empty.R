@@ -14,7 +14,7 @@
 #' The underlying dataset is not modified; only the displayed
 #' content is affected. To remove a column entirely, use
 #' the `col_keys` argument of [flextable()] instead.
-#' @inheritParams args_x_j_part
+#' @template params_x_j_part_all
 #' @examples
 #' ftab <- flextable(head(mtcars))
 #' ftab <- void(ftab, ~ vs + am + gear + carb)

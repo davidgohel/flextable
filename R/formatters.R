@@ -3,7 +3,7 @@
 #'
 #' Functions should have a single argument (the vector) and should
 #' return the formatted values as a character vector.
-#' @inheritParams args_x_part_no_all
+#' @template params_x_part_noall
 #' @param ... Name-value pairs of functions, names should be existing col_key values
 #' @param values format functions, If values is supplied argument `...` is ignored.
 #' - It can be a list of name-value pairs of functions, names
@@ -52,7 +52,7 @@ set_formatter <- function(x, ..., values = NULL, part = "body") {
 #' @export
 #' @title Format character cells
 #' @description Format character cells in a flextable.
-#' @inheritParams args_x_i_j
+#' @template params_x_i_j
 #' @param na_str,nan_str string to be used for NA and NaN values
 #' @param prefix,suffix string to be used as prefix or suffix
 #' @family cells formatters

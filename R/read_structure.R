@@ -407,7 +407,7 @@ information_data_default_chunk <- function(x) {
 #' information about each text chunk within the flextable. The data.frame includes
 #' details such as the text content, formatting properties, position within the
 #' paragraph, paragraph row, and column.
-#' @inheritParams args_x_only
+#' @template params_x
 #' @section don't use this:
 #'
 #' These data structures should not be used, as they
@@ -547,7 +547,7 @@ has_hlink <- function(x) {
 #' information about each paragraph within the flextable. The data.frame includes
 #' details about formatting properties and position within the
 #' row and column.
-#' @inheritParams args_x_only
+#' @template params_x
 #' @section don't use this:
 #'
 #' These data structures should not be used, as they
@@ -598,7 +598,7 @@ information_data_paragraph <- function(x) {
 #' information about each cell within the flextable. The data.frame includes
 #' details about formatting properties and position within the
 #' row and column.
-#' @inheritParams args_x_only
+#' @template params_x
 #' @section don't use this:
 #'
 #' These data structures should not be used, as they

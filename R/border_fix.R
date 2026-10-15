@@ -8,7 +8,7 @@
 #'
 #' Note since version `0.9.7` that the function is called automatically
 #' before rendering, user should not have to call this function anymore.
-#' @inheritParams args_x_part
+#' @template params_x_part_all
 #' @examples
 #' library(officer)
 #' dat <- data.frame(a = 1:5, b = 6:10)

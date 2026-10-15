@@ -15,7 +15,7 @@
 #' See https://www.ardata.fr/en/flextable-gallery/2022-06-23-separate-headers/ for the example
 #' shown
 #' }}
-#' @inheritParams args_selectors_without_all
+#' @template params_x_i_j_part_noall
 #' @param value a call to function [as_paragraph()].
 #' @param ref_symbols character value, symbols to append that will be used
 #' as references to notes.

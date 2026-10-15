@@ -4,7 +4,7 @@
 #' Unlike [set_header_df()] which replaces the entire header structure,
 #' this function only modifies column labels in the last header row.
 #'
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param ... named arguments (names are data colnames), each element is a single character
 #' value specifying label to use.
 #' @param values a named list (names are data colnames), each element is a single character
@@ -109,7 +109,7 @@ set_header_labels <- function(x, ..., values = NULL) {
 #' @description indicate to not print a part of
 #' the flextable, i.e. an header, footer or the body.
 #'
-#' @inheritParams args_x_part_no_all
+#' @template params_x_part_noall
 #' @family table_structure
 #' @examples
 #' ft <- flextable(head(iris))
@@ -177,7 +177,7 @@ delete_rows_from_part <- function(x, i) {
 #' of any span parameters that may have been set previously.
 #' They will have to be redone after this operation or
 #' performed only after this deletion.
-#' @inheritParams args_x_i_part
+#' @template params_x_i_part_all
 #' @examples
 #' ft <- flextable(head(iris))
 #' ft <- delete_rows(ft, i = 1:5, part = "body")
@@ -258,7 +258,7 @@ delete_colums_from_part <- function(x, j) {
 #' of any span parameters that may have been set previously.
 #' They will have to be redone after this operation or
 #' performed only after this deletion.
-#' @inheritParams args_x_j
+#' @template params_x_j
 #' @family table_structure
 #' @examples
 #' ft <- flextable(head(iris))
@@ -375,7 +375,7 @@ add_rows_to_tabpart <- function(x, rows, first = FALSE) {
 #'
 #' If some columns are not provided, they will be replaced by
 #' `NA` and displayed as empty.
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param top should the rows be inserted at the top or the bottom.
 #' @param ... named arguments (names are data colnames) of values
 #' to add. It is important to insert data of the same type as the
@@ -547,7 +547,7 @@ add_footer <- function(x, top = TRUE, ..., values = NULL) {
 #'
 #' Labels can also be formatted with [as_paragraph()].
 #'
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param top should the row be inserted at the top or the bottom.
 #' @param values values to add. It can be a `list`, a `character()` vector
 #' or a call to [as_paragraph()].
@@ -683,7 +683,7 @@ add_body_row <- function(
 #'
 #' Labels can also be formatted with [as_paragraph()].
 #'
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param top should the row be inserted at the
 #' top or the bottom. Default to TRUE.
 #' @param values values to add, a character vector (as header rows
@@ -946,7 +946,7 @@ data_from_char <- function(values, colwidths, col_keys) {
 #' spans all columns (all cells merged into one). Useful for adding
 #' titles or subtitles above the column headers.
 #'
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param values a character vector or a call to [as_paragraph()]
 #' to get formated content, each element will
 #' be added as a new row.
@@ -1143,7 +1143,7 @@ set_part_df <- function(x, mapping = NULL, key = "col_keys", part) {
 #' is used as the top header/footer row and the rightmost column
 #' is used as the bottom header/footer row.
 #'
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param mapping a `data.frame` specyfing for each colname
 #' content of the column.
 #' @param key column to use as key when joigning data_mapping.
@@ -1215,7 +1215,7 @@ set_footer_df <- function(x, mapping = NULL, key = "col_keys") {
 #' \if{html}{\out{
 #' <img src="https://www.ardata.fr/img/flextable-imgs/flextable-016.png" alt="add_header illustration" style="width:100\%;">
 #' }}
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param opts Optional treatments to apply to the resulting header part.
 #' This should be a character vector with support for multiple values.
 #'

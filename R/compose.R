@@ -16,7 +16,7 @@
 #' content as it is, functions [append_chunks()] and
 #' [prepend_chunks()] should be prefered.
 #'
-#' @inheritParams args_selectors_with_all
+#' @template params_x_i_j_part_all
 #' @param value a call to function [as_paragraph()].
 #' @param use_dot by default `use_dot=FALSE`; if `use_dot=TRUE`,
 #' `value` is evaluated within a data.frame augmented of a column named `.`
@@ -148,7 +148,7 @@ mk_par <- compose
 #'
 #' Only the displayed content is affected; the underlying data
 #' of the flextable is unchanged.
-#' @inheritParams args_selectors_with_all
+#' @template params_x_j_part_all
 #' @param labels a named vector whose names will be used to identify
 #' values to replace and values will be used as labels.
 #' @seealso [mk_par()], [append_chunks()], [prepend_chunks()]

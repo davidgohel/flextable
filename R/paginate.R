@@ -3,7 +3,7 @@
 #' @description
 #' Prevents breaks between tables rows you want to stay together.
 #' This feature only applies to Word and RTF output.
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param init init value for keep_with_next property, it default
 #' value is `get_flextable_defaults()$keep_with_next`.
 #' @param hdr_ftr if TRUE (default), prevent breaks between table body

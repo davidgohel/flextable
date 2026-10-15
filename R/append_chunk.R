@@ -2,7 +2,7 @@
 #' @title Append chunks to flextable content
 #' @description append chunks (for example chunk [as_chunk()])
 #' in a flextable.
-#' @inheritParams args_selectors_without_all
+#' @template params_x_i_j_part_noall
 #' @param ... chunks to be appened, see [as_chunk()], [gg_chunk()] and other
 #' chunk elements for paragraph.
 #' @seealso [as_chunk()], [as_sup()], [as_sub()], [colorize()]
@@ -61,7 +61,7 @@ append_chunks <- function(x, ..., i = NULL, j = NULL, part = "body") {
 #' @title Prepend chunks to flextable content
 #' @description prepend chunks (for example chunk [as_chunk()])
 #' in a flextable.
-#' @inheritParams args_selectors_without_all
+#' @template params_x_i_j_part_noall
 #' @param ... chunks to be prepended, see [as_chunk()], [gg_chunk()] and other
 #' chunk elements for paragraph.
 #' @family cell_content_composition

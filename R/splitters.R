@@ -4,7 +4,7 @@
 #' fit within a given width (in inches). This is useful for paginating
 #' wide tables in Word or PowerPoint output.
 #'
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param max_width Maximum width for each page (in inches by default).
 #' @param rep_cols Columns to repeat on every page. Can be a character
 #'   vector of column names or an integer vector of column positions.
@@ -107,7 +107,7 @@ split_columns <- function(x, max_width, rep_cols = NULL, unit = "in") {
 #' limitation will be resolved in a future version when footnotes
 #' are restructured to track their association with body rows.
 #'
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param max_height Maximum height for each page, including
 #' header and footer (in inches by default).
 #' @param group Integer vector of body row indices that start a new group.
@@ -203,7 +203,7 @@ split_rows <- function(x, max_height, group = integer(0), unit = "in") {
 #'
 #' This is a convenience wrapper around [split_rows()] and
 #' [split_columns()].
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param max_width Maximum width per page (in inches by default).
 #'   `NULL` means no column splitting.
 #' @param max_height Maximum height per page, including header and

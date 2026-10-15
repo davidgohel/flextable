@@ -6,7 +6,7 @@
 #' To constrain width by wrapping text instead, see [fit_columns()].
 #' To size columns to their content without a width constraint,
 #' see [autofit()].
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param max_width maximum width to fit in inches
 #' @param inc the font size decrease for each step
 #' @param max_iter maximum iterations
@@ -81,7 +81,7 @@ fit_to_width <- function(x, max_width, inc = 1L, max_iter = 20, unit = "in") {
 #' To constrain width by reducing font size instead, see
 #' [fit_to_width()]. To size columns to their content without a
 #' width constraint, see [autofit()].
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param max_width maximum total table width (in inches by default)
 #' @param no_wrap column names or indices that must keep their
 #'   optimal width (no compression, no text wrapping).
@@ -385,7 +385,8 @@ fit_columns_metrics <- function(x) {
   if (length(constraints) > 0 && nrow(constraints) > 0) {
     # a spanning cell also needs room for its own padding and cell margins
     constraints$width <- constraints$width +
-      pad_w[constraints$col] + cell_w[constraints$col]
+      pad_w[constraints$col] +
+      cell_w[constraints$col]
     floor_w <- .distribute_span_floors(floor_w, constraints)
   }
 
@@ -629,7 +630,7 @@ min_col_widths <- function(x) {
 #' with `set_table_properties(layout = "autofit")`.
 #'
 #'
-#' @inheritParams args_x_j
+#' @template params_x_j
 #' @param width width in inches
 #' @param unit unit for width, one of "in", "cm", "mm".
 #' @details
@@ -665,7 +666,7 @@ width <- function(x, j = NULL, width, unit = "in") {
 #' This function has no effect when the rule for line height is set to
 #' "auto" (see [hrule()]), which is the default case, except with PowerPoint
 #' which does not support this automatic line height adjustment feature.
-#' @inheritParams args_x_i_part_no_all
+#' @template params_x_i_part_noall
 #' @param height height in inches
 #' @param unit unit for height, one of "in", "cm", "mm".
 #' @examples
@@ -712,7 +713,7 @@ height <- function(x, i = NULL, height, part = "body", unit = "in") {
 #'   [height()]; content that overflows is clipped.
 #'
 #' For PDF see the `ft.arraystretch` chunk option.
-#' @inheritParams args_x_i_part
+#' @template params_x_i_part_all
 #' @param rule specify the meaning of the height. Possible values
 #' are "atleast" (height should be at least the value specified), "exact"
 #' (height should be exactly the value specified), or the default value "auto"
@@ -806,7 +807,7 @@ height_all <- function(x, height, part = "all", unit = "in") {
 #' The aspect ratio is the ratio corresponding to `height/width`.
 #'
 #' Names of the list are `widths`, `heights` and `aspect_ratio`.
-#' @inheritParams args_x_only
+#' @template params_x
 #' @param unit unit for returned values, one of "in", "cm", "mm".
 #' @examples
 #' ftab <- flextable(head(iris))
@@ -824,7 +825,7 @@ flextable_dim <- function(x, unit = "in") {
 #' @title Get column widths and row heights of a flextable
 #' @description returns widths and heights for each table columns and rows.
 #' Values are expressed in inches.
-#' @inheritParams args_x_only
+#' @template params_x
 #' @family functions for flextable size management
 #' @examples
 #' ftab <- flextable(head(iris))
@@ -856,7 +857,7 @@ dim.flextable <- function(x) {
 #' @title Calculate optimal column widths and row heights
 #' @description return minimum estimated widths and heights for
 #' each table columns and rows in inches.
-#' @inheritParams args_x_part
+#' @template params_x_part_all
 #' @param unit unit for returned values, one of "in", "cm", "mm".
 #' @param hspans specifies how cells that are horizontally are included in the calculation.
 #' It must be one of the following values "none", "divided" or "included". If
@@ -921,7 +922,7 @@ dim_pretty <- function(x, part = "all", unit = "in", hspans = "none") {
 #' well with HTML and Word output that can be set
 #' with `set_table_properties(layout = "autofit")`, see
 #' [set_table_properties()].
-#' @inheritParams args_x_part
+#' @template params_x_part_all
 #' @param add_w extra width to add in inches
 #' @param add_h extra height to add in inches
 #' @param unit unit for add_h and add_w, one of "in", "cm", "mm".
