@@ -43,6 +43,7 @@ set_flextable_defaults(
   keep_with_next = NULL,
   tabcolsep = NULL,
   arraystretch = NULL,
+  padding_vertical = NULL,
   float = NULL,
   fonts_ignore = NULL,
   theme_fun = NULL,
@@ -186,6 +187,15 @@ init_flextable_defaults()
 
   height of each row relative to its default height, the default value
   is 1.5.
+
+- padding_vertical:
+
+  if TRUE, PDF output applies `padding.top` and `padding.bottom` (see
+  [`padding()`](https://davidgohel.github.io/flextable/dev/reference/padding.md))
+  with the "fixed" layout. The default value is FALSE for backward
+  compatibility: rows height then only depends on `arraystretch`, as in
+  previous versions. When activated, `arraystretch = 1` is recommended,
+  the paddings providing the vertical spacing.
 
 - float:
 

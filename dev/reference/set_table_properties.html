@@ -129,6 +129,10 @@ activated and associated to header rows when TRUE.</p></li>
 cell.</p></li>
 <li><p>'arraystretch': height of each row relative to its default
 height, the default value is 1.5.</p></li>
+<li><p>'padding_vertical': if TRUE, <code>padding.top</code> and <code>padding.bottom</code> are
+applied with the "fixed" layout. The default value is FALSE for backward
+compatibility (rows height only depends on 'arraystretch'). When
+activated, <code>arraystretch = 1</code> is recommended.</p></li>
 <li><p>'float': type of floating placement in the PDF document, one of:</p><ul><li><p>'none' (the default value), table is placed after the preceding
 paragraph.</p></li>
 <li><p>'float', table can float to a place in the text where it fits best</p></li>

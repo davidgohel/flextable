@@ -32,6 +32,13 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.10.4" id="flextable-0104">flextable 0.10.4<a class="anchor" aria-label="anchor" href="#flextable-0104"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-10-4">new features<a class="anchor" aria-label="anchor" href="#new-features-0-10-4"></a></h3>
+<ul><li>new PDF option <code>padding_vertical</code> (in <code><a href="../reference/set_flextable_defaults.html">set_flextable_defaults()</a></code> and in <code>opts_pdf</code> of <code><a href="../reference/set_table_properties.html">set_table_properties()</a></code>). When TRUE, PDF output applies <code>padding.top</code> and <code>padding.bottom</code> with the “fixed” layout, as the other outputs do. They are ignored otherwise, so content taller than a text line, such as a <code><a href="../reference/minibar.html">minibar()</a></code>, touches the borders above it (<a href="https://github.com/davidgohel/flextable/issues/734" class="external-link">#734</a>). The option is FALSE by default so that existing PDF tables keep their height; when activating it, <code>arraystretch = 1</code> is recommended: <code>set_flextable_defaults(padding_vertical = TRUE, arraystretch = 1)</code>.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.10.3" id="flextable-0103">flextable 0.10.3<a class="anchor" aria-label="anchor" href="#flextable-0103"></a></h2><p class="text-muted">CRAN release: 2026-10-14</p>
 <div class="section level3">
 <h3 id="issues-0-10-3">issues<a class="anchor" aria-label="anchor" href="#issues-0-10-3"></a></h3>

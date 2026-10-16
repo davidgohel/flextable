@@ -80,6 +80,7 @@ to re-init all values with the package defaults.</p>
 <span>  keep_with_next <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tabcolsep <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  arraystretch <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  padding_vertical <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  float <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fonts_ignore <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  theme_fun <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -219,6 +220,15 @@ cell.</p></dd>
 <dt id="arg-arraystretch">arraystretch<a class="anchor" aria-label="anchor" href="#arg-arraystretch"></a></dt>
 <dd><p>height of each row relative to its default
 height, the default value is 1.5.</p></dd>
+
+
+<dt id="arg-padding-vertical">padding_vertical<a class="anchor" aria-label="anchor" href="#arg-padding-vertical"></a></dt>
+<dd><p>if TRUE, PDF output applies <code>padding.top</code> and
+<code>padding.bottom</code> (see <code><a href="padding.html">padding()</a></code>) with the "fixed" layout. The default
+value is FALSE for backward compatibility: rows height then only depends
+on <code>arraystretch</code>, as in previous versions. When
+activated, <code>arraystretch = 1</code> is recommended, the paddings providing the
+vertical spacing.</p></dd>
 
 
 <dt id="arg-float">float<a class="anchor" aria-label="anchor" href="#arg-float"></a></dt>
