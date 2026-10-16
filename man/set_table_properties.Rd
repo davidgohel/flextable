@@ -71,6 +71,10 @@ activated and associated to header rows when TRUE.
 cell.
 \item 'arraystretch': height of each row relative to its default
 height, the default value is 1.5.
+\item 'padding_vertical': if TRUE, \code{padding.top} and \code{padding.bottom} are
+applied with the "fixed" layout. The default value is FALSE for backward
+compatibility (rows height only depends on 'arraystretch'). When
+activated, \code{arraystretch = 1} is recommended.
 \item 'float': type of floating placement in the PDF document, one of:
 \itemize{
 \item 'none' (the default value), table is placed after the preceding

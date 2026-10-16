@@ -582,8 +582,16 @@ font <- function(
 #' @title Set paragraph paddings
 #' @description Change the padding of selected rows and columns of a flextable.
 #' @note
-#' In PDF output, only `padding.left` and `padding.right` are supported.
-#' `padding.top` and `padding.bottom` are ignored due to LaTeX limitations.
+#' In PDF output, `padding.top` and `padding.bottom` are ignored by
+#' default: for a long time they were not supported, and row heights
+#' were only driven by `arraystretch`. To keep existing PDF tables
+#' unchanged, applying them is opt-in with the `padding_vertical`
+#' option (see [set_flextable_defaults()] or `opts_pdf` in
+#' [set_table_properties()]), preferably with `arraystretch = 1`:
+#' `set_flextable_defaults(padding_vertical = TRUE, arraystretch = 1)`.
+#' They are then supported with the "fixed" layout (the default) but
+#' not with the "autofit" layout.
+#'
 #' Global horizontal spacing can also be set with
 #' `set_table_properties(opts_pdf = list(tabcolsep = 1))`.
 #' @template params_x_i_j_part_all

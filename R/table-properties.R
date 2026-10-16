@@ -51,6 +51,10 @@
 #' cell.
 #' - 'arraystretch': height of each row relative to its default
 #' height, the default value is 1.5.
+#' - 'padding_vertical': if TRUE, `padding.top` and `padding.bottom` are
+#' applied with the "fixed" layout. The default value is FALSE for backward
+#' compatibility (rows height only depends on 'arraystretch'). When
+#' activated, `arraystretch = 1` is recommended.
 #' - 'float': type of floating placement in the PDF document, one of:
 #'     * 'none' (the default value), table is placed after the preceding
 #' paragraph.
@@ -213,6 +217,7 @@ opts_ft_word <- function(
 opts_ft_pdf <- function(
   tabcolsep = get_flextable_defaults()$tabcolsep,
   arraystretch = get_flextable_defaults()$arraystretch,
+  padding_vertical = get_flextable_defaults()$padding_vertical,
   float = get_flextable_defaults()$float,
   fonts_ignore = get_flextable_defaults()$fonts_ignore,
   caption_repeat = TRUE,
@@ -267,6 +272,20 @@ opts_ft_pdf <- function(
       call. = FALSE
     )
   }
+  if (
+    !is.logical(padding_vertical) ||
+      length(padding_vertical) != 1 ||
+      is.na(padding_vertical)
+  ) {
+    stop(
+      sprintf(
+        "'%s' is expected to be a single %s.",
+        "padding_vertical",
+        "logical"
+      ),
+      call. = FALSE
+    )
+  }
   if (!is.logical(caption_repeat) || length(caption_repeat) != 1) {
     stop(
       sprintf(
@@ -281,6 +300,7 @@ opts_ft_pdf <- function(
   z <- list(
     tabcolsep = tabcolsep,
     arraystretch = arraystretch,
+    padding_vertical = padding_vertical,
     float = float,
     default_line_color = default_line_color,
     caption_repeat = caption_repeat,

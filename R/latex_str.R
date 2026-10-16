@@ -219,17 +219,36 @@ gen_raw_latex <- function(
   ]
   cell_properties_df[, c("hanging_pt", "first_line_pt") := NULL]
 
+  # paragraph vertical padding (opt-in, fixed layout only) ----
+  if (
+    "fixed" %in% x$properties$layout &&
+      isTRUE(x$properties$opts_pdf$padding_vertical)
+  ) {
+    cell_properties_df[,
+      c("padding_top_str", "padding_bottom_str") := list(
+        latex_padding_top(.SD$padding.top, .SD$vertical.align),
+        latex_padding_bottom(.SD$padding.bottom)
+      )
+    ]
+  } else {
+    cell_properties_df[,
+      c("padding_top_str", "padding_bottom_str") := list("", "")
+    ]
+  }
+
   # paste everything ----
   cell_properties_df[,
     c("txt") := list(
       paste0(
         .SD$multirow_left,
+        .SD$padding_top_str,
         .SD$padding_left_str,
         .SD$padding_right_str,
         .SD$indent_str,
         .SD$text_direction_left,
         .SD$txt,
         .SD$text_direction_right,
+        .SD$padding_bottom_str,
         .SD$multirow_right
       )
     )
@@ -355,6 +374,41 @@ gen_raw_latex <- function(
 augment_multirow_fixed <- function(properties_df) {
   properties_df[, c("multirow_left", "multirow_right") := list("", "")]
   properties_df
+}
+
+# Vertical paddings for p{}, m{} and b{} cells (#734).
+#
+# Top: a leading \vspace* adds space above the content. A p{} box
+# (vertical.align = "top") loses its baseline when it starts with glue,
+# which drops the content by the height of the array strut; that height
+# is subtracted so that the padding is the only added space.
+#
+# Bottom: trailing glue would be removed by the \unskip that array
+# applies when closing the cell, so the last line is deepened with an
+# invisible rule instead (strut depth + padding).
+latex_padding_top <- function(padding, vertical_align) {
+  out <- character(length(padding))
+  keep <- !is.na(padding) & padding > 0
+  strut <- ifelse(
+    vertical_align %in% "top",
+    "-\\ht\\csname @arstrutbox\\endcsname",
+    ""
+  )
+  out[keep] <- sprintf(
+    "\\vspace*{\\dimexpr %.1fpt%s\\relax}",
+    padding[keep],
+    strut[keep]
+  )
+  out
+}
+latex_padding_bottom <- function(padding) {
+  out <- character(length(padding))
+  keep <- !is.na(padding) & padding > 0
+  out[keep] <- sprintf(
+    "\\vrule width0pt depth\\dimexpr\\dp\\csname @arstrutbox\\endcsname+%.1fpt\\relax",
+    padding[keep]
+  )
+  out
 }
 
 latex_colwidth <- function(x) {

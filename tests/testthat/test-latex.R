@@ -363,3 +363,68 @@ test_that("padding.left and padding.right produce advance leftskip/rightskip in 
     1L
   )
 })
+
+test_that("padding.top and padding.bottom produce vertical spacing in latex", {
+  ft <- flextable(data.frame(a = c("hello", "world"), b = 1:2))
+  ft <- padding(ft, padding.top = 0, padding.bottom = 0, part = "all")
+  ft <- padding(ft, i = 1, j = 1, padding.top = 8)
+  ft <- padding(ft, i = 2, j = 1, padding.bottom = 6)
+  ft <- valign(ft, i = 2, j = 2, valign = "top")
+  ft <- padding(ft, i = 2, j = 2, padding.top = 4)
+
+  # opt-in: nothing by default
+  latex_str <- flextable:::gen_raw_latex(ft)
+  expect_no_match(latex_str, "vspace*", fixed = TRUE)
+  expect_no_match(latex_str, "vrule width0pt", fixed = TRUE)
+
+  ft <- set_table_properties(ft, opts_pdf = list(padding_vertical = TRUE))
+  latex_str <- flextable:::gen_raw_latex(ft)
+
+  # top padding, centered cell
+  expect_match(latex_str, "\\vspace*{\\dimexpr 8.0pt\\relax}", fixed = TRUE)
+  # top padding, top-aligned cell: the array strut height is removed
+  expect_match(
+    latex_str,
+    "\\vspace*{\\dimexpr 4.0pt-\\ht\\csname @arstrutbox\\endcsname\\relax}",
+    fixed = TRUE
+  )
+  # bottom padding deepens the last line
+  expect_match(
+    latex_str,
+    "\\vrule width0pt depth\\dimexpr\\dp\\csname @arstrutbox\\endcsname+6.0pt\\relax}",
+    fixed = TRUE
+  )
+  # nothing for null paddings
+  expect_equal(
+    length(gregexpr("vspace\\*", latex_str, perl = TRUE)[[1]]),
+    2L
+  )
+  expect_equal(
+    length(gregexpr("vrule width0pt", latex_str, perl = TRUE)[[1]]),
+    1L
+  )
+
+  # autofit layout: no vertical padding
+  ft <- set_table_properties(
+    ft,
+    layout = "autofit",
+    opts_pdf = list(padding_vertical = TRUE)
+  )
+  latex_str <- flextable:::gen_raw_latex(ft)
+  expect_no_match(latex_str, "vspace*", fixed = TRUE)
+  expect_no_match(latex_str, "vrule width0pt", fixed = TRUE)
+})
+
+test_that("padding_vertical option is validated and has a default", {
+  ft <- flextable(head(iris))
+  expect_false(ft$properties$opts_pdf$padding_vertical)
+  expect_error(
+    set_table_properties(ft, opts_pdf = list(padding_vertical = "yes")),
+    "padding_vertical"
+  )
+  init_flextable_defaults()
+  set_flextable_defaults(padding_vertical = TRUE)
+  on.exit(init_flextable_defaults())
+  ft <- flextable(head(iris))
+  expect_true(ft$properties$opts_pdf$padding_vertical)
+})

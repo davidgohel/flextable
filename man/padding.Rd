@@ -44,8 +44,16 @@ Value 'all' can be used.}
 Change the padding of selected rows and columns of a flextable.
 }
 \note{
-In PDF output, only \code{padding.left} and \code{padding.right} are supported.
-\code{padding.top} and \code{padding.bottom} are ignored due to LaTeX limitations.
+In PDF output, \code{padding.top} and \code{padding.bottom} are ignored by
+default: for a long time they were not supported, and row heights
+were only driven by \code{arraystretch}. To keep existing PDF tables
+unchanged, applying them is opt-in with the \code{padding_vertical}
+option (see \code{\link[=set_flextable_defaults]{set_flextable_defaults()}} or \code{opts_pdf} in
+\code{\link[=set_table_properties]{set_table_properties()}}), preferably with \code{arraystretch = 1}:
+\code{set_flextable_defaults(padding_vertical = TRUE, arraystretch = 1)}.
+They are then supported with the "fixed" layout (the default) but
+not with the "autofit" layout.
+
 Global horizontal spacing can also be set with
 \code{set_table_properties(opts_pdf = list(tabcolsep = 1))}.
 }

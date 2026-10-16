@@ -39,6 +39,7 @@ default_flextable_settings <- list(
   keep_with_next = FALSE,
   tabcolsep = 2,
   arraystretch = 1.5,
+  padding_vertical = FALSE,
   float = "none",
   fonts_ignore = FALSE,
   theme_fun = "theme_booktabs",
@@ -110,6 +111,12 @@ flextable_global$defaults <- default_flextable_settings
 #' cell.
 #' @param arraystretch height of each row relative to its default
 #' height, the default value is 1.5.
+#' @param padding_vertical if TRUE, PDF output applies `padding.top` and
+#' `padding.bottom` (see [padding()]) with the "fixed" layout. The default
+#' value is FALSE for backward compatibility: rows height then only depends
+#' on `arraystretch`, as in previous versions. When
+#' activated, `arraystretch = 1` is recommended, the paddings providing the
+#' vertical spacing.
 #' @param float type of floating placement in the PDF document, one of:
 #' * 'none' (the default value), table is placed after the preceding
 #' paragraph.
@@ -176,6 +183,7 @@ set_flextable_defaults <- function(
   keep_with_next = NULL,
   tabcolsep = NULL,
   arraystretch = NULL,
+  padding_vertical = NULL,
   float = NULL,
   fonts_ignore = NULL,
   theme_fun = NULL,
@@ -303,6 +311,9 @@ set_flextable_defaults <- function(
   }
   if (!is.null(arraystretch)) {
     x$arraystretch <- arraystretch
+  }
+  if (!is.null(padding_vertical)) {
+    x$padding_vertical <- padding_vertical
   }
   if (!is.null(float)) {
     x$float <- float

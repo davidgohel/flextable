@@ -38,6 +38,7 @@ set_flextable_defaults(
   keep_with_next = NULL,
   tabcolsep = NULL,
   arraystretch = NULL,
+  padding_vertical = NULL,
   float = NULL,
   fonts_ignore = NULL,
   theme_fun = NULL,
@@ -124,6 +125,13 @@ cell.}
 
 \item{arraystretch}{height of each row relative to its default
 height, the default value is 1.5.}
+
+\item{padding_vertical}{if TRUE, PDF output applies \code{padding.top} and
+\code{padding.bottom} (see \code{\link[=padding]{padding()}}) with the "fixed" layout. The default
+value is FALSE for backward compatibility: rows height then only depends
+on \code{arraystretch}, as in previous versions. When
+activated, \code{arraystretch = 1} is recommended, the paddings providing the
+vertical spacing.}
 
 \item{float}{type of floating placement in the PDF document, one of:
 \itemize{

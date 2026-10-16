@@ -1,3 +1,16 @@
+# flextable 0.10.4
+
+## new features
+
+- new PDF option `padding_vertical` (in `set_flextable_defaults()` and in
+`opts_pdf` of `set_table_properties()`). When TRUE, PDF output applies
+`padding.top` and `padding.bottom` with the "fixed" layout, as the other
+outputs do. They are ignored otherwise, so content taller than a text line,
+such as a `minibar()`, touches the borders above it (#734). The option is
+FALSE by default so that existing PDF tables keep their height; when
+activating it, `arraystretch = 1` is recommended:
+`set_flextable_defaults(padding_vertical = TRUE, arraystretch = 1)`.
+
 # flextable 0.10.3
 
 ## issues
