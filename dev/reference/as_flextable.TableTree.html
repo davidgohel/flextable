@@ -9,8 +9,10 @@ Indentation of row labels is rendered with left padding.
 Label rows (LabelRow) are displayed in bold in the first column.
 Content rows (ContentRow) are displayed entirely in bold.
 When LabelRow groups exist, paginate() is applied so
-that all rows belonging to the same group are kept together
-on the same page in Word and RTF output.
+that the rows of the smallest labelled groups are kept together
+on the same page in Word and RTF output. Each group starts at a
+label row, and the labels of its parent groups are kept with
+the first of their child groups.
 To paginate the resulting flextable into multiple pages, use
 split_to_pages(), split_rows(), or split_columns() after
 calling as_flextable()."><meta property="og:description" content="produce a flextable from a TableTree or
@@ -23,8 +25,10 @@ Indentation of row labels is rendered with left padding.
 Label rows (LabelRow) are displayed in bold in the first column.
 Content rows (ContentRow) are displayed entirely in bold.
 When LabelRow groups exist, paginate() is applied so
-that all rows belonging to the same group are kept together
-on the same page in Word and RTF output.
+that the rows of the smallest labelled groups are kept together
+on the same page in Word and RTF output. Each group starts at a
+label row, and the labels of its parent groups are kept with
+the first of their child groups.
 To paginate the resulting flextable into multiple pages, use
 split_to_pages(), split_rows(), or split_columns() after
 calling as_flextable()."><meta property="og:image" content="https://davidgohel.github.io/flextable/logo.png"><meta name="robots" content="noindex"><!-- dependencies from examples --><link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet"><script src="libs/tabwid-1.1.3/tabwid.js"></script></head><body>
@@ -35,7 +39,7 @@ calling as_flextable()."><meta property="og:image" content="https://davidgohel.g
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.4.002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.4.004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,8 +75,10 @@ and footnotes, then maps them to flextable features.</p>
 <p>Label rows (<code>LabelRow</code>) are displayed in bold in the first column.
 Content rows (<code>ContentRow</code>) are displayed entirely in bold.</p>
 <p>When <code>LabelRow</code> groups exist, <code><a href="paginate.html">paginate()</a></code> is applied so
-that all rows belonging to the same group are kept together
-on the same page in Word and RTF output.</p>
+that the rows of the smallest labelled groups are kept together
+on the same page in Word and RTF output. Each group starts at a
+label row, and the labels of its parent groups are kept with
+the first of their child groups.</p>
 <p>To paginate the resulting flextable into multiple pages, use
 <code><a href="split_to_pages.html">split_to_pages()</a></code>, <code><a href="split_rows.html">split_rows()</a></code>, or <code><a href="split_columns.html">split_columns()</a></code> after
 calling <code><a href="as_flextable.html">as_flextable()</a></code>.</p>

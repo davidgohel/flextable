@@ -18,6 +18,16 @@
   height; when activating it, `arraystretch = 1` is recommended:
   `set_flextable_defaults(padding_vertical = TRUE, arraystretch = 1)`.
 
+### issues
+
+- [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md)
+  on ‘rtables’ objects now keeps together the smallest labelled groups
+  in Word and RTF, instead of the top level groups only. With two levels
+  of labels (e.g. parameter then visit), a parameter was a single group
+  of possibly hundreds of rows: Word pushed the table to the next page,
+  leaving its title alone, then broke the pages anywhere. The label of a
+  parent group is kept with its first child group.
+
 ## flextable 0.10.3
 
 CRAN release: 2026-10-14
