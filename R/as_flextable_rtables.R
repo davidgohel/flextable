@@ -14,8 +14,10 @@
 #' Content rows (`ContentRow`) are displayed entirely in bold.
 #'
 #' When `LabelRow` groups exist, [paginate()] is applied so
-#' that all rows belonging to the same group are kept together
-#' on the same page in Word and RTF output.
+#' that the rows of the smallest labelled groups are kept together
+#' on the same page in Word and RTF output. Each group starts at a
+#' label row, and the labels of its parent groups are kept with
+#' the first of their child groups.
 #'
 #' To paginate the resulting flextable into multiple pages, use
 #' [split_to_pages()], [split_rows()], or [split_columns()] after
@@ -231,7 +233,9 @@ rtables_to_flextable <- function(
 
   # --- paginate hints for Word/RTF ---
   if (length(label_rows) > 0L) {
-    rows_grp_start <- intersect(which(indents < 1), label_rows)
+    # a group starts at each label row, except when it follows another
+    # label row: a parent label stays with its first child group
+    rows_grp_start <- label_rows[!(label_rows - 1L) %in% label_rows]
     ft <- paginate(
       ft,
       hdr_ftr = TRUE,

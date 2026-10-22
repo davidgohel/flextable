@@ -36,8 +36,10 @@ Label rows (\code{LabelRow}) are displayed in bold in the first column.
 Content rows (\code{ContentRow}) are displayed entirely in bold.
 
 When \code{LabelRow} groups exist, \code{\link[=paginate]{paginate()}} is applied so
-that all rows belonging to the same group are kept together
-on the same page in Word and RTF output.
+that the rows of the smallest labelled groups are kept together
+on the same page in Word and RTF output. Each group starts at a
+label row, and the labels of its parent groups are kept with
+the first of their child groups.
 
 To paginate the resulting flextable into multiple pages, use
 \code{\link[=split_to_pages]{split_to_pages()}}, \code{\link[=split_rows]{split_rows()}}, or \code{\link[=split_columns]{split_columns()}} after
