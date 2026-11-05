@@ -161,6 +161,40 @@ test_that("gen_grob() decodes an image used by many cells once", {
   expect_equal(reads$n, 1L)
 })
 
+test_that("cells of a grob share the same raster", {
+  skip_if_not_installed("magick")
+  skip_if_not(capabilities("profmem"))
+  local_empty_image_cache()
+  path <- write_test_png(withr::local_tempfile(fileext = ".png"))
+
+  find_rasters <- function(x) {
+    if (inherits(x, "rastergrob")) {
+      return(list(x$raster))
+    }
+    unlist(lapply(x$children, find_rasters), recursive = FALSE)
+  }
+  # tracemem() returns the address of the object
+  address <- function(x) {
+    res <- tracemem(x)
+    untracemem(x)
+    res
+  }
+
+  ft <- flextable(data.frame(a = rep("x", 5)))
+  ft <- compose(
+    ft,
+    j = "a",
+    value = as_paragraph("text ", as_image(path, width = .2, height = .1))
+  )
+  rasters <- find_rasters(gen_grob(ft, fit = "fixed"))
+
+  expect_length(rasters, 5L)
+  expect_setequal(
+    vapply(rasters, address, character(1)),
+    address(image_raster(path))
+  )
+})
+
 test_that("gen_grob() warns on missing and unreadable files", {
   skip_if_not_installed("magick")
   local_empty_image_cache()

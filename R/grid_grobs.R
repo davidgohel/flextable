@@ -805,19 +805,18 @@ arrange_contents_grob <- function(
 
     if (do_update_grob) {
       # create grobs for columns
-      col_dat[,
-        "grob" := mapply(
-          make_col_grob,
-          .SD$col_index,
-          .SD$chunk_index,
-          .SD$txt_data,
-          .SD$from,
-          .SD$to,
-          .SD$width,
-          .SD$height,
-          SIMPLIFY = FALSE
-        )
-      ]
+      # grobs are kept out of the tables: they may hold large rasters
+      col_grobs <- mapply(
+        make_col_grob,
+        col_dat$col_index,
+        col_dat$chunk_index,
+        col_dat$txt_data,
+        col_dat$from,
+        col_dat$to,
+        col_dat$width,
+        col_dat$height,
+        SIMPLIFY = FALSE
+      )
     }
 
     # group data by row
@@ -825,7 +824,6 @@ arrange_contents_grob <- function(
       {
         row_indent <- first(.SD$row_indent)
         list(
-          grobs = list(.SD$grob),
           layout = list(grid.layout(
             nrow = 1,
             ncol = nrow(.SD) + (row_indent > 0),
@@ -845,16 +843,15 @@ arrange_contents_grob <- function(
 
     if (do_update_grob) {
       # create grobs for rows
-      row_dat[,
-        "grob" := mapply(
-          make_row_grob,
-          .SD$row_index,
-          .SD$grobs,
-          .SD$layout,
-          SIMPLIFY = FALSE
-        )
-      ]
-      children <- do.call(gList, row_dat$grob)
+      row_grobs <- split(col_grobs, col_dat$row_index)
+      row_grobs <- mapply(
+        make_row_grob,
+        row_dat$row_index,
+        row_grobs[as.character(row_dat$row_index)],
+        row_dat$layout,
+        SIMPLIFY = FALSE
+      )
+      children <- do.call(gList, unname(row_grobs))
     }
     widths <- row_dat$width
     heights <- row_dat$height
@@ -933,9 +930,14 @@ make_chunk_grob <- function(chunk_index, dat, params) {
       is_italic = dat$is_italic
     )
   } else if (dat$is_raster) {
-    if (inherits(dat$img_data[[1]], "flextableRasterChunk")) {
+    image <- calc_grid_image(
+      dat$img_data[[1]],
+      width = dat$width,
+      height = dat$height
+    )
+    if (inherits(image, "flextableRasterChunk")) {
       gr <- rasterGrob(
-        image = dat$img_data[[1]],
+        image = image,
         width = unit(1, "npc"),
         height = unit(1, "npc"),
         gp = dat$gp[[1]]
@@ -943,7 +945,7 @@ make_chunk_grob <- function(chunk_index, dat, params) {
       class(gr) <- c("flextableRasterChunk", class(gr))
     } else {
       gr <- rasterGrob(
-        image = dat$img_data[[1]],
+        image = image,
         gp = dat$gp[[1]]
       )
     }

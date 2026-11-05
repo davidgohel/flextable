@@ -542,21 +542,12 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
     )
   ]
 
-  # resolve image data
+  # images are read by make_chunk_grob(), not here: a raster in a column of these
+  # tables is copied many times while the layout is computed
   if (is.character(chunk_data$img_data)) {
     # fix to avoid data.table complaining about casting from char to list
     chunk_data$img_data <- as.list(chunk_data$img_data)
   }
-  chunk_data[
-    (is_raster),
-    "img_data" := mapply(
-      calc_grid_image,
-      .SD$img_data,
-      width = .SD$width,
-      height = .SD$height,
-      SIMPLIFY = FALSE
-    )
-  ]
 
   # create chunk .part data (parts split by newline)
   part_data <- chunk_data[,
