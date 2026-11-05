@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.4.007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.4.011</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,9 +38,15 @@
 <ul><li>new PDF option <code>padding_vertical</code> (in <code><a href="../reference/set_flextable_defaults.html">set_flextable_defaults()</a></code> and in <code>opts_pdf</code> of <code><a href="../reference/set_table_properties.html">set_table_properties()</a></code>). When TRUE, PDF output applies <code>padding.top</code> and <code>padding.bottom</code> with the “fixed” layout, as the other outputs do. They are ignored otherwise, so content taller than a text line, such as a <code><a href="../reference/minibar.html">minibar()</a></code>, touches the borders above it (<a href="https://github.com/davidgohel/flextable/issues/734" class="external-link">#734</a>). The option is FALSE by default so that existing PDF tables keep their height; when activating it, <code>arraystretch = 1</code> is recommended: <code>set_flextable_defaults(padding_vertical = TRUE, arraystretch = 1)</code>.</li>
 </ul></div>
 <div class="section level3">
+<h3 id="changes-0-10-4">changes<a class="anchor" aria-label="anchor" href="#changes-0-10-4"></a></h3>
+<ul><li>Tables drawn with <code><a href="../reference/gen_grob.html">gen_grob()</a></code>, <code><a href="../reference/save_as_image.html">save_as_image()</a></code>, <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> or <code><a href="../reference/wrap_flextable.html">wrap_flextable()</a></code> now have regular line heights: the height of a line depends on its font and no longer on its letters. Lines made of small letters no longer overlap, and rows no longer vary with their text. Tables are a little taller as a result; use <code><a href="../reference/line_spacing.html">line_spacing()</a></code> to adjust them. Word, PowerPoint, HTML and PDF outputs do not change.</li>
+<li>These tables are also faster and lighter, especially with images. An image used in many cells is now read once. With a large image repeated on 60 rows, creating the table takes 0.5 s instead of 11 s, drawing it 0.25 s instead of 2.6 s, and it uses 135 MB of memory instead of 5.6 GB. Tables with wrapped text are faster too.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="issues-0-10-4">issues<a class="anchor" aria-label="anchor" href="#issues-0-10-4"></a></h3>
 <ul><li>
-<code><a href="../reference/gen_grob.html">gen_grob()</a></code> no longer decodes an image file for each cell using it: the rasters are kept for the session and read again if the file has changed. New internal function <code><a href="../reference/image_raster.html">image_raster()</a></code>, for packages that draw the same images. The cells also share their raster instead of each holding a copy, and images are kept as native rasters, much faster to draw with the same output: with a 3000 x 2000 image on 60 rows, the grob goes from 5.6 GB to 135 MB, is created in 0.5 s instead of 11 s and drawn in 0.25 s instead of 2.6 s.</li>
+<code><a href="../reference/gen_grob.html">gen_grob()</a></code> no longer fails with a cell containing consecutive line breaks (<code>"a\n\nb"</code>), or a line break just after a wrapped line. Empty lines are now displayed.</li>
+<li>In <code><a href="../reference/gen_grob.html">gen_grob()</a></code>, spaces written after a line break are now always kept, as they are in the text.</li>
 <li>
 <code><a href="../reference/as_flextable.html">as_flextable()</a></code> on ‘rtables’ objects now keeps together the smallest labelled groups in Word and RTF, instead of the top level groups only. With two levels of labels (e.g. parameter then visit), a parameter was a single group of possibly hundreds of rows: Word pushed the table to the next page, leaving its title alone, then broke the pages anywhere. The label of a parent group is kept with its first child group.</li>
 </ul></div>

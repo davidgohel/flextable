@@ -18,18 +18,35 @@
   height; when activating it, `arraystretch = 1` is recommended:
   `set_flextable_defaults(padding_vertical = TRUE, arraystretch = 1)`.
 
+### changes
+
+- Tables drawn with
+  [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md),
+  [`save_as_image()`](https://davidgohel.github.io/flextable/dev/reference/save_as_image.md),
+  [`plot()`](https://rdrr.io/r/graphics/plot.default.html) or
+  [`wrap_flextable()`](https://davidgohel.github.io/flextable/dev/reference/wrap_flextable.md)
+  now have regular line heights: the height of a line depends on its
+  font and no longer on its letters. Lines made of small letters no
+  longer overlap, and rows no longer vary with their text. Tables are a
+  little taller as a result; use
+  [`line_spacing()`](https://davidgohel.github.io/flextable/dev/reference/line_spacing.md)
+  to adjust them. Word, PowerPoint, HTML and PDF outputs do not change.
+- These tables are also faster and lighter, especially with images. An
+  image used in many cells is now read once. With a large image repeated
+  on 60 rows, creating the table takes 0.5 s instead of 11 s, drawing it
+  0.25 s instead of 2.6 s, and it uses 135 MB of memory instead of 5.6
+  GB. Tables with wrapped text are faster too.
+
 ### issues
 
 - [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
-  no longer decodes an image file for each cell using it: the rasters
-  are kept for the session and read again if the file has changed. New
-  internal function
-  [`image_raster()`](https://davidgohel.github.io/flextable/dev/reference/image_raster.md),
-  for packages that draw the same images. The cells also share their
-  raster instead of each holding a copy, and images are kept as native
-  rasters, much faster to draw with the same output: with a 3000 x 2000
-  image on 60 rows, the grob goes from 5.6 GB to 135 MB, is created in
-  0.5 s instead of 11 s and drawn in 0.25 s instead of 2.6 s.
+  no longer fails with a cell containing consecutive line breaks
+  (`"a\n\nb"`), or a line break just after a wrapped line. Empty lines
+  are now displayed.
+- In
+  [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md),
+  spaces written after a line break are now always kept, as they are in
+  the text.
 - [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md)
   on ‘rtables’ objects now keeps together the smallest labelled groups
   in Word and RTF, instead of the top level groups only. With two levels
