@@ -5,9 +5,10 @@
 #' draw rich text with 'grid'.
 #'
 #' A piece that makes the line too wide goes to the next line, except if it is
-#' the first of its line. A space that does not fit is dropped, and so is a space
-#' at the start of any line but the first one. A line break ends its line, and
-#' gives a line of its own if that line is empty.
+#' the first of its line. Spaces are dropped when they do not fit and at the start
+#' of a line that follows an automatic line break; they are kept after a line
+#' break of the text, as they were written. A line break ends its line, and gives
+#' a line of its own if that line is empty.
 #' @param width widths of the pieces.
 #' @param newline,space logical vectors, `TRUE` for the line breaks and the spaces.
 #' @param max_width maximum width of a line, `Inf` for no automatic line break.
@@ -37,6 +38,8 @@ layout_lines <- function(
   # is the current line still empty, and did the previous piece wrap it?
   line_empty <- TRUE
   just_wrapped <- FALSE
+  # did the current line start from an automatic line break?
+  line_from_wrap <- FALSE
 
   for (i in seq_len(n)) {
     previous_wrapped <- just_wrapped
@@ -45,6 +48,7 @@ layout_lines <- function(
     available <- max_width - (if (cur_line == 1L) first_line else hanging)
 
     if (newline[i]) {
+      line_from_wrap <- FALSE
       if (previous_wrapped) {
         cur_width <- 0
         next
@@ -62,8 +66,10 @@ layout_lines <- function(
         cur_line <- cur_line + 1L
         cur_width <- 0
         just_wrapped <- TRUE
+        line_from_wrap <- TRUE
       } else {
         cur_line <- cur_line + 1L
+        line_from_wrap <- TRUE
         if (space[i]) {
           line_empty <- TRUE
           cur_width <- 0
@@ -74,7 +80,7 @@ layout_lines <- function(
           cur_width <- width[i]
         }
       }
-    } else if (cur_line > 1L && line_empty && space[i]) {
+    } else if (line_from_wrap && line_empty && space[i]) {
       cur_width <- 0
     } else {
       line[i] <- cur_line

@@ -25,9 +25,10 @@ a maximum width. This is the part shared by \code{\link[=gen_grob]{gen_grob()}} 
 draw rich text with 'grid'.
 
 A piece that makes the line too wide goes to the next line, except if it is
-the first of its line. A space that does not fit is dropped, and so is a space
-at the start of any line but the first one. A line break ends its line, and
-gives a line of its own if that line is empty.
+the first of its line. Spaces are dropped when they do not fit and at the start
+of a line that follows an automatic line break; they are kept after a line
+break of the text, as they were written. A line break ends its line, and gives
+a line of its own if that line is empty.
 }
 \examples{
 layout_lines(

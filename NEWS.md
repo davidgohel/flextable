@@ -21,6 +21,9 @@ concerned.
 
 ## issues
 
+- `gen_grob()` keeps the spaces written after a line break, whether or not they
+form a chunk of their own: they were dropped in that case only. Spaces at the
+start of a line wrapped automatically are still dropped.
 - `gen_grob()` arranges chunks into lines faster, with new internal function
 `layout_lines()`, for packages that draw rich text with 'grid'.
 - `gen_grob()` no longer fails with `invalid 'layout.pos.row'` when a cell

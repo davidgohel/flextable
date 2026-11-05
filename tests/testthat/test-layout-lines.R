@@ -27,8 +27,17 @@ test_that("a space that does not fit is dropped", {
   expect_equal(layout_text(c("abc", " ", "d"), 3), c(1L, 0L, 2L))
 })
 
-test_that("a space at the start of a line is dropped, except on the first one", {
-  expect_equal(layout_text(c(" ", "a", "\n", " ", "b")), c(1L, 1L, 0L, 0L, 2L))
+test_that("spaces are kept at the start of the text and after a line break", {
+  expect_equal(layout_text(c(" ", "a")), c(1L, 1L))
+  expect_equal(layout_text(c("a", "\n", " ", "b")), c(1L, 0L, 2L, 2L))
+  expect_equal(layout_text(c("a", "\n", " ", " ", "b")), c(1L, 0L, 2L, 2L, 2L))
+  # the line break follows an automatic one
+  expect_equal(layout_text(c("abcdef", "\n", " ", "b"), 3), c(1L, 0L, 2L, 2L))
+})
+
+test_that("spaces are dropped at the start of a wrapped line", {
+  expect_equal(layout_text(c("abc", " ", " ", "d"), 3), c(1L, 0L, 0L, 2L))
+  expect_equal(layout_text(c("abcdef", " ", "d"), 3), c(1L, 0L, 2L))
 })
 
 test_that("line breaks end lines and empty lines are kept", {
