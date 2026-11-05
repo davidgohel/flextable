@@ -1370,24 +1370,24 @@ calc_grid_text_metrics <- function(dat) {
   dat
 }
 
+# For each row, the first `child_count` rows of the next wrap level that follow
+# it. `.chunk_index` is sorted, so that they are found without any subset.
 calc_grid_wrap_children <- function(dat) {
-  wrap_level <- .chunk_index <- NULL
-  mapply(
-    function(level, index, child_count) {
-      if (child_count > 0) {
-        head(
-          dat[wrap_level == (level + 1) & .chunk_index > index, , drop = FALSE],
-          n = child_count
-        )$.chunk_index
-      } else {
-        integer(0)
-      }
-    },
-    dat$wrap_level,
-    dat$.chunk_index,
-    dat$child_count,
-    SIMPLIFY = FALSE
-  )
+  index <- dat$.chunk_index
+  level <- dat$wrap_level
+  child_count <- dat$child_count
+  index_by_level <- split(index, level)
+
+  children <- rep(list(integer(0)), length(index))
+  for (i in which(child_count > 0)) {
+    candidates <- index_by_level[[as.character(level[i] + 1L)]]
+    first <- findInterval(index[i], candidates)
+    n <- min(child_count[i], length(candidates) - first)
+    if (n > 0L) {
+      children[[i]] <- candidates[first + seq_len(n)]
+    }
+  }
+  children
 }
 
 calc_grid_label <- function(

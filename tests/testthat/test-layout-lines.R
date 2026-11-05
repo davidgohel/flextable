@@ -68,3 +68,37 @@ test_that("columns group consecutive pieces of a chunk", {
   )
   expect_equal(layout_columns(c(1L, 0L, 2L), c(1L, 1L, 1L)), c(1L, 0L, 1L))
 })
+
+test_that("wrap children are the next rows of the next level", {
+  dat <- data.frame(
+    wrap_level = c(1L, 2L, 2L, 3L, 3L, 2L),
+    .chunk_index = 1:6,
+    child_count = c(3L, 2L, 0L, 0L, 0L, 0L)
+  )
+  expect_equal(
+    calc_grid_wrap_children(dat),
+    list(c(2L, 3L, 6L), c(4L, 5L), integer(0), integer(0), integer(0), integer(0))
+  )
+})
+
+test_that("wrap children are limited to the rows that exist", {
+  # fewer rows than child_count
+  dat <- data.frame(
+    wrap_level = c(1L, 2L),
+    .chunk_index = 1:2,
+    child_count = c(5L, 0L)
+  )
+  expect_equal(calc_grid_wrap_children(dat), list(2L, integer(0)))
+
+  # no row at the next level: the row must keep its entry
+  dat <- data.frame(
+    wrap_level = c(1L, 1L, 1L),
+    .chunk_index = 1:3,
+    child_count = c(2L, 0L, 0L)
+  )
+  expect_equal(
+    calc_grid_wrap_children(dat),
+    list(integer(0), integer(0), integer(0))
+  )
+})
+
