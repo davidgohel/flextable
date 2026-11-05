@@ -13,6 +13,9 @@ activating it, `arraystretch = 1` is recommended:
 
 ## issues
 
+- `gen_grob()` no longer decodes an image file for each cell using it: the
+rasters are kept for the session and read again if the file has changed. New
+internal function `image_raster()`, for packages that draw the same images.
 - `as_flextable()` on 'rtables' objects now keeps together the smallest
 labelled groups in Word and RTF, instead of the top level groups only.
 With two levels of labels (e.g. parameter then visit), a parameter was a

@@ -1442,12 +1442,7 @@ calc_grid_image <- function(img_data, width = NULL, height = NULL) {
     } else if (requireNamespace("magick", quietly = TRUE)) {
       tryCatch(
         {
-          if (grepl("\\.svg$", ignore.case = TRUE, x = img_data)) {
-            image <- magick::image_read_svg(img_data, width * 72, height * 72)
-          } else {
-            image <- magick::image_read(img_data)
-          }
-          image <- as.raster(image)
+          image <- image_raster(img_data, width, height)
         },
         error = function(e) {
           warning("error reading image: ", e)
