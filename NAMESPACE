@@ -228,7 +228,6 @@ export(wrap_flextable)
 import(data.table)
 importFrom(data.table,
   ":=",
-  .GRP,
   .N,
   .SD,
   as.data.table,

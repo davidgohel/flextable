@@ -26,6 +26,46 @@ local_empty_image_cache <- function(env = parent.frame()) {
   withr::defer(image_cache_reset(), envir = env)
 }
 
+# draw on a device and return the pixels: raster and native raster must give
+# the same output
+drawn_pixels <- function(image) {
+  png <- withr::local_tempfile(fileext = ".png")
+  ragg::agg_png(png, width = 200, height = 200, units = "px", res = 72)
+  grid::grid.draw(grid::rasterGrob(
+    image,
+    width = grid::unit(1.5, "in"),
+    height = grid::unit(1, "in")
+  ))
+  grDevices::dev.off()
+  as.integer(magick::image_data(magick::image_read(png), "rgba"))
+}
+
+test_that("a native raster is drawn as a raster", {
+  skip_if_not_installed("magick")
+  gradient <- magick::image_blank(64, 48, pseudo_image = "gradient:red-blue")
+  transparent <- magick::image_blank(40, 30, color = "#FF000080")
+  images <- list(
+    png = magick::image_convert(gradient, format = "png"),
+    transparent_png = magick::image_convert(transparent, format = "png"),
+    jpeg = magick::image_convert(gradient, format = "jpeg"),
+    gray = magick::image_convert(gradient, format = "png", colorspace = "gray"),
+    animated_gif = magick::image_animate(
+      c(gradient, magick::image_flip(gradient)),
+      fps = 5
+    )
+  )
+  for (kind in names(images)) {
+    path <- withr::local_tempfile(fileext = ".img")
+    magick::image_write(images[[kind]], path = path)
+    image <- magick::image_read(path)
+    expect_identical(
+      drawn_pixels(as_native_raster(image)),
+      drawn_pixels(as.raster(image)),
+      label = kind
+    )
+  }
+})
+
 test_that("an image is decoded once", {
   skip_if_not_installed("magick")
   local_empty_image_cache()
@@ -36,7 +76,7 @@ test_that("an image is decoded once", {
   second <- image_raster(path)
 
   expect_identical(second, first)
-  expect_identical(first, as.raster(magick::image_read(path)))
+  expect_s3_class(first, "nativeRaster")
   expect_equal(reads$n, 1L)
 })
 
@@ -50,7 +90,7 @@ test_that("a file that has changed is read again", {
   second <- image_raster(path)
 
   expect_false(identical(second, first))
-  expect_identical(second, as.raster(magick::image_read(path)))
+  expect_equal(dim(second), c(10L, 30L))
 })
 
 test_that("a different path gives its own raster", {
@@ -95,8 +135,8 @@ test_that("the least recently used rasters are dropped", {
   local_empty_image_cache()
   withr::defer(image_cache$max_bytes <- 256 * 1024^2)
   reads <- count_image_reads()
-  # 20 x 10 pixels: 1600 bytes each, room for two of them
-  image_cache$max_bytes <- 3200
+  # 20 x 10 pixels: 800 bytes each, room for two of them
+  image_cache$max_bytes <- 1600
 
   a <- write_test_png(withr::local_tempfile(fileext = ".png"), "red")
   b <- write_test_png(withr::local_tempfile(fileext = ".png"), "green")

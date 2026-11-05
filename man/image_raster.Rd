@@ -2,7 +2,7 @@
 % Please edit documentation in R/image_cache.R
 \name{image_raster}
 \alias{image_raster}
-\title{Read an image as a raster, with a cache}
+\title{Read an image as a native raster, with a cache}
 \usage{
 image_raster(path, width = NULL, height = NULL)
 }
@@ -13,10 +13,12 @@ image_raster(path, width = NULL, height = NULL)
 are ignored with other formats.}
 }
 \value{
-A raster object. An error is raised if the file can not be read.
+An object of class \code{nativeRaster}. An error is raised if the file can
+not be read.
 }
 \description{
-Read an image file as a raster object. The raster is kept for
+Read an image file as a native raster, which is much faster to
+draw than a raster object with \code{\link[grid:rasterGrob]{grid::rasterGrob()}}. The raster is kept for
 the R session, so that an image used many times is only decoded once. The
 file is read again if it has changed, and the least recently used rasters
 are dropped when the cache becomes too large.

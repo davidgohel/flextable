@@ -29,13 +29,33 @@ image_cache_key <- function(path, width = NULL, height = NULL) {
   paste(id, collapse = "|")
 }
 
+# A native raster holds integers: drawing it does not convert a string to a color
+# for each pixel, which is what makes a raster slow to draw, and takes half the
+# memory. Device output is the same.
+as_native_raster <- function(image) {
+  rgba <- magick::image_data(image, channels = "rgba")
+  dims <- dim(rgba)
+  pixels <- readBin(
+    as.raw(rgba),
+    what = "integer",
+    n = dims[2] * dims[3],
+    size = 4L,
+    endian = "little"
+  )
+  structure(
+    matrix(pixels, nrow = dims[3], ncol = dims[2]),
+    class = "nativeRaster",
+    channels = 4L
+  )
+}
+
 read_image_file <- function(path, width = NULL, height = NULL) {
   if (is_svg_file(path)) {
     image <- magick::image_read_svg(path, width * 72, height * 72)
   } else {
     image <- magick::image_read(path)
   }
-  as.raster(image)
+  as_native_raster(image)
 }
 
 # keeps at least the last raster, even if it is larger than `max_bytes`
@@ -52,8 +72,9 @@ image_cache_shrink <- function() {
 }
 
 #' @export
-#' @title Read an image as a raster, with a cache
-#' @description Read an image file as a raster object. The raster is kept for
+#' @title Read an image as a native raster, with a cache
+#' @description Read an image file as a native raster, which is much faster to
+#' draw than a raster object with [grid::rasterGrob()]. The raster is kept for
 #' the R session, so that an image used many times is only decoded once. The
 #' file is read again if it has changed, and the least recently used rasters
 #' are dropped when the cache becomes too large.
@@ -63,7 +84,8 @@ image_cache_shrink <- function() {
 #' @param path path to the image file.
 #' @param width,height size in inches at which an SVG file is rendered, they
 #' are ignored with other formats.
-#' @return A raster object. An error is raised if the file can not be read.
+#' @return An object of class `nativeRaster`. An error is raised if the file can
+#' not be read.
 #' @keywords internal
 image_raster <- function(path, width = NULL, height = NULL) {
   key <- image_cache_key(path, width, height)
@@ -71,8 +93,7 @@ image_raster <- function(path, width = NULL, height = NULL) {
   entry <- image_cache$entries[[key]]
   if (is.null(entry)) {
     raster <- read_image_file(path, width, height)
-    # a raster is a matrix of pointers to strings
-    bytes <- prod(dim(raster)) * 8
+    bytes <- prod(dim(raster)) * 4
     image_cache$entries[[key]] <- list(
       raster = raster,
       bytes = bytes,

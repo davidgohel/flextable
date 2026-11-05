@@ -504,7 +504,7 @@ dim.flextableGrob <- function(x) {
 
 # contents grob -----------------------------------------------------------
 
-#' @importFrom data.table is.data.table .GRP
+#' @importFrom data.table is.data.table
 make_contents_grob <- function(
   row_index,
   col_index,
@@ -540,10 +540,9 @@ make_contents_grob <- function(
   )
 
   # create chunk grobs
-  gr$ftgrobs <- chunk_data[,
-    list(grobs = list(make_chunk_grob(.GRP, .SD, params))),
-    by = "chunk_index"
-  ]$grobs
+  gr$ftgrobs <- lapply(seq_len(nrow(chunk_data)), function(i) {
+    make_chunk_grob(i, as.list(chunk_data[i]), params)
+  })
 
   # set data
   gr$ftdat <- chunk_part_data
