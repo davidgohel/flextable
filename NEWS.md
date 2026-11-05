@@ -13,6 +13,9 @@ activating it, `arraystretch = 1` is recommended:
 
 ## issues
 
+- `gen_grob()` no longer fails with `invalid 'layout.pos.row'` when a cell
+contains consecutive line breaks (`"a\n\nb"`), or a line break just after a line
+wrapped on a space. Consecutive line breaks now give empty lines.
 - `gen_grob()` no longer decodes an image file for each cell using it: the
 rasters are kept for the session and read again if the file has changed. New
 internal function `image_raster()`, for packages that draw the same images.

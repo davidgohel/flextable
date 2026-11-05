@@ -173,3 +173,45 @@ test_that("grid with raster", {
   expect_s3_class(gr$children[[11]]$children$contents$ftgrobs[[2]], "text")
   expect_s3_class(gr$children[[12]]$children$contents$ftgrobs[[1]], "text")
 })
+
+test_that("line breaks give the expected lines", {
+  count_lines <- function(text, width = 3, wrapping = TRUE) {
+    ft <- flextable(data.frame(x = text))
+    ft <- width(ft, j = 1, width = width)
+    gr <- gen_grob(ft, fit = "fixed", wrapping = wrapping, autowidths = !wrapping)
+    find_contents <- function(x) {
+      if (!is.null(x$ftgrobs)) {
+        return(list(x))
+      }
+      unlist(lapply(x$children, find_contents), recursive = FALSE)
+    }
+    max(vapply(find_contents(gr), function(z) length(z$children), integer(1)))
+  }
+  for (wrapping in c(TRUE, FALSE)) {
+    expect_equal(count_lines("a\nb", wrapping = wrapping), 2L)
+    expect_equal(count_lines("\na", wrapping = wrapping), 2L)
+    expect_equal(count_lines("a\n", wrapping = wrapping), 1L)
+    # consecutive line breaks give empty lines
+    expect_equal(count_lines("a\n\nb", wrapping = wrapping), 3L)
+    expect_equal(count_lines("a\n\n\nb", wrapping = wrapping), 4L)
+    expect_equal(count_lines("\n\na", wrapping = wrapping), 3L)
+    expect_equal(count_lines("a\n\n", wrapping = wrapping), 2L)
+    expect_equal(count_lines("a\nb\n\nc", wrapping = wrapping), 4L)
+    expect_equal(count_lines("a\n \nb", wrapping = wrapping), 3L)
+  }
+  # a line break just after a wrapped line does not add an empty line
+  expect_equal(count_lines("word word word word \nb", width = .5), 5L)
+  expect_equal(count_lines("word word word word\n\nb", width = .5), 6L)
+  long_word <- strrep("a", 30)
+  n <- count_lines(paste0(long_word, "\nb"), width = .5)
+  expect_equal(count_lines(paste0(long_word, "\n\nb"), width = .5), n + 1L)
+})
+
+test_that("cells with empty lines can be drawn", {
+  ft <- flextable(data.frame(x = "a\n\nb"))
+  gr <- gen_grob(ft, fit = "fixed")
+  png <- withr::local_tempfile(fileext = ".png")
+  ragg::agg_png(png, width = 2, height = 2, units = "in", res = 72)
+  expect_no_error(grid::grid.draw(gr))
+  grDevices::dev.off()
+})
