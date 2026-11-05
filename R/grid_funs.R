@@ -1332,6 +1332,22 @@ calc_grid_rotated_just <- function(just, angle) {
 }
 
 #' @importFrom gdtools strings_sizes
+# ascent and descent of "Mg" for each font, in inches: the height of a line
+# depends on its font and not on its text
+font_reference_metrics <- function(family, size, bold, italic) {
+  key <- paste(family, size, bold, italic, sep = "|")
+  first <- which(!duplicated(key))
+  ref <- gdtools::strings_sizes(
+    rep("Mg", length(first)),
+    fontname = family[first],
+    fontsize = size[first],
+    bold = bold[first],
+    italic = italic[first]
+  )
+  i <- match(key, key[first])
+  list(ascent = ref$ascent[i], descent = ref$descent[i])
+}
+
 calc_grid_text_metrics <- function(dat) {
   # avoid CMD check warnings
   is_text <- is_newline <- is_space <- is_superscript <- is_subscript <- NULL
@@ -1357,8 +1373,16 @@ calc_grid_text_metrics <- function(dat) {
   # set width/ascent/descent/height
   dat[(is_text), "width" := .SD$part_width]
   dat[(is_superscript | is_subscript), "width" := .SD$width * 0.75]
-  dat[(is_text), "ascent" := .SD$part_ascent * .SD$line_spacing]
-  dat[(is_text), "descent" := .SD$part_descent * .SD$line_spacing]
+  ref <- font_reference_metrics(
+    dat$font.family,
+    dat$font.size,
+    dat$bold,
+    dat$italic
+  )
+  dat[, c("ref_ascent", "ref_descent") := list(ref$ascent, ref$descent)]
+  dat[(is_text), "ascent" := .SD$ref_ascent * .SD$line_spacing]
+  dat[(is_text), "descent" := .SD$ref_descent * .SD$line_spacing]
+  dat[, c("ref_ascent", "ref_descent") := NULL]
   dat[(is_text), "height" := .SD$ascent + .SD$descent]
   dat[!(is_text), c("ascent", "descent") := list(.SD$height, 0)]
   dat[(is_newline), "txt" := "\n"]

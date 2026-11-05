@@ -215,3 +215,20 @@ test_that("cells with empty lines can be drawn", {
   expect_no_error(grid::grid.draw(gr))
   grDevices::dev.off()
 })
+
+test_that("the height of a line does not depend on its text", {
+  gdtools::font_set_liberation()
+  text_height <- function(text) {
+    ft <- flextable(data.frame(x = text))
+    ft <- font(ft, fontname = "Liberation Sans", part = "all")
+    ft <- padding(ft, padding = 0, part = "all")
+    gen_grob(ft, fit = "fixed")$ftpar$heights[2]
+  }
+  one_line <- vapply(c("xxx", "Hello", "Mg", "(N=86)"), text_height, numeric(1))
+  expect_length(unique(round(one_line, 6)), 1L)
+
+  # an empty line has the height of a line of text
+  expect_equal(text_height("a\nb"), 2 * text_height("a"), tolerance = 1e-6)
+  expect_equal(text_height("a\n\nb"), 3 * text_height("a"), tolerance = 1e-6)
+})
+

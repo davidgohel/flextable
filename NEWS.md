@@ -11,6 +11,14 @@ FALSE by default so that existing PDF tables keep their height; when
 activating it, `arraystretch = 1` is recommended:
 `set_flextable_defaults(padding_vertical = TRUE, arraystretch = 1)`.
 
+## changes
+
+- In `gen_grob()`, the height of a line now depends on the font and no longer on
+the letters of the text: `"xxx\nxxx"` lines overlapped and the rows of a table
+had different heights. Empty lines are now visible. Tables are about 7% taller
+with `save_as_image()`, `plot()` and `wrap_flextable()`; other outputs are not
+concerned.
+
 ## issues
 
 - `gen_grob()` arranges chunks into lines faster, with new internal function
