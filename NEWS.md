@@ -13,6 +13,8 @@ activating it, `arraystretch = 1` is recommended:
 
 ## issues
 
+- `gen_grob()` arranges chunks into lines faster, with new internal function
+`layout_lines()`, for packages that draw rich text with 'grid'.
 - `gen_grob()` no longer fails with `invalid 'layout.pos.row'` when a cell
 contains consecutive line breaks (`"a\n\nb"`), or a line break just after a line
 wrapped on a space. Consecutive line breaks now give empty lines.

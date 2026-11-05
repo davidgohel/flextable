@@ -619,89 +619,16 @@ arrange_contents_grob <- function(
     }
     n <- nrow(dat)
     if (n > 1) {
-      # loop the chunk parts and arrange them in rows/columns
-      # according to their width
-      row_index <- integer(n)
-      col_index <- integer(n)
-      cur_width <- 0
-      cur_row <- 1L
-      cur_col <- 1L
-      cur_chunk <- 0L
-      # TRUE when the previous item ended the line by wrapping: a newline that
-      # follows has nothing left to end
-      line_just_wrapped <- FALSE
-      for (i in seq_len(n)) {
-        item <- dat[i, ]
-        previous_wrapped <- line_just_wrapped
-        line_just_wrapped <- FALSE
-        cur_width <- cur_width + (item$width * cex)
-        # available width depends on the line: `first_line` narrows the
-        # first line, `hanging` narrows the continuation lines
-        row_width <- max_width -
-          (if (cur_row == 1) first_line_in else hanging_in)
-        if (item$is_newline) {
-          if (previous_wrapped) {
-            cur_width <- 0
-            next
-          }
-          # an empty line: the newline gives its height, else ignore it
-          if (cur_col == 1) {
-            row_index[[i]] <- cur_row
-            col_index[[i]] <- cur_col
-          }
-          cur_row <- cur_row + 1L
-          cur_col <- 1L
-          cur_width <- 0
-          cur_chunk <- 0L
-        } else if (params$wrapping && cur_width > row_width) {
-          if (cur_col == 1) {
-            # if it's the first item in row, add it and go to next row
-            row_index[[i]] <- cur_row
-            col_index[[i]] <- cur_col
-            cur_row <- cur_row + 1L
-            cur_col <- 1L
-            cur_width <- 0
-            cur_chunk <- 0L
-            line_just_wrapped <- TRUE
-          } else {
-            # else go to next row and then add it
-            cur_row <- cur_row + 1L
-            cur_col <- 1L
-            if (item$is_whitespace) {
-              # ignore whitespace in line break
-              cur_width <- 0
-              cur_chunk <- 0L
-              line_just_wrapped <- TRUE
-            } else {
-              row_index[[i]] <- cur_row
-              col_index[[i]] <- cur_col
-              cur_col <- cur_col + 1L
-              cur_width <- (item$width * cex)
-              cur_chunk <- item$chunk_index
-            }
-          }
-        } else {
-          if (cur_row > 1L && cur_col == 1L && item$is_whitespace) {
-            # ignore whitespace
-            cur_width <- 0
-            cur_chunk <- 0L
-          } else {
-            # set the row
-            row_index[[i]] <- cur_row
-            # if the item is from a different chunk than the previous
-            if (item$chunk_index != cur_chunk) {
-              # set the column
-              col_index[[i]] <- cur_col
-              # and go to next column
-              cur_col <- cur_col + 1L
-            } else {
-              # set it to the previous column
-              col_index[[i]] <- cur_col - 1
-            }
-            cur_chunk <- item$chunk_index
-          }
-        }
-      }
+      # lines are given by layout_lines(), columns group the pieces of a chunk
+      row_index <- layout_lines(
+        width = dat$width * cex,
+        newline = dat$is_newline,
+        space = dat$is_whitespace,
+        max_width = if (params$wrapping) max_width else Inf,
+        first_line = first_line_in,
+        hanging = hanging_in
+      )
+      col_index <- layout_columns(row_index, dat$chunk_index)
       dat$row_index <- row_index
       dat$col_index <- col_index
       dat <- dat[row_index > 0, ]
