@@ -20,6 +20,16 @@
 
 ### issues
 
+- [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
+  no longer decodes an image file for each cell using it: the rasters
+  are kept for the session and read again if the file has changed. New
+  internal function
+  [`image_raster()`](https://davidgohel.github.io/flextable/dev/reference/image_raster.md),
+  for packages that draw the same images. The cells also share their
+  raster instead of each holding a copy, and images are kept as native
+  rasters, much faster to draw with the same output: with a 3000 x 2000
+  image on 60 rows, the grob goes from 5.6 GB to 135 MB, is created in
+  0.5 s instead of 11 s and drawn in 0.25 s instead of 2.6 s.
 - [`as_flextable()`](https://davidgohel.github.io/flextable/dev/reference/as_flextable.md)
   on ‘rtables’ objects now keeps together the smallest labelled groups
   in Word and RTF, instead of the top level groups only. With two levels
