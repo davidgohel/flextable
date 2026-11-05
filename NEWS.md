@@ -13,29 +13,25 @@ activating it, `arraystretch = 1` is recommended:
 
 ## changes
 
-- In `gen_grob()`, the height of a line now depends on the font and no longer on
-the letters of the text: `"xxx\nxxx"` lines overlapped and the rows of a table
-had different heights. Empty lines are now visible. Tables are about 7% taller
-with `save_as_image()`, `plot()` and `wrap_flextable()`; other outputs are not
-concerned.
+- Tables drawn with `gen_grob()`, `save_as_image()`, `plot()` or
+`wrap_flextable()` now have regular line heights: the height of a line depends
+on its font and no longer on its letters. Lines made of small letters no longer
+overlap, and rows no longer vary with their text. Tables are a little taller as
+a result; use `line_spacing()` to adjust them. Word, PowerPoint, HTML and PDF
+outputs do not change.
+- These tables are also faster and lighter, especially with images. An image
+used in many cells is now read once. With a large image repeated on 60 rows,
+creating the table takes 0.5 s instead of 11 s, drawing it 0.25 s instead of
+2.6 s, and it uses 135 MB of memory instead of 5.6 GB. Tables with wrapped text
+are faster too.
 
 ## issues
 
-- `gen_grob()` keeps the spaces written after a line break, whether or not they
-form a chunk of their own: they were dropped in that case only. Spaces at the
-start of a line wrapped automatically are still dropped.
-- `gen_grob()` arranges chunks into lines faster, with new internal function
-`layout_lines()`, for packages that draw rich text with 'grid'.
-- `gen_grob()` no longer fails with `invalid 'layout.pos.row'` when a cell
-contains consecutive line breaks (`"a\n\nb"`), or a line break just after a line
-wrapped on a space. Consecutive line breaks now give empty lines.
-- `gen_grob()` no longer decodes an image file for each cell using it: the
-rasters are kept for the session and read again if the file has changed. New
-internal function `image_raster()`, for packages that draw the same images.
-The cells also share their raster instead of each holding a copy, and images
-are kept as native rasters, much faster to draw with the same output: with a
-3000 x 2000 image on 60 rows, the grob goes from 5.6 GB to 135 MB, is created in
-0.5 s instead of 11 s and drawn in 0.25 s instead of 2.6 s.
+- `gen_grob()` no longer fails with a cell containing consecutive line breaks
+(`"a\n\nb"`), or a line break just after a wrapped line. Empty lines are now
+displayed.
+- In `gen_grob()`, spaces written after a line break are now always kept, as
+they are in the text.
 - `as_flextable()` on 'rtables' objects now keeps together the smallest
 labelled groups in Word and RTF, instead of the top level groups only.
 With two levels of labels (e.g. parameter then visit), a parameter was a
