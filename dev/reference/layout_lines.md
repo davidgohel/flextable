@@ -11,10 +11,22 @@ the start of a line that follows an automatic line break; they are kept
 after a line break of the text, as they were written. A line break ends
 its line, and gives a line of its own if that line is empty.
 
+A word wider than a line is first moved to a new line, then split
+between its characters: give its characters as pieces and set
+`break_before` to `TRUE` on the first one.
+
 ## Usage
 
 ``` r
-layout_lines(width, newline, space, max_width, first_line = 0, hanging = 0)
+layout_lines(
+  width,
+  newline,
+  space,
+  max_width,
+  first_line = 0,
+  hanging = 0,
+  break_before = FALSE
+)
 ```
 
 ## Arguments
@@ -34,6 +46,11 @@ layout_lines(width, newline, space, max_width, first_line = 0, hanging = 0)
 - first_line, hanging:
 
   width removed from the first line, and from the other lines.
+
+- break_before:
+
+  logical, `TRUE` for the pieces that start a new line unless the
+  current line is empty. It is recycled to the length of `width`.
 
 ## Value
 
