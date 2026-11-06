@@ -30,6 +30,9 @@ current line.
 
 ## issues
 
+- `gen_grob()`, `save_as_image()` and `plot()` no longer fail on a table with a
+single cell, for example a one-column table with one row and no header, or a row
+whose cells are all merged.
 - `gen_grob()` no longer fails with a cell containing consecutive line breaks
 (`"a\n\nb"`), or a line break just after a wrapped line. Empty lines are now
 displayed.

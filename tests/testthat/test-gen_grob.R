@@ -269,3 +269,36 @@ test_that("the height of a line does not depend on its text", {
   expect_equal(text_height("a\nb"), 2 * text_height("a"), tolerance = 1e-6)
   expect_equal(text_height("a\n\nb"), 3 * text_height("a"), tolerance = 1e-6)
 })
+
+test_that("tables with a single cell can be drawn", {
+  one_cell <- delete_part(flextable(data.frame(x = "a")), part = "header")
+  merged <- merge_at(
+    delete_part(flextable(data.frame(x = "a", y = "b")), part = "header"),
+    i = 1,
+    j = 1:2
+  )
+  image <- compose(
+    one_cell,
+    j = 1,
+    value = as_paragraph(as_image(
+      src = file.path(R.home("doc"), "html", "logo.jpg"),
+      width = .3,
+      height = .2
+    ))
+  )
+  png <- withr::local_tempfile(fileext = ".png")
+  ragg::agg_png(png, width = 2, height = 2, units = "in", res = 72)
+  on.exit(grDevices::dev.off(), add = TRUE)
+
+  for (ft in list(one_cell, merged, image)) {
+    expect_no_error(grid::grid.draw(gen_grob(ft, fit = "fixed")))
+  }
+
+  # the background is kept, with or without a fill
+  fill_of <- function(ft) {
+    gen_grob(ft, fit = "fixed")$children[[1]]$children$background$gp$fill
+  }
+  expect_null(fill_of(one_cell))
+  expect_equal(fill_of(bg(one_cell, bg = "yellow")), "yellow")
+  expect_equal(fill_of(bg(merged, bg = "yellow")), "yellow")
+})

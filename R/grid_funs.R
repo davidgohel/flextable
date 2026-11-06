@@ -236,8 +236,9 @@ grid_data_add_cell_info <- function(grid_data, x) {
   )
 
   # generate argument list for creating the cell background rect
+  # list(): with one row, `:=` would unwrap a list holding NULL or a list of length 1
   cell_data[,
-    "background" := mapply(
+    "background" := list(mapply(
       function(fill) {
         gp <- gpar_background(fill)
         if (length(gp) > 0) {
@@ -246,7 +247,7 @@ grid_data_add_cell_info <- function(grid_data, x) {
       },
       fill = .SD$background.color,
       SIMPLIFY = FALSE
-    )
+    ))
   ]
 
   # generate argument list for creating the border segments
