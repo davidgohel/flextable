@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.4.012</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.4.013</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,6 +46,8 @@
 <div class="section level3">
 <h3 id="issues-0-10-4">issues<a class="anchor" aria-label="anchor" href="#issues-0-10-4"></a></h3>
 <ul><li>
+<code><a href="../reference/gen_grob.html">gen_grob()</a></code>, <code><a href="../reference/save_as_image.html">save_as_image()</a></code> and <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> no longer fail on a table with a single cell, for example a one-column table with one row and no header, or a row whose cells are all merged.</li>
+<li>
 <code><a href="../reference/gen_grob.html">gen_grob()</a></code> no longer fails with a cell containing consecutive line breaks (<code>"a\n\nb"</code>), or a line break just after a wrapped line. Empty lines are now displayed.</li>
 <li>In <code><a href="../reference/gen_grob.html">gen_grob()</a></code>, spaces written after a line break are now always kept, as they are in the text.</li>
 <li>

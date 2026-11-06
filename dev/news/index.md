@@ -42,6 +42,11 @@
 
 ### issues
 
+- [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md),
+  [`save_as_image()`](https://davidgohel.github.io/flextable/dev/reference/save_as_image.md)
+  and [`plot()`](https://rdrr.io/r/graphics/plot.default.html) no longer
+  fail on a table with a single cell, for example a one-column table
+  with one row and no header, or a row whose cells are all merged.
 - [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
   no longer fails with a cell containing consecutive line breaks
   (`"a\n\nb"`), or a line break just after a wrapped line. Empty lines
