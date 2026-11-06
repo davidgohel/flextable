@@ -24,6 +24,9 @@ used in many cells is now read once. With a large image repeated on 60 rows,
 creating the table takes 0.5 s instead of 11 s, drawing it 0.25 s instead of
 2.6 s, and it uses 135 MB of memory instead of 5.6 GB. Tables with wrapped text
 are faster too.
+- In these tables, a word wider than its cell now starts on a new line and is only
+split there if it is still too wide, as in HTML output. It used to start on the
+current line.
 
 ## issues
 

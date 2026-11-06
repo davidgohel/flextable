@@ -49,7 +49,8 @@ test_that("layout and width drive the columns specification", {
   # autofit with width: relative widths summing to the table width (#730)
   ft <- set_table_properties(
     ft_lib(head(iris, 2)),
-    layout = "autofit", width = 0.7
+    layout = "autofit",
+    width = 0.7
   )
   expect_match(
     flextable:::gen_raw_typst(ft),

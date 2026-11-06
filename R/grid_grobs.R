@@ -626,7 +626,9 @@ arrange_contents_grob <- function(
         space = dat$is_whitespace,
         max_width = if (params$wrapping) max_width else Inf,
         first_line = first_line_in,
-        hanging = hanging_in
+        hanging = hanging_in,
+        # the characters left here belong to a word wider than the line
+        break_before = dat$first_char
       )
       col_index <- layout_columns(row_index, dat$chunk_index)
       dat$row_index <- row_index

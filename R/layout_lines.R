@@ -9,11 +9,17 @@
 #' of a line that follows an automatic line break; they are kept after a line
 #' break of the text, as they were written. A line break ends its line, and gives
 #' a line of its own if that line is empty.
+#'
+#' A word wider than a line is first moved to a new line, then split between
+#' its characters: give its characters as pieces and set `break_before` to `TRUE`
+#' on the first one.
 #' @param width widths of the pieces.
 #' @param newline,space logical vectors, `TRUE` for the line breaks and the spaces.
 #' @param max_width maximum width of a line, `Inf` for no automatic line break.
 #' @param first_line,hanging width removed from the first line, and from the other
 #' lines.
+#' @param break_before logical, `TRUE` for the pieces that start a new line unless
+#' the current line is empty. It is recycled to the length of `width`.
 #' @return An integer vector, the line of each piece, `0` for the dropped pieces.
 #' @examples
 #' layout_lines(
@@ -29,9 +35,11 @@ layout_lines <- function(
   space,
   max_width,
   first_line = 0,
-  hanging = 0
+  hanging = 0,
+  break_before = FALSE
 ) {
   n <- length(width)
+  break_before <- rep_len(break_before, n)
   line <- integer(n)
   cur_line <- 1L
   cur_width <- 0
@@ -44,6 +52,12 @@ layout_lines <- function(
   for (i in seq_len(n)) {
     previous_wrapped <- just_wrapped
     just_wrapped <- FALSE
+    if (break_before[i] && !line_empty) {
+      cur_line <- cur_line + 1L
+      cur_width <- 0
+      line_empty <- TRUE
+      line_from_wrap <- TRUE
+    }
     cur_width <- cur_width + width[i]
     available <- max_width - (if (cur_line == 1L) first_line else hanging)
 
@@ -94,8 +108,11 @@ layout_lines <- function(
 layout_columns <- function(line, chunk) {
   col <- integer(length(line))
   kept <- which(line > 0L)
-  new_col <- c(TRUE, line[kept][-1] != line[kept][-length(kept)] |
-    chunk[kept][-1] != chunk[kept][-length(kept)])
+  new_col <- c(
+    TRUE,
+    line[kept][-1] != line[kept][-length(kept)] |
+      chunk[kept][-1] != chunk[kept][-length(kept)]
+  )
   group <- cumsum(new_col)
   first_group <- group[!duplicated(line[kept])]
   col[kept] <- group - first_group[match(line[kept], unique(line[kept]))] + 1L

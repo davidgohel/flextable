@@ -115,10 +115,13 @@ test_that("close but distinct property values get distinct class names", {
   expect_no_error(flextable:::gen_raw_wml(close_widths))
   str <- render_html(close_widths)
   expect_identical(anyDuplicated(declared_class_names(str)), 0L)
-  expect_length(unique(regmatches(
-    str,
-    gregexpr("width:[0-9.]+in", str)
-  )[[1]]), 2L)
+  expect_length(
+    unique(regmatches(
+      str,
+      gregexpr("width:[0-9.]+in", str)
+    )[[1]]),
+    2L
+  )
 })
 
 test_that("other formats are not broken by hashed class names", {

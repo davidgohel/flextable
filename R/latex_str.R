@@ -221,7 +221,8 @@ gen_raw_latex <- function(
 
   # paragraph vertical padding (opt-in, fixed layout only) ----
   if (
-    "fixed" %in% x$properties$layout &&
+    "fixed" %in%
+      x$properties$layout &&
       isTRUE(x$properties$opts_pdf$padding_vertical)
   ) {
     cell_properties_df[,

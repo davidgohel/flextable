@@ -897,6 +897,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
     part_data[, ".chunk_index" := 1:.N, by = keycols]
     part_data[, "child_count" := 0L]
     part_data[, "children_index" := integer(0)]
+    part_data[, "char_index" := 0L]
   }
   setorderv(part_data, cols = c(keycols, ".chunk_index"))
 
@@ -950,6 +951,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
             col_index = 0L,
             is_newline = .SD$is_newline,
             is_whitespace = .SD$is_space,
+            first_char = .SD$char_index %in% 1L,
             width = .SD$width,
             height = .SD$height,
             ascent = .SD$ascent,

@@ -23,6 +23,37 @@ test_that("a piece too wide stays on its line if it is the first one", {
   expect_equal(layout_text(c("a", "bcdef", "g"), 3), c(1L, 2L, 3L))
 })
 
+test_that("break_before starts a new line unless the line is empty", {
+  pieces <- c("a", " ", "b", "c", "d", " ", "e")
+  first <- pieces == "b"
+
+  expect_equal(
+    layout_text(pieces, 3, break_before = first),
+    c(1L, 1L, 2L, 2L, 2L, 0L, 3L)
+  )
+  # no empty line: first piece of the text, after a line break, after a wrap
+  expect_equal(
+    layout_text(c("b", "c"), 3, break_before = c(TRUE, FALSE)),
+    c(1L, 1L)
+  )
+  expect_equal(
+    layout_text(c("a", "\n", "b"), 3, break_before = c(FALSE, FALSE, TRUE)),
+    c(1L, 0L, 2L)
+  )
+  expect_equal(
+    layout_text(c("abc", " ", "b"), 3, break_before = c(FALSE, FALSE, TRUE)),
+    c(1L, 0L, 2L)
+  )
+  # the width of the new line starts with the piece
+  expect_equal(
+    layout_text(c("a", "b", "c", "d", "e"), 3, break_before = c(F, T, F, F, F)),
+    c(1L, 2L, 2L, 2L, 3L)
+  )
+  # recycled, and no effect by default
+  expect_equal(layout_text(c("a", "b"), 3, break_before = TRUE), c(1L, 2L))
+  expect_equal(layout_text(c("a", "b"), 3), c(1L, 1L))
+})
+
 test_that("a space that does not fit is dropped", {
   expect_equal(layout_text(c("abc", " ", "d"), 3), c(1L, 0L, 2L))
 })
@@ -86,7 +117,14 @@ test_that("wrap children are the next rows of the next level", {
   )
   expect_equal(
     calc_grid_wrap_children(dat),
-    list(c(2L, 3L, 6L), c(4L, 5L), integer(0), integer(0), integer(0), integer(0))
+    list(
+      c(2L, 3L, 6L),
+      c(4L, 5L),
+      integer(0),
+      integer(0),
+      integer(0),
+      integer(0)
+    )
   )
 })
 
@@ -110,4 +148,3 @@ test_that("wrap children are limited to the rows that exist", {
     list(integer(0), integer(0), integer(0))
   )
 })
-

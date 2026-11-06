@@ -4,7 +4,15 @@
 \alias{layout_lines}
 \title{Arrange pieces of text into lines}
 \usage{
-layout_lines(width, newline, space, max_width, first_line = 0, hanging = 0)
+layout_lines(
+  width,
+  newline,
+  space,
+  max_width,
+  first_line = 0,
+  hanging = 0,
+  break_before = FALSE
+)
 }
 \arguments{
 \item{width}{widths of the pieces.}
@@ -15,6 +23,9 @@ layout_lines(width, newline, space, max_width, first_line = 0, hanging = 0)
 
 \item{first_line, hanging}{width removed from the first line, and from the other
 lines.}
+
+\item{break_before}{logical, \code{TRUE} for the pieces that start a new line unless
+the current line is empty. It is recycled to the length of \code{width}.}
 }
 \value{
 An integer vector, the line of each piece, \code{0} for the dropped pieces.
@@ -29,6 +40,10 @@ the first of its line. Spaces are dropped when they do not fit and at the start
 of a line that follows an automatic line break; they are kept after a line
 break of the text, as they were written. A line break ends its line, and gives
 a line of its own if that line is empty.
+
+A word wider than a line is first moved to a new line, then split between
+its characters: give its characters as pieces and set \code{break_before} to \code{TRUE}
+on the first one.
 }
 \examples{
 layout_lines(

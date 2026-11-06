@@ -174,11 +174,49 @@ test_that("grid with raster", {
   expect_s3_class(gr$children[[12]]$children$contents$ftgrobs[[1]], "text")
 })
 
+test_that("a word wider than its cell starts on a new line, then is split", {
+  skip_if_not_installed("ragg")
+  # the drawn lines of the only body cell: the first label is the header
+  cell_lines <- function(text) {
+    ft <- flextable(data.frame(x = text))
+    ft <- width(ft, j = 1, width = 1.5)
+    gr <- gen_grob(ft, fit = "fixed", wrapping = TRUE, autowidths = FALSE)
+    find_labels <- function(x) {
+      labels <- if (inherits(x, "text")) as.character(x$label)
+      c(labels, unlist(lapply(x$children, find_labels), use.names = FALSE))
+    }
+    ragg::agg_png(withr::local_tempfile(fileext = ".png"))
+    on.exit(grDevices::dev.off())
+    grid::grid.draw(gr)
+    find_labels(grid::grid.force(gr))[-1]
+  }
+  long <- strrep("abcdefghij", 6)
+
+  lines <- cell_lines(paste("short", long, "end"))
+  expect_identical(lines[1], "short ")
+  expect_gt(nchar(lines[2]), 1L)
+  expect_identical(paste(lines[-1], collapse = ""), paste(long, "end"))
+
+  # the word comes first: there is no empty line above it
+  lines <- cell_lines(long)
+  expect_gt(length(lines), 1L)
+  expect_gt(nchar(lines[1]), 1L)
+  expect_identical(paste(lines, collapse = ""), long)
+
+  # a word that fits is not moved or split differently
+  expect_identical(cell_lines("ab cd"), "ab cd")
+})
+
 test_that("line breaks give the expected lines", {
   count_lines <- function(text, width = 3, wrapping = TRUE) {
     ft <- flextable(data.frame(x = text))
     ft <- width(ft, j = 1, width = width)
-    gr <- gen_grob(ft, fit = "fixed", wrapping = wrapping, autowidths = !wrapping)
+    gr <- gen_grob(
+      ft,
+      fit = "fixed",
+      wrapping = wrapping,
+      autowidths = !wrapping
+    )
     find_contents <- function(x) {
       if (!is.null(x$ftgrobs)) {
         return(list(x))
@@ -231,4 +269,3 @@ test_that("the height of a line does not depend on its text", {
   expect_equal(text_height("a\nb"), 2 * text_height("a"), tolerance = 1e-6)
   expect_equal(text_height("a\n\nb"), 3 * text_height("a"), tolerance = 1e-6)
 })
-
