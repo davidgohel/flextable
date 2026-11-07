@@ -517,9 +517,7 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...) {
 #' flextable with the functions [compose()], [append_chunks()]
 #' or [prepend_chunks()].
 #'
-#' To use this function, package 'equatags' is required;
-#' also `equatags::mathjax_install()` must be executed only once
-#' to install necessary dependencies.
+#' To use this function, package 'equatags' is required.
 #'
 #' @param x values containing the 'MathJax' equations
 #' @param props an [fp_text_default()] or [officer::fp_text()] object to be used to format the text.
