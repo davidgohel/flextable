@@ -408,6 +408,51 @@ runs_as_rtf <- function(x, chunk_data = information_data_chunk(x)) {
 
 
 #' @importFrom officer officer_url_encode
+# Run properties of equations: only the size and the color of the chunk, so
+# that equations keep the math font of the document. `type` is "wml" (Word)
+# or "pml" (PowerPoint).
+equation_rpr <- function(font.size, color, type = "wml") {
+  rgb <- grDevices::col2rgb(color, alpha = TRUE)
+  hex <- sprintf("%02X%02X%02X", rgb[1, ], rgb[2, ], rgb[3, ])
+  if (type == "wml") {
+    sz <- round(font.size * 2)
+    sprintf(
+      "<w:rPr><w:sz w:val=\"%.0f\"/><w:szCs w:val=\"%.0f\"/><w:color w:val=\"%s\"/></w:rPr>",
+      sz,
+      sz,
+      hex
+    )
+  } else {
+    alpha <- ifelse(
+      rgb[4, ] < 255,
+      sprintf("<a:alpha val=\"%.0f\"/>", rgb[4, ] / 255 * 100000),
+      ""
+    )
+    sprintf(
+      "<a:rPr sz=\"%.0f\"><a:solidFill><a:srgbClr val=\"%s\">%s</a:srgbClr></a:solidFill></a:rPr>",
+      round(font.size * 100),
+      hex,
+      alpha
+    )
+  }
+}
+
+# Equations in Word and PowerPoint, with the run properties of the chunk when
+# the installed version of 'equatags' supports them (argument `rpr`, equatags
+# >= 0.3.0); otherwise equations get the default size of the document.
+equations_as_omml <- function(eq_data, font.size, color, type = "wml") {
+  transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
+  if ("rpr" %in% names(formals(transform_mathjax))) {
+    transform_mathjax(
+      eq_data,
+      to = "mml",
+      rpr = equation_rpr(font.size, color, type = type)
+    )
+  } else {
+    transform_mathjax(eq_data, to = "mml")
+  }
+}
+
 runs_as_wml <- function(x, txt_data = information_data_chunk(x)) {
   # data can be (1.) from a df computed by information_data_chunk
   # or (2.) a single paragraph from x$caption$value and there will be only .chunk_index
@@ -496,10 +541,14 @@ runs_as_wml <- function(x, txt_data = information_data_chunk(x)) {
     requireNamespace("equatags", quietly = TRUE) &&
       any(runs_types_lst$is_equation)
   ) {
-    transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
     txt_data[
       runs_types_lst$is_equation,
-      c("run_openxml") := list(transform_mathjax(.SD$eq_data, to = "mml"))
+      c("run_openxml") := list(equations_as_omml(
+        .SD$eq_data,
+        font.size = .SD$font.size,
+        color = .SD$color,
+        type = "wml"
+      ))
     ]
   }
   setorderv(txt_data, cols = order_columns)
@@ -579,14 +628,18 @@ runs_as_pml <- function(value) {
     requireNamespace("equatags", quietly = TRUE) &&
       any(runs_types_lst$is_equation)
   ) {
-    transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
     txt_data[
       runs_types_lst$is_equation == TRUE,
       c("text_nodes_str") := list(
         paste0(
           "<mc:AlternateContent xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\"><mc:Choice xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\" Requires=\"a14\">",
           "<a14:m xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\"><m:oMathPara xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\"><m:oMathParaPr><m:jc m:val=\"centerGroup\"/></m:oMathParaPr>",
-          transform_mathjax(.SD$eq_data, to = "mml"),
+          equations_as_omml(
+            .SD$eq_data,
+            font.size = .SD$font.size,
+            color = .SD$color,
+            type = "pml"
+          ),
           "</m:oMathPara></a14:m>",
           "</mc:Choice></mc:AlternateContent>"
         )

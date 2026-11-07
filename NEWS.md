@@ -30,6 +30,11 @@ current line.
 
 ## issues
 
+- In Word and PowerPoint, equations made with `as_equation()` now get the font
+size and the color of their cell or of `props`. They were drawn with the default
+size of the document (12 pt in Word, 18 pt in PowerPoint) and in black. This
+needs 'equatags' >= 0.3.0; with an older version, equations keep the previous
+behavior.
 - `gen_grob()`, `save_as_image()` and `plot()` no longer fail on a table with a
 single cell, for example a one-column table with one row and no header, or a row
 whose cells are all merged.

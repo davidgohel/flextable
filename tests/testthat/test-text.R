@@ -325,6 +325,42 @@ test_that("as_equation", {
   expect_match(html_str[4], "<span class=\"katex\">", fixed = TRUE)
 })
 
+test_that("equations get the size and the color of the chunk", {
+  skip_if_not_installed("equatags", minimum_version = "0.3.0")
+
+  ft <- flextable(data.frame(formula = c("\\frac{a}{b}", "x^2")))
+  ft <- mk_par(
+    ft,
+    j = "formula",
+    part = "body",
+    value = as_paragraph(as_equation(formula))
+  )
+  ft <- fontsize(ft, size = 16, part = "body")
+  ft <- color(ft, i = 2, color = "red", part = "body")
+
+  wml <- flextable:::runs_as_wml(ft)$run_openxml
+  expect_match(wml[2], "<w:sz w:val=\"32\"/>", fixed = TRUE)
+  expect_match(wml[2], "<m:ctrlPr>\\s*<w:rPr>")
+  expect_match(wml[2], "<w:color w:val=\"000000\"/>", fixed = TRUE)
+  expect_match(wml[3], "<w:color w:val=\"FF0000\"/>", fixed = TRUE)
+  expect_no_match(wml[2], "rFonts", fixed = TRUE)
+
+  pml <- flextable:::runs_as_pml(ft)$par_nodes_str
+  expect_match(pml[2], "<m:r>\\s*<a:rPr sz=\"1600\">")
+  expect_match(pml[3], "<a:srgbClr val=\"FF0000\">", fixed = TRUE)
+})
+
+test_that("equation run properties", {
+  expect_equal(
+    flextable:::equation_rpr(11, "#336699", type = "wml"),
+    "<w:rPr><w:sz w:val=\"22\"/><w:szCs w:val=\"22\"/><w:color w:val=\"336699\"/></w:rPr>"
+  )
+  expect_equal(
+    flextable:::equation_rpr(10.5, "#33669980", type = "pml"),
+    "<a:rPr sz=\"1050\"><a:solidFill><a:srgbClr val=\"336699\"><a:alpha val=\"50196\"/></a:srgbClr></a:solidFill></a:rPr>"
+  )
+})
+
 test_that("as_word_field", {
   ft <- flextable(head(cars))
   ft <- add_footer_lines(ft, "temp text")
