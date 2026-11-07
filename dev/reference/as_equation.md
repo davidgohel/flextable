@@ -9,9 +9,7 @@ functions
 or
 [`prepend_chunks()`](https://davidgohel.github.io/flextable/dev/reference/prepend_chunks.md).
 
-To use this function, package 'equatags' is required; also
-`equatags::mathjax_install()` must be executed only once to install
-necessary dependencies.
+To use this function, package 'equatags' is required.
 
 ## Usage
 

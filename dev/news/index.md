@@ -42,6 +42,12 @@
 
 ### issues
 
+- In Word and PowerPoint, equations made with
+  [`as_equation()`](https://davidgohel.github.io/flextable/dev/reference/as_equation.md)
+  now get the font size and the color of their cell or of `props`. They
+  were drawn with the default size of the document (12 pt in Word, 18 pt
+  in PowerPoint) and in black. This needs ‘equatags’ \>= 0.3.0; with an
+  older version, equations keep the previous behavior.
 - [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md),
   [`save_as_image()`](https://davidgohel.github.io/flextable/dev/reference/save_as_image.md)
   and [`plot()`](https://rdrr.io/r/graphics/plot.default.html) no longer
