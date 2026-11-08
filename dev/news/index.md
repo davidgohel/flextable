@@ -20,6 +20,12 @@
 
 ### changes
 
+- [`as_image()`](https://davidgohel.github.io/flextable/dev/reference/as_image.md)
+  reads the size of ‘png’, ‘jpeg’ and ‘gif’ files from their header with
+  [`officer::image_dims()`](https://davidgohel.github.io/officer/reference/image_dims.html),
+  without decoding the image: it is much faster and package ‘magick’ is
+  no longer needed for these formats. Other formats, such as ‘svg’,
+  still need ‘magick’. This requires ‘officer’ \>= 0.7.8.
 - Tables drawn with
   [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md),
   [`save_as_image()`](https://davidgohel.github.io/flextable/dev/reference/save_as_image.md),
