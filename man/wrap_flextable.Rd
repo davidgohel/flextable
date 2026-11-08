@@ -37,7 +37,9 @@ participate in alignment with the plot axes.}
 
 \item{flex_body}{If \code{TRUE}, the table body row heights become flexible:
 the adjacent ggplot determines the panel height and the body rows
-stretch equally to fill it. Header and footer keep their fixed size.
+stretch equally, so that each row is centered on its category of a
+discrete y axis (see \code{expand}). Header and footer keep their fixed size,
+above and below the panel.
 This is useful to align table rows with discrete bars or categories
 in a neighbouring plot. Implies \code{free_y} for \code{space}.}
 
@@ -50,7 +52,8 @@ Implies \code{free_x} for \code{space}.}
 
 \item{expand}{Expansion value matching the ggplot discrete axis expansion
 (\code{ggplot2::expansion(add = expand)}). Default is \code{0.6}, which is the
-ggplot2 default for discrete axes. Only used when \code{flex_cols = TRUE}.}
+ggplot2 default for discrete axes. Used when \code{flex_body = TRUE} or
+\code{flex_cols = TRUE}. With \code{0.5}, rows (or columns) fill the whole panel.}
 
 \item{just}{Horizontal alignment of the table within its patchwork panel.
 One of \code{"left"} (default), \code{"right"}, or \code{"center"}. Useful when the

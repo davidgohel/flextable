@@ -160,7 +160,7 @@ test_that("as_patch.flextable flex_cols uses null units for data columns", {
   ft <- make_ft()
   attr(ft, ".patchwork_flex_cols") <- TRUE
   attr(ft, ".patchwork_n_row_headers") <- 1L
-  attr(ft, ".patchwork_flex_cols_expand") <- 0.6
+  attr(ft, ".patchwork_expand") <- 0.6
   gt <- flextable:::as_patch.flextable(ft)
 
   n_cols <- ncol_keys(ft)
@@ -285,3 +285,22 @@ test_that("patchwork with just right renders to PNG with ragg", {
 })
 
 init_flextable_defaults()
+
+test_that("flex_body places body rows at the positions of discrete categories", {
+  ft <- flextable(data.frame(a = c("A", "B", "C", "D"), b = 1:4))
+  ft <- add_footer_lines(ft, "note")
+  attr(ft, ".patchwork_flex_body") <- TRUE
+
+  # default expansion of ggplot2 discrete axes (0.6): 4 rows span 4 / 4.2 of
+  # the panel, with a margin of 0.1 / 4.2 above
+  attr(ft, ".patchwork_expand") <- 0.6
+  vp <- flextable:::as_patch.flextable(ft)$vp
+  expect_equal(grid::convertY(vp$y, "npc", valueOnly = TRUE), 1 - 0.1 / 4.2)
+  expect_match(as.character(vp$height), "0.952380952380952npc", fixed = TRUE)
+
+  # expand = 0.5: the body fills the panel; header and footer are outside
+  attr(ft, ".patchwork_expand") <- 0.5
+  vp <- flextable:::as_patch.flextable(ft)$vp
+  expect_equal(grid::convertY(vp$y, "npc", valueOnly = TRUE), 1)
+  expect_match(as.character(vp$height), "sum(1npc, ", fixed = TRUE)
+})

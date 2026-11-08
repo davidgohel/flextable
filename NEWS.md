@@ -34,6 +34,12 @@ current line.
 
 ## issues
 
+- `wrap_flextable(flex_body = TRUE)`: body rows are now aligned with the
+categories of a discrete y axis. They filled the whole panel, while ggplot2 adds
+an expansion of 0.6 at each end of a discrete axis, so that rows were more and
+more shifted from their category towards the top and the bottom. Argument
+`expand` is now used for rows too. A footer is now placed below the panel
+instead of taking space on the body.
 - With knitr option `root.dir` (R Markdown or Quarto), images of PDF and Typst
 outputs (`as_image()`, `minibar()`, ...) and tables rendered as images in other
 formats were written in `root.dir` instead of the directory of the document,

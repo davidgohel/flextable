@@ -24,7 +24,9 @@
 #' participate in alignment with the plot axes.
 #' @param flex_body If `TRUE`, the table body row heights become flexible:
 #' the adjacent ggplot determines the panel height and the body rows
-#' stretch equally to fill it. Header and footer keep their fixed size.
+#' stretch equally, so that each row is centered on its category of a
+#' discrete y axis (see `expand`). Header and footer keep their fixed size,
+#' above and below the panel.
 #' This is useful to align table rows with discrete bars or categories
 #' in a neighbouring plot. Implies `free_y` for `space`.
 #' @param flex_cols If `TRUE`, the data column widths (all columns after
@@ -35,7 +37,8 @@
 #' Implies `free_x` for `space`.
 #' @param expand Expansion value matching the ggplot discrete axis expansion
 #' (`ggplot2::expansion(add = expand)`). Default is `0.6`, which is the
-#' ggplot2 default for discrete axes. Only used when `flex_cols = TRUE`.
+#' ggplot2 default for discrete axes. Used when `flex_body = TRUE` or
+#' `flex_cols = TRUE`. With `0.5`, rows (or columns) fill the whole panel.
 #' @param just Horizontal alignment of the table within its patchwork panel.
 #' One of `"left"` (default), `"right"`, or `"center"`. Useful when the
 #' table is narrower than the available panel width.
@@ -171,7 +174,9 @@ wrap_flextable <- function(
   if (flex_cols) {
     attr(x, ".patchwork_flex_cols") <- TRUE
     attr(x, ".patchwork_n_row_headers") <- as.integer(n_row_headers)
-    attr(x, ".patchwork_flex_cols_expand") <- expand
+  }
+  if (flex_body || flex_cols) {
+    attr(x, ".patchwork_expand") <- expand
   }
   attr(x, ".patchwork_just") <- just
 
@@ -282,21 +287,32 @@ as_patch.flextable <- function(x, ...) {
     )
   }
 
-  # --- viewport height ---
-  if (flex_body && n_header > 0) {
-    header_height <- sum(unit(heights[seq_len(n_header)], "in"))
-    vp_height <- unit(1, "npc") + header_height
-  } else if (flex_body) {
-    vp_height <- unit(1, "npc")
+  # --- viewport height and vertical position ---
+  vp_y <- unit(1, "npc")
+  if (flex_body && n_body > 0) {
+    # as for columns: the body rows span n_body/range of the panel, with an
+    # empty margin above and below matching the discrete axis expansion, so
+    # that the center of each row is at the position of its category
+    expand_val <- as.numeric(attr(x, ".patchwork_expand") %||% 0.6)
+    expand_eff <- max(expand_val, 0.5)
+    range_units <- n_body - 1 + 2 * expand_eff
+    body_fraction <- n_body / range_units
+    top_margin <- (expand_eff - 0.5) / range_units
+    header_height <- unit(sum(heights[seq_len(n_header)]), "in")
+    footer_height <- unit(
+      sum(heights[seq.int(n_header + n_body + 1L, length.out = n_footer)]),
+      "in"
+    )
+    # header above the panel and footer below it, not taken on its height
+    vp_height <- unit(body_fraction, "npc") + header_height + footer_height
+    vp_y <- unit(1 - top_margin, "npc")
   } else {
     vp_height <- sum(row_heights)
   }
 
   # --- viewport width and horizontal position ---
   if (flex_cols && n_data_cols > 0) {
-    expand_val <- as.numeric(
-      attr(x, ".patchwork_flex_cols_expand") %||% 0.6
-    )
+    expand_val <- as.numeric(attr(x, ".patchwork_expand") %||% 0.6)
     # clamp: below 0.5, viewport would overflow the panel
     expand_eff <- max(expand_val, 0.5)
     range_units <- n_data_cols - 1 + 2 * expand_eff
@@ -327,7 +343,7 @@ as_patch.flextable <- function(x, ...) {
 
   gt$vp <- viewport(
     x = vp_x,
-    y = 1,
+    y = vp_y,
     width = vp_width,
     height = vp_height,
     default.units = "npc",
