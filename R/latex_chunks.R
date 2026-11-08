@@ -121,15 +121,35 @@ latex_highlightcolor <- function(x) {
   z
 }
 
+# Where to write a file whose path comes from knitr::fig_path(). This path is
+# relative to the document, but during a chunk the working directory is
+# `root.dir` when this option is set: the file is written in the directory of
+# the document (`base.dir` if set, otherwise `output.dir`), the path written in
+# the document stays relative. Outside knitr, the path is not changed.
+#' @importFrom knitr opts_knit
+knitr_output_path <- function(path) {
+  base <- opts_knit$get("base.dir")
+  if (!is.character(base) || !nzchar(base)) {
+    base <- opts_knit$get("output.dir")
+  }
+  if (!is.character(base) || !nzchar(base)) {
+    return(path)
+  }
+  is_absolute <- grepl("^(/|~|[A-Za-z]:|\\\\)", path)
+  path[!is_absolute] <- file.path(base, path[!is_absolute])
+  path
+}
+
 #' @importFrom knitr fig_path
 img_to_latex <- function(img_data, width, height) {
   new_files <- fig_path(suffix = ".png", number = seq_along(img_data))
-  for (d in unique(dirname(new_files))) {
+  disk_files <- knitr_output_path(new_files)
+  for (d in unique(dirname(disk_files))) {
     dir.create(d, showWarnings = FALSE, recursive = TRUE)
   }
 
   str_raster <- mapply(
-    function(img_raster, new_file, width, height) {
+    function(img_raster, new_file, disk_file, width, height) {
       if (inherits(img_raster, "raster")) {
         plot_in_png(
           code = {
@@ -141,13 +161,13 @@ img_to_latex <- function(img_data, width, height) {
           height = height,
           res = 300,
           units = "in",
-          path = new_file
+          path = disk_file
         )
       } else if (is.character(img_raster)) {
         if (!file.exists(img_raster)) {
           stop(sprintf("File '%s' could not be found.", img_raster))
         }
-        file.copy(from = img_raster, to = new_file, overwrite = TRUE)
+        file.copy(from = img_raster, to = disk_file, overwrite = TRUE)
       } else {
         stop("`image_data` can only be a raster or a filename.")
       }
@@ -160,6 +180,7 @@ img_to_latex <- function(img_data, width, height) {
     },
     img_data,
     new_files,
+    disk_files,
     width,
     height,
     SIMPLIFY = FALSE,

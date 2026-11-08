@@ -34,7 +34,7 @@ typst_fig_dir <- function() {
     return(tempdir())
   }
   d <- dirname(fp)
-  dir.create(d, showWarnings = FALSE, recursive = TRUE)
+  dir.create(knitr_output_path(d), showWarnings = FALSE, recursive = TRUE)
   d
 }
 
@@ -87,7 +87,7 @@ img_as_typst <- function(img_data, width, height, alt = "", embed = FALSE) {
             fileext = paste0(".", tools::file_ext(src))
           ))
         )
-        file.copy(src, file, overwrite = TRUE)
+        file.copy(src, knitr_output_path(file), overwrite = TRUE)
         sprintf(
           '#image("%s", width: %sin, height: %sin)',
           file,

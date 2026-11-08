@@ -771,13 +771,13 @@ knit_print.flextable <- function(x, ...) {
     str <- raw_block(str, "typst")
   } else {
     plot_counter <- getFromNamespace("plot_counter", "knitr")
-    in_base_dir <- getFromNamespace("in_base_dir", "knitr")
     tmp <- fig_path("png", number = plot_counter())
-    in_base_dir({
-      dir.create(dirname(tmp), showWarnings = FALSE, recursive = TRUE)
-      save_as_image(x, path = tmp, expand = 0)
-    })
-    str <- include_graphics(tmp)
+    disk_file <- knitr_output_path(tmp)
+    dir.create(dirname(disk_file), showWarnings = FALSE, recursive = TRUE)
+    save_as_image(x, path = disk_file, expand = 0)
+    # the file is checked relative to the working directory, which can be
+    # `root.dir`: it has just been written in the directory of the document
+    str <- include_graphics(tmp, error = FALSE)
   }
   str
 }

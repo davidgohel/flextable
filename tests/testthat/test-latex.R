@@ -428,3 +428,36 @@ test_that("padding_vertical option is validated and has a default", {
   ft <- flextable(head(iris))
   expect_true(ft$properties$opts_pdf$padding_vertical)
 })
+
+test_that("knitr_output_path() writes in the directory of the document", {
+  withr::defer(knitr::opts_knit$restore())
+  knitr::opts_knit$set(output.dir = NULL, base.dir = NULL)
+  expect_equal(flextable:::knitr_output_path("figure/a.png"), "figure/a.png")
+
+  knitr::opts_knit$set(output.dir = "/doc/dir")
+  expect_equal(
+    flextable:::knitr_output_path(c("figure/a.png", "/abs/b.png")),
+    c("/doc/dir/figure/a.png", "/abs/b.png")
+  )
+  knitr::opts_knit$set(base.dir = "/base/dir")
+  expect_equal(
+    flextable:::knitr_output_path("figure/a.png"),
+    "/base/dir/figure/a.png"
+  )
+})
+
+test_that("latex images are written in the output directory, not in root.dir", {
+  out_dir <- withr::local_tempdir()
+  root_dir <- withr::local_tempdir()
+  withr::local_dir(root_dir)
+  withr::defer(knitr::opts_knit$restore())
+  knitr::opts_knit$set(output.dir = out_dir, base.dir = NULL)
+
+  img <- file.path(R.home("doc"), "html", "logo.jpg")
+  str <- flextable:::img_to_latex(img, width = 1, height = 1)
+  path <- sub("^.*\\{(.*)\\}$", "\\1", str)
+
+  expect_false(grepl(out_dir, str, fixed = TRUE))
+  expect_true(file.exists(file.path(out_dir, path)))
+  expect_false(file.exists(file.path(root_dir, path)))
+})

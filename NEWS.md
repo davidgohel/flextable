@@ -34,6 +34,10 @@ current line.
 
 ## issues
 
+- With knitr option `root.dir` (R Markdown or Quarto), images of PDF and Typst
+outputs (`as_image()`, `minibar()`, ...) and tables rendered as images in other
+formats were written in `root.dir` instead of the directory of the document,
+and the document could not find them (#735).
 - In Word and PowerPoint, equations made with `as_equation()` now get the font
 size and the color of their cell or of `props`. They were drawn with the default
 size of the document (12 pt in Word, 18 pt in PowerPoint) and in black. This
