@@ -75,6 +75,33 @@ optional alignment of table headers and body with plot panel areas.
 
 Note this is experimental and may change in the future.
 }
+\section{Placement and stretching}{
+
+
+Two arguments set how the table relates to the panel of the plot (its
+plotting area, without axes and legends):
+\itemize{
+\item \code{panel} sets \strong{where} the table is placed: which part of the table is
+aligned with the panel (\code{"body"}: the body, header above and footer
+below; \code{"full"}: the whole table).
+\item \code{flex_body} sets \strong{whether body rows stretch} to fill the panel. With
+\code{FALSE}, rows keep their natural height and the body may be shorter or
+taller than the plot. With \code{TRUE}, the plot sets the height and body
+rows share it.
+}
+
+To align each row with a category of a discrete y axis, use both
+\code{panel = "body"} and \code{flex_body = TRUE}:\tabular{lll}{
+    \tab \code{flex_body = FALSE} \tab \code{flex_body = TRUE} \cr
+   \code{panel = "body"} \tab body at the top of the panel, natural height, not aligned \tab rows aligned with the categories \cr
+   \code{panel = "full"} \tab table at the top of the panel, natural height \tab table fills the height of the panel, not aligned \cr
+}
+
+
+The same applies to columns: \code{flex_cols = TRUE} with \code{panel = "body"} or
+\code{"cols"} aligns data columns with the categories of a discrete x axis.
+}
+
 \examples{
 \dontshow{if (requireNamespace("patchwork", quietly = TRUE) && requireNamespace("ggplot2", quietly = TRUE) && requireNamespace("ragg", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 library(gdtools)

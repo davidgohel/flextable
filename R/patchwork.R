@@ -7,6 +7,29 @@
 #' optional alignment of table headers and body with plot panel areas.
 #'
 #' Note this is experimental and may change in the future.
+#' @section Placement and stretching:
+#'
+#' Two arguments set how the table relates to the panel of the plot (its
+#' plotting area, without axes and legends):
+#'
+#' - `panel` sets **where** the table is placed: which part of the table is
+#'   aligned with the panel (`"body"`: the body, header above and footer
+#'   below; `"full"`: the whole table).
+#' - `flex_body` sets **whether body rows stretch** to fill the panel. With
+#'   `FALSE`, rows keep their natural height and the body may be shorter or
+#'   taller than the plot. With `TRUE`, the plot sets the height and body
+#'   rows share it.
+#'
+#' To align each row with a category of a discrete y axis, use both
+#' `panel = "body"` and `flex_body = TRUE`:
+#'
+#' |                  | `flex_body = FALSE`                | `flex_body = TRUE`                      |
+#' |------------------|------------------------------------|-----------------------------------------|
+#' | `panel = "body"` | body at the top of the panel, natural height, not aligned | rows aligned with the categories |
+#' | `panel = "full"` | table at the top of the panel, natural height | table fills the height of the panel, not aligned |
+#'
+#' The same applies to columns: `flex_cols = TRUE` with `panel = "body"` or
+#' `"cols"` aligns data columns with the categories of a discrete x axis.
 #' @param x A flextable object.
 #' @param panel What portion of the table should be aligned with the panel
 #' region? `"body"` means that header and footer will be placed outside the
