@@ -63,6 +63,10 @@
   `root.dir` instead of the directory of the document, and the document
   could not find them
   ([\#735](https://github.com/davidgohel/flextable/issues/735)).
+- In HTML, equations made with
+  [`as_equation()`](https://davidgohel.github.io/flextable/dev/reference/as_equation.md)
+  are now drawn at the size of the text of their cell, as in Word and
+  PowerPoint: the stylesheet of KaTeX made them 21% larger.
 - In Word and PowerPoint, equations made with
   [`as_equation()`](https://davidgohel.github.io/flextable/dev/reference/as_equation.md)
   now get the font size and the color of their cell or of `props`. They
