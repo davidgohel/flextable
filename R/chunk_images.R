@@ -27,12 +27,10 @@ NULL
 #' @param src image filename
 #' @param width,height size of the image file. It can be ignored
 #' if parameter `guess_size=TRUE`, see parameter `guess_size`.
-#' @param guess_size If package 'magick' is installed, this option
-#' can be used (set it to `TRUE` and don't provide values for paramters
-#' `width` and `height`). When the flextable will be printed,
-#' the images will be read and width and height will be guessed. This
-#' should be avoid if possible as it can be an extensive task when
-#' several images.
+#' @param guess_size If `TRUE` and `width` or `height` is not provided, the
+#' size of the image is read from the file, one pixel being 1/72 inch. The
+#' size of 'png', 'jpeg' and 'gif' files is read from their header, which is
+#' fast; other formats, such as 'svg', require package 'magick'.
 #' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @param alt alternative text for the image (used for accessibility)
 #' @param ... unused argument
@@ -44,22 +42,20 @@ NULL
 #'   R.home("doc"),
 #'   "html", "logo.jpg"
 #' )
-#' if (require("magick")) {
-#'   myft <- flextable(head(iris))
-#'   myft <- compose(myft,
-#'     i = 1:3, j = 1,
-#'     value = as_paragraph(
-#'       as_image(src = img.file),
-#'       " ",
-#'       as_chunk(Sepal.Length,
-#'         props = fp_text_default(color = "red")
-#'       )
-#'     ),
-#'     part = "body"
-#'   )
-#'   ft <- autofit(myft)
-#'   ft
-#' }
+#' myft <- flextable(head(iris))
+#' myft <- compose(myft,
+#'   i = 1:3, j = 1,
+#'   value = as_paragraph(
+#'     as_image(src = img.file),
+#'     " ",
+#'     as_chunk(Sepal.Length,
+#'       props = fp_text_default(color = "red")
+#'     )
+#'   ),
+#'   part = "body"
+#' )
+#' ft <- autofit(myft)
+#' ft
 as_image <- function(
   src,
   width = NULL,
@@ -80,14 +76,7 @@ as_image <- function(
   }
 
   if (guess_size && (is.null(width) || is.null(height))) {
-    if (!requireNamespace("magick", quietly = TRUE)) {
-      stop("package magick is required when using `guess_size` option.")
-    }
-    sizes <- lapply(src, function(x) {
-      z <- magick::image_read(x)
-      z <- magick::image_data(z)
-      attr(z, "dim")[-1]
-    })
+    sizes <- lapply(src, officer::image_dims)
     sizes <- do.call(rbind, sizes)
     width <- sizes[, 1] / 72
     height <- sizes[, 2] / 72

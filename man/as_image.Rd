@@ -22,12 +22,10 @@ if parameter \code{guess_size=TRUE}, see parameter \code{guess_size}.}
 
 \item{unit}{unit for width and height, one of "in", "cm", "mm".}
 
-\item{guess_size}{If package 'magick' is installed, this option
-can be used (set it to \code{TRUE} and don't provide values for paramters
-\code{width} and \code{height}). When the flextable will be printed,
-the images will be read and width and height will be guessed. This
-should be avoid if possible as it can be an extensive task when
-several images.}
+\item{guess_size}{If \code{TRUE} and \code{width} or \code{height} is not provided, the
+size of the image is read from the file, one pixel being 1/72 inch. The
+size of 'png', 'jpeg' and 'gif' files is read from their header, which is
+fast; other formats, such as 'svg', require package 'magick'.}
 
 \item{alt}{alternative text for the image (used for accessibility)}
 
@@ -59,22 +57,20 @@ img.file <- file.path(
   R.home("doc"),
   "html", "logo.jpg"
 )
-if (require("magick")) {
-  myft <- flextable(head(iris))
-  myft <- compose(myft,
-    i = 1:3, j = 1,
-    value = as_paragraph(
-      as_image(src = img.file),
-      " ",
-      as_chunk(Sepal.Length,
-        props = fp_text_default(color = "red")
-      )
-    ),
-    part = "body"
-  )
-  ft <- autofit(myft)
-  ft
-}
+myft <- flextable(head(iris))
+myft <- compose(myft,
+  i = 1:3, j = 1,
+  value = as_paragraph(
+    as_image(src = img.file),
+    " ",
+    as_chunk(Sepal.Length,
+      props = fp_text_default(color = "red")
+    )
+  ),
+  part = "body"
+)
+ft <- autofit(myft)
+ft
 }
 \seealso{
 \code{\link[=compose]{compose()}}, \code{\link[=as_paragraph]{as_paragraph()}}

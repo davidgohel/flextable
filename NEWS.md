@@ -13,6 +13,10 @@ activating it, `arraystretch = 1` is recommended:
 
 ## changes
 
+- `as_image()` reads the size of 'png', 'jpeg' and 'gif' files from their
+header with `officer::image_dims()`, without decoding the image: it is much
+faster and package 'magick' is no longer needed for these formats. Other formats,
+such as 'svg', still need 'magick'. This requires 'officer' >= 0.7.8.
 - Tables drawn with `gen_grob()`, `save_as_image()`, `plot()` or
 `wrap_flextable()` now have regular line heights: the height of a line depends
 on its font and no longer on its letters. Lines made of small letters no longer

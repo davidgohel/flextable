@@ -82,3 +82,25 @@ test_that("repair_docx registers image references", {
   expect_error(repair_docx(tempfile(fileext = ".docx")), "existing")
   expect_error(repair_docx(img_file), "docx")
 })
+
+test_that("as_image() reads the size of the image", {
+  img <- file.path(R.home("doc"), "html", "logo.jpg")
+  chunk <- as_image(img)
+  expect_equal(chunk$width, 100 / 72)
+  expect_equal(chunk$height, 76 / 72)
+
+  chunk <- as_image(c(img, img))
+  expect_equal(chunk$width, c(100, 100) / 72)
+  expect_equal(chunk$height, c(76, 76) / 72)
+
+  chunk <- as_image(img, width = 1, height = 2)
+  expect_equal(chunk$width, 1)
+  expect_equal(chunk$height, 2)
+
+  svg <- file.path(R.home("doc"), "html", "Rlogo.svg")
+  skip_if_not_installed("magick")
+  skip_if_not(file.exists(svg))
+  chunk <- as_image(svg)
+  expect_gt(chunk$width, 0)
+  expect_gt(chunk$height, 0)
+})
