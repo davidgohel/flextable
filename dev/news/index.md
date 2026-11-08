@@ -54,7 +54,8 @@
   that rows were more and more shifted from their category towards the
   top and the bottom. Argument `expand` is now used for rows too. A
   footer is now placed below the panel instead of taking space on the
-  body.
+  body. With `panel = "full"` or `"rows"`, the whole table now fits in
+  the panel: it overflowed below it by the height of the header.
 - With knitr option `root.dir` (R Markdown or Quarto), images of PDF and
   Typst outputs
   ([`as_image()`](https://davidgohel.github.io/flextable/dev/reference/as_image.md),
@@ -387,8 +388,8 @@ CRAN release: 2025-08-24
 ### Change
 
 - `print.flextable(preview = "log")` use
-  [`str()`](https://insightsengineering.github.io/rtables/latest-tag/reference/int_methods.html)
-  to show first values of data instead of
+  [`str()`](https://rdrr.io/pkg/rtables/man/int_methods.html) to show
+  first values of data instead of
   [`print()`](https://rdrr.io/r/base/print.html) so that when there are
   ggplot2 v4 objects in the table, the print is not failing.
 
@@ -1508,7 +1509,7 @@ CRAN release: 2020-05-15
   and
   [`color()`](https://davidgohel.github.io/flextable/dev/reference/color.md)
   now accept functions
-  (i.e. [`scales::col_numeric()`](https://scales.r-lib.org/reference/col_numeric.html))
+  (i.e. [`scales::col_numeric()`](https://rdrr.io/pkg/scales/man/col_numeric.html))
 
 ## flextable 0.5.9
 

@@ -15,7 +15,7 @@ Note this is experimental and may change in the future."><meta property="og:imag
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.4.021</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.4.024</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,9 +96,11 @@ participate in alignment with the plot axes.</p></dd>
 <dt id="arg-flex-body">flex_body<a class="anchor" aria-label="anchor" href="#arg-flex-body"></a></dt>
 <dd><p>If <code>TRUE</code>, the table body row heights become flexible:
 the adjacent ggplot determines the panel height and the body rows
-stretch equally, so that each row is centered on its category of a
-discrete y axis (see <code>expand</code>). Header and footer keep their fixed size,
-above and below the panel.
+stretch equally. With <code>panel = "body"</code> or <code>"cols"</code>, each row is centered
+on its category of a discrete y axis (see <code>expand</code>), header and footer keep
+their fixed size above and below the panel. With <code>panel = "full"</code> or
+<code>"rows"</code>, the whole table fills the panel: body rows take the height left by
+header and footer and are not aligned with the categories.
 This is useful to align table rows with discrete bars or categories
 in a neighbouring plot. Implies <code>free_y</code> for <code>space</code>.</p></dd>
 
@@ -115,8 +117,9 @@ Implies <code>free_x</code> for <code>space</code>.</p></dd>
 <dt id="arg-expand">expand<a class="anchor" aria-label="anchor" href="#arg-expand"></a></dt>
 <dd><p>Expansion value matching the ggplot discrete axis expansion
 (<code>ggplot2::expansion(add = expand)</code>). Default is <code>0.6</code>, which is the
-ggplot2 default for discrete axes. Used when <code>flex_body = TRUE</code> or
-<code>flex_cols = TRUE</code>. With <code>0.5</code>, rows (or columns) fill the whole panel.</p></dd>
+ggplot2 default for discrete axes. Used when <code>flex_body = TRUE</code> (with
+<code>panel = "body"</code> or <code>"cols"</code>) or <code>flex_cols = TRUE</code>. With <code>0.5</code>, rows (or
+columns) fill the whole panel.</p></dd>
 
 
 <dt id="arg-just">just<a class="anchor" aria-label="anchor" href="#arg-just"></a></dt>
@@ -130,6 +133,23 @@ Ignored when <code>flex_cols = TRUE</code> (columns fill the panel).</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A patchwork-compliant object that can be combined with ggplot2 plots
 using <code>+</code>, <code>|</code>, or <code>/</code> operators.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="placement-and-stretching">Placement and stretching<a class="anchor" aria-label="anchor" href="#placement-and-stretching"></a></h2>
+
+
+
+<p>Two arguments set how the table relates to the panel of the plot (its
+plotting area, without axes and legends):</p><ul><li><p><code>panel</code> sets <strong>where</strong> the table is placed: which part of the table is
+aligned with the panel (<code>"body"</code>: the body, header above and footer
+below; <code>"full"</code>: the whole table).</p></li>
+<li><p><code>flex_body</code> sets <strong>whether body rows stretch</strong> to fill the panel. With
+<code>FALSE</code>, rows keep their natural height and the body may be shorter or
+taller than the plot. With <code>TRUE</code>, the plot sets the height and body
+rows share it.</p></li>
+</ul><p>To align each row with a category of a discrete y axis, use both
+<code>panel = "body"</code> and <code>flex_body = TRUE</code>:</p><table class="table table"><tr><td></td><td><code>flex_body = FALSE</code></td><td><code>flex_body = TRUE</code></td></tr><tr><td><code>panel = "body"</code></td><td>body at the top of the panel, natural height, not aligned</td><td>rows aligned with the categories</td></tr><tr><td><code>panel = "full"</code></td><td>table at the top of the panel, natural height</td><td>table fills the height of the panel, not aligned</td></tr></table><p>The same applies to columns: <code>flex_cols = TRUE</code> with <code>panel = "body"</code> or
+<code>"cols"</code> aligns data columns with the categories of a discrete x axis.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -204,7 +224,7 @@ using <code>+</code>, <code>|</code>, or <code>/</code> operators.</p>
 <span class="r-in"><span>    stroke <span class="op">=</span> <span class="fl">.8</span>, color <span class="op">=</span> <span class="st">"white"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/percent_format.html" class="external-link">percent</a></span>,</span></span>
+<span class="r-in"><span>    labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/scales/man/percent_format.html" class="external-link">percent</a></span>,</span></span>
 <span class="r-in"><span>    expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.02</span>, <span class="fl">.02</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_y_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="cn">NULL</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span></span>
