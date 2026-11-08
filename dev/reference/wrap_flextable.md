@@ -56,10 +56,11 @@ wrap_flextable(
 - flex_body:
 
   If `TRUE`, the table body row heights become flexible: the adjacent
-  ggplot determines the panel height and the body rows stretch equally
-  to fill it. Header and footer keep their fixed size. This is useful to
-  align table rows with discrete bars or categories in a neighbouring
-  plot. Implies `free_y` for `space`.
+  ggplot determines the panel height and the body rows stretch equally,
+  so that each row is centered on its category of a discrete y axis (see
+  `expand`). Header and footer keep their fixed size, above and below
+  the panel. This is useful to align table rows with discrete bars or
+  categories in a neighbouring plot. Implies `free_y` for `space`.
 
 - flex_cols:
 
@@ -74,7 +75,9 @@ wrap_flextable(
 
   Expansion value matching the ggplot discrete axis expansion
   (`ggplot2::expansion(add = expand)`). Default is `0.6`, which is the
-  ggplot2 default for discrete axes. Only used when `flex_cols = TRUE`.
+  ggplot2 default for discrete axes. Used when `flex_body = TRUE` or
+  `flex_cols = TRUE`. With `0.5`, rows (or columns) fill the whole
+  panel.
 
 - just:
 
