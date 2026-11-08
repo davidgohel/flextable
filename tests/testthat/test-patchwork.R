@@ -304,3 +304,19 @@ test_that("flex_body places body rows at the positions of discrete categories", 
   expect_equal(grid::convertY(vp$y, "npc", valueOnly = TRUE), 1)
   expect_match(as.character(vp$height), "sum(1npc, ", fixed = TRUE)
 })
+
+test_that("flex_body with panel full or rows keeps the whole table in the panel", {
+  ft <- flextable(data.frame(a = c("A", "B", "C", "D"), b = 1:4))
+  ft <- add_footer_lines(ft, "note")
+  attr(ft, ".patchwork_flex_body") <- TRUE
+  attr(ft, ".patchwork_expand") <- 0.6
+  for (panel in c("full", "rows")) {
+    attr(ft, ".patchwork_panel") <- panel
+    vp <- flextable:::as_patch.flextable(ft)$vp
+    expect_equal(grid::convertY(vp$y, "npc", valueOnly = TRUE), 1, label = panel)
+    expect_identical(as.character(vp$height), "1npc", label = panel)
+  }
+  attr(ft, ".patchwork_panel") <- "cols"
+  vp <- flextable:::as_patch.flextable(ft)$vp
+  expect_equal(grid::convertY(vp$y, "npc", valueOnly = TRUE), 1 - 0.1 / 4.2)
+})

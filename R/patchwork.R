@@ -24,9 +24,11 @@
 #' participate in alignment with the plot axes.
 #' @param flex_body If `TRUE`, the table body row heights become flexible:
 #' the adjacent ggplot determines the panel height and the body rows
-#' stretch equally, so that each row is centered on its category of a
-#' discrete y axis (see `expand`). Header and footer keep their fixed size,
-#' above and below the panel.
+#' stretch equally. With `panel = "body"` or `"cols"`, each row is centered
+#' on its category of a discrete y axis (see `expand`), header and footer keep
+#' their fixed size above and below the panel. With `panel = "full"` or
+#' `"rows"`, the whole table fills the panel: body rows take the height left by
+#' header and footer and are not aligned with the categories.
 #' This is useful to align table rows with discrete bars or categories
 #' in a neighbouring plot. Implies `free_y` for `space`.
 #' @param flex_cols If `TRUE`, the data column widths (all columns after
@@ -37,8 +39,9 @@
 #' Implies `free_x` for `space`.
 #' @param expand Expansion value matching the ggplot discrete axis expansion
 #' (`ggplot2::expansion(add = expand)`). Default is `0.6`, which is the
-#' ggplot2 default for discrete axes. Used when `flex_body = TRUE` or
-#' `flex_cols = TRUE`. With `0.5`, rows (or columns) fill the whole panel.
+#' ggplot2 default for discrete axes. Used when `flex_body = TRUE` (with
+#' `panel = "body"` or `"cols"`) or `flex_cols = TRUE`. With `0.5`, rows (or
+#' columns) fill the whole panel.
 #' @param just Horizontal alignment of the table within its patchwork panel.
 #' One of `"left"` (default), `"right"`, or `"center"`. Useful when the
 #' table is narrower than the available panel width.
@@ -179,6 +182,7 @@ wrap_flextable <- function(
     attr(x, ".patchwork_expand") <- expand
   }
   attr(x, ".patchwork_just") <- just
+  attr(x, ".patchwork_panel") <- panel
 
   wrapped <- patchwork::wrap_elements(panel = x, ignore_tag = FALSE)
   attr(wrapped, "patch_settings")$panel <- panel
@@ -289,7 +293,14 @@ as_patch.flextable <- function(x, ...) {
 
   # --- viewport height and vertical position ---
   vp_y <- unit(1, "npc")
-  if (flex_body && n_body > 0) {
+  # with panel "full" or "rows", header and footer are inside the panel
+  panel <- attr(x, ".patchwork_panel") %||% "body"
+  rows_in_panel <- panel %in% c("full", "rows")
+  if (flex_body && n_body > 0 && rows_in_panel) {
+    # the whole table fills the panel; body rows take what header and footer
+    # leave, they cannot be aligned with categories of the axis
+    vp_height <- unit(1, "npc")
+  } else if (flex_body && n_body > 0) {
     # as for columns: the body rows span n_body/range of the panel, with an
     # empty margin above and below matching the discrete axis expansion, so
     # that the center of each row is at the position of its category
