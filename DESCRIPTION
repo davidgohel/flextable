@@ -1,7 +1,7 @@
 Type: Package
 Package: flextable
 Title: Functions for Tabular Reporting
-Version: 0.10.4.016
+Version: 0.10.4.017
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -37,7 +37,7 @@ URL: https://ardata-fr.github.io/flextable-book/,
 BugReports: https://github.com/davidgohel/flextable/issues
 Imports:
     data.table (>= 1.13.0),
-    gdtools (>= 0.5.0),
+    gdtools (>= 0.5.3),
     graphics,
     grDevices,
     grid,
