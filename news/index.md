@@ -1,6 +1,103 @@
 # Changelog
 
+## flextable 0.10.4
+
+### new features
+
+- new PDF option `padding_vertical` (in
+  [`set_flextable_defaults()`](https://davidgohel.github.io/flextable/reference/set_flextable_defaults.md)
+  and in `opts_pdf` of
+  [`set_table_properties()`](https://davidgohel.github.io/flextable/reference/set_table_properties.md)).
+  When TRUE, PDF output applies `padding.top` and `padding.bottom` with
+  the “fixed” layout, as the other outputs do. They are ignored
+  otherwise, so content taller than a text line, such as a
+  [`minibar()`](https://davidgohel.github.io/flextable/reference/minibar.md),
+  touches the borders above it
+  ([\#734](https://github.com/davidgohel/flextable/issues/734)). The
+  option is FALSE by default so that existing PDF tables keep their
+  height; when activating it, `arraystretch = 1` is recommended:
+  `set_flextable_defaults(padding_vertical = TRUE, arraystretch = 1)`.
+
+### changes
+
+- [`as_image()`](https://davidgohel.github.io/flextable/reference/as_image.md)
+  reads the size of ‘png’, ‘jpeg’ and ‘gif’ files from their header with
+  [`officer::image_dims()`](https://davidgohel.github.io/officer/reference/image_dims.html),
+  without decoding the image: it is much faster and package ‘magick’ is
+  no longer needed for these formats. Other formats, such as ‘svg’,
+  still need ‘magick’. This requires ‘officer’ \>= 0.7.8.
+- Tables drawn with
+  [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md),
+  [`save_as_image()`](https://davidgohel.github.io/flextable/reference/save_as_image.md),
+  [`plot()`](https://rdrr.io/r/graphics/plot.default.html) or
+  [`wrap_flextable()`](https://davidgohel.github.io/flextable/reference/wrap_flextable.md)
+  now have regular line heights: the height of a line depends on its
+  font and no longer on its letters. Lines made of small letters no
+  longer overlap, and rows no longer vary with their text. Tables are a
+  little taller as a result; use
+  [`line_spacing()`](https://davidgohel.github.io/flextable/reference/line_spacing.md)
+  to adjust them. Word, PowerPoint, HTML and PDF outputs do not change.
+- These tables are also faster and lighter, especially with images. An
+  image used in many cells is now read once. With a large image repeated
+  on 60 rows, creating the table takes 0.5 s instead of 11 s, drawing it
+  0.25 s instead of 2.6 s, and it uses 135 MB of memory instead of 5.6
+  GB. Tables with wrapped text are faster too.
+- In these tables, a word wider than its cell now starts on a new line
+  and is only split there if it is still too wide, as in HTML output. It
+  used to start on the current line.
+
+### issues
+
+- `wrap_flextable(flex_body = TRUE)`: body rows are now aligned with the
+  categories of a discrete y axis. They filled the whole panel, while
+  ggplot2 adds an expansion of 0.6 at each end of a discrete axis, so
+  that rows were more and more shifted from their category towards the
+  top and the bottom. Argument `expand` is now used for rows too. A
+  footer is now placed below the panel instead of taking space on the
+  body. With `panel = "full"` or `"rows"`, the whole table now fits in
+  the panel: it overflowed below it by the height of the header.
+- With knitr option `root.dir` (R Markdown or Quarto), images of PDF and
+  Typst outputs
+  ([`as_image()`](https://davidgohel.github.io/flextable/reference/as_image.md),
+  [`minibar()`](https://davidgohel.github.io/flextable/reference/minibar.md),
+  …) and tables rendered as images in other formats were written in
+  `root.dir` instead of the directory of the document, and the document
+  could not find them
+  ([\#735](https://github.com/davidgohel/flextable/issues/735)).
+- In HTML, equations made with
+  [`as_equation()`](https://davidgohel.github.io/flextable/reference/as_equation.md)
+  are now drawn at the size of the text of their cell, as in Word and
+  PowerPoint: the stylesheet of KaTeX made them 21% larger.
+- In Word and PowerPoint, equations made with
+  [`as_equation()`](https://davidgohel.github.io/flextable/reference/as_equation.md)
+  now get the font size and the color of their cell or of `props`. They
+  were drawn with the default size of the document (12 pt in Word, 18 pt
+  in PowerPoint) and in black. This needs ‘equatags’ \>= 0.3.0; with an
+  older version, equations keep the previous behavior.
+- [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md),
+  [`save_as_image()`](https://davidgohel.github.io/flextable/reference/save_as_image.md)
+  and [`plot()`](https://rdrr.io/r/graphics/plot.default.html) no longer
+  fail on a table with a single cell, for example a one-column table
+  with one row and no header, or a row whose cells are all merged.
+- [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md)
+  no longer fails with a cell containing consecutive line breaks
+  (`"a\n\nb"`), or a line break just after a wrapped line. Empty lines
+  are now displayed.
+- In
+  [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md),
+  spaces written after a line break are now always kept, as they are in
+  the text.
+- [`as_flextable()`](https://davidgohel.github.io/flextable/reference/as_flextable.md)
+  on ‘rtables’ objects now keeps together the smallest labelled groups
+  in Word and RTF, instead of the top level groups only. With two levels
+  of labels (e.g. parameter then visit), a parameter was a single group
+  of possibly hundreds of rows: Word pushed the table to the next page,
+  leaving its title alone, then broke the pages anywhere. The label of a
+  parent group is kept with its first child group.
+
 ## flextable 0.10.3
+
+CRAN release: 2026-10-14
 
 ### issues
 

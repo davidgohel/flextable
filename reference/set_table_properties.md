@@ -99,6 +99,11 @@ set_table_properties(
   - 'arraystretch': height of each row relative to its default height,
     the default value is 1.5.
 
+  - 'padding_vertical': if TRUE, `padding.top` and `padding.bottom` are
+    applied with the "fixed" layout. The default value is FALSE for
+    backward compatibility (rows height only depends on 'arraystretch').
+    When activated, `arraystretch = 1` is recommended.
+
   - 'float': type of floating placement in the PDF document, one of:
 
     - 'none' (the default value), table is placed after the preceding

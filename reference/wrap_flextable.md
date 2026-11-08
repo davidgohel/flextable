@@ -56,10 +56,14 @@ wrap_flextable(
 - flex_body:
 
   If `TRUE`, the table body row heights become flexible: the adjacent
-  ggplot determines the panel height and the body rows stretch equally
-  to fill it. Header and footer keep their fixed size. This is useful to
-  align table rows with discrete bars or categories in a neighbouring
-  plot. Implies `free_y` for `space`.
+  ggplot determines the panel height and the body rows stretch equally.
+  With `panel = "body"` or `"cols"`, each row is centered on its
+  category of a discrete y axis (see `expand`), header and footer keep
+  their fixed size above and below the panel. With `panel = "full"` or
+  `"rows"`, the whole table fills the panel: body rows take the height
+  left by header and footer and are not aligned with the categories.
+  This is useful to align table rows with discrete bars or categories in
+  a neighbouring plot. Implies `free_y` for `space`.
 
 - flex_cols:
 
@@ -74,7 +78,9 @@ wrap_flextable(
 
   Expansion value matching the ggplot discrete axis expansion
   (`ggplot2::expansion(add = expand)`). Default is `0.6`, which is the
-  ggplot2 default for discrete axes. Only used when `flex_cols = TRUE`.
+  ggplot2 default for discrete axes. Used when `flex_body = TRUE` (with
+  `panel = "body"` or `"cols"`) or `flex_cols = TRUE`. With `0.5`, rows
+  (or columns) fill the whole panel.
 
 - just:
 
@@ -87,6 +93,32 @@ wrap_flextable(
 
 A patchwork-compliant object that can be combined with ggplot2 plots
 using `+`, `|`, or `/` operators.
+
+## Placement and stretching
+
+Two arguments set how the table relates to the panel of the plot (its
+plotting area, without axes and legends):
+
+- `panel` sets **where** the table is placed: which part of the table is
+  aligned with the panel (`"body"`: the body, header above and footer
+  below; `"full"`: the whole table).
+
+- `flex_body` sets **whether body rows stretch** to fill the panel. With
+  `FALSE`, rows keep their natural height and the body may be shorter or
+  taller than the plot. With `TRUE`, the plot sets the height and body
+  rows share it.
+
+To align each row with a category of a discrete y axis, use both
+`panel = "body"` and `flex_body = TRUE`:
+
+|  |  |  |
+|----|----|----|
+|  | `flex_body = FALSE` | `flex_body = TRUE` |
+| `panel = "body"` | body at the top of the panel, natural height, not aligned | rows aligned with the categories |
+| `panel = "full"` | table at the top of the panel, natural height | table fills the height of the panel, not aligned |
+
+The same applies to columns: `flex_cols = TRUE` with `panel = "body"` or
+`"cols"` aligns data columns with the categories of a discrete x axis.
 
 ## See also
 

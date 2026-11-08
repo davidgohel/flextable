@@ -15,8 +15,10 @@ Content rows (`ContentRow`) are displayed entirely in bold.
 
 When `LabelRow` groups exist,
 [`paginate()`](https://davidgohel.github.io/flextable/reference/paginate.md)
-is applied so that all rows belonging to the same group are kept
-together on the same page in Word and RTF output.
+is applied so that the rows of the smallest labelled groups are kept
+together on the same page in Word and RTF output. Each group starts at a
+label row, and the labels of its parent groups are kept with the first
+of their child groups.
 
 To paginate the resulting flextable into multiple pages, use
 [`split_to_pages()`](https://davidgohel.github.io/flextable/reference/split_to_pages.md),

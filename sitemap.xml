@@ -16,17 +16,6 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/add_latex_dep.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/align.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/append_chunks.html</loc></url>
-<url><loc>https://davidgohel.github.io/flextable/reference/args_selectors_with_all.html</loc></url>
-<url><loc>https://davidgohel.github.io/flextable/reference/args_selectors_without_all.html</loc></url>
-<url><loc>https://davidgohel.github.io/flextable/reference/args_x_i_j.html</loc></url>
-<url><loc>https://davidgohel.github.io/flextable/reference/args_x_i_part.html</loc></url>
-<url><loc>https://davidgohel.github.io/flextable/reference/args_x_i_part_no_all.html</loc></url>
-<url><loc>https://davidgohel.github.io/flextable/reference/args_x_j.html</loc></url>
-<url><loc>https://davidgohel.github.io/flextable/reference/args_x_j_part.html</loc></url>
-<url><loc>https://davidgohel.github.io/flextable/reference/args_x_j_part_no_all.html</loc></url>
-<url><loc>https://davidgohel.github.io/flextable/reference/args_x_only.html</loc></url>
-<url><loc>https://davidgohel.github.io/flextable/reference/args_x_part.html</loc></url>
-<url><loc>https://davidgohel.github.io/flextable/reference/args_x_part_no_all.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_b.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_bracket.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/as_chunk.html</loc></url>
@@ -129,6 +118,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/hrule.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/htmltools_value.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/hyperlink_text.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/image_raster.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/indentation.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/index.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/information_data_cell.html</loc></url>
@@ -138,6 +128,7 @@
 <url><loc>https://davidgohel.github.io/flextable/reference/keep_with_next.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/knit_print.flextable.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/labelizor.html</loc></url>
+<url><loc>https://davidgohel.github.io/flextable/reference/layout_lines.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/line_spacing.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/linerange.html</loc></url>
 <url><loc>https://davidgohel.github.io/flextable/reference/lollipop.html</loc></url>

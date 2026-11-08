@@ -17,7 +17,7 @@ table width is used (as a percentage)."><meta property="og:image" content="https
 
     <a class="navbar-brand me-2" href="../index.html">flextable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -129,6 +129,10 @@ activated and associated to header rows when TRUE.</p></li>
 cell.</p></li>
 <li><p>'arraystretch': height of each row relative to its default
 height, the default value is 1.5.</p></li>
+<li><p>'padding_vertical': if TRUE, <code>padding.top</code> and <code>padding.bottom</code> are
+applied with the "fixed" layout. The default value is FALSE for backward
+compatibility (rows height only depends on 'arraystretch'). When
+activated, <code>arraystretch = 1</code> is recommended.</p></li>
 <li><p>'float': type of floating placement in the PDF document, one of:</p><ul><li><p>'none' (the default value), table is placed after the preceding
 paragraph.</p></li>
 <li><p>'float', table can float to a place in the text where it fits best</p></li>
