@@ -439,3 +439,14 @@ test_that("strike", {
   expect_match(rtf_str[2], "\\strike", fixed = TRUE)
   expect_match(rtf_str[3], "\\strike", fixed = TRUE)
 })
+
+test_that("html equations have the size of the text of their cell", {
+  skip_if_not_installed("equatags")
+  ft <- flextable(data.frame(eq = "x^2"))
+  ft <- compose(ft, j = "eq", value = as_paragraph(as_equation(eq)))
+  html <- flextable:::gen_raw_html(ft)
+  expect_match(html, " .katex{font-size:1em;}", fixed = TRUE)
+
+  html <- flextable:::gen_raw_html(flextable(data.frame(x = 1)))
+  expect_no_match(html, ".katex", fixed = TRUE)
+})

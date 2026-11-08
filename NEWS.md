@@ -44,6 +44,9 @@ instead of taking space on the body.
 outputs (`as_image()`, `minibar()`, ...) and tables rendered as images in other
 formats were written in `root.dir` instead of the directory of the document,
 and the document could not find them (#735).
+- In HTML, equations made with `as_equation()` are now drawn at the size of
+the text of their cell, as in Word and PowerPoint: the stylesheet of KaTeX made
+them 21% larger.
 - In Word and PowerPoint, equations made with `as_equation()` now get the font
 size and the color of their cell or of `props`. They were drawn with the default
 size of the document (12 pt in Word, 18 pt in PowerPoint) and in black. This

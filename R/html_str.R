@@ -36,6 +36,12 @@ gen_raw_html <- function(
 
   classname <- table_css_class(x, tabcss)
   tabcss <- paste0(".", classname, "{", tabcss, "}")
+  # KaTeX sets `.katex {font-size: 1.21em}`: equations are drawn at the size
+  # of the text of their cell, as in Word and PowerPoint. The selector is more
+  # specific than KaTeX's one, it wins whatever the order of the stylesheets.
+  if (has_equation(x)) {
+    tabcss <- paste0(tabcss, ".", classname, " .katex{font-size:1em;}")
+  }
 
   if (is.null(manual_css) || "" %in% manual_css) {
     manual_css_str <- ""
