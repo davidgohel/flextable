@@ -76,7 +76,7 @@ as_image <- function(
   }
 
   if (guess_size && (is.null(width) || is.null(height))) {
-    sizes <- lapply(src, officer::image_dims)
+    sizes <- lapply(src, image_size_px)
     sizes <- do.call(rbind, sizes)
     width <- sizes[, 1] / 72
     height <- sizes[, 2] / 72
@@ -91,6 +91,22 @@ as_image <- function(
   )
   class(data) <- c("img_src", class(data))
   data
+}
+
+# Size of an image file in pixels. 'svg' files are read with
+# magick::image_read(), which does not need package 'rsvg' as
+# officer::image_dims() does (magick::image_read_svg()); other files are
+# read with officer::image_dims(), from their header for 'png', 'jpeg' and
+# 'gif'.
+image_size_px <- function(x) {
+  if (grepl("\\.svg$", x, ignore.case = TRUE)) {
+    if (!requireNamespace("magick", quietly = TRUE)) {
+      stop("package magick is required to read the size of a 'svg' file.")
+    }
+    z <- magick::image_data(magick::image_read(x))
+    return(attr(z, "dim")[-1])
+  }
+  officer::image_dims(x)
 }
 
 
