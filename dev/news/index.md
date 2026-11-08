@@ -48,6 +48,14 @@
 
 ### issues
 
+- With knitr option `root.dir` (R Markdown or Quarto), images of PDF and
+  Typst outputs
+  ([`as_image()`](https://davidgohel.github.io/flextable/dev/reference/as_image.md),
+  [`minibar()`](https://davidgohel.github.io/flextable/dev/reference/minibar.md),
+  …) and tables rendered as images in other formats were written in
+  `root.dir` instead of the directory of the document, and the document
+  could not find them
+  ([\#735](https://github.com/davidgohel/flextable/issues/735)).
 - In Word and PowerPoint, equations made with
   [`as_equation()`](https://davidgohel.github.io/flextable/dev/reference/as_equation.md)
   now get the font size and the color of their cell or of `props`. They
