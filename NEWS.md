@@ -1,3 +1,37 @@
+# flextable (development version)
+
+## new features
+
+- `as_equation()`: `width` and `height` are now optional. When they are not
+provided, the size of the equation is computed with
+`equatags::equation_size()` (equatags >= 0.4.0) from the equation and the
+font size of the chunk, so that `autofit()`, `dim_pretty()` and `gen_grob()`
+know it. Sizes provided keep the priority.
+- `gen_grob()` draws equations with `equatags::equation_grob()` (R >= 4.3),
+on the baseline of the text around them, with the colour and size of the
+chunk.
+- The style of equations follows the rule of Word in every output: the
+display style (large fractions, limits above and below sums) when the
+paragraph only contains equations, the inline style as soon as it contains
+something else, even a space. HTML and LaTeX outputs use `\displaystyle` for
+the display style, Word and PowerPoint outputs ask 'equatags' for the style
+of each equation (argument `display` of `equatags::transform_mathjax()`),
+and the size and `gen_grob()` use the same style.
+- In Word, equations alone in their paragraph keep the alignment of the
+paragraph and its left and right paddings: Word centered them and ignored the
+paddings. They are written in a math paragraph (`m:oMathPara`) with the
+alignment of the paragraph, and the paddings become margins of the cell.
+In PowerPoint, they also keep the alignment of the paragraph: they were
+centered.
+- Consecutive equations of a paragraph with the same format are merged into
+one equation, as Word lays them out: the spaces between their atoms apply,
+for example the thin space before a large operator.
+
+## issues
+
+- `dim_pretty()` and `autofit()` applied the sizes given to chunks (images,
+equations) to the wrong cells in tables with several columns.
+
 # flextable 0.10.4
 
 ## new features

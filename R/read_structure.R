@@ -373,7 +373,164 @@ fortify_content <- function(
 
   out$.col_id <- factor(out$.col_id, levels = default_chunk_fmt$color$keys)
   out <- out[order(out$.col_id, out$.row_id, out$.chunk_index), ]
+  out <- merge_consecutive_equations(out)
+  out$eq_display <- equation_display(out)
+  out <- fill_equation_sizes(out)
   out
+}
+
+# Consecutive equations of a paragraph are one equation for Word (measured:
+# the spaces between atoms apply between them, e.g. the thin space before a
+# large operator), so they are merged into one chunk when they have the same
+# formatting and no size given: the size, gen_grob() and the other outputs
+# then lay them out as Word does. `dat` is sorted by paragraph and chunk.
+merge_consecutive_equations <- function(dat) {
+  n <- nrow(dat)
+  if (n < 2 || !"eq_data" %in% names(dat)) {
+    return(dat)
+  }
+  is_eq <- !is.na(dat$eq_data) & is.na(dat$width) & is.na(dat$height)
+  if (sum(is_eq) < 2) {
+    return(dat)
+  }
+  same_par <- dat$.row_id[-1] == dat$.row_id[-n] &
+    as.character(dat$.col_id[-1]) == as.character(dat$.col_id[-n])
+  props <- setdiff(
+    names(dat),
+    c(".row_id", ".col_id", ".chunk_index", "eq_data", "txt", "width", "height")
+  )
+  same_props <- vapply(
+    seq_len(n - 1),
+    function(i) {
+      all(vapply(props, function(p) identical(dat[[p]][i], dat[[p]][i + 1]), NA))
+    },
+    NA
+  )
+  join <- c(FALSE, is_eq[-1] & is_eq[-n] & same_par & same_props)
+  if (!any(join)) {
+    return(dat)
+  }
+  group <- cumsum(!join)
+  eq <- tapply(dat$eq_data, group, paste, collapse = " ")
+  dat <- dat[!join, , drop = FALSE]
+  dat$eq_data[!is.na(dat$eq_data)] <- eq[!is.na(dat$eq_data)]
+  # chunks numbered again in their paragraph
+  par <- paste(dat$.row_id, dat$.col_id)
+  dat$.chunk_index <- stats::ave(seq_along(par), par, FUN = seq_along)
+  rownames(dat) <- NULL
+  dat
+}
+
+# Equations without width or height (as_equation() with sizes not provided)
+# get the size computed by equatags::equation_size() with the font size of
+# the chunk: width, and height above + below the baseline. With an older
+# version of 'equatags', the former default size, 1 x 0.2 inch.
+fill_equation_sizes <- function(dat) {
+  if (!"eq_data" %in% names(dat)) {
+    return(dat)
+  }
+  todo <- !is.na(dat$eq_data) & (is.na(dat$width) | is.na(dat$height))
+  if (!any(todo)) {
+    return(dat)
+  }
+  sizes <- equation_sizes(
+    dat$eq_data[todo],
+    dat$font.size[todo],
+    display = eq_display_of(dat)[todo]
+  )
+  dat$width[todo] <- ifelse(is.na(dat$width[todo]), sizes$width, dat$width[todo])
+  dat$height[todo] <- ifelse(
+    is.na(dat$height[todo]),
+    sizes$height + sizes$depth,
+    dat$height[todo]
+  )
+  dat
+}
+
+# Width, height and depth (inches) of equations at given font sizes and
+# styles (display or inline); NA when 'equatags' can not compute them, then
+# 1 x 0.2 inch.
+equation_sizes <- function(eq, font_size, display = TRUE) {
+  n <- length(eq)
+  display <- rep_len(display, n)
+  out <- data.frame(width = rep(1, n), height = rep(0.2, n), depth = rep(0, n))
+  if (!has_equation_size()) {
+    return(out)
+  }
+  key <- paste(font_size, display)
+  for (k in unique(key)) {
+    i <- which(key == k)
+    s <- equatags::equation_size(
+      eq[i],
+      size = font_size[i[1]],
+      display = display[i[1]]
+    )
+    ok <- !is.na(s$width)
+    out[i[ok], ] <- s[ok, c("width", "height", "depth")]
+  }
+  out
+}
+
+# Style of the equations, as Word chooses it: the display style (large
+# fractions, limits above and below large operators) when the paragraph only
+# contains equations, the inline style as soon as it contains something
+# else, even a space. TRUE for the equations in display style. Paragraphs are
+# the cells (`.part`, `.row_id`, `.col_id`), or all the chunks when these
+# columns are absent (a caption).
+equation_display <- function(dat) {
+  n <- nrow(dat)
+  if (!"eq_data" %in% names(dat) || n < 1) {
+    return(rep(FALSE, n))
+  }
+  is_eq <- !is.na(dat$eq_data)
+  not_na <- function(name) {
+    if (name %in% names(dat)) !is.na(dat[[name]]) else rep(FALSE, n)
+  }
+  has_img <- if ("img_data" %in% names(dat)) {
+    vapply(
+      dat$img_data,
+      function(z) !is.null(z) && !(length(z) == 1 && is.atomic(z) && is.na(z)),
+      NA
+    )
+  } else {
+    rep(FALSE, n)
+  }
+  empty <- !is_eq &
+    (is.na(dat$txt) | dat$txt %in% "") &
+    !has_img &
+    !not_na("word_field_data") &
+    !not_na("qmd_data")
+  only_math <- is_eq | empty
+  keys <- intersect(c(".part", ".row_id", ".col_id"), names(dat))
+  group <- if (length(keys)) {
+    do.call(paste, c(lapply(dat[keys], as.character), sep = "\r"))
+  } else {
+    rep("", n)
+  }
+  paragraph_only_math <- tapply(only_math, group, all)[group]
+  is_eq & as.vector(paragraph_only_math)
+}
+
+# The style of the equations of chunk data: its column `eq_display`, or
+# computed when it is absent.
+eq_display_of <- function(dat) {
+  if ("eq_display" %in% names(dat)) {
+    out <- dat$eq_display
+    out[is.na(out)] <- FALSE
+    out
+  } else {
+    equation_display(dat)
+  }
+}
+
+# LaTeX of the equations in display style.
+display_style_tex <- function(x, display = TRUE) {
+  ifelse(display, paste0("\\displaystyle ", x), x)
+}
+
+has_equation_size <- function() {
+  requireNamespace("equatags", quietly = TRUE) &&
+    "equation_size" %in% getNamespaceExports("equatags")
 }
 
 information_data_default_chunk <- function(x) {

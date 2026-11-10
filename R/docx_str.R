@@ -290,6 +290,42 @@ wml_rows <- function(value, split = FALSE, repeat_headers = TRUE) {
   # get runs in wml format and get hyperlinks and images information
   run_data <- runs_as_wml(value, txt_data = information_data_chunk(value))
 
+  # Equations alone in their paragraph are displayed by Word in display
+  # style, aligned by the justification of their math paragraph (centered by
+  # default) and without the indentation of the paragraph: they are wrapped
+  # in a math paragraph with the alignment of the paragraph, and the left
+  # and right paddings of the paragraph become margins of the cell.
+  if (any(run_data$math_par)) {
+    key <- function(d) paste(d$.part, d$.row_id, d$.col_id, sep = "\r")
+    math_keys <- key(run_data)[run_data$math_par]
+    par_math <- key(paragraphs_properties) %in% math_keys
+    cell_pos <- match(key(paragraphs_properties)[par_math], key(cell_attributes))
+    cell_attributes$margin.left[cell_pos] <-
+      paragraphs_properties$padding.left[par_math]
+    cell_attributes$margin.right[cell_pos] <-
+      paragraphs_properties$padding.right[par_math]
+    paragraphs_properties$padding.left[par_math] <- 0
+    paragraphs_properties$padding.right[par_math] <- 0
+
+    run_math <- which(run_data$math_par)
+    align <- paragraphs_properties$text.align[
+      match(key(run_data)[run_math], key(paragraphs_properties))
+    ]
+    jc <- c(left = "left", right = "right", center = "center", justify = "left")[
+      align
+    ]
+    jc[is.na(jc)] <- "left"
+    run_data$run_openxml[run_math] <- paste0(
+      "<m:oMathPara xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\">",
+      "<m:oMathParaPr><m:jc m:val=\"",
+      jc,
+      "\"/></m:oMathParaPr>",
+      run_data$run_openxml[run_math],
+      "</m:oMathPara>"
+    )
+  }
+  run_data$math_par <- NULL
+
   cell_data <- wml_cells(value, cell_attributes)
   cell_heights <- fortify_height(value)
   cell_hrule <- fortify_hrule(value)

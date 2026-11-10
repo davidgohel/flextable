@@ -145,3 +145,25 @@ test_that("HTML table width when autofit layout", {
   str <- flextable:::gen_raw_html(x = ft)
   expect_true(grepl("table-layout:auto;width:", str, fixed = TRUE))
 })
+
+test_that("sizes given to chunks stay with their cell", {
+  # sizes are stored per chunk and were applied to the wrong cells when the
+  # chunks of a table with several columns were reordered
+  df <- data.frame(a = c("x", "y"), b = c("u", "v"))
+  ft <- flextable(df)
+  ft <- mk_par(
+    ft,
+    j = "b",
+    value = as_paragraph(
+      as_equation(b, width = c(2, 0.5), height = c(0.2, 1))
+    )
+  )
+  ft <- padding(ft, padding = 0, part = "all")
+  dims <- dim_pretty(ft)
+  # column b is as wide as its widest equation, column a is not
+  expect_equal(dims$widths[2], 2)
+  expect_lt(dims$widths[1], 0.5)
+  # the second row is as high as its equation (plus its border)
+  expect_equal(dims$heights[3], 1, tolerance = 0.02)
+  expect_lt(dims$heights[2], 1)
+})

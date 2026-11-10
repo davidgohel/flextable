@@ -4,12 +4,17 @@
 \alias{as_equation}
 \title{Equation chunk}
 \usage{
-as_equation(x, width = 1, height = 0.2, unit = "in", props = NULL)
+as_equation(x, width = NULL, height = NULL, unit = "in", props = NULL)
 }
 \arguments{
 \item{x}{values containing the 'MathJax' equations}
 
-\item{width, height}{size of the resulting equation}
+\item{width, height}{size of the resulting equation. When they are not
+provided (\code{NULL}, the default), the size is computed from the equation
+and the font size of the chunk with \code{equatags::equation_size()}
+(equatags >= 0.4.0), so that \code{\link[=autofit]{autofit()}}, \code{\link[=dim_pretty]{dim_pretty()}} and \code{\link[=gen_grob]{gen_grob()}}
+know the size of the equation; with an older version of 'equatags', 1 x
+0.2 inch.}
 
 \item{unit}{unit for width and height, one of "in", "cm", "mm".}
 
@@ -26,6 +31,22 @@ or \code{\link[=prepend_chunks]{prepend_chunks()}}.
 
 To use this function, package 'equatags' is required.
 }
+\section{Size and drawing of equations}{
+
+The style of equations follows the rule of Word, in every output: an
+equation is in display style (large fractions, limits above and below
+sums and products) when its paragraph only contains equations, and in
+inline style as soon as the paragraph contains something else, even a
+space. HTML and LaTeX outputs use \verb{\\displaystyle} for the display style,
+and the size and \code{\link[=gen_grob]{gen_grob()}} use the same style.
+
+The size computed by \code{equatags::equation_size()} is the one of the
+equation laid out with the math font 'STIX Two Math'. Word and browsers
+display equations with their own math font, so the displayed size may
+differ slightly. With \code{\link[=gen_grob]{gen_grob()}} (R >= 4.3), equations are drawn with
+\code{equatags::equation_grob()}, at their computed size.
+}
+
 \examples{
 library(flextable)
 if (require("equatags")) {
@@ -39,12 +60,12 @@ if (require("equatags")) {
 
 
   ft <- flextable(df)
-  ft <- compose(
+  ft <- mk_par(
     x = ft, j = "formula",
-    value = as_paragraph(as_equation(formula, width = 2, height = .5))
+    value = as_paragraph(as_equation(formula))
   )
   ft <- align(ft, align = "center", part = "all")
-  ft <- width(ft, width = 2)
+  ft <- autofit(ft)
   ft
 }
 }

@@ -25,6 +25,7 @@ S3method(as_flextable,tabulator)
 S3method(as_flextable,xtable)
 S3method(dim,flextable)
 S3method(dim,flextableGrob)
+S3method(drawDetails,flextableEquationChunk)
 S3method(drawDetails,flextableHighlightedGrob)
 S3method(drawDetails,flextableRowPartGrob)
 S3method(format_fun,Date)
@@ -36,6 +37,7 @@ S3method(format_fun,factor)
 S3method(format_fun,integer)
 S3method(format_fun,logical)
 S3method(format_fun,pct)
+S3method(heightDetails,flextableEquationChunk)
 S3method(knit_print,flextable)
 S3method(knit_print,run_reference)
 S3method(latex_container_str,latex_container_float)
@@ -53,6 +55,7 @@ S3method(summary,tabulator)
 S3method(to_html,flextable)
 S3method(to_rtf,flextable)
 S3method(to_wml,flextable)
+S3method(widthDetails,flextableEquationChunk)
 export(add_body)
 export(add_body_row)
 export(add_footer)
@@ -281,9 +284,11 @@ importFrom(grid,
   grid.layout,
   grid.newpage,
   grid.rect,
+  grob,
   grobDescent,
   grobHeight,
   grobWidth,
+  heightDetails,
   is.grob,
   makeContext,
   popViewport,
@@ -295,7 +300,8 @@ importFrom(grid,
   textGrob,
   unit,
   viewport,
-  vpStack
+  vpStack,
+  widthDetails
 )
 importFrom(htmltools,
   HTML,

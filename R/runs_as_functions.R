@@ -114,13 +114,17 @@ runs_as_html <- function(x, chunk_data = information_data_chunk(x)) {
       any(runs_types_lst$is_equation)
   ) {
     transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
+    spans_dataset[, ".eq_display" := eq_display_of(spans_dataset)]
     spans_dataset[
       runs_types_lst$is_equation == TRUE,
       c("txt") := list(
         sprintf(
           "<span class=\"%s\">%s</span>",
           .SD$classname,
-          transform_mathjax(.SD$eq_data, to = "html")
+          transform_mathjax(
+            display_style_tex(.SD$eq_data, .SD$.eq_display),
+            to = "html"
+          )
         )
       )
     ]
@@ -244,9 +248,14 @@ runs_as_latex <- function(
       sprintf("\\tblqmd{%s}", officer::as_base64(.SD$qmd_data))
     )
   ]
+  dat[, ".eq_display" := eq_display_of(dat)]
   dat[
     runs_types_lst$is_equation == TRUE,
-    c("txt") := list(paste0("$", .SD$eq_data, "$"))
+    c("txt") := list(paste0(
+      "$",
+      display_style_tex(.SD$eq_data, .SD$.eq_display),
+      "$"
+    ))
   ]
   dat[
     runs_types_lst$is_hlink & grepl("^#", dat$url),
@@ -437,20 +446,32 @@ equation_rpr <- function(font.size, color, type = "wml") {
   }
 }
 
-# Equations in Word and PowerPoint, with the run properties of the chunk when
-# the installed version of 'equatags' supports them (argument `rpr`, equatags
-# >= 0.3.0); otherwise equations get the default size of the document.
-equations_as_omml <- function(eq_data, font.size, color, type = "wml") {
+# Equations in Word and PowerPoint, in the style of their paragraph (see
+# equation_display(); equatags < 0.4.0 always wrote the display style), with
+# the run properties of the chunk when the installed version of 'equatags'
+# supports them (argument `rpr`, equatags >= 0.3.0); otherwise equations get
+# the default size of the document.
+equations_as_omml <- function(
+  eq_data,
+  font.size,
+  color,
+  type = "wml",
+  display = TRUE
+) {
   transform_mathjax <- getFromNamespace("transform_mathjax", "equatags")
-  if ("rpr" %in% names(formals(transform_mathjax))) {
-    transform_mathjax(
-      eq_data,
-      to = "mml",
-      rpr = equation_rpr(font.size, color, type = type)
-    )
-  } else {
-    transform_mathjax(eq_data, to = "mml")
+  display <- rep_len(display, length(eq_data))
+  has_rpr <- "rpr" %in% names(formals(transform_mathjax))
+  rpr <- if (has_rpr) equation_rpr(font.size, color, type = type)
+  out <- character(length(eq_data))
+  for (d in unique(display)) {
+    i <- which(display == d)
+    out[i] <- if (has_rpr) {
+      transform_mathjax(eq_data[i], to = "mml", display = d, rpr = rpr[i])
+    } else {
+      transform_mathjax(eq_data[i], to = "mml", display = d)
+    }
   }
+  out
 }
 
 runs_as_wml <- function(x, txt_data = information_data_chunk(x)) {
@@ -541,23 +562,42 @@ runs_as_wml <- function(x, txt_data = information_data_chunk(x)) {
     requireNamespace("equatags", quietly = TRUE) &&
       any(runs_types_lst$is_equation)
   ) {
+    txt_data[, ".eq_display" := eq_display_of(txt_data)]
     txt_data[
       runs_types_lst$is_equation,
       c("run_openxml") := list(equations_as_omml(
         .SD$eq_data,
         font.size = .SD$font.size,
         color = .SD$color,
-        type = "wml"
+        type = "wml",
+        display = .SD$.eq_display
       ))
     ]
   }
+  # paragraphs made of equations only (display style, see
+  # equation_display()): their other runs are empty and dropped, so that
+  # wml_rows() can wrap the equations in a math paragraph
+  txt_data[, ".math_par" := eq_display_of(txt_data)]
+  if (is.null(by_columns)) {
+    txt_data[, ".math_par" := any(.SD$.math_par)]
+  } else {
+    txt_data[, ".math_par" := any(.SD$.math_par), by = by_columns]
+  }
+  txt_data[
+    txt_data$.math_par & !runs_types_lst$is_equation,
+    c("run_openxml") := ""
+  ]
   setorderv(txt_data, cols = order_columns)
   txt_data <- txt_data[,
-    lapply(.SD, function(x) paste0(x, collapse = "")),
-    by = by_columns,
-    .SDcols = "run_openxml"
+    list(
+      run_openxml = paste0(.SD$run_openxml, collapse = ""),
+      math_par = any(.SD$.math_par)
+    ),
+    by = by_columns
   ]
-  setorderv(txt_data, cols = by_columns)
+  if (!is.null(by_columns)) {
+    setorderv(txt_data, cols = by_columns)
+  }
 
   setDF(txt_data)
   txt_data
@@ -628,17 +668,32 @@ runs_as_pml <- function(value) {
     requireNamespace("equatags", quietly = TRUE) &&
       any(runs_types_lst$is_equation)
   ) {
+    txt_data[, ".eq_display" := eq_display_of(txt_data)]
+    # PowerPoint, as Word, displays the equations alone in their paragraph in
+    # display style, aligned by the justification of the math paragraph:
+    # the alignment of the paragraph is used
+    par_align <- information_data_paragraph(value)
+    key <- function(d) paste(d$.part, d$.row_id, d$.col_id, sep = "\r")
+    align <- par_align$text.align[match(key(txt_data), key(par_align))]
+    jc <- c(left = "left", right = "right", center = "center", justify = "left")[
+      align
+    ]
+    jc[is.na(jc) | !txt_data$.eq_display] <- "centerGroup"
+    txt_data[, ".eq_jc" := jc]
     txt_data[
       runs_types_lst$is_equation == TRUE,
       c("text_nodes_str") := list(
         paste0(
           "<mc:AlternateContent xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\"><mc:Choice xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\" Requires=\"a14\">",
-          "<a14:m xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\"><m:oMathPara xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\"><m:oMathParaPr><m:jc m:val=\"centerGroup\"/></m:oMathParaPr>",
+          "<a14:m xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\"><m:oMathPara xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\"><m:oMathParaPr><m:jc m:val=\"",
+          .SD$.eq_jc,
+          "\"/></m:oMathParaPr>",
           equations_as_omml(
             .SD$eq_data,
             font.size = .SD$font.size,
             color = .SD$color,
-            type = "pml"
+            type = "pml",
+            display = .SD$.eq_display
           ),
           "</m:oMathPara></a14:m>",
           "</mc:Choice></mc:AlternateContent>"

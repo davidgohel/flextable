@@ -530,7 +530,9 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
         if (is_text) {
           gpar_text(...)
         } else {
-          gpar()
+          # colour and size of equations
+          args <- list(...)
+          gpar(col = args$color, fontsize = args$fontsize)
         }
       },
       is_text = .SD$is_text,
@@ -568,6 +570,8 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
       "is_subscript",
       "width",
       "height",
+      "eq_data",
+      "eq_display",
       ".chunk_index",
       "chunk_index"
     ),
@@ -927,6 +931,7 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
             txt_data = .SD$txt,
             img_data = .SD$img_data,
             eq_data = .SD$eq_data,
+            eq_display = .SD$eq_display,
             shading_color = .SD$shading.color
           )
         )
@@ -1388,6 +1393,26 @@ calc_grid_text_metrics <- function(dat) {
   dat[, c("ref_ascent", "ref_descent") := NULL]
   dat[(is_text), "height" := .SD$ascent + .SD$descent]
   dat[!(is_text), c("ascent", "descent") := list(.SD$height, 0)]
+  # equations: their height above and below the baseline
+  if ("eq_data" %in% names(dat) && has_equation_size()) {
+    is_eq <- !dat$is_text & !is.na(dat$eq_data)
+    if (any(is_eq)) {
+      s <- equation_sizes(
+        dat$eq_data[is_eq],
+        dat$font.size[is_eq],
+        display = eq_display_of(dat)[is_eq]
+      )
+      dat[
+        is_eq,
+        c("width", "ascent", "descent", "height") := list(
+          s$width,
+          s$height,
+          s$depth,
+          s$height + s$depth
+        )
+      ]
+    }
+  }
   dat[(is_newline), "txt" := "\n"]
 
   # drop not needed columns

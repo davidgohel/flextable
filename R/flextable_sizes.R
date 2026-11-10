@@ -425,12 +425,11 @@ fit_columns_metrics <- function(x) {
 
 # text_metric logic accepting pre-computed txt_data
 .text_metric_from_data <- function(x, txt_data) {
-  widths <- txt_data$width
-  heights <- txt_data$height
-
   setDT(txt_data)
 
-  txt_data[, c("width", "height") := list(NULL, NULL)]
+  # sizes given for images and equations: kept as columns, so that they
+  # follow the rows when the data is merged and reordered below
+  setnames(txt_data, c("width", "height"), c("fixed_width", "fixed_height"))
 
   txt_data[,
     c("fake_row_id") := list(
@@ -480,15 +479,16 @@ fit_columns_metrics <- function(x) {
   colnames(extents_values) <- c("width", "height")
 
   extents_values$width <- ifelse(
-    !is.na(widths),
-    widths,
+    !is.na(txt_data$fixed_width),
+    txt_data$fixed_width,
     extents_values$width
   )
   extents_values$height <- ifelse(
-    !is.na(heights),
-    heights,
+    !is.na(txt_data$fixed_height),
+    txt_data$fixed_height,
     extents_values$height
   )
+  txt_data[, c("fixed_width", "fixed_height") := NULL]
 
   txt_data <- cbind(txt_data, extents_values)
 
@@ -1123,12 +1123,11 @@ text_metric <- function(x) {
     default_chunk_fmt = x$styles$text
   )
 
-  widths <- txt_data$width
-  heights <- txt_data$height
-
   setDT(txt_data)
 
-  txt_data[, c("width", "height") := list(NULL, NULL)]
+  # sizes given for images and equations: kept as columns, so that they
+  # follow the rows when the data is merged and reordered below
+  setnames(txt_data, c("width", "height"), c("fixed_width", "fixed_height"))
 
   # build a fake_row_id so that new lines are considered
   txt_data[,
@@ -1181,15 +1180,16 @@ text_metric <- function(x) {
   colnames(extents_values) <- c("width", "height")
 
   extents_values$width <- ifelse(
-    !is.na(widths),
-    widths,
+    !is.na(txt_data$fixed_width),
+    txt_data$fixed_width,
     extents_values$width
   )
   extents_values$height <- ifelse(
-    !is.na(heights),
-    heights,
+    !is.na(txt_data$fixed_height),
+    txt_data$fixed_height,
     extents_values$height
   )
+  txt_data[, c("fixed_width", "fixed_height") := NULL]
 
   txt_data <- cbind(txt_data, extents_values)
 

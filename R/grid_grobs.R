@@ -21,8 +21,8 @@
 #' Not recommended for very large tables because the
 #' grid calculations can be slow.
 #'
-#' Limitations: equations ([as_equation()]) and hyperlinks
-#' ([officer::hyperlink_ftext()]) are not rendered.
+#' Equations ([as_equation()]) are drawn with 'equatags' (>= 0.4.0) and
+#' R >= 4.3; hyperlinks ([officer::hyperlink_ftext()]) are drawn as text.
 #'
 #' Use a 'ragg', 'svglite' or 'ggiraph' device for correct
 #' rendering.
@@ -706,6 +706,9 @@ arrange_contents_grob <- function(
       layout.pos.row = 1,
       layout.pos.col = col_index
     )
+    if (inherits(gr, "flextableEquationChunk")) {
+      gr$cex <- cex
+    }
     if (inherits(gr, "flextableRasterChunk")) {
       gr$vp <- vpStack(
         gr$vp,
@@ -868,6 +871,13 @@ make_chunk_grob <- function(chunk_index, dat, params) {
       is_bold = dat$is_bold,
       is_italic = dat$is_italic
     )
+  } else if (isTRUE(dat$is_equation) && can_draw_equations()) {
+    gr <- equation_chunk_grob(
+      eq = dat$eq_data,
+      display = isTRUE(dat$eq_display),
+      size = dat$gp[[1]]$fontsize,
+      colour = dat$gp[[1]]$col
+    )
   } else if (dat$is_raster) {
     image <- calc_grid_image(
       dat$img_data[[1]],
@@ -981,4 +991,77 @@ drawDetails.flextableRowPartGrob <- function(x, recording) {
     }
   }
   NextMethod()
+}
+
+# equations ---------------------------------------------------------------
+
+# Equations are drawn with equatags::equation_grob() (glyphs of the math
+# font, R >= 4.3).
+can_draw_equations <- function() {
+  getRversion() >= "4.3.0" &&
+    has_equation_size() &&
+    "equation_grob" %in% getNamespaceExports("equatags")
+}
+
+# A chunk drawing an equation. Like text chunks, its height (used to align
+# the chunks of a line on their baseline) is its height above the baseline,
+# and its position `y` can be changed before drawing (see
+# drawDetails.flextableRowPartGrob()), so the equation grob is only created
+# when drawing.
+#' @importFrom grid grob
+equation_chunk_grob <- function(eq, size, colour, display = TRUE) {
+  s <- equation_sizes(eq, size, display = display)
+  grob(
+    eq = eq,
+    display = display,
+    size = size,
+    colour = if (is.null(colour) || is.na(colour)) "black" else colour,
+    w = s$width,
+    h = s$height,
+    d = s$depth,
+    cex = 1,
+    x = unit(0.5, "npc"),
+    y = unit(0.5, "npc"),
+    cl = "flextableEquationChunk"
+  )
+}
+
+#' @export
+#' @importFrom grid widthDetails
+widthDetails.flextableEquationChunk <- function(x) {
+  unit(x$w * x$cex, "in")
+}
+
+#' @export
+#' @importFrom grid heightDetails
+heightDetails.flextableEquationChunk <- function(x) {
+  unit(x$h * x$cex, "in")
+}
+
+#' @export
+#' @importFrom grid grid.draw
+drawDetails.flextableEquationChunk <- function(x, recording) {
+  h <- x$h * x$cex
+  d <- x$d * x$cex
+  if (h + d <= 0) {
+    return(invisible())
+  }
+  if (length(x$ftsiblings) > 1) {
+    # in a line with other chunks: the baseline is at the bottom of the
+    # height, as for text chunks
+    baseline <- x$y - unit(h / 2, "in")
+  } else {
+    # alone: the equation box is centered
+    baseline <- x$y - unit((h + d) / 2 - d, "in")
+  }
+  grid.draw(equatags::equation_grob(
+    x$eq,
+    size = x$size * x$cex,
+    display = x$display,
+    x0 = x$x,
+    y0 = baseline,
+    hjust = 0.5,
+    vjust = d / (h + d),
+    colour = x$colour
+  ))
 }

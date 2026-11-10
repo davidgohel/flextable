@@ -59,7 +59,7 @@ Suggests:
     cluster,
     commonmark,
     doconv (>= 0.3.0),
-    equatags (>= 0.3.0),
+    equatags (>= 0.4.0),
     formatters,
     ggplot2,
     gtable,

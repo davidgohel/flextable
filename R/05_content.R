@@ -522,8 +522,26 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...) {
 #' @param x values containing the 'MathJax' equations
 #' @param props an [fp_text_default()] or [officer::fp_text()] object to be used to format the text.
 #' If not specified, it will be the default value corresponding to the cell.
-#' @param width,height size of the resulting equation
+#' @param width,height size of the resulting equation. When they are not
+#' provided (`NULL`, the default), the size is computed from the equation
+#' and the font size of the chunk with `equatags::equation_size()`
+#' (equatags >= 0.4.0), so that [autofit()], [dim_pretty()] and [gen_grob()]
+#' know the size of the equation; with an older version of 'equatags', 1 x
+#' 0.2 inch.
 #' @param unit unit for width and height, one of "in", "cm", "mm".
+#' @section Size and drawing of equations:
+#' The style of equations follows the rule of Word, in every output: an
+#' equation is in display style (large fractions, limits above and below
+#' sums and products) when its paragraph only contains equations, and in
+#' inline style as soon as the paragraph contains something else, even a
+#' space. HTML and LaTeX outputs use `\displaystyle` for the display style,
+#' and the size and [gen_grob()] use the same style.
+#'
+#' The size computed by `equatags::equation_size()` is the one of the
+#' equation laid out with the math font 'STIX Two Math'. Word and browsers
+#' display equations with their own math font, so the displayed size may
+#' differ slightly. With [gen_grob()] (R >= 4.3), equations are drawn with
+#' `equatags::equation_grob()`, at their computed size.
 #' @family chunk elements for paragraph
 #' @examples
 #' library(flextable)
@@ -538,17 +556,25 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...) {
 #'
 #'
 #'   ft <- flextable(df)
-#'   ft <- compose(
+#'   ft <- mk_par(
 #'     x = ft, j = "formula",
-#'     value = as_paragraph(as_equation(formula, width = 2, height = .5))
+#'     value = as_paragraph(as_equation(formula))
 #'   )
 #'   ft <- align(ft, align = "center", part = "all")
-#'   ft <- width(ft, width = 2)
+#'   ft <- autofit(ft)
 #'   ft
 #' }
-as_equation <- function(x, width = 1, height = .2, unit = "in", props = NULL) {
-  width <- convin(unit = unit, x = width)
-  height <- convin(unit = unit, x = height)
+as_equation <- function(
+  x,
+  width = NULL,
+  height = NULL,
+  unit = "in",
+  props = NULL
+) {
+  # missing sizes are computed later, with the font size of the cell (see
+  # fill_equation_sizes())
+  width <- if (is.null(width)) NA_real_ else convin(unit = unit, x = width)
+  height <- if (is.null(height)) NA_real_ else convin(unit = unit, x = height)
 
   if (length(x) > 1) {
     if (length(width) == 1) {

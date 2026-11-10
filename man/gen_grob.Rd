@@ -94,8 +94,8 @@ space (fixed size, auto-fit width, or fill the device).
 Not recommended for very large tables because the
 grid calculations can be slow.
 
-Limitations: equations (\code{\link[=as_equation]{as_equation()}}) and hyperlinks
-(\code{\link[officer:hyperlink_ftext]{officer::hyperlink_ftext()}}) are not rendered.
+Equations (\code{\link[=as_equation]{as_equation()}}) are drawn with 'equatags' (>= 0.4.0) and
+R >= 4.3; hyperlinks (\code{\link[officer:hyperlink_ftext]{officer::hyperlink_ftext()}}) are drawn as text.
 
 Use a 'ragg', 'svglite' or 'ggiraph' device for correct
 rendering.
