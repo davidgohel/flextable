@@ -591,6 +591,7 @@ information_data_default_chunk <- function(x) {
 #' head(x)
 #' @family table data extraction
 information_data_chunk <- function(x, expand_special_chars = TRUE) {
+  check_has_rows(x)
   dat <- list()
   if (nrow_part(x, "header") > 0) {
     dat$header <- fortify_content(
@@ -727,6 +728,7 @@ has_hlink <- function(x) {
 #' @export
 #' @family table data extraction
 information_data_paragraph <- function(x) {
+  check_has_rows(x)
   dat <- list()
   if (nrow_part(x, "header") > 0) {
     dat$header <- par_struct_to_df(x$header$styles[["pars"]])
@@ -778,6 +780,7 @@ information_data_paragraph <- function(x) {
 #' @export
 #' @family table data extraction
 information_data_cell <- function(x) {
+  check_has_rows(x)
   dat <- list()
   if (nrow_part(x, "header") > 0) {
     dat$header <- cell_struct_to_df(x$header$styles[["cells"]])
@@ -798,4 +801,19 @@ information_data_cell <- function(x) {
   setDF(dat)
 
   dat
+}
+
+# A flextable without any row (no header, no body and no footer rows, for
+# example made from an empty data.frame whose header was deleted) has nothing
+# to display: the outputs stop with an explicit error.
+check_has_rows <- function(x) {
+  n <- nrow_part(x, "header") + nrow_part(x, "body") + nrow_part(x, "footer")
+  if (n < 1) {
+    stop(
+      "The flextable has no row to display: its header, body and footer ",
+      "are empty.",
+      call. = FALSE
+    )
+  }
+  invisible(x)
 }

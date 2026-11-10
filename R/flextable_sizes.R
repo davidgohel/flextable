@@ -843,7 +843,16 @@ dim.flextable <- function(x) {
 
   mat_widths <- do.call("rbind", max_widths)
   if (is.null(mat_widths)) {
+    # no row: the widths of the columns are kept by the parts, also when
+    # they are empty, so that rows added later get them
     out_widths <- numeric(0)
+    for (j in c("body", "header", "footer")) {
+      w <- x[[j]]$colwidths
+      if (length(w) == length(x$col_keys)) {
+        out_widths <- stats::setNames(as.double(w), x$col_keys)
+        break
+      }
+    }
   } else {
     out_widths <- apply(mat_widths, 2, max)
     names(out_widths) <- x$col_keys

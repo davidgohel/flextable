@@ -35,6 +35,10 @@ no longer too wide. Requires 'gdtools' >= 0.6.0.
 
 - `dim_pretty()` and `autofit()` applied the sizes given to chunks (images,
 equations) to the wrong cells in tables with several columns.
+- A flextable without any row (for example made from an empty data.frame
+whose header was deleted) now stops with an explicit error in every output,
+instead of an error of 'data.table'. The widths of its columns are kept, so
+that a footer or a header can be added to it (#722).
 
 # flextable 0.10.4
 

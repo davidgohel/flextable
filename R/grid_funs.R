@@ -2,6 +2,7 @@
 
 #' @importFrom data.table data.table rbindlist rleid .SD .N first fcase fifelse
 get_grid_data <- function(x, autowidths, wrapping) {
+  check_has_rows(x)
   parts <- c("header", "body", "footer")
   names(parts) <- parts
   grid_data <- rbindlist(
