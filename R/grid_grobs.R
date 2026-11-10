@@ -641,19 +641,7 @@ arrange_contents_grob <- function(
   }
 
   make_row_grob <- function(row_index, grobs, layout) {
-    # when there are more than one grobs in a row
-    # we need to align them to their baseline
-    # because they might have different font sizes
-    # use flextableRowPartGrob class for that
-    if (length(grobs) > 1) {
-      grob_names <- sapply(grobs, `[[`, "name")
-      grobs <- lapply(grobs, function(gr) {
-        class(gr) <- c("flextableRowPartGrob", class(gr))
-        gr$ftsiblings <- grob_names
-        names(gr$ftsiblings) <- grob_names
-        gr
-      })
-    }
+    # the grobs of a line are aligned on its baseline (see make_col_grob())
 
     if (params$debug) {
       grobs <- c(
@@ -684,7 +672,8 @@ arrange_contents_grob <- function(
     from_.chunk_index,
     to_.chunk_index,
     width,
-    height
+    height,
+    baseline
   ) {
     gr <- x$ftgrobs[[chunk_index]]
     params <- gr$ftpar
@@ -709,15 +698,30 @@ arrange_contents_grob <- function(
       layout.pos.row = 1,
       layout.pos.col = col_index
     )
-    if (inherits(gr, "flextableEquationChunk")) {
+    # chunks are placed on the baseline of their line, at `baseline` (the
+    # part of the line below its baseline) from the bottom of the line, as
+    # Word does: the part above the baseline is the ascent of the font
+    baseline_y <- unit(baseline * cex, "in")
+    if (inherits(gr, "text")) {
+      gr$vjust <- 0
+      gr$y <- baseline_y
+      if (is.expression(gr$label)) {
+        # expressions (superscripts, subscripts, underlined text) are
+        # justified on the bottom of their box: their baseline is above it
+        gr$y <- baseline_y - grobDescent(gr)
+      }
+    } else if (inherits(gr, "flextableEquationChunk")) {
       gr$cex <- cex
-    }
-    if (inherits(gr, "flextableRasterChunk")) {
+      gr$y <- baseline_y
+    } else if (inherits(gr, "flextableRasterChunk")) {
+      # images stand on the baseline
       gr$vp <- vpStack(
         gr$vp,
         viewport(
+          y = baseline_y,
           width = unit(width * cex, "in"),
-          height = unit(height * cex, "in")
+          height = unit(height * cex, "in"),
+          just = c("centre", "bottom")
         )
       )
     }
@@ -732,10 +736,13 @@ arrange_contents_grob <- function(
         to = max(.SD$.chunk_index),
         txt_data = paste0(.SD$txt_data, collapse = ""),
         width = sum(.SD$width),
-        height = max(.SD$ascent) + max(.SD$descent)
+        height = max(.SD$ascent) + max(.SD$descent),
+        descent = max(.SD$descent)
       ),
       by = c("row_index", "col_index", "chunk_index")
     ]
+    # baseline of each line: its largest descent
+    col_dat[, "baseline" := max(.SD$descent), by = "row_index"]
 
     # per-line indent, materialized as an extra leading layout column
     # (first line for `first_line`, continuation lines for `hanging`)
@@ -760,6 +767,7 @@ arrange_contents_grob <- function(
         col_dat$to,
         col_dat$width,
         col_dat$height,
+        col_dat$baseline,
         SIMPLIFY = FALSE
       )
     }
@@ -809,7 +817,8 @@ arrange_contents_grob <- function(
         dat$.chunk_index,
         dat$.chunk_index,
         dat$width,
-        dat$height
+        dat$height,
+        dat$descent
       ))
     }
     widths <- dat$width * cex
@@ -974,28 +983,6 @@ drawDetails.flextableHighlightedGrob <- function(x, recording) {
   NextMethod()
 }
 
-#' @export
-drawDetails.flextableRowPartGrob <- function(x, recording) {
-  # When different chunks are parts of a row, they must be aligned in their baseline.
-  # At this point they are aligned in their middle (as vjust is 0.5).
-  # So we must offset them according to the tallest grob.
-  # We use grobHeight from grid because it is most accurate and it excludes ascent and descent.
-  # x$ftsiblings contains the names of all the grobs in the row
-  if (length(x$ftsiblings) > 1) {
-    # calculate half height of the grobs
-    halfheights <- sapply(x$ftsiblings, function(z) {
-      convertHeight(grobHeight(z) / 2, unitTo = "in", valueOnly = TRUE)
-    })
-    # offset y, so that it is aligned with the tallest grob
-    x$y <- x$y - unit(max(halfheights) - halfheights[[x$name]], "in")
-    # offset further for subscripts
-    if (inherits(x, "text") && x$ftpar$valign %in% "subscript") {
-      x$y <- x$y - grobDescent(x)
-    }
-  }
-  NextMethod()
-}
-
 # equations ---------------------------------------------------------------
 
 # Equations are drawn with equatags::equation_grob() (glyphs of the math
@@ -1006,11 +993,8 @@ can_draw_equations <- function() {
     "equation_grob" %in% getNamespaceExports("equatags")
 }
 
-# A chunk drawing an equation. Like text chunks, its height (used to align
-# the chunks of a line on their baseline) is its height above the baseline,
-# and its position `y` can be changed before drawing (see
-# drawDetails.flextableRowPartGrob()), so the equation grob is only created
-# when drawing.
+# A chunk drawing an equation, placed on the baseline of its line: `y` is set
+# by arrange_contents_grob(); the equation grob is only created when drawing.
 #' @importFrom grid grob
 equation_chunk_grob <- function(eq, size, colour, display = TRUE) {
   s <- equation_sizes(eq, size, display = display)
@@ -1049,20 +1033,13 @@ drawDetails.flextableEquationChunk <- function(x, recording) {
   if (h + d <= 0) {
     return(invisible())
   }
-  if (length(x$ftsiblings) > 1) {
-    # in a line with other chunks: the baseline is at the bottom of the
-    # height, as for text chunks
-    baseline <- x$y - unit(h / 2, "in")
-  } else {
-    # alone: the equation box is centered
-    baseline <- x$y - unit((h + d) / 2 - d, "in")
-  }
+  # `y` is the baseline of the line (see arrange_contents_grob())
   grid.draw(equatags::equation_grob(
     x$eq,
     size = x$size * x$cex,
     display = x$display,
     x0 = x$x,
-    y0 = baseline,
+    y0 = x$y,
     hjust = 0.5,
     vjust = d / (h + d),
     colour = x$colour

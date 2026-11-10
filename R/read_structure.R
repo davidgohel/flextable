@@ -265,7 +265,8 @@ distinct_paragraphs_properties <- function(x) {
     "tabs",
     "word_style",
     "first_line",
-    "hanging"
+    "hanging",
+    "line_shift"
   )
   columns <- intersect(columns, colnames(x))
   dat <- as.data.frame(x)[columns]

@@ -219,6 +219,28 @@ gen_raw_latex <- function(
   ]
   cell_properties_df[, c("hanging_pt", "first_line_pt") := NULL]
 
+  # line spacing of the paragraph ----
+  # TeX uses the \baselineskip in force at the end of the paragraph: the
+  # one set with the font size of each chunk is lost when its group ends,
+  # it is set for the cell. As in Word, the distance between baselines is
+  # the line spacing times the line height of the fonts.
+  cell_properties_df[, "baselineskip_str" := ""]
+  lh <- paragraph_line_heights(information_data_chunk(x))
+  if (!is.null(lh)) {
+    keys <- c(".part", ".row_id", ".col_id")
+    lh <- lh[, c(keys, "lh_pt"), with = FALSE]
+    cell_properties_df <- merge(cell_properties_df, lh, by = keys, all.x = TRUE)
+    has_lh <- !is.na(cell_properties_df$lh_pt) & cell_properties_df$lh_pt > 0
+    cell_properties_df[
+      has_lh,
+      "baselineskip_str" := sprintf(
+        "\\setlength{\\baselineskip}{%sbp}",
+        format_double(.SD$lh_pt * .SD$line_spacing, digits = 2)
+      )
+    ]
+    cell_properties_df[, "lh_pt" := NULL]
+  }
+
   # paragraph vertical padding (opt-in, fixed layout only) ----
   if (
     "fixed" %in%
@@ -245,6 +267,7 @@ gen_raw_latex <- function(
         .SD$padding_top_str,
         .SD$padding_left_str,
         .SD$padding_right_str,
+        .SD$baselineskip_str,
         .SD$indent_str,
         .SD$text_direction_left,
         .SD$txt,

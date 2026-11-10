@@ -1015,6 +1015,19 @@ tab_settings <- function(x, i = NULL, j = NULL, value = TRUE, part = "body") {
 #' @description Change the line spacing of selected rows and columns of a flextable.
 #' @template params_x_i_j_part_all
 #' @param space space between lines of text; 1 is single line spacing, 2 is double line spacing.
+#' @section Line spacing in the outputs:
+#' The line spacing follows Word in every output: single line spacing is
+#' the line height of the font (read from the font file with
+#' [gdtools::font_line_metrics()], 1.15 times the font size for Arial), and
+#' the space added by a line spacing larger than 1 is below the lines. HTML,
+#' PowerPoint, PDF (LaTeX `\baselineskip`), [gen_grob()] and the sizes
+#' computed by [autofit()] and [dim_pretty()] use this rule.
+#'
+#' With a line spacing larger than 1, PowerPoint puts about 70% of the added
+#' space above the lines instead of below them: the lines have the same
+#' distance and the cells the same height, but the text is a little lower
+#' in its cell than in Word (4.6 points for Arial 12 points with a line
+#' spacing of 1.5).
 #' @family formatting_shortcuts
 #' @examples
 #' ft <- flextable(head(mtcars)[, 3:6])

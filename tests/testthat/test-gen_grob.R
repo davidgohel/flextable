@@ -260,6 +260,8 @@ test_that("the height of a line does not depend on its text", {
     ft <- flextable(data.frame(x = text))
     ft <- font(ft, fontname = "Liberation Sans", part = "all")
     ft <- padding(ft, padding = 0, part = "all")
+    # borders take space in the rows
+    ft <- border_remove(ft)
     gen_grob(ft, fit = "fixed")$ftpar$heights[2]
   }
   one_line <- vapply(c("xxx", "Hello", "Mg", "(N=86)"), text_height, numeric(1))

@@ -155,6 +155,55 @@ scrollbox <- function(height = NULL, add_css = "", ...) {
   str
 }
 
+# Line height of the paragraphs (cells), for single line spacing as in Word:
+# the largest line height of the fonts of their chunks
+# (gdtools::font_line_metrics()), in em (`lh`) and in points (`lh_pt`). NULL
+# when no chunk has a font.
+paragraph_line_heights <- function(chunk_data) {
+  keys <- c(".part", ".row_id", ".col_id")
+  fonts <- unique(as.data.table(chunk_data)[,
+    c(keys, "font.family", "font.size", "bold", "italic"),
+    with = FALSE
+  ])
+  fonts <- fonts[!is.na(fonts$font.family), ]
+  if (nrow(fonts) < 1) {
+    return(NULL)
+  }
+  fonts[, "lh" := gdtools::font_line_metrics(
+    fontname = .SD$font.family,
+    fontsize = 72,
+    bold = .SD$bold %in% TRUE,
+    italic = .SD$italic %in% TRUE
+  )$line_height]
+  fonts[,
+    list(lh = max(.SD$lh), lh_pt = max(.SD$lh * .SD$font.size)),
+    by = keys
+  ]
+}
+
+# The line spacing of Word is a multiple of the line height of the fonts
+# (gdtools::font_line_metrics(), 1.15 em for Arial), the one of CSS a
+# multiple of the font size: the unitless CSS line-height of a paragraph is
+# its line spacing multiplied by the largest line height (in em) of the fonts
+# of its chunks, so that lines are spaced as in Word. Word adds the space of a
+# line spacing larger than 1 below the lines, CSS half above and half below:
+# `line_shift` (points) moves the paragraph up by this half.
+html_line_spacing <- function(par_data, chunk_data) {
+  keys <- c(".part", ".row_id", ".col_id")
+  lh <- paragraph_line_heights(chunk_data)
+  if (is.null(lh)) {
+    return(par_data)
+  }
+  par_data <- merge(par_data, lh, by = keys, all.x = TRUE)
+  par_data[is.na(par_data$lh), c("lh", "lh_pt") := list(1, 0)]
+  par_data[,
+    "line_shift" := round(pmax(.SD$line_spacing - 1, 0) * .SD$lh_pt / 2, 2)
+  ]
+  par_data[, "line_spacing" := .SD$line_spacing * .SD$lh]
+  par_data[, c("lh", "lh_pt") := NULL]
+  par_data
+}
+
 # to html/css  ----
 #' @importFrom data.table setnames setorderv := setcolorder setDT setDF dcast
 html_content_strs <- function(x) {
@@ -162,8 +211,10 @@ html_content_strs <- function(x) {
   setDT(cell_data_f)
   par_data_f <- information_data_paragraph(x)
   setDT(par_data_f)
+  chunk_data <- information_data_chunk(x)
+  par_data_f <- html_line_spacing(par_data_f, chunk_data)
 
-  txt_data <- runs_as_html(x, chunk_data = information_data_chunk(x))
+  txt_data <- runs_as_html(x, chunk_data = chunk_data)
   span_style_str <- attr(txt_data, "css")
   setDT(txt_data)
 
@@ -460,7 +511,17 @@ par_css_styles <- function(x) {
   padding.left <- sprintf("padding-left:%s;", css_pt(x$padding.left))
   padding.right <- sprintf("padding-right:%s;", css_pt(x$padding.right))
 
-  line_spacing <- sprintf("line-height: %s;", css_no_unit(x$line_spacing, 2))
+  line_spacing <- sprintf("line-height: %s;", css_no_unit(x$line_spacing, 3))
+  # see html_line_spacing()
+  line_shift <- rep("", nrow(x))
+  if ("line_shift" %in% names(x)) {
+    has_shift <- !is.na(x$line_shift) & x$line_shift > 0
+    line_shift[has_shift] <- sprintf(
+      "margin-top:-%s;margin-bottom:%s;",
+      css_pt(x$line_shift[has_shift]),
+      css_pt(x$line_shift[has_shift])
+    )
+  }
 
   # first-line/hanging indents: CSS `text-indent` only moves the first
   # line, so hanging is a negative value relative to `padding-left`
@@ -479,6 +540,7 @@ par_css_styles <- function(x) {
 
   style_column <- paste0(
     "margin:0;",
+    line_shift,
     textalign,
     bb,
     bt,

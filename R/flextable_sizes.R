@@ -471,9 +471,15 @@ fit_columns_metrics <- function(x) {
     bold = txt_data$bold,
     italic = txt_data$italic
   )
-  glyph_height <- extents_values$ascent + extents_values$descent
-  line_height <- fontsize * txt_data$line_spacing * 1.2 / 72
-  extents_values$height <- pmax(glyph_height, line_height, 0, na.rm = TRUE)
+  # height of a line as in Word: the line spacing times the line height of
+  # the font (gdtools::font_line_metrics()), whatever the text
+  line_height <- gdtools::font_line_metrics(
+    fontname = txt_data$font.family,
+    fontsize = fontsize,
+    bold = txt_data$bold %in% TRUE,
+    italic = txt_data$italic %in% TRUE
+  )$line_height
+  extents_values$height <- pmax(line_height * txt_data$line_spacing, 0, na.rm = TRUE)
   extents_values$ascent <- NULL
   extents_values$descent <- NULL
   colnames(extents_values) <- c("width", "height")
@@ -993,7 +999,7 @@ autofit <- function(
 }
 
 
-#' @importFrom gdtools strings_sizes
+#' @importFrom gdtools strings_sizes font_line_metrics
 optimal_sizes <- function(x, hspans = "none") {
   sizes <- text_metric(x)
 
@@ -1181,9 +1187,15 @@ text_metric <- function(x) {
     bold = txt_data$bold,
     italic = txt_data$italic
   )
-  glyph_height <- extents_values$ascent + extents_values$descent
-  line_height <- fontsize * txt_data$line_spacing * 1.2 / 72
-  extents_values$height <- pmax(glyph_height, line_height, 0, na.rm = TRUE)
+  # height of a line as in Word: the line spacing times the line height of
+  # the font (gdtools::font_line_metrics()), whatever the text
+  line_height <- gdtools::font_line_metrics(
+    fontname = txt_data$font.family,
+    fontsize = fontsize,
+    bold = txt_data$bold %in% TRUE,
+    italic = txt_data$italic %in% TRUE
+  )$line_height
+  extents_values$height <- pmax(line_height * txt_data$line_spacing, 0, na.rm = TRUE)
   extents_values$ascent <- NULL
   extents_values$descent <- NULL
   colnames(extents_values) <- c("width", "height")

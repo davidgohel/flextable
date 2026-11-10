@@ -200,15 +200,6 @@ grid_data_add_cell_info <- function(grid_data, x) {
       "border.width.bottom"
     )
   ]
-  # apply a correction to overlapping vert. borders
-  setorderv(fortify_borders_data, cols = c(".part", ".row_id", ".col_id"))
-  fortify_borders_data[
-    fortify_borders_data$border.width.right ==
-      shift(fortify_borders_data$border.width.left, type = "lead", fill = -1) &
-      fortify_borders_data$.col_id != tail(x$col_keys, 1),
-    c("border.width.right") := 0,
-    by = c(".part", ".row_id")
-  ]
 
   cell_data <- cell_data[,
     .SD,
@@ -230,11 +221,53 @@ grid_data_add_cell_info <- function(grid_data, x) {
   cell_data <- merge(cell_data, fortify_borders_data, by = keycols)
 
   # merge with grid_data to keep only active cells
-  cell_data <- merge(
-    grid_data[, keycols, with = FALSE],
-    cell_data,
-    by = keycols
-  )
+  # first column and number of columns of each cell in the grid
+  # (`rowspan` of grid_data is the number of columns spanned, see cell_vp)
+  grid_cols <- grid_data[, c(keycols, "col_index", "rowspan"), with = FALSE]
+  setnames(grid_cols, c("col_index", "rowspan"), c(".grid_col", ".grid_ncol"))
+  cell_data <- merge(grid_cols, cell_data, by = keycols)
+
+  # Borders are drawn inside the cells (cell viewports clip the half of the
+  # segments outside), and the space they take is added to the padding of
+  # the cell, as Word does: a horizontal border takes its width in the cell
+  # carrying it; a vertical border between two columns is centered on their
+  # boundary, each cell drawing and keeping half of it; borders on the left
+  # and right sides of the table are drawn in their cell with their width.
+  last_col <- max(cell_data$.grid_col + cell_data$.grid_ncol - 1L)
+  cell_data[,
+    "border.width.left" := fifelse(
+      .SD$.grid_col == 1L,
+      .SD$border.width.left,
+      .SD$border.width.left / 2
+    )
+  ]
+  cell_data[,
+    "border.width.right" := fifelse(
+      .SD$.grid_col + .SD$.grid_ncol - 1L == last_col,
+      .SD$border.width.right,
+      .SD$border.width.right / 2
+    )
+  ]
+  # space of the borders, in inches (for the padding of the cells)
+  border_space <- function(width, color, style) {
+    fifelse(
+      vapply(
+        seq_along(width),
+        function(i) !is.null(gpar_border(width[i], color[i], style[i])),
+        NA
+      ),
+      width / 72,
+      0
+    )
+  }
+  cell_data[,
+    c("border_space_top", "border_space_bottom", "border_space_left", "border_space_right") := list(
+      border_space(.SD$border.width.top, .SD$border.color.top, .SD$border.style.top),
+      border_space(.SD$border.width.bottom, .SD$border.color.bottom, .SD$border.style.bottom),
+      border_space(.SD$border.width.left, .SD$border.color.left, .SD$border.style.left),
+      border_space(.SD$border.width.right, .SD$border.color.right, .SD$border.style.right)
+    )
+  ]
 
   # generate argument list for creating the cell background rect
   # list(): with one row, `:=` would unwrap a list holding NULL or a list of length 1
@@ -317,6 +350,10 @@ grid_data_add_cell_info <- function(grid_data, x) {
       keycols,
       "background",
       "borders",
+      "border_space_top",
+      "border_space_bottom",
+      "border_space_left",
+      "border_space_right",
       "angle",
       "vertical.align"
     ),
@@ -338,7 +375,11 @@ grid_data_add_par_info <- function(grid_data, x) {
       c(
         keycols,
         "vertical.align",
-        "angle"
+        "angle",
+        "border_space_top",
+        "border_space_bottom",
+        "border_space_left",
+        "border_space_right"
       ),
       with = FALSE
     ],
@@ -366,10 +407,16 @@ grid_data_add_par_info <- function(grid_data, x) {
   ]
 
   # set padding as units
-  par_data[, "padding.top" := .SD$padding.top / 72]
-  par_data[, "padding.left" := .SD$padding.left / 72]
-  par_data[, "padding.bottom" := .SD$padding.bottom / 72]
-  par_data[, "padding.right" := .SD$padding.right / 72]
+  # set padding as units, with the space of the borders drawn in the cell
+  # (see grid_data_add_cell_info())
+  par_data[, "padding.top" := .SD$padding.top / 72 + .SD$border_space_top]
+  par_data[, "padding.left" := .SD$padding.left / 72 + .SD$border_space_left]
+  par_data[,
+    "padding.bottom" := .SD$padding.bottom / 72 + .SD$border_space_bottom
+  ]
+  par_data[,
+    "padding.right" := .SD$padding.right / 72 + .SD$border_space_right
+  ]
 
   # first-line/hanging indents in inches (hanging wins, as in officer).
   # Word semantics: all lines at padding.left, first line outdented by
@@ -409,6 +456,9 @@ grid_data_add_par_info <- function(grid_data, x) {
           y <- y + unit(b, "in")
         } else if (just[[2]] == 1) {
           y <- y - unit(t, "in")
+        } else {
+          # centered between the top and bottom paddings
+          y <- y + unit((b - t) / 2, "in")
         }
         list(
           x = x,
@@ -1269,8 +1319,10 @@ gpar_border <- function(width, color, style) {
         (style %in% gpar_ltys || style %in% names(gpar_ltys))
     )
   ) {
+    # width in points; lwd is in 1/96 inch, doubled as the cell viewport
+    # clips the outer half of the segments (the visible width is `width`)
     gpar(
-      lwd = width * 72.27 / 25.4,
+      lwd = width * 2 * 96 / 72,
       col = color,
       lty = style
     )
@@ -1340,21 +1392,26 @@ calc_grid_rotated_just <- function(just, angle) {
   )
 }
 
-#' @importFrom gdtools strings_sizes
-# ascent and descent of "Mg" for each font, in inches: the height of a line
-# depends on its font and not on its text
+#' @importFrom gdtools strings_sizes font_line_metrics
+# ascent and descent of the lines of text of each font, in inches: the height
+# of a line depends on its font and not on its text. They are those of Word
+# for single line spacing (gdtools::font_line_metrics()), so that a line
+# spacing of 1 gives the same distance between lines as in Word.
 font_reference_metrics <- function(family, size, bold, italic) {
   key <- paste(family, size, bold, italic, sep = "|")
   first <- which(!duplicated(key))
-  ref <- gdtools::strings_sizes(
-    rep("Mg", length(first)),
+  ref <- gdtools::font_line_metrics(
     fontname = family[first],
     fontsize = size[first],
     bold = bold[first],
     italic = italic[first]
   )
   i <- match(key, key[first])
-  list(ascent = ref$ascent[i], descent = ref$descent[i])
+  list(
+    ascent = ref$ascent[i],
+    descent = ref$descent[i],
+    line_height = ref$line_height[i]
+  )
 }
 
 calc_grid_text_metrics <- function(dat) {
@@ -1391,10 +1448,22 @@ calc_grid_text_metrics <- function(dat) {
     dat$bold,
     dat$italic
   )
-  dat[, c("ref_ascent", "ref_descent") := list(ref$ascent, ref$descent)]
-  dat[(is_text), "ascent" := .SD$ref_ascent * .SD$line_spacing]
-  dat[(is_text), "descent" := .SD$ref_descent * .SD$line_spacing]
-  dat[, c("ref_ascent", "ref_descent") := NULL]
+  # as in Word, the space added by a line spacing larger than 1 is below the
+  # line: the part above the baseline does not change
+  dat[, c("ref_ascent", "ref_descent", "ref_line") := list(
+    ref$ascent,
+    ref$descent,
+    ref$line_height
+  )]
+  dat[(is_text), "ascent" := .SD$ref_ascent]
+  dat[
+    (is_text),
+    "descent" := pmax(
+      .SD$ref_descent + (.SD$line_spacing - 1) * .SD$ref_line,
+      0
+    )
+  ]
+  dat[, c("ref_ascent", "ref_descent", "ref_line") := NULL]
   dat[(is_text), "height" := .SD$ascent + .SD$descent]
   dat[!(is_text), c("ascent", "descent") := list(.SD$height, 0)]
   # equations: their height above and below the baseline

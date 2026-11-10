@@ -174,6 +174,18 @@ gen_raw_pml <- function(
   par_attributes$text.align <- new_pos$align
   cell_attributes$vertical.align <- new_pos$valign
 
+  # PowerPoint spaces lines by the line spacing times 1.2 times the font
+  # size, whatever the font; Word by the line spacing times the line height
+  # of the font (1.15 em for Arial): the line spacing written is scaled so
+  # that lines are spaced as in Word (and gen_grob(), HTML, autofit())
+  lh <- paragraph_line_heights(information_data_chunk(value))
+  if (!is.null(lh)) {
+    key <- function(d) paste(d$.part, d$.row_id, d$.col_id, sep = "\r")
+    factor <- lh$lh[match(key(par_attributes), key(lh))] / 1.2
+    factor[is.na(factor)] <- 1
+    par_attributes$line_spacing <- par_attributes$line_spacing * factor
+  }
+
   setDT(cell_attributes)
   cell_attributes <- merge(
     cell_attributes,

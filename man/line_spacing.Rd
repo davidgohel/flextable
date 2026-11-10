@@ -25,6 +25,22 @@ Value 'all' can be used.}
 \description{
 Change the line spacing of selected rows and columns of a flextable.
 }
+\section{Line spacing in the outputs}{
+
+The line spacing follows Word in every output: single line spacing is
+the line height of the font (read from the font file with
+\code{\link[gdtools:font_line_metrics]{gdtools::font_line_metrics()}}, 1.15 times the font size for Arial), and
+the space added by a line spacing larger than 1 is below the lines. HTML,
+PowerPoint, PDF (LaTeX \verb{\\baselineskip}), \code{\link[=gen_grob]{gen_grob()}} and the sizes
+computed by \code{\link[=autofit]{autofit()}} and \code{\link[=dim_pretty]{dim_pretty()}} use this rule.
+
+With a line spacing larger than 1, PowerPoint puts about 70\% of the added
+space above the lines instead of below them: the lines have the same
+distance and the cells the same height, but the text is a little lower
+in its cell than in Word (4.6 points for Arial 12 points with a line
+spacing of 1.5).
+}
+
 \examples{
 ft <- flextable(head(mtcars)[, 3:6])
 ft <- line_spacing(ft, space = 1.6, part = "all")

@@ -30,6 +30,36 @@ for example the thin space before a large operator.
 (`gdtools::strings_sizes(kerning = TRUE)`), as devices draw it: right
 aligned text ends at the edge of its cell and spaces after kerned words are
 no longer too wide. Requires 'gdtools' >= 0.6.0.
+- `gen_grob()` spaces lines as Word does: the height of a line is the line
+height of its font (`gdtools::font_line_metrics()`, the single line spacing
+of Word) multiplied by the line spacing, the space added by a line spacing
+larger than 1 is below the line, and the chunks of a line (text of different
+sizes, superscripts, images, equations) are placed on its baseline. Lines were
+computed from the ink of the glyphs, so that they almost touched with a line
+spacing of 1, and the chunks were centered in their line.
+- HTML output spaces lines as Word does: the CSS `line-height` of a
+paragraph is its line spacing multiplied by the line height of its fonts
+(`gdtools::font_line_metrics()`, 1.15 for Arial) instead of the font size,
+and the space added by a line spacing larger than 1 is moved below the lines.
+- `autofit()`, `dim_pretty()` and `fit_to_width()` compute the height of a
+line as Word does, the line spacing multiplied by the line height of the
+font (`gdtools::font_line_metrics()`), instead of 1.2 times the font size
+(or the height of the ink of the text, when larger).
+- PowerPoint output spaces lines as Word does: PowerPoint spaces lines by the
+line spacing times 1.2 times the font size, whatever the font; the line
+spacing written is scaled by the line height of the font divided by 1.2
+(95.8% for Arial in single spacing).
+- PDF output now applies the line spacing: the `\baselineskip` was set
+with the font size of each chunk, inside its group, and TeX used the one of
+the document. It is set for each cell, as in Word: the line spacing times the
+line height of the fonts.
+- `gen_grob()` keeps room for borders as Word does: a horizontal border adds
+its width to the height of its row, a vertical border between two columns is
+centered on their boundary and moves the content of both cells by half its
+width. Borders were drawn over the padding of the cells. Their width is now
+the width set (it was about 7% wider).
+- `gen_grob()` centers the content of cells between their top and bottom
+paddings when they differ; it was centered in the cell.
 
 ## issues
 

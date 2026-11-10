@@ -27,7 +27,6 @@ S3method(dim,flextable)
 S3method(dim,flextableGrob)
 S3method(drawDetails,flextableEquationChunk)
 S3method(drawDetails,flextableHighlightedGrob)
-S3method(drawDetails,flextableRowPartGrob)
 S3method(format_fun,Date)
 S3method(format_fun,POSIXt)
 S3method(format_fun,character)
@@ -257,6 +256,7 @@ importFrom(data.table,
   tstrsplit
 )
 importFrom(gdtools,
+  font_line_metrics,
   installed_gfonts,
   strings_sizes
 )

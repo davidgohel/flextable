@@ -25,7 +25,22 @@ as_table_latexstyle_lr <- function(x) {
   left <- paste0(left, highlight_left)
   right <- paste0(highlight_right, right)
 
-  fontsize_left <- paste0(latex_fontsize(x$font.size, x$line_spacing), "{")
+  # line height of the fonts, as Word for single line spacing
+  # (gdtools::font_line_metrics()), in em
+  line_height <- rep(NA_real_, nrow(x))
+  has_font <- !is.na(x$font.family) & nzchar(x$font.family)
+  if (any(has_font)) {
+    line_height[has_font] <- gdtools::font_line_metrics(
+      fontname = x$font.family[has_font],
+      fontsize = 72,
+      bold = x$bold[has_font] %in% TRUE,
+      italic = x$italic[has_font] %in% TRUE
+    )$line_height
+  }
+  fontsize_left <- paste0(
+    latex_fontsize(x$font.size, x$line_spacing, line_height),
+    "{"
+  )
   fontsize_right <- rep("}", nrow(x))
   fontsize_left[is.na(x$font.size) | is.na(x$line_spacing)] <- ""
   fontsize_right[is.na(x$font.size) | is.na(x$line_spacing)] <- ""
@@ -82,9 +97,14 @@ as_table_latexstyle_lr <- function(x) {
   )
 }
 
-latex_fontsize <- function(x, line_spacing = 1, digits = 0) {
-  size <- format_double(x, digits = 0)
-  baselineskip <- format_double(x * line_spacing, digits = 0)
+# `\\fontsize{size}{baselineskip}`: the distance between the baselines is the
+# line spacing times the line height of the font (in em, `line_height`), as
+# in Word; 1.2 em, the ratio of LaTeX, when it is unknown.
+latex_fontsize <- function(x, line_spacing = 1, line_height = NA_real_) {
+  line_height <- rep_len(line_height, length(x))
+  line_height[is.na(line_height)] <- 1.2
+  size <- format_double(x, digits = 1)
+  baselineskip <- format_double(x * line_spacing * line_height, digits = 2)
   z <- sprintf("\\fontsize{%s}{%s}\\selectfont", size, baselineskip)
   z[is.na(x)] <- ""
   z
