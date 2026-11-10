@@ -26,6 +26,10 @@ centered.
 - Consecutive equations of a paragraph with the same format are merged into
 one equation, as Word lays them out: the spaces between their atoms apply,
 for example the thin space before a large operator.
+- `gen_grob()` measures text with the kerning of the fonts
+(`gdtools::strings_sizes(kerning = TRUE)`), as devices draw it: right
+aligned text ends at the edge of its cell and spaces after kerned words are
+no longer too wide. Requires 'gdtools' >= 0.6.0.
 
 ## issues
 

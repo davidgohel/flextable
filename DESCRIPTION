@@ -37,7 +37,7 @@ URL: https://ardata-fr.github.io/flextable-book/,
 BugReports: https://github.com/davidgohel/flextable/issues
 Imports:
     data.table (>= 1.13.0),
-    gdtools (>= 0.5.3),
+    gdtools (>= 0.6.0),
     graphics,
     grDevices,
     grid,

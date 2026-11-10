@@ -24,8 +24,11 @@
 #' Equations ([as_equation()]) are drawn with 'equatags' (>= 0.4.0) and
 #' R >= 4.3; hyperlinks ([officer::hyperlink_ftext()]) are drawn as text.
 #'
+#' Text is measured with the kerning stored in the font files, as drawn
+#' by devices that kern ('ragg', 'svglite', 'ggiraph', `cairo_pdf()`).
 #' Use a 'ragg', 'svglite' or 'ggiraph' device for correct
-#' rendering.
+#' rendering: the default `png()` device of macOS (Quartz) does not kern,
+#' text can then be drawn slightly wider than measured.
 #' @inheritSection save_as_image caption
 #' @section size:
 #'

@@ -1367,13 +1367,16 @@ calc_grid_text_metrics <- function(dat) {
   # temporarily replace these, so that they get some height
   dat[(is_newline), "txt" := "."]
 
-  # calculate string metrics
+  # calculate string metrics, with the kerning of the fonts as devices
+  # draw them (widths of Word, PowerPoint and HTML outputs are measured
+  # without kerning, see flextable_sizes.R)
   txt_metrics <- gdtools::strings_sizes(
     dat$txt,
     fontname = dat$font.family,
     fontsize = dat$font.size,
     bold = dat$bold,
-    italic = dat$italic
+    italic = dat$italic,
+    kerning = TRUE
   )
   colnames(txt_metrics) <- c("part_width", "part_ascent", "part_descent")
   dat <- cbind(dat, txt_metrics)

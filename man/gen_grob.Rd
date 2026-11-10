@@ -97,8 +97,11 @@ grid calculations can be slow.
 Equations (\code{\link[=as_equation]{as_equation()}}) are drawn with 'equatags' (>= 0.4.0) and
 R >= 4.3; hyperlinks (\code{\link[officer:hyperlink_ftext]{officer::hyperlink_ftext()}}) are drawn as text.
 
+Text is measured with the kerning stored in the font files, as drawn
+by devices that kern ('ragg', 'svglite', 'ggiraph', \code{cairo_pdf()}).
 Use a 'ragg', 'svglite' or 'ggiraph' device for correct
-rendering.
+rendering: the default \code{png()} device of macOS (Quartz) does not kern,
+text can then be drawn slightly wider than measured.
 }
 \section{size}{
 
