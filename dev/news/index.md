@@ -1,6 +1,108 @@
 # Changelog
 
+## flextable 0.10.5
+
+### new features
+
+- [`as_equation()`](https://davidgohel.github.io/flextable/dev/reference/as_equation.md):
+  `width` and `height` are now optional. When they are not provided, the
+  size of the equation is computed with
+  [`equatags::equation_size()`](https://rdrr.io/pkg/equatags/man/equation_size.html)
+  (equatags \>= 0.4.0) from the equation and the font size of the chunk,
+  so that
+  [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md),
+  [`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md)
+  and
+  [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
+  know it. Sizes provided keep the priority.
+- [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
+  draws equations with
+  [`equatags::equation_grob()`](https://rdrr.io/pkg/equatags/man/equation_grob.html)
+  (R \>= 4.3), on the baseline of the text around them, with the colour
+  and size of the chunk.
+- The style of equations follows the rule of Word in every output: the
+  display style (large fractions, limits above and below sums) when the
+  paragraph only contains equations, the inline style as soon as it
+  contains something else, even a space. HTML and LaTeX outputs use
+  `\displaystyle` for the display style, Word and PowerPoint outputs ask
+  ‘equatags’ for the style of each equation (argument `display` of
+  [`equatags::transform_mathjax()`](https://rdrr.io/pkg/equatags/man/transform_mathjax.html)),
+  and the size and
+  [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
+  use the same style.
+- In Word, equations alone in their paragraph keep the alignment of the
+  paragraph and its left and right paddings: Word centered them and
+  ignored the paddings. They are written in a math paragraph
+  (`m:oMathPara`) with the alignment of the paragraph, and the paddings
+  become margins of the cell. In PowerPoint, they also keep the
+  alignment of the paragraph: they were centered.
+- Consecutive equations of a paragraph with the same format are merged
+  into one equation, as Word lays them out: the spaces between their
+  atoms apply, for example the thin space before a large operator.
+- [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
+  measures text with the kerning of the fonts
+  (`gdtools::strings_sizes(kerning = TRUE)`), as devices draw it: right
+  aligned text ends at the edge of its cell and spaces after kerned
+  words are no longer too wide. Requires ‘gdtools’ \>= 0.6.0.
+- [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
+  spaces lines as Word does: the height of a line is the line height of
+  its font
+  ([`gdtools::font_line_metrics()`](https://davidgohel.github.io/gdtools/reference/font_line_metrics.html),
+  the single line spacing of Word) multiplied by the line spacing, the
+  space added by a line spacing larger than 1 is below the line, and the
+  chunks of a line (text of different sizes, superscripts, images,
+  equations) are placed on its baseline. Lines were computed from the
+  ink of the glyphs, so that they almost touched with a line spacing of
+  1, and the chunks were centered in their line.
+- HTML output spaces lines as Word does: the CSS `line-height` of a
+  paragraph is its line spacing multiplied by the line height of its
+  fonts
+  ([`gdtools::font_line_metrics()`](https://davidgohel.github.io/gdtools/reference/font_line_metrics.html),
+  1.15 for Arial) instead of the font size, and the space added by a
+  line spacing larger than 1 is moved below the lines.
+- [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md),
+  [`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md)
+  and
+  [`fit_to_width()`](https://davidgohel.github.io/flextable/dev/reference/fit_to_width.md)
+  compute the height of a line as Word does, the line spacing multiplied
+  by the line height of the font
+  ([`gdtools::font_line_metrics()`](https://davidgohel.github.io/gdtools/reference/font_line_metrics.html)),
+  instead of 1.2 times the font size (or the height of the ink of the
+  text, when larger).
+- PowerPoint output spaces lines as Word does: PowerPoint spaces lines
+  by the line spacing times 1.2 times the font size, whatever the font;
+  the line spacing written is scaled by the line height of the font
+  divided by 1.2 (95.8% for Arial in single spacing).
+- PDF output now applies the line spacing: the `\baselineskip` was set
+  with the font size of each chunk, inside its group, and TeX used the
+  one of the document. It is set for each cell, as in Word: the line
+  spacing times the line height of the fonts.
+- [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
+  keeps room for borders as Word does: a horizontal border adds its
+  width to the height of its row, a vertical border between two columns
+  is centered on their boundary and moves the content of both cells by
+  half its width. Borders were drawn over the padding of the cells.
+  Their width is now the width set (it was about 7% wider).
+- [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
+  centers the content of cells between their top and bottom paddings
+  when they differ; it was centered in the cell.
+
+### issues
+
+- [`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md)
+  and
+  [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md)
+  applied the sizes given to chunks (images, equations) to the wrong
+  cells in tables with several columns.
+- A flextable without any row (for example made from an empty data.frame
+  whose header was deleted) now stops with an explicit error in every
+  output, instead of an error of ‘data.table’. The widths of its columns
+  are kept, so that a footer or a header can be added to it
+  ([\#722](https://github.com/davidgohel/flextable/issues/722)).
+
 ## flextable 0.10.4
+
+CRAN release: 2026-11-08
 
 ### new features
 
@@ -388,8 +490,8 @@ CRAN release: 2025-08-24
 ### Change
 
 - `print.flextable(preview = "log")` use
-  [`str()`](https://rdrr.io/pkg/rtables/man/int_methods.html) to show
-  first values of data instead of
+  [`str()`](https://insightsengineering.github.io/rtables/latest-tag/reference/int_methods.html)
+  to show first values of data instead of
   [`print()`](https://rdrr.io/r/base/print.html) so that when there are
   ggplot2 v4 objects in the table, the print is not failing.
 
@@ -1509,7 +1611,7 @@ CRAN release: 2020-05-15
   and
   [`color()`](https://davidgohel.github.io/flextable/dev/reference/color.md)
   now accept functions
-  (i.e. [`scales::col_numeric()`](https://rdrr.io/pkg/scales/man/col_numeric.html))
+  (i.e. [`scales::col_numeric()`](https://scales.r-lib.org/reference/col_numeric.html))
 
 ## flextable 0.5.9
 

@@ -39,6 +39,27 @@ line_spacing(x, i = NULL, j = NULL, space = 1, part = "body")
   \<[`Selectors in flextable`](https://davidgohel.github.io/flextable/dev/reference/flextable_selectors.md)\>.
   Value 'all' can be used.
 
+## Line spacing in the outputs
+
+The line spacing follows Word in every output: single line spacing is
+the line height of the font (read from the font file with
+[`gdtools::font_line_metrics()`](https://davidgohel.github.io/gdtools/reference/font_line_metrics.html),
+1.15 times the font size for Arial), and the space added by a line
+spacing larger than 1 is below the lines. HTML, PowerPoint, PDF (LaTeX
+`\baselineskip`),
+[`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
+and the sizes computed by
+[`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md)
+and
+[`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md)
+use this rule.
+
+With a line spacing larger than 1, PowerPoint puts about 70% of the
+added space above the lines instead of below them: the lines have the
+same distance and the cells the same height, but the text is a little
+lower in its cell than in Word (4.6 points for Arial 12 points with a
+line spacing of 1.5).
+
 ## See also
 
 Other formatting shortcuts:
@@ -68,7 +89,7 @@ ft <- set_table_properties(ft, layout = "autofit")
 ft
 
 
-.cl-012bb927{table-layout:auto;}.cl-58d9c9bd{font-family:'Liberation Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-43a16d18{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.6;background-color:transparent;}.cl-b17086d4{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-212ffd11{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-adaf0255{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-012bb927{table-layout:auto;}.cl-58d9c9bd{font-family:'Liberation Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-3df2c379{margin:0;margin-top:-3.8pt;margin-bottom:3.8pt;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1.84;background-color:transparent;}.cl-b17086d4{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-212ffd11{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-adaf0255{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 disp

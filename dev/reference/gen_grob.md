@@ -22,13 +22,18 @@ fill the device).
 Not recommended for very large tables because the grid calculations can
 be slow.
 
-Limitations: equations
+Equations
 ([`as_equation()`](https://davidgohel.github.io/flextable/dev/reference/as_equation.md))
-and hyperlinks
+are drawn with 'equatags' (\>= 0.4.0) and R \>= 4.3; hyperlinks
 ([`officer::hyperlink_ftext()`](https://davidgohel.github.io/officer/reference/hyperlink_ftext.html))
-are not rendered.
+are drawn as text.
 
-Use a 'ragg', 'svglite' or 'ggiraph' device for correct rendering.
+Text is measured with the kerning stored in the font files, as drawn by
+devices that kern ('ragg', 'svglite', 'ggiraph',
+[`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html)). Use a 'ragg',
+'svglite' or 'ggiraph' device for correct rendering: the default
+[`png()`](https://rdrr.io/r/grDevices/png.html) device of macOS (Quartz)
+does not kern, text can then be drawn slightly wider than measured.
 
 ## Usage
 
