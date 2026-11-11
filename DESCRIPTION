@@ -1,7 +1,7 @@
 Type: Package
 Package: flextable
 Title: Functions for Tabular Reporting
-Version: 0.10.4
+Version: 0.10.5.001
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -80,6 +80,9 @@ Suggests:
     webshot2,
     withr,
     xtable
+Remotes:
+    davidgohel/gdtools,
+    ardata-fr/equatags
 VignetteBuilder: 
     knitr
 Config/roxygen2/version: 8.1.1

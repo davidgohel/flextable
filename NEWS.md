@@ -1,4 +1,4 @@
-# flextable (development version)
+# flextable 0.10.5
 
 ## new features
 
