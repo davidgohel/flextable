@@ -59,8 +59,8 @@ test_that("HTML lines are spaced as in Word", {
   expect_match(html, "line-height: 1.15", fixed = TRUE)
   expect_match(html, "line-height: 1.725", fixed = TRUE)
   # the space added by the line spacing 1.5 is moved below the lines:
-  # 0.5 * 1.15 * 12 / 2 = 3.45 points
-  expect_match(html, "margin-top:-3.5pt;margin-bottom:3.5pt;", fixed = TRUE)
+  # 0.5 * (2355 / 2048) * 12 / 2 = 3.4497 points, rounded once when written
+  expect_match(html, "margin-top:-3.4pt;margin-bottom:3.4pt;", fixed = TRUE)
 })
 
 test_that("dim_pretty() heights use the line height of the fonts", {

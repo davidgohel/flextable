@@ -197,7 +197,7 @@ html_line_spacing <- function(par_data, chunk_data) {
   par_data <- merge(par_data, lh, by = keys, all.x = TRUE)
   par_data[is.na(par_data$lh), c("lh", "lh_pt") := list(1, 0)]
   par_data[,
-    "line_shift" := round(pmax(.SD$line_spacing - 1, 0) * .SD$lh_pt / 2, 2)
+    "line_shift" := pmax(.SD$line_spacing - 1, 0) * .SD$lh_pt / 2
   ]
   par_data[, "line_spacing" := .SD$line_spacing * .SD$lh]
   par_data[, c("lh", "lh_pt") := NULL]
