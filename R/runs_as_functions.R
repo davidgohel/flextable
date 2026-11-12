@@ -308,6 +308,76 @@ runs_as_latex <- function(
   setDF(dat)
   dat
 }
+# Equations in RTF: PNG images drawn by equatags::equation_grob(), at the
+# size computed by equatags::equation_size(), lowered by their depth (`\\dn`,
+# in half points) so that their baseline is the baseline of the text. Without
+# 'equatags' or with R < 4.3, the LaTeX source as text, with a warning.
+equations_as_rtf <- function(eq, size, colour, display) {
+  if (!can_draw_equations()) {
+    warning(
+      "Equations are written as LaTeX text in RTF: drawing them needs ",
+      "R >= 4.3 and the package 'equatags'.",
+      call. = FALSE
+    )
+    return(str_encode_to_rtf(eq))
+  }
+  colour[is.na(colour)] <- "black"
+  display <- as.logical(display)
+  display[is.na(display)] <- FALSE
+  key <- paste(eq, size, colour, display, sep = "\r")
+  first <- !duplicated(key)
+  out <- mapply(
+    equation_as_rtf,
+    eq = eq[first],
+    size = size[first],
+    colour = colour[first],
+    display = display[first],
+    USE.NAMES = FALSE
+  )
+  out[match(key, key[first])]
+}
+
+#' @importFrom grid grid.newpage
+equation_as_rtf <- function(eq, size, colour, display) {
+  s <- equation_sizes(eq, size, display = display)
+  height <- s$height + s$depth
+  if (is.na(s$width) || s$width <= 0 || height <= 0) {
+    return(str_encode_to_rtf(eq))
+  }
+  path <- tempfile(fileext = ".png")
+  on.exit(unlink(path))
+  agg_png(
+    filename = path,
+    width = s$width,
+    height = height,
+    units = "in",
+    res = 300,
+    background = "transparent"
+  )
+  grid.newpage()
+  grid.draw(equatags::equation_grob(
+    eq,
+    size = size,
+    display = display,
+    x0 = 0,
+    y0 = 0,
+    hjust = 0,
+    vjust = 0,
+    colour = colour
+  ))
+  dev.off()
+  img <- to_rtf(officer::external_img(
+    src = path,
+    width = s$width,
+    height = height
+  ))
+  lower <- round(s$depth * 72 * 2)
+  if (lower > 0) {
+    img <- sprintf("{\\dn%.0f %s}", lower, img)
+  }
+  img
+}
+
 #' @importFrom officer str_encode_to_rtf
 runs_as_rtf <- function(x, chunk_data = information_data_chunk(x)) {
   txt_data <- chunk_data
@@ -381,7 +451,18 @@ runs_as_rtf <- function(x, chunk_data = information_data_chunk(x)) {
   ]
   dat[runs_types_lst$is_soft_return == TRUE, c("txt") := list("\\line")]
   dat[runs_types_lst$is_tab == TRUE, c("txt") := list("\\tab")]
-  dat[runs_types_lst$is_equation == TRUE, c("txt") := list("")]
+  if (any(runs_types_lst$is_equation)) {
+    is_eq <- which(runs_types_lst$is_equation)
+    dat[
+      is_eq,
+      c("txt") := list(equations_as_rtf(
+        eq = .SD$eq_data,
+        size = .SD$font.size,
+        colour = .SD$color,
+        display = eq_display_of(dat)[is_eq]
+      ))
+    ]
+  }
   dat[
     runs_types_lst$is_word_field == TRUE,
     c("txt") := list(sprintf("{\\field{\\*\\fldinst %s}}", .SD$word_field_data))

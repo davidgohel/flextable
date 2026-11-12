@@ -63,6 +63,13 @@ paddings when they differ; it was centered in the cell.
 
 ## issues
 
+- Equations are no longer lost in RTF (`save_as_rtf()`, `to_rtf()`): they
+were written as empty text. They are now images drawn by
+`equatags::equation_grob()` (R >= 4.3), with the size, colour and style of
+the chunk, and lowered so that their baseline is the baseline of the text
+(Word follows this, LibreOffice puts the bottom of the image on the
+baseline). Without 'equatags' or with an older R, the LaTeX source is
+written as text, with a warning.
 - Superscripts and subscripts (`as_sup()`, `as_sub()`) are placed as Word
 places them with Arial and Liberation Sans: 65% of the font size, baseline
 raised by 0.34 or lowered by 0.07 of the font size. In `gen_grob()`, they

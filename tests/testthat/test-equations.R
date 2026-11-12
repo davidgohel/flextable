@@ -96,3 +96,31 @@ test_that("PowerPoint equations alone in their paragraph keep the alignment of t
   expect_equal(lengths(regmatches(pml, gregexpr("<m:jc m:val=\"right\"/>", pml, fixed = TRUE))), 1L)
   expect_equal(lengths(regmatches(pml, gregexpr("<m:jc m:val=\"centerGroup\"/>", pml, fixed = TRUE))), 1L)
 })
+
+test_that("RTF equations are images on the baseline of the text", {
+  skip_if_not(flextable:::can_draw_equations())
+  ft <- flextable(data.frame(eq = c("\\frac{a}{b}", "\\frac{a}{b}", "x")))
+  ft <- mk_par(ft, j = "eq", value = as_paragraph("eq: ", as_equation(eq)))
+  str <- to_rtf(ft)
+  s <- equatags::equation_size(c("\\frac{a}{b}", "x"), size = 11)
+  pict <- sprintf(
+    "{\\pict\\pngblip\\picwgoal%.0f\\pichgoal%.0f ",
+    s$width * 1440,
+    (s$height + s$depth) * 1440
+  )
+  # the fraction is lowered by its depth (half points)
+  expect_match(
+    str,
+    paste0(sprintf("{\\dn%.0f ", round(s$depth[1] * 144)), pict[1]),
+    fixed = TRUE
+  )
+  expect_match(str, pict[2], fixed = TRUE)
+  expect_length(gregexpr("\\pngblip", str, fixed = TRUE)[[1]], 3)
+})
+
+test_that("RTF equations are LaTeX text when they can not be drawn", {
+  local_mocked_bindings(can_draw_equations = function() FALSE)
+  expect_warning(str <- to_rtf(equation_table()), "LaTeX text")
+  expect_match(str, "\\frac{a}{b}", fixed = TRUE)
+  expect_no_match(str, "\\pngblip", fixed = TRUE)
+})
