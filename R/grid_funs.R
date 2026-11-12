@@ -589,7 +589,10 @@ grid_data_add_chunk_info <- function(grid_data, x, autowidths, wrapping) {
       is_text = .SD$is_text,
       color = .SD$color,
       fontfamily = .SD$font.family,
-      fontsize = .SD$font.size,
+      fontsize = grid_font_size(
+        .SD$font.size,
+        .SD$is_superscript | .SD$is_subscript
+      ),
       fontface = .SD$font.face,
       lineheight = .SD$line_spacing,
       SIMPLIFY = FALSE
@@ -1288,6 +1291,22 @@ grid_data_adjust_heights <- function(grid_data) {
   grid_data
 }
 
+# superscripts and subscripts ---------------------------------------------
+
+# Size of superscripts and subscripts (share of the font size) and shift of
+# their baseline (share of the font size, positive up), as Word draws them
+# with Arial and Liberation Sans (measured on the PDF rendered by Word, 8 to
+# 36 points). Word takes these values from the table OS/2 of the font, but
+# for these two fonts it uses about 1/3 above and 0.07 below instead of
+# their values (0.477 and 0.138). Also used by the HTML output.
+script_size <- 0.65
+script_shift <- c(superscript = 0.34, subscript = -0.07)
+
+# Font size of the chunks: reduced for superscripts and subscripts.
+grid_font_size <- function(font_size, is_script) {
+  ifelse(is_script %in% TRUE, font_size * script_size, font_size)
+}
+
 # gpar --------------------------------------------------------------------
 
 #' @importFrom grid gpar
@@ -1431,7 +1450,7 @@ calc_grid_text_metrics <- function(dat) {
   txt_metrics <- gdtools::strings_sizes(
     dat$txt,
     fontname = dat$font.family,
-    fontsize = dat$font.size,
+    fontsize = grid_font_size(dat$font.size, dat$is_superscript | dat$is_subscript),
     bold = dat$bold,
     italic = dat$italic,
     kerning = TRUE
@@ -1441,7 +1460,6 @@ calc_grid_text_metrics <- function(dat) {
 
   # set width/ascent/descent/height
   dat[(is_text), "width" := .SD$part_width]
-  dat[(is_superscript | is_subscript), "width" := .SD$width * 0.75]
   ref <- font_reference_metrics(
     dat$font.family,
     dat$font.size,
@@ -1522,16 +1540,10 @@ calc_grid_label <- function(
   is_bold = FALSE,
   is_italic = FALSE
 ) {
-  if (valign %in% c("superscript", "subscript") || isTRUE(is_underlined)) {
-    x <- paste0("\"", x, "\"")
-    if (valign %in% "superscript") {
-      x <- paste0("\"\"^", x)
-    } else if (valign %in% "subscript") {
-      x <- paste0("\"\"[", x, "]")
-    }
-    if (isTRUE(is_underlined)) {
-      x <- paste0("underline(", x, ")")
-    }
+  # superscripts and subscripts are plain texts, with a smaller size and a
+  # shifted baseline (see script_size and script_shift)
+  if (isTRUE(is_underlined)) {
+    x <- paste0("underline(\"", x, "\")")
     if (isTRUE(is_bold) && isTRUE(is_italic)) {
       x <- paste0("bolditalic(", x, ")")
     } else if (isTRUE(is_bold)) {

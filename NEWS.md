@@ -63,6 +63,13 @@ paddings when they differ; it was centered in the cell.
 
 ## issues
 
+- Superscripts and subscripts (`as_sup()`, `as_sub()`) are placed as Word
+places them with Arial and Liberation Sans: 65% of the font size, baseline
+raised by 0.34 or lowered by 0.07 of the font size. In `gen_grob()`, they
+were drawn with the rules of plotmath (larger, and much higher or lower than
+in Word). In HTML, their shift depended on the font size of the page, not on
+the one of the text: small superscripts were too high, large ones too low;
+their size was 60% of the font size.
 - `dim_pretty()` and `autofit()` applied the sizes given to chunks (images,
 equations) to the wrong cells in tables with several columns.
 - A flextable without any row (for example made from an empty data.frame

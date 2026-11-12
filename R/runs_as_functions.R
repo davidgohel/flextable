@@ -12,14 +12,21 @@ text_css_styles <- function(x) {
 
   family <- sprintf("font-family:'%s';", x$font.family)
 
+  # superscripts and subscripts: the baseline is shifted by a length computed
+  # from the font size of the text (see script_shift), as in Word;
+  # "vertical-align:super" and "sub" shift it from the font size of the
+  # parent element, which is not the one of the text in a cell
   vertical.align <- rep("", nrow(x))
   has_vertical_align <- x$vertical.align %in% c("superscript", "subscript")
-  vertical.align[x$vertical.align %in% "superscript"] <- "vertical-align:super;"
-  vertical.align[x$vertical.align %in% "subscript"] <- "vertical-align:sub;"
+  vertical.align[has_vertical_align] <- sprintf(
+    "vertical-align:%.2fpt;",
+    script_shift[x$vertical.align[has_vertical_align]] *
+      x$font.size[has_vertical_align]
+  )
   font.size <- sprintf("font-size:%s;", css_pt(x$font.size))
   font.size[has_vertical_align] <- sprintf(
     "font-size:%s;",
-    css_pt(x$font.size[has_vertical_align] * .6)
+    css_pt(x$font.size[has_vertical_align] * script_size)
   )
 
   bold <- rep("font-weight:normal;", nrow(x))

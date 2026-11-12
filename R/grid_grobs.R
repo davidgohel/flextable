@@ -704,11 +704,12 @@ arrange_contents_grob <- function(
     baseline_y <- unit(baseline * cex, "in")
     if (inherits(gr, "text")) {
       gr$vjust <- 0
-      gr$y <- baseline_y
+      # superscripts and subscripts: baseline shifted up or down
+      gr$y <- baseline_y + unit((params$shift %||% 0) * cex, "in")
       if (is.expression(gr$label)) {
-        # expressions (superscripts, subscripts, underlined text) are
-        # justified on the bottom of their box: their baseline is above it
-        gr$y <- baseline_y - grobDescent(gr)
+        # expressions (underlined text) are justified on the bottom of their
+        # box: their baseline is above it
+        gr$y <- gr$y - grobDescent(gr)
       }
     } else if (inherits(gr, "flextableEquationChunk")) {
       gr$cex <- cex
@@ -879,6 +880,13 @@ make_chunk_grob <- function(chunk_index, dat, params) {
     gr$ftpar <- list(
       txt_data = dat$txt_data[[1]],
       valign = dat$valign,
+      # shift of the baseline of superscripts and subscripts, in inches,
+      # from the font size of the text around them
+      shift = if (dat$valign %in% names(script_shift)) {
+        unname(script_shift[dat$valign]) * dat$gp[[1]]$fontsize / script_size / 72
+      } else {
+        0
+      },
       is_underlined = dat$is_underlined,
       is_bold = dat$is_bold,
       is_italic = dat$is_italic
