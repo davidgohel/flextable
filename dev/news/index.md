@@ -89,6 +89,27 @@
 
 ### issues
 
+- Equations are no longer lost in RTF
+  ([`save_as_rtf()`](https://davidgohel.github.io/flextable/dev/reference/save_as_rtf.md),
+  [`to_rtf()`](https://davidgohel.github.io/officer/reference/to_rtf.html)):
+  they were written as empty text. They are now images drawn by
+  [`equatags::equation_grob()`](https://rdrr.io/pkg/equatags/man/equation_grob.html)
+  (R \>= 4.3), with the size, colour and style of the chunk, and lowered
+  so that their baseline is the baseline of the text (Word follows this,
+  LibreOffice puts the bottom of the image on the baseline). Without
+  ‘equatags’ or with an older R, the LaTeX source is written as text,
+  with a warning.
+- Superscripts and subscripts
+  ([`as_sup()`](https://davidgohel.github.io/flextable/dev/reference/as_sup.md),
+  [`as_sub()`](https://davidgohel.github.io/flextable/dev/reference/as_sub.md))
+  are placed as Word places them with Arial and Liberation Sans: 65% of
+  the font size, baseline raised by 0.34 or lowered by 0.07 of the font
+  size. In
+  [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md),
+  they were drawn with the rules of plotmath (larger, and much higher or
+  lower than in Word). In HTML, their shift depended on the font size of
+  the page, not on the one of the text: small superscripts were too
+  high, large ones too low; their size was 60% of the font size.
 - [`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md)
   and
   [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md)
