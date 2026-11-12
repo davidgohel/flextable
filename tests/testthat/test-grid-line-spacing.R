@@ -34,6 +34,9 @@ test_that("gen_grob() borders take space as in Word", {
 
 test_that("gen_grob() centers contents between asymmetric paddings", {
   gdtools::font_set_liberation()
+  # convertY() needs a device: an in-memory one, no Rplots.pdf
+  ragg::agg_capture(width = 4, height = 4, units = "in", res = 72)
+  withr::defer(grDevices::dev.off())
   ft <- flextable(data.frame(a = "Hxg"))
   ft <- border_remove(ft)
   ft <- padding(ft, padding.top = 20, padding.bottom = 0, part = "all")

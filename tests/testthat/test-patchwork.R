@@ -287,6 +287,9 @@ test_that("patchwork with just right renders to PNG with ragg", {
 init_flextable_defaults()
 
 test_that("flex_body places body rows at the positions of discrete categories", {
+  # convertY() needs a device: an in-memory one, no Rplots.pdf
+  ragg::agg_capture(width = 4, height = 4, units = "in", res = 72)
+  withr::defer(grDevices::dev.off())
   ft <- flextable(data.frame(a = c("A", "B", "C", "D"), b = 1:4))
   ft <- add_footer_lines(ft, "note")
   attr(ft, ".patchwork_flex_body") <- TRUE
@@ -306,6 +309,9 @@ test_that("flex_body places body rows at the positions of discrete categories", 
 })
 
 test_that("flex_body with panel full or rows keeps the whole table in the panel", {
+  # convertY() needs a device: an in-memory one, no Rplots.pdf
+  ragg::agg_capture(width = 4, height = 4, units = "in", res = 72)
+  withr::defer(grDevices::dev.off())
   ft <- flextable(data.frame(a = c("A", "B", "C", "D"), b = 1:4))
   ft <- add_footer_lines(ft, "note")
   attr(ft, ".patchwork_flex_body") <- TRUE
