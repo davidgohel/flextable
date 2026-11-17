@@ -89,6 +89,11 @@
 
 ### issues
 
+- [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
+  could draw the previous content of an image file rewritten at the same
+  path with the same size, very quickly (on Windows, within about 16
+  ms): the images kept for the session are now identified by the content
+  of their file, not by its modification time and size.
 - Equations are no longer lost in RTF
   ([`save_as_rtf()`](https://davidgohel.github.io/flextable/dev/reference/save_as_rtf.md),
   [`to_rtf()`](https://davidgohel.github.io/officer/reference/to_rtf.html)):
