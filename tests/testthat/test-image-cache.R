@@ -87,6 +87,9 @@ test_that("a file that has changed is read again", {
   first <- image_raster(path)
 
   write_test_png(path, color = "blue", width = 30)
+  # both files have the same size and, on Windows, whose clock advances by
+  # steps of about 16 ms, often the same modification time: move it forward
+  Sys.setFileTime(path, Sys.time() + 10)
   second <- image_raster(path)
 
   expect_false(identical(second, first))
