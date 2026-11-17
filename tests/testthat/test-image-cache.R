@@ -85,11 +85,12 @@ test_that("a file that has changed is read again", {
   local_empty_image_cache()
   path <- write_test_png(withr::local_tempfile(fileext = ".png"))
   first <- image_raster(path)
+  mtime <- file.mtime(path)
 
+  # same size and, as on Windows when the file is rewritten within one step
+  # of the clock, same modification time: only the content differs
   write_test_png(path, color = "blue", width = 30)
-  # both files have the same size and, on Windows, whose clock advances by
-  # steps of about 16 ms, often the same modification time: move it forward
-  Sys.setFileTime(path, Sys.time() + 10)
+  Sys.setFileTime(path, mtime)
   second <- image_raster(path)
 
   expect_false(identical(second, first))

@@ -1,6 +1,6 @@
 # Decoding an image is slow and the same file is often used by many cells, so
-# rasters are kept for the session. A file that changes gets a new key, and the
-# least recently used rasters are dropped above `max_bytes`.
+# rasters are kept for the session. A file whose content changes gets a new key,
+# and the least recently used rasters are dropped above `max_bytes`.
 image_cache <- new.env(parent = emptyenv())
 image_cache$entries <- list()
 image_cache$tick <- 0
@@ -15,14 +15,13 @@ is_svg_file <- function(path) {
   grepl("\\.svg$", ignore.case = TRUE, x = path)
 }
 
+# The key depends on the content of the file, not on its modification time:
+# a file rewritten with the same size within one step of the clock of the
+# system (about 16 ms on Windows) keeps its modification time. Hashing is much
+# faster than decoding (about 2 ms for 5 MB).
 # SVG files are rendered at the requested size, other files do not depend on it
 image_cache_key <- function(path, width = NULL, height = NULL) {
-  info <- file.info(path, extra_cols = FALSE)
-  id <- c(
-    normalizePath(path),
-    sprintf("%.6f", as.numeric(info$mtime)),
-    info$size
-  )
+  id <- c(normalizePath(path), rlang::hash_file(path))
   if (is_svg_file(path)) {
     id <- c(id, width, height)
   }

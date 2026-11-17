@@ -63,6 +63,10 @@ paddings when they differ; it was centered in the cell.
 
 ## issues
 
+- `gen_grob()` could draw the previous content of an image file rewritten
+at the same path with the same size, very quickly (on Windows, within about
+16 ms): the images kept for the session are now identified by the content
+of their file, not by its modification time and size.
 - Equations are no longer lost in RTF (`save_as_rtf()`, `to_rtf()`): they
 were written as empty text. They are now images drawn by
 `equatags::equation_grob()` (R >= 4.3), with the size, colour and style of
