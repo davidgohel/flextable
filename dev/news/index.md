@@ -7,7 +7,7 @@
 - [`as_equation()`](https://davidgohel.github.io/flextable/dev/reference/as_equation.md):
   `width` and `height` are now optional. When they are not provided, the
   size of the equation is computed with
-  [`equatags::equation_size()`](https://rdrr.io/pkg/equatags/man/equation_size.html)
+  [`equatags::equation_size()`](https://ardata-fr.github.io/equatags/reference/equation_size.html)
   (equatags \>= 0.4.0) from the equation and the font size of the chunk,
   so that
   [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md),
@@ -17,7 +17,7 @@
   know it. Sizes provided keep the priority.
 - [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
   draws equations with
-  [`equatags::equation_grob()`](https://rdrr.io/pkg/equatags/man/equation_grob.html)
+  [`equatags::equation_grob()`](https://ardata-fr.github.io/equatags/reference/equation_grob.html)
   (R \>= 4.3), on the baseline of the text around them, with the colour
   and size of the chunk.
 - The style of equations follows the rule of Word in every output: the
@@ -26,7 +26,7 @@
   contains something else, even a space. HTML and LaTeX outputs use
   `\displaystyle` for the display style, Word and PowerPoint outputs ask
   ‘equatags’ for the style of each equation (argument `display` of
-  [`equatags::transform_mathjax()`](https://rdrr.io/pkg/equatags/man/transform_mathjax.html)),
+  [`equatags::transform_mathjax()`](https://ardata-fr.github.io/equatags/reference/transform_mathjax.html)),
   and the size and
   [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
   use the same style.
@@ -93,7 +93,7 @@
   ([`save_as_rtf()`](https://davidgohel.github.io/flextable/dev/reference/save_as_rtf.md),
   [`to_rtf()`](https://davidgohel.github.io/officer/reference/to_rtf.html)):
   they were written as empty text. They are now images drawn by
-  [`equatags::equation_grob()`](https://rdrr.io/pkg/equatags/man/equation_grob.html)
+  [`equatags::equation_grob()`](https://ardata-fr.github.io/equatags/reference/equation_grob.html)
   (R \>= 4.3), with the size, colour and style of the chunk, and lowered
   so that their baseline is the baseline of the text (Word follows this,
   LibreOffice puts the bottom of the image on the baseline). Without

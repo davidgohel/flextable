@@ -28,7 +28,7 @@ as_equation(x, width = NULL, height = NULL, unit = "in", props = NULL)
   size of the resulting equation. When they are not provided (`NULL`,
   the default), the size is computed from the equation and the font size
   of the chunk with
-  [`equatags::equation_size()`](https://rdrr.io/pkg/equatags/man/equation_size.html)
+  [`equatags::equation_size()`](https://ardata-fr.github.io/equatags/reference/equation_size.html)
   (equatags \>= 0.4.0), so that
   [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md),
   [`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md)
@@ -62,13 +62,13 @@ and the size and
 use the same style.
 
 The size computed by
-[`equatags::equation_size()`](https://rdrr.io/pkg/equatags/man/equation_size.html)
+[`equatags::equation_size()`](https://ardata-fr.github.io/equatags/reference/equation_size.html)
 is the one of the equation laid out with the math font 'STIX Two Math'.
 Word and browsers display equations with their own math font, so the
 displayed size may differ slightly. With
 [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
 (R \>= 4.3), equations are drawn with
-[`equatags::equation_grob()`](https://rdrr.io/pkg/equatags/man/equation_grob.html),
+[`equatags::equation_grob()`](https://ardata-fr.github.io/equatags/reference/equation_grob.html),
 at their computed size.
 
 ## See also
