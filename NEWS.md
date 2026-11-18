@@ -67,6 +67,10 @@ paddings when they differ; it was centered in the cell.
 
 ## issues
 
+- `split_rows()` measured the rows without wrapping their text: with columns
+narrower than their text, the pages were higher than `max_height`. The
+height of a row is now measured with its text wrapped at the widths of the
+columns, as `gen_grob()` wraps it, without a graphic device.
 - `split_columns()` with `rep_cols` moved the repeated columns to the
 beginning of each page without their spans, widths and styles: a merged
 header was shifted onto the wrong columns. They now move with their

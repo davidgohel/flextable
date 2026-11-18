@@ -236,3 +236,41 @@ test_that("split_rows reads the groups of paginate()", {
   )
   expect_error(split_rows(ft, max_height = 2, group = "rows"), "keep_with_next")
 })
+
+test_that("row heights are measured with the text wrapped at the widths", {
+  dat <- data.frame(
+    term = c(
+      "Gastrointestinal disorders - Nausea and vomiting",
+      "Headache",
+      "Skin and subcutaneous tissue disorders"
+    ),
+    n = c("12 (5.1%)", "3 (1.2%)", "7 (2.9%)")
+  )
+  # no wrapping: the heights of dim_pretty()
+  ft <- autofit(flextable(dat))
+  expect_equal(flextable:::wrapped_row_heights(ft), dim_pretty(ft)$heights)
+
+  # a narrow column: the heights of the rows drawn by gen_grob()
+  ft <- width(flextable(dat), j = "term", width = 1.2)
+  wrapped <- flextable:::wrapped_row_heights(ft)
+  drawn <- gen_grob(ft, fit = "fixed", autowidths = FALSE, wrapping = TRUE)$ftpar$heights
+  expect_equal(wrapped, drawn, tolerance = 0.03)
+  # the long terms take several lines
+  expect_gt(wrapped[2], 2 * dim_pretty(ft)$heights[2])
+})
+
+test_that("split_rows uses the heights of wrapped text", {
+  dat <- data.frame(
+    term = rep("Gastrointestinal disorders - Nausea and vomiting", 12),
+    n = sprintf("%d (5.1%%)", 1:12)
+  )
+  ft <- width(flextable(dat), j = "term", width = 1.2)
+  max_height <- 3
+  pages <- split_rows(ft, max_height = max_height)
+  # each page holds in max_height once wrapped
+  for (p in pages) {
+    expect_lte(sum(flextable:::wrapped_row_heights(p)), max_height)
+  }
+  # more pages than when the text does not wrap
+  expect_gt(length(pages), length(split_rows(autofit(ft), max_height = max_height)))
+})

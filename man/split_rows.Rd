@@ -31,6 +31,11 @@ Split a flextable into a list of flextables whose body
 rows fit within a given height (in inches). Header and footer are
 repeated on every page. An optional \code{group} argument keeps row groups
 together (no page break inside a group).
+
+The height of a row is measured with its text wrapped at the widths of
+the columns, as \code{\link[=gen_grob]{gen_grob()}} wraps it: set the widths before splitting
+(with \code{\link[=width]{width()}}, \code{\link[=autofit]{autofit()}} or \code{\link[=fit_to_width]{fit_to_width()}}). The heights set with
+\code{\link[=height]{height()}} are not used.
 }
 \note{
 Footnotes are currently repeated on every page, even when

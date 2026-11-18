@@ -1243,3 +1243,209 @@ text_metric <- function(x) {
   setDF(txt_data)
   txt_data
 }
+
+# heights with wrapping ----
+
+# Heights (inches) of the rows of a flextable, header, body and footer, with
+# the text wrapped at the widths of the columns, as gen_grob() wraps it, but
+# measured as dim_pretty() measures it: the widths of the words with
+# 'gdtools', the line height of their font, the paddings, margins and
+# borders of the cells. No graphic device is used. When no text wraps, the
+# heights are those of dim_pretty().
+wrapped_row_heights <- function(x) {
+  heights <- lapply(c("header", "body", "footer"), function(part) {
+    if (nrow_part(x, part) > 0) wrapped_part_heights(x[[part]]) else numeric(0)
+  })
+  unlist(heights, use.names = FALSE)
+}
+
+wrapped_part_heights <- function(x) {
+  chunks <- as.data.table(fortify_content(
+    x = x$content,
+    default_chunk_fmt = x$styles$text
+  ))
+  chunks[, c("chunk_order") := list(seq_len(.N))]
+  # explicit lines of a paragraph, separated by line breaks
+  chunks[,
+    c("explicit_line") := list(cumsum(.SD$txt %in% "<br>")),
+    by = c(".row_id", ".col_id")
+  ]
+  chunks$txt[chunks$txt %in% "<br>"] <- ""
+  chunks$txt[chunks$txt %in% "<tab>"] <- "mmmm"
+  chunks$txt[is.na(chunks$txt)] <- ""
+
+  # pieces: the words and the spaces of the text, an image or an equation
+  # (with its size) is one piece
+  is_fixed <- !is.na(chunks$width)
+  words <- strsplit_words(chunks$txt)
+  words[is_fixed] <- list("")
+  n_pieces <- lengths(words)
+  pieces <- chunks[rep(seq_len(nrow(chunks)), n_pieces)]
+  pieces$piece <- unlist(words, use.names = FALSE)
+
+  font_size <- pieces$font.size
+  is_script <- !(pieces$vertical.align %in% "baseline")
+  font_size[is_script] <- font_size[is_script] / 2
+  pieces$piece_width <- gdtools::strings_sizes(
+    pieces$piece,
+    fontname = pieces$font.family,
+    fontsize = font_size,
+    bold = pieces$bold %in% TRUE,
+    italic = pieces$italic %in% TRUE
+  )$width
+  line_height <- gdtools::font_line_metrics(
+    fontname = pieces$font.family,
+    fontsize = font_size,
+    bold = pieces$bold %in% TRUE,
+    italic = pieces$italic %in% TRUE
+  )$line_height
+
+  par_data <- as.data.table(par_struct_to_df(x$styles$pars)[, c(
+    ".row_id",
+    ".col_id"
+  )])
+  par_data$line_spacing <- as.vector(x$styles$pars[["line_spacing"]]$data)
+  par_data$text.direction <- as.vector(
+    x$styles$cells[["text.direction"]]$data
+  )
+  # width available for the text: the columns of the cell (horizontal
+  # span), minus the paddings of the paragraph and the margins of the cell
+  col_index <- match(par_data$.col_id, x$col_keys)
+  span <- x$spans$rows[cbind(par_data$.row_id, col_index)]
+  cum_widths <- c(0, cumsum(x$colwidths))
+  last_col <- pmin(col_index + pmax(span, 1L) - 1L, length(x$colwidths))
+  par_data$available <- cum_widths[last_col + 1L] - cum_widths[col_index] -
+    as.vector(
+      x$styles$pars[["padding.left"]]$data +
+        x$styles$pars[["padding.right"]]$data
+    ) /
+      72 -
+    as.vector(
+      x$styles$cells[["margin.left"]]$data +
+        x$styles$cells[["margin.right"]]$data
+    ) /
+      72
+  # a cell hidden by a horizontal span is measured with its visible cell
+  par_data$hidden <- span < 1L
+  pieces <- merge(pieces, par_data, by = c(".row_id", ".col_id"))
+
+  pieces$piece_height <- ifelse(
+    !is.na(pieces$height),
+    pieces$height,
+    pmax(line_height * pieces$line_spacing, 0, na.rm = TRUE)
+  )
+  pieces$piece_width <- ifelse(
+    !is.na(pieces$width),
+    pieces$width,
+    pieces$piece_width
+  )
+  pieces$is_space <- !is_fixed[rep(seq_len(nrow(chunks)), n_pieces)] &
+    grepl("^\\s+$", pieces$piece)
+  pieces <- pieces[!pieces$hidden]
+  setorderv(pieces, c(".row_id", ".col_id", "chunk_order"))
+
+  line_heights <- pieces[,
+    list(
+      height = wrapped_text_height(
+        width = .SD$piece_width,
+        height = .SD$piece_height,
+        space = .SD$is_space,
+        text = .SD$piece,
+        available = .SD$available[1],
+        rotated = .SD$text.direction[1] %in% c("tbrl", "btlr"),
+        fixed = !is.na(.SD$width),
+        font = list(
+          family = .SD$font.family,
+          size = .SD$font.size,
+          bold = .SD$bold %in% TRUE,
+          italic = .SD$italic %in% TRUE
+        )
+      )
+    ),
+    by = c(".row_id", ".col_id", "explicit_line")
+  ]
+  text_heights <- line_heights[,
+    list(height = sum(.SD$height)),
+    by = c(".row_id", ".col_id")
+  ]
+
+  heights <- matrix(
+    0,
+    nrow = nrow(x$spans$rows),
+    ncol = length(x$col_keys),
+    dimnames = list(NULL, x$col_keys)
+  )
+  heights[cbind(
+    text_heights$.row_id,
+    match(text_heights$.col_id, x$col_keys)
+  )] <- text_heights$height
+  heights <- heights + dim_paragraphs(x)$heights + dim_cells(x)$heights
+  apply(heights, 1, max, na.rm = TRUE)
+}
+
+# Words and spaces of each string, as pieces that wrap.
+strsplit_words <- function(x) {
+  out <- regmatches(x, gregexpr("[^[:space:]]+|[[:space:]]+", x))
+  out[lengths(out) == 0L] <- list("")
+  out
+}
+
+# Height of an explicit line of a cell once wrapped at `available`: the
+# lines given by layout_lines(), each with the height of its highest piece.
+# A word wider than the line is split between its characters, as gen_grob()
+# does. A rotated cell does not wrap: its height is the width of the text.
+wrapped_text_height <- function(
+  width,
+  height,
+  space,
+  text,
+  available,
+  rotated,
+  fixed,
+  font
+) {
+  if (rotated) {
+    return(sum(width))
+  }
+  if (is.na(available) || available <= 0) {
+    return(max(height))
+  }
+  too_wide <- which(!fixed & !space & width > available & nchar(text) > 1L)
+  break_before <- rep(FALSE, length(width))
+  if (length(too_wide)) {
+    pieces <- lapply(seq_along(width), function(k) {
+      if (!k %in% too_wide) {
+        return(list(width = width[k], height = height[k], space = space[k], brk = FALSE))
+      }
+      chars <- strsplit(text[k], "")[[1]]
+      list(
+        width = gdtools::strings_sizes(
+          chars,
+          fontname = font$family[k],
+          fontsize = font$size[k],
+          bold = font$bold[k],
+          italic = font$italic[k]
+        )$width,
+        height = rep(height[k], length(chars)),
+        space = rep(FALSE, length(chars)),
+        brk = c(TRUE, rep(FALSE, length(chars) - 1L))
+      )
+    })
+    width <- unlist(lapply(pieces, `[[`, "width"))
+    height <- unlist(lapply(pieces, `[[`, "height"))
+    space <- unlist(lapply(pieces, `[[`, "space"))
+    break_before <- unlist(lapply(pieces, `[[`, "brk"))
+  }
+  line <- layout_lines(
+    width = width,
+    newline = rep(FALSE, length(width)),
+    space = space,
+    max_width = available,
+    break_before = break_before
+  )
+  kept <- line > 0L
+  if (!any(kept)) {
+    return(max(height))
+  }
+  sum(tapply(height[kept], line[kept], max))
+}

@@ -153,6 +153,11 @@ valid_row_spans <- function(spans) {
 #' repeated on every page. An optional `group` argument keeps row groups
 #' together (no page break inside a group).
 #'
+#' The height of a row is measured with its text wrapped at the widths of
+#' the columns, as [gen_grob()] wraps it: set the widths before splitting
+#' (with [width()], [autofit()] or [fit_to_width()]). The heights set with
+#' [height()] are not used.
+#'
 #' @note Footnotes are currently repeated on every page, even when
 #' they reference rows that only appear on a specific page. This
 #' limitation will be resolved in a future version when footnotes
@@ -178,7 +183,8 @@ valid_row_spans <- function(spans) {
 #' @export
 split_rows <- function(x, max_height, group = integer(0), unit = "in") {
   max_height <- convin(unit = unit, x = max_height)
-  heights <- dim_pretty(x)$heights
+  # heights with the text wrapped at the widths of the columns
+  heights <- wrapped_row_heights(x)
   n_hdr <- nrow_part(x, "header")
   n_ftr <- nrow_part(x, "footer")
   n_body <- nrow_part(x, "body")
