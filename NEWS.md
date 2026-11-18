@@ -63,6 +63,10 @@ paddings when they differ; it was centered in the cell.
 
 ## issues
 
+- `split_columns()` with `rep_cols` moved the repeated columns to the
+beginning of each page without their spans, widths and styles: a merged
+header was shifted onto the wrong columns. They now move with their
+columns; a merged header broken by a repeated column is unmerged.
 - `gen_grob()` could draw the previous content of an image file rewritten
 at the same path with the same size, very quickly (on Windows, within about
 16 ms): the images kept for the session are now identified by the content

@@ -88,11 +88,62 @@ split_columns <- function(x, max_width, rep_cols = NULL, unit = "in") {
     out$col_keys <- keep
     for (pt in c("header", "body", "footer")) {
       if (nrow_part(out, pt) > 0L) {
-        out[[pt]]$col_keys <- keep
+        out[[pt]] <- reorder_columns_part(out[[pt]], keep)
       }
     }
     out
   })
+}
+
+# Put the columns of a part in the order of `keys`: their widths, spans,
+# styles and content, which are stored by column, follow. A horizontal span
+# broken by the new order (a repeated column moved out of a merged header)
+# frees the spans of the part, as delete_columns() does.
+reorder_columns_part <- function(x, keys) {
+  idx <- match(keys, x$col_keys)
+  x$colwidths <- x$colwidths[idx]
+  x$spans$rows <- x$spans$rows[, idx, drop = FALSE]
+  x$spans$columns <- x$spans$columns[, idx, drop = FALSE]
+  for (st in c("cells", "pars", "text")) {
+    for (property in names(x$styles[[st]])) {
+      x$styles[[st]][[property]] <- reorder_col_fpstruct(
+        x$styles[[st]][[property]],
+        keys
+      )
+    }
+  }
+  x$content <- reorder_col_fpstruct(x$content, keys)
+  x$col_keys <- keys
+  if (!valid_row_spans(x$spans$rows)) {
+    x <- span_free(x)
+  }
+  x
+}
+
+reorder_col_fpstruct <- function(x, keys) {
+  x$data <- x$data[, keys, drop = FALSE]
+  x$keys <- keys
+  x
+}
+
+# TRUE when each horizontal span of `k` columns is followed by `k - 1`
+# merged cells (0) in its row.
+valid_row_spans <- function(spans) {
+  for (i in seq_len(nrow(spans))) {
+    row <- spans[i, ]
+    j <- 1L
+    while (j <= length(row)) {
+      k <- row[j]
+      if (k < 1L || j + k - 1L > length(row)) {
+        return(FALSE)
+      }
+      if (k > 1L && any(row[seq(j + 1L, j + k - 1L)] != 0L)) {
+        return(FALSE)
+      }
+      j <- j + k
+    }
+  }
+  TRUE
 }
 
 #' @title Split a flextable into pages by rows

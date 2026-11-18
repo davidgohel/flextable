@@ -187,3 +187,35 @@ test_that("split_to_pages every element is a flextable", {
     expect_s3_class(p, "flextable")
   }
 })
+
+test_that("split_columns moves the spans and styles of repeated columns", {
+  ft <- flextable(head(iris, 2))
+  ft <- add_header_row(ft, values = c("Sepal", "Petal", "Sp"), colwidths = c(2, 2, 1))
+  ft <- width(ft, j = "Species", width = 1)
+  ft <- bg(ft, j = "Species", bg = "yellow", part = "body")
+  pages <- split_columns(ft, max_width = 3, rep_cols = "Species")
+  p <- pages[[1]]
+  expect_identical(p$col_keys, c("Species", "Sepal.Length", "Sepal.Width"))
+  # "Sp" on the repeated column, "Sepal" merged over the two next ones
+  expect_equal(p$header$spans$rows[1, ], c(1, 2, 0))
+  header_txt <- vapply(
+    p$col_keys,
+    function(k) paste(p$header$content$data[[1, k]]$txt, collapse = ""),
+    ""
+  )
+  expect_identical(unname(header_txt), c("Sp", "Sepal", "Sepal"))
+  expect_equal(p$header$colwidths, c(1, 0.75, 0.75))
+  expect_identical(
+    unname(p$body$styles$cells$background.color$data[1, ]),
+    c("yellow", "transparent", "transparent")
+  )
+})
+
+test_that("split_columns frees spans broken by a repeated column", {
+  ft <- flextable(head(iris, 2))
+  ft <- add_header_row(ft, values = c("Group", "Sp"), colwidths = c(4, 1))
+  pages <- split_columns(ft, max_width = 2.5, rep_cols = "Sepal.Width")
+  for (p in pages) {
+    expect_true(flextable:::valid_row_spans(p$header$spans$rows))
+  }
+})
