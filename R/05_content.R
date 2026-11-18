@@ -542,6 +542,12 @@ hyperlink_text <- function(x, props = NULL, formatter = format_fun, url, ...) {
 #' display equations with their own math font, so the displayed size may
 #' differ slightly. With [gen_grob()] (R >= 4.3), equations are drawn with
 #' `equatags::equation_grob()`, at their computed size.
+#'
+#' In RTF documents, equations are images placed on the baseline of the
+#' text (R >= 4.3). 'Word' does not leave room for the part of these images
+#' below the baseline: in a cell with several lines, an equation larger than
+#' the text, or with a fraction, can touch the next line. A larger line
+#' spacing avoids it ([line_spacing()], for example `space = 1.3`).
 #' @family chunk elements for paragraph
 #' @examples
 #' library(flextable)

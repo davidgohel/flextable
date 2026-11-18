@@ -45,6 +45,12 @@ equation laid out with the math font 'STIX Two Math'. Word and browsers
 display equations with their own math font, so the displayed size may
 differ slightly. With \code{\link[=gen_grob]{gen_grob()}} (R >= 4.3), equations are drawn with
 \code{equatags::equation_grob()}, at their computed size.
+
+In RTF documents, equations are images placed on the baseline of the
+text (R >= 4.3). 'Word' does not leave room for the part of these images
+below the baseline: in a cell with several lines, an equation larger than
+the text, or with a fraction, can touch the next line. A larger line
+spacing avoids it (\code{\link[=line_spacing]{line_spacing()}}, for example \code{space = 1.3}).
 }
 
 \examples{
