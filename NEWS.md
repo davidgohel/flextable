@@ -67,6 +67,11 @@ paddings when they differ; it was centered in the cell.
 
 ## issues
 
+- `split_columns()` distributed the columns with the widths of their
+contents (`dim_pretty()`) instead of the widths of the table: after
+`autofit()` the pages were wider than `max_width`, and with narrow columns
+set by `width()` they held fewer columns than possible. The widths of the
+table are now used.
 - `split_rows()` measured the rows without wrapping their text: with columns
 narrower than their text, the pages were higher than `max_height`. The
 height of a row is now measured with its text wrapped at the widths of the

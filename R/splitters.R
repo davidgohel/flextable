@@ -4,6 +4,9 @@
 #' fit within a given width (in inches). This is useful for paginating
 #' wide tables in Word or PowerPoint output.
 #'
+#' The widths of the columns are those of the table, as they are drawn: set
+#' them before splitting (with [width()], [autofit()] or [fit_to_width()]).
+#'
 #' @template params_x
 #' @param max_width Maximum width for each page (in inches by default).
 #' @param rep_cols Columns to repeat on every page. Can be a character
@@ -43,7 +46,8 @@ split_columns <- function(x, max_width, rep_cols = NULL, unit = "in") {
 
   data_keys <- setdiff(all_keys, rep_keys)
 
-  widths <- dim_pretty(x)$widths
+  # the widths of the columns, as they are drawn
+  widths <- dim(x)$widths
   names(widths) <- all_keys
   rep_width <- sum(widths[rep_keys])
   data_widths <- widths[data_keys]

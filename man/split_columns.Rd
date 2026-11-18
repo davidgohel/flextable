@@ -27,6 +27,9 @@ single-element list is returned.
 Split a flextable into a list of flextables whose columns
 fit within a given width (in inches). This is useful for paginating
 wide tables in Word or PowerPoint output.
+
+The widths of the columns are those of the table, as they are drawn: set
+them before splitting (with \code{\link[=width]{width()}}, \code{\link[=autofit]{autofit()}} or \code{\link[=fit_to_width]{fit_to_width()}}).
 }
 \examples{
 ft <- flextable(head(mtcars))

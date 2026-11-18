@@ -274,3 +274,25 @@ test_that("split_rows uses the heights of wrapped text", {
   # more pages than when the text does not wrap
   expect_gt(length(pages), length(split_rows(autofit(ft), max_height = max_height)))
 })
+
+test_that("split_columns uses the widths of the table", {
+  dat <- data.frame(
+    term = c("Gastrointestinal disorders - Nausea and vomiting", "Headache"),
+    a = c("12 (5.1%)", "3 (1.2%)"),
+    b = c("7 (2.9%)", "1 (0.4%)"),
+    c = c("4 (1.7%)", "2 (0.8%)"),
+    e = c("9 (3.8%)", "5 (2.1%)")
+  )
+  page_widths <- function(pages) vapply(pages, function(p) sum(dim(p)$widths), 1)
+
+  # autofit(): each page holds in max_width
+  ft <- autofit(flextable(dat))
+  pages <- split_columns(ft, max_width = 6, rep_cols = "term")
+  expect_true(all(page_widths(pages) <= 6))
+
+  # a narrow column set by width(): the other columns share the pages
+  ft <- width(ft, j = "term", width = 1.2)
+  pages <- split_columns(ft, max_width = 4, rep_cols = "term")
+  expect_length(pages, 2L)
+  expect_true(all(page_widths(pages) <= 4))
+})
