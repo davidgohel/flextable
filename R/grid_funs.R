@@ -184,6 +184,8 @@ grid_data_add_cell_info <- function(grid_data, x) {
     by = c(".part", ".col_id", "vspan_id")
   )
 
+  fortify_borders_data <- grid_hidden_bottom_to_top(fortify_borders_data, spans)
+
   fortify_borders_data <- fortify_borders_data[,
     .SD,
     .SDcols = c(
@@ -1581,4 +1583,75 @@ calc_grid_image <- function(img_data, width = NULL, height = NULL) {
     }
   }
   image
+}
+
+# Only the visible cells are drawn: the border between a row and the next
+# one is drawn by the cell above (its bottom border). Under a cell hidden by
+# a horizontal merge, it is drawn by the cell below (its top border), so that
+# a border set on some of the merged columns only is not lost.
+grid_hidden_bottom_to_top <- function(borders, spans) {
+  borders <- copy(borders)
+  hidden <- merge(
+    borders,
+    as.data.table(spans)[spans$rowspan < 1, c(".part", ".row_id", ".col_id")],
+    by = c(".part", ".row_id", ".col_id")
+  )
+  hidden <- hidden[hidden$border.width.bottom > 0]
+  if (nrow(hidden) < 1L) {
+    return(borders)
+  }
+  # the visible cell of the merge draws its bottom border over all the
+  # merged columns: only a stronger border needs the cell below
+  col_levels <- levels(borders$.col_id)
+  spans_dt <- as.data.table(spans)
+  visible_width <- vapply(
+    seq_len(nrow(hidden)),
+    function(h) {
+      row_spans <- spans_dt[
+        as.character(spans_dt$.part) == as.character(hidden$.part[h]) &
+          spans_dt$.row_id == hidden$.row_id[h]
+      ]
+      row_spans <- row_spans[order(match(row_spans$.col_id, col_levels))]
+      k <- match(as.character(hidden$.col_id[h]), as.character(row_spans$.col_id))
+      first <- max(which(row_spans$rowspan[seq_len(k)] > 0))
+      visible <- borders[
+        as.character(borders$.part) == as.character(hidden$.part[h]) &
+          borders$.row_id == hidden$.row_id[h] &
+          as.character(borders$.col_id) == as.character(row_spans$.col_id[first])
+      ]
+      visible$border.width.bottom[1]
+    },
+    numeric(1)
+  )
+  hidden <- hidden[hidden$border.width.bottom > visible_width]
+  if (nrow(hidden) < 1L) {
+    return(borders)
+  }
+  parts <- levels(borders$.part)
+  n_rows <- borders[, list(n = max(.SD$.row_id)), by = ".part"]
+  for (h in seq_len(nrow(hidden))) {
+    part <- as.character(hidden$.part[h])
+    i <- hidden$.row_id[h]
+    n <- n_rows$n[as.character(n_rows$.part) == part]
+    if (i < n) {
+      below_part <- part
+      below_i <- i + 1L
+    } else {
+      next_parts <- intersect(
+        parts[-seq_len(match(part, parts))],
+        as.character(n_rows$.part)
+      )
+      if (length(next_parts) < 1L) {
+        next
+      }
+      below_part <- next_parts[1]
+      below_i <- 1L
+    }
+    is_below <- as.character(borders$.part) == below_part &
+      borders$.row_id == below_i &
+      borders$.col_id == hidden$.col_id[h]
+    set(borders, which(is_below), "border.width.top", hidden$border.width.bottom[h])
+    set(borders, which(is_below), "border.color.top", hidden$border.color.bottom[h])
+  }
+  borders
 }

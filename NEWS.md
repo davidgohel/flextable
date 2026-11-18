@@ -67,6 +67,11 @@ paddings when they differ; it was centered in the cell.
 
 ## issues
 
+- A border set on some of the columns of a horizontally merged cell, for
+example with `hline_top(j = 2, part = "body")` under a header merged over
+columns 1 and 2, was lost in HTML, PowerPoint, Typst and grid outputs
+(Word, RTF and LaTeX already drew it): it was stored on a cell hidden by the
+merge. It is now drawn by the cell below, under these columns only (#399).
 - `split_columns()` distributed the columns with the widths of their
 contents (`dim_pretty()`) instead of the widths of the table: after
 `autofit()` the pages were wider than `max_width`, and with narrow columns
