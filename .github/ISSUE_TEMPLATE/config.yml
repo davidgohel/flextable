@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Usage question (not a bug)
+    url: https://github.com/davidgohel/flextable/discussions
+    about: For "how do I do X with flextable", please use Discussions.
+  - name: Documentation
+    url: https://davidgohel.github.io/flextable/
+    about: The reference of the functions, with examples.
+  - name: The flextable book
+    url: https://ardata-fr.github.io/flextable-book/
+    about: A guide to flextable, covering most common use cases.

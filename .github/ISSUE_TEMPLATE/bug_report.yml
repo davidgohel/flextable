@@ -1,0 +1,35 @@
+name: Bug report
+description: Report a reproducible bug in flextable
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If you have a question, please ask in [Discussions](https://github.com/davidgohel/flextable/discussions) instead.
+
+        A bug report needs code that reproduces the problem, a [reprex](https://reprex.tidyverse.org/), and the output of `sessionInfo()`. Without them, the bug can not be looked at.
+
+  - type: textarea
+    id: reprex
+    attributes:
+      label: Reproducible example
+      description: |
+        Short R code that shows the problem, using a small dataset such as
+        `head(iris)`. Say which output is wrong (Word, PowerPoint, HTML,
+        PDF...). A screenshot helps.
+      render: r
+      placeholder: |
+        library(flextable)
+        ft <- flextable(head(iris))
+        # ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: sessioninfo
+    attributes:
+      label: sessionInfo()
+      description: Run `sessionInfo()` after loading the packages and paste the output.
+      render: text
+    validations:
+      required: true

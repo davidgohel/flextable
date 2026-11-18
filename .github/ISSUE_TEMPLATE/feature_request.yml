@@ -1,0 +1,16 @@
+name: Feature request
+description: Describe a problem flextable does not let you solve
+labels: ["feature request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please describe the problem you ran into rather than the function you would like. One request per issue.
+
+  - type: textarea
+    id: task
+    attributes:
+      label: What you were trying to do
+      description: The task, and the code you tried if any.
+    validations:
+      required: true
