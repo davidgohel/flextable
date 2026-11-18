@@ -28,7 +28,8 @@ a character vector of column names, an integer vector of column
 positions, or \code{NULL} (default, no repetition).}
 
 \item{group}{Integer vector of body row indices that start a new
-group. Default is \code{integer(0)}.}
+group, or \code{"keep_with_next"}, see \code{\link[=split_rows]{split_rows()}}. Default is
+\code{integer(0)}.}
 
 \item{unit}{Unit for \code{max_width} and \code{max_height}, one of
 \code{"in"}, \code{"cm"}, \code{"mm"}.}

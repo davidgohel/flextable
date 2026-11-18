@@ -164,6 +164,9 @@ valid_row_spans <- function(spans) {
 #' @param group Integer vector of body row indices that start a new group.
 #' Rows belonging to the same group are kept together on a single page.
 #' Default is `integer(0)` (no grouping, every row is independent).
+#' `"keep_with_next"` reads the groups from the table: a row kept with the
+#' next one, by [paginate()] or [keep_with_next()], is in the group of the
+#' next row, as in 'Word'.
 #' @param unit Unit for `max_height`, one of `"in"`, `"cm"`, `"mm"`.
 #' @return A list of flextable objects. If no splitting is needed, a
 #' single-element list is returned.
@@ -194,6 +197,16 @@ split_rows <- function(x, max_height, group = integer(0), unit = "in") {
       "max_height is too small to fit header and footer, no pagination performed."
     )
     return(list(x))
+  }
+
+  if (is.character(group)) {
+    if (!identical(group, "keep_with_next")) {
+      stop(
+        "group must be row indices or \"keep_with_next\".",
+        call. = FALSE
+      )
+    }
+    group <- keep_with_next_starts(x)
   }
 
   # Build groups from group starts (indices of group starts in body)
@@ -263,7 +276,8 @@ split_rows <- function(x, max_height, group = integer(0), unit = "in") {
 #'   a character vector of column names, an integer vector of column
 #'   positions, or `NULL` (default, no repetition).
 #' @param group Integer vector of body row indices that start a new
-#'   group. Default is `integer(0)`.
+#'   group, or `"keep_with_next"`, see [split_rows()]. Default is
+#'   `integer(0)`.
 #' @param unit Unit for `max_width` and `max_height`, one of
 #'   `"in"`, `"cm"`, `"mm"`.
 #' @return A list of flextable objects.
@@ -305,4 +319,17 @@ split_to_pages <- function(
   }
 
   ft_list
+}
+
+# The first rows of the groups of rows kept together in the body: a row
+# whose paragraphs are kept with the next row (keep_with_next(), paginate())
+# is in the group of the next row.
+keep_with_next_starts <- function(x) {
+  n_body <- nrow_part(x, "body")
+  if (n_body < 1L) {
+    return(integer(0))
+  }
+  kwn <- x$body$styles$pars$keep_with_next$data
+  keep <- apply(kwn, 1, function(row) any(row %in% TRUE))
+  c(1L, which(!keep[-n_body]) + 1L)
 }

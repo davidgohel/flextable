@@ -2,6 +2,10 @@
 
 ## new features
 
+- `split_rows()` and `split_to_pages()` accept `group = "keep_with_next"`:
+the groups of rows kept together are read from the table, as set by
+`paginate()` or `keep_with_next()`, so that a group is never split
+between two pages.
 - `as_equation()`: `width` and `height` are now optional. When they are not
 provided, the size of the equation is computed with
 `equatags::equation_size()` (equatags >= 0.4.0) from the equation and the

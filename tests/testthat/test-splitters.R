@@ -219,3 +219,20 @@ test_that("split_columns frees spans broken by a repeated column", {
     expect_true(flextable:::valid_row_spans(p$header$spans$rows))
   }
 })
+
+test_that("split_rows reads the groups of paginate()", {
+  dat <- iris[c(1:4, 51:54, 101:104), ]
+  ft <- paginate(flextable(dat), group = "Species", group_def = "rle")
+  expect_identical(flextable:::keep_with_next_starts(ft), c(1L, 5L, 9L))
+  pages <- split_rows(ft, max_height = 2.2, group = "keep_with_next")
+  species <- lapply(pages, function(p) unique(as.character(p$body$dataset$Species)))
+  # each species on one page, none split
+  expect_true(all(lengths(species) == 1L))
+  expect_setequal(unlist(species), c("setosa", "versicolor", "virginica"))
+  # the same through split_to_pages()
+  expect_length(
+    split_to_pages(ft, max_height = 2.2, group = "keep_with_next"),
+    length(pages)
+  )
+  expect_error(split_rows(ft, max_height = 2, group = "rows"), "keep_with_next")
+})

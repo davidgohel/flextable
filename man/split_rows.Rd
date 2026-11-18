@@ -15,7 +15,10 @@ header and footer (in inches by default).}
 
 \item{group}{Integer vector of body row indices that start a new group.
 Rows belonging to the same group are kept together on a single page.
-Default is \code{integer(0)} (no grouping, every row is independent).}
+Default is \code{integer(0)} (no grouping, every row is independent).
+\code{"keep_with_next"} reads the groups from the table: a row kept with the
+next one, by \code{\link[=paginate]{paginate()}} or \code{\link[=keep_with_next]{keep_with_next()}}, is in the group of the
+next row, as in 'Word'.}
 
 \item{unit}{Unit for \code{max_height}, one of \code{"in"}, \code{"cm"}, \code{"mm"}.}
 }
