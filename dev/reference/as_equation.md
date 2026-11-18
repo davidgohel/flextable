@@ -71,6 +71,14 @@ displayed size may differ slightly. With
 [`equatags::equation_grob()`](https://ardata-fr.github.io/equatags/reference/equation_grob.html),
 at their computed size.
 
+In RTF documents, equations are images placed on the baseline of the
+text (R \>= 4.3). 'Word' does not leave room for the part of these
+images below the baseline: in a cell with several lines, an equation
+larger than the text, or with a fraction, can touch the next line. A
+larger line spacing avoids it
+([`line_spacing()`](https://davidgohel.github.io/flextable/dev/reference/line_spacing.md),
+for example `space = 1.3`).
+
 ## See also
 
 Other chunk elements for paragraph:
