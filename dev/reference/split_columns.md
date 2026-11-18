@@ -4,6 +4,13 @@ Split a flextable into a list of flextables whose columns fit within a
 given width (in inches). This is useful for paginating wide tables in
 Word or PowerPoint output.
 
+The widths of the columns are those of the table, as they are drawn: set
+them before splitting (with
+[`width()`](https://davidgohel.github.io/flextable/dev/reference/width.md),
+[`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md)
+or
+[`fit_to_width()`](https://davidgohel.github.io/flextable/dev/reference/fit_to_width.md)).
+
 ## Usage
 
 ``` r

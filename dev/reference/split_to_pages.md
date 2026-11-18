@@ -48,8 +48,10 @@ split_to_pages(
 
 - group:
 
-  Integer vector of body row indices that start a new group. Default is
-  `integer(0)`.
+  Integer vector of body row indices that start a new group, or
+  `"keep_with_next"`, see
+  [`split_rows()`](https://davidgohel.github.io/flextable/dev/reference/split_rows.md).
+  Default is `integer(0)`.
 
 - unit:
 
@@ -86,5 +88,5 @@ Other row and column operations:
 ft <- flextable(iris)
 ft_pages <- split_to_pages(ft, max_width = 4, max_height = 5)
 length(ft_pages)
-#> [1] 22
+#> [1] 15
 ```

@@ -4,6 +4,15 @@
 
 ### new features
 
+- [`split_rows()`](https://davidgohel.github.io/flextable/dev/reference/split_rows.md)
+  and
+  [`split_to_pages()`](https://davidgohel.github.io/flextable/dev/reference/split_to_pages.md)
+  accept `group = "keep_with_next"`: the groups of rows kept together
+  are read from the table, as set by
+  [`paginate()`](https://davidgohel.github.io/flextable/dev/reference/paginate.md)
+  or
+  [`keep_with_next()`](https://davidgohel.github.io/flextable/dev/reference/keep_with_next.md),
+  so that a group is never split between two pages.
 - [`as_equation()`](https://davidgohel.github.io/flextable/dev/reference/as_equation.md):
   `width` and `height` are now optional. When they are not provided, the
   size of the equation is computed with
@@ -89,6 +98,27 @@
 
 ### issues
 
+- [`split_columns()`](https://davidgohel.github.io/flextable/dev/reference/split_columns.md)
+  distributed the columns with the widths of their contents
+  ([`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md))
+  instead of the widths of the table: after
+  [`autofit()`](https://davidgohel.github.io/flextable/dev/reference/autofit.md)
+  the pages were wider than `max_width`, and with narrow columns set by
+  [`width()`](https://davidgohel.github.io/flextable/dev/reference/width.md)
+  they held fewer columns than possible. The widths of the table are now
+  used.
+- [`split_rows()`](https://davidgohel.github.io/flextable/dev/reference/split_rows.md)
+  measured the rows without wrapping their text: with columns narrower
+  than their text, the pages were higher than `max_height`. The height
+  of a row is now measured with its text wrapped at the widths of the
+  columns, as
+  [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
+  wraps it, without a graphic device.
+- [`split_columns()`](https://davidgohel.github.io/flextable/dev/reference/split_columns.md)
+  with `rep_cols` moved the repeated columns to the beginning of each
+  page without their spans, widths and styles: a merged header was
+  shifted onto the wrong columns. They now move with their columns; a
+  merged header broken by a repeated column is unmerged.
 - [`gen_grob()`](https://davidgohel.github.io/flextable/dev/reference/gen_grob.md)
   could draw the previous content of an image file rewritten at the same
   path with the same size, very quickly (on Windows, within about 16
