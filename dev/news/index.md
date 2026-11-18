@@ -98,6 +98,13 @@
 
 ### issues
 
+- A border set on some of the columns of a horizontally merged cell, for
+  example with `hline_top(j = 2, part = "body")` under a header merged
+  over columns 1 and 2, was lost in HTML, PowerPoint, Typst and grid
+  outputs (Word, RTF and LaTeX already drew it): it was stored on a cell
+  hidden by the merge. It is now drawn by the cell below, under these
+  columns only
+  ([\#399](https://github.com/davidgohel/flextable/issues/399)).
 - [`split_columns()`](https://davidgohel.github.io/flextable/dev/reference/split_columns.md)
   distributed the columns with the widths of their contents
   ([`dim_pretty()`](https://davidgohel.github.io/flextable/dev/reference/dim_pretty.md))
