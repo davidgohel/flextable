@@ -75,11 +75,11 @@ head(x)
 #> 4     DejaVu Sans DejaVu Sans       baseline    NA     NA <NA>    <NA>
 #> 5     DejaVu Sans DejaVu Sans       baseline    NA     NA <NA>    <NA>
 #> 6     DejaVu Sans DejaVu Sans       baseline    NA     NA <NA>    <NA>
-#>   word_field_data qmd_data img_data
-#> 1            <NA>     <NA>     NULL
-#> 2            <NA>     <NA>     NULL
-#> 3            <NA>     <NA>     NULL
-#> 4            <NA>     <NA>     NULL
-#> 5            <NA>     <NA>     NULL
-#> 6            <NA>     <NA>     NULL
+#>   word_field_data qmd_data img_data eq_display
+#> 1            <NA>     <NA>     NULL      FALSE
+#> 2            <NA>     <NA>     NULL      FALSE
+#> 3            <NA>     <NA>     NULL      FALSE
+#> 4            <NA>     <NA>     NULL      FALSE
+#> 5            <NA>     <NA>     NULL      FALSE
+#> 6            <NA>     <NA>     NULL      FALSE
 ```

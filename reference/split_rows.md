@@ -5,6 +5,18 @@ given height (in inches). Header and footer are repeated on every page.
 An optional `group` argument keeps row groups together (no page break
 inside a group).
 
+The height of a row is measured with its text wrapped at the widths of
+the columns, as
+[`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md)
+wraps it: set the widths before splitting (with
+[`width()`](https://davidgohel.github.io/flextable/reference/width.md),
+[`autofit()`](https://davidgohel.github.io/flextable/reference/autofit.md)
+or
+[`fit_to_width()`](https://davidgohel.github.io/flextable/reference/fit_to_width.md)).
+The heights set with
+[`height()`](https://davidgohel.github.io/flextable/reference/height.md)
+are not used.
+
 ## Usage
 
 ``` r
@@ -29,6 +41,12 @@ split_rows(x, max_height, group = integer(0), unit = "in")
   Integer vector of body row indices that start a new group. Rows
   belonging to the same group are kept together on a single page.
   Default is `integer(0)` (no grouping, every row is independent).
+  `"keep_with_next"` reads the groups from the table: a row kept with
+  the next one, by
+  [`paginate()`](https://davidgohel.github.io/flextable/reference/paginate.md)
+  or
+  [`keep_with_next()`](https://davidgohel.github.io/flextable/reference/keep_with_next.md),
+  is in the group of the next row, as in 'Word'.
 
 - unit:
 
@@ -73,5 +91,5 @@ Other row and column operations:
 ft <- flextable(iris)
 ft_pages <- split_rows(ft, max_height = 3)
 length(ft_pages)
-#> [1] 19
+#> [1] 28
 ```

@@ -1,6 +1,171 @@
 # Changelog
 
+## flextable 0.10.5
+
+### new features
+
+- [`split_rows()`](https://davidgohel.github.io/flextable/reference/split_rows.md)
+  and
+  [`split_to_pages()`](https://davidgohel.github.io/flextable/reference/split_to_pages.md)
+  accept `group = "keep_with_next"`: the groups of rows kept together
+  are read from the table, as set by
+  [`paginate()`](https://davidgohel.github.io/flextable/reference/paginate.md)
+  or
+  [`keep_with_next()`](https://davidgohel.github.io/flextable/reference/keep_with_next.md),
+  so that a group is never split between two pages.
+- [`as_equation()`](https://davidgohel.github.io/flextable/reference/as_equation.md):
+  `width` and `height` are now optional. When they are not provided, the
+  size of the equation is computed with
+  [`equatags::equation_size()`](https://ardata-fr.github.io/equatags/reference/equation_size.html)
+  (equatags \>= 0.4.0) from the equation and the font size of the chunk,
+  so that
+  [`autofit()`](https://davidgohel.github.io/flextable/reference/autofit.md),
+  [`dim_pretty()`](https://davidgohel.github.io/flextable/reference/dim_pretty.md)
+  and
+  [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md)
+  know it. Sizes provided keep the priority.
+- [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md)
+  draws equations with
+  [`equatags::equation_grob()`](https://ardata-fr.github.io/equatags/reference/equation_grob.html)
+  (R \>= 4.3), on the baseline of the text around them, with the colour
+  and size of the chunk.
+- The style of equations follows the rule of Word in every output: the
+  display style (large fractions, limits above and below sums) when the
+  paragraph only contains equations, the inline style as soon as it
+  contains something else, even a space. HTML and LaTeX outputs use
+  `\displaystyle` for the display style, Word and PowerPoint outputs ask
+  ‘equatags’ for the style of each equation (argument `display` of
+  [`equatags::transform_mathjax()`](https://ardata-fr.github.io/equatags/reference/transform_mathjax.html)),
+  and the size and
+  [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md)
+  use the same style.
+- In Word, equations alone in their paragraph keep the alignment of the
+  paragraph and its left and right paddings: Word centered them and
+  ignored the paddings. They are written in a math paragraph
+  (`m:oMathPara`) with the alignment of the paragraph, and the paddings
+  become margins of the cell. In PowerPoint, they also keep the
+  alignment of the paragraph: they were centered.
+- Consecutive equations of a paragraph with the same format are merged
+  into one equation, as Word lays them out: the spaces between their
+  atoms apply, for example the thin space before a large operator.
+- [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md)
+  measures text with the kerning of the fonts
+  (`gdtools::strings_sizes(kerning = TRUE)`), as devices draw it: right
+  aligned text ends at the edge of its cell and spaces after kerned
+  words are no longer too wide. Requires ‘gdtools’ \>= 0.6.0.
+- [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md)
+  spaces lines as Word does: the height of a line is the line height of
+  its font
+  ([`gdtools::font_line_metrics()`](https://davidgohel.github.io/gdtools/reference/font_line_metrics.html),
+  the single line spacing of Word) multiplied by the line spacing, the
+  space added by a line spacing larger than 1 is below the line, and the
+  chunks of a line (text of different sizes, superscripts, images,
+  equations) are placed on its baseline. Lines were computed from the
+  ink of the glyphs, so that they almost touched with a line spacing of
+  1, and the chunks were centered in their line.
+- HTML output spaces lines as Word does: the CSS `line-height` of a
+  paragraph is its line spacing multiplied by the line height of its
+  fonts
+  ([`gdtools::font_line_metrics()`](https://davidgohel.github.io/gdtools/reference/font_line_metrics.html),
+  1.15 for Arial) instead of the font size, and the space added by a
+  line spacing larger than 1 is moved below the lines.
+- [`autofit()`](https://davidgohel.github.io/flextable/reference/autofit.md),
+  [`dim_pretty()`](https://davidgohel.github.io/flextable/reference/dim_pretty.md)
+  and
+  [`fit_to_width()`](https://davidgohel.github.io/flextable/reference/fit_to_width.md)
+  compute the height of a line as Word does, the line spacing multiplied
+  by the line height of the font
+  ([`gdtools::font_line_metrics()`](https://davidgohel.github.io/gdtools/reference/font_line_metrics.html)),
+  instead of 1.2 times the font size (or the height of the ink of the
+  text, when larger).
+- PowerPoint output spaces lines as Word does: PowerPoint spaces lines
+  by the line spacing times 1.2 times the font size, whatever the font;
+  the line spacing written is scaled by the line height of the font
+  divided by 1.2 (95.8% for Arial in single spacing).
+- PDF output now applies the line spacing: the `\baselineskip` was set
+  with the font size of each chunk, inside its group, and TeX used the
+  one of the document. It is set for each cell, as in Word: the line
+  spacing times the line height of the fonts.
+- [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md)
+  keeps room for borders as Word does: a horizontal border adds its
+  width to the height of its row, a vertical border between two columns
+  is centered on their boundary and moves the content of both cells by
+  half its width. Borders were drawn over the padding of the cells.
+  Their width is now the width set (it was about 7% wider).
+- [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md)
+  centers the content of cells between their top and bottom paddings
+  when they differ; it was centered in the cell.
+
+### issues
+
+- A border set on some of the columns of a horizontally merged cell, for
+  example with `hline_top(j = 2, part = "body")` under a header merged
+  over columns 1 and 2, was lost in HTML, PowerPoint, Typst and grid
+  outputs (Word, RTF and LaTeX already drew it): it was stored on a cell
+  hidden by the merge. It is now drawn by the cell below, under these
+  columns only
+  ([\#399](https://github.com/davidgohel/flextable/issues/399)).
+- [`split_columns()`](https://davidgohel.github.io/flextable/reference/split_columns.md)
+  distributed the columns with the widths of their contents
+  ([`dim_pretty()`](https://davidgohel.github.io/flextable/reference/dim_pretty.md))
+  instead of the widths of the table: after
+  [`autofit()`](https://davidgohel.github.io/flextable/reference/autofit.md)
+  the pages were wider than `max_width`, and with narrow columns set by
+  [`width()`](https://davidgohel.github.io/flextable/reference/width.md)
+  they held fewer columns than possible. The widths of the table are now
+  used.
+- [`split_rows()`](https://davidgohel.github.io/flextable/reference/split_rows.md)
+  measured the rows without wrapping their text: with columns narrower
+  than their text, the pages were higher than `max_height`. The height
+  of a row is now measured with its text wrapped at the widths of the
+  columns, as
+  [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md)
+  wraps it, without a graphic device.
+- [`split_columns()`](https://davidgohel.github.io/flextable/reference/split_columns.md)
+  with `rep_cols` moved the repeated columns to the beginning of each
+  page without their spans, widths and styles: a merged header was
+  shifted onto the wrong columns. They now move with their columns; a
+  merged header broken by a repeated column is unmerged.
+- [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md)
+  could draw the previous content of an image file rewritten at the same
+  path with the same size, very quickly (on Windows, within about 16
+  ms): the images kept for the session are now identified by the content
+  of their file, not by its modification time and size.
+- Equations are no longer lost in RTF
+  ([`save_as_rtf()`](https://davidgohel.github.io/flextable/reference/save_as_rtf.md),
+  [`to_rtf()`](https://davidgohel.github.io/officer/reference/to_rtf.html)):
+  they were written as empty text. They are now images drawn by
+  [`equatags::equation_grob()`](https://ardata-fr.github.io/equatags/reference/equation_grob.html)
+  (R \>= 4.3), with the size, colour and style of the chunk, and lowered
+  so that their baseline is the baseline of the text (Word follows this,
+  LibreOffice puts the bottom of the image on the baseline). Without
+  ‘equatags’ or with an older R, the LaTeX source is written as text,
+  with a warning.
+- Superscripts and subscripts
+  ([`as_sup()`](https://davidgohel.github.io/flextable/reference/as_sup.md),
+  [`as_sub()`](https://davidgohel.github.io/flextable/reference/as_sub.md))
+  are placed as Word places them with Arial and Liberation Sans: 65% of
+  the font size, baseline raised by 0.34 or lowered by 0.07 of the font
+  size. In
+  [`gen_grob()`](https://davidgohel.github.io/flextable/reference/gen_grob.md),
+  they were drawn with the rules of plotmath (larger, and much higher or
+  lower than in Word). In HTML, their shift depended on the font size of
+  the page, not on the one of the text: small superscripts were too
+  high, large ones too low; their size was 60% of the font size.
+- [`dim_pretty()`](https://davidgohel.github.io/flextable/reference/dim_pretty.md)
+  and
+  [`autofit()`](https://davidgohel.github.io/flextable/reference/autofit.md)
+  applied the sizes given to chunks (images, equations) to the wrong
+  cells in tables with several columns.
+- A flextable without any row (for example made from an empty data.frame
+  whose header was deleted) now stops with an explicit error in every
+  output, instead of an error of ‘data.table’. The widths of its columns
+  are kept, so that a footer or a header can be added to it
+  ([\#722](https://github.com/davidgohel/flextable/issues/722)).
+
 ## flextable 0.10.4
+
+CRAN release: 2026-11-08
 
 ### new features
 
