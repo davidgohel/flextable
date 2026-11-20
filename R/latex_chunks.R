@@ -22,8 +22,8 @@ as_table_latexstyle_lr <- function(x) {
   left <- paste0(fontcolor_left, left)
   right <- paste0(right, fontcolor_right)
 
-  highlight_left <- paste0(latex_highlightcolor(x$shading.color), "{")
-  highlight_right <- rep("}", length(x$shading.color))
+  highlight_left <- latex_highlightcolor(x$shading.color)
+  highlight_right <- rep("\\vphantom{Ay}}}", length(x$shading.color))
   highlight_left[is.na(x$shading.color) | colalpha(x$shading.color) < 1] <- ""
   highlight_right[is.na(x$shading.color) | colalpha(x$shading.color) < 1] <- ""
   left <- paste0(left, highlight_left)
@@ -139,9 +139,16 @@ latex_text_direction <- function(x, left = TRUE) {
 }
 
 
+# The opening of a highlighted chunk, closed by "\vphantom{Ay}}}": the box
+# has no margin (`\fboxsep` is 3pt by default) and the height of the font of
+# the chunk, set before the phantom, whatever the letters, as a highlight in
+# HTML or Word.
 latex_highlightcolor <- function(x) {
   col <- colcode0(x)
-  z <- sprintf("\\colorbox[HTML]{%s}", col)
+  z <- sprintf(
+    "{\\setlength{\\fboxsep}{0pt}\\colorbox[HTML]{%s}{",
+    col
+  )
   z
 }
 

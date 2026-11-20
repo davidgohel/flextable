@@ -9,6 +9,8 @@ command (`\bar` gave `\textbackslashbar`), which stopped the compilation.
 preceded by `\\`, a line break.
 - LaTeX: the caption repeated on each page of a long table no longer
 carries the bookdown label, which was defined several times.
+- LaTeX: highlighted text has no margin around it anymore, and the
+height of the font whatever the letters, as in HTML and Word.
 
 # flextable 0.10.5
 

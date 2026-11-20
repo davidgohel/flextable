@@ -245,6 +245,13 @@ test_that("highlight", {
   expect_match(latex_str[1], "\\colorbox[HTML]{FF0000}", fixed = TRUE)
   expect_match(latex_str[2], "\\colorbox[HTML]{FFFF00}", fixed = TRUE)
   expect_match(latex_str[3], "\\colorbox[HTML]{A020F0}", fixed = TRUE)
+  # no margin around the highlighted text, the height of the font
+  expect_match(
+    latex_str[1],
+    "{\\setlength{\\fboxsep}{0pt}\\colorbox[HTML]{FF0000}{",
+    fixed = TRUE
+  )
+  expect_match(latex_str[1], "\\vphantom{Ay}}}", fixed = TRUE)
 
   rtf_str <- flextable:::runs_as_rtf(ft)$txt
   expect_match(rtf_str[1], "%ftshading:red%", fixed = TRUE)
