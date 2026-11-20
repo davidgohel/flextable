@@ -10,6 +10,8 @@
   the compilation.
 - LaTeX: carets in the text are written `\textasciicircum{}`; they were
   preceded by `\\`, a line break.
+- LaTeX: the caption repeated on each page of a long table no longer
+  carries the bookdown label, which was defined several times.
 
 ## flextable 0.10.5
 
