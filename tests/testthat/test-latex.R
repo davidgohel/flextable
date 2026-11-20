@@ -7,6 +7,24 @@ test_that("white spaces are protected", {
 })
 
 
+test_that("backslashes and carets are escaped as single characters", {
+  expect_identical(
+    flextable:::sanitize_latex_str("$\\bar{x}$ a\\b"),
+    "\\$\\textbackslash{}bar\\{x\\}\\$\\ a\\textbackslash{}b"
+  )
+  expect_identical(flextable:::sanitize_latex_str(NA_character_), NA_character_)
+  # a caret is not preceded by a line break
+  expect_identical(
+    flextable:::sanitize_latex_str("m^2"),
+    "m\\textasciicircum{}2"
+  )
+
+  ft <- flextable(data.frame(x = "\\frac{1}{n}"))
+  str <- flextable:::gen_raw_latex(ft)
+  expect_match(str, "\\textbackslash{}frac\\{1\\}\\{n\\}", fixed = TRUE)
+  expect_no_match(str, "\\textbackslashfrac", fixed = TRUE)
+})
+
 test_that("merge_v places content at top of merged range", {
   ft <- flextable(data.frame(a = c("X", "X", "Y", "Y"), b = 1:4))
   ft <- merge_v(ft, j = "a")

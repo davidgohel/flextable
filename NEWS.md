@@ -1,3 +1,13 @@
+# flextable 0.10.6
+
+## issues
+
+- LaTeX: backslashes in the text are written `\textbackslash{}`; they were
+written `\textbackslash` and joined the letters after them into an undefined
+command (`\bar` gave `\textbackslashbar`), which stopped the compilation.
+- LaTeX: carets in the text are written `\textasciicircum{}`; they were
+preceded by `\\`, a line break.
+
 # flextable 0.10.5
 
 ## new features

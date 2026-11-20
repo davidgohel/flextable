@@ -1,8 +1,12 @@
 sanitize_latex_str <- function(str) {
-  z <- gsub("[\\\\]", "\\\\textbackslash", str)
+  # backslashes are replaced by a marker, then by `\textbackslash{}` once
+  # the braces are escaped: the braces stop the command name, so that the
+  # letters after a backslash are not read as part of it
+  z <- gsub("\\", "\001", str, fixed = TRUE)
   z <- gsub("([&%$#_{} ]{1})", "\\\\\\1", z)
   z <- gsub("[~]", "\\\\\\textasciitilde ", z)
-  z <- gsub("^", "\\\\\\textasciicircum ", z, fixed = TRUE)
+  z <- gsub("^", "\\textasciicircum{}", z, fixed = TRUE)
+  z <- gsub("\001", "\\textbackslash{}", z, fixed = TRUE)
 
   z
 }
