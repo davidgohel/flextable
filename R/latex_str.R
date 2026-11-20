@@ -360,6 +360,9 @@ gen_raw_latex <- function(
 
   if (x$properties$opts_pdf$caption_repeat && topcaption) {
     second_caption <- gsub("\\caption", "\\caption[]", caption)
+    # the label belongs to the first caption only: repeated on the next
+    # pages, it would be defined several times
+    second_caption <- gsub("\\(\\\\#[^)]+\\)", "", second_caption)
     txt_data$part_sep <- gsub(
       "\\endfirsthead",
       paste("\\endfirsthead", second_caption),

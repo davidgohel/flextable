@@ -180,6 +180,19 @@ test_that("knit_to_latex bookdown caption", {
   expect_true(is.character(z))
 })
 
+test_that("knit_to_latex repeats the caption without its label", {
+  ft <- flextable(head(iris, 2))
+  ft <- set_caption(
+    ft,
+    caption = "Iris",
+    autonum = officer::run_autonum(seq_id = "tab", bkm = "iris")
+  )
+  z <- flextable:::knit_to_latex(ft, bookdown = TRUE, quarto = FALSE)
+  expect_match(z, "\\caption{Iris}(\\#tab:iris)", fixed = TRUE)
+  expect_match(z, "\\caption[]{Iris}\\\\", fixed = TRUE)
+  expect_length(gregexpr("(\\#tab:iris)", z, fixed = TRUE)[[1]], 1L)
+})
+
 test_that("knit_to_latex tabcolsep and arraystretch", {
   ft <- flextable(head(iris, 2))
   ft$properties$opts_pdf$tabcolsep <- 5
